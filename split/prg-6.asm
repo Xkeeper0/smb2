@@ -1983,7 +1983,7 @@ loc_BANK6_8A22:
 
 loc_BANK6_8A37:
       STX     byte_RAM_7
-      STY     <byte_RAM_8
+      STY     byte_RAM_8
       LDX     BackgroundCHR2TimerIndex
       LDA     WorldObjectTilePointersLo,X
       STA     word_RAM_C
@@ -4084,7 +4084,7 @@ loc_BANK6_946C:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK6_9479:
-      STY     <byte_RAM_8
+      STY     byte_RAM_8
       STX     byte_RAM_7
       LDX     #$15
 
@@ -4926,7 +4926,7 @@ loc_BANK6_983E:
 
 sub_BANK6_9844:
       STX     word_RAM_C
-      STY     <word_RAM_C+1
+      STY     word_RAM_C+1
       LDX     BackgroundCHR2TimerIndex
       LDA     off_BANK6_8428,X
       STA     byte_RAM_7
@@ -4944,7 +4944,7 @@ sub_BANK6_9844:
 
 sub_BANK6_985E:
       STX     word_RAM_C
-      STY     <word_RAM_C+1
+      STY     word_RAM_C+1
       LDX     BackgroundCHR2TimerIndex
       LDA     off_BANK6_842F,X
       STA     byte_RAM_7
@@ -5111,7 +5111,7 @@ sub_BANK6_98F7:
       STA     ObjectType
       LDA     #1
       STA     EnemyState
-      STY     <EnemyTimer
+      STY     EnemyTimer
       LDA     #0
       STA     unk_RAM_86,X
       STA     unk_RAM_B1,X

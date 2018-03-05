@@ -35,7 +35,7 @@
 	.base $A000
 	.include "split/prg-5.asm"
 
-	;.pad $bfff, $ff
+	.pad $bfff, $ff
 	.base $8000
 	.include "split/prg-6.asm"
 
@@ -43,7 +43,7 @@
 	.base $A000
 	.include "split/prg-7.asm"
 
-	;.pad $bfff, $ff
+	.pad $bfff, $ff
 	.base $8000
 	.include "split/prg-8.asm"
 
@@ -51,7 +51,7 @@
 	.base $A000
 	.include "split/prg-9.asm"
 
-	;.pad $bfff, $ff
+	.pad $bfff, $ff
 	.base $8000
 	.include "split/prg-a.asm"
 
@@ -59,7 +59,7 @@
 	.base $A000
 	.include "split/prg-b.asm"
 
-	;.pad $bfff, $ff
+	.pad $bfff, $ff
 	.base $8000
 	.include "split/prg-c.asm"
 
@@ -71,6 +71,6 @@
 	.base $C000
 	.include "split/prg-e.asm"
 
-	;.pad $c000, $ff
+	.pad $c000, $ff
 	.base $E000
 	.include "split/prg-f.asm"

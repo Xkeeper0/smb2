@@ -2475,7 +2475,7 @@ loc_BANK1_AC40:
       DEY
 
 loc_BANK1_AC45:
-      STY     <PlayerYLo
+      STY     PlayerYLo
       LDX     #$B
       LDY     #$70
 
@@ -2565,7 +2565,7 @@ loc_BANK1_ACA6:
       LDY     #$A8
 
 loc_BANK1_ACC1:
-      STY     <ObjectYLo,X
+      STY     ObjectYLo,X
 
 loc_BANK1_ACC3:
       TXA
@@ -3112,7 +3112,7 @@ loc_BANK1_B924:
       DEY
 
 loc_BANK1_B92C:
-      STY     <byte_RAM_2
+      STY     byte_RAM_2
       LDA     unk_RAM_408,X
       CLC
       ADC     byte_RAM_1

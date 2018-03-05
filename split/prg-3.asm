@@ -306,7 +306,7 @@ loc_BANK3_A168:
       LDY     #$10
 
 loc_BANK3_A174:
-      STY     <ObjectXAccel,X
+      STY     ObjectXAccel,X
       JMP     loc_BANK3_A1CD
 
 ; ---------------------------------------------------------------------------
@@ -478,7 +478,7 @@ loc_BANK3_A262:
       PHA
       JSR     loc_BANKF_FAFE
 
-      STY     <byte_RAM_F4
+      STY     byte_RAM_F4
       PLA
       JSR     $9BB3
 
@@ -524,7 +524,7 @@ loc_BANK3_A2AA:
       JSR     $8894
 
       LDY     #0
-      STY     <byte_RAM_F4
+      STY     byte_RAM_F4
       LDA     ObjectAttributes,X
       PHA
       LDA     #2
@@ -769,7 +769,7 @@ loc_BANK3_A3EA:
       LDY     #$FF
 
 loc_BANK3_A3F2:
-      STY     <byte_RAM_71CC
+      STY     byte_RAM_71CC
       LDA     #$20
       CMP     byte_RAM_42C
       LDA     #0
@@ -993,7 +993,7 @@ sub_BANK3_A508:
 
       JSR     loc_BANKF_FAFE
 
-      STY     <byte_RAM_F4
+      STY     byte_RAM_F4
       LDA     #$45
       STA     ObjectAttributes,X
       LDA     ObjectXLo,X
@@ -1125,7 +1125,7 @@ loc_BANK3_A5AF:
       LDY     #$E8
 
 loc_BANK3_A5C9:
-      STY     <ObjectXAccel,X
+      STY     ObjectXAccel,X
       JMP     $9E50
 
 ; ---------------------------------------------------------------------------
@@ -1212,7 +1212,7 @@ loc_BANK3_A621:
       STA     byte_RAM_429
       ASL     byte_RAM_EE
       LDY     #0
-      STY     <byte_RAM_F4
+      STY     byte_RAM_F4
       LDA     #$38
       JSR     $9BB3
 
@@ -1444,7 +1444,7 @@ EnemyBehavior_Tryclyde:
       LDY     #$FE
 
 loc_BANK3_A76F:
-      STY     <ObjectXAccel,X
+      STY     ObjectXAccel,X
       JSR     sub_BANK2_9E50
 
       INC     unk_RAM_477,X
@@ -1475,7 +1475,7 @@ loc_BANK3_A783:
 loc_BANK3_A79B:
       TYA
       LDY     #$30
-      STY     <byte_RAM_F4
+      STY     byte_RAM_F4
       JSR     sub_BANK2_9BB3
 
       LDA     #9
@@ -1737,7 +1737,7 @@ loc_BANK3_A924:
       LDY     #4
 
 loc_BANK3_A932:
-      STY     <ObjectYAccel,X
+      STY     ObjectYAccel,X
       JSR     sub_BANK2_9E4B
 
       LDA     #$61
@@ -1820,7 +1820,7 @@ loc_BANK3_A993:
       JSR     $9E3B
 
       INY
-      STY     <unk_RAM_6F,X
+      STY     unk_RAM_6F,X
       LDA     unk_RAM_B1,X
       BNE     loc_BANK3_A9BC
 
@@ -1843,7 +1843,7 @@ loc_BANK3_A9AA:
       LDY     #4
 
 loc_BANK3_A9B4:
-      STY     <ObjectYAccel,X
+      STY     ObjectYAccel,X
       JSR     $9E4B
 
       JMP     loc_BANK3_A9FC
@@ -2683,7 +2683,7 @@ loc_BANK3_AE5C:
       STA     byte_RAM_42C
       JSR     loc_BANKF_FAFE
 
-      STY     <byte_RAM_F4
+      STY     byte_RAM_F4
       LDA     #$7C
       JSR     $9BB3
 
@@ -2770,7 +2770,7 @@ loc_BANK3_AECD:
       LDY     #$FB
 
 loc_BANK3_AEE4:
-      STY     <ObjectYAccel,X
+      STY     ObjectYAccel,X
 
 loc_BANK3_AEE6:
       INC     ObjectYAccel,X
@@ -2920,7 +2920,7 @@ loc_BANK3_AFBF:
       JSR     $9E3B
 
       INY
-      STY     <unk_RAM_6F,X
+      STY     unk_RAM_6F,X
       LDA     byte_RAM_10
       AND     #1
       BNE     loc_BANK3_AFDA
@@ -3269,7 +3269,7 @@ loc_BANK3_B180:
 
 loc_BANK3_B1C1:
       LDY     #$33
-      STY     <ObjectType,X
+      STY     ObjectType,X
       JSR     $8441
 
       LDA     #$D0
@@ -4635,7 +4635,7 @@ DamagePlayer:
 
       STA     PlayerHealth
       LDY     #$7F
-      STY     <DamageInvulnTime
+      STY     DamageInvulnTime
       LDY     #0
       STY     PlayerYAccel
       STY     PlayerXAccel
@@ -4769,7 +4769,7 @@ sub_BANK3_BA95:
       LDY     #1
 
 loc_BANK3_BAAD:
-      STY     <byte_RAM_F
+      STY     byte_RAM_F
       TYA
       AND     byte_RAM_6E,X
       BEQ     locret_BANK3_BAC1

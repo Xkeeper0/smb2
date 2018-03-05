@@ -1371,7 +1371,7 @@ locret_BANK4_86B9:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK4_86BA:
-      STY     <SQ1_SWEEP
+      STY     SQ1_SWEEP
       STX     SQ1_VOL
       RTS
 

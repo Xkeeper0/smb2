@@ -59,7 +59,7 @@ loc_BANK0_802B:
       JSR     sub_BANK0_95AF
 
       STA     byte_RAM_CB
-      STY     <byte_RAM_CA
+      STY     byte_RAM_CA
       JSR     sub_BANK0_946D
 
 loc_BANK0_805D:
@@ -826,7 +826,7 @@ loc_BANK0_845D:
       LSR     A
       STA     byte_RAM_539
       STA     _RAM_PPUDataBuffer,Y
-      STY     <byte_RAM_300
+      STY     byte_RAM_300
       RTS
 
 ; End of function sub_BANK0_8412
@@ -1475,7 +1475,7 @@ locret_BANK0_8811:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_8812:
-      STY     <byte_RAM_F
+      STY     byte_RAM_F
       LDA     byte_RAM_CE,X
       AND     #$F
       TAY
@@ -1499,7 +1499,7 @@ sub_BANK0_8812:
       LDY     #$24
 
 loc_BANK0_8837:
-      STY     <byte_RAM_D1
+      STY     byte_RAM_D1
       LDY     byte_RAM_F
       RTS
 
@@ -1677,7 +1677,7 @@ loc_BANK0_890A:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_8925:
-      STY     <byte_RAM_F
+      STY     byte_RAM_F
       LDA     #1
       STA     byte_RAM_4
       LDY     byte_RAM_D7
@@ -1843,7 +1843,7 @@ LoseALife:
 						  ; from 1 (title card)	to 2 (game over)
 
 SetGameModeAfterDeath:
-      STY     <GameMode
+      STY     GameMode
 
 locret_BANK0_8A86:
       RTS
@@ -2672,7 +2672,7 @@ loc_BANK0_8E22:
       LDY     #2
 
 loc_BANK0_8E28:
-      STY     <byte_RAM_7
+      STY     byte_RAM_7
       LDA     byte_RAM_9D
       ASL     A
       ORA     byte_RAM_9A
@@ -2958,7 +2958,7 @@ loc_BANK0_8F95:
       JSR     sub_BANK0_8FF5
 
 loc_BANK0_8FA3:
-      STY     <byte_RAM_6E
+      STY     byte_RAM_6E
       JSR     sub_BANK0_8FB2
 
       LDA     PlayerCollision
@@ -3206,7 +3206,7 @@ loc_BANK0_90BF:
       LDY     #$50
 
 loc_BANK0_90C1:
-      STY     <unk_RAM_86,X
+      STY     unk_RAM_86,X
 
 loc_BANK0_90C3:
       BNE     loc_BANK0_90EA
@@ -3240,7 +3240,7 @@ loc_BANK0_90D5:
       LDY     #0
 
 loc_BANK0_90E7:
-      STY     <BigVeggiesPulled
+      STY     BigVeggiesPulled
 
 loc_BANK0_90EA:
       JSR     $B9EB

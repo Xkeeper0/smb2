@@ -52,8 +52,8 @@
 	printf("Fix .END: %d\n", $count);
 
 	// Fix dumb assembler not knowing how to use zero page properly
-	$asm	= preg_replace('/(STY\s+)([^,]+,\s*X\s*)/im', '\1<\2', $asm, -1, $count);
-	printf("Fix STY zp thing: %d\n", $count);
+	//$asm	= preg_replace('/(STY\s+)([^,]+,\s*X\s*)/im', '\1<\2', $asm, -1, $count);
+	//printf("Fix STY zp thing: %d\n", $count);
 
 	// Output intermediary file for now
 	file_put_contents("fart.asm", $asm);

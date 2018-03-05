@@ -28,7 +28,7 @@ WorldPlus1StartingLevel:.BYTE 3					    ; 0
       .BYTE $F					  ; 4
       .BYTE $12					  ; 5
       .BYTE $14					  ; 6
-PlayerSelectMarioSprites1:.BYTE	$8F ; ÔøΩ
+PlayerSelectMarioSprites1:.BYTE	$8F ; è
 
       .BYTE   0
       .BYTE   0
@@ -45,7 +45,7 @@ PlayerSelectMarioSprites1:.BYTE	$8F ; ÔøΩ
       .BYTE   2
       .BYTE $40
       .BYTE $50
-PlayerSelectLuigiSprites1:.BYTE	$8F ; ÔøΩ
+PlayerSelectLuigiSprites1:.BYTE	$8F ; è
       .BYTE   4
       .BYTE   1
       .BYTE $68
@@ -93,7 +93,7 @@ PlayerSelectPrincessSprites1:.BYTE $8F
       .BYTE  $E
       .BYTE $43
       .BYTE $B0
-PlayerSelectMarioSprites2:.BYTE	$8F ; ÔøΩ
+PlayerSelectMarioSprites2:.BYTE	$8F ; è
 
       .BYTE $10
       .BYTE   0
@@ -110,7 +110,7 @@ PlayerSelectMarioSprites2:.BYTE	$8F ; ÔøΩ
       .BYTE $16
       .BYTE   0
       .BYTE $50
-PlayerSelectLuigiSprites2:.BYTE	$8F ; ÔøΩ
+PlayerSelectLuigiSprites2:.BYTE	$8F ; è
       .BYTE $18
       .BYTE   1
       .BYTE $68
@@ -331,7 +331,7 @@ SetBlackAndWhitePalette:
       LDA     #$3F
       LDY     #0
       STA     PPUADDR
-      STY     <PPUADDR
+      STY     PPUADDR
 
 loc_BANKF_E14B:
       TYA
@@ -1961,7 +1961,7 @@ sub_BANKF_EA68:
       TYA
       JSR     sub_BANKF_EA8E
 
-      STY     <byte_RAM_599
+      STY     byte_RAM_599
       STA     byte_RAM_59A
       LDA     SlotMachineCoins
       CLC
@@ -4081,7 +4081,7 @@ loc_BANKF_F66F:
       EOR     Player1JoypadHeld,X
       AND     Player1JoypadPress,X
       STA     Player1JoypadPress,X
-      STY     <Player1JoypadHeld,X
+      STY     Player1JoypadHeld,X
       DEX
       BPL     loc_BANKF_F66F
 
@@ -5140,7 +5140,7 @@ loc_BANKF_FAE9:
       LDY     #$18
 
 loc_BANKF_FAFA:
-      STY     <BackgroundCHR2
+      STY     BackgroundCHR2
 
 locret_BANKF_FAFD:
       RTS
@@ -5478,7 +5478,6 @@ UnusedTextZELDA:.BYTE $5A
       .BYTE $44
       .BYTE $41
       .BYTE $DF, $E6, 0, 0, $38, 4, 1, 4, 1, $BE  ; 0
-      .pad $FFFA,$55
       .WORD NMI
       .WORD RESET
       .WORD $FFF0

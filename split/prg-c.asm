@@ -2176,7 +2176,7 @@ loc_BANKC_8A9C:
       DEC     ObjectXHi+6
       BPL     loc_BANKC_8A9C
 
-      STY     <ObjectXHi+4
+      STY     ObjectXHi+4
       DEC     ObjectXHi+8
       BPL     locret_BANKC_8ACC
 
