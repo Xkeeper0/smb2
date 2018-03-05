@@ -813,6 +813,7 @@ loc_BANKA_8486:
       CPY     #$FF
       BNE     loc_BANKA_8486
 
+loc_BANKA_8491:
       LDY     #$63
 
 loc_BANKA_8493:
@@ -1027,7 +1028,7 @@ BonusChanceUnusedPapaHead:.BYTE	$CB ; Ë
       .BYTE $A0
       .BYTE $CB
       .BYTE $B4
-      .BYTE $40
+unk_BANKA_8577:.BYTE $40
       .BYTE $A8
 BonusChanceUnused_Blank20C6:.BYTE $20
       .BYTE $C6

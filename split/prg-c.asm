@@ -1068,6 +1068,7 @@ loc_BANKC_8480:
       DEC     ObjectXHi+1
       BPL     loc_BANKC_846D
 
+loc_BANKC_8490:
       JMP     loc_BANKC_8462
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -1240,6 +1241,8 @@ loc_BANKC_855C:
       LDA     #1
       STA     byte_RAM_303
       LDA     #$12
+
+loc_BANKC_8576:
       STA     byte_RAM_304
       LDA     #0
       STA     byte_RAM_305
@@ -3512,7 +3515,7 @@ CastRoll_Spark:.BYTE $D0
       .BYTE $5C
 CastRoll_Subcon:.BYTE $D0
       .BYTE $3E
-      .BYTE   0
+unk_BANKC_9004:.BYTE   0
       .BYTE $30	; 0
       .BYTE $D0
       .BYTE $3E
@@ -3941,7 +3944,7 @@ CastRoll_Mouser:.BYTE $D0
       .BYTE $2C
       .BYTE $F9
       .BYTE $F8
-      .BYTE   0
+unk_BANKC_91B0:.BYTE   0
       .BYTE $34	; 4
       .BYTE $F9
       .BYTE $F4
@@ -4219,11 +4222,11 @@ CastRoll_Wart:.BYTE $D0
       .BYTE $38	; 8
       .BYTE $F9
       .BYTE $90
-      .BYTE   0
+unk_BANKC_92C4:.BYTE   0
       .BYTE $40
       .BYTE $F9
       .BYTE $92
-      .BYTE   0
+unk_BANKC_92C8:.BYTE   0
       .BYTE $48
       .BYTE $F9
       .BYTE $94
@@ -4585,7 +4588,7 @@ byte_BANKC_941D:.BYTE $C8
       .BYTE $C8
       .BYTE $5C
       .BYTE $B0
-      .BYTE $64
+byte_BANKC_9430:.BYTE $64
       .BYTE $B8
       .BYTE $6C
       .BYTE $C0

@@ -51,6 +51,10 @@
 	$asm	= preg_replace('/^\s*\.END\s*/im', '; End', $asm, -1, $count);
 	printf("Fix .END: %d\n", $count);
 
+	// Handle Magic NOPs
+	$asm	= preg_replace('/\s*;\s+NOPfix\s*/im', "\nNOP ; @TODO fix abs-to-zp\n", $asm, -1, $count);
+	printf("NOP hotfixes: %d\n", $count);
+
 	// Fix dumb assembler not knowing how to use zero page properly
 	//$asm	= preg_replace('/(STY\s+)([^,]+,\s*X\s*)/im', '\1<\2', $asm, -1, $count);
 	//printf("Fix STY zp thing: %d\n", $count);

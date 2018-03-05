@@ -4,6 +4,8 @@
 	$m	= [];
 	$c	= preg_match_all('/^[0-9a-f]{5}[ \t]+.*:\s?$/im', $x, $m);
 
+	$last	= null;
+	$lastv	= null;
 	foreach ($m[0] as $l) {
 		//print $l ."\n";
 		$m2	= [];
@@ -11,12 +13,25 @@
 		$ox = hexdec($m2[3]);
 		$ix	= hexdec($m2[1]);
 		$m2[2]	.= $m2[3];
-		if ($ox !== 0) {
+		if ($ix <= 0x8000) continue;
+		if ($ox !== 0 && $ox >= 0x8000) {
 			$v2	= $ox - $ix;
 		} else {
 			$v2	= null;
 		}
-		printf("%5s  %-50s   %05x  %05x  ". ($v2 === null ? "----" : "%4d") ."\n", $m2[1], $m2[2], $ix, $ox, $v2);
+
+		$cur	= sprintf("%5s  %-20s   %05x  %05x  ". ($v2 === null ? "----" : "%4d") ."\n", $m2[1], $m2[2], $ix, $ox, $v2);
+		if ($v2 !== null) {
+			if ($v2 !== $lastv) {
+				print $last;
+				print $cur;
+				print "\n";
+				$lastv	= $v2;
+			} else {
+				$last	= $cur;
+			}
+		}
+
 	}
 
 	print "\n";

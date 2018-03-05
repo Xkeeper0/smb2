@@ -3067,12 +3067,14 @@ loc_BANK2_8FD5:
 loc_BANK2_8FFC:
       INC     EnemyTimer,X
       LDA     #Enemy_Fireball
-      BNE     loc_BANK2_9004
+      BNE     sub_BANK2_9004
 
 loc_BANK2_9002:
       LDA     #Enemy_Egg
 
-loc_BANK2_9004:
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK2_9004:
       STA     ObjectType,X
       LDA     ObjectYLo,X
       CLC
@@ -3088,6 +3090,8 @@ loc_BANK2_9004:
 
 loc_BANK2_901B:
       JMP     sub_BANK2_9B1B
+
+; End of function sub_BANK2_9004
 
 ; ---------------------------------------------------------------------------
       .BYTE $18
@@ -3991,6 +3995,7 @@ loc_BANK2_945E:
 EnemyBehavior_BasicWalker:
       JSR     sub_BANK3_B4FD
 
+loc_BANK2_9470:
       JSR     sub_BANK2_997A
 
       LDA     unk_RAM_480,X

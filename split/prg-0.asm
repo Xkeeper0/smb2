@@ -875,6 +875,8 @@ sub_BANK0_8488:
       LDA     unk_RAM_D9,Y
       LSR     A
       LSR     A
+
+loc_BANK0_8491:
       STA     unk_RAM_D9,Y
       LDA     byte_RAM_51B
       AND     #$C0
@@ -2155,7 +2157,8 @@ loc_BANK0_8BCB:
       JSR     sub_BANK0_8EA4
 
       LDA     PlayerCollision
-      BEQ     locret_BANK0_8BEB
+NOP ; @TODO fix abs-to-zp
+BEQ     locret_BANK0_8BEB
 
       LDA     #$20
       STA     byte_RAM_64
@@ -3044,6 +3047,8 @@ sub_BANK0_8FFD:
       LDY     byte_BANKF_F00A
       LDA     byte_RAM_10
       LSR     A
+
+loc_BANK0_9003:
       BCS     loc_BANK0_9006
 
       INY
@@ -3644,6 +3649,8 @@ locret_BANK0_92C0:
 
 sub_BANK0_92C1:
       LDY     byte_RAM_1
+
+loc_BANK0_92C3:
       LDA     byte_RAM_E6
       JSR     sub_BANK0_92AA
 
@@ -3932,6 +3939,8 @@ sub_BANK0_9428:
       LDA     byte_RAM_50F
       STA     PlayerXHi
       LDA     byte_RAM_511
+
+loc_BANK0_9430:
       STA     PlayerXLo
       LDA     byte_RAM_510
       STA     PlayerYHi
@@ -3970,6 +3979,8 @@ loc_BANK0_943E:
 
 sub_BANK0_946D:
       LDA     byte_RAM_534
+
+loc_BANK0_9470:
       CMP     #2
       BNE     loc_BANK0_947F
 
@@ -5176,6 +5187,7 @@ loc_BANK0_9BA3:
       DEC     ObjectXHi+5
       BPL     loc_BANK0_9C19
 
+loc_BANK0_9BA7:
       LDA     #$40
       STA     ObjectXHi+5
       LDA     PlayerXHi

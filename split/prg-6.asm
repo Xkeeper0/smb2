@@ -1794,7 +1794,7 @@ UnusedTileQuads4:.BYTE $40
       .BYTE $73
       .BYTE $73
       .BYTE $72
-      .BYTE $44
+unk_BANK6_8894:.BYTE $44
       .BYTE $45
       .BYTE $45
       .BYTE $44
@@ -3268,6 +3268,8 @@ loc_BANK6_8FFE:
       LDA     byte_BANK6_8FDB,X
       STA     (byte_RAM_1),Y
       INX
+
+loc_BANK6_9004:
       INY
       DEC     byte_RAM_9
       BPL     loc_BANK6_8FFE
@@ -3399,7 +3401,8 @@ loc_BANK6_909C:
       LDA     #$D
       STA     byte_RAM_50E
       LDA     byte_RAM_7
-      STA     byte_RAM_50D
+NOP ; @TODO fix abs-to-zp
+STA     byte_RAM_50D
       LDX     byte_RAM_E8
       JSR     sub_BANK6_9885
 
@@ -3718,7 +3721,7 @@ unk_BANK6_9286:.BYTE   0
       .BYTE $A5
       .BYTE $55
       .BYTE $5A
-      .BYTE $A5
+byte_BANK6_92C4:.BYTE $A5
       .BYTE $55
       .BYTE $5A
       .BYTE $AA
@@ -3872,7 +3875,8 @@ loc_BANK6_9346:
       STA     byte_RAM_4BE
       STA     byte_RAM_4C0
       STA     byte_RAM_D8
-      RTS
+NOP ; @TODO fix abs-to-zp
+RTS
 
 ; End of function sub_BANK6_933A
 
@@ -4021,6 +4025,8 @@ sub_BANK6_941D:
 
       LDA     byte_RAM_4BE
       STA     byte_RAM_E8
+
+loc_BANK6_942F:
       LDA     byte_RAM_4C0
       CLC
       ADC     #8
@@ -4070,6 +4076,8 @@ loc_BANK6_946C:
       BNE     loc_BANK6_9458
 
       TYA
+
+loc_BANK6_946F:
       AND     #$F
       TAY
       JSR     sub_BANK6_9890
@@ -4295,6 +4303,8 @@ locret_BANK6_9547:
       LDA     (byte_RAM_5),Y
       AND     #$1F
       CMP     #$1F
+
+loc_BANK6_95B0:
       BEQ     loc_BANK6_95C1
 
       STA     byte_RAM_541
@@ -4314,6 +4324,8 @@ loc_BANK6_95C1:
       JSR     sub_BANK6_95E6
 
       LDA     #$22
+
+loc_BANK6_95CE:
       ORA     byte_RAM_10
       STA     byte_RAM_5AC
       RTS
@@ -4345,6 +4357,8 @@ HijackLevelDataCopyAddressWithJar:
 sub_BANK6_95E6:
       LDA     #0
       STA     byte_RAM_E8
+
+loc_BANK6_95EA:
       LDY     #0
       JMP     loc_BANK6_95EF
 

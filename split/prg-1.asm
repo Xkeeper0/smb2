@@ -2433,7 +2433,7 @@ byte_BANK1_ABFE:.BYTE 0
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_AC0A:
-      JSR     $8A50
+      JSR     sub_BANK0_8A50
 
       LDA     PlayerXHi
       CMP     #1
@@ -2444,7 +2444,8 @@ loc_BANK1_AC0A:
       BCC     loc_BANK1_AC37
 
       INC     byte_RAM_E6
-      LDA     #$A0
+NOP ; @TODO fix abs-to-zp
+LDA     #$A0
       STA     byte_RAM_10
       LDX     #5
 
@@ -2542,7 +2543,7 @@ loc_BANK1_AC8B:
       LDA     #$DA
       STA     ObjectYAccel+6
       INC     byte_RAM_E6
-
+NOP ; @TODO fix abs-to-zp
 loc_BANK1_ACA4:
       LDX     #5
 
@@ -2799,7 +2800,8 @@ sub_BANK1_ADF1:
       CLC
       ADC     #9
       STA     byte_RAM_11
-      DEC     byte_RAM_5C3
+NOP ; @TODO fix abs-to-zp
+DEC     byte_RAM_5C3
       BPL     locret_BANK1_AE12
 
       LDA     byte_RAM_5C2

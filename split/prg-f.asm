@@ -2255,9 +2255,11 @@ NMI:
 
 loc_BANKF_EBC9:
       LDA     byte_RAM_D1
-      STA     PPUADDR
+NOP ; @TODO fix abs-to-zp
+STA     PPUADDR
       LDA     byte_RAM_D2
-      STA     PPUADDR
+NOP ; @TODO fix abs-to-zp
+STA     PPUADDR
 
 loc_BANKF_EBD5:
       LDA     unk_RAM_380,Y
@@ -2268,7 +2270,8 @@ loc_BANKF_EBD5:
 
       LDX     #$1E
       INC     byte_RAM_D2
-      CPY     #$3C
+NOP ; @TODO fix abs-to-zp
+CPY     #$3C
       BNE     loc_BANKF_EBC9
 
 loc_BANKF_EBE8:
@@ -3341,7 +3344,8 @@ DamageInvulnBlinkFrames:.BYTE 1, 1, 1, 2, 2, 4,	4, 4		    ; 0
 
 sub_BANKF_F31A:
       LDY     PlayerState
-      CPY     #PlayerState_ChangingSize
+NOP ; @TODO fix abs-to-zp
+CPY     #PlayerState_ChangingSize
       BEQ     loc_BANKF_F337
 
       LDY     StarInvincibilityTimer

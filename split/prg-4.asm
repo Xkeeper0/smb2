@@ -930,6 +930,8 @@ loc_BANK4_847D:
 loc_BANK4_848D:
       LDA     byte_RAM_617
       LDX     byte_RAM_BF
+
+loc_BANK4_8492:
       JSR     sub_BANK4_8634
 
 loc_BANK4_8495:
@@ -1074,6 +1076,8 @@ loc_BANK4_8566:
       BCC     loc_BANK4_857C
 
       CMP     #$1E
+
+loc_BANK4_8576:
       BCS     loc_BANK4_8580
 
       LDA     #$24
@@ -2079,7 +2083,7 @@ byte_BANK4_9141:.BYTE $42
       .BYTE $4C
       .BYTE $84
       .BYTE $7E
-      .BYTE $4E
+byte_BANK4_91B0:.BYTE $4E
       .BYTE $4C
       .BYTE $44
       .BYTE $82
@@ -2355,7 +2359,7 @@ byte_BANK4_9286:.BYTE $4C
       .BYTE $24
       .BYTE $88
       .BYTE $22
-      .BYTE $82
+byte_BANK4_92C4:.BYTE $82
       .BYTE $22
       .BYTE $22
       .BYTE $83
@@ -2719,7 +2723,7 @@ byte_BANK4_941D:.BYTE $3E
       .BYTE $40
       .BYTE $4E
       .BYTE $48
-      .BYTE $4E
+byte_BANK4_9430:.BYTE $4E
       .BYTE $3E
       .BYTE $50
       .BYTE $48
@@ -2783,7 +2787,7 @@ byte_BANK4_943E:.BYTE $4E
 byte_BANK4_946D:.BYTE $94
       .BYTE $7E
       .BYTE $48
-      .BYTE $7E
+byte_BANK4_9470:.BYTE $7E
       .BYTE $99
       .BYTE $48
       .BYTE $98
@@ -3103,7 +3107,7 @@ byte_BANK4_94AD:.BYTE $48
       .BYTE $40
       .BYTE $42
       .BYTE $48
-      .BYTE $7E
+unk_BANK4_95B0:.BYTE $7E
       .BYTE $42
       .BYTE $48
       .BYTE $4C
@@ -3133,7 +3137,7 @@ byte_BANK4_94AD:.BYTE $48
       .BYTE $48
       .BYTE $99
       .BYTE $3A
-      .BYTE $94
+unk_BANK4_95CE:.BYTE $94
       .BYTE $48
       .BYTE $98
       .BYTE $48
@@ -3162,7 +3166,7 @@ byte_BANK4_94AD:.BYTE $48
       .BYTE $50
       .BYTE $7E
       .BYTE $60
-      .BYTE $7E
+unk_BANK4_95EB:.BYTE $7E
       .BYTE $60
       .BYTE $9A
       .BYTE $60
@@ -4630,7 +4634,7 @@ byte_BANK4_9B1B:.BYTE $96
       .BYTE $56
       .BYTE $92
       .BYTE $52
-      .BYTE $96
+byte_BANK4_9BA7:.BYTE $96
       .BYTE $46
       .BYTE $92
       .BYTE $42

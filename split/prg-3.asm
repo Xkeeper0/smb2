@@ -364,7 +364,7 @@ loc_BANK3_A1CD:
       JSR     $857F
 
 loc_BANK3_A1D3:
-      JMP     $9B1B
+      JMP     sub_BANK2_9B1B
 
 ; ---------------------------------------------------------------------------
       .BYTE 8
@@ -385,7 +385,8 @@ byte_BANK3_A1DC:.BYTE 4
       .BYTE 4
 ; ---------------------------------------------------------------------------
       LDA     byte_RAM_F4
-      STA     unk_RAM_B1,X
+NOP ; @TODO fix abs-to-zp
+STA     unk_RAM_B1,X
       LDY     EnemyState,X
       DEY
       TYA
@@ -521,11 +522,12 @@ loc_BANK3_A262:
       STA     byte_RAM_42C
 
 loc_BANK3_A2AA:
-      JSR     $8894
+      JSR     sub_BANK2_8894
 
       LDY     #0
       STY     byte_RAM_F4
-      LDA     ObjectAttributes,X
+NOP ; @TODO fix abs-to-zp
+LDA     ObjectAttributes,X
       PHA
       LDA     #2
       STA     ObjectAttributes,X
@@ -534,7 +536,7 @@ loc_BANK3_A2AA:
       LDA     #$10
       STA     unk_RAM_46E,X
       LDA     #$D6
-      JSR     $9BB3
+      JSR     sub_BANK2_9BB3
 
       PLA
       STA     unk_RAM_46E,X
@@ -554,7 +556,8 @@ loc_BANK3_A2D2:
       BEQ     loc_BANK3_A2E1
 
       LDX     byte_RAM_F4
-      DEC     unk_RAM_20C,X
+NOP ; @TODO fix abs-to-zp
+DEC     unk_RAM_20C,X
       LDX     byte_RAM_12
       RTS
 
@@ -610,7 +613,8 @@ loc_BANK3_A320:
 
 ; ---------------------------------------------------------------------------
       LDA     unk_RAM_A8,X
-      ORA     unk_RAM_438,X
+NOP ; @TODO fix abs-to-zp
+ORA     unk_RAM_438,X
       BNE     loc_BANK3_A362
 
       LDA     byte_RAM_10
@@ -741,7 +745,8 @@ loc_BANK3_A3C7:
       AND     #ControllerInput_Right|ControllerInput_Left
       TAY
       AND     PlayerCollision
-      BNE     loc_BANK3_A3E6
+NOP ; @TODO fix abs-to-zp
+BNE     loc_BANK3_A3E6
 
       LDA     byte_BANK3_A365,Y
       CMP     ObjectXAccel,X
@@ -994,7 +999,8 @@ sub_BANK3_A508:
       JSR     loc_BANKF_FAFE
 
       STY     byte_RAM_F4
-      LDA     #$45
+NOP ; @TODO fix abs-to-zp
+LDA     #$45
       STA     ObjectAttributes,X
       LDA     ObjectXLo,X
       PHA
@@ -1005,7 +1011,7 @@ sub_BANK3_A508:
       PHA
       SBC     #0
       STA     ObjectXHi,X
-      JSR     $8894
+      JSR     sub_BANK2_8894
 
       PLA
       STA     ObjectXHi,X
@@ -1196,7 +1202,7 @@ loc_BANK3_A61B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A621:
-      JSR     $9BA7
+      JSR     sub_BANK2_9BA7
 
       LDA     unk_RAM_86,X
       CMP     #$10
@@ -1213,8 +1219,9 @@ loc_BANK3_A621:
       ASL     byte_RAM_EE
       LDY     #0
       STY     byte_RAM_F4
-      LDA     #$38
-      JSR     $9BB3
+NOP ; @TODO fix abs-to-zp
+LDA     #$38
+      JSR     sub_BANK2_9BB3
 
 loc_BANK3_A648:
       LDA     #$43
@@ -1476,9 +1483,10 @@ loc_BANK3_A79B:
       TYA
       LDY     #$30
       STY     byte_RAM_F4
-      JSR     sub_BANK2_9BB3
+NOP ; @TODO fix abs-to-zp
+JSR     sub_BANK2_9BB3
 
-      LDA     #9
+      LDA     #ObjAttrib_Palette1|ObjAttrib_Unknown_08
       STA     ObjectAttributes,X
       LDA     #$33
       STA     unk_RAM_46E,X
@@ -2152,7 +2160,8 @@ loc_BANK3_AB42:
       STA     byte_RAM_534
       LDA     #0
       STA     PlayerState
-      RTS
+NOP ; @TODO fix abs-to-zp
+RTS
 
 ; ---------------------------------------------------------------------------
 
@@ -2303,12 +2312,13 @@ sub_BANK3_AC28:
       LDA     #$88
 
 loc_BANK3_AC4B:
-      JSR     $9BB3
+      JSR     sub_BANK2_9BB3
 
       JSR     loc_BANKF_FAFE
 
       STY     byte_RAM_F4
-      PLA
+NOP ; @TODO fix abs-to-zp
+PLA
       CLC
       LDY     byte_RAM_7
       ADC     byte_BANK3_AC26,Y
@@ -2320,7 +2330,7 @@ loc_BANK3_AC4B:
       LDA     #$8C
 
 loc_BANK3_AC67:
-      JMP     $9BB3
+      JMP     sub_BANK2_9BB3
 
 ; End of function sub_BANK3_AC28
 
@@ -2597,7 +2607,7 @@ EnemyBehavior_Autobomb:
       LDX     byte_RAM_12
 
 loc_BANK3_ADF9:
-      JSR     $997A
+      JSR     sub_BANK2_997A
 
       JSR     sub_BANK3_B4FD
 
@@ -2606,16 +2616,16 @@ loc_BANK3_ADF9:
       AND     #4
       BEQ     loc_BANK3_AE09
 
-      JSR     $95CE
+      JSR     sub_BANK2_95CE
 
 loc_BANK3_AE09:
       PLA
       AND     #3
       BEQ     loc_BANK3_AE14
 
-      JSR     $9EA9
+      JSR     sub_BANK2_9EA9
 
-      JSR     $9E50
+      JSR     sub_BANK2_9E50
 
 loc_BANK3_AE14:
       INC     unk_RAM_9F,X
@@ -2631,22 +2641,22 @@ loc_BANK3_AE14:
       AND     #$7F
       BNE     loc_BANK3_AE28
 
-      JSR     $8492
+      JSR     loc_BANK2_8492
 
 loc_BANK3_AE28:
       LDA     unk_RAM_9F,X
       AND     #$7F
       BNE     loc_BANK3_AE45
 
-      JSR     $8492
+      JSR     loc_BANK2_8492
 
-      JSR     $95EB
+      JSR     sub_BANK2_95EB
 
       BMI     loc_BANK3_AE45
 
       LDX     byte_RAM_0
       LDA     #$27
-      JSR     $9004
+      JSR     sub_BANK2_9004
 
       LDX     byte_RAM_0
       DEC     ObjectYLo,X
@@ -2654,9 +2664,9 @@ loc_BANK3_AE28:
       LDX     byte_RAM_12
 
 loc_BANK3_AE45:
-      JSR     $8577
+      JSR     sub_BANK2_8577
 
-      JMP     $9B1B
+      JMP     sub_BANK2_9B1B
 
 ; ---------------------------------------------------------------------------
       LDA     EnemyState,X
@@ -2667,7 +2677,7 @@ loc_BANK3_AE45:
       STA     ObjectAttributes,X
       STA     unk_RAM_9F,X
       LDA     #$76
-      JMP     $9BB3
+      JMP     sub_BANK2_9BB3
 
 ; ---------------------------------------------------------------------------
 
@@ -2676,7 +2686,8 @@ loc_BANK3_AE5C:
       BNE     loc_BANK3_AE7C
 
       LDA     byte_RAM_F4
-      PHA
+NOP ; @TODO fix abs-to-zp
+PHA
       LDA     byte_RAM_42C
       CLC
       ADC     #$F5
@@ -2684,16 +2695,17 @@ loc_BANK3_AE5C:
       JSR     loc_BANKF_FAFE
 
       STY     byte_RAM_F4
-      LDA     #$7C
-      JSR     $9BB3
+NOP ; @TODO fix abs-to-zp
+LDA     #$7C
+      JSR     sub_BANK2_9BB3
 
       PLA
       STA     byte_RAM_F4
-
+NOP ; @TODO fix abs-to-zp
 loc_BANK3_AE7C:
       LDA     ObjectYLo,X
       STA     byte_RAM_42C
-      JSR     $9BA7
+      JSR     sub_BANK2_9BA7
 
       LDA     #2
       STA     unk_RAM_6F,X
@@ -2701,12 +2713,13 @@ loc_BANK3_AE7C:
       CLC
       ADC     #8
       STA     byte_RAM_F4
-      LDA     byte_RAM_0
+NOP ; @TODO fix abs-to-zp
+LDA     byte_RAM_0
       STA     byte_RAM_42C
       LDA     #$D0
       STA     unk_RAM_46E,X
       LDA     #$78
-      JSR     $9BB3
+      JSR     sub_BANK2_9BB3
 
       LDA     #$50
       LDY     unk_RAM_B1,X
@@ -2721,7 +2734,7 @@ loc_BANK3_AEA6:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_AEAA:
-      JSR     $845D
+      JSR     sub_BANK2_845D
 
       LDA     ObjectYLo,X
       STA     unk_RAM_B1,X
@@ -2774,7 +2787,7 @@ loc_BANK3_AEE4:
 
 loc_BANK3_AEE6:
       INC     ObjectYAccel,X
-      JSR     $9E4B
+      JSR     sub_BANK2_9E4B
 
       LDA     byte_RAM_EE
       AND     #$C
@@ -2792,7 +2805,7 @@ loc_BANK3_AEE6:
       LDA     #$94
 
 loc_BANK3_AF03:
-      JSR     $9BB3
+      JSR     sub_BANK2_9BB3
 
       JSR     loc_BANKF_FAFE
 
@@ -2830,7 +2843,8 @@ loc_BANK3_AF29:
 loc_BANK3_AF34:
       STA     unk_RAM_20D,Y
       LDX     byte_RAM_F4
-      LDA     unk_RAM_202,X
+NOP ; @TODO fix abs-to-zp
+LDA     unk_RAM_202,X
       STA     unk_RAM_202,Y
       STA     unk_RAM_206,Y
       STA     unk_RAM_20A,Y
@@ -2886,7 +2900,7 @@ loc_BANK3_AF8D:
 
       LDA     ObjectYAccel,X
       PHA
-      JSR     $95CE
+      JSR     sub_BANK2_95CE
 
       PLA
       LDY     unk_RAM_42F,X
@@ -2895,7 +2909,7 @@ loc_BANK3_AF8D:
       CMP     #$18
       BMI     loc_BANK3_AFAC
 
-      JSR     $95B0
+      JSR     sub_BANK2_95B0
 
       LDA     #$F0
       STA     ObjectYAccel,X
@@ -2904,7 +2918,7 @@ loc_BANK3_AF8D:
 loc_BANK3_AFAC:
       LDA     #0
       STA     unk_RAM_42F,X
-      JSR     $8441
+      JSR     sub_BANK2_8441
 
 loc_BANK3_AFB4:
       LDA     byte_RAM_E
@@ -2912,7 +2926,7 @@ loc_BANK3_AFB4:
       BEQ     loc_BANK3_AFBF
 
       DEC     unk_RAM_9F,X
-      JMP     $9470
+      JMP     loc_BANK2_9470
 
 ; ---------------------------------------------------------------------------
 
@@ -3109,7 +3123,7 @@ loc_BANK3_B0BA:
       INC     EnemyTimer,X
 
 loc_BANK3_B0D3:
-      JSR     $9E3B
+      JSR     sub_BANK2_9E3B
 
       LDA     ObjectXAccel,X
       CMP     byte_BANK3_AFEE,Y
@@ -3120,7 +3134,7 @@ loc_BANK3_B0D3:
       STA     ObjectXAccel,X
 
 loc_BANK3_B0E3:
-      JMP     $9430
+      JMP     sub_BANK2_9430
 
 ; ---------------------------------------------------------------------------
       .BYTE $F8
@@ -3188,7 +3202,8 @@ loc_BANK3_B13B:
       STA     unk_RAM_20A,Y
       STA     unk_RAM_20E,Y
       LDX     byte_RAM_F4
-      LDA     SpriteDMAArea,X
+NOP ; @TODO fix abs-to-zp
+LDA     SpriteDMAArea,X
       STA     unk_RAM_208,Y
       CLC
       ADC     #$10
@@ -3238,7 +3253,7 @@ loc_BANK3_B180:
       BNE     locret_BANK3_B1CC
 
       INC     byte_RAM_4F9
-      JSR     $92C4
+      JSR     sub_BANK2_92C4
 
       BMI     locret_BANK3_B1CC
 
@@ -3270,7 +3285,7 @@ loc_BANK3_B180:
 loc_BANK3_B1C1:
       LDY     #$33
       STY     ObjectType,X
-      JSR     $8441
+      JSR     sub_BANK2_8441
 
       LDA     #$D0
       STA     ObjectYAccel,X
@@ -3281,7 +3296,7 @@ locret_BANK3_B1CC:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B1CD:
-      JSR     $845D
+      JSR     sub_BANK2_845D
 
       LDA     #6
       STA     unk_RAM_465,X
@@ -3337,7 +3352,7 @@ loc_BANK3_B214:
       STA     ObjectXAccel,X
 
 loc_BANK3_B216:
-      JSR     $9E50
+      JSR     sub_BANK2_9E50
 
       LDA     unk_RAM_45C,X
       BNE     loc_BANK3_B253
@@ -3348,7 +3363,7 @@ loc_BANK3_B216:
       AND     #$F
       BNE     loc_BANK3_B253
 
-      JSR     $92C8
+      JSR     sub_BANK2_92C8
 
       BMI     loc_BANK3_B253
 
@@ -3369,12 +3384,12 @@ loc_BANK3_B216:
       LDA     ObjectYLo,X
       ADC     #8
       STA     ObjectYLo,X
-      JSR     $8441
+      JSR     sub_BANK2_8441
 
       LDX     byte_RAM_12
 
 loc_BANK3_B253:
-      JMP     $9B1B
+      JMP     sub_BANK2_9B1B
 
 ; ---------------------------------------------------------------------------
 
@@ -3392,9 +3407,9 @@ loc_BANK3_B256:
 loc_BANK3_B269:
       LDA     #4
       STA     ObjectXAccel,X
-      JSR     $9E50
+      JSR     sub_BANK2_9E50
 
-      JSR     $9E4B
+      JSR     sub_BANK2_9E4B
 
       LDA     byte_RAM_10
       LSR     A
@@ -3409,13 +3424,13 @@ loc_BANK3_B269:
 
       LDA     #$10
       STA     DPCMQueue
-      JSR     $92C8
+      JSR     sub_BANK2_92C8
 
       LDX     byte_RAM_0
       LDA     ObjectYLo,X
       ADC     #8
       STA     ObjectYLo,X
-      JSR     $91B0
+      JSR     MakeMushroomExplodeIntoPuffOfSmoke
 
 loc_BANK3_B295:
       LDA     ObjectYLo,X
@@ -3426,18 +3441,18 @@ loc_BANK3_B295:
       STA     EnemyState,X
 
 loc_BANK3_B29F:
-      JMP     $9B1B
+      JMP     sub_BANK2_9B1B
 
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_WartBubble:
       INC     unk_RAM_9F,X
-      JSR     $9E50
+      JSR     sub_BANK2_9E50
 
-      JSR     $9E4B
+      JSR     sub_BANK2_9E4B
 
       INC     ObjectYAccel,X
-      JMP     $9B1B
+      JMP     sub_BANK2_9B1B
 
 ; ---------------------------------------------------------------------------
 
@@ -3446,7 +3461,8 @@ locret_BANK3_B2AF:
 
 ; ---------------------------------------------------------------------------
       LDA     byte_RAM_F4
-      STA     byte_RAM_7267
+NOP ; @TODO fix abs-to-zp
+STA     byte_RAM_7267
       STA     byte_RAM_726B
       LDA     byte_RAM_10
       AND     #3
@@ -3454,7 +3470,8 @@ locret_BANK3_B2AF:
       TAY
       LDA     unk_RAM_7265,Y
       STA     byte_RAM_F4
-      LDA     byte_RAM_EF
+NOP ; @TODO fix abs-to-zp
+LDA     byte_RAM_EF
       BNE     locret_BANK3_B2AF
 
       LDY     unk_RAM_465,X
@@ -3494,14 +3511,15 @@ loc_BANK3_B2EF:
       LDA     #$A2
 
 loc_BANK3_B2F7:
-      JSR     $9BB3
+      JSR     sub_BANK2_9BB3
 
       LDA     byte_RAM_0
       STA     byte_RAM_42C
       LDY     byte_RAM_7
       LDA     unk_RAM_7266,Y
       STA     byte_RAM_F4
-      LDY     #$A6
+NOP ; @TODO fix abs-to-zp
+LDY     #$A6
       LDA     unk_RAM_B1,X
       BNE     loc_BANK3_B320
 
@@ -3527,14 +3545,15 @@ loc_BANK3_B322:
       PLA
       STA     byte_RAM_EE
       TYA
-      JSR     $9BB3
+      JSR     sub_BANK2_9BB3
 
       LDA     byte_RAM_0
       STA     byte_RAM_42C
       LDY     byte_RAM_7
       LDA     byte_RAM_7267,Y
       STA     byte_RAM_F4
-      LDY     #$BA
+NOP ; @TODO fix abs-to-zp
+LDY     #$BA
       LDA     ObjectXAccel,X
       BEQ     loc_BANK3_B347
 
@@ -3549,7 +3568,7 @@ loc_BANK3_B347:
       PLA
       STA     byte_RAM_EE
       TYA
-      JSR     $9BB3
+      JSR     sub_BANK2_9BB3
 
       LDA     byte_RAM_EE
       BNE     loc_BANK3_B398
