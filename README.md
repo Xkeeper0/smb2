@@ -18,19 +18,19 @@ This will generate a few files:
 * a bunch of assorted other files
 
 ## Assembly
-The "source" lives in the `split` directory:
+The "source" lives in the `asm` directory:
 
 * `prg-x.asm` are the program banks.
 * `defs.asm` are some definitions.
 * `ram.asm` are definitions and labels for RAM addresses.
 
-The `Super Mario Bros. 2 (USA) 2.asm` file is an auto-generated disassembly
+The `tools/Super Mario Bros. 2 (USA) 2.asm` file is an auto-generated disassembly
 from a certain disassembly tool. If you modify it (for some reason),
-you can use `php asm.php` to re-split the disassembly and clean it up.
+you can use `php tools/asm.php` to re-split the disassembly and clean it up.
 Note that doing so will *lose all changes* in the split disassembly!
 
 ## Whoops
-If you goof up and something breaks, `offsetcompare.php` may help;
+If you goof up and something breaks, `tools/offsetcompare.php` may help;
 it uses labels like `unk_byte_ABCD` to check if the code has gotten
 shifted or offset in some way (so you can go fix it).
 
