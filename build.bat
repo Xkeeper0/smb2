@@ -4,7 +4,7 @@ rem (if your setup isn't bad you can also just put it here...)
 
 echo off
 echo Assembling...
-asm6.exe smb2.asm -L > out.log 2> out2.log
+asm6.exe smb2.asm -L > assembler.log 2> assembler-err.log
 echo Comparing between original ROM and the assembled ROM
 fc /b smb2.nes "Super Mario Bros. 2 (USA).nes" > comparison.txt
 echo Comparing against reference assembly
