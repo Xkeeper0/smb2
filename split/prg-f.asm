@@ -1,0 +1,5486 @@
+
+      ;.segment	BANKF
+;       *	=  $E000
+      .BYTE 0
+      .BYTE $23
+      .BYTE $E7
+      .BYTE   1
+      .BYTE   0
+      .BYTE $23
+      .BYTE $EF
+      .BYTE   1
+      .BYTE 0
+      .BYTE $23
+      .BYTE $F7
+      .BYTE   1
+      .BYTE 0
+      .BYTE $23
+      .BYTE $FF
+      .BYTE   1
+      .BYTE 0
+      .BYTE 0
+WorldStartingLevel:.BYTE 0
+
+WorldPlus1StartingLevel:.BYTE 3					    ; 0
+      .BYTE 6					  ; 1 ;	data used at e000
+      .BYTE 9					  ; 2
+      .BYTE $C					  ; 3
+      .BYTE $F					  ; 4
+      .BYTE $12					  ; 5
+      .BYTE $14					  ; 6
+PlayerSelectMarioSprites1:.BYTE	$8F ; �
+
+      .BYTE   0
+      .BYTE   0
+      .BYTE $48
+      .BYTE $8F
+      .BYTE   0
+      .BYTE $40
+      .BYTE $50
+      .BYTE $9F
+      .BYTE   2
+      .BYTE   0
+      .BYTE $48
+      .BYTE $9F
+      .BYTE   2
+      .BYTE $40
+      .BYTE $50
+PlayerSelectLuigiSprites1:.BYTE	$8F ; �
+      .BYTE   4
+      .BYTE   1
+      .BYTE $68
+      .BYTE $8F
+      .BYTE   4
+      .BYTE $41
+      .BYTE $70
+      .BYTE $9F
+      .BYTE   6
+      .BYTE   1
+      .BYTE $68
+      .BYTE $9F
+      .BYTE   6
+      .BYTE $41
+      .BYTE $70
+PlayerSelectToadSprites1:.BYTE $8F
+      .BYTE   8
+      .BYTE   2
+      .BYTE $88
+      .BYTE $8F
+      .BYTE   8
+      .BYTE $42
+      .BYTE $90
+      .BYTE $9F
+      .BYTE  $A
+      .BYTE   2
+      .BYTE $88
+      .BYTE $9F
+      .BYTE  $A
+      .BYTE $42
+      .BYTE $90
+PlayerSelectPrincessSprites1:.BYTE $8F
+      .BYTE  $C
+      .BYTE   3
+      .BYTE $A8
+      .BYTE $8F
+      .BYTE  $C
+      .BYTE $43
+      .BYTE $B0
+      .BYTE $9F
+      .BYTE  $E
+      .BYTE   3
+      .BYTE $A8
+      .BYTE $9F
+      .BYTE  $E
+      .BYTE $43
+      .BYTE $B0
+PlayerSelectMarioSprites2:.BYTE	$8F ; �
+
+      .BYTE $10
+      .BYTE   0
+      .BYTE $48
+      .BYTE $8F
+      .BYTE $12
+      .BYTE   0
+      .BYTE $50
+      .BYTE $9F
+      .BYTE $14
+      .BYTE   0
+      .BYTE $48
+      .BYTE $9F
+      .BYTE $16
+      .BYTE   0
+      .BYTE $50
+PlayerSelectLuigiSprites2:.BYTE	$8F ; �
+      .BYTE $18
+      .BYTE   1
+      .BYTE $68
+      .BYTE $8F
+      .BYTE $1A
+      .BYTE   1
+      .BYTE $70
+      .BYTE $9F
+      .BYTE $1C
+      .BYTE   1
+      .BYTE $68
+      .BYTE $9F
+      .BYTE $1E
+      .BYTE   1
+      .BYTE $70
+PlayerSelectToadSprites2:.BYTE $8F
+      .BYTE $20
+      .BYTE   2
+      .BYTE $88
+      .BYTE $8F
+      .BYTE $22
+      .BYTE   2
+      .BYTE $90
+      .BYTE $9F
+      .BYTE $24
+      .BYTE   2
+      .BYTE $88
+      .BYTE $9F
+      .BYTE $26
+      .BYTE   2
+      .BYTE $90
+PlayerSelectPrincessSprites2:.BYTE $8F
+      .BYTE $28
+      .BYTE   3
+      .BYTE $A8
+      .BYTE $8F
+      .BYTE $2A
+      .BYTE   3
+      .BYTE $B0
+      .BYTE $9F
+      .BYTE $2C
+      .BYTE   3
+      .BYTE $A8
+      .BYTE $9F
+      .BYTE $2E
+      .BYTE   3
+      .BYTE $B0
+PlayerSelectSpriteIndexes:.BYTE	0, $30,	$20, $10		      ;	0
+
+BonusChanceCherrySprite:.BYTE $5F
+      .BYTE   5
+      .BYTE   1
+      .BYTE $58
+      .BYTE $5F
+      .BYTE   7
+      .BYTE   1
+      .BYTE $60
+BonusChanceStarSprite:.BYTE $5F
+      .BYTE   9
+      .BYTE   1
+      .BYTE $58
+      .BYTE $5F
+      .BYTE   9
+      .BYTE $41
+      .BYTE $60
+BonusChanceVeggieSprite:.BYTE $5F
+      .BYTE  $B
+      .BYTE   1
+      .BYTE $58
+      .BYTE $5F
+      .BYTE  $B
+      .BYTE $41
+      .BYTE $60
+BonusChanceSnifitSprite:.BYTE $5F
+      .BYTE   1
+      .BYTE   1
+      .BYTE $58
+      .BYTE $5F
+      .BYTE   3
+      .BYTE   1
+      .BYTE $60
+PlayerSelectSpritePalettesDark:.BYTE $3F
+      .BYTE $10
+      .BYTE $10
+      .BYTE  $F
+      .BYTE $22
+      .BYTE $12
+      .BYTE   1
+      .BYTE  $F
+      .BYTE $22
+      .BYTE $12
+      .BYTE   1
+      .BYTE  $F
+      .BYTE $22
+      .BYTE $12
+      .BYTE   1
+      .BYTE  $F
+      .BYTE $22
+      .BYTE $12
+      .BYTE 1
+unk_BANKF_E0D1:.BYTE   0
+
+      .BYTE $15
+      .BYTE  $E
+      .BYTE   7
+unk_BANKF_E0D5:.BYTE $3F
+      .BYTE $10
+      .BYTE   4
+      .BYTE  $F
+      .BYTE $27
+      .BYTE $16
+      .BYTE   1
+      .BYTE $3F
+      .BYTE $14
+      .BYTE   4
+      .BYTE  $F
+      .BYTE $36	; 6
+      .BYTE $2A
+      .BYTE   1
+      .BYTE $3F
+      .BYTE $18
+      .BYTE   4
+      .BYTE  $F
+      .BYTE $27
+      .BYTE $30	; 0
+      .BYTE   1
+      .BYTE $3F
+      .BYTE $1C
+      .BYTE   4
+      .BYTE  $F
+      .BYTE $36	; 6
+      .BYTE $25
+      .BYTE   7
+TitleCardPalettes:.BYTE	$3F ; ?
+
+      .BYTE   0
+      .BYTE $20
+      .BYTE $38	; 8
+      .BYTE $30	; 0
+      .BYTE $1A
+      .BYTE  $F
+      .BYTE $38	; 8
+      .BYTE $38	; 8
+      .BYTE  $F
+      .BYTE  $F
+      .BYTE $38	; 8
+      .BYTE $17
+      .BYTE $17
+      .BYTE $38	; 8
+      .BYTE $38	; 8
+      .BYTE $28
+      .BYTE $18
+      .BYTE   8
+      .BYTE $38	; 8
+      .BYTE $30	; 0
+      .BYTE $27
+      .BYTE   1
+      .BYTE $38	; 8
+      .BYTE $37	; 7
+      .BYTE $27
+      .BYTE   6
+      .BYTE $38	; 8
+      .BYTE $25
+      .BYTE $36	; 6
+      .BYTE   6
+      .BYTE $38	; 8
+      .BYTE $12
+      .BYTE $36	; 6
+      .BYTE   1
+      .BYTE   0
+BonusChanceSpritePalettes:.BYTE	 $F
+
+      .BYTE $37	; 7
+      .BYTE $16
+      .BYTE  $F
+      .BYTE  $F
+      .BYTE $37	; 7
+      .BYTE $16
+      .BYTE  $F
+      .BYTE  $F
+      .BYTE $37	; 7
+      .BYTE $16
+      .BYTE  $F
+      .BYTE  $F
+      .BYTE $37	; 7
+      .BYTE $16
+      .BYTE  $F
+
+; =============== S U B	R O U T	I N E =======================================
+
+JumpToTableAfterJump:
+      ASL     A
+      TAY
+      PLA
+      STA     byte_RAM_A
+      PLA
+      STA     byte_RAM_B
+      INY
+      LDA     (byte_RAM_A),Y
+      STA     word_RAM_C
+      INY
+      LDA     (byte_RAM_A),Y
+      STA     word_RAM_C+1
+      JMP     (word_RAM_C)
+
+; End of function JumpToTableAfterJump
+
+; ---------------------------------------------------------------------------
+BlackAndWhitePalette:.BYTE  $F
+      .BYTE $30	; 0
+      .BYTE $30	; 0
+      .BYTE  $F
+
+; =============== S U B	R O U T	I N E =======================================
+
+SetBlackAndWhitePalette:
+      LDA     PPUSTATUS
+      LDA     #$3F
+      LDY     #0
+      STA     PPUADDR
+      STY     <PPUADDR
+
+loc_BANKF_E14B:
+      TYA
+      AND     #3
+      TAX
+      LDA     BlackAndWhitePalette,X
+      STA     PPUDATA
+      INY
+      CPY     #$14
+      BCC     loc_BANKF_E14B
+
+      RTS
+
+; End of function SetBlackAndWhitePalette
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E15B:
+      LDA     #0
+      STA     PPUScrollYMirror
+      STA     PPUScrollXMirror
+      STA     byte_RAM_C8
+      STA     byte_RAM_C9
+      RTS
+
+; End of function sub_BANKF_E15B
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E166:
+      JSR     EnableNMI
+
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     sub_BANKF_E15B
+
+      LDA     #2
+      STA     byte_RAM_11
+      JSR     WaitForNMI
+
+      LDA     #0
+      JSR     sub_BANKF_FFA0
+
+      JSR     ClearNametables
+
+      RTS
+
+; End of function sub_BANKF_E166
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E17F:
+      JSR     EnableNMI
+
+      JSR     WaitForNMI_TurnOffPPU
+
+      LDA     #$40
+      STA     StackArea
+      LDA     #3
+      STA     byte_RAM_11
+      JSR     WaitForNMI
+
+      LDA     #4
+      STA     byte_RAM_11
+      JMP     WaitForNMI
+
+; End of function sub_BANKF_E17F
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E198:
+      INY
+      TYA
+      JSR     sub_BANKF_EA8E
+
+      INX
+      TXA
+      ORA     #$D0
+      STA     byte_RAM_717D
+      LDY     ExtraLives
+      DEY
+      TYA
+      JSR     sub_BANKF_EA8E
+
+      STY     byte_RAM_7191
+      STA     byte_RAM_7192
+      LDY     #6
+      LDA     #$FB
+
+loc_BANKF_E1B6:
+      STA     unk_RAM_716B,Y
+      DEY
+      BPL     loc_BANKF_E1B6
+
+      LDY     BackgroundCHR2TimerIndex
+      LDA     CurrentLevel
+      SEC
+      SBC     WorldStartingLevel,Y
+      STA     byte_RAM_629
+      CLC
+      ADC     #$D1
+      STA     byte_RAM_717F
+      LDA     WorldPlus1StartingLevel,Y
+      SEC
+      SBC     WorldStartingLevel,Y
+      STA     byte_RAM_3
+      LDX     #0
+      LDY     #0
+
+loc_BANKF_E1DC:
+      LDA     #$FD
+      CPX     byte_RAM_629
+      BNE     loc_BANKF_E1E5
+
+      LDA     #$F6
+
+loc_BANKF_E1E5:
+      STA     unk_RAM_716B,Y
+      INY
+      INY
+      INX
+      CPX     byte_RAM_3
+      BCC     loc_BANKF_E1DC
+
+      LDA     #8
+      STA     byte_RAM_11
+      RTS
+
+; End of function sub_BANKF_E198
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E1F4:
+      LDA     #$C0
+      STA     StackArea
+      RTS
+
+; End of function sub_BANKF_E1F4
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E1FA:
+      LDA     #0
+      STA     CurrentLevelArea
+      STA     byte_RAM_4E8
+      STA     byte_RAM_533
+      STA     byte_RAM_4E9
+      STA     byte_RAM_534
+      STA     byte_RAM_4EA
+      STA     PlayerState
+      STA     byte_RAM_4E6
+      STA     InSubspaceOrJar
+      STA     byte_RAM_4EE
+      STA     StopwatchTimer
+      STA     byte_RAM_6F6
+      RTS
+
+; End of function sub_BANKF_E1FA
+
+; ---------------------------------------------------------------------------
+byte_BANKF_E220:.BYTE $C9
+
+      .BYTE $D5
+      .BYTE $D1
+      .BYTE $CD
+byte_BANKF_E224:.BYTE $E9
+
+      .BYTE $F5
+      .BYTE $F1
+      .BYTE $ED
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E228:
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     DisableNMI
+
+      LDA     #$FF
+      STA     PPUScrollXMirror
+      JSR     ChangeTitleCardCHR
+
+MapperChangeBankA_1:
+      LDA     #5
+      JSR     ChangeMappedPRGBank
+
+      JSR     sub_BANKA_8451
+
+      JSR     EnableNMI
+
+      JSR     HideAllSprites
+
+      LDY     #$23
+
+loc_BANKF_E245:
+      LDA     TitleCardPalettes,Y
+      STA     unk_RAM_55F,Y
+      DEY
+      BPL     loc_BANKF_E245
+
+      LDA     #2
+      STA     byte_RAM_11
+      JSR     WaitForNMI
+
+      LDA     #$15
+      STA     byte_RAM_11
+      JSR     WaitForNMI
+
+      JSR     $8327
+
+      JSR     WaitForNMI_TurnOnPPU
+
+      JSR     RestorePlayerToFullHealth
+
+      LDA     #$50
+      STA     byte_RAM_2
+
+loc_BANKF_E269:
+      JSR     WaitForNMI
+
+      DEC     byte_RAM_2
+      BPL     loc_BANKF_E269
+
+      JSR     sub_BANKF_E1F4
+
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     DisableNMI
+
+      JSR     sub_BANKF_FE16
+
+      LDA     #5
+      JSR     ChangeMappedPRGBank
+
+      JSR     $8451
+
+      JSR     EnableNMI
+
+      RTS
+
+; End of function sub_BANKF_E228
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E288:
+      JSR     WaitForNMI
+
+      LDA     #0
+      STA     PPUMASK
+      JSR     DisableNMI
+
+      JSR     LoadCharacterSelectCHRBanks
+
+      LDA     #5
+      JSR     ChangeMappedPRGBank
+
+      JSR     $8451
+
+      JSR     sub_BANKF_E166
+
+      LDA     byte_RAM_636
+      CMP     #$A5
+      BEQ     loc_BANKF_E2B2
+
+      LDA     #5
+      JSR     ChangeMappedPRGBank
+
+      LDA     #$A5
+      STA     byte_RAM_636
+
+loc_BANKF_E2B2:
+      JSR     sub_BANKF_E17F
+
+      JSR     DisableNMI
+
+      LDA     #2
+      STA     Music1Queue
+      LDA     CurrentCharacter
+      STA     byte_RAM_404
+      LDA     BackgroundCHR2TimerIndex
+      STA     byte_RAM_405
+      LDY     #$3F
+
+loc_BANKF_E2CA:
+      LDA     PlayerSelectMarioSprites1,Y
+      STA     unk_RAM_210,Y
+      DEY
+      BPL     loc_BANKF_E2CA
+
+      JSR     EnableNMI
+
+      JSR     WaitForNMI
+
+      LDX     BackgroundCHR2TimerIndex
+      LDY     CurrentLevel
+      JSR     sub_BANKF_E198
+
+      JSR     WaitForNMI
+
+      JMP     loc_BANKF_E311
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E2E8:
+      LDA     Player1JoypadPress
+      AND     #ControllerInput_Right|ControllerInput_Left
+      BNE     loc_BANKF_E2F1
+
+      JMP     CharacterSelectMenuLoop
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E2F1:
+      LDA     Player1JoypadPress
+      AND     #ControllerInput_Right
+      BEQ     loc_BANKF_E2FE
+
+      DEC     CurrentCharacter
+      LDA     #SoundEffect1_CherryGet
+      STA     SoundEffect1Queue
+
+loc_BANKF_E2FE:
+      LDA     Player1JoypadPress
+      AND     #ControllerInput_Left
+      BEQ     loc_BANKF_E30B
+
+      INC     CurrentCharacter
+      LDA     #SoundEffect1_CherryGet
+      STA     SoundEffect1Queue
+
+loc_BANKF_E30B:
+      LDA     CurrentCharacter
+      AND     #3
+      STA     CurrentCharacter
+
+loc_BANKF_E311:
+      LDY     #0
+      LDA     #$21
+      STA     _RAM_PPUDataBuffer
+      LDA     #$C9
+      STA     byte_RAM_302
+      LDA     #$4F
+      STA     byte_RAM_303
+      LDA     #$FB
+      STA     byte_RAM_304
+      LDA     #$21
+      STA     byte_RAM_305
+      LDA     #$E9
+      STA     byte_RAM_306
+      LDA     #$4F
+      STA     byte_RAM_307
+      LDA     #$FB
+      STA     byte_RAM_308
+      LDY     CurrentCharacter
+      LDA     #$21
+      STA     byte_RAM_309
+      LDA     byte_BANKF_E220,Y
+      STA     byte_RAM_30A
+      LDA     #2
+      STA     byte_RAM_30B
+      LDA     #$BE
+      STA     byte_RAM_30C
+      LDA     #$C0
+      STA     byte_RAM_30D
+      LDA     #$21
+      STA     byte_RAM_30E
+      LDA     byte_BANKF_E224,Y
+      STA     byte_RAM_30F
+      LDA     #2
+      STA     byte_RAM_310
+      LDA     #$BF
+      STA     byte_RAM_311
+      LDA     #$C1
+      STA     byte_RAM_312
+      LDA     #0
+      STA     byte_RAM_313
+      JSR     WaitForNMI_TurnOnPPU
+
+      LDX     #$12
+      LDY     #0
+
+loc_BANKF_E37D:
+      LDA     PlayerSelectSpritePalettesDark,Y
+      STA     _RAM_PPUDataBuffer,Y
+      INY
+      DEX
+      BPL     loc_BANKF_E37D
+
+      LDA     #6
+      STA     byte_RAM_A
+      LDX     CurrentCharacter
+      LDA     unk_BANKF_E0D1,X
+      TAX
+
+loc_BANKF_E391:
+      LDA     unk_BANKF_E0D5,X
+      STA     _RAM_PPUDataBuffer,Y
+      INY
+      INX
+      DEC     byte_RAM_A
+      BPL     loc_BANKF_E391
+
+      LDA     #0
+      STA     _RAM_PPUDataBuffer,Y
+
+CharacterSelectMenuLoop:
+      JSR     WaitForNMI_TurnOnPPU
+
+      LDA     Player1JoypadPress
+      AND     #ControllerInput_A
+      BNE     loc_BANKF_E3AE
+
+      JMP     loc_BANKF_E2E8
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E3AE:
+      LDA     #4
+      STA     SoundEffect1Queue
+      LDX     BackgroundCHR2TimerIndex
+      LDY     CurrentLevel
+      JSR     sub_BANKF_E198
+
+      LDA     #$40
+      STA     byte_RAM_10
+      JSR     WaitForNMI
+
+      LDX     #$F
+      LDA     CurrentCharacter
+      TAY
+      LDA     PlayerSelectSpriteIndexes,Y
+      TAY
+
+loc_BANKF_E3CC:
+      LDA     PlayerSelectMarioSprites2,Y
+      STA     unk_RAM_210,Y
+      INY
+      DEX
+      BPL     loc_BANKF_E3CC
+
+loc_BANKF_E3D6:
+      JSR     WaitForNMI
+
+      DEC     byte_RAM_10
+      BPL     loc_BANKF_E3D6
+
+      LDY     #$3F
+
+loc_BANKF_E3DF:
+      LDA     PlayerSelectMarioSprites1,Y
+      STA     unk_RAM_210,Y
+      DEY
+      BPL     loc_BANKF_E3DF
+
+      LDA     #$40
+      STA     byte_RAM_10
+
+loc_BANKF_E3EC:
+      JSR     WaitForNMI
+
+      DEC     byte_RAM_10
+      BPL     loc_BANKF_E3EC
+
+      LDA     #Music2_StopMusic
+      STA     MusicQueue2
+      RTS
+
+; End of function sub_BANKF_E288
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E3F9:
+      LDA     #0
+      STA     PPUMASK
+      JSR     DisableNMI
+
+      LDA     #0
+      STA     byte_RAM_6F3
+      JSR     ChangeMappedPRGBank
+
+      JSR     $9A3D
+
+      INC     byte_RAM_6F3
+      LDA     #2
+      STA     Continues
+
+loc_BANKF_E414:
+      LDA     #3
+      STA     ExtraLives
+
+StartCharacterSelectMenu:
+      LDX     BackgroundCHR2TimerIndex
+      LDY     WorldStartingLevel,X
+      STY     CurrentLevel
+      STY     byte_RAM_4E7
+      JSR     sub_BANKF_E288
+
+      JSR     sub_BANKF_E1FA
+
+      JSR     sub_BANKF_E228
+
+      LDA     #$FF
+      STA     byte_RAM_545
+      BNE     loc_BANKF_E43B
+
+loc_BANKF_E435:
+      JSR     sub_BANKF_E288
+
+loc_BANKF_E438:
+      JSR     sub_BANKF_E228
+
+loc_BANKF_E43B:
+      JSR     WaitForNMI_TurnOffPPU
+
+      LDA     #$B0
+      ORA     byte_RAM_C9
+      LDY     IsHorizontalLevel
+      BNE     loc_BANKF_E44A
+
+      AND     #$FE
+      ORA     byte_RAM_C8
+
+loc_BANKF_E44A:
+      STA     PPUCtrlMirror
+      STA     PPUCTRL
+      LDA     #$80
+      STA     StackArea
+      LDA     #4
+      JSR     ChangeMappedPRGBank
+
+      JSR     GetLevelPointers
+
+      LDA     #3
+      JSR     ChangeMappedPRGBank
+
+      JSR     $9567
+
+      JSR     $93A4
+
+      JSR     HideAllSprites
+
+      JSR     WaitForNMI
+
+      JSR     sub_BANKF_E1F4
+
+      LDA     #$B0
+      STA     PPUCtrlMirror
+      LDA     IsHorizontalLevel
+      BEQ     loc_BANKF_E4CC
+
+loc_BANKF_E478:
+      JSR     WaitForNMI
+
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      JSR     sub_BANK0_8500
+
+      JSR     sub_BANKF_F6C0
+
+      LDA     byte_RAM_13
+      BEQ     loc_BANKF_E478
+
+      LDA     #0
+      STA     byte_RAM_13
+      JSR     WaitForNMI_TurnOnPPU
+
+loc_BANKF_E491:
+      JSR     WaitForNMI
+
+      LDA     byte_RAM_D8
+      AND     #4
+      BNE     loc_BANKF_E4A3
+
+      LDA     Player1JoypadPress
+      AND     #ControllerInput_Start
+      BEQ     loc_BANKF_E4A3
+
+      JMP     loc_BANKF_E515
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E4A3:
+      LDA     InSubspaceOrJar
+      BEQ     loc_BANKF_E4AB
+
+      JMP     loc_BANKF_E5A0
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E4AB:
+      JSR     HideAllSprites
+
+      JSR     sub_BANKF_F11E
+
+      LDY     GameMode
+      BEQ     loc_BANKF_E4B9
+
+      JMP     loc_BANKF_E665
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E4B9:
+      LDA     byte_RAM_627
+      BEQ     loc_BANKF_E491
+
+      JSR     sub_BANKF_F6A1
+
+      JSR     sub_BANKF_F1AE
+
+      LDA     #0
+      STA     byte_RAM_627
+      JMP     loc_BANKF_E43B
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E4CC:
+      JSR     WaitForNMI
+
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      JSR     $8000
+
+      JSR     sub_BANKF_F6C0
+
+      LDA     byte_RAM_13
+      BEQ     loc_BANKF_E4CC
+
+      LDA     #0
+      STA     byte_RAM_13
+      JSR     WaitForNMI_TurnOnPPU
+
+loc_BANKF_E4E5:
+      JSR     WaitForNMI
+
+      LDA     byte_RAM_D8
+      AND     #4
+      BNE     loc_BANKF_E4F4
+
+      LDA     Player1JoypadPress
+      AND     #$10
+      BNE     loc_BANKF_E515
+
+loc_BANKF_E4F4:
+      JSR     HideAllSprites
+
+      JSR     sub_BANKF_F17E
+
+      LDY     GameMode
+      BEQ     loc_BANKF_E502
+
+      JMP     loc_BANKF_E665
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E502:
+      LDA     byte_RAM_627
+      BEQ     loc_BANKF_E4E5
+
+      JSR     sub_BANKF_F6A1
+
+      JSR     sub_BANKF_F1AE
+
+      LDA     #0
+      STA     byte_RAM_627
+      JMP     loc_BANKF_E43B
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E515:
+      JSR     sub_BANKF_E9E5
+
+      LDA     #$41
+      STA     StackArea
+
+loc_BANKF_E51D:
+      LDA     #$E
+      STA     byte_RAM_6
+
+loc_BANKF_E521:
+      JSR     WaitForNMI_TurnOnPPU
+
+      LDA     PlayerState			  ; Check if the player	is already dying
+      CMP     #PlayerState_Dying
+      BEQ     loc_BANKF_E533			  ; If so, skip	the suicide code check
+
+      LDA     Player2JoypadHeld			  ; Check for suicide code
+      CMP     #ControllerInput_Up|ControllerInput_B|ControllerInput_A ;	Up + A + B
+      BNE     loc_BANKF_E533			  ; Not	being held! Nothing to see here
+
+      JSR     KillPlayer			  ; KILL THYSELF
+
+loc_BANKF_E533:
+      LDA     Player1JoypadPress
+      AND     #ControllerInput_Start
+      BNE     loc_BANKF_E54B
+
+      DEC     byte_RAM_6
+      BPL     loc_BANKF_E521
+
+      INC     byte_RAM_7
+      LDA     byte_RAM_7
+      AND     #1
+      CLC
+      ADC     #$D
+      STA     byte_RAM_11
+      JMP     loc_BANKF_E51D
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E54B:
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     sub_BANKF_FE16
+
+      LDA     #3
+      JSR     ChangeMappedPRGBank
+
+      JSR     $93A4
+
+      JSR     WaitForNMI
+
+      JSR     sub_BANKF_E1F4
+
+      JSR     HideAllSprites
+
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      JSR     $81D6
+
+      LDA     IsHorizontalLevel
+      BNE     loc_BANKF_E587
+
+      LDA     #1
+      JSR     sub_BANKF_FFA0
+
+      JSR     $81FE
+
+loc_BANKF_E576:
+      JSR     WaitForNMI
+
+      JSR     $823D
+
+      LDA     byte_RAM_537
+      BEQ     loc_BANKF_E576
+
+      JSR     WaitForNMI_TurnOnPPU
+
+      JMP     loc_BANKF_E4E5
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E587:
+      LDA     #0
+      JSR     sub_BANKF_FFA0
+
+      JSR     $8785
+
+loc_BANKF_E58F:
+      JSR     WaitForNMI
+
+      JSR     $87AA
+
+      LDA     byte_RAM_537
+      BEQ     loc_BANKF_E58F
+
+      JSR     WaitForNMI_TurnOnPPU
+
+      JMP     loc_BANKF_E491
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E5A0:
+      JSR     ClearNametables
+
+      LDA     #3
+      JSR     ChangeMappedPRGBank
+
+      LDA     #0
+      STA     byte_RAM_622
+      LDA     InSubspaceOrJar
+      CMP     #2
+      BEQ     loc_BANKF_E5D4
+
+      LDA     #4
+      JSR     ChangeMappedPRGBank
+
+      JSR     GetJarPointers
+
+      JSR     GetEnemyPointers
+
+      LDA     #3
+      JSR     ChangeMappedPRGBank
+
+      JSR     sub_BANK6_94AD
+
+      LDA     #4
+      STA     Music1Queue
+      LDA     #1
+      STA     byte_RAM_545
+      JMP     loc_BANKF_E5E1
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E5D4:
+      JSR     sub_BANK6_941D
+
+      LDA     #Music1_Subspace
+      STA     Music1Queue
+      LDA     #4
+      STA     byte_RAM_545
+
+loc_BANKF_E5E1:
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      JSR     sub_BANK0_870C
+
+      JSR     EnableNMI
+
+loc_BANKF_E5EC:
+      JSR     WaitForNMI
+
+      JSR     $87AA
+
+      LDA     byte_RAM_537
+      BEQ     loc_BANKF_E5EC
+
+      LDA     InSubspaceOrJar
+      CMP     #2
+      BEQ     loc_BANKF_E606
+
+      LDA     #3
+      JSR     ChangeMappedPRGBank
+
+      JSR     $93A4
+
+loc_BANKF_E606:
+      JSR     WaitForNMI_TurnOnPPU
+
+loc_BANKF_E609:
+      JSR     WaitForNMI
+
+      JSR     HideAllSprites
+
+      JSR     sub_BANKF_F0F9
+
+      LDY     GameMode
+      BEQ     loc_BANKF_E61A
+
+      JMP     loc_BANKF_E665
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E61A:
+      LDA     InSubspaceOrJar
+      BNE     loc_BANKF_E609
+
+      LDA     byte_RAM_622
+      BEQ     loc_BANKF_E627
+
+      INC     SubspaceVisits
+
+loc_BANKF_E627:
+      LDA     CurrentLevelAreaCopy
+      STA     CurrentLevelArea
+      LDA     #3
+      JSR     ChangeMappedPRGBank
+
+      JSR     $93A4
+
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     HideAllSprites
+
+      LDY     byte_RAM_544
+      STY     byte_RAM_545
+      LDA     StarInvincibilityTimer
+      BNE     loc_BANKF_E64C
+
+      LDA     LevelMusicIndexes,Y
+      STA     Music1Queue
+
+loc_BANKF_E64C:
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      JSR     $874C
+
+loc_BANKF_E654:
+      JSR     WaitForNMI
+
+      JSR     $87AA
+
+      LDA     byte_RAM_537
+      BEQ     loc_BANKF_E654
+
+      JSR     WaitForNMI_TurnOnPPU
+
+      JMP     loc_BANKF_E491
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E665:
+      JSR     sub_BANKF_F6DA
+
+      LDY     GameMode
+      LDA     #GameMode_InGame
+      STA     GameMode
+      STA     StarInvincibilityTimer
+      STA     BigVeggiesPulled
+      STA     CherryCount
+      STA     StopwatchTimer
+      DEY
+      BNE     loc_BANKF_E69F
+
+      STY     byte_RAM_6F6
+      JSR     sub_BANKF_F1E1
+
+      LDA     #$FF
+      STA     byte_RAM_545
+      LDA     #$25
+      STA     byte_RAM_7180
+      LDA     #$48
+      STA     byte_RAM_7181
+      LDA     #$15
+      STA     byte_RAM_5BD
+      JSR     sub_BANKF_E9F4
+
+      JMP     loc_BANKF_E438
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E69F:
+      LDA     #PlayerHealth_2_HP
+      STA     PlayerHealth
+      LDA     #0
+      STA     PlayerMaxHealth
+      STA     KeyUsed
+      STA     Mushroom1upPulled
+      STA     Mushroom1Pulled
+      STA     Mushroom2Pulled
+      STA     SubspaceVisits
+      STA     EnemiesKilledForHeart
+      DEY
+      BEQ     DoGameOverStuff
+
+      JMP     loc_BANKF_E75A
+
+; ---------------------------------------------------------------------------
+
+DoGameOverStuff:
+      STY     byte_RAM_6F6
+      LDA     #Music2_GameOver
+      STA     MusicQueue2
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     ChangeTitleCardCHR
+
+      JSR     ClearNametables
+
+      JSR     SetBlackAndWhitePalette
+
+      JSR     sub_BANKF_E15B
+
+      JSR     EnableNMI
+
+      JSR     WaitForNMI_TurnOnPPU
+
+      LDA     #5
+      STA     byte_RAM_11
+      LDA     #$C0
+      STA     byte_RAM_6
+
+loc_BANKF_E6E6:
+      JSR     WaitForNMI
+
+      DEC     byte_RAM_6
+      BNE     loc_BANKF_E6E6
+
+      LDY     #$28
+
+loc_BANKF_E6EF:
+      LDA     unk_BANKF_E9B4,Y
+      STA     unk_RAM_67B,Y
+      DEY
+      BPL     loc_BANKF_E6EF
+
+      LDA     #$FB
+      STA     byte_RAM_68F
+      LDA     Continues
+      CLC
+      ADC     #$D0
+      STA     byte_RAM_67E
+      LDA     #0
+      STA     byte_RAM_8
+      LDA     #6
+      DEC     Continues
+      BPL     loc_BANKF_E717
+
+      LDA     #1
+      STA     byte_RAM_8
+      LDA     #7
+
+loc_BANKF_E717:
+      STA     byte_RAM_11
+
+loc_BANKF_E719:
+      JSR     WaitForNMI
+
+      LDA     Player1JoypadPress
+      AND     #ControllerInput_Select
+      BEQ     loc_BANKF_E747
+
+      LDA     byte_RAM_8
+      EOR     #1
+      STA     byte_RAM_8
+      LDY     Continues
+      CPY     #$FF
+      BNE     loc_BANKF_E733
+
+      LDA     #1
+      STA     byte_RAM_8
+
+loc_BANKF_E733:
+      ASL     A
+      ASL     A
+      TAY
+      LDA     #$FB
+      STA     byte_RAM_71AB
+      STA     byte_RAM_71AF
+      LDA     #$F6
+      STA     byte_RAM_71AB,Y
+      LDA     #$13
+      STA     byte_RAM_11
+
+loc_BANKF_E747:
+      LDA     Player1JoypadPress
+      AND     #ControllerInput_Start
+      BEQ     loc_BANKF_E719
+
+      LDA     byte_RAM_8
+      BNE     loc_BANKF_E757
+
+      STA     SlotMachineCoins
+      JMP     loc_BANKF_E414
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E757:
+      JMP     loc_BANKF_E3F9
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E75A:
+      DEY
+      BEQ     EndOfLevel
+
+      LDY     BackgroundCHR2TimerIndex
+      STY     byte_RAM_405
+      LDA     WarpDestinations,Y
+      STA     BackgroundCHR2TimerIndex
+      TAY
+      LDX     CurrentCharacter
+      LDA     WorldStartingLevel,Y
+      STA     CurrentLevel
+      STA     byte_RAM_4E7
+      INY
+      TYA
+      ORA     #$D0
+      STA     byte_RAM_71A6
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     sub_BANKF_E15B
+
+      JSR     ClearNametables
+
+      JSR     SetBlackAndWhitePalette
+
+      JSR     EnableNMI
+
+      JSR     ChangeTitleCardCHR
+
+      LDA     #$12
+      STA     byte_RAM_11
+      LDA     #Music2_SlotWarpFanfare
+      STA     MusicQueue2
+      JSR     sub_BANKF_E94A
+
+      JSR     sub_BANKF_E1FA
+
+      JMP     loc_BANKF_E435
+
+; ---------------------------------------------------------------------------
+
+EndOfLevel:
+      LDA     #Music2_StopMusic			  ; Stop music
+      STA     MusicQueue2
+      LDX     CurrentCharacter			  ; Increase the current character's
+      INC     CharacterLevelsCompleted,X	  ; "contribution" counter
+      LDA     CurrentLevel			  ; Check if we've just completed
+      CMP     #$13				  ; the	final level
+      BNE     EndOfLevelSlotMachine		  ; Jump to slots if not final level
+
+      JMP     EndingSceneRoutine		  ; Otherwise, do ending
+
+; ---------------------------------------------------------------------------
+
+EndOfLevelSlotMachine:
+      STY     byte_RAM_6F6
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     ClearNametables
+
+      JSR     LoadBonusChanceCHRBanks
+
+      JSR     sub_BANKF_EB31
+
+      LDA     #5
+      JSR     ChangeMappedPRGBank
+
+      JSR     CopyBonusChanceLayoutToRAM
+
+      LDA     #$17
+      STA     byte_RAM_11
+      LDA     #$40
+      STA     StackArea
+      JSR     EnableNMI
+
+      JSR     WaitForNMI
+
+      LDA     #$C0
+      STA     StackArea
+      JSR     DisableNMI
+
+      JSR     sub_BANKF_EA33
+
+      LDA     #Music2_SlotWarpFanfare
+      STA     MusicQueue2
+      LDA     SlotMachineCoins
+      BNE     loc_BANKF_E7F2
+
+      JMP     NoCoinsForSlotMachine
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E7F2:
+      LDA     #3
+      STA     ObjectXLo+3
+      STA     ObjectXLo+4
+      STA     ObjectXLo+5
+      JSR     WaitForNMI_TurnOnPPU
+
+loc_BANKF_E7FD:
+      LDA     SlotMachineCoins
+      BNE     StartSlotMachine
+
+loc_BANKF_E802:
+      LDY     BackgroundCHR2TimerIndex
+      LDA     WorldPlus1StartingLevel,Y
+      SEC
+      SBC     #1
+      CMP     CurrentLevel
+      BNE     loc_BANKF_E81E
+
+      JSR     sub_BANKF_E1F4
+
+      LDA     #$FF
+      STA     byte_RAM_545
+      INC     BackgroundCHR2TimerIndex
+      JMP     StartCharacterSelectMenu
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_E81E:
+      JSR     sub_BANKF_F6A1
+
+      LDA     CurrentLevel
+      LDY     #0
+
+loc_BANKF_E826:
+      INY
+      CMP     WorldStartingLevel,Y
+      BCS     loc_BANKF_E826
+
+      DEY
+      STY     BackgroundCHR2TimerIndex
+      LDY     BackgroundCHR2TimerIndex
+      LDA     CurrentLevel
+      SEC
+      SBC     WorldStartingLevel,Y
+      STA     byte_RAM_629
+      LDA     CurrentLevel
+      STA     byte_RAM_4E7
+      LDA     CurrentLevelArea
+      STA     byte_RAM_4E8
+      LDA     byte_RAM_533
+      STA     byte_RAM_4E9
+      LDY     #0
+      STY     byte_RAM_4E6
+      STY     byte_RAM_534
+      STY     byte_RAM_4EA
+      DEY
+      STY     byte_RAM_545
+      JSR     sub_BANKF_E1F4
+
+      JMP     loc_BANKF_E435
+
+; ---------------------------------------------------------------------------
+
+StartSlotMachine:
+      DEC     SlotMachineCoins
+      JSR     WaitForNMI
+
+      JSR     sub_BANKF_EA68
+
+      LDA     #1				  ; Set	all reel timers
+      STA     ObjectXLo
+      STA     ObjectXLo+1
+      STA     ObjectXLo+2
+      LSR     A					  ; Set	all reels to the first position
+      STA     ObjectXLo+6
+      STA     ObjectXLo+7
+      STA     ObjectXLo+8
+
+DoSlotMachineSpinnyShit:
+      JSR     WaitForNMI			  ; $2C-$2E: Reel change timer
+						  ; $2F-$31: Current reel icon
+
+      LDA     #SoundEffect2_Climbing		  ; Play "reel sound" sound effect
+      STA     SoundEffectQueue2
+      JSR     sub_BANKF_EAC2
+
+      JSR     sub_BANKF_EADC
+
+      JSR     sub_BANKF_EAF6
+
+      JSR     sub_BANKF_E916
+
+      LDA     unk_BANKF_E9DF,Y
+      STA     byte_RAM_11
+      INC     byte_RAM_6
+      LDA     ObjectXLo				  ; Reel 1 still active?
+      ORA     ObjectXLo+1			  ; Reel 2 still active?
+      ORA     ObjectXLo+2			  ; Reel 3 still active?
+      BNE     DoSlotMachineSpinnyShit		  ; If any are still active, go	back to	waiting
+
+      LDA     #$10
+      STA     byte_RAM_11
+      JSR     WaitForNMI
+
+      LDY     #0
+      LDX     ObjectXLo+6			  ; Load reel 1
+      LDA     SlotMachineReelOrder1RAM,X
+      BNE     CheckReel2Symbol			  ; Is this reel a cherry?
+
+      INY					  ; Yes; add one life
+
+CheckReel2Symbol:
+      LDX     ObjectXLo+7			  ; Load reel 2
+      CMP     SlotMachineReelOrder2RAM,X
+      BNE     AddSlotMachineExtraLives		  ; Does this match the	previous symbol?
+
+      CMP     #0				  ; Yes; are they both cherries?
+      BNE     CheckReel3Symbol			  ; If no, skip	to third reel
+
+      INY					  ; They are both cherries, add	another	life or	something
+
+CheckReel3Symbol:
+      LDX     ObjectXLo+8			  ; Load reel 3
+      CMP     SlotMachineReelOrder3RAM,X	  ; Does reel 3	match the previous two?
+      BNE     AddSlotMachineExtraLives		  ; No,	fuck you
+
+      INY					  ; They all match! Yay! Add a life.
+						  ; Cherry count: 3 / Non-cherry: 1
+      CMP     #0				  ; Were they all cherries?
+      BNE     AddSlotMachineExtraLives		  ; Nope, all done
+
+      INY					  ; Yes, add 2 more extra lives
+      INY
+
+AddSlotMachineExtraLives:
+      TYA					  ; Y contains extra lives to add
+      CLC
+      ADC     ExtraLives			  ; Add	won extra lives	to current lives
+      BCC     loc_BANKF_E8D3			  ; Check if adding extra lives	has wrapped the	counter
+
+      LDA     #$FF				  ; If so, set extra lives to 255 (#$FF)
+
+loc_BANKF_E8D3:
+      STA     ExtraLives
+      TYA					  ; Did	we actually win	any lives?
+      BEQ     SlotMachineLoseFanfare		  ; No,	play lose sound	effect
+
+      ORA     #$D0
+      STA     byte_RAM_6C8
+      LDA     #Music2_CrystalGetFanfare		  ; Play winner	jingle
+      STA     MusicQueue2
+      LDA     #$A0
+      STA     byte_RAM_6
+      JSR     WaitForNMI
+
+      JSR     sub_BANKF_EA68
+
+loc_BANKF_E8ED:
+      JSR     WaitForNMI
+
+      JSR     sub_BANKF_E916
+
+      LDA     unk_BANKF_E9E3,Y
+      STA     byte_RAM_11
+      DEC     byte_RAM_6
+      BNE     loc_BANKF_E8ED
+
+      BEQ     loc_BANKF_E90C
+
+SlotMachineLoseFanfare:
+      LDA     #Music2_DeathJingle
+      STA     MusicQueue2
+      JSR     WaitForNMI
+
+      JSR     sub_BANKF_EA68
+
+      JSR     sub_BANKF_E94A
+
+loc_BANKF_E90C:
+      LDA     #$11
+      STA     byte_RAM_11
+      JSR     WaitForNMI
+
+      JMP     loc_BANKF_E7FD
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E916:
+      LDA     byte_RAM_6
+      LSR     A
+      LSR     A
+      LSR     A
+      LSR     A
+      AND     #1
+      TAY
+      RTS
+
+; End of function sub_BANKF_E916
+
+; ---------------------------------------------------------------------------
+
+NoCoinsForSlotMachine:
+      JSR     sub_BANKF_E946
+
+      LDA     #Music2_DeathJingle
+      STA     MusicQueue2
+      STA     byte_RAM_6
+
+loc_BANKF_E92A:
+      LDA     byte_RAM_6
+      AND     #1
+      TAY
+      LDA     byte_BANKF_E9E1,Y
+      STA     byte_RAM_11
+      LDA     #$A
+      STA     byte_RAM_7
+
+loc_BANKF_E938:
+      JSR     WaitForNMI_TurnOnPPU
+
+      DEC     byte_RAM_7
+      BNE     loc_BANKF_E938
+
+      DEC     byte_RAM_6
+      BPL     loc_BANKF_E92A
+
+      JMP     loc_BANKF_E802
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E946:
+      LDA     #$50
+      BNE     loc_BANKF_E94C
+
+; End of function sub_BANKF_E946
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E94A:
+      LDA     #$A0
+
+loc_BANKF_E94C:
+      STA     byte_RAM_7
+
+loc_BANKF_E94E:
+      JSR     WaitForNMI_TurnOnPPU
+
+      DEC     byte_RAM_7
+      BNE     loc_BANKF_E94E
+
+      RTS
+
+; End of function sub_BANKF_E94A
+
+; ---------------------------------------------------------------------------
+
+EndingSceneRoutine:
+      JSR     sub_BANKF_E15B
+
+      LDA     #$80
+      STA     byte_RAM_4080			  ; FDS	leftover; $4080	is an old sound	register
+						  ; The	prototype had two writes to this address!
+						  ; It looks like they missed this one,	though.
+      ASL     A
+      STA     byte_RAM_607
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      JSR     sub_BANK1_A43B
+
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     DisableNMI
+
+      JSR     LoadCelebrationSceneBackgroundCHR
+
+      JSR     EnableNMI
+
+      JSR     WaitForNMI
+
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      INC     byte_RAM_6F3
+      JSR     sub_BANK1_AA79
+
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     DisableNMI
+
+      JSR     LoadMarioSleepingCHRBanks
+
+      JSR     EnableNMI
+
+      JSR     WaitForNMI
+
+      LDA     #6
+      JSR     ChangeMappedPRGBank
+
+      INC     byte_RAM_6F3
+      JMP     loc_BANKC_8342
+
+; =============== S U B	R O U T	I N E =======================================
+
+DisableNMI:
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIDisabled
+      STA     PPUCTRL
+      STA     PPUCtrlMirror
+      RTS
+
+; End of function DisableNMI
+
+; ---------------------------------------------------------------------------
+unk_BANKF_E9A6:.BYTE $21
+      .BYTE $CB
+      .BYTE  $A
+      .BYTE $E0
+      .BYTE $DA
+      .BYTE $E6
+      .BYTE $DE
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $E8
+      .BYTE $EF
+      .BYTE $DE
+      .BYTE $EB
+      .BYTE   0
+unk_BANKF_E9B4:.BYTE $21
+      .BYTE $75
+      .BYTE   1
+      .BYTE   0
+      .BYTE $21
+      .BYTE $6A
+      .BYTE  $A
+      .BYTE $F6
+      .BYTE $FB
+      .BYTE $DC
+      .BYTE $E8
+      .BYTE $E7
+      .BYTE $ED
+      .BYTE $E2
+      .BYTE $E7
+      .BYTE $EE
+      .BYTE $DE
+      .BYTE $21
+      .BYTE $AA
+      .BYTE   7
+      .BYTE $F6
+      .BYTE $FB
+      .BYTE $EB
+      .BYTE $DE
+      .BYTE $ED
+      .BYTE $EB
+      .BYTE $F2
+      .BYTE $21
+      .BYTE $CB
+      .BYTE  $A
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE   0
+      .BYTE   9
+      .BYTE  $F
+unk_BANKF_E9DF:.BYTE  $B
+      .BYTE $10
+byte_BANKF_E9E1:.BYTE $A
+
+      .BYTE $F
+unk_BANKF_E9E3:.BYTE  $C
+      .BYTE  $F
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E9E5:
+      LDA     #$16
+      STA     byte_RAM_5BD
+      LDA     #$26
+      STA     byte_RAM_7180
+      LDA     #$C8
+      STA     byte_RAM_7181
+
+; End of function sub_BANKF_E9E5
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_E9F4:
+      JSR     WaitForNMI_TurnOffPPU
+
+      JSR     ChangeTitleCardCHR
+
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      JSR     $81A2
+
+      LDY     #$23
+
+loc_BANKF_EA04:
+      LDA     TitleCardPalettes,Y
+      STA     unk_RAM_55F,Y
+      DEY
+      BPL     loc_BANKF_EA04
+
+      JSR     sub_BANKF_E166
+
+      JSR     sub_BANKF_E17F
+
+      LDX     BackgroundCHR2TimerIndex
+      LDY     CurrentLevel
+      JSR     sub_BANKF_E198
+
+      LDA     #$FF
+      STA     PPUScrollXMirror
+      JSR     WaitForNMI
+
+      LDA     byte_RAM_5BD
+      STA     byte_RAM_11
+      JSR     WaitForNMI
+
+; End of function sub_BANKF_E9F4
+
+; =============== S U B	R O U T	I N E =======================================
+
+EnableNMI:
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled ; code used	at e000
+      STA     PPUCtrlMirror
+      STA     PPUCTRL
+      RTS
+
+; End of function EnableNMI
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_EA33:
+      JSR     sub_BANKF_E15B
+
+      LDA     PPUSTATUS
+      LDY     #0
+      LDA     #$3F
+      STA     PPUADDR
+      STY     PPUADDR
+
+loc_BANKF_EA43:
+      LDA     unk_RAM_59C,Y
+      STA     PPUDATA
+      INY
+      CPY     #$10
+      BCC     loc_BANKF_EA43
+
+      LDY     #0
+      LDA     PPUSTATUS
+      LDA     #$3F
+      STA     PPUADDR
+      LDA     #$10
+      STA     PPUADDR
+
+SetBonusChancePalette:
+      LDA     BonusChanceSpritePalettes,Y
+      STA     PPUDATA
+      INY
+      CPY     #$10
+      BCC     SetBonusChancePalette
+
+; End of function sub_BANKF_EA33
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_EA68:
+      LDY     ExtraLives
+      DEY
+      TYA
+      JSR     sub_BANKF_EA8E
+
+      STY     <byte_RAM_599
+      STA     byte_RAM_59A
+      LDA     SlotMachineCoins
+      CLC
+      ADC     #$D0
+      STA     byte_RAM_588
+      LDA     #1
+      STA     byte_RAM_11
+      LDA     #$40
+      STA     StackArea
+      JSR     EnableNMI
+
+      JMP     WaitForNMI
+
+; End of function sub_BANKF_EA68
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_EA8E:
+      LDY     #$D0
+
+loc_BANKF_EA90:
+      CMP     #$A
+      BCC     loc_BANKF_EA9A
+
+      SBC     #$A
+      INY
+      JMP     loc_BANKF_EA90
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_EA9A:
+      ORA     #$D0
+      CPY     #$D0
+      BNE     locret_BANKF_EAA2
+
+      LDY     #$FB
+
+locret_BANKF_EAA2:
+      RTS
+
+; End of function sub_BANKF_EA8E
+
+; =============== S U B	R O U T	I N E =======================================
+
+WaitForNMI_TurnOffPPU:
+      LDA     #0
+      BEQ     _WaitForNMI_StuffPPUMask
+
+; End of function WaitForNMI_TurnOffPPU
+
+; =============== S U B	R O U T	I N E =======================================
+
+WaitForNMI_TurnOnPPU:
+      LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites ; code	used at	e000
+
+_WaitForNMI_StuffPPUMask:
+      STA     PPUMaskMirror
+
+; End of function WaitForNMI_TurnOnPPU
+
+; =============== S U B	R O U T	I N E =======================================
+
+WaitForNMI:
+      LDA     byte_RAM_11
+      ASL     A
+      TAX
+      LDA     off_BANKE_DC00,X
+      STA     RAM_PPUDataBufferPointer
+      LDA     off_BANKE_DC00+1,X
+      STA     RAM_PPUDataBufferPointer+1
+      LDA     #0
+      STA     NMIWaitFlag			  ; Start waiting for NMI to finish
+
+WaitForNMILoop:
+      LDA     NMIWaitFlag			  ; Has	the NMI	routine	set the	flag yet?
+      BPL     WaitForNMILoop			  ; If no, wait	some more
+
+      RTS					  ; If yes, go back to what we were doing
+
+; End of function WaitForNMI
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_EAC2:
+      LDA     Player1JoypadPress
+      BPL     locret_BANKF_EAD1
+
+      LDX     #0
+
+loc_BANKF_EAC8:
+      LDA     ObjectXLo,X
+      BNE     loc_BANKF_EAD2
+
+      INX
+      CPX     #3
+      BCC     loc_BANKF_EAC8
+
+locret_BANKF_EAD1:
+      RTS
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_EAD2:
+      LDA     #0
+      STA     ObjectXLo,X
+      LDA     #SoundEffect1_CherryGet
+      STA     SoundEffect1Queue
+      RTS
+
+; End of function sub_BANKF_EAC2
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_EADC:
+      LDX     #2
+
+loc_BANKF_EADE:
+      LDA     ObjectXLo,X
+      BEQ     loc_BANKF_EAF2
+
+      DEC     ObjectXLo+3,X
+      BNE     loc_BANKF_EAF2
+
+      LDA     #4
+      STA     ObjectXLo+3,X
+      DEC     ObjectXLo+6,X
+      BPL     loc_BANKF_EAF2
+
+      LDA     #7
+      STA     ObjectXLo+6,X
+
+loc_BANKF_EAF2:
+      DEX
+      BPL     loc_BANKF_EADE
+
+      RTS
+
+; End of function sub_BANKF_EADC
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_EAF6:
+      LDA     #2
+      STA     byte_RAM_0
+
+loc_BANKF_EAFA:
+      LDA     byte_RAM_0
+      TAY
+      ASL     A
+      ASL     A
+      ASL     A
+      TAX
+      ADC     ObjectXLo+6,Y
+      TAY
+      LDA     SlotMachineReelOrder1RAM,Y
+      TAY
+      LDA     #7
+      STA     byte_RAM_1
+
+loc_BANKF_EB0D:
+      LDA     BonusChanceCherrySprite,Y
+      STA     unk_RAM_210,X
+      INX
+      INY
+      DEC     byte_RAM_1
+      BPL     loc_BANKF_EB0D
+
+      DEC     byte_RAM_0
+      BPL     loc_BANKF_EAFA
+
+      LDX     #$17
+
+loc_BANKF_EB1F:
+      TXA
+      AND     #$18
+      ASL     A
+      ASL     A
+      ADC     unk_RAM_210,X
+      STA     unk_RAM_210,X
+      DEX
+      DEX
+      DEX
+      DEX
+      BPL     loc_BANKF_EB1F
+
+      RTS
+
+; End of function sub_BANKF_EAF6
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_EB31:
+      LDY     #0
+
+loc_BANKF_EB33:
+      LDA     unk_RAM_653,Y
+      STA     unk_RAM_228,Y
+      INY
+      CPY     #8
+      BCC     loc_BANKF_EB33
+
+      RTS
+
+; End of function sub_BANKF_EB31
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_EB3F:
+      LDA     #0
+      STA     OAMADDR
+      LDA     #2
+      STA     OAM_DMA
+      JSR     sub_BANKF_FF73
+
+      LDA     PPUMaskMirror
+      STA     PPUMASK
+      JSR     DoSoundProcessing
+
+      LDA     PPUCtrlMirror
+      STA     PPUCTRL
+      DEC     NMIWaitFlag
+      JMP     loc_BANKF_EC61
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_EB5E:
+      LDA     #0
+      STA     PPUMASK
+      STA     OAMADDR
+      LDA     #2
+      STA     OAM_DMA
+      JSR     sub_BANKF_FF73
+
+      JSR     UpdatePPUFromBufferWithOptions
+
+      JSR     sub_BANKF_EC68
+
+      LDA     PPUScrollXMirror
+      STA     PPUSCROLL
+      LDA     #0
+      STA     PPUSCROLL
+      LDA     PPUMaskMirror
+      STA     PPUMASK
+      JMP     loc_BANKF_EC4B
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_EB86:
+      LDA     PPUMaskMirror
+      STA     PPUMASK
+      JMP     loc_BANKF_EC5E
+
+; =============== S U B	R O U T	I N E =======================================
+
+      ;	public NMI
+NMI:
+      PHP
+      PHA
+      TXA
+      PHA
+      TYA
+      PHA
+      BIT     StackArea
+      BPL     loc_BANKF_EB5E
+
+      BVC     loc_BANKF_EB3F
+
+      LDA     #0
+      STA     PPUMASK
+      STA     OAMADDR
+      LDA     #2
+      STA     OAM_DMA
+      JSR     sub_BANKF_FF73
+
+      LDA     NMIWaitFlag
+      BNE     loc_BANKF_EB86
+
+      LDA     IsHorizontalLevel
+      BEQ     loc_BANKF_EC1F
+
+      LDA     byte_RAM_51C
+      BEQ     loc_BANKF_EBE8
+
+      LDA     #0
+      STA     byte_RAM_51C
+      LDX     #$1E
+      LDY     #0
+      LDA     PPUSTATUS
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementVertical|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      STA     PPUCTRL
+
+loc_BANKF_EBC9:
+      LDA     byte_RAM_D1
+      STA     PPUADDR
+      LDA     byte_RAM_D2
+      STA     PPUADDR
+
+loc_BANKF_EBD5:
+      LDA     unk_RAM_380,Y
+      STA     PPUDATA
+      INY
+      DEX
+      BNE     loc_BANKF_EBD5
+
+      LDX     #$1E
+      INC     byte_RAM_D2
+      CPY     #$3C
+      BNE     loc_BANKF_EBC9
+
+loc_BANKF_EBE8:
+      LDA     byte_RAM_3BC
+      BEQ     loc_BANKF_EC1F
+
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementVertical|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      STA     PPUCTRL
+      LDY     #0
+      LDX     #4
+
+loc_BANKF_EBF6:
+      LDA     PPUSTATUS
+      LDA     byte_RAM_3BC
+      STA     PPUADDR
+      LDA     byte_RAM_3BD
+      STA     PPUADDR
+
+loc_BANKF_EC05:
+      LDA     unk_RAM_3BE,Y
+      STA     PPUDATA
+      INY
+      TYA
+      LSR     A
+      BCS     loc_BANKF_EC05
+
+      LDA     byte_RAM_3BD
+      CLC
+      ADC     #8
+      STA     byte_RAM_3BD
+      DEX
+      BNE     loc_BANKF_EBF6
+
+      STX     byte_RAM_3BC
+
+loc_BANKF_EC1F:
+      JSR     UpdatePPUFromBufferNMI
+
+      JSR     sub_BANKF_EC68
+
+      LDA     #$B0
+      ORA     byte_RAM_C9
+      LDY     IsHorizontalLevel
+      BNE     loc_BANKF_EC31
+
+      AND     #$FE
+      ORA     byte_RAM_C8
+
+loc_BANKF_EC31:
+      STA     PPUCTRL
+      STA     PPUCtrlMirror
+      LDA     PPUScrollXMirror
+      STA     PPUSCROLL
+      LDA     PPUScrollYMirror
+      CLC
+      ADC     byte_RAM_4C5
+      STA     PPUSCROLL
+      LDA     PPUMaskMirror
+      STA     PPUMASK
+      INC     byte_RAM_10
+
+loc_BANKF_EC4B:
+      LDA     byte_RAM_11
+      BNE     loc_BANKF_EC55
+
+      STA     byte_RAM_300
+      STA     _RAM_PPUDataBuffer
+
+loc_BANKF_EC55:
+      LDA     #0
+      STA     byte_RAM_11
+      JSR     sub_BANKF_F661
+
+      DEC     NMIWaitFlag
+
+loc_BANKF_EC5E:
+      JSR     DoSoundProcessing
+
+loc_BANKF_EC61:
+      PLA
+      TAY
+      PLA
+      TAX
+      PLA
+      PLP
+      RTI
+
+; End of function NMI
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_EC68:
+      LDA     PPUSTATUS
+      LDA     #$3F
+      STA     PPUADDR
+      LDA     #0
+      STA     PPUADDR
+      STA     PPUADDR
+      STA     PPUADDR
+      RTS
+
+; End of function sub_BANKF_EC68
+
+; =============== S U B	R O U T	I N E =======================================
+
+DoSoundProcessing:
+      LDA     #2
+      JSR     ChangeMappedPRGBankWithoutSaving
+
+      JSR     StartProcessingSoundQueue
+
+      LDA     MMC3PRGBankTemp
+      JMP     ChangeMappedPRGBank
+
+; End of function DoSoundProcessing
+
+; =============== S U B	R O U T	I N E =======================================
+
+ClearNametables:
+      LDA     #0
+      STA     PPUMaskMirror
+      STA     PPUMASK
+      LDA     #$20
+      JSR     ClearNametableChunk
+
+      LDA     #$24
+      JSR     ClearNametableChunk
+
+      LDA     #$28
+      JSR     ClearNametableChunk
+
+; End of function ClearNametables
+
+; =============== S U B	R O U T	I N E =======================================
+
+HideAllSprites:
+      LDY     #0
+      LDA     #$F8
+
+HideAllSpritesLoop:
+      STA     SpriteDMAArea,Y
+      DEY
+      DEY
+      DEY
+      DEY
+      BNE     HideAllSpritesLoop
+
+      RTS
+
+; End of function HideAllSprites
+
+; =============== S U B	R O U T	I N E =======================================
+
+ClearNametableChunk:
+      LDY     PPUSTATUS				  ; Reset PPU address latch
+      LDY     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIDisabled
+      STY     PPUCTRL				  ; Turn off NMI
+      STY     PPUCtrlMirror
+      LDY     #0
+      STA     PPUADDR				  ; A will contain the high byte of the	PPU address
+						  ; (generally $20, $24, $28)
+      STY     PPUADDR				  ; And	Y has the low byte ($00)
+      LDX     #3				  ; Do $300 bytes for this loop.
+      LDA     #$FB
+
+ClearNametableChunk_Loop:
+      STA     PPUDATA				  ; Store the blank tile $300 times
+      INY
+      BNE     ClearNametableChunk_Loop		  ; (Loop falls	through	every $100 bytes)
+
+      DEX
+      BNE     ClearNametableChunk_Loop		  ; Loop falls through after $300 bytes
+
+ClearNametableChunk_Loop2:
+      STA     PPUDATA				  ; Do another loop of $C0 bytes to clear the
+						  ; rest of the	nametable chunk
+      INY
+      CPY     #$C0
+      BNE     ClearNametableChunk_Loop2
+
+      LDA     #0				  ; Load A with	$00 for	clearing the attribute tables
+
+ClearNametableChunk_AttributeTableLoop:
+      STA     PPUDATA				  ; Clear attribute table...
+      INY					  ; Y was $C0 on entry,	so write $40 bytes...
+      BNE     ClearNametableChunk_AttributeTableLoop
+
+PPUBufferUpdatesComplete:
+      RTS					  ; Woo	fucking	hoo
+
+; End of function ClearNametableChunk
+
+; =============== S U B	R O U T	I N E =======================================
+
+; Used to update the PPU nametable / palette data during NMI.
+;
+; This function	can only handle	$100 bytes of data
+; (actually less).
+;
+; Unlike UpdatePPUFromBuffer, this one does not	support
+; $80 or $40 as	options, instead treating them as direct length.
+; It also does not increment the buffer	pointer, only using Y
+; to read further data.
+;
+; If Y overflows, it will resume copying again from the	beginning,
+; and can get into an infinite loop if it doesn't encounter
+; a terminating	$00. Welp!
+
+UpdatePPUFromBufferNMI:
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      STA     PPUCTRL
+      LDY     #0
+
+UpdatePPUFromBufferNMI_CheckForBuffer:
+      LDA     (RAM_PPUDataBufferPointer),Y
+      BEQ     PPUBufferUpdatesComplete
+
+      LDX     PPUSTATUS
+      STA     PPUADDR
+      INY
+      LDA     (RAM_PPUDataBufferPointer),Y
+      STA     PPUADDR
+      INY
+      LDA     (RAM_PPUDataBufferPointer),Y
+      TAX
+
+UpdatePPUFromBufferNMI_CopyLoop:
+      INY
+      LDA     (RAM_PPUDataBufferPointer),Y
+      STA     PPUDATA
+      DEX
+      BNE     UpdatePPUFromBufferNMI_CopyLoop
+
+      INY
+      JMP     UpdatePPUFromBufferNMI_CheckForBuffer
+
+; End of function UpdatePPUFromBufferNMI
+
+; =============== S U B	R O U T	I N E =======================================
+
+; This reads from $F0/$F1 to determine where a "buffer"	is.
+; Basically, a buffer is like this:
+;
+; PPUADDR  LEN	DATA ......
+; $20 $04  $03	$E9 $F0	$FB
+; $25 $5F  $4F	$FB
+; $21 $82  $84	$00 $01	$02 $03
+; $00
+;
+; PPUADDR is two bytes (hi,lo) for the address to send to PPUADDR.
+; LEN is the length, with the following	two bitmasks:
+;  - $80: Set the "draw	vertically" option
+;  - $40: Use ONE tile instead of a string
+; DATA is either (LEN) bytes or	one byte.
+;
+; After	(LEN) bytes have been written, the buffer pointer
+; is incremented to (LEN+2) and	the function restarts.
+; A byte of $00	terminates execution and returns.
+;
+; There	is a similar function, UpdatePPUFromBufferNMI,
+; that is called during	NMI, but unlike	this one,
+; that one does	NOT use	bitmasks, nor increment	the pointer.
+;
+
+UpdatePPUFromBufferWithOptions:
+      LDY     #0				  ; First, check if we have anything
+						  ; to send to the PPU
+      LDA     (RAM_PPUDataBufferPointer),Y
+      BEQ     PPUBufferUpdatesComplete		  ; If the first byte at the buffer address
+						  ; is #$00, we	have nothing. We're done here
+
+      LDX     PPUSTATUS				  ; Clear address latch
+      STA     PPUADDR				  ; Set	the PPU	address	to the
+						  ; address from the PPU buffer
+      INY
+      LDA     (RAM_PPUDataBufferPointer),Y
+      STA     PPUADDR
+      INY
+      LDA     (RAM_PPUDataBufferPointer),Y	  ; Data segment length	byte...
+      ASL     A
+      PHA
+      LDA     PPUCtrlMirror			  ; Enable NMI + Vertical increment
+						  ; + whatever else was	already	set...
+      ORA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementVertical|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable0000|PPUCtrl_SpriteSize8x8|PPUControl_NMIEnabled
+      BCS     UpdatePPUFBWO_EnableVerticalIncrement ; ...but only if $80 was set in the	length byte.
+						  ; Otherwise, turn vertical incrementing back off
+
+      AND     #PPUCtrl_BaseAddr2C00|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable1000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled|$40
+
+UpdatePPUFBWO_EnableVerticalIncrement:
+      STA     PPUCTRL
+      PLA
+      ASL     A					  ; Check if the second	bit ($40) in the length
+						  ; has	been set
+      BCC     UpdatePPUFBWO_CopyStringOfTiles	  ; If not, we are copying a string of data
+
+      ORA     #2				  ; Length (A) is now (A << 2).
+						  ; OR in #$02 now if we are copying a single tile;
+						  ; This will be rotated out into register C momentarily
+      INY
+
+UpdatePPUFBWO_CopyStringOfTiles:
+      LSR     A					  ; Restore the	data length.
+						  ; A =	(Length	& #$3F)
+						  ;
+						  ; This moves the second bit (used above to signal
+						  ; "one tile mode") into the Carry register
+      LSR     A
+      TAX					  ; Copy the length into register X
+
+UpdatePPUFBWO_CopyLoop:
+      BCS     UpdatePPUFBWO_CopySingleTileSkip	  ; If Carry is	set (from above),
+						  ; we're only copying one tile.
+						  ; Do not increment Y to advance copying index
+
+      INY
+
+UpdatePPUFBWO_CopySingleTileSkip:
+      LDA     (RAM_PPUDataBufferPointer),Y	  ; Load data from buffer...
+      STA     PPUDATA				  ; ...store it	to the PPU.
+      DEX					  ; Decrease remaining length.
+      BNE     UpdatePPUFBWO_CopyLoop		  ; Are	we done? If no,	copy more stuff
+
+      INY					  ; Y contains the amount of copied data now
+      TYA					  ; ...and now A does
+      CLC					  ; Clear carry	bit (from earlier)
+      ADC     RAM_PPUDataBufferPointer		  ; Add	the length to the PPU data buffer
+      STA     RAM_PPUDataBufferPointer
+      LDA     RAM_PPUDataBufferPointer+1
+      ADC     #0				  ; If the length overflowed (carry set),
+						  ; add	that to	the hi byte of the pointer
+      STA     RAM_PPUDataBufferPointer+1
+      JMP     UpdatePPUFromBufferWithOptions	  ; Start the cycle over again.
+						  ; (If	the PPU	buffer points to a 0,
+						  ;  it	will terminate after this jump)
+
+; End of function UpdatePPUFromBufferWithOptions
+
+; ---------------------------------------------------------------------------
+; [000002B3 BYTES: BEGIN OF AREA UNUSED-BANKF:ED4D. PRESS KEYPAD "-" TO	COLLAPSE]
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $40
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $50
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $60
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $90
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $B0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $C0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $D0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $E0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $F0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $100
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $110
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $120
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $130
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $140
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $150
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $160
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $170
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $180
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $190
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1A0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1B0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1C0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1D0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1E0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1F0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $200
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $210
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $220
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $230
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $240
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $250
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $260
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $270
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $280
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $290
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2A0
+      .BYTE $FF, $FF, $FF			  ; $2B0
+; [000002B3 BYTES: END OF AREA UNUSED-BANKF:ED4D. PRESS	KEYPAD "-" TO COLLAPSE]
+byte_BANKF_F000:.BYTE 0
+
+      .BYTE 8
+      .BYTE $10
+      .BYTE $18
+      .BYTE $20
+      .BYTE $24
+byte_BANKF_F006:.BYTE $28
+
+      .BYTE $2A
+      .BYTE $29
+      .BYTE $2B
+byte_BANKF_F00A:.BYTE $2C
+
+byte_BANKF_F00B:.BYTE $2E
+
+      .BYTE $30
+      .BYTE $34
+      .BYTE $38	; 8
+      .BYTE $3C
+      .BYTE $40
+byte_BANKF_F011:.BYTE 6
+
+      .BYTE 9
+      .BYTE 6
+      .BYTE 9
+      .BYTE 1
+      .BYTE 1
+      .BYTE $E
+      .BYTE $E
+      .BYTE 6
+      .BYTE 9
+      .BYTE 6
+      .BYTE 9
+      .BYTE 1
+      .BYTE 1
+      .BYTE $E
+      .BYTE $E
+      .BYTE 6
+      .BYTE 9
+      .BYTE 6
+      .BYTE 9
+      .BYTE 1
+      .BYTE 1
+      .BYTE $E
+      .BYTE $E
+      .BYTE 6
+      .BYTE 9
+      .BYTE 6
+      .BYTE 9
+      .BYTE 1
+      .BYTE 1
+      .BYTE $E
+      .BYTE $E
+      .BYTE 8
+      .BYTE 8
+      .BYTE 0
+      .BYTE $F
+      .BYTE 8
+      .BYTE 8
+      .BYTE 3
+      .BYTE $C
+      .BYTE $F8
+      .BYTE $18
+      .BYTE $F8
+      .BYTE $18
+      .BYTE 8
+      .BYTE 8
+      .BYTE 8
+      .BYTE 8
+      .BYTE 8
+      .BYTE 8
+      .BYTE 3
+      .BYTE $C
+      .BYTE 3
+      .BYTE 3
+      .BYTE 2
+      .BYTE 5
+      .BYTE   8
+      .BYTE   8
+      .BYTE   3
+      .BYTE  $C
+      .BYTE 8
+      .BYTE 8
+      .BYTE $FF
+      .BYTE $10
+      .BYTE $10
+      .BYTE $10
+      .BYTE   2
+      .BYTE $1E
+byte_BANKF_F055:.BYTE 7
+
+      .BYTE 7
+      .BYTE $20
+      .BYTE $20
+      .BYTE $D
+      .BYTE $1C
+      .BYTE $D
+      .BYTE $1C
+      .BYTE $FF
+      .BYTE $FF
+      .BYTE $20
+      .BYTE $20
+      .BYTE 4
+      .BYTE $1C
+      .BYTE 4
+      .BYTE $1C
+      .BYTE $F
+      .BYTE $F
+      .BYTE $20
+      .BYTE $20
+      .BYTE $1C
+      .BYTE $1C
+      .BYTE $1C
+      .BYTE $1C
+      .BYTE 7
+      .BYTE 7
+      .BYTE $20
+      .BYTE $20
+      .BYTE $D
+      .BYTE $1C
+      .BYTE $D
+      .BYTE $1C
+      .BYTE 0
+      .BYTE $10
+      .BYTE 9
+      .BYTE 9
+      .BYTE 3
+      .BYTE $10
+      .BYTE 9
+      .BYTE 9
+      .BYTE $FF
+      .BYTE $FF
+      .BYTE $F
+      .BYTE $F
+      .BYTE $C
+      .BYTE $14
+      .BYTE 7
+      .BYTE $20
+      .BYTE $FE
+      .BYTE $20
+      .BYTE $10
+      .BYTE $10
+      .BYTE 9
+      .BYTE $A
+      .BYTE 8
+      .BYTE 8
+      .BYTE   3
+      .BYTE $30	; 0
+      .BYTE $18
+      .BYTE $18
+      .BYTE $FF
+      .BYTE $10
+      .BYTE 8
+      .BYTE 8
+      .BYTE 9
+      .BYTE $A
+      .BYTE   8
+      .BYTE 8
+byte_BANKF_F099:.BYTE 2
+
+      .BYTE 2
+      .BYTE 3
+      .BYTE 0
+      .BYTE 3
+      .BYTE 3
+      .BYTE $F8
+      .BYTE 0
+      .BYTE 3
+      .BYTE 1
+      .BYTE $F3
+      .BYTE 4
+      .BYTE 3
+      .BYTE 3
+      .BYTE 3
+      .BYTE $F2
+      .BYTE 3
+      .BYTE 3
+      .BYTE 5
+      .BYTE 3
+      .BYTE $B
+      .BYTE $10
+      .BYTE 3
+      .BYTE 0
+      .BYTE 3
+      .BYTE 3
+      .BYTE $F8
+      .BYTE 0
+      .BYTE 9
+      .BYTE 4
+      .BYTE 3
+      .BYTE 3
+      .BYTE $E
+      .BYTE 3
+      .BYTE 3
+      .BYTE 3
+      .BYTE $F6
+      .BYTE $C
+      .BYTE 2
+      .BYTE 3
+      .BYTE $B
+      .BYTE $B
+      .BYTE 9
+      .BYTE $10
+      .BYTE 9
+      .BYTE $19
+      .BYTE $20
+      .BYTE $20
+      .BYTE 3
+      .BYTE $1E
+      .BYTE $19
+      .BYTE 8
+      .BYTE 9
+      .BYTE 9
+      .BYTE 9
+      .BYTE $18
+      .BYTE 9
+      .BYTE $1A
+      .BYTE 6
+      .BYTE $15
+      .BYTE $16
+      .BYTE $11
+      .BYTE $D
+      .BYTE $10
+      .BYTE $1A
+      .BYTE $19
+      .BYTE $24
+      .BYTE $10
+      .BYTE 3
+      .BYTE 4
+      .BYTE $2D
+      .BYTE $30
+      .BYTE $F
+      .BYTE $2E
+      .BYTE $3E
+      .BYTE $1E
+      .BYTE $28
+      .BYTE $13
+      .BYTE $48
+      .BYTE $26
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F0E9:
+      DEC     byte_RAM_400
+      BPL     locret_BANKF_F0F3
+
+      LDA     #8
+      STA     byte_RAM_400
+
+locret_BANKF_F0F3:
+      RTS
+
+; End of function sub_BANKF_F0E9
+
+; ---------------------------------------------------------------------------
+LevelMusicIndexes:.BYTE	Music1_Overworld		      ;	0
+      .BYTE Music1_Inside			  ; 1 ;	Music1 indexes.
+      .BYTE Music1_Boss				  ; 2
+      .BYTE Music1_Wart				  ; 3
+      .BYTE Music1_Subspace			  ; 4
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F0F9:
+      JSR     sub_BANKF_F0E9
+
+      LDA     byte_RAM_4C7
+      BNE     loc_BANKF_F11B
+
+      LDA     byte_RAM_606
+      CMP     #2
+      BEQ     loc_BANKF_F115
+
+      LDA     byte_RAM_41B
+      BNE     loc_BANKF_F115
+
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      JSR     $8A02
+
+loc_BANKF_F115:
+      JSR     sub_BANKF_F228
+
+      JSR     sub_BANKF_F31A
+
+loc_BANKF_F11B:
+      JMP     loc_BANKF_F146
+
+; End of function sub_BANKF_F0F9
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F11E:
+      JSR     sub_BANKF_F0E9
+
+      LDA     byte_RAM_4C7
+      BNE     loc_BANKF_F146
+
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      LDA     byte_RAM_606
+      CMP     #2
+      BEQ     loc_BANKF_F13A
+
+      LDA     byte_RAM_41B
+      BNE     loc_BANKF_F13A
+
+      JSR     $8A02
+
+loc_BANKF_F13A:
+      JSR     sub_BANKF_F2C2
+
+      JSR     $85EC
+
+      JSR     sub_BANKF_F228
+
+      JSR     sub_BANKF_F31A
+
+loc_BANKF_F146:
+      LDA     #1
+      JSR     ChangeMappedPRGBank
+
+      JSR     $8010
+
+      JSR     $BE0B
+
+      JSR     sub_BANKF_FACA
+
+      JSR     sub_BANKF_F47C
+
+      LDX     #3
+
+loc_BANKF_F159:
+      LDA     byte_RAM_82,X
+      BEQ     loc_BANKF_F15F
+
+      DEC     byte_RAM_82,X
+
+loc_BANKF_F15F:
+      DEX
+      BPL     loc_BANKF_F159
+
+      LDY     StarInvincibilityTimer
+      BEQ     locret_BANKF_F17D
+
+      LDA     byte_RAM_10
+      AND     #7
+      BNE     locret_BANKF_F17D
+
+      DEC     StarInvincibilityTimer
+      CPY     #8
+      BNE     locret_BANKF_F17D
+
+      LDY     byte_RAM_545
+      LDA     LevelMusicIndexes,Y
+      STA     Music1Queue
+
+locret_BANKF_F17D:
+      RTS
+
+; End of function sub_BANKF_F11E
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F17E:
+      JSR     sub_BANKF_F0E9
+
+      JSR     sub_BANKF_F494
+
+      LDA     byte_RAM_4C7
+      BNE     loc_BANKF_F1AB
+
+      LDA     byte_RAM_606
+      CMP     #2
+      BEQ     loc_BANKF_F19D
+
+      LDA     byte_RAM_41B
+      BNE     loc_BANKF_F19D
+
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      JSR     $8A02
+
+loc_BANKF_F19D:
+      LDA     #0
+      JSR     ChangeMappedPRGBank
+
+      JSR     $8083
+
+      JSR     sub_BANKF_F228
+
+      JSR     sub_BANKF_F31A
+
+loc_BANKF_F1AB:
+      JMP     loc_BANKF_F146
+
+; End of function sub_BANKF_F17E
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F1AE:
+      LDA     byte_RAM_627
+      CMP     #2
+      BEQ     locret_BANKF_F1E0
+
+      LDY     #3
+
+loc_BANKF_F1B7:
+      LDA     CurrentLevel,Y
+      STA     byte_RAM_4E7,Y
+      DEY
+      BPL     loc_BANKF_F1B7
+
+      LDA     PlayerXLo
+      STA     byte_RAM_4E1
+      LDA     PlayerYLo
+      STA     byte_RAM_4E2
+      LDA     PlayerPageX
+      STA     byte_RAM_4E3
+      LDA     PlayerPageY
+      STA     byte_RAM_4E4
+      LDA     PlayerYAccel
+      STA     byte_RAM_4E5
+      LDA     PlayerState
+      STA     byte_RAM_4E6
+
+locret_BANKF_F1E0:
+      RTS
+
+; End of function sub_BANKF_F1AE
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F1E1:
+      LDY     #3
+
+loc_BANKF_F1E3:
+      LDA     byte_RAM_4E7,Y
+      STA     CurrentLevel,Y
+      DEY
+      BPL     loc_BANKF_F1E3
+
+      LDA     byte_RAM_4E1
+      STA     PlayerXLo
+      LDA     byte_RAM_4E2
+      STA     PlayerYLo
+      LDA     byte_RAM_4E3
+      STA     PlayerPageX
+      LDA     byte_RAM_4E4
+      STA     PlayerPageY
+      LDA     byte_RAM_4E5
+      STA     PlayerYAccel
+      LDA     byte_RAM_4E6
+      STA     PlayerState
+      LDA     #0
+      STA     InSubspaceOrJar
+      STA     byte_RAM_4EE
+      STA     byte_RAM_99
+      STA     DamageInvulnTime
+
+; End of function sub_BANKF_F1E1
+
+; =============== S U B	R O U T	I N E =======================================
+
+RestorePlayerToFullHealth:
+      LDY     PlayerMaxHealth			  ; Get	player's current max HP
+      LDA     PlayerHealthValueByHeartCount,Y	  ; Get	the health value for this amount of hearts
+      STA     PlayerHealth
+      RTS
+
+; End of function RestorePlayerToFullHealth
+
+; ---------------------------------------------------------------------------
+PlayerHealthValueByHeartCount:.BYTE PlayerHealth_2_HP, PlayerHealth_3_HP, PlayerHealth_4_HP; 0
+						  ; Max	hearts = (hearts - 2), value is	0,1,2
+						  ; This table determines what the player's HP is set to
+byte_BANKF_F225:.BYTE 0
+
+byte_BANKF_F226:.BYTE $20
+
+byte_BANKF_F227:.BYTE $F0
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F228:
+      LDA     PlayerXLo				  ; code used as data at e000
+      SEC
+      SBC     byte_RAM_4C0
+      STA     PlayerPageX
+      LDA     PlayerYLo
+      CLC
+      SBC     byte_RAM_CB
+      STA     PlayerPageY
+      LDA     PlayerYHi
+      SBC     byte_RAM_CA
+      STA     byte_RAM_42A
+      LDA     PlayerState
+      CMP     #PlayerState_Lifting
+      BCS     locret_BANKF_F297
+
+      LDA     byte_RAM_42A
+      BEQ     loc_BANKF_F298
+
+      BMI     loc_BANKF_F254
+
+      LDA     #0
+      STA     byte_RAM_82
+      JMP     KillPlayer
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_F254:
+      LDA     PlayerYHi
+      BPL     locret_BANKF_F297
+
+      LDA     byte_RAM_4EE
+      BEQ     loc_BANKF_F298
+
+      LDA     PlayerYLo
+      CMP     #$F0
+      BCS     locret_BANKF_F297
+
+      JSR     sub_BANKF_F6DA
+
+      PLA
+      PLA
+      LDY     #0
+      STY     byte_RAM_9A
+      STY     PlayerYAccel
+      STY     PlayerXAccel
+      LDA     #PlayerState_ExitingVase
+      STA     PlayerState
+      LDA     #SpriteAnimation_Ducking
+      STA     PlayerAnimationFrame
+      LDA     byte_RAM_4EE
+      STY     byte_RAM_4EE
+      CMP     #2
+      BNE     loc_BANKF_F286
+
+      STA     byte_RAM_627
+      RTS
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_F286:
+      STY     InSubspaceOrJar
+      LDA     CurrentLevelAreaCopy
+      STA     CurrentLevelArea
+      LDA     #4
+      JSR     ChangeMappedPRGBank
+
+      JMP     GetEnemyPointers
+
+; ---------------------------------------------------------------------------
+
+locret_BANKF_F297:
+      RTS
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_F298:
+      LDA     PlayerState
+      CMP     #PlayerState_1
+      BNE     locret_BANKF_F297
+
+      LDA     InSubspaceOrJar
+      CMP     #2
+      BEQ     locret_BANKF_F297
+
+      LDA     byte_BANKF_F227
+      LDY     PlayerYHi
+      BMI     loc_BANKF_F2BB
+
+      LDA     PlayerPageY
+      CMP     #$B8
+      BCC     locret_BANKF_F297
+
+      LSR     PlayerYLo
+      SEC
+      ROL     PlayerYLo
+      LDA     byte_BANKF_F226
+
+loc_BANKF_F2BB:
+      STA     PlayerYAccel
+      LDA     #3
+      STA     PlayerState
+      RTS
+
+; End of function sub_BANKF_F228
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F2C2:
+      LDA     #0
+      LDY     byte_RAM_4FA
+      BNE     loc_BANKF_F2D2
+
+      LDA     PlayerXLo
+      SEC
+      SBC     #$78
+      SEC
+      SBC     byte_RAM_4C0
+
+loc_BANKF_F2D2:
+      STA     byte_RAM_BA
+      RTS
+
+; End of function sub_BANKF_F2C2
+
+; ---------------------------------------------------------------------------
+byte_BANKF_F2D5:.BYTE 0
+
+      .BYTE   0
+      .BYTE 0
+      .BYTE   0
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE 0
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE 0
+      .BYTE $FB
+byte_BANKF_F2E0:.BYTE $D5
+
+      .BYTE $D9
+      .BYTE $FB
+      .BYTE $D7
+byte_BANKF_F2E4:.BYTE 0
+
+byte_BANKF_F2E5:.BYTE 2
+
+byte_BANKF_F2E6:.BYTE 4
+
+byte_BANKF_F2E7:.BYTE 6
+
+      .BYTE $C
+      .BYTE $E
+      .BYTE $10
+      .BYTE $12
+      .BYTE 0
+      .BYTE 2
+      .BYTE 8
+      .BYTE $A
+      .BYTE $C
+      .BYTE $E
+      .BYTE $14
+      .BYTE $16
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $2C
+      .BYTE $2C
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $2E
+      .BYTE $2E
+      .BYTE $C
+      .BYTE $E
+      .BYTE $10
+      .BYTE $12
+      .BYTE $30
+      .BYTE $30
+      .BYTE $32
+      .BYTE $32
+      .BYTE $20
+      .BYTE $22
+      .BYTE $24
+      .BYTE $26
+      .BYTE 0
+      .BYTE 2
+      .BYTE $28
+      .BYTE $2A
+      .BYTE $18
+      .BYTE $1A
+      .BYTE $1C
+      .BYTE $1E
+      .BYTE $B4
+      .BYTE $B6
+DamageInvulnBlinkFrames:.BYTE 1, 1, 1, 2, 2, 4,	4, 4		    ; 0
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F31A:
+      LDY     PlayerState
+      CPY     #PlayerState_ChangingSize
+      BEQ     loc_BANKF_F337
+
+      LDY     StarInvincibilityTimer
+      BNE     loc_BANKF_F337
+
+      LDA     DamageInvulnTime			  ; Determine if the player is invincible from damage,
+						  ; and	if so, if they should be visible
+      BEQ     loc_BANKF_F345
+
+      LSR     A
+      LSR     A
+      LSR     A
+      LSR     A
+      TAY
+      LDA     DamageInvulnTime
+      AND     DamageInvulnBlinkFrames,Y
+      BNE     loc_BANKF_F345
+
+      RTS
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_F337:
+      LDA     byte_RAM_10
+      CPY     #$18
+      BCS     loc_BANKF_F33F
+
+      LSR     A
+      LSR     A
+
+loc_BANKF_F33F:
+      AND     #3
+      ORA     byte_RAM_64
+      STA     byte_RAM_64
+
+loc_BANKF_F345:
+      LDA     byte_RAM_4DF
+      BEQ     loc_BANKF_F350
+
+      LDA     #$20
+      ORA     byte_RAM_64
+      STA     byte_RAM_64
+
+loc_BANKF_F350:
+      LDA     PlayerPageX
+      STA     unk_RAM_223
+      STA     unk_RAM_22B
+      CLC
+      ADC     #8
+      STA     unk_RAM_227
+      STA     unk_RAM_22F
+      LDA     PlayerPageY
+      STA     byte_RAM_0
+      LDA     byte_RAM_42A
+      STA     byte_RAM_1
+      LDY     PlayerAnimationFrame
+      CPY     #4
+      BEQ     loc_BANKF_F382
+
+      LDA     byte_RAM_6F6
+      BEQ     loc_BANKF_F382
+
+      LDA     byte_RAM_0
+      CLC
+      ADC     #8
+      STA     byte_RAM_0
+      BCC     loc_BANKF_F382
+
+      INC     byte_RAM_1
+
+loc_BANKF_F382:
+      LDA     CurrentCharacter
+      CMP     #Character_Princess
+      BEQ     loc_BANKF_F394
+
+      CPY     #0
+      BNE     loc_BANKF_F394
+
+      LDA     byte_RAM_0
+      BNE     loc_BANKF_F392
+
+      DEC     byte_RAM_1
+
+loc_BANKF_F392:
+      DEC     byte_RAM_0
+
+loc_BANKF_F394:
+      JSR     loc_BANKF_FAFE
+
+      LDA     byte_RAM_1
+      BNE     loc_BANKF_F3A6
+
+      LDA     byte_RAM_0
+      STA     SpriteDMAArea,Y
+      STA     unk_RAM_220
+      STA     unk_RAM_224
+
+loc_BANKF_F3A6:
+      LDA     byte_RAM_0
+      CLC
+      ADC     #$10
+      STA     byte_RAM_0
+      LDA     byte_RAM_1
+      ADC     #0
+      BNE     loc_BANKF_F3BB
+
+      LDA     byte_RAM_0
+      STA     unk_RAM_228
+      STA     unk_RAM_22C
+
+loc_BANKF_F3BB:
+      LDA     CrouchJumpTimer
+      CMP     #$3C
+      BCC     loc_BANKF_F3CA
+
+      LDA     byte_RAM_10
+      AND     #1
+      ORA     byte_RAM_64
+      STA     byte_RAM_64
+
+loc_BANKF_F3CA:
+      LDA     byte_RAM_9D
+      LSR     A
+      ROR     A
+      ROR     A
+      ORA     byte_RAM_64
+      AND     #$FC
+      ORA     #1
+      STA     unk_RAM_202,Y
+      LDX     PlayerAnimationFrame
+      CPX     #7
+      BEQ     loc_BANKF_F3E2
+
+      CPX     #4
+      BNE     loc_BANKF_F3EE
+
+loc_BANKF_F3E2:
+      LDA     byte_RAM_64
+      STA     unk_RAM_222
+      STA     unk_RAM_22A
+      ORA     #$40
+      BNE     loc_BANKF_F3F8
+
+loc_BANKF_F3EE:
+      AND     #$FC
+      ORA     byte_RAM_64
+      STA     unk_RAM_222
+      STA     unk_RAM_22A
+
+loc_BANKF_F3F8:
+      STA     unk_RAM_226
+      STA     unk_RAM_22E
+      LDA     byte_BANKF_F2D5,X
+      BNE     loc_BANKF_F408
+
+      LDX     CurrentCharacter
+      LDA     byte_BANKF_F2E0,X
+
+loc_BANKF_F408:
+      STA     unk_RAM_201,Y
+      LDA     PlayerAnimationFrame
+      CMP     #6
+      BCS     loc_BANKF_F413
+
+      ORA     HoldingItem
+
+loc_BANKF_F413:
+      ASL     A
+      ASL     A
+      TAX
+      LDA     byte_RAM_9D
+      BNE     loc_BANKF_F44A
+
+      LDA     unk_RAM_223
+      STA     unk_RAM_203,Y
+      LDA     byte_BANKF_F2E4,X
+      STA     unk_RAM_221
+      LDA     byte_BANKF_F2E5,X
+      STA     unk_RAM_225
+      LDA     byte_RAM_6F6
+      BNE     loc_BANKF_F43F
+
+      LDA     CurrentCharacter
+      CMP     #Character_Princess
+      BNE     loc_BANKF_F43F
+
+      LDA     PlayerAnimationFrame
+      CMP     #SpriteAnimation_Jumping
+      BNE     loc_BANKF_F43F
+
+      LDX     #$2A
+
+loc_BANKF_F43F:
+      LDA     byte_BANKF_F2E6,X
+      STA     unk_RAM_229
+      LDA     byte_BANKF_F2E7,X
+      BNE     loc_BANKF_F478
+
+loc_BANKF_F44A:
+      LDA     unk_RAM_227
+      STA     unk_RAM_203,Y
+      LDA     byte_BANKF_F2E5,X
+      STA     unk_RAM_221
+      LDA     byte_BANKF_F2E4,X
+      STA     unk_RAM_225
+      LDA     byte_RAM_6F6
+      BNE     loc_BANKF_F46F
+
+      LDA     CurrentCharacter
+      CMP     #Character_Princess
+      BNE     loc_BANKF_F46F
+
+      LDA     PlayerAnimationFrame
+      CMP     #SpriteAnimation_Jumping
+      BNE     loc_BANKF_F46F
+
+      LDX     #$2A
+
+loc_BANKF_F46F:
+      LDA     byte_BANKF_F2E7,X
+      STA     unk_RAM_229
+      LDA     byte_BANKF_F2E6,X
+
+loc_BANKF_F478:
+      STA     unk_RAM_22D
+      RTS
+
+; End of function sub_BANKF_F31A
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F47C:
+      LDA     IsHorizontalLevel
+      BNE     loc_BANKF_F48E
+
+      LDY     PlayerYHi
+      LDA     PlayerYLo
+      JSR     sub_BANKF_F4C3
+
+      TYA
+      BPL     loc_BANKF_F490
+
+      LDA     #0
+      BEQ     loc_BANKF_F490
+
+loc_BANKF_F48E:
+      LDA     PlayerXHi
+
+loc_BANKF_F490:
+      STA     byte_RAM_535
+      RTS
+
+; End of function sub_BANKF_F47C
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F494:
+      LDX     byte_RAM_D8
+      BNE     locret_BANKF_F4C2
+
+      LDA     PlayerState
+      CMP     #PlayerState_Lifting
+      BCS     locret_BANKF_F4C2
+
+      LDA     PlayerPageY
+      LDY     byte_RAM_42A
+      BMI     loc_BANKF_F4B0
+
+      BNE     loc_BANKF_F4B6
+
+      CMP     #$B4
+      BCS     loc_BANKF_F4B6
+
+      CMP     #$21
+      BCS     loc_BANKF_F4B8
+
+loc_BANKF_F4B0:
+      LDY     byte_RAM_99
+      BNE     loc_BANKF_F4B8
+
+      BEQ     loc_BANKF_F4B7
+
+loc_BANKF_F4B6:
+      INX
+
+loc_BANKF_F4B7:
+      INX
+
+loc_BANKF_F4B8:
+      LDA     byte_RAM_425
+      STX     byte_RAM_425
+      BNE     locret_BANKF_F4C2
+
+      STX     byte_RAM_D8
+
+locret_BANKF_F4C2:
+      RTS
+
+; End of function sub_BANKF_F494
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F4C3:
+      STA     byte_RAM_F
+      TYA
+      BMI     locret_BANKF_F4D9
+
+      ASL     A
+      ASL     A
+      ASL     A
+      ASL     A
+      CLC
+      ADC     byte_RAM_F
+      BCS     loc_BANKF_F4D5
+
+      CMP     #$F0
+      BCC     locret_BANKF_F4D9
+
+loc_BANKF_F4D5:
+      CLC
+      ADC     #$10
+      INY
+
+locret_BANKF_F4D9:
+      RTS
+
+; End of function sub_BANKF_F4C3
+
+; ---------------------------------------------------------------------------
+byte_BANKF_F4DA:.BYTE $C0
+
+      .BYTE $70
+      .BYTE $80
+      .BYTE $50
+      .BYTE $A0
+      .BYTE $40
+      .BYTE $B0
+      .BYTE $60
+      .BYTE $90
+      .BYTE $C0
+      .BYTE $70
+      .BYTE $80
+      .BYTE $50
+      .BYTE $A0
+      .BYTE $40
+      .BYTE $B0
+      .BYTE $60
+ObjectAttributeTable:.BYTE ObjAttrib_Palette1			 ; 0
+      .BYTE ObjAttrib_Palette1			  ; 1 ;	data used at e000
+      .BYTE ObjAttrib_Palette1			  ; 2
+      .BYTE ObjAttrib_Palette3			  ; 3
+      .BYTE ObjAttrib_Palette2			  ; 4
+      .BYTE ObjAttrib_Palette1			  ; 5
+      .BYTE ObjAttrib_Palette2			  ; 6
+      .BYTE ObjAttrib_Palette3			  ; 7
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32	  ; 8
+      .BYTE ObjAttrib_Palette1			  ; 9
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_16x32; $A
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_16x32; $B
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_16x32; $C
+      .BYTE ObjAttrib_Palette1			  ; $D
+      .BYTE ObjAttrib_Palette1			  ; $E
+      .BYTE ObjAttrib_Palette1			  ; $F
+      .BYTE ObjAttrib_Palette2			  ; $10
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $11
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08; $12
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08; $13
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $14
+      .BYTE ObjAttrib_Palette0			  ; $15
+      .BYTE ObjAttrib_Palette0			  ; $16
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08; $17
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32|ObjAttrib_UpsideDown; $18
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32	  ; $19
+      .BYTE ObjAttrib_Palette2|ObjAttrib_Unknown_08; $1A
+      .BYTE ObjAttrib_Palette2|ObjAttrib_Unknown_08; $1B
+      .BYTE ObjAttrib_Palette2|ObjAttrib_16x32	  ; $1C
+      .BYTE ObjAttrib_Palette3|ObjAttrib_16x32	  ; $1D
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08; $1E
+      .BYTE ObjAttrib_Palette2|ObjAttrib_Unknown_08; $1F
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $20
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32	  ; $21
+      .BYTE ObjAttrib_Palette2			  ; $22
+      .BYTE ObjAttrib_Palette1			  ; $23
+      .BYTE ObjAttrib_Palette3			  ; $24
+      .BYTE ObjAttrib_Palette2			  ; $25
+      .BYTE ObjAttrib_Palette1			  ; $26
+      .BYTE ObjAttrib_Palette1			  ; $27
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08; $28
+      .BYTE ObjAttrib_Palette1			  ; $29
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32	  ; $2A
+      .BYTE ObjAttrib_Palette1			  ; $2B
+      .BYTE ObjAttrib_Palette3|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_16x32; $2C
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32	  ; $2D
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $2E
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $2F
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $30
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $31
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown;	$32
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown;	$33
+      .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown;	$34
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown;	$35
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown;	$36
+      .BYTE ObjAttrib_Palette1|ObjAttrib_UpsideDown; $37
+      .BYTE ObjAttrib_Palette1|ObjAttrib_UpsideDown; $38
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08; $39
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08|ObjAttrib_UpsideDown; $3A
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_16x32; $3B
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08; $3C
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08; $3D
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08|ObjAttrib_UpsideDown; $3E
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $3F
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08|ObjAttrib_UpsideDown; $40
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_16x32; $41
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32	  ; $42
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32	  ; $43
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $44
+      .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored ; $45
+      .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown;	$46
+byte_BANKF_F532:.BYTE 4
+
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 3
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE $50
+      .BYTE $40
+      .BYTE $42
+      .BYTE $42
+      .BYTE $42
+      .BYTE $40
+      .BYTE $40
+      .BYTE $40
+      .BYTE $40
+      .BYTE $13
+      .BYTE $D0
+      .BYTE $80
+      .BYTE 0
+      .BYTE 6
+      .BYTE 6
+      .BYTE 7
+      .BYTE $10
+      .BYTE $50
+      .BYTE $90
+      .BYTE 7
+      .BYTE $A
+      .BYTE $3B
+      .BYTE $40
+      .BYTE $18
+      .BYTE 7
+      .BYTE $1B
+      .BYTE $10
+      .BYTE 7
+      .BYTE 7
+      .BYTE 7
+      .BYTE $50
+      .BYTE $53
+      .BYTE $96
+      .BYTE $50
+      .BYTE $9B
+      .BYTE $D3
+      .BYTE $1B
+      .BYTE $B
+      .BYTE 3
+      .BYTE 3
+      .BYTE 3
+      .BYTE 3
+      .BYTE 0
+      .BYTE 0
+      .BYTE   0
+      .BYTE   0
+      .BYTE   4
+      .BYTE 4
+      .BYTE 4
+      .BYTE 0
+      .BYTE 0
+      .BYTE 6
+      .BYTE 4
+      .BYTE 0
+      .BYTE 4
+      .BYTE   4
+      .BYTE   4
+      .BYTE $16
+      .BYTE 6
+      .BYTE 6
+      .BYTE $C
+      .BYTE 4
+      .BYTE   4
+unk_BANKF_F579:.BYTE   0
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE $C
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE $D
+      .BYTE $D
+      .BYTE 5
+      .BYTE $C
+      .BYTE $C
+      .BYTE 5
+      .BYTE $D
+      .BYTE $C
+      .BYTE $C
+      .BYTE 5
+      .BYTE $E
+      .BYTE $D
+      .BYTE $C
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE $C
+      .BYTE   5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 0
+      .BYTE $F
+      .BYTE $F
+      .BYTE $F
+      .BYTE $F
+      .BYTE 5
+      .BYTE 5
+      .BYTE   5
+      .BYTE   5
+      .BYTE   5
+      .BYTE 5
+      .BYTE 5
+      .BYTE 4
+      .BYTE 4
+      .BYTE 4
+      .BYTE 4
+      .BYTE 4
+      .BYTE 4
+      .BYTE   4
+      .BYTE   4
+      .BYTE $10
+      .BYTE 0
+      .BYTE 0
+      .BYTE 5
+      .BYTE 5
+      .BYTE   5
+unk_BANKF_F5C0:.BYTE   8
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 4
+      .BYTE 2
+      .BYTE 9
+      .BYTE 9
+      .BYTE 9
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 8
+      .BYTE 8
+      .BYTE 2
+      .BYTE 4
+      .BYTE 4
+      .BYTE $E
+      .BYTE 8
+      .BYTE 4
+      .BYTE 4
+      .BYTE 2
+      .BYTE $F
+      .BYTE 2
+      .BYTE $13
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE $10
+      .BYTE   2
+      .BYTE $12
+      .BYTE 2
+      .BYTE $F
+      .BYTE 2
+      .BYTE $11
+      .BYTE $B
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE   2
+      .BYTE   2
+      .BYTE   2
+      .BYTE 2
+      .BYTE 4
+      .BYTE 3
+      .BYTE 3
+      .BYTE 7
+      .BYTE 4
+      .BYTE 3
+      .BYTE 3
+      .BYTE   3
+      .BYTE   3
+      .BYTE 9
+      .BYTE $B
+      .BYTE $B
+      .BYTE 2
+      .BYTE 2
+      .BYTE   2
+byte_BANKF_F607:.BYTE 0
+
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 0
+      .BYTE 1
+      .BYTE 1
+      .BYTE 1
+      .BYTE 1
+      .BYTE 2
+      .BYTE 1
+      .BYTE 0
+      .BYTE 2
+      .BYTE 3
+      .BYTE 2
+      .BYTE 4
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 2
+      .BYTE 0
+      .BYTE 2
+byte_BANKF_F64E:.BYTE 1
+
+      .BYTE $43
+      .BYTE $80
+      .BYTE $C0
+      .BYTE $12
+      .BYTE $60
+      .BYTE $91
+      .BYTE $CA
+      .BYTE $18
+      .BYTE $69
+      .BYTE $98
+      .BYTE $D5
+WarpDestinations:.BYTE 3, 1, 4,	5, 6, 5, 6		     ; 0
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F661:
+      JSR     ReadJoypads
+
+loc_BANKF_F664:
+      LDY     Player1JoypadPress
+      JSR     ReadJoypads
+
+      CPY     Player1JoypadPress
+      BNE     loc_BANKF_F664
+
+      LDX     #1
+
+loc_BANKF_F66F:
+      LDA     Player1JoypadPress,X
+      TAY
+      EOR     Player1JoypadHeld,X
+      AND     Player1JoypadPress,X
+      STA     Player1JoypadPress,X
+      STY     <Player1JoypadHeld,X
+      DEX
+      BPL     loc_BANKF_F66F
+
+      RTS
+
+; End of function sub_BANKF_F661
+
+; =============== S U B	R O U T	I N E =======================================
+
+ReadJoypads:
+      LDX     #1
+      STX     JOY1
+      DEX
+      STX     JOY1
+      LDX     #8
+
+ReadJoypadLoop:
+      LDA     JOY1
+      LSR     A
+      ROL     Player1JoypadPress
+      LSR     A
+      ROL     byte_RAM_6F4
+      LDA     JOY2
+      LSR     A
+      ROL     Player2JoypadPress
+      LSR     A
+      ROL     byte_RAM_6F5
+      DEX
+      BNE     ReadJoypadLoop
+
+      RTS
+
+; End of function ReadJoypads
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F6A1:
+      LDA     byte_RAM_535
+      ASL     A
+      TAY
+      LDA     unk_RAM_51D,Y
+      STA     CurrentLevel
+      INY
+      LDA     unk_RAM_51D,Y
+      LSR     A
+      LSR     A
+      LSR     A
+      LSR     A
+      STA     CurrentLevelArea
+      LDA     unk_RAM_51D,Y
+      AND     #$F
+      STA     byte_RAM_533
+      RTS
+
+; End of function sub_BANKF_F6A1
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F6C0:
+      LDA     byte_RAM_544
+      CMP     byte_RAM_545
+      BEQ     locret_BANKF_F6D9
+
+      TAX
+      STX     byte_RAM_545
+      LDA     StarInvincibilityTimer
+      CMP     #8
+      BCS     locret_BANKF_F6D9
+
+      LDA     LevelMusicIndexes,X
+      STA     Music1Queue
+
+locret_BANKF_F6D9:
+      RTS
+
+; End of function sub_BANKF_F6C0
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F6DA:
+      LDA     #0
+      STA     byte_RAM_4AE
+      STA     byte_RAM_4AF
+      STA     SubspaceTimer
+      STA     byte_RAM_4B3
+      LDX     #8
+
+loc_BANKF_F6EA:
+      LDA     EnemyState,X
+      BEQ     loc_BANKF_F6FE
+
+      LDA     unk_RAM_A8,X
+      BEQ     loc_BANKF_F6FB
+
+      LDA     ObjectType,X
+      CMP     #$39
+      BEQ     loc_BANKF_F6FB
+
+      STA     byte_RAM_4AF
+
+loc_BANKF_F6FB:
+      JSR     sub_BANKF_F704
+
+loc_BANKF_F6FE:
+      DEX
+      BPL     loc_BANKF_F6EA
+
+      LDX     byte_RAM_12
+      RTS
+
+; End of function sub_BANKF_F6DA
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_F704:
+      LDY     unk_RAM_441,X
+      BMI     loc_BANKF_F70F
+
+      LDA     (byte_RAM_CC),Y
+      AND     #$7F
+      STA     (byte_RAM_CC),Y
+
+loc_BANKF_F70F:
+      LDA     #0
+      STA     EnemyState,X
+      RTS
+
+; End of function sub_BANKF_F704
+
+; =============== S U B	R O U T	I N E =======================================
+
+KillPlayer:
+      LDA     #PlayerState_Dying		  ; Mark player	as dead
+      STA     PlayerState
+      LDA     #0				  ; Clear some variables
+      STA     PlayerHealth
+      STA     CrouchJumpTimer
+      STA     StarInvincibilityTimer
+      LDA     #SpriteAnimation_Dead		  ; Set	player animation to dead?
+      STA     PlayerAnimationFrame
+      LDA     HoldingItem
+      BEQ     loc_BANKF_F749
+
+      DEC     HoldingItem			  ; Probably something to throw	away
+						  ; a held item	on death
+      LDY     byte_RAM_42D
+      STA     unk_RAM_42F,Y
+      LSR     A
+      STA     unk_RAM_A8,Y
+      STA     ObjectXAccel,Y
+      LDA     #$E0
+      STX     word_RAM_C+1
+      LDX     EnemyState,Y
+      CPX     #7
+      BEQ     loc_BANKF_F747
+
+      STA     ObjectYAccel,Y
+
+loc_BANKF_F747:
+      LDX     word_RAM_C+1
+
+loc_BANKF_F749:
+      LDA     #Music2_DeathJingle		  ; Set	music to death jingle
+      STA     MusicQueue2
+      LDA     #DPCM_PlayerDeath			  ; BUG: Setting DPCM at the same time as music
+						  ; causes DPCM	to not play
+      STA     DPCMQueue
+      RTS
+
+; End of function KillPlayer
+
+; =============== S U B	R O U T	I N E =======================================
+
+; Something to do with loading levels here
+
+GetLevelPointers:
+      LDY     CurrentLevel
+      LDA     LevelAreaStartIndexes,Y
+      CLC
+      ADC     CurrentLevelArea
+      TAY					  ; Y now contains the current area or something
+      LDA     LevelDataPointersLo,Y
+      STA     byte_RAM_5			  ; $0005/$0006	are pointers to	the level data
+      LDA     LevelDataPointersHi,Y
+      STA     byte_RAM_6
+      LDX     #$FF				  ; Set	to load	level data into	$7800 in RAM
+      LDA     #$78
+      STA     byte_RAM_2
+      LDY     #0
+      STY     byte_RAM_1
+
+CopyLevelDataToMemory:
+      LDA     (byte_RAM_5),Y
+      STA     (byte_RAM_1),Y
+      INY
+      DEX
+      BNE     CopyLevelDataToMemory
+
+      STA     (byte_RAM_1),Y
+
+; End of function GetLevelPointers
+
+; =============== S U B	R O U T	I N E =======================================
+
+GetEnemyPointers:
+      LDY     CurrentLevel
+      LDA     EnemyPointersByLevel_HiHi,Y
+      STA     byte_RAM_1
+      LDA     EnemyPointersByLevel_HiLo,Y
+      STA     byte_RAM_0
+      LDA     EnemyPointersByLevel_LoHi,Y
+      STA     byte_RAM_3
+      LDA     EnemyPointersByLevel_LoLo,Y
+      STA     byte_RAM_2
+      LDA     InSubspaceOrJar			  ; Are	we in a	jar?
+      CMP     #1
+      BNE     loc_BANKF_F7A0			  ; No,	load the area as usual
+
+      LDY     #4				  ; Yes; jars are always area #$04 for some reason
+      JMP     loc_BANKF_F7A3
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_F7A0:
+      LDY     CurrentLevelArea
+
+loc_BANKF_F7A3:
+      LDA     (byte_RAM_0),Y
+      STA     byte_RAM_1
+      LDA     (byte_RAM_2),Y
+      STA     byte_RAM_0
+      LDX     #$FF
+      LDA     #$7B
+      STA     byte_RAM_3
+      LDY     #0
+      STY     byte_RAM_2
+
+CopyEnemyDataToMemory:
+      LDA     (byte_RAM_0),Y
+      STA     (byte_RAM_2),Y
+      INY
+      DEX
+      BNE     CopyEnemyDataToMemory
+
+      RTS
+
+; End of function GetEnemyPointers
+
+; =============== S U B	R O U T	I N E =======================================
+
+GetJarPointers:
+      LDY     CurrentLevel			  ; Get	the area starting index	for the	current	level
+      LDA     $8000,Y
+      CLC
+      ADC     #4
+      TAY
+      LDA     $8015,Y
+      STA     byte_RAM_5
+      LDA     $80E7,Y
+      STA     byte_RAM_6
+      LDA     #$7A
+      STA     byte_RAM_2
+      LDY     #0
+      STY     byte_RAM_1
+
+CopyJarDataToMemory:
+      LDA     (byte_RAM_5),Y
+      CMP     #$FF				  ; This one actually terminates on any	$FF read! Welp.
+      BEQ     CopyJarDataToMemoryFinished
+
+      STA     (byte_RAM_1),Y
+      INY
+      JMP     CopyJarDataToMemory
+
+; ---------------------------------------------------------------------------
+
+CopyJarDataToMemoryFinished:
+      STA     (byte_RAM_1),Y
+      RTS
+
+; End of function GetJarPointers
+
+; ---------------------------------------------------------------------------
+TileQuadPointersLo:.BYTE <TileQuads1
+
+      .BYTE <TileQuads2
+      .BYTE <TileQuads3
+      .BYTE <TileQuads4
+TileQuadPointersHi:.BYTE >TileQuads1
+
+      .BYTE >TileQuads2
+      .BYTE >TileQuads3
+      .BYTE >TileQuads4
+TileQuads1:.BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $B4
+      .BYTE $B6
+      .BYTE $B5
+      .BYTE $B7
+      .BYTE $B8
+      .BYTE $FA
+      .BYTE $B9
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B2
+      .BYTE $B3
+      .BYTE $BE
+      .BYTE $BE
+      .BYTE $BF
+      .BYTE $BF
+      .BYTE $BF
+      .BYTE $BF
+      .BYTE $BF
+      .BYTE $BF
+      .BYTE $4A
+      .BYTE $4A
+      .BYTE $4B
+      .BYTE $4B
+      .BYTE $5E
+      .BYTE $5F
+      .BYTE $5E
+      .BYTE $5F
+      .BYTE $E8
+      .BYTE $E8
+      .BYTE $A9
+      .BYTE $A9
+      .BYTE $46
+      .BYTE $FC
+      .BYTE $46
+      .BYTE $FC
+      .BYTE $A9
+      .BYTE $A9
+      .BYTE $A9
+      .BYTE $A9
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $E9
+      .BYTE $E9
+      .BYTE $A9
+      .BYTE $A9
+      .BYTE $FC
+      .BYTE $48
+      .BYTE $FC
+      .BYTE $48
+      .BYTE $11
+      .BYTE $11
+      .BYTE $11
+      .BYTE $11
+      .BYTE $22
+      .BYTE $22
+      .BYTE $22
+      .BYTE $22
+      .BYTE $33	; 3
+      .BYTE $33	; 3
+      .BYTE $33	; 3
+      .BYTE $33	; 3
+      .BYTE $E8
+      .BYTE $EB
+      .BYTE $A9
+      .BYTE $A9
+      .BYTE $74
+      .BYTE $76
+      .BYTE $75
+      .BYTE $77
+      .BYTE $98
+      .BYTE $9A
+      .BYTE $99
+      .BYTE $9B
+      .BYTE $9C
+      .BYTE $9A
+      .BYTE $9D
+      .BYTE $9B
+      .BYTE $9C
+      .BYTE $9E
+      .BYTE $9B
+      .BYTE $9F
+      .BYTE $58
+      .BYTE $5A
+      .BYTE $59
+      .BYTE $5B
+      .BYTE $5E
+      .BYTE $5F
+      .BYTE $5E
+      .BYTE $5F
+      .BYTE $8E
+      .BYTE $8F
+      .BYTE $8F
+      .BYTE $8E
+      .BYTE $72
+      .BYTE $73
+      .BYTE $73
+      .BYTE $72
+      .BYTE $A6
+      .BYTE $A6
+      .BYTE $A7
+      .BYTE $A7
+      .BYTE $92
+      .BYTE $93
+      .BYTE $93
+      .BYTE $92
+      .BYTE $74
+      .BYTE $76
+      .BYTE $75
+      .BYTE $77
+      .BYTE $70
+      .BYTE $72
+      .BYTE $71
+      .BYTE $73
+      .BYTE $71
+      .BYTE $73
+      .BYTE $71
+      .BYTE $73
+      .BYTE $24
+      .BYTE $26
+      .BYTE $25
+      .BYTE $27
+      .BYTE $32	; 2
+      .BYTE $34	; 4
+      .BYTE $33	; 3
+      .BYTE $35	; 5
+      .BYTE $33	; 3
+      .BYTE $35	; 5
+      .BYTE $33	; 3
+      .BYTE $35	; 5
+      .BYTE $24
+      .BYTE $26
+      .BYTE $25
+      .BYTE $27
+TileQuads2:.BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $B0
+      .BYTE $B1
+      .BYTE $A0
+      .BYTE $A2
+      .BYTE $A1
+      .BYTE $A3
+      .BYTE $80
+      .BYTE $82
+      .BYTE $81
+      .BYTE $83
+      .BYTE $F4
+      .BYTE $86
+      .BYTE $F5
+      .BYTE $87
+      .BYTE $84
+      .BYTE $86
+      .BYTE $85
+      .BYTE $87
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $AD
+      .BYTE $FB
+      .BYTE $AC
+      .BYTE $AD
+      .BYTE $AC
+      .BYTE $AC
+      .BYTE $AC
+      .BYTE $AC
+      .BYTE $FB
+      .BYTE $3B
+      .BYTE $3B
+      .BYTE $AC
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $F4
+      .BYTE $86
+      .BYTE $F5
+      .BYTE $87
+      .BYTE $FB
+      .BYTE $49
+      .BYTE $49
+      .BYTE $FB
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $6D
+      .BYTE $FE
+      .BYTE $3C
+      .BYTE $3E
+      .BYTE $3D
+      .BYTE $3F
+      .BYTE $58
+      .BYTE $FD
+      .BYTE $59
+      .BYTE $5A
+      .BYTE $5B
+      .BYTE $5A
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $5B
+      .BYTE $5C
+      .BYTE $FD
+      .BYTE $5D
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $5B
+      .BYTE $5A
+      .BYTE $6C
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $6E
+      .BYTE $FE
+      .BYTE $6F
+      .BYTE $20
+      .BYTE $22
+      .BYTE $21
+      .BYTE $23
+      .BYTE $6E
+      .BYTE $6F
+      .BYTE $70
+      .BYTE $71
+      .BYTE $57
+      .BYTE $57
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $57
+      .BYTE $57
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $D3
+      .BYTE $D3
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $D2
+      .BYTE $D2
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $7C
+      .BYTE $7E
+      .BYTE $7D
+      .BYTE $7F
+      .BYTE $CA
+      .BYTE $CC
+      .BYTE $CB
+      .BYTE $CD
+      .BYTE $CA
+      .BYTE $CC
+      .BYTE $CB
+      .BYTE $CD
+      .BYTE $C0
+      .BYTE $C2
+      .BYTE $C1
+      .BYTE $C3
+      .BYTE $2C
+      .BYTE $2E
+      .BYTE $2D
+      .BYTE $2F
+      .BYTE $8E
+      .BYTE $8F
+      .BYTE $8F
+      .BYTE $8E
+      .BYTE $88
+      .BYTE $8A
+      .BYTE $89
+      .BYTE $8B
+      .BYTE $89
+      .BYTE $8B
+      .BYTE $89
+      .BYTE $8B
+      .BYTE $89
+      .BYTE $8B
+      .BYTE $8C
+      .BYTE $8D
+      .BYTE $88
+      .BYTE $8A
+      .BYTE $8C
+      .BYTE $8D
+      .BYTE $88
+      .BYTE $8A
+      .BYTE $89
+      .BYTE $8B
+      .BYTE $88
+      .BYTE $8A
+      .BYTE $89
+      .BYTE $8B
+      .BYTE $6A
+      .BYTE $6C
+      .BYTE $6B
+      .BYTE $6D
+      .BYTE $6C
+      .BYTE $6C
+      .BYTE $6D
+      .BYTE $6D
+      .BYTE $6C
+      .BYTE $6E
+      .BYTE $6D
+      .BYTE $6F
+      .BYTE $6C
+      .BYTE $54
+      .BYTE $6D
+      .BYTE $55
+      .BYTE $32	; 2
+      .BYTE $34	; 4
+      .BYTE $33	; 3
+      .BYTE $35	; 5
+      .BYTE $33	; 3
+      .BYTE $35	; 5
+      .BYTE $33	; 3
+      .BYTE $35	; 5
+TileQuads3:.BYTE $94
+      .BYTE $95
+      .BYTE $94
+      .BYTE $95
+      .BYTE $96
+      .BYTE $97
+      .BYTE $96
+      .BYTE $97
+      .BYTE $48
+      .BYTE $49
+      .BYTE $48
+      .BYTE $49
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $FB
+      .BYTE $32	; 2
+      .BYTE $32	; 2
+      .BYTE $33	; 3
+      .BYTE $33	; 3
+      .BYTE $33	; 3
+      .BYTE $33	; 3
+      .BYTE $33	; 3
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $34	; 4
+      .BYTE $FB
+      .BYTE $FD
+      .BYTE $34	; 4
+      .BYTE $FB
+      .BYTE $30	; 0
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $31	; 1
+      .BYTE $FB
+      .BYTE $D0
+      .BYTE $D0
+      .BYTE $D0
+      .BYTE $D0
+      .BYTE $D1
+      .BYTE $D1
+      .BYTE $D1
+      .BYTE $D1
+      .BYTE $64
+      .BYTE $66
+      .BYTE $65
+      .BYTE $67
+      .BYTE $68
+      .BYTE $6A
+      .BYTE $69
+      .BYTE $6B
+      .BYTE $FA
+      .BYTE $6C
+      .BYTE $FA
+      .BYTE $6C
+      .BYTE $6D
+      .BYTE $FA
+      .BYTE $6D
+      .BYTE $FA
+      .BYTE $92
+      .BYTE $93
+      .BYTE $93
+      .BYTE $92
+      .BYTE $AE
+      .BYTE $AF
+      .BYTE $AE
+      .BYTE $AF
+      .BYTE $78
+      .BYTE $7A
+      .BYTE $79
+      .BYTE $7B
+      .BYTE $A8
+      .BYTE $A8
+      .BYTE $AF
+      .BYTE $AE
+      .BYTE $94
+      .BYTE $95
+      .BYTE $94
+      .BYTE $95
+      .BYTE $96
+      .BYTE $97
+      .BYTE $96
+      .BYTE $97
+      .BYTE $22
+      .BYTE $24
+      .BYTE $23
+      .BYTE $25
+      .BYTE $92
+      .BYTE $93
+      .BYTE $93
+      .BYTE $92
+      .BYTE $50
+      .BYTE $51
+      .BYTE $50
+      .BYTE $51
+      .BYTE $AE
+      .BYTE $AF
+      .BYTE $AE
+      .BYTE $AF
+      .BYTE $50
+      .BYTE $51
+      .BYTE $50
+      .BYTE $51
+      .BYTE $8E
+      .BYTE $8F
+      .BYTE $8F
+      .BYTE $8E
+      .BYTE $72
+      .BYTE $73
+      .BYTE $73
+      .BYTE $72
+      .BYTE $50
+      .BYTE $52
+      .BYTE $51
+      .BYTE $53
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $FB
+      .BYTE $36	; 6
+      .BYTE $36	; 6
+      .BYTE $4F
+      .BYTE $4F
+      .BYTE $4E
+      .BYTE $4E
+      .BYTE $4F
+      .BYTE $4E
+      .BYTE $4F
+      .BYTE $4F
+      .BYTE $4E
+      .BYTE $92
+      .BYTE $93
+      .BYTE $93
+      .BYTE $92
+      .BYTE $8E
+      .BYTE $8F
+      .BYTE $8F
+      .BYTE $8E
+      .BYTE $44
+      .BYTE $45
+      .BYTE $45
+      .BYTE $44
+      .BYTE $4F
+      .BYTE $37	; 7
+      .BYTE $4E
+      .BYTE $FE
+      .BYTE $4F
+      .BYTE $3A
+      .BYTE $4E
+      .BYTE $FE
+      .BYTE $4F
+      .BYTE $4E
+      .BYTE $37	; 7
+      .BYTE $38	; 8
+      .BYTE $4A
+      .BYTE $4B
+      .BYTE $FE
+      .BYTE $FE
+      .BYTE $72
+      .BYTE $73
+      .BYTE $4A
+      .BYTE $4B
+      .BYTE $40
+      .BYTE $42
+      .BYTE $41
+      .BYTE $43
+      .BYTE $41
+      .BYTE $43
+      .BYTE $41
+      .BYTE $43
+TileQuads4:.BYTE $40
+      .BYTE $42
+      .BYTE $41
+      .BYTE $43
+      .BYTE $40
+      .BYTE $42
+      .BYTE $41
+      .BYTE $43
+      .BYTE $BA
+      .BYTE $BC
+      .BYTE $BB
+      .BYTE $BD
+      .BYTE $BA
+      .BYTE $BC
+      .BYTE $90
+      .BYTE $91
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FA
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $FD
+      .BYTE $61
+      .BYTE $63
+      .BYTE $61
+      .BYTE $63
+      .BYTE $65
+      .BYTE $63
+      .BYTE $65
+      .BYTE $63
+      .BYTE $65
+      .BYTE $67
+      .BYTE $65
+      .BYTE $67
+      .BYTE $60
+      .BYTE $62
+      .BYTE $61
+      .BYTE $63
+      .BYTE $32	; 2
+      .BYTE $34	; 4
+      .BYTE $33	; 3
+      .BYTE $35	; 5
+      .BYTE $64
+      .BYTE $62
+      .BYTE $65
+      .BYTE $63
+      .BYTE $36	; 6
+      .BYTE $34	; 4
+      .BYTE $37	; 7
+      .BYTE $35	; 5
+      .BYTE $64
+      .BYTE $66
+      .BYTE $65
+      .BYTE $67
+      .BYTE $36	; 6
+      .BYTE $38	; 8
+      .BYTE $37	; 7
+      .BYTE $39	; 9
+      .BYTE $68
+      .BYTE $62
+      .BYTE $61
+      .BYTE $63
+      .BYTE $64
+      .BYTE $69
+      .BYTE $65
+      .BYTE $67
+      .BYTE $46
+      .BYTE $62
+      .BYTE $61
+      .BYTE $63
+      .BYTE $64
+      .BYTE $47
+      .BYTE $65
+      .BYTE $67
+      .BYTE $BA
+      .BYTE $BC
+      .BYTE $BB
+      .BYTE $BD
+      .BYTE $70
+      .BYTE $72
+      .BYTE $71
+      .BYTE $73
+      .BYTE $8E
+      .BYTE $8F
+      .BYTE $8F
+      .BYTE $8E
+      .BYTE $72
+      .BYTE $73
+      .BYTE $73
+      .BYTE $72
+      .BYTE $44
+      .BYTE $45
+      .BYTE $45
+      .BYTE $44
+byte_BANKF_FA7D:.BYTE $22
+
+      .BYTE $D0
+      .BYTE 4
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $AD
+      .BYTE $FA
+      .BYTE $22
+      .BYTE $F0
+      .BYTE 4
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $AC
+      .BYTE $AD
+      .BYTE $23
+      .BYTE $10
+      .BYTE 6
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $AC
+      .BYTE $AC
+      .BYTE $AD
+      .BYTE $FA
+      .BYTE $23
+      .BYTE $30
+      .BYTE 6
+      .BYTE $FC
+      .BYTE $FC
+      .BYTE $AC
+      .BYTE $AC
+      .BYTE $AC
+      .BYTE $AD
+      .BYTE 0
+byte_BANKF_FA9E:.BYTE 0
+
+      .BYTE 7
+      .BYTE $E
+      .BYTE $17
+byte_BANKF_FAA2:.BYTE 0
+
+      .BYTE 0
+      .BYTE 6
+      .BYTE 6
+      .BYTE $A
+      .BYTE $A
+      .BYTE $B
+      .BYTE $D
+      .BYTE $E
+      .BYTE $11
+      .BYTE $11
+      .BYTE $12
+      .BYTE $12
+      .BYTE $12
+      .BYTE $12
+      .BYTE $13
+byte_BANKF_FAB2:.BYTE 1
+
+      .BYTE 5
+      .BYTE 1
+      .BYTE 3
+      .BYTE 1
+      .BYTE 2
+      .BYTE 4
+      .BYTE 2
+      .BYTE 4
+      .BYTE 3
+      .BYTE 4
+      .BYTE 0
+      .BYTE 1
+      .BYTE 2
+      .BYTE 3
+      .BYTE 0
+BackgroundCHRAnimationSpeedByWorld:.BYTE 7, 7, 7, 7, 9,	7, 5		       ; 0
+
+      .BYTE $B
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_FACA:
+      DEC     BackgroundCHR2Timer
+      BPL     locret_BANKF_FAFD
+
+      LDX     #7
+      LDY     #$F
+
+loc_BANKF_FAD3:
+      LDA     byte_RAM_4E7
+      CMP     byte_BANKF_FAA2,Y
+      BNE     loc_BANKF_FAE3
+
+      LDA     byte_RAM_4E8
+      CMP     byte_BANKF_FAB2,Y
+      BEQ     loc_BANKF_FAE9
+
+loc_BANKF_FAE3:
+      DEY
+      BPL     loc_BANKF_FAD3
+
+      LDX     BackgroundCHR2TimerIndex
+
+loc_BANKF_FAE9:
+      LDA     BackgroundCHRAnimationSpeedByWorld,X
+      STA     BackgroundCHR2Timer
+      LDY     BackgroundCHR2
+      INY
+      INY
+      CPY     #$26
+      BCC     loc_BANKF_FAFA
+
+      LDY     #$18
+
+loc_BANKF_FAFA:
+      STY     <BackgroundCHR2
+
+locret_BANKF_FAFD:
+      RTS
+
+; End of function sub_BANKF_FACA
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_FAFE:
+      LDX     #8
+
+loc_BANKF_FB00:
+      LDA     EnemyState,X
+      BEQ     loc_BANKF_FB1C
+
+loc_BANKF_FB04:
+      DEX
+      BPL     loc_BANKF_FB00
+
+      LDY     #0
+      LDA     SpriteDMAArea,Y
+      CMP     #$F8
+      BNE     loc_BANKF_FB17
+
+      LDA     unk_RAM_204,Y
+      CMP     #$F8
+      BEQ     loc_BANKF_FB19
+
+loc_BANKF_FB17:
+      LDY     #$10
+
+loc_BANKF_FB19:
+      LDX     byte_RAM_12
+      RTS
+
+; ---------------------------------------------------------------------------
+
+loc_BANKF_FB1C:
+      TXA
+      CLC
+      ADC     byte_RAM_400
+      TAY
+      LDA     byte_BANKF_F4DA,Y
+      TAY
+      LDA     SpriteDMAArea,Y
+      CMP     #$F8
+      BNE     loc_BANKF_FB04
+
+      LDA     unk_RAM_204,Y
+      CMP     #$F8
+      BNE     loc_BANKF_FB04
+
+      BEQ     loc_BANKF_FB19
+
+; ---------------------------------------------------------------------------
+; [000002CA BYTES: BEGIN OF AREA BANKF:FB36. PRESS KEYPAD "-" TO COLLAPSE]
+_unused_fb36:.BYTE $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF; 0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $40
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $50
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $60
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $90
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $B0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $C0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $D0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $E0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $F0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $100
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $110
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $120
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $130
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $140
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $150
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $160
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $170
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $180
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $190
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1A0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1B0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1C0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1D0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1E0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1F0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $200
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $210
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $220
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $230
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $240
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $250
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $260
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $270
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $280
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $290
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2A0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2B0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; $2C0
+; [000002CA BYTES: END OF AREA BANKF:FB36. PRESS KEYPAD	"-" TO COLLAPSE]
+byte_BANKF_FE00:.BYTE $C
+      .BYTE $D
+      .BYTE $C
+      .BYTE $E
+      .BYTE $C
+      .BYTE $D
+      .BYTE $F
+byte_BANKF_FE07:.BYTE $10
+
+      .BYTE $12
+      .BYTE $10
+      .BYTE $14
+      .BYTE $A
+      .BYTE $12
+      .BYTE $16
+byte_BANKF_FE0E:.BYTE 0
+
+      .BYTE 4
+      .BYTE 2
+      .BYTE   6
+      .BYTE 3
+      .BYTE 7
+      .BYTE 1
+      .BYTE 5
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_FE16:
+      LDY     #8
+      STY     SpriteCHR2
+      INY
+      STY     SpriteCHR3
+      LDY     BackgroundCHR2TimerIndex
+      LDA     byte_BANKF_FE00,Y
+      STA     SpriteCHR4
+      LDA     byte_BANKF_FE07,Y
+      STA     BackgroundCHR1
+      LDA     #$18
+      STA     BackgroundCHR2
+
+loc_BANKF_FE33:
+      LDA     CurrentCharacter
+      ASL     A
+      ORA     byte_RAM_6F6
+      TAY
+      LDA     byte_BANKF_FE0E,Y
+      STA     SpriteCHR1
+      RTS
+
+; End of function sub_BANKF_FE16
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_FE41:
+      LDA     #$28
+      STA     BackgroundCHR1
+      LDA     #$2A
+      STA     BackgroundCHR2
+      RTS
+
+; End of function sub_BANKF_FE41
+
+; =============== S U B	R O U T	I N E =======================================
+
+LoadCelebrationSceneBackgroundCHR:
+      LDA     #$38
+      STA     BackgroundCHR1
+      LDA     #$3A
+      STA     BackgroundCHR2
+      RTS
+
+; End of function LoadCelebrationSceneBackgroundCHR
+
+; =============== S U B	R O U T	I N E =======================================
+
+LoadCharacterSelectCHRBanks:
+      LDA     #$30
+      STA     SpriteCHR1
+      LDA     #$2C
+      STA     BackgroundCHR1
+      LDA     #$2E
+      STA     BackgroundCHR2
+      RTS
+
+; End of function LoadCharacterSelectCHRBanks
+
+; ---------------------------------------------------------------------------
+TitleCardCHRBanks:.BYTE	$40, $42, $40, $44, $40, $42, $46     ;	0
+
+; =============== S U B	R O U T	I N E =======================================
+
+ChangeTitleCardCHR:
+      LDY     BackgroundCHR2TimerIndex
+      LDA     TitleCardCHRBanks,Y
+      STA     BackgroundCHR2
+      RTS
+
+; End of function ChangeTitleCardCHR
+
+; =============== S U B	R O U T	I N E =======================================
+
+LoadBonusChanceCHRBanks:
+      LDA     #$34
+      STA     BackgroundCHR1
+      LDA     #$36
+      STA     BackgroundCHR2
+      RTS
+
+; End of function LoadBonusChanceCHRBanks
+
+; =============== S U B	R O U T	I N E =======================================
+
+LoadMarioSleepingCHRBanks:
+      LDY     #$48
+      STY     SpriteCHR1
+      INY
+      STY     SpriteCHR2
+      LDA     #$50
+      STA     BackgroundCHR1
+      LDA     #$52
+      STA     BackgroundCHR2
+      RTS
+
+; End of function LoadMarioSleepingCHRBanks
+
+; ---------------------------------------------------------------------------
+; [000000B9 BYTES: BEGIN OF AREA UNUSED-BANKF:FE97. PRESS KEYPAD "-" TO	COLLAPSE]
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $40
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $50
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $60
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $90
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; $B0
+; [000000B9 BYTES: END OF AREA UNUSED-BANKF:FE97. PRESS	KEYPAD "-" TO COLLAPSE]
+
+; =============== S U B	R O U T	I N E =======================================
+
+      ;	public RESET
+RESET:
+      SEI
+      CLD
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable0000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled ; code used	at e000
+      STA     PPUCTRL
+      LDX     #$FF
+      TXS
+
+loc_BANKF_FF5A:
+      LDA     PPUSTATUS
+      AND     #$80
+      BEQ     loc_BANKF_FF5A
+
+loc_BANKF_FF61:
+      LDA     PPUSTATUS
+      BPL     loc_BANKF_FF61
+
+      LDA     #0
+      STA     $A000
+      LDA     #$80
+      STA     $A001
+      JMP     loc_BANKF_E3F9
+
+; End of function RESET
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_FF73:
+      LDY     #5
+
+loc_BANKF_FF75:
+      TYA
+      ORA     #$80
+      STA     $8000
+      LDA     BackgroundCHR1,Y
+      STA     $8001
+      DEY
+      BPL     loc_BANKF_FF75
+
+      RTS
+
+; End of function sub_BANKF_FF73
+
+; =============== S U B	R O U T	I N E =======================================
+
+ChangeMappedPRGBank:
+      STA     MMC3PRGBankTemp
+
+; End of function ChangeMappedPRGBank
+
+; =============== S U B	R O U T	I N E =======================================
+
+ChangeMappedPRGBankWithoutSaving:
+      ASL     A
+      PHA
+      LDA     #$86
+      STA     $8000
+      PLA
+      STA     $8001				  ; Change first bank
+      ORA     #1
+      PHA
+      LDA     #$87
+      STA     $8000
+      PLA
+      STA     $8001				  ; Change second bank
+      RTS
+
+; End of function ChangeMappedPRGBankWithoutSaving
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANKF_FFA0:
+      STA     $A000
+      RTS
+
+; End of function sub_BANKF_FFA0
+
+; ---------------------------------------------------------------------------
+; [00000047 BYTES: BEGIN OF AREA UNUSED-BANKF:FFA4. PRESS KEYPAD "-" TO	COLLAPSE]
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF	  ; $40
+; [00000047 BYTES: END OF AREA UNUSED-BANKF:FFA4. PRESS	KEYPAD "-" TO COLLAPSE]
+UnusedTextZELDA:.BYTE $5A
+      .BYTE $45
+      .BYTE $4C
+      .BYTE $44
+      .BYTE $41
+      .BYTE $DF, $E6, 0, 0, $38, 4, 1, 4, 1, $BE  ; 0
+      .pad $FFFA,$55
+      .WORD NMI
+      .WORD RESET
+      .WORD $FFF0
+; end of 'BANKF'
+; End
