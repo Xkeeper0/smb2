@@ -20,7 +20,7 @@ WorldSpritePalettePointersLo:.BYTE <World1SpritePalettes ;	DATA XREF: sub_BANK6_
 WorldBackgroundPalettePointersHi:.BYTE >World1BackgroundPalettes
 
       .BYTE >World2BackgroundPalettes
-      .BYTE >World3BackgroundPalettes
+off_BANK6_8010:.BYTE >World3BackgroundPalettes
       .BYTE >World4BackgroundPalettes
       .BYTE >World5BackgroundPalettes
       .BYTE >World6BackgroundPalettes
@@ -136,7 +136,7 @@ World1BackgroundPalettes:.BYTE $21
       .BYTE   1
       .BYTE  $F
       .BYTE  $F
-      .BYTE  $F
+unk_BANK6_8083:.BYTE  $F
       .BYTE   1
       .BYTE  $F
       .BYTE  $F
@@ -426,7 +426,7 @@ World3BackgroundPalettes:.BYTE $22
       .BYTE  $F
       .BYTE  $C
       .BYTE $30	; 0
-      .BYTE $31	; 1
+unk_BANK6_81A2:.BYTE $31 ; 1
       .BYTE  $F
       .BYTE   1
       .BYTE  $F
@@ -479,7 +479,7 @@ World3SpritePalettes:.BYTE $FF
       .BYTE  $F
       .BYTE $FF
       .BYTE $2B
-      .BYTE $10
+unk_BANK6_81D6:.BYTE $10
       .BYTE  $F
 World4BackgroundPalettes:.BYTE $23
       .BYTE $30	; 0
@@ -519,7 +519,7 @@ World4BackgroundPalettes:.BYTE $23
       .BYTE   1
       .BYTE  $F
       .BYTE $30	; 0
-      .BYTE $16
+unk_BANK6_81FE:.BYTE $16
       .BYTE   2
       .BYTE  $F
       .BYTE $2B
@@ -582,7 +582,7 @@ World4BackgroundPalettes:.BYTE $23
       .BYTE  $F
       .BYTE  $F
       .BYTE   1
-      .BYTE  $F
+unk_BANK6_823D:.BYTE  $F
       .BYTE  $F
       .BYTE  $F
       .BYTE   1
@@ -1466,7 +1466,7 @@ UnusedTileQuads2:.BYTE $FA
       .BYTE $C2
       .BYTE $C1
       .BYTE $C3
-      .BYTE $2C
+unk_BANK6_874C:.BYTE $2C
       .BYTE $2E
       .BYTE $2D
       .BYTE $2F
@@ -1523,7 +1523,7 @@ UnusedTileQuads2:.BYTE $FA
       .BYTE $33	; 3
       .BYTE $35	; 5
 UnusedTileQuads3:.BYTE $94
-      .BYTE $95
+unk_BANK6_8785:.BYTE $95
       .BYTE $94
       .BYTE $95
       .BYTE $96
@@ -1560,7 +1560,7 @@ UnusedTileQuads3:.BYTE $94
       .BYTE $FB
       .BYTE $FB
       .BYTE $FB
-      .BYTE $31	; 1
+unk_BANK6_87AA:.BYTE $31 ; 1
       .BYTE $FB
       .BYTE $D0
       .BYTE $D0
@@ -3923,9 +3923,9 @@ sub_BANK6_938A:
 
 ; End of function sub_BANK6_938A
 
-; ---------------------------------------------------------------------------
+; =============== S U B	R O U T	I N E =======================================
 
-loc_BANK6_93A4:
+sub_BANK6_93A4:
       LDA     InSubspaceOrJar
       CMP     #1
       BNE     loc_BANK6_93B1
@@ -3943,6 +3943,8 @@ loc_BANK6_93B1:
 loc_BANK6_93B4:
       LDY     #0
       LDA     (byte_RAM_5),Y
+
+; End of function sub_BANK6_93A4
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -4267,7 +4269,9 @@ locret_BANK6_9547:
       STA     byte_RAM_533
       RTS
 
-; ---------------------------------------------------------------------------
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK6_9567:
       JSR     sub_BANK6_933A
 
       JSR     sub_BANK6_98DC
@@ -4336,6 +4340,8 @@ loc_BANK6_95CE:
       ORA     byte_RAM_10
       STA     byte_RAM_5AC
       RTS
+
+; End of function sub_BANK6_9567
 
 ; =============== S U B	R O U T	I N E =======================================
 

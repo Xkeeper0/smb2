@@ -5574,7 +5574,10 @@ byte_BANK3_BE07:.BYTE $26
       .BYTE $2A
       .BYTE $22
       .BYTE $26
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK3_BE0B:
       LDA     byte_RAM_4C6
       BEQ     loc_BANK3_BE55
 
@@ -5672,6 +5675,8 @@ loc_BANK3_BEA6:
 
 locret_BANK3_BEAF:
       RTS
+
+; End of function sub_BANK3_BE0B
 
 ; ---------------------------------------------------------------------------
 _empty_7EB0:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; 0

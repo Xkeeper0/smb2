@@ -316,23 +316,23 @@ CollisionFlags_80: = 10000000b
 byte_RAM_0:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_833E+3Ew
 						  ; sub_BANK0_833E:loc_BANK0_8390r
 						  ; sub_BANK0_8872+1Bw	...
-byte_RAM_1:.BYTE 0 ; (uninited)			  ; DATA XREF: BANK0:loc_BANK0_818Aw
-						  ; BANK0:8215w
+byte_RAM_1:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_8083:loc_BANK0_818Aw
+						  ; sub_BANK0_81FE+17w
 						  ; sub_BANK0_8314+Br ...
 byte_RAM_2:.BYTE 0 ; (uninited)			  ; DATA XREF: BANK0:9193w
 						  ; sub_BANK0_924F+22w
 						  ; sub_BANK0_924F+2Aw	...
 byte_RAM_3:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_8314+8w
 						  ; sub_BANK0_8314+21r
-						  ; BANK0:860Dr ...
+						  ; sub_BANK0_85EC+21r	...
 byte_RAM_4:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_8925+4w
 						  ; sub_BANK0_8925+2Fw
 						  ; BANK0:9088r ...
 byte_RAM_5:.BYTE 0 ; (uninited)			  ; DATA XREF: BANK0:908Cr
 						  ; sub_BANK0_924F+14w
-						  ; BANK2:811Cw ...
-byte_RAM_6:.BYTE 0 ; (uninited)			  ; DATA XREF: BANK0:805Fw
-						  ; BANK0:823Aw
+						  ; sub_BANK2_8010+10Cw ...
+byte_RAM_6:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_8000+5Fw
+						  ; sub_BANK0_81FE+3Cw
 						  ; sub_BANK0_823D:loc_BANK0_825Er ...
 byte_RAM_7:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_8DC0:loc_BANK0_8E28w
 						  ; sub_BANK0_8DC0+7Ar
@@ -340,8 +340,8 @@ byte_RAM_7:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_8DC0:loc_BANK0_8E28w
 byte_RAM_8:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_883Cw
 						  ; sub_BANK0_883C+33r
 						  ; sub_BANK0_8EFA+1Bw	...
-byte_RAM_9:.BYTE 0 ; (uninited)			  ; DATA XREF: BANK0:85FEw
-						  ; BANK0:861Aw
+byte_RAM_9:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_85EC+12w
+						  ; sub_BANK0_85EC+2Ew
 						  ; sub_BANK0_883C+2r ...
 byte_RAM_A:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_8EFA+9w
 						  ; sub_BANK0_8EFA+68w
@@ -355,19 +355,19 @@ word_RAM_C:.BYTE 0,0 ; (uninited)		  ; DATA XREF: sub_BANK0_856A+30w
 byte_RAM_E:.BYTE 0 ; (uninited)			  ; DATA XREF: _code_0901+5w
 						  ; _code_0901:loc_BANK0_890Ar
 						  ; _code_0901+1Bw ...
-byte_RAM_F:.BYTE 0 ; (uninited)			  ; DATA XREF: BANK0:8108w
-						  ; BANK0:8110w
-						  ; BANK0:loc_BANK0_8114w ...
+byte_RAM_F:.BYTE 0 ; (uninited)			  ; DATA XREF: sub_BANK0_8083+85w
+						  ; sub_BANK0_8083+8Dw
+						  ; sub_BANK0_8083:loc_BANK0_8114w ...
 byte_RAM_10:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8B19r
 						  ; sub_BANK0_8C1A+65r
 						  ; sub_BANK0_8CD9+24r	...
 byte_RAM_11:.BYTE 0 ; (uninited)		  ; DATA XREF: WaitForNMI_TitleScreenr
-						  ; BANK0:9A93w
+						  ; sub_BANK0_9A3D+56w
 						  ; WaitForNMI_Endingr	...
 byte_RAM_12:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8EFA+96w
 						  ; sub_BANK1_A5A1:loc_BANK1_A5A3w
 						  ; sub_BANK1_A5DE+6w ...
-byte_RAM_13:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8073w
+byte_RAM_13:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+73w
 						  ; sub_BANK0_8500+67w
 						  ; BANKF:E486r ...
 PlayerXHi:.BYTE	0 ; (uninited)			      ;	0 ; DATA XREF: sub_BANK0_8A50+9w
@@ -453,7 +453,7 @@ ObjectYAccel:.BYTE 0 ; (uninited)			 ; 0 ; DATA XREF: sub_BANK0_8DC0+CEw
       .BYTE 0 ;	(uninited)			  ; 6
       .BYTE 0 ;	(uninited)			  ; 7
       .BYTE 0 ;	(uninited)			  ; 8
-PlayerState:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8A02r
+PlayerState:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:loc_BANK0_8A02r
 						  ; BANK0:8A24w BANK0:8A2Ar ...
 						  ; For	player:
 						  ; 00	Normal
@@ -520,7 +520,7 @@ unk_RAM_6F:; 0 .BYTE uninited &	unexplored	  ; DATA XREF: sub_BANK2_8461+35w
       ;	0 .BYTE	uninited & unexplored
 EnemyTimer:.BYTE 0 ; (uninited)			  ; DATA XREF: BANK0:9082w
 						  ; sub_BANK1_B9E3+6w
-						  ; BANK2:80DCw ...
+						  ; sub_BANK2_8010+CCw	...
 						  ; This is set	on entering subspace, depending
 						  ; on which particular	mushroom is on the screen
 						  ; (used to determine if it should show up
@@ -559,7 +559,7 @@ byte_RAM_8E:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK1_A43B+27w
 						  ; BANK1:A546w BANK1:A55Aw ...
 CurrentCharacter:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8D6F+8r
 						  ; sub_BANK1_A596r
-						  ; BANK2:8061r ...
+						  ; sub_BANK2_8010+51r	...
 						  ; 00	Mario
 						  ; 01	Princess
 						  ; 02	Toad
@@ -617,7 +617,7 @@ unk_RAM_AA:; 0 .BYTE uninited &	unexplored
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_B1:; 0 .BYTE uninited &	unexplored	  ; DATA XREF: BANK0:909Bw
 						  ; sub_BANK1_B9E3+Aw
-						  ; BANK2:80A9w ...
+						  ; sub_BANK2_8010+99w	...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -656,37 +656,43 @@ byte_RAM_C4:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK4:8043w
 PlayerAnimationFrame:.BYTE 0 ; (uninited)	  ; DATA XREF: BANK0:8A79w
 						  ; BANK0:8AA2w
 						  ; BANK0:loc_BANK0_8C0Dr ...
-byte_RAM_C8:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:80D2r
-						  ; BANK0:80D6w BANK0:8149r ...
-byte_RAM_C9:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:80D9w
-						  ; BANK0:8150w BANK0:81B1r ...
-byte_RAM_CA:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8058w
-						  ; BANK0:80C6w BANK0:8136w ...
-byte_RAM_CB:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8056w
-						  ; BANK0:80BDr BANK0:80C2w ...
+byte_RAM_C8:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8083+4Fr
+						  ; sub_BANK0_8083+53w
+						  ; sub_BANK0_8083+C6r	...
+byte_RAM_C9:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8083+56w
+						  ; sub_BANK0_8083+CDw
+						  ; sub_BANK0_81A2+Fr ...
+byte_RAM_CA:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+58w
+						  ; sub_BANK0_8083+43w
+						  ; sub_BANK0_8083+B3w	...
+byte_RAM_CB:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+56w
+						  ; sub_BANK0_8083+3Ar
+						  ; sub_BANK0_8083+3Fw	...
 byte_RAM_CC:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK1:BB05r
-						  ; BANK1:BB09w BANK2:8108w ...
-byte_RAM_CD:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:810Cw
-byte_RAM_CE:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:801Dw
-						  ; BANK0:8211w
+						  ; BANK1:BB09w
+						  ; sub_BANK2_8010+F8w	...
+byte_RAM_CD:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+FCw
+byte_RAM_CE:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+1Dw
+						  ; sub_BANK0_81FE+13w
 						  ; sub_BANK0_823D+40r	...
-byte_RAM_CF:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8018w
-						  ; BANK0:80A6r BANK0:81FEr ...
-byte_RAM_D0:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:802Dw
-						  ; BANK0:loc_BANK0_8116r
-						  ; BANK0:8231r ...
+byte_RAM_CF:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+18w
+						  ; sub_BANK0_8083+23r
+						  ; sub_BANK0_81FEr ...
+byte_RAM_D0:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+2Dw
+						  ; sub_BANK0_8083:loc_BANK0_8116r
+						  ; sub_BANK0_81FE+33r	...
 byte_RAM_D1:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_823D+13r
 						  ; sub_BANK0_82E2:loc_BANK0_8302w
 						  ; sub_BANK0_82E2+29r	...
-byte_RAM_D2:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:804Ew
-						  ; BANK0:821Ew
+byte_RAM_D2:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+4Ew
+						  ; sub_BANK0_81FE+20w
 						  ; sub_BANK0_823D+1Dr	...
-byte_RAM_D3:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8039w
-						  ; BANK0:821Cr
+byte_RAM_D3:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+39w
+						  ; sub_BANK0_81FE+1Er
 						  ; sub_BANK0_823D:loc_BANK0_8287r ...
-byte_RAM_D4:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:803Dw
-						  ; BANK0:815Br
-byte_RAM_D5:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8236w
+byte_RAM_D4:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+3Dw
+						  ; sub_BANK0_8083+D8r
+byte_RAM_D5:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81FE+38w
 						  ; sub_BANK0_833E+1Dr
 						  ; sub_BANK0_833E+4Cr	...
 byte_RAM_D6:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8314+18w
@@ -695,9 +701,9 @@ byte_RAM_D6:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8314+18w
 byte_RAM_D7:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_82E2+13w
 						  ; sub_BANK0_833E+21r
 						  ; sub_BANK0_833E:loc_BANK0_836Cr ...
-byte_RAM_D8:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8083r
-						  ; BANK0:8089r
-						  ; BANK0:loc_BANK0_8092r ...
+byte_RAM_D8:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8083r
+						  ; sub_BANK0_8083+6r
+						  ; sub_BANK0_8083:loc_BANK0_8092r ...
 unk_RAM_D9:; 0 .BYTE uninited &	unexplored	  ; DATA XREF: sub_BANK0_8412+1Er
 						  ; sub_BANK0_8412+24w
 						  ; sub_BANK0_8412:loc_BANK0_8440r ...
@@ -708,15 +714,18 @@ unk_RAM_DD:; 0 .BYTE uninited &	unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_E1:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8077w
-						  ; BANK0:81C6r BANK0:8204r ...
-byte_RAM_E2:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8044w
-						  ; BANK0:807Bw BANK0:8222w
+byte_RAM_E1:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+77w
+						  ; sub_BANK0_81A2+24r
+						  ; sub_BANK0_81FE+6r ...
+byte_RAM_E2:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+44w
+						  ; sub_BANK0_8000+7Bw
+						  ; sub_BANK0_81FE+24w
 byte_RAM_E3:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8314+14w
 						  ; sub_BANK0_8314+1Dr
 						  ; sub_BANK0_833E+1Bw	...
-byte_RAM_E4:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8048w
-						  ; BANK0:8179w BANK0:820Dw ...
+byte_RAM_E4:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+48w
+						  ; sub_BANK0_8083+F6w
+						  ; sub_BANK0_81FE+Fw ...
 byte_RAM_E5:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_924F+1Bw
 						  ; sub_BANK0_934F+Bw
 						  ; sub_BANK0_94CA+1Dw	...
@@ -750,7 +759,7 @@ byte_RAM_EF:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:85FCr
 						  ; sub_BANK2_88E8+23w
 						  ; BANK2:loc_BANK2_8E05r ...
 RAM_PPUDataBufferPointer:.BYTE 0,0 ; (uninited)	  ; DATA XREF: WaitForNMI_TitleScreen:loc_BANK0_960Fw
-						  ; BANK0:9A7Cw
+						  ; sub_BANK0_9A3D+3Fw
 						  ; WaitForNMI_Ending+7w ...
 						  ; Set	this to	the location of	PPU data to be drawn
 						  ; to the screen (somehow).
@@ -777,17 +786,19 @@ Player2JoypadHeld:.BYTE	0 ; (uninited)		  ; DATA XREF: BANKF:E52Ar
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_FB:; 0 .BYTE uninited &	unexplored
-PPUScrollYMirror:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:80A0r
-						  ; BANK0:80B6r BANK0:80BBw ...
-PPUScrollXMirror:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81A7r
-						  ; BANK0:81CFw BANK0:81DEw ...
+PPUScrollYMirror:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8083+1Dr
+						  ; sub_BANK0_8083+33r
+						  ; sub_BANK0_8083+38w	...
+PPUScrollXMirror:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+5r
+						  ; sub_BANK0_81A2+2Dw
+						  ; sub_BANK0_81D6+8w ...
 PPUMaskMirror:.BYTE 0 ;	(uninited)		  ; DATA XREF: WaitForNMI_TitleScreen_TurnOnPPU+2w
 						  ; WaitForNMI_Ending_TurnOnPPU:loc_BANK1_A220w
 						  ; sub_BANKC_8018:loc_BANKC_801Aw ...
-PPUCtrlMirror:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK0:9A89w
-						  ; BANK0:9C50w
+PPUCtrlMirror:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANK0_9A3D+4Cw
+						  ; sub_BANK0_9A3D+213w
 						  ; sub_BANK1_A43B+Dw ...
-StackArea:.BYTE	0 ; (uninited)			      ;	0 ; DATA XREF: BANK0:9A84w
+StackArea:.BYTE	0 ; (uninited)			      ;	0 ; DATA XREF: sub_BANK0_9A3D+47w
 						  ; sub_BANK1_A43B+8w
 						  ; sub_BANK1_AA79+Dw ...
       .BYTE 0 ;	(uninited)			  ; 1
@@ -1265,7 +1276,8 @@ unk_RAM_295:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK3:ABB9w
 unk_RAM_296:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK3:ABD0w
 unk_RAM_297:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK3:AB96w
 unk_RAM_298:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK3:ABB1w
-						  ; BANKC:8784w BANKC:898Aw
+						  ; BANKC:loc_BANKC_8784w
+						  ; BANKC:898Aw
 unk_RAM_299:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK3:ABBCw
 unk_RAM_29A:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK3:ABD3w
 unk_RAM_29B:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK3:AB9Bw
@@ -1384,11 +1396,14 @@ byte_RAM_302:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+4Cw
 						  ; sub_BANK0_934F:loc_BANK0_93A2r
 						  ; sub_BANK0_934F+56w	...
 byte_RAM_303:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+79w
-						  ; BANK0:9ADCw BANK0:9AFFw ...
+						  ; sub_BANK0_9A3D+9Fw
+						  ; sub_BANK0_9A3D+C2w	...
 byte_RAM_304:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+97w
-						  ; BANK0:9AE9w BANK0:9B04w ...
+						  ; sub_BANK0_9A3D+ACw
+						  ; sub_BANK0_9A3D+C7w	...
 byte_RAM_305:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+9Dw
-						  ; BANK0:9AEEw BANK0:9B09w ...
+						  ; sub_BANK0_9A3D+B1w
+						  ; sub_BANK0_9A3D+CCw	...
 byte_RAM_306:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+74w
 						  ; sub_BANK2_8670+D8w
 						  ; sub_BANK3_BC50+74w	...
@@ -1399,7 +1414,7 @@ byte_RAM_308:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+7Cw
 						  ; sub_BANK2_8670+E0w
 						  ; sub_BANK3_BC50+7Cw	...
 byte_RAM_309:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+A3w
-						  ; BANK0:9B90w
+						  ; sub_BANK0_9A3D+153w
 						  ; sub_BANK2_8670+EBw	...
 byte_RAM_30A:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+A9w
 						  ; sub_BANK2_8670+EEw
@@ -1706,7 +1721,8 @@ byte_RAM_41B:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_895D:loc_BANK0_895F
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 byte_RAM_425:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:loc_BANK0_9307r
-						  ; BANK0:930Aw BANK2:8039w ...
+						  ; BANK0:930Aw
+						  ; sub_BANK2_8010+29w	...
 byte_RAM_426:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK3_B6F9+33r
 						  ; sub_BANK3_BDC5+1Fw
 byte_RAM_427:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK3_BA95+6r
@@ -1761,7 +1777,7 @@ unk_RAM_441:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANK1_BA48+2w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_446:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:80A2w
+byte_RAM_446:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+92w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -1826,7 +1842,7 @@ unk_RAM_46E:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANK1_B9E3+40w
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_477:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANK1_B960+32w
 						  ; sub_BANK1_B9E3+27w
-						  ; BANK2:80AEw ...
+						  ; sub_BANK2_8010+9Ew	...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -1892,10 +1908,10 @@ unk_RAM_4A4:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK2:89BBw
       ;	0 .BYTE	uninited & unexplored
 EnemiesKilledForHeart:.BYTE 0 ;	(uninited)	  ; DATA XREF: BANK2:853Fw
 						  ; BANK2:8542r BANK2:854Bw ...
-byte_RAM_4AE:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:loc_BANK2_8016r
-						  ; BANK2:loc_BANK2_801Ew
+byte_RAM_4AE:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010:loc_BANK2_8016r
+						  ; sub_BANK2_8010:loc_BANK2_801Ew
 						  ; sub_BANKF_F6DA+2w
-byte_RAM_4AF:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:loc_BANK2_808Dr
+byte_RAM_4AF:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010:loc_BANK2_808Dr
 						  ; BANK3:AB53w
 						  ; sub_BANKF_F6DA+5w ...
 KeyUsed:.BYTE 0	; (uninited)			  ; DATA XREF: BANK0:9236w
@@ -1907,41 +1923,41 @@ byte_RAM_4B2:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8C1A:loc_BANK0_8C3D
 byte_RAM_4B3:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_9428+41w
 						  ; sub_BANK1_B960+2Cw
 						  ; BANK2:9746r ...
-HawkmouthClosing:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:802Dw
+HawkmouthClosing:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+1Dw
 						  ; BANK2:loc_BANK2_8D8Ar
 						  ; BANK2:8D96w ...
 						  ; Probably set to 1 when Hawkmouth eats the player and starts	closing
-CrystalAndHawkmouthOpenSize:.BYTE 0 ; (uninited)  ; DATA XREF: BANK2:802Aw
+CrystalAndHawkmouthOpenSize:.BYTE 0 ; (uninited)  ; DATA XREF: sub_BANK2_8010+1Aw
 						  ; BANK2:8CC6r BANK2:8D8Fw ...
 						  ; Set	to 01 on crystal get, Hawkmouth	opens to 30
-HawkmouthOpenTimer:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8033w
+HawkmouthOpenTimer:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+23w
 						  ; BANK2:loc_BANK2_8D7Br
 						  ; BANK2:8D80w ...
 						  ; Hawkmouth won't start opening until this hits 0
 SubspaceTimer:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANK0_9428+39w
 						  ; BANK0:95A3w BANK2:9722r ...
-byte_RAM_4B8:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8053w
+byte_RAM_4B8:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+43w
 						  ; BANK2:loc_BANK2_8256r
 						  ; BANK2:loc_BANK2_8509w
-byte_RAM_4B9:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8030w
+byte_RAM_4B9:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+20w
 						  ; BANK2:81F5r
 						  ; sub_BANK2_8208+2w ...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_4BC:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK3:BE25r
+byte_RAM_4BC:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK3_BE0B+1Ar
 						  ; sub_BANK6_93B8+9w
 						  ; sub_BANK6_93B8:loc_BANK6_940Fr
 byte_RAM_4BD:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:loc_BANK0_9219w
 						  ; sub_BANK1_B960+29w
 						  ; sub_BANK2_8E13+Dr ...
-byte_RAM_4BE:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81C0r
-						  ; BANK0:81F0w
+byte_RAM_4BE:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+1Er
+						  ; sub_BANK0_81D6+1Aw
 						  ; sub_BANK0_8500+44w	...
 byte_RAM_4BF:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8193w
 						  ; sub_BANK2_88E8+93r
-byte_RAM_4C0:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81E0w
+byte_RAM_4C0:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81D6+Aw
 						  ; sub_BANK0_856A+63w
-						  ; BANK0:8658w ...
+						  ; sub_BANK0_85EC+6Cw	...
 byte_RAM_4C1:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:818Bw
 						  ; sub_BANK2_88E8+8Cr
 PlayerHealth:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8A0Cr
@@ -1949,18 +1965,20 @@ PlayerHealth:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8A0Cr
 						  ; sub_BANK1_BABF+Cw ...
 						  ; xF:	Hearts - 1 (0F=1HP, 1F=2HP, etc)
 PlayerMaxHealth:.BYTE 0	; (uninited)		  ; DATA XREF: BANK2:90A1w
-						  ; BANK3:B7F8r BANK3:BE8Fr ...
+						  ; BANK3:B7F8r
+						  ; sub_BANK3_BE0B+84r	...
 						  ; 00:	Max 2
 						  ; 01:	Max 3
 						  ; 02:	Max 4
-POWQuakeTimer:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK2:8024w
+POWQuakeTimer:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANK2_8010+14w
 						  ; sub_BANK2_9692+62w
-						  ; BANK3:BE94r ...
-byte_RAM_4C5:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8044w
-						  ; BANK3:BEA9w NMI+B0r
-byte_RAM_4C6:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8027w
-						  ; BANK2:9115w BANK3:BE0Br ...
-byte_RAM_4C7:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:80ABw
+						  ; sub_BANK3_BE0B+89r	...
+byte_RAM_4C5:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+34w
+						  ; sub_BANK3_BE0B+9Ew	NMI+B0r
+byte_RAM_4C6:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+17w
+						  ; BANK2:9115w
+						  ; sub_BANK3_BE0Br ...
+byte_RAM_4C7:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+9Bw
 						  ; BANK3:AB6Ar BANK3:AB78w ...
       ;	0 .BYTE	uninited & unexplored
 byte_RAM_4C9:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8C99+37w
@@ -2052,45 +2070,46 @@ byte_RAM_4F8:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8848w
 						  ; BANK3:AC9Bw BANK3:AD8Br ...
 byte_RAM_4F9:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK3:B18Aw
 						  ; BANK3:B194r
-byte_RAM_4FA:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8036w
+byte_RAM_4FA:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+26w
 						  ; BANK3:B9B3w
 						  ; sub_BANKF_F2C2+2r
 Mushroom1Pulled:.BYTE 0	; (uninited)		  ; DATA XREF: BANK2:909Cw
 						  ; sub_BANK6_9479+1Dr
 						  ; BANKF:E6AFw
 Mushroom2Pulled:.BYTE 0	; (uninited)		  ; DATA XREF: BANKF:E6B2w
-byte_RAM_4FD:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8047w
+byte_RAM_4FD:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+37w
 						  ; BANK3:AAC4w BANK3:AADEr ...
       ;	0 .BYTE	uninited & unexplored
 StopwatchTimer:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:816Fr
 						  ; BANK2:8182w BANK2:81BFr ...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_502:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:loc_BANK0_8000r
-						  ; BANK0:803Fw BANK0:807Fw ...
+byte_RAM_502:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000r
+						  ; sub_BANK0_8000+3Fw
+						  ; sub_BANK0_8000+7Fw	...
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_504:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:809Aw
-						  ; BANK0:loc_BANK0_8170r
-						  ; BANK0:8192w
-byte_RAM_505:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8063w
-						  ; BANK0:8233w
+byte_RAM_504:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8083+17w
+						  ; sub_BANK0_8083:loc_BANK0_8170r
+						  ; sub_BANK0_8083+10Fw
+byte_RAM_505:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+63w
+						  ; sub_BANK0_81FE+35w
 						  ; sub_BANK0_823D+42r	...
-byte_RAM_506:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:822Bw
+byte_RAM_506:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81FE+2Dw
 						  ; sub_BANK0_823D+10r
 						  ; sub_BANK0_86EE:loc_BANK0_8705w ...
-byte_RAM_507:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8068w
-						  ; BANK0:822Ew
+byte_RAM_507:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+68w
+						  ; sub_BANK0_81FE+30w
 						  ; sub_BANK0_823D+17r	...
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_509:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81A4w
-						  ; BANK0:81D6r
-byte_RAM_50A:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81A9w
-						  ; BANK0:81DBr
+byte_RAM_509:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+2w
+						  ; sub_BANK0_81D6r
+byte_RAM_50A:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+7w
+						  ; sub_BANK0_81D6+5r
 						  ; sub_BANK0_870C+2w ...
-byte_RAM_50B:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81AEw
-						  ; BANK0:81E3r
-byte_RAM_50C:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81B3w
-						  ; BANK0:81E8r
+byte_RAM_50B:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+Cw
+						  ; sub_BANK0_81D6+Dr
+byte_RAM_50C:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+11w
+						  ; sub_BANK0_81D6+12r
 						  ; sub_BANK0_870C+7w ...
 byte_RAM_50D:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK6:loc_BANK6_8A5Bw
 						  ; BANK6:8B20w BANK6:8B3Aw ...
@@ -2109,15 +2128,15 @@ byte_RAM_511:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_940E+Cw
 byte_RAM_512:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_940E+16w
 						  ; sub_BANK0_9428+Fr
 						  ; sub_BANK3_BD0F+16w
-byte_RAM_513:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81B8w
-						  ; BANK0:81F3r
-byte_RAM_514:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81C3w
-						  ; BANK0:81EDr
+byte_RAM_513:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+16w
+						  ; sub_BANK0_81D6+1Dr
+byte_RAM_514:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+21w
+						  ; sub_BANK0_81D6+17r
 						  ; sub_BANK0_870C+Dw ...
-byte_RAM_515:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81BDw
-						  ; BANK0:81F8r
+byte_RAM_515:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+1Bw
+						  ; sub_BANK0_81D6+22r
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_517:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:81C8w
+byte_RAM_517:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+26w
 						  ; sub_BANK0_823D+26r
       ;	0 .BYTE	uninited & unexplored
 CurrentLevelAreaCopy:.BYTE 0 ; (uninited)	  ; DATA XREF: sub_BANK6_941D+3w
@@ -2127,9 +2146,9 @@ CurrentLevelAreaCopy:.BYTE 0 ; (uninited)	  ; DATA XREF: sub_BANK6_941D+3w
 byte_RAM_51B:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_833E+32w
 						  ; sub_BANK0_8488+Cr
 						  ; sub_BANK0_84AC+4w ...
-byte_RAM_51C:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:85EEw
-						  ; BANK0:867Fw
-						  ; BANK0:loc_BANK0_8685r ...
+byte_RAM_51C:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_85EC+2w
+						  ; sub_BANK0_85EC+93w
+						  ; sub_BANK0_85EC:loc_BANK0_8685r ...
 unk_RAM_51D:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK6:954Dr
 						  ; BANK6:9554r BANK6:955Er ...
       ;	0 .BYTE	uninited & unexplored
@@ -2151,51 +2170,54 @@ unk_RAM_51D:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK6:954Dr
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-CurrentLevel:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8083r
+CurrentLevel:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010:loc_BANK2_8083r
 						  ; BANK6:8B0Br BANK6:9550w ...
 CurrentLevelArea:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK6:8B12r
 						  ; sub_BANK6_941Dr
 						  ; sub_BANK6_94AD+Cr ...
-byte_RAM_533:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:_code_000Ar
-						  ; BANK0:801Fr BANK0:802Fr ...
+byte_RAM_533:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000:_code_000Ar
+						  ; sub_BANK0_8000+1Fr
+						  ; sub_BANK0_8000+2Fr	...
 byte_RAM_534:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8B5Ew
 						  ; BANK0:8BACw BANK0:9207w ...
 byte_RAM_535:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK6:9548r
 						  ; sub_BANKF_F47C:loc_BANKF_F490w
 						  ; sub_BANKF_F6A1r
 byte_RAM_536:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_856A+68w
-						  ; BANK0:8675r BANK0:867Aw ...
+						  ; sub_BANK0_85EC+89r
+						  ; sub_BANK0_85EC+8Ew	...
 byte_RAM_537:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_823D+2w
 						  ; sub_BANK0_823D:loc_BANK0_8268w
 						  ; sub_BANK0_87AA+2w ...
-byte_RAM_538:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:85F1r
-						  ; BANK0:85F6r BANK0:8605r ...
+byte_RAM_538:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_85EC+5r
+						  ; sub_BANK0_85EC+Ar
+						  ; sub_BANK0_85EC+19r	...
 byte_RAM_539:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_833E+2Bw
 						  ; sub_BANK0_8412:loc_BANK0_842Br
 						  ; sub_BANK0_8412+4Ew
-byte_RAM_53A:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:804Aw
-						  ; BANK0:806Er
+byte_RAM_53A:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8000+4Aw
+						  ; sub_BANK0_8000+6Er
 						  ; sub_BANK0_823D+30w	...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 byte_RAM_53D:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_823D+33w
 						  ; sub_BANK0_870C+10w
-						  ; BANK0:875Fr ...
+						  ; sub_BANK0_874C+13r	...
 byte_RAM_53E:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_823D+36w
-						  ; BANK0:8764w
+						  ; sub_BANK0_874C+18w
 						  ; sub_BANK0_87AA+29w
-byte_RAM_53F:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8105r
+byte_RAM_53F:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8083+82r
 						  ; sub_BANK0_856A:loc_BANK0_8576r
-						  ; BANK0:8649r ...
+						  ; sub_BANK0_85EC+5Dr	...
 byte_RAM_540:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK6_94AD+22w
 						  ; BANK6:loc_BANK6_96BBw
 						  ; BANK6:loc_BANK6_96BEw ...
 byte_RAM_541:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK6_94AD+2Ew
-						  ; BANK6:95B2w
+						  ; sub_BANK6_9567+4Bw
 						  ; sub_BANK6_9728+A8w	...
 byte_RAM_542:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK6:loc_BANK6_8A1Fr
 						  ; sub_BANK6_94AD+3Cw
-						  ; BANK6:959Dw
+						  ; sub_BANK6_9567+36w
 byte_RAM_543:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK6:8A19r
 						  ; BANK6:8B56r
 						  ; sub_BANK6_94AD+45w	...
@@ -2233,7 +2255,8 @@ unk_RAM_55A:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANK0_8DC0:loc_BA
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 byte_RAM_55E:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK6_94AD+29w
-						  ; BANK6:957Aw BANK6:9724w ...
+						  ; sub_BANK6_9567+13w
+						  ; BANK6:9724w ...
 unk_RAM_55F:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKA_8451+2Bw
 						  ; BANKE:DC04o
 						  ; sub_BANKF_E228+20w	...
@@ -2313,7 +2336,7 @@ unk_RAM_59C:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKF_EA33:loc_BA
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_5AC:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:807Dw
+byte_RAM_5AC:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+6Dw
 						  ; sub_BANK2_8214r
 						  ; sub_BANK2_8214+6r ...
 byte_RAM_5AD:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8214+Cw
@@ -2332,9 +2355,9 @@ byte_RAM_5AE:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8214+25w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_5BA:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:8021w
+byte_RAM_5BA:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+11w
 byte_RAM_5BB:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:9189w
-byte_RAM_5BC:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:80EEw
+byte_RAM_5BC:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+DEw
 						  ; BANK2:84EEw BANK2:9330r ...
 byte_RAM_5BD:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E696w
 						  ; sub_BANKF_E9E5+2w
@@ -2432,7 +2455,7 @@ byte_RAM_5FC:.BYTE 0 ; (uninited)		  ; DATA XREF: ProcessMusicQueue2+A2w
 byte_RAM_5FF:.BYTE 0 ; (uninited)		  ; DATA XREF: ProcessMusicQueue2+9Fw
 						  ; ProcessMusicQueue2:loc_BANK4_85E0r
 						  ; ProcessMusicQueue2:loc_BANK4_85EAr	...
-Music1Queue:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:9A9Aw
+Music1Queue:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_9A3D+5Dw
 						  ; BANK3:B820w
 						  ; StartProcessingSoundQueue+31w ...
 						  ; 01	Overworld
@@ -2464,7 +2487,7 @@ SoundEffect1Queue:.BYTE	0 ; (uninited)		  ; DATA XREF: sub_BANK0_8DC0+92w
 						  ; 20	Enemy hit/killed
 						  ; 40	Stopwatch tick
 						  ; 80	Wart spit
-MusicQueue2:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:9C21w
+MusicQueue2:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_9A3D+1E4w
 						  ; sub_BANK1_A43B+78w
 						  ; BANK2:8514w ...
 						  ; 01	Warp fanfare, slot entry jingle
@@ -2617,9 +2640,9 @@ byte_RAM_636:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+19r
 						  ; sub_BANKF_E288+27w
 unk_RAM_637:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANK6_93B8:loc_BANK6_9402r
 						  ; sub_BANKA_8451+1Dw
-byte_RAM_638:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK3:BE37r
-byte_RAM_639:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK3:BE3Dr
-byte_RAM_63A:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK3:BE43r
+byte_RAM_638:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK3_BE0B+2Cr
+byte_RAM_639:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK3_BE0B+32r
+byte_RAM_63A:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK3_BE0B+38r
 SlotMachineReelOrder1RAM:; 0 .BYTE uninited & unexplored ; DATA	XREF: sub_BANKA_8451+38w
 						  ; BANKF:E8AAr
 						  ; sub_BANKF_EAF6+Fr
@@ -9238,12 +9261,12 @@ SubAreaTileLayout:.BYTE	0 ; (uninited)			      ;	0
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 ; [00001800 BYTES: END OF AREA NES CPU RAM mirrors. PRESS KEYPAD "-" TO	COLLAPSE]
-PPUCTRL:.BYTE 0	; (uninited)			  ; DATA XREF: BANK0:9A8Bw
-						  ; BANK0:loc_BANK0_9C52w
+PPUCTRL:.BYTE 0	; (uninited)			  ; DATA XREF: sub_BANK0_9A3D+4Ew
+						  ; sub_BANK0_9A3D:loc_BANK0_9C52w
 						  ; sub_BANK1_A43B+Fw ...
 PPUMASK:.BYTE 0	; (uninited)			  ; DATA XREF: sub_BANKF_E288+5w
 						  ; BANKF:E3FBw BANKF:EB4Ew ...
-PPUSTATUS:.BYTE	0 ; (uninited)			  ; DATA XREF: BANK0:9A62r
+PPUSTATUS:.BYTE	0 ; (uninited)			  ; DATA XREF: sub_BANK0_9A3D+25r
 						  ; sub_BANK1_AA79:loc_BANK1_AAE7r
 						  ; sub_BANK1_AA79:loc_BANK1_AAECr ...
 OAMADDR:.BYTE 0	; (uninited)			  ; DATA XREF: BANKF:EB41w
@@ -9252,10 +9275,12 @@ OAMDATA:; 0 .BYTE uninited & unexplored
 PPUSCROLL:.BYTE	0 ; (uninited)			  ; DATA XREF: sub_BANK1_AA79+8Bw
 						  ; sub_BANK1_AA79+90w
 						  ; sub_BANK1_AA79+EDw	...
-PPUADDR:.BYTE 0	; (uninited)			  ; DATA XREF: BANK0:9A69w
-						  ; BANK0:9A6Cw BANKA:833Fw ...
-PPUDATA:.BYTE 0	; (uninited)			  ; DATA XREF: BANK0:9A72w
-						  ; BANKA:834Aw BANKA:83AEw ...
+PPUADDR:.BYTE 0	; (uninited)			  ; DATA XREF: sub_BANK0_9A3D+2Cw
+						  ; sub_BANK0_9A3D+2Fw
+						  ; sub_BANKA_8327+18w	...
+PPUDATA:.BYTE 0	; (uninited)			  ; DATA XREF: sub_BANK0_9A3D+35w
+						  ; sub_BANKA_8327+23w
+						  ; sub_BANKA_8327+87w	...
 ; [00001FF8 BYTES: BEGIN OF AREA PPU Mirrors. PRESS KEYPAD "-" TO COLLAPSE]
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -17482,7 +17507,7 @@ DMC_START:.BYTE	0 ; (uninited)			  ; DATA XREF: ProcessDPCMQueue+2Cw
 DMC_LEN:.BYTE 0	; (uninited)			  ; DATA XREF: ProcessDPCMQueue+32w
 OAM_DMA:.BYTE 0	; (uninited)			  ; DATA XREF: BANKF:EB46w
 						  ; BANKF:EB68w NMI+17w
-SND_CHN:.BYTE 0	; (uninited)			  ; DATA XREF: StartProcessingSoundQueue+Ew
+SND_CHN:.BYTE 0	; (uninited)			  ; DATA XREF: StartProcessingSoundQueue:loc_BANK4_800Ew
 						  ; ProcessSoundEffectQueue2+61w
 						  ; ProcessSoundEffectQueue2+66w ...
 JOY1: .BYTE 0 ;	(uninited)			  ; DATA XREF: ReadJoypads+2w
@@ -33614,29 +33639,29 @@ unk_RAM_7DF1:; 0 .BYTE uninited	& unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_7EFF:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANK2_960F:loc_BANK2_965Dr
-byte_RAM_7F00:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK2:805Bw
-						  ; BANK2:loc_BANK2_8066w
+byte_RAM_7F00:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANK2_8010+4Bw
+						  ; sub_BANK2_8010:loc_BANK2_8066w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_7F07:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK2:806Cw
+byte_RAM_7F07:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANK2_8010+5Cw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_7F0D:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANK2_960F+57r
-byte_RAM_7F0E:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK2:8072w
+byte_RAM_7F0E:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANK2_8010+62w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_7F15:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK2:8078w
+byte_RAM_7F15:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANK2_8010+68w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -33873,15 +33898,17 @@ MMC3PRGBank8000Temp:; 0	.BYTE uninited & unexplored
 MMC3PRGBankA000Temp:; 0	.BYTE uninited & unexplored
 ; end of 'RAM'
 
-; ---------------------------------------------------------------------------
 ; ===========================================================================
 
 ; Segment type:	Pure code
       ;.segment	BANK0
       *	=  $8000
 
-loc_BANK0_8000:					  ; code used as data at 8000
-      LDA     byte_RAM_502
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK0_8000:					  ; CODE XREF: BANKF:E4D4P
+      LDA     byte_RAM_502			  ; code used as data at 8000
       BNE     loc_BANK0_805D			  ; code used at 8000
 
       LDA     #1				  ; code used at 8000
@@ -33892,16 +33919,18 @@ _code_000A:					  ; code used at 8000
       LDA     byte_RAM_533
       BNE     loc_BANK0_8013			  ; code used at 8000
 
-      LDA     #9				  ; code used at 8000
+
+loc_BANK0_800F:					  ; code used at 8000
+      LDA     #9
       BNE     loc_BANK0_8016			  ; code used at 8000
 
 
-loc_BANK0_8013:					  ; CODE XREF: BANK0:800Dj
+loc_BANK0_8013:					  ; CODE XREF: sub_BANK0_8000+Dj
       SEC					  ; code used at 8000
       SBC     #1				  ; code used at 8000
 
 
-loc_BANK0_8016:					  ; CODE XREF: BANK0:8011j
+loc_BANK0_8016:					  ; CODE XREF: sub_BANK0_8000+11j
       ORA     #$C0 ; '¿'                          ; code used at 8000
       STA     byte_RAM_CF			  ; code used at 8000
       SEC					  ; code used at 8000
@@ -33918,7 +33947,7 @@ loc_BANK0_8022:					  ; code used at 8000
       LDA     #0
 
 
-loc_BANK0_802B:					  ; CODE XREF: BANK0:8027j
+loc_BANK0_802B:					  ; CODE XREF: sub_BANK0_8000+27j
       ORA     #$10				  ; code used at 8000
       STA     byte_RAM_D0			  ; code used at 8000
       LDA     byte_RAM_533			  ; code used at 8000
@@ -33945,7 +33974,7 @@ loc_BANK0_802B:					  ; CODE XREF: BANK0:8027j
       JSR     sub_BANK0_946D			  ; code used at 8000
 
 
-loc_BANK0_805D:					  ; CODE XREF: BANK0:8003j
+loc_BANK0_805D:					  ; CODE XREF: sub_BANK0_8000+3j
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_6			  ; code used at 8000
       LDA     #$FF				  ; code used at 8000
@@ -33968,10 +33997,16 @@ loc_BANK0_8066:					  ; code used at 8000
       STA     byte_RAM_502			  ; code used at 8000
 
 
-locret_BANK0_8082:				  ; CODE XREF: BANK0:8071j
+locret_BANK0_8082:				  ; CODE XREF: sub_BANK0_8000+71j
       RTS					  ; code used at 8000
 
-; ---------------------------------------------------------------------------
+; End of function sub_BANK0_8000
+
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK0_8083:					  ; CODE XREF: sub_BANKF_F17E+24P
       LDA     byte_RAM_D8			  ; code used at 8000
       AND     #4				  ; code used at 8000
       BNE     loc_BANK0_809D			  ; code used at 8000
@@ -33984,7 +34019,7 @@ locret_BANK0_8082:				  ; CODE XREF: BANK0:8071j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8092:					  ; CODE XREF: BANK0:808Dj
+loc_BANK0_8092:					  ; CODE XREF: sub_BANK0_8083+Aj
       LDA     byte_RAM_D8			  ; code used at 8000
       ORA     #4				  ; code used at 8000
       STA     byte_RAM_D8			  ; code used at 8000
@@ -33992,7 +34027,7 @@ loc_BANK0_8092:					  ; CODE XREF: BANK0:808Dj
       STA     byte_RAM_504			  ; code used at 8000
 
 
-loc_BANK0_809D:					  ; CODE XREF: BANK0:8087j
+loc_BANK0_809D:					  ; CODE XREF: sub_BANK0_8083+4j
       LDA     byte_RAM_D8			  ; code used at 8000
       LSR     A					  ; code used at 8000
       LDA     PPUScrollYMirror			  ; code used at 8000
@@ -34009,8 +34044,8 @@ loc_BANK0_809D:					  ; CODE XREF: BANK0:8087j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_80B1:					  ; CODE XREF: BANK0:80A4j
-						  ; BANK0:80ACj
+loc_BANK0_80B1:					  ; CODE XREF: sub_BANK0_8083+21j
+						  ; sub_BANK0_8083+29j
       LDA     #1				  ; code used at 8000
       JSR     sub_BANK0_895D			  ; code used at 8000
 
@@ -34027,7 +34062,7 @@ loc_BANK0_80B1:					  ; CODE XREF: BANK0:80A4j
       DEC     byte_RAM_CA			  ; code used at 8000
 
 
-loc_BANK0_80C8:					  ; CODE XREF: BANK0:80C4j
+loc_BANK0_80C8:					  ; CODE XREF: sub_BANK0_8083+41j
       LDA     PPUScrollYMirror			  ; code used at 8000
       CMP     #$FC ; '¸'                          ; code used at 8000
       BNE     loc_BANK0_80DB			  ; code used at 8000
@@ -34041,7 +34076,7 @@ loc_BANK0_80C8:					  ; CODE XREF: BANK0:80C4j
       STA     byte_RAM_C9			  ; code used at 8000
 
 
-loc_BANK0_80DB:					  ; CODE XREF: BANK0:80CCj
+loc_BANK0_80DB:					  ; CODE XREF: sub_BANK0_8083+49j
       LDA     PPUScrollYMirror			  ; code used at 8000
       AND     #7				  ; code used at 8000
       BEQ     loc_BANK0_80E2			  ; code used at 8000
@@ -34050,7 +34085,7 @@ loc_BANK0_80DB:					  ; CODE XREF: BANK0:80CCj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_80E2:					  ; CODE XREF: BANK0:80DFj
+loc_BANK0_80E2:					  ; CODE XREF: sub_BANK0_8083+5Cj
       LDX     #0				  ; code used at 8000
       JSR     loc_BANK0_8287			  ; code used at 8000
 
@@ -34068,7 +34103,7 @@ loc_BANK0_80E2:					  ; CODE XREF: BANK0:80DFj
       JSR     sub_BANK0_8297			  ; code used at 8000
 
 
-loc_BANK0_80FB:					  ; CODE XREF: BANK0:80EFj
+loc_BANK0_80FB:					  ; CODE XREF: sub_BANK0_8083+6Cj
       LDX     #1				  ; code used at 8000
       JSR     sub_BANK0_82E2			  ; code used at 8000
 
@@ -34076,7 +34111,7 @@ loc_BANK0_80FB:					  ; CODE XREF: BANK0:80EFj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8103:					  ; CODE XREF: BANK0:80A2j
+loc_BANK0_8103:					  ; CODE XREF: sub_BANK0_8083+1Fj
       BNE     loc_BANK0_8121			  ; code used at 8000
 
       LDA     byte_RAM_53F			  ; code used at 8000
@@ -34089,11 +34124,11 @@ loc_BANK0_8103:					  ; CODE XREF: BANK0:80A2j
       BEQ     loc_BANK0_8116
 
 
-loc_BANK0_8114:					  ; CODE XREF: BANK0:810Cj
+loc_BANK0_8114:					  ; CODE XREF: sub_BANK0_8083+89j
       INC     byte_RAM_F			  ; code used at 8000
 
 
-loc_BANK0_8116:					  ; CODE XREF: BANK0:8112j
+loc_BANK0_8116:					  ; CODE XREF: sub_BANK0_8083+8Fj
       LDA     byte_RAM_D0			  ; code used at 8000
       AND     #$F				  ; code used at 8000
       CMP     byte_RAM_F			  ; code used at 8000
@@ -34103,8 +34138,8 @@ loc_BANK0_8116:					  ; CODE XREF: BANK0:8112j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8121:					  ; CODE XREF: BANK0:loc_BANK0_8103j
-						  ; BANK0:811Cj
+loc_BANK0_8121:					  ; CODE XREF: sub_BANK0_8083:loc_BANK0_8103j
+						  ; sub_BANK0_8083+99j
       LDA     #1				  ; code used at 8000
       JSR     sub_BANK0_895D			  ; code used at 8000
 
@@ -34121,7 +34156,7 @@ loc_BANK0_8121:					  ; CODE XREF: BANK0:loc_BANK0_8103j
       INC     byte_RAM_CA			  ; code used at 8000
 
 
-loc_BANK0_8138:					  ; CODE XREF: BANK0:8134j
+loc_BANK0_8138:					  ; CODE XREF: sub_BANK0_8083+B1j
       LDA     PPUScrollYMirror			  ; code used at 8000
       AND     #7				  ; code used at 8000
       BEQ     loc_BANK0_813F			  ; code used at 8000
@@ -34130,7 +34165,7 @@ loc_BANK0_8138:					  ; CODE XREF: BANK0:8134j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_813F:					  ; CODE XREF: BANK0:813Cj
+loc_BANK0_813F:					  ; CODE XREF: sub_BANK0_8083+B9j
       LDA     PPUScrollYMirror			  ; code used at 8000
       CMP     #$F0 ; ''                          ; code used at 8000
       BNE     loc_BANK0_8152			  ; code used at 8000
@@ -34144,7 +34179,7 @@ loc_BANK0_813F:					  ; CODE XREF: BANK0:813Cj
       STA     byte_RAM_C9			  ; code used at 8000
 
 
-loc_BANK0_8152:					  ; CODE XREF: BANK0:8143j
+loc_BANK0_8152:					  ; CODE XREF: sub_BANK0_8083+C0j
       LDX     #2				  ; code used at 8000
       JSR     sub_BANK0_828F			  ; code used at 8000
 
@@ -34162,12 +34197,12 @@ loc_BANK0_8152:					  ; CODE XREF: BANK0:8143j
       JSR     sub_BANK0_82BE			  ; code used at 8000
 
 
-loc_BANK0_816B:					  ; CODE XREF: BANK0:815Fj
+loc_BANK0_816B:					  ; CODE XREF: sub_BANK0_8083+DCj
       LDX     #2				  ; code used at 8000
       JSR     sub_BANK0_82E2			  ; code used at 8000
 
 
-loc_BANK0_8170:					  ; CODE XREF: BANK0:8100j
+loc_BANK0_8170:					  ; CODE XREF: sub_BANK0_8083+7Dj
       LDA     byte_RAM_504			  ; code used at 8000
       CMP     #$12				  ; code used at 8000
       BNE     loc_BANK0_818F			  ; code used at 8000
@@ -34183,17 +34218,17 @@ loc_BANK0_8170:					  ; CODE XREF: BANK0:8100j
       BEQ     loc_BANK0_818A			  ; code used at 8000
 
 
-loc_BANK0_8186:					  ; CODE XREF: BANK0:817Ej
+loc_BANK0_8186:					  ; CODE XREF: sub_BANK0_8083+FBj
       LDX     #2				  ; code used at 8000
       LDA     #$10				  ; code used at 8000
 
 
-loc_BANK0_818A:					  ; CODE XREF: BANK0:8184j
+loc_BANK0_818A:					  ; CODE XREF: sub_BANK0_8083+101j
       STA     byte_RAM_1			  ; code used at 8000
       JSR     sub_BANK0_8314			  ; code used at 8000
 
 
-loc_BANK0_818F:					  ; CODE XREF: BANK0:8175j
+loc_BANK0_818F:					  ; CODE XREF: sub_BANK0_8083+F2j
       JSR     sub_BANK0_833E			  ; code used at 8000
 
       DEC     byte_RAM_504			  ; code used at 8000
@@ -34203,18 +34238,25 @@ loc_BANK0_818F:					  ; CODE XREF: BANK0:8175j
       JSR     sub_BANK0_895D			  ; code used at 8000
 
 
-loc_BANK0_819C:					  ; CODE XREF: BANK0:808Fj
-						  ; BANK0:80AEj BANK0:811Ej
+loc_BANK0_819C:					  ; CODE XREF: sub_BANK0_8083+Cj
+						  ; sub_BANK0_8083+2Bj
+						  ; sub_BANK0_8083+9Bj
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_D8			  ; code used at 8000
 
 
-locret_BANK0_81A0:				  ; CODE XREF: BANK0:8195j
+locret_BANK0_81A0:				  ; CODE XREF: sub_BANK0_8083+112j
       RTS					  ; code used at 8000
+
+; End of function sub_BANK0_8083
 
 ; ---------------------------------------------------------------------------
       .BYTE   1
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK0_81A2:					  ; CODE XREF: sub_BANKF_E9F4+BP
       LDA     PPUScrollYMirror			  ; code used at 8000
       STA     byte_RAM_509			  ; code used at 8000
       LDA     PPUScrollXMirror			  ; code used at 8000
@@ -34238,7 +34280,13 @@ locret_BANK0_81A0:				  ; CODE XREF: BANK0:8195j
       STA     byte_RAM_C9			  ; code used at 8000
       RTS					  ; code used at 8000
 
-; ---------------------------------------------------------------------------
+; End of function sub_BANK0_81A2
+
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK0_81D6:					  ; CODE XREF: BANKF:E567P
       LDA     byte_RAM_509			  ; code used at 8000
       STA     PPUScrollYMirror			  ; code used at 8000
       LDA     byte_RAM_50A			  ; code used at 8000
@@ -34256,7 +34304,13 @@ locret_BANK0_81A0:				  ; CODE XREF: BANK0:8195j
       STA     byte_RAM_CB			  ; code used at 8000
       RTS					  ; code used at 8000
 
-; ---------------------------------------------------------------------------
+; End of function sub_BANK0_81D6
+
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK0_81FE:					  ; CODE XREF: BANKF:E573P
       LDA     byte_RAM_CF			  ; code used at 8000
       AND     #$10				  ; code used at 8000
       BEQ     loc_BANK0_820B			  ; code used at 8000
@@ -34267,7 +34321,7 @@ locret_BANK0_81A0:				  ; CODE XREF: BANK0:8195j
       STA     byte_RAM_E1
 
 
-loc_BANK0_820B:					  ; CODE XREF: BANK0:8202j
+loc_BANK0_820B:					  ; CODE XREF: sub_BANK0_81FE+4j
       LDA     #1				  ; code used at 8000
       STA     byte_RAM_E4			  ; code used at 8000
       LDA     byte_RAM_CF			  ; code used at 8000
@@ -34294,11 +34348,14 @@ loc_BANK0_820B:					  ; CODE XREF: BANK0:8202j
       STA     byte_RAM_6			  ; code used at 8000
       RTS					  ; code used at 8000
 
+; End of function sub_BANK0_81FE
+
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_823D:					  ; CODE XREF: BANK0:806Bp
+sub_BANK0_823D:					  ; CODE XREF: sub_BANK0_8000+6Bp
+						  ; BANKF:E579P
       LDX     #0				  ; code used at 8000
       STX     byte_RAM_537			  ; code used at 8000
       JSR     sub_BANK0_82E2			  ; code used at 8000
@@ -34352,8 +34409,8 @@ loc_BANK0_8277:					  ; CODE XREF: sub_BANK0_823D+15j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8287:					  ; CODE XREF: BANK0:80E4p
-						  ; BANK0:80E8p
+loc_BANK0_8287:					  ; CODE XREF: sub_BANK0_8083+61p
+						  ; sub_BANK0_8083+65p
       LDA     byte_RAM_D3,X			  ; code used at 8000
       SEC					  ; code used at 8000
       SBC     #$20 ; ' '                          ; code used at 8000
@@ -34369,8 +34426,8 @@ locret_BANK0_828E:				  ; CODE XREF: sub_BANK0_823D+3Ej
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_828F:					  ; CODE XREF: BANK0:8154p
-						  ; BANK0:8158p
+sub_BANK0_828F:					  ; CODE XREF: sub_BANK0_8083+D1p
+						  ; sub_BANK0_8083+D5p
 						  ; sub_BANK0_823D+Dp
       LDA     byte_RAM_D2,X			  ; code used at 8000
       CLC					  ; code used at 8000
@@ -34384,8 +34441,8 @@ sub_BANK0_828F:					  ; CODE XREF: BANK0:8154p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_8297:					  ; CODE XREF: BANK0:80F3p
-						  ; BANK0:80F8p
+sub_BANK0_8297:					  ; CODE XREF: sub_BANK0_8083+70p
+						  ; sub_BANK0_8083+75p
       LDA     byte_RAM_CF,X			  ; code used at 8000
       SEC					  ; code used at 8000
       SBC     #$10				  ; code used at 8000
@@ -34424,8 +34481,8 @@ locret_BANK0_82BD:				  ; CODE XREF: sub_BANK0_8297+Bj
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_82BE:					  ; CODE XREF: BANK0:8163p
-						  ; BANK0:8168p
+sub_BANK0_82BE:					  ; CODE XREF: sub_BANK0_8083+E0p
+						  ; sub_BANK0_8083+E5p
 						  ; sub_BANK0_823D+47j
       LDA     byte_RAM_CE,X			  ; code used at 8000
       CLC					  ; code used at 8000
@@ -34461,8 +34518,8 @@ locret_BANK0_82E1:				  ; CODE XREF: sub_BANK0_82BE+Bj
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_82E2:					  ; CODE XREF: BANK0:80FDp
-						  ; BANK0:816Dp
+sub_BANK0_82E2:					  ; CODE XREF: sub_BANK0_8083+7Ap
+						  ; sub_BANK0_8083+EAp
 						  ; sub_BANK0_823D+5p ...
       LDA     byte_RAM_CE,X			  ; code used at 8000
       AND     #$F				  ; code used at 8000
@@ -34510,8 +34567,8 @@ locret_BANK0_8313:				  ; CODE XREF: sub_BANK0_8314+4j
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_8314:					  ; CODE XREF: BANK0:818Cp
-						  ; BANK0:8219p
+sub_BANK0_8314:					  ; CODE XREF: sub_BANK0_8083+109p
+						  ; sub_BANK0_81FE+1Bp
       LDA     byte_RAM_CE,X			  ; code used at 8000
       AND     #$10				  ; code used at 8000
       BEQ     locret_BANK0_8313			  ; code used at 8000
@@ -34548,7 +34605,7 @@ loc_BANK0_832E:					  ; CODE XREF: sub_BANK0_8314+1Fj
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_833E:					  ; CODE XREF: BANK0:loc_BANK0_818Fp
+sub_BANK0_833E:					  ; CODE XREF: sub_BANK0_8083:loc_BANK0_818Fp
 						  ; sub_BANK0_823D+8p
       LDX     byte_RAM_300			  ; code used at 8000
 
@@ -34797,7 +34854,7 @@ loc_BANK0_845D:					  ; code used at 8000
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_846A:					  ; CODE XREF: BANK0:8226p
+sub_BANK0_846A:					  ; CODE XREF: sub_BANK0_81FE+28p
 						  ; sub_BANK0_833E+90p
 						  ; sub_BANK0_833E:loc_BANK0_8408p
       LDA     byte_RAM_E1,X			  ; code used at 8000
@@ -35088,7 +35145,11 @@ loc_BANK0_85E7:					  ; CODE XREF: sub_BANK0_856A+7j
 
 ; End of function sub_BANK0_856A
 
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK0_85EC:					  ; CODE XREF: sub_BANKF_F11E+1FP
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_51C			  ; code used at 8000
       LDA     byte_RAM_538			  ; code used at 8000
@@ -35114,7 +35175,7 @@ loc_BANK0_85E7:					  ; CODE XREF: sub_BANK0_856A+7j
       BEQ     loc_BANK0_862C			  ; code used at 8000
 
 
-loc_BANK0_8618:					  ; CODE XREF: BANK0:85FAj
+loc_BANK0_8618:					  ; CODE XREF: sub_BANK0_85EC+Ej
       LDX     #1				  ; code used at 8000
       STX     byte_RAM_9			  ; code used at 8000
       DEX					  ; code used at 8000
@@ -35127,8 +35188,8 @@ loc_BANK0_8618:					  ; CODE XREF: BANK0:85FAj
       STA     byte_RAM_538			  ; code used at 8000
 
 
-loc_BANK0_862C:					  ; CODE XREF: BANK0:85F4j
-						  ; BANK0:8616j
+loc_BANK0_862C:					  ; CODE XREF: sub_BANK0_85EC+8j
+						  ; sub_BANK0_85EC+2Aj
       LDA     byte_RAM_BA			  ; code used at 8000
       BNE     loc_BANK0_8631			  ; code used at 8000
 
@@ -35136,7 +35197,7 @@ loc_BANK0_862C:					  ; CODE XREF: BANK0:85F4j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8631:					  ; CODE XREF: BANK0:862Ej
+loc_BANK0_8631:					  ; CODE XREF: sub_BANK0_85EC+42j
       LDA     byte_RAM_BA			  ; code used at 8000
       BPL     loc_BANK0_863C			  ; code used at 8000
 
@@ -35146,13 +35207,13 @@ loc_BANK0_8631:					  ; CODE XREF: BANK0:862Ej
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_863C:					  ; CODE XREF: BANK0:8633j
+loc_BANK0_863C:					  ; CODE XREF: sub_BANK0_85EC+47j
       LDA     #2				  ; code used at 8000
       STA     byte_RAM_D8			  ; code used at 8000
       LDX     byte_RAM_BA			  ; code used at 8000
 
 
-loc_BANK0_8642:					  ; CODE XREF: BANK0:8683j
+loc_BANK0_8642:					  ; CODE XREF: sub_BANK0_85EC+97j
       LDA     PPUScrollXMirror			  ; code used at 8000
       BNE     loc_BANK0_8651			  ; code used at 8000
 
@@ -35164,8 +35225,8 @@ loc_BANK0_8642:					  ; CODE XREF: BANK0:8683j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8651:					  ; CODE XREF: BANK0:8644j
-						  ; BANK0:864Cj
+loc_BANK0_8651:					  ; CODE XREF: sub_BANK0_85EC+58j
+						  ; sub_BANK0_85EC+60j
       LDA     PPUScrollXMirror			  ; code used at 8000
       CLC					  ; code used at 8000
       ADC     #1				  ; code used at 8000
@@ -35181,7 +35242,7 @@ loc_BANK0_8651:					  ; CODE XREF: BANK0:8644j
       STA     byte_RAM_C8			  ; code used at 8000
 
 
-loc_BANK0_8669:					  ; CODE XREF: BANK0:865Bj
+loc_BANK0_8669:					  ; CODE XREF: sub_BANK0_85EC+6Fj
       LDA     byte_RAM_4BE			  ; code used at 8000
       CMP     byte_RAM_53F			  ; code used at 8000
       BEQ     loc_BANK0_8685			  ; code used at 8000
@@ -35196,19 +35257,19 @@ loc_BANK0_8669:					  ; CODE XREF: BANK0:865Bj
       STA     byte_RAM_51C			  ; code used at 8000
 
 
-loc_BANK0_8682:					  ; CODE XREF: BANK0:8678j
+loc_BANK0_8682:					  ; CODE XREF: sub_BANK0_85EC+8Cj
       DEX					  ; code used at 8000
       BNE     loc_BANK0_8642			  ; code used at 8000
 
 
-loc_BANK0_8685:					  ; CODE XREF: BANK0:866Fj
+loc_BANK0_8685:					  ; CODE XREF: sub_BANK0_85EC+83j
       LDA     byte_RAM_51C			  ; code used at 8000
       BEQ     loc_BANK0_86E9			  ; code used at 8000
 
       LDX     #2				  ; code used at 8000
 
 
-loc_BANK0_868C:					  ; CODE XREF: BANK0:8690j
+loc_BANK0_868C:					  ; CODE XREF: sub_BANK0_85EC+A4j
       JSR     loc_BANK0_87FC			  ; code used at 8000
 
       DEX					  ; code used at 8000
@@ -35221,11 +35282,11 @@ loc_BANK0_868C:					  ; CODE XREF: BANK0:8690j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_869A:					  ; CODE XREF: BANK0:8639j
+loc_BANK0_869A:					  ; CODE XREF: sub_BANK0_85EC+4Dj
       LDX     byte_RAM_BA			  ; code used at 8000
 
 
-loc_BANK0_869C:					  ; CODE XREF: BANK0:86D2j
+loc_BANK0_869C:					  ; CODE XREF: sub_BANK0_85EC+E6j
       LDA     PPUScrollXMirror			  ; code used at 8000
       BNE     loc_BANK0_86A8			  ; code used at 8000
 
@@ -35236,8 +35297,8 @@ loc_BANK0_869C:					  ; CODE XREF: BANK0:86D2j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_86A8:					  ; CODE XREF: BANK0:869Ej
-						  ; BANK0:86A3j
+loc_BANK0_86A8:					  ; CODE XREF: sub_BANK0_85EC+B2j
+						  ; sub_BANK0_85EC+B7j
       LDA     PPUScrollXMirror			  ; code used at 8000
       SEC					  ; code used at 8000
       SBC     #1				  ; code used at 8000
@@ -35253,7 +35314,7 @@ loc_BANK0_86A8:					  ; CODE XREF: BANK0:869Ej
       STA     byte_RAM_C8			  ; code used at 8000
 
 
-loc_BANK0_86C0:					  ; CODE XREF: BANK0:86B2j
+loc_BANK0_86C0:					  ; CODE XREF: sub_BANK0_85EC+C6j
       LDA     PPUScrollXMirror			  ; code used at 8000
       AND     #$F0 ; ''                          ; code used at 8000
       CMP     byte_RAM_536			  ; code used at 8000
@@ -35264,7 +35325,7 @@ loc_BANK0_86C0:					  ; CODE XREF: BANK0:86B2j
       STA     byte_RAM_51C			  ; code used at 8000
 
 
-loc_BANK0_86D1:					  ; CODE XREF: BANK0:86C7j
+loc_BANK0_86D1:					  ; CODE XREF: sub_BANK0_85EC+DBj
       INX					  ; code used at 8000
       BNE     loc_BANK0_869C			  ; code used at 8000
 
@@ -35274,7 +35335,7 @@ loc_BANK0_86D1:					  ; CODE XREF: BANK0:86C7j
       LDX     #2				  ; code used at 8000
 
 
-loc_BANK0_86DB:					  ; CODE XREF: BANK0:86DFj
+loc_BANK0_86DB:					  ; CODE XREF: sub_BANK0_85EC+F3j
       JSR     loc_BANK0_87E6			  ; code used at 8000
 
       DEX					  ; code used at 8000
@@ -35284,21 +35345,24 @@ loc_BANK0_86DB:					  ; CODE XREF: BANK0:86DFj
       JSR     sub_BANK0_8812			  ; code used at 8000
 
 
-loc_BANK0_86E6:					  ; CODE XREF: BANK0:8697j
+loc_BANK0_86E6:					  ; CODE XREF: sub_BANK0_85EC+ABj
       JSR     sub_BANK0_8872			  ; code used at 8000
 
 
-loc_BANK0_86E9:					  ; CODE XREF: BANK0:864Ej
-						  ; BANK0:8688j BANK0:86A5j ...
+loc_BANK0_86E9:					  ; CODE XREF: sub_BANK0_85EC+62j
+						  ; sub_BANK0_85EC+9Cj
+						  ; sub_BANK0_85EC+B9j	...
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_D8			  ; code used at 8000
       RTS					  ; code used at 8000
+
+; End of function sub_BANK0_85EC
 
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_86EE:					  ; CODE XREF: BANK0:8034p
+sub_BANK0_86EE:					  ; CODE XREF: sub_BANK0_8000+34p
 						  ; sub_BANK0_8500+3Bp
 						  ; sub_BANK0_870C+19p
       LSR     A					  ; code used at 8000
@@ -35367,7 +35431,11 @@ sub_BANK0_870C:					  ; CODE XREF: BANKF:E5E6P
 
 ; End of function sub_BANK0_870C
 
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK0_874C:					  ; CODE XREF: BANKF:E651P
       LDA     byte_RAM_50A			  ; code used at 8000
       STA     PPUScrollXMirror			  ; code used at 8000
       STA     byte_RAM_4C0			  ; code used at 8000
@@ -35394,10 +35462,16 @@ sub_BANK0_870C:					  ; CODE XREF: BANKF:E5E6P
       STA     byte_RAM_505			  ; code used at 8000
 
 
-locret_BANK0_8784:				  ; CODE XREF: BANK0:8762j
+locret_BANK0_8784:				  ; CODE XREF: sub_BANK0_874C+16j
       RTS					  ; code used at 8000
 
-; ---------------------------------------------------------------------------
+; End of function sub_BANK0_874C
+
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK0_8785:					  ; CODE XREF: BANKF:E58CP
       LDA     byte_RAM_CF			  ; code used at 8000
       STA     byte_RAM_CE			  ; code used at 8000
       LDA     #$10				  ; code used at 8000
@@ -35415,17 +35489,20 @@ locret_BANK0_8784:				  ; CODE XREF: BANK0:8762j
       LDA     #0
 
 
-loc_BANK0_87A2:					  ; CODE XREF: BANK0:879Ej
+loc_BANK0_87A2:					  ; CODE XREF: sub_BANK0_8785+19j
       STA     byte_RAM_505			  ; code used at 8000
       LDA     #1				  ; code used at 8000
       STA     byte_RAM_6			  ; code used at 8000
       RTS					  ; code used at 8000
+
+; End of function sub_BANK0_8785
 
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
 sub_BANK0_87AA:					  ; CODE XREF: sub_BANK0_8500:loc_BANK0_855Cp
+						  ; BANKF:E592P BANKF:E5EFP ...
       LDX     #0				  ; code used at 8000
       STX     byte_RAM_537			  ; code used at 8000
       STX     byte_RAM_51C			  ; code used at 8000
@@ -35466,7 +35543,7 @@ loc_BANK0_87DA:					  ; CODE XREF: sub_BANK0_87AA+15j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_87E6:					  ; CODE XREF: BANK0:loc_BANK0_86DBp
+loc_BANK0_87E6:					  ; CODE XREF: sub_BANK0_85EC:loc_BANK0_86DBp
       LDA     byte_RAM_CE,X			  ; code used at 8000
       SEC					  ; code used at 8000
       SBC     #$10				  ; code used at 8000
@@ -35488,7 +35565,7 @@ locret_BANK0_87FB:				  ; CODE XREF: sub_BANK0_87AA+43j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_87FC:					  ; CODE XREF: BANK0:loc_BANK0_868Cp
+loc_BANK0_87FC:					  ; CODE XREF: sub_BANK0_85EC:loc_BANK0_868Cp
 						  ; sub_BANK0_87AA+39j
       LDA     byte_RAM_CE,X			  ; code used at 8000
       CLC					  ; code used at 8000
@@ -35515,8 +35592,8 @@ locret_BANK0_8811:				  ; CODE XREF: sub_BANK0_87AA+59j
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_8812:					  ; CODE XREF: BANK0:8694p
-						  ; BANK0:86E3p
+sub_BANK0_8812:					  ; CODE XREF: sub_BANK0_85EC+A8p
+						  ; sub_BANK0_85EC+F7p
 						  ; sub_BANK0_87AA+Ap ...
       STY     byte_RAM_F			  ; code used at 8000
       LDA     byte_RAM_CE,X			  ; code used at 8000
@@ -35594,7 +35671,7 @@ loc_BANK0_8856:					  ; CODE XREF: sub_BANK0_883C+1Fj
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_8872:					  ; CODE XREF: BANK0:loc_BANK0_86E6p
+sub_BANK0_8872:					  ; CODE XREF: sub_BANK0_85EC:loc_BANK0_86E6p
 						  ; sub_BANK0_87AA+Dp
       LDA     #$F				  ; code used at 8000
       STA     byte_RAM_E3			  ; code used at 8000
@@ -35704,8 +35781,8 @@ loc_BANK0_88FD:					  ; CODE XREF: sub_BANK0_8872+64j
 ; =============== S U B	R O U T	I N E =======================================
 
 
-_code_0901:					  ; CODE XREF: BANK0:860Ap
-						  ; BANK0:8624p
+_code_0901:					  ; CODE XREF: sub_BANK0_85EC+1Ep
+						  ; sub_BANK0_85EC+38p
 						  ; sub_BANK0_8872+73p
       JSR     sub_BANK0_883C			  ; code used at 8000
 
@@ -35783,8 +35860,9 @@ loc_BANK0_892F:					  ; CODE XREF: sub_BANK0_8925+31j
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_895D:					  ; CODE XREF: BANK0:80B3p
-						  ; BANK0:8123p BANK0:8199p
+sub_BANK0_895D:					  ; CODE XREF: sub_BANK0_8083+30p
+						  ; sub_BANK0_8083+A0p
+						  ; sub_BANK0_8083+116p
       LDX     #7				  ; code used at 8000
 
 
@@ -35812,6 +35890,10 @@ byte_BANK0_8A00:.BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; 0
 						  ; DATA XREF: BANK0:8A18r
 						  ; data used at 8000
 ; ---------------------------------------------------------------------------
+
+loc_BANK0_8A02:					  ; CODE XREF: sub_BANKF_F0F9+19P
+						  ; sub_BANKF_F11E+19P
+						  ; sub_BANKF_F17E+1CP
       LDA     PlayerState
       CMP     #PlayerState_Lifting		  ; code used at 8000
       BCS     loc_BANK0_8A26			  ; code used at 8000
@@ -38240,7 +38322,7 @@ locret_BANK0_9427:				  ; CODE XREF: sub_BANK0_940E+3j
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_9428:					  ; CODE XREF: BANK0:876Cp
+sub_BANK0_9428:					  ; CODE XREF: sub_BANK0_874C+20p
 						  ; sub_BANK0_946D+Cp
       LDA     byte_RAM_50F			  ; code used at 8000
       STA     PlayerXHi				  ; code used at 8000
@@ -38285,7 +38367,7 @@ loc_BANK0_943E:					  ; code used at 8000
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_946D:					  ; CODE XREF: BANK0:805Ap
+sub_BANK0_946D:					  ; CODE XREF: sub_BANK0_8000+5Ap
 						  ; sub_BANK0_8500+Ap
 						  ; sub_BANK0_870C+29p
       LDA     byte_RAM_534			  ; code used at 8000
@@ -38501,7 +38583,9 @@ sub_BANK0_9561:					  ; CODE XREF: sub_BANK0_94CA+16p
       LDA     #1				  ; code used at 8000
       STA     byte_RAM_99			  ; code used at 8000
       LDA     #$78 ; 'x'                          ; code used at 8000
-      STA     PlayerXLo				  ; code used at 8000
+
+loc_BANK0_9567:					  ; code used at 8000
+      STA     PlayerXLo
       RTS					  ; code used at 8000
 
 ; End of function sub_BANK0_9561
@@ -38562,7 +38646,7 @@ loc_BANK0_95A7:					  ; DATA XREF: sub_BANK0_94CA+10o
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_95AF:					  ; CODE XREF: BANK0:8053p
+sub_BANK0_95AF:					  ; CODE XREF: sub_BANK0_8000+53p
 						  ; sub_BANK0_946D+2Cp
       CPY     #0				  ; code used at 8000
       BMI     locret_BANK0_95C2			  ; code used at 8000
@@ -38601,7 +38685,7 @@ TitleScreenPPUDataPointers:.WORD _RAM_PPUDataBuffer ; DATA XREF: WaitForNMI_Titl
 ; =============== S U B	R O U T	I N E =======================================
 
 
-WaitForNMI_TitleScreen_TurnOnPPU:		  ; CODE XREF: BANK0:9A9Dp
+WaitForNMI_TitleScreen_TurnOnPPU:		  ; CODE XREF: sub_BANK0_9A3D+60p
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites ; code	used at	8000
       STA     PPUMaskMirror			  ; code used at 8000
 
@@ -38611,9 +38695,9 @@ WaitForNMI_TitleScreen_TurnOnPPU:		  ; CODE XREF: BANK0:9A9Dp
 ; =============== S U B	R O U T	I N E =======================================
 
 
-WaitForNMI_TitleScreen:				  ; CODE XREF: BANK0:9A8Ep
-						  ; BANK0:9A95p
-						  ; BANK0:loc_BANK0_9AB4p ...
+WaitForNMI_TitleScreen:				  ; CODE XREF: sub_BANK0_9A3D+51p
+						  ; sub_BANK0_9A3D+58p
+						  ; sub_BANK0_9A3D:loc_BANK0_9AB4p ...
       LDA     byte_RAM_11			  ; code used at 8000
       ASL     A					  ; code used at 8000
       TAX					  ; code used at 8000
@@ -39160,7 +39244,7 @@ TitleText_Nintendo:.BYTE $22 ; "		  ; data used at 8000
       .BYTE $F2	; Ú				  ; data used at 8000
       .BYTE $F0	; 				  ; data used at 8000
       .BYTE 0					  ; data used at 8000
-TitleBackgroundPalettes:.BYTE $22 ; "		  ; DATA XREF: BANK0:loc_BANK0_9A6Fr
+TitleBackgroundPalettes:.BYTE $22 ; "		  ; DATA XREF: sub_BANK0_9A3D:loc_BANK0_9A6Fr
 						  ; data used at 8000
       .BYTE $37	; 7				  ; data used at 8000
       .BYTE $16					  ; data used at 8000
@@ -39194,9 +39278,9 @@ TitleSpritePalettes:.BYTE $22 ;	"		  ; Unused DDP character palettes!
       .BYTE $23	; #				  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
 TitleStoryText_STORY:.BYTE $EC,	$ED, $E8, $EB, $F2		 ; 0
-						  ; DATA XREF: BANK0:TitleScreen_WriteSTORYTextLoopr
+						  ; DATA XREF: sub_BANK0_9A3D:TitleScreen_WriteSTORYTextLoopr
 						  ; data used at 8000
-TitleStoryTextPointersHi:.BYTE high8(TitleStoryText_Line01) ; DATA XREF: BANK0:9BBDr
+TitleStoryTextPointersHi:.BYTE high8(TitleStoryText_Line01) ; DATA XREF: sub_BANK0_9A3D+180r
 						  ; data used at 8000
       .BYTE high8(TitleStoryText_Line02)	  ; data used at 8000
       .BYTE high8(TitleStoryText_Line03)	  ; data used at 8000
@@ -39214,7 +39298,7 @@ TitleStoryTextPointersHi:.BYTE high8(TitleStoryText_Line01) ; DATA XREF: BANK0:9
       .BYTE high8(TitleStoryText_Line14)	  ; data used at 8000
       .BYTE high8(TitleStoryText_Line15)	  ; data used at 8000
       .BYTE high8(TitleStoryText_Line16)	  ; data used at 8000
-TitleStoryTextPointersLo:.BYTE low8(TitleStoryText_Line01) ; DATA XREF:	BANK0:9BC2r
+TitleStoryTextPointersLo:.BYTE low8(TitleStoryText_Line01) ; DATA XREF:	sub_BANK0_9A3D+185r
 						  ; data used at 8000
       .BYTE low8(TitleStoryText_Line02)		  ; data used at 8000
       .BYTE low8(TitleStoryText_Line03)		  ; data used at 8000
@@ -39297,9 +39381,9 @@ TitleStoryText_Line16:.BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $E
 						  ; BANK0:98C8o
       .BYTE $ED, $E8, $E7, $FB			  ; $10	; data used at 8000
 TitleAttributeData1A09:.BYTE $23, $CB, $42, $FF, $23, $D1, 1, $CC, $23,	$D2, $44, $FF, $23, $D6, 1, $33; 0
-						  ; DATA XREF: BANK0:loc_BANK0_9B25r
+						  ; DATA XREF: sub_BANK0_9A3D:loc_BANK0_9B25r
       .BYTE $23, $D9, 1, $CC, $23, $DA,	$44, $FF  ; $10	; data used at 8000
-byte_BANK0_9A21:.BYTE $23			  ; DATA XREF: BANK0:loc_BANK0_9B3Br
+byte_BANK0_9A21:.BYTE $23			  ; DATA XREF: sub_BANK0_9A3D:loc_BANK0_9B3Br
 						  ; data used at 8000
       .BYTE $DE					  ; data used at 8000
       .BYTE 1					  ; data used at 8000
@@ -39328,7 +39412,11 @@ byte_BANK0_9A21:.BYTE $23			  ; DATA XREF: BANK0:loc_BANK0_9B3Br
       .BYTE $EE					  ; data used at 8000
       .BYTE 1					  ; data used at 8000
       .BYTE $33					  ; data used at 8000
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK0_9A3D:					  ; CODE XREF: BANKF:E409P
       LDY     #7				  ; code used at 8000
       STY     byte_RAM_1			  ; code used at 8000
       LDY     #0				  ; code used at 8000
@@ -39336,8 +39424,8 @@ byte_BANK0_9A21:.BYTE $23			  ; DATA XREF: BANK0:loc_BANK0_9B3Br
       TYA					  ; code used at 8000
 
 
-loc_BANK0_9A46:					  ; CODE XREF: BANK0:9A49j
-						  ; BANK0:9A51j
+loc_BANK0_9A46:					  ; CODE XREF: sub_BANK0_9A3D+Cj
+						  ; sub_BANK0_9A3D+14j
       STA     (byte_RAM_0),Y			  ; code used at 8000
       DEY					  ; code used at 8000
       BNE     loc_BANK0_9A46			  ; code used at 8000
@@ -39348,12 +39436,12 @@ loc_BANK0_9A46:					  ; CODE XREF: BANK0:9A49j
       BCS     loc_BANK0_9A46			  ; code used at 8000
 
 
-loc_BANK0_9A53:					  ; CODE XREF: BANK0:9C55j
+loc_BANK0_9A53:					  ; CODE XREF: sub_BANK0_9A3D+218j
       LDA     #0				  ; code used at 8000
       TAY					  ; code used at 8000
 
 
-loc_BANK0_9A56:					  ; CODE XREF: BANK0:9A5Aj
+loc_BANK0_9A56:					  ; CODE XREF: sub_BANK0_9A3D+1Dj
       STA     byte_RAM_0,Y			  ; code used at 8000
       INY					  ; code used at 8000
       BNE     loc_BANK0_9A56			  ; code used at 8000
@@ -39369,7 +39457,7 @@ loc_BANK0_9A56:					  ; CODE XREF: BANK0:9A5Aj
       STY     PPUADDR				  ; code used at 8000
 
 
-loc_BANK0_9A6F:					  ; CODE XREF: BANK0:9A78j
+loc_BANK0_9A6F:					  ; CODE XREF: sub_BANK0_9A3D+3Bj
       LDA     TitleBackgroundPalettes,Y		  ; code used at 8000
       STA     PPUDATA				  ; code used at 8000
       INY					  ; code used at 8000
@@ -39407,14 +39495,14 @@ loc_BANK0_9A6F:					  ; CODE XREF: BANK0:9A78j
       STA     ObjectXHi+1			  ; code used at 8000
 
 
-loc_BANK0_9AB4:					  ; CODE XREF: BANK0:loc_BANK0_9B56j
+loc_BANK0_9AB4:					  ; CODE XREF: sub_BANK0_9A3D:loc_BANK0_9B56j
       JSR     WaitForNMI_TitleScreen		  ; code used at 8000
 
       LDA     ObjectXHi+2			  ; code used at 8000
       BNE     loc_BANK0_9AF3			  ; code used at 8000
 
 
-loc_BANK0_9ABB:					  ; CODE XREF: BANK0:9C08j
+loc_BANK0_9ABB:					  ; CODE XREF: sub_BANK0_9A3D+1CBj
       INC     byte_RAM_10			  ; code used at 8000
       LDA     byte_RAM_10			  ; code used at 8000
       AND     #$F				  ; code used at 8000
@@ -39424,7 +39512,7 @@ loc_BANK0_9ABB:					  ; CODE XREF: BANK0:9C08j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9AC6:					  ; CODE XREF: BANK0:9AC1j
+loc_BANK0_9AC6:					  ; CODE XREF: sub_BANK0_9A3D+84j
       DEC     byte_RAM_2			  ; code used at 8000
       LDA     byte_RAM_2			  ; code used at 8000
       CMP     #6				  ; code used at 8000
@@ -39448,7 +39536,7 @@ loc_BANK0_9AC6:					  ; CODE XREF: BANK0:9AC1j
       BEQ     loc_BANK0_9B4D			  ; code used at 8000
 
 
-loc_BANK0_9AF3:					  ; CODE XREF: BANK0:9AB9j
+loc_BANK0_9AF3:					  ; CODE XREF: sub_BANK0_9A3D+7Cj
       LDA     PlayerXHi				  ; code used at 8000
       STA     _RAM_PPUDataBuffer		  ; code used at 8000
       LDA     ObjectXHi				  ; code used at 8000
@@ -39477,7 +39565,7 @@ loc_BANK0_9B1B:					  ; code used at 8000
       LDY     #0				  ; code used at 8000
 
 
-loc_BANK0_9B25:					  ; CODE XREF: BANK0:9B2Dj
+loc_BANK0_9B25:					  ; CODE XREF: sub_BANK0_9A3D+F0j
       LDA     TitleAttributeData1A09,Y		  ; code used at 8000
       STA     byte_RAM_305,Y			  ; code used at 8000
       INY					  ; code used at 8000
@@ -39492,7 +39580,7 @@ loc_BANK0_9B25:					  ; CODE XREF: BANK0:9B2Dj
       LDY     #0				  ; code used at 8000
 
 
-loc_BANK0_9B3B:					  ; CODE XREF: BANK0:9B43j
+loc_BANK0_9B3B:					  ; CODE XREF: sub_BANK0_9A3D+106j
       LDA     byte_BANK0_9A21,Y			  ; code used at 8000
       STA     _RAM_PPUDataBuffer,Y		  ; code used at 8000
       INY					  ; code used at 8000
@@ -39505,8 +39593,9 @@ loc_BANK0_9B3B:					  ; CODE XREF: BANK0:9B43j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9B4D:					  ; CODE XREF: BANK0:9AC3j
-						  ; BANK0:9ACCj BANK0:9AF1j ...
+loc_BANK0_9B4D:					  ; CODE XREF: sub_BANK0_9A3D+86j
+						  ; sub_BANK0_9A3D+8Fj
+						  ; sub_BANK0_9A3D+B4j	...
       LDA     Player1JoypadPress		  ; code used at 8000
       AND     #ControllerInput_Start		  ; code used at 8000
       BEQ     loc_BANK0_9B56			  ; code used at 8000
@@ -39515,13 +39604,13 @@ loc_BANK0_9B4D:					  ; CODE XREF: BANK0:9AC3j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9B56:					  ; CODE XREF: BANK0:9B51j
+loc_BANK0_9B56:					  ; CODE XREF: sub_BANK0_9A3D+114j
       JMP     loc_BANK0_9AB4			  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9B59:					  ; CODE XREF: BANK0:9B4Aj
-						  ; BANK0:loc_BANK0_9C4Bj
+loc_BANK0_9B59:					  ; CODE XREF: sub_BANK0_9A3D+10Dj
+						  ; sub_BANK0_9A3D:loc_BANK0_9C4Bj
       JSR     WaitForNMI_TitleScreen		  ; code used at 8000
 
       LDA     ObjectXHi+4			  ; code used at 8000
@@ -39531,7 +39620,7 @@ loc_BANK0_9B59:					  ; CODE XREF: BANK0:9B4Aj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9B63:					  ; CODE XREF: BANK0:9B5Ej
+loc_BANK0_9B63:					  ; CODE XREF: sub_BANK0_9A3D+121j
       LDA     ObjectXHi+3			  ; code used at 8000
       CMP     #9				  ; code used at 8000
       BEQ     loc_BANK0_9B93			  ; code used at 8000
@@ -39546,7 +39635,7 @@ loc_BANK0_9B63:					  ; CODE XREF: BANK0:9B5Ej
 
 ; ---------------------------------------------------------------------------
 
-TitleScreen_WriteSTORYText:			  ; CODE XREF: BANK0:9B6Fj
+TitleScreen_WriteSTORYText:			  ; CODE XREF: sub_BANK0_9A3D+132j
       LDA     #$20 ; ' '                          ; PPU address for the center text area
       STA     _RAM_PPUDataBuffer
       LDA     #$AE ; 'Æ'
@@ -39556,7 +39645,7 @@ TitleScreen_WriteSTORYText:			  ; CODE XREF: BANK0:9B6Fj
       LDY     #4				  ; Bytes to copy minus	one (5-1=4)
 
 
-TitleScreen_WriteSTORYTextLoop:			  ; CODE XREF: BANK0:9B8Cj
+TitleScreen_WriteSTORYTextLoop:			  ; CODE XREF: sub_BANK0_9A3D+14Fj
       LDA     TitleStoryText_STORY,Y		  ; Copy STORY text to PPU write buffer
       STA     byte_RAM_304,Y
       DEY
@@ -39566,7 +39655,7 @@ TitleScreen_WriteSTORYTextLoop:			  ; CODE XREF: BANK0:9B8Cj
       STA     byte_RAM_309
 
 
-loc_BANK0_9B93:					  ; CODE XREF: BANK0:9B67j
+loc_BANK0_9B93:					  ; CODE XREF: sub_BANK0_9A3D+12Aj
       INC     ObjectXHi+3			  ; code used at 8000
       LDA     #$21 ; '!'                          ; code used at 8000
       STA     PlayerXHi				  ; code used at 8000
@@ -39577,7 +39666,7 @@ loc_BANK0_9B93:					  ; CODE XREF: BANK0:9B67j
       BNE     loc_BANK0_9C19			  ; code used at 8000
 
 
-loc_BANK0_9BA3:					  ; CODE XREF: BANK0:9B6Bj
+loc_BANK0_9BA3:					  ; CODE XREF: sub_BANK0_9A3D+12Ej
       DEC     ObjectXHi+5			  ; code used at 8000
       BPL     loc_BANK0_9C19			  ; code used at 8000
 
@@ -39605,7 +39694,7 @@ loc_BANK0_9BB2:					  ; code used at 8000
       LDX     #$13				  ; code used at 8000
 
 
-loc_BANK0_9BCB:					  ; CODE XREF: BANK0:9BD2j
+loc_BANK0_9BCB:					  ; CODE XREF: sub_BANK0_9A3D+195j
       LDA     (byte_RAM_3),Y			  ; code used at 8000
       STA     byte_RAM_304,Y			  ; code used at 8000
       INY					  ; code used at 8000
@@ -39644,7 +39733,7 @@ loc_BANK0_9BCB:					  ; CODE XREF: BANK0:9BD2j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9C0B:					  ; CODE XREF: BANK0:9BEEj
+loc_BANK0_9C0B:					  ; CODE XREF: sub_BANK0_9A3D+1B1j
       CMP     #$12				  ; code used at 8000
       BCC     loc_BANK0_9C19			  ; code used at 8000
 
@@ -39655,14 +39744,15 @@ loc_BANK0_9C0B:					  ; CODE XREF: BANK0:9BEEj
       STA     byte_RAM_10			  ; code used at 8000
 
 
-loc_BANK0_9C19:					  ; CODE XREF: BANK0:9B60j
-						  ; BANK0:9B71j BANK0:9BA1j ...
+loc_BANK0_9C19:					  ; CODE XREF: sub_BANK0_9A3D+123j
+						  ; sub_BANK0_9A3D+134j
+						  ; sub_BANK0_9A3D+164j ...
       LDA     Player1JoypadHeld			  ; code used at 8000
       AND     #ControllerInput_Start		  ; code used at 8000
       BEQ     loc_BANK0_9C35			  ; code used at 8000
 
 
-loc_BANK0_9C1F:					  ; CODE XREF: BANK0:9B53j
+loc_BANK0_9C1F:					  ; CODE XREF: sub_BANK0_9A3D+116j
       LDA     #Music2_StopMusic			  ; code used at 8000
       STA     MusicQueue2			  ; code used at 8000
       JSR     WaitForNMI_TitleScreen		  ; code used at 8000
@@ -39671,7 +39761,7 @@ loc_BANK0_9C1F:					  ; CODE XREF: BANK0:9B53j
       TAY					  ; code used at 8000
 
 
-loc_BANK0_9C2A:					  ; CODE XREF: BANK0:9C30j
+loc_BANK0_9C2A:					  ; CODE XREF: sub_BANK0_9A3D+1F3j
       STA     byte_RAM_0,Y			  ; code used at 8000
       INY					  ; code used at 8000
       CPY     #$F0 ; ''                          ; code used at 8000
@@ -39681,7 +39771,7 @@ loc_BANK0_9C2A:					  ; CODE XREF: BANK0:9C30j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9C35:					  ; CODE XREF: BANK0:9C1Dj
+loc_BANK0_9C35:					  ; CODE XREF: sub_BANK0_9A3D+1E0j
       LDA     ObjectXHi+4			  ; code used at 8000
       BEQ     loc_BANK0_9C4B			  ; code used at 8000
 
@@ -39698,19 +39788,22 @@ loc_BANK0_9C35:					  ; CODE XREF: BANK0:9C1Dj
       BEQ     loc_BANK0_9C4E			  ; code used at 8000
 
 
-loc_BANK0_9C4B:					  ; CODE XREF: BANK0:9C37j
-						  ; BANK0:9C3Fj BANK0:9C47j
+loc_BANK0_9C4B:					  ; CODE XREF: sub_BANK0_9A3D+1FAj
+						  ; sub_BANK0_9A3D+202j
+						  ; sub_BANK0_9A3D+20Aj
       JMP     loc_BANK0_9B59			  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9C4E:					  ; CODE XREF: BANK0:9C49j
+loc_BANK0_9C4E:					  ; CODE XREF: sub_BANK0_9A3D+20Cj
       LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled ; code used	at 8000
       STA     PPUCtrlMirror			  ; code used at 8000
 
 loc_BANK0_9C52:					  ; code used at 8000
       STA     PPUCTRL
       JMP     loc_BANK0_9A53			  ; code used at 8000
+
+; End of function sub_BANK0_9A3D
 
 ; ---------------------------------------------------------------------------
 ; [000003A8 BYTES: BEGIN OF AREA UNUSED-BANK0-9C58. PRESS KEYPAD "-" TO	COLLAPSE]
@@ -43593,27 +43686,31 @@ _empty_3B52:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $F
 ; Segment type:	Pure code
       ;.segment	BANK2
       *	=  $8000
-byte_BANK2_8000:.BYTE $FA			  ; DATA XREF: BANK2:8063r
+byte_BANK2_8000:.BYTE $FA			  ; DATA XREF: sub_BANK2_8010+53r
 						  ; data used at 8000
       .BYTE $F6					  ; data used at 8000
       .BYTE $FC					  ; data used at 8000
       .BYTE $F7					  ; data used at 8000
-byte_BANK2_8004:.BYTE $FF			  ; DATA XREF: BANK2:806Fr
+byte_BANK2_8004:.BYTE $FF			  ; DATA XREF: sub_BANK2_8010+5Fr
 						  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
-byte_BANK2_8008:.BYTE 2				  ; DATA XREF: BANK2:8069r
+byte_BANK2_8008:.BYTE 2				  ; DATA XREF: sub_BANK2_8010+59r
 						  ; data used at 8000
       .BYTE $FE					  ; data used at 8000
       .BYTE 4					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
-byte_BANK2_800C:.BYTE 0				  ; DATA XREF: BANK2:8075r
+byte_BANK2_800C:.BYTE 0				  ; DATA XREF: sub_BANK2_8010+65r
 						  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK2_8010:					  ; CODE XREF: sub_BANKF_F11E+2DP
       LDA     byte_RAM_627			  ; code used at 8000
       BEQ     loc_BANK2_8016			  ; code used at 8000
 
@@ -43621,7 +43718,7 @@ byte_BANK2_800C:.BYTE 0				  ; DATA XREF: BANK2:8075r
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_8016:					  ; CODE XREF: BANK2:8013j
+loc_BANK2_8016:					  ; CODE XREF: sub_BANK2_8010+3j
       LDA     byte_RAM_4AE			  ; code used at 8000
       BEQ     loc_BANK2_801E			  ; code used at 8000
 
@@ -43629,7 +43726,7 @@ loc_BANK2_8016:					  ; CODE XREF: BANK2:8013j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_801E:					  ; CODE XREF: BANK2:8019j
+loc_BANK2_801E:					  ; CODE XREF: sub_BANK2_8010+9j
       INC     byte_RAM_4AE			  ; code used at 8000
       STA     byte_RAM_5BA			  ; code used at 8000
       STA     POWQuakeTimer			  ; code used at 8000
@@ -43653,7 +43750,7 @@ loc_BANK2_801E:					  ; CODE XREF: BANK2:8019j
       LDY     #$1B				  ; code used at 8000
 
 
-loc_BANK2_8058:					  ; CODE XREF: BANK2:805Fj
+loc_BANK2_8058:					  ; CODE XREF: sub_BANK2_8010+4Fj
       LDA     byte_BANK3_BB6B,Y			  ; code used at 8000
       STA     byte_RAM_7F00,Y			  ; code used at 8000
       DEY					  ; code used at 8000
@@ -43673,14 +43770,16 @@ loc_BANK2_8066:					  ; code used at 8000
       LDA     #$B6 ; '∂'                          ; code used at 8000
       STA     byte_RAM_5AC			  ; code used at 8000
       LDA     byte_RAM_534			  ; code used at 8000
-      ORA     CurrentLevel			  ; code used at 8000
+
+loc_BANK2_8083:					  ; code used at 8000
+      ORA     CurrentLevel
       BNE     loc_BANK2_808D			  ; code used at 8000
 
       LDA     #$10				  ; code used at 8000
       STA     SoundEffectQueue2			  ; code used at 8000
 
 
-loc_BANK2_808D:					  ; CODE XREF: BANK2:8086j
+loc_BANK2_808D:					  ; CODE XREF: sub_BANK2_8010+76j
       LDA     byte_RAM_4AF			  ; code used at 8000
       BEQ     loc_BANK2_8106			  ; code used at 8000
 
@@ -43714,7 +43813,7 @@ loc_BANK2_808D:					  ; CODE XREF: BANK2:8086j
       BNE     loc_BANK2_8106			  ; code used at 8000
 
 
-loc_BANK2_80C7:					  ; CODE XREF: BANK2:80A7j
+loc_BANK2_80C7:					  ; CODE XREF: sub_BANK2_8010+97j
       PHA					  ; code used at 8000
       STX     byte_RAM_42D			  ; code used at 8000
       JSR     sub_BANK2_845D			  ; code used at 8000
@@ -43750,8 +43849,9 @@ loc_BANK2_80C7:					  ; CODE XREF: BANK2:80A7j
       JSR     sub_BANK2_8569			  ; code used at 8000
 
 
-loc_BANK2_8106:					  ; CODE XREF: BANK2:8090j
-						  ; BANK2:8098j BANK2:80C5j ...
+loc_BANK2_8106:					  ; CODE XREF: sub_BANK2_8010+80j
+						  ; sub_BANK2_8010+88j
+						  ; sub_BANK2_8010+B5j	...
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_CC			  ; code used at 8000
       LDA     #$7B ; '{'                          ; code used at 8000
@@ -43770,7 +43870,7 @@ loc_BANK2_8106:					  ; CODE XREF: BANK2:8090j
       STA     byte_RAM_6			  ; code used at 8000
 
 
-loc_BANK2_8124:					  ; CODE XREF: BANK2:8135j
+loc_BANK2_8124:					  ; CODE XREF: sub_BANK2_8010+125j
       LDA     byte_RAM_6			  ; code used at 8000
       CMP     #$B				  ; code used at 8000
       BCS     loc_BANK2_8130			  ; code used at 8000
@@ -43780,7 +43880,7 @@ loc_BANK2_8124:					  ; CODE XREF: BANK2:8135j
       JSR     loc_BANK2_8311			  ; code used at 8000
 
 
-loc_BANK2_8130:					  ; CODE XREF: BANK2:8128j
+loc_BANK2_8130:					  ; CODE XREF: sub_BANK2_8010+118j
       JSR     sub_BANK2_8138			  ; code used at 8000
 
       DEC     byte_RAM_9			  ; code used at 8000
@@ -43788,11 +43888,13 @@ loc_BANK2_8130:					  ; CODE XREF: BANK2:8128j
 
       RTS					  ; code used at 8000
 
+; End of function sub_BANK2_8010
+
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK2_8138:					  ; CODE XREF: BANK2:loc_BANK2_8130p
+sub_BANK2_8138:					  ; CODE XREF: sub_BANK2_8010:loc_BANK2_8130p
 						  ; BANK2:loc_BANK2_8164p
       LDA     byte_RAM_5			  ; code used at 8000
       CLC					  ; code used at 8000
@@ -43810,7 +43912,7 @@ locret_BANK2_8143:				  ; CODE XREF: sub_BANK2_8138+7j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_8144:					  ; CODE XREF: BANK2:8110j
+loc_BANK2_8144:					  ; CODE XREF: sub_BANK2_8010+100j
       LDA     byte_RAM_4C0			  ; code used at 8000
       SBC     #$30 ; '0'                          ; code used at 8000
       AND     #$F0 ; ''                          ; code used at 8000
@@ -43842,7 +43944,7 @@ loc_BANK2_8164:					  ; CODE XREF: BANK2:815Cj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_816C:					  ; CODE XREF: BANK2:801Bj
+loc_BANK2_816C:					  ; CODE XREF: sub_BANK2_8010+Bj
       JSR     loc_BANK2_8256			  ; code used at 8000
 
       LDA     StopwatchTimer			  ; code used at 8000
@@ -43881,7 +43983,9 @@ loc_BANK2_8198:					  ; CODE XREF: BANK2:81F3j
       CLC					  ; code used at 8000
       ADC     byte_RAM_400			  ; code used at 8000
       TAY					  ; code used at 8000
-      LDA     byte_BANKF_F4DA,Y			  ; code used at 8000
+
+loc_BANK2_81A0:					  ; code used at 8000
+      LDA     byte_BANKF_F4DA,Y
       LDY     unk_RAM_A8,X			  ; code used at 8000
       BEQ     loc_BANK2_81B1			  ; code used at 8000
 
@@ -43926,12 +44030,14 @@ loc_BANK2_81CA:					  ; CODE XREF: BANK2:81C6j
 loc_BANK2_81D2:					  ; CODE XREF: BANK2:81C2j
 						  ; BANK2:81CDj
       LDA     unk_RAM_45C,X			  ; code used at 8000
-      BEQ     loc_BANK2_81DA			  ; code used at 8000
+
+loc_BANK2_81D5:					  ; code used at 8000
+      BEQ     loc_BANK2_81DA
 
       DEC     unk_RAM_45C,X			  ; code used at 8000
 
 
-loc_BANK2_81DA:					  ; CODE XREF: BANK2:81D5j
+loc_BANK2_81DA:					  ; CODE XREF: BANK2:loc_BANK2_81D5j
       LDA     unk_RAM_438,X			  ; code used at 8000
       BEQ     loc_BANK2_81E7			  ; code used at 8000
 
@@ -43959,7 +44065,9 @@ loc_BANK2_81E7:					  ; CODE XREF: BANK2:81DDj
 
       SEC					  ; code used at 8000
       SBC     #$47 ; 'G'                          ; code used at 8000
-      JSR     JumpToTableAfterJump		  ; code used at 8000
+
+loc_BANK2_81FD:					  ; code used at 8000
+      JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
       .WORD loc_BANK2_8B64			  ; data used at 8000
@@ -44227,8 +44335,8 @@ loc_BANK2_830F:					  ; code used at 8000
       BCS     locret_BANK2_82AB
 
 
-loc_BANK2_8311:					  ; CODE XREF: BANK2:812Ap
-						  ; BANK2:812Dp
+loc_BANK2_8311:					  ; CODE XREF: sub_BANK2_8010+11Ap
+						  ; sub_BANK2_8010+11Dp
       LDX     #0				  ; code used at 8000
       STX     byte_RAM_0			  ; code used at 8000
 
@@ -44450,7 +44558,7 @@ EnemyInitializationTable:.WORD sub_BANK2_845D
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK2_8441:					  ; CODE XREF: BANK2:80B7p
+sub_BANK2_8441:					  ; CODE XREF: sub_BANK2_8010+A7p
 						  ; sub_BANK2_8461:loc_BANK2_848Fp
 						  ; BANK2:8B7Ap ...
       LDY     ObjectType,X			  ; code used at 8000
@@ -44473,8 +44581,8 @@ loc_BANK2_8450:					  ; code used at 8000
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK2_845D:					  ; CODE XREF: BANK2:80CBp
-						  ; BANK2:80E9p
+sub_BANK2_845D:					  ; CODE XREF: sub_BANK2_8010+BBp
+						  ; sub_BANK2_8010+D9p
 						  ; BANK2:loc_BANK2_84B9p ...
       LDA     #0				  ; code used at 8000
       STA     unk_RAM_86,X			  ; code used at 8000
@@ -44701,7 +44809,7 @@ EnemyDeathMaybe:				  ; CODE XREF: BANK2:8507j
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK2_8569:					  ; CODE XREF: BANK2:8103p
+sub_BANK2_8569:					  ; CODE XREF: sub_BANK2_8010+F3p
 						  ; sub_BANK2_92C8+38p
       LDA     #$FF				  ; code used at 8000
       STA     unk_RAM_441,X			  ; code used at 8000
@@ -44841,7 +44949,7 @@ byte_BANK2_85E7:.BYTE $F8			  ; DATA XREF: BANK2:8626r
       .BYTE $F8					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
       .BYTE 8					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
+byte_BANK2_85EC:.BYTE $10			  ; data used at 8000
       .BYTE 8					  ; data used at 8000
       .BYTE $10					  ; data used at 8000
 byte_BANK2_85EF:.BYTE $F8			  ; DATA XREF: BANK2:861Cr
@@ -45118,7 +45226,9 @@ loc_BANK2_8712:					  ; CODE XREF: sub_BANK2_8670+9Fj
       STA     _RAM_PPUDataBuffer,X		  ; code used at 8000
       ADC     #0				  ; code used at 8000
       STA     byte_RAM_306,X			  ; code used at 8000
-      LDA     #2				  ; code used at 8000
+
+loc_BANK2_874B:					  ; code used at 8000
+      LDA     #2
       STA     byte_RAM_303,X			  ; code used at 8000
       STA     byte_RAM_308,X			  ; code used at 8000
       LDA     #$FA ; '˙'                          ; code used at 8000
@@ -45194,7 +45304,9 @@ loc_BANK2_879C:					  ; DATA XREF: BANK2:824Co
       LDA     unk_RAM_86,X			  ; code used at 8000
       BNE     loc_BANK2_87AC			  ; code used at 8000
 
-      JMP     loc_BANK2_8842			  ; code used at 8000
+
+loc_BANK2_87A9:					  ; code used at 8000
+      JMP     loc_BANK2_8842
 
 ; ---------------------------------------------------------------------------
 
@@ -45301,7 +45413,7 @@ loc_BANK2_8827:					  ; CODE XREF: BANK2:8818j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_8842:					  ; CODE XREF: BANK2:87A9j
+loc_BANK2_8842:					  ; CODE XREF: BANK2:loc_BANK2_87A9j
       LDA     ObjectType,X			  ; code used at 8000
       CMP     #$2B ; '+'                          ; code used at 8000
       BNE     loc_BANK2_8855			  ; code used at 8000
@@ -45663,6 +45775,8 @@ loc_BANK2_89FB:					  ; CODE XREF: BANK2:89F6j
       BEQ     loc_BANK2_8A04			  ; code used at 8000
 
       DEC     unk_RAM_9F,X
+
+loc_BANK2_8A01:
       JMP     sub_BANK2_960F
 
 ; ---------------------------------------------------------------------------
@@ -48180,6 +48294,8 @@ loc_BANK2_9562:					  ; CODE XREF: BANK2:953Cj
       LDA     unk_RAM_44A,X			  ; code used at 8000
       BEQ     loc_BANK2_9574			  ; code used at 8000
 
+
+loc_BANK2_9567:
       DEC     unk_RAM_9F,X
       DEC     unk_RAM_44A,X
       BNE     loc_BANK2_9574
@@ -48392,8 +48508,8 @@ byte_BANK2_9607:.BYTE $A			  ; DATA XREF: sub_BANK2_960F:loc_BANK2_964Ar
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK2_960F:					  ; CODE XREF: BANK2:80D4p
-						  ; BANK2:8A01j
+sub_BANK2_960F:					  ; CODE XREF: sub_BANK2_8010+C4p
+						  ; BANK2:loc_BANK2_8A01j
 						  ; BANK2:loc_BANK2_9069p ...
       LDA     byte_RAM_9D			  ; code used at 8000
       EOR     #1				  ; code used at 8000
@@ -49115,7 +49231,7 @@ loc_BANK2_9932:					  ; CODE XREF: BANK2:9928j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9935:					  ; CODE XREF: BANK3:BEACJ
+loc_BANK2_9935:					  ; CODE XREF: sub_BANK3_BE0B+A1J
       LDA     #0				  ; code used at 8000
 
 
@@ -49387,7 +49503,7 @@ byte_BANK2_99B5:.BYTE $D2			  ; DATA XREF: sub_BANK2_9CF2+10r
       .BYTE $92					  ; data used at 8000
       .BYTE $94					  ; data used at 8000
       .BYTE $29					  ; data used at 8000
-      .BYTE $29					  ; data used at 8000
+byte_BANK2_9A3D:.BYTE $29			  ; data used at 8000
       .BYTE $2B					  ; data used at 8000
       .BYTE $2B					  ; data used at 8000
       .BYTE $3D					  ; data used at 8000
@@ -55776,7 +55892,7 @@ locret_BANK3_BB6A:				  ; CODE XREF: sub_BANK3_BB5A+Aj
 ; End of function sub_BANK3_BB5A
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_BB6B:.BYTE $F9			  ; DATA XREF: BANK2:loc_BANK2_8058r
+byte_BANK3_BB6B:.BYTE $F9			  ; DATA XREF: sub_BANK2_8010:loc_BANK2_8058r
 						  ; data used at a000
       .BYTE $FF					  ; data used at a000
       .BYTE 0					  ; data used at a000
@@ -56388,7 +56504,7 @@ loc_BANK3_BDEC:					  ; CODE XREF: sub_BANK3_BDC5:loc_BANK3_BDDDj
 ; End of function sub_BANK3_BDC5
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_BDEF:.BYTE $BA			  ; DATA XREF: BANK3:loc_BANK3_BE6Cr
+byte_BANK3_BDEF:.BYTE $BA			  ; DATA XREF: sub_BANK3_BE0B:loc_BANK3_BE6Cr
 						  ; data used at a000
       .BYTE $BA					  ; data used at a000
       .BYTE $BA	; ∫
@@ -56409,17 +56525,21 @@ byte_BANK3_BDEF:.BYTE $BA			  ; DATA XREF: BANK3:loc_BANK3_BE6Cr
       .BYTE $B8	; ∏
       .BYTE $B8	; ∏
       .BYTE $B8	; ∏
-byte_BANK3_BE03:.BYTE 0				  ; DATA XREF: BANK3:loc_BANK3_BEA6r
+byte_BANK3_BE03:.BYTE 0				  ; DATA XREF: sub_BANK3_BE0B:loc_BANK3_BEA6r
 						  ; data used at a000
       .BYTE 3					  ; data used at a000
       .BYTE   0
       .BYTE $FD	; ˝
-byte_BANK3_BE07:.BYTE $26			  ; DATA XREF: BANK3:BE31r
+byte_BANK3_BE07:.BYTE $26			  ; DATA XREF: sub_BANK3_BE0B+26r
 						  ; data used at a000
       .BYTE $2A					  ; data used at a000
       .BYTE $22					  ; data used at a000
       .BYTE $26					  ; data used at a000
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK3_BE0B:					  ; CODE XREF: sub_BANKF_F11E+30P
       LDA     byte_RAM_4C6			  ; code used at a000
       BEQ     loc_BANK3_BE55			  ; code used at a000
 
@@ -56441,7 +56561,7 @@ byte_BANK3_BE07:.BYTE $26			  ; DATA XREF: BANK3:BE31r
       LDA     byte_BANK3_BE07,Y			  ; code used at a000
 
 
-loc_BANK3_BE34:					  ; CODE XREF: BANK3:BE2Bj
+loc_BANK3_BE34:					  ; CODE XREF: sub_BANK3_BE0B+20j
       STA     byte_RAM_304,X			  ; code used at a000
       LDA     byte_RAM_638			  ; code used at a000
       STA     byte_RAM_305,X			  ; code used at a000
@@ -56457,7 +56577,7 @@ loc_BANK3_BE34:					  ; CODE XREF: BANK3:BE2Bj
       STA     byte_RAM_300			  ; code used at a000
 
 
-loc_BANK3_BE55:					  ; CODE XREF: BANK3:BE0Ej
+loc_BANK3_BE55:					  ; CODE XREF: sub_BANK3_BE0B+3j
       LDA     #$30 ; '0'                          ; code used at a000
       STA     byte_RAM_0			  ; code used at a000
       JSR     loc_BANKF_FAFE			  ; code used at a000
@@ -56471,13 +56591,13 @@ loc_BANK3_BE55:					  ; CODE XREF: BANK3:BE0Ej
       ADC     #4				  ; code used at a000
 
 
-loc_BANK3_BE67:					  ; CODE XREF: BANK3:BE5Fj
+loc_BANK3_BE67:					  ; CODE XREF: sub_BANK3_BE0B+54j
       TAX					  ; code used at a000
       LDA     #$FE ; '˛'                          ; code used at a000
       STA     byte_RAM_3			  ; code used at a000
 
 
-loc_BANK3_BE6C:					  ; CODE XREF: BANK3:BE92j
+loc_BANK3_BE6C:					  ; CODE XREF: sub_BANK3_BE0B+87j
       LDA     byte_BANK3_BDEF,X			  ; code used at a000
       STA     unk_RAM_201,Y			  ; code used at a000
       LDA     #$10				  ; code used at a000
@@ -56513,15 +56633,17 @@ loc_BANK3_BE6C:					  ; CODE XREF: BANK3:BE92j
       INY
 
 
-loc_BANK3_BEA6:					  ; CODE XREF: BANK3:BEA2j
+loc_BANK3_BEA6:					  ; CODE XREF: sub_BANK3_BE0B+97j
       LDA     byte_BANK3_BE03,Y			  ; code used at a000
       STA     byte_RAM_4C5			  ; code used at a000
       JMP     loc_BANK2_9935			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
-locret_BANK3_BEAF:				  ; CODE XREF: BANK3:BE97j
+locret_BANK3_BEAF:				  ; CODE XREF: sub_BANK3_BE0B+8Cj
       RTS					  ; code used at a000
+
+; End of function sub_BANK3_BE0B
 
 ; ---------------------------------------------------------------------------
 _empty_7EB0:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; 0
@@ -56573,6 +56695,8 @@ StartProcessingSoundQueue:			  ; CODE XREF: DoSoundProcessing+5P
 
       LDA     #$C				  ; Mute the two square	channels
 						  ; (TODO: Bitmask pls)
+
+loc_BANK4_800E:
       STA     SND_CHN
       JMP     ProcessOnlyMusicQueue2		  ; You	would think you	could skip processing,
 						  ; since if the game is paused, nothing should
@@ -56680,7 +56804,9 @@ ProcessSoundEffectQueue2:			  ; CODE XREF: StartProcessingSoundQueue:ProcessMusi
       BEQ     loc_BANK4_80D3			  ; code used at 8000
 
       LDY     SoundEffectQueue2			  ; code used at 8000
-      BEQ     loc_BANK4_80A5			  ; code used at 8000
+
+loc_BANK4_8082:					  ; code used at 8000
+      BEQ     loc_BANK4_80A5
 
       STY     byte_RAM_60D			  ; code used at 8000
       LSR     SoundEffectQueue2			  ; code used at 8000
@@ -56702,7 +56828,7 @@ ProcessSoundEffectQueue2:			  ; CODE XREF: StartProcessingSoundQueue:ProcessMusi
       BCS     loc_BANK4_8103
 
 
-loc_BANK4_80A5:					  ; CODE XREF: ProcessSoundEffectQueue2+Aj
+loc_BANK4_80A5:					  ; CODE XREF: ProcessSoundEffectQueue2:loc_BANK4_8082j
       LDA     byte_RAM_60D			  ; code used at 8000
       BEQ     locret_BANK4_80BC			  ; code used at 8000
 
@@ -56925,7 +57051,7 @@ SoundEffects:.BYTE $9F				  ; data used at 8000
       .BYTE $E					  ; data used at 8000
       .BYTE $C					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
+byte_BANK4_81A2:.BYTE $7E			  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $86					  ; data used at 8000
       .BYTE $10					  ; data used at 8000
@@ -56977,7 +57103,7 @@ SoundEffects:.BYTE $9F				  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
+byte_BANK4_81D6:.BYTE $7E			  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
@@ -57017,7 +57143,7 @@ SoundEffects:.BYTE $9F				  ; data used at 8000
       .BYTE 0					  ; data used at 8000
       .BYTE $81					  ; data used at 8000
       .BYTE $56					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
+byte_BANK4_81FE:.BYTE $7E			  ; data used at 8000
       .BYTE $64					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $68					  ; data used at 8000
@@ -57080,7 +57206,7 @@ SoundEffects:.BYTE $9F				  ; data used at 8000
       .BYTE $16					  ; data used at 8000
       .BYTE $1C					  ; data used at 8000
       .BYTE $18					  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
+byte_BANK4_823D:.BYTE $1A			  ; data used at 8000
       .BYTE $1E					  ; data used at 8000
       .BYTE $18					  ; data used at 8000
       .BYTE $16					  ; data used at 8000
@@ -59751,7 +59877,7 @@ byte_BANK4_94AD:.BYTE $48			  ; data used at 8000
       .BYTE $56	; V
       .BYTE $50	; P
       .BYTE $94	; î
-      .BYTE $48	; H
+unk_BANK4_9567:.BYTE $48 ; H
       .BYTE $4C	; L
       .BYTE $99	; ô
       .BYTE $46	; F
@@ -60989,7 +61115,7 @@ byte_BANK4_997A:.BYTE $A6			  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $C2					  ; data used at 8000
-      .BYTE $48					  ; data used at 8000
+byte_BANK4_9A3D:.BYTE $48			  ; data used at 8000
       .BYTE $C6					  ; data used at 8000
       .BYTE $46					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
@@ -63970,7 +64096,7 @@ WorldBackgroundPalettePointersHi:.BYTE high8(World1BackgroundPalettes)
 						  ; DATA XREF: sub_BANK6_9370+Cr
 						  ; data used at 8000
       .BYTE high8(World2BackgroundPalettes)	  ; data used at 8000
-      .BYTE high8(World3BackgroundPalettes)	  ; data used at 8000
+off_BANK6_8010:.BYTE high8(World3BackgroundPalettes) ; data used at 8000
       .BYTE high8(World4BackgroundPalettes)	  ; data used at 8000
       .BYTE high8(World5BackgroundPalettes)	  ; data used at 8000
       .BYTE high8(World6BackgroundPalettes)	  ; data used at 8000
@@ -64089,7 +64215,7 @@ World1BackgroundPalettes:.BYTE $21 ; !		  ; DATA XREF: BANK6:WorldBackgroundPale
       .BYTE   1					  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
+unk_BANK6_8083:.BYTE  $F			  ; data used at 8000
       .BYTE   1					  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
@@ -64289,7 +64415,7 @@ World2SpritePalettes:.BYTE $FF			  ; DATA XREF: BANK6:8008o
       .BYTE $23	; #				  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
 World3BackgroundPalettes:.BYTE $22 ; "		  ; DATA XREF: BANK6:8002o
-						  ; BANK6:8010o
+						  ; BANK6:off_BANK6_8010o
 						  ; data used at 8000
       .BYTE $30	; 0				  ; data used at 8000
       .BYTE $12					  ; data used at 8000
@@ -64384,7 +64510,7 @@ World3BackgroundPalettes:.BYTE $22 ; "		  ; DATA XREF: BANK6:8002o
       .BYTE  $F					  ; data used at 8000
       .BYTE  $C					  ; data used at 8000
       .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $31	; 1				  ; data used at 8000
+unk_BANK6_81A2:.BYTE $31 ; 1			  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
       .BYTE   1
       .BYTE  $F
@@ -64438,7 +64564,7 @@ World3SpritePalettes:.BYTE $FF			  ; DATA XREF: BANK6:8009o
       .BYTE  $F					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
       .BYTE $2B	; +				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
+unk_BANK6_81D6:.BYTE $10			  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
 World4BackgroundPalettes:.BYTE $23 ; #		  ; DATA XREF: BANK6:8003o
 						  ; BANK6:8011o
@@ -64480,7 +64606,7 @@ World4BackgroundPalettes:.BYTE $23 ; #		  ; DATA XREF: BANK6:8003o
       .BYTE   1					  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
       .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
+unk_BANK6_81FE:.BYTE $16			  ; data used at 8000
       .BYTE   2					  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
       .BYTE $2B	; +				  ; data used at 8000
@@ -64543,7 +64669,7 @@ World4BackgroundPalettes:.BYTE $23 ; #		  ; DATA XREF: BANK6:8003o
       .BYTE  $F
       .BYTE  $F
       .BYTE   1
-      .BYTE  $F
+unk_BANK6_823D:.BYTE  $F
       .BYTE  $F
       .BYTE  $F
       .BYTE   1
@@ -65466,7 +65592,7 @@ UnusedTileQuads2:.BYTE $FA ; ˙			  ; DATA XREF: BANK6:8605o
       .BYTE $C2	; ¬
       .BYTE $C1	; ¡
       .BYTE $C3	; √
-      .BYTE $2C	; ,
+unk_BANK6_874C:.BYTE $2C ; ,
       .BYTE $2E	; .
       .BYTE $2D	; -
       .BYTE $2F	; /
@@ -65524,7 +65650,7 @@ UnusedTileQuads2:.BYTE $FA ; ˙			  ; DATA XREF: BANK6:8605o
       .BYTE $35	; 5
 UnusedTileQuads3:.BYTE $94 ; î			  ; DATA XREF: BANK6:8606o
 						  ; BANK6:860Ao
-      .BYTE $95	; ï
+unk_BANK6_8785:.BYTE $95 ; ï
       .BYTE $94	; î
       .BYTE $95	; ï
       .BYTE $96	; ñ
@@ -65561,7 +65687,7 @@ UnusedTileQuads3:.BYTE $94 ; î			  ; DATA XREF: BANK6:8606o
       .BYTE $FB	; ˚
       .BYTE $FB	; ˚
       .BYTE $FB	; ˚
-      .BYTE $31	; 1
+unk_BANK6_87AA:.BYTE $31 ; 1
       .BYTE $FB	; ˚
       .BYTE $D0	; –
       .BYTE $D0	; –
@@ -67984,7 +68110,7 @@ unk_BANK6_9324:.BYTE $77 ; w			  ; DATA XREF: sub_BANK6_9479:loc_BANK6_94A5r
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK6_933A:					  ; CODE XREF: BANK6:9567p
+sub_BANK6_933A:					  ; CODE XREF: sub_BANK6_9567p
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_A			  ; code used at 8000
       LDY     #$69 ; 'i'                          ; code used at 8000
@@ -68061,10 +68187,13 @@ sub_BANK6_938A:					  ; CODE XREF: sub_BANK6_93B8:loc_BANK6_93EFp
 
 ; End of function sub_BANK6_938A
 
-; ---------------------------------------------------------------------------
 
-loc_BANK6_93A4:					  ; code used at 8000
-      LDA     InSubspaceOrJar
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK6_93A4:					  ; CODE XREF: BANKF:E464P
+						  ; BANKF:E556P BANKF:E603P ...
+      LDA     InSubspaceOrJar			  ; code used at 8000
       CMP     #1				  ; code used at 8000
       BNE     loc_BANK6_93B1			  ; code used at 8000
 
@@ -68075,13 +68204,15 @@ loc_BANK6_93A4:					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_93B1:					  ; CODE XREF: BANK6:93A9j
+loc_BANK6_93B1:					  ; CODE XREF: sub_BANK6_93A4+5j
       JSR     RestoreLevelDataCopyAddress	  ; code used at 8000
 
 
-loc_BANK6_93B4:					  ; CODE XREF: BANK6:93AEj
+loc_BANK6_93B4:					  ; CODE XREF: sub_BANK6_93A4+Aj
       LDY     #0				  ; code used at 8000
       LDA     (byte_RAM_5),Y			  ; code used at 8000
+
+; End of function sub_BANK6_93A4
 
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -68368,7 +68499,7 @@ ClearSubAreaTileLayout:				  ; CODE XREF: sub_BANK6_94AD+Aj
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK6_950E:					  ; CODE XREF: BANK6:9570p
+sub_BANK6_950E:					  ; CODE XREF: sub_BANK6_9567+9p
       LDY     #3				  ; code used at 8000
       LDA     (byte_RAM_5),Y			  ; code used at 8000
       AND     #3				  ; code used at 8000
@@ -68433,7 +68564,11 @@ locret_BANK6_9547:				  ; CODE XREF: BANK6:9534j
       STA     byte_RAM_533
       RTS
 
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANK6_9567:					  ; CODE XREF: BANKF:E461P
       JSR     sub_BANK6_933A			  ; code used at 8000
 
       JSR     sub_BANK6_98DC			  ; code used at 8000
@@ -68490,7 +68625,7 @@ loc_BANK6_95B0:					  ; code used at 8000
       JSR     sub_BANK6_9728			  ; code used at 8000
 
 
-loc_BANK6_95C1:					  ; CODE XREF: BANK6:loc_BANK6_95B0j
+loc_BANK6_95C1:					  ; CODE XREF: sub_BANK6_9567:loc_BANK6_95B0j
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_E6			  ; code used at 8000
       LDA     #3				  ; code used at 8000
@@ -68504,12 +68639,15 @@ loc_BANK6_95CE:					  ; code used at 8000
       STA     byte_RAM_5AC			  ; code used at 8000
       RTS					  ; code used at 8000
 
+; End of function sub_BANK6_9567
+
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
-RestoreLevelDataCopyAddress:			  ; CODE XREF: BANK6:loc_BANK6_93B1p
-						  ; BANK6:956Dp BANK6:957Dp
+RestoreLevelDataCopyAddress:			  ; CODE XREF: sub_BANK6_93A4:loc_BANK6_93B1p
+						  ; sub_BANK6_9567+6p
+						  ; sub_BANK6_9567+16p
       LDA     #$78 ; 'x'                          ; code used at 8000
       STA     byte_RAM_6			  ; code used at 8000
       LDA     #0				  ; code used at 8000
@@ -68522,7 +68660,7 @@ RestoreLevelDataCopyAddress:			  ; CODE XREF: BANK6:loc_BANK6_93B1p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-HijackLevelDataCopyAddressWithJar:		  ; CODE XREF: BANK6:93ABp
+HijackLevelDataCopyAddressWithJar:		  ; CODE XREF: sub_BANK6_93A4+7p
 						  ; sub_BANK6_94AD+19p
 						  ; sub_BANK6_94AD+48p
       LDA     #$7A ; 'z'
@@ -68537,7 +68675,7 @@ HijackLevelDataCopyAddressWithJar:		  ; CODE XREF: BANK6:93ABp
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK6_95E6:					  ; CODE XREF: BANK6:95C9p
+sub_BANK6_95E6:					  ; CODE XREF: sub_BANK6_9567+62p
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_E8			  ; code used at 8000
 
@@ -68866,7 +69004,7 @@ loc_BANK6_971B:					  ; DATA XREF: BANK6:96B0o
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK6_9728:					  ; CODE XREF: BANK6:95BEp
+sub_BANK6_9728:					  ; CODE XREF: sub_BANK6_9567+57p
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_540			  ; code used at 8000
 
@@ -69351,7 +69489,7 @@ unk_BANK6_98DA:.BYTE $28 ; (			  ; DATA XREF: sub_BANK6_98DC+14r
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK6_98DC:					  ; CODE XREF: BANK6:956Ap
+sub_BANK6_98DC:					  ; CODE XREF: sub_BANK6_9567+3p
       LSR     A					  ; code used at 8000
       BCS     loc_BANK6_98EA			  ; code used at 8000
 
@@ -70072,6 +70210,7 @@ _unused_bank7:.BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       ;.segment	BANK8
       *	=  $8000
 LevelAreaStartIndexes:.BYTE 0			  ; DATA XREF: GetLevelPointers+3r
+						  ; GetJarPointers+3r
 						  ; Table to determine what "total" index a given
 						  ; level + area is. Get the starting area from	this
 						  ; table (based on CurrentLevel) and add the area to it
@@ -70092,12 +70231,13 @@ LevelAreaStartIndexes:.BYTE 0			  ; DATA XREF: GetLevelPointers+3r
       .BYTE $82					  ; Level 5-2
       .BYTE $8C					  ; Level 5-3
       .BYTE $96					  ; Level 6-1
-      .BYTE $A0					  ; Level 6-2
+byte_BANK8_8010:.BYTE $A0			  ; Level 6-2
       .BYTE $AA					  ; Level 6-3
       .BYTE $B4					  ; Level 7-1
       .BYTE $BE					  ; Level 7-2
       .BYTE $C8					  ; Level 7-3
 LevelDataPointersLo:.BYTE low8(LevelData_1_1_Area0) ; DATA XREF: GetLevelPointers+Br
+						  ; GetJarPointers+Ar
 						  ; Stuff below	here ------
       .BYTE low8(LevelData_1_1_Area1)
       .BYTE low8(LevelData_1_1_Area2)		  ; data used at 8000
@@ -70208,7 +70348,7 @@ off_BANK8_8067:.BYTE low8(LevelData_3_3_Area1)	  ; data used at 8000
       .BYTE low8(LevelData_4_2_Area3)
       .BYTE low8(LevelData_4_2_Area3)
       .BYTE low8(LevelData_4_2_Area3)
-      .BYTE low8(LevelData_4_3_Area0)		  ; data used at 8000
+off_BANK8_8083:.BYTE low8(LevelData_4_3_Area0)	  ; data used at 8000
       .BYTE low8(LevelData_4_3_Area1)		  ; data used at 8000
       .BYTE low8(LevelData_4_3_Area2)
       .BYTE low8(LevelData_4_3_Area3)
@@ -70311,6 +70451,7 @@ off_BANK8_8067:.BYTE low8(LevelData_3_3_Area1)	  ; data used at 8000
       .BYTE $1F
       .BYTE $1F
 LevelDataPointersHi:.BYTE high8(LevelData_1_1_Area0) ; DATA XREF: GetLevelPointers+10r
+						  ; GetJarPointers+Fr
 						  ; data used at 8000
       .BYTE high8(LevelData_1_1_Area1)
       .BYTE high8(LevelData_1_1_Area2)		  ; data used at 8000
@@ -70500,7 +70641,7 @@ LevelDataPointersHi:.BYTE high8(LevelData_1_1_Area0) ; DATA XREF: GetLevelPointe
 						  ; here -- it's in another bank so
 						  ; the	disassembler is	choking	on it
       .BYTE $A0	; †
-      .BYTE $A0	; †
+unk_BANK8_81A2:.BYTE $A0 ; †
       .BYTE $A0	; †
       .BYTE $A0	; †
       .BYTE $A0	; †				  ; data used at 8000
@@ -70942,7 +71083,7 @@ LevelData_4_2_Area3:.BYTE $91, $EA, $20, $32, $81, $13,	$A, $33, $F0, $4C, $F0,	
       .BYTE $3B, $F0, $D, $F0, $48, $F0, $70, $F1, $F7,	$F2, $F0, $30, $F0, $77, $F0, $8F; $10 ; data used at 8000
       .BYTE $F1, $10, $F1, $8A,	$F5, $B, 0, $FF	  ; $20
 LevelData_4_3_Area0:.BYTE $91, $EA, 2, $11, $4B, $14, $B, $11, $D, $A8,	$F0, $54, $F0, $D3, $F1, $15; 0
-						  ; DATA XREF: BANK8:8083o
+						  ; DATA XREF: BANK8:off_BANK8_8083o
 						  ; BANK8:8155o
       .BYTE $F1, $CA, $FF			  ; $10	; data used at 8000
 LevelData_4_3_Area1:.BYTE $80, $E1, $91, 0, 0, $8A, $2A, $10, $1D, $11,	$14, $2B, $14, $F, $33,	$F; 0
@@ -74820,7 +74961,7 @@ _empty_13025:.BYTE $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $
       ;.segment	BANKA
       *	=  $8000
 World1thru6TitleCard:.BYTE $FB,	$FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB; 0
-						  ; DATA XREF: BANKA:loc_BANKA_8347r
+						  ; DATA XREF: sub_BANKA_8327:loc_BANKA_8347r
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1,	$FB, $FB, $FB, $FB; $10	; This title card is used for every world
       .BYTE $FB, $FB, $B4, $B5,	$FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8,	$BA, $BC, $FB, $FB; $20	; from 1 to 6. The only	difference is
       .BYTE $FB, $FB, $B4, $B5,	$FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9,	$BB, $BD, $FB, $FB; $30	; the loaded CHR banks.
@@ -74831,7 +74972,7 @@ World1thru6TitleCard:.BYTE $FB,	$FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB,	$FB, $FB
       .BYTE $CE, $CF, $CE, $CF,	$CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF,	$CE, $CF, $CE, $CF; $80
       .BYTE $CF, $CE, $CF, $CE,	$CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE,	$CF, $CE, $CF, $CE; $90
 World7TitleCard:.BYTE $FB, $FB,	$B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB; 0
-						  ; DATA XREF: BANKA:loc_BANKA_83ABr
+						  ; DATA XREF: sub_BANKA_8327:loc_BANKA_83ABr
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1,	$FB, $FB, $FB, $FB; $10	; data used at 8000
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8,	$BA, $BC, $FB, $FB; $20
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9,	$BB, $BD, $FB, $FB; $30
@@ -74940,7 +75081,7 @@ BonusChanceLayout:.BYTE	$20			  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANK
       .BYTE $2F	; /				  ; data used at 8000
       .BYTE $30	; 0				  ; data used at 8000
       .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
+unk_BANKA_81A2:.BYTE $FD ; ˝			  ; data used at 8000
       .BYTE $20					  ; data used at 8000
       .BYTE $A3	; £				  ; data used at 8000
       .BYTE   4					  ; data used at 8000
@@ -74992,7 +75133,7 @@ BonusChanceLayout:.BYTE	$20			  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANK
       .BYTE $40	; @				  ; data used at 8000
       .BYTE $41	; A				  ; data used at 8000
       .BYTE $21	; !				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
+unk_BANKA_81D6:.BYTE $23 ; #			  ; data used at 8000
       .BYTE $D0	; –				  ; data used at 8000
       .BYTE $3C	; <				  ; data used at 8000
       .BYTE $21	; !				  ; data used at 8000
@@ -75032,7 +75173,7 @@ BonusChanceLayout:.BYTE	$20			  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANK
       .BYTE   2					  ; data used at 8000
       .BYTE $A6	; ¶				  ; data used at 8000
       .BYTE $A8	; ®				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
+unk_BANKA_81FE:.BYTE $22 ; "			  ; data used at 8000
       .BYTE $E4	; ‰				  ; data used at 8000
       .BYTE   2					  ; data used at 8000
       .BYTE $A7	; ß				  ; data used at 8000
@@ -75095,7 +75236,7 @@ BonusChanceLayout:.BYTE	$20			  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANK
       .BYTE $43	; C				  ; data used at 8000
       .BYTE $1B					  ; data used at 8000
       .BYTE $47	; G				  ; data used at 8000
-      .BYTE $94	; î				  ; data used at 8000
+unk_BANKA_823D:.BYTE $94 ; î			  ; data used at 8000
       .BYTE $96	; ñ				  ; data used at 8000
       .BYTE $74	; t				  ; data used at 8000
 unk_BANKA_8240:.BYTE $74 ; t			  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANKA_831Dr
@@ -75335,10 +75476,12 @@ loc_BANKA_831D:					  ; CODE XREF: CopyBonusChanceLayoutToRAM+14j
 
 ; End of function CopyBonusChanceLayoutToRAM
 
-; ---------------------------------------------------------------------------
 
-loc_BANKA_8327:					  ; code used as data at 8000
-      LDA     BackgroundCHR2TimerIndex
+; =============== S U B	R O U T	I N E =======================================
+
+
+sub_BANKA_8327:					  ; CODE XREF: sub_BANKF_E228+34P
+      LDA     BackgroundCHR2TimerIndex		  ; code used as data at 8000
       CMP     #6				  ; code used as data at 8000
       BEQ     loc_BANKA_8392			  ; code used as data at 8000
 
@@ -75349,8 +75492,8 @@ loc_BANKA_8327:					  ; code used as data at 8000
       LDY     #0				  ; code used as data at 8000
 
 
-loc_BANKA_8338:					  ; CODE XREF: BANKA:8361j
-						  ; BANKA:8387j
+loc_BANKA_8338:					  ; CODE XREF: sub_BANKA_8327+3Aj
+						  ; sub_BANKA_8327+60j
       LDX     #$F				  ; code used as data at 8000
       LDA     PPUSTATUS				  ; code used as data at 8000
       LDA     byte_RAM_0			  ; code used as data at 8000
@@ -75361,7 +75504,7 @@ loc_BANKA_8342:					  ; code used at 8000
       STA     PPUADDR				  ; code used at 8000
 
 
-loc_BANKA_8347:					  ; CODE XREF: BANKA:834Fj
+loc_BANKA_8347:					  ; CODE XREF: sub_BANKA_8327+28j
       LDA     World1thru6TitleCard,Y		  ; code used at 8000
       STA     PPUDATA				  ; code used at 8000
       INY					  ; code used at 8000
@@ -75381,7 +75524,7 @@ loc_BANKA_8347:					  ; CODE XREF: BANKA:834Fj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKA_8364:					  ; CODE XREF: BANKA:8353j
+loc_BANKA_8364:					  ; CODE XREF: sub_BANKA_8327+2Cj
       LDA     BackgroundCHR2TimerIndex		  ; code used at 8000
       CMP     #1				  ; code used at 8000
       BEQ     loc_BANKA_8371			  ; code used at 8000
@@ -75392,8 +75535,8 @@ loc_BANKA_8364:					  ; CODE XREF: BANKA:8353j
       BNE     loc_BANKA_8389			  ; code used at 8000
 
 
-loc_BANKA_8371:					  ; CODE XREF: BANKA:8369j
-						  ; BANKA:836Dj
+loc_BANKA_8371:					  ; CODE XREF: sub_BANKA_8327+42j
+						  ; sub_BANKA_8327+46j
       AND     #$80 ; 'Ä'                          ; code used at 8000
       BNE     loc_BANKA_8389			  ; code used at 8000
 
@@ -75408,8 +75551,8 @@ loc_BANKA_8371:					  ; CODE XREF: BANKA:8369j
       BNE     loc_BANKA_8338			  ; code used at 8000
 
 
-loc_BANKA_8389:					  ; CODE XREF: BANKA:836Fj
-						  ; BANKA:8373j
+loc_BANKA_8389:					  ; CODE XREF: sub_BANKA_8327+48j
+						  ; sub_BANKA_8327+4Cj
       LDA     BackgroundCHR2TimerIndex		  ; code used at 8000
       AND     #$F				  ; code used at 8000
       STA     BackgroundCHR2TimerIndex		  ; code used at 8000
@@ -75417,7 +75560,7 @@ loc_BANKA_8389:					  ; CODE XREF: BANKA:836Fj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKA_8392:					  ; CODE XREF: BANKA:832Cj
+loc_BANKA_8392:					  ; CODE XREF: sub_BANKA_8327+5j
       LDA     #$25 ; '%'                          ; code used at 8000
       STA     byte_RAM_0			  ; code used at 8000
       LDA     #$C8 ; '»'                          ; code used at 8000
@@ -75425,7 +75568,7 @@ loc_BANKA_8392:					  ; CODE XREF: BANKA:832Cj
       LDY     #0				  ; code used at 8000
 
 
-loc_BANKA_839C:					  ; CODE XREF: BANKA:83C5j
+loc_BANKA_839C:					  ; CODE XREF: sub_BANKA_8327+9Ej
       LDX     #$F				  ; code used at 8000
       LDA     PPUSTATUS				  ; code used at 8000
       LDA     byte_RAM_0			  ; code used at 8000
@@ -75434,7 +75577,7 @@ loc_BANKA_839C:					  ; CODE XREF: BANKA:83C5j
       STA     PPUADDR				  ; code used at 8000
 
 
-loc_BANKA_83AB:					  ; CODE XREF: BANKA:83B3j
+loc_BANKA_83AB:					  ; CODE XREF: sub_BANKA_8327+8Cj
       LDA     World7TitleCard,Y			  ; code used at 8000
       STA     PPUDATA				  ; code used at 8000
       INY					  ; code used at 8000
@@ -75454,8 +75597,10 @@ loc_BANKA_83AB:					  ; CODE XREF: BANKA:83B3j
 
 ; ---------------------------------------------------------------------------
 
-locret_BANKA_83C8:				  ; CODE XREF: BANKA:83B7j
+locret_BANKA_83C8:				  ; CODE XREF: sub_BANKA_8327+90j
       RTS					  ; code used at 8000
+
+; End of function sub_BANKA_8327
 
 ; ---------------------------------------------------------------------------
 StatOffsets:.BYTE 0				  ; DATA XREF: sub_BANKA_8451+2r
@@ -75603,6 +75748,8 @@ byte_BANKA_8441:.BYTE $AF			  ; data used at 8000
 
 
 sub_BANKA_8451:					  ; CODE XREF: sub_BANKF_E228+12P
+						  ; sub_BANKF_E228+59P
+						  ; sub_BANKF_E288+13P
       LDX     CurrentCharacter			  ; code used at 8000
       LDY     StatOffsets,X			  ; code used at 8000
       LDX     #0				  ; code used at 8000
@@ -75997,7 +76144,7 @@ Text_PAUSE_Erase:.BYTE $25 ; %			  ; data used at 8000
       .BYTE   5					  ; data used at 8000
       .BYTE $FB	; ˚				  ; data used at 8000
       .BYTE $FB	; ˚				  ; data used at 8000
-      .BYTE $FB	; ˚				  ; data used at 8000
+unk_BANKA_85EC:.BYTE $FB ; ˚			  ; data used at 8000
       .BYTE $FB	; ˚				  ; data used at 8000
       .BYTE $FB	; ˚				  ; data used at 8000
       .BYTE   0					  ; data used at 8000
@@ -77054,7 +77201,7 @@ byte_BANKC_8001:.BYTE 3				  ; DATA XREF: sub_BANKC_801C+9r
       .WORD MarioDream_EraseBubble2		  ; data used at 8000
       .WORD MarioDream_EraseBubble3		  ; data used at 8000
       .WORD MarioDream_EraseBubble4		  ; data used at 8000
-      .WORD MarioDream_EraseBubble5		  ; data used at 8000
+off_BANKC_8010:.WORD MarioDream_EraseBubble5	  ; data used at 8000
       .WORD MarioDream_Palettes			  ; data used at 8000
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -77190,7 +77337,7 @@ MarioDream_Bed:.BYTE $20			  ; DATA XREF: BANKC:8002o
       .BYTE $80					  ; data used at 8000
       .BYTE $60					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
+byte_BANKC_8083:.BYTE $23			  ; data used at 8000
       .BYTE $A0					  ; data used at 8000
       .BYTE $60					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
@@ -77477,7 +77624,7 @@ MarioDream_Bed:.BYTE $20			  ; DATA XREF: BANKC:8002o
       .BYTE $B1					  ; data used at 8000
       .BYTE $B2					  ; data used at 8000
       .BYTE $B3					  ; data used at 8000
-      .BYTE $B4					  ; data used at 8000
+byte_BANKC_81A2:.BYTE $B4			  ; data used at 8000
       .BYTE $B5					  ; data used at 8000
       .BYTE $B6					  ; data used at 8000
       .BYTE $B7					  ; data used at 8000
@@ -77529,7 +77676,7 @@ MarioDream_Bed:.BYTE $20			  ; DATA XREF: BANKC:8002o
       .BYTE $D1					  ; data used at 8000
       .BYTE $D2					  ; data used at 8000
       .BYTE $D3					  ; data used at 8000
-      .BYTE $D4					  ; data used at 8000
+byte_BANKC_81D6:.BYTE $D4			  ; data used at 8000
       .BYTE $D5					  ; data used at 8000
       .BYTE $D6					  ; data used at 8000
       .BYTE $D7					  ; data used at 8000
@@ -77569,7 +77716,7 @@ MarioDream_Bed:.BYTE $20			  ; DATA XREF: BANKC:8002o
       .BYTE $FE					  ; data used at 8000
       .BYTE $FE					  ; data used at 8000
       .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
+byte_BANKC_81FE:.BYTE $FE			  ; data used at 8000
       .BYTE $FE					  ; data used at 8000
       .BYTE $FE					  ; data used at 8000
       .BYTE $FE					  ; data used at 8000
@@ -77633,7 +77780,7 @@ MarioDream_Bubble:.BYTE	$20			  ; DATA XREF: BANKC:8004o
       .BYTE $20					  ; data used at 8000
       .BYTE $F1					  ; data used at 8000
       .BYTE $B					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
+byte_BANKC_823D:.BYTE $FD			  ; data used at 8000
       .BYTE $FD					  ; data used at 8000
       .BYTE $FD					  ; data used at 8000
       .BYTE $28					  ; data used at 8000
@@ -77808,7 +77955,7 @@ MarioDream_EraseBubble4:.BYTE $21		  ; DATA XREF: BANKC:800Eo
       .BYTE $4B					  ; data used at 8000
       .BYTE $FC					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
-MarioDream_EraseBubble5:.BYTE $21		  ; DATA XREF: BANKC:8010o
+MarioDream_EraseBubble5:.BYTE $21		  ; DATA XREF: BANKC:off_BANKC_8010o
 						  ; data used at 8000
       .BYTE $95					  ; data used at 8000
       .BYTE $47					  ; data used at 8000
@@ -78415,7 +78562,9 @@ locret_BANKC_85E6:				  ; CODE XREF: BANKC:85D8j
 loc_BANKC_85E7:					  ; DATA XREF: BANKC:84C9o
       LDA     ObjectXLo+5			  ; code used at 8000
       AND     #1				  ; code used at 8000
-      BEQ     loc_BANKC_861C			  ; code used at 8000
+
+loc_BANKC_85EB:					  ; code used at 8000
+      BEQ     loc_BANKC_861C
 
       LDA     ObjectYHi				  ; code used at 8000
       SEC					  ; code used at 8000
@@ -78440,7 +78589,7 @@ loc_BANKC_85E7:					  ; DATA XREF: BANKC:84C9o
       STA     ObjectYLo+2			  ; code used at 8000
 
 
-loc_BANKC_861C:					  ; CODE XREF: BANKC:85EBj
+loc_BANKC_861C:					  ; CODE XREF: BANKC:loc_BANKC_85EBj
 						  ; BANKC:8604j
 						  ; DATA XREF: BANKC:84CBo
       LDA     ObjectYLo+2			  ; code used at 8000
@@ -78678,7 +78827,9 @@ loc_BANKC_8743:					  ; CODE XREF: BANKC:873Ej
       BEQ     loc_BANKC_8763			  ; code used at 8000
 
       LDA     ObjectYHi+3			  ; code used at 8000
-      SEC					  ; code used at 8000
+
+loc_BANKC_874C:					  ; code used at 8000
+      SEC
       SBC     #1				  ; code used at 8000
       CMP     #$10				  ; code used at 8000
       BNE     loc_BANKC_8755			  ; code used at 8000
@@ -78719,7 +78870,9 @@ loc_BANKC_8776:					  ; CODE XREF: BANKC:876Ej
 loc_BANKC_877E:					  ; CODE XREF: BANKC:877Aj
       STA     unk_RAM_290			  ; code used at 8000
       STA     unk_RAM_294			  ; code used at 8000
-      STA     unk_RAM_298			  ; code used at 8000
+
+loc_BANKC_8784:					  ; code used at 8000
+      STA     unk_RAM_298
       STA     unk_RAM_29C			  ; code used at 8000
 
 
@@ -78747,7 +78900,9 @@ loc_BANKC_87A4:					  ; CODE XREF: BANKC:8795j
       CMP     #$10				  ; code used at 8000
       BNE     loc_BANKC_87BA			  ; code used at 8000
 
-      LDA     #0				  ; code used at 8000
+
+loc_BANKC_87AA:					  ; code used at 8000
+      LDA     #0
       STA     ObjectYLo+3			  ; code used at 8000
       LDA     ObjectXLo+2			  ; code used at 8000
       CMP     #$FF				  ; code used at 8000
@@ -79208,7 +79363,7 @@ locret_BANKC_8A00:				  ; CODE XREF: BANKC:89B8j
 ; ---------------------------------------------------------------------------
 CastRoll_PaletteFadeOut:.BYTE $32		  ; DATA XREF: BANKC:8A1Dr
 						  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
+byte_BANKC_8A02:.BYTE $22			  ; data used at 8000
       .BYTE $12					  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
@@ -91326,7 +91481,7 @@ loc_BANKF_E245:					  ; CODE XREF: sub_BANKF_E228+24j
       STA     byte_RAM_11			  ; code used at e000
       JSR     WaitForNMI			  ; code used at e000
 
-      JSR     $8327				  ; code used at e000
+      JSR     sub_BANKA_8327			  ; code used at e000
 
       JSR     WaitForNMI_TurnOnPPU		  ; code used at e000
 
@@ -91353,7 +91508,7 @@ loc_BANKF_E269:					  ; CODE XREF: sub_BANKF_E228+46j
       LDA     #5				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $8451				  ; code used at e000
+      JSR     sub_BANKA_8451			  ; code used at e000
 
       JSR     EnableNMI				  ; code used at e000
 
@@ -91378,7 +91533,7 @@ sub_BANKF_E288:					  ; CODE XREF: BANKF:E425p
       LDA     #5				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $8451				  ; code used at e000
+      JSR     sub_BANKA_8451			  ; code used at e000
 
       JSR     sub_BANKF_E166			  ; code used at e000
 
@@ -91547,7 +91702,7 @@ CharacterSelectMenuLoop:			  ; CODE XREF: sub_BANKF_E288+66j
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_E3AE:					  ; CODE XREF: sub_BANKF_E288+121j
-      LDA     #4				  ; code used at e000
+      LDA     #SoundEffect1_CherryGet		  ; code used at e000
       STA     SoundEffect1Queue			  ; code used at e000
       LDX     BackgroundCHR2TimerIndex		  ; code used at e000
       LDY     CurrentLevel			  ; code used at e000
@@ -91615,7 +91770,7 @@ loc_BANKF_E3F9:					  ; CODE XREF: BANKF:loc_BANKF_E757j
       STA     byte_RAM_6F3			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $9A3D				  ; code used at e000
+      JSR     sub_BANK0_9A3D			  ; code used at e000
 
       INC     byte_RAM_6F3			  ; code used at e000
       LDA     #2				  ; code used at e000
@@ -91678,9 +91833,9 @@ loc_BANKF_E44A:					  ; CODE XREF: BANKF:E444j
       LDA     #3				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $9567				  ; code used at e000
+      JSR     sub_BANK6_9567			  ; code used at e000
 
-      JSR     $93A4				  ; code used at e000
+      JSR     sub_BANK6_93A4			  ; code used at e000
 
       JSR     HideAllSprites			  ; code used at e000
 
@@ -91770,7 +91925,7 @@ loc_BANKF_E4CC:					  ; CODE XREF: BANKF:E476j
       LDA     #0				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $8000				  ; code used at e000
+      JSR     sub_BANK0_8000			  ; code used at e000
 
       JSR     sub_BANKF_F6C0			  ; code used at e000
 
@@ -91825,7 +91980,8 @@ loc_BANKF_E515:					  ; CODE XREF: BANKF:E4A0j
 						  ; BANKF:E4F2j
       JSR     sub_BANKF_E9E5			  ; code used at e000
 
-      LDA     #$41 ; 'A'                          ; code used at e000
+      LDA     #$41 ; 'A'                          ; Marks the game as "paused",
+						  ; used when running sound queues
       STA     StackArea				  ; code used at e000
 
 
@@ -91834,8 +91990,8 @@ loc_BANKF_E51D:					  ; CODE XREF: BANKF:E548j
       STA     byte_RAM_6			  ; code used at e000
 
 
-loc_BANKF_E521:					  ; CODE XREF: BANKF:E53Bj
-      JSR     WaitForNMI_TurnOnPPU		  ; code used at e000
+DoSuicideCheatCheck:				  ; CODE XREF: BANKF:E53Bj
+      JSR     WaitForNMI_TurnOnPPU
 
       LDA     PlayerState			  ; Check if the player	is already dying
       CMP     #PlayerState_Dying
@@ -91855,7 +92011,7 @@ loc_BANKF_E533:					  ; CODE XREF: BANKF:E528j
       BNE     loc_BANKF_E54B			  ; code used at e000
 
       DEC     byte_RAM_6			  ; code used at e000
-      BPL     loc_BANKF_E521			  ; code used at e000
+      BPL     DoSuicideCheatCheck		  ; code used at e000
 
       INC     byte_RAM_7			  ; code used at e000
       LDA     byte_RAM_7			  ; code used at e000
@@ -91875,7 +92031,7 @@ loc_BANKF_E54B:					  ; CODE XREF: BANKF:E537j
       LDA     #3				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $93A4				  ; code used at e000
+      JSR     sub_BANK6_93A4			  ; code used at e000
 
       JSR     WaitForNMI			  ; code used at e000
 
@@ -91886,7 +92042,7 @@ loc_BANKF_E54B:					  ; CODE XREF: BANKF:E537j
       LDA     #0				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $81D6				  ; code used at e000
+      JSR     sub_BANK0_81D6			  ; code used at e000
 
       LDA     IsHorizontalLevel			  ; code used at e000
       BNE     loc_BANKF_E587			  ; code used at e000
@@ -91894,13 +92050,13 @@ loc_BANKF_E54B:					  ; CODE XREF: BANKF:E537j
       LDA     #1				  ; code used at e000
       JSR     sub_BANKF_FFA0			  ; code used at e000
 
-      JSR     $81FE				  ; code used at e000
+      JSR     sub_BANK0_81FE			  ; code used at e000
 
 
 loc_BANKF_E576:					  ; CODE XREF: BANKF:E57Fj
       JSR     WaitForNMI			  ; code used at e000
 
-      JSR     $823D				  ; code used at e000
+      JSR     sub_BANK0_823D			  ; code used at e000
 
       LDA     byte_RAM_537			  ; code used at e000
       BEQ     loc_BANKF_E576			  ; code used at e000
@@ -91915,13 +92071,13 @@ loc_BANKF_E587:					  ; CODE XREF: BANKF:E56Cj
       LDA     #0				  ; code used at e000
       JSR     sub_BANKF_FFA0			  ; code used at e000
 
-      JSR     $8785				  ; code used at e000
+      JSR     sub_BANK0_8785			  ; code used at e000
 
 
 loc_BANKF_E58F:					  ; CODE XREF: BANKF:E598j
       JSR     WaitForNMI			  ; code used at e000
 
-      JSR     $87AA				  ; code used at e000
+      JSR     sub_BANK0_87AA			  ; code used at e000
 
       LDA     byte_RAM_537			  ; code used at e000
       BEQ     loc_BANKF_E58F			  ; code used at e000
@@ -91985,7 +92141,7 @@ loc_BANKF_E5E1:					  ; CODE XREF: BANKF:E5D1j
 loc_BANKF_E5EC:					  ; CODE XREF: BANKF:E5F5j
       JSR     WaitForNMI			  ; code used at e000
 
-      JSR     $87AA				  ; code used at e000
+      JSR     sub_BANK0_87AA			  ; code used at e000
 
       LDA     byte_RAM_537			  ; code used at e000
       BEQ     loc_BANKF_E5EC			  ; code used at e000
@@ -91997,7 +92153,7 @@ loc_BANKF_E5EC:					  ; CODE XREF: BANKF:E5F5j
       LDA     #3
       JSR     ChangeMappedPRGBank
 
-      JSR     $93A4
+      JSR     sub_BANK6_93A4
 
 
 loc_BANKF_E606:					  ; CODE XREF: BANKF:E5FCj
@@ -92034,7 +92190,7 @@ loc_BANKF_E627:					  ; CODE XREF: BANKF:E622j
       LDA     #3				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $93A4				  ; code used at e000
+      JSR     sub_BANK6_93A4			  ; code used at e000
 
       JSR     WaitForNMI_TurnOffPPU		  ; code used at e000
 
@@ -92053,13 +92209,13 @@ loc_BANKF_E64C:					  ; CODE XREF: BANKF:E644j
       LDA     #0				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $874C				  ; code used at e000
+      JSR     sub_BANK0_874C			  ; code used at e000
 
 
 loc_BANKF_E654:					  ; CODE XREF: BANKF:E65Dj
       JSR     WaitForNMI			  ; code used at e000
 
-      JSR     $87AA				  ; code used at e000
+      JSR     sub_BANK0_87AA			  ; code used at e000
 
       LDA     byte_RAM_537			  ; code used at e000
       BEQ     loc_BANKF_E654			  ; code used at e000
@@ -92363,7 +92519,7 @@ loc_BANKF_E826:					  ; CODE XREF: BANKF:E82Aj
       BCS     loc_BANKF_E826			  ; code used at e000
 
       DEY					  ; code used at e000
-      STY     BackgroundCHR2TimerIndex		  ; code used at e000
+      STY     BackgroundCHR2TimerIndex		  ; I am sure this is important	somehow, but...	why
       LDY     BackgroundCHR2TimerIndex		  ; code used at e000
       LDA     CurrentLevel			  ; code used at e000
       SEC					  ; code used at e000
@@ -92752,7 +92908,7 @@ sub_BANKF_E9F4:					  ; CODE XREF: BANKF:E699p
       LDA     #0				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $81A2				  ; code used at e000
+      JSR     sub_BANK0_81A2			  ; code used at e000
 
       LDY     #$23 ; '#'                          ; code used at e000
 
@@ -92901,7 +93057,7 @@ WaitForNMI_TurnOffPPU:				  ; CODE XREF: sub_BANKF_E166+3p
 						  ; sub_BANKF_E17F+3p
 						  ; sub_BANKF_E228p ...
       LDA     #0				  ; code used at e000
-      BEQ     _WaitForNMI_StuffPPUMask		  ; code used at e000
+      BEQ     _WaitForNMI_StuffPPUMask		  ; Branch always
 
 ; End of function WaitForNMI_TurnOffPPU
 
@@ -93329,7 +93485,7 @@ DoSoundProcessing:				  ; CODE XREF: BANKF:EB51p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-ClearNametables:				  ; CODE XREF: BANK0:9A5FP
+ClearNametables:				  ; CODE XREF: sub_BANK0_9A3D+22P
 						  ; sub_BANK1_A43B:loc_BANK1_A43EP
 						  ; sub_BANK1_AA79+8P ...
       LDA     #0				  ; code used at e000
@@ -93350,7 +93506,7 @@ ClearNametables:				  ; CODE XREF: BANK0:9A5FP
 ; =============== S U B	R O U T	I N E =======================================
 
 
-HideAllSprites:					  ; CODE XREF: BANK0:9C32J
+HideAllSprites:					  ; CODE XREF: sub_BANK0_9A3D+1F5J
 						  ; sub_BANK1_A43B+5BP
 						  ; sub_BANKF_E228+18p	...
       LDY     #0				  ; code used at e000
@@ -93577,7 +93733,7 @@ UpdatePPUFBWO_CopySingleTileSkip:		  ; CODE XREF: UpdatePPUFromBufferWithOptions
 
 ; ---------------------------------------------------------------------------
 ; [000002B3 BYTES: BEGIN OF AREA UNUSED-BANKF:ED4D. PRESS KEYPAD "-" TO	COLLAPSE]
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+_unused_BANKF_ED4D:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -93912,7 +94068,7 @@ sub_BANKF_F0F9:					  ; CODE XREF: BANKF:E60Fp
       LDA     #0				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $8A02				  ; code used at e000
+      JSR     loc_BANK0_8A02			  ; code used at e000
 
 
 loc_BANKF_F115:					  ; CODE XREF: sub_BANKF_F0F9+Dj
@@ -93947,14 +94103,14 @@ sub_BANKF_F11E:					  ; CODE XREF: BANKF:E4AEp
       LDA     byte_RAM_41B			  ; code used at e000
       BNE     loc_BANKF_F13A			  ; code used at e000
 
-      JSR     $8A02				  ; code used at e000
+      JSR     loc_BANK0_8A02			  ; code used at e000
 
 
 loc_BANKF_F13A:					  ; CODE XREF: sub_BANKF_F11E+12j
 						  ; sub_BANKF_F11E+17j
       JSR     sub_BANKF_F2C2			  ; code used at e000
 
-      JSR     $85EC				  ; code used at e000
+      JSR     sub_BANK0_85EC			  ; code used at e000
 
       JSR     sub_BANKF_F228			  ; code used at e000
 
@@ -93967,9 +94123,9 @@ loc_BANKF_F146:					  ; CODE XREF: sub_BANKF_F0F9:loc_BANKF_F11Bj
       LDA     #1				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $8010				  ; code used at e000
+      JSR     sub_BANK2_8010			  ; code used at e000
 
-      JSR     $BE0B				  ; code used at e000
+      JSR     sub_BANK3_BE0B			  ; code used at e000
 
       JSR     sub_BANKF_FACA			  ; code used at e000
 
@@ -94034,7 +94190,7 @@ sub_BANKF_F17E:					  ; CODE XREF: BANKF:E4F7p
       LDA     #0				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $8A02				  ; code used at e000
+      JSR     loc_BANK0_8A02			  ; code used at e000
 
 
 loc_BANKF_F19D:					  ; CODE XREF: sub_BANKF_F17E+10j
@@ -94042,7 +94198,7 @@ loc_BANKF_F19D:					  ; CODE XREF: sub_BANKF_F17E+10j
       LDA     #0				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     $8083				  ; code used at e000
+      JSR     sub_BANK0_8083			  ; code used at e000
 
       JSR     sub_BANKF_F228			  ; code used at e000
 
@@ -94751,7 +94907,7 @@ locret_BANKF_F4D9:				  ; CODE XREF: sub_BANKF_F4C3+3j
 ; End of function sub_BANKF_F4C3
 
 ; ---------------------------------------------------------------------------
-byte_BANKF_F4DA:.BYTE $C0			  ; DATA XREF: BANK2:81A0r
+byte_BANKF_F4DA:.BYTE $C0			  ; DATA XREF: BANK2:loc_BANK2_81A0r
 						  ; BANKF:FB22r
 						  ; data used at e000
       .BYTE $70					  ; data used at e000
@@ -95467,13 +95623,13 @@ CopyEnemyDataToMemory:				  ; CODE XREF: GetEnemyPointers+3Ej
 
 GetJarPointers:					  ; CODE XREF: BANKF:E5B9p
       LDY     CurrentLevel			  ; Get	the area starting index	for the	current	level
-      LDA     $8000,Y
+      LDA     LevelAreaStartIndexes,Y
       CLC
-      ADC     #4
+      ADC     #4				  ; 4 is always	the jar	sub area
       TAY
-      LDA     $8015,Y
+      LDA     LevelDataPointersLo,Y
       STA     byte_RAM_5
-      LDA     $80E7,Y
+      LDA     LevelDataPointersHi,Y
       STA     byte_RAM_6
       LDA     #$7A ; 'z'
       STA     byte_RAM_2
@@ -95513,666 +95669,174 @@ TileQuadPointersHi:.BYTE high8(TileQuads1)	  ; DATA XREF: sub_BANK0_833E+40r
       .BYTE high8(TileQuads2)			  ; data used at e000
       .BYTE high8(TileQuads3)			  ; data used at e000
       .BYTE high8(TileQuads4)			  ; data used at e000
-TileQuads1:.BYTE $FE ; ˛			  ; DATA XREF: BANKF:TileQuadPointersLoo
+TileQuads1:.BYTE $FE,$FE,$FE,$FE		       ; 0
+						  ; DATA XREF: BANKF:TileQuadPointersLoo
 						  ; BANKF:TileQuadPointersHio
-						  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $B4	; ¥				  ; data used at e000
-      .BYTE $B6	; ∂				  ; data used at e000
-      .BYTE $B5	; µ				  ; data used at e000
-      .BYTE $B7	; ∑				  ; data used at e000
-      .BYTE $B8	; ∏				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B9	; π				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B2	; ≤				  ; data used at e000
-      .BYTE $B3	; ≥				  ; data used at e000
-      .BYTE $BE	; æ				  ; data used at e000
-      .BYTE $BE	; æ				  ; data used at e000
-      .BYTE $BF	; ø				  ; data used at e000
-      .BYTE $BF	; ø				  ; data used at e000
-      .BYTE $BF	; ø				  ; data used at e000
-      .BYTE $BF	; ø				  ; data used at e000
-      .BYTE $BF	; ø				  ; data used at e000
-      .BYTE $BF	; ø				  ; data used at e000
-      .BYTE $4A	; J				  ; data used at e000
-      .BYTE $4A	; J				  ; data used at e000
-      .BYTE $4B	; K				  ; data used at e000
-      .BYTE $4B	; K				  ; data used at e000
-      .BYTE $5E	; ^				  ; data used at e000
-      .BYTE $5F	; _				  ; data used at e000
-      .BYTE $5E	; ^				  ; data used at e000
-      .BYTE $5F	; _				  ; data used at e000
-      .BYTE $E8	; Ë				  ; data used at e000
-      .BYTE $E8	; Ë				  ; data used at e000
-      .BYTE $A9	; ©				  ; data used at e000
-      .BYTE $A9	; ©				  ; data used at e000
-      .BYTE $46	; F				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $46	; F				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $A9	; ©				  ; data used at e000
-      .BYTE $A9	; ©				  ; data used at e000
-      .BYTE $A9	; ©				  ; data used at e000
-      .BYTE $A9	; ©				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $E9	; È				  ; data used at e000
-      .BYTE $E9	; È				  ; data used at e000
-      .BYTE $A9	; ©				  ; data used at e000
-      .BYTE $A9	; ©				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $48	; H				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $48	; H				  ; data used at e000
-      .BYTE $11
-      .BYTE $11
-      .BYTE $11
-      .BYTE $11
-      .BYTE $22	; "
-      .BYTE $22	; "
-      .BYTE $22	; "
-      .BYTE $22	; "
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $E8	; Ë				  ; data used at e000
-      .BYTE $EB	; Î				  ; data used at e000
-      .BYTE $A9	; ©				  ; data used at e000
-      .BYTE $A9	; ©				  ; data used at e000
-      .BYTE $74	; t				  ; data used at e000
-      .BYTE $76	; v				  ; data used at e000
-      .BYTE $75	; u				  ; data used at e000
-      .BYTE $77	; w				  ; data used at e000
-      .BYTE $98	; ò				  ; data used at e000
-      .BYTE $9A	; ö				  ; data used at e000
-      .BYTE $99	; ô				  ; data used at e000
-      .BYTE $9B	; õ				  ; data used at e000
-      .BYTE $9C	; ú				  ; data used at e000
-      .BYTE $9A	; ö				  ; data used at e000
-      .BYTE $9D	; ù				  ; data used at e000
-      .BYTE $9B	; õ				  ; data used at e000
-      .BYTE $9C	; ú				  ; data used at e000
-      .BYTE $9E	; û				  ; data used at e000
-      .BYTE $9B	; õ				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE $58	; X				  ; data used at e000
-      .BYTE $5A	; Z				  ; data used at e000
-      .BYTE $59	; Y				  ; data used at e000
-      .BYTE $5B	; [				  ; data used at e000
-      .BYTE $5E	; ^				  ; data used at e000
-      .BYTE $5F	; _				  ; data used at e000
-      .BYTE $5E	; ^				  ; data used at e000
-      .BYTE $5F	; _				  ; data used at e000
-      .BYTE $8E	; é				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE $8E	; é				  ; data used at e000
-      .BYTE $72	; r				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $72	; r				  ; data used at e000
-      .BYTE $A6	; ¶				  ; data used at e000
-      .BYTE $A6	; ¶				  ; data used at e000
-      .BYTE $A7	; ß				  ; data used at e000
-      .BYTE $A7	; ß				  ; data used at e000
-      .BYTE $92	; í
-      .BYTE $93	; ì
-      .BYTE $93	; ì
-      .BYTE $92	; í
-      .BYTE $74	; t				  ; data used at e000
-      .BYTE $76	; v				  ; data used at e000
-      .BYTE $75	; u				  ; data used at e000
-      .BYTE $77	; w				  ; data used at e000
-      .BYTE $70	; p				  ; data used at e000
-      .BYTE $72	; r				  ; data used at e000
-      .BYTE $71	; q				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $71	; q				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $71	; q				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $24	; $				  ; data used at e000
-      .BYTE $26	; &				  ; data used at e000
-      .BYTE $25	; %				  ; data used at e000
-      .BYTE $27	; '                               ; data used at e000
-      .BYTE $32	; 2				  ; data used at e000
-      .BYTE $34	; 4				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $35	; 5				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $35	; 5				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $35	; 5				  ; data used at e000
-      .BYTE $24	; $				  ; data used at e000
-      .BYTE $26	; &				  ; data used at e000
-      .BYTE $25	; %				  ; data used at e000
-      .BYTE $27	; '                               ; data used at e000
-TileQuads2:.BYTE $FA ; ˙			  ; DATA XREF: BANKF:F7EAo
+      .BYTE $B4,$B6,$B5,$B7			  ; 4 ;	data used at e000
+      .BYTE $B8,$FA,$B9,$FA			  ; 8
+      .BYTE $FA,$FA,$B2,$B3			  ; $C
+      .BYTE $BE,$BE,$BF,$BF			  ; $10
+      .BYTE $BF,$BF,$BF,$BF			  ; $14
+      .BYTE $4A,$4A,$4B,$4B			  ; $18
+      .BYTE $5E,$5F,$5E,$5F			  ; $1C
+      .BYTE $E8,$E8,$A9,$A9			  ; $20
+      .BYTE $46,$FC,$46,$FC			  ; $24
+      .BYTE $A9,$A9,$A9,$A9			  ; $28
+      .BYTE $FC,$FC,$FC,$FC			  ; $2C
+      .BYTE $E9,$E9,$A9,$A9			  ; $30
+      .BYTE $FC,$48,$FC,$48			  ; $34
+      .BYTE $11,$11,$11,$11			  ; $38
+      .BYTE $22,$22,$22,$22			  ; $3C
+      .BYTE $33,$33,$33,$33			  ; $40
+      .BYTE $E8,$EB,$A9,$A9			  ; $44
+      .BYTE $74,$76,$75,$77			  ; $48
+      .BYTE $98,$9A,$99,$9B			  ; $4C
+      .BYTE $9C,$9A,$9D,$9B			  ; $50
+      .BYTE $9C,$9E,$9B,$9F			  ; $54
+      .BYTE $58,$5A,$59,$5B			  ; $58
+      .BYTE $5E,$5F,$5E,$5F			  ; $5C
+      .BYTE $8E,$8F,$8F,$8E			  ; $60
+      .BYTE $72,$73,$73,$72			  ; $64
+      .BYTE $A6,$A6,$A7,$A7			  ; $68
+      .BYTE $92,$93,$93,$92			  ; $6C
+      .BYTE $74,$76,$75,$77			  ; $70
+      .BYTE $70,$72,$71,$73			  ; $74
+      .BYTE $71,$73,$71,$73			  ; $78
+      .BYTE $24,$26,$25,$27			  ; $7C
+      .BYTE $32,$34,$33,$35			  ; $80
+      .BYTE $33,$35,$33,$35			  ; $84
+      .BYTE $24,$26,$25,$27			  ; $88
+TileQuads2:.BYTE $FA,$FA,$FA,$FA		       ; 0 ; DATA XREF:	BANKF:F7EAo
 						  ; BANKF:F7EEo
-						  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $B1	; ±				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $B1	; ±				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $B1	; ±				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $B1	; ±				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $B1	; ±				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $B1	; ±				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $B1	; ±				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $B1	; ±				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $B1	; ±				  ; data used at e000
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $A0	; †				  ; data used at e000
-      .BYTE $A2	; ¢				  ; data used at e000
-      .BYTE $A1	; °				  ; data used at e000
-      .BYTE $A3	; £				  ; data used at e000
-      .BYTE $80	; Ä				  ; data used at e000
-      .BYTE $82	; Ç				  ; data used at e000
-      .BYTE $81	; Å				  ; data used at e000
-      .BYTE $83	; É				  ; data used at e000
-      .BYTE $F4	; Ù				  ; data used at e000
-      .BYTE $86	; Ü				  ; data used at e000
-      .BYTE $F5	; ı				  ; data used at e000
-      .BYTE $87	; á				  ; data used at e000
-      .BYTE $84	; Ñ				  ; data used at e000
-      .BYTE $86	; Ü				  ; data used at e000
-      .BYTE $85	; Ö				  ; data used at e000
-      .BYTE $87	; á				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $FC	; ¸				  ; data used at e000
-      .BYTE $AD	; ≠				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $AC	; ¨				  ; data used at e000
-      .BYTE $AD	; ≠				  ; data used at e000
-      .BYTE $AC	; ¨				  ; data used at e000
-      .BYTE $AC	; ¨				  ; data used at e000
-      .BYTE $AC	; ¨				  ; data used at e000
-      .BYTE $AC	; ¨				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $3B	; ;				  ; data used at e000
-      .BYTE $3B	; ;				  ; data used at e000
-      .BYTE $AC	; ¨				  ; data used at e000
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $F4	; Ù
-      .BYTE $86	; Ü
-      .BYTE $F5	; ı
-      .BYTE $87	; á
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $49	; I				  ; data used at e000
-      .BYTE $49	; I				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $6D	; m				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $3C	; <				  ; data used at e000
-      .BYTE $3E	; >				  ; data used at e000
-      .BYTE $3D	; =				  ; data used at e000
-      .BYTE $3F	; ?				  ; data used at e000
-      .BYTE $58	; X				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $59	; Y				  ; data used at e000
-      .BYTE $5A	; Z				  ; data used at e000
-      .BYTE $5B	; [				  ; data used at e000
-      .BYTE $5A	; Z				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $5B	; [				  ; data used at e000
-      .BYTE $5C	; \                               ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $5D	; ]				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $5B	; [				  ; data used at e000
-      .BYTE $5A	; Z				  ; data used at e000
-      .BYTE $6C	; l				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $6E	; n				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $6F	; o				  ; data used at e000
-      .BYTE $20					  ; data used at e000
-      .BYTE $22	; "				  ; data used at e000
-      .BYTE $21	; !				  ; data used at e000
-      .BYTE $23	; #				  ; data used at e000
-      .BYTE $6E	; n				  ; data used at e000
-      .BYTE $6F	; o				  ; data used at e000
-      .BYTE $70	; p				  ; data used at e000
-      .BYTE $71	; q				  ; data used at e000
-      .BYTE $57	; W				  ; data used at e000
-      .BYTE $57	; W				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $57	; W				  ; data used at e000
-      .BYTE $57	; W				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $D3	; ”				  ; data used at e000
-      .BYTE $D3	; ”				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $D2	; “				  ; data used at e000
-      .BYTE $D2	; “				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $7C	; |				  ; data used at e000
-      .BYTE $7E	; ~				  ; data used at e000
-      .BYTE $7D	; }				  ; data used at e000
-      .BYTE $7F	; 				  ; data used at e000
-      .BYTE $CA	;  
-      .BYTE $CC	; Ã
-      .BYTE $CB	; À
-      .BYTE $CD	; Õ
-      .BYTE $CA	;  
-      .BYTE $CC	; Ã
-      .BYTE $CB	; À
-      .BYTE $CD	; Õ
-      .BYTE $C0	; ¿				  ; data used at e000
-      .BYTE $C2	; ¬				  ; data used at e000
-      .BYTE $C1	; ¡				  ; data used at e000
-      .BYTE $C3	; √				  ; data used at e000
-      .BYTE $2C	; ,
-      .BYTE $2E	; .
-      .BYTE $2D	; -
-      .BYTE $2F	; /
-      .BYTE $8E	; é
-      .BYTE $8F	; è
-      .BYTE $8F	; è
-      .BYTE $8E	; é
-      .BYTE $88	; à				  ; data used at e000
-      .BYTE $8A	; ä				  ; data used at e000
-      .BYTE $89	; â				  ; data used at e000
-      .BYTE $8B	; ã				  ; data used at e000
-      .BYTE $89	; â				  ; data used at e000
-      .BYTE $8B	; ã				  ; data used at e000
-      .BYTE $89	; â				  ; data used at e000
-      .BYTE $8B	; ã				  ; data used at e000
-      .BYTE $89	; â				  ; data used at e000
-      .BYTE $8B	; ã				  ; data used at e000
-      .BYTE $8C	; å				  ; data used at e000
-      .BYTE $8D	; ç				  ; data used at e000
-      .BYTE $88	; à				  ; data used at e000
-      .BYTE $8A	; ä				  ; data used at e000
-      .BYTE $8C	; å				  ; data used at e000
-      .BYTE $8D	; ç				  ; data used at e000
-      .BYTE $88	; à				  ; data used at e000
-      .BYTE $8A	; ä				  ; data used at e000
-      .BYTE $89	; â				  ; data used at e000
-      .BYTE $8B	; ã				  ; data used at e000
-      .BYTE $88	; à				  ; data used at e000
-      .BYTE $8A	; ä				  ; data used at e000
-      .BYTE $89	; â				  ; data used at e000
-      .BYTE $8B	; ã				  ; data used at e000
-      .BYTE $6A	; j				  ; data used at e000
-      .BYTE $6C	; l				  ; data used at e000
-      .BYTE $6B	; k				  ; data used at e000
-      .BYTE $6D	; m				  ; data used at e000
-      .BYTE $6C	; l				  ; data used at e000
-      .BYTE $6C	; l				  ; data used at e000
-      .BYTE $6D	; m				  ; data used at e000
-      .BYTE $6D	; m				  ; data used at e000
-      .BYTE $6C	; l				  ; data used at e000
-      .BYTE $6E	; n				  ; data used at e000
-      .BYTE $6D	; m				  ; data used at e000
-      .BYTE $6F	; o				  ; data used at e000
-      .BYTE $6C	; l				  ; data used at e000
-      .BYTE $54	; T				  ; data used at e000
-      .BYTE $6D	; m				  ; data used at e000
-      .BYTE $55	; U				  ; data used at e000
-      .BYTE $32	; 2				  ; data used at e000
-      .BYTE $34	; 4				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $35	; 5				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $35	; 5				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $35	; 5				  ; data used at e000
-TileQuads3:.BYTE $94 ; î			  ; DATA XREF: BANKF:F7EBo
+      .BYTE $FA,$FA,$FA,$FA			  ; 4 ;	data used at e000
+      .BYTE $FA,$FA,$FA,$FA			  ; 8
+      .BYTE $FA,$FA,$B0,$B1			  ; $C
+      .BYTE $FA,$FA,$B0,$B1			  ; $10
+      .BYTE $FA,$FA,$B0,$B1			  ; $14
+      .BYTE $FA,$FA,$B0,$B1			  ; $18
+      .BYTE $FA,$FA,$B0,$B1			  ; $1C
+      .BYTE $FA,$FA,$B0,$B1			  ; $20
+      .BYTE $FA,$FA,$B0,$B1			  ; $24
+      .BYTE $FA,$FA,$B0,$B1			  ; $28
+      .BYTE $FA,$FA,$B0,$B1			  ; $2C
+      .BYTE $FA,$FA,$B0,$B1			  ; $30
+      .BYTE $FA,$FA,$B0,$B1			  ; $34
+      .BYTE $A0,$A2,$A1,$A3			  ; $38
+      .BYTE $80,$82,$81,$83			  ; $3C
+      .BYTE $F4,$86,$F5,$87			  ; $40
+      .BYTE $84,$86,$85,$87			  ; $44
+      .BYTE $FC,$FC,$FC,$FC			  ; $48
+      .BYTE $AD,$FB,$AC,$AD			  ; $4C
+      .BYTE $AC,$AC,$AC,$AC			  ; $50
+      .BYTE $FB,$3B,$3B,$AC			  ; $54
+      .BYTE $FC,$FC,$FC,$FC			  ; $58
+      .BYTE $F4,$86,$F5,$87			  ; $5C
+      .BYTE $FB,$49,$49,$FB			  ; $60
+      .BYTE $FE,$FE,$FE,$FE			  ; $64
+      .BYTE $FE,$FE,$6D,$FE			  ; $68
+      .BYTE $3C,$3E,$3D,$3F			  ; $6C
+      .BYTE $58,$FD,$59,$5A			  ; $70
+      .BYTE $5B,$5A,$FD,$FD			  ; $74
+      .BYTE $5B,$5C,$FD,$5D			  ; $78
+      .BYTE $FD,$FD,$5B,$5A			  ; $7C
+      .BYTE $6C,$FE,$FE,$FE			  ; $80
+      .BYTE $FE,$FE,$FE,$FE			  ; $84
+      .BYTE $FE,$6E,$FE,$6F			  ; $88
+      .BYTE $20,$22,$21,$23			  ; $8C
+      .BYTE $6E,$6F,$70,$71			  ; $90
+      .BYTE $57,$57,$FB,$FB			  ; $94
+      .BYTE $57,$57,$FE,$FE			  ; $98
+      .BYTE $D3,$D3,$FB,$FB			  ; $9C
+      .BYTE $D2,$D2,$FB,$FB			  ; $A0
+      .BYTE $7C,$7E,$7D,$7F			  ; $A4
+      .BYTE $CA,$CC,$CB,$CD			  ; $A8
+      .BYTE $CA,$CC,$CB,$CD			  ; $AC
+      .BYTE $C0,$C2,$C1,$C3			  ; $B0
+      .BYTE $2C,$2E,$2D,$2F			  ; $B4
+      .BYTE $8E,$8F,$8F,$8E			  ; $B8
+      .BYTE $88,$8A,$89,$8B			  ; $BC
+      .BYTE $89,$8B,$89,$8B			  ; $C0
+      .BYTE $89,$8B,$8C,$8D			  ; $C4
+      .BYTE $88,$8A,$8C,$8D			  ; $C8
+      .BYTE $88,$8A,$89,$8B			  ; $CC
+      .BYTE $88,$8A,$89,$8B			  ; $D0
+      .BYTE $6A,$6C,$6B,$6D			  ; $D4
+      .BYTE $6C,$6C,$6D,$6D			  ; $D8
+      .BYTE $6C,$6E,$6D,$6F			  ; $DC
+      .BYTE $6C,$54,$6D,$55			  ; $E0
+      .BYTE $32,$34,$33,$35			  ; $E4
+      .BYTE $33,$35,$33,$35			  ; $E8
+TileQuads3:.BYTE $94,$95,$94,$95		       ; 0 ; DATA XREF:	BANKF:F7EBo
 						  ; BANKF:F7EFo
-						  ; data used at e000
-      .BYTE $95	; ï				  ; data used at e000
-      .BYTE $94	; î				  ; data used at e000
-      .BYTE $95	; ï				  ; data used at e000
-      .BYTE $96	; ñ				  ; data used at e000
-      .BYTE $97	; ó				  ; data used at e000
-      .BYTE $96	; ñ				  ; data used at e000
-      .BYTE $97	; ó				  ; data used at e000
-      .BYTE $48	; H				  ; data used at e000
-      .BYTE $49	; I				  ; data used at e000
-      .BYTE $48	; H				  ; data used at e000
-      .BYTE $49	; I				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $32	; 2				  ; data used at e000
-      .BYTE $32	; 2				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $34	; 4				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $34	; 4				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $30	; 0				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $31	; 1				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $D0	; –				  ; data used at e000
-      .BYTE $D0	; –				  ; data used at e000
-      .BYTE $D0	; –				  ; data used at e000
-      .BYTE $D0	; –				  ; data used at e000
-      .BYTE $D1	; —				  ; data used at e000
-      .BYTE $D1	; —				  ; data used at e000
-      .BYTE $D1	; —				  ; data used at e000
-      .BYTE $D1	; —				  ; data used at e000
-      .BYTE $64	; d				  ; data used at e000
-      .BYTE $66	; f				  ; data used at e000
-      .BYTE $65	; e				  ; data used at e000
-      .BYTE $67	; g				  ; data used at e000
-      .BYTE $68	; h				  ; data used at e000
-      .BYTE $6A	; j				  ; data used at e000
-      .BYTE $69	; i				  ; data used at e000
-      .BYTE $6B	; k				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $6C	; l				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $6C	; l				  ; data used at e000
-      .BYTE $6D	; m				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $6D	; m				  ; data used at e000
-      .BYTE $FA	; ˙				  ; data used at e000
-      .BYTE $92	; í				  ; data used at e000
-      .BYTE $93	; ì				  ; data used at e000
-      .BYTE $93	; ì				  ; data used at e000
-      .BYTE $92	; í				  ; data used at e000
-      .BYTE $AE	; Æ
-      .BYTE $AF	; Ø
-      .BYTE $AE	; Æ
-      .BYTE $AF	; Ø
-      .BYTE $78	; x				  ; data used at e000
-      .BYTE $7A	; z				  ; data used at e000
-      .BYTE $79	; y				  ; data used at e000
-      .BYTE $7B	; {				  ; data used at e000
-      .BYTE $A8	; ®				  ; data used at e000
-      .BYTE $A8	; ®				  ; data used at e000
-      .BYTE $AF	; Ø				  ; data used at e000
-      .BYTE $AE	; Æ				  ; data used at e000
-      .BYTE $94	; î				  ; data used at e000
-      .BYTE $95	; ï				  ; data used at e000
-      .BYTE $94	; î				  ; data used at e000
-      .BYTE $95	; ï				  ; data used at e000
-      .BYTE $96	; ñ				  ; data used at e000
-      .BYTE $97	; ó				  ; data used at e000
-      .BYTE $96	; ñ				  ; data used at e000
-      .BYTE $97	; ó				  ; data used at e000
-      .BYTE $22	; "				  ; data used at e000
-      .BYTE $24	; $				  ; data used at e000
-      .BYTE $23	; #				  ; data used at e000
-      .BYTE $25	; %				  ; data used at e000
-      .BYTE $92	; í				  ; data used at e000
-      .BYTE $93	; ì				  ; data used at e000
-      .BYTE $93	; ì				  ; data used at e000
-      .BYTE $92	; í				  ; data used at e000
-      .BYTE $50	; P
-      .BYTE $51	; Q
-      .BYTE $50	; P
-      .BYTE $51	; Q
-      .BYTE $AE	; Æ				  ; data used at e000
-      .BYTE $AF	; Ø				  ; data used at e000
-      .BYTE $AE	; Æ				  ; data used at e000
-      .BYTE $AF	; Ø				  ; data used at e000
-      .BYTE $50	; P
-      .BYTE $51	; Q
-      .BYTE $50	; P
-      .BYTE $51	; Q
-      .BYTE $8E	; é				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE $8E	; é				  ; data used at e000
-      .BYTE $72	; r				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $72	; r				  ; data used at e000
-      .BYTE $50	; P				  ; data used at e000
-      .BYTE $52	; R				  ; data used at e000
-      .BYTE $51	; Q				  ; data used at e000
-      .BYTE $53	; S				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FB	; ˚				  ; data used at e000
-      .BYTE $36	; 6				  ; data used at e000
-      .BYTE $36	; 6				  ; data used at e000
-      .BYTE $4F	; O				  ; data used at e000
-      .BYTE $4F	; O				  ; data used at e000
-      .BYTE $4E	; N				  ; data used at e000
-      .BYTE $4E	; N				  ; data used at e000
-      .BYTE $4F	; O				  ; data used at e000
-      .BYTE $4E	; N
-      .BYTE $4F	; O
-      .BYTE $4F	; O
-      .BYTE $4E	; N
-      .BYTE $92	; í				  ; data used at e000
-      .BYTE $93	; ì				  ; data used at e000
-      .BYTE $93	; ì				  ; data used at e000
-      .BYTE $92	; í				  ; data used at e000
-      .BYTE $8E	; é
-      .BYTE $8F	; è
-      .BYTE $8F	; è
-      .BYTE $8E	; é
-      .BYTE $44	; D				  ; data used at e000
-      .BYTE $45	; E				  ; data used at e000
-      .BYTE $45	; E				  ; data used at e000
-      .BYTE $44	; D				  ; data used at e000
-      .BYTE $4F	; O
-      .BYTE $37	; 7
-      .BYTE $4E	; N
-      .BYTE $FE	; ˛
-      .BYTE $4F	; O
-      .BYTE $3A	; :
-      .BYTE $4E	; N
-      .BYTE $FE	; ˛
-      .BYTE $4F	; O
-      .BYTE $4E	; N
-      .BYTE $37	; 7
-      .BYTE $38	; 8
-      .BYTE $4A	; J				  ; data used at e000
-      .BYTE $4B	; K				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $FE	; ˛				  ; data used at e000
-      .BYTE $72	; r				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $4A	; J				  ; data used at e000
-      .BYTE $4B	; K				  ; data used at e000
-      .BYTE $40	; @				  ; data used at e000
-      .BYTE $42	; B				  ; data used at e000
-      .BYTE $41	; A				  ; data used at e000
-      .BYTE $43	; C				  ; data used at e000
-      .BYTE $41	; A				  ; data used at e000
-      .BYTE $43	; C				  ; data used at e000
-      .BYTE $41	; A				  ; data used at e000
-      .BYTE $43	; C				  ; data used at e000
-TileQuads4:.BYTE $40 ; @			  ; DATA XREF: BANKF:F7ECo
+      .BYTE $96,$97,$96,$97			  ; 4 ;	data used at e000
+      .BYTE $48,$49,$48,$49			  ; 8
+      .BYTE $FE,$FE,$FE,$FE			  ; $C
+      .BYTE $FB,$32,$32,$33			  ; $10
+      .BYTE $33,$33,$33,$33			  ; $14
+      .BYTE $FD,$FD,$FD,$FD			  ; $18
+      .BYTE $34,$FB,$FD,$34			  ; $1C
+      .BYTE $FB,$30,$FB,$FB			  ; $20
+      .BYTE $FB,$FB,$31,$FB			  ; $24
+      .BYTE $D0,$D0,$D0,$D0			  ; $28
+      .BYTE $D1,$D1,$D1,$D1			  ; $2C
+      .BYTE $64,$66,$65,$67			  ; $30
+      .BYTE $68,$6A,$69,$6B			  ; $34
+      .BYTE $FA,$6C,$FA,$6C			  ; $38
+      .BYTE $6D,$FA,$6D,$FA			  ; $3C
+      .BYTE $92,$93,$93,$92			  ; $40
+      .BYTE $AE,$AF,$AE,$AF			  ; $44
+      .BYTE $78,$7A,$79,$7B			  ; $48
+      .BYTE $A8,$A8,$AF,$AE			  ; $4C
+      .BYTE $94,$95,$94,$95			  ; $50
+      .BYTE $96,$97,$96,$97			  ; $54
+      .BYTE $22,$24,$23,$25			  ; $58
+      .BYTE $92,$93,$93,$92			  ; $5C
+      .BYTE $50,$51,$50,$51			  ; $60
+      .BYTE $AE,$AF,$AE,$AF			  ; $64
+      .BYTE $50,$51,$50,$51			  ; $68
+      .BYTE $8E,$8F,$8F,$8E			  ; $6C
+      .BYTE $72,$73,$73,$72			  ; $70
+      .BYTE $50,$52,$51,$53			  ; $74
+      .BYTE $FD,$FD,$FD,$FD			  ; $78
+      .BYTE $FB,$36,$36,$4F			  ; $7C
+      .BYTE $4F,$4E,$4E,$4F			  ; $80
+      .BYTE $4E,$4F,$4F,$4E			  ; $84
+      .BYTE $92,$93,$93,$92			  ; $88
+      .BYTE $8E,$8F,$8F,$8E			  ; $8C
+      .BYTE $44,$45,$45,$44			  ; $90
+      .BYTE $4F,$37,$4E,$FE			  ; $94
+      .BYTE $4F,$3A,$4E,$FE			  ; $98
+      .BYTE $4F,$4E,$37,$38			  ; $9C
+      .BYTE $4A,$4B,$FE,$FE			  ; $A0
+      .BYTE $72,$73,$4A,$4B			  ; $A4
+      .BYTE $40,$42,$41,$43			  ; $A8
+      .BYTE $41,$43,$41,$43			  ; $AC
+TileQuads4:.BYTE $40,$42,$41,$43		       ; 0 ; DATA XREF:	BANKF:F7ECo
 						  ; BANKF:F7F0o
-						  ; data used at e000
-      .BYTE $42	; B				  ; data used at e000
-      .BYTE $41	; A				  ; data used at e000
-      .BYTE $43	; C				  ; data used at e000
-      .BYTE $40	; @				  ; data used at e000
-      .BYTE $42	; B				  ; data used at e000
-      .BYTE $41	; A				  ; data used at e000
-      .BYTE $43	; C				  ; data used at e000
-      .BYTE $BA	; ∫				  ; data used at e000
-      .BYTE $BC	; º				  ; data used at e000
-      .BYTE $BB	; ª				  ; data used at e000
-      .BYTE $BD	; Ω				  ; data used at e000
-      .BYTE $BA	; ∫				  ; data used at e000
-      .BYTE $BC	; º				  ; data used at e000
-      .BYTE $90	; ê				  ; data used at e000
-      .BYTE $91	; ë				  ; data used at e000
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $FD	; ˝				  ; data used at e000
-      .BYTE $61	; a				  ; data used at e000
-      .BYTE $63	; c				  ; data used at e000
-      .BYTE $61	; a				  ; data used at e000
-      .BYTE $63	; c				  ; data used at e000
-      .BYTE $65	; e				  ; data used at e000
-      .BYTE $63	; c				  ; data used at e000
-      .BYTE $65	; e				  ; data used at e000
-      .BYTE $63	; c				  ; data used at e000
-      .BYTE $65	; e				  ; data used at e000
-      .BYTE $67	; g				  ; data used at e000
-      .BYTE $65	; e				  ; data used at e000
-      .BYTE $67	; g				  ; data used at e000
-      .BYTE $60	; `				  ; data used at e000
-      .BYTE $62	; b				  ; data used at e000
-      .BYTE $61	; a				  ; data used at e000
-      .BYTE $63	; c				  ; data used at e000
-      .BYTE $32	; 2				  ; data used at e000
-      .BYTE $34	; 4				  ; data used at e000
-      .BYTE $33	; 3				  ; data used at e000
-      .BYTE $35	; 5				  ; data used at e000
-      .BYTE $64	; d				  ; data used at e000
-      .BYTE $62	; b				  ; data used at e000
-      .BYTE $65	; e				  ; data used at e000
-      .BYTE $63	; c				  ; data used at e000
-      .BYTE $36	; 6				  ; data used at e000
-      .BYTE $34	; 4				  ; data used at e000
-      .BYTE $37	; 7				  ; data used at e000
-      .BYTE $35	; 5				  ; data used at e000
-      .BYTE $64	; d				  ; data used at e000
-      .BYTE $66	; f				  ; data used at e000
-      .BYTE $65	; e				  ; data used at e000
-      .BYTE $67	; g				  ; data used at e000
-      .BYTE $36	; 6				  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE $37	; 7				  ; data used at e000
-      .BYTE $39	; 9				  ; data used at e000
-      .BYTE $68	; h				  ; data used at e000
-      .BYTE $62	; b				  ; data used at e000
-      .BYTE $61	; a				  ; data used at e000
-      .BYTE $63	; c				  ; data used at e000
-      .BYTE $64	; d				  ; data used at e000
-      .BYTE $69	; i				  ; data used at e000
-      .BYTE $65	; e				  ; data used at e000
-      .BYTE $67	; g				  ; data used at e000
-      .BYTE $46	; F				  ; data used at e000
-      .BYTE $62	; b				  ; data used at e000
-      .BYTE $61	; a				  ; data used at e000
-      .BYTE $63	; c				  ; data used at e000
-      .BYTE $64	; d				  ; data used at e000
-      .BYTE $47	; G				  ; data used at e000
-      .BYTE $65	; e				  ; data used at e000
-      .BYTE $67	; g				  ; data used at e000
-      .BYTE $BA	; ∫				  ; data used at e000
-      .BYTE $BC	; º				  ; data used at e000
-      .BYTE $BB	; ª				  ; data used at e000
-      .BYTE $BD	; Ω				  ; data used at e000
-      .BYTE $70	; p				  ; data used at e000
-      .BYTE $72	; r				  ; data used at e000
-      .BYTE $71	; q				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $8E	; é				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE $8E	; é				  ; data used at e000
-      .BYTE $72	; r				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $73	; s				  ; data used at e000
-      .BYTE $72	; r				  ; data used at e000
-      .BYTE $44	; D
-      .BYTE $45	; E
-      .BYTE $45	; E
-      .BYTE $44	; D
+      .BYTE $40,$42,$41,$43			  ; 4 ;	data used at e000
+      .BYTE $BA,$BC,$BB,$BD			  ; 8
+      .BYTE $BA,$BC,$90,$91			  ; $C
+      .BYTE $FA,$FA,$FA,$FA			  ; $10
+      .BYTE $FA,$FA,$FA,$FA			  ; $14
+      .BYTE $FD,$FD,$FD,$FD			  ; $18
+      .BYTE $61,$63,$61,$63			  ; $1C
+      .BYTE $65,$63,$65,$63			  ; $20
+      .BYTE $65,$67,$65,$67			  ; $24
+      .BYTE $60,$62,$61,$63			  ; $28
+      .BYTE $32,$34,$33,$35			  ; $2C
+      .BYTE $64,$62,$65,$63			  ; $30
+      .BYTE $36,$34,$37,$35			  ; $34
+      .BYTE $64,$66,$65,$67			  ; $38
+      .BYTE $36,$38,$37,$39			  ; $3C
+      .BYTE $68,$62,$61,$63			  ; $40
+      .BYTE $64,$69,$65,$67			  ; $44
+      .BYTE $46,$62,$61,$63			  ; $48
+      .BYTE $64,$47,$65,$67			  ; $4C
+      .BYTE $BA,$BC,$BB,$BD			  ; $50
+      .BYTE $70,$72,$71,$73			  ; $54
+      .BYTE $8E,$8F,$8F,$8E			  ; $58
+      .BYTE $72,$73,$73,$72			  ; $5C
+      .BYTE $44,$45,$45,$44			  ; $60
 byte_BANKF_FA7D:.BYTE $22			  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84CCr
 						  ; data used at e000
       .BYTE $D0					  ; data used at e000
@@ -96462,7 +96126,7 @@ loc_BANKF_FE33:					  ; CODE XREF: BANK0:8C06J
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_FE41:					  ; CODE XREF: BANK0:9A5CP
+sub_BANKF_FE41:					  ; CODE XREF: sub_BANK0_9A3D+1FP
       LDA     #$28 ; '('                          ; code used at e000
       STA     BackgroundCHR1			  ; code used at e000
       LDA     #$2A ; '*'                          ; code used at e000
@@ -96548,7 +96212,7 @@ LoadMarioSleepingCHRBanks:			  ; CODE XREF: BANKF:E98Ap
 
 ; ---------------------------------------------------------------------------
 ; [000000B9 BYTES: BEGIN OF AREA UNUSED-BANKF:FE97. PRESS KEYPAD "-" TO	COLLAPSE]
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+_unused_BANKF_FE97:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -96622,7 +96286,7 @@ loc_BANKF_FF75:					  ; CODE XREF: sub_BANKF_FF73+Fj
 ChangeMappedPRGBank:				  ; CODE XREF: sub_BANKF_E228+Fp
 						  ; sub_BANKF_E228+56p
 						  ; sub_BANKF_E288+10p	...
-      STA     MMC3PRGBankTemp			  ; code used at e000
+      STA     MMC3PRGBankTemp			  ; See	below comment
 
 ; End of function ChangeMappedPRGBank
 
@@ -96631,7 +96295,11 @@ ChangeMappedPRGBank:				  ; CODE XREF: sub_BANKF_E228+Fp
 
 
 ChangeMappedPRGBankWithoutSaving:		  ; CODE XREF: DoSoundProcessing+2p
-      ASL     A					  ; code used at e000
+      ASL     A					  ; Any	call to	this sub switches the lower
+						  ; two	banks together.	e.g.:
+						  ; LDA	0 JSR Change...	= Bank 0/1
+						  ; LDA	1 JSR Change...	= Bank 2/3
+						  ; etc.
       PHA					  ; code used at e000
       LDA     #$86 ; 'Ü'                          ; Prepare to change first bank
       STA     $8000				  ; code used at e000
@@ -96651,7 +96319,7 @@ ChangeMappedPRGBankWithoutSaving:		  ; CODE XREF: DoSoundProcessing+2p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_FFA0:					  ; CODE XREF: BANK0:8007P
+sub_BANKF_FFA0:					  ; CODE XREF: sub_BANK0_8000+7P
 						  ; sub_BANK0_8500+7P
 						  ; sub_BANK1_AA79+5P ...
       STA     $A000				  ; code used at e000
@@ -96661,7 +96329,7 @@ sub_BANKF_FFA0:					  ; CODE XREF: BANK0:8007P
 
 ; ---------------------------------------------------------------------------
 ; [00000047 BYTES: BEGIN OF AREA UNUSED-BANKF:FFA4. PRESS KEYPAD "-" TO	COLLAPSE]
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+_unused_BANKF_FFA4:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

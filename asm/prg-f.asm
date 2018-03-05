@@ -540,7 +540,7 @@ loc_BANKF_E245:
       STA     byte_RAM_11
       JSR     WaitForNMI
 
-      JSR     $8327
+      JSR     sub_BANKA_8327
 
       JSR     WaitForNMI_TurnOnPPU
 
@@ -566,7 +566,7 @@ loc_BANKF_E269:
       LDA     #5
       JSR     ChangeMappedPRGBank
 
-      JSR     $8451
+      JSR     sub_BANKA_8451
 
       JSR     EnableNMI
 
@@ -588,7 +588,7 @@ sub_BANKF_E288:
       LDA     #5
       JSR     ChangeMappedPRGBank
 
-      JSR     $8451
+      JSR     sub_BANKA_8451
 
       JSR     sub_BANKF_E166
 
@@ -749,7 +749,7 @@ CharacterSelectMenuLoop:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_E3AE:
-      LDA     #4
+      LDA     #SoundEffect1_CherryGet
       STA     SoundEffect1Queue
       LDX     BackgroundCHR2TimerIndex
       LDY     CurrentLevel
@@ -812,7 +812,7 @@ loc_BANKF_E3F9:
       STA     byte_RAM_6F3
       JSR     ChangeMappedPRGBank
 
-      JSR     $9A3D
+      JSR     sub_BANK0_9A3D
 
       INC     byte_RAM_6F3
       LDA     #2
@@ -867,9 +867,9 @@ loc_BANKF_E44A:
       LDA     #3
       JSR     ChangeMappedPRGBank
 
-      JSR     $9567
+      JSR     sub_BANK6_9567
 
-      JSR     $93A4
+      JSR     sub_BANK6_93A4
 
       JSR     HideAllSprites
 
@@ -954,7 +954,7 @@ loc_BANKF_E4CC:
       LDA     #0
       JSR     ChangeMappedPRGBank
 
-      JSR     $8000
+      JSR     sub_BANK0_8000
 
       JSR     sub_BANKF_F6C0
 
@@ -1006,13 +1006,14 @@ loc_BANKF_E515:
       JSR     sub_BANKF_E9E5
 
       LDA     #$41
+						  ; used when running sound queues
       STA     StackArea
 
 loc_BANKF_E51D:
       LDA     #$E
       STA     byte_RAM_6
 
-loc_BANKF_E521:
+DoSuicideCheatCheck:
       JSR     WaitForNMI_TurnOnPPU
 
       LDA     PlayerState			  ; Check if the player	is already dying
@@ -1031,7 +1032,7 @@ loc_BANKF_E533:
       BNE     loc_BANKF_E54B
 
       DEC     byte_RAM_6
-      BPL     loc_BANKF_E521
+      BPL     DoSuicideCheatCheck
 
       INC     byte_RAM_7
       LDA     byte_RAM_7
@@ -1051,7 +1052,7 @@ loc_BANKF_E54B:
       LDA     #3
       JSR     ChangeMappedPRGBank
 
-      JSR     $93A4
+      JSR     sub_BANK6_93A4
 
       JSR     WaitForNMI
 
@@ -1062,7 +1063,7 @@ loc_BANKF_E54B:
       LDA     #0
       JSR     ChangeMappedPRGBank
 
-      JSR     $81D6
+      JSR     sub_BANK0_81D6
 
       LDA     IsHorizontalLevel
       BNE     loc_BANKF_E587
@@ -1070,12 +1071,12 @@ loc_BANKF_E54B:
       LDA     #1
       JSR     sub_BANKF_FFA0
 
-      JSR     $81FE
+      JSR     sub_BANK0_81FE
 
 loc_BANKF_E576:
       JSR     WaitForNMI
 
-      JSR     $823D
+      JSR     sub_BANK0_823D
 
       LDA     byte_RAM_537
       BEQ     loc_BANKF_E576
@@ -1090,12 +1091,12 @@ loc_BANKF_E587:
       LDA     #0
       JSR     sub_BANKF_FFA0
 
-      JSR     $8785
+      JSR     sub_BANK0_8785
 
 loc_BANKF_E58F:
       JSR     WaitForNMI
 
-      JSR     $87AA
+      JSR     sub_BANK0_87AA
 
       LDA     byte_RAM_537
       BEQ     loc_BANKF_E58F
@@ -1157,7 +1158,7 @@ loc_BANKF_E5E1:
 loc_BANKF_E5EC:
       JSR     WaitForNMI
 
-      JSR     $87AA
+      JSR     sub_BANK0_87AA
 
       LDA     byte_RAM_537
       BEQ     loc_BANKF_E5EC
@@ -1169,7 +1170,7 @@ loc_BANKF_E5EC:
       LDA     #3
       JSR     ChangeMappedPRGBank
 
-      JSR     $93A4
+      JSR     sub_BANK6_93A4
 
 loc_BANKF_E606:
       JSR     WaitForNMI_TurnOnPPU
@@ -1203,7 +1204,7 @@ loc_BANKF_E627:
       LDA     #3
       JSR     ChangeMappedPRGBank
 
-      JSR     $93A4
+      JSR     sub_BANK6_93A4
 
       JSR     WaitForNMI_TurnOffPPU
 
@@ -1221,12 +1222,12 @@ loc_BANKF_E64C:
       LDA     #0
       JSR     ChangeMappedPRGBank
 
-      JSR     $874C
+      JSR     sub_BANK0_874C
 
 loc_BANKF_E654:
       JSR     WaitForNMI
 
-      JSR     $87AA
+      JSR     sub_BANK0_87AA
 
       LDA     byte_RAM_537
       BEQ     loc_BANKF_E654
@@ -1520,7 +1521,7 @@ loc_BANKF_E826:
       BCS     loc_BANKF_E826
 
       DEY
-      STY     BackgroundCHR2TimerIndex
+      STY     BackgroundCHR2TimerIndex		  ; I am sure this is important	somehow, but...	why
       LDY     BackgroundCHR2TimerIndex
       LDA     CurrentLevel
       SEC
@@ -1881,7 +1882,7 @@ sub_BANKF_E9F4:
       LDA     #0
       JSR     ChangeMappedPRGBank
 
-      JSR     $81A2
+      JSR     sub_BANK0_81A2
 
       LDY     #$23
 
@@ -2008,7 +2009,7 @@ locret_BANKF_EAA2:
 
 WaitForNMI_TurnOffPPU:
       LDA     #0
-      BEQ     _WaitForNMI_StuffPPUMask
+      BEQ     _WaitForNMI_StuffPPUMask		  ; Branch always
 
 ; End of function WaitForNMI_TurnOffPPU
 
@@ -2612,7 +2613,7 @@ UpdatePPUFBWO_CopySingleTileSkip:
 
 ; ---------------------------------------------------------------------------
 ; [000002B3 BYTES: BEGIN OF AREA UNUSED-BANKF:ED4D. PRESS KEYPAD "-" TO	COLLAPSE]
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+_unused_BANKF_ED4D:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -2937,7 +2938,7 @@ sub_BANKF_F0F9:
       LDA     #0
       JSR     ChangeMappedPRGBank
 
-      JSR     $8A02
+      JSR     loc_BANK0_8A02
 
 loc_BANKF_F115:
       JSR     sub_BANKF_F228
@@ -2967,12 +2968,12 @@ sub_BANKF_F11E:
       LDA     byte_RAM_41B
       BNE     loc_BANKF_F13A
 
-      JSR     $8A02
+      JSR     loc_BANK0_8A02
 
 loc_BANKF_F13A:
       JSR     sub_BANKF_F2C2
 
-      JSR     $85EC
+      JSR     sub_BANK0_85EC
 
       JSR     sub_BANKF_F228
 
@@ -2982,9 +2983,9 @@ loc_BANKF_F146:
       LDA     #1
       JSR     ChangeMappedPRGBank
 
-      JSR     $8010
+      JSR     sub_BANK2_8010
 
-      JSR     $BE0B
+      JSR     sub_BANK3_BE0B
 
       JSR     sub_BANKF_FACA
 
@@ -3042,13 +3043,13 @@ sub_BANKF_F17E:
       LDA     #0
       JSR     ChangeMappedPRGBank
 
-      JSR     $8A02
+      JSR     loc_BANK0_8A02
 
 loc_BANKF_F19D:
       LDA     #0
       JSR     ChangeMappedPRGBank
 
-      JSR     $8083
+      JSR     sub_BANK0_8083
 
       JSR     sub_BANKF_F228
 
@@ -4338,13 +4339,13 @@ CopyEnemyDataToMemory:
 
 GetJarPointers:
       LDY     CurrentLevel			  ; Get	the area starting index	for the	current	level
-      LDA     $8000,Y
+      LDA     LevelAreaStartIndexes,Y
       CLC
-      ADC     #4
+      ADC     #4				  ; 4 is always	the jar	sub area
       TAY
-      LDA     $8015,Y
+      LDA     LevelDataPointersLo,Y
       STA     byte_RAM_5
-      LDA     $80E7,Y
+      LDA     LevelDataPointersHi,Y
       STA     byte_RAM_6
       LDA     #$7A
       STA     byte_RAM_2
@@ -4379,658 +4380,169 @@ TileQuadPointersHi:.BYTE >TileQuads1
       .BYTE >TileQuads2
       .BYTE >TileQuads3
       .BYTE >TileQuads4
-TileQuads1:.BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $B4
-      .BYTE $B6
-      .BYTE $B5
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $FA
-      .BYTE $B9
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B2
-      .BYTE $B3
-      .BYTE $BE
-      .BYTE $BE
-      .BYTE $BF
-      .BYTE $BF
-      .BYTE $BF
-      .BYTE $BF
-      .BYTE $BF
-      .BYTE $BF
-      .BYTE $4A
-      .BYTE $4A
-      .BYTE $4B
-      .BYTE $4B
-      .BYTE $5E
-      .BYTE $5F
-      .BYTE $5E
-      .BYTE $5F
-      .BYTE $E8
-      .BYTE $E8
-      .BYTE $A9
-      .BYTE $A9
-      .BYTE $46
-      .BYTE $FC
-      .BYTE $46
-      .BYTE $FC
-      .BYTE $A9
-      .BYTE $A9
-      .BYTE $A9
-      .BYTE $A9
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $E9
-      .BYTE $E9
-      .BYTE $A9
-      .BYTE $A9
-      .BYTE $FC
-      .BYTE $48
-      .BYTE $FC
-      .BYTE $48
-      .BYTE $11
-      .BYTE $11
-      .BYTE $11
-      .BYTE $11
-      .BYTE $22
-      .BYTE $22
-      .BYTE $22
-      .BYTE $22
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $E8
-      .BYTE $EB
-      .BYTE $A9
-      .BYTE $A9
-      .BYTE $74
-      .BYTE $76
-      .BYTE $75
-      .BYTE $77
-      .BYTE $98
-      .BYTE $9A
-      .BYTE $99
-      .BYTE $9B
-      .BYTE $9C
-      .BYTE $9A
-      .BYTE $9D
-      .BYTE $9B
-      .BYTE $9C
-      .BYTE $9E
-      .BYTE $9B
-      .BYTE $9F
-      .BYTE $58
-      .BYTE $5A
-      .BYTE $59
-      .BYTE $5B
-      .BYTE $5E
-      .BYTE $5F
-      .BYTE $5E
-      .BYTE $5F
-      .BYTE $8E
-      .BYTE $8F
-      .BYTE $8F
-      .BYTE $8E
-      .BYTE $72
-      .BYTE $73
-      .BYTE $73
-      .BYTE $72
-      .BYTE $A6
-      .BYTE $A6
-      .BYTE $A7
-      .BYTE $A7
-      .BYTE $92
-      .BYTE $93
-      .BYTE $93
-      .BYTE $92
-      .BYTE $74
-      .BYTE $76
-      .BYTE $75
-      .BYTE $77
-      .BYTE $70
-      .BYTE $72
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $24
-      .BYTE $26
-      .BYTE $25
-      .BYTE $27
-      .BYTE $32	; 2
-      .BYTE $34	; 4
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $24
-      .BYTE $26
-      .BYTE $25
-      .BYTE $27
-TileQuads2:.BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $B0
-      .BYTE $B1
-      .BYTE $A0
-      .BYTE $A2
-      .BYTE $A1
-      .BYTE $A3
-      .BYTE $80
-      .BYTE $82
-      .BYTE $81
-      .BYTE $83
-      .BYTE $F4
-      .BYTE $86
-      .BYTE $F5
-      .BYTE $87
-      .BYTE $84
-      .BYTE $86
-      .BYTE $85
-      .BYTE $87
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $AD
-      .BYTE $FB
-      .BYTE $AC
-      .BYTE $AD
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $FB
-      .BYTE $3B
-      .BYTE $3B
-      .BYTE $AC
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $F4
-      .BYTE $86
-      .BYTE $F5
-      .BYTE $87
-      .BYTE $FB
-      .BYTE $49
-      .BYTE $49
-      .BYTE $FB
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $6D
-      .BYTE $FE
-      .BYTE $3C
-      .BYTE $3E
-      .BYTE $3D
-      .BYTE $3F
-      .BYTE $58
-      .BYTE $FD
-      .BYTE $59
-      .BYTE $5A
-      .BYTE $5B
-      .BYTE $5A
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $5B
-      .BYTE $5C
-      .BYTE $FD
-      .BYTE $5D
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $5B
-      .BYTE $5A
-      .BYTE $6C
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $6E
-      .BYTE $FE
-      .BYTE $6F
-      .BYTE $20
-      .BYTE $22
-      .BYTE $21
-      .BYTE $23
-      .BYTE $6E
-      .BYTE $6F
-      .BYTE $70
-      .BYTE $71
-      .BYTE $57
-      .BYTE $57
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $57
-      .BYTE $57
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $D3
-      .BYTE $D3
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $D2
-      .BYTE $D2
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $7C
-      .BYTE $7E
-      .BYTE $7D
-      .BYTE $7F
-      .BYTE $CA
-      .BYTE $CC
-      .BYTE $CB
-      .BYTE $CD
-      .BYTE $CA
-      .BYTE $CC
-      .BYTE $CB
-      .BYTE $CD
-      .BYTE $C0
-      .BYTE $C2
-      .BYTE $C1
-      .BYTE $C3
-      .BYTE $2C
-      .BYTE $2E
-      .BYTE $2D
-      .BYTE $2F
-      .BYTE $8E
-      .BYTE $8F
-      .BYTE $8F
-      .BYTE $8E
-      .BYTE $88
-      .BYTE $8A
-      .BYTE $89
-      .BYTE $8B
-      .BYTE $89
-      .BYTE $8B
-      .BYTE $89
-      .BYTE $8B
-      .BYTE $89
-      .BYTE $8B
-      .BYTE $8C
-      .BYTE $8D
-      .BYTE $88
-      .BYTE $8A
-      .BYTE $8C
-      .BYTE $8D
-      .BYTE $88
-      .BYTE $8A
-      .BYTE $89
-      .BYTE $8B
-      .BYTE $88
-      .BYTE $8A
-      .BYTE $89
-      .BYTE $8B
-      .BYTE $6A
-      .BYTE $6C
-      .BYTE $6B
-      .BYTE $6D
-      .BYTE $6C
-      .BYTE $6C
-      .BYTE $6D
-      .BYTE $6D
-      .BYTE $6C
-      .BYTE $6E
-      .BYTE $6D
-      .BYTE $6F
-      .BYTE $6C
-      .BYTE $54
-      .BYTE $6D
-      .BYTE $55
-      .BYTE $32	; 2
-      .BYTE $34	; 4
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-TileQuads3:.BYTE $94
-      .BYTE $95
-      .BYTE $94
-      .BYTE $95
-      .BYTE $96
-      .BYTE $97
-      .BYTE $96
-      .BYTE $97
-      .BYTE $48
-      .BYTE $49
-      .BYTE $48
-      .BYTE $49
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FB
-      .BYTE $32	; 2
-      .BYTE $32	; 2
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $34	; 4
-      .BYTE $FB
-      .BYTE $FD
-      .BYTE $34	; 4
-      .BYTE $FB
-      .BYTE $30	; 0
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $31	; 1
-      .BYTE $FB
-      .BYTE $D0
-      .BYTE $D0
-      .BYTE $D0
-      .BYTE $D0
-      .BYTE $D1
-      .BYTE $D1
-      .BYTE $D1
-      .BYTE $D1
-      .BYTE $64
-      .BYTE $66
-      .BYTE $65
-      .BYTE $67
-      .BYTE $68
-      .BYTE $6A
-      .BYTE $69
-      .BYTE $6B
-      .BYTE $FA
-      .BYTE $6C
-      .BYTE $FA
-      .BYTE $6C
-      .BYTE $6D
-      .BYTE $FA
-      .BYTE $6D
-      .BYTE $FA
-      .BYTE $92
-      .BYTE $93
-      .BYTE $93
-      .BYTE $92
-      .BYTE $AE
-      .BYTE $AF
-      .BYTE $AE
-      .BYTE $AF
-      .BYTE $78
-      .BYTE $7A
-      .BYTE $79
-      .BYTE $7B
-      .BYTE $A8
-      .BYTE $A8
-      .BYTE $AF
-      .BYTE $AE
-      .BYTE $94
-      .BYTE $95
-      .BYTE $94
-      .BYTE $95
-      .BYTE $96
-      .BYTE $97
-      .BYTE $96
-      .BYTE $97
-      .BYTE $22
-      .BYTE $24
-      .BYTE $23
-      .BYTE $25
-      .BYTE $92
-      .BYTE $93
-      .BYTE $93
-      .BYTE $92
-      .BYTE $50
-      .BYTE $51
-      .BYTE $50
-      .BYTE $51
-      .BYTE $AE
-      .BYTE $AF
-      .BYTE $AE
-      .BYTE $AF
-      .BYTE $50
-      .BYTE $51
-      .BYTE $50
-      .BYTE $51
-      .BYTE $8E
-      .BYTE $8F
-      .BYTE $8F
-      .BYTE $8E
-      .BYTE $72
-      .BYTE $73
-      .BYTE $73
-      .BYTE $72
-      .BYTE $50
-      .BYTE $52
-      .BYTE $51
-      .BYTE $53
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $FB
-      .BYTE $36	; 6
-      .BYTE $36	; 6
-      .BYTE $4F
-      .BYTE $4F
-      .BYTE $4E
-      .BYTE $4E
-      .BYTE $4F
-      .BYTE $4E
-      .BYTE $4F
-      .BYTE $4F
-      .BYTE $4E
-      .BYTE $92
-      .BYTE $93
-      .BYTE $93
-      .BYTE $92
-      .BYTE $8E
-      .BYTE $8F
-      .BYTE $8F
-      .BYTE $8E
-      .BYTE $44
-      .BYTE $45
-      .BYTE $45
-      .BYTE $44
-      .BYTE $4F
-      .BYTE $37	; 7
-      .BYTE $4E
-      .BYTE $FE
-      .BYTE $4F
-      .BYTE $3A
-      .BYTE $4E
-      .BYTE $FE
-      .BYTE $4F
-      .BYTE $4E
-      .BYTE $37	; 7
-      .BYTE $38	; 8
-      .BYTE $4A
-      .BYTE $4B
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $72
-      .BYTE $73
-      .BYTE $4A
-      .BYTE $4B
-      .BYTE $40
-      .BYTE $42
-      .BYTE $41
-      .BYTE $43
-      .BYTE $41
-      .BYTE $43
-      .BYTE $41
-      .BYTE $43
-TileQuads4:.BYTE $40
-      .BYTE $42
-      .BYTE $41
-      .BYTE $43
-      .BYTE $40
-      .BYTE $42
-      .BYTE $41
-      .BYTE $43
-      .BYTE $BA
-      .BYTE $BC
-      .BYTE $BB
-      .BYTE $BD
-      .BYTE $BA
-      .BYTE $BC
-      .BYTE $90
-      .BYTE $91
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $61
-      .BYTE $63
-      .BYTE $61
-      .BYTE $63
-      .BYTE $65
-      .BYTE $63
-      .BYTE $65
-      .BYTE $63
-      .BYTE $65
-      .BYTE $67
-      .BYTE $65
-      .BYTE $67
-      .BYTE $60
-      .BYTE $62
-      .BYTE $61
-      .BYTE $63
-      .BYTE $32	; 2
-      .BYTE $34	; 4
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $64
-      .BYTE $62
-      .BYTE $65
-      .BYTE $63
-      .BYTE $36	; 6
-      .BYTE $34	; 4
-      .BYTE $37	; 7
-      .BYTE $35	; 5
-      .BYTE $64
-      .BYTE $66
-      .BYTE $65
-      .BYTE $67
-      .BYTE $36	; 6
-      .BYTE $38	; 8
-      .BYTE $37	; 7
-      .BYTE $39	; 9
-      .BYTE $68
-      .BYTE $62
-      .BYTE $61
-      .BYTE $63
-      .BYTE $64
-      .BYTE $69
-      .BYTE $65
-      .BYTE $67
-      .BYTE $46
-      .BYTE $62
-      .BYTE $61
-      .BYTE $63
-      .BYTE $64
-      .BYTE $47
-      .BYTE $65
-      .BYTE $67
-      .BYTE $BA
-      .BYTE $BC
-      .BYTE $BB
-      .BYTE $BD
-      .BYTE $70
-      .BYTE $72
-      .BYTE $71
-      .BYTE $73
-      .BYTE $8E
-      .BYTE $8F
-      .BYTE $8F
-      .BYTE $8E
-      .BYTE $72
-      .BYTE $73
-      .BYTE $73
-      .BYTE $72
-      .BYTE $44
-      .BYTE $45
-      .BYTE $45
-      .BYTE $44
+TileQuads1:.BYTE $FE,$FE,$FE,$FE		       ; 0
+      .BYTE $B4,$B6,$B5,$B7			  ; 4 ;	data used at e000
+      .BYTE $B8,$FA,$B9,$FA			  ; 8
+      .BYTE $FA,$FA,$B2,$B3			  ; $C
+      .BYTE $BE,$BE,$BF,$BF			  ; $10
+      .BYTE $BF,$BF,$BF,$BF			  ; $14
+      .BYTE $4A,$4A,$4B,$4B			  ; $18
+      .BYTE $5E,$5F,$5E,$5F			  ; $1C
+      .BYTE $E8,$E8,$A9,$A9			  ; $20
+      .BYTE $46,$FC,$46,$FC			  ; $24
+      .BYTE $A9,$A9,$A9,$A9			  ; $28
+      .BYTE $FC,$FC,$FC,$FC			  ; $2C
+      .BYTE $E9,$E9,$A9,$A9			  ; $30
+      .BYTE $FC,$48,$FC,$48			  ; $34
+      .BYTE $11,$11,$11,$11			  ; $38
+      .BYTE $22,$22,$22,$22			  ; $3C
+      .BYTE $33,$33,$33,$33			  ; $40
+      .BYTE $E8,$EB,$A9,$A9			  ; $44
+      .BYTE $74,$76,$75,$77			  ; $48
+      .BYTE $98,$9A,$99,$9B			  ; $4C
+      .BYTE $9C,$9A,$9D,$9B			  ; $50
+      .BYTE $9C,$9E,$9B,$9F			  ; $54
+      .BYTE $58,$5A,$59,$5B			  ; $58
+      .BYTE $5E,$5F,$5E,$5F			  ; $5C
+      .BYTE $8E,$8F,$8F,$8E			  ; $60
+      .BYTE $72,$73,$73,$72			  ; $64
+      .BYTE $A6,$A6,$A7,$A7			  ; $68
+      .BYTE $92,$93,$93,$92			  ; $6C
+      .BYTE $74,$76,$75,$77			  ; $70
+      .BYTE $70,$72,$71,$73			  ; $74
+      .BYTE $71,$73,$71,$73			  ; $78
+      .BYTE $24,$26,$25,$27			  ; $7C
+      .BYTE $32,$34,$33,$35			  ; $80
+      .BYTE $33,$35,$33,$35			  ; $84
+      .BYTE $24,$26,$25,$27			  ; $88
+TileQuads2:.BYTE $FA,$FA,$FA,$FA		       ; 0
+      .BYTE $FA,$FA,$FA,$FA			  ; 4 ;	data used at e000
+      .BYTE $FA,$FA,$FA,$FA			  ; 8
+      .BYTE $FA,$FA,$B0,$B1			  ; $C
+      .BYTE $FA,$FA,$B0,$B1			  ; $10
+      .BYTE $FA,$FA,$B0,$B1			  ; $14
+      .BYTE $FA,$FA,$B0,$B1			  ; $18
+      .BYTE $FA,$FA,$B0,$B1			  ; $1C
+      .BYTE $FA,$FA,$B0,$B1			  ; $20
+      .BYTE $FA,$FA,$B0,$B1			  ; $24
+      .BYTE $FA,$FA,$B0,$B1			  ; $28
+      .BYTE $FA,$FA,$B0,$B1			  ; $2C
+      .BYTE $FA,$FA,$B0,$B1			  ; $30
+      .BYTE $FA,$FA,$B0,$B1			  ; $34
+      .BYTE $A0,$A2,$A1,$A3			  ; $38
+      .BYTE $80,$82,$81,$83			  ; $3C
+      .BYTE $F4,$86,$F5,$87			  ; $40
+      .BYTE $84,$86,$85,$87			  ; $44
+      .BYTE $FC,$FC,$FC,$FC			  ; $48
+      .BYTE $AD,$FB,$AC,$AD			  ; $4C
+      .BYTE $AC,$AC,$AC,$AC			  ; $50
+      .BYTE $FB,$3B,$3B,$AC			  ; $54
+      .BYTE $FC,$FC,$FC,$FC			  ; $58
+      .BYTE $F4,$86,$F5,$87			  ; $5C
+      .BYTE $FB,$49,$49,$FB			  ; $60
+      .BYTE $FE,$FE,$FE,$FE			  ; $64
+      .BYTE $FE,$FE,$6D,$FE			  ; $68
+      .BYTE $3C,$3E,$3D,$3F			  ; $6C
+      .BYTE $58,$FD,$59,$5A			  ; $70
+      .BYTE $5B,$5A,$FD,$FD			  ; $74
+      .BYTE $5B,$5C,$FD,$5D			  ; $78
+      .BYTE $FD,$FD,$5B,$5A			  ; $7C
+      .BYTE $6C,$FE,$FE,$FE			  ; $80
+      .BYTE $FE,$FE,$FE,$FE			  ; $84
+      .BYTE $FE,$6E,$FE,$6F			  ; $88
+      .BYTE $20,$22,$21,$23			  ; $8C
+      .BYTE $6E,$6F,$70,$71			  ; $90
+      .BYTE $57,$57,$FB,$FB			  ; $94
+      .BYTE $57,$57,$FE,$FE			  ; $98
+      .BYTE $D3,$D3,$FB,$FB			  ; $9C
+      .BYTE $D2,$D2,$FB,$FB			  ; $A0
+      .BYTE $7C,$7E,$7D,$7F			  ; $A4
+      .BYTE $CA,$CC,$CB,$CD			  ; $A8
+      .BYTE $CA,$CC,$CB,$CD			  ; $AC
+      .BYTE $C0,$C2,$C1,$C3			  ; $B0
+      .BYTE $2C,$2E,$2D,$2F			  ; $B4
+      .BYTE $8E,$8F,$8F,$8E			  ; $B8
+      .BYTE $88,$8A,$89,$8B			  ; $BC
+      .BYTE $89,$8B,$89,$8B			  ; $C0
+      .BYTE $89,$8B,$8C,$8D			  ; $C4
+      .BYTE $88,$8A,$8C,$8D			  ; $C8
+      .BYTE $88,$8A,$89,$8B			  ; $CC
+      .BYTE $88,$8A,$89,$8B			  ; $D0
+      .BYTE $6A,$6C,$6B,$6D			  ; $D4
+      .BYTE $6C,$6C,$6D,$6D			  ; $D8
+      .BYTE $6C,$6E,$6D,$6F			  ; $DC
+      .BYTE $6C,$54,$6D,$55			  ; $E0
+      .BYTE $32,$34,$33,$35			  ; $E4
+      .BYTE $33,$35,$33,$35			  ; $E8
+TileQuads3:.BYTE $94,$95,$94,$95		       ; 0
+      .BYTE $96,$97,$96,$97			  ; 4 ;	data used at e000
+      .BYTE $48,$49,$48,$49			  ; 8
+      .BYTE $FE,$FE,$FE,$FE			  ; $C
+      .BYTE $FB,$32,$32,$33			  ; $10
+      .BYTE $33,$33,$33,$33			  ; $14
+      .BYTE $FD,$FD,$FD,$FD			  ; $18
+      .BYTE $34,$FB,$FD,$34			  ; $1C
+      .BYTE $FB,$30,$FB,$FB			  ; $20
+      .BYTE $FB,$FB,$31,$FB			  ; $24
+      .BYTE $D0,$D0,$D0,$D0			  ; $28
+      .BYTE $D1,$D1,$D1,$D1			  ; $2C
+      .BYTE $64,$66,$65,$67			  ; $30
+      .BYTE $68,$6A,$69,$6B			  ; $34
+      .BYTE $FA,$6C,$FA,$6C			  ; $38
+      .BYTE $6D,$FA,$6D,$FA			  ; $3C
+      .BYTE $92,$93,$93,$92			  ; $40
+      .BYTE $AE,$AF,$AE,$AF			  ; $44
+      .BYTE $78,$7A,$79,$7B			  ; $48
+      .BYTE $A8,$A8,$AF,$AE			  ; $4C
+      .BYTE $94,$95,$94,$95			  ; $50
+      .BYTE $96,$97,$96,$97			  ; $54
+      .BYTE $22,$24,$23,$25			  ; $58
+      .BYTE $92,$93,$93,$92			  ; $5C
+      .BYTE $50,$51,$50,$51			  ; $60
+      .BYTE $AE,$AF,$AE,$AF			  ; $64
+      .BYTE $50,$51,$50,$51			  ; $68
+      .BYTE $8E,$8F,$8F,$8E			  ; $6C
+      .BYTE $72,$73,$73,$72			  ; $70
+      .BYTE $50,$52,$51,$53			  ; $74
+      .BYTE $FD,$FD,$FD,$FD			  ; $78
+      .BYTE $FB,$36,$36,$4F			  ; $7C
+      .BYTE $4F,$4E,$4E,$4F			  ; $80
+      .BYTE $4E,$4F,$4F,$4E			  ; $84
+      .BYTE $92,$93,$93,$92			  ; $88
+      .BYTE $8E,$8F,$8F,$8E			  ; $8C
+      .BYTE $44,$45,$45,$44			  ; $90
+      .BYTE $4F,$37,$4E,$FE			  ; $94
+      .BYTE $4F,$3A,$4E,$FE			  ; $98
+      .BYTE $4F,$4E,$37,$38			  ; $9C
+      .BYTE $4A,$4B,$FE,$FE			  ; $A0
+      .BYTE $72,$73,$4A,$4B			  ; $A4
+      .BYTE $40,$42,$41,$43			  ; $A8
+      .BYTE $41,$43,$41,$43			  ; $AC
+TileQuads4:.BYTE $40,$42,$41,$43		       ; 0
+      .BYTE $40,$42,$41,$43			  ; 4 ;	data used at e000
+      .BYTE $BA,$BC,$BB,$BD			  ; 8
+      .BYTE $BA,$BC,$90,$91			  ; $C
+      .BYTE $FA,$FA,$FA,$FA			  ; $10
+      .BYTE $FA,$FA,$FA,$FA			  ; $14
+      .BYTE $FD,$FD,$FD,$FD			  ; $18
+      .BYTE $61,$63,$61,$63			  ; $1C
+      .BYTE $65,$63,$65,$63			  ; $20
+      .BYTE $65,$67,$65,$67			  ; $24
+      .BYTE $60,$62,$61,$63			  ; $28
+      .BYTE $32,$34,$33,$35			  ; $2C
+      .BYTE $64,$62,$65,$63			  ; $30
+      .BYTE $36,$34,$37,$35			  ; $34
+      .BYTE $64,$66,$65,$67			  ; $38
+      .BYTE $36,$38,$37,$39			  ; $3C
+      .BYTE $68,$62,$61,$63			  ; $40
+      .BYTE $64,$69,$65,$67			  ; $44
+      .BYTE $46,$62,$61,$63			  ; $48
+      .BYTE $64,$47,$65,$67			  ; $4C
+      .BYTE $BA,$BC,$BB,$BD			  ; $50
+      .BYTE $70,$72,$71,$73			  ; $54
+      .BYTE $8E,$8F,$8F,$8E			  ; $58
+      .BYTE $72,$73,$73,$72			  ; $5C
+      .BYTE $44,$45,$45,$44			  ; $60
 byte_BANKF_FA7D:.BYTE $22
 
       .BYTE $D0
@@ -5374,7 +4886,7 @@ LoadMarioSleepingCHRBanks:
 
 ; ---------------------------------------------------------------------------
 ; [000000B9 BYTES: BEGIN OF AREA UNUSED-BANKF:FE97. PRESS KEYPAD "-" TO	COLLAPSE]
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+_unused_BANKF_FE97:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -5437,14 +4949,18 @@ loc_BANKF_FF75:
 ; =============== S U B	R O U T	I N E =======================================
 
 ChangeMappedPRGBank:
-      STA     MMC3PRGBankTemp
+      STA     MMC3PRGBankTemp			  ; See	below comment
 
 ; End of function ChangeMappedPRGBank
 
 ; =============== S U B	R O U T	I N E =======================================
 
 ChangeMappedPRGBankWithoutSaving:
-      ASL     A
+      ASL     A					  ; Any	call to	this sub switches the lower
+						  ; two	banks together.	e.g.:
+						  ; LDA	0 JSR Change...	= Bank 0/1
+						  ; LDA	1 JSR Change...	= Bank 2/3
+						  ; etc.
       PHA
       LDA     #$86
       STA     $8000
@@ -5470,7 +4986,7 @@ sub_BANKF_FFA0:
 
 ; ---------------------------------------------------------------------------
 ; [00000047 BYTES: BEGIN OF AREA UNUSED-BANKF:FFA4. PRESS KEYPAD "-" TO	COLLAPSE]
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+_unused_BANKF_FFA4:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

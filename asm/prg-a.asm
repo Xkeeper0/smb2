@@ -120,7 +120,7 @@ BonusChanceLayout:.BYTE	$20
       .BYTE $2F
       .BYTE $30	; 0
       .BYTE $FD
-      .BYTE $FD
+unk_BANKA_81A2:.BYTE $FD
       .BYTE $20
       .BYTE $A3
       .BYTE   4
@@ -172,7 +172,7 @@ BonusChanceLayout:.BYTE	$20
       .BYTE $40
       .BYTE $41
       .BYTE $21
-      .BYTE $23
+unk_BANKA_81D6:.BYTE $23
       .BYTE $D0
       .BYTE $3C
       .BYTE $21
@@ -212,7 +212,7 @@ BonusChanceLayout:.BYTE	$20
       .BYTE   2
       .BYTE $A6
       .BYTE $A8
-      .BYTE $22
+unk_BANKA_81FE:.BYTE $22
       .BYTE $E4
       .BYTE   2
       .BYTE $A7
@@ -275,7 +275,7 @@ BonusChanceLayout:.BYTE	$20
       .BYTE $43
       .BYTE $1B
       .BYTE $47
-      .BYTE $94
+unk_BANKA_823D:.BYTE $94
       .BYTE $96
       .BYTE $74
 unk_BANKA_8240:.BYTE $74
@@ -511,10 +511,10 @@ loc_BANKA_831D:
 
 ; End of function CopyBonusChanceLayoutToRAM
 
-; ---------------------------------------------------------------------------
+; =============== S U B	R O U T	I N E =======================================
 
-loc_BANKA_8327:					  ; code used as data at 8000
-      LDA     BackgroundCHR2TimerIndex
+sub_BANKA_8327:
+      LDA     BackgroundCHR2TimerIndex		  ; code used as data at 8000
       CMP     #6				  ; code used as data at 8000
       BEQ     loc_BANKA_8392			  ; code used as data at 8000
 
@@ -623,6 +623,8 @@ loc_BANKA_83AB:
 
 locret_BANKA_83C8:
       RTS
+
+; End of function sub_BANKA_8327
 
 ; ---------------------------------------------------------------------------
 StatOffsets:.BYTE 0
@@ -1149,7 +1151,7 @@ Text_PAUSE_Erase:.BYTE $25
       .BYTE   5
       .BYTE $FB
       .BYTE $FB
-      .BYTE $FB
+unk_BANKA_85EC:.BYTE $FB
       .BYTE $FB
       .BYTE $FB
       .BYTE   0

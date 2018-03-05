@@ -12,7 +12,7 @@ byte_BANKC_8001:.BYTE 3
       .WORD MarioDream_EraseBubble2
       .WORD MarioDream_EraseBubble3
       .WORD MarioDream_EraseBubble4
-      .WORD MarioDream_EraseBubble5
+off_BANKC_8010:.WORD MarioDream_EraseBubble5
       .WORD MarioDream_Palettes
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -137,7 +137,7 @@ MarioDream_Bed:.BYTE $20
       .BYTE $80
       .BYTE $60
       .BYTE $FF
-      .BYTE $23
+byte_BANKC_8083:.BYTE $23
       .BYTE $A0
       .BYTE $60
       .BYTE $FF
@@ -424,7 +424,7 @@ MarioDream_Bed:.BYTE $20
       .BYTE $B1
       .BYTE $B2
       .BYTE $B3
-      .BYTE $B4
+byte_BANKC_81A2:.BYTE $B4
       .BYTE $B5
       .BYTE $B6
       .BYTE $B7
@@ -476,7 +476,7 @@ MarioDream_Bed:.BYTE $20
       .BYTE $D1
       .BYTE $D2
       .BYTE $D3
-      .BYTE $D4
+byte_BANKC_81D6:.BYTE $D4
       .BYTE $D5
       .BYTE $D6
       .BYTE $D7
@@ -516,7 +516,7 @@ MarioDream_Bed:.BYTE $20
       .BYTE $FE
       .BYTE $FE
       .BYTE $FE
-      .BYTE $FE
+byte_BANKC_81FE:.BYTE $FE
       .BYTE $FE
       .BYTE $FE
       .BYTE $FE
@@ -580,7 +580,7 @@ MarioDream_Bubble:.BYTE	$20
       .BYTE $20
       .BYTE $F1
       .BYTE $B
-      .BYTE $FD
+byte_BANKC_823D:.BYTE $FD
       .BYTE $FD
       .BYTE $FD
       .BYTE $28
@@ -1329,6 +1329,8 @@ locret_BANKC_85E6:
 loc_BANKC_85E7:
       LDA     ObjectXLo+5
       AND     #1
+
+loc_BANKC_85EB:
       BEQ     loc_BANKC_861C
 
       LDA     ObjectYHi
@@ -1567,6 +1569,8 @@ loc_BANKC_8743:
       BEQ     loc_BANKC_8763
 
       LDA     ObjectYHi+3
+
+loc_BANKC_874C:
       SEC
       SBC     #1
       CMP     #$10
@@ -1604,6 +1608,8 @@ loc_BANKC_8776:
 loc_BANKC_877E:
       STA     unk_RAM_290
       STA     unk_RAM_294
+
+loc_BANKC_8784:
       STA     unk_RAM_298
       STA     unk_RAM_29C
 
@@ -1629,6 +1635,7 @@ loc_BANKC_87A4:
       CMP     #$10
       BNE     loc_BANKC_87BA
 
+loc_BANKC_87AA:
       LDA     #0
       STA     ObjectYLo+3
       LDA     ObjectXLo+2
@@ -2053,7 +2060,7 @@ locret_BANKC_8A00:
 ; ---------------------------------------------------------------------------
 CastRoll_PaletteFadeOut:.BYTE $32
 
-      .BYTE $22
+byte_BANKC_8A02:.BYTE $22
       .BYTE $12
 ; ---------------------------------------------------------------------------
 

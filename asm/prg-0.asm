@@ -2,8 +2,10 @@
       ;.segment	BANK0
 ;       *	=  $8000
 
-loc_BANK0_8000:					  ; code used as data at 8000
-      LDA     byte_RAM_502
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK0_8000:
+      LDA     byte_RAM_502			  ; code used as data at 8000
       BNE     loc_BANK0_805D
 
       LDA     #1
@@ -13,6 +15,7 @@ _code_000A:
       LDA     byte_RAM_533
       BNE     loc_BANK0_8013
 
+loc_BANK0_800F:
       LDA     #9
       BNE     loc_BANK0_8016
 
@@ -87,7 +90,11 @@ loc_BANK0_8066:
 locret_BANK0_8082:
       RTS
 
-; ---------------------------------------------------------------------------
+; End of function sub_BANK0_8000
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK0_8083:
       LDA     byte_RAM_D8
       AND     #4
       BNE     loc_BANK0_809D
@@ -310,9 +317,14 @@ loc_BANK0_819C:
 locret_BANK0_81A0:
       RTS
 
+; End of function sub_BANK0_8083
+
 ; ---------------------------------------------------------------------------
       .BYTE   1
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK0_81A2:
       LDA     PPUScrollYMirror
       STA     byte_RAM_509
       LDA     PPUScrollXMirror
@@ -336,7 +348,11 @@ locret_BANK0_81A0:
       STA     byte_RAM_C9
       RTS
 
-; ---------------------------------------------------------------------------
+; End of function sub_BANK0_81A2
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK0_81D6:
       LDA     byte_RAM_509
       STA     PPUScrollYMirror
       LDA     byte_RAM_50A
@@ -354,7 +370,11 @@ locret_BANK0_81A0:
       STA     byte_RAM_CB
       RTS
 
-; ---------------------------------------------------------------------------
+; End of function sub_BANK0_81D6
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK0_81FE:
       LDA     byte_RAM_CF
       AND     #$10
       BEQ     loc_BANK0_820B
@@ -390,6 +410,8 @@ loc_BANK0_820B:
       LDA     #1
       STA     byte_RAM_6
       RTS
+
+; End of function sub_BANK0_81FE
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -1092,7 +1114,9 @@ loc_BANK0_85E7:
 
 ; End of function sub_BANK0_856A
 
-; ---------------------------------------------------------------------------
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK0_85EC:
       LDA     #0
       STA     byte_RAM_51C
       LDA     byte_RAM_538
@@ -1281,6 +1305,8 @@ loc_BANK0_86E9:
       STA     byte_RAM_D8
       RTS
 
+; End of function sub_BANK0_85EC
+
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_86EE:
@@ -1344,7 +1370,9 @@ sub_BANK0_870C:
 
 ; End of function sub_BANK0_870C
 
-; ---------------------------------------------------------------------------
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK0_874C:
       LDA     byte_RAM_50A
       STA     PPUScrollXMirror
       STA     byte_RAM_4C0
@@ -1373,7 +1401,11 @@ sub_BANK0_870C:
 locret_BANK0_8784:
       RTS
 
-; ---------------------------------------------------------------------------
+; End of function sub_BANK0_874C
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK0_8785:
       LDA     byte_RAM_CF
       STA     byte_RAM_CE
       LDA     #$10
@@ -1395,6 +1427,8 @@ loc_BANK0_87A2:
       LDA     #1
       STA     byte_RAM_6
       RTS
+
+; End of function sub_BANK0_8785
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -1748,6 +1782,8 @@ _empty_0966:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $F
 byte_BANK0_8A00:.BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; 0
 
 ; ---------------------------------------------------------------------------
+
+loc_BANK0_8A02:
       LDA     PlayerState
       CMP     #PlayerState_Lifting
       BCS     loc_BANK0_8A26
@@ -4181,6 +4217,8 @@ sub_BANK0_9561:
       LDA     #1
       STA     byte_RAM_99
       LDA     #$78
+
+loc_BANK0_9567:
       STA     PlayerXLo
       RTS
 
@@ -4960,7 +4998,10 @@ byte_BANK0_9A21:.BYTE $23
       .BYTE $EE
       .BYTE 1
       .BYTE $33
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK0_9A3D:
       LDY     #7
       STY     byte_RAM_1
       LDY     #0
@@ -5320,6 +5361,8 @@ loc_BANK0_9C4E:
 loc_BANK0_9C52:
       STA     PPUCTRL
       JMP     loc_BANK0_9A53
+
+; End of function sub_BANK0_9A3D
 
 ; ---------------------------------------------------------------------------
 ; [000003A8 BYTES: BEGIN OF AREA UNUSED-BANK0-9C58. PRESS KEYPAD "-" TO	COLLAPSE]

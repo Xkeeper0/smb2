@@ -14,6 +14,8 @@ StartProcessingSoundQueue:
 
       LDA     #$C				  ; Mute the two square	channels
 						  ; (TODO: Bitmask pls)
+
+loc_BANK4_800E:
       STA     SND_CHN
       JMP     ProcessOnlyMusicQueue2		  ; You	would think you	could skip processing,
 						  ; since if the game is paused, nothing should
@@ -111,6 +113,8 @@ ProcessSoundEffectQueue2:
       BEQ     loc_BANK4_80D3
 
       LDY     SoundEffectQueue2
+
+loc_BANK4_8082:
       BEQ     loc_BANK4_80A5
 
       STY     byte_RAM_60D
@@ -333,7 +337,7 @@ SoundEffects:.BYTE $9F
       .BYTE $E
       .BYTE $C
       .BYTE $7E
-      .BYTE $7E
+byte_BANK4_81A2:.BYTE $7E
       .BYTE $7E
       .BYTE $86
       .BYTE $10
@@ -385,7 +389,7 @@ SoundEffects:.BYTE $9F
       .BYTE $7E
       .BYTE $7E
       .BYTE $7E
-      .BYTE $7E
+byte_BANK4_81D6:.BYTE $7E
       .BYTE $7E
       .BYTE $7E
       .BYTE $7E
@@ -425,7 +429,7 @@ SoundEffects:.BYTE $9F
       .BYTE 0
       .BYTE $81
       .BYTE $56
-      .BYTE $7E
+byte_BANK4_81FE:.BYTE $7E
       .BYTE $64
       .BYTE $7E
       .BYTE $68
@@ -488,7 +492,7 @@ SoundEffects:.BYTE $9F
       .BYTE $16
       .BYTE $1C
       .BYTE $18
-      .BYTE $1A
+byte_BANK4_823D:.BYTE $1A
       .BYTE $1E
       .BYTE $18
       .BYTE $16
@@ -3038,7 +3042,7 @@ byte_BANK4_94AD:.BYTE $48
       .BYTE $56
       .BYTE $50
       .BYTE $94
-      .BYTE $48
+unk_BANK4_9567:.BYTE $48
       .BYTE $4C
       .BYTE $99
       .BYTE $46
@@ -4276,7 +4280,7 @@ byte_BANK4_997A:.BYTE $A6
       .BYTE $48
       .BYTE $7E
       .BYTE $C2
-      .BYTE $48
+byte_BANK4_9A3D:.BYTE $48
       .BYTE $C6
       .BYTE $46
       .BYTE $7E

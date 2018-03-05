@@ -21,7 +21,10 @@ byte_BANK2_800C:.BYTE 0
       .BYTE $FF
       .BYTE 0
       .BYTE $FF
-; ---------------------------------------------------------------------------
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK2_8010:
       LDA     byte_RAM_627
       BEQ     loc_BANK2_8016
 
@@ -80,6 +83,8 @@ loc_BANK2_8066:
       LDA     #$B6
       STA     byte_RAM_5AC
       LDA     byte_RAM_534
+
+loc_BANK2_8083:
       ORA     CurrentLevel
       BNE     loc_BANK2_808D
 
@@ -189,6 +194,8 @@ loc_BANK2_8130:
 
       RTS
 
+; End of function sub_BANK2_8010
+
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_8138:
@@ -272,6 +279,8 @@ loc_BANK2_8198:
       CLC
       ADC     byte_RAM_400
       TAY
+
+loc_BANK2_81A0:
       LDA     byte_BANKF_F4DA,Y
       LDY     unk_RAM_A8,X
       BEQ     loc_BANK2_81B1
@@ -310,6 +319,8 @@ loc_BANK2_81CA:
 
 loc_BANK2_81D2:
       LDA     unk_RAM_45C,X
+
+loc_BANK2_81D5:
       BEQ     loc_BANK2_81DA
 
       DEC     unk_RAM_45C,X
@@ -340,6 +351,8 @@ loc_BANK2_81E7:
 
       SEC
       SBC     #$47
+
+loc_BANK2_81FD:
       JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
@@ -1136,7 +1149,7 @@ byte_BANK2_85E7:.BYTE $F8
       .BYTE $F8
       .BYTE 0
       .BYTE 8
-      .BYTE $10
+byte_BANK2_85EC:.BYTE $10
       .BYTE 8
       .BYTE $10
 byte_BANK2_85EF:.BYTE $F8
@@ -1401,6 +1414,8 @@ loc_BANK2_8712:
       STA     _RAM_PPUDataBuffer,X
       ADC     #0
       STA     byte_RAM_306,X
+
+loc_BANK2_874B:
       LDA     #2
       STA     byte_RAM_303,X
       STA     byte_RAM_308,X
@@ -1471,6 +1486,7 @@ loc_BANK2_879C:
       LDA     unk_RAM_86,X
       BNE     loc_BANK2_87AC
 
+loc_BANK2_87A9:
       JMP     loc_BANK2_8842
 
 ; ---------------------------------------------------------------------------
@@ -1898,6 +1914,8 @@ loc_BANK2_89FB:
       BEQ     loc_BANK2_8A04
 
       DEC     unk_RAM_9F,X
+
+loc_BANK2_8A01:
       JMP     sub_BANK2_960F
 
 ; ---------------------------------------------------------------------------
@@ -4208,6 +4226,7 @@ loc_BANK2_9562:
       LDA     unk_RAM_44A,X
       BEQ     loc_BANK2_9574
 
+loc_BANK2_9567:
       DEC     unk_RAM_9F,X
       DEC     unk_RAM_44A,X
       BNE     loc_BANK2_9574
@@ -5297,7 +5316,7 @@ byte_BANK2_99B5:.BYTE $D2
       .BYTE $92
       .BYTE $94
       .BYTE $29
-      .BYTE $29
+byte_BANK2_9A3D:.BYTE $29
       .BYTE $2B
       .BYTE $2B
       .BYTE $3D
