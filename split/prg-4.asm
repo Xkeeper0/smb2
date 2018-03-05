@@ -686,6 +686,8 @@ loc_BANK4_831C:
 
       LDA     unk_BANK4_8351,Y
       STA     DMC_FREQ
+
+loc_BANK4_8326:
       LDA     locret_BANK4_8341,Y
       STA     DMC_START
       LDA     unk_BANK4_8349,Y
@@ -1085,6 +1087,8 @@ loc_BANK4_8576:
 
 loc_BANK4_857C:
       LDA     #$18
+
+loc_BANK4_857E:
       BNE     loc_BANK4_8582
 
 loc_BANK4_8580:
@@ -1271,11 +1275,11 @@ sub_BANK4_8643:
       CMP     #$13
       BCC     loc_BANK4_8668
 
-      LDA     $A18D,Y
+      LDA     byte_BANK5_A18D,Y
       BNE     locret_BANK4_866B
 
 loc_BANK4_8668:
-      LDA     $A1CD,Y
+      LDA     byte_BANK5_A1CD,Y
 
 locret_BANK4_866B:
       RTS
@@ -1286,11 +1290,11 @@ loc_BANK4_866C:
       CMP     #$13
       BCC     loc_BANK4_8675
 
-      LDA     $A1E4,Y
+      LDA     byte_BANK5_A1E4,Y
       BNE     locret_BANK4_8678
 
 loc_BANK4_8675:
-      LDA     $A224,Y
+      LDA     byte_BANK5_A224,Y
 
 locret_BANK4_8678:
       RTS
@@ -1301,11 +1305,11 @@ loc_BANK4_8679:
       CMP     #$13
       BCC     loc_BANK4_8682
 
-      LDA     $A23B,Y
+      LDA     byte_BANK5_A23B,Y
       BNE     locret_BANK4_8685
 
 loc_BANK4_8682:
-      LDA     $A27B,Y
+      LDA     byte_BANK5_A27B,Y
 
 locret_BANK4_8685:
       RTS
@@ -1316,11 +1320,11 @@ loc_BANK4_8686:
       CMP     #$13
       BCC     loc_BANK4_868F
 
-      LDA     $A293,Y
+      LDA     byte_BANK5_A293,Y
       BNE     locret_BANK4_8692
 
 loc_BANK4_868F:
-      LDA     $A2D3,Y
+      LDA     byte_BANK5_A2D3,Y
 
 locret_BANK4_8692:
       RTS
@@ -1331,11 +1335,11 @@ loc_BANK4_8693:
       CMP     #$13
       BCC     loc_BANK4_869C
 
-      LDA     $A301,Y
+      LDA     byte_BANK5_A301,Y
       BNE     locret_BANK4_869F
 
 loc_BANK4_869C:
-      LDA     $A2EA,Y
+      LDA     byte_BANK5_A2EA,Y
 
 locret_BANK4_869F:
       RTS
@@ -1346,11 +1350,11 @@ loc_BANK4_86A0:
       CMP     #$13
       BCC     loc_BANK4_86A9
 
-      LDA     $A3AF,Y
+      LDA     byte_BANK5_A3AF,Y
       BNE     locret_BANK4_86AC
 
 loc_BANK4_86A9:
-      LDA     $A398,Y
+      LDA     byte_BANK5_A398,Y
 
 locret_BANK4_86AC:
       RTS
@@ -1361,11 +1365,11 @@ loc_BANK4_86AD:
       CMP     #$13
       BCC     loc_BANK4_86B6
 
-      LDA     $A341,Y
+      LDA     unk_BANK5_A341,Y
       BNE     locret_BANK4_86B9
 
 loc_BANK4_86B6:
-      LDA     $A381,Y
+      LDA     unk_BANK5_A381,Y
 
 locret_BANK4_86B9:
       RTS
@@ -1919,7 +1923,7 @@ MusicPointersFirstPart:.BYTE $10
       .BYTE $23
 MusicPointersEndPart:.BYTE $16
 
-      .BYTE $F
+byte_BANK4_910D:.BYTE $F
       .BYTE $29
       .BYTE $17
       .BYTE $18
@@ -3202,7 +3206,7 @@ unk_BANK4_95EB:.BYTE $7E
       .BYTE $98
       .BYTE $6E
       .BYTE $3E
-      .BYTE $98
+unk_BANK4_960F:.BYTE $98
       .BYTE $7E
       .BYTE $99
       .BYTE $4E
@@ -4008,7 +4012,7 @@ byte_BANK4_98EB:.BYTE $96
       .BYTE $92
       .BYTE $48
       .BYTE $96
-      .BYTE $7E
+byte_BANK4_9935:.BYTE $7E
       .BYTE $92
       .BYTE $48
       .BYTE $96
@@ -4643,7 +4647,7 @@ byte_BANK4_9BA7:.BYTE $96
       .BYTE $92
       .BYTE $46
       .BYTE $96
-      .BYTE $42
+byte_BANK4_9BB0:.BYTE $42
       .BYTE $92
       .BYTE $3E
 byte_BANK4_9BB3:.BYTE 0
@@ -4806,7 +4810,7 @@ byte_BANK4_9BB3:.BYTE 0
       .BYTE $88
       .BYTE $5A
       .BYTE $82
-      .BYTE $60
+byte_BANK4_9C53:.BYTE $60
       .BYTE $5E
       .BYTE $7E
       .BYTE $5A

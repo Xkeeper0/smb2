@@ -587,6 +587,7 @@ sub_BANK0_8314:
       STA     byte_RAM_CE,X
       JSR     sub_BANK0_82E2
 
+loc_BANK0_8326:
       LDA     #$F
       STA     byte_RAM_E3
       LDA     #0
@@ -873,6 +874,8 @@ sub_BANK0_8488:
       LSR     A
       TAY
       LDA     unk_RAM_D9,Y
+
+loc_BANK0_848F:
       LSR     A
       LSR     A
 
@@ -1481,9 +1484,9 @@ sub_BANK0_8812:
       LDA     byte_RAM_CE,X
       AND     #$F
       TAY
-      LDA     $BA5B,Y
+      LDA     byte_BANK1_BA5B,Y
       STA     byte_RAM_E9
-      LDA     $BA66,Y
+      LDA     byte_BANK1_BA66,Y
       STA     byte_RAM_EA
       LDA     byte_RAM_CE,X
       LSR     A
@@ -2488,6 +2491,8 @@ loc_BANK0_8D4D:
       STA     PlayerAnimationFrame
       LDA     #0
       STA     byte_RAM_84
+
+loc_BANK0_8D5F:
       STA     byte_RAM_9B
 
 locret_BANK0_8D61:
@@ -2657,6 +2662,8 @@ loc_BANK0_8E05:
 
       LDY     #0
       LDX     byte_RAM_42D
+
+loc_BANK0_8E12:
       LDA     EnemyState,X
       CMP     #6
       BEQ     locret_BANK0_8E41
@@ -2898,7 +2905,7 @@ loc_BANK0_8F2B:
       BNE     loc_BANK0_8F47
 
 loc_BANK0_8F44:
-      JSR     $BA7C
+      JSR     sub_BANK1_BA7C
 
 loc_BANK0_8F47:
       STA     byte_RAM_4DF
@@ -2909,6 +2916,8 @@ loc_BANK0_8F47:
 
 loc_BANK0_8F4F:
       LDA     #0
+
+loc_BANK0_8F51:
       STA     byte_RAM_4DF
       LDA     PlayerYLo
       AND     #$C
@@ -2948,7 +2957,7 @@ loc_BANK0_8F7A:
       LDA     PlayerPageX
       STA     byte_RAM_429
       ROR     byte_RAM_12
-      JSR     $BABF
+      JSR     sub_BANK1_BABF
 
 loc_BANK0_8F95:
       LDY     #2
@@ -3185,7 +3194,7 @@ loc_BANK0_9080:
       STA     unk_RAM_42F,X
       STA     unk_RAM_9F,X
       STA     unk_RAM_B1,X
-      JSR     $BA48
+      JSR     sub_BANK1_BA48
 
       LDA     #1
       LDY     byte_RAM_9
@@ -3248,7 +3257,7 @@ loc_BANK0_90E7:
       STY     BigVeggiesPulled
 
 loc_BANK0_90EA:
-      JSR     $B9EB
+      JSR     loc_BANK1_B9EB
 
       LDA     #4
       STA     EnemyCollision,X
@@ -3604,7 +3613,7 @@ loc_BANK0_9285:
       BEQ     loc_BANK0_92A5
 
 loc_BANK0_929E:
-      JSR     $BA4E
+      JSR     sub_BANK1_BA4E
 
       LDY     byte_RAM_E7
       LDA     (byte_RAM_1),Y
@@ -3685,7 +3694,7 @@ _code_12E3:
       BNE     locret_BANK0_9311
 
       LDA     PlayerState
-      CMP     #2
+      CMP     #PlayerState_Lifting
       BCS     locret_BANK0_9311
 
       LDA     PlayerPageY
@@ -3821,7 +3830,7 @@ loc_BANK0_9365:
 loc_BANK0_937C:
       STX     byte_RAM_3
       PHA
-      JSR     $BA4E
+      JSR     sub_BANK1_BA4E
 
       PLA
       LDY     byte_RAM_E7
@@ -3967,7 +3976,7 @@ loc_BANK0_943E:
       STA     PlayerState
       STA     byte_RAM_41B
       STA     SubspaceTimer
-      JSR     $B964
+      JSR     loc_BANK1_B964
 
       LDA     #$A
       STA     byte_RAM_4B3
@@ -4277,6 +4286,8 @@ WaitForNMI_TitleScreen:
       ASL     A
       TAX
       LDA     TitleScreenPPUDataPointers,X
+
+loc_BANK0_960F:
       STA     RAM_PPUDataBufferPointer
       LDA     TitleScreenPPUDataPointers+1,X
       STA     RAM_PPUDataBufferPointer+1
@@ -5192,6 +5203,8 @@ loc_BANK0_9BA7:
       STA     ObjectXHi+5
       LDA     PlayerXHi
       STA     _RAM_PPUDataBuffer
+
+loc_BANK0_9BB0:
       LDA     ObjectXHi
 
 loc_BANK0_9BB2:
@@ -5303,6 +5316,8 @@ loc_BANK0_9C4B:
 loc_BANK0_9C4E:
       LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled ; code used	at 8000
       STA     PPUCtrlMirror
+
+loc_BANK0_9C52:
       STA     PPUCTRL
       JMP     loc_BANK0_9A53
 

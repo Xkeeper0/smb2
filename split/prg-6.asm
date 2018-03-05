@@ -819,7 +819,7 @@ World6BackgroundPalettes:.BYTE $21
       .BYTE  $F
       .BYTE $30	; 0
       .BYTE $16
-      .BYTE   2
+unk_BANK6_8327:.BYTE   2
       .BYTE  $F
       .BYTE $28
       .BYTE $18
@@ -2687,6 +2687,8 @@ loc_BANK6_8D4E:
       JSR     sub_BANK6_9885
 
       LDY     byte_RAM_E7
+
+loc_BANK6_8D5F:
       LDA     #5
       STA     byte_RAM_7
       LDA     (byte_RAM_1),Y
@@ -2839,6 +2841,8 @@ loc_BANK6_8DF9:
 ; ---------------------------------------------------------------------------
       LDY     byte_RAM_E7
       LDA     #$1D
+
+loc_BANK6_8E12:
       STA     (byte_RAM_1),Y
 
 loc_BANK6_8E14:
@@ -3127,6 +3131,7 @@ loc_BANK6_8F52:
 loc_BANK6_8F6A:
       JSR     sub_BANK6_9890
 
+loc_BANK6_8F6D:
       LDA     byte_BANK6_8F4D,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
@@ -3483,6 +3488,8 @@ loc_BANK6_90FA:
       ADC     #$10
       TAY
       LDA     #$8E
+
+loc_BANK6_910D:
       STA     (byte_RAM_1),Y
       INY
       LDA     #$8F
@@ -4388,6 +4395,7 @@ loc_BANK6_95F9:
       STY     byte_RAM_F
       JSR     loc_BANK6_9690
 
+loc_BANK6_960E:
       LDY     byte_RAM_F
       JMP     loc_BANK6_95F1
 
@@ -5138,6 +5146,8 @@ sub_BANK6_98F7:
       STA     unk_RAM_45C,X
       STA     ObjectYAccel,X
       STA     ObjectXAccel,X
+
+loc_BANK6_9934:
       LDY     ObjectType,X
       LDA     ObjectAttributeTable,Y
       AND     #$7F

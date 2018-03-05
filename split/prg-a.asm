@@ -512,7 +512,9 @@ loc_BANKA_831D:
 ; End of function CopyBonusChanceLayoutToRAM
 
 ; ---------------------------------------------------------------------------
-      LDA     BackgroundCHR2TimerIndex		  ; code used as data at 8000
+
+loc_BANKA_8327:					  ; code used as data at 8000
+      LDA     BackgroundCHR2TimerIndex
       CMP     #6				  ; code used as data at 8000
       BEQ     loc_BANKA_8392			  ; code used as data at 8000
 
@@ -811,6 +813,8 @@ loc_BANKA_8486:
       STA     SlotMachineReelOrder1RAM,Y
       DEY
       CPY     #$FF
+
+loc_BANKA_848F:
       BNE     loc_BANKA_8486
 
 loc_BANKA_8491:
@@ -1036,7 +1040,7 @@ BonusChanceUnused_Blank20C6:.BYTE $20
       .BYTE $FB
       .BYTE $FB
       .BYTE $FB
-      .BYTE $FB
+unk_BANKA_857F:.BYTE $FB
       .BYTE $FB
       .BYTE $FB
       .BYTE $FB

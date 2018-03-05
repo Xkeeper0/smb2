@@ -601,6 +601,8 @@ loc_BANK2_8315:
 
 loc_BANK2_8325:
       LDY     byte_RAM_0
+
+loc_BANK2_8327:
       LDA     (byte_RAM_CC),Y
       STA     byte_RAM_1
       LDX     #$FF
@@ -744,7 +746,7 @@ EnemyInitializationTable:.WORD sub_BANK2_845D
       .WORD loc_BANK3_A8F2
       .WORD loc_BANK3_AA14
       .WORD sub_BANK2_845D
-      .WORD loc_BANK2_8F52
+      .WORD sub_BANK2_8F52
       .WORD loc_BANK3_A56B
       .WORD sub_BANK2_845D
       .WORD loc_BANK3_A724
@@ -782,8 +784,8 @@ EnemyInitializationTable:.WORD sub_BANK2_845D
       .WORD sub_BANK2_8D6C
       .WORD sub_BANK2_8D6C
       .WORD sub_BANK2_845D
-      .WORD loc_BANK2_8D5F
-      .WORD loc_BANK2_8D5F
+      .WORD sub_BANK2_8D5F
+      .WORD sub_BANK2_8D5F
       .WORD loc_BANK2_8CB1
       .WORD loc_BANK2_8CB1
       .WORD loc_BANK2_8CB1
@@ -836,6 +838,8 @@ sub_BANK2_8461:
       STA     unk_RAM_480,X
       STA     unk_RAM_465,X
       STA     ObjectYAccel,X
+
+loc_BANK2_848F:
       JSR     sub_BANK2_8441
 
 loc_BANK2_8492:
@@ -1089,36 +1093,36 @@ loc_BANK2_85B2:
 
       JSR     sub_BANK2_997A
 
-      LDA     $A8,X
+      LDA     unk_RAM_A8,X
       BEQ     loc_BANK2_85C1
 
       LDA     #1
-      STA     $51,X
+      STA     EnemyState,X
       RTS
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_85C1:
-      LDA     $86,X
+      LDA     unk_RAM_86,X
       BEQ     loc_BANK2_85AF
 
-      LDA     $90,X
-      CMP     #$32
+      LDA     ObjectType,X
+      CMP     #Enemy_VegetableSmall
       BCS     loc_BANK2_85E1
 
       JSR     sub_BANK2_8B5B
 
-      LDA     $10
+      LDA     byte_RAM_10
       AND     #3
-      STA     $44A,X
-      LDA     $10
+      STA     unk_RAM_44A,X
+      LDA     byte_RAM_10
       AND     #$10
       LSR     A
       LSR     A
       LSR     A
       LSR     A
       ADC     #1
-      STA     $6F,X
+      STA     unk_RAM_6F,X
 
 loc_BANK2_85E1:
       JSR     sub_BANK2_9486
@@ -1197,7 +1201,7 @@ loc_BANK2_8618:
       BNE     loc_BANK2_8618
 
       LDX     byte_RAM_12
-      JMP     $B5CC
+      JMP     sub_BANK3_B5CC
 
 ; ---------------------------------------------------------------------------
 
@@ -1899,7 +1903,7 @@ loc_BANK2_89FB:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8A04:
-      JSR     $B5CC
+      JSR     sub_BANK3_B5CC
 
 loc_BANK2_8A07:
       JMP     sub_BANK2_9B1B
@@ -1963,7 +1967,7 @@ loc_BANK2_8A41:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8A50:
-      JMP     $B5CC
+      JMP     sub_BANK3_B5CC
 
 ; ---------------------------------------------------------------------------
 
@@ -2025,7 +2029,7 @@ EnemyBehaviorPointerTable:.WORD	EnemyBehavior_00
       .WORD EnemyBehavior_Vegetable		  ; 50
       .WORD EnemyBehavior_Vegetable
 off_BANK2_8AC0:.WORD EnemyBehavior_Vegetable
-off_BANK2_8AC2:.WORD EnemyBehavior_Shell
+off_BANK2_8AC2:.WORD loc_BANK2_989A
       .WORD EnemyBehavior_Coin
       .WORD EnemyBehavior_Bomb
       .WORD EnemyBehavior_Rocket
@@ -2092,7 +2096,7 @@ EnemyBehavior_Spark:
       AND     #$F
       BNE     loc_BANK2_8B50
 
-      JSR     $B4F9
+      JSR     sub_BANK3_B4F9
 
       LDY     unk_RAM_477,X
       LDA     EnemyCollision,X
@@ -2208,7 +2212,7 @@ loc_BANK2_8BA1:
       LDA     byte_RAM_CA
       STA     ObjectYHi,X
       STY     byte_RAM_1
-      LDA     #$F
+      LDA     #Enemy_BeezoDiving
       STA     ObjectType,X
       JSR     sub_BANK2_8441
 
@@ -2276,7 +2280,7 @@ EnemyBehavior_Fireball:
 
 loc_BANK2_8BF7:
       LDA     EnemyCollision,X
-      AND     #3
+      AND     #CollisionFlags_Right|CollisionFlags_Left
       BEQ     loc_BANK2_8C00
 
       JSR     MakeMushroomExplodeIntoPuffOfSmoke
@@ -2434,7 +2438,7 @@ loc_BANK2_8CB3:
       BEQ     loc_BANK2_8CC3
 
       LDA     ObjectType,Y
-      CMP     #$44
+      CMP     #Enemy_CrystalBall
       BEQ     loc_BANK2_8CAE
 
 loc_BANK2_8CC3:
@@ -2540,15 +2544,17 @@ loc_BANK2_8D16:
 locret_BANK2_8D5E:
       RTS
 
-; ---------------------------------------------------------------------------
+; =============== S U B	R O U T	I N E =======================================
 
-loc_BANK2_8D5F:
+sub_BANK2_8D5F:
       DEC     ObjectYLo,X
       DEC     ObjectYLo,X
       LDY     #1
       STY     byte_RAM_711F
       INY
       STY     byte_RAM_710B
+
+; End of function sub_BANK2_8D5F
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -2679,6 +2685,10 @@ loc_BANK2_8E05:
       SBC     #$41
       STA     unk_RAM_6F,X
       LDA     CrystalAndHawkmouthOpenSize
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK2_8E13:
       STA     byte_RAM_7
       LSR     A
       LSR     A
@@ -2738,6 +2748,8 @@ loc_BANK2_8E58:
 loc_BANK2_8E60:
       LDX     byte_RAM_12
       RTS
+
+; End of function sub_BANK2_8E13
 
 ; ---------------------------------------------------------------------------
 
@@ -2930,9 +2942,10 @@ byte_BANK2_8F4F:.BYTE $43
 
       .BYTE $41
       .BYTE $42
-; ---------------------------------------------------------------------------
 
-loc_BANK2_8F52:
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK2_8F52:
       JSR     sub_BANK2_845D
 
       LDY     #0
@@ -2952,11 +2965,15 @@ loc_BANK2_8F63:
       STA     ObjectAttributes,X
       LDA     #2
       STA     unk_RAM_465,X
+
+loc_BANK2_8F6F:
       LDA     ObjectXHi,X
       STA     unk_RAM_4EF,X
 
 locret_BANK2_8F74:
       RTS
+
+; End of function sub_BANK2_8F52
 
 ; ---------------------------------------------------------------------------
       .BYTE $FE
@@ -3120,8 +3137,8 @@ EnemyBehavior_Mushroom1up:
 
       JSR     MakeMushroomExplodeIntoPuffOfSmoke
 
-      LDA     $90,X
-      CMP     #$40
+      LDA     ObjectType,X
+      CMP     #Enemy_Mushroom1up
       BEQ     Award1upMushroom
 
       INC     SlotMachineCoins
@@ -4493,14 +4510,14 @@ loc_BANK2_969B:
       CMP     #$3A
       BCS     loc_BANK2_96AA
 
-      JSR     $B4F9
+      JSR     sub_BANK3_B4F9
 
       JMP     loc_BANK2_96AD
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_96AA:
-      JSR     $B4FD
+      JSR     sub_BANK3_B4FD
 
 loc_BANK2_96AD:
       LDA     unk_RAM_42F,X
@@ -4577,7 +4594,7 @@ loc_BANK2_970D:
       JSR     sub_BANK2_95CE
 
       LDA     EnemyTimer,X
-      JSR     $BC50
+      JSR     sub_BANK3_BC50
 
       JMP     sub_BANK2_89A9
 
@@ -4823,21 +4840,17 @@ DoorSpriteAnimation:.BYTE 2
 
 loc_BANK2_9843:
       PHA
-
-; ---------------------------------------------------------------------------
-      .BYTE $A0
-; ---------------------------------------------------------------------------
-      PHP
+      LDY     #8
 
 loc_BANK2_9846:
       LDA     EnemyState,Y
       BEQ     loc_BANK2_985C
 
       LDA     ObjectType,Y
-      CMP     #$3C
+      CMP     #Enemy_SubspaceDoor
       BNE     loc_BANK2_985C
 
-      LDA     #5
+      LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,Y
       LDA     #$20
       STA     unk_RAM_86,Y
@@ -4880,6 +4893,8 @@ loc_BANK2_985C:
 
 loc_BANK2_9896:
       PLA
+
+locret_BANK2_9897:
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -4887,20 +4902,20 @@ loc_BANK2_9896:
       .BYTE $E4
 ; ---------------------------------------------------------------------------
 
-EnemyBehavior_Shell:
+loc_BANK2_989A:
       JSR     sub_BANK3_B4FD
 
       JSR     sub_BANK2_98CD
 
-      LDA     $5B,X
-      AND     #3
+      LDA     EnemyCollision,X
+      AND     #CollisionFlags_Right|CollisionFlags_Left
       BEQ     loc_BANK2_98AE
 
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_98A6:
-      LDA     #$20
-      STA     $602
+      LDA     #SoundEffect1_EnemyHit
+      STA     SoundEffect1Queue
       JMP     MakeMushroomExplodeIntoPuffOfSmoke
 
 ; End of function sub_BANK2_98A6
@@ -4908,8 +4923,8 @@ sub_BANK2_98A6:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_98AE:
-      LDA     $5B,X
-      AND     #4
+      LDA     EnemyCollision,X
+      AND     #CollisionFlags_Down
       BEQ     loc_BANK2_98B7
 
       JSR     sub_BANK2_95CE
@@ -4917,15 +4932,15 @@ loc_BANK2_98AE:
 loc_BANK2_98B7:
       JSR     sub_BANK2_9B1B
 
-      LDY     $6F,X
-      LDA     $9897,Y
-      STA     $3D,X
+      LDY     unk_RAM_6F,X
+      LDA     locret_BANK2_9897,Y
+      STA     ObjectXAccel,X
       JMP     sub_BANK2_8577
 
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_98C4:
-      LDA     #3
+      LDA     #EnemyState_BlockFizzle
       STA     EnemyState,X
       LDA     #$18
       STA     unk_RAM_86,X
@@ -5029,6 +5044,8 @@ loc_BANK2_9932:
       JMP     sub_BANK2_9B1B
 
 ; ---------------------------------------------------------------------------
+
+loc_BANK2_9935:
       LDA     #0
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -5127,7 +5144,7 @@ loc_BANK2_99A1:
       LDA     unk_RAM_42F,X
       BNE     loc_BANK2_99AD
 
-      JSR     $A440
+      JSR     sub_BANK3_A440
 
 loc_BANK2_99AD:
       LDA     #2
@@ -5494,34 +5511,34 @@ sub_BANK2_9B1B:
       CMP     #$FF
       BEQ     locret_BANK2_9B40
 
-      CPY     #$1D
+      CPY     #Enemy_Mouser
       BNE     loc_BANK2_9B2B
 
-      JMP     $A5F8
+      JMP     loc_BANK3_A5F8
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B2B:
-      CPY     #$21
+      CPY     #Enemy_Clawgrip
       BNE     loc_BANK2_9B32
 
-      JMP     $A1E4
+      JMP     loc_BANK3_A1E4
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B32:
-      CPY     #$22
+      CPY     #Enemy_ClawgripRock
       BNE     loc_BANK2_9B39
 
-      JMP     $A323
+      JMP     loc_BANK3_A323
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B39:
-      CPY     #$2D
+      CPY     #Enemy_HawkmouthBoss
       BNE     loc_BANK2_9B41
 
-      JMP     $B0E8
+      JMP     sub_BANK3_B0E8
 
 ; ---------------------------------------------------------------------------
 
@@ -5531,15 +5548,15 @@ locret_BANK2_9B40:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B41:
-      CPY     #$12
+      CPY     #Enemy_Pidgit
       BNE     loc_BANK2_9B48
 
-      JMP     $A508
+      JMP     sub_BANK3_A508
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B48:
-      CPY     #4
+      CPY     #Enemy_Porcupo
       BNE     loc_BANK2_9B4F
 
       JMP     loc_BANK2_9E06
@@ -5547,7 +5564,7 @@ loc_BANK2_9B48:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B4F:
-      CPY     #$33
+      CPY     #Enemy_VegetableLarge
       BNE     loc_BANK2_9B56
 
       JMP     loc_BANK2_9137
@@ -5555,23 +5572,23 @@ loc_BANK2_9B4F:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B56:
-      CPY     #$26
+      CPY     #Enemy_Autobomb
       BNE     loc_BANK2_9B5D
 
-      JMP     $AE4B
+      JMP     loc_BANK3_AE4B
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B5D:
-      CPY     #$2A
+      CPY     #Enemy_Fryguy
       BNE     loc_BANK2_9B64
 
-      JMP     $AC28
+      JMP     sub_BANK3_AC28
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B64:
-      CPY     #$43
+      CPY     #Enemy_HawkmouthLeft
       BNE     loc_BANK2_9B6B
 
       JMP     loc_BANK2_8E05
@@ -5579,26 +5596,26 @@ loc_BANK2_9B64:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B6B:
-      CPY     #$2C
+      CPY     #Enemy_Wart
       BNE     loc_BANK2_9B72
 
-      JMP     $B2B0
+      JMP     loc_BANK3_B2B0
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B72:
-      CPY     #$28
+      CPY     #Enemy_WhaleSpout
       BNE     loc_BANK2_9B79
 
-      JMP     $AEEB
+      JMP     loc_BANK3_AEEB
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B79:
-      CPY     #$1A
+      CPY     #Enemy_Pokey
       BNE     loc_BANK2_9B80
 
-      JMP     $AAB1
+      JMP     loc_BANK3_AAB1
 
 ; ---------------------------------------------------------------------------
 
@@ -5611,23 +5628,23 @@ loc_BANK2_9B80:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B87:
-      CPY     #8
+      CPY     #Enemy_Ostro
       BNE     loc_BANK2_9B8E
 
-      JMP     $A654
+      JMP     loc_BANK3_A654
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B8E:
-      CPY     #$1F
+      CPY     #Enemy_Tryclyde
       BNE     loc_BANK2_9B95
 
-      JMP     $A783
+      JMP     loc_BANK3_A783
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B95:
-      CPY     #$1C
+      CPY     #Enemy_Birdo
       BNE     loc_BANK2_9B9C
 
       JMP     loc_BANK2_9AD7
@@ -5635,10 +5652,10 @@ loc_BANK2_9B95:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B9C:
-      CPY     #$A
+      CPY     #Enemy_AlbatossCarryingBobOmb
       BCC     sub_BANK2_9BA7
 
-      CPY     #$D
+      CPY     #Enemy_NinjiRunning
       BCS     sub_BANK2_9BA7
 
       JMP     sub_BANK2_9AF2
@@ -5649,10 +5666,10 @@ loc_BANK2_9B9C:
 
 sub_BANK2_9BA7:
       LDY     ObjectType,X
-      CPY     #$38
+      CPY     #Enemy_Rocket
       BNE     loc_BANK2_9BB0
 
-      JMP     $ABEE
+      JMP     sub_BANK3_ABEE
 
 ; ---------------------------------------------------------------------------
 
@@ -5879,9 +5896,9 @@ sub_BANK2_9CF2:
       BNE     loc_BANK2_9D16
 
 loc_BANK2_9D0A:
-      LDA     $A030,X
+      LDA     MysteryData6030,X
       STA     unk_RAM_201,Y
-      LDA     $A031,X
+      LDA     byte_BANK3_A031,X
       STA     unk_RAM_205,Y
 
 loc_BANK2_9D16:
@@ -5941,11 +5958,11 @@ loc_BANK2_9D53:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9D6D:
-      LDA     $A030,X
+      LDA     MysteryData6030,X
       STA     unk_RAM_201,Y
-      LDA     $A031,X
+      LDA     byte_BANK3_A031,X
       STA     unk_RAM_205,Y
-      LDA     $A032,X
+      LDA     unk_BANK3_A032,X
       STA     unk_RAM_209,Y
       LDA     byte_RAM_2
       LSR     A

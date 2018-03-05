@@ -325,7 +325,7 @@ EndingCorkJarRoom:.BYTE	$20
       .BYTE $72
       .BYTE $73
       .BYTE $72
-      .BYTE $73
+unk_BANK1_A323:.BYTE $73
       .BYTE $72
       .BYTE $73
       .BYTE $72
@@ -618,6 +618,7 @@ byte_BANK1_A432:.BYTE $21
 sub_BANK1_A43B:
       JSR     WaitForNMI_Ending_TurnOffPPU
 
+loc_BANK1_A43E:
       JSR     ClearNametables
 
       LDA     #$40
@@ -754,6 +755,7 @@ loc_BANK1_A4FC:
 loc_BANK1_A504:
       JSR     sub_BANK0_8D6F
 
+loc_BANK1_A507:
       JSR     sub_BANK0_8A50
 
       JSR     sub_BANK1_A596
@@ -1041,7 +1043,7 @@ EndingCelebrationCeilingTextAndPodium:.BYTE $20
       .BYTE $80
       .BYTE $81
       .BYTE $80
-      .BYTE $81
+byte_BANK1_A654:.BYTE $81
       .BYTE $80
       .BYTE $81
       .BYTE $80
@@ -1344,7 +1346,7 @@ byte_BANK1_A75D:.BYTE $50
       .BYTE $52
       .BYTE 2
       .BYTE $3A
-      .BYTE $3B
+byte_BANK1_A783:.BYTE $3B
       .BYTE $22
       .BYTE $72
       .BYTE $C5
@@ -2145,6 +2147,8 @@ loc_BANK1_AAAA:
       LDA     byte_BANK1_AA35,Y
       STA     SpriteDMAArea,Y
       DEY
+
+loc_BANK1_AAB1:
       BPL     loc_BANK1_AAAA
 
       LDA     #0
@@ -2400,7 +2404,7 @@ byte_BANK1_ABE6:.BYTE $11
       .BYTE $23
       .BYTE $15
       .BYTE $17
-      .BYTE $1D
+byte_BANK1_ABEE:.BYTE $1D
       .BYTE $1F
       .BYTE $25
       .BYTE $27
@@ -2453,6 +2457,8 @@ loc_BANK1_AC22:
       LDA     #$20
       STA     ObjectXLo,X
       LDA     #$A8
+
+loc_BANK1_AC28:
       STA     ObjectYLo,X
       LDA     byte_BANK1_ABDA,X
       STA     ObjectXAccel,X
@@ -2873,6 +2879,8 @@ loc_BANK1_AE45:
       BCC     loc_BANK1_AE4F
 
       SBC     #$A
+
+loc_BANK1_AE4B:
       INY
       JMP     loc_BANK1_AE45
 
@@ -3262,6 +3270,8 @@ sub_BANK1_B9E3:
       STA     unk_RAM_86,X
       LDA     #0
       STA     EnemyTimer,X
+
+loc_BANK1_B9EB:
       LDA     #0
       STA     unk_RAM_B1,X
       STA     unk_RAM_42F,X
@@ -3372,7 +3382,9 @@ sub_BANK1_BA71:
 
 ; End of function sub_BANK1_BA71
 
-; ---------------------------------------------------------------------------
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK1_BA7C:
       LDA     #1
       LDY     byte_RAM_0
       CPY     #$8A
@@ -3428,7 +3440,11 @@ loc_BANK1_BABC:
       DEX
       RTS
 
-; ---------------------------------------------------------------------------
+; End of function sub_BANK1_BA7C
+
+; =============== S U B	R O U T	I N E =======================================
+
+sub_BANK1_BABF:
       LDA     DamageInvulnTime
       BNE     locret_BANK1_BAEC
 
@@ -3475,6 +3491,8 @@ loc_BANK1_BAED:
 
 loc_BANK1_BAFD:
       JMP     KillPlayer
+
+; End of function sub_BANK1_BABF
 
 ; ---------------------------------------------------------------------------
 

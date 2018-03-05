@@ -824,7 +824,7 @@ MarioDream_SnoringFrameCounts:.BYTE $20
       .BYTE $A
 MarioDream_WakingFrameCounts:.BYTE 8
 
-      .BYTE 8
+byte_BANKC_8327:.BYTE 8
       .BYTE $50
       .BYTE $40
       .BYTE $30
@@ -1066,6 +1066,8 @@ loc_BANKC_8480:
 
       INC     ObjectXHi
       DEC     ObjectXHi+1
+
+loc_BANKC_848E:
       BPL     loc_BANKC_846D
 
 loc_BANKC_8490:
@@ -1246,6 +1248,8 @@ loc_BANKC_8576:
       STA     byte_RAM_304
       LDA     #0
       STA     byte_RAM_305
+
+loc_BANKC_857E:
       LDA     #$10
       STA     PlayerXLo
       LDA     #0
@@ -2836,7 +2840,7 @@ CastRoll_Porcupo:.BYTE $D0
       .BYTE   0
       .BYTE $40
       .BYTE $F9
-      .BYTE $3E
+unk_BANKC_8D5F:.BYTE $3E
       .BYTE   0
       .BYTE $48
       .BYTE $F9
@@ -3017,7 +3021,7 @@ CastRoll_Hoopstar:.BYTE	$D0 ; Ð
       .BYTE   0
       .BYTE $48
       .BYTE $F9
-      .BYTE $3E
+unk_BANKC_8E13:.BYTE $3E
       .BYTE   0
       .BYTE $30	; 0
       .BYTE $F9
@@ -3337,7 +3341,7 @@ CastRoll_Albatoss:.BYTE	$D0 ; Ð
       .BYTE $3E
       .BYTE   0
       .BYTE $48
-      .BYTE $F9
+unk_BANKC_8F52:.BYTE $F9
       .BYTE $50
       .BYTE   0
       .BYTE $30	; 0
@@ -3366,7 +3370,7 @@ CastRoll_Albatoss:.BYTE	$D0 ; Ð
       .BYTE   0
       .BYTE $30	; 0
       .BYTE $F9
-      .BYTE $D0
+unk_BANKC_8F6F:.BYTE $D0
       .BYTE   0
       .BYTE $38	; 8
       .BYTE $F9
@@ -3781,7 +3785,7 @@ CastRoll_Autobomb:.BYTE	$D0 ; Ð
       .BYTE $D0
       .BYTE $82
       .BYTE   0
-      .BYTE $40
+unk_BANKC_910D:.BYTE $40
       .BYTE $D0
       .BYTE $3E
       .BYTE   0

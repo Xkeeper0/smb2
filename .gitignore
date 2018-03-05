@@ -5,5 +5,5 @@
 *.html
 *.nes
 test.txt
-fc.txt
+comparison.txt
 *.log

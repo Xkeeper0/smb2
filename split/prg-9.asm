@@ -99,7 +99,7 @@ EnemyPointersByLevel_HiHi:.BYTE	>EnemyPointers_Level_1_1_Hi
       .BYTE >off_BANK9_A5B8
       .BYTE >off_BANK9_A5CC
       .BYTE >off_BANK9_A5E0
-      .BYTE >off_BANK9_A5F4
+off_BANK9_A508:.BYTE >off_BANK9_A5F4
       .BYTE >off_BANK9_A608
       .BYTE >off_BANK9_A61C
       .BYTE >off_BANK9_A630
@@ -359,7 +359,7 @@ off_BANK9_A5F4:.BYTE >byte_BANK9_A9FF
       .BYTE >byte_BANK9_AA04
       .BYTE >byte_BANK9_AA13
       .BYTE >byte_BANK9_AA26
-      .BYTE >byte_BANK9_AA59
+off_BANK9_A5F8:.BYTE >byte_BANK9_AA59
       .BYTE >byte_BANK9_AA75
       .BYTE >byte_BANK9_AA82
       .BYTE >byte_BANK9_AA8E
@@ -460,7 +460,7 @@ off_BANK9_A64E:.BYTE <byte_BANK9_AC5E
       .BYTE <byte_BANK9_AC9A
       .BYTE <byte_BANK9_AC9A
       .BYTE <byte_BANK9_AC9A
-      .BYTE <byte_BANK9_AC9A
+off_BANK9_A654:.BYTE <byte_BANK9_AC9A
       .BYTE <byte_BANK9_AC9A
       .BYTE <byte_BANK9_AC9A
       .BYTE <byte_BANK9_AC9A
@@ -784,7 +784,7 @@ byte_BANK9_A76A:.BYTE 3
       .BYTE 6
       .BYTE $53
       .BYTE $D
-      .BYTE $83
+byte_BANK9_A783:.BYTE $83
       .BYTE 5
       .BYTE 1
       .BYTE $B6
@@ -1645,7 +1645,7 @@ byte_BANK9_AAAC:.BYTE 1
       .BYTE $29
       .BYTE $96
       .BYTE $13
-      .BYTE $B2
+byte_BANK9_AAB1:.BYTE $B2
       .BYTE 3
       .BYTE $13
       .BYTE $22
@@ -1972,7 +1972,7 @@ byte_BANK9_ABCA:.BYTE 9
       .BYTE $E4
       .BYTE 1
       .BYTE 1
-      .BYTE 1
+byte_BANK9_ABEE:.BYTE 1
       .BYTE 1
       .BYTE 1
 byte_BANK9_ABF1:.BYTE 7
@@ -2611,7 +2611,7 @@ byte_BANK9_AE3F:.BYTE 1
       .BYTE $66
       .BYTE $19
       .BYTE $AA
-      .BYTE 1
+byte_BANK9_AE4B:.BYTE 1
       .BYTE 1
 byte_BANK9_AE4D:.BYTE 1
 
@@ -2779,7 +2779,7 @@ byte_BANK9_AED8:.BYTE 1
       .BYTE $D
       .BYTE $59
       .BYTE 6
-      .BYTE $AB
+byte_BANK9_AEEB:.BYTE $AB
       .BYTE 1
 byte_BANK9_AEED:.BYTE 1
 

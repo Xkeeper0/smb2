@@ -398,7 +398,8 @@ byte_BANK5_A130:.BYTE $7E
       .BYTE $3E
       .BYTE $8A
       .BYTE $30
-      .BYTE $90
+byte_BANK5_A18D:.BYTE $90
+
 InstrumentSoundData:.BYTE $95
       .BYTE $95
       .BYTE $95
@@ -462,7 +463,8 @@ InstrumentSoundData:.BYTE $95
       .BYTE $97
       .BYTE $98
       .BYTE $98
-      .BYTE $90
+byte_BANK5_A1CD:.BYTE $90
+
       .BYTE $92
       .BYTE $94
       .BYTE $96
@@ -485,7 +487,8 @@ InstrumentSoundData:.BYTE $95
       .BYTE $97
       .BYTE $98
       .BYTE $98
-      .BYTE $51
+byte_BANK5_A1E4:.BYTE $51
+
       .BYTE $51
       .BYTE $51
       .BYTE $51
@@ -549,7 +552,8 @@ InstrumentSoundData:.BYTE $95
       .BYTE $59
       .BYTE $5A
       .BYTE $5B
-      .BYTE $51
+byte_BANK5_A224:.BYTE $51
+
       .BYTE $51
       .BYTE $51
       .BYTE $51
@@ -572,7 +576,8 @@ InstrumentSoundData:.BYTE $95
       .BYTE $59
       .BYTE $5A
       .BYTE $5B
-      .BYTE $10
+byte_BANK5_A23B:.BYTE $10
+
       .BYTE $11
       .BYTE $11
       .BYTE $11
@@ -636,7 +641,8 @@ InstrumentSoundData:.BYTE $95
       .BYTE $1B
       .BYTE $1B
       .BYTE $1C
-      .BYTE $10
+byte_BANK5_A27B:.BYTE $10
+
       .BYTE $11
       .BYTE $12
       .BYTE $13
@@ -660,7 +666,8 @@ InstrumentSoundData:.BYTE $95
       .BYTE $1B
       .BYTE $1B
       .BYTE $1C
-      .BYTE $51
+byte_BANK5_A293:.BYTE $51
+
       .BYTE $52
       .BYTE $52
       .BYTE $52
@@ -724,7 +731,8 @@ InstrumentSoundData:.BYTE $95
       .BYTE $56
       .BYTE $56
       .BYTE $56
-      .BYTE $51
+byte_BANK5_A2D3:.BYTE $51
+
       .BYTE $52
       .BYTE $52
       .BYTE $52
@@ -748,6 +756,7 @@ InstrumentSoundData:.BYTE $95
       .BYTE $56
       .BYTE $56
 byte_BANK5_A2EA:.BYTE $51
+
       .BYTE $52
       .BYTE $53
       .BYTE $54
@@ -770,12 +779,13 @@ byte_BANK5_A2EA:.BYTE $51
       .BYTE $56
       .BYTE $55
       .BYTE $55
+byte_BANK5_A301:.BYTE $51
+
+      .BYTE $52
+      .BYTE $52
       .BYTE $51
       .BYTE $52
       .BYTE $52
-      .BYTE $51
-      .BYTE $52
-      .BYTE $52
       .BYTE $52
       .BYTE $53
       .BYTE $53
@@ -804,7 +814,7 @@ byte_BANK5_A2EA:.BYTE $51
       .BYTE $57
       .BYTE $58
       .BYTE $58
-      .BYTE $58
+unk_BANK5_A323:.BYTE $58
       .BYTE $58
       .BYTE $58
       .BYTE $58
@@ -834,7 +844,7 @@ byte_BANK5_A2EA:.BYTE $51
       .BYTE $56
       .BYTE $55
       .BYTE $55
-      .BYTE $50
+unk_BANK5_A341:.BYTE $50
       .BYTE $50
       .BYTE $50
       .BYTE $50
@@ -898,7 +908,7 @@ unk_BANK5_A369:.BYTE $51
       .BYTE $19
       .BYTE $DA
       .BYTE $9B
-      .BYTE $50
+unk_BANK5_A381:.BYTE $50
       .BYTE $51
       .BYTE $51
       .BYTE $51
@@ -921,7 +931,8 @@ unk_BANK5_A390:.BYTE $54
       .BYTE $19
       .BYTE $DA
       .BYTE $9B
-      .BYTE $50
+byte_BANK5_A398:.BYTE $50
+
       .BYTE $50
       .BYTE $50
       .BYTE $50
@@ -944,7 +955,8 @@ unk_BANK5_A390:.BYTE $54
       .BYTE $53
       .BYTE $54
       .BYTE $55
-      .BYTE $50
+byte_BANK5_A3AF:.BYTE $50
+
       .BYTE $50
       .BYTE $50
       .BYTE $50
