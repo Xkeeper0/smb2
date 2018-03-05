@@ -4,6 +4,7 @@
 	// and compares its output to the labels contained within
 	// This is useful if you break something and the code gets offset
 	// as the jumps in bank F aren't fully labeled yet
+	chdir(__DIR__ ."/../");
 
 	$x	= file_get_contents("smb2.lst");
 	$m	= [];

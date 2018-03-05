@@ -1,4 +1,4 @@
-Comparing files smb2.nes and SUPER MARIO BROS. 2 (USA).NES
+Comparing files smb2.nes and TOOLS\SUPER MARIO BROS. 2 (USA).NES
 00000BE2: A5 AD
 00000BE4: EA 00
 00002C29: E6 EE
