@@ -5,7 +5,7 @@
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_8000:
-      LDA     byte_RAM_502			  ; code used as data at 8000
+      LDA     byte_RAM_502
       BNE     loc_BANK0_805D
 
       LDA     #1
@@ -937,7 +937,7 @@ sub_BANK0_84AC:
 ; End of function sub_BANK0_84AC
 
 ; ---------------------------------------------------------------------------
-_empty_04B8:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_empty_04B8:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -1769,7 +1769,7 @@ loc_BANK0_895F:
 ; End of function sub_BANK0_895D
 
 ; ---------------------------------------------------------------------------
-_empty_0966:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_empty_0966:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -1779,9 +1779,7 @@ _empty_0966:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $F
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; $90
-byte_BANK0_8A00:.BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; 0
-
-; ---------------------------------------------------------------------------
+byte_BANK0_8A00:.BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; ---------------------------------------------------------------------------
 
 loc_BANK0_8A02:
       LDA     PlayerState
@@ -1962,7 +1960,7 @@ byte_BANK0_8ACE:.BYTE 0
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8AD1:
-      LDA     Player1JoypadHeld			  ; code used as data at 8000
+      LDA     Player1JoypadHeld
       AND     #ControllerInput_Down|ControllerInput_Up
       LSR     A
       LSR     A
@@ -4301,7 +4299,7 @@ locret_BANK0_95C2:
 ; End of function sub_BANK0_95AF
 
 ; ---------------------------------------------------------------------------
-_empty_15C3:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_empty_15C3:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF; $30
@@ -4312,7 +4310,7 @@ TitleScreenPPUDataPointers:.WORD _RAM_PPUDataBuffer
 ; =============== S U B	R O U T	I N E =======================================
 
 WaitForNMI_TitleScreen_TurnOnPPU:
-      LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites ; code	used at	8000
+      LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
       STA     PPUMaskMirror
 
 ; End of function WaitForNMI_TitleScreen_TurnOnPPU
@@ -4345,7 +4343,7 @@ TitleLayout1:.BYTE $20
 
       .BYTE   0
       .BYTE $DE
-      .BYTE $FD, $20, 1, $DE, $FD, $20,	2, $DE,	$FD, $20, 3, $DE, $FD, $20, $1C, $DE; 0
+      .BYTE $FD, $20, 1, $DE, $FD, $20,	2, $DE,	$FD, $20, 3, $DE, $FD, $20, $1C, $DE
       .BYTE $FD, $20, $1D, $DE,	$FD, $20, $1E, $DE, $FD, $20, $1F, $DE,	$FD, $20, 3, $5D; $10
       .BYTE $FD, $20, $23, $5D,	$FD, $20, $43, $5D, $FD, $20, $63, $5D,	$FD, $23, $63, $5D; $20
       .BYTE $FD, $23, $83, $5D,	$FD, $23, $A3, $5D, $FD, $20, $68, $10,	$48, $4A, $4C, $4E; $30
@@ -4353,7 +4351,7 @@ TitleLayout1:.BYTE $20
       .BYTE $22, $23, $24, $49,	$4B, $4D, $4F, $20, $94, 8, $59, $5B, $5D, $5F;	$50
       .BYTE $2E
       .BYTE $2F
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $FD
       .BYTE $20
       .BYTE $A4
@@ -4870,35 +4868,34 @@ TitleBackgroundPalettes:.BYTE $22
       .BYTE $16
       .BYTE   7
       .BYTE $22
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $31	; 1
       .BYTE  $F
       .BYTE $22
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE  $F
       .BYTE  $F
       .BYTE $22
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE  $F
       .BYTE  $F
 TitleSpritePalettes:.BYTE $22 ;	"		  ; Unused DDP character palettes!
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $28
       .BYTE  $F
       .BYTE $22
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $25
       .BYTE  $F
       .BYTE $22
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $12
       .BYTE  $F
       .BYTE $22
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $23
       .BYTE  $F
-TitleStoryText_STORY:.BYTE $EC,	$ED, $E8, $EB, $F2		 ; 0
-
+TitleStoryText_STORY:.BYTE $EC,	$ED, $E8, $EB, $F2		 
 TitleStoryTextPointersHi:.BYTE >TitleStoryText_Line01
 
       .BYTE >TitleStoryText_Line02
@@ -4935,39 +4932,39 @@ TitleStoryTextPointersLo:.BYTE <TitleStoryText_Line01
       .BYTE <TitleStoryText_Line14
       .BYTE <TitleStoryText_Line15
       .BYTE <TitleStoryText_Line16
-TitleStoryText_Line01:.BYTE $F0, $E1, $DE, $E7,	$FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB,	$E8, $E9, $DE, $E7; 0
+TitleStoryText_Line01:.BYTE $F0, $E1, $DE, $E7,	$FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB,	$E8, $E9, $DE, $E7
       .BYTE $DE, $DD, $FB, $DA			  ; $10
-TitleStoryText_Line02:.BYTE $DD, $E8, $E8, $EB,	$FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB,	$DC, $E5, $E2, $E6; 0
+TitleStoryText_Line02:.BYTE $DD, $E8, $E8, $EB,	$FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB,	$DC, $E5, $E2, $E6
       .BYTE $DB, $E2, $E7, $E0			  ; $10
-TitleStoryText_Line03:.BYTE $DA, $FB, $E5, $E8,	$E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB,	$FB, $E2, $E7, $FB; 0
+TitleStoryText_Line03:.BYTE $DA, $FB, $E5, $E8,	$E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB,	$FB, $E2, $E7, $FB
       .BYTE $FB, $E1, $E2, $EC			  ; $10
-TitleStoryText_Line04:.BYTE $DD, $EB, $DE, $DA,	$E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1,	$DE, $EB, $FB, $F0; 0
+TitleStoryText_Line04:.BYTE $DD, $EB, $DE, $DA,	$E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1,	$DE, $EB, $FB, $F0
       .BYTE $E8, $EB, $E5, $DD			  ; $10
-TitleStoryText_Line05:.BYTE $EC, $E9, $EB, $DE,	$DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF,	$E8, $EB, $DE, $FB; 0
+TitleStoryText_Line05:.BYTE $EC, $E9, $EB, $DE,	$DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF,	$E8, $EB, $DE, $FB
       .BYTE $FB, $E1, $E2, $E6			  ; $10
-TitleStoryText_Line06:.BYTE $DA, $E7, $DD, $FB,	$E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD,	$FB, $DA, $FB, $EF; 0
+TitleStoryText_Line06:.BYTE $DA, $E7, $DD, $FB,	$E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD,	$FB, $DA, $FB, $EF
       .BYTE $E8, $E2, $DC, $DE			  ; $10
-TitleStoryText_Line07:.BYTE $DC, $DA, $E5, $E5,	$FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5,	$E9, $FB, $ED, $E8; 0
+TitleStoryText_Line07:.BYTE $DC, $DA, $E5, $E5,	$FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5,	$E9, $FB, $ED, $E8
       .BYTE $FB, $FB, $DB, $DE			  ; $10
-TitleStoryText_Line08:.BYTE $FB, $DF, $EB, $DE,	$DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6,	$FB, $DA, $FB, $EC; 0
+TitleStoryText_Line08:.BYTE $FB, $DF, $EB, $DE,	$DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6,	$FB, $DA, $FB, $EC
       .BYTE $E9, $DE, $E5, $E5			  ; $10
-TitleStoryText_Line09:.BYTE $DA, $DF, $ED, $DE,	$EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE,	$E7, $E2, $E7, $E0; 0
+TitleStoryText_Line09:.BYTE $DA, $DF, $ED, $DE,	$EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE,	$E7, $E2, $E7, $E0
       .BYTE $F7, $FB, $FB, $FB			  ; $10
-TitleStoryText_Line10:.BYTE $E6, $DA, $EB, $E2,	$E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB,	$ED, $E8, $FB, $FB; 0
+TitleStoryText_Line10:.BYTE $E6, $DA, $EB, $E2,	$E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB,	$ED, $E8, $FB, $FB
       .BYTE $DA, $FB, $FB, $FB			  ; $10
-TitleStoryText_Line11:.BYTE $DC, $DA, $EF, $DE,	$FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2,	$FB, $DA, $E7, $DD; 0
+TitleStoryText_Line11:.BYTE $DC, $DA, $EF, $DE,	$FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2,	$FB, $DA, $E7, $DD
       .BYTE $FB, $FB, $ED, $E8			  ; $10
-TitleStoryText_Line12:.BYTE $E1, $E2, $EC, $FB,	$FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC,	$DE, $FB, $E1, $DE; 0
+TitleStoryText_Line12:.BYTE $E1, $E2, $EC, $FB,	$FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC,	$DE, $FB, $E1, $DE
       .BYTE $FB, $EC, $DA, $F0			  ; $10
-TitleStoryText_Line13:.BYTE $DE, $F1, $DA, $DC,	$ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA,	$ED, $FB, $E1, $DE; 0
+TitleStoryText_Line13:.BYTE $DE, $F1, $DA, $DC,	$ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA,	$ED, $FB, $E1, $DE
       .BYTE $FB, $EC, $DA, $F0			  ; $10
-TitleStoryText_Line14:.BYTE $E2, $E7, $FB, $E1,	$E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6,	$CF, $CF, $CF, $CF; 0
+TitleStoryText_Line14:.BYTE $E2, $E7, $FB, $E1,	$E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6,	$CF, $CF, $CF, $CF
       .BYTE $FB, $FB, $FB, $FB			  ; $10
-TitleStoryText_Line15:.BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB; 0
+TitleStoryText_Line15:.BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB
       .BYTE $FB, $FB, $FB, $FB			  ; $10
-TitleStoryText_Line16:.BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED,	$FB, $DB, $EE, $ED; 0
+TitleStoryText_Line16:.BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED,	$FB, $DB, $EE, $ED
       .BYTE $ED, $E8, $E7, $FB			  ; $10
-TitleAttributeData1A09:.BYTE $23, $CB, $42, $FF, $23, $D1, 1, $CC, $23,	$D2, $44, $FF, $23, $D6, 1, $33; 0
+TitleAttributeData1A09:.BYTE $23, $CB, $42, $FF, $23, $D1, 1, $CC, $23,	$D2, $44, $FF, $23, $D6, 1, $33
       .BYTE $23, $D9, 1, $CC, $23, $DA,	$44, $FF  ; $10
 byte_BANK0_9A21:.BYTE $23
 
@@ -5355,7 +5352,7 @@ loc_BANK0_9C4B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9C4E:
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled ; code used	at 8000
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled
       STA     PPUCtrlMirror
 
 loc_BANK0_9C52:
@@ -5366,7 +5363,7 @@ loc_BANK0_9C52:
 
 ; ---------------------------------------------------------------------------
 ; [000003A8 BYTES: BEGIN OF AREA UNUSED-BANK0-9C58. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_1C58:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_empty_1C58:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

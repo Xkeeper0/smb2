@@ -1,7 +1,7 @@
 
       ;.segment	BANKA
 ;       *	=  $8000
-World1thru6TitleCard:.BYTE $FB,	$FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB; 0
+World1thru6TitleCard:.BYTE $FB,	$FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1,	$FB, $FB, $FB, $FB; $10	; This title card is used for every world
       .BYTE $FB, $FB, $B4, $B5,	$FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8,	$BA, $BC, $FB, $FB; $20	; from 1 to 6. The only	difference is
       .BYTE $FB, $FB, $B4, $B5,	$FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9,	$BB, $BD, $FB, $FB; $30	; the loaded CHR banks.
@@ -11,7 +11,7 @@ World1thru6TitleCard:.BYTE $FB,	$FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB,	$FB, $FB
       .BYTE $CB, $CD, $CB, $CD,	$CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD,	$CB, $CD, $CB, $CD; $70
       .BYTE $CE, $CF, $CE, $CF,	$CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF,	$CE, $CF, $CE, $CF; $80
       .BYTE $CF, $CE, $CF, $CE,	$CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE,	$CF, $CE, $CF, $CE; $90
-World7TitleCard:.BYTE $FB, $FB,	$B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB; 0
+World7TitleCard:.BYTE $FB, $FB,	$B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1,	$FB, $FB, $FB, $FB; $10
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8,	$BA, $BC, $FB, $FB; $20
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9,	$BB, $BD, $FB, $FB; $30
@@ -118,7 +118,7 @@ BonusChanceLayout:.BYTE	$20
       .BYTE $5F
       .BYTE $2E
       .BYTE $2F
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $FD
 unk_BANKA_81A2:.BYTE $FD
       .BYTE $20
@@ -490,45 +490,45 @@ unk_BANKA_8240:.BYTE $74
 ; =============== S U B	R O U T	I N E =======================================
 
 CopyBonusChanceLayoutToRAM:
-      LDY     #0				  ; code used as data at 8000
+      LDY     #0
 
 loc_BANKA_8312:
       LDA     BonusChanceLayout,Y		  ; Blindly copy $100 bytes from $8140 to $7400
-      STA     unk_RAM_7400,Y			  ; code used as data at 8000
-      DEY					  ; code used as data at 8000
-      BNE     loc_BANKA_8312			  ; code used as data at 8000
+      STA     unk_RAM_7400,Y
+      DEY
+      BNE     loc_BANKA_8312
 
-      LDY     #0				  ; code used as data at 8000
+      LDY     #0
 
 loc_BANKA_831D:
       LDA     unk_BANKA_8240,Y			  ; Blindly copy $100 more bytes from $8240 to $7500
 						  ; That range includes	this code! clap. clap.
-      STA     unk_RAM_7500,Y			  ; code used as data at 8000
-      DEY					  ; code used as data at 8000
-      BNE     loc_BANKA_831D			  ; code used as data at 8000
+      STA     unk_RAM_7500,Y
+      DEY
+      BNE     loc_BANKA_831D
 
-      RTS					  ; code used as data at 8000
+      RTS
 
 ; End of function CopyBonusChanceLayoutToRAM
 
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKA_8327:
-      LDA     BackgroundCHR2TimerIndex		  ; code used as data at 8000
-      CMP     #6				  ; code used as data at 8000
-      BEQ     loc_BANKA_8392			  ; code used as data at 8000
+      LDA     BackgroundCHR2TimerIndex
+      CMP     #6
+      BEQ     loc_BANKA_8392
 
       LDA     #$25
-      STA     byte_RAM_0			  ; code used as data at 8000
+      STA     byte_RAM_0
       LDA     #$C8
-      STA     byte_RAM_1			  ; code used as data at 8000
-      LDY     #0				  ; code used as data at 8000
+      STA     byte_RAM_1
+      LDY     #0
 
 loc_BANKA_8338:
-      LDX     #$F				  ; code used as data at 8000
-      LDA     PPUSTATUS				  ; code used as data at 8000
-      LDA     byte_RAM_0			  ; code used as data at 8000
-      STA     PPUADDR				  ; code used as data at 8000
+      LDX     #$F
+      LDA     PPUSTATUS
+      LDA     byte_RAM_0
+      STA     PPUADDR
 
 loc_BANKA_8342:
       LDA     byte_RAM_1
@@ -736,7 +736,7 @@ PrincessPalette:.BYTE  $F
       .BYTE $36	; 6
 ToadPalette:.BYTE  $F
       .BYTE   1
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $27
 LuigiPalette:.BYTE  $F
       .BYTE   1
@@ -903,15 +903,15 @@ PlayerSelectPalettes:.BYTE $3F
       .BYTE $16
       .BYTE   6
       .BYTE  $F
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $12
       .BYTE $16
       .BYTE  $F
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $16
       .BYTE $12
       .BYTE  $F
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $12
       .BYTE $16
       .BYTE  $F
@@ -931,8 +931,8 @@ PlayerSelectPalettes:.BYTE $3F
       .BYTE $12
       .BYTE   1
       .BYTE   0
-BonusChanceText_X_1:.BYTE $22 ;	"
-      .BYTE $30	; 0
+BonusChanceText_X_1:.BYTE $22
+      .BYTE $30	
       .BYTE   3
       .BYTE $EA
       .BYTE $FB
@@ -965,14 +965,14 @@ BonusChanceBackgroundPalettes:.BYTE  $F
       .BYTE $16
       .BYTE $12
       .BYTE  $F
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $10
       .BYTE   0
       .BYTE  $F
       .BYTE $21
       .BYTE $12
       .BYTE   1
-BonusChanceReel1Order:.BYTE Slot_Snifit				  ; 0
+BonusChanceReel1Order:.BYTE Slot_Snifit				  
       .BYTE Slot_Turnip				  ; 1 ;	Graphics exist for a mushroom (not used)
       .BYTE Slot_Star				  ; 2
       .BYTE Slot_Turnip				  ; 3
@@ -980,7 +980,7 @@ BonusChanceReel1Order:.BYTE Slot_Snifit				  ; 0
       .BYTE Slot_Star				  ; 5
       .BYTE Slot_Cherry				  ; 6
       .BYTE Slot_Turnip				  ; 7
-BonusChanceReel2Order:.BYTE Slot_Star				  ; 0 ;	data used at 8000
+BonusChanceReel2Order:.BYTE Slot_Star				  
       .BYTE Slot_Snifit				  ; 1
       .BYTE Slot_Cherry				  ; 2
       .BYTE Slot_Snifit				  ; 3
@@ -988,7 +988,7 @@ BonusChanceReel2Order:.BYTE Slot_Star				  ; 0 ;	data used at 8000
       .BYTE Slot_Star				  ; 5
       .BYTE Slot_Snifit				  ; 6
       .BYTE Slot_Turnip				  ; 7
-BonusChanceReel3Order:.BYTE Slot_Star				  ; 0 ;	data used at 8000
+BonusChanceReel3Order:.BYTE Slot_Star				  
       .BYTE Slot_Snifit				  ; 1
       .BYTE Slot_Star				  ; 2
       .BYTE Slot_Turnip				  ; 3
@@ -996,7 +996,7 @@ BonusChanceReel3Order:.BYTE Slot_Star				  ; 0 ;	data used at 8000
       .BYTE Slot_Cherry				  ; 5
       .BYTE Slot_Turnip				  ; 6
       .BYTE Slot_Snifit				  ; 7
-BonusChanceUnusedCoinSprite:.BYTE $F8 ;	ø
+BonusChanceUnusedCoinSprite:.BYTE $F8
       .BYTE $19
       .BYTE   1
       .BYTE $60
@@ -1004,7 +1004,7 @@ BonusChanceUnusedCoinSprite:.BYTE $F8 ;	ø
       .BYTE $1B
       .BYTE   1
       .BYTE $68
-BonusChanceUnusedImajinHead:.BYTE $CB ;	Ë
+BonusChanceUnusedImajinHead:.BYTE $CB
       .BYTE $B0
       .BYTE   0
       .BYTE $A0
@@ -1256,7 +1256,7 @@ UnusedText_Blank214D:.BYTE $21
       .BYTE $FB
       .BYTE 0
 ; [000019AC BYTES: BEGIN OF AREA UNUSED-BANKA:8654. PRESS KEYPAD "-" TO	COLLAPSE]
-byte_BANKA_8654:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; 0
+byte_BANKA_8654:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

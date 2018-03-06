@@ -40737,7 +40737,9 @@ loc_BANK1_A556:					  ; DATA XREF: BANK1:A4E4o
       STA     PlayerAnimationFrame		  ; code used at a000
       LDA     #8				  ; code used at a000
       STA     DPCMQueue				  ; code used at a000
-      LDA     #$A0 ; ' '                          ; code used at a000
+
+loc_BANK1_A56B:					  ; code used at a000
+      LDA     #$A0 ; ' '
       STA     ObjectYAccel+8			  ; code used at a000
       RTS					  ; code used at a000
 
@@ -41171,7 +41173,7 @@ byte_BANK1_A67D:.BYTE $80			  ; data used at a000
       .BYTE $26					  ; data used at a000
       .BYTE $C9					  ; data used at a000
       .BYTE $4B					  ; data used at a000
-      .BYTE $22					  ; data used at a000
+byte_BANK1_A724:.BYTE $22			  ; data used at a000
       .BYTE $43					  ; data used at a000
       .BYTE 4					  ; data used at a000
       .BYTE $4C					  ; data used at a000
@@ -41634,7 +41636,7 @@ EndingCelebrationFloorAndSubconParade:.BYTE $23	  ; DATA XREF: BANK1:A206o
       .BYTE $81					  ; data used at a000
       .BYTE $80					  ; data used at a000
       .BYTE $81					  ; data used at a000
-      .BYTE $80					  ; data used at a000
+byte_BANK1_A8F2:.BYTE $80			  ; data used at a000
       .BYTE $81					  ; data used at a000
       .BYTE $80					  ; data used at a000
       .BYTE $81					  ; data used at a000
@@ -41928,7 +41930,7 @@ EndingCelebrationPaletteFade3:.BYTE $3F	; ?	  ; DATA XREF: BANK1:A20Co
       .BYTE  $F					  ; data used at a000
       .BYTE   0					  ; data used at a000
       .BYTE  $F					  ; data used at a000
-      .BYTE  $F					  ; data used at a000
+unk_BANK1_AA14:.BYTE  $F			  ; data used at a000
       .BYTE  $F					  ; data used at a000
       .BYTE   0					  ; data used at a000
       .BYTE  $F					  ; data used at a000
@@ -42453,7 +42455,9 @@ loc_BANK1_AC4B:					  ; CODE XREF: BANK1:AC78j
       ADC     byte_BANK1_ABF2,X			  ; code used at a000
       STA     unk_RAM_203,Y			  ; code used at a000
       LDA     PlayerXHi				  ; code used at a000
-      ADC     #0				  ; code used at a000
+
+loc_BANK1_AC6A:					  ; code used at a000
+      ADC     #0
       BEQ     loc_BANK1_AC73			  ; code used at a000
 
       LDA     #$F0 ; 'ð'                          ; code used at a000
@@ -44483,7 +44487,7 @@ loc_BANK2_83A6:					  ; CODE XREF: BANK2:839Fj
       JSR     JumpToTableAfterJump		  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
-EnemyInitializationTable:.WORD sub_BANK2_845D
+EnemyInitializationTable:.WORD sub_BANK2_845D			     ; 0
       .WORD sub_BANK2_845D			  ; data used at 8000
       .WORD sub_BANK2_845D			  ; data used at 8000
       .WORD sub_BANK2_845D			  ; data used at 8000
@@ -62863,7 +62867,7 @@ byte_BANK4_9EA9:.BYTE $46			  ; data used at 8000
       .BYTE $4C					  ; data used at a000
       .BYTE $3E					  ; data used at a000
       .BYTE $42					  ; data used at a000
-      .BYTE $7E					  ; data used at a000
+byte_BANK5_A10A:.BYTE $7E			  ; data used at a000
       .BYTE $30					  ; data used at a000
       .BYTE $7E					  ; data used at a000
       .BYTE $26					  ; data used at a000
@@ -71507,797 +71511,726 @@ _empty_12420:.BYTE $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $
 EnemyPointersByLevel_HiHi:.BYTE	high8(EnemyPointers_Level_1_1_Hi)
 						  ; DATA XREF: GetEnemyPointers+3r
 						  ; data used at a000
-      .BYTE high8(off_BANK9_A568)		  ; data used at a000
-      .BYTE high8(off_BANK9_A57C)		  ; data used at a000
-      .BYTE high8(off_BANK9_A590)		  ; data used at a000
-      .BYTE high8(off_BANK9_A5A4)		  ; data used at a000
-      .BYTE high8(off_BANK9_A5B8)		  ; data used at a000
-      .BYTE high8(off_BANK9_A5CC)		  ; data used at a000
-      .BYTE high8(off_BANK9_A5E0)		  ; data used at a000
-off_BANK9_A508:.BYTE high8(off_BANK9_A5F4)	  ; data used at a000
-      .BYTE high8(off_BANK9_A608)		  ; data used at a000
-      .BYTE high8(off_BANK9_A61C)		  ; data used at a000
-      .BYTE high8(off_BANK9_A630)		  ; data used at a000
-      .BYTE high8(off_BANK9_A644)		  ; data used at a000
-      .BYTE high8(off_BANK9_A658)		  ; data used at a000
-      .BYTE high8(off_BANK9_A66C)		  ; data used at a000
-      .BYTE high8(off_BANK9_A680)		  ; data used at a000
-      .BYTE high8(off_BANK9_A694)		  ; data used at a000
-      .BYTE high8(off_BANK9_A6A8)		  ; data used at a000
-      .BYTE high8(off_BANK9_A6BC)		  ; data used at a000
-      .BYTE high8(off_BANK9_A6D0)		  ; data used at a000
-      .BYTE high8(off_BANK9_A6E4)
+      .BYTE high8(EnemyPointers_Level_1_2_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_1_3_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_1_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_2_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_3_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_1_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_2_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_3_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_1_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_2_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_3_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_1_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_2_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_3_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_1_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_2_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_3_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_1_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_2_Hi)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_3_Hi)
 EnemyPointersByLevel_HiLo:.BYTE	low8(EnemyPointers_Level_1_1_Hi)
 						  ; DATA XREF: GetEnemyPointers+8r
 						  ; data used at a000
-      .BYTE low8(off_BANK9_A568)		  ; data used at a000
-      .BYTE low8(off_BANK9_A57C)		  ; data used at a000
-      .BYTE low8(off_BANK9_A590)		  ; data used at a000
-      .BYTE low8(off_BANK9_A5A4)		  ; data used at a000
-      .BYTE low8(off_BANK9_A5B8)		  ; data used at a000
-      .BYTE low8(off_BANK9_A5CC)		  ; data used at a000
-      .BYTE low8(off_BANK9_A5E0)		  ; data used at a000
-      .BYTE low8(off_BANK9_A5F4)		  ; data used at a000
-      .BYTE low8(off_BANK9_A608)		  ; data used at a000
-      .BYTE low8(off_BANK9_A61C)		  ; data used at a000
-      .BYTE low8(off_BANK9_A630)		  ; data used at a000
-      .BYTE low8(off_BANK9_A644)		  ; data used at a000
-      .BYTE low8(off_BANK9_A658)		  ; data used at a000
-      .BYTE low8(off_BANK9_A66C)		  ; data used at a000
-      .BYTE low8(off_BANK9_A680)		  ; data used at a000
-      .BYTE low8(off_BANK9_A694)		  ; data used at a000
-      .BYTE low8(off_BANK9_A6A8)		  ; data used at a000
-      .BYTE low8(off_BANK9_A6BC)		  ; data used at a000
-      .BYTE low8(off_BANK9_A6D0)		  ; data used at a000
-      .BYTE low8(off_BANK9_A6E4)
+      .BYTE low8(EnemyPointers_Level_1_2_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_1_3_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_1_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_2_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_3_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_1_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_2_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_3_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_1_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_2_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_3_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_1_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_2_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_3_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_1_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_2_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_3_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_1_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_2_Hi)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_3_Hi)
 EnemyPointersByLevel_LoHi:.BYTE	high8(EnemyPointers_Level_1_1_Lo)
 						  ; DATA XREF: GetEnemyPointers+Dr
 						  ; data used at a000
-      .BYTE high8(off_BANK9_A572)		  ; data used at a000
-      .BYTE high8(off_BANK9_A586)		  ; data used at a000
-      .BYTE high8(off_BANK9_A59A)		  ; data used at a000
-      .BYTE high8(off_BANK9_A5AE)		  ; data used at a000
-      .BYTE high8(off_BANK9_A5C2)		  ; data used at a000
-      .BYTE high8(off_BANK9_A5D6)		  ; data used at a000
-      .BYTE high8(off_BANK9_A5EA)		  ; data used at a000
-      .BYTE high8(off_BANK9_A5FE)		  ; data used at a000
-      .BYTE high8(off_BANK9_A612)		  ; data used at a000
-      .BYTE high8(off_BANK9_A626)		  ; data used at a000
-      .BYTE high8(off_BANK9_A63A)		  ; data used at a000
-      .BYTE high8(off_BANK9_A64E)		  ; data used at a000
-      .BYTE high8(off_BANK9_A662)		  ; data used at a000
-      .BYTE high8(off_BANK9_A676)		  ; data used at a000
-      .BYTE high8(off_BANK9_A68A)		  ; data used at a000
-      .BYTE high8(off_BANK9_A69E)		  ; data used at a000
-      .BYTE high8(off_BANK9_A6B2)		  ; data used at a000
-      .BYTE high8(off_BANK9_A6C6)		  ; data used at a000
-      .BYTE high8(off_BANK9_A6DA)		  ; data used at a000
-      .BYTE high8(off_BANK9_A6EE)
+      .BYTE high8(EnemyPointers_Level_1_2_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_1_3_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_1_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_2_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_3_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_1_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_2_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_3_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_1_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_2_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_3_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_1_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_2_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_3_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_1_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_2_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_3_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_1_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_2_Lo)	  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_3_Lo)
 EnemyPointersByLevel_LoLo:.BYTE	low8(EnemyPointers_Level_1_1_Lo)
 						  ; DATA XREF: GetEnemyPointers+12r
 						  ; data used at a000
-      .BYTE low8(off_BANK9_A572)		  ; data used at a000
-      .BYTE low8(off_BANK9_A586)		  ; data used at a000
-      .BYTE low8(off_BANK9_A59A)		  ; data used at a000
-      .BYTE low8(off_BANK9_A5AE)		  ; data used at a000
-      .BYTE low8(off_BANK9_A5C2)		  ; data used at a000
-      .BYTE low8(off_BANK9_A5D6)		  ; data used at a000
-      .BYTE low8(off_BANK9_A5EA)		  ; data used at a000
-      .BYTE low8(off_BANK9_A5FE)		  ; data used at a000
-      .BYTE low8(off_BANK9_A612)		  ; data used at a000
-      .BYTE low8(off_BANK9_A626)		  ; data used at a000
-      .BYTE low8(off_BANK9_A63A)		  ; data used at a000
-      .BYTE low8(off_BANK9_A64E)		  ; data used at a000
-      .BYTE low8(off_BANK9_A662)		  ; data used at a000
-      .BYTE low8(off_BANK9_A676)		  ; data used at a000
-      .BYTE low8(off_BANK9_A68A)		  ; data used at a000
-      .BYTE low8(off_BANK9_A69E)		  ; data used at a000
-      .BYTE low8(off_BANK9_A6B2)		  ; data used at a000
-      .BYTE low8(off_BANK9_A6C6)		  ; data used at a000
-      .BYTE low8(off_BANK9_A6DA)		  ; data used at a000
-      .BYTE low8(off_BANK9_A6EE)
-EnemyPointers_Level_1_1_Hi:.BYTE high8(byte_BANK9_A6F8)
+      .BYTE low8(EnemyPointers_Level_1_2_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_1_3_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_1_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_2_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_3_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_1_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_2_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_3_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_1_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_2_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_3_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_1_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_2_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_3_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_1_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_2_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_3_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_1_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_2_Lo)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_3_Lo)
+EnemyPointers_Level_1_1_Hi:.BYTE high8(EnemyPointers_Level_1_1_Area0)
 						  ; DATA XREF: BANK9:EnemyPointersByLevel_HiHio
 						  ; BANK9:EnemyPointersByLevel_HiLoo
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_A701)
-      .BYTE high8(byte_BANK9_A716)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A753)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A759)
-      .BYTE high8(byte_BANK9_A75E)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A75E)
-      .BYTE high8(byte_BANK9_A75E)
-      .BYTE high8(byte_BANK9_A75E)
-      .BYTE high8(byte_BANK9_A75E)
-EnemyPointers_Level_1_1_Lo:.BYTE low8(byte_BANK9_A6F8)
+      .BYTE high8(EnemyPointers_Level_1_1_Area1)
+      .BYTE high8(EnemyPointers_Level_1_1_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_1_1_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_1_1_Area4)
+      .BYTE high8(EnemyPointers_Level_1_1_Area5)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_1_1_Area5)
+      .BYTE high8(EnemyPointers_Level_1_1_Area5)
+      .BYTE high8(EnemyPointers_Level_1_1_Area5)
+      .BYTE high8(EnemyPointers_Level_1_1_Area5)
+EnemyPointers_Level_1_1_Lo:.BYTE low8(EnemyPointers_Level_1_1_Area0)
 						  ; DATA XREF: BANK9:EnemyPointersByLevel_LoHio
 						  ; BANK9:EnemyPointersByLevel_LoLoo
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_A701)
-      .BYTE low8(byte_BANK9_A716)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A753)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A759)
-      .BYTE low8(byte_BANK9_A75E)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A75E)
-      .BYTE low8(byte_BANK9_A75E)
-      .BYTE low8(byte_BANK9_A75E)
-      .BYTE low8(byte_BANK9_A75E)
-off_BANK9_A568:.BYTE high8(byte_BANK9_A76A)	  ; DATA XREF: BANK9:A501o
+      .BYTE low8(EnemyPointers_Level_1_1_Area1)
+      .BYTE low8(EnemyPointers_Level_1_1_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_1_1_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_1_1_Area4)
+      .BYTE low8(EnemyPointers_Level_1_1_Area5)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_1_1_Area5)
+      .BYTE low8(EnemyPointers_Level_1_1_Area5)
+      .BYTE low8(EnemyPointers_Level_1_1_Area5)
+      .BYTE low8(EnemyPointers_Level_1_1_Area5)
+EnemyPointers_Level_1_2_Hi:.BYTE high8(EnemyPointers_Level_1_2_Area0)
+						  ; DATA XREF: BANK9:A501o
 						  ; BANK9:A516o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_A78A)
-      .BYTE high8(byte_BANK9_A799)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A7A3)
-      .BYTE high8(byte_BANK9_A7A9)
-      .BYTE high8(byte_BANK9_A7B6)
-      .BYTE high8(byte_BANK9_A7B6)
-      .BYTE high8(byte_BANK9_A7B6)
-      .BYTE high8(byte_BANK9_A7B6)
-      .BYTE high8(byte_BANK9_A7B6)
-off_BANK9_A572:.BYTE low8(byte_BANK9_A76A)	  ; DATA XREF: BANK9:A52Bo
+      .BYTE high8(EnemyPointers_Level_1_2_Area1)
+      .BYTE high8(EnemyPointers_Level_1_2_Area2)  ; data used at a000
+off_BANK9_A56B:.BYTE high8(EnemyPointers_Level_1_2_Area3)
+      .BYTE high8(EnemyPointers_Level_1_2_Area4)
+      .BYTE high8(EnemyPointers_Level_1_2_Area5)
+      .BYTE high8(EnemyPointers_Level_1_2_Area5)
+      .BYTE high8(EnemyPointers_Level_1_2_Area5)
+      .BYTE high8(EnemyPointers_Level_1_2_Area5)
+      .BYTE high8(EnemyPointers_Level_1_2_Area5)
+EnemyPointers_Level_1_2_Lo:.BYTE low8(EnemyPointers_Level_1_2_Area0)
+						  ; DATA XREF: BANK9:A52Bo
 						  ; BANK9:A540o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_A78A)
-      .BYTE low8(byte_BANK9_A799)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A7A3)
-      .BYTE low8(byte_BANK9_A7A9)
-      .BYTE low8(byte_BANK9_A7B6)
-      .BYTE low8(byte_BANK9_A7B6)
-      .BYTE low8(byte_BANK9_A7B6)
-      .BYTE low8(byte_BANK9_A7B6)
-off_BANK9_A57B:.BYTE low8(byte_BANK9_A7B6)
-off_BANK9_A57C:.BYTE high8(byte_BANK9_A7B9)	  ; DATA XREF: BANK9:A502o
+      .BYTE low8(EnemyPointers_Level_1_2_Area1)
+      .BYTE low8(EnemyPointers_Level_1_2_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_1_2_Area3)
+      .BYTE low8(EnemyPointers_Level_1_2_Area4)
+      .BYTE low8(EnemyPointers_Level_1_2_Area5)
+      .BYTE low8(EnemyPointers_Level_1_2_Area5)
+      .BYTE low8(EnemyPointers_Level_1_2_Area5)
+      .BYTE low8(EnemyPointers_Level_1_2_Area5)
+      .BYTE low8(EnemyPointers_Level_1_2_Area5)
+EnemyPointers_Level_1_3_Hi:.BYTE high8(EnemyPointers_Level_1_3_Area0)
+						  ; DATA XREF: BANK9:A502o
 						  ; BANK9:A517o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_A7EE)
-      .BYTE high8(byte_BANK9_A7F6)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A810)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A833)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A833)
-      .BYTE high8(byte_BANK9_A833)
-      .BYTE high8(byte_BANK9_A833)
-      .BYTE high8(byte_BANK9_A833)
-      .BYTE high8(byte_BANK9_A833)
-off_BANK9_A586:.BYTE low8(byte_BANK9_A7B9)	  ; DATA XREF: BANK9:A52Co
+      .BYTE high8(EnemyPointers_Level_1_3_Area1)
+      .BYTE high8(EnemyPointers_Level_1_3_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_1_3_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_1_3_Area4)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_1_3_Area4)
+      .BYTE high8(EnemyPointers_Level_1_3_Area4)
+      .BYTE high8(EnemyPointers_Level_1_3_Area4)
+      .BYTE high8(EnemyPointers_Level_1_3_Area4)
+      .BYTE high8(EnemyPointers_Level_1_3_Area4)
+EnemyPointers_Level_1_3_Lo:.BYTE low8(EnemyPointers_Level_1_3_Area0)
+						  ; DATA XREF: BANK9:A52Co
 						  ; BANK9:A541o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_A7EE)
-      .BYTE low8(byte_BANK9_A7F6)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A810)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A833)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A833)
-      .BYTE low8(byte_BANK9_A833)
-      .BYTE low8(byte_BANK9_A833)
-      .BYTE low8(byte_BANK9_A833)
-      .BYTE low8(byte_BANK9_A833)
-off_BANK9_A590:.BYTE high8(byte_BANK9_A83A)	  ; DATA XREF: BANK9:A503o
+      .BYTE low8(EnemyPointers_Level_1_3_Area1)
+      .BYTE low8(EnemyPointers_Level_1_3_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_1_3_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_1_3_Area4)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_1_3_Area4)
+      .BYTE low8(EnemyPointers_Level_1_3_Area4)
+      .BYTE low8(EnemyPointers_Level_1_3_Area4)
+      .BYTE low8(EnemyPointers_Level_1_3_Area4)
+      .BYTE low8(EnemyPointers_Level_1_3_Area4)
+EnemyPointers_Level_2_1_Hi:.BYTE high8(EnemyPointers_Level_2_1_Area0)
+						  ; DATA XREF: BANK9:A503o
 						  ; BANK9:A518o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_A859)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A86A)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A86A)
-      .BYTE high8(byte_BANK9_A874)
-      .BYTE high8(byte_BANK9_A86A)
-      .BYTE high8(byte_BANK9_A86A)
-      .BYTE high8(byte_BANK9_A86A)
-      .BYTE high8(byte_BANK9_A86A)
-      .BYTE high8(byte_BANK9_A86A)
-off_BANK9_A59A:.BYTE low8(byte_BANK9_A83A)	  ; DATA XREF: BANK9:A52Do
+      .BYTE high8(EnemyPointers_Level_2_1_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_1_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_1_Area2)
+      .BYTE high8(EnemyPointers_Level_2_1_Area4)
+      .BYTE high8(EnemyPointers_Level_2_1_Area2)
+      .BYTE high8(EnemyPointers_Level_2_1_Area2)
+      .BYTE high8(EnemyPointers_Level_2_1_Area2)
+      .BYTE high8(EnemyPointers_Level_2_1_Area2)
+      .BYTE high8(EnemyPointers_Level_2_1_Area2)
+EnemyPointers_Level_2_1_Lo:.BYTE low8(EnemyPointers_Level_2_1_Area0)
+						  ; DATA XREF: BANK9:A52Do
 						  ; BANK9:A542o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_A859)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A86A)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A86A)
-      .BYTE low8(byte_BANK9_A874)
-      .BYTE low8(byte_BANK9_A86A)
-      .BYTE low8(byte_BANK9_A86A)
-      .BYTE low8(byte_BANK9_A86A)
-      .BYTE low8(byte_BANK9_A86A)
-      .BYTE low8(byte_BANK9_A86A)
-off_BANK9_A5A4:.BYTE high8(byte_BANK9_A881)	  ; DATA XREF: BANK9:A504o
+      .BYTE low8(EnemyPointers_Level_2_1_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_1_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_1_Area2)
+      .BYTE low8(EnemyPointers_Level_2_1_Area4)
+      .BYTE low8(EnemyPointers_Level_2_1_Area2)
+      .BYTE low8(EnemyPointers_Level_2_1_Area2)
+      .BYTE low8(EnemyPointers_Level_2_1_Area2)
+      .BYTE low8(EnemyPointers_Level_2_1_Area2)
+      .BYTE low8(EnemyPointers_Level_2_1_Area2)
+EnemyPointers_Level_2_2_Hi:.BYTE high8(EnemyPointers_Level_2_2_Area0)
+						  ; DATA XREF: BANK9:A504o
 						  ; BANK9:A519o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_A88C)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A8BB)
-      .BYTE high8(byte_BANK9_A8CA)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A8DD)
-      .BYTE high8(byte_BANK9_A8EA)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A8EA)
-      .BYTE high8(byte_BANK9_A8EA)
-      .BYTE high8(byte_BANK9_A8EA)
-      .BYTE high8(byte_BANK9_A8EA)
-off_BANK9_A5AE:.BYTE low8(byte_BANK9_A881)	  ; DATA XREF: BANK9:A52Eo
+      .BYTE high8(EnemyPointers_Level_2_2_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_2_Area2)
+      .BYTE high8(EnemyPointers_Level_2_2_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_2_Area4)
+      .BYTE high8(EnemyPointers_Level_2_2_Area5)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_2_Area5)
+      .BYTE high8(EnemyPointers_Level_2_2_Area5)
+      .BYTE high8(EnemyPointers_Level_2_2_Area5)
+      .BYTE high8(EnemyPointers_Level_2_2_Area5)
+EnemyPointers_Level_2_2_Lo:.BYTE low8(EnemyPointers_Level_2_2_Area0)
+						  ; DATA XREF: BANK9:A52Eo
 						  ; BANK9:A543o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_A88C)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A8BB)
-      .BYTE low8(byte_BANK9_A8CA)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A8DD)
-      .BYTE low8(byte_BANK9_A8EA)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A8EA)
-      .BYTE low8(byte_BANK9_A8EA)
-      .BYTE low8(byte_BANK9_A8EA)
-      .BYTE low8(byte_BANK9_A8EA)
-off_BANK9_A5B8:.BYTE high8(byte_BANK9_A8F4)	  ; DATA XREF: BANK9:A505o
+      .BYTE low8(EnemyPointers_Level_2_2_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_2_Area2)
+      .BYTE low8(EnemyPointers_Level_2_2_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_2_Area4)
+      .BYTE low8(EnemyPointers_Level_2_2_Area5)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_2_Area5)
+      .BYTE low8(EnemyPointers_Level_2_2_Area5)
+      .BYTE low8(EnemyPointers_Level_2_2_Area5)
+      .BYTE low8(EnemyPointers_Level_2_2_Area5)
+EnemyPointers_Level_2_3_Hi:.BYTE high8(EnemyPointers_Level_2_3_Area0)
+						  ; DATA XREF: BANK9:A505o
 						  ; BANK9:A51Ao
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_A8F8)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A913)
-      .BYTE high8(byte_BANK9_A916)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A938)
-      .BYTE high8(byte_BANK9_A945)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A965)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A96C)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A96C)
-      .BYTE high8(byte_BANK9_A96C)
-off_BANK9_A5C2:.BYTE low8(byte_BANK9_A8F4)	  ; DATA XREF: BANK9:A52Fo
+      .BYTE high8(EnemyPointers_Level_2_3_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_3_Area2)
+      .BYTE high8(EnemyPointers_Level_2_3_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_3_Area4)
+      .BYTE high8(EnemyPointers_Level_2_3_Area5)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_3_Area6)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_3_Area7)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_2_3_Area7)
+      .BYTE high8(EnemyPointers_Level_2_3_Area7)
+EnemyPointers_Level_2_3_Lo:.BYTE low8(EnemyPointers_Level_2_3_Area0)
+						  ; DATA XREF: BANK9:A52Fo
 						  ; BANK9:A544o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_A8F8)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A913)
-      .BYTE low8(byte_BANK9_A916)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A938)
-      .BYTE low8(byte_BANK9_A945)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A965)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A96C)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A96C)
-      .BYTE low8(byte_BANK9_A96C)
-off_BANK9_A5CC:.BYTE high8(byte_BANK9_A975)	  ; DATA XREF: BANK9:A506o
+      .BYTE low8(EnemyPointers_Level_2_3_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_3_Area2)
+      .BYTE low8(EnemyPointers_Level_2_3_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_3_Area4)
+      .BYTE low8(EnemyPointers_Level_2_3_Area5)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_3_Area6)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_3_Area7)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_2_3_Area7)
+      .BYTE low8(EnemyPointers_Level_2_3_Area7)
+EnemyPointers_Level_3_1_Hi:.BYTE high8(EnemyPointers_Level_3_1_Area0)
+						  ; DATA XREF: BANK9:A506o
 						  ; BANK9:A51Bo
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_A978)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A993)
-      .BYTE high8(byte_BANK9_A997)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A9A8)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A9B3)
-      .BYTE high8(byte_BANK9_A9B3)
-      .BYTE high8(byte_BANK9_A9B3)
-      .BYTE high8(byte_BANK9_A9B3)
-      .BYTE high8(byte_BANK9_A9B3)
-off_BANK9_A5D6:.BYTE low8(byte_BANK9_A975)	  ; DATA XREF: BANK9:A530o
+      .BYTE high8(EnemyPointers_Level_3_1_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_1_Area2)
+      .BYTE high8(EnemyPointers_Level_3_1_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_1_Area4)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_2_Area0)
+      .BYTE high8(EnemyPointers_Level_3_2_Area0)
+      .BYTE high8(EnemyPointers_Level_3_2_Area0)
+      .BYTE high8(EnemyPointers_Level_3_2_Area0)
+      .BYTE high8(EnemyPointers_Level_3_2_Area0)
+EnemyPointers_Level_3_1_Lo:.BYTE low8(EnemyPointers_Level_3_1_Area0)
+						  ; DATA XREF: BANK9:A530o
 						  ; BANK9:A545o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_A978)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A993)
-      .BYTE low8(byte_BANK9_A997)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A9A8)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A9B3)
-      .BYTE low8(byte_BANK9_A9B3)
-      .BYTE low8(byte_BANK9_A9B3)
-      .BYTE low8(byte_BANK9_A9B3)
-      .BYTE low8(byte_BANK9_A9B3)
-off_BANK9_A5E0:.BYTE high8(byte_BANK9_A9B3)	  ; DATA XREF: BANK9:A507o
+      .BYTE low8(EnemyPointers_Level_3_1_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_1_Area2)
+      .BYTE low8(EnemyPointers_Level_3_1_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_1_Area4)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_2_Area0)
+      .BYTE low8(EnemyPointers_Level_3_2_Area0)
+      .BYTE low8(EnemyPointers_Level_3_2_Area0)
+      .BYTE low8(EnemyPointers_Level_3_2_Area0)
+      .BYTE low8(EnemyPointers_Level_3_2_Area0)
+EnemyPointers_Level_3_2_Hi:.BYTE high8(EnemyPointers_Level_3_2_Area0)
+						  ; DATA XREF: BANK9:A507o
 						  ; BANK9:A51Co
-						  ; data used at a000
-      .BYTE high8(byte_BANK9_A9D6)
-      .BYTE high8(byte_BANK9_A9EF)		  ; data used at a000
-      .BYTE high8(byte_BANK9_A9FA)
-      .BYTE high8(byte_BANK9_A9FF)
-      .BYTE high8(byte_BANK9_A9FF)
-      .BYTE high8(byte_BANK9_A9FF)
-      .BYTE high8(byte_BANK9_A9FF)
-      .BYTE high8(byte_BANK9_A9FF)
-      .BYTE high8(byte_BANK9_A9FF)
-off_BANK9_A5EA:.BYTE low8(byte_BANK9_A9B3)	  ; DATA XREF: BANK9:A531o
+      .BYTE high8(EnemyPointers_Level_3_2_Area1)
+      .BYTE high8(EnemyPointers_Level_3_2_Area2)
+      .BYTE high8(EnemyPointers_Level_3_2_Area3)  ; Unused? Boss-flag Birdo
+      .BYTE high8(EnemyPointers_Level_3_3_Area0)
+      .BYTE high8(EnemyPointers_Level_3_3_Area0)
+      .BYTE high8(EnemyPointers_Level_3_3_Area0)
+      .BYTE high8(EnemyPointers_Level_3_3_Area0)
+      .BYTE high8(EnemyPointers_Level_3_3_Area0)
+      .BYTE high8(EnemyPointers_Level_3_3_Area0)
+EnemyPointers_Level_3_2_Lo:.BYTE low8(EnemyPointers_Level_3_2_Area0)
+						  ; DATA XREF: BANK9:A531o
 						  ; BANK9:A546o
-						  ; data used at a000
-      .BYTE low8(byte_BANK9_A9D6)
-      .BYTE low8(byte_BANK9_A9EF)		  ; data used at a000
-      .BYTE low8(byte_BANK9_A9FA)
-      .BYTE low8(byte_BANK9_A9FF)
-      .BYTE low8(byte_BANK9_A9FF)
-      .BYTE low8(byte_BANK9_A9FF)
-      .BYTE low8(byte_BANK9_A9FF)
-      .BYTE low8(byte_BANK9_A9FF)
-      .BYTE low8(byte_BANK9_A9FF)
-off_BANK9_A5F4:.BYTE high8(byte_BANK9_A9FF)	  ; DATA XREF: BANK9:off_BANK9_A508o
+      .BYTE low8(EnemyPointers_Level_3_2_Area1)
+      .BYTE low8(EnemyPointers_Level_3_2_Area2)
+      .BYTE low8(EnemyPointers_Level_3_2_Area3)	  ; Unused? Boss-flag Birdo
+      .BYTE low8(EnemyPointers_Level_3_3_Area0)
+      .BYTE low8(EnemyPointers_Level_3_3_Area0)
+      .BYTE low8(EnemyPointers_Level_3_3_Area0)
+      .BYTE low8(EnemyPointers_Level_3_3_Area0)
+      .BYTE low8(EnemyPointers_Level_3_3_Area0)
+      .BYTE low8(EnemyPointers_Level_3_3_Area0)
+EnemyPointers_Level_3_3_Hi:.BYTE high8(EnemyPointers_Level_3_3_Area0)
+						  ; DATA XREF: BANK9:A508o
 						  ; BANK9:A51Do
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_AA04)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AA13)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AA26)		  ; data used at a000
-off_BANK9_A5F8:.BYTE high8(byte_BANK9_AA59)	  ; data used at a000
-      .BYTE high8(byte_BANK9_AA75)
-      .BYTE high8(byte_BANK9_AA82)
-      .BYTE high8(byte_BANK9_AA8E)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AAA2)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AAA2)
-off_BANK9_A5FE:.BYTE low8(byte_BANK9_A9FF)	  ; DATA XREF: BANK9:A532o
+      .BYTE high8(EnemyPointers_Level_3_3_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_3_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_3_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_3_Area4)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_3_Area5)
+      .BYTE high8(EnemyPointers_Level_3_3_Area6)
+      .BYTE high8(EnemyPointers_Level_3_3_Area7)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_3_Area8)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_3_3_Area8)
+EnemyPointers_Level_3_3_Lo:.BYTE low8(EnemyPointers_Level_3_3_Area0)
+						  ; DATA XREF: BANK9:A532o
 						  ; BANK9:A547o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_AA04)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AA13)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AA26)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AA59)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AA75)
-      .BYTE low8(byte_BANK9_AA82)
-      .BYTE low8(byte_BANK9_AA8E)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AAA2)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AAA2)
-off_BANK9_A608:.BYTE high8(byte_BANK9_AAAC)	  ; DATA XREF: BANK9:A509o
+      .BYTE low8(EnemyPointers_Level_3_3_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_3_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_3_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_3_Area4)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_3_Area5)
+      .BYTE low8(EnemyPointers_Level_3_3_Area6)
+      .BYTE low8(EnemyPointers_Level_3_3_Area7)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_3_Area8)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_3_3_Area8)
+EnemyPointers_Level_4_1_Hi:.BYTE high8(EnemyPointers_Level_4_1_Area0)
+						  ; DATA XREF: BANK9:A509o
 						  ; BANK9:A51Eo
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_AADB)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AAFC)
-      .BYTE high8(byte_BANK9_AAFC)
-      .BYTE high8(byte_BANK9_AAFC)
-      .BYTE high8(byte_BANK9_AAFC)
-      .BYTE high8(byte_BANK9_AAFC)
-      .BYTE high8(byte_BANK9_AAFC)
-      .BYTE high8(byte_BANK9_AAFC)
-      .BYTE high8(byte_BANK9_AAFC)
-off_BANK9_A612:.BYTE low8(byte_BANK9_AAAC)	  ; DATA XREF: BANK9:A533o
+      .BYTE high8(EnemyPointers_Level_4_1_Area1)
+      .BYTE high8(EnemyPointers_Level_4_1_Area2)  ; ???	Unused area with another Boss Birdo.
+      .BYTE high8(EnemyPointers_Level_4_1_Area2)
+      .BYTE high8(EnemyPointers_Level_4_1_Area2)
+      .BYTE high8(EnemyPointers_Level_4_1_Area2)
+      .BYTE high8(EnemyPointers_Level_4_1_Area2)
+      .BYTE high8(EnemyPointers_Level_4_1_Area2)
+      .BYTE high8(EnemyPointers_Level_4_1_Area2)
+      .BYTE high8(EnemyPointers_Level_4_1_Area2)
+EnemyPointers_Level_4_1_Lo:.BYTE low8(EnemyPointers_Level_4_1_Area0)
+						  ; DATA XREF: BANK9:A533o
 						  ; BANK9:A548o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_AADB)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AAFC)
-      .BYTE low8(byte_BANK9_AAFC)
-      .BYTE low8(byte_BANK9_AAFC)
-      .BYTE low8(byte_BANK9_AAFC)
-      .BYTE low8(byte_BANK9_AAFC)
-      .BYTE low8(byte_BANK9_AAFC)
-      .BYTE low8(byte_BANK9_AAFC)
-      .BYTE low8(byte_BANK9_AAFC)
-off_BANK9_A61C:.BYTE high8(byte_BANK9_AB2A)	  ; DATA XREF: BANK9:A50Ao
+      .BYTE low8(EnemyPointers_Level_4_1_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_1_Area2)
+      .BYTE low8(EnemyPointers_Level_4_1_Area2)
+      .BYTE low8(EnemyPointers_Level_4_1_Area2)
+      .BYTE low8(EnemyPointers_Level_4_1_Area2)
+      .BYTE low8(EnemyPointers_Level_4_1_Area2)
+      .BYTE low8(EnemyPointers_Level_4_1_Area2)
+      .BYTE low8(EnemyPointers_Level_4_1_Area2)
+      .BYTE low8(EnemyPointers_Level_4_1_Area2)
+EnemyPointers_Level_4_2_Hi:.BYTE high8(EnemyPointers_Level_4_2_Area0)
+						  ; DATA XREF: BANK9:A50Ao
 						  ; BANK9:A51Fo
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_AB2F)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AB76)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AB9D)		  ; data used at a000
-      .BYTE high8(byte_BANK9_ABA8)		  ; data used at a000
-      .BYTE high8(byte_BANK9_ABA8)
-      .BYTE high8(byte_BANK9_ABA8)
-      .BYTE high8(byte_BANK9_ABA8)
-      .BYTE high8(byte_BANK9_ABA8)
-      .BYTE high8(byte_BANK9_ABA8)
-off_BANK9_A626:.BYTE low8(byte_BANK9_AB2A)	  ; DATA XREF: BANK9:A534o
+      .BYTE high8(EnemyPointers_Level_4_2_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_2_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_2_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_2_Area4)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_2_Area4)
+      .BYTE high8(EnemyPointers_Level_4_2_Area4)
+      .BYTE high8(EnemyPointers_Level_4_2_Area4)
+      .BYTE high8(EnemyPointers_Level_4_2_Area4)
+      .BYTE high8(EnemyPointers_Level_4_2_Area4)
+EnemyPointers_Level_4_2_Lo:.BYTE low8(EnemyPointers_Level_4_2_Area0)
+						  ; DATA XREF: BANK9:A534o
 						  ; BANK9:A549o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_AB2F)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AB76)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AB9D)		  ; data used at a000
-      .BYTE low8(byte_BANK9_ABA8)		  ; data used at a000
-      .BYTE low8(byte_BANK9_ABA8)
-      .BYTE low8(byte_BANK9_ABA8)
-      .BYTE low8(byte_BANK9_ABA8)
-      .BYTE low8(byte_BANK9_ABA8)
-      .BYTE low8(byte_BANK9_ABA8)
-off_BANK9_A630:.BYTE high8(byte_BANK9_ABB7)	  ; DATA XREF: BANK9:A50Bo
+      .BYTE low8(EnemyPointers_Level_4_2_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_2_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_2_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_2_Area4)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_2_Area4)
+      .BYTE low8(EnemyPointers_Level_4_2_Area4)
+      .BYTE low8(EnemyPointers_Level_4_2_Area4)
+      .BYTE low8(EnemyPointers_Level_4_2_Area4)
+      .BYTE low8(EnemyPointers_Level_4_2_Area4)
+EnemyPointers_Level_4_3_Hi:.BYTE high8(EnemyPointers_Level_4_3_Area0)
+						  ; DATA XREF: BANK9:A50Bo
 						  ; BANK9:A520o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_ABBB)		  ; data used at a000
-      .BYTE high8(byte_BANK9_ABCA)
-      .BYTE high8(byte_BANK9_ABF1)
-      .BYTE high8(byte_BANK9_AC0A)
-      .BYTE high8(byte_BANK9_AC15)
-      .BYTE high8(byte_BANK9_AC28)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AC3B)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AC48)
-      .BYTE high8(byte_BANK9_AC53)
-off_BANK9_A63A:.BYTE low8(byte_BANK9_ABB7)	  ; DATA XREF: BANK9:A535o
+      .BYTE high8(EnemyPointers_Level_4_3_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_3_Area2)
+      .BYTE high8(EnemyPointers_Level_4_3_Area3)
+      .BYTE high8(EnemyPointers_Level_4_3_Area4)
+      .BYTE high8(EnemyPointers_Level_4_3_Area5)
+      .BYTE high8(EnemyPointers_Level_4_3_Area6)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_3_Area7)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_4_3_Area8)
+      .BYTE high8(EnemyPointers_Level_4_3_Area9)
+EnemyPointers_Level_4_3_Lo:.BYTE low8(EnemyPointers_Level_4_3_Area0)
+						  ; DATA XREF: BANK9:A535o
 						  ; BANK9:A54Ao
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_ABBB)		  ; data used at a000
-      .BYTE low8(byte_BANK9_ABCA)
-      .BYTE low8(byte_BANK9_ABF1)
-      .BYTE low8(byte_BANK9_AC0A)
-      .BYTE low8(byte_BANK9_AC15)
-      .BYTE low8(byte_BANK9_AC28)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AC3B)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AC48)
-      .BYTE low8(byte_BANK9_AC53)
-off_BANK9_A644:.BYTE high8(byte_BANK9_AC5E)	  ; DATA XREF: BANK9:A50Co
+      .BYTE low8(EnemyPointers_Level_4_3_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_3_Area2)
+      .BYTE low8(EnemyPointers_Level_4_3_Area3)
+      .BYTE low8(EnemyPointers_Level_4_3_Area4)
+      .BYTE low8(EnemyPointers_Level_4_3_Area5)
+      .BYTE low8(EnemyPointers_Level_4_3_Area6)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_3_Area7)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_4_3_Area8)
+      .BYTE low8(EnemyPointers_Level_4_3_Area9)
+EnemyPointers_Level_5_1_Hi:.BYTE high8(EnemyPointers_Level_5_1_Area0)
+						  ; DATA XREF: BANK9:A50Co
 						  ; BANK9:A521o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_AC68)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AC91)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AC9A)
-      .BYTE high8(byte_BANK9_AC9A)
-      .BYTE high8(byte_BANK9_AC9A)
-      .BYTE high8(byte_BANK9_AC9A)
-      .BYTE high8(byte_BANK9_AC9A)
-      .BYTE high8(byte_BANK9_AC9A)
-      .BYTE high8(byte_BANK9_AC9A)
-off_BANK9_A64E:.BYTE low8(byte_BANK9_AC5E)	  ; DATA XREF: BANK9:A536o
+      .BYTE high8(EnemyPointers_Level_5_1_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_1_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_2_Area0)
+      .BYTE high8(EnemyPointers_Level_5_2_Area0)
+      .BYTE high8(EnemyPointers_Level_5_2_Area0)
+      .BYTE high8(EnemyPointers_Level_5_2_Area0)
+      .BYTE high8(EnemyPointers_Level_5_2_Area0)
+      .BYTE high8(EnemyPointers_Level_5_2_Area0)
+      .BYTE high8(EnemyPointers_Level_5_2_Area0)
+EnemyPointers_Level_5_1_Lo:.BYTE low8(EnemyPointers_Level_5_1_Area0)
+						  ; DATA XREF: BANK9:A536o
 						  ; BANK9:A54Bo
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_AC68)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AC91)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AC9A)
-      .BYTE low8(byte_BANK9_AC9A)
-      .BYTE low8(byte_BANK9_AC9A)
-off_BANK9_A654:.BYTE low8(byte_BANK9_AC9A)
-      .BYTE low8(byte_BANK9_AC9A)
-      .BYTE low8(byte_BANK9_AC9A)
-      .BYTE low8(byte_BANK9_AC9A)
-off_BANK9_A658:.BYTE high8(byte_BANK9_AC9A)	  ; DATA XREF: BANK9:A50Do
+      .BYTE low8(EnemyPointers_Level_5_1_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_1_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_2_Area0)
+      .BYTE low8(EnemyPointers_Level_5_2_Area0)
+      .BYTE low8(EnemyPointers_Level_5_2_Area0)
+      .BYTE low8(EnemyPointers_Level_5_2_Area0)
+      .BYTE low8(EnemyPointers_Level_5_2_Area0)
+      .BYTE low8(EnemyPointers_Level_5_2_Area0)
+      .BYTE low8(EnemyPointers_Level_5_2_Area0)
+EnemyPointers_Level_5_2_Hi:.BYTE high8(EnemyPointers_Level_5_2_Area0)
+						  ; DATA XREF: BANK9:A50Do
 						  ; BANK9:A522o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_AC9F)		  ; data used at a000
-      .BYTE high8(byte_BANK9_ACD6)		  ; data used at a000
-      .BYTE high8(byte_BANK9_ACEF)		  ; data used at a000
-      .BYTE high8(byte_BANK9_ACFB)
-      .BYTE high8(byte_BANK9_AD04)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AD10)
-      .BYTE high8(byte_BANK9_AD10)
-      .BYTE high8(byte_BANK9_AD10)
-      .BYTE high8(byte_BANK9_AD10)
-off_BANK9_A662:.BYTE low8(byte_BANK9_AC9A)	  ; DATA XREF: BANK9:A537o
+      .BYTE high8(EnemyPointers_Level_5_2_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_2_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_2_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_2_Area4)
+      .BYTE high8(EnemyPointers_Level_5_2_Area5)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_3_Area0)
+      .BYTE high8(EnemyPointers_Level_5_3_Area0)
+      .BYTE high8(EnemyPointers_Level_5_3_Area0)
+      .BYTE high8(EnemyPointers_Level_5_3_Area0)
+EnemyPointers_Level_5_2_Lo:.BYTE low8(EnemyPointers_Level_5_2_Area0)
+						  ; DATA XREF: BANK9:A537o
 						  ; BANK9:A54Co
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_AC9F)		  ; data used at a000
-      .BYTE low8(byte_BANK9_ACD6)		  ; data used at a000
-      .BYTE low8(byte_BANK9_ACEF)		  ; data used at a000
-      .BYTE low8(byte_BANK9_ACFB)
-      .BYTE low8(byte_BANK9_AD04)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AD10)
-      .BYTE low8(byte_BANK9_AD10)
-      .BYTE low8(byte_BANK9_AD10)
-      .BYTE low8(byte_BANK9_AD10)
-off_BANK9_A66C:.BYTE high8(byte_BANK9_AD10)	  ; DATA XREF: BANK9:A50Eo
+      .BYTE low8(EnemyPointers_Level_5_2_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_2_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_2_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_2_Area4)
+      .BYTE low8(EnemyPointers_Level_5_2_Area5)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_3_Area0)
+      .BYTE low8(EnemyPointers_Level_5_3_Area0)
+      .BYTE low8(EnemyPointers_Level_5_3_Area0)
+      .BYTE low8(EnemyPointers_Level_5_3_Area0)
+EnemyPointers_Level_5_3_Hi:.BYTE high8(EnemyPointers_Level_5_3_Area0)
+						  ; DATA XREF: BANK9:A50Eo
 						  ; BANK9:A523o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_AD15)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AD34)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AD46)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AD64)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AD85)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AD85)
-      .BYTE high8(byte_BANK9_AD85)
-      .BYTE high8(byte_BANK9_AD85)
-      .BYTE high8(byte_BANK9_AD85)
-off_BANK9_A676:.BYTE low8(byte_BANK9_AD10)	  ; DATA XREF: BANK9:A538o
+      .BYTE high8(EnemyPointers_Level_5_3_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_3_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_3_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_3_Area4)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_3_Area5)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_5_3_Area5)
+      .BYTE high8(EnemyPointers_Level_5_3_Area5)
+      .BYTE high8(EnemyPointers_Level_5_3_Area5)
+      .BYTE high8(EnemyPointers_Level_5_3_Area5)
+EnemyPointers_Level_5_3_Lo:.BYTE low8(EnemyPointers_Level_5_3_Area0)
+						  ; DATA XREF: BANK9:A538o
 						  ; BANK9:A54Do
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_AD15)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AD34)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AD46)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AD64)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AD85)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AD85)
-off_BANK9_A67D:.BYTE low8(byte_BANK9_AD85)
-      .BYTE low8(byte_BANK9_AD85)
-      .BYTE low8(byte_BANK9_AD85)
-off_BANK9_A680:.BYTE high8(byte_BANK9_AD8A)	  ; DATA XREF: BANK9:A50Fo
+      .BYTE low8(EnemyPointers_Level_5_3_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_3_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_3_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_3_Area4)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_3_Area5)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_5_3_Area5)
+      .BYTE low8(EnemyPointers_Level_5_3_Area5)
+      .BYTE low8(EnemyPointers_Level_5_3_Area5)
+      .BYTE low8(EnemyPointers_Level_5_3_Area5)
+EnemyPointers_Level_6_1_Hi:.BYTE high8(EnemyPointers_Level_6_1_Area0)
+						  ; DATA XREF: BANK9:A50Fo
 						  ; BANK9:A524o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_ADB5)		  ; data used at a000
-      .BYTE high8(byte_BANK9_ADC4)		  ; data used at a000
-      .BYTE high8(byte_BANK9_ADCE)		  ; data used at a000
-      .BYTE high8(byte_BANK9_ADDB)
-      .BYTE high8(byte_BANK9_ADEA)
-      .BYTE high8(byte_BANK9_ADF3)
-      .BYTE high8(byte_BANK9_ADF3)
-      .BYTE high8(byte_BANK9_ADF3)
-      .BYTE high8(byte_BANK9_ADF3)
-off_BANK9_A68A:.BYTE low8(byte_BANK9_AD8A)	  ; DATA XREF: BANK9:A539o
+      .BYTE high8(EnemyPointers_Level_6_1_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_1_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_1_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_1_Area4)
+      .BYTE high8(EnemyPointers_Level_6_1_Area5)
+      .BYTE high8(EnemyPointers_Level_6_1_Area6)
+      .BYTE high8(EnemyPointers_Level_6_1_Area6)
+      .BYTE high8(EnemyPointers_Level_6_1_Area6)
+      .BYTE high8(EnemyPointers_Level_6_1_Area6)
+EnemyPointers_Level_6_1_Lo:.BYTE low8(EnemyPointers_Level_6_1_Area0)
+						  ; DATA XREF: BANK9:A539o
 						  ; BANK9:A54Eo
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_ADB5)		  ; data used at a000
-      .BYTE low8(byte_BANK9_ADC4)		  ; data used at a000
-      .BYTE low8(byte_BANK9_ADCE)		  ; data used at a000
-      .BYTE low8(byte_BANK9_ADDB)
-      .BYTE low8(byte_BANK9_ADEA)
-      .BYTE low8(byte_BANK9_ADF3)
-      .BYTE low8(byte_BANK9_ADF3)
-      .BYTE low8(byte_BANK9_ADF3)
-      .BYTE low8(byte_BANK9_ADF3)
-off_BANK9_A694:.BYTE high8(byte_BANK9_ADF7)	  ; DATA XREF: BANK9:A510o
+      .BYTE low8(EnemyPointers_Level_6_1_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_1_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_1_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_1_Area4)
+      .BYTE low8(EnemyPointers_Level_6_1_Area5)
+      .BYTE low8(EnemyPointers_Level_6_1_Area6)
+      .BYTE low8(EnemyPointers_Level_6_1_Area6)
+      .BYTE low8(EnemyPointers_Level_6_1_Area6)
+      .BYTE low8(EnemyPointers_Level_6_1_Area6)
+EnemyPointers_Level_6_2_Hi:.BYTE high8(EnemyPointers_Level_6_2_Area0)
+						  ; DATA XREF: BANK9:A510o
 						  ; BANK9:A525o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_ADFC)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AE31)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AE31)
-      .BYTE high8(byte_BANK9_AE31)
-      .BYTE high8(byte_BANK9_AE31)
-      .BYTE high8(byte_BANK9_AE31)
-      .BYTE high8(byte_BANK9_AE31)
-      .BYTE high8(byte_BANK9_AE31)
-      .BYTE high8(byte_BANK9_AE31)
-off_BANK9_A69E:.BYTE low8(byte_BANK9_ADF7)	  ; DATA XREF: BANK9:A53Ao
+      .BYTE high8(EnemyPointers_Level_6_2_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_2_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_2_Area2)
+      .BYTE high8(EnemyPointers_Level_6_2_Area2)
+      .BYTE high8(EnemyPointers_Level_6_2_Area2)
+      .BYTE high8(EnemyPointers_Level_6_2_Area2)
+      .BYTE high8(EnemyPointers_Level_6_2_Area2)
+      .BYTE high8(EnemyPointers_Level_6_2_Area2)
+      .BYTE high8(EnemyPointers_Level_6_2_Area2)
+EnemyPointers_Level_6_2_Lo:.BYTE low8(EnemyPointers_Level_6_2_Area0)
+						  ; DATA XREF: BANK9:A53Ao
 						  ; BANK9:A54Fo
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_ADFC)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AE31)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AE31)
-      .BYTE low8(byte_BANK9_AE31)
-      .BYTE low8(byte_BANK9_AE31)
-      .BYTE low8(byte_BANK9_AE31)
-      .BYTE low8(byte_BANK9_AE31)
-      .BYTE low8(byte_BANK9_AE31)
-      .BYTE low8(byte_BANK9_AE31)
-off_BANK9_A6A8:.BYTE high8(byte_BANK9_AE3B)	  ; DATA XREF: BANK9:A511o
+      .BYTE low8(EnemyPointers_Level_6_2_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_2_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_2_Area2)
+      .BYTE low8(EnemyPointers_Level_6_2_Area2)
+      .BYTE low8(EnemyPointers_Level_6_2_Area2)
+      .BYTE low8(EnemyPointers_Level_6_2_Area2)
+      .BYTE low8(EnemyPointers_Level_6_2_Area2)
+      .BYTE low8(EnemyPointers_Level_6_2_Area2)
+      .BYTE low8(EnemyPointers_Level_6_2_Area2)
+EnemyPointers_Level_6_3_Hi:.BYTE high8(EnemyPointers_Level_6_3_Area0)
+						  ; DATA XREF: BANK9:A511o
 						  ; BANK9:A526o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_AE3F)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AE4D)
-      .BYTE high8(byte_BANK9_AE68)
-      .BYTE high8(byte_BANK9_AE95)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AE9A)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AEA3)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AEA3)
-      .BYTE high8(byte_BANK9_AEA3)
-      .BYTE high8(byte_BANK9_AEA3)
-off_BANK9_A6B2:.BYTE low8(byte_BANK9_AE3B)	  ; DATA XREF: BANK9:A53Bo
+      .BYTE high8(EnemyPointers_Level_6_3_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_3_Area2)
+      .BYTE high8(EnemyPointers_Level_6_3_Area3)
+      .BYTE high8(EnemyPointers_Level_6_3_Area4)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_3_Area5)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_3_Area6)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_6_3_Area6)
+      .BYTE high8(EnemyPointers_Level_6_3_Area6)
+      .BYTE high8(EnemyPointers_Level_6_3_Area6)
+EnemyPointers_Level_6_3_Lo:.BYTE low8(EnemyPointers_Level_6_3_Area0)
+						  ; DATA XREF: BANK9:A53Bo
 						  ; BANK9:A550o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_AE3F)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AE4D)
-      .BYTE low8(byte_BANK9_AE68)
-      .BYTE low8(byte_BANK9_AE95)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AE9A)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AEA3)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AEA3)
-      .BYTE low8(byte_BANK9_AEA3)
-      .BYTE low8(byte_BANK9_AEA3)
-off_BANK9_A6BC:.BYTE high8(byte_BANK9_AEA8)	  ; DATA XREF: BANK9:A512o
+      .BYTE low8(EnemyPointers_Level_6_3_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_3_Area2)
+      .BYTE low8(EnemyPointers_Level_6_3_Area3)
+      .BYTE low8(EnemyPointers_Level_6_3_Area4)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_3_Area5)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_3_Area6)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_6_3_Area6)
+      .BYTE low8(EnemyPointers_Level_6_3_Area6)
+      .BYTE low8(EnemyPointers_Level_6_3_Area6)
+EnemyPointers_Level_7_1_Hi:.BYTE high8(EnemyPointers_Level_7_1_Area0)
+						  ; DATA XREF: BANK9:A512o
 						  ; BANK9:A527o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_AEAC)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AED8)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AEED)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AF02)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AF0B)
-      .BYTE high8(byte_BANK9_AF0B)
-      .BYTE high8(byte_BANK9_AF0B)
-      .BYTE high8(byte_BANK9_AF0B)
-      .BYTE high8(byte_BANK9_AF0B)
-off_BANK9_A6C6:.BYTE low8(byte_BANK9_AEA8)	  ; DATA XREF: BANK9:A53Co
+      .BYTE high8(EnemyPointers_Level_7_1_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_1_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_1_Area3)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_1_Area4)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_1_Area5)
+      .BYTE high8(EnemyPointers_Level_7_1_Area5)
+      .BYTE high8(EnemyPointers_Level_7_1_Area5)
+      .BYTE high8(EnemyPointers_Level_7_1_Area5)
+      .BYTE high8(EnemyPointers_Level_7_1_Area5)
+EnemyPointers_Level_7_1_Lo:.BYTE low8(EnemyPointers_Level_7_1_Area0)
+						  ; DATA XREF: BANK9:A53Co
 						  ; BANK9:A551o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_AEAC)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AED8)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AEED)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AF02)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AF0B)
-      .BYTE low8(byte_BANK9_AF0B)
-      .BYTE low8(byte_BANK9_AF0B)
-      .BYTE low8(byte_BANK9_AF0B)
-      .BYTE low8(byte_BANK9_AF0B)
-off_BANK9_A6D0:.BYTE high8(byte_BANK9_AF11)	  ; DATA XREF: BANK9:A513o
+      .BYTE low8(EnemyPointers_Level_7_1_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_1_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_1_Area3)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_1_Area4)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_1_Area5)
+      .BYTE low8(EnemyPointers_Level_7_1_Area5)
+      .BYTE low8(EnemyPointers_Level_7_1_Area5)
+      .BYTE low8(EnemyPointers_Level_7_1_Area5)
+      .BYTE low8(EnemyPointers_Level_7_1_Area5)
+EnemyPointers_Level_7_2_Hi:.BYTE high8(EnemyPointers_Level_7_2_Area0)
+						  ; DATA XREF: BANK9:A513o
 						  ; BANK9:A528o
 						  ; data used at a000
-      .BYTE high8(byte_BANK9_AF1D)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AF39)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AF5A)
-      .BYTE high8(byte_BANK9_AF73)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AF98)		  ; data used at a000
-      .BYTE high8(byte_BANK9_AFA0)
-      .BYTE high8(byte_BANK9_AFCB)
-      .BYTE high8(byte_BANK9_AFEA)
-      .BYTE high8(byte_BANK9_B010)
-off_BANK9_A6DA:.BYTE low8(byte_BANK9_AF11)	  ; DATA XREF: BANK9:A53Do
+      .BYTE high8(EnemyPointers_Level_7_2_Area1)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_2_Area2)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_2_Area3)
+      .BYTE high8(EnemyPointers_Level_7_2_Area4)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_2_Area5)  ; data used at a000
+      .BYTE high8(EnemyPointers_Level_7_2_Area6)
+      .BYTE high8(EnemyPointers_Level_7_2_Area7)
+      .BYTE high8(EnemyPointers_Level_7_2_Area8)
+      .BYTE high8(EnemyPointers_Level_7_2_Area9)
+EnemyPointers_Level_7_2_Lo:.BYTE low8(EnemyPointers_Level_7_2_Area0)
+						  ; DATA XREF: BANK9:A53Do
 						  ; BANK9:A552o
 						  ; data used at a000
-      .BYTE low8(byte_BANK9_AF1D)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AF39)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AF5A)
-      .BYTE low8(byte_BANK9_AF73)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AF98)		  ; data used at a000
-      .BYTE low8(byte_BANK9_AFA0)
-      .BYTE low8(byte_BANK9_AFCB)
-      .BYTE low8(byte_BANK9_AFEA)
-      .BYTE low8(byte_BANK9_B010)
-off_BANK9_A6E4:.BYTE high8(byte_BANK9_B01B)	  ; DATA XREF: BANK9:A514o
+      .BYTE low8(EnemyPointers_Level_7_2_Area1)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_2_Area2)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_2_Area3)
+      .BYTE low8(EnemyPointers_Level_7_2_Area4)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_2_Area5)	  ; data used at a000
+      .BYTE low8(EnemyPointers_Level_7_2_Area6)
+      .BYTE low8(EnemyPointers_Level_7_2_Area7)
+      .BYTE low8(EnemyPointers_Level_7_2_Area8)
+      .BYTE low8(EnemyPointers_Level_7_2_Area9)
+EnemyPointers_Level_7_3_Hi:.BYTE high8(EnemyPointers_Level_7_3_Area0)
+						  ; DATA XREF: BANK9:A514o
 						  ; BANK9:A529o
-      .BYTE high8(byte_BANK9_B01C)
-      .BYTE high8(byte_BANK9_B01D)
-      .BYTE high8(byte_BANK9_B01E)
-      .BYTE high8(byte_BANK9_B01F)
-      .BYTE high8(byte_BANK9_B01F)
-      .BYTE high8(byte_BANK9_B01F)
-      .BYTE high8(byte_BANK9_B01F)
-      .BYTE high8(byte_BANK9_B01F)
-      .BYTE high8(byte_BANK9_B01F)
-off_BANK9_A6EE:.BYTE low8(byte_BANK9_B01B)	  ; DATA XREF: BANK9:A53Eo
+						  ; Normally totally unused (game ends at 7-2)
+      .BYTE high8(EnemyPointers_Level_7_3_Area1)  ; Interestingly, the first 4 areas are unique
+      .BYTE high8(EnemyPointers_Level_7_3_Area2)  ; though completely empty
+      .BYTE high8(EnemyPointers_Level_7_3_Area3)  ; Wonder if they intended on having a	full 7-3
+      .BYTE high8(EnemyPointers_Level_7_3_Area4)  ; at some point...
+      .BYTE high8(EnemyPointers_Level_7_3_Area4)
+      .BYTE high8(EnemyPointers_Level_7_3_Area4)
+      .BYTE high8(EnemyPointers_Level_7_3_Area4)
+      .BYTE high8(EnemyPointers_Level_7_3_Area4)
+      .BYTE high8(EnemyPointers_Level_7_3_Area4)
+EnemyPointers_Level_7_3_Lo:.BYTE low8(EnemyPointers_Level_7_3_Area0)
+						  ; DATA XREF: BANK9:A53Eo
 						  ; BANK9:A553o
-      .BYTE low8(byte_BANK9_B01C)
-      .BYTE low8(byte_BANK9_B01D)
-      .BYTE low8(byte_BANK9_B01E)
-      .BYTE low8(byte_BANK9_B01F)
-      .BYTE low8(byte_BANK9_B01F)
-      .BYTE low8(byte_BANK9_B01F)
-      .BYTE low8(byte_BANK9_B01F)
-      .BYTE low8(byte_BANK9_B01F)
-      .BYTE low8(byte_BANK9_B01F)
-byte_BANK9_A6F8:.BYTE 1				  ; DATA XREF: BANK9:EnemyPointers_Level_1_1_Hio
+      .BYTE low8(EnemyPointers_Level_7_3_Area1)
+      .BYTE low8(EnemyPointers_Level_7_3_Area2)
+      .BYTE low8(EnemyPointers_Level_7_3_Area3)
+      .BYTE low8(EnemyPointers_Level_7_3_Area4)
+      .BYTE low8(EnemyPointers_Level_7_3_Area4)
+      .BYTE low8(EnemyPointers_Level_7_3_Area4)
+      .BYTE low8(EnemyPointers_Level_7_3_Area4)
+      .BYTE low8(EnemyPointers_Level_7_3_Area4)
+      .BYTE low8(EnemyPointers_Level_7_3_Area4)
+EnemyPointers_Level_1_1_Area0:.BYTE 1		  ; DATA XREF: BANK9:EnemyPointers_Level_1_1_Hio
 						  ; BANK9:EnemyPointers_Level_1_1_Loo
-						  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $76					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $6C					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_A701:.BYTE 5				  ; DATA XREF: BANK9:A555o
+						  ; The	format for all of these	is:
+						  ; <# of bytes	this page>
+						  ; [<enemy id>, <YX position as byte>]
+						  ; ...
+						  ; 1 is an empty page
+						  ;
+						  ; e.g. to put	a single shyguy	on a page at Y=4 X=7:
+						  ; 03 01 47
+      .BYTE 1
+      .BYTE 5,3,$76,3,$6C			  ; 0
+      .BYTE 1
+      .BYTE 1
+EnemyPointers_Level_1_1_Area1:.BYTE 5,$14,$56,$14,$AD			  ; 0
+						  ; DATA XREF: BANK9:A555o
 						  ; BANK9:A55Fo
 						  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $56					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $AD					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $9D					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $83					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $79					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $BC					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $90					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $75					  ; data used at a000
+      .BYTE 3,3,$9D				  ; 0 ;	data used at a000
+      .BYTE 7,$E,$83,$E,$79,3,$BC		  ; 0 ;	data used at a000
+      .BYTE 5,$E,$90,$E,$75			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A716:.BYTE 3				  ; DATA XREF: BANK9:A556o
+EnemyPointers_Level_1_1_Area2:.BYTE 3,1,$EC				  ; 0
+						  ; DATA XREF: BANK9:A556o
 						  ; BANK9:A560o
 						  ; data used at a000
+      .BYTE 7,1,$1C,2,$5C,3,$E5			  ; 0 ;	data used at a000
+      .BYTE 7,1,$6C,2,$8C,1,$CC			  ; 0 ;	data used at a000
+      .BYTE 5,3,$79,1,$D4			  ; 0 ;	data used at a000
+      .BYTE 9,1,4,2,$34,$3B,$87,$3B,$C7		  ; 0 ;	data used at a000
+      .BYTE 7,3,$A9,3,$BC,3,$C6			  ; 0 ;	data used at a000
+      .BYTE 5,1,$9C,3,$E5			  ; 0 ;	data used at a000
+      .BYTE 5,1,$2C,2,$4C			  ; 0 ;	data used at a000
+      .BYTE 7,1,$1C,3,$45,2,$4C			  ; 0 ;	data used at a000
+      .BYTE 5,1,$95,$14,$D1			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $EC					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $5C					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $E5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $6C					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $8C					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $CC					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $79					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $D4					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $34					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $87					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $C7					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $A9					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $BC					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $C6					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $9C					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $E5					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $2C					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $4C					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $45					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $4C					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $95					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $D1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_A753:.BYTE 3				  ; DATA XREF: BANK9:A557o
+EnemyPointers_Level_1_1_Area3:.BYTE 3,3,$85				  ; 0
+						  ; DATA XREF: BANK9:A557o
 						  ; BANK9:A561o
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $85					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A759:.BYTE 3				  ; DATA XREF: BANK9:A558o
+EnemyPointers_Level_1_1_Area4:.BYTE 3,$E,$BC				  ; 0
+						  ; DATA XREF: BANK9:A558o
 						  ; BANK9:A562o
 						  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $BC					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A75D:.BYTE 1				  ; data used at a000
-byte_BANK9_A75E:.BYTE 1				  ; DATA XREF: BANK9:A559o
+      .BYTE 1					  ; data used at a000
+EnemyPointers_Level_1_1_Area5:.BYTE 1		  ; DATA XREF: BANK9:A559o
 						  ; BANK9:A55Ao BANK9:A55Bo ...
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $A7					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $A8					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $E7					  ; data used at a000
+      .BYTE 7,$1C,$A7,$44,$A8,$43,$E7		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A76A:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A568o
-						  ; BANK9:off_BANK9_A572o
+EnemyPointers_Level_1_2_Area0:.BYTE 3,$42,$6A				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_1_2_Hio
+						  ; BANK9:EnemyPointers_Level_1_2_Loo
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $6A					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $12					  ; data used at a000
-      .BYTE $22					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE 0					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $40					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $90					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $E0					  ; data used at a000
+      .BYTE 3,$12,$22				  ; 0 ;	data used at a000
+      .BYTE 9,$F,0,$F,$40,$F,$90,$F,$E0		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $3C					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $6C					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $53					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-byte_BANK9_A783:.BYTE $83			  ; data used at a000
-      .BYTE 5					  ; data used at a000
+      .BYTE 5,$E,$3C,$E,$6C			  ; 0 ;	data used at a000
+      .BYTE 5,6,$53,$D,$83			  ; 0 ;	data used at a000
+      .BYTE 5,1,$B6,1,$F6			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $B6					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $F6					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_A78A:.BYTE 3				  ; DATA XREF: BANK9:A569o
+EnemyPointers_Level_1_2_Area1:.BYTE 3,1,$DC				  ; 0
+						  ; DATA XREF: BANK9:A569o
 						  ; BANK9:A573o
 						  ; data used at a000
+      .BYTE 3,7,$3C				  ; 0 ;	data used at a000
+      .BYTE 3,6,$2C				  ; 0 ;	data used at a000
+      .BYTE 5,$D,$79,$D,$89			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $DC					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $3C					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $2C					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $79					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $89					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_A799:.BYTE 1				  ; DATA XREF: BANK9:A56Ao
+EnemyPointers_Level_1_2_Area2:.BYTE 1		  ; DATA XREF: BANK9:A56Ao
 						  ; BANK9:A574o
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $A7					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $A8					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $38					  ; data used at a000
+      .BYTE 5,$1C,$A7,$44,$A8			  ; 0 ;	data used at a000
+      .BYTE 3,$43,$38				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A7A3:.BYTE 5				  ; DATA XREF: BANK9:A56Bo
+EnemyPointers_Level_1_2_Area3:.BYTE 5,$3D,$79,$17,$77			  ; 0
+						  ; DATA XREF: BANK9:off_BANK9_A56Bo
 						  ; BANK9:A575o
 						  ; data used at a000
-      .BYTE $3D					  ; data used at a000
-      .BYTE $79					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $77					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A7A9:.BYTE 1				  ; DATA XREF: BANK9:A56Co
+EnemyPointers_Level_1_2_Area4:.BYTE 1		  ; DATA XREF: BANK9:A56Co
 						  ; BANK9:A576o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -72309,218 +72242,86 @@ byte_BANK9_A7A9:.BYTE 1				  ; DATA XREF: BANK9:A56Co
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-byte_BANK9_A7B6:.BYTE 1				  ; DATA XREF: BANK9:A56Do
+      .BYTE 3,2,$28				  ; 0 ;	data used at a000
+EnemyPointers_Level_1_2_Area5:.BYTE 1		  ; DATA XREF: BANK9:A56Do
 						  ; BANK9:A56Eo BANK9:A56Fo ...
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A7B9:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A57Co
-						  ; BANK9:off_BANK9_A586o
+EnemyPointers_Level_1_3_Area0:.BYTE 3,$42,$38				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_1_3_Hio
+						  ; BANK9:EnemyPointers_Level_1_3_Loo
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $38					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $94					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $B4					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $74					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $34					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $A4					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $62					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $E6					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $26					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $66					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $4A					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $5C					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $8A					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $9C					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $2A					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $7A					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $7A					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $9A					  ; data used at a000
+      .BYTE 5,7,$94,7,$B4			  ; 0 ;	data used at a000
+      .BYTE 3,1,$74				  ; 0 ;	data used at a000
+      .BYTE 5,$13,$34,$13,$A4			  ; 0 ;	data used at a000
+      .BYTE 7,$13,2,$13,$62,$3B,$E6		  ; 0 ;	data used at a000
+      .BYTE 5,$3B,$26,$3B,$66			  ; 0 ;	data used at a000
+      .BYTE 9,$13,$4A,$3B,$5C,$13,$8A,$3B,$9C	  ; 0 ;	data used at a000
+      .BYTE 5,3,$2A,3,$7A			  ; 0 ;	data used at a000
+      .BYTE 9,$D,$29,$D,$49,2,$7A,2,$9A		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A7EE:.BYTE 7				  ; DATA XREF: BANK9:A57Do
+EnemyPointers_Level_1_3_Area1:.BYTE 7,$17,$83,$3D,$88,$2E,$8A		  ; 0
+						  ; DATA XREF: BANK9:A57Do
 						  ; BANK9:A587o
 						  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $83					  ; data used at a000
-      .BYTE $3D					  ; data used at a000
-      .BYTE $88					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $8A					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A7F6:.BYTE 7				  ; DATA XREF: BANK9:A57Eo
+EnemyPointers_Level_1_3_Area2:.BYTE 7,$2E,$4B,$30,$7C,$30,$C9		  ; 0
+						  ; DATA XREF: BANK9:A57Eo
 						  ; BANK9:A588o
 						  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $4B					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $7C					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $C9					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $61					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $5A					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $BA					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $DB					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $4A					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $35					  ; data used at a000
+      .BYTE 7,$30,$61,$31,$5A,3,$BA		  ; 0 ;	data used at a000
+      .BYTE 3,1,$DB				  ; 0 ;	data used at a000
+      .BYTE 3,6,$4A				  ; 0 ;	data used at a000
+      .BYTE 3,3,$35				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A810:.BYTE 3				  ; DATA XREF: BANK9:A57Fo
+EnemyPointers_Level_1_3_Area3:.BYTE 3,$31,$C9				  ; 0
+						  ; DATA XREF: BANK9:A57Fo
 						  ; BANK9:A589o
 						  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $C9					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $C6					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $56					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $D4					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $D7					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $DA					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $A7					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $F7					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $3A					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $6A					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $A8					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $D7					  ; data used at a000
+      .BYTE 3,$2F,$C6				  ; 0 ;	data used at a000
+      .BYTE 9,2,$56,7,$D4,7,$D7,7,$DA		  ; 0 ;	data used at a000
+      .BYTE 5,$30,$A7,$30,$F7			  ; 0 ;	data used at a000
+      .BYTE 5,$2E,$3A,$2E,$6A			  ; 0 ;	data used at a000
+      .BYTE 9,$D,9,$D,$29,$44,$A8,$43,$D7	  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A833:.BYTE 3				  ; DATA XREF: BANK9:A580o
+EnemyPointers_Level_1_3_Area4:.BYTE 3,$30,$F6				  ; 0
+						  ; DATA XREF: BANK9:A580o
 						  ; BANK9:A581o BANK9:A582o ...
 						  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $F6					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $5D					  ; data used at a000
-      .BYTE $D7					  ; data used at a000
+      .BYTE 3,$5D,$D7				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A83A:.BYTE 1				  ; DATA XREF: BANK9:off_BANK9_A590o
-						  ; BANK9:off_BANK9_A59Ao
+EnemyPointers_Level_2_1_Area0:.BYTE 1		  ; DATA XREF: BANK9:EnemyPointers_Level_2_1_Hio
+						  ; BANK9:EnemyPointers_Level_2_1_Loo
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $FA					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $A7					  ; data used at a000
-      .BYTE 5					  ; data used at a000
+      .BYTE 3,$19,$FA				  ; 0 ;	data used at a000
+      .BYTE 3,$18,$A7				  ; 0 ;	data used at a000
+      .BYTE 5,1,$69,3,$99			  ; 0 ;	data used at a000
+      .BYTE 3,$18,$47				  ; 0 ;	data used at a000
+      .BYTE 3,3,$F8				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $69					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $99					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $47					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $F8					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $24					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $27					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $4A					  ; data used at a000
+      .BYTE 7,$23,$24,1,$27,1,$49		  ; 0 ;	data used at a000
+      .BYTE 3,$19,$4A				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A859:.BYTE 5				  ; DATA XREF: BANK9:A591o
+EnemyPointers_Level_2_1_Area1:.BYTE 5,1,$49,1,$6D			  ; 0
+						  ; DATA XREF: BANK9:A591o
 						  ; BANK9:A59Bo
 						  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $6D					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $D3					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $40					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $16					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $C8					  ; data used at a000
+      .BYTE 3,1,$D3				  ; 0 ;	data used at a000
+      .BYTE 7,1,$40,6,$16,1,$C8			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A86A:.BYTE 1				  ; DATA XREF: BANK9:A592o
+EnemyPointers_Level_2_1_Area2:.BYTE 1		  ; DATA XREF: BANK9:A592o
 						  ; BANK9:A593o BANK9:A595o ...
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $A8					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $A9					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $D3					  ; data used at a000
+      .BYTE 5,$1C,$A8,$44,$A9			  ; 0 ;	data used at a000
+      .BYTE 3,$43,$D3				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A874:.BYTE 1				  ; DATA XREF: BANK9:A594o
+EnemyPointers_Level_2_1_Area4:.BYTE 1		  ; DATA XREF: BANK9:A594o
 						  ; BANK9:A59Eo
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -72532,14 +72333,11 @@ byte_BANK9_A874:.BYTE 1				  ; DATA XREF: BANK9:A594o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $6C					  ; data used at a000
-byte_BANK9_A881:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A5A4o
-						  ; BANK9:off_BANK9_A5AEo
+      .BYTE 3,6,$6C				  ; 0 ;	data used at a000
+EnemyPointers_Level_2_2_Area0:.BYTE 3,$42,$5A				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_2_2_Hio
+						  ; BANK9:EnemyPointers_Level_2_2_Loo
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $5A					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -72548,94 +72346,40 @@ byte_BANK9_A881:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A5A4o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A88C:.BYTE 1				  ; DATA XREF: BANK9:A5A5o
+EnemyPointers_Level_2_2_Area1:.BYTE 1		  ; DATA XREF: BANK9:A5A5o
 						  ; BANK9:A5AFo
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $8D					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $50					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $FA					  ; data used at a000
-      .BYTE 3					  ; data used at a000
+      .BYTE 3,$19,$8D				  ; 0 ;	data used at a000
+      .BYTE 5,$F,$50,$18,$FA			  ; 0 ;	data used at a000
+      .BYTE 3,1,$99				  ; 0 ;	data used at a000
+      .BYTE 5,$18,$A,$18,$37			  ; 0 ;	data used at a000
+      .BYTE 7,$F,$10,$18,$15,$3B,$97		  ; 0 ;	data used at a000
+      .BYTE 7,$18,$58,$18,$A8,$18,$E7		  ; 0 ;	data used at a000
+      .BYTE 9,$18,$28,$18,$57,$1A,$86,$18,$97	  ; 0 ;	data used at a000
+      .BYTE 3,$23,$B5				  ; 0 ;	data used at a000
+      .BYTE 3,$23,5				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $99					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $A					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $37					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $97					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $58					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $A8					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $E7					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $57					  ; data used at a000
-      .BYTE $1A					  ; data used at a000
-      .BYTE $86					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $97					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $B5					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_A8BB:.BYTE 7				  ; DATA XREF: BANK9:A5A6o
+EnemyPointers_Level_2_2_Area2:.BYTE 7,3,$B8,3,$F8,3,$FB			  ; 0
+						  ; DATA XREF: BANK9:A5A6o
 						  ; BANK9:A5B0o
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $F8					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $FB					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; ???	This area only has 3 pages, so this should stop	here
+      .BYTE 1					  ; But	for some reason	it continues for several more pages
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_A8CA:.BYTE 3				  ; DATA XREF: BANK9:A5A7o
+EnemyPointers_Level_2_2_Area3:.BYTE 3,1,$8A				  ; 0
+						  ; DATA XREF: BANK9:A5A7o
 						  ; BANK9:A5B1o
 						  ; data used at a000
+      .BYTE 5,1,$C2,1,$67			  ; 0 ;	data used at a000
+      .BYTE 7,$E,$A0,1,$78,1,$BD		  ; 0 ;	data used at a000
+      .BYTE 3,6,$E2				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $8A					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $C2					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $67					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $A0					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $78					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $BD					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $E2					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_A8DD:.BYTE 1				  ; DATA XREF: BANK9:A5A8o
+EnemyPointers_Level_2_2_Area4:.BYTE 1		  ; DATA XREF: BANK9:A5A8o
 						  ; BANK9:A5B2o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -72647,98 +72391,49 @@ byte_BANK9_A8DD:.BYTE 1				  ; DATA XREF: BANK9:A5A8o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $B9					  ; data used at a000
-byte_BANK9_A8EA:.BYTE 1				  ; DATA XREF: BANK9:A5A9o
+      .BYTE 3,1,$B9				  ; 0 ;	data used at a000
+EnemyPointers_Level_2_2_Area5:.BYTE 1		  ; DATA XREF: BANK9:A5A9o
 						  ; BANK9:A5AAo BANK9:A5ABo ...
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $B4					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $B4					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $B3					  ; data used at a000
+      .BYTE 5,$1C,$B4,$44,$B4			  ; 0 ;	data used at a000
+      .BYTE 3,$43,$B3				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A8F4:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A5B8o
-						  ; BANK9:off_BANK9_A5C2o
+EnemyPointers_Level_2_3_Area0:.BYTE 3,$42,$17				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_2_3_Hio
+						  ; BANK9:EnemyPointers_Level_2_3_Loo
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $17					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A8F8:.BYTE 3				  ; DATA XREF: BANK9:A5B9o
+EnemyPointers_Level_2_3_Area1:.BYTE 3,3,$C7				  ; 0
+						  ; DATA XREF: BANK9:A5B9o
 						  ; BANK9:A5C3o
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $C7					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-byte_BANK9_A8FD:.BYTE $20			  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $20					  ; data used at a000
-      .BYTE $48					  ; data used at a000
-      .BYTE $A0					  ; data used at a000
+      .BYTE 3,$49,$20				  ; 0 ;	data used at a000
+      .BYTE 5,$F,$20,$48,$A0			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $48					  ; data used at a000
-      .BYTE $80					  ; data used at a000
+      .BYTE 3,$48,$80				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE 0					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $7A					  ; data used at a000
-      .BYTE $1A					  ; data used at a000
-      .BYTE $D6					  ; data used at a000
+      .BYTE 3,$49,0				  ; 0 ;	data used at a000
+      .BYTE 5,$19,$7A,$1A,$D6			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A913:.BYTE 1				  ; DATA XREF: BANK9:A5BAo
+EnemyPointers_Level_2_3_Area2:.BYTE 1		  ; DATA XREF: BANK9:A5BAo
 						  ; BANK9:A5C4o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A916:.BYTE 3				  ; DATA XREF: BANK9:A5BBo
+EnemyPointers_Level_2_3_Area3:.BYTE 3,3,$4B				  ; 0
+						  ; DATA XREF: BANK9:A5BBo
 						  ; BANK9:A5C5o
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $4B					  ; data used at a000
-      .BYTE 5					  ; data used at a000
+      .BYTE 5,1,$D5,1,$AA			  ; 0 ;	data used at a000
+      .BYTE 5,3,$D2,1,$D5			  ; 0 ;	data used at a000
+      .BYTE 3,2,$88				  ; 0 ;	data used at a000
+      .BYTE 7,1,$83,1,$A9,1,$1D			  ; 0 ;	data used at a000
+      .BYTE 7,1,$B1,1,$89,1,$3D			  ; 0 ;	data used at a000
+      .BYTE 3,1,$E3				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $D5					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $AA					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $D2					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $D5					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $88					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $83					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $A9					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $1D					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $B1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $89					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $3D					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $E3					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_A938:.BYTE 1				  ; DATA XREF: BANK9:A5BCo
+EnemyPointers_Level_2_3_Area4:.BYTE 1		  ; DATA XREF: BANK9:A5BCo
 						  ; BANK9:A5C6o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -72750,705 +72445,317 @@ byte_BANK9_A938:.BYTE 1				  ; DATA XREF: BANK9:A5BCo
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $B9					  ; data used at a000
-byte_BANK9_A945:.BYTE 1				  ; DATA XREF: BANK9:A5BDo
+      .BYTE 3,1,$B9				  ; 0 ;	data used at a000
+EnemyPointers_Level_2_3_Area5:.BYTE 1		  ; DATA XREF: BANK9:A5BDo
 						  ; BANK9:A5C7o
 						  ; data used at a000
-      .BYTE 9					  ; data used at a000
+      .BYTE 9,1,$15,1,8,1,$F8,1,$CB		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $15					  ; data used at a000
+      .BYTE 7,$23,$14,3,$39,3,$7B		  ; 0 ;	data used at a000
+      .BYTE 3,$18,$67				  ; 0 ;	data used at a000
+      .BYTE 7,$18,$A,$44,$3B,$18,$6A		  ; 0 ;	data used at a000
+      .BYTE 3,$43,$97				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $F8					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $CB					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $39					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $7B					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $67					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $A					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $6A					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $97					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_A965:.BYTE 1				  ; DATA XREF: BANK9:A5BEo
+EnemyPointers_Level_2_3_Area6:.BYTE 1		  ; DATA XREF: BANK9:A5BEo
 						  ; BANK9:A5C8o
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $5F					  ; data used at a000
-      .BYTE $C5					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $D0					  ; data used at a000
+      .BYTE 5,$5F,$C5,2,$D0			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A96C:.BYTE 7				  ; DATA XREF: BANK9:A5BFo
+EnemyPointers_Level_2_3_Area7:.BYTE 7,$17,$83,$3D,$87,$2F,$A9		  ; 0
+						  ; DATA XREF: BANK9:A5BFo
 						  ; BANK9:A5C0o BANK9:A5C1o ...
 						  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $83					  ; data used at a000
-      .BYTE $3D					  ; data used at a000
-      .BYTE $87					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $A9					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A975:.BYTE 1				  ; DATA XREF: BANK9:off_BANK9_A5CCo
-						  ; BANK9:off_BANK9_A5D6o
+EnemyPointers_Level_3_1_Area0:.BYTE 1		  ; DATA XREF: BANK9:EnemyPointers_Level_3_1_Hio
+						  ; BANK9:EnemyPointers_Level_3_1_Loo
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A978:.BYTE 3				  ; DATA XREF: BANK9:A5CDo
+EnemyPointers_Level_3_1_Area1:.BYTE 3,$49,8				  ; 0
+						  ; DATA XREF: BANK9:A5CDo
 						  ; BANK9:A5D7o
 						  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-byte_BANK9_A97C:.BYTE $48			  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $48					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $12					  ; data used at a000
-      .BYTE $92					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $E5					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $21					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $87					  ; data used at a000
+      .BYTE 3,$48,$E				  ; 0 ;	data used at a000
+      .BYTE 3,$48,2				  ; 0 ;	data used at a000
+      .BYTE 5,$12,$92,$49,9			  ; 0 ;	data used at a000
+      .BYTE 3,3,$E5				  ; 0 ;	data used at a000
+      .BYTE 5,3,$21,3,$87			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A993:.BYTE 1				  ; DATA XREF: BANK9:A5CEo
+EnemyPointers_Level_3_1_Area2:.BYTE 1		  ; DATA XREF: BANK9:A5CEo
 						  ; BANK9:A5D8o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A997:.BYTE 1				  ; DATA XREF: BANK9:A5CFo
+EnemyPointers_Level_3_1_Area3:.BYTE 1		  ; DATA XREF: BANK9:A5CFo
 						  ; BANK9:A5D9o
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $2B					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $12					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $95					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $65					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $24					  ; data used at a000
-      .BYTE 5					  ; data used at a000
+      .BYTE 3,3,$2B				  ; 0 ;	data used at a000
+      .BYTE 3,$25,$12				  ; 0 ;	data used at a000
+      .BYTE 3,$23,$95				  ; 0 ;	data used at a000
+      .BYTE 3,3,$65				  ; 0 ;	data used at a000
+      .BYTE 3,$24,5				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A9A8:.BYTE 1				  ; DATA XREF: BANK9:A5D0o
+EnemyPointers_Level_3_1_Area4:.BYTE 1		  ; DATA XREF: BANK9:A5D0o
 						  ; BANK9:A5DAo
 						  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $93					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $B9					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $BA					  ; data used at a000
+      .BYTE 7,$43,$93,$1C,$B9,$44,$BA		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A9B3:.BYTE 5				  ; DATA XREF: BANK9:A5D1o
+EnemyPointers_Level_3_2_Area0:.BYTE 5,$42,$42,$49,$40			  ; 0
+						  ; DATA XREF: BANK9:A5D1o
 						  ; BANK9:A5D2o BANK9:A5D3o ...
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE $40					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $48					  ; data used at a000
-      .BYTE $C0					  ; data used at a000
+      .BYTE 5,8,$25,$48,$C0			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $48					  ; data used at a000
-      .BYTE 0					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $E6					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE $80					  ; data used at a000
+      .BYTE 3,$48,0				  ; 0 ;	data used at a000
+      .BYTE 5,$25,$E6,$49,$80			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE $35					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE $55					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $A4					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $CB					  ; data used at a000
+      .BYTE 5,8,$35,8,$55			  ; 0 ;	data used at a000
+      .BYTE 5,6,$A4,6,$CB			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $96					  ; data used at a000
+      .BYTE 3,6,$96				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A9D6:.BYTE 7				  ; DATA XREF: BANK9:A5E1o
+EnemyPointers_Level_3_2_Area1:.BYTE 7,4,$3C,4,$6C,4,$EC			  ; 0
+						  ; DATA XREF: BANK9:A5E1o
 						  ; BANK9:A5EBo
 						  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $3C					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $6C					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $EC					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
+      .BYTE 3,4,$1C				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $6C					  ; data used at a000
+      .BYTE 3,3,$29				  ; 0 ;	data used at a000
+      .BYTE 7,2,$29,2,$49,2,$6C			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A9EF:.BYTE 5				  ; DATA XREF: BANK9:A5E2o
+EnemyPointers_Level_3_2_Area2:.BYTE 5,$1C,$B6,$44,$B6			  ; 0
+						  ; DATA XREF: BANK9:A5E2o
 						  ; BANK9:A5ECo
 						  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $B6					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $B6					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $FA					  ; data used at a000
+      .BYTE 3,$43,$FA				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A9FA:.BYTE 1				  ; DATA XREF: BANK9:A5E3o
+EnemyPointers_Level_3_2_Area3:.BYTE 1		  ; DATA XREF: BANK9:A5E3o
 						  ; BANK9:A5EDo
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $5C					  ; data used at a000
-      .BYTE $C7					  ; data used at a000
+      .BYTE 3,$5C,$C7				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_A9FF:.BYTE 3				  ; DATA XREF: BANK9:A5E4o
+EnemyPointers_Level_3_3_Area0:.BYTE 3,$42,$4A				  ; 0
+						  ; DATA XREF: BANK9:A5E4o
 						  ; BANK9:A5E5o BANK9:A5E6o ...
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $4A					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AA04:.BYTE 1				  ; DATA XREF: BANK9:A5F5o
+EnemyPointers_Level_3_3_Area1:.BYTE 1		  ; DATA XREF: BANK9:A5F5o
 						  ; BANK9:A5FFo
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $A					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE $58					  ; data used at a000
-      .BYTE $A					  ; data used at a000
-      .BYTE $84					  ; data used at a000
+      .BYTE 7,$A,$14,8,$58,$A,$84		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AA13:.BYTE 3				  ; DATA XREF: BANK9:A5F6o
+EnemyPointers_Level_3_3_Area2:.BYTE 3,$31,$65				  ; 0
+						  ; DATA XREF: BANK9:A5F6o
 						  ; BANK9:A600o
 						  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $65					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $75					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $95					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $55					  ; data used at a000
-byte_BANK9_AA20:.BYTE $D			  ; data used at a000
-      .BYTE $AC					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $CC					  ; data used at a000
+      .BYTE 5,$E,$75,$E,$95			  ; 0 ;	data used at a000
+      .BYTE 9,$30,5,$31,$55,$D,$AC,$D,$CC	  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AA26:.BYTE 1				  ; DATA XREF: BANK9:A5F7o
+EnemyPointers_Level_3_3_Area3:.BYTE 1		  ; DATA XREF: BANK9:A5F7o
 						  ; BANK9:A601o
 						  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $72					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $84					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $B7					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $4C					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $81					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $1A					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $DF					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $35					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $96					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $71					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $CF					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $20					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $70					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $7E					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $71					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $8D					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $7F					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $34					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $C7					  ; data used at a000
+      .BYTE 9,$31,$72,$2E,$84,$2E,$B7,$30,$4C	  ; 0 ;	data used at a000
+      .BYTE 7,$2E,$81,$2F,$1A,$31,$DF		  ; 0 ;	data used at a000
+      .BYTE 7,$2E,$35,$2E,$96,$2E,$18		  ; 0 ;	data used at a000
+      .BYTE 3,$31,$71				  ; 0 ;	data used at a000
+      .BYTE 3,$31,$CF				  ; 0 ;	data used at a000
+      .BYTE 7,$2F,$20,$31,$70,$2E,$7E		  ; 0 ;	data used at a000
+      .BYTE 7,$2F,$71,$30,$8D,$31,$7F		  ; 0 ;	data used at a000
+      .BYTE 5,$30,$34,$30,$C7			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AA59:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A5F8o
+EnemyPointers_Level_3_3_Area4:.BYTE 3,6,$6C				  ; 0
+						  ; DATA XREF: BANK9:A5F8o
 						  ; BANK9:A602o
 						  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $6C					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $8D					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $CD					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $57					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $ED					  ; data used at a000
+      .BYTE 5,$23,$8D,$23,$CD			  ; 0 ;	data used at a000
+      .BYTE 5,2,$57,2,$ED			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $C2					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $C4					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $3D					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $D6					  ; data used at a000
+      .BYTE 5,5,$C2,7,$3B			  ; 0 ;	data used at a000
+      .BYTE 5,7,$C4,3,$3D			  ; 0 ;	data used at a000
+      .BYTE 3,$E,$D6				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AA75:.BYTE 3				  ; DATA XREF: BANK9:A5F9o
+EnemyPointers_Level_3_3_Area5:.BYTE 3,$15,$6F				  ; 0
+						  ; DATA XREF: BANK9:A5F9o
 						  ; BANK9:A603o
 						  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $6F					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-byte_BANK9_AA79:.BYTE $15			  ; data used at a000
-      .BYTE $6B					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $67					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $63					  ; data used at a000
+      .BYTE 3,$15,$6B				  ; 0 ;	data used at a000
+      .BYTE 3,$15,$67				  ; 0 ;	data used at a000
+      .BYTE 3,$15,$63				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AA82:.BYTE $B			  ; DATA XREF: BANK9:A5FAo
+EnemyPointers_Level_3_3_Area6:.BYTE $B,$31,$73,$2F,$84,$31,$79,$17,$87,$3D,$89;	0
+						  ; DATA XREF: BANK9:A5FAo
 						  ; BANK9:A604o
 						  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $73					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $84					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $79					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $87					  ; data used at a000
-      .BYTE $3D					  ; data used at a000
-      .BYTE $89					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AA8E:.BYTE 1				  ; DATA XREF: BANK9:A5FBo
+EnemyPointers_Level_3_3_Area7:.BYTE 1		  ; DATA XREF: BANK9:A5FBo
 						  ; BANK9:A605o
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $C9					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $E9					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $E9					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $6B					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $AA					  ; data used at a000
+      .BYTE 5,$E,$C9,$E,$E9			  ; 0 ;	data used at a000
+      .BYTE 3,$D,$E9				  ; 0 ;	data used at a000
+      .BYTE 5,$D,9,$D,$29			  ; 0 ;	data used at a000
+      .BYTE 5,$44,$6B,$43,$AA			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AAA2:.BYTE 3				  ; DATA XREF: BANK9:A5FCo
+EnemyPointers_Level_3_3_Area8:.BYTE 3,$2F,$22				  ; 0
+						  ; DATA XREF: BANK9:A5FCo
 						  ; BANK9:A5FDo BANK9:A606o ...
 						  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $22					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $62					  ; data used at a000
-      .BYTE $5D					  ; data used at a000
-      .BYTE $D6					  ; data used at a000
+      .BYTE 5,$2F,$62,$5D,$D6			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AAAC:.BYTE 1				  ; DATA XREF: BANK9:off_BANK9_A608o
-						  ; BANK9:off_BANK9_A612o
+EnemyPointers_Level_4_1_Area0:.BYTE 1		  ; DATA XREF: BANK9:EnemyPointers_Level_4_1_Hio
+						  ; BANK9:EnemyPointers_Level_4_1_Loo
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $96					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-byte_BANK9_AAB1:.BYTE $B2			  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $22					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $35					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $D9					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $F6					  ; data used at a000
+      .BYTE 5,$29,$96,$13,$B2			  ; 0 ;	data used at a000
+      .BYTE 3,$13,$22				  ; 0 ;	data used at a000
+      .BYTE $B,$29,9,$29,$29,$13,$35,$29,$D9,$29,$F6; 0	; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $46					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $98					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $A6					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $F8					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $B5					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $35					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $41					  ; data used at a000
+      .BYTE 9,$29,$46,$29,$98,$29,$A6,$29,$F8	  ; 0 ;	data used at a000
+      .BYTE 5,$13,$13,$29,$B8			  ; 0 ;	data used at a000
+      .BYTE 5,$29,8,$29,$B5			  ; 0 ;	data used at a000
+      .BYTE 5,$29,$35,$13,$41			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AADB:.BYTE 1				  ; DATA XREF: BANK9:A609o
+EnemyPointers_Level_4_1_Area1:.BYTE 1		  ; DATA XREF: BANK9:A609o
 						  ; BANK9:A613o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $26					  ; data used at a000
-      .BYTE $58					  ; data used at a000
+      .BYTE 3,$26,$58				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $A					  ; data used at a000
-      .BYTE $26					  ; data used at a000
-      .BYTE $58					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $9A					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $3A					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $DC					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $26					  ; data used at a000
-      .BYTE $F6					  ; data used at a000
+      .BYTE 7,$29,$A,$26,$58,$29,$9A		  ; 0 ;	data used at a000
+      .BYTE 5,$29,$3A,$29,$DC			  ; 0 ;	data used at a000
+      .BYTE 3,$26,$F6				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $3C					  ; data used at a000
-      .BYTE $26					  ; data used at a000
-      .BYTE $D7					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $85					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $D4					  ; data used at a000
+      .BYTE 5,$29,$3C,$26,$D7			  ; 0 ;	data used at a000
+      .BYTE 5,$44,$85,$43,$D4			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AAFC:.BYTE 1				  ; DATA XREF: BANK9:A60Ao
+EnemyPointers_Level_4_1_Area2:.BYTE 1		  ; DATA XREF: BANK9:A60Ao
 						  ; BANK9:A60Bo BANK9:A60Co ...
+						  ; This area is unused...
+      .BYTE 3,$5C,$B8				  ; 0 ;	it has another lonely Boss Birdo...
+      .BYTE 1					  ; and	a fucking billion empty	pages.
+      .BYTE 1					  ; Nintendo, what were	you on???
+      .BYTE 1
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; data used at a000
+EnemyPointers_Level_4_2_Area0:.BYTE 3,$42,$47				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_4_2_Hio
+						  ; BANK9:EnemyPointers_Level_4_2_Loo
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $5C					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_AB19:.BYTE 1				  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_AB2A:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A61Co
-						  ; BANK9:off_BANK9_A626o
-						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $47					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_AB2F:.BYTE 5				  ; DATA XREF: BANK9:A61Do
+EnemyPointers_Level_4_2_Area1:.BYTE 5,$10,$D3,$10,$F5			  ; 0
+						  ; DATA XREF: BANK9:A61Do
 						  ; BANK9:A627o
 						  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $D3					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $F5					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $D8					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $16					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $37					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $78					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $67					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $98					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $C7					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $E4					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $F8					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $C8					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $E8					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $F3					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $A6					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $D8					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $37					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $53					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $95					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $D8					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $F4					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $3A					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $56					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $7B					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $84					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $F7					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $66					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
+      .BYTE 3,$10,$D8				  ; 0 ;	data used at a000
+      .BYTE 9,$10,$16,$10,$37,$10,$44,$10,$78	  ; 0 ;	data used at a000
+      .BYTE $B,$10,$67,$10,$98,$10,$C7,$10,$E4,$10,$F8;	0 ; data used at a000
+      .BYTE 7,$29,$C8,$29,$E8,$10,$F3		  ; 0 ;	data used at a000
+      .BYTE 5,$10,$A6,$10,$D8			  ; 0 ;	data used at a000
+      .BYTE $B,$10,$37,$10,$53,$10,$95,$10,$D8,$10,$F4;	0 ; data used at a000
+      .BYTE $B,$10,$3A,$10,$56,$10,$7B,$10,$84,$10,$F7;	0 ; data used at a000
+      .BYTE 7,$10,$23,$10,$66,$29,$B8		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AB76:.BYTE 1				  ; DATA XREF: BANK9:A61Eo
+EnemyPointers_Level_4_2_Area2:.BYTE 1		  ; DATA XREF: BANK9:A61Eo
 						  ; BANK9:A628o
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE $6A					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE $7A					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE $FA					  ; data used at a000
+      .BYTE 3,$28,$6A				  ; 0 ;	data used at a000
+      .BYTE 5,$28,$7A,$28,$FA			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE $DA					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE $69					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $98					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE $2A					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $39					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE $BA					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $C9					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE $69					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $88					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE $A9					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $D3					  ; data used at a000
+      .BYTE 3,$28,$DA				  ; 0 ;	data used at a000
+      .BYTE 5,$28,$69,7,$98			  ; 0 ;	data used at a000
+      .BYTE 9,$28,$2A,3,$39,$28,$BA,3,$C9	  ; 0 ;	data used at a000
+      .BYTE 5,$28,$69,3,$88			  ; 0 ;	data used at a000
+      .BYTE 5,$28,$A9,$29,$D3			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AB9D:.BYTE 1				  ; DATA XREF: BANK9:A61Fo
+EnemyPointers_Level_4_2_Area3:.BYTE 1		  ; DATA XREF: BANK9:A61Fo
 						  ; BANK9:A629o
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $26					  ; data used at a000
-      .BYTE $C7					  ; data used at a000
+      .BYTE 3,$26,$C7				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $99					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $C9					  ; data used at a000
+      .BYTE 5,4,$99,4,$C9			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ABA8:.BYTE 1				  ; DATA XREF: BANK9:A620o
+EnemyPointers_Level_4_2_Area4:.BYTE 1		  ; DATA XREF: BANK9:A620o
 						  ; BANK9:A621o BANK9:A622o ...
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $B9					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $BA					  ; data used at a000
+      .BYTE 5,$1C,$B8,$44,$B9			  ; 0 ;	data used at a000
+      .BYTE 3,$43,$BA				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ABB7:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A630o
-						  ; BANK9:off_BANK9_A63Ao
+EnemyPointers_Level_4_3_Area0:.BYTE 3,$42,$2A				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_4_3_Hio
+						  ; BANK9:EnemyPointers_Level_4_3_Loo
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $2A					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ABBB:.BYTE 1				  ; DATA XREF: BANK9:A631o
+EnemyPointers_Level_4_3_Area1:.BYTE 1		  ; DATA XREF: BANK9:A631o
 						  ; BANK9:A63Bo
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $A9					  ; data used at a000
+      .BYTE 3,$1C,$A9				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -73456,79 +72763,37 @@ byte_BANK9_ABBB:.BYTE 1				  ; DATA XREF: BANK9:A631o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $18					  ; data used at a000
+      .BYTE 3,$10,$18				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ABCA:.BYTE 9				  ; DATA XREF: BANK9:A632o
+EnemyPointers_Level_4_3_Area2:.BYTE 9,$29,$EA,$29,$EC,$29,$DE,$29,$EE	  ; 0
+						  ; DATA XREF: BANK9:A632o
 						  ; BANK9:A63Co
 						  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $EA					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $EC					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $DE					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $EE					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $EE					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $E0					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $E2					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $8C					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $92					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $B2					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $E9					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $EB					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $71					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $E4					  ; data used at a000
+      .BYTE 3,$29,$EE				  ; 0 ;	data used at a000
+      .BYTE 5,$29,$E0,$29,$E2			  ; 0 ;	data used at a000
+      .BYTE 3,$29,$8C				  ; 0 ;	data used at a000
+      .BYTE 9,$29,$92,$29,$B2,$29,$E9,$29,$EB	  ; 0 ;	data used at a000
+      .BYTE 5,$29,$71,$29,$E4			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ABEE:.BYTE 1				  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ABF1:.BYTE 7				  ; DATA XREF: BANK9:A633o
+      .BYTE 1					  ; data used at a000
+EnemyPointers_Level_4_3_Area3:.BYTE 7,1,$C8,3,$D8,2,$E8			  ; 0
+						  ; DATA XREF: BANK9:A633o
 						  ; BANK9:A63Do
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $C8					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $D8					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $E8					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
+      .BYTE 7,$29,$72,$29,$82,$29,$7E		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $72					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $82					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $7E					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $C1					  ; data used at a000
+      .BYTE 3,$29,$C1				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC0A:.BYTE 1				  ; DATA XREF: BANK9:A634o
+EnemyPointers_Level_4_3_Area4:.BYTE 1		  ; DATA XREF: BANK9:A634o
 						  ; BANK9:A63Eo
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -73541,17 +72806,10 @@ byte_BANK9_AC0A:.BYTE 1				  ; DATA XREF: BANK9:A634o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC15:.BYTE 9				  ; DATA XREF: BANK9:A635o
+EnemyPointers_Level_4_3_Area5:.BYTE 9,$17,$72,$3D,$74,$29,$57,$29,$97	  ; 0
+						  ; DATA XREF: BANK9:A635o
 						  ; BANK9:A63Fo
 						  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $72					  ; data used at a000
-      .BYTE $3D					  ; data used at a000
-      .BYTE $74					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $57					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $97					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -73562,18 +72820,11 @@ byte_BANK9_AC15:.BYTE 9				  ; DATA XREF: BANK9:A635o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC28:.BYTE 5				  ; DATA XREF: BANK9:A636o
+EnemyPointers_Level_4_3_Area6:.BYTE 5,$29,$65,$29,$95			  ; 0
+						  ; DATA XREF: BANK9:A636o
 						  ; BANK9:A640o
 						  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $65					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $95					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $2A					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $87					  ; data used at a000
+      .BYTE 5,$44,$2A,$43,$87			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -73583,11 +72834,10 @@ byte_BANK9_AC28:.BYTE 5				  ; DATA XREF: BANK9:A636o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC3B:.BYTE 3				  ; DATA XREF: BANK9:A637o
+EnemyPointers_Level_4_3_Area7:.BYTE 3,$6A,$24				  ; 0
+						  ; DATA XREF: BANK9:A637o
 						  ; BANK9:A641o
 						  ; data used at a000
-      .BYTE $6A					  ; data used at a000
-      .BYTE $24					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -73598,7 +72848,7 @@ byte_BANK9_AC3B:.BYTE 3				  ; DATA XREF: BANK9:A637o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC48:.BYTE 1				  ; DATA XREF: BANK9:A638o
+EnemyPointers_Level_4_3_Area8:.BYTE 1		  ; DATA XREF: BANK9:A638o
 						  ; BANK9:A642o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -73611,7 +72861,7 @@ byte_BANK9_AC48:.BYTE 1				  ; DATA XREF: BANK9:A638o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC53:.BYTE 1				  ; DATA XREF: BANK9:A639o
+EnemyPointers_Level_4_3_Area9:.BYTE 1		  ; DATA XREF: BANK9:A639o
 						  ; BANK9:A643o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -73624,164 +72874,60 @@ byte_BANK9_AC53:.BYTE 1				  ; DATA XREF: BANK9:A639o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC5E:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A644o
-						  ; BANK9:off_BANK9_A64Eo
+EnemyPointers_Level_5_1_Area0:.BYTE 3,$42,$31				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_5_1_Hio
+						  ; BANK9:EnemyPointers_Level_5_1_Loo
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE $45					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $56					  ; data used at a000
+      .BYTE 3,8,$45				  ; 0 ;	data used at a000
+      .BYTE 3,$23,$56				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC68:.BYTE 1				  ; DATA XREF: BANK9:A645o
+EnemyPointers_Level_5_1_Area1:.BYTE 1		  ; DATA XREF: BANK9:A645o
 						  ; BANK9:A64Fo
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $E4					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $34					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $84					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $B2					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $D4					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $82					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $C2					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $A4					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $82					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $C2					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $B2					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-byte_BANK9_AC8B:.BYTE $94			  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $E4					  ; data used at a000
+      .BYTE 3,$3B,$E4				  ; 0 ;	data used at a000
+      .BYTE 9,$3B,$34,$3B,$84,$13,$B2,$3B,$D4	  ; 0 ;	data used at a000
+      .BYTE 5,$13,$82,$13,$C2			  ; 0 ;	data used at a000
+      .BYTE 5,$13,2,$3B,$A4			  ; 0 ;	data used at a000
+      .BYTE 7,$13,$42,$13,$82,$13,$C2		  ; 0 ;	data used at a000
+      .BYTE 3,$13,$B2				  ; 0 ;	data used at a000
+      .BYTE 5,$3B,$94,$3B,$E4			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC91:.BYTE 5				  ; DATA XREF: BANK9:A646o
+EnemyPointers_Level_5_1_Area2:.BYTE 5,$1C,$C4,$44,$C5			  ; 0
+						  ; DATA XREF: BANK9:A646o
 						  ; BANK9:A650o
 						  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $C4					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $C5					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $CA					  ; data used at a000
+      .BYTE 3,$43,$CA				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC9A:.BYTE 3				  ; DATA XREF: BANK9:A647o
+EnemyPointers_Level_5_2_Area0:.BYTE 3,$42,$2A				  ; 0
+						  ; DATA XREF: BANK9:A647o
 						  ; BANK9:A648o BANK9:A649o ...
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $2A					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AC9F:.BYTE 1				  ; DATA XREF: BANK9:A659o
+EnemyPointers_Level_5_2_Area1:.BYTE 1		  ; DATA XREF: BANK9:A659o
 						  ; BANK9:A663o
 						  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $78					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $96					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $D6					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $E6					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $F6					  ; data used at a000
+      .BYTE 7,$14,$78,$14,$96,$14,$B8		  ; 0 ;	data used at a000
+      .BYTE 9,8,$29,$14,$D6,$14,$E6,$14,$F6	  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $8C					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $9C					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE $AB					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $BC					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $89					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $B9					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $55					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $95					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $38					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $57					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $26					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $46					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $6A					  ; data used at a000
-      .BYTE 8					  ; data used at a000
-      .BYTE $99					  ; data used at a000
+      .BYTE 9,4,$8C,4,$9C,8,$AB,4,$BC		  ; 0 ;	data used at a000
+      .BYTE 5,$14,$89,$14,$B9			  ; 0 ;	data used at a000
+      .BYTE 5,$14,$55,$14,$95			  ; 0 ;	data used at a000
+      .BYTE 7,$14,$17,$25,$38,$14,$57		  ; 0 ;	data used at a000
+      .BYTE 5,$D,$26,$D,$46			  ; 0 ;	data used at a000
+      .BYTE 5,4,$6A,8,$99			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ACD6:.BYTE 3				  ; DATA XREF: BANK9:A65Ao
+EnemyPointers_Level_5_2_Area2:.BYTE 3,$14,$8B				  ; 0
+						  ; DATA XREF: BANK9:A65Ao
 						  ; BANK9:A664o
 						  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $8B					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $F2					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $68					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $8E					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $DE					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $C5					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $36					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $8E					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $DE					  ; data used at a000
+      .BYTE 9,$10,$F2,$14,$68,$14,$8E,6,$DE	  ; 0 ;	data used at a000
+      .BYTE $B,$10,2,6,$C5,6,$36,$10,$8E,$10,$DE  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ACEF:.BYTE 1				  ; DATA XREF: BANK9:A65Bo
+EnemyPointers_Level_5_2_Area3:.BYTE 1		  ; DATA XREF: BANK9:A65Bo
 						  ; BANK9:A665o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -73789,261 +72935,110 @@ byte_BANK9_ACEF:.BYTE 1				  ; DATA XREF: BANK9:A65Bo
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $55					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $85					  ; data used at a000
+      .BYTE 5,$13,$55,$13,$85			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ACFB:.BYTE 3				  ; DATA XREF: BANK9:A65Co
+EnemyPointers_Level_5_2_Area4:.BYTE 3,1,$2B				  ; 0
+						  ; DATA XREF: BANK9:A65Co
 						  ; BANK9:A666o
 						  ; data used at a000
+      .BYTE 5,4,$24,4,$B4			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $2B					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $24					  ; data used at a000
-      .BYTE 4					  ; data used at a000
-      .BYTE $B4					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_AD04:.BYTE 1				  ; DATA XREF: BANK9:A65Do
+EnemyPointers_Level_5_2_Area5:.BYTE 1		  ; DATA XREF: BANK9:A65Do
 						  ; BANK9:A667o
 						  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $73					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $B9					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $B4					  ; data used at a000
+      .BYTE 7,$13,$73,$1C,$B8,$44,$B9		  ; 0 ;	data used at a000
+      .BYTE 3,$43,$B4				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AD10:.BYTE 3				  ; DATA XREF: BANK9:A65Eo
+EnemyPointers_Level_5_3_Area0:.BYTE 3,$42,$3A				  ; 0
+						  ; DATA XREF: BANK9:A65Eo
 						  ; BANK9:A65Fo BANK9:A660o ...
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $3A					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AD15:.BYTE 3				  ; DATA XREF: BANK9:A66Do
+EnemyPointers_Level_5_3_Area1:.BYTE 3,$49,$80				  ; 0
+						  ; DATA XREF: BANK9:A66Do
 						  ; BANK9:A677o
 						  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE $80					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $47					  ; data used at a000
-      .BYTE 0					  ; data used at a000
+      .BYTE 3,$47,0				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $47					  ; data used at a000
-      .BYTE $40					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE $C0					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE $C0					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $2C					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $7C					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $AC					  ; data used at a000
+      .BYTE 3,$47,$40				  ; 0 ;	data used at a000
+      .BYTE 3,$49,$C0				  ; 0 ;	data used at a000
+      .BYTE 3,$49,$C0				  ; 0 ;	data used at a000
+      .BYTE 7,9,$2C,9,$7C,9,$AC			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $58					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $78					  ; data used at a000
+      .BYTE 5,9,$58,9,$78			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AD34:.BYTE 1				  ; DATA XREF: BANK9:A66Eo
+EnemyPointers_Level_5_3_Area2:.BYTE 1		  ; DATA XREF: BANK9:A66Eo
 						  ; BANK9:A678o
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $36					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $C6					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $36					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $45					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $16					  ; data used at a000
-      .BYTE $A5					  ; data used at a000
+      .BYTE 5,$23,$36,9,$C6			  ; 0 ;	data used at a000
+      .BYTE 3,9,$36				  ; 0 ;	data used at a000
+      .BYTE 5,9,$25,9,$45			  ; 0 ;	data used at a000
+      .BYTE 3,$16,$A5				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AD46:.BYTE 1				  ; DATA XREF: BANK9:A66Fo
+EnemyPointers_Level_5_3_Area3:.BYTE 1		  ; DATA XREF: BANK9:A66Fo
 						  ; BANK9:A679o
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-byte_BANK9_AD48:.BYTE $24			  ; data used at a000
-      .BYTE $52					  ; data used at a000
-      .BYTE $24					  ; data used at a000
-      .BYTE $3D					  ; data used at a000
+      .BYTE 5,$24,$52,$24,$3D			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $90					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $B0					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $D5					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $4F					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $82					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $A8					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $41					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $84					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $8A					  ; data used at a000
+      .BYTE 9,9,$90,9,$B0,$2F,$D5,$30,$4F	  ; 0 ;	data used at a000
+      .BYTE 5,$15,$82,$2F,$A8			  ; 0 ;	data used at a000
+      .BYTE 7,$30,$41,$15,$84,$31,$8A		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AD64:.BYTE 1				  ; DATA XREF: BANK9:A670o
+EnemyPointers_Level_5_3_Area4:.BYTE 1		  ; DATA XREF: BANK9:A670o
 						  ; BANK9:A67Ao
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $67					  ; data used at a000
-      .BYTE $12					  ; data used at a000
-      .BYTE $D2					  ; data used at a000
+      .BYTE 5,7,$67,$12,$D2			  ; 0 ;	data used at a000
+      .BYTE 1					  ; 0 ;	data used at a000
+      .BYTE 3,$12,$F2				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $12					  ; data used at a000
-      .BYTE $F2					  ; data used at a000
+      .BYTE 7,$F,$60,3,$92,3,$A6		  ; 0 ;	data used at a000
+      .BYTE 5,3,7,3,$55				  ; 0 ;	data used at a000
+      .BYTE 5,$1C,$B7,$44,$B8			  ; 0 ;	data used at a000
+      .BYTE 3,$43,$B5				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $60					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $92					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $A6					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $55					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $B7					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $B5					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_AD85:.BYTE 1				  ; DATA XREF: BANK9:A671o
+EnemyPointers_Level_5_3_Area5:.BYTE 1		  ; DATA XREF: BANK9:A671o
 						  ; BANK9:A672o BANK9:A673o ...
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $61					  ; data used at a000
-      .BYTE $A7					  ; data used at a000
+      .BYTE 3,$61,$A7				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AD8A:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A680o
-						  ; BANK9:off_BANK9_A68Ao
+EnemyPointers_Level_6_1_Area0:.BYTE 3,$42,$4A				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_6_1_Hio
+						  ; BANK9:EnemyPointers_Level_6_1_Loo
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $4A					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $1D					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $AB					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $DD					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $5A					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $1A					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $1D					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $5D					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $7B					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $EA					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $1A					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $AD					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $BD					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $1A					  ; data used at a000
-      .BYTE $E6					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $1A					  ; data used at a000
-      .BYTE $36					  ; data used at a000
-byte_BANK9_ADB1:.BYTE $24			  ; data used at a000
-      .BYTE $99					  ; data used at a000
+      .BYTE 7,$19,$1D,3,$AB,$19,$DD		  ; 0 ;	data used at a000
+      .BYTE 3,$18,$5A				  ; 0 ;	data used at a000
+      .BYTE 3,$1A,$49				  ; 0 ;	data used at a000
+      .BYTE 7,$19,$1D,$19,$5D,3,$7B		  ; 0 ;	data used at a000
+      .BYTE 3,$18,$EA				  ; 0 ;	data used at a000
+      .BYTE 7,$18,$1A,$19,$AD,$19,$BD		  ; 0 ;	data used at a000
+      .BYTE 3,$1A,$E6				  ; 0 ;	data used at a000
+      .BYTE 5,$1A,$36,$24,$99			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ADB5:.BYTE 1				  ; DATA XREF: BANK9:A681o
+EnemyPointers_Level_6_1_Area1:.BYTE 1		  ; DATA XREF: BANK9:A681o
 						  ; BANK9:A68Bo
 						  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $4B					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $9A					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $FB					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $2B					  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $7B					  ; data used at a000
+      .BYTE 7,$18,$4B,$18,$9A,$15,$FB		  ; 0 ;	data used at a000
+      .BYTE 5,$18,$2B,$18,$7B			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ADC4:.BYTE 1				  ; DATA XREF: BANK9:A682o
+EnemyPointers_Level_6_1_Area2:.BYTE 1		  ; DATA XREF: BANK9:A682o
 						  ; BANK9:A68Co
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $C8					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $C8					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $27					  ; data used at a000
+      .BYTE 5,$1C,$C8,$44,$C8			  ; 0 ;	data used at a000
+      .BYTE 3,$43,$27				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ADCE:.BYTE 3				  ; DATA XREF: BANK9:A683o
+EnemyPointers_Level_6_1_Area3:.BYTE 3,1,$5A				  ; 0
+						  ; DATA XREF: BANK9:A683o
 						  ; BANK9:A68Do
 						  ; data used at a000
+      .BYTE 9,1,$41,1,$B4,$17,$85,$3D,$69	  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $5A					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $41					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $B4					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $85					  ; data used at a000
-      .BYTE $3D					  ; data used at a000
-      .BYTE $69					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_ADDB:.BYTE 1				  ; DATA XREF: BANK9:A684o
+EnemyPointers_Level_6_1_Area4:.BYTE 1		  ; DATA XREF: BANK9:A684o
 						  ; BANK9:A68Eo
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -74055,641 +73050,250 @@ byte_BANK9_ADDB:.BYTE 1				  ; DATA XREF: BANK9:A684o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $2A					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $DA					  ; data used at a000
-byte_BANK9_ADEA:.BYTE 3				  ; DATA XREF: BANK9:A685o
+      .BYTE 5,1,$2A,1,$DA			  ; 0 ;	data used at a000
+EnemyPointers_Level_6_1_Area5:.BYTE 3,1,$5A				  ; 0
+						  ; DATA XREF: BANK9:A685o
 						  ; BANK9:A68Fo
 						  ; data used at a000
+      .BYTE 5,1,$41,1,$B4			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $5A					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $41					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $B4					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_ADF3:.BYTE 3				  ; DATA XREF: BANK9:A686o
+EnemyPointers_Level_6_1_Area6:.BYTE 3,1,$B8				  ; 0
+						  ; DATA XREF: BANK9:A686o
 						  ; BANK9:A687o BANK9:A688o ...
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_ADF7:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A694o
-						  ; BANK9:off_BANK9_A69Eo
+EnemyPointers_Level_6_2_Area0:.BYTE 3,$42,$2A				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_6_2_Hio
+						  ; BANK9:EnemyPointers_Level_6_2_Loo
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $2A					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_ADFC:.BYTE 5				  ; DATA XREF: BANK9:A695o
+EnemyPointers_Level_6_2_Area1:.BYTE 5,$B,$C,$B,$26			  ; 0
+						  ; DATA XREF: BANK9:A695o
 						  ; BANK9:A69Fo
 						  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $26					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $AB					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $C9					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $E7					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $AB					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $55					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $85					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $A5					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $98					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $C8					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $10					  ; data used at a000
-      .BYTE $A3					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $63					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $65					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $67					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $65					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $93					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $C4					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $EB					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $A9					  ; data used at a000
+      .BYTE 7,$C,$AB,$C,$C9,$C,$E7		  ; 0 ;	data used at a000
+      .BYTE 3,$25,$AB				  ; 0 ;	data used at a000
+      .BYTE 7,$10,$55,$10,$85,$10,$A5		  ; 0 ;	data used at a000
+      .BYTE 5,$C,$98,$C,$C8			  ; 0 ;	data used at a000
+      .BYTE 3,$10,$A3				  ; 0 ;	data used at a000
+      .BYTE 7,$C,$63,$C,$65,$C,$67		  ; 0 ;	data used at a000
+      .BYTE 7,$C,$65,$C,$93,$C,$C4		  ; 0 ;	data used at a000
+      .BYTE 3,$C,$EB				  ; 0 ;	data used at a000
+      .BYTE 5,$C,$29,$C,$A9			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AE31:.BYTE 1				  ; DATA XREF: BANK9:A696o
+EnemyPointers_Level_6_2_Area2:.BYTE 1		  ; DATA XREF: BANK9:A696o
 						  ; BANK9:A697o BANK9:A698o ...
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $CA					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $CB					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $D4					  ; data used at a000
+      .BYTE 5,$1C,$CA,$44,$CB			  ; 0 ;	data used at a000
+      .BYTE 3,$43,$D4				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AE3B:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A6A8o
-						  ; BANK9:off_BANK9_A6B2o
+EnemyPointers_Level_6_3_Area0:.BYTE 3,$42,$2A				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_6_3_Hio
+						  ; BANK9:EnemyPointers_Level_6_3_Loo
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $2A					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AE3F:.BYTE 1				  ; DATA XREF: BANK9:A6A9o
+EnemyPointers_Level_6_3_Area1:.BYTE 1		  ; DATA XREF: BANK9:A6A9o
 						  ; BANK9:A6B3o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $98					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $48					  ; data used at a000
-      .BYTE $1A					  ; data used at a000
-      .BYTE $66					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $AA					  ; data used at a000
-byte_BANK9_AE4B:.BYTE 1				  ; data used at a000
+      .BYTE 3,3,$98				  ; 0 ;	data used at a000
+      .BYTE 7,3,$48,$1A,$66,$19,$AA		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AE4D:.BYTE 1				  ; DATA XREF: BANK9:A6AAo
+      .BYTE 1					  ; data used at a000
+EnemyPointers_Level_6_3_Area2:.BYTE 1		  ; DATA XREF: BANK9:A6AAo
 						  ; BANK9:A6B4o
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $16					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE $16					  ; data used at a000
-      .BYTE $F9					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $A9					  ; data used at a000
-      .BYTE $16					  ; data used at a000
-      .BYTE $C9					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $F5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $27					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $38					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $56					  ; data used at a000
+      .BYTE 5,$16,$49,$16,$F9			  ; 0 ;	data used at a000
+      .BYTE 5,9,$A9,$16,$C9			  ; 0 ;	data used at a000
+      .BYTE 3,$D,$F5				  ; 0 ;	data used at a000
+      .BYTE 7,$D,$27,$D,$38,$D,$56		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AE68:.BYTE 1				  ; DATA XREF: BANK9:A6ABo
+EnemyPointers_Level_6_3_Area3:.BYTE 1		  ; DATA XREF: BANK9:A6ABo
 						  ; BANK9:A6B5o
 						  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $95					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $A4					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $B3					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $C2					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $A7					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $BA					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $C8					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $34					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $4A					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $75					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $7E					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $28					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $9C					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $AD					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $BE					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $5C					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $93					  ; data used at a000
+      .BYTE 9,$14,$95,$14,$A4,$14,$B3,$14,$C2	  ; 0 ;	data used at a000
+      .BYTE 7,$14,$A7,$14,$BA,$14,$C8		  ; 0 ;	data used at a000
+      .BYTE 3,$14,$34				  ; 0 ;	data used at a000
+      .BYTE 7,$14,$4A,6,$75,6,$7E		  ; 0 ;	data used at a000
+      .BYTE 3,1,$28				  ; 0 ;	data used at a000
+      .BYTE 7,$14,$9C,$14,$AD,$14,$BE		  ; 0 ;	data used at a000
+      .BYTE 3,$14,$5C				  ; 0 ;	data used at a000
+      .BYTE 3,$14,$93				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AE95:.BYTE 1				  ; DATA XREF: BANK9:A6ACo
+EnemyPointers_Level_6_3_Area4:.BYTE 1		  ; DATA XREF: BANK9:A6ACo
 						  ; BANK9:A6B6o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AE9A:.BYTE 1				  ; DATA XREF: BANK9:A6ADo
+EnemyPointers_Level_6_3_Area5:.BYTE 1		  ; DATA XREF: BANK9:A6ADo
 						  ; BANK9:A6B7o
 						  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $97					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $B3					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $B4					  ; data used at a000
+      .BYTE 7,$43,$97,$1C,$B3,$44,$B4		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AEA3:.BYTE 1				  ; DATA XREF: BANK9:A6AEo
+EnemyPointers_Level_6_3_Area6:.BYTE 1		  ; DATA XREF: BANK9:A6AEo
 						  ; BANK9:A6AFo BANK9:A6B0o ...
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $5F					  ; data used at a000
-      .BYTE $B5					  ; data used at a000
+      .BYTE 3,$5F,$B5				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AEA8:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A6BCo
-						  ; BANK9:off_BANK9_A6C6o
+EnemyPointers_Level_7_1_Area0:.BYTE 3,$42,$2A				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_7_1_Hio
+						  ; BANK9:EnemyPointers_Level_7_1_Loo
 						  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $2A					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AEAC:.BYTE 1				  ; DATA XREF: BANK9:A6BDo
+EnemyPointers_Level_7_1_Area1:.BYTE 1		  ; DATA XREF: BANK9:A6BDo
 						  ; BANK9:A6C7o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $8B					  ; data used at a000
-byte_BANK9_AEB2:.BYTE $C			  ; data used at a000
-      .BYTE $94					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $94					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $E4					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $E4					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $2B					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $E4					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $E4					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $3B					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $54					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $54					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $6B					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $94					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $94					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $37					  ; data used at a000
-      .BYTE $C					  ; data used at a000
-      .BYTE $F3					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $F3					  ; data used at a000
+      .BYTE $D,9,$8B,$C,$94,9,$94,$D,$B8,$C,$E4,9,$E4; 0 ; data	used at	a000
+      .BYTE 7,9,$2B,$C,$E4,9,$E4		  ; 0 ;	data used at a000
+      .BYTE $D,$E,$3B,$C,$54,9,$54,9,$6B,$C,$94,9,$94; 0 ; data	used at	a000
+      .BYTE 7,$15,$37,$C,$F3,9,$F3		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AED8:.BYTE 1				  ; DATA XREF: BANK9:A6BEo
+EnemyPointers_Level_7_1_Area2:.BYTE 1		  ; DATA XREF: BANK9:A6BEo
 						  ; BANK9:A6C8o
 						  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $A8					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $B6					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $CB					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $38					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $DC					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $F3					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $59					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-byte_BANK9_AEEB:.BYTE $AB			  ; data used at a000
+      .BYTE 7,2,$A8,6,$B6,6,$CB			  ; 0 ;	data used at a000
+      .BYTE 7,$15,$38,3,$DC,6,$F3		  ; 0 ;	data used at a000
+      .BYTE 5,$D,$59,6,$AB			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AEED:.BYTE 1				  ; DATA XREF: BANK9:A6BFo
+EnemyPointers_Level_7_1_Area3:.BYTE 1		  ; DATA XREF: BANK9:A6BFo
 						  ; BANK9:A6C9o
 						  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $21					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $66					  ; data used at a000
-      .BYTE $14					  ; data used at a000
-      .BYTE $8B					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $87					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $D7					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $D9					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $E0					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $63					  ; data used at a000
+      .BYTE 7,6,$21,$14,$66,$14,$8B		  ; 0 ;	data used at a000
+      .BYTE 7,$31,$87,$31,$D7,$2F,$D9		  ; 0 ;	data used at a000
+      .BYTE 5,$31,$E0,$31,$63			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AF02:.BYTE 1				  ; DATA XREF: BANK9:A6C0o
+EnemyPointers_Level_7_1_Area4:.BYTE 1		  ; DATA XREF: BANK9:A6C0o
 						  ; BANK9:A6CAo
 						  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $9A					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $C5					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $C6					  ; data used at a000
+      .BYTE 7,$43,$9A,$1C,$C5,$44,$C6		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AF0B:.BYTE 5				  ; DATA XREF: BANK9:A6C1o
+EnemyPointers_Level_7_1_Area5:.BYTE 5,$31,$B9,$31,$C3			  ; 0
+						  ; DATA XREF: BANK9:A6C1o
 						  ; BANK9:A6C2o BANK9:A6C3o ...
 						  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $B9					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $C3					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AF11:.BYTE 3				  ; DATA XREF: BANK9:off_BANK9_A6D0o
-						  ; BANK9:off_BANK9_A6DAo
+EnemyPointers_Level_7_2_Area0:.BYTE 3,6,$F5				  ; 0
+						  ; DATA XREF: BANK9:EnemyPointers_Level_7_2_Hio
+						  ; BANK9:EnemyPointers_Level_7_2_Loo
 						  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $F5					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $58					  ; data used at a000
-      .BYTE 6					  ; data used at a000
-      .BYTE $E8					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $74					  ; data used at a000
+      .BYTE 5,6,$58,6,$E8			  ; 0 ;	data used at a000
+      .BYTE 3,$E,$74				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AF1D:.BYTE 1				  ; DATA XREF: BANK9:A6D1o
+EnemyPointers_Level_7_2_Area1:.BYTE 1		  ; DATA XREF: BANK9:A6D1o
 						  ; BANK9:A6DBo
 						  ; data used at a000
-      .BYTE 7					  ; data used at a000
+      .BYTE 7,1,$99,1,$D9,$15,$F9		  ; 0 ;	data used at a000
+      .BYTE 7,$E,$77,$E,$A7,$E,$C7		  ; 0 ;	data used at a000
+      .BYTE 3,$16,$D9				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $99					  ; data used at a000
+      .BYTE 5,$25,$1C,$25,$BC			  ; 0 ;	data used at a000
+      .BYTE 3,$25,$5B				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $D9					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $F9					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $77					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $A7					  ; data used at a000
-      .BYTE $E					  ; data used at a000
-      .BYTE $C7					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $16					  ; data used at a000
-      .BYTE $D9					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $BC					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $5B					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_AF39:.BYTE 1				  ; DATA XREF: BANK9:A6D2o
+EnemyPointers_Level_7_2_Area2:.BYTE 1		  ; DATA XREF: BANK9:A6D2o
 						  ; BANK9:A6DCo
 						  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $99					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $EC					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $24					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $69					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $96					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $E3					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $3A					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $B7					  ; data used at a000
+      .BYTE 5,$31,$99,$31,$EC			  ; 0 ;	data used at a000
+      .BYTE 5,$31,$24,$31,$69			  ; 0 ;	data used at a000
+      .BYTE 5,$2F,$96,$2F,$E3			  ; 0 ;	data used at a000
+      .BYTE 3,$2F,$3A				  ; 0 ;	data used at a000
+      .BYTE 3,$1C,$B7				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $B7					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $A4					  ; data used at a000
-      .BYTE $3D					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
+      .BYTE 7,$1C,$B7,$17,$A4,$3D,$B8		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AF5A:.BYTE 7				  ; DATA XREF: BANK9:A6D3o
+EnemyPointers_Level_7_2_Area3:.BYTE 7,$2F,$B8,$30,$F3,$2E,$FC		  ; 0
+						  ; DATA XREF: BANK9:A6D3o
 						  ; BANK9:A6DDo
 						  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $B8					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $F3					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $FC					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $34					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $74					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $A4					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $AB					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $1A					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $79					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $F5					  ; data used at a000
+      .BYTE 9,$2F,$34,$2F,$74,$2F,$A4,$30,$AB	  ; 0 ;	data used at a000
+      .BYTE 7,$30,$1A,$2F,$79,$30,$F5		  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AF73:.BYTE 9				  ; DATA XREF: BANK9:A6D4o
+EnemyPointers_Level_7_2_Area4:.BYTE 9,$2F,$23,$2F,$83,$2F,$E3,$31,$CC	  ; 0
+						  ; DATA XREF: BANK9:A6D4o
 						  ; BANK9:A6DEo
 						  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $83					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-byte_BANK9_AF79:.BYTE $E3			  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $CC					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $BB					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $FB					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $53					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $29					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $43					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $A3					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $59					  ; data used at a000
+      .BYTE 5,$2F,$BB,$2F,$FB			  ; 0 ;	data used at a000
+      .BYTE 3,$2F,$53				  ; 0 ;	data used at a000
+      .BYTE 9,$31,$29,$2E,$43,$2F,$A3,$31,$59	  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $44					  ; data used at a000
-      .BYTE $49					  ; data used at a000
-      .BYTE $2D					  ; data used at a000
-      .BYTE $B7					  ; data used at a000
+      .BYTE 5,$44,$49,$2D,$B7			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AF98:.BYTE 1				  ; DATA XREF: BANK9:A6D5o
+EnemyPointers_Level_7_2_Area5:.BYTE 1		  ; DATA XREF: BANK9:A6D5o
 						  ; BANK9:A6DFo
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $4A					  ; data used at a000
-      .BYTE $1A					  ; data used at a000
-      .BYTE $6C					  ; data used at a000
-      .BYTE $A7					  ; data used at a000
+      .BYTE 5,$4A,$1A,$6C,$A7			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AFA0:.BYTE 3				  ; DATA XREF: BANK9:A6D6o
+EnemyPointers_Level_7_2_Area6:.BYTE 3,$2F,$8A				  ; 0
+						  ; DATA XREF: BANK9:A6D6o
 						  ; BANK9:A6E0o
 						  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $8A					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $73					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $85					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $8C					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $87					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $8E					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $50					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $A0					  ; data used at a000
+      .BYTE 7,$2E,$73,$31,$85,$2F,$8C		  ; 0 ;	data used at a000
+      .BYTE 5,$31,$87,$2F,$8E			  ; 0 ;	data used at a000
+      .BYTE 5,$31,$50,$30,$A0			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $61					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $A1					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $A3					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $68					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $5A					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $AA					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $61					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $A1					  ; data used at a000
+      .BYTE $D,$31,$61,$31,$A1,$2F,$A3,$31,$68,$2F,$5A,$2F,$AA;	0 ; data used at a000
+      .BYTE 5,$2F,$61,$2F,$A1			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_AFCB:.BYTE 9				  ; DATA XREF: BANK9:A6D7o
+EnemyPointers_Level_7_2_Area7:.BYTE 9,3,$76,7,$69,7,$99,$30,$8F		  ; 0
+						  ; DATA XREF: BANK9:A6D7o
 						  ; BANK9:A6E1o
 						  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $76					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $69					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $99					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $8F					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $A2					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $73					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $68					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $AD					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $80					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $97					  ; data used at a000
-      .BYTE $2E					  ; data used at a000
-      .BYTE $7F					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $80					  ; data used at a000
+      .BYTE 9,$2F,$A2,$31,$73,$31,$68,$2E,$AD	  ; 0 ;	data used at a000
+      .BYTE 7,$31,$80,$31,$97,$2E,$7F		  ; 0 ;	data used at a000
+      .BYTE 5,7,$80,1,$84			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE $84					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-byte_BANK9_AFEA:.BYTE 5				  ; DATA XREF: BANK9:A6D8o
+EnemyPointers_Level_7_2_Area8:.BYTE 5,$31,$9C,$30,$7E			  ; 0
+						  ; DATA XREF: BANK9:A6D8o
 						  ; BANK9:A6E2o
 						  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $9C					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $7E					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $35					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $77					  ; data used at a000
-byte_BANK9_AFF4:.BYTE $31			  ; data used at a000
-      .BYTE $A8					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $67					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $BA					  ; data used at a000
+      .BYTE 7,$2F,$35,$30,$77,$31,$A8		  ; 0 ;	data used at a000
+      .BYTE 5,$31,$67,$31,$BA			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $42					  ; data used at a000
-      .BYTE $31					  ; data used at a000
-      .BYTE $82					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $B2					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $74					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $53					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $93					  ; data used at a000
-      .BYTE $30					  ; data used at a000
-      .BYTE $54					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $76					  ; data used at a000
+      .BYTE 9,$30,$42,$31,$82,$30,$B2,$2F,$74	  ; 0 ;	data used at a000
+      .BYTE 9,$2F,$53,$2F,$93,$30,$54,$2F,$76	  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_B010:.BYTE 1				  ; DATA XREF: BANK9:A6D9o
+EnemyPointers_Level_7_2_Area9:.BYTE 1		  ; DATA XREF: BANK9:A6D9o
 						  ; BANK9:A6E3o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $79					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $20					  ; data used at a000
-      .BYTE 2					  ; data used at a000
-      .BYTE $D0					  ; data used at a000
+      .BYTE 3,$23,$79				  ; 0 ;	data used at a000
+      .BYTE 5,2,$20,2,$D0			  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
-byte_BANK9_B01B:.BYTE 1				  ; DATA XREF: BANK9:off_BANK9_A6E4o
-						  ; BANK9:off_BANK9_A6EEo
+EnemyPointers_Level_7_3_Area0:.BYTE 1		  ; DATA XREF: BANK9:EnemyPointers_Level_7_3_Hio
+						  ; BANK9:EnemyPointers_Level_7_3_Loo
 						  ; data used at a000
-byte_BANK9_B01C:.BYTE 1				  ; DATA XREF: BANK9:A6E5o
+EnemyPointers_Level_7_3_Area1:.BYTE 1		  ; DATA XREF: BANK9:A6E5o
 						  ; BANK9:A6EFo
 						  ; data used at a000
-byte_BANK9_B01D:.BYTE 1				  ; DATA XREF: BANK9:A6E6o
+EnemyPointers_Level_7_3_Area2:.BYTE 1		  ; DATA XREF: BANK9:A6E6o
 						  ; BANK9:A6F0o
 						  ; data used at a000
-byte_BANK9_B01E:.BYTE 1				  ; DATA XREF: BANK9:A6E7o
+EnemyPointers_Level_7_3_Area3:.BYTE 1		  ; DATA XREF: BANK9:A6E7o
 						  ; BANK9:A6F1o
 						  ; data used at a000
-byte_BANK9_B01F:.BYTE 1				  ; DATA XREF: BANK9:A6E8o
+EnemyPointers_Level_7_3_Area4:.BYTE 1		  ; DATA XREF: BANK9:A6E8o
 						  ; BANK9:A6E9o BANK9:A6EAo ...
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -74698,7 +73302,7 @@ byte_BANK9_B01F:.BYTE 1				  ; DATA XREF: BANK9:A6E8o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
 ; [00000FDB BYTES: BEGIN OF AREA UNUSED-BANK9:B025. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_13025:.BYTE $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF; 0 ; data used at a000
+_unused_BANK9_B025:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0 ; data used at a000
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -95949,7 +94553,8 @@ loc_BANKF_FAE9:					  ; CODE XREF: sub_BANKF_FACA+17j
       LDY     BackgroundCHR2			  ; code used at e000
       INY					  ; code used at e000
       INY					  ; code used at e000
-      CPY     #$26 ; '&'                          ; !!BUG!!: Should be $28. Skips one frame of animations!
+      CPY     #$26 ; '&'                          ; @BUG!!: Should be $28. Skips one frame of animations!
+						  ; This is present in the original game.
       BCC     loc_BANKF_FAFA			  ; code used at e000
 
       LDY     #$18				  ; code used at e000

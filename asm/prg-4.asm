@@ -241,7 +241,7 @@ loc_BANK4_8117:
 ; End of function ProcessSoundEffectQueue2
 
 ; ---------------------------------------------------------------------------
-MushroomSoundData:.BYTE	$6A, $74, $6A, $64, $5C, $52, $5C, $52,	$4C, $44, $66, $70, $66, $60, $58, $4E;	0
+MushroomSoundData:.BYTE	$6A, $74, $6A, $64, $5C, $52, $5C, $52,	$4C, $44, $66, $70, $66, $60, $58, $4E
       .BYTE $58, $4E, $48, $40,	$56, $60, $56, $50, $48, $3E, $48, $3E,	$38, $30; $10
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -748,87 +748,87 @@ loc_BANK4_835E:
 
 ProcessMusicQueue2:
       LDA     MusicQueue2
-      BMI     loc_BANK4_835E			  ; code used as data at 8000
+      BMI     loc_BANK4_835E
 
-      CMP     #4				  ; code used as data at 8000
-      BEQ     loc_BANK4_837D			  ; code used as data at 8000
+      CMP     #4
+      BEQ     loc_BANK4_837D
 
-      LDA     MusicQueue2			  ; code used as data at 8000
-      BNE     loc_BANK4_83C5			  ; code used as data at 8000
+      LDA     MusicQueue2
+      BNE     loc_BANK4_83C5
 
-      LDA     Music1Queue			  ; code used as data at 8000
-      BNE     loc_BANK4_8389			  ; code used as data at 8000
+      LDA     Music1Queue
+      BNE     loc_BANK4_8389
 
-      LDA     byte_RAM_606			  ; code used as data at 8000
-      ORA     byte_RAM_609			  ; code used as data at 8000
-      BNE     loc_BANK4_835B			  ; code used as data at 8000
+      LDA     byte_RAM_606
+      ORA     byte_RAM_609
+      BNE     loc_BANK4_835B
 
-      RTS					  ; code used as data at 8000
+      RTS
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_837D:
-      STA     byte_RAM_606			  ; code used as data at 8000
-      LDY     #0				  ; code used as data at 8000
-      STY     byte_RAM_609			  ; code used as data at 8000
-      LDY     #8				  ; code used as data at 8000
-      BNE     loc_BANK4_8397			  ; code used as data at 8000
+      STA     byte_RAM_606
+      LDY     #0
+      STY     byte_RAM_609
+      LDY     #8
+      BNE     loc_BANK4_8397
 
 loc_BANK4_8389:
-      STA     byte_RAM_609			  ; code used as data at 8000
-      LDY     #0				  ; code used as data at 8000
-      STY     byte_RAM_606			  ; code used as data at 8000
-      LDY     #$FF				  ; code used as data at 8000
+      STA     byte_RAM_609
+      LDY     #0
+      STY     byte_RAM_606
+      LDY     #$FF
 
 loc_BANK4_8393:
-      INY					  ; code used as data at 8000
-      LSR     A					  ; code used as data at 8000
-      BCC     loc_BANK4_8393			  ; code used as data at 8000
+      INY
+      LSR     A
+      BCC     loc_BANK4_8393
 
 loc_BANK4_8397:
-      LDA     MusicPointersFirstPart,Y		  ; code used as data at 8000
-      STA     byte_RAM_5EE			  ; code used as data at 8000
-      LDA     MusicPointersEndPart,Y		  ; code used as data at 8000
-      CLC					  ; code used as data at 8000
-      ADC     #2				  ; code used as data at 8000
-      STA     byte_RAM_5EF			  ; code used as data at 8000
-      LDA     MusicPointersLoopPart,Y		  ; code used as data at 8000
-      STA     byte_RAM_5F0			  ; code used as data at 8000
-      LDA     byte_RAM_5EE			  ; code used as data at 8000
+      LDA     MusicPointersFirstPart,Y
+      STA     byte_RAM_5EE
+      LDA     MusicPointersEndPart,Y
+      CLC
+      ADC     #2
+      STA     byte_RAM_5EF
+      LDA     MusicPointersLoopPart,Y
+      STA     byte_RAM_5F0
+      LDA     byte_RAM_5EE
 
 loc_BANK4_83AF:
-      STA     byte_RAM_5EC			  ; code used as data at 8000
+      STA     byte_RAM_5EC
 
 loc_BANK4_83B2:
-      INC     byte_RAM_5EC			  ; code used as data at 8000
-      LDY     byte_RAM_5EC			  ; code used as data at 8000
-      CPY     byte_RAM_5EF			  ; code used as data at 8000
-      BNE     loc_BANK4_83D7			  ; code used as data at 8000
+      INC     byte_RAM_5EC
+      LDY     byte_RAM_5EC
+      CPY     byte_RAM_5EF
+      BNE     loc_BANK4_83D7
 
-      LDA     byte_RAM_5F0			  ; code used as data at 8000
-      BNE     loc_BANK4_83AF			  ; code used as data at 8000
+      LDA     byte_RAM_5F0
+      BNE     loc_BANK4_83AF
 
-      JMP     loc_BANK4_8451			  ; code used as data at 8000
+      JMP     loc_BANK4_8451
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_83C5:
-      STA     byte_RAM_606			  ; code used as data at 8000
-      LDY     byte_RAM_609			  ; code used as data at 8000
-      STY     byte_RAM_5F3			  ; code used as data at 8000
-      LDY     #0				  ; code used as data at 8000
-      STY     byte_RAM_609			  ; code used as data at 8000
+      STA     byte_RAM_606
+      LDY     byte_RAM_609
+      STY     byte_RAM_5F3
+      LDY     #0
+      STY     byte_RAM_609
 
 loc_BANK4_83D3:
-      INY					  ; code used as data at 8000
-      LSR     A					  ; code used as data at 8000
-      BCC     loc_BANK4_83D3			  ; code used as data at 8000
+      INY
+      LSR     A
+      BCC     loc_BANK4_83D3
 
 loc_BANK4_83D7:
-      LDA     unk_BANK4_8FFF,Y			  ; code used as data at 8000
-      TAY					  ; code used as data at 8000
-      LDA     MusicPartPointers,Y		  ; code used as data at 8000
-      STA     MusicTempoSetting			  ; code used as data at 8000
+      LDA     unk_BANK4_8FFF,Y
+      TAY
+      LDA     MusicPartPointers,Y
+      STA     MusicTempoSetting
       LDA     byte_BANK4_9001,Y
       STA     byte_RAM_BB
       LDA     unk_BANK4_9002,Y
@@ -1224,7 +1224,7 @@ byte_BANK4_8625:.BYTE 0
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK4_8629:
-      AND     #$F				  ; code used as data at 8000
+      AND     #$F
       CLC
       ADC     MusicTempoSetting
       TAY
@@ -1508,10 +1508,10 @@ loc_BANK4_8743:
       BNE     loc_BANK4_86D0
 
 ; ---------------------------------------------------------------------------
-NoteFrequencyData:.WORD	$1AB8, $1938, $17CC, $1678, $1534, $1404; 0
+NoteFrequencyData:.WORD	$1AB8, $1938, $17CC, $1678, $1534, $1404
       .WORD $12E4, $11D4, $10D4, $FE0, $EFC, $E24 ; 6
 ; [000007A1 BYTES: BEGIN OF AREA UNUSED-BANK4:875F. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_875F:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_empty_875F:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -1635,7 +1635,7 @@ _empty_875F:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $F
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $790
       .BYTE $FF					  ; $7A0
 ; [000007A1 BYTES: END OF AREA UNUSED-BANK4:875F. PRESS	KEYPAD "-" TO COLLAPSE]
-NoteLengthTable:.BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5; 0
+NoteLengthTable:.BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5
       .BYTE 4, 7, $A, 9, $A, $E, $15, $1C, $2A,	$38, $B, 4, 4, 5, 6, 8;	$10
       .BYTE $C,	$B, $A,	$10, $18, $20, $30, $40, 4, 5, 6, 6, 9,	$D, $C,	$C; $20
       .BYTE $12, $1B, $24, $36,	$48, $E, 3, 5, 5, 7, 6,	$A, $F,	$D, $E,	$14; $30
@@ -1647,7 +1647,7 @@ NoteLengthTable:.BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5; 0
       .BYTE $18, $15, $16, $20,	$30, $40, $60, $80, 8, 9, $B, $C, $11, $19, $15, $16; $90
       .BYTE $22, $33, $44, $60,	$88, $1A, 9, 9,	$C, $C,	$12, $1B, $18, $18, $24, $36; $A0
       .BYTE $48, $6C, $90			  ; $B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -1866,7 +1866,7 @@ byte_BANK4_90C3:.BYTE $98
       .BYTE $95
       .BYTE $24
       .BYTE $12
-      .BYTE $30	; 0
+      .BYTE $30	
 unk_BANK4_90D3:.BYTE $28
       .BYTE $E0
       .BYTE $95
@@ -3052,14 +3052,14 @@ unk_BANK4_9567:.BYTE $48
       .BYTE $30
       .BYTE $26
       .BYTE $98
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $34	; 4
       .BYTE $94
       .BYTE $32	; 2
       .BYTE $98
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $96
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $3E
       .BYTE $46
       .BYTE $98
@@ -3135,11 +3135,11 @@ unk_BANK4_95B0:.BYTE $7E
       .BYTE $3A
       .BYTE $3E
       .BYTE $7E
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $38	; 8
       .BYTE $3A
       .BYTE $99
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $3E
       .BYTE $98
       .BYTE $48
@@ -3198,7 +3198,7 @@ unk_BANK4_95EB:.BYTE $7E
       .BYTE $99
       .BYTE $7E
       .BYTE $99
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $38	; 8
       .BYTE $94
       .BYTE $3E
@@ -3234,7 +3234,7 @@ unk_BANK4_961F:.BYTE $94
       .BYTE $38	; 8
       .BYTE $7E
       .BYTE $98
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $99
       .BYTE $40
       .BYTE $44
@@ -3243,7 +3243,7 @@ unk_BANK4_961F:.BYTE $94
       .BYTE $3E
       .BYTE $98
       .BYTE $3E
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $98
       .BYTE   4
       .BYTE $92

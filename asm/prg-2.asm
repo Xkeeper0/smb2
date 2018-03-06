@@ -421,7 +421,7 @@ loc_BANK2_823D:
       JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
-      .WORD locret_BANK2_820D			  ; 0
+      .WORD locret_BANK2_820D			  
       .WORD loc_BANK2_89B9			  ; Alive
       .WORD loc_BANK2_84FA			  ; Dead
       .WORD loc_BANK2_858F			  ; Block fizzle
@@ -731,7 +731,7 @@ loc_BANK2_83A6:
       JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
-EnemyInitializationTable:.WORD sub_BANK2_845D
+EnemyInitializationTable:.WORD sub_BANK2_845D			     
       .WORD sub_BANK2_845D
       .WORD sub_BANK2_845D
       .WORD sub_BANK2_845D
@@ -1947,7 +1947,7 @@ loc_BANK2_8A15:
       BNE     loc_BANK2_8A41
 
       LDA     ObjectAttributes,X
-      AND     #ObjAttrib_Palette3|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_16x32|ObjAttrib_UpsideDown ; code used	at 8000
+      AND     #ObjAttrib_Palette3|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_16x32|ObjAttrib_UpsideDown
       STA     ObjectAttributes,X
       LDA     unk_RAM_A8,X
       CMP     #2
@@ -3443,7 +3443,7 @@ loc_BANK2_9198:
 
 MakeMushroomExplodeIntoPuffOfSmoke:
       LDA     ObjectAttributes,X		  ; Get	current	object sprite attributes...
-      AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32|ObjAttrib_UpsideDown ; code	used at	8000
+      AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32|ObjAttrib_UpsideDown
       ORA     #1				  ; Clear current palette, then	set to $01
       STA     ObjectAttributes,X
       LDA     #EnemyState_PuffOfSmoke
@@ -5419,7 +5419,7 @@ unk_BANK2_9A6E:.BYTE   0
       .BYTE $2A
       .BYTE $2C
       .BYTE $2E
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $34
       .BYTE 0
       .BYTE $38
@@ -6235,7 +6235,7 @@ loc_BANK2_9EBA:
 ; End of function sub_BANK2_9EA9
 
 ; ---------------------------------------------------------------------------
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

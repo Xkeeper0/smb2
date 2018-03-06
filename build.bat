@@ -5,7 +5,7 @@ rem One way to do this is "php tools\asm.php && build"
 rem (if your setup isn't bad you can also just put it here...)
 
 echo Assembling...
-tools\asm6.exe smb2.asm -L > assembler.log 2> assembler-err.log
+tools\asm6.exe smb2.asm -L smb2.nes > assembler.log 2> assembler-err.log
 echo Done.
 echo.
 SET ROM="tools\Super Mario Bros. 2 (USA).nes"

@@ -217,21 +217,21 @@
       .BYTE $26
       .BYTE $2A
       .BYTE $98
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $26
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE   0
       .BYTE $98
       .BYTE $7E
       .BYTE $94
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $98
       .BYTE $7E
       .BYTE $94
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $98
       .BYTE $7E
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $3A
       .BYTE $38	; 8
       .BYTE $88
@@ -240,9 +240,9 @@
       .BYTE $60
       .BYTE $48
       .BYTE $88
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $3E
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $94
       .BYTE $42
       .BYTE $48
@@ -267,7 +267,7 @@
       .BYTE $4C
       .BYTE $3E
       .BYTE $42
-      .BYTE $7E
+byte_BANK5_A10A:.BYTE $7E
       .BYTE $30
       .BYTE $7E
       .BYTE $26
@@ -1021,7 +1021,7 @@ byte_BANK5_A3AF:.BYTE $50
       .BYTE $54
       .BYTE $55
 ; [00001C11 BYTES: BEGIN OF AREA UNUSED-BANK5:A3EF. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_A3EF:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_empty_A3EF:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

@@ -39,9 +39,9 @@ byte_RAM_12:
 byte_RAM_13:
 	  .dsb 1                       ; $0013
 PlayerXHi:
-	  .dsb 1 ;	0                   ; $0014
+	  .dsb 1                       ; $0014
 ObjectXHi:
-	  .dsb 1 ;	0                   ; $0015
+	  .dsb 1                       ; $0015
       .dsb 1 ; 1                ; $0016
       .dsb 1 ; 2                ; $0017
       .dsb 1 ; 3                ; $0018
@@ -51,9 +51,9 @@ ObjectXHi:
       .dsb 1 ; 7                ; $001c
       .dsb 1 ; 8                ; $001d
 PlayerYHi:
-	  .dsb 1 ;	0                   ; $001e
+	  .dsb 1                       ; $001e
 ObjectYHi:
-	  .dsb 1 ;	0                   ; $001f
+	  .dsb 1                       ; $001f
       .dsb 1 ; 1                ; $0020
       .dsb 1 ; 2                ; $0021
       .dsb 1 ; 3                ; $0022
@@ -63,9 +63,9 @@ ObjectYHi:
       .dsb 1 ; 7                ; $0026
       .dsb 1 ; 8                ; $0027
 PlayerXLo:
-	  .dsb 1 ;	0                   ; $0028
+	  .dsb 1                       ; $0028
 ObjectXLo:
-	  .dsb 1 ;	0                   ; $0029
+	  .dsb 1                       ; $0029
       .dsb 1 ; 1                ; $002a
       .dsb 1 ; 2                ; $002b
       .dsb 1 ; 3                ; $002c
@@ -75,9 +75,9 @@ ObjectXLo:
       .dsb 1 ; 7                ; $0030
       .dsb 1 ; 8                ; $0031
 PlayerYLo:
-	  .dsb 1 ;	0                   ; $0032
+	  .dsb 1                       ; $0032
 ObjectYLo:
-	  .dsb 1 ;	0                   ; $0033
+	  .dsb 1                       ; $0033
       .dsb 1 ; 1                ; $0034
       .dsb 1 ; 2                ; $0035
       .dsb 1 ; 3                ; $0036
@@ -87,9 +87,9 @@ ObjectYLo:
       .dsb 1 ; 7                ; $003a
       .dsb 1 ; 8                ; $003b
 PlayerXAccel:
-	  .dsb 1 ; 0                   ; $003c
+	  .dsb 1                       ; $003c
 ObjectXAccel:
-	  .dsb 1 ; 0                   ; $003d
+	  .dsb 1                       ; $003d
       .dsb 1 ; 1                ; $003e
       .dsb 1 ; 2                ; $003f
       .dsb 1 ; 3                ; $0040
@@ -99,9 +99,9 @@ ObjectXAccel:
       .dsb 1 ; 7                ; $0044
       .dsb 1 ; 8                ; $0045
 PlayerYAccel:
-	  .dsb 1 ; 0                   ; $0046
+	  .dsb 1                       ; $0046
 ObjectYAccel:
-	  .dsb 1 ; 0                   ; $0047
+	  .dsb 1                       ; $0047
       .dsb 1 ; 1                ; $0048
       .dsb 1 ; 2                ; $0049
       .dsb 1 ; 3                ; $004a
@@ -124,7 +124,7 @@ PlayerState:
 						  ; 08	Shrinking
 						  ; 09+	Crash?
 EnemyState:
-	  .dsb 1 ; 0                   ; $0051
+	  .dsb 1                       ; $0051
       .dsb 1 ; 1                ; $0052
       .dsb 1 ; 2                ; $0053
       .dsb 1 ; 3                ; $0054
@@ -136,7 +136,7 @@ EnemyState:
 PlayerCollision:
 	  .dsb 1	                      ; $005a
 EnemyCollision:
-	  .dsb 1 ; 0                   ; $005b
+	  .dsb 1                       ; $005b
       .dsb 1 ; 1                ; $005c
       .dsb 1 ; 2                ; $005d
       .dsb 1 ; 3                ; $005e
@@ -411,7 +411,7 @@ PPUMaskMirror:
 PPUCtrlMirror:
 	  .dsb 1                       ; $00ff
 StackArea:
-	  .dsb 1 ;	0                   ; $0100
+	  .dsb 1                       ; $0100
       .dsb 1 ; 1                ; $0101
       .dsb 1 ; 2                ; $0102
       .dsb 1 ; 3                ; $0103
@@ -1788,7 +1788,7 @@ byte_RAM_544:
 byte_RAM_545:
 	  .dsb 1                       ; $0545
 PickupSpeedAnimation:
-	  .dsb 1 ; 0                   ; $0546
+	  .dsb 1                       ; $0546
       .dsb 1 ; 1                ; $0547
       .dsb 1 ; 2                ; $0548
       .dsb 1 ; 3                ; $0549
@@ -2395,7 +2395,7 @@ BackgroundCHR2Timer:
       .dsb 1                    ; $06fe
       .dsb 1                    ; $06ff
 SubAreaTileLayout:
-	  .dsb 1 ;	0                   ; $0700
+	  .dsb 1                       ; $0700
       .dsb 1 ; 1 ;	When moving into subspace, ; $0701
       .dsb 1 ; 2 ;	this area is turned into a tile	represenation ; $0702
       .dsb 1 ; 3 ;	of the current screen as it will be shown ; $0703

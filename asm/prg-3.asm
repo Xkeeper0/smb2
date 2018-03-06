@@ -1,7 +1,7 @@
 
       ;.segment	BANK3
 ;       *	=  $A000
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
 MysteryData6030:.BYTE $2D
@@ -3625,7 +3625,7 @@ loc_BANK3_B398:
       RTS
 
 ; ---------------------------------------------------------------------------
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -3861,7 +3861,7 @@ sub_BANK3_B5CC:
       LDA     #0
       STA     unk_RAM_4CC,X
       LDA     EnemyCollision,X
-      AND     #CollisionFlags_Right|CollisionFlags_Left|CollisionFlags_Down|CollisionFlags_Up ;	code used at a000
+      AND     #CollisionFlags_Right|CollisionFlags_Left|CollisionFlags_Down|CollisionFlags_Up
       STA     EnemyCollision,X
       LDA     EnemyState,X
       CMP     #EnemyState_BombExploding
@@ -5679,7 +5679,7 @@ locret_BANK3_BEAF:
 ; End of function sub_BANK3_BE0B
 
 ; ---------------------------------------------------------------------------
-_empty_7EB0:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; 0
+_empty_7EB0:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$C
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$18
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$24

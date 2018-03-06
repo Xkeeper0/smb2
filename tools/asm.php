@@ -18,7 +18,7 @@
 	printf("Removed single-byte ascii comments: %d\n", $count);
 
 	// Remove 'code/data used at ....' comments
-	$asm	= preg_replace('/[ \t]*; (code|data) used at .000/im', '', $asm, -1, $count);
+	$asm	= preg_replace('/[ \t]*;\s*(code|data)\s*used\s*(as\s*data)?\s*at\s*.000/im', '', $asm, -1, $count);
 	printf("Removed code/data used at comments: %d\n", $count);
 
 	// Remove cross references
@@ -30,8 +30,12 @@
 	printf("Removed XREFs again: %d\n", $count);
 
 	// Remove more ; ? useless ASCII crap
-	$asm	= preg_replace('/(\.BYTE [^\s]*)\s; [^0-9]\s*$/im', '\1', $asm, -1, $count);
+	$asm	= preg_replace('/(\.BYTE [^\s]*)\s+;\s+[^0-9]\s*$/im', '\1', $asm, -1, $count);
 	printf("Removed single-byte ascii again: %d\n", $count);
+
+	// Remove more ; ? useless ASCII crap
+	$asm	= preg_replace('/;[ \t]+0\s*(;.*)?$/im', '\1', $asm, -1, $count);
+	printf("Removed useless ; 0 comments again: %d\n", $count);
 
 	// Trim lines
 	$asm	= preg_replace('/^[ \t]+$/im', '', $asm, -1, $count);

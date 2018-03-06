@@ -2,7 +2,7 @@
       ;.segment	BANK1
 ;       *	=  $A000
 ; [00000200 BYTES: BEGIN OF AREA UNUSED-BANK1_A000. PRESS KEYPAD "-" TO	COLLAPSE]
-byte_BANK1_A000:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; 0
+byte_BANK1_A000:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -61,7 +61,7 @@ WaitForNMI_Ending_TurnOffPPU:
 ; =============== S U B	R O U T	I N E =======================================
 
 WaitForNMI_Ending_TurnOnPPU:
-      LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites ; code	used at	a000
+      LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
 
 loc_BANK1_A220:
       STA     PPUMaskMirror
@@ -623,7 +623,7 @@ loc_BANK1_A43E:
 
       LDA     #$40
       STA     StackArea
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled ; code used	at a000
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
       STA     PPUCtrlMirror
       STA     PPUCTRL
       JSR     WaitForNMI_Ending
@@ -838,6 +838,8 @@ loc_BANK1_A556:
       STA     PlayerAnimationFrame
       LDA     #8
       STA     DPCMQueue
+
+loc_BANK1_A56B:
       LDA     #$A0
       STA     ObjectYAccel+8
       RTS
@@ -1251,7 +1253,7 @@ byte_BANK1_A67D:.BYTE $80
       .BYTE $26
       .BYTE $C9
       .BYTE $4B
-      .BYTE $22
+byte_BANK1_A724:.BYTE $22
       .BYTE $43
       .BYTE 4
       .BYTE $4C
@@ -1714,7 +1716,7 @@ EndingCelebrationFloorAndSubconParade:.BYTE $23
       .BYTE $81
       .BYTE $80
       .BYTE $81
-      .BYTE $80
+byte_BANK1_A8F2:.BYTE $80
       .BYTE $81
       .BYTE $80
       .BYTE $81
@@ -1916,7 +1918,7 @@ byte_BANK1_A97C:.BYTE $72
       .BYTE $71
       .BYTE $73
       .BYTE 0
-EndingCelebrationUnusedText_THE_END:.BYTE $21 ;	!
+EndingCelebrationUnusedText_THE_END:.BYTE $21
       .BYTE $AC
       .BYTE   7
       .BYTE $ED
@@ -1931,11 +1933,11 @@ EndingCelebrationPaletteFade1:.BYTE $3F
       .BYTE   0
       .BYTE $20
       .BYTE   1
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $21
       .BYTE  $F
       .BYTE   1
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $16
       .BYTE  $F
       .BYTE   1
@@ -1943,8 +1945,8 @@ EndingCelebrationPaletteFade1:.BYTE $3F
       .BYTE $18
       .BYTE  $F
       .BYTE   1
-      .BYTE $30	; 0
-      .BYTE $30	; 0
+      .BYTE $30	
+      .BYTE $30	
       .BYTE   1
       .BYTE   1
       .BYTE $27
@@ -1956,7 +1958,7 @@ EndingCelebrationPaletteFade1:.BYTE $3F
       .BYTE  $F
       .BYTE   1
       .BYTE $27
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE  $F
       .BYTE   1
       .BYTE $36	; 6
@@ -2005,7 +2007,7 @@ EndingCelebrationPaletteFade3:.BYTE $3F
       .BYTE  $F
       .BYTE   0
       .BYTE  $F
-      .BYTE  $F
+unk_BANK1_AA14:.BYTE  $F
       .BYTE  $F
       .BYTE   0
       .BYTE  $F
@@ -2354,7 +2356,7 @@ _code_2BA7:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK1_ABBC:
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled ; code used	at a000
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
       STA     PPUCtrlMirror
       STA     PPUCTRL
       RTS
@@ -2500,6 +2502,8 @@ loc_BANK1_AC4B:
       ADC     byte_BANK1_ABF2,X
       STA     unk_RAM_203,Y
       LDA     PlayerXHi
+
+loc_BANK1_AC6A:
       ADC     #0
       BEQ     loc_BANK1_AC73
 
@@ -2901,7 +2905,7 @@ loc_BANK1_AE57:
 
 ; ---------------------------------------------------------------------------
 ; [00000AA6 BYTES: BEGIN OF AREA UNUSED-BANK1:AE5A. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_2E5A:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_empty_2E5A:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -3293,7 +3297,7 @@ loc_BANK1_B9EB:
 loc_BANK1_BA17:
       LDY     ObjectType,X
       LDA     ObjectAttributeTable,Y
-      AND     #ObjAttrib_Palette3|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32 ; code used	at a000
+      AND     #ObjAttrib_Palette3|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32
       STA     ObjectAttributes,X
       LDA     byte_BANKF_F532,Y
       STA     unk_RAM_46E,X
@@ -3560,7 +3564,7 @@ loc_BANK1_BB1F:
 
 ; ---------------------------------------------------------------------------
 ; [000004AE BYTES: BEGIN OF AREA UNUSED_empty_3B52. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_3B52:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_empty_3B52:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

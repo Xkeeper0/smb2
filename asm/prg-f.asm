@@ -21,8 +21,8 @@
       .BYTE 0
 WorldStartingLevel:.BYTE 0
 
-WorldPlus1StartingLevel:.BYTE 3					    ; 0
-      .BYTE 6					  ; 1 ;	data used at e000
+WorldPlus1StartingLevel:.BYTE 3					    
+      .BYTE 6					  ; 1
       .BYTE 9					  ; 2
       .BYTE $C					  ; 3
       .BYTE $F					  ; 4
@@ -158,8 +158,7 @@ PlayerSelectPrincessSprites2:.BYTE $8F
       .BYTE $2E
       .BYTE   3
       .BYTE $B0
-PlayerSelectSpriteIndexes:.BYTE	0, $30,	$20, $10		      ;	0
-
+PlayerSelectSpriteIndexes:.BYTE	0, $30,	$20, $10		      
 BonusChanceCherrySprite:.BYTE $5F
       .BYTE   5
       .BYTE   1
@@ -235,7 +234,7 @@ unk_BANKF_E0D5:.BYTE $3F
       .BYTE   4
       .BYTE  $F
       .BYTE $27
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE   1
       .BYTE $3F
       .BYTE $1C
@@ -249,7 +248,7 @@ TitleCardPalettes:.BYTE	$3F ; ?
       .BYTE   0
       .BYTE $20
       .BYTE $38	; 8
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $1A
       .BYTE  $F
       .BYTE $38	; 8
@@ -265,7 +264,7 @@ TitleCardPalettes:.BYTE	$3F ; ?
       .BYTE $18
       .BYTE   8
       .BYTE $38	; 8
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $27
       .BYTE   1
       .BYTE $38	; 8
@@ -320,8 +319,8 @@ JumpToTableAfterJump:
 
 ; ---------------------------------------------------------------------------
 BlackAndWhitePalette:.BYTE  $F
-      .BYTE $30	; 0
-      .BYTE $30	; 0
+      .BYTE $30	
+      .BYTE $30	
       .BYTE  $F
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -1913,7 +1912,7 @@ loc_BANKF_EA04:
 ; =============== S U B	R O U T	I N E =======================================
 
 EnableNMI:
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled ; code used	at e000
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
       STA     PPUCtrlMirror
       STA     PPUCTRL
       RTS
@@ -2016,7 +2015,7 @@ WaitForNMI_TurnOffPPU:
 ; =============== S U B	R O U T	I N E =======================================
 
 WaitForNMI_TurnOnPPU:
-      LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites ; code	used at	e000
+      LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
 
 _WaitForNMI_StuffPPUMask:
       STA     PPUMaskMirror
@@ -2613,7 +2612,7 @@ UpdatePPUFBWO_CopySingleTileSkip:
 
 ; ---------------------------------------------------------------------------
 ; [000002B3 BYTES: BEGIN OF AREA UNUSED-BANKF:ED4D. PRESS KEYPAD "-" TO	COLLAPSE]
-_unused_BANKF_ED4D:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
+_unused_BANKF_ED4D:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -2806,7 +2805,7 @@ byte_BANKF_F055:.BYTE 7
       .BYTE 8
       .BYTE 8
       .BYTE   3
-      .BYTE $30	; 0
+      .BYTE $30	
       .BYTE $18
       .BYTE $18
       .BYTE $FF
@@ -2914,7 +2913,7 @@ locret_BANKF_F0F3:
 ; End of function sub_BANKF_F0E9
 
 ; ---------------------------------------------------------------------------
-LevelMusicIndexes:.BYTE	Music1_Overworld		      ;	0
+LevelMusicIndexes:.BYTE	Music1_Overworld		      
       .BYTE Music1_Inside			  ; 1 ;	Music1 indexes.
       .BYTE Music1_Boss				  ; 2
       .BYTE Music1_Wart				  ; 3
@@ -3135,8 +3134,7 @@ RestorePlayerToFullHealth:
 ; End of function RestorePlayerToFullHealth
 
 ; ---------------------------------------------------------------------------
-PlayerHealthValueByHeartCount:.BYTE PlayerHealth_2_HP, PlayerHealth_3_HP, PlayerHealth_4_HP; 0
-						  ; Max	hearts = (hearts - 2), value is	0,1,2
+PlayerHealthValueByHeartCount:.BYTE PlayerHealth_2_HP, PlayerHealth_3_HP, PlayerHealth_4_HP; Max	hearts = (hearts - 2), value is	0,1,2
 						  ; This table determines what the player's HP is set to
 byte_BANKF_F225:.BYTE 0
 
@@ -3147,7 +3145,7 @@ byte_BANKF_F227:.BYTE $F0
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKF_F228:
-      LDA     PlayerXLo				  ; code used as data at e000
+      LDA     PlayerXLo
       SEC
       SBC     byte_RAM_4C0
       STA     PlayerPageX
@@ -3339,9 +3337,7 @@ byte_BANKF_F2E7:.BYTE 6
       .BYTE $1E
       .BYTE $B4
       .BYTE $B6
-DamageInvulnBlinkFrames:.BYTE 1, 1, 1, 2, 2, 4,	4, 4		    ; 0
-
-; =============== S U B	R O U T	I N E =======================================
+DamageInvulnBlinkFrames:.BYTE 1, 1, 1, 2, 2, 4,	4, 4		    ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKF_F31A:
       LDY     PlayerState
@@ -3694,8 +3690,8 @@ byte_BANKF_F4DA:.BYTE $C0
       .BYTE $40
       .BYTE $B0
       .BYTE $60
-ObjectAttributeTable:.BYTE ObjAttrib_Palette1			 ; 0
-      .BYTE ObjAttrib_Palette1			  ; 1 ;	data used at e000
+ObjectAttributeTable:.BYTE ObjAttrib_Palette1			 
+      .BYTE ObjAttrib_Palette1			  ; 1
       .BYTE ObjAttrib_Palette1			  ; 2
       .BYTE ObjAttrib_Palette3			  ; 3
       .BYTE ObjAttrib_Palette2			  ; 4
@@ -4064,9 +4060,7 @@ byte_BANKF_F64E:.BYTE 1
       .BYTE $69
       .BYTE $98
       .BYTE $D5
-WarpDestinations:.BYTE 3, 1, 4,	5, 6, 5, 6		     ; 0
-
-; =============== S U B	R O U T	I N E =======================================
+WarpDestinations:.BYTE 3, 1, 4,	5, 6, 5, 6		     ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKF_F661:
       JSR     ReadJoypads
@@ -4380,8 +4374,8 @@ TileQuadPointersHi:.BYTE >TileQuads1
       .BYTE >TileQuads2
       .BYTE >TileQuads3
       .BYTE >TileQuads4
-TileQuads1:.BYTE $FE,$FE,$FE,$FE		       ; 0
-      .BYTE $B4,$B6,$B5,$B7			  ; 4 ;	data used at e000
+TileQuads1:.BYTE $FE,$FE,$FE,$FE		       
+      .BYTE $B4,$B6,$B5,$B7			  ; 4
       .BYTE $B8,$FA,$B9,$FA			  ; 8
       .BYTE $FA,$FA,$B2,$B3			  ; $C
       .BYTE $BE,$BE,$BF,$BF			  ; $10
@@ -4415,8 +4409,8 @@ TileQuads1:.BYTE $FE,$FE,$FE,$FE		       ; 0
       .BYTE $32,$34,$33,$35			  ; $80
       .BYTE $33,$35,$33,$35			  ; $84
       .BYTE $24,$26,$25,$27			  ; $88
-TileQuads2:.BYTE $FA,$FA,$FA,$FA		       ; 0
-      .BYTE $FA,$FA,$FA,$FA			  ; 4 ;	data used at e000
+TileQuads2:.BYTE $FA,$FA,$FA,$FA		       
+      .BYTE $FA,$FA,$FA,$FA			  ; 4
       .BYTE $FA,$FA,$FA,$FA			  ; 8
       .BYTE $FA,$FA,$B0,$B1			  ; $C
       .BYTE $FA,$FA,$B0,$B1			  ; $10
@@ -4474,8 +4468,8 @@ TileQuads2:.BYTE $FA,$FA,$FA,$FA		       ; 0
       .BYTE $6C,$54,$6D,$55			  ; $E0
       .BYTE $32,$34,$33,$35			  ; $E4
       .BYTE $33,$35,$33,$35			  ; $E8
-TileQuads3:.BYTE $94,$95,$94,$95		       ; 0
-      .BYTE $96,$97,$96,$97			  ; 4 ;	data used at e000
+TileQuads3:.BYTE $94,$95,$94,$95		       
+      .BYTE $96,$97,$96,$97			  ; 4
       .BYTE $48,$49,$48,$49			  ; 8
       .BYTE $FE,$FE,$FE,$FE			  ; $C
       .BYTE $FB,$32,$32,$33			  ; $10
@@ -4518,8 +4512,8 @@ TileQuads3:.BYTE $94,$95,$94,$95		       ; 0
       .BYTE $72,$73,$4A,$4B			  ; $A4
       .BYTE $40,$42,$41,$43			  ; $A8
       .BYTE $41,$43,$41,$43			  ; $AC
-TileQuads4:.BYTE $40,$42,$41,$43		       ; 0
-      .BYTE $40,$42,$41,$43			  ; 4 ;	data used at e000
+TileQuads4:.BYTE $40,$42,$41,$43		       
+      .BYTE $40,$42,$41,$43			  ; 4
       .BYTE $BA,$BC,$BB,$BD			  ; 8
       .BYTE $BA,$BC,$90,$91			  ; $C
       .BYTE $FA,$FA,$FA,$FA			  ; $10
@@ -4616,8 +4610,7 @@ byte_BANKF_FAB2:.BYTE 1
       .BYTE 2
       .BYTE 3
       .BYTE 0
-BackgroundCHRAnimationSpeedByWorld:.BYTE 7, 7, 7, 7, 9,	7, 5		       ; 0
-
+BackgroundCHRAnimationSpeedByWorld:.BYTE 7, 7, 7, 7, 9,	7, 5		       
       .BYTE $B
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -4651,6 +4644,7 @@ loc_BANKF_FAE9:
       INY
       INY
       CPY     #$26
+						  ; This is present in the original game.
       BCC     loc_BANKF_FAFA
 
       LDY     #$18
@@ -4713,7 +4707,7 @@ loc_BANKF_FB1C:
 
 ; ---------------------------------------------------------------------------
 ; [000002CA BYTES: BEGIN OF AREA BANKF:FB36. PRESS KEYPAD "-" TO COLLAPSE]
-_unused_fb36:.BYTE $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF; 0
+_unused_fb36:.BYTE $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -4846,9 +4840,7 @@ LoadCharacterSelectCHRBanks:
 ; End of function LoadCharacterSelectCHRBanks
 
 ; ---------------------------------------------------------------------------
-TitleCardCHRBanks:.BYTE	$40, $42, $40, $44, $40, $42, $46     ;	0
-
-; =============== S U B	R O U T	I N E =======================================
+TitleCardCHRBanks:.BYTE	$40, $42, $40, $44, $40, $42, $46     ; =============== S U B	R O U T	I N E =======================================
 
 ChangeTitleCardCHR:
       LDY     BackgroundCHR2TimerIndex
@@ -4886,7 +4878,7 @@ LoadMarioSleepingCHRBanks:
 
 ; ---------------------------------------------------------------------------
 ; [000000B9 BYTES: BEGIN OF AREA UNUSED-BANKF:FE97. PRESS KEYPAD "-" TO	COLLAPSE]
-_unused_BANKF_FE97:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
+_unused_BANKF_FE97:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -4906,7 +4898,7 @@ _unused_BANKF_FE97:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
 RESET:
       SEI
       CLD
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable0000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled ; code used	at e000
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable0000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled
       STA     PPUCTRL
       LDX     #$FF
       TXS
@@ -4986,7 +4978,7 @@ sub_BANKF_FFA0:
 
 ; ---------------------------------------------------------------------------
 ; [00000047 BYTES: BEGIN OF AREA UNUSED-BANKF:FFA4. PRESS KEYPAD "-" TO	COLLAPSE]
-_unused_BANKF_FFA4:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
+_unused_BANKF_FFA4:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -4997,7 +4989,7 @@ UnusedTextZELDA:.BYTE $5A
       .BYTE $4C
       .BYTE $44
       .BYTE $41
-      .BYTE $DF, $E6, 0, 0, $38, 4, 1, 4, 1, $BE  ; 0
+      .BYTE $DF, $E6, 0, 0, $38, 4, 1, 4, 1, $BE  
       .WORD NMI
       .WORD RESET
       .WORD $FFF0
