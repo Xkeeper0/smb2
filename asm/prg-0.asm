@@ -2562,7 +2562,7 @@ loc_BANK0_8D73:
       BEQ     loc_BANK0_8D85
 
       LDA     CurrentCharacter
-      CMP     #3
+      CMP     #Character_Luigi
       BNE     locret_BANK0_8DB1
 
       LDA     byte_RAM_84
@@ -3180,22 +3180,21 @@ byte_BANK0_9062:.BYTE 0
 
       .BYTE 4
       .BYTE 8
-byte_BANK0_9065:.BYTE $39
-
-      .BYTE $39	; 9
-      .BYTE $39	; 9
-      .BYTE $3A
-      .BYTE $36	; 6
-      .BYTE $33
-      .BYTE $32
-      .BYTE $38
-      .BYTE $35	; 5
-      .BYTE $37
-      .BYTE $3E
-      .BYTE $40
-      .BYTE $3A
-      .BYTE 9
-      .BYTE $39
+PickUpToEnemyTypeTable:.BYTE Enemy_MushroomBlock		   
+      .BYTE Enemy_MushroomBlock			  ; 1
+      .BYTE Enemy_MushroomBlock			  ; 2
+      .BYTE Enemy_POWBlock			  ; 3
+      .BYTE Enemy_Coin				  ; 4
+      .BYTE Enemy_VegetableLarge		  ; 5
+      .BYTE Enemy_VegetableSmall		  ; 6
+      .BYTE Enemy_Rocket			  ; 7
+      .BYTE Enemy_Shell				  ; 8
+      .BYTE Enemy_Bomb				  ; 9
+      .BYTE Enemy_SubspacePotion		  ; $A
+      .BYTE Enemy_Mushroom1up			  ; $B
+      .BYTE Enemy_POWBlock			  ; $C
+      .BYTE Enemy_BobOmb			  ; $D
+      .BYTE Enemy_MushroomBlock			  ; $E
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9074:
@@ -3241,7 +3240,7 @@ loc_BANK0_9080:
 
 loc_BANK0_90AE:
       STA     EnemyState,X
-      LDA     byte_BANK0_9065,Y
+      LDA     PickUpToEnemyTypeTable,Y		  ; What sprite	is spawned for you when	lifting	a bg object
       STA     ObjectType,X
       LDY     #$FF
       CMP     #$37

@@ -340,7 +340,7 @@ loc_BANK2_81E7:
 
       JSR     sub_BANK2_9AB5
 
-      JSR     loc_BANK2_823D
+      JSR     EnemyStateHandling
 
       LDX     byte_RAM_12
       DEX
@@ -416,7 +416,7 @@ loc_BANK2_8233:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_823D:
+EnemyStateHandling:
       LDA     EnemyState,X
       JSR     JumpToTableAfterJump
 
@@ -3049,7 +3049,7 @@ loc_BANK2_8FA3:
 
 loc_BANK2_8FB6:
       LDY     unk_RAM_86,X
-      BNE     loc_BANK2_8FD5
+      BNE     BirdoBehavior_SpitEgg
 
       INC     unk_RAM_B1,X
       LDA     unk_RAM_B1,X
@@ -3075,7 +3075,7 @@ loc_BANK2_8FD2:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_8FD5:
+BirdoBehavior_SpitEgg:
       CPY     #8
       BNE     loc_BANK2_901B
 

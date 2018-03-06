@@ -742,11 +742,11 @@ loc_BANK1_A4E8:
 
       INC     PlayerState
       INC     byte_RAM_99
-      LDA     #6
+      LDA     #SpriteAnimation_Jumping
       STA     PlayerAnimationFrame
 
 loc_BANK1_A4FC:
-      LDA     #1
+      LDA     #SoundEffect2_Jump
       STA     SoundEffectQueue2
       JMP     sub_BANK0_8C99
 

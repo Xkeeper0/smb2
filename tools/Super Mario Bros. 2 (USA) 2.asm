@@ -36749,7 +36749,7 @@ loc_BANK0_8D73:					  ; code used at 8000
       BEQ     loc_BANK0_8D85			  ; code used at 8000
 
       LDA     CurrentCharacter			  ; code used at 8000
-      CMP     #3				  ; code used at 8000
+      CMP     #Character_Luigi			  ; code used at 8000
       BNE     locret_BANK0_8DB1			  ; code used at 8000
 
       LDA     byte_RAM_84			  ; code used at 8000
@@ -37443,22 +37443,22 @@ byte_BANK0_9062:.BYTE 0				  ; DATA XREF: sub_BANK0_9053+6r
 						  ; data used at 8000
       .BYTE 4					  ; data used at 8000
       .BYTE 8					  ; data used at 8000
-byte_BANK0_9065:.BYTE $39			  ; DATA XREF: BANK0:90B0r
-						  ; data used at 8000
-      .BYTE $39	; 9
-      .BYTE $39	; 9
-      .BYTE $3A					  ; data used at 8000
-      .BYTE $36	; 6
-      .BYTE $33					  ; data used at 8000
-      .BYTE $32					  ; data used at 8000
-      .BYTE $38					  ; data used at 8000
-      .BYTE $35	; 5
-      .BYTE $37					  ; data used at 8000
-      .BYTE $3E					  ; data used at 8000
-      .BYTE $40	; @
-      .BYTE $3A	; :
-      .BYTE 9					  ; data used at 8000
-      .BYTE $39					  ; data used at 8000
+PickUpToEnemyTypeTable:.BYTE Enemy_MushroomBlock		   ; 0
+						  ; DATA XREF: BANK0:90B0r
+      .BYTE Enemy_MushroomBlock			  ; 1 ;	data used at 8000
+      .BYTE Enemy_MushroomBlock			  ; 2
+      .BYTE Enemy_POWBlock			  ; 3
+      .BYTE Enemy_Coin				  ; 4
+      .BYTE Enemy_VegetableLarge		  ; 5
+      .BYTE Enemy_VegetableSmall		  ; 6
+      .BYTE Enemy_Rocket			  ; 7
+      .BYTE Enemy_Shell				  ; 8
+      .BYTE Enemy_Bomb				  ; 9
+      .BYTE Enemy_SubspacePotion		  ; $A
+      .BYTE Enemy_Mushroom1up			  ; $B
+      .BYTE Enemy_POWBlock			  ; $C
+      .BYTE Enemy_BobOmb			  ; $D
+      .BYTE Enemy_MushroomBlock			  ; $E
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9074:					  ; CODE XREF: BANK0:9179j
@@ -37507,7 +37507,7 @@ loc_BANK0_9080:					  ; CODE XREF: BANK0:9078j
 
 loc_BANK0_90AE:					  ; CODE XREF: BANK0:90A6j
       STA     EnemyState,X			  ; code used at 8000
-      LDA     byte_BANK0_9065,Y			  ; code used at 8000
+      LDA     PickUpToEnemyTypeTable,Y		  ; What sprite	is spawned for you when	lifting	a bg object
       STA     ObjectType,X			  ; code used at 8000
       LDY     #$FF				  ; code used at 8000
       CMP     #$37 ; '7'                          ; code used at 8000
@@ -40636,12 +40636,12 @@ loc_BANK1_A4E8:					  ; DATA XREF: BANK1:A4DEo
 
       INC     PlayerState			  ; code used at a000
       INC     byte_RAM_99			  ; code used at a000
-      LDA     #6				  ; code used at a000
+      LDA     #SpriteAnimation_Jumping		  ; code used at a000
       STA     PlayerAnimationFrame		  ; code used at a000
 
 
 loc_BANK1_A4FC:					  ; CODE XREF: BANK1:A51Ej
-      LDA     #1				  ; code used at a000
+      LDA     #SoundEffect2_Jump		  ; code used at a000
       STA     SoundEffectQueue2			  ; code used at a000
       JMP     sub_BANK0_8C99			  ; code used at a000
 
@@ -44058,7 +44058,7 @@ loc_BANK2_81E7:					  ; CODE XREF: BANK2:81DDj
 
       JSR     sub_BANK2_9AB5			  ; code used at 8000
 
-      JSR     loc_BANK2_823D			  ; code used at 8000
+      JSR     EnemyStateHandling		  ; code used at 8000
 
       LDX     byte_RAM_12			  ; code used at 8000
       DEX					  ; code used at 8000
@@ -44146,7 +44146,7 @@ loc_BANK2_8233:					  ; CODE XREF: sub_BANK2_8214+16j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_823D:					  ; CODE XREF: BANK2:81EDp
+EnemyStateHandling:				  ; CODE XREF: BANK2:81EDp
       LDA     EnemyState,X			  ; code used at 8000
       JSR     JumpToTableAfterJump		  ; code used at 8000
 
@@ -47010,7 +47010,7 @@ loc_BANK2_8FA3:					  ; CODE XREF: BANK2:8F95j
 loc_BANK2_8FB6:					  ; CODE XREF: BANK2:8FAAj
 						  ; BANK2:8FB0j
       LDY     unk_RAM_86,X			  ; code used at 8000
-      BNE     loc_BANK2_8FD5			  ; code used at 8000
+      BNE     BirdoBehavior_SpitEgg		  ; code used at 8000
 
       INC     unk_RAM_B1,X			  ; code used at 8000
       LDA     unk_RAM_B1,X			  ; code used at 8000
@@ -47038,7 +47038,7 @@ loc_BANK2_8FD2:					  ; CODE XREF: BANK2:8F8Ej
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_8FD5:					  ; CODE XREF: BANK2:8FB8j
+BirdoBehavior_SpitEgg:				  ; CODE XREF: BANK2:8FB8j
       CPY     #8				  ; code used at 8000
       BNE     loc_BANK2_901B			  ; code used at 8000
 
