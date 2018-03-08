@@ -715,7 +715,7 @@ PrincessStats:.BYTE   0
       .BYTE $AC
       .BYTE $B3
       .BYTE $E0
-      .BYTE $3C
+      .BYTE $3C	; <				  ; Float timer
       .BYTE   7
       .BYTE   4
       .BYTE   8
@@ -725,23 +725,10 @@ PrincessStats:.BYTE   0
       .BYTE $E8
       .BYTE $EB
       .BYTE $FC
-MarioPalette:.BYTE  $F
-
-      .BYTE   1
-      .BYTE $16
-      .BYTE $27
-PrincessPalette:.BYTE  $F
-      .BYTE   6
-      .BYTE $25
-      .BYTE $36	; 6
-ToadPalette:.BYTE  $F
-      .BYTE   1
-      .BYTE $30	
-      .BYTE $27
-LuigiPalette:.BYTE  $F
-      .BYTE   1
-      .BYTE $2A
-      .BYTE $36	; 6
+MarioPalette:.BYTE $F,1,$16,$27				 
+PrincessPalette:.BYTE $F,6,$25,$36			    
+ToadPalette:.BYTE $F,1,$30,$27				
+LuigiPalette:.BYTE $F,1,$2A,$36				 
 MysteryData14439:.BYTE $DF
 
       .BYTE $EF
@@ -751,7 +738,7 @@ MysteryData14439:.BYTE $DF
       .BYTE $FF
       .BYTE $FF
       .BYTE $FF
-byte_BANKA_8441:.BYTE $AF
+      .BYTE $AF
       .BYTE $D7
       .BYTE $EB
       .BYTE $F5
@@ -823,7 +810,7 @@ loc_BANKA_8491:
       LDY     #$63
 
 loc_BANKA_8493:
-      LDA     unk_BANKA_85F0,Y
+      LDA     Text_Unknown5,Y
       STA     unk_RAM_7168,Y
       DEY
       CPY     #$FF
@@ -895,83 +882,22 @@ byte_BANKA_84E5:.BYTE 0
       .BYTE 0
       .BYTE $E0
       .BYTE $FF
-PlayerSelectPalettes:.BYTE $3F
-      .BYTE   0
-      .BYTE $20
-      .BYTE  $F
-      .BYTE $28
-      .BYTE $16
-      .BYTE   6
-      .BYTE  $F
-      .BYTE $30	
-      .BYTE $12
-      .BYTE $16
-      .BYTE  $F
-      .BYTE $30	
-      .BYTE $16
-      .BYTE $12
-      .BYTE  $F
-      .BYTE $30	
-      .BYTE $12
-      .BYTE $16
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $12
-      .BYTE   1
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $12
-      .BYTE   1
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $12
-      .BYTE   1
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $12
-      .BYTE   1
-      .BYTE   0
-BonusChanceText_X_1:.BYTE $22
-      .BYTE $30	
-      .BYTE   3
-      .BYTE $EA
-      .BYTE $FB
-      .BYTE $D1
-BonusChanceText_EXTRA_LIFE_1:.BYTE $22
-      .BYTE $C9
-      .BYTE  $F
-      .BYTE $DE
-      .BYTE $F1
-      .BYTE $ED
-      .BYTE $EB
-      .BYTE $DA
-      .BYTE $FB
-      .BYTE $E5
-      .BYTE $E2
-      .BYTE $DF
-      .BYTE $DE
-      .BYTE $F9
-      .BYTE $F9
-      .BYTE $F9
-      .BYTE $FB
-      .BYTE $D1
-      .BYTE 0
-BonusChanceBackgroundPalettes:.BYTE  $F
-      .BYTE $27
-      .BYTE $17
-      .BYTE   7
-      .BYTE  $F
-      .BYTE $37	; 7
-      .BYTE $16
-      .BYTE $12
-      .BYTE  $F
-      .BYTE $30	
-      .BYTE $10
-      .BYTE   0
-      .BYTE  $F
-      .BYTE $21
-      .BYTE $12
-      .BYTE   1
+PlayerSelectPalettes:.BYTE $3F,0,$20,$F				 
+      .BYTE $28,$16,6,$F			  ; 4
+      .BYTE $30,$12,$16,$F			  ; 8
+      .BYTE $30,$16,$12,$F			  ; $C
+      .BYTE $30,$12,$16,$F			  ; $10
+      .BYTE $22,$12,1,$F			  ; $14
+      .BYTE $22,$12,1,$F			  ; $18
+      .BYTE $22,$12,1,$F			  ; $1C
+      .BYTE $22,$12,1,0				  ; $20
+BonusChanceText_X_1:.BYTE $22,$30,3,$EA,$FB,$D1			
+BonusChanceText_EXTRA_LIFE_1:.BYTE $22,$C9,$F,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
+      .BYTE $F9,$FB,$D1,0			  ; $F
+BonusChanceBackgroundPalettes:.BYTE $F,$27,$17,7			  
+      .BYTE $F,$37,$16,$12			  ; 4
+      .BYTE $F,$30,$10,0			  ; 8
+      .BYTE $F,$21,$12,1			  ; $C
 BonusChanceReel1Order:.BYTE Slot_Snifit				  
       .BYTE Slot_Turnip				  ; 1 ;	Graphics exist for a mushroom (not used)
       .BYTE Slot_Star				  ; 2
@@ -996,266 +922,35 @@ BonusChanceReel3Order:.BYTE Slot_Star
       .BYTE Slot_Cherry				  ; 5
       .BYTE Slot_Turnip				  ; 6
       .BYTE Slot_Snifit				  ; 7
-BonusChanceUnusedCoinSprite:.BYTE $F8
-      .BYTE $19
-      .BYTE   1
-      .BYTE $60
-      .BYTE $F8
-      .BYTE $1B
-      .BYTE   1
-      .BYTE $68
-BonusChanceUnusedImajinHead:.BYTE $CB
-      .BYTE $B0
-      .BYTE   0
-      .BYTE $A0
-      .BYTE $CB
-      .BYTE $B0
-      .BYTE $40
-      .BYTE $A8
-BonusChanceUnusedLinaHead:.BYTE	$CB ; Ë
-      .BYTE $B2
-      .BYTE   0
-      .BYTE $A0
-      .BYTE $CB
-      .BYTE $B2
-      .BYTE $40
-      .BYTE $A8
-BonusChanceUnusedMamaHead:.BYTE	$CB ; Ë
-      .BYTE $B6
-      .BYTE   0
-      .BYTE $A0
-      .BYTE $CB
-      .BYTE $B6
-      .BYTE $40
-      .BYTE $A8
-BonusChanceUnusedPapaHead:.BYTE	$CB ; Ë
-      .BYTE $B4
-      .BYTE   0
-      .BYTE $A0
-      .BYTE $CB
-      .BYTE $B4
-unk_BANKA_8577:.BYTE $40
-      .BYTE $A8
-BonusChanceUnused_Blank20C6:.BYTE $20
-      .BYTE $C6
-      .BYTE $14
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-unk_BANKA_857F:.BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE   0
-BonusChanceText_NO_BONUS:.BYTE $22
-      .BYTE $86
-      .BYTE $14
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $E7
-      .BYTE $E8
-      .BYTE $FB
-      .BYTE $DB
-      .BYTE $E8
-      .BYTE $E7
-      .BYTE $EE
-      .BYTE $EC
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE   0
-BonusChanceText_PUSH_A_BUTTON:.BYTE $22
-      .BYTE $89
-      .BYTE  $E
-      .BYTE $E9
-      .BYTE $EE
-      .BYTE $EC
-      .BYTE $E1
-      .BYTE $FB
-      .BYTE  $E
-      .BYTE  $F
-      .BYTE $FB
-      .BYTE $DB
-      .BYTE $EE
-      .BYTE $ED
-      .BYTE $ED
-      .BYTE $E8
-      .BYTE $E7
-      .BYTE   0
-BonusChanceText_PLAYER_1UP:.BYTE $22
-      .BYTE $8B
-      .BYTE  $B
-      .BYTE $E9
-      .BYTE $E5
-      .BYTE $DA
-      .BYTE $F2
-      .BYTE $DE
-      .BYTE $EB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $D1
-      .BYTE $EE
-      .BYTE $E9
-      .BYTE   0
-Text_PAUSE:.BYTE $25
-      .BYTE $ED
-      .BYTE   5
-      .BYTE $E9
-      .BYTE $DA
-      .BYTE $EE
-      .BYTE $EC
-      .BYTE $DE
-      .BYTE $27
-      .BYTE $DB
-      .BYTE   2
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE 0
-      .BYTE $22
-      .BYTE $86
-      .BYTE $54
-      .BYTE $FB
-      .BYTE 0
-      .BYTE $22
-      .BYTE $AA
-      .BYTE $4D
-      .BYTE $FB
-      .BYTE 0
-      .BYTE $22
-      .BYTE $EB
-      .BYTE $4B
-      .BYTE $FB
-      .BYTE 0
-Text_PAUSE_Erase:.BYTE $25
-      .BYTE $ED
-      .BYTE   5
-      .BYTE $FB
-      .BYTE $FB
-unk_BANKA_85EC:.BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE   0
-unk_BANKA_85F0:.BYTE $25
-      .BYTE  $E
-      .BYTE   7
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-Text_WORLD_1_1:.BYTE $24
-      .BYTE $CA
-      .BYTE  $B
-      .BYTE $FB
-      .BYTE $F0
-      .BYTE $E8
-      .BYTE $EB
-      .BYTE $E5
-      .BYTE $DD
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $D1
-      .BYTE $F3
-      .BYTE $D1
-Text_EXTRA_LIFE_0:.BYTE	$23 ; #
-      .BYTE $48
-      .BYTE $10
-      .BYTE $DE
-      .BYTE $F1
-      .BYTE $ED
-      .BYTE $EB
-      .BYTE $DA
-      .BYTE $FB
-      .BYTE $E5
-      .BYTE $E2
-      .BYTE $DF
-      .BYTE $DE
-      .BYTE $F9
-      .BYTE $F9
-      .BYTE $F9
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $D0
-      .BYTE 0
-Text_WARP:.BYTE	$21 ; !
-      .BYTE $8E
-      .BYTE   4
-      .BYTE $F0
-      .BYTE $DA
-      .BYTE $EB
-      .BYTE $E9
-Text_WORLD_1:.BYTE $22
-      .BYTE  $C
-      .BYTE   9
-      .BYTE $FB
-      .BYTE $F0
-      .BYTE $E8
-      .BYTE $EB
-      .BYTE $E5
-      .BYTE $DD
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $D1
-      .BYTE 0
-      .BYTE $21
-      .BYTE $6A
-      .BYTE   1
-      .BYTE $FB
-      .BYTE $21
-      .BYTE $AA
-      .BYTE   1
-      .BYTE $FB
-      .BYTE 0
-      .BYTE $21
-      .BYTE $97
-      .BYTE $C6
-      .BYTE $FB
-      .BYTE 0
-UnusedText_THANK_YOU:.BYTE $21
-      .BYTE  $C
-      .BYTE   9
-      .BYTE $ED
-      .BYTE $E1
-      .BYTE $3A
-      .BYTE $E7
-      .BYTE $E4
-      .BYTE $FB
-      .BYTE $F2
-      .BYTE $E8
-      .BYTE $EE
-UnusedText_Blank214D:.BYTE $21
-      .BYTE $4D
-      .BYTE   6
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE 0
-; [000019AC BYTES: BEGIN OF AREA UNUSED-BANKA:8654. PRESS KEYPAD "-" TO	COLLAPSE]
+BonusChanceUnusedCoinSprite:.BYTE $F8,$19,1,$60,$F8,$1B,1,$68		
+BonusChanceUnusedImajinHead:.BYTE $CB,$B0,0,$A0,$CB,$B0,$40,$A8		
+BonusChanceUnusedLinaHead:.BYTE	$CB,$B2,0,$A0,$CB,$B2,$40,$A8	      
+BonusChanceUnusedMamaHead:.BYTE	$CB,$B6,0,$A0,$CB,$B6,$40,$A8	      
+BonusChanceUnusedPapaHead:.BYTE	$CB,$B4,0,$A0,$CB,$B4,$40,$A8	      
+BonusChanceUnused_Blank20C6:.BYTE $20,$C6,$14,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB
+      .BYTE $FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,0	  ; $F
+BonusChanceText_NO_BONUS:.BYTE $22,$86,$14,$FB,$FB,$FB,$FB,$FB,$FB,$E7,$E8,$FB,$DB,$E8,$E7
+      .BYTE $EE,$EC,$FB,$FB,$FB,$FB,$FB,$FB,0	  ; $F
+BonusChanceText_PUSH_A_BUTTON:.BYTE $22,$89,$E,$E9,$EE,$EC,$E1,$FB,$E,$F,$FB,$DB,$EE,$ED,$ED,$E8
+      .BYTE $E7,0				  ; $10
+BonusChanceText_PLAYER_1UP:.BYTE $22,$8B,$B,$E9,$E5,$DA,$F2,$DE,$EB,$FB,$FB,$D1,$EE,$E9,0
+Text_PAUSE:.BYTE $25,$ED,5,$E9,$DA,$EE,$EC,$DE	       
+Text_Unknown:.BYTE $27,$DB,2,$AA,$AA,0			 
+Text_Unknown2:.BYTE $22,$86,$54,$FB,0			  
+Text_Unknown3:.BYTE $22,$AA,$4D,$FB,0			  
+Text_Unknown4:.BYTE $22,$EB,$4B,$FB,0			  
+Text_PAUSE_Erase:.BYTE $25,$ED,5,$FB,$FB,$FB,$FB,$FB,0	     
+Text_Unknown5:.BYTE $25,$E,7,$FB,$FB,$FB,$FB,$FB,$FB,$FB  ; This one is	actually used, just not	sure what for
+Text_WORLD_1_1:.BYTE $24,$CA,$B,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$F3,$D1
+Text_EXTRA_LIFE_0:.BYTE	$23,$48,$10,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
+      .BYTE $F9,$FB,$FB,$D0,0			  ; $F
+Text_WARP:.BYTE	$21,$8E,4,$F0,$DA,$EB,$E9	      
+Text_WORLD_1:.BYTE $22,$C,9,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,0
+Text_Unknown6:.BYTE $21,$6A,1,$FB			  
+Text_Unknown7:.BYTE $21,$AA,1,$FB,0			  
+Text_Unknown8:.BYTE $21,$97,$C6,$FB,0			  
+UnusedText_THANK_YOU:.BYTE $21,$C,9,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE
+UnusedText_Blank214D:.BYTE $21,$4D,6,$FB,$FB,$FB,$FB,$FB,$FB,0	 ; [000019AC BYTES: BEGIN OF AREA UNUSED-BANKA:8654. PRESS KEYPAD "-" TO	COLLAPSE]
 byte_BANKA_8654:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20

@@ -832,6 +832,8 @@ sub_BANK2_845D:
 
 ; =============== S U B	R O U T	I N E =======================================
 
+; This seems to	mostly erase an	enemy for some reason
+
 sub_BANK2_8461:
       LDA     #0
       STA     EnemyTimer,X
@@ -1047,11 +1049,11 @@ loc_BANK2_8574:
 
 sub_BANK2_8577:
       LDA     unk_RAM_44A,X
-      BNE     loc_BANK2_857F
+      BNE     HandleObjectGravity
 
       JSR     sub_BANK2_9E50
 
-loc_BANK2_857F:
+HandleObjectGravity:
       JSR     sub_BANK2_9E4B
 
       LDA     ObjectYAccel,X
@@ -1061,8 +1063,9 @@ loc_BANK2_857F:
       BCS     locret_BANK2_858E
 
 loc_BANK2_858A:
-      INC     ObjectYAccel,X
-      INC     ObjectYAccel,X
+      INC     ObjectYAccel,X			  ; Makes objects slowly fall down
+      INC     ObjectYAccel,X			  ; Turning these into DECs causes...
+						  ;			    problems.
 
 locret_BANK2_858E:
       RTS
@@ -3071,7 +3074,7 @@ loc_BANK2_8FCD:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8FD2:
-      JMP     loc_BANK2_857F
+      JMP     HandleObjectGravity
 
 ; ---------------------------------------------------------------------------
 
@@ -3763,11 +3766,11 @@ loc_BANK2_9318:
       LDX     byte_RAM_42D
       LDA     ObjectType,X
       LDX     byte_RAM_12
-      CMP     #$3D
-      BCC     loc_BANK2_933B
+      CMP     #Enemy_Key			  ; Strange code. Phanto only chases you if you	have the key.
+      BCC     loc_BANK2_933B			  ; So you should just be able to use BEQ/BNE.
 
-      CMP     #$3E
-      BCS     loc_BANK2_933B
+      CMP     #Enemy_SubspacePotion		  ; But	instead	we do it like this for... reasons.
+      BCS     loc_BANK2_933B			  ; Nintendo.
 
       LDA     byte_RAM_5BC
       CMP     #$A0
@@ -4339,7 +4342,7 @@ sub_BANK2_95CE:
 sub_BANK2_95D0:
       STA     ObjectYAccel,X
       LDA     ObjectType,X
-      CMP     #$32
+      CMP     #Enemy_VegetableSmall
       LDA     ObjectYLo,X
       BCS     loc_BANK2_95E0
 

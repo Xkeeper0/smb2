@@ -39269,7 +39269,7 @@ TitleSpritePalettes:.BYTE $22 ;	"		  ; Unused DDP character palettes!
       .BYTE $30	; 0				  ; data used at 8000
       .BYTE $25	; %				  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
+unk_BANK0_989A:.BYTE $22 ; "			  ; data used at 8000
       .BYTE $30	; 0				  ; data used at 8000
       .BYTE $12					  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
@@ -44596,6 +44596,7 @@ sub_BANK2_845D:					  ; CODE XREF: sub_BANK2_8010+BBp
 
 ; =============== S U B	R O U T	I N E =======================================
 
+; This seems to	mostly erase an	enemy for some reason
 
 sub_BANK2_8461:					  ; CODE XREF: sub_BANK2_8670+11Fp
 						  ; BANK2:loc_BANK2_95B8p
@@ -44843,12 +44844,12 @@ sub_BANK2_8577:					  ; CODE XREF: BANK2:89F8p
 						  ; BANK2:8BF4j
 						  ; BANK2:loc_BANK2_8C22p ...
       LDA     unk_RAM_44A,X			  ; code used at 8000
-      BNE     loc_BANK2_857F			  ; code used at 8000
+      BNE     HandleObjectGravity		  ; code used at 8000
 
       JSR     sub_BANK2_9E50			  ; code used at 8000
 
 
-loc_BANK2_857F:					  ; CODE XREF: sub_BANK2_8577+3j
+HandleObjectGravity:				  ; CODE XREF: sub_BANK2_8577+3j
 						  ; BANK2:loc_BANK2_8FD2j
 						  ; BANK3:A1D0P ...
       JSR     sub_BANK2_9E4B			  ; code used at 8000
@@ -44861,8 +44862,9 @@ loc_BANK2_857F:					  ; CODE XREF: sub_BANK2_8577+3j
 
 
 loc_BANK2_858A:					  ; CODE XREF: sub_BANK2_8577+Dj
-      INC     ObjectYAccel,X			  ; code used at 8000
-      INC     ObjectYAccel,X			  ; code used at 8000
+      INC     ObjectYAccel,X			  ; Makes objects slowly fall down
+      INC     ObjectYAccel,X			  ; Turning these into DECs causes...
+						  ;			    problems.
 
 
 locret_BANK2_858E:				  ; CODE XREF: sub_BANK2_8577+11j
@@ -47034,7 +47036,7 @@ loc_BANK2_8FCD:					  ; CODE XREF: BANK2:8FC9j
 
 loc_BANK2_8FD2:					  ; CODE XREF: BANK2:8F8Ej
 						  ; BANK2:8F9Bj
-      JMP     loc_BANK2_857F			  ; code used at 8000
+      JMP     HandleObjectGravity		  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
@@ -47791,11 +47793,11 @@ loc_BANK2_9318:					  ; CODE XREF: BANK2:9313j
       LDX     byte_RAM_42D			  ; code used at 8000
       LDA     ObjectType,X			  ; code used at 8000
       LDX     byte_RAM_12			  ; code used at 8000
-      CMP     #$3D ; '='                          ; code used at 8000
-      BCC     loc_BANK2_933B			  ; code used at 8000
+      CMP     #Enemy_Key			  ; Strange code. Phanto only chases you if you	have the key.
+      BCC     loc_BANK2_933B			  ; So you should just be able to use BEQ/BNE.
 
-      CMP     #$3E ; '>'                          ; code used at 8000
-      BCS     loc_BANK2_933B			  ; code used at 8000
+      CMP     #Enemy_SubspacePotion		  ; But	instead	we do it like this for... reasons.
+      BCS     loc_BANK2_933B			  ; Nintendo.
 
       LDA     byte_RAM_5BC			  ; code used at 8000
       CMP     #$A0 ; ' '                          ; code used at 8000
@@ -48439,7 +48441,7 @@ sub_BANK2_95D0:					  ; CODE XREF: sub_BANK2_95AAp
 						  ; sub_BANK2_9692+57j
       STA     ObjectYAccel,X			  ; code used at 8000
       LDA     ObjectType,X			  ; code used at 8000
-      CMP     #$32 ; '2'                          ; code used at 8000
+      CMP     #Enemy_VegetableSmall		  ; code used at 8000
       LDA     ObjectYLo,X			  ; code used at 8000
       BCS     loc_BANK2_95E0			  ; code used at 8000
 
@@ -50399,7 +50401,7 @@ locret_BANK2_9E4A:				  ; CODE XREF: sub_BANK2_9E3B+Cj
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK2_9E4B:					  ; CODE XREF: sub_BANK2_8577:loc_BANK2_857Fp
+sub_BANK2_9E4B:					  ; CODE XREF: sub_BANK2_8577:HandleObjectGravityp
 						  ; BANK2:8867p
 						  ; BANK2:loc_BANK2_8B58j ...
       TXA					  ; code used at 8000
@@ -50911,7 +50913,7 @@ loc_BANK3_A1CD:					  ; CODE XREF: BANK3:A176j
 						  ; BANK3:A17Fj BANK3:A191j
       JSR     sub_BANK2_9E50			  ; code used at a000
 
-      JSR     loc_BANK2_857F			  ; code used at a000
+      JSR     HandleObjectGravity		  ; code used at a000
 
 
 loc_BANK3_A1D3:					  ; DATA XREF: BANK3:A27Dr
@@ -51143,7 +51145,7 @@ EnemyBehavior_ClawgripRock:			  ; DATA XREF: BANK2:8A9Co
 
       JSR     sub_BANK2_9E50			  ; code used at a000
 
-      JSR     loc_BANK2_857F			  ; code used at a000
+      JSR     HandleObjectGravity		  ; code used at a000
 
       JSR     sub_BANK3_B4FD			  ; code used at a000
 
@@ -51158,7 +51160,7 @@ EnemyBehavior_ClawgripRock:			  ; DATA XREF: BANK2:8A9Co
 
 loc_BANK3_A30A:					  ; CODE XREF: BANK3:A302j
       LDA     EnemyCollision,X			  ; code used at a000
-      AND     #4				  ; code used at a000
+      AND     #CollisionFlags_Down		  ; code used at a000
       BEQ     loc_BANK3_A320			  ; code used at a000
 
       LDA     ObjectYLo,X			  ; code used at a000
@@ -51773,7 +51775,7 @@ locret_BANK3_A5F4:				  ; CODE XREF: BANK3:A5B9j
 
 loc_BANK3_A5F5:					  ; CODE XREF: BANK3:A594j
 						  ; BANK3:A5A3j
-      JMP     loc_BANK2_857F			  ; code used at a000
+      JMP     HandleObjectGravity		  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -52531,7 +52533,7 @@ loc_BANK3_A9C9:					  ; CODE XREF: BANK3:A9C2j
       BMI     loc_BANK3_A9E9			  ; code used at a000
 
       LDA     EnemyCollision,X			  ; code used at a000
-      AND     #4				  ; code used at a000
+      AND     #CollisionFlags_Down		  ; code used at a000
       BEQ     loc_BANK3_A9E9			  ; code used at a000
 
       LDA     byte_RAM_E			  ; code used at a000
@@ -52563,7 +52565,7 @@ loc_BANK3_A9E9:					  ; CODE XREF: BANK3:A9CBj
 
 loc_BANK3_A9F9:					  ; CODE XREF: BANK3:A9A7j
 						  ; BANK3:A9C0j BANK3:A9EDj
-      JSR     loc_BANK2_857F			  ; code used at a000
+      JSR     HandleObjectGravity		  ; code used at a000
 
 
 loc_BANK3_A9FC:					  ; CODE XREF: BANK3:A9B9j
@@ -53264,7 +53266,7 @@ loc_BANK3_ADAB:					  ; CODE XREF: BANK3:AD93j
 						  ; BANK3:ADA7j
       JSR     sub_BANK2_9E50			  ; code used at a000
 
-      JMP     loc_BANK2_857F			  ; code used at a000
+      JMP     HandleObjectGravity		  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -54124,7 +54126,7 @@ loc_BANK3_B216:					  ; CODE XREF: BANK3:B207j
 
       BMI     loc_BANK3_B253			  ; code used at a000
 
-      LDA     #$80 ; '€'                          ; code used at a000
+      LDA     #SoundEffect1_HawkOpen_WartBarf	  ; code used at a000
       STA     SoundEffect1Queue			  ; code used at a000
       LDA     unk_RAM_480,X			  ; code used at a000
       AND     #3				  ; code used at a000
@@ -54136,7 +54138,7 @@ loc_BANK3_B216:					  ; CODE XREF: BANK3:B207j
       STA     ObjectXAccel,X			  ; code used at a000
       LDA     byte_BANK3_B1DB,Y			  ; code used at a000
       STA     ObjectYAccel,X			  ; code used at a000
-      LDA     #$11				  ; code used at a000
+      LDA     #Enemy_WartBubble			  ; code used at a000
       STA     ObjectType,X			  ; code used at a000
       LDA     ObjectYLo,X			  ; code used at a000
       ADC     #8				  ; code used at a000
@@ -74295,7 +74297,7 @@ PrincessStats:.BYTE   0				  ; data used at 8000
       .BYTE $AC	; ¬				  ; data used at 8000
       .BYTE $B3	; ³				  ; data used at 8000
       .BYTE $E0	; à				  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
+      .BYTE $3C	; <				  ; Float timer
       .BYTE   7					  ; data used at 8000
       .BYTE   4					  ; data used at 8000
       .BYTE   8					  ; data used at 8000
@@ -74305,23 +74307,12 @@ PrincessStats:.BYTE   0				  ; data used at 8000
       .BYTE $E8	; è				  ; data used at 8000
       .BYTE $EB	; ë				  ; data used at 8000
       .BYTE $FC	; ü				  ; data used at 8000
-MarioPalette:.BYTE  $F				  ; DATA XREF: sub_BANKA_8451:loc_BANKA_846Br
+MarioPalette:.BYTE $F,1,$16,$27				 ; 0
+						  ; DATA XREF: sub_BANKA_8451:loc_BANKA_846Br
 						  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-PrincessPalette:.BYTE  $F			  ; data used at 8000
-      .BYTE   6					  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE $36	; 6				  ; data used at 8000
-ToadPalette:.BYTE  $F				  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-LuigiPalette:.BYTE  $F				  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE $36	; 6				  ; data used at 8000
+PrincessPalette:.BYTE $F,6,$25,$36			    ; 0	; data used at 8000
+ToadPalette:.BYTE $F,1,$30,$27				; 0 ; data used	at 8000
+LuigiPalette:.BYTE $F,1,$2A,$36				 ; 0 ; data used at 8000
 MysteryData14439:.BYTE $DF			  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84A0r
 						  ; data used at 8000
       .BYTE $EF					  ; data used at 8000
@@ -74331,7 +74322,7 @@ MysteryData14439:.BYTE $DF			  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84A0r
       .BYTE $FF					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
-byte_BANKA_8441:.BYTE $AF			  ; data used at 8000
+      .BYTE $AF					  ; data used at 8000
       .BYTE $D7					  ; data used at 8000
       .BYTE $EB					  ; data used at 8000
       .BYTE $F5					  ; data used at 8000
@@ -74412,7 +74403,7 @@ loc_BANKA_8491:					  ; code used at 8000
 
 
 loc_BANKA_8493:					  ; CODE XREF: sub_BANKA_8451+4Bj
-      LDA     unk_BANKA_85F0,Y			  ; code used at 8000
+      LDA     Text_Unknown5,Y			  ; code used at 8000
       STA     unk_RAM_7168,Y			  ; code used at 8000
       DEY					  ; code used at 8000
       CPY     #$FF				  ; code used at 8000
@@ -74490,84 +74481,23 @@ byte_BANKA_84E5:.BYTE 0				  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84D7r
       .BYTE 0					  ; data used at 8000
       .BYTE $E0					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
-PlayerSelectPalettes:.BYTE $3F ; ?		  ; DATA XREF: sub_BANKA_8451:loc_BANKA_8479r
-						  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   6					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-BonusChanceText_X_1:.BYTE $22 ;	"		  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $EA	; ê				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $D1	; Ñ				  ; data used at 8000
-BonusChanceText_EXTRA_LIFE_1:.BYTE $22 ; "	  ; data used at 8000
-      .BYTE $C9	; É				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $DE	; Þ				  ; data used at 8000
-      .BYTE $F1	; ñ				  ; data used at 8000
-      .BYTE $ED	; í				  ; data used at 8000
-      .BYTE $EB	; ë				  ; data used at 8000
-      .BYTE $DA	; Ú				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $E5	; å				  ; data used at 8000
-      .BYTE $E2	; â				  ; data used at 8000
-      .BYTE $DF	; ß				  ; data used at 8000
-      .BYTE $DE	; Þ				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $D1	; Ñ				  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-BonusChanceBackgroundPalettes:.BYTE  $F		  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $37	; 7				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
+PlayerSelectPalettes:.BYTE $3F,0,$20,$F				 ; 0
+						  ; DATA XREF: sub_BANKA_8451:loc_BANKA_8479r
+      .BYTE $28,$16,6,$F			  ; 4 ;	data used at 8000
+      .BYTE $30,$12,$16,$F			  ; 8
+      .BYTE $30,$16,$12,$F			  ; $C
+      .BYTE $30,$12,$16,$F			  ; $10
+      .BYTE $22,$12,1,$F			  ; $14
+      .BYTE $22,$12,1,$F			  ; $18
+      .BYTE $22,$12,1,$F			  ; $1C
+      .BYTE $22,$12,1,0				  ; $20
+BonusChanceText_X_1:.BYTE $22,$30,3,$EA,$FB,$D1			; 0 ; data used	at 8000
+BonusChanceText_EXTRA_LIFE_1:.BYTE $22,$C9,$F,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9; 0 ; data	used at	8000
+      .BYTE $F9,$FB,$D1,0			  ; $F
+BonusChanceBackgroundPalettes:.BYTE $F,$27,$17,7			  ; 0 ;	data used at 8000
+      .BYTE $F,$37,$16,$12			  ; 4
+      .BYTE $F,$30,$10,0			  ; 8
+      .BYTE $F,$21,$12,1			  ; $C
 BonusChanceReel1Order:.BYTE Slot_Snifit				  ; 0
 						  ; DATA XREF: sub_BANKA_8451:loc_BANKA_8486r
       .BYTE Slot_Turnip				  ; 1 ;	Graphics exist for a mushroom (not used)
@@ -74593,266 +74523,37 @@ BonusChanceReel3Order:.BYTE Slot_Star				  ; 0 ;	data used at 8000
       .BYTE Slot_Cherry				  ; 5
       .BYTE Slot_Turnip				  ; 6
       .BYTE Slot_Snifit				  ; 7
-BonusChanceUnusedCoinSprite:.BYTE $F8 ;	ø	  ; data used at 8000
-      .BYTE $19					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $F8	; ø				  ; data used at 8000
-      .BYTE $1B					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE $68	; h				  ; data used at 8000
-BonusChanceUnusedImajinHead:.BYTE $CB ;	Ë	  ; data used at 8000
-      .BYTE $B0	; °				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $A0	;  				  ; data used at 8000
-      .BYTE $CB	; Ë				  ; data used at 8000
-      .BYTE $B0	; °				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $A8	; ¨				  ; data used at 8000
-BonusChanceUnusedLinaHead:.BYTE	$CB ; Ë		  ; data used at 8000
-      .BYTE $B2	; ²				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $A0	;  				  ; data used at 8000
-      .BYTE $CB	; Ë				  ; data used at 8000
-      .BYTE $B2	; ²				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $A8	; ¨				  ; data used at 8000
-BonusChanceUnusedMamaHead:.BYTE	$CB ; Ë		  ; data used at 8000
-      .BYTE $B6	; ¶				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $A0	;  				  ; data used at 8000
-      .BYTE $CB	; Ë				  ; data used at 8000
-      .BYTE $B6	; ¶				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $A8	; ¨				  ; data used at 8000
-BonusChanceUnusedPapaHead:.BYTE	$CB ; Ë		  ; data used at 8000
-      .BYTE $B4	; ´				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $A0	;  				  ; data used at 8000
-      .BYTE $CB	; Ë				  ; data used at 8000
-      .BYTE $B4	; ´				  ; data used at 8000
-unk_BANKA_8577:.BYTE $40 ; @			  ; data used at 8000
-      .BYTE $A8	; ¨				  ; data used at 8000
-BonusChanceUnused_Blank20C6:.BYTE $20		  ; data used at 8000
-      .BYTE $C6	; Æ				  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-unk_BANKA_857F:.BYTE $FB ; û			  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-BonusChanceText_NO_BONUS:.BYTE $22 ; "		  ; data used at 8000
-      .BYTE $86	; †				  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $E7	; ç				  ; data used at 8000
-      .BYTE $E8	; è				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $DB	; Û				  ; data used at 8000
-      .BYTE $E8	; è				  ; data used at 8000
-      .BYTE $E7	; ç				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-BonusChanceText_PUSH_A_BUTTON:.BYTE $22	; "	  ; data used at 8000
-      .BYTE $89	; ‰				  ; data used at 8000
-      .BYTE  $E					  ; data used at 8000
-      .BYTE $E9	; é				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE $E1	; á				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE  $E					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $DB	; Û				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE $ED	; í				  ; data used at 8000
-      .BYTE $ED	; í				  ; data used at 8000
-      .BYTE $E8	; è				  ; data used at 8000
-      .BYTE $E7	; ç				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-BonusChanceText_PLAYER_1UP:.BYTE $22 ; "	  ; data used at 8000
-      .BYTE $8B	; ‹				  ; data used at 8000
-      .BYTE  $B					  ; data used at 8000
-      .BYTE $E9	; é				  ; data used at 8000
-      .BYTE $E5	; å				  ; data used at 8000
-      .BYTE $DA	; Ú				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE $DE	; Þ				  ; data used at 8000
-      .BYTE $EB	; ë				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $D1	; Ñ				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE $E9	; é				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-Text_PAUSE:.BYTE $25 ; %			  ; data used at 8000
-      .BYTE $ED	; í				  ; data used at 8000
-      .BYTE   5					  ; data used at 8000
-      .BYTE $E9	; é				  ; data used at 8000
-      .BYTE $DA	; Ú				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE $DE	; Þ				  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $DB	; Û				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $AA	; ª				  ; data used at 8000
-      .BYTE $AA	; ª				  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $86					  ; data used at 8000
-      .BYTE $54					  ; data used at 8000
-      .BYTE $FB					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $AA					  ; data used at 8000
-      .BYTE $4D					  ; data used at 8000
-      .BYTE $FB					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $EB					  ; data used at 8000
-      .BYTE $4B					  ; data used at 8000
-      .BYTE $FB					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-Text_PAUSE_Erase:.BYTE $25 ; %			  ; data used at 8000
-      .BYTE $ED	; í				  ; data used at 8000
-      .BYTE   5					  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-unk_BANKA_85EC:.BYTE $FB ; û			  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-unk_BANKA_85F0:.BYTE $25 ; %			  ; DATA XREF: sub_BANKA_8451:loc_BANKA_8493r
-						  ; data used at 8000
-      .BYTE  $E					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-Text_WORLD_1_1:.BYTE $24 ; $			  ; data used at 8000
-      .BYTE $CA	; Ê				  ; data used at 8000
-      .BYTE  $B					  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $F0	; ð				  ; data used at 8000
-      .BYTE $E8	; è				  ; data used at 8000
-      .BYTE $EB	; ë				  ; data used at 8000
-      .BYTE $E5	; å				  ; data used at 8000
-      .BYTE $DD	; Ý				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $D1	; Ñ				  ; data used at 8000
-      .BYTE $F3	; ó				  ; data used at 8000
-      .BYTE $D1	; Ñ				  ; data used at 8000
-Text_EXTRA_LIFE_0:.BYTE	$23 ; #			  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $DE	; Þ				  ; data used at 8000
-      .BYTE $F1	; ñ				  ; data used at 8000
-      .BYTE $ED	; í				  ; data used at 8000
-      .BYTE $EB	; ë				  ; data used at 8000
-      .BYTE $DA	; Ú				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $E5	; å				  ; data used at 8000
-      .BYTE $E2	; â				  ; data used at 8000
-      .BYTE $DF	; ß				  ; data used at 8000
-      .BYTE $DE	; Þ				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $D0	; Ð				  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-Text_WARP:.BYTE	$21 ; !				  ; data used at 8000
-      .BYTE $8E	; Ž				  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE $F0	; ð				  ; data used at 8000
-      .BYTE $DA	; Ú				  ; data used at 8000
-      .BYTE $EB	; ë				  ; data used at 8000
-      .BYTE $E9	; é				  ; data used at 8000
-Text_WORLD_1:.BYTE $22 ; "			  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE   9					  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $F0	; ð				  ; data used at 8000
-      .BYTE $E8	; è				  ; data used at 8000
-      .BYTE $EB	; ë				  ; data used at 8000
-      .BYTE $E5	; å				  ; data used at 8000
-      .BYTE $DD	; Ý				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $D1	; Ñ				  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $6A	; j				  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $AA	; ª				  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $97					  ; data used at 8000
-      .BYTE $C6					  ; data used at 8000
-      .BYTE $FB					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-UnusedText_THANK_YOU:.BYTE $21 ; !		  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE   9					  ; data used at 8000
-      .BYTE $ED	; í				  ; data used at 8000
-      .BYTE $E1	; á				  ; data used at 8000
-      .BYTE $3A	; :				  ; data used at 8000
-      .BYTE $E7	; ç				  ; data used at 8000
-      .BYTE $E4	; ä				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE $E8	; è				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-UnusedText_Blank214D:.BYTE $21 ; !		  ; data used at 8000
-      .BYTE $4D	; M				  ; data used at 8000
-      .BYTE   6					  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE $FB	; û				  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
+BonusChanceUnusedCoinSprite:.BYTE $F8,$19,1,$60,$F8,$1B,1,$68		; 0 ; data used	at 8000
+BonusChanceUnusedImajinHead:.BYTE $CB,$B0,0,$A0,$CB,$B0,$40,$A8		; 0 ; data used	at 8000
+BonusChanceUnusedLinaHead:.BYTE	$CB,$B2,0,$A0,$CB,$B2,$40,$A8	      ;	0 ; data used at 8000
+BonusChanceUnusedMamaHead:.BYTE	$CB,$B6,0,$A0,$CB,$B6,$40,$A8	      ;	0 ; data used at 8000
+BonusChanceUnusedPapaHead:.BYTE	$CB,$B4,0,$A0,$CB,$B4,$40,$A8	      ;	0 ; data used at 8000
+BonusChanceUnused_Blank20C6:.BYTE $20,$C6,$14,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB; 0 ; data	used at	8000
+      .BYTE $FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,0	  ; $F
+BonusChanceText_NO_BONUS:.BYTE $22,$86,$14,$FB,$FB,$FB,$FB,$FB,$FB,$E7,$E8,$FB,$DB,$E8,$E7; 0 ;	data used at 8000
+      .BYTE $EE,$EC,$FB,$FB,$FB,$FB,$FB,$FB,0	  ; $F
+BonusChanceText_PUSH_A_BUTTON:.BYTE $22,$89,$E,$E9,$EE,$EC,$E1,$FB,$E,$F,$FB,$DB,$EE,$ED,$ED,$E8; 0 ; data used	at 8000
+      .BYTE $E7,0				  ; $10
+BonusChanceText_PLAYER_1UP:.BYTE $22,$8B,$B,$E9,$E5,$DA,$F2,$DE,$EB,$FB,$FB,$D1,$EE,$E9,0; 0 ; data used at 8000
+Text_PAUSE:.BYTE $25,$ED,5,$E9,$DA,$EE,$EC,$DE	       ; 0 ; data used at 8000
+Text_Unknown:.BYTE $27,$DB,2,$AA,$AA,0			 ; 0 ; data used at 8000
+Text_Unknown2:.BYTE $22,$86,$54,$FB,0			  ; 0 ;	data used at 8000
+Text_Unknown3:.BYTE $22,$AA,$4D,$FB,0			  ; 0 ;	data used at 8000
+Text_Unknown4:.BYTE $22,$EB,$4B,$FB,0			  ; 0 ;	data used at 8000
+Text_PAUSE_Erase:.BYTE $25,$ED,5,$FB,$FB,$FB,$FB,$FB,0	     ; 0 ; data	used at	8000
+Text_Unknown5:.BYTE $25,$E,7,$FB,$FB,$FB,$FB,$FB,$FB,$FB  ; 0
+						  ; DATA XREF: sub_BANKA_8451:loc_BANKA_8493r
+						  ; This one is	actually used, just not	sure what for
+Text_WORLD_1_1:.BYTE $24,$CA,$B,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$F3,$D1; 0 ; data used at 8000
+Text_EXTRA_LIFE_0:.BYTE	$23,$48,$10,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9; 0 ; data used at 8000
+      .BYTE $F9,$FB,$FB,$D0,0			  ; $F
+Text_WARP:.BYTE	$21,$8E,4,$F0,$DA,$EB,$E9	      ;	0 ; data used at 8000
+Text_WORLD_1:.BYTE $22,$C,9,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,0; 0 ; data used at 8000
+Text_Unknown6:.BYTE $21,$6A,1,$FB			  ; 0 ;	data used at 8000
+Text_Unknown7:.BYTE $21,$AA,1,$FB,0			  ; 0 ;	data used at 8000
+Text_Unknown8:.BYTE $21,$97,$C6,$FB,0			  ; 0 ;	data used at 8000
+UnusedText_THANK_YOU:.BYTE $21,$C,9,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE; 0 ; data used at 8000
+UnusedText_Blank214D:.BYTE $21,$4D,6,$FB,$FB,$FB,$FB,$FB,$FB,0	 ; 0 ; data used at 8000
 ; [000019AC BYTES: BEGIN OF AREA UNUSED-BANKA:8654. PRESS KEYPAD "-" TO	COLLAPSE]
 byte_BANKA_8654:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10

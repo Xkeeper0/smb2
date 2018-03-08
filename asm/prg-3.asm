@@ -363,7 +363,7 @@ loc_BANK3_A17D:
 loc_BANK3_A1CD:
       JSR     sub_BANK2_9E50
 
-      JSR     loc_BANK2_857F
+      JSR     HandleObjectGravity
 
 loc_BANK3_A1D3:
       JMP     sub_BANK2_9B1B
@@ -585,7 +585,7 @@ EnemyBehavior_ClawgripRock:
 
       JSR     sub_BANK2_9E50
 
-      JSR     loc_BANK2_857F
+      JSR     HandleObjectGravity
 
       JSR     sub_BANK3_B4FD
 
@@ -599,7 +599,7 @@ EnemyBehavior_ClawgripRock:
 
 loc_BANK3_A30A:
       LDA     EnemyCollision,X
-      AND     #4
+      AND     #CollisionFlags_Down
       BEQ     loc_BANK3_A320
 
       LDA     ObjectYLo,X
@@ -1172,7 +1172,7 @@ locret_BANK3_A5F4:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A5F5:
-      JMP     loc_BANK2_857F
+      JMP     HandleObjectGravity
 
 ; ---------------------------------------------------------------------------
 
@@ -1883,7 +1883,7 @@ loc_BANK3_A9C9:
       BMI     loc_BANK3_A9E9
 
       LDA     EnemyCollision,X
-      AND     #4
+      AND     #CollisionFlags_Down
       BEQ     loc_BANK3_A9E9
 
       LDA     byte_RAM_E
@@ -1911,7 +1911,7 @@ loc_BANK3_A9E9:
       STA     unk_RAM_86,X
 
 loc_BANK3_A9F9:
-      JSR     loc_BANK2_857F
+      JSR     HandleObjectGravity
 
 loc_BANK3_A9FC:
       LDA     #$61
@@ -2574,7 +2574,7 @@ loc_BANK3_AD85:
 loc_BANK3_ADAB:
       JSR     sub_BANK2_9E50
 
-      JMP     loc_BANK2_857F
+      JMP     HandleObjectGravity
 
 ; ---------------------------------------------------------------------------
 
@@ -3382,7 +3382,7 @@ loc_BANK3_B216:
 
       BMI     loc_BANK3_B253
 
-      LDA     #$80
+      LDA     #SoundEffect1_HawkOpen_WartBarf
       STA     SoundEffect1Queue
       LDA     unk_RAM_480,X
       AND     #3
@@ -3394,7 +3394,7 @@ loc_BANK3_B216:
       STA     ObjectXAccel,X
       LDA     byte_BANK3_B1DB,Y
       STA     ObjectYAccel,X
-      LDA     #$11
+      LDA     #Enemy_WartBubble
       STA     ObjectType,X
       LDA     ObjectYLo,X
       ADC     #8

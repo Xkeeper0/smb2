@@ -4886,7 +4886,7 @@ TitleSpritePalettes:.BYTE $22 ;	"		  ; Unused DDP character palettes!
       .BYTE $30	
       .BYTE $25
       .BYTE  $F
-      .BYTE $22
+unk_BANK0_989A:.BYTE $22
       .BYTE $30	
       .BYTE $12
       .BYTE  $F
