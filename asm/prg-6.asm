@@ -3405,9 +3405,15 @@ loc_BANK6_909C:
       STA     byte_RAM_E7
       LDA     #$D
       STA     byte_RAM_50E
-      LDA     byte_RAM_7
-NOP ; @TODO fix abs-to-zp
-STA     byte_RAM_50D
+IFDEF _COMPATIBILITY_
+	  .db $ad, $07, $00 ; LDA $0007
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDA     byte_RAM_7			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      STA     byte_RAM_50D
       LDX     byte_RAM_E8
       JSR     sub_BANK6_9885
 
@@ -3881,9 +3887,15 @@ loc_BANK6_9346:
       STA     byte_RAM_CB
       STA     byte_RAM_4BE
       STA     byte_RAM_4C0
-      STA     byte_RAM_D8
-NOP ; @TODO fix abs-to-zp
-RTS
+IFDEF _COMPATIBILITY_
+	  .db $8d, $d8, $00 ; STA $00D8
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STA     byte_RAM_D8			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      RTS
 
 ; End of function sub_BANK6_933A
 

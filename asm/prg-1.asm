@@ -2449,9 +2449,15 @@ loc_BANK1_AC0A:
       CMP     #$20
       BCC     loc_BANK1_AC37
 
-      INC     byte_RAM_E6
-NOP ; @TODO fix abs-to-zp
-LDA     #$A0
+IFDEF _COMPATIBILITY_
+	  .db $ee, $e6, $00 ; INC $00E6
+ENDIF
+IFNDEF _COMPATIBILITY_
+      INC     byte_RAM_E6			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDA     #$A0
       STA     byte_RAM_10
       LDX     #5
 
@@ -2552,8 +2558,15 @@ loc_BANK1_AC8B:
       STA     ObjectXAccel+6
       LDA     #$DA
       STA     ObjectYAccel+6
-      INC     byte_RAM_E6
-NOP ; @TODO fix abs-to-zp
+IFDEF _COMPATIBILITY_
+	  .db $ee, $e6, $00 ; INC $00E6
+ENDIF
+IFNDEF _COMPATIBILITY_
+      INC     byte_RAM_E6			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+
 loc_BANK1_ACA4:
       LDX     #5
 
@@ -2809,9 +2822,15 @@ sub_BANK1_ADF1:
       LDA     unk_RAM_5BE,Y
       CLC
       ADC     #9
-      STA     byte_RAM_11
-NOP ; @TODO fix abs-to-zp
-DEC     byte_RAM_5C3
+IFDEF _COMPATIBILITY_
+	  .db $8d, $11, $00 ; STA $0011
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STA     byte_RAM_11			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      DEC     byte_RAM_5C3
       BPL     locret_BANK1_AE12
 
       LDA     byte_RAM_5C2

@@ -2193,9 +2193,15 @@ loc_BANK0_8BCB:
 
       JSR     sub_BANK0_8EA4
 
-      LDA     PlayerCollision
-NOP ; @TODO fix abs-to-zp
-BEQ     locret_BANK0_8BEB
+IFDEF _COMPATIBILITY_
+	  .db $ad, $5a, $00 ; LDA $0000 + PlayerCollision
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDA     PlayerCollision			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      BEQ     locret_BANK0_8BEB
 
       LDA     #$20
       STA     byte_RAM_64

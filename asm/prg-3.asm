@@ -388,9 +388,15 @@ byte_BANK3_A1DC:.BYTE 4
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A1E4:
-      LDA     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-STA     unk_RAM_B1,X
+IFDEF _COMPATIBILITY_
+	  .db $ad, $f4, $00 ; LDA $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDA     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      STA     unk_RAM_B1,X
       LDY     EnemyState,X
       DEY
       TYA
@@ -529,9 +535,15 @@ loc_BANK3_A2AA:
       JSR     sub_BANK2_8894
 
       LDY     #0
-      STY     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-LDA     ObjectAttributes,X
+IFDEF _COMPATIBILITY_
+	  .db $8c, $f4, $00 ; STY $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STY     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDA     ObjectAttributes,X
       PHA
       LDA     #2
       STA     ObjectAttributes,X
@@ -559,9 +571,15 @@ loc_BANK3_A2D2:
       AND     #4
       BEQ     loc_BANK3_A2E1
 
-      LDX     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-DEC     unk_RAM_20C,X
+IFDEF _COMPATIBILITY_
+	  .db $ae, $f4, $00 ; LDX $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDX     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      DEC     unk_RAM_20C,X
       LDX     byte_RAM_12
       RTS
 
@@ -618,9 +636,15 @@ loc_BANK3_A320:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A323:
-      LDA     unk_RAM_A8,X
-NOP ; @TODO fix abs-to-zp
-ORA     unk_RAM_438,X
+IFDEF _COMPATIBILITY_
+	  .db $bd, $a8, $00 ; LDA $00A8, X
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDA     unk_RAM_A8,X			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      ORA     unk_RAM_438,X
       BNE     loc_BANK3_A362
 
       LDA     byte_RAM_10
@@ -750,9 +774,15 @@ loc_BANK3_A3C7:
       LDA     Player1JoypadHeld
       AND     #ControllerInput_Right|ControllerInput_Left
       TAY
-      AND     PlayerCollision
-NOP ; @TODO fix abs-to-zp
-BNE     loc_BANK3_A3E6
+IFDEF _COMPATIBILITY_
+	  .db $2d, $5a, $00 ; AND $0000 + PlayerCollision
+ENDIF
+IFNDEF _COMPATIBILITY_
+      AND     PlayerCollision			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      BNE     loc_BANK3_A3E6
 
       LDA     byte_BANK3_A365,Y
       CMP     ObjectXAccel,X
@@ -1004,9 +1034,15 @@ sub_BANK3_A508:
 
       JSR     loc_BANKF_FAFE
 
-      STY     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-LDA     #$45
+IFDEF _COMPATIBILITY_
+	  .db $8c, $f4, $00 ; STY $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STY     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDA     #$45
       STA     ObjectAttributes,X
       LDA     ObjectXLo,X
       PHA
@@ -1226,9 +1262,15 @@ loc_BANK3_A621:
       STA     byte_RAM_429
       ASL     byte_RAM_EE
       LDY     #0
-      STY     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-LDA     #$38
+IFDEF _COMPATIBILITY_
+	  .db $8c, $f4, $00 ; STY $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STY     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDA     #$38
       JSR     sub_BANK2_9BB3
 
 loc_BANK3_A648:
@@ -1492,9 +1534,15 @@ loc_BANK3_A783:
 loc_BANK3_A79B:
       TYA
       LDY     #$30
-      STY     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-JSR     sub_BANK2_9BB3
+IFDEF _COMPATIBILITY_
+	  .db $8c, $f4, $00 ; STY $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STY     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      JSR     sub_BANK2_9BB3
 
       LDA     #ObjAttrib_Palette1|ObjAttrib_Unknown_08
       STA     ObjectAttributes,X
@@ -2171,9 +2219,15 @@ loc_BANK3_AB42:
       LDA     #5
       STA     byte_RAM_534
       LDA     #0
-      STA     PlayerState
-NOP ; @TODO fix abs-to-zp
-RTS
+IFDEF _COMPATIBILITY_
+	  .db $8d, $50, $00 ; STA $0000 + PlayerState
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STA     PlayerState			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      RTS
 
 ; ---------------------------------------------------------------------------
 
@@ -2328,9 +2382,15 @@ loc_BANK3_AC4B:
 
       JSR     loc_BANKF_FAFE
 
-      STY     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-PLA
+IFDEF _COMPATIBILITY_
+	  .db $8c, $f4, $00 ; STY $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STY     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      PLA
       CLC
       LDY     byte_RAM_7
       ADC     byte_BANK3_AC26,Y
@@ -2699,23 +2759,42 @@ loc_BANK3_AE5C:
       LDA     unk_RAM_B1,X
       BNE     loc_BANK3_AE7C
 
-      LDA     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-PHA
+IFDEF _COMPATIBILITY_
+	  .db $ad, $f4, $00 ; LDA $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDA     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      PHA
       LDA     byte_RAM_42C
       CLC
       ADC     #$F5
       STA     byte_RAM_42C
       JSR     loc_BANKF_FAFE
 
-      STY     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-LDA     #$7C
+IFDEF _COMPATIBILITY_
+	  .db $8c, $f4, $00 ; STY $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STY     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDA     #$7C
       JSR     sub_BANK2_9BB3
 
       PLA
-      STA     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
+IFDEF _COMPATIBILITY_
+	  .db $8d, $f4, $00 ; STA $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STA     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+
 loc_BANK3_AE7C:
       LDA     ObjectYLo,X
       STA     byte_RAM_42C
@@ -2726,9 +2805,15 @@ loc_BANK3_AE7C:
       TYA
       CLC
       ADC     #8
-      STA     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-LDA     byte_RAM_0
+IFDEF _COMPATIBILITY_
+	  .db $8d, $f4, $00 ; STA $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STA     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDA     byte_RAM_0
       STA     byte_RAM_42C
       LDA     #$D0
       STA     unk_RAM_46E,X
@@ -2857,9 +2942,15 @@ loc_BANK3_AF29:
 
 loc_BANK3_AF34:
       STA     unk_RAM_20D,Y
-      LDX     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-LDA     unk_RAM_202,X
+IFDEF _COMPATIBILITY_
+	  .db $ae, $f4, $00 ; LDX $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDX     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDA     unk_RAM_202,X
       STA     unk_RAM_202,Y
       STA     unk_RAM_206,Y
       STA     unk_RAM_20A,Y
@@ -3216,9 +3307,15 @@ loc_BANK3_B13B:
       STA     unk_RAM_206,Y
       STA     unk_RAM_20A,Y
       STA     unk_RAM_20E,Y
-      LDX     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-LDA     SpriteDMAArea,X
+IFDEF _COMPATIBILITY_
+	  .db $ae, $f4, $00 ; LDX $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDX     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDA     SpriteDMAArea,X
       STA     unk_RAM_208,Y
       CLC
       ADC     #$10
@@ -3477,18 +3574,30 @@ locret_BANK3_B2AF:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B2B0:
-      LDA     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-STA     byte_RAM_7267
+IFDEF _COMPATIBILITY_
+	  .db $ad, $f4, $00 ; LDA $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDA     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      STA     byte_RAM_7267
       STA     byte_RAM_726B
       LDA     byte_RAM_10
       AND     #3
       STA     byte_RAM_7
       TAY
       LDA     unk_RAM_7265,Y
-      STA     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-LDA     byte_RAM_EF
+IFDEF _COMPATIBILITY_
+	  .db $8d, $f4, $00 ; STA $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STA     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDA     byte_RAM_EF
       BNE     locret_BANK3_B2AF
 
       LDY     unk_RAM_465,X
@@ -3534,9 +3643,15 @@ loc_BANK3_B2F7:
       STA     byte_RAM_42C
       LDY     byte_RAM_7
       LDA     unk_RAM_7266,Y
-      STA     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-LDY     #$A6
+IFDEF _COMPATIBILITY_
+	  .db $8d, $f4, $00 ; STA $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STA     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDY     #$A6
       LDA     unk_RAM_B1,X
       BNE     loc_BANK3_B320
 
@@ -3568,9 +3683,15 @@ loc_BANK3_B322:
       STA     byte_RAM_42C
       LDY     byte_RAM_7
       LDA     byte_RAM_7267,Y
-      STA     byte_RAM_F4
-NOP ; @TODO fix abs-to-zp
-LDY     #$BA
+IFDEF _COMPATIBILITY_
+	  .db $8d, $f4, $00 ; STA $00F4
+ENDIF
+IFNDEF _COMPATIBILITY_
+      STA     byte_RAM_F4			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      LDY     #$BA
       LDA     ObjectXAccel,X
       BEQ     loc_BANK3_B347
 

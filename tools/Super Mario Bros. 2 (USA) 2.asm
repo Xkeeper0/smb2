@@ -36339,7 +36339,7 @@ loc_BANK0_8BCB:					  ; DATA XREF: BANK0:8A3Bo
 
       JSR     sub_BANK0_8EA4			  ; code used at 8000
 
-      LDA     PlayerCollision			  ; NOPfix
+      LDA     PlayerCollision			  ; NOPfix - .db $ad, $5a, $00 ; LDA $0000 + PlayerCollision
       BEQ     locret_BANK0_8BEB			  ; code used at 8000
 
       LDA     #$20 ; ' '                          ; code used at 8000
@@ -42397,7 +42397,7 @@ loc_BANK1_AC0A:					  ; DATA XREF: BANK1:ABD6o
       CMP     #$20 ; ' '                          ; code used at a000
       BCC     loc_BANK1_AC37			  ; code used at a000
 
-      INC     byte_RAM_E6			  ; NOPfix
+      INC     byte_RAM_E6			  ; NOPfix - .db $ee, $e6, $00 ; INC $00E6
       LDA     #$A0 ; ' '                          ; code used at a000
       STA     byte_RAM_10			  ; code used at a000
       LDX     #5				  ; code used at a000
@@ -42507,7 +42507,7 @@ loc_BANK1_AC8B:					  ; code used at a000
       STA     ObjectXAccel+6			  ; code used at a000
       LDA     #$DA ; 'Ú'                          ; code used at a000
       STA     ObjectYAccel+6			  ; code used at a000
-      INC     byte_RAM_E6			  ; NOPFix
+      INC     byte_RAM_E6			  ; NOPfix - .db $ee, $e6, $00 ; INC $00E6
 
 
 loc_BANK1_ACA4:					  ; CODE XREF: BANK1:AC89j
@@ -42784,7 +42784,7 @@ sub_BANK1_ADF1:					  ; CODE XREF: sub_BANK1_AA79+62p
       LDA     unk_RAM_5BE,Y			  ; code used at a000
       CLC					  ; code used at a000
       ADC     #9				  ; code used at a000
-      STA     byte_RAM_11			  ; NOPfix
+      STA     byte_RAM_11			  ; NOPfix - .db $8d, $11, $00 ; STA $0011
       DEC     byte_RAM_5C3			  ; code used at a000
       BPL     locret_BANK1_AE12			  ; code used at a000
 
@@ -50939,7 +50939,7 @@ byte_BANK3_A1DC:.BYTE 4				  ; DATA XREF: BANK3:A2A4r
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A1E4:					  ; CODE XREF: sub_BANK2_9B1B+14J
-      LDA     byte_RAM_F4			  ; NOPfix
+      LDA     byte_RAM_F4			  ; NOPfix - .db $ad, $f4, $00 ; LDA $00F4
       STA     unk_RAM_B1,X			  ; code used at a000
       LDY     EnemyState,X			  ; code used at a000
       DEY					  ; code used at a000
@@ -51090,7 +51090,7 @@ loc_BANK3_A2AA:					  ; CODE XREF: BANK3:A296j
       JSR     sub_BANK2_8894			  ; code used at a000
 
       LDY     #0				  ; code used at a000
-      STY     byte_RAM_F4			  ; NOPfix
+      STY     byte_RAM_F4			  ; NOPfix - .db $8c, $f4, $00 ; STY $00F4
       LDA     ObjectAttributes,X		  ; code used at a000
       PHA					  ; code used at a000
       LDA     #2				  ; code used at a000
@@ -51120,7 +51120,7 @@ loc_BANK3_A2D2:					  ; CODE XREF: BANK3:A26Fj
       AND     #4				  ; code used at a000
       BEQ     loc_BANK3_A2E1			  ; code used at a000
 
-      LDX     byte_RAM_F4			  ; NOPfix
+      LDX     byte_RAM_F4			  ; NOPfix - .db $ae, $f4, $00 ; LDX $00F4
       DEC     unk_RAM_20C,X			  ; code used at a000
       LDX     byte_RAM_12			  ; code used at a000
       RTS					  ; code used at a000
@@ -51180,7 +51180,7 @@ loc_BANK3_A320:					  ; CODE XREF: BANK3:A30Ej
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A323:					  ; CODE XREF: sub_BANK2_9B1B+1BJ
-      LDA     unk_RAM_A8,X			  ; NOPfix
+      LDA     unk_RAM_A8,X			  ; NOPfix - .db $bd, $a8, $00 ; LDA $00A8, X
       ORA     unk_RAM_438,X			  ; code used at a000
       BNE     loc_BANK3_A362			  ; code used at a000
 
@@ -51321,7 +51321,7 @@ loc_BANK3_A3C7:					  ; CODE XREF: BANK3:A3C3j
       LDA     Player1JoypadHeld			  ; code used at a000
       AND     #ControllerInput_Right|ControllerInput_Left ; code used at a000
       TAY					  ; code used at a000
-      AND     PlayerCollision			  ; NOPfix
+      AND     PlayerCollision			  ; NOPfix - .db $2d, $5a, $00 ; AND $0000 + PlayerCollision
       BNE     loc_BANK3_A3E6			  ; code used at a000
 
       LDA     byte_BANK3_A365,Y			  ; code used at a000
@@ -51595,7 +51595,7 @@ sub_BANK3_A508:					  ; CODE XREF: sub_BANK2_9B1B+2AJ
 
       JSR     loc_BANKF_FAFE			  ; code used at a000
 
-      STY     byte_RAM_F4			  ; NOPfix
+      STY     byte_RAM_F4			  ; NOPfix - .db $8c, $f4, $00 ; STY $00F4
       LDA     #$45 ; 'E'                          ; code used at a000
       STA     ObjectAttributes,X		  ; code used at a000
       LDA     ObjectXLo,X			  ; code used at a000
@@ -51832,7 +51832,7 @@ loc_BANK3_A621:					  ; CODE XREF: BANK3:A617j
       STA     byte_RAM_429			  ; code used at a000
       ASL     byte_RAM_EE			  ; code used at a000
       LDY     #0				  ; code used at a000
-      STY     byte_RAM_F4			  ; NOPfix
+      STY     byte_RAM_F4			  ; NOPfix - .db $8c, $f4, $00 ; STY $00F4
       LDA     #$38 ; '8'                          ; code used at a000
       JSR     sub_BANK2_9BB3			  ; code used at a000
 
@@ -52115,7 +52115,7 @@ loc_BANK3_A783:					  ; CODE XREF: sub_BANK2_9B1B+77J
 loc_BANK3_A79B:					  ; CODE XREF: BANK3:A797j
       TYA					  ; code used at a000
       LDY     #$30 ; '0'                          ; code used at a000
-      STY     byte_RAM_F4			  ; NOPfix
+      STY     byte_RAM_F4			  ; NOPfix - .db $8c, $f4, $00 ; STY $00F4
       JSR     sub_BANK2_9BB3			  ; code used at a000
 
       LDA     #ObjAttrib_Palette1|ObjAttrib_Unknown_08 ; code used at a000
@@ -52842,7 +52842,7 @@ loc_BANK3_AB42:					  ; CODE XREF: BANK3:AB3Ej
       LDA     #5				  ; code used at a000
       STA     byte_RAM_534			  ; code used at a000
       LDA     #0				  ; code used at a000
-      STA     PlayerState			  ; NOPfix
+      STA     PlayerState			  ; NOPfix - .db $8d, $50, $00 ; STA $0000 + PlayerState
       RTS					  ; code used at a000
 
 ; ---------------------------------------------------------------------------
@@ -53008,7 +53008,7 @@ loc_BANK3_AC4B:					  ; CODE XREF: sub_BANK3_AC28+1Fj
 
       JSR     loc_BANKF_FAFE			  ; code used at a000
 
-      STY     byte_RAM_F4			  ; NOPfix
+      STY     byte_RAM_F4			  ; NOPfix - .db $8c, $f4, $00 ; STY $00F4
       PLA					  ; code used at a000
       CLC					  ; code used at a000
       LDY     byte_RAM_7			  ; code used at a000
@@ -53398,7 +53398,7 @@ loc_BANK3_AE5C:					  ; CODE XREF: BANK3:AE4Fj
       LDA     unk_RAM_B1,X			  ; code used at a000
       BNE     loc_BANK3_AE7C			  ; code used at a000
 
-      LDA     byte_RAM_F4			  ; NOPfix
+      LDA     byte_RAM_F4			  ; NOPfix - .db $ad, $f4, $00 ; LDA $00F4
       PHA					  ; code used at a000
       LDA     byte_RAM_42C			  ; code used at a000
       CLC					  ; code used at a000
@@ -53406,12 +53406,12 @@ loc_BANK3_AE5C:					  ; CODE XREF: BANK3:AE4Fj
       STA     byte_RAM_42C			  ; code used at a000
       JSR     loc_BANKF_FAFE			  ; code used at a000
 
-      STY     byte_RAM_F4			  ; NOPfix
+      STY     byte_RAM_F4			  ; NOPfix - .db $8c, $f4, $00 ; STY $00F4
       LDA     #$7C ; '|'                          ; code used at a000
       JSR     sub_BANK2_9BB3			  ; code used at a000
 
       PLA					  ; code used at a000
-      STA     byte_RAM_F4			  ; NOPfix
+      STA     byte_RAM_F4			  ; NOPfix - .db $8d, $f4, $00 ; STA $00F4
 
 
 loc_BANK3_AE7C:					  ; CODE XREF: BANK3:AE5Ej
@@ -53424,7 +53424,7 @@ loc_BANK3_AE7C:					  ; CODE XREF: BANK3:AE5Ej
       TYA					  ; code used at a000
       CLC					  ; code used at a000
       ADC     #8				  ; code used at a000
-      STA     byte_RAM_F4			  ; NOPfix
+      STA     byte_RAM_F4			  ; NOPfix - .db $8d, $f4, $00 ; STA $00F4
       LDA     byte_RAM_0			  ; code used at a000
       STA     byte_RAM_42C			  ; code used at a000
       LDA     #$D0 ; 'Ð'                          ; code used at a000
@@ -53566,7 +53566,7 @@ loc_BANK3_AF29:					  ; CODE XREF: BANK3:AF25j
 
 loc_BANK3_AF34:					  ; CODE XREF: BANK3:AF30j
       STA     unk_RAM_20D,Y			  ; code used at a000
-      LDX     byte_RAM_F4			  ; NOPfix
+      LDX     byte_RAM_F4			  ; NOPfix - .db $ae, $f4, $00 ; LDX $00F4
       LDA     unk_RAM_202,X			  ; code used at a000
       STA     unk_RAM_202,Y			  ; code used at a000
       STA     unk_RAM_206,Y			  ; code used at a000
@@ -53951,7 +53951,7 @@ loc_BANK3_B13B:					  ; CODE XREF: sub_BANK3_B0E8+4Fj
       STA     unk_RAM_206,Y			  ; code used at a000
       STA     unk_RAM_20A,Y			  ; code used at a000
       STA     unk_RAM_20E,Y			  ; code used at a000
-      LDX     byte_RAM_F4			  ; NOPfix
+      LDX     byte_RAM_F4			  ; NOPfix - .db $ae, $f4, $00 ; LDX $00F4
       LDA     SpriteDMAArea,X			  ; code used at a000
       STA     unk_RAM_208,Y			  ; code used at a000
       CLC					  ; code used at a000
@@ -54228,7 +54228,7 @@ locret_BANK3_B2AF:				  ; CODE XREF: BANK3:B2C8j
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B2B0:					  ; CODE XREF: sub_BANK2_9B1B+54J
-      LDA     byte_RAM_F4			  ; NOPfix
+      LDA     byte_RAM_F4			  ; NOPfix - .db $ad, $f4, $00 ; LDA $00F4
       STA     byte_RAM_7267			  ; code used at a000
       STA     byte_RAM_726B			  ; code used at a000
       LDA     byte_RAM_10			  ; code used at a000
@@ -54236,7 +54236,7 @@ loc_BANK3_B2B0:					  ; CODE XREF: sub_BANK2_9B1B+54J
       STA     byte_RAM_7			  ; code used at a000
       TAY					  ; code used at a000
       LDA     unk_RAM_7265,Y			  ; code used at a000
-      STA     byte_RAM_F4			  ; NOPfix
+      STA     byte_RAM_F4			  ; NOPfix - .db $8d, $f4, $00 ; STA $00F4
       LDA     byte_RAM_EF			  ; code used at a000
       BNE     locret_BANK3_B2AF			  ; code used at a000
 
@@ -54289,7 +54289,7 @@ loc_BANK3_B2F7:					  ; CODE XREF: BANK3:B2EDj
       STA     byte_RAM_42C			  ; code used at a000
       LDY     byte_RAM_7			  ; code used at a000
       LDA     unk_RAM_7266,Y			  ; code used at a000
-      STA     byte_RAM_F4			  ; NOPfix
+      STA     byte_RAM_F4			  ; NOPfix - .db $8d, $f4, $00 ; STA $00F4
       LDY     #$A6 ; '¦'                          ; code used at a000
       LDA     unk_RAM_B1,X			  ; code used at a000
       BNE     loc_BANK3_B320			  ; code used at a000
@@ -54327,7 +54327,7 @@ loc_BANK3_B322:					  ; CODE XREF: BANK3:B31Aj
       STA     byte_RAM_42C			  ; code used at a000
       LDY     byte_RAM_7			  ; code used at a000
       LDA     byte_RAM_7267,Y			  ; code used at a000
-      STA     byte_RAM_F4			  ; NOPfix
+      STA     byte_RAM_F4			  ; NOPfix - .db $8d, $f4, $00 ; STA $00F4
       LDY     #$BA ; 'º'                          ; code used at a000
       LDA     ObjectXAccel,X			  ; code used at a000
       BEQ     loc_BANK3_B347			  ; code used at a000
@@ -67663,7 +67663,7 @@ loc_BANK6_909C:					  ; CODE XREF: BANK6:loc_BANK6_90C2j
       STA     byte_RAM_E7			  ; code used at 8000
       LDA     #$D				  ; code used at 8000
       STA     byte_RAM_50E			  ; code used at 8000
-      LDA     byte_RAM_7			  ; NOPfix
+      LDA     byte_RAM_7			  ; NOPfix - .db $ad, $07, $00 ; LDA $0007
       STA     byte_RAM_50D			  ; code used at 8000
       LDX     byte_RAM_E8			  ; code used at 8000
       JSR     sub_BANK6_9885			  ; code used at 8000
@@ -68147,7 +68147,7 @@ loc_BANK6_9346:					  ; CODE XREF: sub_BANK6_933A+11j
       STA     byte_RAM_CB			  ; code used at 8000
       STA     byte_RAM_4BE			  ; code used at 8000
       STA     byte_RAM_4C0			  ; code used at 8000
-      STA     byte_RAM_D8			  ; NOPfix
+      STA     byte_RAM_D8			  ; NOPfix - .db $8d, $d8, $00 ; STA $00D8
       RTS					  ; code used at 8000
 
 ; End of function sub_BANK6_933A
@@ -91639,9 +91639,9 @@ NMI:						  ; DATA XREF: BANKF:FFFAo
 
 
 loc_BANKF_EBC9:					  ; CODE XREF: NMI+58j
-      LDA     byte_RAM_D1			  ; NOPfix
+      LDA     byte_RAM_D1			  ; NOPfix - .db $ad, $d1, $00 ; LDA $00D1
       STA     PPUADDR				  ; code used at e000
-      LDA     byte_RAM_D2			  ; NOPfix
+      LDA     byte_RAM_D2			  ; NOPfix - .db $ad, $d2, $00 ; LDA $00D2
       STA     PPUADDR				  ; code used at e000
 
 
@@ -91653,7 +91653,7 @@ loc_BANKF_EBD5:					  ; CODE XREF: NMI+4Fj
       BNE     loc_BANKF_EBD5			  ; code used at e000
 
       LDX     #$1E				  ; code used at e000
-      INC     byte_RAM_D2			  ; NOPfix
+      INC     byte_RAM_D2			  ; NOPfix - .db $ee, $d2, $00 ; INC $00D2
       CPY     #$3C				  ; code used at e000
       BNE     loc_BANKF_EBC9			  ; code used at e000
 
@@ -92833,7 +92833,7 @@ DamageInvulnBlinkFrames:.BYTE 1, 1, 1, 2, 2, 4,	4, 4		    ; 0
 sub_BANKF_F31A:					  ; CODE XREF: BANK1:A4D6P
 						  ; sub_BANKF_F0F9+1Fp
 						  ; sub_BANKF_F11E+25p	...
-      LDY     PlayerState			  ; NOPfix
+      LDY     PlayerState			  ; NOPfix - .db $ac, $50, $00 ; LDA $0000 + PlayerState
       CPY     #PlayerState_ChangingSize		  ; code used at e000
       BEQ     loc_BANKF_F337			  ; code used at e000
 

@@ -2254,12 +2254,24 @@ NMI:
       STA     PPUCTRL
 
 loc_BANKF_EBC9:
-      LDA     byte_RAM_D1
-NOP ; @TODO fix abs-to-zp
-STA     PPUADDR
-      LDA     byte_RAM_D2
-NOP ; @TODO fix abs-to-zp
-STA     PPUADDR
+IFDEF _COMPATIBILITY_
+	  .db $ad, $d1, $00 ; LDA $00D1
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDA     byte_RAM_D1			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      STA     PPUADDR
+IFDEF _COMPATIBILITY_
+	  .db $ad, $d2, $00 ; LDA $00D2
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDA     byte_RAM_D2			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      STA     PPUADDR
 
 loc_BANKF_EBD5:
       LDA     unk_RAM_380,Y
@@ -2269,9 +2281,15 @@ loc_BANKF_EBD5:
       BNE     loc_BANKF_EBD5
 
       LDX     #$1E
-      INC     byte_RAM_D2
-NOP ; @TODO fix abs-to-zp
-CPY     #$3C
+IFDEF _COMPATIBILITY_
+	  .db $ee, $d2, $00 ; INC $00D2
+ENDIF
+IFNDEF _COMPATIBILITY_
+      INC     byte_RAM_D2			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      CPY     #$3C
       BNE     loc_BANKF_EBC9
 
 loc_BANKF_EBE8:
@@ -3340,9 +3358,15 @@ byte_BANKF_F2E7:.BYTE 6
 DamageInvulnBlinkFrames:.BYTE 1, 1, 1, 2, 2, 4,	4, 4		    ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKF_F31A:
-      LDY     PlayerState
-NOP ; @TODO fix abs-to-zp
-CPY     #PlayerState_ChangingSize
+IFDEF _COMPATIBILITY_
+	  .db $ac, $50, $00 ; LDA $0000 + PlayerState
+ENDIF
+IFNDEF _COMPATIBILITY_
+      LDY     PlayerState			  ; Absolute address for zero-page
+	  NOP ; Alignment fix
+ENDIF
+
+      CPY     #PlayerState_ChangingSize
       BEQ     loc_BANKF_F337
 
       LDY     StarInvincibilityTimer

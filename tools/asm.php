@@ -64,7 +64,7 @@
 	printf("Fix .END: %d\n", $count);
 
 	// Handle Magic NOPs
-	$asm	= preg_replace('/\s*;\s+NOPfix\s*/im', "\nNOP ; @TODO fix abs-to-zp\n", $asm, -1, $count);
+	$asm	= preg_replace('/^(.*)\s+;\s+NOPfix\s*-\s*(.*)$/im', "IFDEF _COMPATIBILITY_\n\t  \\2\nENDIF\nIFNDEF _COMPATIBILITY_\n\\1 ; Absolute address for zero-page\n\t  NOP ; Alignment fix\nENDIF\n", $asm, -1, $count);
 	printf("NOP hotfixes: %d\n", $count);
 
 	// Fix dumb assembler not knowing how to use zero page properly
