@@ -1825,7 +1825,7 @@ unk_BANKF_E9B4:.BYTE $21
       .BYTE $E7
       .BYTE $EE
       .BYTE $DE
-      .BYTE $21
+unk_BANKF_E9C5:.BYTE $21
       .BYTE $AA
       .BYTE   7
       .BYTE $F6

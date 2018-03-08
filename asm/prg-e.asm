@@ -7175,108 +7175,31 @@ off_BANKE_DC00:.WORD _RAM_PPUDataBuffer
       .WORD unk_RAM_55F
       .WORD byte_BANKE_DC30
       .WORD byte_BANKE_DE7A
-      .BYTE $A6
-      .BYTE $E9
-      .BYTE $7B
-      .BYTE   6
-      .BYTE $C5
-      .BYTE $E9
-      .BYTE $68
-      .BYTE $71
-      .BYTE $7B
-      .BYTE   6
-      .BYTE $93
-      .BYTE 6
-      .BYTE $AB
-      .BYTE   6
-      .BYTE $BD
-      .BYTE   6
-      .BYTE $CC
-      .BYTE 6
-      .BYTE $E9
-      .BYTE 6
-      .BYTE $DA
-      .BYTE 6
-      .BYTE $DF
-      .BYTE   6
-      .BYTE $E4
-      .BYTE   6
-      .BYTE $94
-      .BYTE $71
-      .BYTE $A8
-      .BYTE $71
-      .BYTE $1B
-      .BYTE $72
-      .BYTE $AF
-      .BYTE $DF
-      .BYTE $A7
-      .BYTE $DF
-      .BYTE 0
-      .BYTE $74
-byte_BANKE_DC30:.BYTE $21
-
-      .BYTE $49
-      .BYTE 6
-      .BYTE $E9
-      .BYTE $E5
-      .BYTE $DE
-      .BYTE $DA
-      .BYTE $EC
-      .BYTE $DE
-      .BYTE $21
-      .BYTE $50
-      .BYTE 6
-      .BYTE $EC
-      .BYTE $DE
-      .BYTE $E5
-      .BYTE $DE
-      .BYTE $DC
-      .BYTE $ED
-      .BYTE $21
-      .BYTE $8C
-      .BYTE 6
-      .BYTE $E9
-      .BYTE $E5
-      .BYTE $DA
-      .BYTE $F2
-      .BYTE $DE
-      .BYTE $EB
-      .BYTE $20
-      .BYTE 0
-      .BYTE $20
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $B7
-      .BYTE $B8
-      .BYTE $20
+      .WORD unk_BANKF_E9A6
+      .WORD unk_RAM_67B
+      .WORD unk_BANKF_E9C5
+      .WORD unk_RAM_7168
+      .WORD unk_RAM_67B
+      .WORD unk_RAM_693
+      .WORD unk_RAM_6AB
+      .WORD unk_RAM_6BD
+      .WORD unk_RAM_6CC
+      .WORD unk_RAM_6E9
+      .WORD unk_RAM_6DA
+      .WORD unk_RAM_6DF
+      .WORD unk_RAM_6E4
+      .WORD unk_RAM_7194
+      .WORD unk_RAM_71A8
+      .WORD byte_RAM_721B
+      .WORD byte_BANKE_DFAF
+      .WORD byte_BANKE_DFA7
+      .WORD unk_RAM_7400
+byte_BANKE_DC30:.BYTE $21,$49,6,$E9,$E5,$DE,$DA,$EC,$DE	    ; PLEASE
+      .BYTE $21,$50,6,$EC,$DE,$E5,$DE,$DC,$ED	  ;	SELECT
+      .BYTE $21,$8C,6,$E9,$E5,$DA,$F2,$DE,$EB	  ;	PLAYER
+      .BYTE $20,0,$20,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8; Probably the	checkerboard diamonds or w/e
+      .BYTE $B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7; $F
+      .BYTE $B8,$B7,$B8,$B7,$B8,$20		  ; $1E
       .BYTE $20
       .BYTE $20
       .BYTE $B9
@@ -8102,7 +8025,8 @@ byte_BANKE_DE7A:.BYTE $23
       .BYTE $58
       .BYTE $FB
       .BYTE 0
-      .BYTE $27
+byte_BANKE_DFA7:.BYTE $27
+
       .BYTE $EA
       .BYTE 5
       .BYTE $AA
@@ -8110,7 +8034,8 @@ byte_BANKE_DE7A:.BYTE $23
       .BYTE $AA
       .BYTE $AA
       .BYTE $AA
-      .BYTE $20
+byte_BANKE_DFAF:.BYTE $20
+
       .BYTE $1E
       .BYTE $9E
       .BYTE $FF

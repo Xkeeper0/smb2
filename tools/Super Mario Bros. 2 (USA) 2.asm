@@ -2709,7 +2709,8 @@ unk_RAM_653:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKF_EB31:loc_BA
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_67B:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKF:E6F2w
+unk_RAM_67B:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC0Co
+						  ; BANKE:DC12o BANKF:E6F2w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 byte_RAM_67E:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E703w
@@ -2733,6 +2734,7 @@ byte_RAM_68F:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E6FAw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
+unk_RAM_693:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC14o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2756,6 +2758,7 @@ byte_RAM_68F:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E6FAw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
+unk_RAM_6AB:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC16o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2773,9 +2776,7 @@ byte_RAM_68F:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E6FAw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
+unk_RAM_6BD:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC18o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2790,6 +2791,7 @@ byte_RAM_6C8:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E8DBw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
+unk_RAM_6CC:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC1Ao
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2803,23 +2805,22 @@ byte_RAM_6C8:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E8DBw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
+unk_RAM_6DA:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC1Eo
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
+unk_RAM_6DF:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC20o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
+unk_RAM_6E4:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC22o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
+unk_RAM_6E9:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC1Co
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -30149,6 +30150,7 @@ unk_RAM_7150:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANKA_8451+52w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_7168:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANKA_8451+45w
+						  ; BANKE:DC10o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_716B:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANKF_E198:loc_BANKF_E1B6w
@@ -30195,7 +30197,7 @@ byte_RAM_7181:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANKF:E691w
 byte_RAM_7191:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANKF_E198+14w
 byte_RAM_7192:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANKF_E198+17w
       ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
+unk_RAM_7194:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: BANKE:DC24o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -30215,7 +30217,7 @@ byte_RAM_7192:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANKF_E198+17w
       ;	0 .BYTE	uninited & unexplored
 byte_RAM_71A6:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANKF:E779w
       ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
+unk_RAM_71A8:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: BANKE:DC26o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 byte_RAM_71AB:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANKF:E738w
@@ -30824,6 +30826,7 @@ byte_RAM_726B:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK3:B2B6w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_7400:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: CopyBonusChanceLayoutToRAM+5w
+						  ; BANKE:DC2Eo
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -45760,10 +45763,10 @@ loc_BANK2_89E2:					  ; CODE XREF: BANK2:89D0j
       CMP     #0				  ; code used at 8000
       BEQ     loc_BANK2_8A0A			  ; code used at 8000
 
-      CMP     #$41 ; 'A'                          ; code used at 8000
+      CMP     #Enemy_FlyingCarpet		  ; code used at 8000
       BEQ     loc_BANK2_89F0			  ; code used at 8000
 
-      CMP     #$32 ; '2'                          ; code used at 8000
+      CMP     #Enemy_VegetableSmall		  ; code used at 8000
       BCS     loc_BANK2_8A0A			  ; code used at 8000
 
 
@@ -88183,108 +88186,32 @@ off_BANKE_DC00:.WORD _RAM_PPUDataBuffer		  ; DATA XREF: WaitForNMI+4r
       .WORD unk_RAM_55F				  ; data used at c000
       .WORD byte_BANKE_DC30			  ; data used at c000
       .WORD byte_BANKE_DE7A			  ; data used at c000
-      .BYTE $A6
-      .BYTE $E9	; é
-      .BYTE $7B	; {
-      .BYTE   6
-      .BYTE $C5	; Å
-      .BYTE $E9	; é
-      .BYTE $68					  ; data used at c000
-      .BYTE $71					  ; data used at c000
-      .BYTE $7B	; {
-      .BYTE   6
-      .BYTE $93					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE $AB	; «
-      .BYTE   6
-      .BYTE $BD	; ½
-      .BYTE   6
-      .BYTE $CC					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE $E9					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE $DA					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE $DF	; ß
-      .BYTE   6
-      .BYTE $E4	; ä
-      .BYTE   6
-      .BYTE $94	; ”
-      .BYTE $71	; q
-      .BYTE $A8	; ¨
-      .BYTE $71	; q
-      .BYTE $1B					  ; data used at c000
-      .BYTE $72					  ; data used at c000
-      .BYTE $AF					  ; data used at c000
-      .BYTE $DF					  ; data used at c000
-      .BYTE $A7					  ; data used at c000
-      .BYTE $DF					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $74					  ; data used at c000
-byte_BANKE_DC30:.BYTE $21			  ; DATA XREF: BANKE:DC06o
-						  ; data used at c000
-      .BYTE $49					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE $E9					  ; data used at c000
-      .BYTE $E5					  ; data used at c000
-      .BYTE $DE					  ; data used at c000
-      .BYTE $DA					  ; data used at c000
-      .BYTE $EC					  ; data used at c000
-      .BYTE $DE					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE $50					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE $EC					  ; data used at c000
-      .BYTE $DE					  ; data used at c000
-      .BYTE $E5					  ; data used at c000
-      .BYTE $DE					  ; data used at c000
-      .BYTE $DC					  ; data used at c000
-      .BYTE $ED					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE $8C					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE $E9					  ; data used at c000
-      .BYTE $E5					  ; data used at c000
-      .BYTE $DA					  ; data used at c000
-      .BYTE $F2					  ; data used at c000
-      .BYTE $DE					  ; data used at c000
-      .BYTE $EB					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $20					  ; data used at c000
+      .WORD unk_BANKF_E9A6
+      .WORD unk_RAM_67B
+      .WORD unk_BANKF_E9C5
+      .WORD unk_RAM_7168			  ; data used at c000
+      .WORD unk_RAM_67B
+      .WORD unk_RAM_693				  ; data used at c000
+      .WORD unk_RAM_6AB
+      .WORD unk_RAM_6BD
+      .WORD unk_RAM_6CC				  ; data used at c000
+      .WORD unk_RAM_6E9				  ; data used at c000
+      .WORD unk_RAM_6DA				  ; data used at c000
+      .WORD unk_RAM_6DF
+      .WORD unk_RAM_6E4
+      .WORD unk_RAM_7194
+      .WORD unk_RAM_71A8
+      .WORD byte_RAM_721B			  ; data used at c000
+      .WORD byte_BANKE_DFAF			  ; data used at c000
+      .WORD byte_BANKE_DFA7			  ; data used at c000
+      .WORD unk_RAM_7400			  ; data used at c000
+byte_BANKE_DC30:.BYTE $21,$49,6,$E9,$E5,$DE,$DA,$EC,$DE	    ; 0	; DATA XREF: BANKE:DC06o
+						  ; PLEASE
+      .BYTE $21,$50,6,$EC,$DE,$E5,$DE,$DC,$ED	  ; 0 ;	SELECT
+      .BYTE $21,$8C,6,$E9,$E5,$DA,$F2,$DE,$EB	  ; 0 ;	PLAYER
+      .BYTE $20,0,$20,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8; 0 ; Probably the	checkerboard diamonds or w/e
+      .BYTE $B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7; $F
+      .BYTE $B8,$B7,$B8,$B7,$B8,$20		  ; $1E
       .BYTE $20					  ; data used at c000
       .BYTE $20					  ; data used at c000
       .BYTE $B9					  ; data used at c000
@@ -89110,7 +89037,8 @@ byte_BANKE_DE7A:.BYTE $23			  ; DATA XREF: BANKE:DC08o
       .BYTE $58					  ; data used at c000
       .BYTE $FB					  ; data used at c000
       .BYTE 0					  ; data used at c000
-      .BYTE $27					  ; data used at c000
+byte_BANKE_DFA7:.BYTE $27			  ; DATA XREF: BANKE:DC2Co
+						  ; data used at c000
       .BYTE $EA					  ; data used at c000
       .BYTE 5					  ; data used at c000
       .BYTE $AA					  ; data used at c000
@@ -89118,7 +89046,8 @@ byte_BANKE_DE7A:.BYTE $23			  ; DATA XREF: BANKE:DC08o
       .BYTE $AA					  ; data used at c000
       .BYTE $AA					  ; data used at c000
       .BYTE $AA					  ; data used at c000
-      .BYTE $20					  ; data used at c000
+byte_BANKE_DFAF:.BYTE $20			  ; DATA XREF: BANKE:DC2Ao
+						  ; data used at c000
       .BYTE $1E					  ; data used at c000
       .BYTE $9E					  ; data used at c000
       .BYTE $FF					  ; data used at c000
@@ -91123,7 +91052,7 @@ DisableNMI:					  ; CODE XREF: sub_BANKF_E228+3p
 ; End of function DisableNMI
 
 ; ---------------------------------------------------------------------------
-unk_BANKF_E9A6:.BYTE $21 ; !
+unk_BANKF_E9A6:.BYTE $21 ; !			  ; DATA XREF: BANKE:DC0Ao
       .BYTE $CB	; Ë
       .BYTE  $A
       .BYTE $E0	; à
@@ -91154,7 +91083,7 @@ unk_BANKF_E9B4:.BYTE $21 ; !			  ; DATA XREF: BANKF:loc_BANKF_E6EFr
       .BYTE $E7	; ç
       .BYTE $EE	; î
       .BYTE $DE	; Þ
-      .BYTE $21	; !
+unk_BANKF_E9C5:.BYTE $21 ; !			  ; DATA XREF: BANKE:DC0Eo
       .BYTE $AA	; ª
       .BYTE   7
       .BYTE $F6	; ö

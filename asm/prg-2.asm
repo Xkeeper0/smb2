@@ -1898,10 +1898,10 @@ loc_BANK2_89E2:
       CMP     #0
       BEQ     loc_BANK2_8A0A
 
-      CMP     #$41
+      CMP     #Enemy_FlyingCarpet
       BEQ     loc_BANK2_89F0
 
-      CMP     #$32
+      CMP     #Enemy_VegetableSmall
       BCS     loc_BANK2_8A0A
 
 loc_BANK2_89F0:

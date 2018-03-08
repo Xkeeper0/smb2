@@ -2272,7 +2272,8 @@ byte_RAM_68F:
       .dsb 1                    ; $0690
       .dsb 1                    ; $0691
       .dsb 1                    ; $0692
-      .dsb 1                    ; $0693
+unk_RAM_693:
+	  .dsb 1                       ; $0693
       .dsb 1                    ; $0694
       .dsb 1                    ; $0695
       .dsb 1                    ; $0696
@@ -2296,7 +2297,8 @@ byte_RAM_68F:
       .dsb 1                    ; $06a8
       .dsb 1                    ; $06a9
       .dsb 1                    ; $06aa
-      .dsb 1                    ; $06ab
+unk_RAM_6AB:
+	  .dsb 1                       ; $06ab
       .dsb 1                    ; $06ac
       .dsb 1                    ; $06ad
       .dsb 1                    ; $06ae
@@ -2314,7 +2316,8 @@ byte_RAM_68F:
       .dsb 1                    ; $06ba
       .dsb 1                    ; $06bb
       .dsb 1                    ; $06bc
-      .dsb 1                    ; $06bd
+unk_RAM_6BD:
+	  .dsb 1                       ; $06bd
       .dsb 1                    ; $06be
       .dsb 1                    ; $06bf
       .dsb 1                    ; $06c0
@@ -2330,7 +2333,8 @@ byte_RAM_6C8:
       .dsb 1                    ; $06c9
       .dsb 1                    ; $06ca
       .dsb 1                    ; $06cb
-      .dsb 1                    ; $06cc
+unk_RAM_6CC:
+	  .dsb 1                       ; $06cc
       .dsb 1                    ; $06cd
       .dsb 1                    ; $06ce
       .dsb 1                    ; $06cf
@@ -2344,22 +2348,26 @@ byte_RAM_6C8:
       .dsb 1                    ; $06d7
       .dsb 1                    ; $06d8
       .dsb 1                    ; $06d9
-      .dsb 1                    ; $06da
+unk_RAM_6DA:
+	  .dsb 1                       ; $06da
       .dsb 1                    ; $06db
       .dsb 1                    ; $06dc
       .dsb 1                    ; $06dd
       .dsb 1                    ; $06de
-      .dsb 1                    ; $06df
+unk_RAM_6DF:
+	  .dsb 1                       ; $06df
       .dsb 1                    ; $06e0
       .dsb 1                    ; $06e1
       .dsb 1                    ; $06e2
       .dsb 1                    ; $06e3
-      .dsb 1                    ; $06e4
+unk_RAM_6E4:
+	  .dsb 1                       ; $06e4
       .dsb 1                    ; $06e5
       .dsb 1                    ; $06e6
       .dsb 1                    ; $06e7
       .dsb 1                    ; $06e8
-      .dsb 1                    ; $06e9
+unk_RAM_6E9:
+	  .dsb 1                       ; $06e9
       .dsb 1                    ; $06ea
       .dsb 1                    ; $06eb
       .dsb 1                    ; $06ec
@@ -2766,7 +2774,11 @@ byte_RAM_7191 = $7191
 
 byte_RAM_7192 = $7192
 
+unk_RAM_7194 = $7194
+
 byte_RAM_71A6 = $71a6
+
+unk_RAM_71A8 = $71a8
 
 byte_RAM_71AB = $71ab
 
