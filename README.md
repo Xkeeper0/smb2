@@ -17,6 +17,9 @@ This will generate a few files:
 * `assembler.txt` and `assembler-err.txt`, logs from the assembler
 * a bunch of assorted other files
 
+By default, the build script will build a byte-for-byte copy of the game.
+You can change this behavior by removing the `-d_COMPATIBILITY_` flag from `build.bat`.
+
 ## Assembly
 The "source" lives in the `asm` directory:
 
@@ -29,16 +32,10 @@ from a certain disassembly tool. If you modify it (for some reason),
 you can use `php tools/asm.php` to re-split the disassembly and clean it up.
 Note that doing so will *lose all changes* in the split disassembly!
 
+If you want to build the *Rev A* version of the game that fixes a soft-lock bug
+involving the Fryguy boss, you should check out the `rev-a` branch.
+
 ## Whoops
 If you goof up and something breaks, `tools/offsetcompare.php` may help;
 it uses labels like `unk_byte_ABCD` to check if the code has gotten
 shifted or offset in some way (so you can go fix it).
-
-This is what allowed me to temporarily work around...
-
-## Known issues
-In some cases, Nintendo originally used code like `LDA $0050`.
-However, asm6 recognizes this is a zero-page address, and emits
-`LDA $50`, which is a different, shorter instruction.
-The disassembly here changes this to `LDA $50; NOP` to keep
-code aligned. (Hopefully in the future this can be fixed)
