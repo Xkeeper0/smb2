@@ -527,7 +527,7 @@ loc_BANKA_831D:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKA_8327:
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #6
       BEQ     loc_BANKA_8392
 
@@ -568,7 +568,7 @@ loc_BANKA_8347:
 ; ---------------------------------------------------------------------------
 
 loc_BANKA_8364:
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #1
       BEQ     loc_BANKA_8371
 
@@ -585,16 +585,16 @@ loc_BANKA_8371:
       STA     byte_RAM_0
       LDA     #$88
       STA     byte_RAM_1
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       ORA     #$80
-      STA     BackgroundCHR2TimerIndex
+      STA     CurrentWorld
       LDY     #$80
       BNE     loc_BANKA_8338
 
 loc_BANKA_8389:
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       AND     #$F
-      STA     BackgroundCHR2TimerIndex
+      STA     CurrentWorld
       RTS
 
 ; ---------------------------------------------------------------------------

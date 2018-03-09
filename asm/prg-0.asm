@@ -2960,7 +2960,7 @@ loc_BANK0_8F2B:
 
       LDA     #0
       LDX     #1
-      LDY     BackgroundCHR2TimerIndex
+      LDY     CurrentWorld
       CPY     #1
       BEQ     loc_BANK0_8F44
 
@@ -4355,7 +4355,7 @@ WaitForNMI_TitleScreen_TurnOnPPU:
 ; =============== S U B	R O U T	I N E =======================================
 
 WaitForNMI_TitleScreen:
-      LDA     byte_RAM_11
+      LDA     ScreenUpdateIndex
       ASL     A
       TAX
       LDA     TitleScreenPPUDataPointers,X
@@ -5124,7 +5124,7 @@ loc_BANK0_9A6F:
       JSR     WaitForNMI_TitleScreen
 
       LDA     #1
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI_TitleScreen
 
       LDA     #Music1_Title

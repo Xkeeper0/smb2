@@ -233,7 +233,7 @@ loc_BANK3_A10A:
       JSR     sub_BANK2_8F52
 
       LDA     #4
-      STA     unk_RAM_465,X
+      STA     EnemyHP,X
       LDA     #0
       STA     ObjectXAccel,X
       LDA     ObjectXLo,X
@@ -586,7 +586,7 @@ IFNDEF _COMPATIBILITY_
 	  NOP ; Alignment fix
 ENDIF
 
-      DEC     unk_RAM_20C,X
+      DEC     SpriteDMAArea + $0C,X
       LDX     byte_RAM_12
       RTS
 
@@ -595,7 +595,7 @@ ENDIF
 loc_BANK3_A2E1:
       LDA     unk_RAM_B1,X
       TAX
-      DEC     unk_RAM_208,X
+      DEC     SpriteDMAArea + $08,X
       LDX     byte_RAM_12
       RTS
 
@@ -1119,13 +1119,13 @@ loc_BANK3_A56B:
       JSR     sub_BANK2_8F52
 
       LDA     #2
-      LDY     BackgroundCHR2TimerIndex
+      LDY     CurrentWorld
       BEQ     loc_BANK3_A577
 
       LDA     #4
 
 loc_BANK3_A577:
-      STA     unk_RAM_465,X
+      STA     EnemyHP,X
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -1451,7 +1451,7 @@ loc_BANK3_A724:
       LDA     #$40
       STA     unk_RAM_477,X
       LDA     #2
-      STA     unk_RAM_465,X
+      STA     EnemyHP,X
       JMP     loc_BANK2_8F6F
 
 ; ---------------------------------------------------------------------------
@@ -1679,23 +1679,23 @@ loc_BANK3_A84C:
       LDA     ObjectYLo,X
       CLC
       ADC     #$10
-      STA     unk_RAM_258
+      STA     SpriteDMAArea + $58
       LDA     #$D
-      STA     unk_RAM_259
-      STA     unk_RAM_25D
-      LDA     unk_RAM_232
-      STA     unk_RAM_25A
-      STA     unk_RAM_25E
+      STA     SpriteDMAArea + $59
+      STA     SpriteDMAArea + $5D
+      LDA     SpriteDMAArea + $32
+      STA     SpriteDMAArea + $5A
+      STA     SpriteDMAArea + $5E
       LDA     byte_RAM_1
       CLC
       ADC     #$10
-      STA     unk_RAM_25B
+      STA     SpriteDMAArea + $5B
       LDA     ObjectYLo,X
-      STA     unk_RAM_25C
+      STA     SpriteDMAArea + $5C
       LDA     byte_RAM_429
       SEC
       SBC     #8
-      STA     unk_RAM_25F
+      STA     SpriteDMAArea + $5F
 
 loc_BANK3_A88B:
       LDA     #0
@@ -2285,11 +2285,11 @@ loc_BANK3_AB88:
       LDA     byte_RAM_429
       SEC
       SBC     #4
-      STA     unk_RAM_293
+      STA     SpriteDMAArea + $93
       ADC     #7
-      STA     unk_RAM_297
+      STA     SpriteDMAArea + $97
       ADC     #8
-      STA     unk_RAM_29B
+      STA     SpriteDMAArea + $9B
       LDA     #$20
       LDY     ObjectYAccel,X
       CPY     #$FD
@@ -2299,13 +2299,13 @@ loc_BANK3_AB88:
 
 loc_BANK3_ABA8:
       ADC     byte_RAM_42C
-      STA     unk_RAM_290
-      STA     unk_RAM_294
-      STA     unk_RAM_298
+      STA     SpriteDMAArea + $90
+      STA     SpriteDMAArea + $94
+      STA     SpriteDMAArea + $98
       LDA     #$8C
-      STA     unk_RAM_291
-      STA     unk_RAM_295
-      STA     unk_RAM_299
+      STA     SpriteDMAArea + $91
+      STA     SpriteDMAArea + $95
+      STA     SpriteDMAArea + $99
       LDA     byte_RAM_10
       LSR     A
       AND     #3
@@ -2315,9 +2315,9 @@ loc_BANK3_ABA8:
       ROR     A
       AND     #$C0
       ORA     byte_RAM_0
-      STA     unk_RAM_292
-      STA     unk_RAM_296
-      STA     unk_RAM_29A
+      STA     SpriteDMAArea + $92
+      STA     SpriteDMAArea + $96
+      STA     SpriteDMAArea + $9A
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -2437,7 +2437,7 @@ loc_BANK3_AC6A:
       JSR     sub_BANK2_845D
 
       LDA     #4
-      STA     unk_RAM_465,X
+      STA     EnemyHP,X
       LDA     #0
       STA     EnemyTimer,X
       RTS
@@ -2483,7 +2483,7 @@ EnemyBehavior_Fryguy:
       LDA     #2
       STA     unk_RAM_6F,X
       INC     unk_RAM_9F,X
-      LDY     unk_RAM_465,X
+      LDY     EnemyHP,X
       DEY
       BNE     loc_BANK3_ACE7
 
@@ -2951,7 +2951,7 @@ loc_BANK3_AF03:
       LDA     #$3A
 
 loc_BANK3_AF13:
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     #$55
       CPX     #$E8
       BCC     loc_BANK3_AF1E
@@ -2959,7 +2959,7 @@ loc_BANK3_AF13:
       LDA     #$3A
 
 loc_BANK3_AF1E:
-      STA     unk_RAM_205,Y
+      STA     SpriteDMAArea + $05,Y
       LDA     #$55
       CPX     #$F0
       BCC     loc_BANK3_AF29
@@ -2967,7 +2967,7 @@ loc_BANK3_AF1E:
       LDA     #$3A
 
 loc_BANK3_AF29:
-      STA     unk_RAM_209,Y
+      STA     SpriteDMAArea + $09,Y
       LDA     #$55
       CPX     #$F8
       BCC     loc_BANK3_AF34
@@ -2975,7 +2975,7 @@ loc_BANK3_AF29:
       LDA     #$3A
 
 loc_BANK3_AF34:
-      STA     unk_RAM_20D,Y
+      STA     SpriteDMAArea + $0D,Y
 IFDEF _COMPATIBILITY_
 	  .db $ae, $f4, $00 ; LDX $00F4
 ENDIF
@@ -2984,29 +2984,29 @@ IFNDEF _COMPATIBILITY_
 	  NOP ; Alignment fix
 ENDIF
 
-      LDA     unk_RAM_202,X
-      STA     unk_RAM_202,Y
-      STA     unk_RAM_206,Y
-      STA     unk_RAM_20A,Y
-      STA     unk_RAM_20E,Y
+      LDA     SpriteDMAArea + $02,X
+      STA     SpriteDMAArea + $02,Y
+      STA     SpriteDMAArea + $06,Y
+      STA     SpriteDMAArea + $0A,Y
+      STA     SpriteDMAArea + $0E,Y
       LDA     byte_RAM_429
       CLC
       ADC     #4
-      STA     unk_RAM_203,Y
-      STA     unk_RAM_207,Y
-      STA     unk_RAM_20B,Y
-      STA     unk_RAM_20F,Y
+      STA     SpriteDMAArea + $03,Y
+      STA     SpriteDMAArea + $07,Y
+      STA     SpriteDMAArea + $0B,Y
+      STA     SpriteDMAArea + $0F,Y
       LDX     byte_RAM_12
       LDA     ObjectYLo,X
       CLC
       ADC     #$F
       STA     SpriteDMAArea,Y
       ADC     #$10
-      STA     unk_RAM_204,Y
+      STA     SpriteDMAArea + $04,Y
       ADC     #$10
-      STA     unk_RAM_208,Y
+      STA     SpriteDMAArea + $08,Y
       ADC     #$10
-      STA     unk_RAM_20C,Y
+      STA     SpriteDMAArea + $0C,Y
 
 locret_BANK3_AF74:
       RTS
@@ -3101,7 +3101,7 @@ loc_BANK3_AFE3:
       JSR     sub_BANK2_8D5F
 
       LDA     #3
-      STA     unk_RAM_465,X
+      STA     EnemyHP,X
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -3239,11 +3239,11 @@ loc_BANK3_B09B:
       STA     unk_RAM_46E,X
       LDA     #0
       STA     byte_RAM_71FE
-      LDA     unk_RAM_465,X
+      LDA     EnemyHP,X
       BNE     loc_BANK3_B0BA
 
       LDA     #3
-      STA     unk_RAM_465,X
+      STA     EnemyHP,X
       JSR     sub_BANK3_B095
 
       INC     unk_RAM_480,X
@@ -3320,10 +3320,10 @@ loc_BANK3_B112:
       PLA
       BCC     loc_BANK3_B16D
 
-      STA     unk_RAM_203,Y
-      STA     unk_RAM_207,Y
-      STA     unk_RAM_20B,Y
-      STA     unk_RAM_20F,Y
+      STA     SpriteDMAArea + $03,Y
+      STA     SpriteDMAArea + $07,Y
+      STA     SpriteDMAArea + $0B,Y
+      STA     SpriteDMAArea + $0F,Y
       LDX     byte_RAM_4BD
       BEQ     loc_BANK3_B129
 
@@ -3334,18 +3334,18 @@ loc_BANK3_B129:
       STA     SpriteDMAArea,Y
       CLC
       ADC     #$10
-      STA     unk_RAM_204,Y
+      STA     SpriteDMAArea + $04,Y
       LDA     byte_RAM_7
       BEQ     loc_BANK3_B13B
 
       LDA     #$20
 
 loc_BANK3_B13B:
-      ORA     unk_RAM_202,X
-      STA     unk_RAM_202,Y
-      STA     unk_RAM_206,Y
-      STA     unk_RAM_20A,Y
-      STA     unk_RAM_20E,Y
+      ORA     SpriteDMAArea + $02,X
+      STA     SpriteDMAArea + $02,Y
+      STA     SpriteDMAArea + $06,Y
+      STA     SpriteDMAArea + $0A,Y
+      STA     SpriteDMAArea + $0E,Y
 IFDEF _COMPATIBILITY_
 	  .db $ae, $f4, $00 ; LDX $00F4
 ENDIF
@@ -3355,18 +3355,18 @@ IFNDEF _COMPATIBILITY_
 ENDIF
 
       LDA     SpriteDMAArea,X
-      STA     unk_RAM_208,Y
+      STA     SpriteDMAArea + $08,Y
       CLC
       ADC     #$10
-      STA     unk_RAM_20C,Y
+      STA     SpriteDMAArea + $0C,Y
       LDA     #$F0
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     #$F2
-      STA     unk_RAM_205,Y
+      STA     SpriteDMAArea + $05,Y
       LDA     #$F4
-      STA     unk_RAM_209,Y
+      STA     SpriteDMAArea + $09,Y
       LDA     #$F6
-      STA     unk_RAM_20D,Y
+      STA     SpriteDMAArea + $0D,Y
 
 loc_BANK3_B16D:
       LDX     byte_RAM_12
@@ -3453,7 +3453,7 @@ loc_BANK3_B1CD:
       JSR     sub_BANK2_845D
 
       LDA     #6
-      STA     unk_RAM_465,X
+      STA     EnemyHP,X
       LDA     ObjectXHi,X
       STA     unk_RAM_4EF,X
       RTS
@@ -3471,7 +3471,7 @@ EnemyBehavior_Wart:
       LDA     unk_RAM_B1,X
       BNE     loc_BANK3_B256
 
-      LDA     unk_RAM_465,X
+      LDA     EnemyHP,X
       BNE     loc_BANK3_B1F0
 
       LDA     #$80
@@ -3643,7 +3643,7 @@ ENDIF
       LDA     byte_RAM_EF
       BNE     locret_BANK3_B2AF
 
-      LDY     unk_RAM_465,X
+      LDY     EnemyHP,X
       BNE     loc_BANK3_B2D3
 
       LDA     #$4E
@@ -3763,26 +3763,26 @@ loc_BANK3_B347:
       ADC     #$20
       BCS     loc_BANK3_B398
 
-      STA     unk_RAM_203,Y
-      STA     unk_RAM_207,Y
-      STA     unk_RAM_20B,Y
+      STA     SpriteDMAArea + $03,Y
+      STA     SpriteDMAArea + $07,Y
+      STA     SpriteDMAArea + $0B,Y
       LDA     byte_RAM_0
       SBC     #$2F
       STA     SpriteDMAArea,Y
       ADC     #$F
-      STA     unk_RAM_204,Y
+      STA     SpriteDMAArea + $04,Y
       ADC     #$10
-      STA     unk_RAM_208,Y
-      LDA     unk_RAM_202,X
-      STA     unk_RAM_202,Y
-      STA     unk_RAM_206,Y
-      STA     unk_RAM_20A,Y
+      STA     SpriteDMAArea + $08,Y
+      LDA     SpriteDMAArea + $02,X
+      STA     SpriteDMAArea + $02,Y
+      STA     SpriteDMAArea + $06,Y
+      STA     SpriteDMAArea + $0A,Y
       LDA     #$19
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     #$1B
-      STA     unk_RAM_205,Y
+      STA     SpriteDMAArea + $05,Y
       LDA     #$1D
-      STA     unk_RAM_209,Y
+      STA     SpriteDMAArea + $09,Y
 
 loc_BANK3_B398:
       LDX     byte_RAM_12
@@ -4374,10 +4374,10 @@ loc_BANK3_B792:
       JSR     sub_BANK3_BA7D
 
 loc_BANK3_B7A4:
-      LDA     unk_RAM_465,Y
+      LDA     EnemyHP,Y
       SEC
       SBC     #1
-      STA     unk_RAM_465,Y
+      STA     EnemyHP,Y
       BMI     loc_BANK3_B7BD
 
       JSR     sub_BANK3_BA7D
@@ -5815,11 +5815,11 @@ loc_BANK3_BE67:
 
 loc_BANK3_BE6C:
       LDA     byte_BANK3_BDEF,X
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     #$10
-      STA     unk_RAM_203,Y
+      STA     SpriteDMAArea + $03,Y
       LDA     #1
-      STA     unk_RAM_202,Y
+      STA     SpriteDMAArea + $02,Y
       LDA     byte_RAM_0
       STA     SpriteDMAArea,Y
       CLC

@@ -369,7 +369,7 @@ loc_BANKF_E14B:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANKF_E15B:
+SetScrollXYTo0:
       LDA     #0
       STA     PPUScrollYMirror
       STA     PPUScrollXMirror
@@ -377,7 +377,7 @@ sub_BANKF_E15B:
       STA     byte_RAM_C9
       RTS
 
-; End of function sub_BANKF_E15B
+; End of function SetScrollXYTo0
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -386,10 +386,10 @@ sub_BANKF_E166:
 
       JSR     WaitForNMI_TurnOffPPU
 
-      JSR     sub_BANKF_E15B
+      JSR     SetScrollXYTo0
 
       LDA     #2
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
       LDA     #0
@@ -411,11 +411,11 @@ sub_BANKF_E17F:
       LDA     #$40
       STA     StackArea
       LDA     #3
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
       LDA     #4
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JMP     WaitForNMI
 
 ; End of function sub_BANKF_E17F
@@ -446,7 +446,7 @@ loc_BANKF_E1B6:
       DEY
       BPL     loc_BANKF_E1B6
 
-      LDY     BackgroundCHR2TimerIndex
+      LDY     CurrentWorld
       LDA     CurrentLevel
       SEC
       SBC     WorldStartingLevel,Y
@@ -477,7 +477,7 @@ loc_BANKF_E1E5:
       BCC     loc_BANKF_E1DC
 
       LDA     #8
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       RTS
 
 ; End of function sub_BANKF_E198
@@ -555,11 +555,11 @@ loc_BANKF_E245:
       BPL     loc_BANKF_E245
 
       LDA     #2
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
       LDA     #$15
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
       JSR     sub_BANKA_8327
@@ -633,13 +633,13 @@ loc_BANKF_E2B2:
       STA     Music1Queue
       LDA     CurrentCharacter
       STA     byte_RAM_404
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       STA     byte_RAM_405
       LDY     #$3F
 
 loc_BANKF_E2CA:
       LDA     PlayerSelectMarioSprites1,Y
-      STA     unk_RAM_210,Y
+      STA     SpriteDMAArea + $10,Y
       DEY
       BPL     loc_BANKF_E2CA
 
@@ -647,7 +647,7 @@ loc_BANKF_E2CA:
 
       JSR     WaitForNMI
 
-      LDX     BackgroundCHR2TimerIndex
+      LDX     CurrentWorld
       LDY     CurrentLevel
       JSR     sub_BANKF_E198
 
@@ -773,7 +773,7 @@ CharacterSelectMenuLoop:
 loc_BANKF_E3AE:
       LDA     #SoundEffect1_CherryGet
       STA     SoundEffect1Queue
-      LDX     BackgroundCHR2TimerIndex
+      LDX     CurrentWorld
       LDY     CurrentLevel
       JSR     sub_BANKF_E198
 
@@ -789,7 +789,7 @@ loc_BANKF_E3AE:
 
 loc_BANKF_E3CC:
       LDA     PlayerSelectMarioSprites2,Y
-      STA     unk_RAM_210,Y
+      STA     SpriteDMAArea + $10,Y
       INY
       DEX
       BPL     loc_BANKF_E3CC
@@ -804,7 +804,7 @@ loc_BANKF_E3D6:
 
 loc_BANKF_E3DF:
       LDA     PlayerSelectMarioSprites1,Y
-      STA     unk_RAM_210,Y
+      STA     SpriteDMAArea + $10,Y
       DEY
       BPL     loc_BANKF_E3DF
 
@@ -845,7 +845,7 @@ loc_BANKF_E414:
       STA     ExtraLives
 
 StartCharacterSelectMenu:
-      LDX     BackgroundCHR2TimerIndex
+      LDX     CurrentWorld
       LDY     WorldStartingLevel,X
       STY     CurrentLevel
       STY     byte_RAM_4E7
@@ -1061,7 +1061,7 @@ loc_BANKF_E533:
       AND     #1
       CLC
       ADC     #$D
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JMP     loc_BANKF_E51D
 
 ; ---------------------------------------------------------------------------
@@ -1320,14 +1320,14 @@ DoGameOverStuff:
 
       JSR     SetBlackAndWhitePalette
 
-      JSR     sub_BANKF_E15B
+      JSR     SetScrollXYTo0
 
       JSR     EnableNMI
 
       JSR     WaitForNMI_TurnOnPPU
 
       LDA     #5
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       LDA     #$C0
       STA     byte_RAM_6
 
@@ -1340,7 +1340,7 @@ loc_BANKF_E6E6:
       LDY     #$28
 
 loc_BANKF_E6EF:
-      LDA     unk_BANKF_E9B4,Y
+      LDA     Text_Continue,Y
       STA     unk_RAM_67B,Y
       DEY
       BPL     loc_BANKF_E6EF
@@ -1362,7 +1362,7 @@ loc_BANKF_E6EF:
       LDA     #7
 
 loc_BANKF_E717:
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
 
 loc_BANKF_E719:
       JSR     WaitForNMI
@@ -1391,7 +1391,7 @@ loc_BANKF_E733:
       LDA     #$F6
       STA     byte_RAM_71AB,Y
       LDA     #$13
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
 
 loc_BANKF_E747:
       LDA     Player1JoypadPress
@@ -1415,10 +1415,10 @@ loc_BANKF_E75A:
       DEY
       BEQ     EndOfLevel
 
-      LDY     BackgroundCHR2TimerIndex
+      LDY     CurrentWorld
       STY     byte_RAM_405
       LDA     WarpDestinations,Y
-      STA     BackgroundCHR2TimerIndex
+      STA     CurrentWorld
       TAY
       LDX     CurrentCharacter
       LDA     WorldStartingLevel,Y
@@ -1430,7 +1430,7 @@ loc_BANKF_E75A:
       STA     byte_RAM_71A6
       JSR     WaitForNMI_TurnOffPPU
 
-      JSR     sub_BANKF_E15B
+      JSR     SetScrollXYTo0
 
       JSR     ClearNametables
 
@@ -1441,7 +1441,7 @@ loc_BANKF_E75A:
       JSR     ChangeTitleCardCHR
 
       LDA     #$12
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       LDA     #Music2_SlotWarpFanfare
       STA     MusicQueue2
       JSR     sub_BANKF_E94A
@@ -1481,7 +1481,7 @@ EndOfLevelSlotMachine:
       JSR     CopyBonusChanceLayoutToRAM
 
       LDA     #$17
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       LDA     #$40
       STA     StackArea
       JSR     EnableNMI
@@ -1515,7 +1515,7 @@ loc_BANKF_E7FD:
       BNE     StartSlotMachine
 
 loc_BANKF_E802:
-      LDY     BackgroundCHR2TimerIndex
+      LDY     CurrentWorld
       LDA     WorldPlus1StartingLevel,Y
       SEC
       SBC     #1
@@ -1526,7 +1526,7 @@ loc_BANKF_E802:
 
       LDA     #$FF
       STA     byte_RAM_545
-      INC     BackgroundCHR2TimerIndex
+      INC     CurrentWorld
       JMP     StartCharacterSelectMenu
 
 ; ---------------------------------------------------------------------------
@@ -1543,8 +1543,8 @@ loc_BANKF_E826:
       BCS     loc_BANKF_E826
 
       DEY
-      STY     BackgroundCHR2TimerIndex		  ; I am sure this is important	somehow, but...	why
-      LDY     BackgroundCHR2TimerIndex
+      STY     CurrentWorld			  ; I am sure this is important	somehow, but...	why
+      LDY     CurrentWorld
       LDA     CurrentLevel
       SEC
       SBC     WorldStartingLevel,Y
@@ -1597,7 +1597,7 @@ DoSlotMachineSpinnyShit:
       JSR     sub_BANKF_E916
 
       LDA     unk_BANKF_E9DF,Y
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       INC     byte_RAM_6
       LDA     ObjectXLo				  ; Reel 1 still active?
       ORA     ObjectXLo+1			  ; Reel 2 still active?
@@ -1605,7 +1605,7 @@ DoSlotMachineSpinnyShit:
       BNE     DoSlotMachineSpinnyShit		  ; If any are still active, go	back to	waiting
 
       LDA     #$10
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
       LDY     #0
@@ -1667,7 +1667,7 @@ loc_BANKF_E8ED:
       JSR     sub_BANKF_E916
 
       LDA     unk_BANKF_E9E3,Y
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       DEC     byte_RAM_6
       BNE     loc_BANKF_E8ED
 
@@ -1684,7 +1684,7 @@ SlotMachineLoseFanfare:
 
 loc_BANKF_E90C:
       LDA     #$11
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
       JMP     loc_BANKF_E7FD
@@ -1717,7 +1717,7 @@ loc_BANKF_E92A:
       AND     #1
       TAY
       LDA     byte_BANKF_E9E1,Y
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       LDA     #$A
       STA     byte_RAM_7
 
@@ -1761,7 +1761,7 @@ loc_BANKF_E94E:
 ; ---------------------------------------------------------------------------
 
 EndingSceneRoutine:
-      JSR     sub_BANKF_E15B
+      JSR     SetScrollXYTo0
 
       LDA     #$80
       STA     byte_RAM_4080			  ; FDS	leftover; $4080	is an old sound	register
@@ -1804,7 +1804,7 @@ EndingSceneRoutine:
       JSR     ChangeMappedPRGBank
 
       INC     byte_RAM_6F3
-      JMP     loc_BANKC_8342
+      JMP     MarioSleepingScene
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -1817,64 +1817,18 @@ DisableNMI:
 ; End of function DisableNMI
 
 ; ---------------------------------------------------------------------------
-unk_BANKF_E9A6:
-	  .BYTE $21
-      .BYTE $CB
-      .BYTE  $A
-      .BYTE $E0
-      .BYTE $DA
-      .BYTE $E6
-      .BYTE $DE
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $E8
-      .BYTE $EF
-      .BYTE $DE
-      .BYTE $EB
-      .BYTE   0
-unk_BANKF_E9B4:
-	  .BYTE $21
-      .BYTE $75
-      .BYTE   1
-      .BYTE   0
-      .BYTE $21
-      .BYTE $6A
-      .BYTE  $A
-      .BYTE $F6
-      .BYTE $FB
-      .BYTE $DC
-      .BYTE $E8
-      .BYTE $E7
-      .BYTE $ED
-      .BYTE $E2
-      .BYTE $E7
-      .BYTE $EE
-      .BYTE $DE
-unk_BANKF_E9C5:
-	  .BYTE $21
-      .BYTE $AA
-      .BYTE   7
-      .BYTE $F6
-      .BYTE $FB
-      .BYTE $EB
-      .BYTE $DE
-      .BYTE $ED
-      .BYTE $EB
-      .BYTE $F2
-      .BYTE $21
-      .BYTE $CB
-      .BYTE  $A
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE   0
+Text_Game_Over:
+	  .BYTE $21, $CB, $A, $E0,	$DA, $E6, $DE, $FB, $FB, $E8, $EF, $DE
+      .BYTE $EB, 0				  ; $C ; "GAME	OVER"
+Text_Continue:
+	  .BYTE $21, $75, 1, 0			  ; (Placeholder for continue count)
+						  ; * CONTINUE
+      .BYTE $21, $6A, $A, $F6, $FB, $DC, $E8, $E7, $ED,	$E2, $E7, $EE
+      .BYTE $DE					  ; $C
+Text_Retry:
+	  .BYTE $21, $AA, 7, $F6, $FB,	$EB, $DE, $ED, $EB, $F2; * RETRY
+      .BYTE $21, $CB, $A, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB; Blank, erases "GAME	OVER"
+      .BYTE $FB, 0				  ; $C
       .BYTE   9
       .BYTE  $F
 unk_BANKF_E9DF:
@@ -1924,7 +1878,7 @@ loc_BANKF_EA04:
 
       JSR     sub_BANKF_E17F
 
-      LDX     BackgroundCHR2TimerIndex
+      LDX     CurrentWorld
       LDY     CurrentLevel
       JSR     sub_BANKF_E198
 
@@ -1933,7 +1887,7 @@ loc_BANKF_EA04:
       JSR     WaitForNMI
 
       LDA     byte_RAM_5BD
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
 ; End of function sub_BANKF_E9F4
@@ -1951,7 +1905,7 @@ EnableNMI:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKF_EA33:
-      JSR     sub_BANKF_E15B
+      JSR     SetScrollXYTo0
 
       LDA     PPUSTATUS
       LDY     #0
@@ -1997,7 +1951,7 @@ sub_BANKF_EA68:
       ADC     #$D0
       STA     byte_RAM_588
       LDA     #1
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       LDA     #$40
       STA     StackArea
       JSR     EnableNMI
@@ -2054,7 +2008,7 @@ _WaitForNMI_StuffPPUMask:
 ; =============== S U B	R O U T	I N E =======================================
 
 WaitForNMI:
-      LDA     byte_RAM_11
+      LDA     ScreenUpdateIndex
       ASL     A
       TAX
       LDA     off_BANKE_DC00,X
@@ -2152,7 +2106,7 @@ loc_BANKF_EAFA:
 
 loc_BANKF_EB0D:
       LDA     BonusChanceCherrySprite,Y
-      STA     unk_RAM_210,X
+      STA     SpriteDMAArea + $10,X
       INX
       INY
       DEC     byte_RAM_1
@@ -2168,8 +2122,8 @@ loc_BANKF_EB1F:
       AND     #$18
       ASL     A
       ASL     A
-      ADC     unk_RAM_210,X
-      STA     unk_RAM_210,X
+      ADC     SpriteDMAArea + $10,X
+      STA     SpriteDMAArea + $10,X
       DEX
       DEX
       DEX
@@ -2188,7 +2142,7 @@ CopyUnusedCoinSpriteToSpriteArea:
 
 loc_BANKF_EB33:
       LDA     unk_RAM_653,Y			  ; Copy two sprites from memory to memory.
-      STA     unk_RAM_228,Y			  ; This is definitely efficient.
+      STA     SpriteDMAArea + $28,Y			  ; This is definitely efficient.
       INY					  ; Two	sprites	for each half of the coin.
       CPY     #8				  ; Four bytes per sprite * 2 sprites =	8 bytes
       BCC     loc_BANKF_EB33
@@ -2382,7 +2336,7 @@ loc_BANKF_EC31:
       INC     byte_RAM_10
 
 loc_BANKF_EC4B:
-      LDA     byte_RAM_11
+      LDA     ScreenUpdateIndex
       BNE     loc_BANKF_EC55
 
       STA     byte_RAM_300
@@ -2390,7 +2344,7 @@ loc_BANKF_EC4B:
 
 loc_BANKF_EC55:
       LDA     #0
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     sub_BANKF_F661
 
       DEC     NMIWaitFlag
@@ -3462,12 +3416,12 @@ loc_BANKF_F345:
 
 loc_BANKF_F350:
       LDA     PlayerPageX
-      STA     unk_RAM_223
-      STA     unk_RAM_22B
+      STA     SpriteDMAArea + $23
+      STA     SpriteDMAArea + $2B
       CLC
       ADC     #8
-      STA     unk_RAM_227
-      STA     unk_RAM_22F
+      STA     SpriteDMAArea + $27
+      STA     SpriteDMAArea + $2F
       LDA     PlayerPageY
       STA     byte_RAM_0
       LDA     byte_RAM_42A
@@ -3511,8 +3465,8 @@ loc_BANKF_F394:
 
       LDA     byte_RAM_0
       STA     SpriteDMAArea,Y
-      STA     unk_RAM_220
-      STA     unk_RAM_224
+      STA     SpriteDMAArea + $20
+      STA     SpriteDMAArea + $24
 
 loc_BANKF_F3A6:
       LDA     byte_RAM_0
@@ -3524,8 +3478,8 @@ loc_BANKF_F3A6:
       BNE     loc_BANKF_F3BB
 
       LDA     byte_RAM_0
-      STA     unk_RAM_228
-      STA     unk_RAM_22C
+      STA     SpriteDMAArea + $28
+      STA     SpriteDMAArea + $2C
 
 loc_BANKF_F3BB:
       LDA     CrouchJumpTimer
@@ -3545,7 +3499,7 @@ loc_BANKF_F3CA:
       ORA     byte_RAM_64
       AND     #$FC
       ORA     #1
-      STA     unk_RAM_202,Y
+      STA     SpriteDMAArea + $02,Y
       LDX     PlayerAnimationFrame
       CPX     #7
       BEQ     loc_BANKF_F3E2
@@ -3555,20 +3509,20 @@ loc_BANKF_F3CA:
 
 loc_BANKF_F3E2:
       LDA     byte_RAM_64
-      STA     unk_RAM_222
-      STA     unk_RAM_22A
+      STA     SpriteDMAArea + $22
+      STA     SpriteDMAArea + $2A
       ORA     #$40
       BNE     loc_BANKF_F3F8
 
 loc_BANKF_F3EE:
       AND     #$FC
       ORA     byte_RAM_64
-      STA     unk_RAM_222
-      STA     unk_RAM_22A
+      STA     SpriteDMAArea + $22
+      STA     SpriteDMAArea + $2A
 
 loc_BANKF_F3F8:
-      STA     unk_RAM_226
-      STA     unk_RAM_22E
+      STA     SpriteDMAArea + $26
+      STA     SpriteDMAArea + $2E
       LDA     byte_BANKF_F2D5,X
       BNE     loc_BANKF_F408
 
@@ -3576,7 +3530,7 @@ loc_BANKF_F3F8:
       LDA     byte_BANKF_F2E0,X
 
 loc_BANKF_F408:
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     PlayerAnimationFrame
       CMP     #6
       BCS     loc_BANKF_F413
@@ -3590,12 +3544,12 @@ loc_BANKF_F413:
       LDA     byte_RAM_9D
       BNE     loc_BANKF_F44A
 
-      LDA     unk_RAM_223
-      STA     unk_RAM_203,Y
+      LDA     SpriteDMAArea + $23
+      STA     SpriteDMAArea + $03,Y
       LDA     byte_BANKF_F2E4,X
-      STA     unk_RAM_221
+      STA     SpriteDMAArea + $21
       LDA     byte_BANKF_F2E5,X
-      STA     unk_RAM_225
+      STA     SpriteDMAArea + $25
       LDA     byte_RAM_6F6
       BNE     loc_BANKF_F43F
 
@@ -3611,17 +3565,17 @@ loc_BANKF_F413:
 
 loc_BANKF_F43F:
       LDA     byte_BANKF_F2E6,X
-      STA     unk_RAM_229
+      STA     SpriteDMAArea + $29
       LDA     byte_BANKF_F2E7,X
       BNE     loc_BANKF_F478
 
 loc_BANKF_F44A:
-      LDA     unk_RAM_227
-      STA     unk_RAM_203,Y
+      LDA     SpriteDMAArea + $27
+      STA     SpriteDMAArea + $03,Y
       LDA     byte_BANKF_F2E5,X
-      STA     unk_RAM_221
+      STA     SpriteDMAArea + $21
       LDA     byte_BANKF_F2E4,X
-      STA     unk_RAM_225
+      STA     SpriteDMAArea + $25
       LDA     byte_RAM_6F6
       BNE     loc_BANKF_F46F
 
@@ -3637,11 +3591,11 @@ loc_BANKF_F44A:
 
 loc_BANKF_F46F:
       LDA     byte_BANKF_F2E7,X
-      STA     unk_RAM_229
+      STA     SpriteDMAArea + $29
       LDA     byte_BANKF_F2E6,X
 
 loc_BANKF_F478:
-      STA     unk_RAM_22D
+      STA     SpriteDMAArea + $2D
       RTS
 
 ; End of function sub_BANKF_F31A
@@ -4728,7 +4682,7 @@ loc_BANKF_FAE3:
       DEY
       BPL     loc_BANKF_FAD3
 
-      LDX     BackgroundCHR2TimerIndex
+      LDX     CurrentWorld
 
 loc_BANKF_FAE9:
       LDA     BackgroundCHRAnimationSpeedByWorld,X
@@ -4768,7 +4722,7 @@ loc_BANKF_FB04:
       CMP     #$F8
       BNE     loc_BANKF_FB17
 
-      LDA     unk_RAM_204,Y
+      LDA     SpriteDMAArea + $04,Y
       CMP     #$F8
       BEQ     loc_BANKF_FB19
 
@@ -4792,7 +4746,7 @@ loc_BANKF_FB1C:
       CMP     #$F8
       BNE     loc_BANKF_FB04
 
-      LDA     unk_RAM_204,Y
+      LDA     SpriteDMAArea + $04,Y
       CMP     #$F8
       BNE     loc_BANKF_FB04
 
@@ -4882,7 +4836,7 @@ sub_BANKF_FE16:
       STY     SpriteCHR2
       INY
       STY     SpriteCHR3
-      LDY     BackgroundCHR2TimerIndex
+      LDY     CurrentWorld
       LDA     byte_BANKF_FE00,Y
       STA     SpriteCHR4
       LDA     byte_BANKF_FE07,Y
@@ -4941,7 +4895,7 @@ TitleCardCHRBanks:
 	  .BYTE	$40, $42, $40, $44, $40, $42, $46     ; =============== S U B	R O U T	I N E =======================================
 
 ChangeTitleCardCHR:
-      LDY     BackgroundCHR2TimerIndex
+      LDY     CurrentWorld
       LDA     TitleCardCHRBanks,Y
       STA     BackgroundCHR2
       RTS

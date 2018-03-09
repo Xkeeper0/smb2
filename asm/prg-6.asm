@@ -2047,7 +2047,7 @@ loc_BANK6_8A22:
 loc_BANK6_8A37:
       STX     byte_RAM_7
       STY     byte_RAM_8
-      LDX     BackgroundCHR2TimerIndex
+      LDX     CurrentWorld
       LDA     WorldObjectTilePointersLo,X
       STA     word_RAM_C
       LDA     WorldObjectTilePointersHi,X
@@ -2080,7 +2080,7 @@ loc_BANK6_8A5B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8A61:
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #5
       BNE     loc_BANK6_8A6B
 
@@ -2107,11 +2107,11 @@ loc_BANK6_8A6B:
       INY
       LDA     #$53
       STA     (byte_RAM_1),Y
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #5
       BEQ     locret_BANK6_8A9B
 
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #6
       BEQ     locret_BANK6_8A9B
 
@@ -2189,11 +2189,11 @@ loc_BANK6_8AD0:
       DEY
       LDA     #$55
       STA     (byte_RAM_1),Y
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #5
       BEQ     locret_BANK6_8B01
 
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #6
       BEQ     locret_BANK6_8B01
 
@@ -2288,7 +2288,7 @@ loc_BANK6_8B4E:
 
 loc_BANK6_8B5C:
       LDY     byte_RAM_E7
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #6
       BNE     loc_BANK6_8B6B
 
@@ -2320,7 +2320,7 @@ byte_BANK6_8B75:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8B77:
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #4
       BNE     loc_BANK6_8B81
 
@@ -2369,7 +2369,7 @@ byte_BANK6_8BAA:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8BB3:
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #6
       BNE     loc_BANK6_8BBD
 
@@ -2523,7 +2523,7 @@ unk_BANK6_8C54:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8C56:
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #4
       BNE     loc_BANK6_8C60
 
@@ -2777,7 +2777,7 @@ loc_BANK6_8D5F:
 
 loc_BANK6_8D69:
       LDX     byte_RAM_8
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
 
 loc_BANK6_8D6E:
       CMP     #6
@@ -2821,7 +2821,7 @@ byte_BANK6_8D93:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8D95:
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #3
       BNE     loc_BANK6_8D9F
 
@@ -3075,7 +3075,7 @@ loc_BANK6_8EAF:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8EB8:
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #6
       BNE     loc_BANK6_8EC2
 
@@ -3425,11 +3425,11 @@ loc_BANK6_9034:
 
       LDA     byte_BANK6_901B,X
       STA     (byte_RAM_1),Y
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #5
       BEQ     locret_BANK6_9059
 
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #6
       BEQ     locret_BANK6_9059
 
@@ -3555,7 +3555,7 @@ byte_BANK6_90CC:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_90D3:
-      LDX     BackgroundCHR2TimerIndex
+      LDX     CurrentWorld
       LDY     byte_RAM_E7
       LDA     byte_BANK6_90C5,X
       STA     (byte_RAM_1),Y
@@ -3567,10 +3567,10 @@ loc_BANK6_90DD:
       CMP     #$40
       BNE     locret_BANK6_90F9
 
-      LDX     BackgroundCHR2TimerIndex
+      LDX     CurrentWorld
       LDA     byte_BANK6_90CC,X
       STA     (byte_RAM_1),Y
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #4
       BNE     loc_BANK6_90DD
 
@@ -4018,7 +4018,7 @@ ENDIF
 sub_BANK6_9370:
       STY     byte_RAM_E
       STX     word_RAM_C+1
-      LDY     BackgroundCHR2TimerIndex
+      LDY     CurrentWorld
       LDA     WorldBackgroundPalettePointersLo,Y
       STA     byte_RAM_7
       LDA     WorldBackgroundPalettePointersHi,Y
@@ -4036,7 +4036,7 @@ sub_BANK6_9370:
 sub_BANK6_938A:
       STY     byte_RAM_E
       STX     word_RAM_C+1
-      LDY     BackgroundCHR2TimerIndex
+      LDY     CurrentWorld
       LDA     WorldSpritePalettePointersLo,Y
       STA     byte_RAM_7
       LDA     WorldSpritePalettePointersHi,Y
@@ -5082,7 +5082,7 @@ loc_BANK6_983E:
 sub_BANK6_9844:
       STX     word_RAM_C
       STY     word_RAM_C+1
-      LDX     BackgroundCHR2TimerIndex
+      LDX     CurrentWorld
       LDA     off_BANK6_8428,X
       STA     byte_RAM_7
       LDA     off_BANK6_8436,X
@@ -5100,7 +5100,7 @@ sub_BANK6_9844:
 sub_BANK6_985E:
       STX     word_RAM_C
       STY     word_RAM_C+1
-      LDX     BackgroundCHR2TimerIndex
+      LDX     CurrentWorld
       LDA     off_BANK6_842F,X
       STA     byte_RAM_7
       LDA     off_BANK6_843D,X

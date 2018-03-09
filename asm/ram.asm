@@ -32,7 +32,7 @@ byte_RAM_F:
 	  .dsb 1                       ; $000f
 byte_RAM_10:
 	  .dsb 1                       ; $0010
-byte_RAM_11:
+ScreenUpdateIndex:
 	  .dsb 1                       ; $0011
 byte_RAM_12:
 	  .dsb 1                       ; $0012
@@ -261,7 +261,8 @@ unk_RAM_AA:
 	  .dsb 1                       ; $00aa
       .dsb 1                    ; $00ab
       .dsb 1                    ; $00ac
-      .dsb 1                    ; $00ad
+unk_RAM_AD:
+	  .dsb 1	  ; "Holding Key"     ; $00ad
       .dsb 1                    ; $00ae
       .dsb 1                    ; $00af
       .dsb 1                    ; $00b0
@@ -1443,12 +1444,12 @@ unk_RAM_45C:
       .dsb 1                    ; $0463
 unk_RAM_464:
 	  .dsb 1                       ; $0464
-unk_RAM_465:
-	  .dsb 1                       ; $0465
-      .dsb 1                    ; $0466
-      .dsb 1                    ; $0467
-      .dsb 1                    ; $0468
-      .dsb 1                    ; $0469
+EnemyHP:
+	  .dsb 1	                      ; $0465
+      .dsb 1 ; 1                ; $0466
+      .dsb 1 ; 2                ; $0467
+      .dsb 1 ; 3                ; $0468
+      .dsb 1 ; 4                ; $0469
       .dsb 1                    ; $046a
       .dsb 1                    ; $046b
       .dsb 1                    ; $046c
@@ -2165,7 +2166,7 @@ byte_RAM_631:
       .dsb 1                    ; $0632
       .dsb 1                    ; $0633
       .dsb 1                    ; $0634
-BackgroundCHR2TimerIndex:
+CurrentWorld:
 	  .dsb 1                       ; $0635
 byte_RAM_636:
 	  .dsb 1                       ; $0636
@@ -2660,6 +2661,8 @@ SubAreaTileLayout:
       .dsb 1 ; $FE              ; $07fe
       .dsb 1 ; $FF              ; $07ff
 ; [00001800 BYTES: BEGIN OF AREA NES CPU RAM mirrors. PRESS KEYPAD "-" TO COLLAPSE]
+
+unk_RAM_1AB8 = $1ab8
 
 ; [00001800 BYTES: END OF AREA NES CPU RAM mirrors. PRESS KEYPAD "-" TO	COLLAPSE]
 PPUCTRL = $2000

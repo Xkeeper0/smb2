@@ -71,7 +71,6 @@
 	$asm	= preg_replace('/^([A-Za-z0-9_]+):(.+)$/im', "\\1:\n\t  \\2", $asm, -1, $count);
 	printf("Newline labels: %d\n", $count);
 
-
 	// Fix dumb assembler not knowing how to use zero page properly
 	//$asm	= preg_replace('/(STY\s+)([^,]+,\s*X\s*)/im', '\1<\2', $asm, -1, $count);
 	//printf("Fix STY zp thing: %d\n", $count);
@@ -87,6 +86,9 @@
 		} elseif ($n === 1) {
 			$segments['ram']	= $s;
 		} else {
+			// Make sprite DMA area references better
+			$s	= preg_replace('/unk_RAM_2([0-9a-f]{2})([^0-9a-f])/im', 'SpriteDMAArea + $\1\2', $s, -1, $count);
+			printf("Update sprite references: %d\n", $count);
 			$segments[sprintf("prg-%x", $n - 2)]	= $s;
 		}
 	}

@@ -1522,8 +1522,18 @@ loc_BANK4_8743:
 
 ; ---------------------------------------------------------------------------
 NoteFrequencyData:
-	  .WORD	$1AB8, $1938, $17CC, $1678, $1534, $1404
-      .WORD $12E4, $11D4, $10D4, $FE0, $EFC, $E24 ; 6
+	  .WORD	$1AB8				      ; C
+      .WORD $1938				  ; C# / Db
+      .WORD $17CC				  ; D
+      .WORD $1678				  ; D# / Eb
+      .WORD $1534				  ; E
+      .WORD $1404				  ; F
+      .WORD $12E4				  ; F# / Gb
+      .WORD $11D4				  ; G
+      .WORD $10D4				  ; G# / Ab
+      .WORD $FE0				  ; A
+      .WORD $EFC				  ; A# / Bb
+      .WORD $E24				  ; B
 ; [000007A1 BYTES: BEGIN OF AREA UNUSED-BANK4:875F. PRESS KEYPAD "-" TO	COLLAPSE]
 _empty_875F:
 	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF

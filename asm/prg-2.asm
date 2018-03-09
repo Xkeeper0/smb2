@@ -858,7 +858,7 @@ sub_BANK2_8461:
       STA     unk_RAM_45C,X
       STA     unk_RAM_477,X
       STA     unk_RAM_480,X
-      STA     unk_RAM_465,X
+      STA     EnemyHP,X
       STA     ObjectYAccel,X
 
 loc_BANK2_848F:
@@ -1212,11 +1212,11 @@ loc_BANK2_8618:
       LDA     byte_RAM_429
       CLC
       ADC     byte_BANK2_85E7,X
-      STA     unk_RAM_203,Y
+      STA     SpriteDMAArea + $03,Y
       LDA     #1
-      STA     unk_RAM_202,Y
+      STA     SpriteDMAArea + $02,Y
       LDA     byte_RAM_0
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       CLC
       ADC     #2
       STA     byte_RAM_0
@@ -1562,7 +1562,7 @@ loc_BANK2_87E7:
       BPL     loc_BANK2_87D9
 
       LDA     #$14
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       LDY     unk_RAM_4EF,X
       LDA     #$5F
       STA     byte_RAM_1
@@ -2654,7 +2654,7 @@ loc_BANK2_8D8A:
       JSR     sub_BANKF_F6DA
 
       LDY     byte_RAM_629
-      LDA     BackgroundCHR2TimerIndex
+      LDA     CurrentWorld
       CMP     #6
       BNE     loc_BANK2_8DAC
 
@@ -2978,15 +2978,15 @@ loc_BANK2_8F27:
       LDA     byte_RAM_42C
       STA     SpriteDMAArea,Y
       LDA     byte_RAM_429
-      STA     unk_RAM_203,Y
+      STA     SpriteDMAArea + $03,Y
       LDA     #$D8
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     byte_RAM_10
       AND     #$20
       EOR     #$20
       ASL     A
       ORA     #1
-      STA     unk_RAM_202,Y
+      STA     SpriteDMAArea + $02,Y
 
 locret_BANK2_8F4E:
       RTS
@@ -3019,7 +3019,7 @@ loc_BANK2_8F63:
       LDA     byte_BANK2_8F4F,Y
       STA     ObjectAttributes,X
       LDA     #2
-      STA     unk_RAM_465,X
+      STA     EnemyHP,X
 
 loc_BANK2_8F6F:
       LDA     ObjectXHi,X
@@ -3124,7 +3124,7 @@ BirdoBehavior_SpitEgg:
 
       BMI     loc_BANK2_901B
 
-      LDY     unk_RAM_465,X
+      LDY     EnemyHP,X
       LDA     EnemyTimer,X
       LDX     byte_RAM_0
       CMP     #2
@@ -4757,11 +4757,11 @@ loc_BANK2_9784:
       JSR     sub_BANK2_9BB3
 
       LDY     byte_RAM_F4
-      LDA     unk_RAM_207,Y
+      LDA     SpriteDMAArea + $07,Y
       SEC
       SBC     #4
-      STA     unk_RAM_207,Y
-      STA     unk_RAM_20F,Y
+      STA     SpriteDMAArea + $07,Y
+      STA     SpriteDMAArea + $0F,Y
       PLA
       STA     byte_RAM_F4
 
@@ -4811,9 +4811,9 @@ loc_BANK2_97C3:
       BMI     loc_BANK2_9805
 
       CLC
-      ADC     unk_RAM_203,Y
-      STA     unk_RAM_203,Y
-      STA     unk_RAM_20B,Y
+      ADC     SpriteDMAArea + $03,Y
+      STA     SpriteDMAArea + $03,Y
+      STA     SpriteDMAArea + $0B,Y
       CPX     #$30
       BNE     loc_BANK2_9805
 
@@ -5907,33 +5907,33 @@ loc_BANK2_9C7A:
 
 loc_BANK2_9C9C:
       STA     SpriteDMAArea,Y
-      LDA     unk_RAM_204,X
+      LDA     SpriteDMAArea + $04,X
       PHA
-      LDA     unk_RAM_204,Y
-      STA     unk_RAM_204,X
+      LDA     SpriteDMAArea + $04,Y
+      STA     SpriteDMAArea + $04,X
       PLA
-      STA     unk_RAM_204,Y
-      LDA     unk_RAM_208,X
+      STA     SpriteDMAArea + $04,Y
+      LDA     SpriteDMAArea + $08,X
       PHA
-      LDA     unk_RAM_208,Y
-      STA     unk_RAM_208,X
+      LDA     SpriteDMAArea + $08,Y
+      STA     SpriteDMAArea + $08,X
       PLA
-      STA     unk_RAM_208,Y
+      STA     SpriteDMAArea + $08,Y
       BCS     loc_BANK2_9CD9
 
 loc_BANK2_9CBD:
       LDA     SpriteDMAArea,Y
       PHA
-      LDA     unk_RAM_208,Y
+      LDA     SpriteDMAArea + $08,Y
       STA     SpriteDMAArea,Y
       PLA
-      STA     unk_RAM_208,Y
-      LDA     unk_RAM_204,Y
+      STA     SpriteDMAArea + $08,Y
+      LDA     SpriteDMAArea + $04,Y
       PHA
-      LDA     unk_RAM_20C,Y
-      STA     unk_RAM_204,Y
+      LDA     SpriteDMAArea + $0C,Y
+      STA     SpriteDMAArea + $04,Y
       PLA
-      STA     unk_RAM_20C,Y
+      STA     SpriteDMAArea + $0C,Y
 
 loc_BANK2_9CD9:
       LDX     byte_RAM_12
@@ -5942,11 +5942,11 @@ loc_BANK2_9CD9:
       BEQ     locret_BANK2_9CF1
 
       LDA     byte_RAM_3
-      STA     unk_RAM_202,Y
-      STA     unk_RAM_20A,Y
+      STA     SpriteDMAArea + $02,Y
+      STA     SpriteDMAArea + $0A,Y
       ORA     #$40
-      STA     unk_RAM_206,Y
-      STA     unk_RAM_20E,Y
+      STA     SpriteDMAArea + $06,Y
+      STA     SpriteDMAArea + $0E,Y
 
 locret_BANK2_9CF1:
       RTS
@@ -5964,16 +5964,16 @@ sub_BANK2_9CF2:
       BNE     loc_BANK2_9D0A
 
       LDA     byte_BANK2_99B4,X
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     byte_BANK2_99B5,X
-      STA     unk_RAM_205,Y
+      STA     SpriteDMAArea + $05,Y
       BNE     loc_BANK2_9D16
 
 loc_BANK2_9D0A:
       LDA     MysteryData6030,X
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     byte_BANK3_A031,X
-      STA     unk_RAM_205,Y
+      STA     SpriteDMAArea + $05,Y
 
 loc_BANK2_9D16:
       LDA     byte_RAM_2
@@ -5981,21 +5981,21 @@ loc_BANK2_9D16:
       LDA     #0
       BCC     loc_BANK2_9D2D
 
-      LDA     unk_RAM_201,Y
+      LDA     SpriteDMAArea + $01,Y
       PHA
-      LDA     unk_RAM_205,Y
-      STA     unk_RAM_201,Y
+      LDA     SpriteDMAArea + $05,Y
+      STA     SpriteDMAArea + $01,Y
       PLA
-      STA     unk_RAM_205,Y
+      STA     SpriteDMAArea + $05,Y
       LDA     #$40
 
 loc_BANK2_9D2D:
       ORA     byte_RAM_3
-      STA     unk_RAM_202,Y
-      STA     unk_RAM_206,Y
+      STA     SpriteDMAArea + $02,Y
+      STA     SpriteDMAArea + $06,Y
       LDA     #$F8
       STA     SpriteDMAArea,Y
-      STA     unk_RAM_204,Y
+      STA     SpriteDMAArea + $04,Y
       LDA     byte_RAM_EE
       AND     #8
       BNE     loc_BANK2_9D48
@@ -6009,7 +6009,7 @@ loc_BANK2_9D48:
       BNE     loc_BANK2_9D53
 
       LDA     byte_RAM_0
-      STA     unk_RAM_204,Y
+      STA     SpriteDMAArea + $04,Y
 
 loc_BANK2_9D53:
       LDA     byte_RAM_0
@@ -6017,10 +6017,10 @@ loc_BANK2_9D53:
       ADC     #$10
       STA     byte_RAM_0
       LDA     byte_RAM_1
-      STA     unk_RAM_203,Y
+      STA     SpriteDMAArea + $03,Y
       CLC
       ADC     #8
-      STA     unk_RAM_207,Y
+      STA     SpriteDMAArea + $07,Y
       TYA
       CLC
       ADC     #8
@@ -6033,33 +6033,33 @@ loc_BANK2_9D53:
 
 loc_BANK2_9D6D:
       LDA     MysteryData6030,X
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     byte_BANK3_A031,X
-      STA     unk_RAM_205,Y
+      STA     SpriteDMAArea + $05,Y
       LDA     unk_BANK3_A032,X
-      STA     unk_RAM_209,Y
+      STA     SpriteDMAArea + $09,Y
       LDA     byte_RAM_2
       LSR     A
       LDA     #0
       BCC     loc_BANK2_9D96
 
-      LDA     unk_RAM_201,Y
+      LDA     SpriteDMAArea + $01,Y
       PHA
-      LDA     unk_RAM_209,Y
-      STA     unk_RAM_201,Y
+      LDA     SpriteDMAArea + $09,Y
+      STA     SpriteDMAArea + $01,Y
       PLA
-      STA     unk_RAM_209,Y
+      STA     SpriteDMAArea + $09,Y
       LDA     #$40
 
 loc_BANK2_9D96:
       ORA     byte_RAM_3
-      STA     unk_RAM_202,Y
-      STA     unk_RAM_206,Y
-      STA     unk_RAM_20A,Y
+      STA     SpriteDMAArea + $02,Y
+      STA     SpriteDMAArea + $06,Y
+      STA     SpriteDMAArea + $0A,Y
       LDA     #$F8
       STA     SpriteDMAArea,Y
-      STA     unk_RAM_204,Y
-      STA     unk_RAM_208,Y
+      STA     SpriteDMAArea + $04,Y
+      STA     SpriteDMAArea + $08,Y
       LDA     byte_RAM_EE
       AND     #8
       BNE     loc_BANK2_9DB7
@@ -6073,7 +6073,7 @@ loc_BANK2_9DB7:
       BNE     loc_BANK2_9DC2
 
       LDA     byte_RAM_0
-      STA     unk_RAM_204,Y
+      STA     SpriteDMAArea + $04,Y
 
 loc_BANK2_9DC2:
       LDA     byte_RAM_EE
@@ -6081,7 +6081,7 @@ loc_BANK2_9DC2:
       BNE     loc_BANK2_9DCD
 
       LDA     byte_RAM_0
-      STA     unk_RAM_208,Y
+      STA     SpriteDMAArea + $08,Y
 
 loc_BANK2_9DCD:
       LDA     byte_RAM_0
@@ -6089,11 +6089,11 @@ loc_BANK2_9DCD:
       ADC     #$10
       STA     byte_RAM_0
       LDA     byte_RAM_1
-      STA     unk_RAM_203,Y
+      STA     SpriteDMAArea + $03,Y
       ADC     #8
-      STA     unk_RAM_207,Y
+      STA     SpriteDMAArea + $07,Y
       ADC     #8
-      STA     unk_RAM_20B,Y
+      STA     SpriteDMAArea + $0B,Y
       TXA
       PHA
       JSR     loc_BANKF_FAFE
@@ -6165,9 +6165,9 @@ loc_BANK2_9E06:
       LDA     SpriteDMAArea,Y
       ADC     byte_BANK2_9DFA,X
       STA     SpriteDMAArea,Y
-      LDA     unk_RAM_203,Y
+      LDA     SpriteDMAArea + $03,Y
       ADC     loc_BANK2_9DF2,X
-      STA     unk_RAM_203,Y
+      STA     SpriteDMAArea + $03,Y
       LDX     byte_RAM_12
 
 locret_BANK2_9E3A:

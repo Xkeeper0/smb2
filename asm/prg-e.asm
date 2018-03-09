@@ -7177,9 +7177,9 @@ off_BANKE_DC00:
       .WORD unk_RAM_55F
       .WORD byte_BANKE_DC30
       .WORD byte_BANKE_DE7A
-      .WORD unk_BANKF_E9A6
+      .WORD Text_Game_Over
       .WORD unk_RAM_67B
-      .WORD unk_BANKF_E9C5
+      .WORD Text_Retry
       .WORD unk_RAM_7168
       .WORD unk_RAM_67B
       .WORD unk_RAM_693

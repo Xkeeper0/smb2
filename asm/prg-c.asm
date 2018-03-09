@@ -39,7 +39,7 @@ loc_BANKC_801A:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKC_801C:
-      LDA     byte_RAM_11
+      LDA     ScreenUpdateIndex
       ASL     A
       TAX
       LDA     MarioDream_Pointers,X
@@ -879,7 +879,7 @@ MarioDream_WakingFrames:
       .BYTE $78
 ; ---------------------------------------------------------------------------
 
-loc_BANKC_8342:
+MarioSleepingScene:
       JSR     sub_BANKC_8014
 
       LDA     #0
@@ -894,15 +894,15 @@ loc_BANKC_8342:
       JSR     sub_BANKC_801C
 
       LDA     #9
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     sub_BANKC_801C
 
       LDA     #1
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     sub_BANKC_801C
 
       LDA     #2
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     sub_BANKC_801C
 
       LDA     #$10
@@ -959,32 +959,32 @@ loc_BANKC_83A7:
 
 loc_BANKC_83BB:
       LDA     #3
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       LDA     #$F8
       STA     SpriteDMAArea
-      STA     unk_RAM_204
-      STA     unk_RAM_208
-      STA     unk_RAM_20C
+      STA     SpriteDMAArea + $04
+      STA     SpriteDMAArea + $08
+      STA     SpriteDMAArea + $0C
       JSR     sub_BANKC_801C
 
       LDA     #4
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     sub_BANKC_801C
 
       LDA     #5
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     sub_BANKC_801C
 
       LDA     #6
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     sub_BANKC_801C
 
       LDA     #7
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     sub_BANKC_801C
 
       LDA     #8
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     sub_BANKC_801C
 
       LDA     #0
@@ -1258,7 +1258,7 @@ loc_BANKC_853A:
 
 loc_BANKC_855C:
       LDA     CastRoll_CASTText,X
-      STA     unk_RAM_240,X
+      STA     SpriteDMAArea + $40,X
       DEX
       BPL     loc_BANKC_855C
 
@@ -1363,19 +1363,19 @@ loc_BANKC_85EB:
       SEC
       SBC     #1
       STA     ObjectYHi
-      STA     unk_RAM_240
-      STA     unk_RAM_244
-      STA     unk_RAM_248
-      STA     unk_RAM_24C
+      STA     SpriteDMAArea + $40
+      STA     SpriteDMAArea + $44
+      STA     SpriteDMAArea + $48
+      STA     SpriteDMAArea + $4C
       LDA     ObjectYHi
       CMP     #$10
       BNE     loc_BANKC_861C
 
       LDA     #$F8
-      STA     unk_RAM_240
-      STA     unk_RAM_244
-      STA     unk_RAM_248
-      STA     unk_RAM_24A
+      STA     SpriteDMAArea + $40
+      STA     SpriteDMAArea + $44
+      STA     SpriteDMAArea + $48
+      STA     SpriteDMAArea + $4A
       INC     ObjectXLo
       LDA     #0
       STA     ObjectYLo+5
@@ -1394,7 +1394,7 @@ loc_BANKC_861C:
 
 loc_BANKC_8629:
       LDA     (ObjectXLo+6),Y
-      STA     unk_RAM_240,Y
+      STA     SpriteDMAArea + $40,Y
       DEY
       BPL     loc_BANKC_8629
 
@@ -1420,7 +1420,7 @@ loc_BANKC_8641:
 
 loc_BANKC_864E:
       LDA     (ObjectXLo+6),Y
-      STA     unk_RAM_280,Y
+      STA     SpriteDMAArea + $80,Y
       DEY
       BPL     loc_BANKC_864E
 
@@ -1446,7 +1446,7 @@ loc_BANKC_8666:
 
 loc_BANKC_8673:
       LDA     (ObjectXLo+6),Y
-      STA     unk_RAM_2C0,Y
+      STA     SpriteDMAArea + $C0,Y
       DEY
       BPL     loc_BANKC_8673
 
@@ -1484,7 +1484,7 @@ loc_BANKC_869A:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_86A3:
-      LDA     unk_RAM_240
+      LDA     SpriteDMAArea + $40
       CMP     #$F8
       BEQ     loc_BANKC_86C3
 
@@ -1498,13 +1498,13 @@ loc_BANKC_86A3:
 
 loc_BANKC_86B5:
       STA     ObjectYHi
-      STA     unk_RAM_240
-      STA     unk_RAM_244
-      STA     unk_RAM_248
-      STA     unk_RAM_24C
+      STA     SpriteDMAArea + $40
+      STA     SpriteDMAArea + $44
+      STA     SpriteDMAArea + $48
+      STA     SpriteDMAArea + $4C
 
 loc_BANKC_86C3:
-      LDA     unk_RAM_250
+      LDA     SpriteDMAArea + $50
       CMP     #$F8
       BEQ     loc_BANKC_86F2
 
@@ -1531,13 +1531,13 @@ loc_BANKC_86E4:
       LDA     #$F8
 
 loc_BANKC_86E6:
-      STA     unk_RAM_250
-      STA     unk_RAM_254
-      STA     unk_RAM_258
-      STA     unk_RAM_25C
+      STA     SpriteDMAArea + $50
+      STA     SpriteDMAArea + $54
+      STA     SpriteDMAArea + $58
+      STA     SpriteDMAArea + $5C
 
 loc_BANKC_86F2:
-      LDA     unk_RAM_260
+      LDA     SpriteDMAArea + $60
       CMP     #$F8
       BEQ     loc_BANKC_873A
 
@@ -1571,14 +1571,14 @@ loc_BANKC_8720:
       LDA     #$F8
 
 loc_BANKC_8722:
-      STA     unk_RAM_260
-      STA     unk_RAM_264
-      STA     unk_RAM_268
-      STA     unk_RAM_26C
-      STA     unk_RAM_270
-      STA     unk_RAM_274
-      STA     unk_RAM_278
-      STA     unk_RAM_27C
+      STA     SpriteDMAArea + $60
+      STA     SpriteDMAArea + $64
+      STA     SpriteDMAArea + $68
+      STA     SpriteDMAArea + $6C
+      STA     SpriteDMAArea + $70
+      STA     SpriteDMAArea + $74
+      STA     SpriteDMAArea + $78
+      STA     SpriteDMAArea + $7C
 
 loc_BANKC_873A:
       LDA     ObjectXLo+5
@@ -1590,7 +1590,7 @@ loc_BANKC_873A:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_8743:
-      LDA     unk_RAM_280
+      LDA     SpriteDMAArea + $80
       CMP     #$F8
       BEQ     loc_BANKC_8763
 
@@ -1606,13 +1606,13 @@ loc_BANKC_874C:
 
 loc_BANKC_8755:
       STA     ObjectYHi+3
-      STA     unk_RAM_280
-      STA     unk_RAM_284
-      STA     unk_RAM_288
-      STA     unk_RAM_28C
+      STA     SpriteDMAArea + $80
+      STA     SpriteDMAArea + $84
+      STA     SpriteDMAArea + $88
+      STA     SpriteDMAArea + $8C
 
 loc_BANKC_8763:
-      LDA     unk_RAM_290
+      LDA     SpriteDMAArea + $90
       CMP     #$F8
       BEQ     loc_BANKC_878A
 
@@ -1632,15 +1632,15 @@ loc_BANKC_8776:
       LDA     #$F8
 
 loc_BANKC_877E:
-      STA     unk_RAM_290
-      STA     unk_RAM_294
+      STA     SpriteDMAArea + $90
+      STA     SpriteDMAArea + $94
 
 loc_BANKC_8784:
-      STA     unk_RAM_298
-      STA     unk_RAM_29C
+      STA     SpriteDMAArea + $98
+      STA     SpriteDMAArea + $9C
 
 loc_BANKC_878A:
-      LDA     unk_RAM_2A0
+      LDA     SpriteDMAArea + $A0
       CMP     #$F8
       BEQ     loc_BANKC_87D2
 
@@ -1675,14 +1675,14 @@ loc_BANKC_87B8:
       LDA     #$F8
 
 loc_BANKC_87BA:
-      STA     unk_RAM_2A0
-      STA     unk_RAM_2A4
-      STA     unk_RAM_2A8
-      STA     unk_RAM_2AC
-      STA     unk_RAM_2B0
-      STA     unk_RAM_2B4
-      STA     unk_RAM_2B8
-      STA     unk_RAM_2BC
+      STA     SpriteDMAArea + $A0
+      STA     SpriteDMAArea + $A4
+      STA     SpriteDMAArea + $A8
+      STA     SpriteDMAArea + $AC
+      STA     SpriteDMAArea + $B0
+      STA     SpriteDMAArea + $B4
+      STA     SpriteDMAArea + $B8
+      STA     SpriteDMAArea + $BC
 
 loc_BANKC_87D2:
       LDA     ObjectXLo+5
@@ -1694,7 +1694,7 @@ loc_BANKC_87D2:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_87DB:
-      LDA     unk_RAM_2C0
+      LDA     SpriteDMAArea + $C0
       CMP     #$F8
       BEQ     loc_BANKC_87FB
 
@@ -1708,13 +1708,13 @@ loc_BANKC_87DB:
 
 loc_BANKC_87ED:
       STA     ObjectYHi+6
-      STA     unk_RAM_2C0
-      STA     unk_RAM_2C4
-      STA     unk_RAM_2C8
-      STA     unk_RAM_2CC
+      STA     SpriteDMAArea + $C0
+      STA     SpriteDMAArea + $C4
+      STA     SpriteDMAArea + $C8
+      STA     SpriteDMAArea + $CC
 
 loc_BANKC_87FB:
-      LDA     unk_RAM_2D0
+      LDA     SpriteDMAArea + $D0
       CMP     #$F8
       BEQ     loc_BANKC_8822
 
@@ -1734,13 +1734,13 @@ loc_BANKC_880E:
       LDA     #$F8
 
 loc_BANKC_8816:
-      STA     unk_RAM_2D0
-      STA     unk_RAM_2D4
-      STA     unk_RAM_2D8
-      STA     unk_RAM_2DC
+      STA     SpriteDMAArea + $D0
+      STA     SpriteDMAArea + $D4
+      STA     SpriteDMAArea + $D8
+      STA     SpriteDMAArea + $DC
 
 loc_BANKC_8822:
-      LDA     unk_RAM_2E0
+      LDA     SpriteDMAArea + $E0
       CMP     #$F8
       BEQ     locret_BANKC_8897
 
@@ -1786,14 +1786,14 @@ loc_BANKC_8860:
       LDA     #$F8
 
 loc_BANKC_8862:
-      STA     unk_RAM_2E0
-      STA     unk_RAM_2E4
-      STA     unk_RAM_2E8
-      STA     unk_RAM_2EC
-      STA     unk_RAM_2F0
-      STA     unk_RAM_2F4
-      STA     unk_RAM_2F8
-      STA     unk_RAM_2FC
+      STA     SpriteDMAArea + $E0
+      STA     SpriteDMAArea + $E4
+      STA     SpriteDMAArea + $E8
+      STA     SpriteDMAArea + $EC
+      STA     SpriteDMAArea + $F0
+      STA     SpriteDMAArea + $F4
+      STA     SpriteDMAArea + $F8
+      STA     SpriteDMAArea + $FC
       LDA     ObjectXAccel+2
       BEQ     locret_BANKC_8897
 
@@ -1801,7 +1801,7 @@ loc_BANKC_8862:
 
 loc_BANKC_8880:
       LDA     CastRoll_TriclydeText,Y
-      STA     unk_RAM_240,Y
+      STA     SpriteDMAArea + $40,Y
       DEY
       BPL     loc_BANKC_8880
 
@@ -1833,7 +1833,7 @@ loc_BANKC_8898:
 
 loc_BANKC_88AB:
       LDA     CastRoll_Wart,Y
-      STA     unk_RAM_240,Y
+      STA     SpriteDMAArea + $40,Y
       DEY
       BPL     loc_BANKC_88AB
 
@@ -1843,7 +1843,7 @@ loc_BANKC_88AB:
       LDA     #$C0
 
 loc_BANKC_88BC:
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       INY
       INY
       INY
@@ -1873,7 +1873,7 @@ loc_BANKC_88D7:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_88E0:
-      LDA     unk_RAM_240
+      LDA     SpriteDMAArea + $40
       CMP     #$F8
       BEQ     loc_BANKC_8906
 
@@ -1890,14 +1890,14 @@ loc_BANKC_88E0:
 
 loc_BANKC_88F5:
       STA     ObjectYHi
-      STA     unk_RAM_240
-      STA     unk_RAM_244
-      STA     unk_RAM_248
-      STA     unk_RAM_24C
-      STA     unk_RAM_250
+      STA     SpriteDMAArea + $40
+      STA     SpriteDMAArea + $44
+      STA     SpriteDMAArea + $48
+      STA     SpriteDMAArea + $4C
+      STA     SpriteDMAArea + $50
 
 loc_BANKC_8906:
-      LDA     unk_RAM_254
+      LDA     SpriteDMAArea + $54
       CMP     #$F8
       BEQ     loc_BANKC_8930
 
@@ -1917,14 +1917,14 @@ loc_BANKC_8919:
       LDA     #$F8
 
 loc_BANKC_8921:
-      STA     unk_RAM_254
-      STA     unk_RAM_258
-      STA     unk_RAM_25C
-      STA     unk_RAM_260
-      STA     unk_RAM_264
+      STA     SpriteDMAArea + $54
+      STA     SpriteDMAArea + $58
+      STA     SpriteDMAArea + $5C
+      STA     SpriteDMAArea + $60
+      STA     SpriteDMAArea + $64
 
 loc_BANKC_8930:
-      LDA     unk_RAM_268
+      LDA     SpriteDMAArea + $68
       CMP     #$F8
       BEQ     loc_BANKC_895A
 
@@ -1944,14 +1944,14 @@ loc_BANKC_8943:
       LDA     #$F8
 
 loc_BANKC_894B:
-      STA     unk_RAM_268
-      STA     unk_RAM_26C
-      STA     unk_RAM_270
-      STA     unk_RAM_274
-      STA     unk_RAM_278
+      STA     SpriteDMAArea + $68
+      STA     SpriteDMAArea + $6C
+      STA     SpriteDMAArea + $70
+      STA     SpriteDMAArea + $74
+      STA     SpriteDMAArea + $78
 
 loc_BANKC_895A:
-      LDA     unk_RAM_27C
+      LDA     SpriteDMAArea + $7C
       CMP     #$F8
       BEQ     loc_BANKC_898D
 
@@ -1971,14 +1971,14 @@ loc_BANKC_896D:
       LDA     #$F8
 
 loc_BANKC_8975:
-      STA     unk_RAM_27C
-      STA     unk_RAM_280
-      STA     unk_RAM_284
-      STA     unk_RAM_288
-      STA     unk_RAM_28C
-      STA     unk_RAM_290
-      STA     unk_RAM_294
-      STA     unk_RAM_298
+      STA     SpriteDMAArea + $7C
+      STA     SpriteDMAArea + $80
+      STA     SpriteDMAArea + $84
+      STA     SpriteDMAArea + $88
+      STA     SpriteDMAArea + $8C
+      STA     SpriteDMAArea + $90
+      STA     SpriteDMAArea + $94
+      STA     SpriteDMAArea + $98
 
 loc_BANKC_898D:
       LDA     #0
@@ -2054,7 +2054,7 @@ loc_BANKC_89CD:
 loc_BANKC_89D7:
       INC     ObjectXAccel
       LDA     byte_BANKC_8998,X
-      STA     unk_RAM_241,Y
+      STA     SpriteDMAArea + $41,Y
       INY
       INY
       INY
@@ -2074,7 +2074,7 @@ loc_BANKC_89EB:
 
 loc_BANKC_89F1:
       LDA     byte_BANKC_89A7,X
-      STA     unk_RAM_241,Y
+      STA     SpriteDMAArea + $41,Y
       INY
       INY
       INY
@@ -2135,7 +2135,7 @@ loc_BANKC_8A37:
       LDA     #$F8
 
 loc_BANKC_8A41:
-      STA     unk_RAM_240,Y
+      STA     SpriteDMAArea + $40,Y
       INY
       INY
       INY
@@ -2249,17 +2249,17 @@ loc_BANKC_8ACD:
 
 loc_BANKC_8ADD:
       LDA     #$40
-      STA     unk_RAM_210,X
+      STA     SpriteDMAArea + $10,X
       INX
       LDA     byte_BANKC_93A6,Y
-      STA     unk_RAM_210,X
+      STA     SpriteDMAArea + $10,X
       INY
       INX
       LDA     #0
-      STA     unk_RAM_210,X
+      STA     SpriteDMAArea + $10,X
       INX
       LDA     byte_BANKC_93A6,Y
-      STA     unk_RAM_210,X
+      STA     SpriteDMAArea + $10,X
       INY
       INX
       DEC     ObjectXHi+6

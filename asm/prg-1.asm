@@ -73,7 +73,7 @@ loc_BANK1_A220:
 ; =============== S U B	R O U T	I N E =======================================
 
 WaitForNMI_Ending:
-      LDA     byte_RAM_11
+      LDA     ScreenUpdateIndex
       ASL     A
       TAX
       LDA     EndingPPUDataPointers,X
@@ -641,7 +641,7 @@ loc_BANK1_A43E:
       JSR     WaitForNMI_Ending
 
       LDA     #1
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI_Ending
 
       LDA     #$60
@@ -1022,31 +1022,31 @@ sub_BANK1_A60E:
       LDY     byte_BANK1_A605,X
       LDA     ObjectYLo,X
       STA     SpriteDMAArea,Y
-      STA     unk_RAM_204,Y
+      STA     SpriteDMAArea + $04,Y
       LDA     ObjectXLo,X
-      STA     unk_RAM_203,Y
+      STA     SpriteDMAArea + $03,Y
       CLC
       ADC     #8
-      STA     unk_RAM_207,Y
+      STA     SpriteDMAArea + $07,Y
       LDA     ObjectAttributes,X
-      STA     unk_RAM_202,Y
-      STA     unk_RAM_206,Y
+      STA     SpriteDMAArea + $02,Y
+      STA     SpriteDMAArea + $06,Y
       LDX     byte_RAM_F
       AND     #$40
       BNE     loc_BANK1_A63D
 
       LDA     byte_BANK1_A5FF,X
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     byte_BANK1_A600,X
       BNE     loc_BANK1_A646
 
 loc_BANK1_A63D:
       LDA     byte_BANK1_A600,X
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     byte_BANK1_A5FF,X
 
 loc_BANK1_A646:
-      STA     unk_RAM_205,Y
+      STA     SpriteDMAArea + $05,Y
       LDX     byte_RAM_12
       RTS
 
@@ -2165,11 +2165,11 @@ sub_BANK1_AA79:
       JSR     WaitForNMI_Ending
 
       LDA     #2
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI_Ending
 
       LDA     #3
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI_Ending
 
       JSR     sub_BANK1_AD40
@@ -2196,7 +2196,7 @@ loc_BANK1_AAB1:
 
 loc_BANK1_AABB:
       LDA     byte_BANK1_AA39,Y
-      STA     unk_RAM_210,Y
+      STA     SpriteDMAArea + $10,Y
       DEY
       BPL     loc_BANK1_AABB
 
@@ -2277,7 +2277,7 @@ loc_BANK1_AB20:
       STA     byte_RAM_F3
       STA     byte_RAM_7
       LDA     #7
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
 
 loc_BANK1_AB32:
       JSR     WaitForNMI_Ending
@@ -2359,7 +2359,7 @@ sub_BANK1_AB90:
       BCS     loc_BANK1_ABA4
 
       LDA     byte_BANK1_AA32,Y
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -2382,7 +2382,7 @@ _code_2BA7:
       DEC     byte_RAM_E5
       LDY     byte_RAM_E5
       LDA     byte_BANK1_AA32,Y
-      STA     byte_RAM_11
+      STA     ScreenUpdateIndex
       TYA
       BNE     locret_BANK1_ABA6
 
@@ -2542,13 +2542,13 @@ loc_BANK1_AC4B:
       ADC     byte_BANK1_ABFE,X
       STA     SpriteDMAArea,Y
       LDA     byte_BANK1_ABE6,X
-      STA     unk_RAM_201,Y
+      STA     SpriteDMAArea + $01,Y
       LDA     #1
-      STA     unk_RAM_202,Y
+      STA     SpriteDMAArea + $02,Y
       LDA     PlayerXLo
       CLC
       ADC     byte_BANK1_ABF2,X
-      STA     unk_RAM_203,Y
+      STA     SpriteDMAArea + $03,Y
       LDA     PlayerXHi
 
 loc_BANK1_AC6A:
@@ -2648,15 +2648,15 @@ loc_BANK1_ACC3:
       BNE     loc_BANK1_ACD6
 
 loc_BANK1_ACD1:
-      STA     unk_RAM_273,Y
+      STA     SpriteDMAArea + $73,Y
       LDA     ObjectYLo,X
 
 loc_BANK1_ACD6:
-      STA     unk_RAM_270,Y
+      STA     SpriteDMAArea + $70,Y
       LDA     byte_BANK1_AC7B,X
-      STA     unk_RAM_271,Y
+      STA     SpriteDMAArea + $71,Y
       LDA     #0
-      STA     unk_RAM_272,Y
+      STA     SpriteDMAArea + $72,Y
       DEX
       BPL     loc_BANK1_ACA6
 
@@ -2731,7 +2731,7 @@ loc_BANK1_AD27:
 
 loc_BANK1_AD2B:
       LDA     byte_BANK1_ACE8,X
-      STA     unk_RAM_211,Y
+      STA     SpriteDMAArea + $11,Y
       DEX
       DEX
       DEY
@@ -2872,7 +2872,7 @@ IFDEF _COMPATIBILITY_
 	  .db $8d, $11, $00 ; STA $0011
 ENDIF
 IFNDEF _COMPATIBILITY_
-      STA     byte_RAM_11			  ; Absolute address for zero-page
+      STA     ScreenUpdateIndex			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -3361,7 +3361,7 @@ loc_BANK1_B9EB:
       STA     unk_RAM_45C,X
       STA     unk_RAM_477,X
       STA     unk_RAM_480,X
-      STA     unk_RAM_465,X
+      STA     EnemyHP,X
       STA     ObjectYAccel,X
       STA     ObjectXAccel,X
 
