@@ -1,7 +1,8 @@
 
       ;.segment	BANK6
 ;       *	=  $8000
-WorldBackgroundPalettePointersLo:.BYTE <World1BackgroundPalettes
+WorldBackgroundPalettePointersLo:
+	  .BYTE <World1BackgroundPalettes
 
       .BYTE <World2BackgroundPalettes
       .BYTE <World3BackgroundPalettes
@@ -9,7 +10,8 @@ WorldBackgroundPalettePointersLo:.BYTE <World1BackgroundPalettes
       .BYTE <World5BackgroundPalettes
       .BYTE <World6BackgroundPalettes
       .BYTE <World7BackgroundPalettes
-WorldSpritePalettePointersLo:.BYTE <World1SpritePalettes ;	DATA XREF: sub_BANK6_938A+7r
+WorldSpritePalettePointersLo:
+	  .BYTE <World1SpritePalettes ;	DATA XREF: sub_BANK6_938A+7r
 
       .BYTE <World2SpritePalettes
       .BYTE <World3SpritePalettes
@@ -17,15 +19,18 @@ WorldSpritePalettePointersLo:.BYTE <World1SpritePalettes ;	DATA XREF: sub_BANK6_
       .BYTE <World5SpritePalettes
       .BYTE <World6SpritePalettes
       .BYTE <World7SpritePalettes
-WorldBackgroundPalettePointersHi:.BYTE >World1BackgroundPalettes
+WorldBackgroundPalettePointersHi:
+	  .BYTE >World1BackgroundPalettes
 
       .BYTE >World2BackgroundPalettes
-off_BANK6_8010:.BYTE >World3BackgroundPalettes
+off_BANK6_8010:
+	  .BYTE >World3BackgroundPalettes
       .BYTE >World4BackgroundPalettes
       .BYTE >World5BackgroundPalettes
       .BYTE >World6BackgroundPalettes
       .BYTE >World7BackgroundPalettes
-WorldSpritePalettePointersHi:.BYTE >World1SpritePalettes
+WorldSpritePalettePointersHi:
+	  .BYTE >World1SpritePalettes
 
       .BYTE >World2SpritePalettes
       .BYTE >World3SpritePalettes
@@ -33,7 +38,8 @@ WorldSpritePalettePointersHi:.BYTE >World1SpritePalettes
       .BYTE >World5SpritePalettes
       .BYTE >World6SpritePalettes
       .BYTE >World7SpritePalettes
-World1BackgroundPalettes:.BYTE $21
+World1BackgroundPalettes:
+	  .BYTE $21
       .BYTE $30	
       .BYTE $12
       .BYTE  $F
@@ -136,7 +142,8 @@ World1BackgroundPalettes:.BYTE $21
       .BYTE   1
       .BYTE  $F
       .BYTE  $F
-unk_BANK6_8083:.BYTE  $F
+unk_BANK6_8083:
+	  .BYTE  $F
       .BYTE   1
       .BYTE  $F
       .BYTE  $F
@@ -145,7 +152,8 @@ unk_BANK6_8083:.BYTE  $F
       .BYTE  $F
       .BYTE  $F
       .BYTE  $F
-World1SpritePalettes:.BYTE $FF
+World1SpritePalettes:
+	  .BYTE $FF
 
       .BYTE $30	
       .BYTE $16
@@ -182,7 +190,8 @@ World1SpritePalettes:.BYTE $FF
       .BYTE $25
       .BYTE $10
       .BYTE  $F
-World2BackgroundPalettes:.BYTE $11
+World2BackgroundPalettes:
+	  .BYTE $11
 
       .BYTE $30	
       .BYTE $2A
@@ -295,7 +304,8 @@ World2BackgroundPalettes:.BYTE $11
       .BYTE  $F
       .BYTE  $F
       .BYTE  $F
-World2SpritePalettes:.BYTE $FF
+World2SpritePalettes:
+	  .BYTE $FF
 
       .BYTE $30	
       .BYTE $16
@@ -332,7 +342,8 @@ World2SpritePalettes:.BYTE $FF
       .BYTE $30	
       .BYTE $23
       .BYTE  $F
-World3BackgroundPalettes:.BYTE $22
+World3BackgroundPalettes:
+	  .BYTE $22
       .BYTE $30	
       .BYTE $12
       .BYTE  $F
@@ -426,7 +437,8 @@ World3BackgroundPalettes:.BYTE $22
       .BYTE  $F
       .BYTE  $C
       .BYTE $30	
-unk_BANK6_81A2:.BYTE $31 ; 1
+unk_BANK6_81A2:
+	  .BYTE $31 ; 1
       .BYTE  $F
       .BYTE   1
       .BYTE  $F
@@ -444,7 +456,8 @@ unk_BANK6_81A2:.BYTE $31 ; 1
       .BYTE  $F
       .BYTE  $F
       .BYTE  $F
-World3SpritePalettes:.BYTE $FF
+World3SpritePalettes:
+	  .BYTE $FF
 
       .BYTE $30	
       .BYTE $16
@@ -479,9 +492,11 @@ World3SpritePalettes:.BYTE $FF
       .BYTE  $F
       .BYTE $FF
       .BYTE $2B
-unk_BANK6_81D6:.BYTE $10
+unk_BANK6_81D6:
+	  .BYTE $10
       .BYTE  $F
-World4BackgroundPalettes:.BYTE $23
+World4BackgroundPalettes:
+	  .BYTE $23
       .BYTE $30	
       .BYTE $12
       .BYTE  $F
@@ -519,7 +534,8 @@ World4BackgroundPalettes:.BYTE $23
       .BYTE   1
       .BYTE  $F
       .BYTE $30	
-unk_BANK6_81FE:.BYTE $16
+unk_BANK6_81FE:
+	  .BYTE $16
       .BYTE   2
       .BYTE  $F
       .BYTE $2B
@@ -582,7 +598,8 @@ unk_BANK6_81FE:.BYTE $16
       .BYTE  $F
       .BYTE  $F
       .BYTE   1
-unk_BANK6_823D:.BYTE  $F
+unk_BANK6_823D:
+	  .BYTE  $F
       .BYTE  $F
       .BYTE  $F
       .BYTE   1
@@ -593,7 +610,8 @@ unk_BANK6_823D:.BYTE  $F
       .BYTE  $F
       .BYTE  $F
       .BYTE  $F
-World4SpritePalettes:.BYTE $FF
+World4SpritePalettes:
+	  .BYTE $FF
 
       .BYTE $30	
       .BYTE $16
@@ -630,7 +648,8 @@ World4SpritePalettes:.BYTE $FF
       .BYTE $27
       .BYTE $16
       .BYTE  $F
-World5BackgroundPalettes:.BYTE	$F
+World5BackgroundPalettes:
+	  .BYTE	$F
 
       .BYTE $30	
       .BYTE $12
@@ -743,7 +762,8 @@ World5BackgroundPalettes:.BYTE	$F
       .BYTE  $F
       .BYTE  $F
       .BYTE  $F
-World5SpritePalettes:.BYTE $FF
+World5SpritePalettes:
+	  .BYTE $FF
 
       .BYTE $30	
       .BYTE $16
@@ -780,7 +800,8 @@ World5SpritePalettes:.BYTE $FF
       .BYTE $16
       .BYTE $30	
       .BYTE  $F
-World6BackgroundPalettes:.BYTE $21
+World6BackgroundPalettes:
+	  .BYTE $21
       .BYTE $30	
       .BYTE $2A
       .BYTE  $F
@@ -819,7 +840,8 @@ World6BackgroundPalettes:.BYTE $21
       .BYTE  $F
       .BYTE $30	
       .BYTE $16
-unk_BANK6_8327:.BYTE   2
+unk_BANK6_8327:
+	  .BYTE   2
       .BYTE  $F
       .BYTE $28
       .BYTE $18
@@ -892,7 +914,8 @@ unk_BANK6_8327:.BYTE   2
       .BYTE  $F
       .BYTE  $F
       .BYTE  $F
-World6SpritePalettes:.BYTE $FF
+World6SpritePalettes:
+	  .BYTE $FF
 
       .BYTE $30	
       .BYTE $16
@@ -929,7 +952,8 @@ World6SpritePalettes:.BYTE $FF
       .BYTE $30	
       .BYTE $23
       .BYTE  $F
-World7BackgroundPalettes:.BYTE $21
+World7BackgroundPalettes:
+	  .BYTE $21
       .BYTE $30	
       .BYTE $12
       .BYTE  $F
@@ -1041,7 +1065,8 @@ World7BackgroundPalettes:.BYTE $21
       .BYTE  $F
       .BYTE  $F
       .BYTE  $F
-World7SpritePalettes:.BYTE $FF
+World7SpritePalettes:
+	  .BYTE $FF
 
       .BYTE $30	
       .BYTE $16
@@ -1078,7 +1103,8 @@ World7SpritePalettes:.BYTE $FF
       .BYTE $30	
       .BYTE $2A
       .BYTE  $F
-off_BANK6_8428:.BYTE <World1GroundTilesHorizontal
+off_BANK6_8428:
+	  .BYTE <World1GroundTilesHorizontal
 
       .BYTE <World2GroundTilesHorizontal
       .BYTE <World3GroundTilesHorizontal
@@ -1086,7 +1112,8 @@ off_BANK6_8428:.BYTE <World1GroundTilesHorizontal
       .BYTE <World5GroundTilesHorizontal
       .BYTE <World6GroundTilesHorizontal
       .BYTE <World7GroundTilesHorizontal
-off_BANK6_842F:.BYTE <World1GroundTilesVertical
+off_BANK6_842F:
+	  .BYTE <World1GroundTilesVertical
 
       .BYTE <World2GroundTilesVertical
       .BYTE <World3GroundTilesVertical
@@ -1094,7 +1121,8 @@ off_BANK6_842F:.BYTE <World1GroundTilesVertical
       .BYTE <World5GroundTilesVertical
       .BYTE <World6GroundTilesVertical
       .BYTE <World7GroundTilesVertical
-off_BANK6_8436:.BYTE >World1GroundTilesHorizontal
+off_BANK6_8436:
+	  .BYTE >World1GroundTilesHorizontal
 
       .BYTE >World2GroundTilesHorizontal
       .BYTE >World3GroundTilesHorizontal
@@ -1102,51 +1130,70 @@ off_BANK6_8436:.BYTE >World1GroundTilesHorizontal
       .BYTE >World5GroundTilesHorizontal
       .BYTE >World6GroundTilesHorizontal
       .BYTE >World7GroundTilesHorizontal
-off_BANK6_843D:.BYTE >World1GroundTilesVertical ;	DATA XREF: sub_BANK6_985E+Cr
+off_BANK6_843D:
+	  .BYTE >World1GroundTilesVertical ;	DATA XREF: sub_BANK6_985E+Cr
 
       .BYTE >World2GroundTilesVertical
       .BYTE >World3GroundTilesVertical
       .BYTE >World4GroundTilesVertical
-off_BANK6_8441:.BYTE >World5GroundTilesVertical
+off_BANK6_8441:
+	  .BYTE >World5GroundTilesVertical
       .BYTE >World6GroundTilesVertical
       .BYTE >World7GroundTilesVertical
-World1GroundTilesHorizontal:.BYTE 0, $99, $D5, 0, 0, $99, $99, $99, 0, $A0, $A0, $A0, 0, $A2, $A2, $A2
+World1GroundTilesHorizontal:
+	  .BYTE 0, $99, $D5, 0, 0, $99, $99, $99, 0, $A0, $A0, $A0, 0, $A2, $A2, $A2
       .BYTE 0, $D6, $9B, $18, 0, $A0, $A0, $99,	0, 0, 0, 0, 0, 0, 0, 0;	$10
-World1GroundTilesVertical:.BYTE	0, $9D,	$9E, $C6, 0, 5,	$A0, 0,	0, 0, 0, 0, 0, 0, $A2, 0
+World1GroundTilesVertical:
+	  .BYTE	0, $9D,	$9E, $C6, 0, 5,	$A0, 0,	0, 0, 0, 0, 0, 0, $A2, 0
       .BYTE 0, 0, $C2, 0, 0, 0,	$A0, 0,	0, $93,	$9E, $C6, 0, $40, $9E, $C6; $10
-World2GroundTilesHorizontal:.BYTE 0, $99, $99, $99, 0, $8A, $8A, $8A, 0, $8B, $8B, $8B,	0, $A0,	$A0, $A0
+World2GroundTilesHorizontal:
+	  .BYTE 0, $99, $99, $99, 0, $8A, $8A, $8A, 0, $8B, $8B, $8B,	0, $A0,	$A0, $A0
       .BYTE 0, $A2, $A2, $A2, 0, $D6, $9B, $18,	0, 0, 0, 0, 0, 0, 0, 0;	$10
-World2GroundTilesVertical:.BYTE	0, $9D,	$9E, $C6, 0, $93, $A0, 0, 0, $40, $9B, $40, 0, $93, $9E, $C6
+World2GroundTilesVertical:
+	  .BYTE	0, $9D,	$9E, $C6, 0, $93, $A0, 0, 0, $40, $9B, $40, 0, $93, $9E, $C6
       .BYTE 0, $40, $9E, $C6, 0, 0, 0, 0, 0, 0,	0, 0, 0, 0, 0, 0; $10
-World3GroundTilesHorizontal:.BYTE 0, $99, $D5, 0, 0, $99, $99, $99, 0, $A0, $A0, $A0, 0, $A2, $A2, $A2
+World3GroundTilesHorizontal:
+	  .BYTE 0, $99, $D5, 0, 0, $99, $99, $99, 0, $A0, $A0, $A0, 0, $A2, $A2, $A2
       .BYTE 0, $D6, $9B, $18, 0, $A0, $A0, $99,	0, 0, 0, 0, 0, 0, 0, 0;	$10
-World3GroundTilesVertical:.BYTE	0, $C6,	$9E, $9D, 0, 5,	$A0, 0,	0, $93,	$9E, $C6, 0, 0,	$A2, 0
+World3GroundTilesVertical:
+	  .BYTE	0, $C6,	$9E, $9D, 0, 5,	$A0, 0,	0, $93,	$9E, $C6, 0, 0,	$A2, 0
       .BYTE 0, 0, $C2, 0, 0, 0,	$A0, 0,	0, $40,	$9E, $C6, 0, 6,	$A0, 0;	$10
-World4GroundTilesHorizontal:.BYTE 0, $99, $D5, 0, 0, $99, $16, 0, 0, $A0, $A0, $A0, 0, $A2, $A2, $A2
+World4GroundTilesHorizontal:
+	  .BYTE 0, $99, $D5, 0, 0, $99, $16, 0, 0, $A0, $A0, $A0, 0, $A2, $A2, $A2
       .BYTE 0, $D6, $9B, $18, 0, $A, $A, 8, 0, $1F, $1F, $1F, 0, 0, 0, 0; $10
-World4GroundTilesVertical:.BYTE	0, $C6,	$99, $9D, 0, $A2, $A2, $A2, 0, $9B, $9B, $9B, 0, $A0, $A0, $A0
+World4GroundTilesVertical:
+	  .BYTE	0, $C6,	$99, $9D, 0, $A2, $A2, $A2, 0, $9B, $9B, $9B, 0, $A0, $A0, $A0
       .BYTE 0, $D6, $D6, $D6, 0, $18, $18, $18,	0, 0, 0, 0, 0, 0, 0, 0;	$10
-World5GroundTilesHorizontal:.BYTE 0, $99, $D5, $40, 0, $99, $99, $99, 0, $A0, $A0, $A0,	0, $A2,	$A2, $A2
+World5GroundTilesHorizontal:
+	  .BYTE 0, $99, $D5, $40, 0, $99, $99, $99, 0, $A0, $A0, $A0,	0, $A2,	$A2, $A2
       .BYTE 0, $D6, $9B, $18, 0, $A0, $A0, $99,	0, 0, 0, 0, 0, 0, 0, 0;	$10
-World5GroundTilesVertical:.BYTE	0, $9D,	$9E, $C6, 0, 5,	$A0, 0,	0, $40,	$A4, 0,	0, 0, $A2, 0
+World5GroundTilesVertical:
+	  .BYTE	0, $9D,	$9E, $C6, 0, 5,	$A0, 0,	0, $40,	$A4, 0,	0, 0, $A2, 0
       .BYTE 0, 0, $C2, 0, 0, 0,	$A0, 0,	0, $93,	$9E, $C6, 0, $40, $9E, $C6; $10
-World6GroundTilesHorizontal:.BYTE 0, $99, $99, $99, 0, $8A, $8A, $8A, 0, $8B, $8B, $8B,	0, $A0,	$A0, $A0
+World6GroundTilesHorizontal:
+	  .BYTE 0, $99, $99, $99, 0, $8A, $8A, $8A, 0, $8B, $8B, $8B,	0, $A0,	$A0, $A0
       .BYTE 0, $A2, $A2, $A2, 0, $D6, $9B, $18,	0, 0, 0, 0, 0, 0, 0, 0;	$10
-World6GroundTilesVertical:.BYTE	0, $9D,	$9E, $C6, 0, $93, $A0, 0, 0, $40, $18, $40, 0, $93, $9E, $C6
+World6GroundTilesVertical:
+	  .BYTE	0, $9D,	$9E, $C6, 0, $93, $A0, 0, 0, $40, $18, $40, 0, $93, $9E, $C6
       .BYTE 0, $40, $9E, $C6, 0, 0, 0, 0, 0, 0,	0, 0, 0, 0, 0, 0; $10
-World7GroundTilesHorizontal:.BYTE 0, $9C, $9C, $9C, 0, $D7, $9C, $19, 0, 0, 0, 0, 0, 0,	0, 0
+World7GroundTilesHorizontal:
+	  .BYTE 0, $9C, $9C, $9C, 0, $D7, $9C, $19, 0, 0, 0, 0, 0, 0,	0, 0
       .BYTE 0, 0, 0, 0,	0, 0, 0, 0, 0, 0, 0, 0,	0, 0, 0, 0; $10
-World7GroundTilesVertical:.BYTE	0, $9C,	$9C, $9C, 0, 5,	$A0, 0,	0, 0, 0, 0, 0, 0, $9C, 0
+World7GroundTilesVertical:
+	  .BYTE	0, $9C,	$9C, $9C, 0, 5,	$A0, 0,	0, 0, 0, 0, 0, 0, $9C, 0
       .BYTE 0, 0, $C2, 0, 0, 0,	$A0, 0,	0, 0, 0, 0, 0, 0, 0, 0;	$10
-UnusedTileQuadPointersLo:.BYTE <UnusedTileQuads1
+UnusedTileQuadPointersLo:
+	  .BYTE <UnusedTileQuads1
       .BYTE <UnusedTileQuads2
       .BYTE <UnusedTileQuads3
       .BYTE <UnusedTileQuads4
-UnusedTileQuadPointersHi:.BYTE >UnusedTileQuads1
+UnusedTileQuadPointersHi:
+	  .BYTE >UnusedTileQuads1
       .BYTE >UnusedTileQuads2
       .BYTE >UnusedTileQuads3
       .BYTE >UnusedTileQuads4
-UnusedTileQuads1:.BYTE $FE
+UnusedTileQuads1:
+	  .BYTE $FE
       .BYTE $FE
       .BYTE $FE
       .BYTE $FE
@@ -1286,7 +1333,8 @@ UnusedTileQuads1:.BYTE $FE
       .BYTE $26
       .BYTE $25
       .BYTE $27
-UnusedTileQuads2:.BYTE $FA
+UnusedTileQuads2:
+	  .BYTE $FA
       .BYTE $FA
       .BYTE $FA
       .BYTE $FA
@@ -1466,7 +1514,8 @@ UnusedTileQuads2:.BYTE $FA
       .BYTE $C2
       .BYTE $C1
       .BYTE $C3
-unk_BANK6_874C:.BYTE $2C
+unk_BANK6_874C:
+	  .BYTE $2C
       .BYTE $2E
       .BYTE $2D
       .BYTE $2F
@@ -1522,8 +1571,10 @@ unk_BANK6_874C:.BYTE $2C
       .BYTE $35	; 5
       .BYTE $33	; 3
       .BYTE $35	; 5
-UnusedTileQuads3:.BYTE $94
-unk_BANK6_8785:.BYTE $95
+UnusedTileQuads3:
+	  .BYTE $94
+unk_BANK6_8785:
+	  .BYTE $95
       .BYTE $94
       .BYTE $95
       .BYTE $96
@@ -1560,7 +1611,8 @@ unk_BANK6_8785:.BYTE $95
       .BYTE $FB
       .BYTE $FB
       .BYTE $FB
-unk_BANK6_87AA:.BYTE $31 ; 1
+unk_BANK6_87AA:
+	  .BYTE $31 ; 1
       .BYTE $FB
       .BYTE $D0
       .BYTE $D0
@@ -1698,7 +1750,8 @@ unk_BANK6_87AA:.BYTE $31 ; 1
       .BYTE $43
       .BYTE $41
       .BYTE $43
-UnusedTileQuads4:.BYTE $40
+UnusedTileQuads4:
+	  .BYTE $40
       .BYTE $42
       .BYTE $41
       .BYTE $43
@@ -1794,7 +1847,8 @@ UnusedTileQuads4:.BYTE $40
       .BYTE $73
       .BYTE $73
       .BYTE $72
-unk_BANK6_8894:.BYTE $44
+unk_BANK6_8894:
+	  .BYTE $44
       .BYTE $45
       .BYTE $45
       .BYTE $44
@@ -1868,7 +1922,8 @@ loc_BANK6_88FE:
       JMP     loc_BANK6_8D3F
 
 ; ---------------------------------------------------------------------------
-WorldObjectTilePointersLo:.BYTE	<World1ObjectTiles
+WorldObjectTilePointersLo:
+	  .BYTE	<World1ObjectTiles
 
       .BYTE <World2ObjectTiles
       .BYTE <World3ObjectTiles
@@ -1876,7 +1931,8 @@ WorldObjectTilePointersLo:.BYTE	<World1ObjectTiles
       .BYTE <World5ObjectTiles
       .BYTE <World6ObjectTiles
       .BYTE <World7ObjectTiles
-WorldObjectTilePointersHi:.BYTE	>World1ObjectTiles
+WorldObjectTilePointersHi:
+	  .BYTE	>World1ObjectTiles
 
       .BYTE >World2ObjectTiles
       .BYTE >World3ObjectTiles
@@ -1884,7 +1940,8 @@ WorldObjectTilePointersHi:.BYTE	>World1ObjectTiles
       .BYTE >World5ObjectTiles
       .BYTE >World6ObjectTiles
       .BYTE >World7ObjectTiles
-World1ObjectTiles:.BYTE	$97, $92, $12, $12		      
+World1ObjectTiles:
+	  .BYTE	$97, $92, $12, $12		      
       .BYTE $1C, $99, $1C, $1C			  ; 4
       .BYTE $45, $45, $45, $45			  ; 8
       .BYTE $65, $65, $65, $65			  ; $C
@@ -1893,7 +1950,8 @@ World1ObjectTiles:.BYTE	$97, $92, $12, $12
       .BYTE $A0, $A0, $A0, $A0			  ; $18
       .BYTE $80, 7, $81, $80			  ; $1C
       .BYTE $81, $81, $81, $81			  ; $20
-World2ObjectTiles:.BYTE	$96, $92, $93, $12		      
+World2ObjectTiles:
+	  .BYTE	$96, $92, $93, $12		      
       .BYTE $1C, $1C, $1C, $1C			  ; 4
       .BYTE $45, $45, $45, $45			  ; 8
       .BYTE $65, $65, $65, $65			  ; $C
@@ -1902,7 +1960,8 @@ World2ObjectTiles:.BYTE	$96, $92, $93, $12
       .BYTE $A0, $A0, $A0, $A0			  ; $18
       .BYTE $80, 7, $81, $80			  ; $1C
       .BYTE $81, $81, $81, $81			  ; $20
-World3ObjectTiles:.BYTE	$97, $92, $12, $12		      
+World3ObjectTiles:
+	  .BYTE	$97, $92, $12, $12		      
       .BYTE $1C, $99, $A0, $1C			  ; 4
       .BYTE $45, $45, $45, $45			  ; 8
       .BYTE $65, $65, $65, $65			  ; $C
@@ -1911,7 +1970,8 @@ World3ObjectTiles:.BYTE	$97, $92, $12, $12
       .BYTE $A0, $A0, $A0, $A0			  ; $18
       .BYTE $80, 7, $81, $80			  ; $1C
       .BYTE $81, $81, $81, $81			  ; $20
-World4ObjectTiles:.BYTE	$16, $92, $16, $12		      
+World4ObjectTiles:
+	  .BYTE	$16, $92, $16, $12		      
       .BYTE $1C, $99, $A2, $18			  ; 4
       .BYTE $45, $45, $45, $45			  ; 8
       .BYTE $65, $65, $65, $65			  ; $C
@@ -1920,7 +1980,8 @@ World4ObjectTiles:.BYTE	$16, $92, $16, $12
       .BYTE $A0, $A0, $A0, $A0			  ; $18
       .BYTE $80, 7, $81, $80			  ; $1C
       .BYTE $81, $81, $81, $81			  ; $20
-World5ObjectTiles:.BYTE	$97, $92, $12, $12		      
+World5ObjectTiles:
+	  .BYTE	$97, $92, $12, $12		      
       .BYTE $1C, $99, $1C, $1C			  ; 4
       .BYTE $45, $45, $45, $45			  ; 8
       .BYTE $65, $65, $65, $65			  ; $C
@@ -1929,7 +1990,8 @@ World5ObjectTiles:.BYTE	$97, $92, $12, $12
       .BYTE $A0, $A0, $A0, $A0			  ; $18
       .BYTE $80, 7, $81, $80			  ; $1C
       .BYTE $81, $81, $81, $81			  ; $20
-World6ObjectTiles:.BYTE	$96, $92, $93, $12		      
+World6ObjectTiles:
+	  .BYTE	$96, $92, $93, $12		      
       .BYTE $1C, $1C, $1C, $1C			  ; 4
       .BYTE $45, $45, $45, $45			  ; 8
       .BYTE $65, $65, $65, $65			  ; $C
@@ -1938,7 +2000,8 @@ World6ObjectTiles:.BYTE	$96, $92, $93, $12
       .BYTE $A0, $A0, $A0, $A0			  ; $18
       .BYTE $80, 7, $81, $80			  ; $1C
       .BYTE $81, $81, $81, $81			  ; $20
-World7ObjectTiles:.BYTE	$12, $68, $12, $9D		      
+World7ObjectTiles:
+	  .BYTE	$12, $68, $12, $9D		      
       .BYTE $9C, $67, $64, $69			  ; 4
       .BYTE $45, $45, $45, $45			  ; 8
       .BYTE $65, $65, $65, $65			  ; $C
@@ -2192,7 +2255,8 @@ loc_BANK6_8B37:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8B40:.BYTE $69
+byte_BANK6_8B40:
+	  .BYTE $69
 
       .BYTE $6C
       .BYTE $9D
@@ -2200,7 +2264,8 @@ byte_BANK6_8B40:.BYTE $69
       .BYTE $72
       .BYTE $94
       .BYTE $95
-byte_BANK6_8B47:.BYTE $69
+byte_BANK6_8B47:
+	  .BYTE $69
 
       .BYTE $6C
       .BYTE $9D
@@ -2240,13 +2305,16 @@ loc_BANK6_8B6E:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8B71:.BYTE $75
+byte_BANK6_8B71:
+	  .BYTE $75
 
       .BYTE $13
-byte_BANK6_8B73:.BYTE $76
+byte_BANK6_8B73:
+	  .BYTE $76
 
       .BYTE $14
-byte_BANK6_8B75:.BYTE $77
+byte_BANK6_8B75:
+	  .BYTE $77
 
       .BYTE $15
 ; ---------------------------------------------------------------------------
@@ -2287,7 +2355,8 @@ loc_BANK6_8BA1:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8BAA:.BYTE $CA
+byte_BANK6_8BAA:
+	  .BYTE $CA
 
       .BYTE $CC
       .BYTE $CE
@@ -2357,15 +2426,18 @@ locret_BANK6_8BFA:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8BFB:.BYTE $C7
+byte_BANK6_8BFB:
+	  .BYTE $C7
 
       .BYTE $C8
       .BYTE $C9
-byte_BANK6_8BFE:.BYTE $D2
+byte_BANK6_8BFE:
+	  .BYTE $D2
 
       .BYTE $D0
       .BYTE $D0
-byte_BANK6_8C01:.BYTE $D1
+byte_BANK6_8C01:
+	  .BYTE $D1
 
       .BYTE $D1
       .BYTE $D3
@@ -2442,9 +2514,11 @@ loc_BANK6_8C4D:
       RTS
 
 ; ---------------------------------------------------------------------------
-unk_BANK6_8C52:.BYTE $52
+unk_BANK6_8C52:
+	  .BYTE $52
       .BYTE $C0
-unk_BANK6_8C54:.BYTE $52
+unk_BANK6_8C54:
+	  .BYTE $52
       .BYTE $82
 ; ---------------------------------------------------------------------------
 
@@ -2483,9 +2557,11 @@ locret_BANK6_8C82:
       RTS
 
 ; ---------------------------------------------------------------------------
-unk_BANK6_8C83:.BYTE $C0
+unk_BANK6_8C83:
+	  .BYTE $C0
       .BYTE $C0
-unk_BANK6_8C85:.BYTE $82
+unk_BANK6_8C85:
+	  .BYTE $82
       .BYTE $82
 ; ---------------------------------------------------------------------------
 
@@ -2541,7 +2617,8 @@ loc_BANK6_8CBB:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8CC2:.BYTE $6F
+byte_BANK6_8CC2:
+	  .BYTE $6F
 
       .BYTE $73
       .BYTE $74
@@ -2645,7 +2722,8 @@ locret_BANK6_8D2F:
       RTS
 
 ; ---------------------------------------------------------------------------
-unk_BANK6_8D30:.BYTE $43
+unk_BANK6_8D30:
+	  .BYTE $43
       .BYTE $44
       .BYTE $45
       .BYTE $46
@@ -2670,10 +2748,12 @@ loc_BANK6_8D3F:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8D4A:.BYTE $90
+byte_BANK6_8D4A:
+	  .BYTE $90
 
       .BYTE $A3
-byte_BANK6_8D4C:.BYTE $9C
+byte_BANK6_8D4C:
+	  .BYTE $9C
       .BYTE $9C
 ; ---------------------------------------------------------------------------
 
@@ -2734,7 +2814,8 @@ locret_BANK6_8D92:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8D93:.BYTE 4
+byte_BANK6_8D93:
+	  .BYTE 4
 
       .BYTE 5
 ; ---------------------------------------------------------------------------
@@ -2893,7 +2974,8 @@ loc_BANK6_8E3D:
 ; End of function sub_BANK6_8E24
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8E42:.BYTE $40				    
+byte_BANK6_8E42:
+	  .BYTE $40				    
       .BYTE $88					  ; 1
       .BYTE $40					  ; 2
       .BYTE $40					  ; 3
@@ -2940,17 +3022,21 @@ loc_BANK6_8E56:
       RTS
 
 ; ---------------------------------------------------------------------------
-unk_BANK6_8E80:.BYTE   0
+unk_BANK6_8E80:
+	  .BYTE   0
       .BYTE $13
       .BYTE $60
       .BYTE $59
       .BYTE $C
-unk_BANK6_8E85:.BYTE   0
+unk_BANK6_8E85:
+	  .BYTE   0
       .BYTE $14
-byte_BANK6_8E87:.BYTE $61
+byte_BANK6_8E87:
+	  .BYTE $61
       .BYTE $59
       .BYTE $C
-unk_BANK6_8E8A:.BYTE   0
+unk_BANK6_8E8A:
+	  .BYTE   0
       .BYTE $15
       .BYTE $62
       .BYTE $59
@@ -3053,7 +3139,8 @@ loc_BANK6_8F0B:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8F13:.BYTE $C
+byte_BANK6_8F13:
+	  .BYTE $C
 
       .BYTE $1F
 ; ---------------------------------------------------------------------------
@@ -3101,14 +3188,17 @@ loc_BANK6_8F45:
       JMP     loc_BANK6_8F19
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8F4A:.BYTE $75
+byte_BANK6_8F4A:
+	  .BYTE $75
 
       .BYTE $13
       .BYTE $76
-byte_BANK6_8F4D:.BYTE $76
+byte_BANK6_8F4D:
+	  .BYTE $76
 
       .BYTE $14
-byte_BANK6_8F4F:.BYTE $77
+byte_BANK6_8F4F:
+	  .BYTE $77
 
       .BYTE $15
       .BYTE $78
@@ -3162,7 +3252,8 @@ locret_BANK6_8F8D:
 ; End of function sub_BANK6_8F83
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8F8E:.BYTE $5E
+byte_BANK6_8F8E:
+	  .BYTE $5E
 
       .BYTE $5D
       .BYTE $5C
@@ -3231,7 +3322,8 @@ sub_BANK6_8FC2:
       .BYTE $52
       .BYTE $1E
       .BYTE $82
-byte_BANK6_8FDB:.BYTE $9F
+byte_BANK6_8FDB:
+	  .BYTE $9F
 
       .BYTE $A0
       .BYTE $A0
@@ -3290,13 +3382,15 @@ loc_BANK6_9004:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_9016:.BYTE $4F
+byte_BANK6_9016:
+	  .BYTE $4F
 
       .BYTE $4F
       .BYTE $83
       .BYTE $A9
       .BYTE $A8
-byte_BANK6_901B:.BYTE $50
+byte_BANK6_901B:
+	  .BYTE $50
 
       .BYTE $51
       .BYTE $83
@@ -3346,15 +3440,19 @@ locret_BANK6_9059:
       RTS
 
 ; ---------------------------------------------------------------------------
-unk_BANK6_905A:.BYTE   0
+unk_BANK6_905A:
+	  .BYTE   0
       .BYTE $13
-byte_BANK6_905C:.BYTE $CB
+byte_BANK6_905C:
+	  .BYTE $CB
       .BYTE 9
-unk_BANK6_905E:.BYTE   0
+unk_BANK6_905E:
+	  .BYTE   0
       .BYTE $14
       .BYTE $CD
       .BYTE $B
-unk_BANK6_9062:.BYTE   0
+unk_BANK6_9062:
+	  .BYTE   0
       .BYTE $15
       .BYTE $CF
       .BYTE $D
@@ -3436,7 +3534,8 @@ locret_BANK6_90C4:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_90C5:.BYTE $79
+byte_BANK6_90C5:
+	  .BYTE $79
 
       .BYTE $1D
       .BYTE $79
@@ -3444,7 +3543,8 @@ byte_BANK6_90C5:.BYTE $79
       .BYTE $79
       .BYTE $1D
       .BYTE $AA
-byte_BANK6_90CC:.BYTE $7A
+byte_BANK6_90CC:
+	  .BYTE $7A
 
       .BYTE $1E
       .BYTE $7A
@@ -3521,7 +3621,8 @@ loc_BANK6_9117:
 
 ; ---------------------------------------------------------------------------
 ; [000000DA BYTES: BEGIN OF AREA UNUSED-BANK6:9126. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_D126:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_empty_D126:
+	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -3536,7 +3637,8 @@ _empty_D126:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $F
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $C0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; $D0
 ; [000000DA BYTES: END OF AREA UNUSED-BANK6:9126. PRESS	KEYPAD "-" TO COLLAPSE]
-MysteryDataD200:.BYTE 0
+MysteryDataD200:
+	  .BYTE 0
 
       .BYTE 0
       .BYTE 0
@@ -3577,7 +3679,8 @@ MysteryDataD200:.BYTE 0
       .BYTE $55
       .BYTE $55
       .BYTE $7C
-byte_BANK6_9228:.BYTE $E7
+byte_BANK6_9228:
+	  .BYTE $E7
       .BYTE $9E
       .BYTE $79
       .BYTE $E4
@@ -3597,7 +3700,8 @@ byte_BANK6_9228:.BYTE $E7
       .BYTE $E
       .BYTE $79
       .BYTE $E4
-byte_BANK6_923C:.BYTE $E4
+byte_BANK6_923C:
+	  .BYTE $E4
       .BYTE 0
       .BYTE 9
       .BYTE $E4
@@ -3656,12 +3760,14 @@ byte_BANK6_923C:.BYTE $E4
       .BYTE 0
       .BYTE 0
       .BYTE 0
-byte_BANK6_9277:.BYTE $24
+byte_BANK6_9277:
+	  .BYTE $24
       .BYTE   0
       .BYTE   0
       .BYTE   0
       .BYTE $24
-byte_BANK6_927C:.BYTE $AA
+byte_BANK6_927C:
+	  .BYTE $AA
 
       .BYTE $AA
       .BYTE $AA
@@ -3672,7 +3778,8 @@ byte_BANK6_927C:.BYTE $AA
       .BYTE 2
       .BYTE $AA
       .BYTE   0
-unk_BANK6_9286:.BYTE   0
+unk_BANK6_9286:
+	  .BYTE   0
       .BYTE $AA
       .BYTE $FA
       .BYTE 0
@@ -3734,11 +3841,13 @@ unk_BANK6_9286:.BYTE   0
       .BYTE $A5
       .BYTE $55
       .BYTE $5A
-byte_BANK6_92C4:.BYTE $A5
+byte_BANK6_92C4:
+	  .BYTE $A5
       .BYTE $55
       .BYTE $5A
       .BYTE $AA
-byte_BANK6_92C8:.BYTE 0
+byte_BANK6_92C8:
+	  .BYTE 0
       .BYTE 0
       .BYTE 0
       .BYTE 0
@@ -3786,7 +3895,8 @@ byte_BANK6_92C8:.BYTE 0
       .BYTE 0
       .BYTE 0
       .BYTE $A
-byte_BANK6_92F8:.BYTE 0
+byte_BANK6_92F8:
+	  .BYTE 0
 
       .BYTE $F0
       .BYTE $E0
@@ -3798,7 +3908,8 @@ byte_BANK6_92F8:.BYTE 0
       .BYTE $80
       .BYTE $70
       .BYTE 0
-byte_BANK6_9303:.BYTE $60
+byte_BANK6_9303:
+	  .BYTE $60
 
       .BYTE $60
       .BYTE $61
@@ -3810,10 +3921,12 @@ byte_BANK6_9303:.BYTE $60
       .BYTE $67
       .BYTE $68
       .BYTE 7
-byte_BANK6_930E:.BYTE $75
+byte_BANK6_930E:
+	  .BYTE $75
 
       .BYTE $77
-byte_BANK6_9310:.BYTE $CA
+byte_BANK6_9310:
+	  .BYTE $CA
       .BYTE $CE
       .BYTE $C7
       .BYTE $C8
@@ -3833,7 +3946,8 @@ byte_BANK6_9310:.BYTE $CA
       .BYTE $CF
       .BYTE 9
       .BYTE $D
-unk_BANK6_9324:.BYTE $77
+unk_BANK6_9324:
+	  .BYTE $77
       .BYTE $75
       .BYTE $CE
       .BYTE $CA
@@ -4241,7 +4355,8 @@ locret_BANK6_9528:
 ; End of function sub_BANK6_950E
 
 ; ---------------------------------------------------------------------------
-LevelMusicTable:.BYTE Music1_Overworld
+LevelMusicTable:
+	  .BYTE Music1_Overworld
       .BYTE Music1_Inside
       .BYTE Music1_Boss
       .BYTE Music1_Wart
@@ -5102,7 +5217,8 @@ loc_BANK6_98D6:
 ; End of function sub_BANK6_98BC
 
 ; ---------------------------------------------------------------------------
-unk_BANK6_98DA:.BYTE $28
+unk_BANK6_98DA:
+	  .BYTE $28
       .BYTE $24
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -5186,7 +5302,8 @@ loc_BANK6_9934:
 
 ; ---------------------------------------------------------------------------
 ; [000006A9 BYTES: BEGIN OF AREA UNUSED-BANK6:9957. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_D957:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_empty_D957:
+	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

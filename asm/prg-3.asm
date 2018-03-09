@@ -4,11 +4,14 @@
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
-MysteryData6030:.BYTE $2D
+MysteryData6030:
+	  .BYTE $2D
 
-byte_BANK3_A031:.BYTE $2F
+byte_BANK3_A031:
+	  .BYTE $2F
 
-unk_BANK3_A032:.BYTE $2D
+unk_BANK3_A032:
+	  .BYTE $2D
       .BYTE $2F
       .BYTE $E0
       .BYTE $E2
@@ -240,7 +243,8 @@ loc_BANK3_A10A:
       JMP     sub_BANK2_8441
 
 ; ---------------------------------------------------------------------------
-unk_BANK3_A120:.BYTE $C8
+unk_BANK3_A120:
+	  .BYTE $C8
       .BYTE $D0
       .BYTE $E0
       .BYTE $F0
@@ -248,7 +252,8 @@ unk_BANK3_A120:.BYTE $C8
       .BYTE $10
       .BYTE $20
       .BYTE $C8
-unk_BANK3_A128:.BYTE $DC
+unk_BANK3_A128:
+	  .BYTE $DC
       .BYTE $E2
       .BYTE $E8
       .BYTE $F0
@@ -371,12 +376,14 @@ loc_BANK3_A1D3:
 ; ---------------------------------------------------------------------------
       .BYTE 8
       .BYTE 8
-byte_BANK3_A1D8:.BYTE $1C
+byte_BANK3_A1D8:
+	  .BYTE $1C
 
       .BYTE $F4
       .BYTE $11
       .BYTE $F
-byte_BANK3_A1DC:.BYTE 4
+byte_BANK3_A1DC:
+	  .BYTE 4
 
       .BYTE 6
       .BYTE 8
@@ -694,7 +701,8 @@ loc_BANK3_A362:
       JMP     sub_BANK2_9BA7
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_A365:.BYTE 0
+byte_BANK3_A365:
+	  .BYTE 0
 
       .BYTE $15
       .BYTE $EB
@@ -912,25 +920,32 @@ loc_BANK3_A478:
 ; End of function sub_BANK3_A440
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_A47B:.BYTE 2
+byte_BANK3_A47B:
+	  .BYTE 2
 
       .BYTE 2
       .BYTE 1
       .BYTE 1
-byte_BANK3_A47F:.BYTE 4
+byte_BANK3_A47F:
+	  .BYTE 4
 
       .BYTE $C
       .BYTE $C
       .BYTE 4
-unk_BANK3_A483:.BYTE   1
+unk_BANK3_A483:
+	  .BYTE   1
       .BYTE $FF
-unk_BANK3_A485:.BYTE   8
+unk_BANK3_A485:
+	  .BYTE   8
       .BYTE $F8
-unk_BANK3_A487:.BYTE   1
+unk_BANK3_A487:
+	  .BYTE   1
       .BYTE $FF
-unk_BANK3_A489:.BYTE $20
+unk_BANK3_A489:
+	  .BYTE $20
       .BYTE $E0
-unk_BANK3_A48B:.BYTE $14
+unk_BANK3_A48B:
+	  .BYTE $14
       .BYTE $EC
 ; ---------------------------------------------------------------------------
 
@@ -1440,7 +1455,8 @@ loc_BANK3_A724:
       JMP     loc_BANK2_8F6F
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_A734:.BYTE 0
+byte_BANK3_A734:
+	  .BYTE 0
 
       .BYTE $FF
       .BYTE $FE
@@ -1457,7 +1473,8 @@ byte_BANK3_A734:.BYTE 0
       .BYTE $FD
       .BYTE $FE
       .BYTE $FF
-unk_BANK3_A744:.BYTE  $B
+unk_BANK3_A744:
+	  .BYTE  $B
       .BYTE  $C
       .BYTE $D
       .BYTE $F
@@ -1469,7 +1486,8 @@ unk_BANK3_A744:.BYTE  $B
       .BYTE $1D
       .BYTE $1F
       .BYTE $20
-unk_BANK3_A750:.BYTE $E2
+unk_BANK3_A750:
+	  .BYTE $E2
       .BYTE $E2
       .BYTE $E2
       .BYTE $E3
@@ -1993,7 +2011,8 @@ loc_BANK3_AA14:
       RTS
 
 ; ---------------------------------------------------------------------------
-unk_BANK3_AA1C:.BYTE   2
+unk_BANK3_AA1C:
+	  .BYTE   2
       .BYTE   4
       .BYTE  $D
       .BYTE  $E
@@ -2090,13 +2109,17 @@ loc_BANK3_AAA4:
 ; End of function sub_BANK3_AA3E
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_AAAA:.BYTE 0
+byte_BANK3_AAAA:
+	  .BYTE 0
 
-byte_BANK3_AAAB:.BYTE 1
+byte_BANK3_AAAB:
+	  .BYTE 1
 
-byte_BANK3_AAAC:.BYTE 0
+byte_BANK3_AAAC:
+	  .BYTE 0
 
-byte_BANK3_AAAD:.BYTE $FF
+byte_BANK3_AAAD:
+	  .BYTE $FF
 
       .BYTE 0
       .BYTE 1
@@ -2348,9 +2371,11 @@ sub_BANK3_ABEE:
 ; End of function sub_BANK3_ABEE
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_AC25:.BYTE $F0
+byte_BANK3_AC25:
+	  .BYTE $F0
 
-byte_BANK3_AC26:.BYTE 0
+byte_BANK3_AC26:
+	  .BYTE 0
 
       .BYTE $F0
 
@@ -2418,31 +2443,38 @@ loc_BANK3_AC6A:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_AC77:.BYTE $E0
+byte_BANK3_AC77:
+	  .BYTE $E0
 
       .BYTE $20
       .BYTE $F0
       .BYTE $10
-byte_BANK3_AC7B:.BYTE 4
+byte_BANK3_AC7B:
+	  .BYTE 4
 
       .BYTE $C
       .BYTE 4
       .BYTE $C
-byte_BANK3_AC7F:.BYTE 4
+byte_BANK3_AC7F:
+	  .BYTE 4
 
       .BYTE 4
       .BYTE $C
       .BYTE $C
-byte_BANK3_AC83:.BYTE 1
+byte_BANK3_AC83:
+	  .BYTE 1
 
       .BYTE $FF
-byte_BANK3_AC85:.BYTE $2A
+byte_BANK3_AC85:
+	  .BYTE $2A
 
       .BYTE $D6
-byte_BANK3_AC87:.BYTE 1
+byte_BANK3_AC87:
+	  .BYTE 1
 
       .BYTE $FF
-byte_BANK3_AC89:.BYTE $18
+byte_BANK3_AC89:
+	  .BYTE $18
 
       .BYTE $E8
 ; ---------------------------------------------------------------------------
@@ -2555,11 +2587,13 @@ loc_BANK3_AD37:
       JMP     sub_BANK2_9E50
 
 ; ---------------------------------------------------------------------------
-unk_BANK3_AD40:.BYTE $3F
+unk_BANK3_AD40:
+	  .BYTE $3F
       .BYTE $3F
       .BYTE $3F
       .BYTE $7F
-unk_BANK3_AD44:.BYTE $D4
+unk_BANK3_AD44:
+	  .BYTE $D4
       .BYTE $D8
       .BYTE $DA
       .BYTE $DE
@@ -2979,7 +3013,8 @@ locret_BANK3_AF74:
 
 ; ---------------------------------------------------------------------------
       .BYTE $1C
-byte_BANK3_AF76:.BYTE $E4
+byte_BANK3_AF76:
+	  .BYTE $E4
 
       .BYTE 1
       .BYTE $FF
@@ -3070,16 +3105,20 @@ loc_BANK3_AFE3:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_AFEC:.BYTE 1
+byte_BANK3_AFEC:
+	  .BYTE 1
 
       .BYTE $FF
-byte_BANK3_AFEE:.BYTE $28
+byte_BANK3_AFEE:
+	  .BYTE $28
 
       .BYTE $D8
-byte_BANK3_AFF0:.BYTE 1
+byte_BANK3_AFF0:
+	  .BYTE 1
 
       .BYTE $FF
-byte_BANK3_AFF2:.BYTE $10
+byte_BANK3_AFF2:
+	  .BYTE $10
 
       .BYTE $F0
 ; ---------------------------------------------------------------------------
@@ -3336,17 +3375,20 @@ loc_BANK3_B16D:
 ; End of function sub_BANK3_B0E8
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_B170:.BYTE 8
+byte_BANK3_B170:
+	  .BYTE 8
 
       .BYTE $28
       .BYTE $48
       .BYTE $28
-byte_BANK3_B174:.BYTE $94
+byte_BANK3_B174:
+	  .BYTE $94
 
       .BYTE $84
       .BYTE $94
       .BYTE $84
-unk_BANK3_B178:.BYTE $F8
+unk_BANK3_B178:
+	  .BYTE $F8
       .BYTE 8
       .BYTE $F8
       .BYTE 8
@@ -3417,7 +3459,8 @@ loc_BANK3_B1CD:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_B1DB:.BYTE $E0
+byte_BANK3_B1DB:
+	  .BYTE $E0
 
       .BYTE $F0
       .BYTE $E8
@@ -3767,7 +3810,8 @@ loc_BANK3_B398:
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $120
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $130
       .BYTE $FF, $FF, $FF, $FF,	$FF		  ; $140
-unk_BANK3_B4E0:.BYTE $F0
+unk_BANK3_B4E0:
+	  .BYTE $F0
       .BYTE $10
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -3957,7 +4001,8 @@ locret_BANK3_B5BB:
 ; End of function sub_BANK3_B5AC
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_B5BC:.BYTE 2
+byte_BANK3_B5BC:
+	  .BYTE 2
 
       .BYTE 1
       .BYTE 2
@@ -3966,7 +4011,8 @@ byte_BANK3_B5BC:.BYTE 2
       .BYTE 0
       .BYTE 0
       .BYTE 0
-byte_BANK3_B5C4:.BYTE 8
+byte_BANK3_B5C4:
+	  .BYTE 8
 
       .BYTE 4
       .BYTE 2
@@ -4367,7 +4413,8 @@ loc_BANK3_B7E0:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_B7E3:.BYTE $F8
+byte_BANK3_B7E3:
+	  .BYTE $F8
 
       .BYTE 8
 ; ---------------------------------------------------------------------------
@@ -4587,7 +4634,8 @@ locret_BANK3_B902:
       RTS
 
 ; ---------------------------------------------------------------------------
-unk_BANK3_B903:.BYTE   8
+unk_BANK3_B903:
+	  .BYTE   8
       .BYTE   4
 ; ---------------------------------------------------------------------------
 
@@ -4645,7 +4693,8 @@ locret_BANK3_B955:
       RTS
 
 ; ---------------------------------------------------------------------------
-unk_BANK3_B956:.BYTE $8A
+unk_BANK3_B956:
+	  .BYTE $8A
       .BYTE $F0
       .BYTE $FC
       .BYTE $4C
@@ -5031,7 +5080,8 @@ locret_BANK3_BB2E:
 ; End of function sub_BANK3_BA95
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_BB2F:.BYTE $B
+byte_BANK3_BB2F:
+	  .BYTE $B
 
       .BYTE $10
 
@@ -5068,7 +5118,8 @@ locret_BANK3_BB49:
       .BYTE $FF
       .BYTE $FF
       .BYTE $FF
-byte_BANK3_BB50:.BYTE $C2
+byte_BANK3_BB50:
+	  .BYTE $C2
 
       .BYTE $D4
       .BYTE $C3
@@ -5103,7 +5154,8 @@ locret_BANK3_BB6A:
 ; End of function sub_BANK3_BB5A
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_BB6B:.BYTE $F9
+byte_BANK3_BB6B:
+	  .BYTE $F9
 
       .BYTE $FF
       .BYTE 0
@@ -5224,7 +5276,8 @@ sub_BANK3_BBE2:
 ; End of function sub_BANK3_BBE2
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_BBF1:.BYTE 0
+byte_BANK3_BBF1:
+	  .BYTE 0
 
       .BYTE 4
       .BYTE 8
@@ -5304,9 +5357,11 @@ locret_BANK3_BC4C:
 ; End of function sub_BANK3_BC2E
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_BC4D:.BYTE $A
+byte_BANK3_BC4D:
+	  .BYTE $A
 
-byte_BANK3_BC4E:.BYTE 1
+byte_BANK3_BC4E:
+	  .BYTE 1
 
       .BYTE $B
 
@@ -5427,7 +5482,8 @@ loc_BANK3_BCBA:
 ; End of function sub_BANK3_BC50
 
 ; ---------------------------------------------------------------------------
-unk_BANK3_BD0B:.BYTE $20
+unk_BANK3_BD0B:
+	  .BYTE $20
       .BYTE $28
       .BYTE $20
       .BYTE $24
@@ -5467,7 +5523,8 @@ sub_BANK3_BD29:
 ; End of function sub_BANK3_BD29
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_BD36:.BYTE 0
+byte_BANK3_BD36:
+	  .BYTE 0
 
       .BYTE $F0
       .BYTE $E0
@@ -5479,7 +5536,8 @@ byte_BANK3_BD36:.BYTE 0
       .BYTE $80
       .BYTE $70
       .BYTE 0
-byte_BANK3_BD41:.BYTE $60
+byte_BANK3_BD41:
+	  .BYTE $60
 
       .BYTE $60
       .BYTE $61
@@ -5664,7 +5722,8 @@ loc_BANK3_BDEC:
 ; End of function sub_BANK3_BDC5
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_BDEF:.BYTE $BA
+byte_BANK3_BDEF:
+	  .BYTE $BA
 
       .BYTE $BA
       .BYTE $BA
@@ -5685,12 +5744,14 @@ byte_BANK3_BDEF:.BYTE $BA
       .BYTE $B8
       .BYTE $B8
       .BYTE $B8
-byte_BANK3_BE03:.BYTE 0
+byte_BANK3_BE03:
+	  .BYTE 0
 
       .BYTE 3
       .BYTE   0
       .BYTE $FD
-byte_BANK3_BE07:.BYTE $26
+byte_BANK3_BE07:
+	  .BYTE $26
 
       .BYTE $2A
       .BYTE $22
@@ -5800,7 +5861,8 @@ locret_BANK3_BEAF:
 ; End of function sub_BANK3_BE0B
 
 ; ---------------------------------------------------------------------------
-_empty_7EB0:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
+_empty_7EB0:
+	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$C
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$18
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$24

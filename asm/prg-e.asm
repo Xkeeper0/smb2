@@ -5217,7 +5217,8 @@
       .BYTE $BF					  ; pcm	data
       .BYTE $EF					  ; pcm	data
       .BYTE $DB					  ; pcm	data
-byte_BANKE_D460:.BYTE $DB			  ; pcm	data
+byte_BANKE_D460:
+	  .BYTE $DB			  ; pcm	data
       .BYTE $6A					  ; pcm	data
       .BYTE $6B					  ; pcm	data
       .BYTE $B5					  ; pcm	data
@@ -7169,7 +7170,8 @@ byte_BANKE_D460:.BYTE $DB			  ; pcm	data
       .BYTE $49
       .BYTE $56
       .BYTE $6D
-off_BANKE_DC00:.WORD _RAM_PPUDataBuffer
+off_BANKE_DC00:
+	  .WORD _RAM_PPUDataBuffer
 
       .WORD unk_RAM_583
       .WORD unk_RAM_55F
@@ -7194,7 +7196,8 @@ off_BANKE_DC00:.WORD _RAM_PPUDataBuffer
       .WORD byte_BANKE_DFAF
       .WORD byte_BANKE_DFA7
       .WORD BonusChanceLayoutRAM
-byte_BANKE_DC30:.BYTE $21,$49,6,$E9,$E5,$DE,$DA,$EC,$DE	    ; PLEASE
+byte_BANKE_DC30:
+	  .BYTE $21,$49,6,$E9,$E5,$DE,$DA,$EC,$DE	    ; PLEASE
       .BYTE $21,$50,6,$EC,$DE,$E5,$DE,$DC,$ED	  ;	SELECT
       .BYTE $21,$8C,6,$E9,$E5,$DA,$F2,$DE,$EB	  ;	PLAYER
       .BYTE $20,0,$20,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8; Probably the	checkerboard diamonds or w/e
@@ -7723,7 +7726,8 @@ byte_BANKE_DC30:.BYTE $21,$49,6,$E9,$E5,$DE,$DA,$EC,$DE	    ; PLEASE
       .BYTE $8A
       .BYTE $8B
       .BYTE 0
-byte_BANKE_DE7A:.BYTE $23
+byte_BANKE_DE7A:
+	  .BYTE $23
 
       .BYTE $C0
       .BYTE 9
@@ -8025,7 +8029,8 @@ byte_BANKE_DE7A:.BYTE $23
       .BYTE $58
       .BYTE $FB
       .BYTE 0
-byte_BANKE_DFA7:.BYTE $27
+byte_BANKE_DFA7:
+	  .BYTE $27
 
       .BYTE $EA
       .BYTE 5
@@ -8034,7 +8039,8 @@ byte_BANKE_DFA7:.BYTE $27
       .BYTE $AA
       .BYTE $AA
       .BYTE $AA
-byte_BANKE_DFAF:.BYTE $20
+byte_BANKE_DFAF:
+	  .BYTE $20
 
       .BYTE $1E
       .BYTE $9E

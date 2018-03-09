@@ -937,7 +937,8 @@ sub_BANK0_84AC:
 ; End of function sub_BANK0_84AC
 
 ; ---------------------------------------------------------------------------
-_empty_04B8:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_empty_04B8:
+	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -1333,9 +1334,11 @@ loc_BANK0_8705:
 ; End of function sub_BANK0_86EE
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8709:.BYTE $28
+byte_BANK0_8709:
+	  .BYTE $28
       .BYTE $24
-byte_BANK0_870B:.BYTE $A
+byte_BANK0_870B:
+	  .BYTE $A
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -1769,7 +1772,8 @@ loc_BANK0_895F:
 ; End of function sub_BANK0_895D
 
 ; ---------------------------------------------------------------------------
-_empty_0966:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_empty_0966:
+	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -1779,7 +1783,8 @@ _empty_0966:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $F
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; $90
-byte_BANK0_8A00:.BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; ---------------------------------------------------------------------------
+byte_BANK0_8A00:
+	  .BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; ---------------------------------------------------------------------------
 
 loc_BANK0_8A02:
       LDA     PlayerState
@@ -1944,7 +1949,8 @@ locret_BANK0_8AC1:
       .BYTE 1
       .BYTE 1
       .BYTE 1
-byte_BANK0_8AC6:.BYTE 1
+byte_BANK0_8AC6:
+	  .BYTE 1
 
       .BYTE 2
       .BYTE 4
@@ -1953,7 +1959,8 @@ byte_BANK0_8AC6:.BYTE 1
       .BYTE 4
       .BYTE 8
       .BYTE 8
-byte_BANK0_8ACE:.BYTE 0
+byte_BANK0_8ACE:
+	  .BYTE 0
 
       .BYTE $10
       .BYTE $F0
@@ -2034,7 +2041,8 @@ locret_BANK0_8B2A:
 ; End of function sub_BANK0_8B19
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8B2B:.BYTE $C2
+byte_BANK0_8B2B:
+	  .BYTE $C2
 
       .BYTE $D4
       .BYTE $C3
@@ -2127,13 +2135,16 @@ locret_BANK0_8B86:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8B87:.BYTE 0
+byte_BANK0_8B87:
+	  .BYTE 0
 
       .BYTE $FF
-byte_BANK0_8B89:.BYTE $EE
+byte_BANK0_8B89:
+	  .BYTE $EE
 
       .BYTE $DE
-byte_BANK0_8B8B:.BYTE 9
+byte_BANK0_8B8B:
+	  .BYTE 9
 
       .BYTE $A1
 ; ---------------------------------------------------------------------------
@@ -2224,7 +2235,8 @@ locret_BANK0_8BEB:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8BEC:.BYTE 5
+byte_BANK0_8BEC:
+	  .BYTE 5
 
       .BYTE $A
       .BYTE $F
@@ -2272,7 +2284,8 @@ loc_BANK0_8C15:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8C18:.BYTE $FE
+byte_BANK0_8C18:
+	  .BYTE $FE
 
       .BYTE 2
 
@@ -2484,12 +2497,14 @@ locret_BANK0_8D25:
 ; End of function sub_BANK0_8CD9
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8D26:.BYTE $FC
+byte_BANK0_8D26:
+	  .BYTE $FC
 
       .BYTE 0
       .BYTE 4
       .BYTE 0
-byte_BANK0_8D2A:.BYTE $FD
+byte_BANK0_8D2A:
+	  .BYTE $FD
 
       .BYTE 3
 
@@ -2541,7 +2556,8 @@ locret_BANK0_8D61:
 ; End of function sub_BANK0_8D2C
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8D62:.BYTE $C
+byte_BANK0_8D62:
+	  .BYTE $C
 
       .BYTE $A
       .BYTE 8
@@ -2552,7 +2568,8 @@ byte_BANK0_8D62:.BYTE $C
       .BYTE   2
       .BYTE   2
       .BYTE   2
-byte_BANK0_8D6C:.BYTE 2
+byte_BANK0_8D6C:
+	  .BYTE 2
 
       .BYTE 0
       .BYTE 9
@@ -2618,7 +2635,8 @@ locret_BANK0_8DB1:
 ; End of function sub_BANK0_8D6F
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8DB2:.BYTE 0
+byte_BANK0_8DB2:
+	  .BYTE 0
 
       .BYTE 0
       .BYTE $D0
@@ -2627,12 +2645,14 @@ byte_BANK0_8DB2:.BYTE 0
       .BYTE $30
       .BYTE $D0
       .BYTE $30
-byte_BANK0_8DBA:.BYTE $18
+byte_BANK0_8DBA:
+	  .BYTE $18
 
       .BYTE 0
       .BYTE $18
       .BYTE $F8
-byte_BANK0_8DBE:.BYTE $F0
+byte_BANK0_8DBE:
+	  .BYTE $F0
 
       .BYTE $10
 
@@ -2872,7 +2892,8 @@ loc_BANK0_8ED8:
 ; End of function sub_BANK0_8EA6
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8EE8:.BYTE 2
+byte_BANK0_8EE8:
+	  .BYTE 2
 
       .BYTE 2
       .BYTE 1
@@ -2881,7 +2902,8 @@ byte_BANK0_8EE8:.BYTE 2
       .BYTE 2
       .BYTE 2
       .BYTE 2
-byte_BANK0_8EF0:.BYTE 8
+byte_BANK0_8EF0:
+	  .BYTE 8
 
       .BYTE 8
       .BYTE 4
@@ -2890,7 +2912,8 @@ byte_BANK0_8EF0:.BYTE 8
       .BYTE 2
       .BYTE 1
       .BYTE 1
-byte_BANK0_8EF8:.BYTE $F0
+byte_BANK0_8EF8:
+	  .BYTE $F0
 
       .BYTE $10
 
@@ -3182,11 +3205,13 @@ loc_BANK0_905C:
 ; End of function sub_BANK0_9053
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_9062:.BYTE 0
+byte_BANK0_9062:
+	  .BYTE 0
 
       .BYTE 4
       .BYTE 8
-PickUpToEnemyTypeTable:.BYTE Enemy_MushroomBlock		   
+PickUpToEnemyTypeTable:
+	  .BYTE Enemy_MushroomBlock		   
       .BYTE Enemy_MushroomBlock			  ; 1
       .BYTE Enemy_MushroomBlock			  ; 2
       .BYTE Enemy_POWBlock			  ; 3
@@ -3582,7 +3607,8 @@ loc_BANK0_9247:
       JMP     sub_BANKF_F6DA
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_924A:.BYTE $51
+byte_BANK0_924A:
+	  .BYTE $51
 
       .BYTE $50
       .BYTE $83
@@ -3721,9 +3747,11 @@ locret_BANK0_92DF:
 ; End of function sub_BANK0_92C1
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_92E0:.BYTE $A
+byte_BANK0_92E0:
+	  .BYTE $A
 
-byte_BANK0_92E1:.BYTE 1
+byte_BANK0_92E1:
+	  .BYTE 1
 
       .BYTE $B
 ; ---------------------------------------------------------------------------
@@ -3774,7 +3802,8 @@ locret_BANK0_9311:
 
 ; ---------------------------------------------------------------------------
       .BYTE 1
-byte_BANK0_9313:.BYTE 2
+byte_BANK0_9313:
+	  .BYTE 2
 
       .BYTE $80
       .BYTE 0
@@ -3953,7 +3982,8 @@ loc_BANK0_93DE:
 ; End of function sub_BANK0_934F
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_940A:.BYTE $20
+byte_BANK0_940A:
+	  .BYTE $20
 
       .BYTE $28
       .BYTE $20
@@ -4304,11 +4334,13 @@ locret_BANK0_95C2:
 ; End of function sub_BANK0_95AF
 
 ; ---------------------------------------------------------------------------
-_empty_15C3:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_empty_15C3:
+	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF; $30
-TitleScreenPPUDataPointers:.WORD _RAM_PPUDataBuffer
+TitleScreenPPUDataPointers:
+	  .WORD _RAM_PPUDataBuffer
 
       .WORD TitleLayout1
 
@@ -4344,7 +4376,8 @@ WaitForNMI_TitleScreenLoop:
 ; End of function WaitForNMI_TitleScreen
 
 ; ---------------------------------------------------------------------------
-TitleLayout1:.BYTE $20
+TitleLayout1:
+	  .BYTE $20
 
       .BYTE   0
       .BYTE $DE
@@ -4572,7 +4605,8 @@ TitleLayout1:.BYTE $20
       .BYTE   2
       .BYTE $AA
       .BYTE $AB
-TitleLogoSuper_Line1:.BYTE $20
+TitleLogoSuper_Line1:
+	  .BYTE $20
       .BYTE $CB
       .BYTE  $A
       .BYTE   0
@@ -4585,7 +4619,8 @@ TitleLogoSuper_Line1:.BYTE $20
       .BYTE   8
       .BYTE $FC
       .BYTE   1
-TitleLogoSuper_Line2:.BYTE $20
+TitleLogoSuper_Line2:
+	  .BYTE $20
       .BYTE $EB
       .BYTE  $A
       .BYTE   2
@@ -4598,7 +4633,8 @@ TitleLogoSuper_Line2:.BYTE $20
       .BYTE  $C
       .BYTE  $A
       .BYTE  $D
-TitleLogoSuper_Line3:.BYTE $21
+TitleLogoSuper_Line3:
+	  .BYTE $21
       .BYTE  $B
       .BYTE  $A
       .BYTE   4
@@ -4611,7 +4647,8 @@ TitleLogoSuper_Line3:.BYTE $21
       .BYTE   8
       .BYTE  $E
       .BYTE   8
-TitleLogoSuper_Line4a:.BYTE $21
+TitleLogoSuper_Line4a:
+	  .BYTE $21
       .BYTE $2B
       .BYTE   5
       .BYTE   6
@@ -4619,19 +4656,22 @@ TitleLogoSuper_Line4a:.BYTE $21
       .BYTE   6
       .BYTE   7
       .BYTE   9
-TitleLogoSuper_Line4b:.BYTE $21
+TitleLogoSuper_Line4b:
+	  .BYTE $21
       .BYTE $31	; 1
       .BYTE   4
       .BYTE $76
       .BYTE   9
       .BYTE   9
       .BYTE   9
-TitleLogo_TM:.BYTE $21
+TitleLogo_TM:
+	  .BYTE $21
       .BYTE $38	; 8
       .BYTE   2
       .BYTE $F9
       .BYTE $FA
-TitleLayout2:.BYTE $21
+TitleLayout2:
+	  .BYTE $21
       .BYTE $46
       .BYTE  $A
       .BYTE   0
@@ -4812,7 +4852,8 @@ TitleLayout2:.BYTE $21
       .BYTE $76
       .BYTE $76
       .BYTE $21
-TitleText_C_1988:.BYTE $22
+TitleText_C_1988:
+	  .BYTE $22
       .BYTE $E9
       .BYTE   5
       .BYTE $F8
@@ -4820,7 +4861,8 @@ TitleText_C_1988:.BYTE $22
       .BYTE $D9
       .BYTE $D8
       .BYTE $D8
-TitleText_Nintendo:.BYTE $22
+TitleText_Nintendo:
+	  .BYTE $22
       .BYTE $EF
       .BYTE   8
       .BYTE $E7
@@ -4868,7 +4910,8 @@ TitleText_Nintendo:.BYTE $22
       .BYTE $F2
       .BYTE $F0
       .BYTE 0
-TitleBackgroundPalettes:.BYTE $22
+TitleBackgroundPalettes:
+	  .BYTE $22
       .BYTE $37	; 7
       .BYTE $16
       .BYTE   7
@@ -4884,7 +4927,8 @@ TitleBackgroundPalettes:.BYTE $22
       .BYTE $30	
       .BYTE  $F
       .BYTE  $F
-TitleSpritePalettes:.BYTE $22 ;	"		  ; Unused DDP character palettes!
+TitleSpritePalettes:
+	  .BYTE $22 ;	"		  ; Unused DDP character palettes!
       .BYTE $30	
       .BYTE $28
       .BYTE  $F
@@ -4892,7 +4936,8 @@ TitleSpritePalettes:.BYTE $22 ;	"		  ; Unused DDP character palettes!
       .BYTE $30	
       .BYTE $25
       .BYTE  $F
-unk_BANK0_989A:.BYTE $22
+unk_BANK0_989A:
+	  .BYTE $22
       .BYTE $30	
       .BYTE $12
       .BYTE  $F
@@ -4900,8 +4945,10 @@ unk_BANK0_989A:.BYTE $22
       .BYTE $30	
       .BYTE $23
       .BYTE  $F
-TitleStoryText_STORY:.BYTE $EC,	$ED, $E8, $EB, $F2		 
-TitleStoryTextPointersHi:.BYTE >TitleStoryText_Line01
+TitleStoryText_STORY:
+	  .BYTE $EC,	$ED, $E8, $EB, $F2		 
+TitleStoryTextPointersHi:
+	  .BYTE >TitleStoryText_Line01
 
       .BYTE >TitleStoryText_Line02
       .BYTE >TitleStoryText_Line03
@@ -4919,7 +4966,8 @@ TitleStoryTextPointersHi:.BYTE >TitleStoryText_Line01
       .BYTE >TitleStoryText_Line14
       .BYTE >TitleStoryText_Line15
       .BYTE >TitleStoryText_Line16
-TitleStoryTextPointersLo:.BYTE <TitleStoryText_Line01
+TitleStoryTextPointersLo:
+	  .BYTE <TitleStoryText_Line01
 
       .BYTE <TitleStoryText_Line02
       .BYTE <TitleStoryText_Line03
@@ -4937,41 +4985,59 @@ TitleStoryTextPointersLo:.BYTE <TitleStoryText_Line01
       .BYTE <TitleStoryText_Line14
       .BYTE <TitleStoryText_Line15
       .BYTE <TitleStoryText_Line16
-TitleStoryText_Line01:.BYTE $F0, $E1, $DE, $E7,	$FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB,	$E8, $E9, $DE, $E7
+TitleStoryText_Line01:
+	  .BYTE $F0, $E1, $DE, $E7,	$FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB,	$E8, $E9, $DE, $E7
       .BYTE $DE, $DD, $FB, $DA			  ; $10
-TitleStoryText_Line02:.BYTE $DD, $E8, $E8, $EB,	$FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB,	$DC, $E5, $E2, $E6
+TitleStoryText_Line02:
+	  .BYTE $DD, $E8, $E8, $EB,	$FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB,	$DC, $E5, $E2, $E6
       .BYTE $DB, $E2, $E7, $E0			  ; $10
-TitleStoryText_Line03:.BYTE $DA, $FB, $E5, $E8,	$E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB,	$FB, $E2, $E7, $FB
+TitleStoryText_Line03:
+	  .BYTE $DA, $FB, $E5, $E8,	$E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB,	$FB, $E2, $E7, $FB
       .BYTE $FB, $E1, $E2, $EC			  ; $10
-TitleStoryText_Line04:.BYTE $DD, $EB, $DE, $DA,	$E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1,	$DE, $EB, $FB, $F0
+TitleStoryText_Line04:
+	  .BYTE $DD, $EB, $DE, $DA,	$E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1,	$DE, $EB, $FB, $F0
       .BYTE $E8, $EB, $E5, $DD			  ; $10
-TitleStoryText_Line05:.BYTE $EC, $E9, $EB, $DE,	$DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF,	$E8, $EB, $DE, $FB
+TitleStoryText_Line05:
+	  .BYTE $EC, $E9, $EB, $DE,	$DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF,	$E8, $EB, $DE, $FB
       .BYTE $FB, $E1, $E2, $E6			  ; $10
-TitleStoryText_Line06:.BYTE $DA, $E7, $DD, $FB,	$E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD,	$FB, $DA, $FB, $EF
+TitleStoryText_Line06:
+	  .BYTE $DA, $E7, $DD, $FB,	$E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD,	$FB, $DA, $FB, $EF
       .BYTE $E8, $E2, $DC, $DE			  ; $10
-TitleStoryText_Line07:.BYTE $DC, $DA, $E5, $E5,	$FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5,	$E9, $FB, $ED, $E8
+TitleStoryText_Line07:
+	  .BYTE $DC, $DA, $E5, $E5,	$FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5,	$E9, $FB, $ED, $E8
       .BYTE $FB, $FB, $DB, $DE			  ; $10
-TitleStoryText_Line08:.BYTE $FB, $DF, $EB, $DE,	$DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6,	$FB, $DA, $FB, $EC
+TitleStoryText_Line08:
+	  .BYTE $FB, $DF, $EB, $DE,	$DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6,	$FB, $DA, $FB, $EC
       .BYTE $E9, $DE, $E5, $E5			  ; $10
-TitleStoryText_Line09:.BYTE $DA, $DF, $ED, $DE,	$EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE,	$E7, $E2, $E7, $E0
+TitleStoryText_Line09:
+	  .BYTE $DA, $DF, $ED, $DE,	$EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE,	$E7, $E2, $E7, $E0
       .BYTE $F7, $FB, $FB, $FB			  ; $10
-TitleStoryText_Line10:.BYTE $E6, $DA, $EB, $E2,	$E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB,	$ED, $E8, $FB, $FB
+TitleStoryText_Line10:
+	  .BYTE $E6, $DA, $EB, $E2,	$E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB,	$ED, $E8, $FB, $FB
       .BYTE $DA, $FB, $FB, $FB			  ; $10
-TitleStoryText_Line11:.BYTE $DC, $DA, $EF, $DE,	$FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2,	$FB, $DA, $E7, $DD
+TitleStoryText_Line11:
+	  .BYTE $DC, $DA, $EF, $DE,	$FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2,	$FB, $DA, $E7, $DD
       .BYTE $FB, $FB, $ED, $E8			  ; $10
-TitleStoryText_Line12:.BYTE $E1, $E2, $EC, $FB,	$FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC,	$DE, $FB, $E1, $DE
+TitleStoryText_Line12:
+	  .BYTE $E1, $E2, $EC, $FB,	$FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC,	$DE, $FB, $E1, $DE
       .BYTE $FB, $EC, $DA, $F0			  ; $10
-TitleStoryText_Line13:.BYTE $DE, $F1, $DA, $DC,	$ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA,	$ED, $FB, $E1, $DE
+TitleStoryText_Line13:
+	  .BYTE $DE, $F1, $DA, $DC,	$ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA,	$ED, $FB, $E1, $DE
       .BYTE $FB, $EC, $DA, $F0			  ; $10
-TitleStoryText_Line14:.BYTE $E2, $E7, $FB, $E1,	$E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6,	$CF, $CF, $CF, $CF
+TitleStoryText_Line14:
+	  .BYTE $E2, $E7, $FB, $E1,	$E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6,	$CF, $CF, $CF, $CF
       .BYTE $FB, $FB, $FB, $FB			  ; $10
-TitleStoryText_Line15:.BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB
+TitleStoryText_Line15:
+	  .BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB
       .BYTE $FB, $FB, $FB, $FB			  ; $10
-TitleStoryText_Line16:.BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED,	$FB, $DB, $EE, $ED
+TitleStoryText_Line16:
+	  .BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED,	$FB, $DB, $EE, $ED
       .BYTE $ED, $E8, $E7, $FB			  ; $10
-TitleAttributeData1A09:.BYTE $23, $CB, $42, $FF, $23, $D1, 1, $CC, $23,	$D2, $44, $FF, $23, $D6, 1, $33
+TitleAttributeData1A09:
+	  .BYTE $23, $CB, $42, $FF, $23, $D1, 1, $CC, $23,	$D2, $44, $FF, $23, $D6, 1, $33
       .BYTE $23, $D9, 1, $CC, $23, $DA,	$44, $FF  ; $10
-byte_BANK0_9A21:.BYTE $23
+byte_BANK0_9A21:
+	  .BYTE $23
 
       .BYTE $DE
       .BYTE 1
@@ -5368,7 +5434,8 @@ loc_BANK0_9C52:
 
 ; ---------------------------------------------------------------------------
 ; [000003A8 BYTES: BEGIN OF AREA UNUSED-BANK0-9C58. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_1C58:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_empty_1C58:
+	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

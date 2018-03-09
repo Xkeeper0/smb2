@@ -2,7 +2,8 @@
       ;.segment	BANK1
 ;       *	=  $A000
 ; [00000200 BYTES: BEGIN OF AREA UNUSED-BANK1_A000. PRESS KEYPAD "-" TO	COLLAPSE]
-byte_BANK1_A000:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
+byte_BANK1_A000:
+	  .BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -35,7 +36,8 @@ byte_BANK1_A000:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1E0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1F0
 ; [00000200 BYTES: END OF AREA UNUSED-BANK1_A000. PRESS	KEYPAD "-" TO COLLAPSE]
-EndingPPUDataPointers:.WORD _RAM_PPUDataBuffer
+EndingPPUDataPointers:
+	  .WORD _RAM_PPUDataBuffer
 
       .WORD EndingCorkJarRoom
       .WORD EndingCelebrationCeilingTextAndPodium
@@ -90,7 +92,8 @@ WaitForNMI_EndingLoop:
 ; End of function WaitForNMI_Ending
 
 ; ---------------------------------------------------------------------------
-EndingCorkJarRoom:.BYTE	$20
+EndingCorkJarRoom:
+	  .BYTE	$20
 
       .BYTE   0
       .BYTE $9E
@@ -325,7 +328,8 @@ EndingCorkJarRoom:.BYTE	$20
       .BYTE $72
       .BYTE $73
       .BYTE $72
-unk_BANK1_A323:.BYTE $73
+unk_BANK1_A323:
+	  .BYTE $73
       .BYTE $72
       .BYTE $73
       .BYTE $72
@@ -532,7 +536,8 @@ unk_BANK1_A323:.BYTE $73
       .BYTE  $A
       .BYTE  $A
       .BYTE   0
-EndingCelebrationUnusedText_THANK_YOU:.BYTE $21
+EndingCelebrationUnusedText_THANK_YOU:
+	  .BYTE $21
       .BYTE  $C
       .BYTE   9
       .BYTE $ED
@@ -545,7 +550,8 @@ EndingCelebrationUnusedText_THANK_YOU:.BYTE $21
       .BYTE $E8
       .BYTE $EE
       .BYTE   0
-byte_BANK1_A3FF:.BYTE $30
+byte_BANK1_A3FF:
+	  .BYTE $30
 
       .BYTE $80
       .BYTE $80
@@ -556,7 +562,8 @@ byte_BANK1_A3FF:.BYTE $30
       .BYTE $80
       .BYTE $80
       .BYTE $80
-byte_BANK1_A409:.BYTE $B0
+byte_BANK1_A409:
+	  .BYTE $B0
 
       .BYTE $A0
       .BYTE $A0
@@ -567,7 +574,8 @@ byte_BANK1_A409:.BYTE $B0
       .BYTE $A0
       .BYTE $A0
       .BYTE $95
-byte_BANK1_A413:.BYTE $10
+byte_BANK1_A413:
+	  .BYTE $10
 
       .BYTE $F4
       .BYTE $C
@@ -578,7 +586,8 @@ byte_BANK1_A413:.BYTE $10
       .BYTE $F8
       .BYTE 8
       .BYTE 0
-byte_BANK1_A41D:.BYTE 0
+byte_BANK1_A41D:
+	  .BYTE 0
 
       .BYTE $C4
       .BYTE $C4
@@ -589,7 +598,8 @@ byte_BANK1_A41D:.BYTE 0
       .BYTE $A0
       .BYTE $A0
       .BYTE 0
-byte_BANK1_A427:.BYTE 0
+byte_BANK1_A427:
+	  .BYTE 0
 
       .BYTE $F0
       .BYTE $E0
@@ -600,9 +610,11 @@ byte_BANK1_A427:.BYTE 0
       .BYTE $40
       .BYTE $20
       .BYTE 0
-byte_BANK1_A431:.BYTE 0
+byte_BANK1_A431:
+	  .BYTE 0
 
-byte_BANK1_A432:.BYTE $21
+byte_BANK1_A432:
+	  .BYTE $21
 
       .BYTE $61
       .BYTE $21
@@ -816,7 +828,8 @@ locret_BANK1_A54C:
       .BYTE $14
       .BYTE $A
       .BYTE $14
-byte_BANK1_A550:.BYTE $A
+byte_BANK1_A550:
+	  .BYTE $A
 
       .BYTE $1C
       .BYTE $1B
@@ -881,7 +894,8 @@ locret_BANK1_A591:
       RTS
 
 ; ---------------------------------------------------------------------------
-unk_BANK1_A592:.BYTE   4
+unk_BANK1_A592:
+	  .BYTE   4
       .BYTE   4
       .BYTE 4
       .BYTE   1
@@ -980,15 +994,18 @@ locret_BANK1_A5FE:
 ; End of function sub_BANK1_A5DE
 
 ; ---------------------------------------------------------------------------
-byte_BANK1_A5FF:.BYTE $E8
+byte_BANK1_A5FF:
+	  .BYTE $E8
 
-byte_BANK1_A600:.BYTE $EA
+byte_BANK1_A600:
+	  .BYTE $EA
 
       .BYTE $EC
       .BYTE $EE
       .BYTE $61
       .BYTE $63
-byte_BANK1_A605:.BYTE $30
+byte_BANK1_A605:
+	  .BYTE $30
 
       .BYTE $38
       .BYTE $40
@@ -1036,7 +1053,8 @@ loc_BANK1_A646:
 ; End of function sub_BANK1_A60E
 
 ; ---------------------------------------------------------------------------
-EndingCelebrationCeilingTextAndPodium:.BYTE $20
+EndingCelebrationCeilingTextAndPodium:
+	  .BYTE $20
 
       .BYTE 0
       .BYTE $20
@@ -1045,7 +1063,8 @@ EndingCelebrationCeilingTextAndPodium:.BYTE $20
       .BYTE $80
       .BYTE $81
       .BYTE $80
-byte_BANK1_A654:.BYTE $81
+byte_BANK1_A654:
+	  .BYTE $81
       .BYTE $80
       .BYTE $81
       .BYTE $80
@@ -1086,7 +1105,8 @@ byte_BANK1_A654:.BYTE $81
       .BYTE $81
       .BYTE $80
       .BYTE $81
-byte_BANK1_A67D:.BYTE $80
+byte_BANK1_A67D:
+	  .BYTE $80
       .BYTE $81
       .BYTE $80
       .BYTE $81
@@ -1253,7 +1273,8 @@ byte_BANK1_A67D:.BYTE $80
       .BYTE $26
       .BYTE $C9
       .BYTE $4B
-byte_BANK1_A724:.BYTE $22
+byte_BANK1_A724:
+	  .BYTE $22
       .BYTE $43
       .BYTE 4
       .BYTE $4C
@@ -1310,7 +1331,8 @@ byte_BANK1_A724:.BYTE $22
       .BYTE $A
       .BYTE $50
       .BYTE $52
-byte_BANK1_A75D:.BYTE $50
+byte_BANK1_A75D:
+	  .BYTE $50
       .BYTE $52
       .BYTE $50
       .BYTE $52
@@ -1348,7 +1370,8 @@ byte_BANK1_A75D:.BYTE $50
       .BYTE $52
       .BYTE 2
       .BYTE $3A
-byte_BANK1_A783:.BYTE $3B
+byte_BANK1_A783:
+	  .BYTE $3B
       .BYTE $22
       .BYTE $72
       .BYTE $C5
@@ -1358,7 +1381,8 @@ byte_BANK1_A783:.BYTE $3B
       .BYTE $C5
       .BYTE $3D
       .BYTE 0
-EndingCelebrationFloorAndSubconParade:.BYTE $23
+EndingCelebrationFloorAndSubconParade:
+	  .BYTE $23
 
       .BYTE 0
       .BYTE $20
@@ -1716,7 +1740,8 @@ EndingCelebrationFloorAndSubconParade:.BYTE $23
       .BYTE $81
       .BYTE $80
       .BYTE $81
-byte_BANK1_A8F2:.BYTE $80
+byte_BANK1_A8F2:
+	  .BYTE $80
       .BYTE $81
       .BYTE $80
       .BYTE $81
@@ -1727,7 +1752,8 @@ byte_BANK1_A8F2:.BYTE $80
       .BYTE $80
       .BYTE $81
       .BYTE $80
-byte_BANK1_A8FD:.BYTE $81
+byte_BANK1_A8FD:
+	  .BYTE $81
       .BYTE $80
       .BYTE $81
       .BYTE $80
@@ -1846,7 +1872,8 @@ byte_BANK1_A8FD:.BYTE $81
       .BYTE $48
       .BYTE $A
       .BYTE 0
-EndingCelebrationSubconStandStill:.BYTE	$23
+EndingCelebrationSubconStandStill:
+	  .BYTE	$23
 
       .BYTE 0
       .BYTE $20
@@ -1855,7 +1882,8 @@ EndingCelebrationSubconStandStill:.BYTE	$23
       .BYTE $70
       .BYTE $72
       .BYTE $70
-byte_BANK1_A97C:.BYTE $72
+byte_BANK1_A97C:
+	  .BYTE $72
       .BYTE $70
       .BYTE $72
       .BYTE $70
@@ -1918,7 +1946,8 @@ byte_BANK1_A97C:.BYTE $72
       .BYTE $71
       .BYTE $73
       .BYTE 0
-EndingCelebrationUnusedText_THE_END:.BYTE $21
+EndingCelebrationUnusedText_THE_END:
+	  .BYTE $21
       .BYTE $AC
       .BYTE   7
       .BYTE $ED
@@ -1929,7 +1958,8 @@ EndingCelebrationUnusedText_THE_END:.BYTE $21
       .BYTE $E7
       .BYTE $DD
       .BYTE   0
-EndingCelebrationPaletteFade1:.BYTE $3F
+EndingCelebrationPaletteFade1:
+	  .BYTE $3F
       .BYTE   0
       .BYTE $20
       .BYTE   1
@@ -1965,7 +1995,8 @@ EndingCelebrationPaletteFade1:.BYTE $3F
       .BYTE $25
       .BYTE  $F
       .BYTE   0
-EndingCelebrationPaletteFade2:.BYTE $3F
+EndingCelebrationPaletteFade2:
+	  .BYTE $3F
       .BYTE   0
       .BYTE $20
       .BYTE  $F
@@ -2001,13 +2032,15 @@ EndingCelebrationPaletteFade2:.BYTE $3F
       .BYTE   0
       .BYTE  $F
       .BYTE   0
-EndingCelebrationPaletteFade3:.BYTE $3F
+EndingCelebrationPaletteFade3:
+	  .BYTE $3F
       .BYTE   0
       .BYTE $20
       .BYTE  $F
       .BYTE   0
       .BYTE  $F
-unk_BANK1_AA14:.BYTE  $F
+unk_BANK1_AA14:
+	  .BYTE  $F
       .BYTE  $F
       .BYTE   0
       .BYTE  $F
@@ -2037,16 +2070,19 @@ unk_BANK1_AA14:.BYTE  $F
       .BYTE  $F
       .BYTE  $F
       .BYTE   0
-byte_BANK1_AA32:.BYTE 4
+byte_BANK1_AA32:
+	  .BYTE 4
 
       .BYTE 5
       .BYTE 6
-byte_BANK1_AA35:.BYTE $8C
+byte_BANK1_AA35:
+	  .BYTE $8C
 
       .BYTE $FC
       .BYTE $20
       .BYTE $94
-byte_BANK1_AA39:.BYTE $4F
+byte_BANK1_AA39:
+	  .BYTE $4F
 
       .BYTE $61
       .BYTE $20
@@ -2383,21 +2419,24 @@ loc_BANK1_ABCC:
       .WORD _code_2BA7
       .WORD loc_BANK1_AC0A
       .WORD loc_BANK1_AC87
-byte_BANK1_ABDA:.BYTE $C0
+byte_BANK1_ABDA:
+	  .BYTE $C0
 
       .BYTE $C8
       .BYTE $B8
       .BYTE $B8
       .BYTE $C8
       .BYTE $C0
-byte_BANK1_ABE0:.BYTE $C0
+byte_BANK1_ABE0:
+	  .BYTE $C0
 
       .BYTE 8
       .BYTE $E0
       .BYTE $F0
       .BYTE $D0
       .BYTE $E8
-byte_BANK1_ABE6:.BYTE $11
+byte_BANK1_ABE6:
+	  .BYTE $11
 
       .BYTE $13
       .BYTE $19
@@ -2406,11 +2445,13 @@ byte_BANK1_ABE6:.BYTE $11
       .BYTE $23
       .BYTE $15
       .BYTE $17
-byte_BANK1_ABEE:.BYTE $1D
+byte_BANK1_ABEE:
+	  .BYTE $1D
       .BYTE $1F
       .BYTE $25
       .BYTE $27
-byte_BANK1_ABF2:.BYTE 0
+byte_BANK1_ABF2:
+	  .BYTE 0
 
       .BYTE 8
       .BYTE $10
@@ -2423,7 +2464,8 @@ byte_BANK1_ABF2:.BYTE 0
       .BYTE $18
       .BYTE $20
       .BYTE $28
-byte_BANK1_ABFE:.BYTE 0
+byte_BANK1_ABFE:
+	  .BYTE 0
 
       .BYTE 0
       .BYTE 0
@@ -2527,14 +2569,16 @@ loc_BANK1_AC73:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK1_AC7B:.BYTE $39
+byte_BANK1_AC7B:
+	  .BYTE $39
 
       .BYTE $35
       .BYTE $37
       .BYTE $35
       .BYTE $37
       .BYTE $39
-byte_BANK1_AC81:.BYTE 0
+byte_BANK1_AC81:
+	  .BYTE 0
 
       .BYTE 6
       .BYTE 3
@@ -2619,7 +2663,8 @@ loc_BANK1_ACD6:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK1_ACE8:.BYTE $61
+byte_BANK1_ACE8:
+	  .BYTE $61
 
       .BYTE $61
       .BYTE $63
@@ -2652,7 +2697,8 @@ byte_BANK1_ACE8:.BYTE $61
       .BYTE $8F
       .BYTE $91
       .BYTE $91
-byte_BANK1_AD08:.BYTE 6
+byte_BANK1_AD08:
+	  .BYTE 6
 
       .BYTE $E
       .BYTE $16
@@ -2842,7 +2888,8 @@ locret_BANK1_AE12:
 ; End of function sub_BANK1_ADF1
 
 ; ---------------------------------------------------------------------------
-EndingCelebrationText_MARIO:.BYTE $20
+EndingCelebrationText_MARIO:
+	  .BYTE $20
       .BYTE $ED
       .BYTE   8
       .BYTE $E6
@@ -2854,7 +2901,8 @@ EndingCelebrationText_MARIO:.BYTE $20
       .BYTE $FB
       .BYTE $FB
       .BYTE   0
-EndingCelebrationText_PRINCESS:.BYTE $20
+EndingCelebrationText_PRINCESS:
+	  .BYTE $20
       .BYTE $ED
       .BYTE   8
       .BYTE $E9
@@ -2866,7 +2914,8 @@ EndingCelebrationText_PRINCESS:.BYTE $20
       .BYTE $EC
       .BYTE $EC
       .BYTE   0
-EndingCelebrationText_TOAD:.BYTE $20
+EndingCelebrationText_TOAD:
+	  .BYTE $20
 
       .BYTE $ED
       .BYTE   8
@@ -2879,7 +2928,8 @@ EndingCelebrationText_TOAD:.BYTE $20
       .BYTE $FB
       .BYTE $FB
       .BYTE   0
-EndingCelebrationText_LUIGI:.BYTE $20
+EndingCelebrationText_LUIGI:
+	  .BYTE $20
       .BYTE $ED
       .BYTE   8
       .BYTE $E5
@@ -2924,7 +2974,8 @@ loc_BANK1_AE57:
 
 ; ---------------------------------------------------------------------------
 ; [00000AA6 BYTES: BEGIN OF AREA UNUSED-BANK1:AE5A. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_2E5A:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_empty_2E5A:
+	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -3096,7 +3147,8 @@ _empty_2E5A:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $F
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A90
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF	  ; $AA0
 ; [00000AA6 BYTES: END OF AREA UNUSED-BANK1:AE5A. PRESS	KEYPAD "-" TO COLLAPSE]
-MysteryCharacterData3900:.BYTE $FB
+MysteryCharacterData3900:
+	  .BYTE $FB
       .BYTE $FF
       .BYTE   0
       .BYTE   8
@@ -3369,7 +3421,8 @@ sub_BANK1_BA4E:
 ; End of function sub_BANK1_BA4E
 
 ; ---------------------------------------------------------------------------
-byte_BANK1_BA5B:.BYTE 0
+byte_BANK1_BA5B:
+	  .BYTE 0
 
       .BYTE $F0
       .BYTE $E0
@@ -3381,7 +3434,8 @@ byte_BANK1_BA5B:.BYTE 0
       .BYTE $80
       .BYTE $70
       .BYTE 0
-byte_BANK1_BA66:.BYTE $60
+byte_BANK1_BA66:
+	  .BYTE $60
 
       .BYTE $60
       .BYTE $61
@@ -3583,7 +3637,8 @@ loc_BANK1_BB1F:
 
 ; ---------------------------------------------------------------------------
 ; [000004AE BYTES: BEGIN OF AREA UNUSED_empty_3B52. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_3B52:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_empty_3B52:
+	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

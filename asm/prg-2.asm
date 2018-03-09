@@ -1,22 +1,26 @@
 
       ;.segment	BANK2
 ;       *	=  $8000
-byte_BANK2_8000:.BYTE $FA
+byte_BANK2_8000:
+	  .BYTE $FA
 
       .BYTE $F6
       .BYTE $FC
       .BYTE $F7
-byte_BANK2_8004:.BYTE $FF
+byte_BANK2_8004:
+	  .BYTE $FF
 
       .BYTE $FF
       .BYTE $FF
       .BYTE $FF
-byte_BANK2_8008:.BYTE 2
+byte_BANK2_8008:
+	  .BYTE 2
 
       .BYTE $FE
       .BYTE 4
       .BYTE $FF
-byte_BANK2_800C:.BYTE 0
+byte_BANK2_800C:
+	  .BYTE 0
 
       .BYTE $FF
       .BYTE 0
@@ -428,9 +432,11 @@ EnemyStateHandling:
       .WORD loc_BANK2_85F7			  ; Bomb exploding
       .WORD loc_BANK2_879C			  ; Puff of smoke
       .WORD loc_BANK2_8858
-off_BANK2_8250:.WORD loc_BANK2_85B2
+off_BANK2_8250:
+	  .WORD loc_BANK2_85B2
       .BYTE $18
-byte_BANK2_8253:.BYTE $E0
+byte_BANK2_8253:
+	  .BYTE $E0
 
       .BYTE 1
       .BYTE $FF
@@ -731,7 +737,8 @@ loc_BANK2_83A6:
       JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
-EnemyInitializationTable:.WORD sub_BANK2_845D			     
+EnemyInitializationTable:
+	  .WORD sub_BANK2_845D			     
       .WORD sub_BANK2_845D
       .WORD sub_BANK2_845D
       .WORD sub_BANK2_845D
@@ -879,7 +886,8 @@ locret_BANK2_84A6:
 ; ---------------------------------------------------------------------------
       .BYTE $FE
       .BYTE 0
-unk_BANK2_84A9:.BYTE $12
+unk_BANK2_84A9:
+	  .BYTE $12
       .BYTE $16
       .BYTE $1A
       .BYTE $1E
@@ -1146,19 +1154,23 @@ loc_BANK2_85E1:
       JMP     sub_BANK3_B5CC
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_85E7:.BYTE $F8
+byte_BANK2_85E7:
+	  .BYTE $F8
 
       .BYTE 0
       .BYTE $F8
       .BYTE 0
       .BYTE 8
-byte_BANK2_85EC:.BYTE $10
+byte_BANK2_85EC:
+	  .BYTE $10
       .BYTE 8
       .BYTE $10
-byte_BANK2_85EF:.BYTE $F8
+byte_BANK2_85EF:
+	  .BYTE $F8
 
       .BYTE $F8
-byte_BANK2_85F1:.BYTE 8
+byte_BANK2_85F1:
+	  .BYTE 8
 
       .BYTE 8
       .BYTE $F8
@@ -1225,7 +1237,8 @@ locret_BANK2_8649:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_864A:.BYTE $FB
+byte_BANK2_864A:
+	  .BYTE $FB
 
       .BYTE 8
       .BYTE $15
@@ -1235,7 +1248,8 @@ byte_BANK2_864A:.BYTE $FB
       .BYTE $FB
       .BYTE 8
       .BYTE $15
-byte_BANK2_8653:.BYTE $FF
+byte_BANK2_8653:
+	  .BYTE $FF
 
       .BYTE 0
       .BYTE 0
@@ -1245,7 +1259,8 @@ byte_BANK2_8653:.BYTE $FF
       .BYTE $FF
       .BYTE 0
       .BYTE   0
-byte_BANK2_865C:.BYTE $FC
+byte_BANK2_865C:
+	  .BYTE $FC
 
       .BYTE $FC
       .BYTE $FC
@@ -1255,7 +1270,8 @@ byte_BANK2_865C:.BYTE $FC
       .BYTE $14
       .BYTE $14
       .BYTE $14
-byte_BANK2_8665:.BYTE $FF
+byte_BANK2_8665:
+	  .BYTE $FF
 
       .BYTE $FF
       .BYTE $FF
@@ -1265,7 +1281,8 @@ byte_BANK2_8665:.BYTE $FF
       .BYTE 0
       .BYTE 0
       .BYTE   0
-byte_BANK2_866E:.BYTE $5F
+byte_BANK2_866E:
+	  .BYTE $5F
 
       .BYTE   6
 
@@ -1473,7 +1490,8 @@ locret_BANK2_8797:
 ; End of function sub_BANK2_8670
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8798:.BYTE $46
+byte_BANK2_8798:
+	  .BYTE $46
 
       .BYTE $4A
       .BYTE $4E
@@ -1712,12 +1730,14 @@ locret_BANK2_88DF:
 ; End of function sub_BANK2_8894
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_88E0:.BYTE 8
+byte_BANK2_88E0:
+	  .BYTE 8
 
       .BYTE 4
       .BYTE 2
       .BYTE 1
-byte_BANK2_88E4:.BYTE 0
+byte_BANK2_88E4:
+	  .BYTE 0
 
       .BYTE 8
       .BYTE $10
@@ -1997,7 +2017,8 @@ loc_BANK2_8A53:
       JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
-EnemyBehaviorPointerTable:.WORD	EnemyBehavior_00
+EnemyBehaviorPointerTable:
+	  .WORD	EnemyBehavior_00
       .WORD EnemyBehavior_BasicWalker
       .WORD EnemyBehavior_BasicWalker
       .WORD EnemyBehavior_BasicWalker
@@ -2049,8 +2070,10 @@ EnemyBehaviorPointerTable:.WORD	EnemyBehavior_00
       .WORD EnemyBehavior_Spark
       .WORD EnemyBehavior_Vegetable		  ; 50
       .WORD EnemyBehavior_Vegetable
-off_BANK2_8AC0:.WORD EnemyBehavior_Vegetable
-off_BANK2_8AC2:.WORD loc_BANK2_989A
+off_BANK2_8AC0:
+	  .WORD EnemyBehavior_Vegetable
+off_BANK2_8AC2:
+	  .WORD loc_BANK2_989A
       .WORD EnemyBehavior_Coin
       .WORD EnemyBehavior_Bomb
       .WORD EnemyBehavior_Rocket
@@ -2097,10 +2120,12 @@ loc_BANK2_8AF4:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8B04:.BYTE $C
+byte_BANK2_8B04:
+	  .BYTE $C
 
       .BYTE 3
-byte_BANK2_8B06:.BYTE 0
+byte_BANK2_8B06:
+	  .BYTE 0
 
       .BYTE $A
 ; ---------------------------------------------------------------------------
@@ -2178,10 +2203,12 @@ sub_BANK2_8B5B:
 ; End of function sub_BANK2_8B5B
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8B60:.BYTE $F0
+byte_BANK2_8B60:
+	  .BYTE $F0
 
       .BYTE 0
-byte_BANK2_8B62:.BYTE $FF
+byte_BANK2_8B62:
+	  .BYTE $FF
 
       .BYTE 1
 ; ---------------------------------------------------------------------------
@@ -2210,7 +2237,8 @@ loc_BANK2_8B64:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8B8E:.BYTE 0
+byte_BANK2_8B8E:
+	  .BYTE 0
 
       .BYTE $FF
 ; ---------------------------------------------------------------------------
@@ -2310,7 +2338,8 @@ loc_BANK2_8C00:
       JMP     sub_BANK2_9430
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8C03:.BYTE $10
+byte_BANK2_8C03:
+	  .BYTE $10
 
       .BYTE $F0
 ; ---------------------------------------------------------------------------
@@ -2793,7 +2822,8 @@ locret_BANK2_8E78:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8E79:.BYTE $AC
+byte_BANK2_8E79:
+	  .BYTE $AC
       .BYTE $AE
       .BYTE $B1
       .BYTE $B5
@@ -2805,7 +2835,8 @@ byte_BANK2_8E79:.BYTE $AC
       .BYTE $CC
       .BYTE $D2
       .BYTE $D8
-byte_BANK2_8E85:.BYTE $92
+byte_BANK2_8E85:
+	  .BYTE $92
 
       .BYTE $EA
 ; ---------------------------------------------------------------------------
@@ -2850,10 +2881,12 @@ loc_BANK2_8EB6:
       JMP     sub_BANK2_9B1B
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8EBE:.BYTE $FA
+byte_BANK2_8EBE:
+	  .BYTE $FA
 
       .BYTE $C
-byte_BANK2_8EC0:.BYTE $91
+byte_BANK2_8EC0:
+	  .BYTE $91
 
       .BYTE $11
 ; ---------------------------------------------------------------------------
@@ -2959,7 +2992,8 @@ locret_BANK2_8F4E:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8F4F:.BYTE $43
+byte_BANK2_8F4F:
+	  .BYTE $43
 
       .BYTE $41
       .BYTE $42
@@ -3028,11 +3062,13 @@ EnemyBehavior_Birdo:
       BNE     loc_BANK2_8FD2
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8F9D:.BYTE $7F
+byte_BANK2_8F9D:
+	  .BYTE $7F
 
       .BYTE $3F
       .BYTE $3F
-unk_BANK2_8FA0:.BYTE   8
+unk_BANK2_8FA0:
+	  .BYTE   8
       .BYTE   6
       .BYTE 4
 ; ---------------------------------------------------------------------------
@@ -3134,7 +3170,8 @@ loc_BANK2_901B:
 ; ---------------------------------------------------------------------------
       .BYTE $18
       .BYTE $E8
-byte_BANK2_9020:.BYTE $FE
+byte_BANK2_9020:
+	  .BYTE $FE
 
       .BYTE $F8
       .BYTE $F0
@@ -3463,7 +3500,8 @@ locret_BANK2_91C4:
 ; End of function MakeMushroomExplodeIntoPuffOfSmoke
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_91C5:.BYTE $F8
+byte_BANK2_91C5:
+	  .BYTE $F8
 
       .BYTE 8
 
@@ -3522,9 +3560,11 @@ loc_BANK2_91E5:
 ; End of function sub_BANK2_91C7
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_9212:.BYTE $F0
+byte_BANK2_9212:
+	  .BYTE $F0
 
-byte_BANK2_9213:.BYTE $FF
+byte_BANK2_9213:
+	  .BYTE $FF
 
       .BYTE 0
 ; ---------------------------------------------------------------------------
@@ -3734,17 +3774,21 @@ loc_BANK2_92D3:
 ; End of function sub_BANK2_92C8
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_9306:.BYTE 1
+byte_BANK2_9306:
+	  .BYTE 1
 
       .BYTE $FF
-byte_BANK2_9308:.BYTE $30
+byte_BANK2_9308:
+	  .BYTE $30
 
       .BYTE $D0
-byte_BANK2_930A:.BYTE 1
+byte_BANK2_930A:
+	  .BYTE 1
 
       .BYTE $FF
       .BYTE 1
-byte_BANK2_930D:.BYTE $18
+byte_BANK2_930D:
+	  .BYTE $18
 
       .BYTE $E8
       .BYTE $18
@@ -3869,7 +3913,8 @@ loc_BANK2_93B4:
       JMP     sub_BANK2_9430
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_93B7:.BYTE $E8
+byte_BANK2_93B7:
+	  .BYTE $E8
 
       .BYTE $D0
       .BYTE $D8
@@ -4393,7 +4438,8 @@ locret_BANK2_9606:
 ; End of function sub_BANK2_95EB
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_9607:.BYTE $A
+byte_BANK2_9607:
+	  .BYTE $A
 
       .BYTE  $E
       .BYTE $A
@@ -4800,12 +4846,14 @@ loc_BANK2_9805:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_9808:.BYTE 0
+byte_BANK2_9808:
+	  .BYTE 0
 
       .BYTE 1
       .BYTE 1
       .BYTE 2
-DoorSpriteAnimation:.BYTE 2
+DoorSpriteAnimation:
+	  .BYTE 2
       .BYTE 3
       .BYTE 4
       .BYTE 6
@@ -5180,9 +5228,11 @@ locret_BANK2_99B3:
 ; End of function sub_BANK2_997A
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_99B4:.BYTE $D0
+byte_BANK2_99B4:
+	  .BYTE $D0
 
-byte_BANK2_99B5:.BYTE $D2
+byte_BANK2_99B5:
+	  .BYTE $D2
 
       .BYTE $D4
       .BYTE $D6
@@ -5319,7 +5369,8 @@ byte_BANK2_99B5:.BYTE $D2
       .BYTE $92
       .BYTE $94
       .BYTE $29
-byte_BANK2_9A3D:.BYTE $29
+byte_BANK2_9A3D:
+	  .BYTE $29
       .BYTE $2B
       .BYTE $2B
       .BYTE $3D
@@ -5368,7 +5419,8 @@ byte_BANK2_9A3D:.BYTE $29
       .BYTE $A6
       .BYTE $AB
       .BYTE $AB
-unk_BANK2_9A6E:.BYTE   0
+unk_BANK2_9A6E:
+	  .BYTE   0
       .BYTE 0
       .BYTE 8
       .BYTE 0
@@ -6072,7 +6124,8 @@ locret_BANK2_9DF3:
       .BYTE $FF
       .BYTE   0
       .BYTE   0
-byte_BANK2_9DFA:.BYTE 1
+byte_BANK2_9DFA:
+	  .BYTE 1
 
       .BYTE 1
       .BYTE 0

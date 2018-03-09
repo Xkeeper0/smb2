@@ -67,6 +67,11 @@
 	$asm	= preg_replace('/^(.*)\s+;\s+NOPfix\s*-\s*(.*)$/im', "IFDEF _COMPATIBILITY_\n\t  \\2\nENDIF\nIFNDEF _COMPATIBILITY_\n\\1 ; Absolute address for zero-page\n\t  NOP ; Alignment fix\nENDIF\n", $asm, -1, $count);
 	printf("NOP hotfixes: %d\n", $count);
 
+	// Give labels their own line
+	$asm	= preg_replace('/^([A-Za-z0-9_]+):(.+)$/im', "\\1:\n\t  \\2", $asm, -1, $count);
+	printf("Newline labels: %d\n", $count);
+
+
 	// Fix dumb assembler not knowing how to use zero page properly
 	//$asm	= preg_replace('/(STY\s+)([^,]+,\s*X\s*)/im', '\1<\2', $asm, -1, $count);
 	//printf("Fix STY zp thing: %d\n", $count);
@@ -102,13 +107,6 @@
 	// Change RAM definitions from .BYTE 0 to .ds 1
 	$segments['ram']	= preg_replace('/\.BYTE\s+0/im', '.ds 1', $segments['ram'], -1, $count);
 	printf("Updated RAM byte definitions: %d\n", $count);
-
-	// Move definitions to their own line
-	$segments['ram']	= preg_replace('/^([A-Za-z0-9_]+):(.+)$/im', "\\1:\n\t  \\2", $segments['ram'], -1, $count);
-	printf("Newline definitions: %d\n", $count);
-	/*
-	/*
-	*/
 
 	$c	= 0;
 	$test	= explode("\n", $segments['ram']);
