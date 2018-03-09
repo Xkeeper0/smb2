@@ -278,7 +278,7 @@ unk_BANKA_81FE:.BYTE $22
 unk_BANKA_823D:.BYTE $94
       .BYTE $96
       .BYTE $74
-unk_BANKA_8240:.BYTE $74
+BonusChanceLayout2:.BYTE $74
       .BYTE $74
       .BYTE $74
       .BYTE $A3
@@ -490,20 +490,25 @@ unk_BANKA_8240:.BYTE $74
 ; =============== S U B	R O U T	I N E =======================================
 
 CopyBonusChanceLayoutToRAM:
-      LDY     #0
+      LDY     #0				  ; This copies	the bonus chance layout	from
+						  ; ROM	into some area of save RAM...
+						  ; including some extra data (like this code)
+						  ; This section of RAM	is never used for anything else,
+						  ; so in theory you could free	that by	just...
+						  ; not	doing this.
 
 loc_BANKA_8312:
       LDA     BonusChanceLayout,Y		  ; Blindly copy $100 bytes from $8140 to $7400
-      STA     unk_RAM_7400,Y
+      STA     BonusChanceLayoutRAM,Y
       DEY
       BNE     loc_BANKA_8312
 
       LDY     #0
 
 loc_BANKA_831D:
-      LDA     unk_BANKA_8240,Y			  ; Blindly copy $100 more bytes from $8240 to $7500
+      LDA     BonusChanceLayout2,Y		  ; Blindly copy $100 more bytes from $8240 to $7500
 						  ; That range includes	this code! clap. clap.
-      STA     unk_RAM_7500,Y
+      STA     BonusChanceLayoutRAM2,Y
       DEY
       BNE     loc_BANKA_831D
 
@@ -945,7 +950,9 @@ Text_WORLD_1_1:.BYTE $24,$CA,$B,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$F3,$D1
 Text_EXTRA_LIFE_0:.BYTE	$23,$48,$10,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
       .BYTE $F9,$FB,$FB,$D0,0			  ; $F
 Text_WARP:.BYTE	$21,$8E,4,$F0,$DA,$EB,$E9	      
-Text_WORLD_1:.BYTE $22,$C,9,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,0
+Text_WORLD_1:.BYTE $22,$C,9,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,0; Doki Doki Panic pseudo-leftover
+						  ; This actually has extra spaces on either end:
+						  ; "-WORLD-" ... It originally	said "CHAPTER"
 Text_Unknown6:.BYTE $21,$6A,1,$FB			  
 Text_Unknown7:.BYTE $21,$AA,1,$FB,0			  
 Text_Unknown8:.BYTE $21,$97,$C6,$FB,0			  

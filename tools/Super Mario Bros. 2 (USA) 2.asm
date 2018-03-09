@@ -1130,7 +1130,7 @@ unk_RAM_225:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKF_F31A+10Fw
 unk_RAM_226:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKF_F31A:loc_BANKF_F3F8w
 unk_RAM_227:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKF_F31A+42w
 						  ; sub_BANKF_F31A:loc_BANKF_F44Ar
-unk_RAM_228:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKF_EB31+5w
+unk_RAM_228:; 0	.BYTE uninited & unexplored	  ; DATA XREF: CopyUnusedCoinSpriteToSpriteArea+5w
 						  ; sub_BANKF_F31A+9Bw
 unk_RAM_229:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKF_F31A+128w
 						  ; sub_BANKF_F31A+158w
@@ -2669,7 +2669,7 @@ SlotMachineReelOrder3RAM:; 0 .BYTE uninited & unexplored ; DATA	XREF: BANKF:E8BE
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_653:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKF_EB31:loc_BANKF_EB33r
+unk_RAM_653:; 0	.BYTE uninited & unexplored	  ; DATA XREF: CopyUnusedCoinSpriteToSpriteArea:loc_BANKF_EB33r
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -30825,7 +30825,8 @@ byte_RAM_726B:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK3:B2B6w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_7400:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: CopyBonusChanceLayoutToRAM+5w
+BonusChanceLayoutRAM:; 0 .BYTE uninited	& unexplored
+						  ; DATA XREF: CopyBonusChanceLayoutToRAM+5w
 						  ; BANKE:DC2Eo
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -31082,7 +31083,8 @@ unk_RAM_7400:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: CopyBonusChanceLayou
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_7500:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: CopyBonusChanceLayoutToRAM+10w
+BonusChanceLayoutRAM2:;	0 .BYTE	uninited & unexplored
+						  ; DATA XREF: CopyBonusChanceLayoutToRAM+10w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -73848,7 +73850,7 @@ unk_BANKA_81FE:.BYTE $22 ; "			  ; data used at 8000
 unk_BANKA_823D:.BYTE $94 ; ”			  ; data used at 8000
       .BYTE $96	; –				  ; data used at 8000
       .BYTE $74	; t				  ; data used at 8000
-unk_BANKA_8240:.BYTE $74 ; t			  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANKA_831Dr
+BonusChanceLayout2:.BYTE $74 ; t		  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANKA_831Dr
 						  ; data used at 8000
       .BYTE $74	; t				  ; data used at 8000
       .BYTE $74	; t				  ; data used at 8000
@@ -74062,26 +74064,31 @@ unk_BANKA_8240:.BYTE $74 ; t			  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BAN
 
 
 CopyBonusChanceLayoutToRAM:			  ; CODE XREF: BANKF:E7C8P
-      LDY     #0				  ; code used as data at 8000
+      LDY     #0				  ; This copies	the bonus chance layout	from
+						  ; ROM	into some area of save RAM...
+						  ; including some extra data (like this code)
+						  ; This section of RAM	is never used for anything else,
+						  ; so in theory you could free	that by	just...
+						  ; not	doing this.
 
 
 loc_BANKA_8312:					  ; CODE XREF: CopyBonusChanceLayoutToRAM+9j
       LDA     BonusChanceLayout,Y		  ; Blindly copy $100 bytes from $8140 to $7400
-      STA     unk_RAM_7400,Y			  ; code used as data at 8000
-      DEY					  ; code used as data at 8000
-      BNE     loc_BANKA_8312			  ; code used as data at 8000
+      STA     BonusChanceLayoutRAM,Y
+      DEY
+      BNE     loc_BANKA_8312
 
-      LDY     #0				  ; code used as data at 8000
+      LDY     #0
 
 
 loc_BANKA_831D:					  ; CODE XREF: CopyBonusChanceLayoutToRAM+14j
-      LDA     unk_BANKA_8240,Y			  ; Blindly copy $100 more bytes from $8240 to $7500
+      LDA     BonusChanceLayout2,Y		  ; Blindly copy $100 more bytes from $8240 to $7500
 						  ; That range includes	this code! clap. clap.
-      STA     unk_RAM_7500,Y			  ; code used as data at 8000
-      DEY					  ; code used as data at 8000
-      BNE     loc_BANKA_831D			  ; code used as data at 8000
+      STA     BonusChanceLayoutRAM2,Y
+      DEY
+      BNE     loc_BANKA_831D
 
-      RTS					  ; code used as data at 8000
+      RTS
 
 ; End of function CopyBonusChanceLayoutToRAM
 
@@ -74551,7 +74558,9 @@ Text_WORLD_1_1:.BYTE $24,$CA,$B,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$F3,$D1; 0 ;
 Text_EXTRA_LIFE_0:.BYTE	$23,$48,$10,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9; 0 ; data used at 8000
       .BYTE $F9,$FB,$FB,$D0,0			  ; $F
 Text_WARP:.BYTE	$21,$8E,4,$F0,$DA,$EB,$E9	      ;	0 ; data used at 8000
-Text_WORLD_1:.BYTE $22,$C,9,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,0; 0 ; data used at 8000
+Text_WORLD_1:.BYTE $22,$C,9,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,0; 0 ; Doki Doki Panic pseudo-leftover
+						  ; This actually has extra spaces on either end:
+						  ; "-WORLD-" ... It originally	said "CHAPTER"
 Text_Unknown6:.BYTE $21,$6A,1,$FB			  ; 0 ;	data used at 8000
 Text_Unknown7:.BYTE $21,$AA,1,$FB,0			  ; 0 ;	data used at 8000
 Text_Unknown8:.BYTE $21,$97,$C6,$FB,0			  ; 0 ;	data used at 8000
@@ -88204,7 +88213,7 @@ off_BANKE_DC00:.WORD _RAM_PPUDataBuffer		  ; DATA XREF: WaitForNMI+4r
       .WORD byte_RAM_721B			  ; data used at c000
       .WORD byte_BANKE_DFAF			  ; data used at c000
       .WORD byte_BANKE_DFA7			  ; data used at c000
-      .WORD unk_RAM_7400			  ; data used at c000
+      .WORD BonusChanceLayoutRAM		  ; data used at c000
 byte_BANKE_DC30:.BYTE $21,$49,6,$E9,$E5,$DE,$DA,$EC,$DE	    ; 0	; DATA XREF: BANKE:DC06o
 						  ; PLEASE
       .BYTE $21,$50,6,$EC,$DE,$E5,$DE,$DC,$ED	  ; 0 ;	SELECT
@@ -90680,7 +90689,7 @@ EndOfLevelSlotMachine:				  ; CODE XREF: BANKF:E7AFj
 
       JSR     LoadBonusChanceCHRBanks		  ; code used at e000
 
-      JSR     sub_BANKF_EB31			  ; code used at e000
+      JSR     CopyUnusedCoinSpriteToSpriteArea	  ; code used at e000
 
       LDA     #5				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
@@ -91463,20 +91472,21 @@ loc_BANKF_EB1F:					  ; CODE XREF: sub_BANKF_EAF6+38j
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_EB31:					  ; CODE XREF: BANKF:E7C0p
-      LDY     #0				  ; code used at e000
+CopyUnusedCoinSpriteToSpriteArea:		  ; CODE XREF: BANKF:E7C0p
+      LDY     #0				  ; This copies	the unused coin	sprite from memory
+						  ; into the sprite DMA	area at	$200
 
 
-loc_BANKF_EB33:					  ; CODE XREF: sub_BANKF_EB31+Bj
-      LDA     unk_RAM_653,Y			  ; code used at e000
-      STA     unk_RAM_228,Y			  ; code used at e000
-      INY					  ; code used at e000
-      CPY     #8				  ; code used at e000
-      BCC     loc_BANKF_EB33			  ; code used at e000
+loc_BANKF_EB33:					  ; CODE XREF: CopyUnusedCoinSpriteToSpriteArea+Bj
+      LDA     unk_RAM_653,Y			  ; Copy two sprites from memory to memory.
+      STA     unk_RAM_228,Y			  ; This is definitely efficient.
+      INY					  ; Two	sprites	for each half of the coin.
+      CPY     #8				  ; Four bytes per sprite * 2 sprites =	8 bytes
+      BCC     loc_BANKF_EB33
 
-      RTS					  ; code used at e000
+      RTS
 
-; End of function sub_BANKF_EB31
+; End of function CopyUnusedCoinSpriteToSpriteArea
 
 ; ---------------------------------------------------------------------------
 

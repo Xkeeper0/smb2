@@ -1450,7 +1450,7 @@ EndOfLevelSlotMachine:
 
       JSR     LoadBonusChanceCHRBanks
 
-      JSR     sub_BANKF_EB31
+      JSR     CopyUnusedCoinSpriteToSpriteArea
 
       LDA     #5
       JSR     ChangeMappedPRGBank
@@ -2153,19 +2153,20 @@ loc_BANKF_EB1F:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANKF_EB31:
-      LDY     #0
+CopyUnusedCoinSpriteToSpriteArea:
+      LDY     #0				  ; This copies	the unused coin	sprite from memory
+						  ; into the sprite DMA	area at	$200
 
 loc_BANKF_EB33:
-      LDA     unk_RAM_653,Y
-      STA     unk_RAM_228,Y
-      INY
-      CPY     #8
+      LDA     unk_RAM_653,Y			  ; Copy two sprites from memory to memory.
+      STA     unk_RAM_228,Y			  ; This is definitely efficient.
+      INY					  ; Two	sprites	for each half of the coin.
+      CPY     #8				  ; Four bytes per sprite * 2 sprites =	8 bytes
       BCC     loc_BANKF_EB33
 
       RTS
 
-; End of function sub_BANKF_EB31
+; End of function CopyUnusedCoinSpriteToSpriteArea
 
 ; ---------------------------------------------------------------------------
 

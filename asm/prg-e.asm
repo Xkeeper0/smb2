@@ -7193,7 +7193,7 @@ off_BANKE_DC00:.WORD _RAM_PPUDataBuffer
       .WORD byte_RAM_721B
       .WORD byte_BANKE_DFAF
       .WORD byte_BANKE_DFA7
-      .WORD unk_RAM_7400
+      .WORD BonusChanceLayoutRAM
 byte_BANKE_DC30:.BYTE $21,$49,6,$E9,$E5,$DE,$DA,$EC,$DE	    ; PLEASE
       .BYTE $21,$50,6,$EC,$DE,$E5,$DE,$DC,$ED	  ;	SELECT
       .BYTE $21,$8C,6,$E9,$E5,$DA,$F2,$DE,$EB	  ;	PLAYER

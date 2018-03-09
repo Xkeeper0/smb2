@@ -2808,9 +2808,9 @@ unk_RAM_7268 = $7268
 
 byte_RAM_726B = $726b
 
-unk_RAM_7400 = $7400
+BonusChanceLayoutRAM = $7400
 
-unk_RAM_7500 = $7500
+BonusChanceLayoutRAM2 = $7500
 
 RawLevelData = $7800
 
