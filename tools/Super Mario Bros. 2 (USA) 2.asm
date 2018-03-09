@@ -77947,2053 +77947,541 @@ CastRoll_SpritePointersLo:.BYTE	low8(CastRoll_Mario) ; DATA XREF: sub_BANKC_84EC
       .BYTE low8(CastRoll_Fryguy)		  ; data used at 8000
       .BYTE low8(CastRoll_Clawglip)		  ; data used at 8000
       .BYTE low8(CastRoll_Triclyde)		  ; data used at 8000
-CastRoll_Mario:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:CastRoll_SpritePointersHio
+CastRoll_Mario:.BYTE $D0, $3E, 0, $30			   ; 0
+						  ; DATA XREF: BANKC:CastRoll_SpritePointersHio
 						  ; BANKC:CastRoll_SpritePointersLoo
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE   6					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E8	; è				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Luigi:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B09o
+      .BYTE $D0, 0, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, 2, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, 4, 0, $38			  ; $14
+      .BYTE $F9, 6, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $E8, 0, $2C			  ; $24
+      .BYTE $F9, $D0, 0, $34			  ; $28
+      .BYTE $F9, $F2, 0, $3C			  ; $2C
+      .BYTE $F9, $E0, 0, $44			  ; $30
+      .BYTE $F9, $EC, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Luigi:.BYTE $D0, $3E, 0, $30			   ; 0 ; DATA XREF: BANKC:8B09o
 						  ; BANKC:8B26o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE  $A					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE  $E					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E6	; æ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F8	; ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DC	; Ü				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Princess:.BYTE	$D0 ; Ğ			  ; DATA XREF: BANKC:8B0Ao
+      .BYTE $D0, 8, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $A, 0,	$40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $C, 0,	$38			  ; $14
+      .BYTE $F9, $E, 0,	$40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $E6, 0, $2C			  ; $24
+      .BYTE $F9, $F8, 0, $34			  ; $28
+      .BYTE $F9, $E0, 0, $3C			  ; $2C
+      .BYTE $F9, $DC, 0, $44			  ; $30
+      .BYTE $F9, $E0, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Princess:.BYTE	$D0, $3E, 0, $30		      ;	0 ; DATA XREF: BANKC:8B0Ao
 						  ; BANKC:8B27o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EA	; ê				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D4	; Ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Toad:.BYTE $D0	; Ğ			  ; DATA XREF: BANKC:8B0Bo
+      .BYTE $D0, $10, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $12, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $14, 0, $38			  ; $14
+      .BYTE $F9, $16, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $EE, 0, $20			  ; $20
+      .BYTE $F9, $F2, 0, $28			  ; $24
+      .BYTE $F9, $E0, 0, $30			  ; $28
+      .BYTE $F9, $EA, 0, $38			  ; $2C
+      .BYTE $F9, $D4, 0, $40			  ; $30
+      .BYTE $F9, $D8, 0, $48			  ; $34
+      .BYTE $F9, $F4, 0, $50			  ; $38
+      .BYTE $F9, $F4, 0, $58			  ; $3C
+CastRoll_Toad:.BYTE $D0, $3E, 0, $30			  ; 0 ;	DATA XREF: BANKC:8B0Bo
 						  ; BANKC:8B28o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $1E					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D6	; Ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Shyguy:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B0Co
+      .BYTE $D0, $18, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $1A, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $1C, 0, $38			  ; $14
+      .BYTE $F9, $1E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $3E, 0, $28			  ; $24
+      .BYTE $F9, $F6, 0, $30			  ; $28
+      .BYTE $F9, $EC, 0, $38			  ; $2C
+      .BYTE $F9, $D0, 0, $40			  ; $30
+      .BYTE $F9, $D6, 0, $48			  ; $34
+      .BYTE $F9, $3E, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
+CastRoll_Shyguy:.BYTE $D0, $3E,	0, $30			    ; 0	; DATA XREF: BANKC:8B0Co
 						  ; BANKC:8B29o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DE	; Ş				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $CC	; Ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DC	; Ü				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F8	; ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $CC	; Ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Snifit:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B0Do
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $20, 0, $38			  ; $14
+      .BYTE $F9, $22, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $F4, 0, $28			  ; $24
+      .BYTE $F9, $DE, 0, $30			  ; $28
+      .BYTE $F9, $CC, 0, $38			  ; $2C
+      .BYTE $F9, $DC, 0, $40			  ; $30
+      .BYTE $F9, $F8, 0, $48			  ; $34
+      .BYTE $F9, $CC, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
+CastRoll_Snifit:.BYTE $D0, $3E,	0, $30			    ; 0	; DATA XREF: BANKC:8B0Do
 						  ; BANKC:8B2Ao
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $26	; &				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EA	; ê				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DA	; Ú				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Ninji:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B0Eo
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $24, 0, $38			  ; $14
+      .BYTE $F9, $26, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $F4, 0, $28			  ; $24
+      .BYTE $F9, $EA, 0, $30			  ; $28
+      .BYTE $F9, $E0, 0, $38			  ; $2C
+      .BYTE $F9, $DA, 0, $40			  ; $30
+      .BYTE $F9, $E0, 0, $48			  ; $34
+      .BYTE $F9, $F6, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
+CastRoll_Ninji:.BYTE $D0, $3E, 0, $30			   ; 0 ; DATA XREF: BANKC:8B0Eo
 						  ; BANKC:8B2Bo
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EA	; ê				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EA	; ê				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E2	; â				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Beezo:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B0Fo
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $28, 0, $38			  ; $14
+      .BYTE $F9, $2A, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $EA, 0, $2C			  ; $24
+      .BYTE $F9, $E0, 0, $34			  ; $28
+      .BYTE $F9, $EA, 0, $3C			  ; $2C
+      .BYTE $F9, $E2, 0, $44			  ; $30
+      .BYTE $F9, $E0, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Beezo:.BYTE $D0, $3E, 0, $30			   ; 0 ; DATA XREF: BANKC:8B0Fo
 						  ; BANKC:8B2Co
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $2E	; .				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D2	; Ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $CE	; Î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Porcupo:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B10o
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $2C, 0, $38			  ; $14
+      .BYTE $F9, $2E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $D2, 0, $2C			  ; $24
+      .BYTE $F9, $D8, 0, $34			  ; $28
+      .BYTE $F9, $D8, 0, $3C			  ; $2C
+      .BYTE $F9, $CE, 0, $44			  ; $30
+      .BYTE $F9, $EC, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Porcupo:.BYTE $D0, $3E, 0, $30			     ; 0 ; DATA	XREF: BANKC:8B10o
 						  ; BANKC:8B2Do
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $32	; 2				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-unk_BANKC_8D5F:.BYTE $3E ; >			  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D4	; Ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F8	; ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Tweeter:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B11o
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $30, 0, $38			  ; $14
+      .BYTE $F9, $32, 0, $40			  ; $18
+      .BYTE $F9					  ; $1C
+byte_BANKC_8D5F:.BYTE $3E, 0, $48, $F9			    ; 0	; data used at 8000
+      .BYTE $EE, 0, $24, $F9			  ; 4
+      .BYTE $EC, 0, $2C, $F9			  ; 8
+      .BYTE $F2, 0, $34, $F9			  ; $C
+      .BYTE $D4, 0, $3C, $F9			  ; $10
+      .BYTE $F8, 0, $44, $F9			  ; $14
+      .BYTE $EE, 0, $4C, $F9			  ; $18
+      .BYTE $EC, 0, $54, $F9			  ; $1C
+      .BYTE $3E, 0, $5C				  ; $20
+CastRoll_Tweeter:.BYTE $D0, $3E, 0, $30			     ; 0 ; DATA	XREF: BANKC:8B11o
 						  ; BANKC:8B2Eo
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $36	; 6				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $FC	; ü				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_BobOmb:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B12o
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $34, 0, $38			  ; $14
+      .BYTE $F9, $36, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $F6, 0, $24			  ; $20
+      .BYTE $F9, $FC, 0, $2C			  ; $24
+      .BYTE $F9, $D8, 0, $34			  ; $28
+      .BYTE $F9, $D8, 0, $3C			  ; $2C
+      .BYTE $F9, $F6, 0, $44			  ; $30
+      .BYTE $F9, $D8, 0, $4C			  ; $34
+      .BYTE $F9, $F2, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_BobOmb:.BYTE $D0, $3E,	0, $30			    ; 0	; DATA XREF: BANKC:8B12o
 						  ; BANKC:8B2Fo
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3A	; :				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D2	; Ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D2	; Ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E8	; è				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D2	; Ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Hoopstar:.BYTE	$D0 ; Ğ			  ; DATA XREF: BANKC:8B13o
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $38, 0, $38			  ; $14
+      .BYTE $F9, $3A, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $D2, 0, $24			  ; $20
+      .BYTE $F9, $EC, 0, $2C			  ; $24
+      .BYTE $F9, $D2, 0, $34			  ; $28
+      .BYTE $F9, $3E, 0, $3C			  ; $2C
+      .BYTE $F9, $EC, 0, $44			  ; $30
+      .BYTE $F9, $E8, 0, $4C			  ; $34
+      .BYTE $F9, $D2, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Hoopstar:.BYTE	$D0, $3E, 0, $30		      ;	0 ; DATA XREF: BANKC:8B13o
 						  ; BANKC:8B30o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-unk_BANKC_8E13:.BYTE $3E ; >			  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DE	; Ş				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Trouter:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B14o
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $3C, 0, $38			  ; $14
+      .BYTE $F9, $3C, $40, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $DE, 0, $20			  ; $20
+      .BYTE $F9, $EC, 0, $28			  ; $24
+      .BYTE $F9, $EC, 0, $30			  ; $28
+      .BYTE $F9, $EE, 0, $38			  ; $2C
+      .BYTE $F9, $F4, 0, $40			  ; $30
+      .BYTE $F9, $F6, 0, $48			  ; $34
+      .BYTE $F9, $D0, 0, $50			  ; $38
+      .BYTE $F9, $F2, 0, $58			  ; $3C
+CastRoll_Trouter:.BYTE $D0, $3E, 0, $30			     ; 0 ; DATA	XREF: BANKC:8B14o
 						  ; BANKC:8B31o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $42	; B				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F8	; ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Pidgit:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B15o
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $40, 0, $38			  ; $14
+      .BYTE $F9, $42, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $F6, 0, $24			  ; $20
+      .BYTE $F9, $F2, 0, $2C			  ; $24
+      .BYTE $F9, $EC, 0, $34			  ; $28
+      .BYTE $F9, $F8, 0, $3C			  ; $2C
+      .BYTE $F9, $F6, 0, $44			  ; $30
+      .BYTE $F9, $D8, 0, $4C			  ; $34
+      .BYTE $F9, $F2, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Pidgit:.BYTE $D0, $3E,	0, $30			    ; 0	; DATA XREF: BANKC:8B15o
 						  ; BANKC:8B32o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $46	; F				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D6	; Ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DC	; Ü				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Panser:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B16o
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $44, 0, $38			  ; $14
+      .BYTE $F9, $46, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $EE, 0, $28			  ; $24
+      .BYTE $F9, $E0, 0, $30			  ; $28
+      .BYTE $F9, $D6, 0, $38			  ; $2C
+      .BYTE $F9, $DC, 0, $40			  ; $30
+      .BYTE $F9, $E0, 0, $48			  ; $34
+      .BYTE $F9, $F6, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
+CastRoll_Panser:.BYTE $D0, $3E,	0, $30			    ; 0	; DATA XREF: BANKC:8B16o
 						  ; BANKC:8B33o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $4A	; J				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EA	; ê				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Flurry:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B17o
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $48, 0, $38			  ; $14
+      .BYTE $F9, $4A, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $EE, 0, $28			  ; $24
+      .BYTE $F9, $D0, 0, $30			  ; $28
+      .BYTE $F9, $EA, 0, $38			  ; $2C
+      .BYTE $F9, $F4, 0, $40			  ; $30
+      .BYTE $F9, $D8, 0, $48			  ; $34
+      .BYTE $F9, $F2, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
+CastRoll_Flurry:.BYTE $D0, $3E,	0, $30			    ; 0	; DATA XREF: BANKC:8B17o
 						  ; BANKC:8B34o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $4E	; N				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DA	; Ú				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E6	; æ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F8	; ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $CC	; Ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Albatoss:.BYTE	$D0 ; Ğ			  ; DATA XREF: BANKC:8B18o
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $4C, 0, $38			  ; $14
+      .BYTE $F9, $4E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $DA, 0, $28			  ; $24
+      .BYTE $F9, $E6, 0, $30			  ; $28
+      .BYTE $F9, $F8, 0, $38			  ; $2C
+      .BYTE $F9, $F2, 0, $40			  ; $30
+      .BYTE $F9, $F2, 0, $48			  ; $34
+      .BYTE $F9, $CC, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
+CastRoll_Albatoss:.BYTE	$D0, $3E, 0, $30		      ;	0 ; DATA XREF: BANKC:8B18o
 						  ; BANKC:8B35o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-unk_BANKC_8F52:.BYTE $F9 ; ù			  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $52	; R				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $56	; V				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E6	; æ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D2	; Ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-unk_BANKC_8F6F:.BYTE $D0 ; Ğ			  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Phanto:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B19o
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $50, 0, $30			  ; $10
+      .BYTE $F9, $52, 0, $38			  ; $14
+      .BYTE $F9, $54, 0, $40			  ; $18
+      .BYTE $F9, $56, 0, $48			  ; $1C
+      .BYTE $F9, $D0, 0, $20			  ; $20
+      .BYTE $F9, $E6, 0, $28			  ; $24
+      .BYTE $F9, $D2, 0, $30			  ; $28
+      .BYTE $F9, $D0, 0, $38			  ; $2C
+      .BYTE $F9, $F6, 0, $40			  ; $30
+      .BYTE $F9, $EC, 0, $48			  ; $34
+      .BYTE $F9, $F4, 0, $50			  ; $38
+      .BYTE $F9, $F4, 0, $58			  ; $3C
+CastRoll_Phanto:.BYTE $D0, $3E,	0, $30			    ; 0	; DATA XREF: BANKC:8B19o
 						  ; BANKC:8B36o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $68	; h				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $68	; h				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DE	; Ş				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EA	; ê				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Spark:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B1Ao
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $68, 0, $38			  ; $14
+      .BYTE $F9, $68, $40, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $EE, 0, $28			  ; $24
+      .BYTE $F9, $DE, 0, $30			  ; $28
+      .BYTE $F9, $D0, 0, $38			  ; $2C
+      .BYTE $F9, $EA, 0, $40			  ; $30
+      .BYTE $F9, $F6, 0, $48			  ; $34
+      .BYTE $F9, $EC, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
+CastRoll_Spark:.BYTE $D0, $3E, 0, $30			   ; 0 ; DATA XREF: BANKC:8B1Ao
 						  ; BANKC:8B37o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $6A	; j				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $6A	; j				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E4	; ä				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Subcon:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B1Bo
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $6A, 0, $38			  ; $14
+      .BYTE $F9, $6A, $40, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $F4, 0, $2C			  ; $24
+      .BYTE $F9, $EE, 0, $34			  ; $28
+      .BYTE $F9, $D0, 0, $3C			  ; $2C
+      .BYTE $F9, $F2, 0, $44			  ; $30
+      .BYTE $F9, $E4, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Subcon:.BYTE $D0, $3E,	0, $30			    ; 0	; DATA XREF: BANKC:8B1Bo
 						  ; BANKC:8B38o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-unk_BANKC_9004:.BYTE   0			  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $6C	; l				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $6E	; n				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F8	; ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D2	; Ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D4	; Ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EA	; ê				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Pokey:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B1Co
+      .BYTE $D0, $3E, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $6C, 0, $38			  ; $14
+      .BYTE $F9, $6E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $F4, 0, $2C			  ; $24
+      .BYTE $F9, $F8, 0, $34			  ; $28
+      .BYTE $F9, $D2, 0, $3C			  ; $2C
+      .BYTE $F9, $D4, 0, $44			  ; $30
+      .BYTE $F9, $EC, 0, $4C			  ; $34
+      .BYTE $F9, $EA, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Pokey:.BYTE $D0, $3E, 0, $30			   ; 0 ; DATA XREF: BANKC:8B1Co
 						  ; BANKC:8B39o
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $62	; b				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $64	; d				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $66	; f				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E4	; ä				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $CC	; Ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Birdo:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B1Do
+      .BYTE $D0, $60, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $62, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $64, 0, $38			  ; $14
+      .BYTE $F9, $66, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $EE, 0, $2C			  ; $24
+      .BYTE $F9, $EC, 0, $34			  ; $28
+      .BYTE $F9, $E4, 0, $3C			  ; $2C
+      .BYTE $F9, $D8, 0, $44			  ; $30
+      .BYTE $F9, $CC, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Birdo:.BYTE $D0, $3E, 0, $30			   ; 0 ; DATA XREF: BANKC:8B1Do
 						  ; BANKC:8B3Ao
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $70	; p				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $72	; r				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $74	; t				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $76	; v				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D2	; Ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D6	; Ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Ostro:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B1Eo
+      .BYTE $D0, $70, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $72, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $74, 0, $38			  ; $14
+      .BYTE $F9, $76, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $D2, 0, $2C			  ; $24
+      .BYTE $F9, $E0, 0, $34			  ; $28
+      .BYTE $F9, $F2, 0, $3C			  ; $2C
+      .BYTE $F9, $D6, 0, $44			  ; $30
+      .BYTE $F9, $EC, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Ostro:.BYTE $D0, $3E, 0, $30			   ; 0 ; DATA XREF: BANKC:8B1Eo
 						  ; BANKC:8B3Bo
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $78	; x				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $7A	; z				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $7C	; |				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $7E	; ~				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-CastRoll_Autobomb:.BYTE	$D0 ; Ğ			  ; DATA XREF: BANKC:8B1Fo
+      .BYTE $D0, $78, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $7A, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $7C, 0, $38			  ; $14
+      .BYTE $F9, $7E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $EC, 0, $2C			  ; $24
+      .BYTE $F9, $F4, 0, $34			  ; $28
+      .BYTE $F9, $F6, 0, $3C			  ; $2C
+      .BYTE $F9, $F2, 0, $44			  ; $30
+      .BYTE $F9, $EC, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
+CastRoll_Autobomb:.BYTE	$D0, $3E, 0, $30		      ;	0 ; DATA XREF: BANKC:8B1Fo
 						  ; BANKC:8B3Co
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $80	; €				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $82	; ‚				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-unk_BANKC_910D:.BYTE $40 ; @			  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $84	; „				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $86	; †				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F8	; ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D2	; Ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E8	; è				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D2	; Ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Cobrat:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B20o
+      .BYTE $D0, $80, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $82, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $84, 0, $38			  ; $14
+      .BYTE $F9, $86, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $D0, 0, $20			  ; $20
+      .BYTE $F9, $F8, 0, $28			  ; $24
+      .BYTE $F9, $F6, 0, $30			  ; $28
+      .BYTE $F9, $EC, 0, $38			  ; $2C
+      .BYTE $F9, $D2, 0, $40			  ; $30
+      .BYTE $F9, $EC, 0, $48			  ; $34
+      .BYTE $F9, $E8, 0, $50			  ; $38
+      .BYTE $F9, $D2, 0, $58			  ; $3C
+CastRoll_Cobrat:.BYTE $D0, $3E,	0, $30			    ; 0	; DATA XREF: BANKC:8B20o
 						  ; BANKC:8B3Do
-						  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $5A	; Z				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $5E	; ^				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D4	; Ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D2	; Ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Mouser:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B21o
+      .BYTE $D0, $58, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $5A, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $5C, 0, $38			  ; $14
+      .BYTE $F9, $5E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $D4, 0, $28			  ; $24
+      .BYTE $F9, $EC, 0, $30			  ; $28
+      .BYTE $F9, $D2, 0, $38			  ; $2C
+      .BYTE $F9, $F2, 0, $40			  ; $30
+      .BYTE $F9, $D0, 0, $48			  ; $34
+      .BYTE $F9, $F6, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
+CastRoll_Mouser:.BYTE $D0, $88,	0, $30			    ; 0	; DATA XREF: BANKC:8B21o
 						  ; BANKC:8B3Eo
-						  ; data used at 8000
-      .BYTE $88	; ˆ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $8A	; Š				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $8C	; Œ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $8E	; 				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $90	; 				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $92	; ’				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E8	; è				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EC	; ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F8	; ø				  ; data used at 8000
-unk_BANKC_91B0:.BYTE   0			  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F4	; ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-CastRoll_Fryguy:.BYTE $D0 ; Ğ			  ; DATA XREF: BANKC:8B22o
+      .BYTE $D0, $8A, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $8C, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $8E, 0, $30			  ; $10
+      .BYTE $F9, $90, 0, $38			  ; $14
+      .BYTE $F9, $92, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $1C			  ; $20
+      .BYTE $F9, $E8, 0, $24			  ; $24
+      .BYTE $F9, $EC, 0, $2C			  ; $28
+      .BYTE $F9, $F8, 0, $34			  ; $2C
+      .BYTE $F9, $F4, 0, $3C			  ; $30
+      .BYTE $F9, $D8, 0, $44			  ; $34
+      .BYTE $F9, $F2, 0, $4C			  ; $38
+      .BYTE $F9, $3E, 0, $54			  ; $3C
+CastRoll_Fryguy:.BYTE $D0, $AA,	0, $30			    ; 0	; DATA XREF: BANKC:8B22o
 						  ; BANKC:8B3Fo
-						  ; data used at 8000
-      .BYTE $AA	; ª				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $AC	; ¬				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $AE	; ®				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $B0	; °				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $B2	; ²				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $B4	; ´				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $B6	; ¶				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $B8	; ¸				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DA	; Ú				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $CC	; Ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DC	; Ü				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F8	; ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $CC	; Ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Clawglip:.BYTE	$D0 ; Ğ			  ; DATA XREF: BANKC:8B23o
+      .BYTE $D0, $AC, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $AE, 0, $40			  ; 8
+      .BYTE $D0, $B0, 0, $48			  ; $C
+      .BYTE $F9, $B2, 0, $30			  ; $10
+      .BYTE $F9, $B4, 0, $38			  ; $14
+      .BYTE $F9, $B6, 0, $40			  ; $18
+      .BYTE $F9, $B8, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $DA, 0, $28			  ; $24
+      .BYTE $F9, $F2, 0, $30			  ; $28
+      .BYTE $F9, $CC, 0, $38			  ; $2C
+      .BYTE $F9, $DC, 0, $40			  ; $30
+      .BYTE $F9, $F8, 0, $48			  ; $34
+      .BYTE $F9, $CC, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
+CastRoll_Clawglip:.BYTE	$D0, $BA, 0, $30		      ;	0 ; DATA XREF: BANKC:8B23o
 						  ; BANKC:8B40o
-						  ; data used at 8000
-      .BYTE $BA	; º				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $BC	; ¼				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $BE	; ¾				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $C0	; À				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $C2	; Â				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $C4	; Ä				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $C6	; Æ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $C8	; È				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D4	; Ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E6	; æ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $FC	; ü				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $DC	; Ü				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E6	; æ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $EE	; î				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Triclyde:.BYTE	$D0 ; Ğ			  ; DATA XREF: BANKC:8B24o
+      .BYTE $D0, $BC, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $BE, 0, $40			  ; 8
+      .BYTE $D0, $C0, 0, $48			  ; $C
+      .BYTE $F9, $C2, 0, $30			  ; $10
+      .BYTE $F9, $C4, 0, $38			  ; $14
+      .BYTE $F9, $C6, 0, $40			  ; $18
+      .BYTE $F9, $C8, 0, $48			  ; $1C
+      .BYTE $F9, $D4, 0, $20			  ; $20
+      .BYTE $F9, $E6, 0, $28			  ; $24
+      .BYTE $F9, $D0, 0, $30			  ; $28
+      .BYTE $F9, $FC, 0, $38			  ; $2C
+      .BYTE $F9, $DC, 0, $40			  ; $30
+      .BYTE $F9, $E6, 0, $48			  ; $34
+      .BYTE $F9, $E0, 0, $50			  ; $38
+      .BYTE $F9, $EE, 0, $58			  ; $3C
+CastRoll_Triclyde:.BYTE	$D0, $94, 0, $30		      ;	0 ; DATA XREF: BANKC:8B24o
 						  ; BANKC:8B41o
-						  ; data used at 8000
-      .BYTE $94	; ”				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $96	; –				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $98	; ˜				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $9A	; š				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $9C	; œ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $9E	; 				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $A0	;  				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $A2	; ¢				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $A4	; ¤				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $A6	; ¦				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $A8	; ¨				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $68	; h				  ; data used at 8000
-CastRoll_TriclydeText:.BYTE $D0	; Ğ		  ; DATA XREF: BANKC:loc_BANKC_8880r
-						  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $E0	; à				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $D4	; Ô				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $E6	; æ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $CC	; Ì				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $D6	; Ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $D8	; Ø				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-CastRoll_Wart:.BYTE $D0	; Ğ			  ; DATA XREF: BANKC:loc_BANKC_88ABr
-						  ; data used at 8000
-      .BYTE $80	; €				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $82	; ‚				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $84	; „				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $86	; †				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE $88	; ˆ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $8A	; Š				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $8C	; Œ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $8E	; 				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $90	; 				  ; data used at 8000
-unk_BANKC_92C4:.BYTE   0			  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $92	; ’				  ; data used at 8000
-unk_BANKC_92C8:.BYTE   0			  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $94	; ”				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $96	; –				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $98	; ˜				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $9A	; š				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $9C	; œ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $C0	; À				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $C0	; À				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $FC	; ü				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $D0	; Ğ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F2	; ò				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $F6	; ö				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $C0	; À				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $F9	; ù				  ; data used at 8000
-      .BYTE $C0	; À				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
+      .BYTE $D0, $96, 0, $38			  ; 4 ;	data used at 8000
+      .BYTE $D0, $98, 0, $40			  ; 8
+      .BYTE $D0, $9A, 0, $48			  ; $C
+      .BYTE $F9, $9C, 0, $30			  ; $10
+      .BYTE $F9, $9E, 0, $38			  ; $14
+      .BYTE $F9, $A0, 0, $40			  ; $18
+      .BYTE $F9, $A2, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $30			  ; $20
+      .BYTE $F9, $A4, 0, $38			  ; $24
+      .BYTE $F9, $A6, 0, $40			  ; $28
+      .BYTE $F9, $A8, 0, $48			  ; $2C
+      .BYTE $F9, $3E, 0, $50			  ; $30
+      .BYTE $F9, $3E, 0, $58			  ; $34
+      .BYTE $F9, $3E, 0, $60			  ; $38
+      .BYTE $F9, $3E, 0, $68			  ; $3C
+CastRoll_TriclydeText:.BYTE $D0, $F6, 0, $20			  ; 0
+						  ; DATA XREF: BANKC:loc_BANKC_8880r
+      .BYTE $D0, $F2, 0, $28			  ; 4 ;	data used at 8000
+      .BYTE $D0, $E0, 0, $30			  ; 8
+      .BYTE $D0, $D4, 0, $38			  ; $C
+      .BYTE $D0, $E6, 0, $40			  ; $10
+      .BYTE $D0, $CC, 0, $48			  ; $14
+      .BYTE $D0, $D6, 0, $50			  ; $18
+      .BYTE $D0, $D8, 0, $58			  ; $1C
+CastRoll_Wart:.BYTE $D0, $80, 0, $28			  ; 0
+						  ; DATA XREF: BANKC:loc_BANKC_88ABr
+      .BYTE $D0, $82, 0, $30			  ; 4 ;	data used at 8000
+      .BYTE $D0, $84, 0, $38			  ; 8
+      .BYTE $D0, $86, 0, $40			  ; $C
+      .BYTE $D0, $88, 0, $48			  ; $10
+      .BYTE $F9, $8A, 0, $28			  ; $14
+      .BYTE $F9, $8C, 0, $30			  ; $18
+      .BYTE $F9, $8E, 0, $38			  ; $1C
+      .BYTE $F9, $90, 0, $40			  ; $20
+      .BYTE $F9, $92, 0, $48			  ; $24
+      .BYTE $F9, $94, 0, $28			  ; $28
+      .BYTE $F9, $96, 0, $30			  ; $2C
+      .BYTE $F9, $98, 0, $38			  ; $30
+      .BYTE $F9, $9A, 0, $40			  ; $34
+      .BYTE $F9, $9C, 0, $48			  ; $38
+      .BYTE $F9, $C0, 0, $20			  ; $3C
+      .BYTE $F9, $C0, 0, $20			  ; $40
+      .BYTE $F9, $FC, 0, $2C			  ; $44
+      .BYTE $F9, $D0, 0, $34			  ; $48
+      .BYTE $F9, $F2, 0, $3C			  ; $4C
+      .BYTE $F9, $F6, 0, $44			  ; $50
+      .BYTE $F9, $C0, 0, $50			  ; $54
+      .BYTE $F9, $C0, 0, $58			  ; $58
 byte_BANKC_92FE:.BYTE $10			  ; DATA XREF: BANKC:8AA2r
 						  ; BANKC:8AB0r
 						  ; data used at 8000
       .BYTE $90					  ; data used at 8000
       .BYTE $7C					  ; data used at 8000
       .BYTE $98					  ; data used at 8000
-CastRoll_MysteryData:.BYTE $7C			  ; data used at 8000
+      .BYTE $7C					  ; data used at 8000
       .BYTE $A0					  ; data used at 8000
       .BYTE $7C					  ; data used at 8000
       .BYTE $A8					  ; data used at 8000
@@ -80007,7 +78495,7 @@ CastRoll_MysteryData:.BYTE $7C			  ; data used at 8000
       .BYTE $A8					  ; data used at 8000
       .BYTE $14					  ; data used at 8000
       .BYTE $90					  ; data used at 8000
-byte_BANKC_9310:.BYTE $7C			  ; data used at 8000
+      .BYTE $7C					  ; data used at 8000
       .BYTE $98					  ; data used at 8000
       .BYTE $7C					  ; data used at 8000
       .BYTE $A0					  ; data used at 8000
@@ -80155,7 +78643,7 @@ byte_BANKC_9310:.BYTE $7C			  ; data used at 8000
       .BYTE $98					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
       .BYTE $A0					  ; data used at 8000
-byte_BANKC_93A4:.BYTE $42			  ; data used at 8000
+      .BYTE $42					  ; data used at 8000
       .BYTE $A8					  ; data used at 8000
 byte_BANKC_93A6:.BYTE $44			  ; DATA XREF: BANKC:8AE3r
 						  ; BANKC:8AF1r
@@ -80180,7 +78668,7 @@ byte_BANKC_93A6:.BYTE $44			  ; DATA XREF: BANKC:8AE3r
       .BYTE $4E					  ; data used at 8000
       .BYTE $B8					  ; data used at 8000
       .BYTE $7C					  ; data used at 8000
-byte_BANKC_93BB:.BYTE $C0			  ; data used at 8000
+      .BYTE $C0					  ; data used at 8000
       .BYTE $7C					  ; data used at 8000
       .BYTE $C8					  ; data used at 8000
       .BYTE $50					  ; data used at 8000
@@ -80216,7 +78704,7 @@ byte_BANKC_93BB:.BYTE $C0			  ; data used at 8000
       .BYTE $7C					  ; data used at 8000
       .BYTE $C8					  ; data used at 8000
       .BYTE $5C					  ; data used at 8000
-byte_BANKC_93DF:.BYTE $B0			  ; data used at 8000
+      .BYTE $B0					  ; data used at 8000
       .BYTE $60					  ; data used at 8000
       .BYTE $B8					  ; data used at 8000
       .BYTE $7C					  ; data used at 8000
@@ -80264,7 +78752,7 @@ byte_BANKC_93DF:.BYTE $B0			  ; data used at 8000
       .BYTE $6E					  ; data used at 8000
       .BYTE $C8					  ; data used at 8000
       .BYTE $5C					  ; data used at 8000
-byte_BANKC_940F:.BYTE $B0			  ; data used at 8000
+      .BYTE $B0					  ; data used at 8000
       .BYTE $64					  ; data used at 8000
       .BYTE $B8					  ; data used at 8000
       .BYTE $6C					  ; data used at 8000
@@ -80278,7 +78766,7 @@ byte_BANKC_940F:.BYTE $B0			  ; data used at 8000
       .BYTE $6C					  ; data used at 8000
       .BYTE $C0					  ; data used at 8000
       .BYTE $72					  ; data used at 8000
-byte_BANKC_941D:.BYTE $C8			  ; data used at 8000
+      .BYTE $C8					  ; data used at 8000
       .BYTE $5C					  ; data used at 8000
       .BYTE $B0					  ; data used at 8000
       .BYTE $64					  ; data used at 8000
@@ -80297,7 +78785,7 @@ byte_BANKC_941D:.BYTE $C8			  ; data used at 8000
       .BYTE $C8					  ; data used at 8000
       .BYTE $5C					  ; data used at 8000
       .BYTE $B0					  ; data used at 8000
-byte_BANKC_9430:.BYTE $64			  ; data used at 8000
+      .BYTE $64					  ; data used at 8000
       .BYTE $B8					  ; data used at 8000
       .BYTE $6C					  ; data used at 8000
       .BYTE $C0					  ; data used at 8000
@@ -80311,9 +78799,9 @@ byte_BANKC_9430:.BYTE $64			  ; data used at 8000
       .BYTE $C0					  ; data used at 8000
       .BYTE $7A					  ; data used at 8000
       .BYTE $C8					  ; data used at 8000
-unk_BANKC_943E:.BYTE $60 ; `
+      .BYTE $60	; `
 ; [00000BC1 BYTES: BEGIN OF AREA UNUSED-BANKC:943F. PRESS KEYPAD "-" TO	COLLAPSE]
-byte_BANKC_943F:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; 0
+_unused_BANKC_943F:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -80511,7 +78999,7 @@ byte_BANKC_943F:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       ;.segment	BANKD
       *	=  $A000
 ; [00002000 BYTES: BEGIN OF AREA UNUSED-BANKC. PRESS KEYPAD "-"	TO COLLAPSE]
-_unused_bankD:.BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0 ;	data used at a000
+_unused_BANKD:.BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0 ;	Yes, the entire	bank is	unused.	Go nuts.
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

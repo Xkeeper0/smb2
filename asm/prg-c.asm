@@ -2339,2039 +2339,540 @@ CastRoll_SpritePointersLo:
       .BYTE <CastRoll_Clawglip
       .BYTE <CastRoll_Triclyde
 CastRoll_Mario:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE   2
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE   4
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE   6
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $E8
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, 0, 0, $38			  ; 4
+      .BYTE $D0, 2, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, 4, 0, $38			  ; $14
+      .BYTE $F9, 6, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $E8, 0, $2C			  ; $24
+      .BYTE $F9, $D0, 0, $34			  ; $28
+      .BYTE $F9, $F2, 0, $3C			  ; $2C
+      .BYTE $F9, $E0, 0, $44			  ; $30
+      .BYTE $F9, $EC, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Luigi:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE   8
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE  $A
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE  $C
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE  $E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $E6
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $F8
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $DC
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, 8, 0, $38			  ; 4
+      .BYTE $D0, $A, 0,	$40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $C, 0,	$38			  ; $14
+      .BYTE $F9, $E, 0,	$40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $E6, 0, $2C			  ; $24
+      .BYTE $F9, $F8, 0, $34			  ; $28
+      .BYTE $F9, $E0, 0, $3C			  ; $2C
+      .BYTE $F9, $DC, 0, $44			  ; $30
+      .BYTE $F9, $E0, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Princess:
-	  .BYTE	$D0 ; Ð
-
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $10
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $12
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $14
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $16
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $EE
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $EA
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $D4
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $58
+	  .BYTE	$D0, $3E, 0, $30		      
+      .BYTE $D0, $10, 0, $38			  ; 4
+      .BYTE $D0, $12, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $14, 0, $38			  ; $14
+      .BYTE $F9, $16, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $EE, 0, $20			  ; $20
+      .BYTE $F9, $F2, 0, $28			  ; $24
+      .BYTE $F9, $E0, 0, $30			  ; $28
+      .BYTE $F9, $EA, 0, $38			  ; $2C
+      .BYTE $F9, $D4, 0, $40			  ; $30
+      .BYTE $F9, $D8, 0, $48			  ; $34
+      .BYTE $F9, $F4, 0, $50			  ; $38
+      .BYTE $F9, $F4, 0, $58			  ; $3C
 CastRoll_Toad:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $18
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $1A
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $1C
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $1E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $D6
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $3E, 0, $30			  ;	DATA XREF: BANKC:8B0Bo
+      .BYTE $D0, $18, 0, $38			  ; 4
+      .BYTE $D0, $1A, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $1C, 0, $38			  ; $14
+      .BYTE $F9, $1E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $3E, 0, $28			  ; $24
+      .BYTE $F9, $F6, 0, $30			  ; $28
+      .BYTE $F9, $EC, 0, $38			  ; $2C
+      .BYTE $F9, $D0, 0, $40			  ; $30
+      .BYTE $F9, $D6, 0, $48			  ; $34
+      .BYTE $F9, $3E, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Shyguy:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $20
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $22
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $DE
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $CC
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $DC
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $F8
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $CC
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $20, 0, $38			  ; $14
+      .BYTE $F9, $22, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $F4, 0, $28			  ; $24
+      .BYTE $F9, $DE, 0, $30			  ; $28
+      .BYTE $F9, $CC, 0, $38			  ; $2C
+      .BYTE $F9, $DC, 0, $40			  ; $30
+      .BYTE $F9, $F8, 0, $48			  ; $34
+      .BYTE $F9, $CC, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Snifit:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $24
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $26
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $EA
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $DA
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $24, 0, $38			  ; $14
+      .BYTE $F9, $26, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $F4, 0, $28			  ; $24
+      .BYTE $F9, $EA, 0, $30			  ; $28
+      .BYTE $F9, $E0, 0, $38			  ; $2C
+      .BYTE $F9, $DA, 0, $40			  ; $30
+      .BYTE $F9, $E0, 0, $48			  ; $34
+      .BYTE $F9, $F6, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Ninji:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $28
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $2A
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $EA
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $EA
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $E2
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $28, 0, $38			  ; $14
+      .BYTE $F9, $2A, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $EA, 0, $2C			  ; $24
+      .BYTE $F9, $E0, 0, $34			  ; $28
+      .BYTE $F9, $EA, 0, $3C			  ; $2C
+      .BYTE $F9, $E2, 0, $44			  ; $30
+      .BYTE $F9, $E0, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Beezo:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $2C
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $2E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $D2
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $CE
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $2C, 0, $38			  ; $14
+      .BYTE $F9, $2E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $D2, 0, $2C			  ; $24
+      .BYTE $F9, $D8, 0, $34			  ; $28
+      .BYTE $F9, $D8, 0, $3C			  ; $2C
+      .BYTE $F9, $CE, 0, $44			  ; $30
+      .BYTE $F9, $EC, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Porcupo:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $30	
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $32	; 2
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-unk_BANKC_8D5F:
-	  .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $EE
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $D4
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $F8
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $EE
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			     
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $30, 0, $38			  ; $14
+      .BYTE $F9, $32, 0, $40			  ; $18
+      .BYTE $F9					  ; $1C
+byte_BANKC_8D5F:
+	  .BYTE $3E, 0, $48, $F9			    
+      .BYTE $EE, 0, $24, $F9			  ; 4
+      .BYTE $EC, 0, $2C, $F9			  ; 8
+      .BYTE $F2, 0, $34, $F9			  ; $C
+      .BYTE $D4, 0, $3C, $F9			  ; $10
+      .BYTE $F8, 0, $44, $F9			  ; $14
+      .BYTE $EE, 0, $4C, $F9			  ; $18
+      .BYTE $EC, 0, $54, $F9			  ; $1C
+      .BYTE $3E, 0, $5C				  ; $20
 CastRoll_Tweeter:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $34	; 4
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $36	; 6
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $FC
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			     
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $34, 0, $38			  ; $14
+      .BYTE $F9, $36, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $F6, 0, $24			  ; $20
+      .BYTE $F9, $FC, 0, $2C			  ; $24
+      .BYTE $F9, $D8, 0, $34			  ; $28
+      .BYTE $F9, $D8, 0, $3C			  ; $2C
+      .BYTE $F9, $F6, 0, $44			  ; $30
+      .BYTE $F9, $D8, 0, $4C			  ; $34
+      .BYTE $F9, $F2, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_BobOmb:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $38	; 8
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $3A
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $D2
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $D2
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $E8
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $D2
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $38, 0, $38			  ; $14
+      .BYTE $F9, $3A, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $D2, 0, $24			  ; $20
+      .BYTE $F9, $EC, 0, $2C			  ; $24
+      .BYTE $F9, $D2, 0, $34			  ; $28
+      .BYTE $F9, $3E, 0, $3C			  ; $2C
+      .BYTE $F9, $EC, 0, $44			  ; $30
+      .BYTE $F9, $E8, 0, $4C			  ; $34
+      .BYTE $F9, $D2, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Hoopstar:
-	  .BYTE	$D0 ; Ð
-
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-unk_BANKC_8E13:
-	  .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $3C
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $3C
-      .BYTE $40
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $DE
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $EE
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $58
+	  .BYTE	$D0, $3E, 0, $30		      
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $3C, 0, $38			  ; $14
+      .BYTE $F9, $3C, $40, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $DE, 0, $20			  ; $20
+      .BYTE $F9, $EC, 0, $28			  ; $24
+      .BYTE $F9, $EC, 0, $30			  ; $28
+      .BYTE $F9, $EE, 0, $38			  ; $2C
+      .BYTE $F9, $F4, 0, $40			  ; $30
+      .BYTE $F9, $F6, 0, $48			  ; $34
+      .BYTE $F9, $D0, 0, $50			  ; $38
+      .BYTE $F9, $F2, 0, $58			  ; $3C
 CastRoll_Trouter:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $40
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $42
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $F8
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			     
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $40, 0, $38			  ; $14
+      .BYTE $F9, $42, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $F6, 0, $24			  ; $20
+      .BYTE $F9, $F2, 0, $2C			  ; $24
+      .BYTE $F9, $EC, 0, $34			  ; $28
+      .BYTE $F9, $F8, 0, $3C			  ; $2C
+      .BYTE $F9, $F6, 0, $44			  ; $30
+      .BYTE $F9, $D8, 0, $4C			  ; $34
+      .BYTE $F9, $F2, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Pidgit:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $44
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $46
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $EE
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $D6
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $DC
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $44, 0, $38			  ; $14
+      .BYTE $F9, $46, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $EE, 0, $28			  ; $24
+      .BYTE $F9, $E0, 0, $30			  ; $28
+      .BYTE $F9, $D6, 0, $38			  ; $2C
+      .BYTE $F9, $DC, 0, $40			  ; $30
+      .BYTE $F9, $E0, 0, $48			  ; $34
+      .BYTE $F9, $F6, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Panser:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $48
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $4A
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $EE
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $EA
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $48, 0, $38			  ; $14
+      .BYTE $F9, $4A, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $EE, 0, $28			  ; $24
+      .BYTE $F9, $D0, 0, $30			  ; $28
+      .BYTE $F9, $EA, 0, $38			  ; $2C
+      .BYTE $F9, $F4, 0, $40			  ; $30
+      .BYTE $F9, $D8, 0, $48			  ; $34
+      .BYTE $F9, $F2, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Flurry:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $4C
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $4E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $DA
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $E6
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $F8
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $CC
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $4C, 0, $38			  ; $14
+      .BYTE $F9, $4E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $DA, 0, $28			  ; $24
+      .BYTE $F9, $E6, 0, $30			  ; $28
+      .BYTE $F9, $F8, 0, $38			  ; $2C
+      .BYTE $F9, $F2, 0, $40			  ; $30
+      .BYTE $F9, $F2, 0, $48			  ; $34
+      .BYTE $F9, $CC, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Albatoss:
-	  .BYTE	$D0 ; Ð
-
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-unk_BANKC_8F52:
-	  .BYTE $F9
-      .BYTE $50
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $52
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $54
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $56
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $E6
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $D2
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-unk_BANKC_8F6F:
-	  .BYTE $D0
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $58
+	  .BYTE	$D0, $3E, 0, $30		      
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $50, 0, $30			  ; $10
+      .BYTE $F9, $52, 0, $38			  ; $14
+      .BYTE $F9, $54, 0, $40			  ; $18
+      .BYTE $F9, $56, 0, $48			  ; $1C
+      .BYTE $F9, $D0, 0, $20			  ; $20
+      .BYTE $F9, $E6, 0, $28			  ; $24
+      .BYTE $F9, $D2, 0, $30			  ; $28
+      .BYTE $F9, $D0, 0, $38			  ; $2C
+      .BYTE $F9, $F6, 0, $40			  ; $30
+      .BYTE $F9, $EC, 0, $48			  ; $34
+      .BYTE $F9, $F4, 0, $50			  ; $38
+      .BYTE $F9, $F4, 0, $58			  ; $3C
 CastRoll_Phanto:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $68
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $68
-      .BYTE $40
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $EE
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $DE
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $EA
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $68, 0, $38			  ; $14
+      .BYTE $F9, $68, $40, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $EE, 0, $28			  ; $24
+      .BYTE $F9, $DE, 0, $30			  ; $28
+      .BYTE $F9, $D0, 0, $38			  ; $2C
+      .BYTE $F9, $EA, 0, $40			  ; $30
+      .BYTE $F9, $F6, 0, $48			  ; $34
+      .BYTE $F9, $EC, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Spark:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $6A
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $6A
-      .BYTE $40
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $EE
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $E4
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $6A, 0, $38			  ; $14
+      .BYTE $F9, $6A, $40, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $F4, 0, $2C			  ; $24
+      .BYTE $F9, $EE, 0, $34			  ; $28
+      .BYTE $F9, $D0, 0, $3C			  ; $2C
+      .BYTE $F9, $F2, 0, $44			  ; $30
+      .BYTE $F9, $E4, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Subcon:
-	  .BYTE $D0
-      .BYTE $3E
-unk_BANKC_9004:
-	  .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $6C
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $6E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $F8
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $D2
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $D4
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $EA
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E, 0, $38			  ; 4
+      .BYTE $D0, $3E, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $6C, 0, $38			  ; $14
+      .BYTE $F9, $6E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $F4, 0, $2C			  ; $24
+      .BYTE $F9, $F8, 0, $34			  ; $28
+      .BYTE $F9, $D2, 0, $3C			  ; $2C
+      .BYTE $F9, $D4, 0, $44			  ; $30
+      .BYTE $F9, $EC, 0, $4C			  ; $34
+      .BYTE $F9, $EA, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Pokey:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $60
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $62
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $64
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $66
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $EE
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $E4
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $CC
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $60, 0, $38			  ; 4
+      .BYTE $D0, $62, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $64, 0, $38			  ; $14
+      .BYTE $F9, $66, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $EE, 0, $2C			  ; $24
+      .BYTE $F9, $EC, 0, $34			  ; $28
+      .BYTE $F9, $E4, 0, $3C			  ; $2C
+      .BYTE $F9, $D8, 0, $44			  ; $30
+      .BYTE $F9, $CC, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Birdo:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $70
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $72
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $74
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $76
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $D2
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $D6
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $70, 0, $38			  ; 4
+      .BYTE $D0, $72, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $74, 0, $38			  ; $14
+      .BYTE $F9, $76, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $D2, 0, $2C			  ; $24
+      .BYTE $F9, $E0, 0, $34			  ; $28
+      .BYTE $F9, $F2, 0, $3C			  ; $2C
+      .BYTE $F9, $D6, 0, $44			  ; $30
+      .BYTE $F9, $EC, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Ostro:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $78
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $7A
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $7C
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $7E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $54
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $5C
+	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $78, 0, $38			  ; 4
+      .BYTE $D0, $7A, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $7C, 0, $38			  ; $14
+      .BYTE $F9, $7E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $24			  ; $20
+      .BYTE $F9, $EC, 0, $2C			  ; $24
+      .BYTE $F9, $F4, 0, $34			  ; $28
+      .BYTE $F9, $F6, 0, $3C			  ; $2C
+      .BYTE $F9, $F2, 0, $44			  ; $30
+      .BYTE $F9, $EC, 0, $4C			  ; $34
+      .BYTE $F9, $3E, 0, $54			  ; $38
+      .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Autobomb:
-	  .BYTE	$D0 ; Ð
-
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $80
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $82
-      .BYTE   0
-unk_BANKC_910D:
-	  .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $84
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $86
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $F8
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $D2
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $E8
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $D2
-      .BYTE   0
-      .BYTE $58
+	  .BYTE	$D0, $3E, 0, $30		      
+      .BYTE $D0, $80, 0, $38			  ; 4
+      .BYTE $D0, $82, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $84, 0, $38			  ; $14
+      .BYTE $F9, $86, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $D0, 0, $20			  ; $20
+      .BYTE $F9, $F8, 0, $28			  ; $24
+      .BYTE $F9, $F6, 0, $30			  ; $28
+      .BYTE $F9, $EC, 0, $38			  ; $2C
+      .BYTE $F9, $D2, 0, $40			  ; $30
+      .BYTE $F9, $EC, 0, $48			  ; $34
+      .BYTE $F9, $E8, 0, $50			  ; $38
+      .BYTE $F9, $D2, 0, $58			  ; $3C
 CastRoll_Cobrat:
-	  .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $58
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $5A
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $5C
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $5E
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $D4
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $D2
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $58, 0, $38			  ; 4
+      .BYTE $D0, $5A, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $3E, 0, $30			  ; $10
+      .BYTE $F9, $5C, 0, $38			  ; $14
+      .BYTE $F9, $5E, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $D4, 0, $28			  ; $24
+      .BYTE $F9, $EC, 0, $30			  ; $28
+      .BYTE $F9, $D2, 0, $38			  ; $2C
+      .BYTE $F9, $F2, 0, $40			  ; $30
+      .BYTE $F9, $D0, 0, $48			  ; $34
+      .BYTE $F9, $F6, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Mouser:
-	  .BYTE $D0
-      .BYTE $88
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $8A
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $8C
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $8E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $90
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $92
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $1C
-      .BYTE $F9
-      .BYTE $E8
-      .BYTE   0
-      .BYTE $24
-      .BYTE $F9
-      .BYTE $EC
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $F8
-unk_BANKC_91B0:
-	  .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $F4
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $4C
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $54
+	  .BYTE $D0, $88,	0, $30			    
+      .BYTE $D0, $8A, 0, $38			  ; 4
+      .BYTE $D0, $8C, 0, $40			  ; 8
+      .BYTE $D0, $3E, 0, $48			  ; $C
+      .BYTE $F9, $8E, 0, $30			  ; $10
+      .BYTE $F9, $90, 0, $38			  ; $14
+      .BYTE $F9, $92, 0, $40			  ; $18
+      .BYTE $F9, $3E, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $1C			  ; $20
+      .BYTE $F9, $E8, 0, $24			  ; $24
+      .BYTE $F9, $EC, 0, $2C			  ; $28
+      .BYTE $F9, $F8, 0, $34			  ; $2C
+      .BYTE $F9, $F4, 0, $3C			  ; $30
+      .BYTE $F9, $D8, 0, $44			  ; $34
+      .BYTE $F9, $F2, 0, $4C			  ; $38
+      .BYTE $F9, $3E, 0, $54			  ; $3C
 CastRoll_Fryguy:
-	  .BYTE $D0
-      .BYTE $AA
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $AC
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $AE
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $B0
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $B2
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $B4
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $B6
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $B8
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $DA
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $CC
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $DC
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $F8
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $CC
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $AA,	0, $30			    
+      .BYTE $D0, $AC, 0, $38			  ; 4
+      .BYTE $D0, $AE, 0, $40			  ; 8
+      .BYTE $D0, $B0, 0, $48			  ; $C
+      .BYTE $F9, $B2, 0, $30			  ; $10
+      .BYTE $F9, $B4, 0, $38			  ; $14
+      .BYTE $F9, $B6, 0, $40			  ; $18
+      .BYTE $F9, $B8, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $20			  ; $20
+      .BYTE $F9, $DA, 0, $28			  ; $24
+      .BYTE $F9, $F2, 0, $30			  ; $28
+      .BYTE $F9, $CC, 0, $38			  ; $2C
+      .BYTE $F9, $DC, 0, $40			  ; $30
+      .BYTE $F9, $F8, 0, $48			  ; $34
+      .BYTE $F9, $CC, 0, $50			  ; $38
+      .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Clawglip:
-	  .BYTE	$D0 ; Ð
-
-      .BYTE $BA
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $BC
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $BE
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $C0
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $C2
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $C4
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $C6
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $C8
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $D4
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $E6
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $FC
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $DC
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $E6
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $EE
-      .BYTE   0
-      .BYTE $58
+	  .BYTE	$D0, $BA, 0, $30		      
+      .BYTE $D0, $BC, 0, $38			  ; 4
+      .BYTE $D0, $BE, 0, $40			  ; 8
+      .BYTE $D0, $C0, 0, $48			  ; $C
+      .BYTE $F9, $C2, 0, $30			  ; $10
+      .BYTE $F9, $C4, 0, $38			  ; $14
+      .BYTE $F9, $C6, 0, $40			  ; $18
+      .BYTE $F9, $C8, 0, $48			  ; $1C
+      .BYTE $F9, $D4, 0, $20			  ; $20
+      .BYTE $F9, $E6, 0, $28			  ; $24
+      .BYTE $F9, $D0, 0, $30			  ; $28
+      .BYTE $F9, $FC, 0, $38			  ; $2C
+      .BYTE $F9, $DC, 0, $40			  ; $30
+      .BYTE $F9, $E6, 0, $48			  ; $34
+      .BYTE $F9, $E0, 0, $50			  ; $38
+      .BYTE $F9, $EE, 0, $58			  ; $3C
 CastRoll_Triclyde:
-	  .BYTE	$D0 ; Ð
-
-      .BYTE $94
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $96
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $98
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $9A
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $9C
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $9E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $A0
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $A2
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $A4
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $A6
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $A8
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $58
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $60
-      .BYTE $F9
-      .BYTE $3E
-      .BYTE   0
-      .BYTE $68
+	  .BYTE	$D0, $94, 0, $30		      
+      .BYTE $D0, $96, 0, $38			  ; 4
+      .BYTE $D0, $98, 0, $40			  ; 8
+      .BYTE $D0, $9A, 0, $48			  ; $C
+      .BYTE $F9, $9C, 0, $30			  ; $10
+      .BYTE $F9, $9E, 0, $38			  ; $14
+      .BYTE $F9, $A0, 0, $40			  ; $18
+      .BYTE $F9, $A2, 0, $48			  ; $1C
+      .BYTE $F9, $3E, 0, $30			  ; $20
+      .BYTE $F9, $A4, 0, $38			  ; $24
+      .BYTE $F9, $A6, 0, $40			  ; $28
+      .BYTE $F9, $A8, 0, $48			  ; $2C
+      .BYTE $F9, $3E, 0, $50			  ; $30
+      .BYTE $F9, $3E, 0, $58			  ; $34
+      .BYTE $F9, $3E, 0, $60			  ; $38
+      .BYTE $F9, $3E, 0, $68			  ; $3C
 CastRoll_TriclydeText:
-	  .BYTE $D0
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $20
-      .BYTE $D0
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $28
-      .BYTE $D0
-      .BYTE $E0
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $D4
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $E6
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $CC
-      .BYTE   0
-      .BYTE $48
-      .BYTE $D0
-      .BYTE $D6
-      .BYTE   0
-      .BYTE $50
-      .BYTE $D0
-      .BYTE $D8
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $F6, 0, $20			  
+      .BYTE $D0, $F2, 0, $28			  ; 4
+      .BYTE $D0, $E0, 0, $30			  ; 8
+      .BYTE $D0, $D4, 0, $38			  ; $C
+      .BYTE $D0, $E6, 0, $40			  ; $10
+      .BYTE $D0, $CC, 0, $48			  ; $14
+      .BYTE $D0, $D6, 0, $50			  ; $18
+      .BYTE $D0, $D8, 0, $58			  ; $1C
 CastRoll_Wart:
-	  .BYTE $D0
-      .BYTE $80
-      .BYTE   0
-      .BYTE $28
-      .BYTE $D0
-      .BYTE $82
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $D0
-      .BYTE $84
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $D0
-      .BYTE $86
-      .BYTE   0
-      .BYTE $40
-      .BYTE $D0
-      .BYTE $88
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $8A
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $8C
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $8E
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $90
-unk_BANKC_92C4:
-	  .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $92
-unk_BANKC_92C8:
-	  .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $94
-      .BYTE   0
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $96
-      .BYTE   0
-      .BYTE $30	
-      .BYTE $F9
-      .BYTE $98
-      .BYTE   0
-      .BYTE $38	; 8
-      .BYTE $F9
-      .BYTE $9A
-      .BYTE   0
-      .BYTE $40
-      .BYTE $F9
-      .BYTE $9C
-      .BYTE   0
-      .BYTE $48
-      .BYTE $F9
-      .BYTE $C0
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $C0
-      .BYTE   0
-      .BYTE $20
-      .BYTE $F9
-      .BYTE $FC
-      .BYTE   0
-      .BYTE $2C
-      .BYTE $F9
-      .BYTE $D0
-      .BYTE   0
-      .BYTE $34	; 4
-      .BYTE $F9
-      .BYTE $F2
-      .BYTE   0
-      .BYTE $3C
-      .BYTE $F9
-      .BYTE $F6
-      .BYTE   0
-      .BYTE $44
-      .BYTE $F9
-      .BYTE $C0
-      .BYTE   0
-      .BYTE $50
-      .BYTE $F9
-      .BYTE $C0
-      .BYTE   0
-      .BYTE $58
+	  .BYTE $D0, $80, 0, $28			  
+      .BYTE $D0, $82, 0, $30			  ; 4
+      .BYTE $D0, $84, 0, $38			  ; 8
+      .BYTE $D0, $86, 0, $40			  ; $C
+      .BYTE $D0, $88, 0, $48			  ; $10
+      .BYTE $F9, $8A, 0, $28			  ; $14
+      .BYTE $F9, $8C, 0, $30			  ; $18
+      .BYTE $F9, $8E, 0, $38			  ; $1C
+      .BYTE $F9, $90, 0, $40			  ; $20
+      .BYTE $F9, $92, 0, $48			  ; $24
+      .BYTE $F9, $94, 0, $28			  ; $28
+      .BYTE $F9, $96, 0, $30			  ; $2C
+      .BYTE $F9, $98, 0, $38			  ; $30
+      .BYTE $F9, $9A, 0, $40			  ; $34
+      .BYTE $F9, $9C, 0, $48			  ; $38
+      .BYTE $F9, $C0, 0, $20			  ; $3C
+      .BYTE $F9, $C0, 0, $20			  ; $40
+      .BYTE $F9, $FC, 0, $2C			  ; $44
+      .BYTE $F9, $D0, 0, $34			  ; $48
+      .BYTE $F9, $F2, 0, $3C			  ; $4C
+      .BYTE $F9, $F6, 0, $44			  ; $50
+      .BYTE $F9, $C0, 0, $50			  ; $54
+      .BYTE $F9, $C0, 0, $58			  ; $58
 byte_BANKC_92FE:
 	  .BYTE $10
 
       .BYTE $90
       .BYTE $7C
       .BYTE $98
-CastRoll_MysteryData:
-	  .BYTE $7C
+      .BYTE $7C
       .BYTE $A0
       .BYTE $7C
       .BYTE $A8
@@ -4385,8 +2886,7 @@ CastRoll_MysteryData:
       .BYTE $A8
       .BYTE $14
       .BYTE $90
-byte_BANKC_9310:
-	  .BYTE $7C
+      .BYTE $7C
       .BYTE $98
       .BYTE $7C
       .BYTE $A0
@@ -4534,8 +3034,7 @@ byte_BANKC_9310:
       .BYTE $98
       .BYTE $3E
       .BYTE $A0
-byte_BANKC_93A4:
-	  .BYTE $42
+      .BYTE $42
       .BYTE $A8
 byte_BANKC_93A6:
 	  .BYTE $44
@@ -4560,8 +3059,7 @@ byte_BANKC_93A6:
       .BYTE $4E
       .BYTE $B8
       .BYTE $7C
-byte_BANKC_93BB:
-	  .BYTE $C0
+      .BYTE $C0
       .BYTE $7C
       .BYTE $C8
       .BYTE $50
@@ -4597,8 +3095,7 @@ byte_BANKC_93BB:
       .BYTE $7C
       .BYTE $C8
       .BYTE $5C
-byte_BANKC_93DF:
-	  .BYTE $B0
+      .BYTE $B0
       .BYTE $60
       .BYTE $B8
       .BYTE $7C
@@ -4646,8 +3143,7 @@ byte_BANKC_93DF:
       .BYTE $6E
       .BYTE $C8
       .BYTE $5C
-byte_BANKC_940F:
-	  .BYTE $B0
+      .BYTE $B0
       .BYTE $64
       .BYTE $B8
       .BYTE $6C
@@ -4661,8 +3157,7 @@ byte_BANKC_940F:
       .BYTE $6C
       .BYTE $C0
       .BYTE $72
-byte_BANKC_941D:
-	  .BYTE $C8
+      .BYTE $C8
       .BYTE $5C
       .BYTE $B0
       .BYTE $64
@@ -4681,8 +3176,7 @@ byte_BANKC_941D:
       .BYTE $C8
       .BYTE $5C
       .BYTE $B0
-byte_BANKC_9430:
-	  .BYTE $64
+      .BYTE $64
       .BYTE $B8
       .BYTE $6C
       .BYTE $C0
@@ -4696,11 +3190,10 @@ byte_BANKC_9430:
       .BYTE $C0
       .BYTE $7A
       .BYTE $C8
-unk_BANKC_943E:
-	  .BYTE $60
+      .BYTE $60
 ; [00000BC1 BYTES: BEGIN OF AREA UNUSED-BANKC:943F. PRESS KEYPAD "-" TO	COLLAPSE]
-byte_BANKC_943F:
-	  .BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
+_unused_BANKC_943F:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
