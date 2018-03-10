@@ -635,13 +635,13 @@ sub_BANK0_833E:
 
 loc_BANK0_8341:
       LDA     byte_RAM_D1
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     byte_RAM_D2
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     #$20
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     #0
       STA     byte_RAM_D6
@@ -684,7 +684,7 @@ loc_BANK0_836C:
 
 loc_BANK0_8390:
       LDA     (byte_RAM_0),Y
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INC     byte_RAM_D6
       INX
       INY
@@ -704,7 +704,7 @@ loc_BANK0_83A7:
       BCC     loc_BANK0_836C
 
       LDA     #0
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       STX     byte_RAM_300
       LDA     byte_RAM_D5
       BEQ     loc_BANK0_840B
@@ -789,13 +789,13 @@ sub_BANK0_8412:
       LDY     byte_RAM_300
       LDA     byte_RAM_D1
       ORA     #3
-      STA     _RAM_PPUDataBuffer,Y
+      STA     PPUBuffer_301,Y
       INY
       LDA     byte_RAM_E1,X
-      STA     _RAM_PPUDataBuffer,Y
+      STA     PPUBuffer_301,Y
       INY
       LDA     #8
-      STA     _RAM_PPUDataBuffer,Y
+      STA     PPUBuffer_301,Y
       INY
       LDX     #7
 
@@ -837,7 +837,7 @@ loc_BANK0_8450:
 
 loc_BANK0_8452:
       LDA     unk_RAM_D9,X
-      STA     _RAM_PPUDataBuffer,Y
+      STA     PPUBuffer_301,Y
       INY
       DEX
       BPL     loc_BANK0_842B
@@ -848,7 +848,7 @@ loc_BANK0_845D:
       STA     byte_RAM_E4
       LSR     A
       STA     byte_RAM_539
-      STA     _RAM_PPUDataBuffer,Y
+      STA     PPUBuffer_301,Y
       STY     byte_RAM_300
       RTS
 
@@ -3906,13 +3906,13 @@ loc_BANK0_937C:
       PHA
       LDX     byte_RAM_300
       LDA     #0
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       TYA
       AND     #$F0
       ASL     A
-      ROL     _RAM_PPUDataBuffer,X
+      ROL     PPUBuffer_301,X
       ASL     A
-      ROL     _RAM_PPUDataBuffer,X
+      ROL     PPUBuffer_301,X
       STA     byte_RAM_302,X
       TYA
       AND     #$F
@@ -3936,8 +3936,8 @@ loc_BANK0_93A2:
 loc_BANK0_93B9:
       LDA     byte_BANK0_940A,Y
       CLC
-      ADC     _RAM_PPUDataBuffer,X
-      STA     _RAM_PPUDataBuffer,X
+      ADC     PPUBuffer_301,X
+      STA     PPUBuffer_301,X
       STA     byte_RAM_306,X
       LDA     #2
       STA     byte_RAM_303,X
@@ -4340,7 +4340,7 @@ _empty_15C3:
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF; $30
 TitleScreenPPUDataPointers:
-	  .WORD _RAM_PPUDataBuffer
+	  .WORD PPUBuffer_301
 
       .WORD TitleLayout1
 
@@ -5069,7 +5069,7 @@ byte_BANK0_9A21:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANK0_9A3D:
+TitleScreen:
       LDY     #7
       STY     byte_RAM_1
       LDY     #0
@@ -5166,7 +5166,7 @@ loc_BANK0_9AC6:
 
       INC     ObjectXHi+2
       LDA     PlayerXHi
-      STA     _RAM_PPUDataBuffer
+      STA     PPUBuffer_301
       LDA     ObjectXHi
       STA     byte_RAM_302
       LDA     ObjectXHi+1
@@ -5183,7 +5183,7 @@ loc_BANK0_9AC6:
 
 loc_BANK0_9AF3:
       LDA     PlayerXHi
-      STA     _RAM_PPUDataBuffer
+      STA     PPUBuffer_301
       LDA     ObjectXHi
       STA     byte_RAM_302
       LDA     ObjectXHi+1
@@ -5225,13 +5225,13 @@ loc_BANK0_9B25:
 
 loc_BANK0_9B3B:
       LDA     byte_BANK0_9A21,Y
-      STA     _RAM_PPUDataBuffer,Y
+      STA     PPUBuffer_301,Y
       INY
       DEX
       BPL     loc_BANK0_9B3B
 
       LDA     #0
-      STA     _RAM_PPUDataBuffer,Y
+      STA     PPUBuffer_301,Y
       JMP     loc_BANK0_9B59
 
 ; ---------------------------------------------------------------------------
@@ -5277,7 +5277,7 @@ loc_BANK0_9B63:
 
 TitleScreen_WriteSTORYText:
       LDA     #$20
-      STA     _RAM_PPUDataBuffer
+      STA     PPUBuffer_301
       LDA     #$AE
       STA     byte_RAM_302
       LDA     #5				  ; Length of STORY text (5 bytes)
@@ -5311,7 +5311,7 @@ loc_BANK0_9BA7:
       LDA     #$40
       STA     ObjectXHi+5
       LDA     PlayerXHi
-      STA     _RAM_PPUDataBuffer
+      STA     PPUBuffer_301
 
 loc_BANK0_9BB0:
       LDA     ObjectXHi
@@ -5430,7 +5430,7 @@ loc_BANK0_9C52:
       STA     PPUCTRL
       JMP     loc_BANK0_9A53
 
-; End of function sub_BANK0_9A3D
+; End of function TitleScreen
 
 ; ---------------------------------------------------------------------------
 ; [000003A8 BYTES: BEGIN OF AREA UNUSED-BANK0-9C58. PRESS KEYPAD "-" TO	COLLAPSE]

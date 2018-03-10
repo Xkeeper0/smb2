@@ -37,7 +37,7 @@ byte_BANK1_A000:
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1F0
 ; [00000200 BYTES: END OF AREA UNUSED-BANK1_A000. PRESS	KEYPAD "-" TO COLLAPSE]
 EndingPPUDataPointers:
-	  .WORD _RAM_PPUDataBuffer
+	  .WORD PPUBuffer_301
 
       .WORD EndingCorkJarRoom
       .WORD EndingCelebrationCeilingTextAndPodium
@@ -2787,69 +2787,69 @@ loc_BANK1_AD69:
       STX     byte_RAM_5C2
       LDX     #0
       LDA     #$21
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     #$2A
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     #$C
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDY     #0
       LDA     CharacterLevelsCompleted,Y
       JSR     sub_BANK1_AE43
 
       TYA
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     byte_RAM_1
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     #$FB
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDY     #3
       LDA     CharacterLevelsCompleted,Y
       JSR     sub_BANK1_AE43
 
       TYA
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     byte_RAM_1
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
 
 loc_BANK1_ADB0:
       LDA     #$FB
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDY     #2
       LDA     CharacterLevelsCompleted,Y
       JSR     sub_BANK1_AE43
 
       TYA
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     byte_RAM_1
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     #$FB
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDY     #1
       LDA     CharacterLevelsCompleted,Y
       JSR     sub_BANK1_AE43
 
       TYA
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     byte_RAM_1
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       INX
       LDA     #0
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       LDA     #$3C
       STA     byte_RAM_5C4
       RTS

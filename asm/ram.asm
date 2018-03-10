@@ -1029,7 +1029,7 @@ unk_RAM_2FC:
       .dsb 1                    ; $02ff
 byte_RAM_300:
 	  .dsb 1                       ; $0300
-_RAM_PPUDataBuffer:
+PPUBuffer_301:
 	  .dsb 1                       ; $0301
 byte_RAM_302:
 	  .dsb 1                       ; $0302
@@ -1827,7 +1827,7 @@ unk_RAM_55A:
       .dsb 1                    ; $055d
 byte_RAM_55E:
 	  .dsb 1                       ; $055e
-unk_RAM_55F:
+PPUBuffer_55F:
 	  .dsb 1                       ; $055f
       .dsb 1                    ; $0560
       .dsb 1                    ; $0561
@@ -1864,7 +1864,7 @@ unk_RAM_55F:
       .dsb 1                    ; $0580
       .dsb 1                    ; $0581
       .dsb 1                    ; $0582
-unk_RAM_583:
+PPUBuffer_583:
 	  .dsb 1                       ; $0583
       .dsb 1                    ; $0584
       .dsb 1                    ; $0585
@@ -2246,7 +2246,7 @@ unk_RAM_653:
       .dsb 1                    ; $0678
       .dsb 1                    ; $0679
       .dsb 1                    ; $067a
-unk_RAM_67B:
+PPUBuffer_67B:
 	  .dsb 1                       ; $067b
       .dsb 1                    ; $067c
       .dsb 1                    ; $067d
@@ -2273,7 +2273,7 @@ byte_RAM_68F:
       .dsb 1                    ; $0690
       .dsb 1                    ; $0691
       .dsb 1                    ; $0692
-unk_RAM_693:
+PPUBuffer_693:
 	  .dsb 1                       ; $0693
       .dsb 1                    ; $0694
       .dsb 1                    ; $0695
@@ -2298,7 +2298,7 @@ unk_RAM_693:
       .dsb 1                    ; $06a8
       .dsb 1                    ; $06a9
       .dsb 1                    ; $06aa
-unk_RAM_6AB:
+PPUBuffer_6AB:
 	  .dsb 1                       ; $06ab
       .dsb 1                    ; $06ac
       .dsb 1                    ; $06ad
@@ -2317,7 +2317,7 @@ unk_RAM_6AB:
       .dsb 1                    ; $06ba
       .dsb 1                    ; $06bb
       .dsb 1                    ; $06bc
-unk_RAM_6BD:
+PPUBuffer_6BD:
 	  .dsb 1                       ; $06bd
       .dsb 1                    ; $06be
       .dsb 1                    ; $06bf
@@ -2334,7 +2334,7 @@ byte_RAM_6C8:
       .dsb 1                    ; $06c9
       .dsb 1                    ; $06ca
       .dsb 1                    ; $06cb
-unk_RAM_6CC:
+PPUBuffer_6CC:
 	  .dsb 1                       ; $06cc
       .dsb 1                    ; $06cd
       .dsb 1                    ; $06ce
@@ -2349,25 +2349,25 @@ unk_RAM_6CC:
       .dsb 1                    ; $06d7
       .dsb 1                    ; $06d8
       .dsb 1                    ; $06d9
-unk_RAM_6DA:
+PPUBuffer_6DA:
 	  .dsb 1                       ; $06da
       .dsb 1                    ; $06db
       .dsb 1                    ; $06dc
       .dsb 1                    ; $06dd
       .dsb 1                    ; $06de
-unk_RAM_6DF:
+PPUBuffer_6DF:
 	  .dsb 1                       ; $06df
       .dsb 1                    ; $06e0
       .dsb 1                    ; $06e1
       .dsb 1                    ; $06e2
       .dsb 1                    ; $06e3
-unk_RAM_6E4:
+PPUBuffer_6E4:
 	  .dsb 1                       ; $06e4
       .dsb 1                    ; $06e5
       .dsb 1                    ; $06e6
       .dsb 1                    ; $06e7
       .dsb 1                    ; $06e8
-unk_RAM_6E9:
+PPUBuffer_6E9:
 	  .dsb 1                       ; $06e9
       .dsb 1                    ; $06ea
       .dsb 1                    ; $06eb
@@ -2761,7 +2761,7 @@ unk_RAM_713C = $713c
 
 unk_RAM_7150 = $7150
 
-unk_RAM_7168 = $7168
+PPUBuffer_7168 = $7168
 
 unk_RAM_716B = $716b
 
@@ -2777,11 +2777,11 @@ byte_RAM_7191 = $7191
 
 byte_RAM_7192 = $7192
 
-unk_RAM_7194 = $7194
+PPUBuffer_7194 = $7194
 
 byte_RAM_71A6 = $71a6
 
-unk_RAM_71A8 = $71a8
+PPUBuffer_71A8 = $71a8
 
 byte_RAM_71AB = $71ab
 
@@ -2793,7 +2793,7 @@ unk_RAM_71D1 = $71d1
 
 byte_RAM_71FE = $71fe
 
-byte_RAM_721B = $721b
+PPUBuffer_721B = $721b
 
 byte_RAM_7222 = $7222
 

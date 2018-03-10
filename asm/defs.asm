@@ -70,6 +70,45 @@ SoundEffect1_HawkOpen_WartBarf =  $80
 
 ; ---------------------------------------------------------------------------
 
+; enum PRGBank (width 1	byte)
+PRGBank_0_1 =  0
+PRGBank_2_3 =  1
+PRGBank_4_5 =  2
+PRGBank_6_7 =  3
+PRGBank_8_9 =  4
+PRGBank_A_B =  5
+PRGBank_C_D =  6
+
+; ---------------------------------------------------------------------------
+
+; enum ScreenUpdateBuffer
+ScreenUpdateBuffer_RAM_301 =  0
+ScreenUpdateBuffer_RAM_583 =  1
+ScreenUpdateBuffer_RAM_55F =  2
+ScreenUpdateBuffer_CharacterSelect =  3
+ScreenUpdateBuffer_BANKE_DE7A =  4
+ScreenUpdateBuffer_Text_Game_Over =  5
+ScreenUpdateBuffer_RAM_67B =  6
+ScreenUpdateBuffer_Text_Retry =  7
+ScreenUpdateBuffer_RAM_7168 =  8
+ScreenUpdateBuffer_RAM_67B_again =  9
+ScreenUpdateBuffer_RAM_693 =  $A
+ScreenUpdateBuffer_RAM_6ab =  $B
+ScreenUpdateBuffer_RAM_6bd =  $C
+ScreenUpdateBuffer_RAM_6cc =  $D
+ScreenUpdateBuffer_RAM_6e9 =  $E
+ScreenUpdateBuffer_RAM_6da =  $F
+ScreenUpdateBuffer_RAM_6df =  $10
+ScreenUpdateBuffer_RAM_6e4 =  $11
+ScreenUpdateBuffer_RAM_7194 =  $12
+ScreenUpdateBuffer_RAM_71a8 =  $13
+ScreenUpdateBuffer_RAM_721b =  $14
+ScreenUpdateBuffer_BANKE_DFAF =  $15
+ScreenUpdateBuffer_BANKE_DFA7 =  $16
+ScreenUpdateBuffer_RAM_BonusChanceLayout =  $17
+
+; ---------------------------------------------------------------------------
+
 ; enum SoundEffect2 (width 1 byte)
 SoundEffect2_Jump =  1
 SoundEffect2_Climbing =  2
@@ -77,6 +116,13 @@ SoundEffect2_CoinGet = 	4
 SoundEffect2_Shrinking =  8
 SoundEffect2_IntroFallSlide =  $10
 SoundEffect2_Growing = 	$20
+
+; ---------------------------------------------------------------------------
+
+; enum PPUStatus (bitfield) (width 1 byte)
+PPUStatus_SpriteOverflow =  %100000
+PPUStatus_Sprite0Hit = 	%1000000
+PPUStatus_VBlankHit =  %10000000
 
 ; ---------------------------------------------------------------------------
 

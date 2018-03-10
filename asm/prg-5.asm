@@ -1,7 +1,7 @@
 
       ;.segment	BANK5
 ;       *	=  $A000
-      .BYTE $4E
+      .BYTE $4E					  ; This data continues	from the end of	bank 4
       .BYTE $52
       .BYTE $50
       .BYTE $52
@@ -267,8 +267,7 @@
       .BYTE $4C
       .BYTE $3E
       .BYTE $42
-byte_BANK5_A10A:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $30
       .BYTE $7E
       .BYTE $26
@@ -306,8 +305,7 @@ byte_BANK5_A10A:
       .BYTE $98
       .BYTE $38
       .BYTE $30
-byte_BANK5_A130:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $9A
       .BYTE $48
       .BYTE $88
@@ -404,7 +402,7 @@ byte_BANK5_A18D:
 	  .BYTE $90
 
 InstrumentSoundData:
-	  .BYTE $95
+	  .BYTE $95			  ; @TODO Should this label be moved up? oops
       .BYTE $95
       .BYTE $95
       .BYTE $95
@@ -827,8 +825,7 @@ byte_BANK5_A301:
       .BYTE $57
       .BYTE $58
       .BYTE $58
-unk_BANK5_A323:
-	  .BYTE $58
+      .BYTE $58
       .BYTE $58
       .BYTE $58
       .BYTE $58
@@ -899,8 +896,7 @@ unk_BANK5_A341:
       .BYTE $51
       .BYTE $51
       .BYTE $51
-unk_BANK5_A369:
-	  .BYTE $51
+      .BYTE $51
       .BYTE $51
       .BYTE $51
       .BYTE $51
@@ -940,8 +936,7 @@ unk_BANK5_A381:
       .BYTE $51
       .BYTE $52
       .BYTE $53
-unk_BANK5_A390:
-	  .BYTE $54
+      .BYTE $54
       .BYTE $55
       .BYTE $56
       .BYTE $57
@@ -1041,8 +1036,8 @@ byte_BANK5_A3AF:
       .BYTE $54
       .BYTE $55
 ; [00001C11 BYTES: BEGIN OF AREA UNUSED-BANK5:A3EF. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_A3EF:
-	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_unused_BANK5_A3EF:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; Look at all this space you	can use!
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

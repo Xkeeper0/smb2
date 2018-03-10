@@ -23,12 +23,11 @@ LevelAreaStartIndexes:
       .BYTE $82					  ; Level 5-2
       .BYTE $8C					  ; Level 5-3
       .BYTE $96					  ; Level 6-1
-byte_BANK8_8010:
-	  .BYTE $A0			  ; Level 6-2
+      .BYTE $A0					  ; Level 6-2
       .BYTE $AA					  ; Level 6-3
       .BYTE $B4					  ; Level 7-1
       .BYTE $BE					  ; Level 7-2
-      .BYTE $C8					  ; Level 7-3
+      .BYTE $C8					  ; Level 7-3 (unused)
 LevelDataPointersLo:
 	  .BYTE <LevelData_1_1_Area0
 						  ; Stuff below	here ------
@@ -113,8 +112,7 @@ LevelDataPointersLo:
       .BYTE <LevelData_3_2_Area2
       .BYTE <LevelData_3_2_Area2
       .BYTE <LevelData_3_3_Area0
-off_BANK8_8067:
-	  .BYTE <LevelData_3_3_Area1
+      .BYTE <LevelData_3_3_Area1
       .BYTE <LevelData_3_3_Area2
       .BYTE <LevelData_3_3_Area3
       .BYTE <LevelData_3_3_Area4
@@ -142,8 +140,7 @@ off_BANK8_8067:
       .BYTE <LevelData_4_2_Area3
       .BYTE <LevelData_4_2_Area3
       .BYTE <LevelData_4_2_Area3
-off_BANK8_8083:
-	  .BYTE <LevelData_4_3_Area0
+      .BYTE <LevelData_4_3_Area0
       .BYTE <LevelData_4_3_Area1
       .BYTE <LevelData_4_3_Area2
       .BYTE <LevelData_4_3_Area3
@@ -436,8 +433,7 @@ LevelDataPointersHi:
 						  ; here -- it's in another bank so
 						  ; the	disassembler is	choking	on it
       .BYTE $A0
-unk_BANK8_81A2:
-	  .BYTE $A0
+      .BYTE $A0
       .BYTE $A0
       .BYTE $A0
       .BYTE $A0
@@ -1100,7 +1096,7 @@ LevelData_7_1_Area3:
       .BYTE $23, $20, $E2, 3, 5, 4, $EB, $F4, $35, $C4,	$23, $F, $B, $F, $17, $A; $50
       .BYTE $F5, $12, $40, $C2,	$F, $C,	$F, $FF	  ; $60
 LevelData_7_1_Area4:
-	  .BYTE $A1, $EA, $10, 2, $48, $A		; end of 'BANK8'
+	  .BYTE $A1, $EA, $10, 2, $48, $A		; end of 'BANK8'                                  ; Data continues at the start of bank 9
 
 ; ===========================================================================
 

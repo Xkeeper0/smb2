@@ -1,23 +1,11 @@
 
       ;.segment	BANKF
 ;       *	=  $E000
-      .BYTE 0
-      .BYTE $23
-      .BYTE $E7
-      .BYTE   1
-      .BYTE   0
-      .BYTE $23
-      .BYTE $EF
-      .BYTE   1
-      .BYTE 0
-      .BYTE $23
-      .BYTE $F7
-      .BYTE   1
-      .BYTE 0
-      .BYTE $23
-      .BYTE $FF
-      .BYTE   1
-      .BYTE 0
+      .BYTE 0					  ; PPUBuffer_BANKE_DFA7 continued from	end of Bank D
+      .BYTE $23,$E7,1,0				  
+      .BYTE $23,$EF,1,0				  
+      .BYTE $23,$F7,1,0				  
+      .BYTE $23,$FF,1,0				  
       .BYTE 0
 WorldStartingLevel:
 	  .BYTE 0
@@ -31,198 +19,64 @@ WorldPlus1StartingLevel:
       .BYTE $12					  ; 5
       .BYTE $14					  ; 6
 PlayerSelectMarioSprites1:
-	  .BYTE	$8F ; è
-
-      .BYTE   0
-      .BYTE   0
-      .BYTE $48
-      .BYTE $8F
-      .BYTE   0
-      .BYTE $40
-      .BYTE $50
-      .BYTE $9F
-      .BYTE   2
-      .BYTE   0
-      .BYTE $48
-      .BYTE $9F
-      .BYTE   2
-      .BYTE $40
-      .BYTE $50
+	  .BYTE	$8F,0,0,$48			      
+      .BYTE $8F,0,$40,$50			  ; 4
+      .BYTE $9F,2,0,$48				  ; 8
+      .BYTE $9F,2,$40,$50			  ; $C
 PlayerSelectLuigiSprites1:
-	  .BYTE	$8F ; è
-      .BYTE   4
-      .BYTE   1
-      .BYTE $68
-      .BYTE $8F
-      .BYTE   4
-      .BYTE $41
-      .BYTE $70
-      .BYTE $9F
-      .BYTE   6
-      .BYTE   1
-      .BYTE $68
-      .BYTE $9F
-      .BYTE   6
-      .BYTE $41
-      .BYTE $70
+	  .BYTE	$8F,4,1,$68			      
+      .BYTE $8F,4,$41,$70			  ; 4
+      .BYTE $9F,6,1,$68				  ; 8
+      .BYTE $9F,6,$41,$70			  ; $C
 PlayerSelectToadSprites1:
-	  .BYTE $8F
-      .BYTE   8
-      .BYTE   2
-      .BYTE $88
-      .BYTE $8F
-      .BYTE   8
-      .BYTE $42
-      .BYTE $90
-      .BYTE $9F
-      .BYTE  $A
-      .BYTE   2
-      .BYTE $88
-      .BYTE $9F
-      .BYTE  $A
-      .BYTE $42
-      .BYTE $90
+	  .BYTE $8F,8,2,$88			     
+      .BYTE $8F,8,$42,$90			  ; 4
+      .BYTE $9F,$A,2,$88			  ; 8
+      .BYTE $9F,$A,$42,$90			  ; $C
 PlayerSelectPrincessSprites1:
-	  .BYTE $8F
-      .BYTE  $C
-      .BYTE   3
-      .BYTE $A8
-      .BYTE $8F
-      .BYTE  $C
-      .BYTE $43
-      .BYTE $B0
-      .BYTE $9F
-      .BYTE  $E
-      .BYTE   3
-      .BYTE $A8
-      .BYTE $9F
-      .BYTE  $E
-      .BYTE $43
-      .BYTE $B0
+	  .BYTE $8F,$C,3,$A8				 
+      .BYTE $8F,$C,$43,$B0			  ; 4
+      .BYTE $9F,$E,3,$A8			  ; 8
+      .BYTE $9F,$E,$43,$B0			  ; $C
 PlayerSelectMarioSprites2:
-	  .BYTE	$8F ; è
-
-      .BYTE $10
-      .BYTE   0
-      .BYTE $48
-      .BYTE $8F
-      .BYTE $12
-      .BYTE   0
-      .BYTE $50
-      .BYTE $9F
-      .BYTE $14
-      .BYTE   0
-      .BYTE $48
-      .BYTE $9F
-      .BYTE $16
-      .BYTE   0
-      .BYTE $50
+	  .BYTE	$8F,$10,0,$48			      
+      .BYTE $8F,$12,0,$50			  ; 4
+      .BYTE $9F,$14,0,$48			  ; 8
+      .BYTE $9F,$16,0,$50			  ; $C
 PlayerSelectLuigiSprites2:
-	  .BYTE	$8F ; è
-      .BYTE $18
-      .BYTE   1
-      .BYTE $68
-      .BYTE $8F
-      .BYTE $1A
-      .BYTE   1
-      .BYTE $70
-      .BYTE $9F
-      .BYTE $1C
-      .BYTE   1
-      .BYTE $68
-      .BYTE $9F
-      .BYTE $1E
-      .BYTE   1
-      .BYTE $70
+	  .BYTE	$8F,$18,1,$68			      
+      .BYTE $8F,$1A,1,$70			  ; 4
+      .BYTE $9F,$1C,1,$68			  ; 8
+      .BYTE $9F,$1E,1,$70			  ; $C
 PlayerSelectToadSprites2:
-	  .BYTE $8F
-      .BYTE $20
-      .BYTE   2
-      .BYTE $88
-      .BYTE $8F
-      .BYTE $22
-      .BYTE   2
-      .BYTE $90
-      .BYTE $9F
-      .BYTE $24
-      .BYTE   2
-      .BYTE $88
-      .BYTE $9F
-      .BYTE $26
-      .BYTE   2
-      .BYTE $90
+	  .BYTE $8F,$20,2,$88			     
+      .BYTE $8F,$22,2,$90			  ; 4
+      .BYTE $9F,$24,2,$88			  ; 8
+      .BYTE $9F,$26,2,$90			  ; $C
 PlayerSelectPrincessSprites2:
-	  .BYTE $8F
-      .BYTE $28
-      .BYTE   3
-      .BYTE $A8
-      .BYTE $8F
-      .BYTE $2A
-      .BYTE   3
-      .BYTE $B0
-      .BYTE $9F
-      .BYTE $2C
-      .BYTE   3
-      .BYTE $A8
-      .BYTE $9F
-      .BYTE $2E
-      .BYTE   3
-      .BYTE $B0
+	  .BYTE $8F,$28,3,$A8			 
+      .BYTE $8F,$2A,3,$B0			  ; 4
+      .BYTE $9F,$2C,3,$A8			  ; 8
+      .BYTE $9F,$2E,3,$B0			  ; $C
 PlayerSelectSpriteIndexes:
 	  .BYTE	0, $30,	$20, $10		      
 BonusChanceCherrySprite:
-	  .BYTE $5F
-      .BYTE   5
-      .BYTE   1
-      .BYTE $58
-      .BYTE $5F
-      .BYTE   7
-      .BYTE   1
-      .BYTE $60
+	  .BYTE $5F,5,1,$58			    
+      .BYTE $5F,7,1,$60				  ; 4
 BonusChanceStarSprite:
-	  .BYTE $5F
-      .BYTE   9
-      .BYTE   1
-      .BYTE $58
-      .BYTE $5F
-      .BYTE   9
-      .BYTE $41
-      .BYTE $60
+	  .BYTE $5F,9,1,$58				  
+      .BYTE $5F,9,$41,$60			  ; 4
 BonusChanceVeggieSprite:
-	  .BYTE $5F
-      .BYTE  $B
-      .BYTE   1
-      .BYTE $58
-      .BYTE $5F
-      .BYTE  $B
-      .BYTE $41
-      .BYTE $60
+	  .BYTE $5F,$B,1,$58			    
+      .BYTE $5F,$B,$41,$60			  ; 4
 BonusChanceSnifitSprite:
-	  .BYTE $5F
-      .BYTE   1
-      .BYTE   1
-      .BYTE $58
-      .BYTE $5F
-      .BYTE   3
-      .BYTE   1
-      .BYTE $60
+	  .BYTE $5F,1,1,$58			    
+      .BYTE $5F,3,1,$60				  ; 4
 PlayerSelectSpritePalettesDark:
-	  .BYTE $3F
-      .BYTE $10
-      .BYTE $10
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $12
-      .BYTE   1
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $12
-      .BYTE   1
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $12
-      .BYTE   1
-      .BYTE  $F
+	  .BYTE $3F,$10,$10,$F			   
+      .BYTE $22,$12,1,$F			  ; 4
+      .BYTE $22,$12,1,$F			  ; 8
+      .BYTE $22,$12,1,$F			  ; $C
       .BYTE $22
       .BYTE $12
       .BYTE 1
@@ -232,93 +86,35 @@ unk_BANKF_E0D1:
       .BYTE $15
       .BYTE  $E
       .BYTE   7
-unk_BANKF_E0D5:
-	  .BYTE $3F
-      .BYTE $10
-      .BYTE   4
-      .BYTE  $F
-      .BYTE $27
-      .BYTE $16
-      .BYTE   1
-      .BYTE $3F
-      .BYTE $14
-      .BYTE   4
-      .BYTE  $F
-      .BYTE $36	; 6
-      .BYTE $2A
-      .BYTE   1
-      .BYTE $3F
-      .BYTE $18
-      .BYTE   4
-      .BYTE  $F
-      .BYTE $27
-      .BYTE $30	
-      .BYTE   1
-      .BYTE $3F
-      .BYTE $1C
-      .BYTE   4
-      .BYTE  $F
-      .BYTE $36	; 6
-      .BYTE $25
-      .BYTE   7
+byte_BANKF_E0D5:
+	  .BYTE $3F,$10,4,$F			    
+      .BYTE $27,$16,1,$3F			  ; 4
+      .BYTE $14,4,$F,$36			  ; 8
+      .BYTE $2A,1,$3F,$18			  ; $C
+      .BYTE 4,$F,$27,$30			  ; $10
+      .BYTE 1,$3F,$1C,4				  ; $14
+      .BYTE $F,$36,$25,7			  ; $18
 TitleCardPalettes:
-	  .BYTE	$3F ; ?
-
-      .BYTE   0
-      .BYTE $20
-      .BYTE $38	; 8
-      .BYTE $30	
-      .BYTE $1A
-      .BYTE  $F
-      .BYTE $38	; 8
-      .BYTE $38	; 8
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $38	; 8
-      .BYTE $17
-      .BYTE $17
-      .BYTE $38	; 8
-      .BYTE $38	; 8
-      .BYTE $28
-      .BYTE $18
-      .BYTE   8
-      .BYTE $38	; 8
-      .BYTE $30	
-      .BYTE $27
-      .BYTE   1
-      .BYTE $38	; 8
-      .BYTE $37	; 7
-      .BYTE $27
-      .BYTE   6
-      .BYTE $38	; 8
-      .BYTE $25
-      .BYTE $36	; 6
-      .BYTE   6
-      .BYTE $38	; 8
-      .BYTE $12
-      .BYTE $36	; 6
-      .BYTE   1
-      .BYTE   0
+	  .BYTE	$3F,0,$20,$38			      
+      .BYTE $30,$1A,$F,$38			  ; 4
+      .BYTE $38,$F,$F,$38			  ; 8
+      .BYTE $17,$17,$38,$38			  ; $C
+      .BYTE $28,$18,8,$38			  ; $10
+      .BYTE $30,$27,1,$38			  ; $14
+      .BYTE $37,$27,6,$38			  ; $18
+      .BYTE $25,$36,6,$38			  ; $1C
+      .BYTE $12,$36,1,0				  ; $20
 BonusChanceSpritePalettes:
-	  .BYTE	 $F
-
-      .BYTE $37	; 7
-      .BYTE $16
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $37	; 7
-      .BYTE $16
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $37	; 7
-      .BYTE $16
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $37	; 7
-      .BYTE $16
-      .BYTE  $F
+	  .BYTE	$F,$37,$16,$F			      
+      .BYTE $F,$37,$16,$F			  ; 4
+      .BYTE $F,$37,$16,$F			  ; 8
+      .BYTE $F,$37,$16,$F			  ; $C
 
 ; =============== S U B	R O U T	I N E =======================================
+
+; Load A with an index and call	this to
+; jump to a pointer from the table directly
+; after	the call.
 
 JumpToTableAfterJump:
       ASL     A
@@ -339,12 +135,7 @@ JumpToTableAfterJump:
 
 ; ---------------------------------------------------------------------------
 BlackAndWhitePalette:
-	  .BYTE  $F
-      .BYTE $30	
-      .BYTE $30	
-      .BYTE  $F
-
-; =============== S U B	R O U T	I N E =======================================
+	  .BYTE $F,$30,$30,$F			 ; =============== S U B	R O U T	I N E =======================================
 
 SetBlackAndWhitePalette:
       LDA     PPUSTATUS
@@ -388,7 +179,7 @@ sub_BANKF_E166:
 
       JSR     SetScrollXYTo0
 
-      LDA     #2
+      LDA     #ScreenUpdateBuffer_RAM_55F
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
@@ -410,11 +201,11 @@ sub_BANKF_E17F:
 
       LDA     #$40
       STA     StackArea
-      LDA     #3
+      LDA     #ScreenUpdateBuffer_CharacterSelect
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
-      LDA     #4
+      LDA     #ScreenUpdateBuffer_BANKE_DE7A
       STA     ScreenUpdateIndex
       JMP     WaitForNMI
 
@@ -493,7 +284,7 @@ sub_BANKF_E1F4:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANKF_E1FA:
+InitializeSomeLevelStuff:
       LDA     #0
       STA     CurrentLevelArea
       STA     byte_RAM_4E8
@@ -509,7 +300,7 @@ sub_BANKF_E1FA:
       STA     byte_RAM_6F6
       RTS
 
-; End of function sub_BANKF_E1FA
+; End of function InitializeSomeLevelStuff
 
 ; ---------------------------------------------------------------------------
 byte_BANKF_E220:
@@ -527,20 +318,22 @@ byte_BANKF_E224:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANKF_E228:
+DisplayLevelTitleCardAndMore:
       JSR     WaitForNMI_TurnOffPPU
 
       JSR     DisableNMI
 
-      LDA     #$FF
+      LDA     #$FF				  ; Set	the scrolling mirror over to the right side...
+						  ; This Isn't quiiite correct, and causes a bunch of
+						  ; crud to show on the	very left pixel	-- residue
+						  ; from the character select screen
       STA     PPUScrollXMirror
       JSR     ChangeTitleCardCHR
 
-MapperChangeBankA_1:
-      LDA     #5
+      LDA     #PRGBank_A_B
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANKA_8451
+      JSR     CopyCharacterStatsAndStuff
 
       JSR     EnableNMI
 
@@ -550,19 +343,19 @@ MapperChangeBankA_1:
 
 loc_BANKF_E245:
       LDA     TitleCardPalettes,Y
-      STA     unk_RAM_55F,Y
+      STA     PPUBuffer_55F,Y
       DEY
       BPL     loc_BANKF_E245
 
-      LDA     #2
+      LDA     #ScreenUpdateBuffer_RAM_55F	  ; Then tell it to dump that into the PPU
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
-      LDA     #$15
-      STA     ScreenUpdateIndex
+      LDA     #ScreenUpdateBuffer_BANKE_DFAF	  ; @TODO I am not sure	what this is doing, exactly
+      STA     ScreenUpdateIndex			  ; Commenting it out doesn't seem to have any effect
       JSR     WaitForNMI
 
-      JSR     sub_BANKA_8327
+      JSR     DrawTitleCardWorldImage
 
       JSR     WaitForNMI_TurnOnPPU
 
@@ -585,20 +378,20 @@ loc_BANKF_E269:
 
       JSR     sub_BANKF_FE16
 
-      LDA     #5
+      LDA     #PRGBank_A_B
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANKA_8451
+      JSR     CopyCharacterStatsAndStuff
 
       JSR     EnableNMI
 
       RTS
 
-; End of function sub_BANKF_E228
+; End of function DisplayLevelTitleCardAndMore
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANKF_E288:
+DoCharacterSelectMenu:
       JSR     WaitForNMI
 
       LDA     #0
@@ -607,10 +400,10 @@ sub_BANKF_E288:
 
       JSR     LoadCharacterSelectCHRBanks
 
-      LDA     #5
+      LDA     #PRGBank_A_B
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANKA_8451
+      JSR     CopyCharacterStatsAndStuff
 
       JSR     sub_BANKF_E166
 
@@ -618,7 +411,7 @@ sub_BANKF_E288:
       CMP     #$A5
       BEQ     loc_BANKF_E2B2
 
-      LDA     #5
+      LDA     #PRGBank_A_B
       JSR     ChangeMappedPRGBank
 
       LDA     #$A5
@@ -629,7 +422,7 @@ loc_BANKF_E2B2:
 
       JSR     DisableNMI
 
-      LDA     #2
+      LDA     #Music1_CharacterSelect
       STA     Music1Queue
       LDA     CurrentCharacter
       STA     byte_RAM_404
@@ -660,13 +453,13 @@ loc_BANKF_E2CA:
 loc_BANKF_E2E8:
       LDA     Player1JoypadPress
       AND     #ControllerInput_Right|ControllerInput_Left
-      BNE     loc_BANKF_E2F1
+      BNE     CharacterSelect_ChangeCharacter
 
       JMP     CharacterSelectMenuLoop
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKF_E2F1:
+CharacterSelect_ChangeCharacter:
       LDA     Player1JoypadPress
       AND     #ControllerInput_Right
       BEQ     loc_BANKF_E2FE
@@ -692,7 +485,7 @@ loc_BANKF_E30B:
 loc_BANKF_E311:
       LDY     #0
       LDA     #$21
-      STA     _RAM_PPUDataBuffer
+      STA     PPUBuffer_301
       LDA     #$C9
       STA     byte_RAM_302
       LDA     #$4F
@@ -737,7 +530,7 @@ loc_BANKF_E311:
 
 loc_BANKF_E37D:
       LDA     PlayerSelectSpritePalettesDark,Y
-      STA     _RAM_PPUDataBuffer,Y
+      STA     PPUBuffer_301,Y
       INY
       DEX
       BPL     loc_BANKF_E37D
@@ -745,19 +538,20 @@ loc_BANKF_E37D:
       LDA     #6
       STA     byte_RAM_A
       LDX     CurrentCharacter
-      LDA     unk_BANKF_E0D1,X
+      LDA     unk_BANKF_E0D1,X			  ; @TODO What is this *doing*?
+						  ; It's reading in the middle of some palette data
       TAX
 
 loc_BANKF_E391:
-      LDA     unk_BANKF_E0D5,X
-      STA     _RAM_PPUDataBuffer,Y
+      LDA     byte_BANKF_E0D5,X
+      STA     PPUBuffer_301,Y
       INY
       INX
       DEC     byte_RAM_A
       BPL     loc_BANKF_E391
 
       LDA     #0
-      STA     _RAM_PPUDataBuffer,Y
+      STA     PPUBuffer_301,Y
 
 CharacterSelectMenuLoop:
       JSR     WaitForNMI_TurnOnPPU
@@ -821,49 +615,54 @@ loc_BANKF_E3EC:
       STA     MusicQueue2
       RTS
 
-; End of function sub_BANKF_E288
+; End of function DoCharacterSelectMenu
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKF_E3F9:
-      LDA     #0
+StartGame:
+      LDA     #0				  ; This starts	the game once RESET has	done its thing.
+						  ; We also come here after choosing "RETRY"
+						  ; from the game over menu
       STA     PPUMASK
       JSR     DisableNMI
 
-      LDA     #0
+      LDA     #PRGBank_0_1
       STA     byte_RAM_6F3
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK0_9A3D
+      JSR     TitleScreen			  ; The	whole title screen is a	subroutine, lol
 
       INC     byte_RAM_6F3
-      LDA     #2
+      LDA     #2				  ; Give the player 2 continues	once they start
       STA     Continues
 
-loc_BANKF_E414:
-      LDA     #3
-      STA     ExtraLives
+ContinueGame:
+      LDA     #3				  ; We return here after picking "CONTINUE"
+						  ; from the game over menu
+      STA     ExtraLives			  ; You	get 3 extra lives to start. Generous as	always
 
 StartCharacterSelectMenu:
       LDX     CurrentWorld
       LDY     WorldStartingLevel,X
       STY     CurrentLevel
       STY     byte_RAM_4E7
-      JSR     sub_BANKF_E288
+      JSR     DoCharacterSelectMenu		  ; Does Character Select menu stuff
 
-      JSR     sub_BANKF_E1FA
+      JSR     InitializeSomeLevelStuff		  ; Initializes	some level stuff
 
-      JSR     sub_BANKF_E228
+      JSR     DisplayLevelTitleCardAndMore	  ; Displays title card	for the	stage,
+						  ; and	seems to load the proper graphics
+						  ; and	reset some variables
 
       LDA     #$FF
       STA     byte_RAM_545
-      BNE     loc_BANKF_E43B
+      BNE     loc_BANKF_E43B			  ; Branch always?
 
 loc_BANKF_E435:
-      JSR     sub_BANKF_E288
+      JSR     DoCharacterSelectMenu
 
 loc_BANKF_E438:
-      JSR     sub_BANKF_E228
+      JSR     DisplayLevelTitleCardAndMore
 
 loc_BANKF_E43B:
       JSR     WaitForNMI_TurnOffPPU
@@ -881,12 +680,12 @@ loc_BANKF_E44A:
       STA     PPUCTRL
       LDA     #$80
       STA     StackArea
-      LDA     #4
+      LDA     #PRGBank_8_9
       JSR     ChangeMappedPRGBank
 
       JSR     GetLevelPointers
 
-      LDA     #3
+      LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK6_9567
@@ -899,7 +698,7 @@ loc_BANKF_E44A:
 
       JSR     sub_BANKF_E1F4
 
-      LDA     #$B0
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
       STA     PPUCtrlMirror
       LDA     IsHorizontalLevel
       BEQ     loc_BANKF_E4CC
@@ -907,7 +706,7 @@ loc_BANKF_E44A:
 loc_BANKF_E478:
       JSR     WaitForNMI
 
-      LDA     #0
+      LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK0_8500
@@ -973,7 +772,7 @@ loc_BANKF_E4B9:
 loc_BANKF_E4CC:
       JSR     WaitForNMI
 
-      LDA     #0
+      LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK0_8000
@@ -995,11 +794,11 @@ loc_BANKF_E4E5:
       BNE     loc_BANKF_E4F4
 
       LDA     Player1JoypadPress
-      AND     #$10
+      AND     #ControllerInput_Start
       BNE     loc_BANKF_E515
 
 loc_BANKF_E4F4:
-      JSR     HideAllSprites
+      JSR     HideAllSprites			  ; Pause stuff
 
       JSR     sub_BANKF_F17E
 
@@ -1060,8 +859,8 @@ loc_BANKF_E533:
       LDA     byte_RAM_7
       AND     #1
       CLC
-      ADC     #$D
-      STA     ScreenUpdateIndex
+      ADC     #$D				  ; Will use either $D or $E from the update index pointers
+      STA     ScreenUpdateIndex			  ; @TODO I assume this	is what	blinks "PAUSE"
       JMP     loc_BANKF_E51D
 
 ; ---------------------------------------------------------------------------
@@ -1071,7 +870,7 @@ loc_BANKF_E54B:
 
       JSR     sub_BANKF_FE16
 
-      LDA     #3
+      LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK6_93A4
@@ -1082,7 +881,7 @@ loc_BANKF_E54B:
 
       JSR     HideAllSprites
 
-      LDA     #0
+      LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK0_81D6
@@ -1132,7 +931,7 @@ loc_BANKF_E58F:
 loc_BANKF_E5A0:
       JSR     ClearNametables
 
-      LDA     #3
+      LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
       LDA     #0
@@ -1141,19 +940,19 @@ loc_BANKF_E5A0:
       CMP     #2
       BEQ     loc_BANKF_E5D4
 
-      LDA     #4
+      LDA     #PRGBank_8_9
       JSR     ChangeMappedPRGBank
 
       JSR     GetJarPointers
 
       JSR     GetEnemyPointers
 
-      LDA     #3
+      LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK6_94AD
 
-      LDA     #4
+      LDA     #Music1_Inside
       STA     Music1Queue
       LDA     #1
       STA     byte_RAM_545
@@ -1170,7 +969,7 @@ loc_BANKF_E5D4:
       STA     byte_RAM_545
 
 loc_BANKF_E5E1:
-      LDA     #0
+      LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK0_870C
@@ -1189,7 +988,7 @@ loc_BANKF_E5EC:
       CMP     #2
       BEQ     loc_BANKF_E606
 
-      LDA     #3
+      LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK6_93A4
@@ -1223,7 +1022,7 @@ loc_BANKF_E61A:
 loc_BANKF_E627:
       LDA     CurrentLevelAreaCopy
       STA     CurrentLevelArea
-      LDA     #3
+      LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK6_93A4
@@ -1241,7 +1040,7 @@ loc_BANKF_E627:
       STA     Music1Queue
 
 loc_BANKF_E64C:
-      LDA     #0
+      LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK0_874C
@@ -1326,7 +1125,7 @@ DoGameOverStuff:
 
       JSR     WaitForNMI_TurnOnPPU
 
-      LDA     #5
+      LDA     #ScreenUpdateBuffer_Text_Game_Over
       STA     ScreenUpdateIndex
       LDA     #$C0
       STA     byte_RAM_6
@@ -1341,7 +1140,7 @@ loc_BANKF_E6E6:
 
 loc_BANKF_E6EF:
       LDA     Text_Continue,Y
-      STA     unk_RAM_67B,Y
+      STA     PPUBuffer_67B,Y
       DEY
       BPL     loc_BANKF_E6EF
 
@@ -1359,7 +1158,7 @@ loc_BANKF_E6EF:
 
       LDA     #1
       STA     byte_RAM_8
-      LDA     #7
+      LDA     #ScreenUpdateBuffer_Text_Retry
 
 loc_BANKF_E717:
       STA     ScreenUpdateIndex
@@ -1390,7 +1189,7 @@ loc_BANKF_E733:
       STA     byte_RAM_71AF
       LDA     #$F6
       STA     byte_RAM_71AB,Y
-      LDA     #$13
+      LDA     #ScreenUpdateBuffer_RAM_71a8
       STA     ScreenUpdateIndex
 
 loc_BANKF_E747:
@@ -1399,15 +1198,15 @@ loc_BANKF_E747:
       BEQ     loc_BANKF_E719
 
       LDA     byte_RAM_8
-      BNE     loc_BANKF_E757
+      BNE     GameOver_Retry
 
       STA     SlotMachineCoins
-      JMP     loc_BANKF_E414
+      JMP     ContinueGame
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKF_E757:
-      JMP     loc_BANKF_E3F9
+GameOver_Retry:
+      JMP     StartGame
 
 ; ---------------------------------------------------------------------------
 
@@ -1440,13 +1239,13 @@ loc_BANKF_E75A:
 
       JSR     ChangeTitleCardCHR
 
-      LDA     #$12
+      LDA     #ScreenUpdateBuffer_RAM_7194
       STA     ScreenUpdateIndex
       LDA     #Music2_SlotWarpFanfare
       STA     MusicQueue2
       JSR     sub_BANKF_E94A
 
-      JSR     sub_BANKF_E1FA
+      JSR     InitializeSomeLevelStuff
 
       JMP     loc_BANKF_E435
 
@@ -1475,12 +1274,12 @@ EndOfLevelSlotMachine:
 
       JSR     CopyUnusedCoinSpriteToSpriteArea
 
-      LDA     #5
+      LDA     #PRGBank_A_B
       JSR     ChangeMappedPRGBank
 
       JSR     CopyBonusChanceLayoutToRAM
 
-      LDA     #$17
+      LDA     #ScreenUpdateBuffer_RAM_BonusChanceLayout
       STA     ScreenUpdateIndex
       LDA     #$40
       STA     StackArea
@@ -1596,7 +1395,7 @@ DoSlotMachineSpinnyShit:
 
       JSR     sub_BANKF_E916
 
-      LDA     unk_BANKF_E9DF,Y
+      LDA     byte_BANKF_E9DF,Y
       STA     ScreenUpdateIndex
       INC     byte_RAM_6
       LDA     ObjectXLo				  ; Reel 1 still active?
@@ -1604,7 +1403,7 @@ DoSlotMachineSpinnyShit:
       ORA     ObjectXLo+2			  ; Reel 3 still active?
       BNE     DoSlotMachineSpinnyShit		  ; If any are still active, go	back to	waiting
 
-      LDA     #$10
+      LDA     #ScreenUpdateBuffer_RAM_6df
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
@@ -1666,7 +1465,7 @@ loc_BANKF_E8ED:
 
       JSR     sub_BANKF_E916
 
-      LDA     unk_BANKF_E9E3,Y
+      LDA     byte_BANKF_E9E3,Y
       STA     ScreenUpdateIndex
       DEC     byte_RAM_6
       BNE     loc_BANKF_E8ED
@@ -1683,7 +1482,7 @@ SlotMachineLoseFanfare:
       JSR     sub_BANKF_E94A
 
 loc_BANKF_E90C:
-      LDA     #$11
+      LDA     #ScreenUpdateBuffer_RAM_6e4
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
@@ -1769,7 +1568,7 @@ EndingSceneRoutine:
 						  ; It looks like they missed this one,	though.
       ASL     A
       STA     byte_RAM_607
-      LDA     #0
+      LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK1_A43B
@@ -1784,7 +1583,7 @@ EndingSceneRoutine:
 
       JSR     WaitForNMI
 
-      LDA     #0
+      LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
       INC     byte_RAM_6F3
@@ -1800,7 +1599,7 @@ EndingSceneRoutine:
 
       JSR     WaitForNMI
 
-      LDA     #6
+      LDA     #PRGBank_C_D
       JSR     ChangeMappedPRGBank
 
       INC     byte_RAM_6F3
@@ -1817,30 +1616,32 @@ DisableNMI:
 ; End of function DisableNMI
 
 ; ---------------------------------------------------------------------------
-Text_Game_Over:
-	  .BYTE $21, $CB, $A, $E0,	$DA, $E6, $DE, $FB, $FB, $E8, $EF, $DE
+PPUBuffer_Text_Game_Over:
+	  .BYTE $21, $CB, $A, $E0, $DA, $E6, $DE, $FB, $FB, $E8,	$EF, $DE
       .BYTE $EB, 0				  ; $C ; "GAME	OVER"
 Text_Continue:
 	  .BYTE $21, $75, 1, 0			  ; (Placeholder for continue count)
+						  ; This is loaded manually and	drawn so the count
+						  ; can	be patched in
 						  ; * CONTINUE
       .BYTE $21, $6A, $A, $F6, $FB, $DC, $E8, $E7, $ED,	$E2, $E7, $EE
       .BYTE $DE					  ; $C
-Text_Retry:
-	  .BYTE $21, $AA, 7, $F6, $FB,	$EB, $DE, $ED, $EB, $F2; * RETRY
+PPUBuffer_Text_Retry:
+	  .BYTE $21,	$AA, 7,	$F6, $FB, $EB, $DE, $ED, $EB, $F2; * RETRY
       .BYTE $21, $CB, $A, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB; Blank, erases "GAME	OVER"
       .BYTE $FB, 0				  ; $C
       .BYTE   9
       .BYTE  $F
-unk_BANKF_E9DF:
-	  .BYTE  $B
-      .BYTE $10
+byte_BANKF_E9DF:
+	  .BYTE ScreenUpdateBuffer_RAM_6ab
+      .BYTE ScreenUpdateBuffer_RAM_6df
 byte_BANKF_E9E1:
-	  .BYTE $A
+	  .BYTE ScreenUpdateBuffer_RAM_693
 
-      .BYTE $F
-unk_BANKF_E9E3:
-	  .BYTE  $C
-      .BYTE  $F
+      .BYTE ScreenUpdateBuffer_RAM_6da
+byte_BANKF_E9E3:
+	  .BYTE ScreenUpdateBuffer_RAM_6bd
+      .BYTE ScreenUpdateBuffer_RAM_6da
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -1861,7 +1662,7 @@ sub_BANKF_E9F4:
 
       JSR     ChangeTitleCardCHR
 
-      LDA     #0
+      LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK0_81A2
@@ -1870,7 +1671,7 @@ sub_BANKF_E9F4:
 
 loc_BANKF_EA04:
       LDA     TitleCardPalettes,Y
-      STA     unk_RAM_55F,Y
+      STA     PPUBuffer_55F,Y
       DEY
       BPL     loc_BANKF_EA04
 
@@ -2011,9 +1812,9 @@ WaitForNMI:
       LDA     ScreenUpdateIndex
       ASL     A
       TAX
-      LDA     off_BANKE_DC00,X
+      LDA     ScreenUpdateBufferPointers,X
       STA     RAM_PPUDataBufferPointer
-      LDA     off_BANKE_DC00+1,X
+      LDA     ScreenUpdateBufferPointers+1,X
       STA     RAM_PPUDataBufferPointer+1
       LDA     #0
       STA     NMIWaitFlag			  ; Start waiting for NMI to finish
@@ -2340,7 +2141,7 @@ loc_BANKF_EC4B:
       BNE     loc_BANKF_EC55
 
       STA     byte_RAM_300
-      STA     _RAM_PPUDataBuffer
+      STA     PPUBuffer_301
 
 loc_BANKF_EC55:
       LDA     #0
@@ -4949,27 +4750,27 @@ _unused_BANKF_FE97:
 
       ;	public RESET
 RESET:
-      SEI
+      SEI					  ; This code is called	when the NES is	reset.
       CLD
       LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable0000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled
       STA     PPUCTRL
-      LDX     #$FF
+      LDX     #$FF				  ; Reset stack	pointer
       TXS
 
 loc_BANKF_FF5A:
-      LDA     PPUSTATUS
-      AND     #$80
+      LDA     PPUSTATUS				  ; Wait for VBlank
+      AND     #PPUStatus_VBlankHit
       BEQ     loc_BANKF_FF5A
 
 loc_BANKF_FF61:
-      LDA     PPUSTATUS
+      LDA     PPUSTATUS				  ; Wait for a second VBlank
       BPL     loc_BANKF_FF61
 
       LDA     #0
       STA     $A000
       LDA     #$80
       STA     $A001
-      JMP     loc_BANKF_E3F9
+      JMP     StartGame
 
 ; End of function RESET
 
@@ -4994,7 +4795,10 @@ loc_BANKF_FF75:
 ; =============== S U B	R O U T	I N E =======================================
 
 ChangeMappedPRGBank:
-      STA     MMC3PRGBankTemp			  ; See	below comment
+      STA     MMC3PRGBankTemp			  ; See	below comment.
+						  ; Calling this one will save the changed bank
+						  ; to RAM, so if something uses the below version
+						  ; the	original bank set with this can	be restored.
 
 ; End of function ChangeMappedPRGBank
 
@@ -5006,12 +4810,17 @@ ChangeMappedPRGBankWithoutSaving:
 						  ; LDA	0 JSR Change...	= Bank 0/1
 						  ; LDA	1 JSR Change...	= Bank 2/3
 						  ; etc.
+						  ;
+						  ; This version changes the bank numbers without
+						  ; saving the change to RAM, so the previous bank
+						  ; can	be recalled later (mostly for temporary	switches,
+						  ; like music handling	and such)
       PHA
       LDA     #$86
       STA     $8000
       PLA
       STA     $8001				  ; Change first bank
-      ORA     #1
+      ORA     #1				  ; Use	the bank right after this one next
       PHA
       LDA     #$87
       STA     $8000
@@ -5039,14 +4848,29 @@ _unused_BANKF_FFA4:
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF	  ; $40
 ; [00000047 BYTES: END OF AREA UNUSED-BANKF:FFA4. PRESS	KEYPAD "-" TO COLLAPSE]
 UnusedTextZELDA:
-	  .BYTE $5A
-      .BYTE $45
-      .BYTE $4C
-      .BYTE $44
-      .BYTE $41
-      .BYTE $DF, $E6, 0, 0, $38, 4, 1, 4, 1, $BE  
-      .WORD NMI
+	  .BYTE 'ZELDA'                     ; Not used; leftover part of FamicomBox cart title?
+IRQ:
+	    .BYTE $DF
+						  ; Note that this is NOT CODE.
+						  ; If the NES actually	hits a BRK,
+						  ; the	game will probably just	explode.
+						  ; If you wanted, you could write
+						  ; some sort of crash handler though.
+      .BYTE $E6
+      .BYTE   0
+      .BYTE   0
+      .BYTE $38	; 8
+      .BYTE   4
+      .BYTE   1
+      .BYTE   4
+      .BYTE   1
+      .BYTE $BE
+NESVectorTables:
+	  .WORD NMI			  ; Vectors for	the NES	CPU. These should ALWAYS be at $FFFA!
+						  ; Add	a .pad or .base	before here if you change code above.
+						  ; NMI	= VBlank, RESET	= ...well, reset.
+						  ; IRQ	is not used, but you could if you wanted.
       .WORD RESET
-      .WORD $FFF0
+      .WORD IRQ
 ; end of 'BANKF'
 ; End

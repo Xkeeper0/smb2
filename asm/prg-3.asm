@@ -5410,13 +5410,13 @@ loc_BANK3_BC66:
       PHA
       LDX     byte_RAM_300
       LDA     #0
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       TYA
       AND     #$F0
       ASL     A
-      ROL     _RAM_PPUDataBuffer,X
+      ROL     PPUBuffer_301,X
       ASL     A
-      ROL     _RAM_PPUDataBuffer,X
+      ROL     PPUBuffer_301,X
       STA     byte_RAM_302,X
       TYA
       AND     #$F
@@ -5438,8 +5438,8 @@ loc_BANK3_BC66:
 loc_BANK3_BCBA:
       LDA     unk_BANK3_BD0B,Y
       CLC
-      ADC     _RAM_PPUDataBuffer,X
-      STA     _RAM_PPUDataBuffer,X
+      ADC     PPUBuffer_301,X
+      STA     PPUBuffer_301,X
       STA     byte_RAM_306,X
       LDA     #2
       STA     byte_RAM_303,X
@@ -5766,7 +5766,7 @@ sub_BANK3_BE0B:
       DEC     byte_RAM_4C6
       LDX     byte_RAM_300
       LDA     #$3F
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       LDA     #$10
       STA     byte_RAM_302,X
       LDA     #4
@@ -5861,8 +5861,8 @@ locret_BANK3_BEAF:
 ; End of function sub_BANK3_BE0B
 
 ; ---------------------------------------------------------------------------
-_empty_7EB0:
-	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
+_unused_BANK3_BEB0:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$C
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$18
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$24

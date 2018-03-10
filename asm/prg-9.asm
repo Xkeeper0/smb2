@@ -1,8 +1,8 @@
 
       ;.segment	BANK9
 ;       *	=  $A000
-      .BYTE $F5, $12, $30, $C, $33, $F0, $8B, $F1, $6C,	$F2, $74, $39, $1A, $43, $1A, $43
-      .BYTE 0, 0, $F0, $8D, $F1, $4C, $F1, $CA,	$F5, $13, 0, $FF; $10
+      .BYTE $F5, $12, $30, $C, $33, $F0, $8B, $F1, $6C,	$F2, $74, $39, $1A, $43, $1A, $43; Data continues from LevelData_7_1_Area4
+      .BYTE 0, 0, $F0, $8D, $F1, $4C, $F1, $CA,	$F5, $13, 0, $FF; $10 ;	in bank	8
 LevelData_7_1_Area5:
 	  .BYTE $A1, $EA, 0, 1, $4C, 0, $21, $2D, 2, $21, 3, $21, 4, $21, 5, $21
       .BYTE 6, $26, 7, $51, $11, $38, $3A, $32,	$17, $A, $F5, $12, $16,	$F0, $3C, $F1; $10
@@ -224,8 +224,7 @@ EnemyPointers_Level_1_2_Hi:
 
       .BYTE >EnemyPointers_Level_1_2_Area1
       .BYTE >EnemyPointers_Level_1_2_Area2
-off_BANK9_A56B:
-	  .BYTE >EnemyPointers_Level_1_2_Area3
+      .BYTE >EnemyPointers_Level_1_2_Area3
       .BYTE >EnemyPointers_Level_1_2_Area4
       .BYTE >EnemyPointers_Level_1_2_Area5
       .BYTE >EnemyPointers_Level_1_2_Area5
@@ -1730,7 +1729,7 @@ EnemyPointers_Level_7_3_Area3:
 EnemyPointers_Level_7_3_Area4:
 	  .BYTE 1
 
-      .BYTE 1
+      .BYTE 1					  ; Unused
       .BYTE 1
       .BYTE 1
       .BYTE 1

@@ -70,6 +70,45 @@ SoundEffect1_HawkOpen_WartBarf:	= $80
 
 ; ---------------------------------------------------------------------------
 
+; enum PRGBank (width 1	byte)
+PRGBank_0_1: = 0
+PRGBank_2_3: = 1
+PRGBank_4_5: = 2
+PRGBank_6_7: = 3
+PRGBank_8_9: = 4
+PRGBank_A_B: = 5
+PRGBank_C_D: = 6
+
+; ---------------------------------------------------------------------------
+
+; enum ScreenUpdateBuffer
+ScreenUpdateBuffer_RAM_301: = 0
+ScreenUpdateBuffer_RAM_583: = 1
+ScreenUpdateBuffer_RAM_55F: = 2
+ScreenUpdateBuffer_CharacterSelect: = 3
+ScreenUpdateBuffer_BANKE_DE7A: = 4
+ScreenUpdateBuffer_Text_Game_Over: = 5
+ScreenUpdateBuffer_RAM_67B: = 6
+ScreenUpdateBuffer_Text_Retry: = 7
+ScreenUpdateBuffer_RAM_7168: = 8
+ScreenUpdateBuffer_RAM_67B_again: = 9
+ScreenUpdateBuffer_RAM_693: = $A
+ScreenUpdateBuffer_RAM_6ab: = $B
+ScreenUpdateBuffer_RAM_6bd: = $C
+ScreenUpdateBuffer_RAM_6cc: = $D
+ScreenUpdateBuffer_RAM_6e9: = $E
+ScreenUpdateBuffer_RAM_6da: = $F
+ScreenUpdateBuffer_RAM_6df: = $10
+ScreenUpdateBuffer_RAM_6e4: = $11
+ScreenUpdateBuffer_RAM_7194: = $12
+ScreenUpdateBuffer_RAM_71a8: = $13
+ScreenUpdateBuffer_RAM_721b: = $14
+ScreenUpdateBuffer_BANKE_DFAF: = $15
+ScreenUpdateBuffer_BANKE_DFA7: = $16
+ScreenUpdateBuffer_RAM_BonusChanceLayout: = $17
+
+; ---------------------------------------------------------------------------
+
 ; enum SoundEffect2 (width 1 byte)
 SoundEffect2_Jump: = 1
 SoundEffect2_Climbing: = 2
@@ -77,6 +116,13 @@ SoundEffect2_CoinGet: =	4
 SoundEffect2_Shrinking:	= 8
 SoundEffect2_IntroFallSlide: = $10
 SoundEffect2_Growing: =	$20
+
+; ---------------------------------------------------------------------------
+
+; enum PPUStatus (bitfield) (width 1 byte)
+PPUStatus_SpriteOverflow: = 100000b
+PPUStatus_Sprite0Hit: =	1000000b
+PPUStatus_VBlankHit: = 10000000b
 
 ; ---------------------------------------------------------------------------
 
@@ -362,7 +408,7 @@ byte_RAM_10:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8B19r
 						  ; sub_BANK0_8C1A+65r
 						  ; sub_BANK0_8CD9+24r	...
 ScreenUpdateIndex:.BYTE	0 ; (uninited)		  ; DATA XREF: WaitForNMI_TitleScreenr
-						  ; sub_BANK0_9A3D+56w
+						  ; TitleScreen+56w
 						  ; WaitForNMI_Endingr	...
 byte_RAM_12:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8EFA+96w
 						  ; sub_BANK1_A5A1:loc_BANK1_A5A3w
@@ -759,7 +805,7 @@ byte_RAM_EF:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:85FCr
 						  ; sub_BANK2_88E8+23w
 						  ; BANK2:loc_BANK2_8E05r ...
 RAM_PPUDataBufferPointer:.BYTE 0,0 ; (uninited)	  ; DATA XREF: WaitForNMI_TitleScreen:loc_BANK0_960Fw
-						  ; sub_BANK0_9A3D+3Fw
+						  ; TitleScreen+3Fw
 						  ; WaitForNMI_Ending+7w ...
 						  ; Set	this to	the location of	PPU data to be drawn
 						  ; to the screen (somehow).
@@ -795,10 +841,10 @@ PPUScrollXMirror:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_81A2+5r
 PPUMaskMirror:.BYTE 0 ;	(uninited)		  ; DATA XREF: WaitForNMI_TitleScreen_TurnOnPPU+2w
 						  ; WaitForNMI_Ending_TurnOnPPU:loc_BANK1_A220w
 						  ; sub_BANKC_8018:loc_BANKC_801Aw ...
-PPUCtrlMirror:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANK0_9A3D+4Cw
-						  ; sub_BANK0_9A3D+213w
+PPUCtrlMirror:.BYTE 0 ;	(uninited)		  ; DATA XREF: TitleScreen+4Cw
+						  ; TitleScreen+213w
 						  ; sub_BANK1_A43B+Dw ...
-StackArea:.BYTE	0 ; (uninited)			      ;	0 ; DATA XREF: sub_BANK0_9A3D+47w
+StackArea:.BYTE	0 ; (uninited)			      ;	0 ; DATA XREF: TitleScreen+47w
 						  ; sub_BANK1_A43B+8w
 						  ; sub_BANK1_AA79+Dw ...
       .BYTE 0 ;	(uninited)			  ; 1
@@ -1389,21 +1435,21 @@ unk_RAM_2FC:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKC:8877w
 byte_RAM_300:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_833Er
 						  ; sub_BANK0_833E+74w
 						  ; sub_BANK0_8412r ...
-_RAM_PPUDataBuffer:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_833E+5w
+PPUBuffer_301:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANK0_833E+5w
 						  ; sub_BANK0_833E+Bw
 						  ; sub_BANK0_833E+11w	...
 byte_RAM_302:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+4Cw
 						  ; sub_BANK0_934F:loc_BANK0_93A2r
 						  ; sub_BANK0_934F+56w	...
 byte_RAM_303:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+79w
-						  ; sub_BANK0_9A3D+9Fw
-						  ; sub_BANK0_9A3D+C2w	...
+						  ; TitleScreen+9Fw
+						  ; TitleScreen+C2w ...
 byte_RAM_304:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+97w
-						  ; sub_BANK0_9A3D+ACw
-						  ; sub_BANK0_9A3D+C7w	...
+						  ; TitleScreen+ACw
+						  ; TitleScreen+C7w ...
 byte_RAM_305:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+9Dw
-						  ; sub_BANK0_9A3D+B1w
-						  ; sub_BANK0_9A3D+CCw	...
+						  ; TitleScreen+B1w
+						  ; TitleScreen+CCw ...
 byte_RAM_306:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+74w
 						  ; sub_BANK2_8670+D8w
 						  ; sub_BANK3_BC50+74w	...
@@ -1414,7 +1460,7 @@ byte_RAM_308:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+7Cw
 						  ; sub_BANK2_8670+E0w
 						  ; sub_BANK3_BC50+7Cw	...
 byte_RAM_309:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+A3w
-						  ; sub_BANK0_9A3D+153w
+						  ; TitleScreen+153w
 						  ; sub_BANK2_8670+EBw	...
 byte_RAM_30A:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+A9w
 						  ; sub_BANK2_8670+EEw
@@ -1422,14 +1468,14 @@ byte_RAM_30A:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+A9w
 byte_RAM_30B:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_934F+AEw
 						  ; sub_BANK2_8670+F3w
 						  ; sub_BANK3_BC50+AEw	...
-byte_RAM_30C:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+C7w
-byte_RAM_30D:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+CCw
-byte_RAM_30E:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+D1w
-byte_RAM_30F:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+D7w
-byte_RAM_310:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+DCw
-byte_RAM_311:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+E1w
-byte_RAM_312:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+E6w
-byte_RAM_313:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+EBw
+byte_RAM_30C:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+C7w
+byte_RAM_30D:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+CCw
+byte_RAM_30E:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+D1w
+byte_RAM_30F:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+D7w
+byte_RAM_310:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+DCw
+byte_RAM_311:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+E1w
+byte_RAM_312:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+E6w
+byte_RAM_313:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+EBw
 unk_RAM_314:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANK6_93B8+4Dw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -1679,8 +1725,8 @@ byte_RAM_400:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK1_A43B+30w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_404:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+37w
-byte_RAM_405:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+3Dw
+byte_RAM_404:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+37w
+byte_RAM_405:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+3Dw
 						  ; BANKF:E760w
       ;	0 .BYTE	uninited & unexplored
 ObjectXSubpixel:.BYTE 0	; (uninited)		  ; DATA XREF: sub_BANK0_8EA6:loc_BANK0_8EC0r
@@ -2029,17 +2075,17 @@ byte_RAM_4E4:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_F1AE+25w
 						  ; sub_BANKF_F1E1+1Br
 byte_RAM_4E5:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_F1AE+2Aw
 						  ; sub_BANKF_F1E1+21r
-byte_RAM_4E6:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E1FA+16w
+byte_RAM_4E6:.BYTE 0 ; (uninited)		  ; DATA XREF: InitializeSomeLevelStuff+16w
 						  ; BANKF:E851w
 						  ; sub_BANKF_F1AE+2Fw	...
 byte_RAM_4E7:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E422w
 						  ; BANKF:E772w BANKF:E840w ...
-byte_RAM_4E8:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E1FA+5w
+byte_RAM_4E8:.BYTE 0 ; (uninited)		  ; DATA XREF: InitializeSomeLevelStuff+5w
 						  ; BANKF:E846w
 						  ; sub_BANKF_FACA+11r
-byte_RAM_4E9:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E1FA+Bw
+byte_RAM_4E9:.BYTE 0 ; (uninited)		  ; DATA XREF: InitializeSomeLevelStuff+Bw
 						  ; BANKF:E84Cw
-byte_RAM_4EA:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E1FA+11w
+byte_RAM_4EA:.BYTE 0 ; (uninited)		  ; DATA XREF: InitializeSomeLevelStuff+11w
 						  ; BANKF:E857w
 byte_RAM_4EB:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK1_BA7C+1Cw
 						  ; sub_BANK1_BA7C+24r
@@ -2227,7 +2273,7 @@ byte_RAM_544:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:loc_BANK0_8AB5r
 byte_RAM_545:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK6_950E+9r
 						  ; BANK6:9531r BANK6:9537w ...
 PickupSpeedAnimation:.BYTE 0 ; (uninited)			 ; 0
-						  ; DATA XREF: sub_BANKA_8451:loc_BANKA_845Bw
+						  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_845Bw
       .BYTE 0 ;	(uninited)			  ; 1
       .BYTE 0 ;	(uninited)			  ; 2
       .BYTE 0 ;	(uninited)			  ; 3
@@ -2257,9 +2303,9 @@ unk_RAM_55A:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANK0_8DC0:loc_BA
 byte_RAM_55E:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK6_94AD+29w
 						  ; sub_BANK6_9567+13w
 						  ; BANK6:9724w ...
-unk_RAM_55F:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKA_8451+2Bw
+PPUBuffer_55F:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: CopyCharacterStatsAndStuff+2Bw
 						  ; BANKE:DC04o
-						  ; sub_BANKF_E228+20w	...
+						  ; DisplayLevelTitleCardAndMore+20w ...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2295,7 +2341,7 @@ unk_RAM_55F:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANKA_8451+2Bw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_583:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC02o
+PPUBuffer_583:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: BANKE:DC02o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2455,7 +2501,7 @@ byte_RAM_5FC:.BYTE 0 ; (uninited)		  ; DATA XREF: ProcessMusicQueue2+A2w
 byte_RAM_5FF:.BYTE 0 ; (uninited)		  ; DATA XREF: ProcessMusicQueue2+9Fw
 						  ; ProcessMusicQueue2:loc_BANK4_85E0r
 						  ; ProcessMusicQueue2:loc_BANK4_85EAr	...
-Music1Queue:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_9A3D+5Dw
+Music1Queue:.BYTE 0 ; (uninited)		  ; DATA XREF: TitleScreen+5Dw
 						  ; BANK3:B820w
 						  ; StartProcessingSoundQueue+31w ...
 						  ; 01	Overworld
@@ -2487,7 +2533,7 @@ SoundEffect1Queue:.BYTE	0 ; (uninited)		  ; DATA XREF: sub_BANK0_8DC0+92w
 						  ; 20	Enemy hit/killed
 						  ; 40	Stopwatch tick
 						  ; 80	Wart spit
-MusicQueue2:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_9A3D+1E4w
+MusicQueue2:.BYTE 0 ; (uninited)		  ; DATA XREF: TitleScreen+1E4w
 						  ; sub_BANK1_A43B+78w
 						  ; BANK2:8514w ...
 						  ; 01	Warp fanfare, slot entry jingle
@@ -2636,14 +2682,15 @@ byte_RAM_631:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK1_AD40+2w
       ;	0 .BYTE	uninited & unexplored
 CurrentWorld:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8EFA+3Fr
 						  ; BANK2:8DA4r BANK3:A570r ...
-byte_RAM_636:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANKF_E288+19r
-						  ; sub_BANKF_E288+27w
+byte_RAM_636:.BYTE 0 ; (uninited)		  ; DATA XREF: DoCharacterSelectMenu+19r
+						  ; DoCharacterSelectMenu+27w
 unk_RAM_637:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANK6_93B8:loc_BANK6_9402r
-						  ; sub_BANKA_8451+1Dw
+						  ; CopyCharacterStatsAndStuff+1Dw
 byte_RAM_638:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK3_BE0B+2Cr
 byte_RAM_639:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK3_BE0B+32r
 byte_RAM_63A:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK3_BE0B+38r
-SlotMachineReelOrder1RAM:; 0 .BYTE uninited & unexplored ; DATA	XREF: sub_BANKA_8451+38w
+SlotMachineReelOrder1RAM:; 0 .BYTE uninited & unexplored
+						  ; DATA XREF: CopyCharacterStatsAndStuff+38w
 						  ; BANKF:E8AAr
 						  ; sub_BANKF_EAF6+Fr
       ;	0 .BYTE	uninited & unexplored
@@ -2709,7 +2756,7 @@ unk_RAM_653:; 0	.BYTE uninited & unexplored	  ; DATA XREF: CopyUnusedCoinSpriteT
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_67B:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC0Co
+PPUBuffer_67B:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: BANKE:DC0Co
 						  ; BANKE:DC12o BANKF:E6F2w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2734,7 +2781,7 @@ byte_RAM_68F:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E6FAw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_693:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC14o
+PPUBuffer_693:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: BANKE:DC14o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2758,7 +2805,7 @@ unk_RAM_693:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC14o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_6AB:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC16o
+PPUBuffer_6AB:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: BANKE:DC16o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2776,7 +2823,7 @@ unk_RAM_6AB:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC16o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_6BD:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC18o
+PPUBuffer_6BD:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: BANKE:DC18o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2791,7 +2838,7 @@ byte_RAM_6C8:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E8DBw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_6CC:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC1Ao
+PPUBuffer_6CC:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: BANKE:DC1Ao
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2805,22 +2852,22 @@ unk_RAM_6CC:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC1Ao
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_6DA:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC1Eo
+PPUBuffer_6DA:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: BANKE:DC1Eo
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_6DF:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC20o
+PPUBuffer_6DF:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: BANKE:DC20o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_6E4:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC22o
+PPUBuffer_6E4:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: BANKE:DC22o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_6E9:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC1Co
+PPUBuffer_6E9:;	0 .BYTE	uninited & unexplored	  ; DATA XREF: BANKE:DC1Co
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -9262,12 +9309,12 @@ unk_RAM_1AB8:; 0 .BYTE uninited	& unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 ; [00001800 BYTES: END OF AREA NES CPU RAM mirrors. PRESS KEYPAD "-" TO	COLLAPSE]
-PPUCTRL:.BYTE 0	; (uninited)			  ; DATA XREF: sub_BANK0_9A3D+4Ew
-						  ; sub_BANK0_9A3D:loc_BANK0_9C52w
+PPUCTRL:.BYTE 0	; (uninited)			  ; DATA XREF: TitleScreen+4Ew
+						  ; TitleScreen:loc_BANK0_9C52w
 						  ; sub_BANK1_A43B+Fw ...
-PPUMASK:.BYTE 0	; (uninited)			  ; DATA XREF: sub_BANKF_E288+5w
+PPUMASK:.BYTE 0	; (uninited)			  ; DATA XREF: DoCharacterSelectMenu+5w
 						  ; BANKF:E3FBw BANKF:EB4Ew ...
-PPUSTATUS:.BYTE	0 ; (uninited)			  ; DATA XREF: sub_BANK0_9A3D+25r
+PPUSTATUS:.BYTE	0 ; (uninited)			  ; DATA XREF: TitleScreen+25r
 						  ; sub_BANK1_AA79:loc_BANK1_AAE7r
 						  ; sub_BANK1_AA79:loc_BANK1_AAECr ...
 OAMADDR:.BYTE 0	; (uninited)			  ; DATA XREF: BANKF:EB41w
@@ -9276,12 +9323,12 @@ OAMDATA:; 0 .BYTE uninited & unexplored
 PPUSCROLL:.BYTE	0 ; (uninited)			  ; DATA XREF: sub_BANK1_AA79+8Bw
 						  ; sub_BANK1_AA79+90w
 						  ; sub_BANK1_AA79+EDw	...
-PPUADDR:.BYTE 0	; (uninited)			  ; DATA XREF: sub_BANK0_9A3D+2Cw
-						  ; sub_BANK0_9A3D+2Fw
-						  ; sub_BANKA_8327+18w	...
-PPUDATA:.BYTE 0	; (uninited)			  ; DATA XREF: sub_BANK0_9A3D+35w
-						  ; sub_BANKA_8327+23w
-						  ; sub_BANKA_8327+87w	...
+PPUADDR:.BYTE 0	; (uninited)			  ; DATA XREF: TitleScreen+2Cw
+						  ; TitleScreen+2Fw
+						  ; DrawTitleCardWorldImage+18w ...
+PPUDATA:.BYTE 0	; (uninited)			  ; DATA XREF: TitleScreen+35w
+						  ; DrawTitleCardWorldImage+23w
+						  ; DrawTitleCardWorldImage+87w ...
 ; [00001FF8 BYTES: BEGIN OF AREA PPU Mirrors. PRESS KEYPAD "-" TO COLLAPSE]
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -30040,7 +30087,7 @@ DecodedLevelData:.BYTE 0 ; (uninited)			     ; 0
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_7100:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANK3_B5CC+3Cr
 						  ; sub_BANK3_B5CC+E3r
-						  ; sub_BANKA_8451+5Dw
+						  ; CopyCharacterStatsAndStuff+5Dw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -30125,7 +30172,7 @@ unk_RAM_713C:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANK3_B5CC:loc_B
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_7150:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANKA_8451+52w
+unk_RAM_7150:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: CopyCharacterStatsAndStuff+52w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -30149,7 +30196,7 @@ unk_RAM_7150:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANKA_8451+52w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_7168:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANKA_8451+45w
+PPUBuffer_7168:; 0 .BYTE uninited & unexplored	  ; DATA XREF: CopyCharacterStatsAndStuff+45w
 						  ; BANKE:DC10o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -30197,7 +30244,7 @@ byte_RAM_7181:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANKF:E691w
 byte_RAM_7191:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANKF_E198+14w
 byte_RAM_7192:.BYTE 0 ;	(uninited)		  ; DATA XREF: sub_BANKF_E198+17w
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_7194:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: BANKE:DC24o
+PPUBuffer_7194:; 0 .BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC24o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -30217,7 +30264,7 @@ unk_RAM_7194:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: BANKE:DC24o
       ;	0 .BYTE	uninited & unexplored
 byte_RAM_71A6:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANKF:E779w
       ;	0 .BYTE	uninited & unexplored
-unk_RAM_71A8:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: BANKE:DC26o
+PPUBuffer_71A8:; 0 .BYTE uninited & unexplored	  ; DATA XREF: BANKE:DC26o
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 byte_RAM_71AB:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANKF:E738w
@@ -30262,7 +30309,7 @@ byte_RAM_71CC:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK3:loc_BANK3_A3C7w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_71D1:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: sub_BANK3_B6F9+14r
-						  ; sub_BANKA_8451+73w
+						  ; CopyCharacterStatsAndStuff+73w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -30337,7 +30384,7 @@ byte_RAM_71FE:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK3:AFFEw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_721B:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK2:loc_BANK2_87CAw
+PPUBuffer_721B:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK2:loc_BANK2_87CAw
 						  ; BANK2:87EAr BANK2:87EDw ...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -30413,7 +30460,7 @@ byte_RAM_7232:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK2:87D4w
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 unk_RAM_7265:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: BANK3:B2C0r
-						  ; sub_BANKA_8451+89w
+						  ; CopyCharacterStatsAndStuff+89w
 unk_RAM_7266:; 0 .BYTE uninited	& unexplored	  ; DATA XREF: BANK3:B301r
 byte_RAM_7267:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK3:B2B3w
 						  ; BANK3:B330r BANK3:B354r
@@ -34616,13 +34663,13 @@ sub_BANK0_833E:					  ; CODE XREF: sub_BANK0_8083:loc_BANK0_818Fp
 
 loc_BANK0_8341:					  ; code used at 8000
       LDA     byte_RAM_D1
-      STA     _RAM_PPUDataBuffer,X		  ; code used at 8000
+      STA     PPUBuffer_301,X			  ; code used at 8000
       INX					  ; code used at 8000
       LDA     byte_RAM_D2			  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at 8000
+      STA     PPUBuffer_301,X			  ; code used at 8000
       INX					  ; code used at 8000
       LDA     #$20 ; ' '                          ; code used at 8000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at 8000
+      STA     PPUBuffer_301,X			  ; code used at 8000
       INX					  ; code used at 8000
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_D6			  ; code used at 8000
@@ -34670,7 +34717,7 @@ loc_BANK0_836C:					  ; CODE XREF: sub_BANK0_833E+1Fj
 loc_BANK0_8390:					  ; CODE XREF: sub_BANK0_833E+4Ej
 						  ; sub_BANK0_833E+5Ej
       LDA     (byte_RAM_0),Y			  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at 8000
+      STA     PPUBuffer_301,X			  ; code used at 8000
       INC     byte_RAM_D6			  ; code used at 8000
       INX					  ; code used at 8000
       INY					  ; code used at 8000
@@ -34691,7 +34738,7 @@ loc_BANK0_83A7:					  ; CODE XREF: sub_BANK0_833E+64j
       BCC     loc_BANK0_836C			  ; code used at 8000
 
       LDA     #0				  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at 8000
+      STA     PPUBuffer_301,X			  ; code used at 8000
       STX     byte_RAM_300			  ; code used at 8000
       LDA     byte_RAM_D5			  ; code used at 8000
       BEQ     loc_BANK0_840B			  ; code used at 8000
@@ -34786,13 +34833,13 @@ sub_BANK0_8412:					  ; CODE XREF: sub_BANK0_833E+8Bp
       LDY     byte_RAM_300			  ; code used at 8000
       LDA     byte_RAM_D1			  ; code used at 8000
       ORA     #3				  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,Y		  ; code used at 8000
+      STA     PPUBuffer_301,Y			  ; code used at 8000
       INY					  ; code used at 8000
       LDA     byte_RAM_E1,X			  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,Y		  ; code used at 8000
+      STA     PPUBuffer_301,Y			  ; code used at 8000
       INY					  ; code used at 8000
       LDA     #8				  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,Y		  ; code used at 8000
+      STA     PPUBuffer_301,Y			  ; code used at 8000
       INY					  ; code used at 8000
       LDX     #7				  ; code used at 8000
 
@@ -34838,7 +34885,7 @@ loc_BANK0_8450:					  ; code used at 8000
 loc_BANK0_8452:					  ; CODE XREF: sub_BANK0_8412+26j
 						  ; sub_BANK0_8412+2Cj
       LDA     unk_RAM_D9,X			  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,Y		  ; code used at 8000
+      STA     PPUBuffer_301,Y			  ; code used at 8000
       INY					  ; code used at 8000
       DEX					  ; code used at 8000
       BPL     loc_BANK0_842B			  ; code used at 8000
@@ -34849,7 +34896,7 @@ loc_BANK0_845D:					  ; code used at 8000
       STA     byte_RAM_E4
       LSR     A					  ; code used at 8000
       STA     byte_RAM_539			  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,Y		  ; code used at 8000
+      STA     PPUBuffer_301,Y			  ; code used at 8000
       STY     byte_RAM_300			  ; code used at 8000
       RTS					  ; code used at 8000
 
@@ -38215,13 +38262,13 @@ loc_BANK0_937C:					  ; CODE XREF: sub_BANK0_8FFD+2Dj
       PHA					  ; code used at 8000
       LDX     byte_RAM_300			  ; code used at 8000
       LDA     #0				  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at 8000
+      STA     PPUBuffer_301,X			  ; code used at 8000
       TYA					  ; code used at 8000
       AND     #$F0 ; ''                          ; code used at 8000
       ASL     A					  ; code used at 8000
-      ROL     _RAM_PPUDataBuffer,X		  ; code used at 8000
+      ROL     PPUBuffer_301,X			  ; code used at 8000
       ASL     A					  ; code used at 8000
-      ROL     _RAM_PPUDataBuffer,X		  ; code used at 8000
+      ROL     PPUBuffer_301,X			  ; code used at 8000
       STA     byte_RAM_302,X			  ; code used at 8000
       TYA					  ; code used at 8000
       AND     #$F				  ; code used at 8000
@@ -38246,8 +38293,8 @@ loc_BANK0_93A2:					  ; code used at 8000
 loc_BANK0_93B9:					  ; CODE XREF: sub_BANK0_934F+67j
       LDA     byte_BANK0_940A,Y			  ; code used at 8000
       CLC					  ; code used at 8000
-      ADC     _RAM_PPUDataBuffer,X		  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at 8000
+      ADC     PPUBuffer_301,X			  ; code used at 8000
+      STA     PPUBuffer_301,X			  ; code used at 8000
       STA     byte_RAM_306,X			  ; code used at 8000
       LDA     #2				  ; code used at 8000
       STA     byte_RAM_303,X			  ; code used at 8000
@@ -38682,7 +38729,7 @@ _empty_15C3:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $F
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF; $30
-TitleScreenPPUDataPointers:.WORD _RAM_PPUDataBuffer ; DATA XREF: WaitForNMI_TitleScreen+4r
+TitleScreenPPUDataPointers:.WORD PPUBuffer_301	  ; DATA XREF: WaitForNMI_TitleScreen+4r
 						  ; WaitForNMI_TitleScreen+9r
 						  ; data used at 8000
       .WORD TitleLayout1			  ; data used at 8000
@@ -38690,7 +38737,7 @@ TitleScreenPPUDataPointers:.WORD _RAM_PPUDataBuffer ; DATA XREF: WaitForNMI_Titl
 ; =============== S U B	R O U T	I N E =======================================
 
 
-WaitForNMI_TitleScreen_TurnOnPPU:		  ; CODE XREF: sub_BANK0_9A3D+60p
+WaitForNMI_TitleScreen_TurnOnPPU:		  ; CODE XREF: TitleScreen+60p
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites ; code	used at	8000
       STA     PPUMaskMirror			  ; code used at 8000
 
@@ -38700,9 +38747,9 @@ WaitForNMI_TitleScreen_TurnOnPPU:		  ; CODE XREF: sub_BANK0_9A3D+60p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-WaitForNMI_TitleScreen:				  ; CODE XREF: sub_BANK0_9A3D+51p
-						  ; sub_BANK0_9A3D+58p
-						  ; sub_BANK0_9A3D:loc_BANK0_9AB4p ...
+WaitForNMI_TitleScreen:				  ; CODE XREF: TitleScreen+51p
+						  ; TitleScreen+58p
+						  ; TitleScreen:loc_BANK0_9AB4p ...
       LDA     ScreenUpdateIndex			  ; code used at 8000
       ASL     A					  ; code used at 8000
       TAX					  ; code used at 8000
@@ -39249,7 +39296,7 @@ TitleText_Nintendo:.BYTE $22 ; "		  ; data used at 8000
       .BYTE $F2	; Ú				  ; data used at 8000
       .BYTE $F0	; 				  ; data used at 8000
       .BYTE 0					  ; data used at 8000
-TitleBackgroundPalettes:.BYTE $22 ; "		  ; DATA XREF: sub_BANK0_9A3D:loc_BANK0_9A6Fr
+TitleBackgroundPalettes:.BYTE $22 ; "		  ; DATA XREF: TitleScreen:loc_BANK0_9A6Fr
 						  ; data used at 8000
       .BYTE $37	; 7				  ; data used at 8000
       .BYTE $16					  ; data used at 8000
@@ -39283,9 +39330,9 @@ unk_BANK0_989A:.BYTE $22 ; "			  ; data used at 8000
       .BYTE $23	; #				  ; data used at 8000
       .BYTE  $F					  ; data used at 8000
 TitleStoryText_STORY:.BYTE $EC,	$ED, $E8, $EB, $F2		 ; 0
-						  ; DATA XREF: sub_BANK0_9A3D:TitleScreen_WriteSTORYTextLoopr
+						  ; DATA XREF: TitleScreen:TitleScreen_WriteSTORYTextLoopr
 						  ; data used at 8000
-TitleStoryTextPointersHi:.BYTE high8(TitleStoryText_Line01) ; DATA XREF: sub_BANK0_9A3D+180r
+TitleStoryTextPointersHi:.BYTE high8(TitleStoryText_Line01) ; DATA XREF: TitleScreen+180r
 						  ; data used at 8000
       .BYTE high8(TitleStoryText_Line02)	  ; data used at 8000
       .BYTE high8(TitleStoryText_Line03)	  ; data used at 8000
@@ -39303,7 +39350,7 @@ TitleStoryTextPointersHi:.BYTE high8(TitleStoryText_Line01) ; DATA XREF: sub_BAN
       .BYTE high8(TitleStoryText_Line14)	  ; data used at 8000
       .BYTE high8(TitleStoryText_Line15)	  ; data used at 8000
       .BYTE high8(TitleStoryText_Line16)	  ; data used at 8000
-TitleStoryTextPointersLo:.BYTE low8(TitleStoryText_Line01) ; DATA XREF:	sub_BANK0_9A3D+185r
+TitleStoryTextPointersLo:.BYTE low8(TitleStoryText_Line01) ; DATA XREF:	TitleScreen+185r
 						  ; data used at 8000
       .BYTE low8(TitleStoryText_Line02)		  ; data used at 8000
       .BYTE low8(TitleStoryText_Line03)		  ; data used at 8000
@@ -39386,9 +39433,9 @@ TitleStoryText_Line16:.BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $E
 						  ; BANK0:98C8o
       .BYTE $ED, $E8, $E7, $FB			  ; $10	; data used at 8000
 TitleAttributeData1A09:.BYTE $23, $CB, $42, $FF, $23, $D1, 1, $CC, $23,	$D2, $44, $FF, $23, $D6, 1, $33; 0
-						  ; DATA XREF: sub_BANK0_9A3D:loc_BANK0_9B25r
+						  ; DATA XREF: TitleScreen:loc_BANK0_9B25r
       .BYTE $23, $D9, 1, $CC, $23, $DA,	$44, $FF  ; $10	; data used at 8000
-byte_BANK0_9A21:.BYTE $23			  ; DATA XREF: sub_BANK0_9A3D:loc_BANK0_9B3Br
+byte_BANK0_9A21:.BYTE $23			  ; DATA XREF: TitleScreen:loc_BANK0_9B3Br
 						  ; data used at 8000
       .BYTE $DE					  ; data used at 8000
       .BYTE 1					  ; data used at 8000
@@ -39421,7 +39468,7 @@ byte_BANK0_9A21:.BYTE $23			  ; DATA XREF: sub_BANK0_9A3D:loc_BANK0_9B3Br
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_9A3D:					  ; CODE XREF: BANKF:E409P
+TitleScreen:					  ; CODE XREF: BANKF:E409P
       LDY     #7				  ; code used at 8000
       STY     byte_RAM_1			  ; code used at 8000
       LDY     #0				  ; code used at 8000
@@ -39429,8 +39476,8 @@ sub_BANK0_9A3D:					  ; CODE XREF: BANKF:E409P
       TYA					  ; code used at 8000
 
 
-loc_BANK0_9A46:					  ; CODE XREF: sub_BANK0_9A3D+Cj
-						  ; sub_BANK0_9A3D+14j
+loc_BANK0_9A46:					  ; CODE XREF: TitleScreen+Cj
+						  ; TitleScreen+14j
       STA     (byte_RAM_0),Y			  ; code used at 8000
       DEY					  ; code used at 8000
       BNE     loc_BANK0_9A46			  ; code used at 8000
@@ -39441,12 +39488,12 @@ loc_BANK0_9A46:					  ; CODE XREF: sub_BANK0_9A3D+Cj
       BCS     loc_BANK0_9A46			  ; code used at 8000
 
 
-loc_BANK0_9A53:					  ; CODE XREF: sub_BANK0_9A3D+218j
+loc_BANK0_9A53:					  ; CODE XREF: TitleScreen+218j
       LDA     #0				  ; code used at 8000
       TAY					  ; code used at 8000
 
 
-loc_BANK0_9A56:					  ; CODE XREF: sub_BANK0_9A3D+1Dj
+loc_BANK0_9A56:					  ; CODE XREF: TitleScreen+1Dj
       STA     byte_RAM_0,Y			  ; code used at 8000
       INY					  ; code used at 8000
       BNE     loc_BANK0_9A56			  ; code used at 8000
@@ -39462,7 +39509,7 @@ loc_BANK0_9A56:					  ; CODE XREF: sub_BANK0_9A3D+1Dj
       STY     PPUADDR				  ; code used at 8000
 
 
-loc_BANK0_9A6F:					  ; CODE XREF: sub_BANK0_9A3D+3Bj
+loc_BANK0_9A6F:					  ; CODE XREF: TitleScreen+3Bj
       LDA     TitleBackgroundPalettes,Y		  ; code used at 8000
       STA     PPUDATA				  ; code used at 8000
       INY					  ; code used at 8000
@@ -39500,14 +39547,14 @@ loc_BANK0_9A6F:					  ; CODE XREF: sub_BANK0_9A3D+3Bj
       STA     ObjectXHi+1			  ; code used at 8000
 
 
-loc_BANK0_9AB4:					  ; CODE XREF: sub_BANK0_9A3D:loc_BANK0_9B56j
+loc_BANK0_9AB4:					  ; CODE XREF: TitleScreen:loc_BANK0_9B56j
       JSR     WaitForNMI_TitleScreen		  ; code used at 8000
 
       LDA     ObjectXHi+2			  ; code used at 8000
       BNE     loc_BANK0_9AF3			  ; code used at 8000
 
 
-loc_BANK0_9ABB:					  ; CODE XREF: sub_BANK0_9A3D+1CBj
+loc_BANK0_9ABB:					  ; CODE XREF: TitleScreen+1CBj
       INC     byte_RAM_10			  ; code used at 8000
       LDA     byte_RAM_10			  ; code used at 8000
       AND     #$F				  ; code used at 8000
@@ -39517,7 +39564,7 @@ loc_BANK0_9ABB:					  ; CODE XREF: sub_BANK0_9A3D+1CBj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9AC6:					  ; CODE XREF: sub_BANK0_9A3D+84j
+loc_BANK0_9AC6:					  ; CODE XREF: TitleScreen+84j
       DEC     byte_RAM_2			  ; code used at 8000
       LDA     byte_RAM_2			  ; code used at 8000
       CMP     #6				  ; code used at 8000
@@ -39525,7 +39572,7 @@ loc_BANK0_9AC6:					  ; CODE XREF: sub_BANK0_9A3D+84j
 
       INC     ObjectXHi+2			  ; code used at 8000
       LDA     PlayerXHi				  ; code used at 8000
-      STA     _RAM_PPUDataBuffer		  ; code used at 8000
+      STA     PPUBuffer_301			  ; code used at 8000
       LDA     ObjectXHi				  ; code used at 8000
       STA     byte_RAM_302			  ; code used at 8000
       LDA     ObjectXHi+1			  ; code used at 8000
@@ -39541,9 +39588,9 @@ loc_BANK0_9AC6:					  ; CODE XREF: sub_BANK0_9A3D+84j
       BEQ     loc_BANK0_9B4D			  ; code used at 8000
 
 
-loc_BANK0_9AF3:					  ; CODE XREF: sub_BANK0_9A3D+7Cj
+loc_BANK0_9AF3:					  ; CODE XREF: TitleScreen+7Cj
       LDA     PlayerXHi				  ; code used at 8000
-      STA     _RAM_PPUDataBuffer		  ; code used at 8000
+      STA     PPUBuffer_301			  ; code used at 8000
       LDA     ObjectXHi				  ; code used at 8000
       STA     byte_RAM_302			  ; code used at 8000
       LDA     ObjectXHi+1			  ; code used at 8000
@@ -39570,7 +39617,7 @@ loc_BANK0_9B1B:					  ; code used at 8000
       LDY     #0				  ; code used at 8000
 
 
-loc_BANK0_9B25:					  ; CODE XREF: sub_BANK0_9A3D+F0j
+loc_BANK0_9B25:					  ; CODE XREF: TitleScreen+F0j
       LDA     TitleAttributeData1A09,Y		  ; code used at 8000
       STA     byte_RAM_305,Y			  ; code used at 8000
       INY					  ; code used at 8000
@@ -39585,22 +39632,22 @@ loc_BANK0_9B25:					  ; CODE XREF: sub_BANK0_9A3D+F0j
       LDY     #0				  ; code used at 8000
 
 
-loc_BANK0_9B3B:					  ; CODE XREF: sub_BANK0_9A3D+106j
+loc_BANK0_9B3B:					  ; CODE XREF: TitleScreen+106j
       LDA     byte_BANK0_9A21,Y			  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,Y		  ; code used at 8000
+      STA     PPUBuffer_301,Y			  ; code used at 8000
       INY					  ; code used at 8000
       DEX					  ; code used at 8000
       BPL     loc_BANK0_9B3B			  ; code used at 8000
 
       LDA     #0				  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,Y		  ; code used at 8000
+      STA     PPUBuffer_301,Y			  ; code used at 8000
       JMP     loc_BANK0_9B59			  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9B4D:					  ; CODE XREF: sub_BANK0_9A3D+86j
-						  ; sub_BANK0_9A3D+8Fj
-						  ; sub_BANK0_9A3D+B4j	...
+loc_BANK0_9B4D:					  ; CODE XREF: TitleScreen+86j
+						  ; TitleScreen+8Fj
+						  ; TitleScreen+B4j ...
       LDA     Player1JoypadPress		  ; code used at 8000
       AND     #ControllerInput_Start		  ; code used at 8000
       BEQ     loc_BANK0_9B56			  ; code used at 8000
@@ -39609,13 +39656,13 @@ loc_BANK0_9B4D:					  ; CODE XREF: sub_BANK0_9A3D+86j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9B56:					  ; CODE XREF: sub_BANK0_9A3D+114j
+loc_BANK0_9B56:					  ; CODE XREF: TitleScreen+114j
       JMP     loc_BANK0_9AB4			  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9B59:					  ; CODE XREF: sub_BANK0_9A3D+10Dj
-						  ; sub_BANK0_9A3D:loc_BANK0_9C4Bj
+loc_BANK0_9B59:					  ; CODE XREF: TitleScreen+10Dj
+						  ; TitleScreen:loc_BANK0_9C4Bj
       JSR     WaitForNMI_TitleScreen		  ; code used at 8000
 
       LDA     ObjectXHi+4			  ; code used at 8000
@@ -39625,7 +39672,7 @@ loc_BANK0_9B59:					  ; CODE XREF: sub_BANK0_9A3D+10Dj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9B63:					  ; CODE XREF: sub_BANK0_9A3D+121j
+loc_BANK0_9B63:					  ; CODE XREF: TitleScreen+121j
       LDA     ObjectXHi+3			  ; code used at 8000
       CMP     #9				  ; code used at 8000
       BEQ     loc_BANK0_9B93			  ; code used at 8000
@@ -39640,9 +39687,9 @@ loc_BANK0_9B63:					  ; CODE XREF: sub_BANK0_9A3D+121j
 
 ; ---------------------------------------------------------------------------
 
-TitleScreen_WriteSTORYText:			  ; CODE XREF: sub_BANK0_9A3D+132j
+TitleScreen_WriteSTORYText:			  ; CODE XREF: TitleScreen+132j
       LDA     #$20 ; ' '                          ; PPU address for the center text area
-      STA     _RAM_PPUDataBuffer
+      STA     PPUBuffer_301
       LDA     #$AE ; 'Æ'
       STA     byte_RAM_302
       LDA     #5				  ; Length of STORY text (5 bytes)
@@ -39650,7 +39697,7 @@ TitleScreen_WriteSTORYText:			  ; CODE XREF: sub_BANK0_9A3D+132j
       LDY     #4				  ; Bytes to copy minus	one (5-1=4)
 
 
-TitleScreen_WriteSTORYTextLoop:			  ; CODE XREF: sub_BANK0_9A3D+14Fj
+TitleScreen_WriteSTORYTextLoop:			  ; CODE XREF: TitleScreen+14Fj
       LDA     TitleStoryText_STORY,Y		  ; Copy STORY text to PPU write buffer
       STA     byte_RAM_304,Y
       DEY
@@ -39660,7 +39707,7 @@ TitleScreen_WriteSTORYTextLoop:			  ; CODE XREF: sub_BANK0_9A3D+14Fj
       STA     byte_RAM_309
 
 
-loc_BANK0_9B93:					  ; CODE XREF: sub_BANK0_9A3D+12Aj
+loc_BANK0_9B93:					  ; CODE XREF: TitleScreen+12Aj
       INC     ObjectXHi+3			  ; code used at 8000
       LDA     #$21 ; '!'                          ; code used at 8000
       STA     PlayerXHi				  ; code used at 8000
@@ -39671,7 +39718,7 @@ loc_BANK0_9B93:					  ; CODE XREF: sub_BANK0_9A3D+12Aj
       BNE     loc_BANK0_9C19			  ; code used at 8000
 
 
-loc_BANK0_9BA3:					  ; CODE XREF: sub_BANK0_9A3D+12Ej
+loc_BANK0_9BA3:					  ; CODE XREF: TitleScreen+12Ej
       DEC     ObjectXHi+5			  ; code used at 8000
       BPL     loc_BANK0_9C19			  ; code used at 8000
 
@@ -39680,7 +39727,7 @@ loc_BANK0_9BA7:					  ; code used at 8000
       LDA     #$40 ; '@'
       STA     ObjectXHi+5			  ; code used at 8000
       LDA     PlayerXHi				  ; code used at 8000
-      STA     _RAM_PPUDataBuffer		  ; code used at 8000
+      STA     PPUBuffer_301			  ; code used at 8000
 
 loc_BANK0_9BB0:					  ; code used at 8000
       LDA     ObjectXHi
@@ -39699,7 +39746,7 @@ loc_BANK0_9BB2:					  ; code used at 8000
       LDX     #$13				  ; code used at 8000
 
 
-loc_BANK0_9BCB:					  ; CODE XREF: sub_BANK0_9A3D+195j
+loc_BANK0_9BCB:					  ; CODE XREF: TitleScreen+195j
       LDA     (byte_RAM_3),Y			  ; code used at 8000
       STA     byte_RAM_304,Y			  ; code used at 8000
       INY					  ; code used at 8000
@@ -39738,7 +39785,7 @@ loc_BANK0_9BCB:					  ; CODE XREF: sub_BANK0_9A3D+195j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9C0B:					  ; CODE XREF: sub_BANK0_9A3D+1B1j
+loc_BANK0_9C0B:					  ; CODE XREF: TitleScreen+1B1j
       CMP     #$12				  ; code used at 8000
       BCC     loc_BANK0_9C19			  ; code used at 8000
 
@@ -39749,15 +39796,15 @@ loc_BANK0_9C0B:					  ; CODE XREF: sub_BANK0_9A3D+1B1j
       STA     byte_RAM_10			  ; code used at 8000
 
 
-loc_BANK0_9C19:					  ; CODE XREF: sub_BANK0_9A3D+123j
-						  ; sub_BANK0_9A3D+134j
-						  ; sub_BANK0_9A3D+164j ...
+loc_BANK0_9C19:					  ; CODE XREF: TitleScreen+123j
+						  ; TitleScreen+134j
+						  ; TitleScreen+164j ...
       LDA     Player1JoypadHeld			  ; code used at 8000
       AND     #ControllerInput_Start		  ; code used at 8000
       BEQ     loc_BANK0_9C35			  ; code used at 8000
 
 
-loc_BANK0_9C1F:					  ; CODE XREF: sub_BANK0_9A3D+116j
+loc_BANK0_9C1F:					  ; CODE XREF: TitleScreen+116j
       LDA     #Music2_StopMusic			  ; code used at 8000
       STA     MusicQueue2			  ; code used at 8000
       JSR     WaitForNMI_TitleScreen		  ; code used at 8000
@@ -39766,7 +39813,7 @@ loc_BANK0_9C1F:					  ; CODE XREF: sub_BANK0_9A3D+116j
       TAY					  ; code used at 8000
 
 
-loc_BANK0_9C2A:					  ; CODE XREF: sub_BANK0_9A3D+1F3j
+loc_BANK0_9C2A:					  ; CODE XREF: TitleScreen+1F3j
       STA     byte_RAM_0,Y			  ; code used at 8000
       INY					  ; code used at 8000
       CPY     #$F0 ; ''                          ; code used at 8000
@@ -39776,7 +39823,7 @@ loc_BANK0_9C2A:					  ; CODE XREF: sub_BANK0_9A3D+1F3j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9C35:					  ; CODE XREF: sub_BANK0_9A3D+1E0j
+loc_BANK0_9C35:					  ; CODE XREF: TitleScreen+1E0j
       LDA     ObjectXHi+4			  ; code used at 8000
       BEQ     loc_BANK0_9C4B			  ; code used at 8000
 
@@ -39793,14 +39840,14 @@ loc_BANK0_9C35:					  ; CODE XREF: sub_BANK0_9A3D+1E0j
       BEQ     loc_BANK0_9C4E			  ; code used at 8000
 
 
-loc_BANK0_9C4B:					  ; CODE XREF: sub_BANK0_9A3D+1FAj
-						  ; sub_BANK0_9A3D+202j
-						  ; sub_BANK0_9A3D+20Aj
+loc_BANK0_9C4B:					  ; CODE XREF: TitleScreen+1FAj
+						  ; TitleScreen+202j
+						  ; TitleScreen+20Aj
       JMP     loc_BANK0_9B59			  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_9C4E:					  ; CODE XREF: sub_BANK0_9A3D+20Cj
+loc_BANK0_9C4E:					  ; CODE XREF: TitleScreen+20Cj
       LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled ; code used	at 8000
       STA     PPUCtrlMirror			  ; code used at 8000
 
@@ -39808,7 +39855,7 @@ loc_BANK0_9C52:					  ; code used at 8000
       STA     PPUCTRL
       JMP     loc_BANK0_9A53			  ; code used at 8000
 
-; End of function sub_BANK0_9A3D
+; End of function TitleScreen
 
 ; ---------------------------------------------------------------------------
 ; [000003A8 BYTES: BEGIN OF AREA UNUSED-BANK0-9C58. PRESS KEYPAD "-" TO	COLLAPSE]
@@ -39913,7 +39960,7 @@ byte_BANK1_A000:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1E0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1F0
 ; [00000200 BYTES: END OF AREA UNUSED-BANK1_A000. PRESS	KEYPAD "-" TO COLLAPSE]
-EndingPPUDataPointers:.WORD _RAM_PPUDataBuffer	  ; DATA XREF: WaitForNMI_Ending+4r
+EndingPPUDataPointers:.WORD PPUBuffer_301	  ; DATA XREF: WaitForNMI_Ending+4r
 						  ; WaitForNMI_Ending+9r
 						  ; data used at a000
       .WORD EndingCorkJarRoom			  ; data used at a000
@@ -42705,69 +42752,69 @@ loc_BANK1_AD69:					  ; CODE XREF: sub_BANK1_AD40+22j
       STX     byte_RAM_5C2			  ; code used at a000
       LDX     #0				  ; code used at a000
       LDA     #$21 ; '!'                          ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDA     #$2A ; '*'                          ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDA     #$C				  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDY     #0				  ; code used at a000
       LDA     CharacterLevelsCompleted,Y	  ; code used at a000
       JSR     sub_BANK1_AE43			  ; code used at a000
 
       TYA					  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDA     byte_RAM_1			  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDA     #$FB ; '˚'                          ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDY     #3				  ; code used at a000
       LDA     CharacterLevelsCompleted,Y	  ; code used at a000
       JSR     sub_BANK1_AE43			  ; code used at a000
 
       TYA					  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDA     byte_RAM_1			  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
 
 loc_BANK1_ADB0:					  ; code used at a000
       LDA     #$FB ; '˚'
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDY     #2				  ; code used at a000
       LDA     CharacterLevelsCompleted,Y	  ; code used at a000
       JSR     sub_BANK1_AE43			  ; code used at a000
 
       TYA					  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDA     byte_RAM_1			  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDA     #$FB ; '˚'                          ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDY     #1				  ; code used at a000
       LDA     CharacterLevelsCompleted,Y	  ; code used at a000
       JSR     sub_BANK1_AE43			  ; code used at a000
 
       TYA					  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDA     byte_RAM_1			  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       INX					  ; code used at a000
       LDA     #0				  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       LDA     #$3C ; '<'                          ; code used at a000
       STA     byte_RAM_5C4			  ; code used at a000
       RTS					  ; code used at a000
@@ -45234,7 +45281,7 @@ loc_BANK2_8712:					  ; CODE XREF: sub_BANK2_8670+9Fj
       STA     byte_RAM_307,X			  ; code used at 8000
       PLA					  ; code used at 8000
       ORA     byte_RAM_0			  ; code used at 8000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at 8000
+      STA     PPUBuffer_301,X			  ; code used at 8000
       ADC     #0				  ; code used at 8000
       STA     byte_RAM_306,X			  ; code used at 8000
 
@@ -45345,7 +45392,7 @@ loc_BANK2_87AC:					  ; CODE XREF: BANK2:87A7j
 
 
 loc_BANK2_87CA:					  ; CODE XREF: BANK2:87C7j
-      STY     byte_RAM_721B			  ; code used at 8000
+      STY     PPUBuffer_721B			  ; code used at 8000
       STY     byte_RAM_7222			  ; code used at 8000
       INY					  ; code used at 8000
       STY     byte_RAM_7229			  ; code used at 8000
@@ -45367,8 +45414,8 @@ loc_BANK2_87D9:					  ; CODE XREF: BANK2:87F3j
 
 loc_BANK2_87E7:					  ; CODE XREF: BANK2:87E4j
       LDX     byte_BANKF_FA9E,Y			  ; code used at 8000
-      ORA     byte_RAM_721B,X			  ; code used at 8000
-      STA     byte_RAM_721B,X			  ; code used at 8000
+      ORA     PPUBuffer_721B,X			  ; code used at 8000
+      STA     PPUBuffer_721B,X			  ; code used at 8000
       LDX     byte_RAM_12			  ; code used at 8000
       DEY					  ; code used at 8000
       BPL     loc_BANK2_87D9			  ; code used at 8000
@@ -56177,13 +56224,13 @@ loc_BANK3_BC66:					  ; CODE XREF: sub_BANK3_BC50+12j
       PHA					  ; code used at a000
       LDX     byte_RAM_300			  ; code used at a000
       LDA     #0				  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       TYA					  ; code used at a000
       AND     #$F0 ; ''                          ; code used at a000
       ASL     A					  ; code used at a000
-      ROL     _RAM_PPUDataBuffer,X		  ; code used at a000
+      ROL     PPUBuffer_301,X			  ; code used at a000
       ASL     A					  ; code used at a000
-      ROL     _RAM_PPUDataBuffer,X		  ; code used at a000
+      ROL     PPUBuffer_301,X			  ; code used at a000
       STA     byte_RAM_302,X			  ; code used at a000
       TYA					  ; code used at a000
       AND     #$F				  ; code used at a000
@@ -56206,8 +56253,8 @@ loc_BANK3_BC66:					  ; CODE XREF: sub_BANK3_BC50+12j
 loc_BANK3_BCBA:					  ; CODE XREF: sub_BANK3_BC50+67j
       LDA     unk_BANK3_BD0B,Y			  ; code used at a000
       CLC					  ; code used at a000
-      ADC     _RAM_PPUDataBuffer,X		  ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      ADC     PPUBuffer_301,X			  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       STA     byte_RAM_306,X			  ; code used at a000
       LDA     #2				  ; code used at a000
       STA     byte_RAM_303,X			  ; code used at a000
@@ -56557,7 +56604,7 @@ sub_BANK3_BE0B:					  ; CODE XREF: sub_BANKF_F11E+30P
       DEC     byte_RAM_4C6			  ; code used at a000
       LDX     byte_RAM_300			  ; code used at a000
       LDA     #$3F ; '?'                          ; code used at a000
-      STA     _RAM_PPUDataBuffer,X		  ; code used at a000
+      STA     PPUBuffer_301,X			  ; code used at a000
       LDA     #$10				  ; code used at a000
       STA     byte_RAM_302,X			  ; code used at a000
       LDA     #4				  ; code used at a000
@@ -56657,7 +56704,7 @@ locret_BANK3_BEAF:				  ; CODE XREF: sub_BANK3_BE0B+8Cj
 ; End of function sub_BANK3_BE0B
 
 ; ---------------------------------------------------------------------------
-_empty_7EB0:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; 0
+_unused_BANK3_BEB0:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$C
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$18
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$24
@@ -57043,7 +57090,7 @@ locret_BANK4_818E:				  ; DATA XREF: ProcessSoundEffectQueue1+1Dr
 ; ---------------------------------------------------------------------------
 SoundEffectPointers:.BYTE $4E			  ; DATA XREF: ProcessSoundEffectQueue1+26r
 						  ; ProcessSoundEffectQueue1+47r
-						  ; data used at 8000
+						  ; @TODO Figure out format for	this
       .BYTE 8					  ; data used at 8000
       .BYTE $6D					  ; data used at 8000
       .BYTE $27					  ; data used at 8000
@@ -57062,7 +57109,7 @@ SoundEffects:.BYTE $9F				  ; data used at 8000
       .BYTE $E					  ; data used at 8000
       .BYTE $C					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
-byte_BANK4_81A2:.BYTE $7E			  ; data used at 8000
+      .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $86					  ; data used at 8000
       .BYTE $10					  ; data used at 8000
@@ -57114,7 +57161,7 @@ byte_BANK4_81A2:.BYTE $7E			  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
-byte_BANK4_81D6:.BYTE $7E			  ; data used at 8000
+      .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
@@ -57154,7 +57201,7 @@ byte_BANK4_81D6:.BYTE $7E			  ; data used at 8000
       .BYTE 0					  ; data used at 8000
       .BYTE $81					  ; data used at 8000
       .BYTE $56					  ; data used at 8000
-byte_BANK4_81FE:.BYTE $7E			  ; data used at 8000
+      .BYTE $7E					  ; data used at 8000
       .BYTE $64					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $68					  ; data used at 8000
@@ -57217,7 +57264,7 @@ byte_BANK4_81FE:.BYTE $7E			  ; data used at 8000
       .BYTE $16					  ; data used at 8000
       .BYTE $1C					  ; data used at 8000
       .BYTE $18					  ; data used at 8000
-byte_BANK4_823D:.BYTE $1A			  ; data used at 8000
+      .BYTE $1A					  ; data used at 8000
       .BYTE $1E					  ; data used at 8000
       .BYTE $18					  ; data used at 8000
       .BYTE $16					  ; data used at 8000
@@ -57358,7 +57405,7 @@ loc_BANK4_82C6:					  ; CODE XREF: ProcessSoundEffectQueue3+10j
 loc_BANK4_82CB:					  ; CODE XREF: ProcessSoundEffectQueue3+1Ej
 						  ; ProcessSoundEffectQueue3+21j
       LDY     byte_RAM_611			  ; code used at 8000
-      LDA     ProcessMusicQueue2,Y		  ; code used at 8000
+      LDA     ProcessMusicQueue2,Y		  ; @TODO ??? Uhhhhhhhhhhhhhhhhh????????
       ORA     #$C				  ; code used at 8000
       STA     NOISE_LO				  ; code used at 8000
       LDA     byte_RAM_611			  ; code used at 8000
@@ -57429,13 +57476,13 @@ loc_BANK4_831C:					  ; CODE XREF: ProcessDPCMQueue+21j
       LSR     A					  ; code used at 8000
       BCC     loc_BANK4_831C			  ; code used at 8000
 
-      LDA     unk_BANK4_8351,Y			  ; code used at 8000
+      LDA     DMCFreqTable,Y			  ; code used at 8000
       STA     DMC_FREQ				  ; code used at 8000
 
 loc_BANK4_8326:					  ; code used at 8000
       LDA     locret_BANK4_8341,Y
       STA     DMC_START				  ; code used at 8000
-      LDA     unk_BANK4_8349,Y			  ; code used at 8000
+      LDA     DMCLengthTable,Y			  ; code used at 8000
       STA     DMC_LEN				  ; code used at 8000
       LDA     #$A0 ; '†'                          ; code used at 8000
       STA     byte_RAM_60A			  ; code used at 8000
@@ -57451,14 +57498,16 @@ locret_BANK4_8341:				  ; DATA XREF: ProcessDPCMQueue:loc_BANK4_8326r
 ; End of function ProcessDPCMQueue
 
 ; ---------------------------------------------------------------------------
-byte_BANK4_8342:.BYTE $4F			  ; data used at 8000
+DMCStartTable:.BYTE $4F				  ; @TODO
+						  ; It seems that the references to these tables are off by one	byte, maybe intentionally?
+						  ; Need to fix	this in	the final disassembly
       .BYTE $60					  ; data used at 8000
       .BYTE $4B					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
       .BYTE $31					  ; data used at 8000
       .BYTE $60					  ; data used at 8000
       .BYTE $E					  ; data used at 8000
-unk_BANK4_8349:.BYTE $1D			  ; DATA XREF: ProcessDPCMQueue+2Fr
+DMCLengthTable:.BYTE $1D			  ; DATA XREF: ProcessDPCMQueue+2Fr
       .BYTE $43					  ; data used at 8000
       .BYTE $14					  ; data used at 8000
       .BYTE $10					  ; data used at 8000
@@ -57466,7 +57515,7 @@ unk_BANK4_8349:.BYTE $1D			  ; DATA XREF: ProcessDPCMQueue+2Fr
       .BYTE $48					  ; data used at 8000
       .BYTE $28					  ; data used at 8000
       .BYTE $3C					  ; data used at 8000
-unk_BANK4_8351:.BYTE $50 ; P			  ; DATA XREF: ProcessDPCMQueue+23r
+DMCFreqTable:.BYTE $50 ; P			  ; DATA XREF: ProcessDPCMQueue+23r
       .BYTE $E					  ; data used at 8000
       .BYTE $E					  ; data used at 8000
       .BYTE $F					  ; data used at 8000
@@ -57917,11 +57966,11 @@ loc_BANK4_8596:					  ; CODE XREF: ProcessMusicQueue2+274j
 loc_BANK4_85B2:					  ; CODE XREF: ProcessMusicQueue2+23Fj
       LSR     A					  ; code used at 8000
       TAY					  ; code used at 8000
-      LDA     byte_BANK4_861D,Y			  ; code used at 8000
+      LDA     NoiseVolTable,Y			  ; code used at 8000
       STA     NOISE_VOL				  ; code used at 8000
-      LDA     byte_BANK4_8621,Y			  ; code used at 8000
+      LDA     NoiseLoTable,Y			  ; code used at 8000
       STA     NOISE_LO				  ; code used at 8000
-      LDA     byte_BANK4_8625,Y			  ; code used at 8000
+      LDA     NoiseHiTable,Y			  ; code used at 8000
       STA     NOISE_HI				  ; code used at 8000
       LDA     byte_RAM_61F			  ; code used at 8000
       STA     byte_RAM_61E			  ; code used at 8000
@@ -58000,21 +58049,15 @@ loc_BANK4_8614:					  ; CODE XREF: ProcessMusicQueue2+291j
 ; End of function ProcessMusicQueue2
 
 ; ---------------------------------------------------------------------------
-byte_BANK4_861D:.BYTE $10			  ; DATA XREF: ProcessMusicQueue2+253r
+NoiseVolTable:.BYTE $10,$1E,$1F,$16			  ; 0
+						  ; DATA XREF: ProcessMusicQueue2+253r
 						  ; data used at 8000
-      .BYTE $1E					  ; data used at 8000
-      .BYTE $1F					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-byte_BANK4_8621:.BYTE 0				  ; DATA XREF: ProcessMusicQueue2+259r
+NoiseLoTable:.BYTE 0,3,$A,2				 ; 0
+						  ; DATA XREF: ProcessMusicQueue2+259r
 						  ; data used at 8000
-      .BYTE 3					  ; data used at 8000
-      .BYTE $A					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-byte_BANK4_8625:.BYTE 0				  ; DATA XREF: ProcessMusicQueue2+25Fr
+NoiseHiTable:.BYTE 0,$18,$18,$58			 ; 0
+						  ; DATA XREF: ProcessMusicQueue2+25Fr
 						  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -58367,7 +58410,7 @@ NoteFrequencyData:.WORD	$1AB8				      ;	0
       .WORD $EFC				  ; A# / Bb
       .WORD $E24				  ; B
 ; [000007A1 BYTES: BEGIN OF AREA UNUSED-BANK4:875F. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_875F:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_unused_BANK4_875F:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -58504,7 +58547,7 @@ NoteLengthTable:.BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5; 0
       .BYTE $18, $15, $16, $20,	$30, $40, $60, $80, 8, 9, $B, $C, $11, $19, $15, $16; $90
       .BYTE $22, $33, $44, $60,	$88, $1A, 9, 9,	$C, $C,	$12, $1B, $18, $18, $24, $36; $A0
       .BYTE $48, $6C, $90			  ; $B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+_unused_BANK4_8FB3:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -58518,7 +58561,7 @@ byte_BANK4_9003:.BYTE $A4			  ; DATA XREF: ProcessMusicQueue2+8Ar
 						  ; data used at 8000
 unk_BANK4_9004:.BYTE $89 ; â			  ; DATA XREF: ProcessMusicQueue2+90r
 byte_BANK4_9005:.BYTE $84			  ; DATA XREF: ProcessMusicQueue2+96r
-						  ; data used at 8000
+						  ; @TODO Figure out the format	of this	stuff
       .BYTE $99					  ; data used at 8000
       .BYTE $2A					  ; data used at 8000
       .BYTE $30					  ; data used at 8000
@@ -58549,7 +58592,7 @@ byte_BANK4_9005:.BYTE $84			  ; DATA XREF: ProcessMusicQueue2+96r
       .BYTE $CD	; Õ
       .BYTE $D9	; Ÿ
       .BYTE $DF					  ; data used at 8000
-byte_BANK4_9024:.BYTE $EB			  ; data used at 8000
+      .BYTE $EB					  ; data used at 8000
       .BYTE $E5					  ; data used at 8000
       .BYTE $F7					  ; data used at 8000
       .BYTE $F1					  ; data used at 8000
@@ -58563,7 +58606,7 @@ MusicPartHeaders:.BYTE 0			  ; data used at 8000
       .BYTE $A0					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
       .BYTE $5C					  ; data used at 8000
-byte_BANK4_9032:.BYTE $99			  ; data used at 8000
+      .BYTE $99					  ; data used at 8000
       .BYTE $8E					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $B0					  ; data used at 8000
@@ -58599,13 +58642,13 @@ byte_BANK4_9032:.BYTE $99			  ; data used at 8000
       .BYTE $C9					  ; data used at 8000
       .BYTE $28					  ; data used at 8000
       .BYTE $F9					  ; data used at 8000
-byte_BANK4_9056:.BYTE $9C			  ; data used at 8000
+      .BYTE $9C					  ; data used at 8000
       .BYTE $DD					  ; data used at 8000
       .BYTE $73					  ; data used at 8000
       .BYTE $6C					  ; data used at 8000
       .BYTE $28					  ; data used at 8000
       .BYTE $3F					  ; data used at 8000
-byte_BANK4_905C:.BYTE $9D			  ; data used at 8000
+      .BYTE $9D					  ; data used at 8000
       .BYTE $B2					  ; data used at 8000
       .BYTE $73					  ; data used at 8000
       .BYTE $26					  ; data used at 8000
@@ -58705,10 +58748,10 @@ byte_BANK4_905C:.BYTE $9D			  ; data used at 8000
       .BYTE $97					  ; data used at 8000
       .BYTE $8D					  ; data used at 8000
       .BYTE $47					  ; data used at 8000
-byte_BANK4_90C0:.BYTE $BA			  ; data used at 8000
+      .BYTE $BA					  ; data used at 8000
       .BYTE $1B					  ; data used at 8000
       .BYTE $78					  ; data used at 8000
-byte_BANK4_90C3:.BYTE $98			  ; data used at 8000
+      .BYTE $98					  ; data used at 8000
       .BYTE $24					  ; data used at 8000
       .BYTE $12					  ; data used at 8000
       .BYTE $29					  ; data used at 8000
@@ -58724,7 +58767,7 @@ byte_BANK4_90C3:.BYTE $98			  ; data used at 8000
       .BYTE $24	; $
       .BYTE $12
       .BYTE $30	; 0
-unk_BANK4_90D3:.BYTE $28 ; (
+      .BYTE $28	; (
       .BYTE $E0	; ‡
       .BYTE $95	; ï
       .BYTE $22	; "
@@ -58784,7 +58827,7 @@ MusicPointersFirstPart:.BYTE $10		  ; DATA XREF: ProcessMusicQueue2:loc_BANK4_83
       .BYTE $23					  ; data used at 8000
 MusicPointersEndPart:.BYTE $16			  ; DATA XREF: ProcessMusicQueue2+3Cr
 						  ; data used at 8000
-byte_BANK4_910D:.BYTE $F			  ; data used at 8000
+      .BYTE $F					  ; data used at 8000
       .BYTE $29					  ; data used at 8000
       .BYTE $17					  ; data used at 8000
       .BYTE $18					  ; data used at 8000
@@ -58821,7 +58864,7 @@ MusicData:.BYTE	$8A				  ; data used at 8000
       .BYTE $8A					  ; data used at 8000
       .BYTE $56					  ; data used at 8000
       .BYTE $82					  ; data used at 8000
-byte_BANK4_9131:.BYTE $7E			  ; data used at 8000
+      .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $52					  ; data used at 8000
       .BYTE $52					  ; data used at 8000
@@ -58837,7 +58880,7 @@ byte_BANK4_9131:.BYTE $7E			  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
       .BYTE $84					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
-byte_BANK4_9141:.BYTE $42			  ; data used at 8000
+      .BYTE $42					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
       .BYTE $38					  ; data used at 8000
       .BYTE $82					  ; data used at 8000
@@ -58948,7 +58991,7 @@ byte_BANK4_9141:.BYTE $42			  ; data used at 8000
       .BYTE $4C					  ; data used at 8000
       .BYTE $84					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
-byte_BANK4_91B0:.BYTE $4E			  ; data used at 8000
+      .BYTE $4E					  ; data used at 8000
       .BYTE $4C					  ; data used at 8000
       .BYTE $44					  ; data used at 8000
       .BYTE $82					  ; data used at 8000
@@ -59068,7 +59111,7 @@ byte_BANK4_91B0:.BYTE $4E			  ; data used at 8000
       .BYTE $46					  ; data used at 8000
       .BYTE $50					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
-byte_BANK4_9228:.BYTE $88			  ; data used at 8000
+      .BYTE $88					  ; data used at 8000
       .BYTE $10					  ; data used at 8000
       .BYTE $82					  ; data used at 8000
       .BYTE $10					  ; data used at 8000
@@ -59088,7 +59131,7 @@ byte_BANK4_9228:.BYTE $88			  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $40					  ; data used at 8000
       .BYTE $40					  ; data used at 8000
-byte_BANK4_923C:.BYTE $48			  ; data used at 8000
+      .BYTE $48					  ; data used at 8000
       .BYTE $8A					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $88					  ; data used at 8000
@@ -59147,7 +59190,7 @@ byte_BANK4_923C:.BYTE $48			  ; data used at 8000
       .BYTE $88					  ; data used at 8000
       .BYTE $26					  ; data used at 8000
       .BYTE $82					  ; data used at 8000
-byte_BANK4_9277:.BYTE $26			  ; data used at 8000
+      .BYTE $26					  ; data used at 8000
       .BYTE $26					  ; data used at 8000
       .BYTE $83					  ; data used at 8000
       .BYTE $26					  ; data used at 8000
@@ -59162,7 +59205,7 @@ byte_BANK4_9277:.BYTE $26			  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $46					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
-byte_BANK4_9286:.BYTE $4C			  ; data used at 8000
+      .BYTE $4C					  ; data used at 8000
       .BYTE $8A					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $84					  ; data used at 8000
@@ -59224,11 +59267,11 @@ byte_BANK4_9286:.BYTE $4C			  ; data used at 8000
       .BYTE $24					  ; data used at 8000
       .BYTE $88					  ; data used at 8000
       .BYTE $22					  ; data used at 8000
-byte_BANK4_92C4:.BYTE $82			  ; data used at 8000
+      .BYTE $82					  ; data used at 8000
       .BYTE $22					  ; data used at 8000
       .BYTE $22					  ; data used at 8000
       .BYTE $83					  ; data used at 8000
-byte_BANK4_92C8:.BYTE $22			  ; data used at 8000
+      .BYTE $22					  ; data used at 8000
       .BYTE $84					  ; data used at 8000
       .BYTE $22					  ; data used at 8000
       .BYTE $22					  ; data used at 8000
@@ -59300,7 +59343,7 @@ byte_BANK4_92C8:.BYTE $22			  ; data used at 8000
       .BYTE $88					  ; data used at 8000
       .BYTE $3A					  ; data used at 8000
       .BYTE $82					  ; data used at 8000
-byte_BANK4_9310:.BYTE $3A			  ; data used at 8000
+      .BYTE $3A					  ; data used at 8000
       .BYTE $3A					  ; data used at 8000
       .BYTE $83					  ; data used at 8000
       .BYTE $3A					  ; data used at 8000
@@ -59448,7 +59491,7 @@ byte_BANK4_9310:.BYTE $3A			  ; data used at 8000
       .BYTE $78					  ; data used at 8000
       .BYTE $76					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
-byte_BANK4_93A4:.BYTE $72			  ; data used at 8000
+      .BYTE $72					  ; data used at 8000
       .BYTE $6E					  ; data used at 8000
       .BYTE $6A					  ; data used at 8000
       .BYTE $68					  ; data used at 8000
@@ -59471,7 +59514,7 @@ byte_BANK4_93A4:.BYTE $72			  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $66					  ; data used at 8000
       .BYTE $6A					  ; data used at 8000
-byte_BANK4_93BB:.BYTE $6E			  ; data used at 8000
+      .BYTE $6E					  ; data used at 8000
       .BYTE $FC					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $F4					  ; data used at 8000
@@ -59507,7 +59550,7 @@ byte_BANK4_93BB:.BYTE $6E			  ; data used at 8000
       .BYTE $64					  ; data used at 8000
       .BYTE $60					  ; data used at 8000
       .BYTE $64					  ; data used at 8000
-byte_BANK4_93DF:.BYTE $7E			  ; data used at 8000
+      .BYTE $7E					  ; data used at 8000
       .BYTE $5A					  ; data used at 8000
       .BYTE $5E					  ; data used at 8000
       .BYTE $60					  ; data used at 8000
@@ -59555,7 +59598,7 @@ byte_BANK4_93DF:.BYTE $7E			  ; data used at 8000
       .BYTE $56					  ; data used at 8000
       .BYTE $46					  ; data used at 8000
       .BYTE $56					  ; data used at 8000
-byte_BANK4_940F:.BYTE $4C			  ; data used at 8000
+      .BYTE $4C					  ; data used at 8000
       .BYTE $56					  ; data used at 8000
       .BYTE $44					  ; data used at 8000
       .BYTE $52					  ; data used at 8000
@@ -59569,7 +59612,7 @@ byte_BANK4_940F:.BYTE $4C			  ; data used at 8000
       .BYTE $50					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $50					  ; data used at 8000
-byte_BANK4_941D:.BYTE $3E			  ; data used at 8000
+      .BYTE $3E					  ; data used at 8000
       .BYTE $4C					  ; data used at 8000
       .BYTE $46					  ; data used at 8000
       .BYTE $4C					  ; data used at 8000
@@ -59588,7 +59631,7 @@ byte_BANK4_941D:.BYTE $3E			  ; data used at 8000
       .BYTE $40					  ; data used at 8000
       .BYTE $4E					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
-byte_BANK4_9430:.BYTE $4E			  ; data used at 8000
+      .BYTE $4E					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
       .BYTE $50					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
@@ -59602,7 +59645,7 @@ byte_BANK4_9430:.BYTE $4E			  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $4E					  ; data used at 8000
       .BYTE $40					  ; data used at 8000
-byte_BANK4_943E:.BYTE $4E			  ; data used at 8000
+      .BYTE $4E					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $4E					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
@@ -59649,10 +59692,10 @@ byte_BANK4_943E:.BYTE $4E			  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
-byte_BANK4_946D:.BYTE $94			  ; data used at 8000
+      .BYTE $94					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
-byte_BANK4_9470:.BYTE $7E			  ; data used at 8000
+      .BYTE $7E					  ; data used at 8000
       .BYTE $99					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $98					  ; data used at 8000
@@ -59713,7 +59756,7 @@ byte_BANK4_9470:.BYTE $7E			  ; data used at 8000
       .BYTE $30					  ; data used at 8000
       .BYTE $99					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
-byte_BANK4_94AD:.BYTE $48			  ; data used at 8000
+      .BYTE $48					  ; data used at 8000
       .BYTE $98					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
@@ -59899,7 +59942,7 @@ byte_BANK4_94AD:.BYTE $48			  ; data used at 8000
       .BYTE $56	; V
       .BYTE $50	; P
       .BYTE $94	; î
-unk_BANK4_9567:.BYTE $48 ; H
+      .BYTE $48	; H
       .BYTE $4C	; L
       .BYTE $99	; ô
       .BYTE $46	; F
@@ -59972,7 +60015,7 @@ unk_BANK4_9567:.BYTE $48 ; H
       .BYTE $40	; @
       .BYTE $42	; B
       .BYTE $48	; H
-unk_BANK4_95B0:.BYTE $7E ; ~
+      .BYTE $7E	; ~
       .BYTE $42	; B
       .BYTE $48	; H
       .BYTE $4C	; L
@@ -60002,7 +60045,7 @@ unk_BANK4_95B0:.BYTE $7E ; ~
       .BYTE $48	; H
       .BYTE $99	; ô
       .BYTE $3A	; :
-unk_BANK4_95CE:.BYTE $94 ; î
+      .BYTE $94	; î
       .BYTE $48	; H
       .BYTE $98	; ò
       .BYTE $48	; H
@@ -60031,7 +60074,7 @@ unk_BANK4_95CE:.BYTE $94 ; î
       .BYTE $50	; P
       .BYTE $7E	; ~
       .BYTE $60	; `
-unk_BANK4_95EB:.BYTE $7E ; ~
+      .BYTE $7E	; ~
       .BYTE $60	; `
       .BYTE $9A	; ö
       .BYTE $60	; `
@@ -60067,7 +60110,7 @@ unk_BANK4_95EB:.BYTE $7E ; ~
       .BYTE $98	; ò
       .BYTE $6E	; n
       .BYTE $3E	; >
-unk_BANK4_960F:.BYTE $98 ; ò
+      .BYTE $98	; ò
       .BYTE $7E	; ~
       .BYTE $99	; ô
       .BYTE $4E	; N
@@ -60083,7 +60126,7 @@ unk_BANK4_960F:.BYTE $98 ; ò
       .BYTE $40	; @
       .BYTE $98	; ò
       .BYTE $7E	; ~
-unk_BANK4_961F:.BYTE $94 ; î
+      .BYTE $94	; î
       .BYTE $3A	; :
       .BYTE $98	; ò
       .BYTE $7E	; ~
@@ -60194,7 +60237,7 @@ unk_BANK4_961F:.BYTE $94 ; î
       .BYTE $2E					  ; data used at 8000
       .BYTE $E8					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
-byte_BANK4_968E:.BYTE $7E			  ; data used at 8000
+      .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $E8					  ; data used at 8000
       .BYTE $4C					  ; data used at 8000
@@ -60333,7 +60376,7 @@ byte_BANK4_968E:.BYTE $7E			  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
       .BYTE $EB					  ; data used at 8000
-byte_BANK4_9719:.BYTE $38			  ; data used at 8000
+      .BYTE $38					  ; data used at 8000
       .BYTE $E4					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
@@ -60718,7 +60761,7 @@ byte_BANK4_9719:.BYTE $38			  ; data used at 8000
       .BYTE $18					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
-byte_BANK4_989A:.BYTE $2E			  ; data used at 8000
+      .BYTE $2E					  ; data used at 8000
       .BYTE $38					  ; data used at 8000
       .BYTE $EB					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
@@ -60730,7 +60773,7 @@ byte_BANK4_989A:.BYTE $2E			  ; data used at 8000
       .BYTE 1					  ; data used at 8000
       .BYTE $10					  ; data used at 8000
       .BYTE 1					  ; data used at 8000
-byte_BANK4_98A6:.BYTE 1				  ; data used at 8000
+      .BYTE 1					  ; data used at 8000
       .BYTE $10					  ; data used at 8000
       .BYTE 1					  ; data used at 8000
       .BYTE $10					  ; data used at 8000
@@ -60769,7 +60812,7 @@ byte_BANK4_98A6:.BYTE 1				  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
-byte_BANK4_98CD:.BYTE $96			  ; data used at 8000
+      .BYTE $96					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
@@ -60778,7 +60821,7 @@ byte_BANK4_98CD:.BYTE $96			  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $96					  ; data used at 8000
-byte_BANK4_98D6:.BYTE $7E			  ; data used at 8000
+      .BYTE $7E					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $96					  ; data used at 8000
@@ -60799,7 +60842,7 @@ byte_BANK4_98D6:.BYTE $7E			  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
-byte_BANK4_98EB:.BYTE $96			  ; data used at 8000
+      .BYTE $96					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
@@ -60873,7 +60916,7 @@ byte_BANK4_98EB:.BYTE $96			  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $96					  ; data used at 8000
-byte_BANK4_9935:.BYTE $7E			  ; data used at 8000
+      .BYTE $7E					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $96					  ; data used at 8000
@@ -60942,7 +60985,7 @@ byte_BANK4_9935:.BYTE $7E			  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $A2					  ; data used at 8000
       .BYTE $42					  ; data used at 8000
-byte_BANK4_997A:.BYTE $A6			  ; data used at 8000
+      .BYTE $A6					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $A2					  ; data used at 8000
       .BYTE $3C					  ; data used at 8000
@@ -61137,7 +61180,7 @@ byte_BANK4_997A:.BYTE $A6			  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $C2					  ; data used at 8000
-byte_BANK4_9A3D:.BYTE $48			  ; data used at 8000
+      .BYTE $48					  ; data used at 8000
       .BYTE $C6					  ; data used at 8000
       .BYTE $46					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
@@ -61359,7 +61402,7 @@ byte_BANK4_9A3D:.BYTE $48			  ; data used at 8000
       .BYTE $5A					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $50					  ; data used at 8000
-byte_BANK4_9B1B:.BYTE $96			  ; data used at 8000
+      .BYTE $96					  ; data used at 8000
       .BYTE $56					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $54					  ; data used at 8000
@@ -61499,7 +61542,7 @@ byte_BANK4_9B1B:.BYTE $96			  ; data used at 8000
       .BYTE $56					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $52					  ; data used at 8000
-byte_BANK4_9BA7:.BYTE $96			  ; data used at 8000
+      .BYTE $96					  ; data used at 8000
       .BYTE $46					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $42					  ; data used at 8000
@@ -61508,10 +61551,10 @@ byte_BANK4_9BA7:.BYTE $96			  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $46					  ; data used at 8000
       .BYTE $96					  ; data used at 8000
-byte_BANK4_9BB0:.BYTE $42			  ; data used at 8000
+      .BYTE $42					  ; data used at 8000
       .BYTE $92					  ; data used at 8000
       .BYTE $3E					  ; data used at 8000
-byte_BANK4_9BB3:.BYTE 0				  ; data used at 8000
+      .BYTE 0					  ; data used at 8000
       .BYTE $C8					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $46					  ; data used at 8000
@@ -61671,7 +61714,7 @@ byte_BANK4_9BB3:.BYTE 0				  ; data used at 8000
       .BYTE $88					  ; data used at 8000
       .BYTE $5A					  ; data used at 8000
       .BYTE $82					  ; data used at 8000
-byte_BANK4_9C53:.BYTE $60			  ; data used at 8000
+      .BYTE $60					  ; data used at 8000
       .BYTE $5E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $5A					  ; data used at 8000
@@ -61744,7 +61787,7 @@ byte_BANK4_9C53:.BYTE $60			  ; data used at 8000
       .BYTE $50					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $8A					  ; data used at 8000
-byte_BANK4_9C9C:.BYTE $4A			  ; data used at 8000
+      .BYTE $4A					  ; data used at 8000
       .BYTE $82					  ; data used at 8000
       .BYTE $50					  ; data used at 8000
       .BYTE $5A					  ; data used at 8000
@@ -61830,7 +61873,7 @@ byte_BANK4_9C9C:.BYTE $4A			  ; data used at 8000
       .BYTE 1					  ; data used at 8000
       .BYTE 2					  ; data used at 8000
       .BYTE $82					  ; data used at 8000
-byte_BANK4_9CF2:.BYTE 2				  ; data used at 8000
+      .BYTE 2					  ; data used at 8000
       .BYTE 2					  ; data used at 8000
       .BYTE 2					  ; data used at 8000
       .BYTE 2					  ; data used at 8000
@@ -62159,7 +62202,7 @@ byte_BANK4_9CF2:.BYTE 2				  ; data used at 8000
       .BYTE $2A					  ; data used at 8000
       .BYTE $2E					  ; data used at 8000
       .BYTE $30					  ; data used at 8000
-byte_BANK4_9E3B:.BYTE $26			  ; data used at 8000
+      .BYTE $26					  ; data used at 8000
       .BYTE $2A					  ; data used at 8000
       .BYTE $2E					  ; data used at 8000
       .BYTE $30					  ; data used at 8000
@@ -62175,12 +62218,12 @@ byte_BANK4_9E3B:.BYTE $26			  ; data used at 8000
       .BYTE $82					  ; data used at 8000
       .BYTE 2					  ; data used at 8000
       .BYTE 1					  ; data used at 8000
-byte_BANK4_9E4B:.BYTE 2				  ; data used at 8000
+      .BYTE 2					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
       .BYTE $E2					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
-byte_BANK4_9E50:.BYTE $52			  ; data used at 8000
+      .BYTE $52					  ; data used at 8000
       .BYTE $4E					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $50					  ; data used at 8000
@@ -62269,7 +62312,7 @@ byte_BANK4_9E50:.BYTE $52			  ; data used at 8000
       .BYTE $38					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $E8					  ; data used at 8000
-byte_BANK4_9EA9:.BYTE $46			  ; data used at 8000
+      .BYTE $46					  ; data used at 8000
       .BYTE $E2					  ; data used at 8000
       .BYTE $7E					  ; data used at 8000
       .BYTE $E8					  ; data used at 8000
@@ -62619,7 +62662,7 @@ byte_BANK4_9EA9:.BYTE $46			  ; data used at 8000
 ; Segment type:	Pure code
       ;.segment	BANK5
       *	=  $A000
-      .BYTE $4E					  ; data used at a000
+      .BYTE $4E					  ; This data continues	from the end of	bank 4
       .BYTE $52					  ; data used at a000
       .BYTE $50					  ; data used at a000
       .BYTE $52					  ; data used at a000
@@ -62885,7 +62928,7 @@ byte_BANK4_9EA9:.BYTE $46			  ; data used at 8000
       .BYTE $4C					  ; data used at a000
       .BYTE $3E					  ; data used at a000
       .BYTE $42					  ; data used at a000
-byte_BANK5_A10A:.BYTE $7E			  ; data used at a000
+      .BYTE $7E					  ; data used at a000
       .BYTE $30					  ; data used at a000
       .BYTE $7E					  ; data used at a000
       .BYTE $26					  ; data used at a000
@@ -62923,7 +62966,7 @@ byte_BANK5_A10A:.BYTE $7E			  ; data used at a000
       .BYTE $98					  ; data used at a000
       .BYTE $38					  ; data used at a000
       .BYTE $30					  ; data used at a000
-byte_BANK5_A130:.BYTE $7E			  ; data used at a000
+      .BYTE $7E					  ; data used at a000
       .BYTE $9A					  ; data used at a000
       .BYTE $48					  ; data used at a000
       .BYTE $88					  ; data used at a000
@@ -63018,7 +63061,7 @@ byte_BANK5_A130:.BYTE $7E			  ; data used at a000
       .BYTE $30					  ; data used at a000
 byte_BANK5_A18D:.BYTE $90			  ; DATA XREF: sub_BANK4_8643+20r
 						  ; data used at a000
-InstrumentSoundData:.BYTE $95			  ; data used at a000
+InstrumentSoundData:.BYTE $95			  ; @TODO Should this label be moved up? oops
       .BYTE $95					  ; data used at a000
       .BYTE $95					  ; data used at a000
       .BYTE $95					  ; data used at a000
@@ -63432,7 +63475,7 @@ byte_BANK5_A301:.BYTE $51			  ; DATA XREF: sub_BANK4_8643+54r
       .BYTE $57	; W
       .BYTE $58	; X
       .BYTE $58	; X
-unk_BANK5_A323:.BYTE $58 ; X
+      .BYTE $58	; X
       .BYTE $58	; X
       .BYTE $58	; X
       .BYTE $58	; X
@@ -63502,7 +63545,7 @@ unk_BANK5_A341:.BYTE $50 ; P			  ; DATA XREF: sub_BANK4_8643+6Er
       .BYTE $51	; Q
       .BYTE $51	; Q
       .BYTE $51	; Q
-unk_BANK5_A369:.BYTE $51 ; Q
+      .BYTE $51	; Q
       .BYTE $51	; Q
       .BYTE $51	; Q
       .BYTE $51	; Q
@@ -63541,7 +63584,7 @@ unk_BANK5_A381:.BYTE $50 ; P			  ; DATA XREF: sub_BANK4_8643:loc_BANK4_86B6r
       .BYTE $51	; Q
       .BYTE $52	; R
       .BYTE $53	; S
-unk_BANK5_A390:.BYTE $54 ; T
+      .BYTE $54	; T
       .BYTE $55	; U
       .BYTE $56	; V
       .BYTE $57	; W
@@ -63639,7 +63682,7 @@ byte_BANK5_A3AF:.BYTE $50			  ; DATA XREF: sub_BANK4_8643+61r
       .BYTE $54	; T
       .BYTE $55	; U
 ; [00001C11 BYTES: BEGIN OF AREA UNUSED-BANK5:A3EF. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_A3EF:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_unused_BANK5_A3EF:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0 ; Look at all this space you	can use!
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -64118,7 +64161,7 @@ WorldBackgroundPalettePointersHi:.BYTE high8(World1BackgroundPalettes)
 						  ; DATA XREF: sub_BANK6_9370+Cr
 						  ; data used at 8000
       .BYTE high8(World2BackgroundPalettes)	  ; data used at 8000
-off_BANK6_8010:.BYTE high8(World3BackgroundPalettes) ; data used at 8000
+      .BYTE high8(World3BackgroundPalettes)	  ; data used at 8000
       .BYTE high8(World4BackgroundPalettes)	  ; data used at 8000
       .BYTE high8(World5BackgroundPalettes)	  ; data used at 8000
       .BYTE high8(World6BackgroundPalettes)	  ; data used at 8000
@@ -64132,1070 +64175,293 @@ WorldSpritePalettePointersHi:.BYTE high8(World1SpritePalettes)
       .BYTE high8(World5SpritePalettes)		  ; data used at 8000
       .BYTE high8(World6SpritePalettes)		  ; data used at 8000
       .BYTE high8(World7SpritePalettes)		  ; data used at 8000
-World1BackgroundPalettes:.BYTE $21 ; !		  ; DATA XREF: BANK6:WorldBackgroundPalettePointersLoo
+World1BackgroundPalettes:.BYTE $21,$30,$12,$F			     ; 0
+						  ; DATA XREF: BANK6:WorldBackgroundPalettePointersLoo
 						  ; BANK6:WorldBackgroundPalettePointersHio
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $29	; )				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $29	; )				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE  $A					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE  $A					  ; data used at 8000
-      .BYTE   7
-      .BYTE $30	; 0
-      .BYTE $27	; '
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $27	; '
-      .BYTE $17
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $31	; 1
-      .BYTE $21	; !
-      .BYTE  $F
-      .BYTE   3					  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE $15					  ; data used at 8000
-      .BYTE   5					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE   6					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $26	; &				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-unk_BANK6_8083:.BYTE  $F			  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-World1SpritePalettes:.BYTE $FF			  ; DATA XREF: BANK6:WorldSpritePalettePointersLoo
+      .BYTE $21,$30,$16,$F			  ; 4 ;	Some of	these palettes,	across all of these entries,
+      .BYTE $21,$27,$17,$F			  ; 8 ;	may be unused; my initial logging suggests that	a handful
+      .BYTE $21,$29,$1A,$F			  ; $C ; of them were not used as data anywhere
+      .BYTE $F,$30,$12,1			  ; $10
+      .BYTE $F,$30,$16,2			  ; $14
+      .BYTE $F,$27,$17,8			  ; $18
+      .BYTE $F,$29,$1A,$A			  ; $1C
+      .BYTE $F,$2C,$1C,$C			  ; $20
+      .BYTE $F,$30,$16,2			  ; $24
+      .BYTE $F,$27,$17,8			  ; $28
+      .BYTE $F,$2A,$1A,$A			  ; $2C
+      .BYTE 7,$30,$27,$F			  ; $30
+      .BYTE 7,$30,$16,$F			  ; $34
+      .BYTE 7,$27,$17,$F			  ; $38
+      .BYTE 7,$31,$21,$F			  ; $3C
+      .BYTE 3,$2C,$1C,$F			  ; $40
+      .BYTE 3,$30,$16,$F			  ; $44
+      .BYTE 3,$3C,$1C,$F			  ; $48
+      .BYTE 3,$25,$15,5				  ; $4C
+      .BYTE $C,$30,6,$F				  ; $50
+      .BYTE $C,$30,$16,$F			  ; $54
+      .BYTE $C,$30,$16,$F			  ; $58
+      .BYTE $C,$30,$26,$F			  ; $5C
+      .BYTE 1,$F,$F,$F				  ; $60
+      .BYTE 1,$F,$F,$F				  ; $64
+      .BYTE 1,$F,$F,$F				  ; $68
+      .BYTE 1,$F,$F,$F				  ; $6C
+World1SpritePalettes:.BYTE $FF,$30,$16,$F			 ; 0
+						  ; DATA XREF: BANK6:WorldSpritePalettePointersLoo
 						  ; BANK6:WorldSpritePalettePointersHio
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-World2BackgroundPalettes:.BYTE $11		  ; DATA XREF: BANK6:8001o
+      .BYTE $FF,$38,$10,$F			  ; 4 ;	data used at 8000
+      .BYTE $FF,$30,$25,$F			  ; 8
+      .BYTE $FF,$30,$16,2			  ; $C
+      .BYTE $FF,$38,$10,2			  ; $10
+      .BYTE $FF,$30,$25,2			  ; $14
+      .BYTE $FF,$30,$16,$F			  ; $18
+      .BYTE $FF,$30,$10,$F			  ; $1C
+      .BYTE $FF,$25,$10,$F			  ; $20
+World2BackgroundPalettes:.BYTE $11,$30,$2A,$F			     ; 0
+						  ; DATA XREF: BANK6:8001o
 						  ; BANK6:800Fo
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE  $A					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE  $A					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE   7
-      .BYTE $30	; 0
-      .BYTE $27	; '
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $28	; (
-      .BYTE $17
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $31	; 1
-      .BYTE $11
-      .BYTE  $F
-      .BYTE  $C
-      .BYTE $2A	; *
-      .BYTE $1A
-      .BYTE  $F
-      .BYTE  $C
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE  $F
-      .BYTE  $C
-      .BYTE $17
-      .BYTE   7
-      .BYTE  $F
-      .BYTE  $C
-      .BYTE $25	; %
-      .BYTE $15
-      .BYTE  $F
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $3A	; :				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-World2SpritePalettes:.BYTE $FF			  ; DATA XREF: BANK6:8008o
+      .BYTE $11,$30,$16,$F			  ; 4 ;	data used at 8000
+      .BYTE $11,$28,$18,$F			  ; 8
+      .BYTE $11,$17,7,$F			  ; $C
+      .BYTE $F,$30,$2A,$A			  ; $10
+      .BYTE $F,$30,$16,2			  ; $14
+      .BYTE $F,$28,$18,8			  ; $18
+      .BYTE $F,$17,7,8				  ; $1C
+      .BYTE $F,$2A,$1A,$A			  ; $20
+      .BYTE $F,$30,$16,2			  ; $24
+      .BYTE $F,$28,$18,8			  ; $28
+      .BYTE $F,$27,$17,7			  ; $2C
+      .BYTE 7,$30,$27,$F			  ; $30
+      .BYTE 7,$30,$16,$F			  ; $34
+      .BYTE 7,$28,$17,$F			  ; $38
+      .BYTE 7,$31,$11,$F			  ; $3C
+      .BYTE $C,$2A,$1A,$F			  ; $40
+      .BYTE $C,$30,$16,$F			  ; $44
+      .BYTE $C,$17,7,$F				  ; $48
+      .BYTE $C,$25,$15,$F			  ; $4C
+      .BYTE $C,$30,$1A,$F			  ; $50
+      .BYTE $C,$30,$16,$F			  ; $54
+      .BYTE $C,$30,$2A,$F			  ; $58
+      .BYTE $C,$30,$3A,$F			  ; $5C
+      .BYTE 1,$F,$F,$F				  ; $60
+      .BYTE 1,$F,$F,$F				  ; $64
+      .BYTE 1,$F,$F,$F				  ; $68
+      .BYTE 1,$F,$F,$F				  ; $6C
+World2SpritePalettes:.BYTE $FF,$30,$16,$F			 ; 0
+						  ; DATA XREF: BANK6:8008o
 						  ; BANK6:8016o
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-World3BackgroundPalettes:.BYTE $22 ; "		  ; DATA XREF: BANK6:8002o
-						  ; BANK6:off_BANK6_8010o
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $29	; )				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F
-      .BYTE $30	; 0
-      .BYTE $12
-      .BYTE   1
-      .BYTE  $F
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE   2
-      .BYTE  $F
-      .BYTE $27	; '
-      .BYTE $17
-      .BYTE   8
-      .BYTE  $F
-      .BYTE $29	; )
-      .BYTE $1A
-      .BYTE   4
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $26	; &				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   6					  ; data used at 8000
-      .BYTE   7
-      .BYTE $30	; 0
-      .BYTE $27	; '
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $27	; '
-      .BYTE $17
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $31	; 1
-      .BYTE $31	; 1
-      .BYTE  $F
-      .BYTE   3					  ; data used at 8000
-      .BYTE $31	; 1				  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-unk_BANK6_81A2:.BYTE $31 ; 1			  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-World3SpritePalettes:.BYTE $FF			  ; DATA XREF: BANK6:8009o
+      .BYTE $FF,$38,$2A,$F			  ; 4 ;	data used at 8000
+      .BYTE $FF,$30,$25,$F			  ; 8
+      .BYTE $FF,$30,$16,2			  ; $C
+      .BYTE $FF,$38,$2A,2			  ; $10
+      .BYTE $FF,$30,$25,2			  ; $14
+      .BYTE $FF,$30,$16,$F			  ; $18
+      .BYTE $FF,$30,$10,$F			  ; $1C
+      .BYTE $FF,$30,$23,$F			  ; $20
+World3BackgroundPalettes:.BYTE $22,$30,$12,$F			     ; 0
+						  ; DATA XREF: BANK6:8002o
+						  ; BANK6:8010o
+      .BYTE $22,$30,$16,$F			  ; 4 ;	data used at 8000
+      .BYTE $22,$27,$17,$F			  ; 8
+      .BYTE $22,$29,$1A,$F			  ; $C
+      .BYTE $F,$30,$12,1			  ; $10
+      .BYTE $F,$30,$16,2			  ; $14
+      .BYTE $F,$27,$17,8			  ; $18
+      .BYTE $F,$29,$1A,4			  ; $1C
+      .BYTE $F,$30,$1C,$C			  ; $20
+      .BYTE $F,$30,$16,2			  ; $24
+      .BYTE $F,$27,$17,8			  ; $28
+      .BYTE $F,$26,$16,6			  ; $2C
+      .BYTE 7,$30,$27,$F			  ; $30
+      .BYTE 7,$30,$16,$F			  ; $34
+      .BYTE 7,$27,$17,$F			  ; $38
+      .BYTE 7,$31,$31,$F			  ; $3C
+      .BYTE 3,$31,$21,$F			  ; $40
+      .BYTE 3,$30,$16,$F			  ; $44
+      .BYTE 3,$3C,$1C,$F			  ; $48
+      .BYTE 3,$2A,$1A,$F			  ; $4C
+      .BYTE $C,$30,$11,$F			  ; $50
+      .BYTE $C,$30,$16,$F			  ; $54
+      .BYTE $C,$30,$21,$F			  ; $58
+      .BYTE $C,$30,$31,$F			  ; $5C
+      .BYTE 1,$F,$F,$F				  ; $60
+      .BYTE 1,$F,$F,$F				  ; $64
+      .BYTE 1,$F,$F,$F				  ; $68
+      .BYTE 1,$F,$F,$F				  ; $6C
+World3SpritePalettes:.BYTE $FF,$30,$16,$F			 ; 0
+						  ; DATA XREF: BANK6:8009o
 						  ; BANK6:8017o
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $2B	; +				  ; data used at 8000
-unk_BANK6_81D6:.BYTE $10			  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-World4BackgroundPalettes:.BYTE $23 ; #		  ; DATA XREF: BANK6:8003o
+      .BYTE $FF,$38,$10,$F			  ; 4 ;	data used at 8000
+      .BYTE $FF,$30,$25,$F			  ; 8
+      .BYTE $FF,$30,$16,2			  ; $C
+      .BYTE $FF,$38,$10,2			  ; $10
+      .BYTE $FF,$30,$25,2			  ; $14
+      .BYTE $FF,$30,$16,$F			  ; $18
+      .BYTE $FF,$30,$10,$F			  ; $1C
+      .BYTE $FF,$2B,$10,$F			  ; $20
+World4BackgroundPalettes:.BYTE $23,$30,$12,$F			     ; 0
+						  ; DATA XREF: BANK6:8003o
 						  ; BANK6:8011o
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $2B	; +				  ; data used at 8000
-      .BYTE $1B					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $32	; 2				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F
-      .BYTE $30	; 0
-      .BYTE $12
-      .BYTE   1
-      .BYTE  $F
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE   2
-      .BYTE  $F
-      .BYTE $2B	; +
-      .BYTE $1B
-      .BYTE  $B
-      .BYTE  $F
-      .BYTE $29	; )
-      .BYTE $1A
-      .BYTE  $A
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $32	; 2				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-unk_BANK6_81FE:.BYTE $16			  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $2B	; +				  ; data used at 8000
-      .BYTE $1B					  ; data used at 8000
-      .BYTE  $B					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE   7
-      .BYTE $30	; 0
-      .BYTE $27	; '
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $27	; '
-      .BYTE $17
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $21	; !
-      .BYTE $21	; !
-      .BYTE  $F
-      .BYTE   3					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-unk_BANK6_823D:.BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-World4SpritePalettes:.BYTE $FF			  ; DATA XREF: BANK6:800Ao
+      .BYTE $23,$30,$16,$F			  ; 4 ;	data used at 8000
+      .BYTE $23,$2B,$1B,$F			  ; 8
+      .BYTE $23,$30,$32,$F			  ; $C
+      .BYTE $F,$30,$12,1			  ; $10
+      .BYTE $F,$30,$16,2			  ; $14
+      .BYTE $F,$2B,$1B,$B			  ; $18
+      .BYTE $F,$29,$1A,$A			  ; $1C
+      .BYTE $F,$32,$12,1			  ; $20
+      .BYTE $F,$30,$16,2			  ; $24
+      .BYTE $F,$2B,$1B,$B			  ; $28
+      .BYTE $F,$27,$17,7			  ; $2C
+      .BYTE 7,$30,$27,$F			  ; $30
+      .BYTE 7,$30,$16,$F			  ; $34
+      .BYTE 7,$27,$17,$F			  ; $38
+      .BYTE 7,$21,$21,$F			  ; $3C
+      .BYTE 3,$30,$12,$F			  ; $40
+      .BYTE 3,$30,$16,$F			  ; $44
+      .BYTE 3,$3C,$1C,$F			  ; $48
+      .BYTE 3,$28,$18,$F			  ; $4C
+      .BYTE $C,$30,0,$F				  ; $50
+      .BYTE $C,$30,$16,$F			  ; $54
+      .BYTE $C,$30,$10,$F			  ; $58
+      .BYTE $C,$30,$30,$F			  ; $5C
+      .BYTE 1,$F,$F,$F				  ; $60
+      .BYTE 1,$F,$F,$F				  ; $64
+      .BYTE 1,$F,$F,$F				  ; $68
+      .BYTE 1,$F,$F,$F				  ; $6C
+World4SpritePalettes:.BYTE $FF,$30,$16,$F			 ; 0
+						  ; DATA XREF: BANK6:800Ao
 						  ; BANK6:8018o
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-World5BackgroundPalettes:.BYTE	$F		  ; DATA XREF: BANK6:8004o
+      .BYTE $FF,$38,$10,$F			  ; 4 ;	data used at 8000
+      .BYTE $FF,$30,$25,$F			  ; 8
+      .BYTE $FF,$30,$16,2			  ; $C
+      .BYTE $FF,$38,$10,2			  ; $10
+      .BYTE $FF,$30,$25,2			  ; $14
+      .BYTE $FF,$30,$16,$F			  ; $18
+      .BYTE $FF,$30,$10,$F			  ; $1C
+      .BYTE $FF,$27,$16,$F			  ; $20
+World5BackgroundPalettes:.BYTE $F,$30,$12,1			     ; 0
+						  ; DATA XREF: BANK6:8004o
 						  ; BANK6:8012o
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $2B	; +				  ; data used at 8000
-      .BYTE $1B					  ; data used at 8000
-      .BYTE  $B					  ; data used at 8000
-      .BYTE  $F
-      .BYTE $30	; 0
-      .BYTE $12
-      .BYTE   1
-      .BYTE  $F
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE   2
-      .BYTE  $F
-      .BYTE $27	; '
-      .BYTE $17
-      .BYTE   8
-      .BYTE  $F
-      .BYTE $29	; )
-      .BYTE $1A
-      .BYTE  $A
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $31	; 1				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE  $A					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE $31	; 1				  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   1
-      .BYTE $2A	; *
-      .BYTE $1A
-      .BYTE  $F
-      .BYTE   1
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE  $F
-      .BYTE   1
-      .BYTE $3C	; <
-      .BYTE $1C
-      .BYTE  $F
-      .BYTE   1
-      .BYTE $25	; %
-      .BYTE $15
-      .BYTE   5
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-World5SpritePalettes:.BYTE $FF			  ; DATA XREF: BANK6:800Bo
+      .BYTE $F,$30,$16,1			  ; 4 ;	data used at 8000
+      .BYTE $F,$27,$17,7			  ; 8
+      .BYTE $F,$2B,$1B,$B			  ; $C
+      .BYTE $F,$30,$12,1			  ; $10
+      .BYTE $F,$30,$16,2			  ; $14
+      .BYTE $F,$27,$17,8			  ; $18
+      .BYTE $F,$29,$1A,$A			  ; $1C
+      .BYTE $F,$31,$12,1			  ; $20
+      .BYTE $F,$30,$16,2			  ; $24
+      .BYTE $F,$3C,$1C,$C			  ; $28
+      .BYTE $F,$2A,$1A,$A			  ; $2C
+      .BYTE 7,$30,$27,$F			  ; $30
+      .BYTE 7,$30,$16,$F			  ; $34
+      .BYTE 7,$27,$17,$F			  ; $38
+      .BYTE 7,$31,1,$F				  ; $3C
+      .BYTE 1,$2A,$1A,$F			  ; $40
+      .BYTE 1,$30,$16,$F			  ; $44
+      .BYTE 1,$3C,$1C,$F			  ; $48
+      .BYTE 1,$25,$15,5				  ; $4C
+      .BYTE $C,$30,$16,$F			  ; $50
+      .BYTE $C,$30,$16,$F			  ; $54
+      .BYTE $C,$30,$24,$F			  ; $58
+      .BYTE $C,$30,$34,$F			  ; $5C
+      .BYTE 1,$F,$F,$F				  ; $60
+      .BYTE 1,$F,$F,$F				  ; $64
+      .BYTE 1,$F,$F,$F				  ; $68
+      .BYTE 1,$F,$F,$F				  ; $6C
+World5SpritePalettes:.BYTE $FF,$30,$16,$F			 ; 0
+						  ; DATA XREF: BANK6:800Bo
 						  ; BANK6:8019o
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-World6BackgroundPalettes:.BYTE $21 ; !		  ; DATA XREF: BANK6:8005o
+      .BYTE $FF,$38,$10,$F			  ; 4 ;	data used at 8000
+      .BYTE $FF,$30,$25,$F			  ; 8
+      .BYTE $FF,$30,$16,2			  ; $C
+      .BYTE $FF,$38,$10,2			  ; $10
+      .BYTE $FF,$30,$25,2			  ; $14
+      .BYTE $FF,$30,$16,$F			  ; $18
+      .BYTE $FF,$30,$16,$F			  ; $1C
+      .BYTE $FF,$16,$30,$F			  ; $20
+World6BackgroundPalettes:.BYTE $21,$30,$2A,$F			     ; 0
+						  ; DATA XREF: BANK6:8005o
 						  ; BANK6:8013o
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-unk_BANK6_8327:.BYTE   2			  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE $31	; 1				  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE   7					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE $15					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $1B					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $2B	; +				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $3B	; ;				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-World6SpritePalettes:.BYTE $FF			  ; DATA XREF: BANK6:800Co
+      .BYTE $21,$30,$16,$F			  ; 4 ;	data used at 8000
+      .BYTE $21,$28,$18,$F			  ; 8
+      .BYTE $21,$17,7,$F			  ; $C
+      .BYTE $F,$30,$2A,1			  ; $10
+      .BYTE $F,$30,$16,2			  ; $14
+      .BYTE $F,$28,$18,8			  ; $18
+      .BYTE $F,$17,7,8				  ; $1C
+      .BYTE $F,$30,$12,1			  ; $20
+      .BYTE $F,$30,$16,2			  ; $24
+      .BYTE $F,$28,$18,8			  ; $28
+      .BYTE $F,$27,$17,7			  ; $2C
+      .BYTE 7,$30,$27,$F			  ; $30
+      .BYTE 7,$30,$16,$F			  ; $34
+      .BYTE 7,$28,$17,$F			  ; $38
+      .BYTE 7,$31,1,$F				  ; $3C
+      .BYTE $C,$2A,$1A,$F			  ; $40
+      .BYTE $C,$30,$16,$F			  ; $44
+      .BYTE $C,$17,7,$F				  ; $48
+      .BYTE $C,$25,$15,$F			  ; $4C
+      .BYTE $C,$30,$1B,$F			  ; $50
+      .BYTE $C,$30,$16,$F			  ; $54
+      .BYTE $C,$30,$2B,$F			  ; $58
+      .BYTE $C,$30,$3B,$F			  ; $5C
+      .BYTE 1,$F,$F,$F				  ; $60
+      .BYTE 1,$F,$F,$F				  ; $64
+      .BYTE 1,$F,$F,$F				  ; $68
+      .BYTE 1,$F,$F,$F				  ; $6C
+World6SpritePalettes:.BYTE $FF,$30,$16,$F			 ; 0
+						  ; DATA XREF: BANK6:800Co
 						  ; BANK6:801Ao
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-World7BackgroundPalettes:.BYTE $21 ; !		  ; DATA XREF: BANK6:8006o
+      .BYTE $FF,$38,$2A,$F			  ; 4 ;	data used at 8000
+      .BYTE $FF,$30,$25,$F			  ; 8
+      .BYTE $FF,$30,$16,2			  ; $C
+      .BYTE $FF,$38,$2A,2			  ; $10
+      .BYTE $FF,$30,$25,2			  ; $14
+      .BYTE $FF,$30,$16,$F			  ; $18
+      .BYTE $FF,$30,$10,$F			  ; $1C
+      .BYTE $FF,$30,$23,$F			  ; $20
+World7BackgroundPalettes:.BYTE $21,$30,$12,$F			     ; 0
+						  ; DATA XREF: BANK6:8006o
 						  ; BANK6:8014o
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $29	; )				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $F
-      .BYTE $30	; 0
-      .BYTE $12
-      .BYTE   1
-      .BYTE  $F
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE   2
-      .BYTE  $F
-      .BYTE $27	; '
-      .BYTE $17
-      .BYTE   8
-      .BYTE  $F
-      .BYTE $29	; )
-      .BYTE $1A
-      .BYTE  $A
-      .BYTE  $F
-      .BYTE $2C	; ,
-      .BYTE $1C
-      .BYTE  $C
-      .BYTE  $F
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE   2
-      .BYTE  $F
-      .BYTE $27	; '
-      .BYTE $17
-      .BYTE   8
-      .BYTE  $F
-      .BYTE $2A	; *
-      .BYTE $1A
-      .BYTE  $A
-      .BYTE   7
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $30	; 0
-      .BYTE $16
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $27	; '
-      .BYTE $17
-      .BYTE  $F
-      .BYTE   7
-      .BYTE $31	; 1
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE $15					  ; data used at 8000
-      .BYTE   5					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   1
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-World7SpritePalettes:.BYTE $FF			  ; DATA XREF: BANK6:800Do
+      .BYTE $21,$30,$16,$F			  ; 4 ;	data used at 8000
+      .BYTE $21,$27,$17,$F			  ; 8
+      .BYTE $21,$29,$1A,$F			  ; $C
+      .BYTE $F,$30,$12,1			  ; $10
+      .BYTE $F,$30,$16,2			  ; $14
+      .BYTE $F,$27,$17,8			  ; $18
+      .BYTE $F,$29,$1A,$A			  ; $1C
+      .BYTE $F,$2C,$1C,$C			  ; $20
+      .BYTE $F,$30,$16,2			  ; $24
+      .BYTE $F,$27,$17,8			  ; $28
+      .BYTE $F,$2A,$1A,$A			  ; $2C
+      .BYTE 7,$30,$16,$F			  ; $30
+      .BYTE 7,$30,$16,$F			  ; $34
+      .BYTE 7,$27,$17,$F			  ; $38
+      .BYTE 7,$31,1,$F				  ; $3C
+      .BYTE $F,$3C,$2C,$C			  ; $40
+      .BYTE $F,$30,$16,2			  ; $44
+      .BYTE $F,$28,$18,8			  ; $48
+      .BYTE $F,$25,$15,5			  ; $4C
+      .BYTE $C,$30,8,$F				  ; $50
+      .BYTE $C,$30,$16,$F			  ; $54
+      .BYTE $C,$38,$18,$F			  ; $58
+      .BYTE $C,$28,8,$F				  ; $5C
+      .BYTE 1,$F,$F,$F				  ; $60
+      .BYTE 1,$F,$F,$F				  ; $64
+      .BYTE 1,$F,$F,$F				  ; $68
+      .BYTE 1,$F,$F,$F				  ; $6C
+World7SpritePalettes:.BYTE $FF,$30,$16,$F			 ; 0
+						  ; DATA XREF: BANK6:800Do
 						  ; BANK6:801Bo
-						  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
+      .BYTE $FF,$38,$10,$F			  ; 4 ;	data used at 8000
+      .BYTE $FF,$30,$25,$F			  ; 8
+      .BYTE $FF,$30,$16,2			  ; $C
+      .BYTE $FF,$38,$10,2			  ; $10
+      .BYTE $FF,$30,$25,2			  ; $14
+      .BYTE $FF,$30,$16,$F			  ; $18
+      .BYTE $FF,$30,$10,$F			  ; $1C
+      .BYTE $FF,$30,$2A,$F			  ; $20
 off_BANK6_8428:.BYTE low8(World1GroundTilesHorizontal) ; DATA XREF: sub_BANK6_9844+7r
 						  ; data used at 8000
       .BYTE low8(World2GroundTilesHorizontal)	  ; data used at 8000
@@ -65225,7 +64491,7 @@ off_BANK6_843D:.BYTE high8(World1GroundTilesVertical) ;	DATA XREF: sub_BANK6_985
       .BYTE high8(World2GroundTilesVertical)	  ; data used at 8000
       .BYTE high8(World3GroundTilesVertical)	  ; data used at 8000
       .BYTE high8(World4GroundTilesVertical)	  ; data used at 8000
-off_BANK6_8441:.BYTE high8(World5GroundTilesVertical) ;	data used at 8000
+      .BYTE high8(World5GroundTilesVertical)	  ; data used at 8000
       .BYTE high8(World6GroundTilesVertical)	  ; data used at 8000
       .BYTE high8(World7GroundTilesVertical)
 World1GroundTilesHorizontal:.BYTE 0, $99, $D5, 0, 0, $99, $99, $99, 0, $A0, $A0, $A0, 0, $A2, $A2, $A2;	0
@@ -65266,7 +64532,7 @@ World5GroundTilesHorizontal:.BYTE 0, $99, $D5, $40, 0, $99, $99, $99, 0, $A0, $A
       .BYTE 0, $D6, $9B, $18, 0, $A0, $A0, $99,	0, 0, 0, 0, 0, 0, 0, 0;	$10
 World5GroundTilesVertical:.BYTE	0, $9D,	$9E, $C6, 0, 5,	$A0, 0,	0, $40,	$A4, 0,	0, 0, $A2, 0; 0
 						  ; DATA XREF: BANK6:8433o
-						  ; BANK6:off_BANK6_8441o
+						  ; BANK6:8441o
       .BYTE 0, 0, $C2, 0, 0, 0,	$A0, 0,	0, $93,	$9E, $C6, 0, $40, $9E, $C6; $10
 World6GroundTilesHorizontal:.BYTE 0, $99, $99, $99, 0, $8A, $8A, $8A, 0, $8B, $8B, $8B,	0, $A0,	$A0, $A0; 0
 						  ; DATA XREF: BANK6:842Do
@@ -65284,7 +64550,10 @@ World7GroundTilesVertical:.BYTE	0, $9C,	$9C, $9C, 0, 5,	$A0, 0,	0, 0, 0, 0, 0, 0
 						  ; DATA XREF: BANK6:8435o
 						  ; BANK6:8443o
       .BYTE 0, 0, $C2, 0, 0, 0,	$A0, 0,	0, 0, 0, 0, 0, 0, 0, 0;	$10
-UnusedTileQuadPointersLo:.BYTE low8(UnusedTileQuads1)
+UnusedTileQuadPointersLo:.BYTE low8(UnusedTileQuads1) ;	@TODO Check this
+						  ; Not	actually sure what these are used for at all.
+						  ; My notes say they aren't, and they don't seem to be referenced anywhere...
+						  ; But	there's so many, it would be really surprising if they are unused.
       .BYTE low8(UnusedTileQuads2)
       .BYTE low8(UnusedTileQuads3)
       .BYTE low8(UnusedTileQuads4)
@@ -65292,662 +64561,174 @@ UnusedTileQuadPointersHi:.BYTE high8(UnusedTileQuads1)
       .BYTE high8(UnusedTileQuads2)
       .BYTE high8(UnusedTileQuads3)
       .BYTE high8(UnusedTileQuads4)
-UnusedTileQuads1:.BYTE $FE ; ˛			  ; DATA XREF: BANK6:UnusedTileQuadPointersLoo
+UnusedTileQuads1:.BYTE $FE,$FE,$FE,$FE			     ; 0
+						  ; DATA XREF: BANK6:UnusedTileQuadPointersLoo
 						  ; BANK6:UnusedTileQuadPointersHio
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $B4	; ¥
-      .BYTE $B6	; ∂
-      .BYTE $B5	; µ
-      .BYTE $B7	; ∑
-      .BYTE $B8	; ∏
-      .BYTE $FA	; ˙
-      .BYTE $B9	; π
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B2	; ≤
-      .BYTE $B3	; ≥
-      .BYTE $BE	; æ
-      .BYTE $BE	; æ
-      .BYTE $BF	; ø
-      .BYTE $BF	; ø
-      .BYTE $BF	; ø
-      .BYTE $BF	; ø
-      .BYTE $BF	; ø
-      .BYTE $BF	; ø
-      .BYTE $4A	; J
-      .BYTE $4A	; J
-      .BYTE $4B	; K
-      .BYTE $4B	; K
-      .BYTE $5E	; ^
-      .BYTE $5F	; _
-      .BYTE $5E	; ^
-      .BYTE $5F	; _
-      .BYTE $E8	; Ë
-      .BYTE $E8	; Ë
-      .BYTE $A9	; ©
-      .BYTE $A9	; ©
-      .BYTE $46	; F
-      .BYTE $FC	; ¸
-      .BYTE $46	; F
-      .BYTE $FC	; ¸
-      .BYTE $A9	; ©
-      .BYTE $A9	; ©
-      .BYTE $A9	; ©
-      .BYTE $A9	; ©
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $E9	; È
-      .BYTE $E9	; È
-      .BYTE $A9	; ©
-      .BYTE $A9	; ©
-      .BYTE $FC	; ¸
-      .BYTE $48	; H
-      .BYTE $FC	; ¸
-      .BYTE $48	; H
-      .BYTE $11
-      .BYTE $11
-      .BYTE $11
-      .BYTE $11
-      .BYTE $22	; "
-      .BYTE $22	; "
-      .BYTE $22	; "
-      .BYTE $22	; "
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $E8	; Ë
-      .BYTE $EB	; Î
-      .BYTE $A9	; ©
-      .BYTE $A9	; ©
-      .BYTE $74	; t
-      .BYTE $76	; v
-      .BYTE $75	; u
-      .BYTE $77	; w
-      .BYTE $98	; ò
-      .BYTE $9A	; ö
-      .BYTE $99	; ô
-      .BYTE $9B	; õ
-      .BYTE $9C	; ú
-      .BYTE $9A	; ö
-      .BYTE $9D	; ù
-      .BYTE $9B	; õ
-      .BYTE $9C	; ú
-      .BYTE $9E	; û
-      .BYTE $9B	; õ
-      .BYTE $9F	; ü
-      .BYTE $58	; X
-      .BYTE $5A	; Z
-      .BYTE $59	; Y
-      .BYTE $5B	; [
-      .BYTE $5E	; ^
-      .BYTE $5F	; _
-      .BYTE $5E	; ^
-      .BYTE $5F	; _
-      .BYTE $8E	; é
-      .BYTE $8F	; è
-      .BYTE $8F	; è
-      .BYTE $8E	; é
-      .BYTE $72	; r
-      .BYTE $73	; s
-      .BYTE $73	; s
-      .BYTE $72	; r
-      .BYTE $A6	; ¶
-      .BYTE $A6	; ¶
-      .BYTE $A7	; ß
-      .BYTE $A7	; ß
-      .BYTE $92	; í
-      .BYTE $93	; ì
-      .BYTE $93	; ì
-      .BYTE $92	; í
-      .BYTE $74	; t
-      .BYTE $76	; v
-      .BYTE $75	; u
-      .BYTE $77	; w
-      .BYTE $70	; p
-      .BYTE $72	; r
-      .BYTE $71	; q
-      .BYTE $73	; s
-      .BYTE $71	; q
-      .BYTE $73	; s
-      .BYTE $71	; q
-      .BYTE $73	; s
-      .BYTE $24	; $
-      .BYTE $26	; &
-      .BYTE $25	; %
-      .BYTE $27	; '
-      .BYTE $32	; 2
-      .BYTE $34	; 4
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $24	; $
-      .BYTE $26	; &
-      .BYTE $25	; %
-      .BYTE $27	; '
-UnusedTileQuads2:.BYTE $FA ; ˙			  ; DATA XREF: BANK6:8605o
+      .BYTE $B4,$B6,$B5,$B7			  ; 4
+      .BYTE $B8,$FA,$B9,$FA			  ; 8
+      .BYTE $FA,$FA,$B2,$B3			  ; $C
+      .BYTE $BE,$BE,$BF,$BF			  ; $10
+      .BYTE $BF,$BF,$BF,$BF			  ; $14
+      .BYTE $4A,$4A,$4B,$4B			  ; $18
+      .BYTE $5E,$5F,$5E,$5F			  ; $1C
+      .BYTE $E8,$E8,$A9,$A9			  ; $20
+      .BYTE $46,$FC,$46,$FC			  ; $24
+      .BYTE $A9,$A9,$A9,$A9			  ; $28
+      .BYTE $FC,$FC,$FC,$FC			  ; $2C
+      .BYTE $E9,$E9,$A9,$A9			  ; $30
+      .BYTE $FC,$48,$FC,$48			  ; $34
+      .BYTE $11,$11,$11,$11			  ; $38
+      .BYTE $22,$22,$22,$22			  ; $3C
+      .BYTE $33,$33,$33,$33			  ; $40
+      .BYTE $E8,$EB,$A9,$A9			  ; $44
+      .BYTE $74,$76,$75,$77			  ; $48
+      .BYTE $98,$9A,$99,$9B			  ; $4C
+      .BYTE $9C,$9A,$9D,$9B			  ; $50
+      .BYTE $9C,$9E,$9B,$9F			  ; $54
+      .BYTE $58,$5A,$59,$5B			  ; $58
+      .BYTE $5E,$5F,$5E,$5F			  ; $5C
+      .BYTE $8E,$8F,$8F,$8E			  ; $60
+      .BYTE $72,$73,$73,$72			  ; $64
+      .BYTE $A6,$A6,$A7,$A7			  ; $68
+      .BYTE $92,$93,$93,$92			  ; $6C
+      .BYTE $74,$76,$75,$77			  ; $70
+      .BYTE $70,$72,$71,$73			  ; $74
+      .BYTE $71,$73,$71,$73			  ; $78
+      .BYTE $24,$26,$25,$27			  ; $7C
+      .BYTE $32,$34,$33,$35			  ; $80
+      .BYTE $33,$35,$33,$35			  ; $84
+      .BYTE $24,$26,$25,$27			  ; $88
+UnusedTileQuads2:.BYTE $FA,$FA,$FA,$FA			     ; 0 ; DATA	XREF: BANK6:8605o
 						  ; BANK6:8609o
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $B0	; ∞
-      .BYTE $B1	; ±
-      .BYTE $A0	; †
-      .BYTE $A2	; ¢
-      .BYTE $A1	; °
-      .BYTE $A3	; £
-      .BYTE $80	; Ä
-      .BYTE $82	; Ç
-      .BYTE $81	; Å
-      .BYTE $83	; É
-      .BYTE $F4	; Ù
-      .BYTE $86	; Ü
-      .BYTE $F5	; ı
-      .BYTE $87	; á
-      .BYTE $84	; Ñ
-      .BYTE $86	; Ü
-      .BYTE $85	; Ö
-      .BYTE $87	; á
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $AD	; ≠
-      .BYTE $FB	; ˚
-      .BYTE $AC	; ¨
-      .BYTE $AD	; ≠
-      .BYTE $AC	; ¨
-      .BYTE $AC	; ¨
-      .BYTE $AC	; ¨
-      .BYTE $AC	; ¨
-      .BYTE $FB	; ˚
-      .BYTE $3B	; ;
-      .BYTE $3B	; ;
-      .BYTE $AC	; ¨
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $FC	; ¸
-      .BYTE $F4	; Ù
-      .BYTE $86	; Ü
-      .BYTE $F5	; ı
-      .BYTE $87	; á
-      .BYTE $FB	; ˚
-      .BYTE $49	; I
-      .BYTE $49	; I
-      .BYTE $FB	; ˚
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $6D	; m
-      .BYTE $FE	; ˛
-      .BYTE $3C	; <
-      .BYTE $3E	; >
-      .BYTE $3D	; =
-      .BYTE $3F	; ?
-      .BYTE $58	; X
-      .BYTE $FD	; ˝
-      .BYTE $59	; Y
-      .BYTE $5A	; Z
-      .BYTE $5B	; [
-      .BYTE $5A	; Z
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $5B	; [
-      .BYTE $5C	; \
-      .BYTE $FD	; ˝
-      .BYTE $5D	; ]
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $5B	; [
-      .BYTE $5A	; Z
-      .BYTE $6C	; l
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $6E	; n
-      .BYTE $FE	; ˛
-      .BYTE $6F	; o
-      .BYTE $20
-      .BYTE $22	; "
-      .BYTE $21	; !
-      .BYTE $23	; #
-      .BYTE $6E	; n
-      .BYTE $6F	; o
-      .BYTE $70	; p
-      .BYTE $71	; q
-      .BYTE $57	; W
-      .BYTE $57	; W
-      .BYTE $FB	; ˚
-      .BYTE $FB	; ˚
-      .BYTE $57	; W
-      .BYTE $57	; W
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $D3	; ”
-      .BYTE $D3	; ”
-      .BYTE $FB	; ˚
-      .BYTE $FB	; ˚
-      .BYTE $D2	; “
-      .BYTE $D2	; “
-      .BYTE $FB	; ˚
-      .BYTE $FB	; ˚
-      .BYTE $7C	; |
-      .BYTE $7E	; ~
-      .BYTE $7D	; }
-      .BYTE $7F	; 
-      .BYTE $CA	;  
-      .BYTE $CC	; Ã
-      .BYTE $CB	; À
-      .BYTE $CD	; Õ
-      .BYTE $CA	;  
-      .BYTE $CC	; Ã
-      .BYTE $CB	; À
-      .BYTE $CD	; Õ
-      .BYTE $C0	; ¿
-      .BYTE $C2	; ¬
-      .BYTE $C1	; ¡
-      .BYTE $C3	; √
-unk_BANK6_874C:.BYTE $2C ; ,
-      .BYTE $2E	; .
-      .BYTE $2D	; -
-      .BYTE $2F	; /
-      .BYTE $8E	; é
-      .BYTE $8F	; è
-      .BYTE $8F	; è
-      .BYTE $8E	; é
-      .BYTE $88	; à
-      .BYTE $8A	; ä
-      .BYTE $89	; â
-      .BYTE $8B	; ã
-      .BYTE $89	; â
-      .BYTE $8B	; ã
-      .BYTE $89	; â
-      .BYTE $8B	; ã
-      .BYTE $89	; â
-      .BYTE $8B	; ã
-      .BYTE $8C	; å
-      .BYTE $8D	; ç
-      .BYTE $88	; à
-      .BYTE $8A	; ä
-      .BYTE $8C	; å
-      .BYTE $8D	; ç
-      .BYTE $88	; à
-      .BYTE $8A	; ä
-      .BYTE $89	; â
-      .BYTE $8B	; ã
-      .BYTE $88	; à
-      .BYTE $8A	; ä
-      .BYTE $89	; â
-      .BYTE $8B	; ã
-      .BYTE $6A	; j
-      .BYTE $6C	; l
-      .BYTE $6B	; k
-      .BYTE $6D	; m
-      .BYTE $6C	; l
-      .BYTE $6C	; l
-      .BYTE $6D	; m
-      .BYTE $6D	; m
-      .BYTE $6C	; l
-      .BYTE $6E	; n
-      .BYTE $6D	; m
-      .BYTE $6F	; o
-      .BYTE $6C	; l
-      .BYTE $54	; T
-      .BYTE $6D	; m
-      .BYTE $55	; U
-      .BYTE $32	; 2
-      .BYTE $34	; 4
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-UnusedTileQuads3:.BYTE $94 ; î			  ; DATA XREF: BANK6:8606o
+      .BYTE $FA,$FA,$FA,$FA			  ; 4
+      .BYTE $FA,$FA,$FA,$FA			  ; 8
+      .BYTE $FA,$FA,$B0,$B1			  ; $C
+      .BYTE $FA,$FA,$B0,$B1			  ; $10
+      .BYTE $FA,$FA,$B0,$B1			  ; $14
+      .BYTE $FA,$FA,$B0,$B1			  ; $18
+      .BYTE $FA,$FA,$B0,$B1			  ; $1C
+      .BYTE $FA,$FA,$B0,$B1			  ; $20
+      .BYTE $FA,$FA,$B0,$B1			  ; $24
+      .BYTE $FA,$FA,$B0,$B1			  ; $28
+      .BYTE $FA,$FA,$B0,$B1			  ; $2C
+      .BYTE $FA,$FA,$B0,$B1			  ; $30
+      .BYTE $FA,$FA,$B0,$B1			  ; $34
+      .BYTE $A0,$A2,$A1,$A3			  ; $38
+      .BYTE $80,$82,$81,$83			  ; $3C
+      .BYTE $F4,$86,$F5,$87			  ; $40
+      .BYTE $84,$86,$85,$87			  ; $44
+      .BYTE $FC,$FC,$FC,$FC			  ; $48
+      .BYTE $AD,$FB,$AC,$AD			  ; $4C
+      .BYTE $AC,$AC,$AC,$AC			  ; $50
+      .BYTE $FB,$3B,$3B,$AC			  ; $54
+      .BYTE $FC,$FC,$FC,$FC			  ; $58
+      .BYTE $F4,$86,$F5,$87			  ; $5C
+      .BYTE $FB,$49,$49,$FB			  ; $60
+      .BYTE $FE,$FE,$FE,$FE			  ; $64
+      .BYTE $FE,$FE,$6D,$FE			  ; $68
+      .BYTE $3C,$3E,$3D,$3F			  ; $6C
+      .BYTE $58,$FD,$59,$5A			  ; $70
+      .BYTE $5B,$5A,$FD,$FD			  ; $74
+      .BYTE $5B,$5C,$FD,$5D			  ; $78
+      .BYTE $FD,$FD,$5B,$5A			  ; $7C
+      .BYTE $6C,$FE,$FE,$FE			  ; $80
+      .BYTE $FE,$FE,$FE,$FE			  ; $84
+      .BYTE $FE,$6E,$FE,$6F			  ; $88
+      .BYTE $20,$22,$21,$23			  ; $8C
+      .BYTE $6E,$6F,$70,$71			  ; $90
+      .BYTE $57,$57,$FB,$FB			  ; $94
+      .BYTE $57,$57,$FE,$FE			  ; $98
+      .BYTE $D3,$D3,$FB,$FB			  ; $9C
+      .BYTE $D2,$D2,$FB,$FB			  ; $A0
+      .BYTE $7C,$7E,$7D,$7F			  ; $A4
+      .BYTE $CA,$CC,$CB,$CD			  ; $A8
+      .BYTE $CA,$CC,$CB,$CD			  ; $AC
+      .BYTE $C0,$C2,$C1,$C3			  ; $B0
+      .BYTE $2C,$2E,$2D,$2F			  ; $B4
+      .BYTE $8E,$8F,$8F,$8E			  ; $B8
+      .BYTE $88,$8A,$89,$8B			  ; $BC
+      .BYTE $89,$8B,$89,$8B			  ; $C0
+      .BYTE $89,$8B,$8C,$8D			  ; $C4
+      .BYTE $88,$8A,$8C,$8D			  ; $C8
+      .BYTE $88,$8A,$89,$8B			  ; $CC
+      .BYTE $88,$8A,$89,$8B			  ; $D0
+      .BYTE $6A,$6C,$6B,$6D			  ; $D4
+      .BYTE $6C,$6C,$6D,$6D			  ; $D8
+      .BYTE $6C,$6E,$6D,$6F			  ; $DC
+      .BYTE $6C,$54,$6D,$55			  ; $E0
+      .BYTE $32,$34,$33,$35			  ; $E4
+      .BYTE $33,$35,$33,$35			  ; $E8
+UnusedTileQuads3:.BYTE $94,$95,$94,$95			     ; 0 ; DATA	XREF: BANK6:8606o
 						  ; BANK6:860Ao
-unk_BANK6_8785:.BYTE $95 ; ï
-      .BYTE $94	; î
-      .BYTE $95	; ï
-      .BYTE $96	; ñ
-      .BYTE $97	; ó
-      .BYTE $96	; ñ
-      .BYTE $97	; ó
-      .BYTE $48	; H
-      .BYTE $49	; I
-      .BYTE $48	; H
-      .BYTE $49	; I
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $FB	; ˚
-      .BYTE $32	; 2
-      .BYTE $32	; 2
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $33	; 3
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $34	; 4
-      .BYTE $FB	; ˚
-      .BYTE $FD	; ˝
-      .BYTE $34	; 4
-      .BYTE $FB	; ˚
-      .BYTE $30	; 0
-      .BYTE $FB	; ˚
-      .BYTE $FB	; ˚
-      .BYTE $FB	; ˚
-      .BYTE $FB	; ˚
-unk_BANK6_87AA:.BYTE $31 ; 1
-      .BYTE $FB	; ˚
-      .BYTE $D0	; –
-      .BYTE $D0	; –
-      .BYTE $D0	; –
-      .BYTE $D0	; –
-      .BYTE $D1	; —
-      .BYTE $D1	; —
-      .BYTE $D1	; —
-      .BYTE $D1	; —
-      .BYTE $64	; d
-      .BYTE $66	; f
-      .BYTE $65	; e
-      .BYTE $67	; g
-      .BYTE $68	; h
-      .BYTE $6A	; j
-      .BYTE $69	; i
-      .BYTE $6B	; k
-      .BYTE $FA	; ˙
-      .BYTE $6C	; l
-      .BYTE $FA	; ˙
-      .BYTE $6C	; l
-      .BYTE $6D	; m
-      .BYTE $FA	; ˙
-      .BYTE $6D	; m
-      .BYTE $FA	; ˙
-      .BYTE $92	; í
-      .BYTE $93	; ì
-      .BYTE $93	; ì
-      .BYTE $92	; í
-      .BYTE $AE	; Æ
-      .BYTE $AF	; Ø
-      .BYTE $AE	; Æ
-      .BYTE $AF	; Ø
-      .BYTE $78	; x
-      .BYTE $7A	; z
-      .BYTE $79	; y
-      .BYTE $7B	; {
-      .BYTE $A8	; ®
-      .BYTE $A8	; ®
-      .BYTE $AF	; Ø
-      .BYTE $AE	; Æ
-      .BYTE $94	; î
-      .BYTE $95	; ï
-      .BYTE $94	; î
-      .BYTE $95	; ï
-      .BYTE $96	; ñ
-      .BYTE $97	; ó
-      .BYTE $96	; ñ
-      .BYTE $97	; ó
-      .BYTE $22	; "
-      .BYTE $24	; $
-      .BYTE $23	; #
-      .BYTE $25	; %
-      .BYTE $92	; í
-      .BYTE $93	; ì
-      .BYTE $93	; ì
-      .BYTE $92	; í
-      .BYTE $50	; P
-      .BYTE $51	; Q
-      .BYTE $50	; P
-      .BYTE $51	; Q
-      .BYTE $AE	; Æ
-      .BYTE $AF	; Ø
-      .BYTE $AE	; Æ
-      .BYTE $AF	; Ø
-      .BYTE $50	; P
-      .BYTE $51	; Q
-      .BYTE $50	; P
-      .BYTE $51	; Q
-      .BYTE $8E	; é
-      .BYTE $8F	; è
-      .BYTE $8F	; è
-      .BYTE $8E	; é
-      .BYTE $72	; r
-      .BYTE $73	; s
-      .BYTE $73	; s
-      .BYTE $72	; r
-      .BYTE $50	; P
-      .BYTE $52	; R
-      .BYTE $51	; Q
-      .BYTE $53	; S
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $FB	; ˚
-      .BYTE $36	; 6
-      .BYTE $36	; 6
-      .BYTE $4F	; O
-      .BYTE $4F	; O
-      .BYTE $4E	; N
-      .BYTE $4E	; N
-      .BYTE $4F	; O
-      .BYTE $4E	; N
-      .BYTE $4F	; O
-      .BYTE $4F	; O
-      .BYTE $4E	; N
-      .BYTE $92	; í
-      .BYTE $93	; ì
-      .BYTE $93	; ì
-      .BYTE $92	; í
-      .BYTE $8E	; é
-      .BYTE $8F	; è
-      .BYTE $8F	; è
-      .BYTE $8E	; é
-      .BYTE $44	; D
-      .BYTE $45	; E
-      .BYTE $45	; E
-      .BYTE $44	; D
-      .BYTE $4F	; O
-      .BYTE $37	; 7
-      .BYTE $4E	; N
-      .BYTE $FE	; ˛
-      .BYTE $4F	; O
-      .BYTE $3A	; :
-      .BYTE $4E	; N
-      .BYTE $FE	; ˛
-      .BYTE $4F	; O
-      .BYTE $4E	; N
-      .BYTE $37	; 7
-      .BYTE $38	; 8
-      .BYTE $4A	; J
-      .BYTE $4B	; K
-      .BYTE $FE	; ˛
-      .BYTE $FE	; ˛
-      .BYTE $72	; r
-      .BYTE $73	; s
-      .BYTE $4A	; J
-      .BYTE $4B	; K
-      .BYTE $40	; @
-      .BYTE $42	; B
-      .BYTE $41	; A
-      .BYTE $43	; C
-      .BYTE $41	; A
-      .BYTE $43	; C
-      .BYTE $41	; A
-      .BYTE $43	; C
-UnusedTileQuads4:.BYTE $40 ; @			  ; DATA XREF: BANK6:8607o
+      .BYTE $96,$97,$96,$97			  ; 4
+      .BYTE $48,$49,$48,$49			  ; 8
+      .BYTE $FE,$FE,$FE,$FE			  ; $C
+      .BYTE $FB,$32,$32,$33			  ; $10
+      .BYTE $33,$33,$33,$33			  ; $14
+      .BYTE $FD,$FD,$FD,$FD			  ; $18
+      .BYTE $34,$FB,$FD,$34			  ; $1C
+      .BYTE $FB,$30,$FB,$FB			  ; $20
+      .BYTE $FB,$FB,$31,$FB			  ; $24
+      .BYTE $D0,$D0,$D0,$D0			  ; $28
+      .BYTE $D1,$D1,$D1,$D1			  ; $2C
+      .BYTE $64,$66,$65,$67			  ; $30
+      .BYTE $68,$6A,$69,$6B			  ; $34
+      .BYTE $FA,$6C,$FA,$6C			  ; $38
+      .BYTE $6D,$FA,$6D,$FA			  ; $3C
+      .BYTE $92,$93,$93,$92			  ; $40
+      .BYTE $AE,$AF,$AE,$AF			  ; $44
+      .BYTE $78,$7A,$79,$7B			  ; $48
+      .BYTE $A8,$A8,$AF,$AE			  ; $4C
+      .BYTE $94,$95,$94,$95			  ; $50
+      .BYTE $96,$97,$96,$97			  ; $54
+      .BYTE $22,$24,$23,$25			  ; $58
+      .BYTE $92,$93,$93,$92			  ; $5C
+      .BYTE $50,$51,$50,$51			  ; $60
+      .BYTE $AE,$AF,$AE,$AF			  ; $64
+      .BYTE $50,$51,$50,$51			  ; $68
+      .BYTE $8E,$8F,$8F,$8E			  ; $6C
+      .BYTE $72,$73,$73,$72			  ; $70
+      .BYTE $50,$52,$51,$53			  ; $74
+      .BYTE $FD,$FD,$FD,$FD			  ; $78
+      .BYTE $FB,$36,$36,$4F			  ; $7C
+      .BYTE $4F,$4E,$4E,$4F			  ; $80
+      .BYTE $4E,$4F,$4F,$4E			  ; $84
+      .BYTE $92,$93,$93,$92			  ; $88
+      .BYTE $8E,$8F,$8F,$8E			  ; $8C
+      .BYTE $44,$45,$45,$44			  ; $90
+      .BYTE $4F,$37,$4E,$FE			  ; $94
+      .BYTE $4F,$3A,$4E,$FE			  ; $98
+      .BYTE $4F,$4E,$37,$38			  ; $9C
+      .BYTE $4A,$4B,$FE,$FE			  ; $A0
+      .BYTE $72,$73,$4A,$4B			  ; $A4
+      .BYTE $40,$42,$41,$43			  ; $A8
+      .BYTE $41,$43,$41,$43			  ; $AC
+UnusedTileQuads4:.BYTE $40,$42,$41,$43			     ; 0 ; DATA	XREF: BANK6:8607o
 						  ; BANK6:860Bo
-      .BYTE $42	; B
-      .BYTE $41	; A
-      .BYTE $43	; C
-      .BYTE $40	; @
-      .BYTE $42	; B
-      .BYTE $41	; A
-      .BYTE $43	; C
-      .BYTE $BA	; ∫
-      .BYTE $BC	; º
-      .BYTE $BB	; ª
-      .BYTE $BD	; Ω
-      .BYTE $BA	; ∫
-      .BYTE $BC	; º
-      .BYTE $90	; ê
-      .BYTE $91	; ë
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FA	; ˙
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $FD	; ˝
-      .BYTE $61	; a
-      .BYTE $63	; c
-      .BYTE $61	; a
-      .BYTE $63	; c
-      .BYTE $65	; e
-      .BYTE $63	; c
-      .BYTE $65	; e
-      .BYTE $63	; c
-      .BYTE $65	; e
-      .BYTE $67	; g
-      .BYTE $65	; e
-      .BYTE $67	; g
-      .BYTE $60	; `
-      .BYTE $62	; b
-      .BYTE $61	; a
-      .BYTE $63	; c
-      .BYTE $32	; 2
-      .BYTE $34	; 4
-      .BYTE $33	; 3
-      .BYTE $35	; 5
-      .BYTE $64	; d
-      .BYTE $62	; b
-      .BYTE $65	; e
-      .BYTE $63	; c
-      .BYTE $36	; 6
-      .BYTE $34	; 4
-      .BYTE $37	; 7
-      .BYTE $35	; 5
-      .BYTE $64	; d
-      .BYTE $66	; f
-      .BYTE $65	; e
-      .BYTE $67	; g
-      .BYTE $36	; 6
-      .BYTE $38	; 8
-      .BYTE $37	; 7
-      .BYTE $39	; 9
-      .BYTE $68	; h
-      .BYTE $62	; b
-      .BYTE $61	; a
-      .BYTE $63	; c
-      .BYTE $64	; d
-      .BYTE $69	; i
-      .BYTE $65	; e
-      .BYTE $67	; g
-      .BYTE $46	; F
-      .BYTE $62	; b
-      .BYTE $61	; a
-      .BYTE $63	; c
-      .BYTE $64	; d
-      .BYTE $47	; G
-      .BYTE $65	; e
-      .BYTE $67	; g
-      .BYTE $BA	; ∫
-      .BYTE $BC	; º
-      .BYTE $BB	; ª
-      .BYTE $BD	; Ω
-      .BYTE $70	; p
-      .BYTE $72	; r
-      .BYTE $71	; q
-      .BYTE $73	; s
-      .BYTE $8E	; é
-      .BYTE $8F	; è
-      .BYTE $8F	; è
-      .BYTE $8E	; é
-      .BYTE $72	; r
-      .BYTE $73	; s
-      .BYTE $73	; s
-      .BYTE $72	; r
-unk_BANK6_8894:.BYTE $44 ; D
-      .BYTE $45	; E
-      .BYTE $45	; E
-      .BYTE $44	; D
+      .BYTE $40,$42,$41,$43			  ; 4
+      .BYTE $BA,$BC,$BB,$BD			  ; 8
+      .BYTE $BA,$BC,$90,$91			  ; $C
+      .BYTE $FA,$FA,$FA,$FA			  ; $10
+      .BYTE $FA,$FA,$FA,$FA			  ; $14
+      .BYTE $FD,$FD,$FD,$FD			  ; $18
+      .BYTE $61,$63,$61,$63			  ; $1C
+      .BYTE $65,$63,$65,$63			  ; $20
+      .BYTE $65,$67,$65,$67			  ; $24
+      .BYTE $60,$62,$61,$63			  ; $28
+      .BYTE $32,$34,$33,$35			  ; $2C
+      .BYTE $64,$62,$65,$63			  ; $30
+      .BYTE $36,$34,$37,$35			  ; $34
+      .BYTE $64,$66,$65,$67			  ; $38
+      .BYTE $36,$38,$37,$39			  ; $3C
+      .BYTE $68,$62,$61,$63			  ; $40
+      .BYTE $64,$69,$65,$67			  ; $44
+      .BYTE $46,$62,$61,$63			  ; $48
+      .BYTE $64,$47,$65,$67			  ; $4C
+      .BYTE $BA,$BC,$BB,$BD			  ; $50
+      .BYTE $70,$72,$71,$73			  ; $54
+      .BYTE $8E,$8F,$8F,$8E			  ; $58
+      .BYTE $72,$73,$73,$72			  ; $5C
+      .BYTE $44,$45,$45,$44			  ; $60
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8898:					  ; CODE XREF: sub_BANK6_95E6+80p
@@ -66369,22 +65150,11 @@ loc_BANK6_8B37:					  ; CODE XREF: BANK6:8B31j
       RTS					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8B40:.BYTE $69			  ; DATA XREF: BANK6:loc_BANK6_8B6Br
+byte_BANK6_8B40:.BYTE $69,$6C,$9D,$D4,$72,$94,$95	    ; 0
+						  ; DATA XREF: BANK6:loc_BANK6_8B6Br
 						  ; data used at 8000
-      .BYTE $6C					  ; data used at 8000
-      .BYTE $9D					  ; data used at 8000
-      .BYTE $D4					  ; data used at 8000
-      .BYTE $72					  ; data used at 8000
-      .BYTE $94					  ; data used at 8000
-      .BYTE $95					  ; data used at 8000
-byte_BANK6_8B47:.BYTE $69			  ; DATA XREF: BANK6:8B65r
+byte_BANK6_8B47:.BYTE $69,$6C,$9D,$17,$72,$94,$95	    ; 0	; DATA XREF: BANK6:8B65r
 						  ; data used at 8000
-      .BYTE $6C					  ; data used at 8000
-      .BYTE $9D	; ù
-      .BYTE $17					  ; data used at 8000
-      .BYTE $72					  ; data used at 8000
-      .BYTE $94					  ; data used at 8000
-      .BYTE $95	; ï
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8B4E:					  ; DATA XREF: BANK6:88B8o
@@ -66421,15 +65191,12 @@ loc_BANK6_8B6E:					  ; CODE XREF: BANK6:8B68j
       RTS					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8B71:.BYTE $75			  ; DATA XREF: BANK6:8B8Ar
+byte_BANK6_8B71:.BYTE $75,$13				    ; 0	; DATA XREF: BANK6:8B8Ar
 						  ; data used at 8000
-      .BYTE $13					  ; data used at 8000
-byte_BANK6_8B73:.BYTE $76			  ; DATA XREF: BANK6:8B97r
+byte_BANK6_8B73:.BYTE $76,$14				    ; 0	; DATA XREF: BANK6:8B97r
 						  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-byte_BANK6_8B75:.BYTE $77			  ; DATA XREF: BANK6:8BA4r
+byte_BANK6_8B75:.BYTE $77,$15				    ; 0	; DATA XREF: BANK6:8BA4r
 						  ; data used at 8000
-      .BYTE $15					  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8B77:					  ; DATA XREF: BANK6:88AFo
@@ -66545,19 +65312,16 @@ locret_BANK6_8BFA:				  ; CODE XREF: BANK6:8BF1j
       RTS					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8BFB:.BYTE $C7			  ; DATA XREF: BANK6:loc_BANK6_8C0Dr
+byte_BANK6_8BFB:.BYTE $C7,$C8,$C9			    ; 0
+						  ; DATA XREF: BANK6:loc_BANK6_8C0Dr
 						  ; BANK6:loc_BANK6_8C26r
 						  ; data used at 8000
-      .BYTE $C8					  ; data used at 8000
-      .BYTE $C9					  ; data used at 8000
-byte_BANK6_8BFE:.BYTE $D2			  ; DATA XREF: BANK6:loc_BANK6_8C17r
+byte_BANK6_8BFE:.BYTE $D2,$D0,$D0			    ; 0
+						  ; DATA XREF: BANK6:loc_BANK6_8C17r
 						  ; data used at 8000
-      .BYTE $D0					  ; data used at 8000
-      .BYTE $D0					  ; data used at 8000
-byte_BANK6_8C01:.BYTE $D1			  ; DATA XREF: BANK6:loc_BANK6_8C30r
+byte_BANK6_8C01:.BYTE $D1,$D1,$D3			    ; 0
+						  ; DATA XREF: BANK6:loc_BANK6_8C30r
 						  ; data used at 8000
-      .BYTE $D1					  ; data used at 8000
-      .BYTE $D3					  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8C04:					  ; CODE XREF: BANK6:8BD3p
@@ -66643,10 +65407,8 @@ loc_BANK6_8C4D:					  ; CODE XREF: BANK6:8C43j
       RTS					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
-unk_BANK6_8C52:.BYTE $52 ; R			  ; DATA XREF: BANK6:8C6Br
-      .BYTE $C0					  ; data used at 8000
-unk_BANK6_8C54:.BYTE $52 ; R			  ; DATA XREF: BANK6:8C7Br
-      .BYTE $82					  ; data used at 8000
+byte_BANK6_8C52:.BYTE $52,$C0				    ; 0	; DATA XREF: BANK6:8C6Br
+byte_BANK6_8C54:.BYTE $52,$82				    ; 0	; DATA XREF: BANK6:8C7Br
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8C56:					  ; DATA XREF: BANK6:88E8o
@@ -66666,7 +65428,7 @@ loc_BANK6_8C60:					  ; CODE XREF: BANK6:8C5Bj
       STA     byte_RAM_7			  ; code used at 8000
       TAX					  ; code used at 8000
       LDY     byte_RAM_E7			  ; code used at 8000
-      LDA     unk_BANK6_8C52,X			  ; code used at 8000
+      LDA     byte_BANK6_8C52,X			  ; code used at 8000
       STA     (byte_RAM_1),Y			  ; code used at 8000
 
 
@@ -66678,7 +65440,7 @@ loc_BANK6_8C70:					  ; CODE XREF: BANK6:8C80j
       BNE     locret_BANK6_8C82			  ; code used at 8000
 
       LDX     byte_RAM_7			  ; code used at 8000
-      LDA     unk_BANK6_8C54,X			  ; code used at 8000
+      LDA     byte_BANK6_8C54,X			  ; code used at 8000
       STA     (byte_RAM_1),Y			  ; code used at 8000
       BNE     loc_BANK6_8C70			  ; code used at 8000
 
@@ -66687,10 +65449,8 @@ locret_BANK6_8C82:				  ; CODE XREF: BANK6:8C77j
       RTS					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
-unk_BANK6_8C83:.BYTE $C0 ; ¿			  ; DATA XREF: BANK6:8C95r
-      .BYTE $C0					  ; data used at 8000
-unk_BANK6_8C85:.BYTE $82 ; Ç			  ; DATA XREF: BANK6:8CA5r
-      .BYTE $82					  ; data used at 8000
+byte_BANK6_8C83:.BYTE $C0,$C0				    ; 0	; DATA XREF: BANK6:8C95r
+byte_BANK6_8C85:.BYTE $82,$82				    ; 0	; DATA XREF: BANK6:8CA5r
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8C87:					  ; CODE XREF: BANK6:8C5Dj
@@ -66705,7 +65465,7 @@ loc_BANK6_8C87:					  ; CODE XREF: BANK6:8C5Dj
 loc_BANK6_8C91:					  ; CODE XREF: BANK6:8C8Ej
       STX     byte_RAM_7			  ; code used at 8000
       LDY     byte_RAM_E7			  ; code used at 8000
-      LDA     unk_BANK6_8C83,X			  ; code used at 8000
+      LDA     byte_BANK6_8C83,X			  ; code used at 8000
 
 loc_BANK6_8C98:					  ; code used at 8000
       STA     (byte_RAM_1),Y
@@ -66719,7 +65479,7 @@ loc_BANK6_8C9A:					  ; CODE XREF: BANK6:8CACj
       BNE     locret_BANK6_8CAE			  ; code used at 8000
 
       LDX     byte_RAM_7			  ; code used at 8000
-      LDA     unk_BANK6_8C85,X			  ; code used at 8000
+      LDA     byte_BANK6_8C85,X			  ; code used at 8000
       STA     (byte_RAM_1),Y			  ; code used at 8000
       CPY     #$E0 ; '‡'                          ; code used at 8000
       BCC     loc_BANK6_8C9A			  ; code used at 8000
@@ -66891,6 +65651,7 @@ byte_BANK6_8D4A:.BYTE $90			  ; DATA XREF: BANK6:loc_BANK6_8D78r
 						  ; data used at 8000
       .BYTE $A3
 byte_BANK6_8D4C:.BYTE $9C			  ; DATA XREF: BANK6:loc_BANK6_8D72r
+						  ; ???	Both of	these are the same
       .BYTE $9C					  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
@@ -67178,21 +65939,12 @@ loc_BANK6_8E56:					  ; CODE XREF: BANK6:8E66j
       RTS					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
-unk_BANK6_8E80:.BYTE   0			  ; DATA XREF: sub_BANK6_8E8F+9r
-      .BYTE $13
-      .BYTE $60					  ; data used at 8000
-      .BYTE $59					  ; data used at 8000
-      .BYTE $C					  ; data used at 8000
-unk_BANK6_8E85:.BYTE   0			  ; DATA XREF: sub_BANK6_8E8F+16r
-      .BYTE $14
-byte_BANK6_8E87:.BYTE $61			  ; data used at 8000
-      .BYTE $59					  ; data used at 8000
-      .BYTE $C					  ; data used at 8000
-unk_BANK6_8E8A:.BYTE   0			  ; DATA XREF: sub_BANK6_8E8F+23r
-      .BYTE $15
-      .BYTE $62					  ; data used at 8000
-      .BYTE $59					  ; data used at 8000
-      .BYTE $C					  ; data used at 8000
+byte_BANK6_8E80:.BYTE 0,$13,$60,$59,$C			    ; 0
+						  ; DATA XREF: sub_BANK6_8E8F+9r
+byte_BANK6_8E85:.BYTE 0,$14,$61,$59,$C			    ; 0
+						  ; DATA XREF: sub_BANK6_8E8F+16r
+byte_BANK6_8E8A:.BYTE 0,$15,$62,$59,$C			    ; 0
+						  ; DATA XREF: sub_BANK6_8E8F+23r
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -67204,7 +65956,7 @@ sub_BANK6_8E8F:					  ; CODE XREF: BANK6:8ECCp
       SEC					  ; code used at 8000
       SBC     #$A				  ; code used at 8000
       TAX					  ; code used at 8000
-      LDA     unk_BANK6_8E80,X			  ; code used at 8000
+      LDA     byte_BANK6_8E80,X			  ; code used at 8000
       STA     (byte_RAM_1),Y			  ; code used at 8000
       DEC     byte_RAM_50D			  ; code used at 8000
       BEQ     loc_BANK6_8EAF			  ; code used at 8000
@@ -67213,7 +65965,7 @@ sub_BANK6_8E8F:					  ; CODE XREF: BANK6:8ECCp
 loc_BANK6_8EA2:					  ; CODE XREF: sub_BANK6_8E8F+1Ej
       JSR     sub_BANK6_9890			  ; code used at 8000
 
-      LDA     unk_BANK6_8E85,X			  ; code used at 8000
+      LDA     byte_BANK6_8E85,X			  ; code used at 8000
       STA     (byte_RAM_1),Y			  ; code used at 8000
       DEC     byte_RAM_50D			  ; code used at 8000
       BNE     loc_BANK6_8EA2			  ; code used at 8000
@@ -67222,7 +65974,7 @@ loc_BANK6_8EA2:					  ; CODE XREF: sub_BANK6_8E8F+1Ej
 loc_BANK6_8EAF:					  ; CODE XREF: sub_BANK6_8E8F+11j
       JSR     sub_BANK6_9890			  ; code used at 8000
 
-      LDA     unk_BANK6_8E8A,X			  ; code used at 8000
+      LDA     byte_BANK6_8E8A,X			  ; code used at 8000
       STA     (byte_RAM_1),Y			  ; code used at 8000
       RTS					  ; code used at 8000
 
@@ -67486,14 +66238,14 @@ sub_BANK6_8FC2:					  ; CODE XREF: BANK6:8FB1p
 ; End of function sub_BANK6_8FC2
 
 ; ---------------------------------------------------------------------------
-      .BYTE $52	; R
+      .BYTE $52	; R				  ; Unreferenced?
       .BYTE $1D
       .BYTE $C0	; ¿
       .BYTE $52	; R
       .BYTE $1E
       .BYTE $82	; Ç
 byte_BANK6_8FDB:.BYTE $9F			  ; DATA XREF: BANK6:loc_BANK6_8FFEr
-						  ; data used at 8000
+						  ; @TODO Check
       .BYTE $A0					  ; data used at 8000
       .BYTE $A0					  ; data used at 8000
       .BYTE $A0					  ; data used at 8000
@@ -67615,18 +66367,12 @@ locret_BANK6_9059:				  ; CODE XREF: BANK6:904Dj
       RTS					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
-unk_BANK6_905A:.BYTE   0			  ; DATA XREF: sub_BANK6_9066+9r
-      .BYTE $13
-byte_BANK6_905C:.BYTE $CB			  ; data used at 8000
-      .BYTE 9					  ; data used at 8000
-unk_BANK6_905E:.BYTE   0			  ; DATA XREF: sub_BANK6_9066+16r
-      .BYTE $14
-      .BYTE $CD					  ; data used at 8000
-      .BYTE $B					  ; data used at 8000
-unk_BANK6_9062:.BYTE   0			  ; DATA XREF: sub_BANK6_9066+23r
-      .BYTE $15
-      .BYTE $CF					  ; data used at 8000
-      .BYTE $D					  ; data used at 8000
+byte_BANK6_905A:.BYTE 0,$13,$CB,9			    ; 0
+						  ; DATA XREF: sub_BANK6_9066+9r
+byte_BANK6_905E:.BYTE 0,$14,$CD,$B			    ; 0
+						  ; DATA XREF: sub_BANK6_9066+16r
+byte_BANK6_9062:.BYTE 0,$15,$CF,$D			    ; 0
+						  ; DATA XREF: sub_BANK6_9066+23r
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -67638,7 +66384,7 @@ sub_BANK6_9066:					  ; CODE XREF: BANK6:9099p
       SEC					  ; code used at 8000
       SBC     #$A				  ; code used at 8000
       TAX					  ; code used at 8000
-      LDA     unk_BANK6_905A,X			  ; code used at 8000
+      LDA     byte_BANK6_905A,X			  ; code used at 8000
       STA     (byte_RAM_1),Y			  ; code used at 8000
       DEC     byte_RAM_50D			  ; code used at 8000
       BEQ     loc_BANK6_9086			  ; code used at 8000
@@ -67647,7 +66393,7 @@ sub_BANK6_9066:					  ; CODE XREF: BANK6:9099p
 loc_BANK6_9079:					  ; CODE XREF: sub_BANK6_9066+1Ej
       JSR     sub_BANK6_9890			  ; code used at 8000
 
-      LDA     unk_BANK6_905E,X			  ; code used at 8000
+      LDA     byte_BANK6_905E,X			  ; code used at 8000
       STA     (byte_RAM_1),Y			  ; code used at 8000
       DEC     byte_RAM_50D			  ; code used at 8000
       BNE     loc_BANK6_9079			  ; code used at 8000
@@ -67656,7 +66402,7 @@ loc_BANK6_9079:					  ; CODE XREF: sub_BANK6_9066+1Ej
 loc_BANK6_9086:					  ; CODE XREF: sub_BANK6_9066+11j
       JSR     sub_BANK6_9890			  ; code used at 8000
 
-      LDA     unk_BANK6_9062,X			  ; code used at 8000
+      LDA     byte_BANK6_9062,X			  ; code used at 8000
       STA     (byte_RAM_1),Y			  ; code used at 8000
       RTS					  ; code used at 8000
 
@@ -67794,7 +66540,7 @@ loc_BANK6_9117:					  ; CODE XREF: BANK6:9123j
 
 ; ---------------------------------------------------------------------------
 ; [000000DA BYTES: BEGIN OF AREA UNUSED-BANK6:9126. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_D126:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_unused_BANK6_9126:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -67809,131 +66555,38 @@ _empty_D126:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $F
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $C0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; $D0
 ; [000000DA BYTES: END OF AREA UNUSED-BANK6:9126. PRESS	KEYPAD "-" TO COLLAPSE]
-MysteryDataD200:.BYTE 0				  ; DATA XREF: sub_BANK6_97D6:loc_BANK6_97DEr
-						  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $54					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $55					  ; data used at 8000
-      .BYTE $54					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $7F					  ; data used at 8000
-      .BYTE $54					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $7F					  ; data used at 8000
-      .BYTE $D4					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 3					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $54					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $5F					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 3					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $7C	; |
-byte_BANK6_9228:.BYTE $E7			  ; data used at 8000
-      .BYTE $9E					  ; data used at 8000
-      .BYTE $79					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $E					  ; data used at 8000
-      .BYTE $79					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 9					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $E0					  ; data used at 8000
-      .BYTE $E					  ; data used at 8000
-      .BYTE $79					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-byte_BANK6_923C:.BYTE $E4			  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 9					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $E7					  ; data used at 8000
-      .BYTE $90					  ; data used at 8000
-      .BYTE 9					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE $E7					  ; data used at 8000
-      .BYTE $9E					  ; data used at 8000
-      .BYTE $70					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $E7					  ; data used at 8000
-      .BYTE $9E					  ; data used at 8000
-      .BYTE $40					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $E7					  ; data used at 8000
-      .BYTE $9C					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $E0					  ; data used at 8000
-      .BYTE $E					  ; data used at 8000
-      .BYTE $40					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $E7					  ; data used at 8000
-      .BYTE $9E					  ; data used at 8000
-      .BYTE $79					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE $E7					  ; data used at 8000
-      .BYTE $90					  ; data used at 8000
-      .BYTE 1					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE $E0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 1					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE $E7					  ; data used at 8000
-      .BYTE $90					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $E0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-byte_BANK6_9277:.BYTE $24			  ; data used at 8000
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $24	; $
+MysteryDataD200:.BYTE 0,0,0,$24				    ; 0
+						  ; DATA XREF: sub_BANK6_97D6:loc_BANK6_97DEr
+      .BYTE 0,0,2,$54				  ; 4 ;	@TODO ???
+      .BYTE 0,2,$55,$54				  ; 8
+      .BYTE 0,2,$7F,$54				  ; $C
+      .BYTE 0,2,$7F,$D4				  ; $10
+      .BYTE 0,3,$FF,$54				  ; $14
+      .BYTE 0,2,$5F,$FC				  ; $18
+      .BYTE 0,3,$FF,$FC				  ; $1C
+      .BYTE 0,0,0,0				  ; $20
+      .BYTE $55,$55,$55,$7C			  ; $24
+      .BYTE $E7,$9E,$79,$E4			  ; $28
+      .BYTE 0,$E,$79,$E4			  ; $2C
+      .BYTE 0,0,9,$E4				  ; $30
+      .BYTE 0,0,0,$24				  ; $34
+      .BYTE $E0,$E,$79,$E4			  ; $38
+      .BYTE $E4,0,9,$E4				  ; $3C
+      .BYTE $E4,0,0,$24				  ; $40
+      .BYTE $E7,$90,9,$E4			  ; $44
+      .BYTE $E7,$9E,$70,$24			  ; $48
+      .BYTE $E7,$9E,$40,$24			  ; $4C
+      .BYTE $E7,$9C,0,$24			  ; $50
+      .BYTE $E0,$E,$40,$24			  ; $54
+      .BYTE 0,0,0,$E4				  ; $58
+      .BYTE $E4,0,0,0				  ; $5C
+      .BYTE $E7,$9E,$79,$E4			  ; $60
+      .BYTE $E7,$90,1,$E4			  ; $64
+      .BYTE $E0,0,1,$E4				  ; $68
+      .BYTE $E7,$90,0,$24			  ; $6C
+      .BYTE $E0,0,0,$24				  ; $70
+      .BYTE 0,0,0,$24				  ; $74
+      .BYTE 0,0,0,$24				  ; $78
 byte_BANK6_927C:.BYTE $AA			  ; DATA XREF: sub_BANK6_97D6+4r
 						  ; data used at 8000
       .BYTE $AA					  ; data used at 8000
@@ -67945,7 +66598,7 @@ byte_BANK6_927C:.BYTE $AA			  ; DATA XREF: sub_BANK6_97D6+4r
       .BYTE 2					  ; data used at 8000
       .BYTE $AA	; ™
       .BYTE   0
-unk_BANK6_9286:.BYTE   0
+      .BYTE   0
       .BYTE $AA	; ™
       .BYTE $FA					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
@@ -68007,11 +66660,11 @@ unk_BANK6_9286:.BYTE   0
       .BYTE $A5					  ; data used at 8000
       .BYTE $55					  ; data used at 8000
       .BYTE $5A					  ; data used at 8000
-byte_BANK6_92C4:.BYTE $A5			  ; data used at 8000
+      .BYTE $A5					  ; data used at 8000
       .BYTE $55					  ; data used at 8000
       .BYTE $5A					  ; data used at 8000
       .BYTE $AA					  ; data used at 8000
-byte_BANK6_92C8:.BYTE 0				  ; data used at 8000
+      .BYTE 0					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
@@ -68086,7 +66739,7 @@ byte_BANK6_9303:.BYTE $60			  ; DATA XREF: sub_BANK6_9885+5r
 byte_BANK6_930E:.BYTE $75			  ; DATA XREF: sub_BANK6_9479:loc_BANK6_947Fr
 						  ; data used at 8000
       .BYTE $77					  ; data used at 8000
-byte_BANK6_9310:.BYTE $CA			  ; data used at 8000
+      .BYTE $CA					  ; data used at 8000
       .BYTE $CE					  ; data used at 8000
       .BYTE $C7					  ; data used at 8000
       .BYTE $C8					  ; data used at 8000
@@ -68251,7 +66904,7 @@ loc_BANK6_93BA:					  ; code used at 8000
 
       STA     byte_RAM_4BC			  ; code used at 8000
       LDA     #$3F ; '?'                          ; code used at 8000
-      STA     _RAM_PPUDataBuffer		  ; code used at 8000
+      STA     PPUBuffer_301			  ; code used at 8000
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_302			  ; code used at 8000
       LDA     #$20 ; ' '                          ; code used at 8000
@@ -68492,10 +67145,10 @@ ClearSubAreaTileLayout:				  ; CODE XREF: sub_BANK6_94AD+Aj
       JSR     loc_BANK6_972D
 
       LDY     #2
-      LDA     (5),Y
+      LDA     (byte_RAM_5),Y
       AND     #3
       STA     byte_RAM_542
-      LDA     (5),Y
+      LDA     (byte_RAM_5),Y
       LSR     A
       LSR     A
       AND     #3
@@ -69001,9 +67654,7 @@ loc_BANK6_9712:					  ; DATA XREF: BANK6:96ACo
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_540			  ; code used at 8000
       STA     byte_RAM_E			  ; code used at 8000
-
-locret_BANK6_9719:				  ; code used at 8000
-      RTS
+      RTS					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
@@ -69556,7 +68207,7 @@ sub_BANK6_98F7:					  ; CODE XREF: sub_BANK6_9479+24p
       LDX     #0
       STX     byte_RAM_12
       STX     ObjectYHi
-      LDA     #$3F ; '?'
+      LDA     #Enemy_Mushroom
       STA     ObjectType
       LDA     #1
       STA     EnemyState
@@ -69595,7 +68246,7 @@ loc_BANK6_9934:
 
 ; ---------------------------------------------------------------------------
 ; [000006A9 BYTES: BEGIN OF AREA UNUSED-BANK6:9957. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_D957:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_unused_BANK6_9957:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -69711,7 +68362,7 @@ _empty_D957:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $F
       ;.segment	BANK7
       *	=  $A000
 ; [00002000 BYTES: BEGIN OF AREA BANK7:A000. PRESS KEYPAD "-" TO COLLAPSE]
-_unused_bank7:.BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
+_unused_BANK7:.BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0 ;	Another	big ol' unused bank. Go nuts.
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -70253,11 +68904,11 @@ LevelAreaStartIndexes:.BYTE 0			  ; DATA XREF: GetLevelPointers+3r
       .BYTE $82					  ; Level 5-2
       .BYTE $8C					  ; Level 5-3
       .BYTE $96					  ; Level 6-1
-byte_BANK8_8010:.BYTE $A0			  ; Level 6-2
+      .BYTE $A0					  ; Level 6-2
       .BYTE $AA					  ; Level 6-3
       .BYTE $B4					  ; Level 7-1
       .BYTE $BE					  ; Level 7-2
-      .BYTE $C8					  ; Level 7-3
+      .BYTE $C8					  ; Level 7-3 (unused)
 LevelDataPointersLo:.BYTE low8(LevelData_1_1_Area0) ; DATA XREF: GetLevelPointers+Br
 						  ; GetJarPointers+Ar
 						  ; Stuff below	here ------
@@ -70342,7 +68993,7 @@ LevelDataPointersLo:.BYTE low8(LevelData_1_1_Area0) ; DATA XREF: GetLevelPointer
       .BYTE low8(LevelData_3_2_Area2)
       .BYTE low8(LevelData_3_2_Area2)		  ; data used at 8000
       .BYTE low8(LevelData_3_3_Area0)		  ; data used at 8000
-off_BANK8_8067:.BYTE low8(LevelData_3_3_Area1)	  ; data used at 8000
+      .BYTE low8(LevelData_3_3_Area1)		  ; data used at 8000
       .BYTE low8(LevelData_3_3_Area2)		  ; data used at 8000
       .BYTE low8(LevelData_3_3_Area3)		  ; data used at 8000
       .BYTE low8(LevelData_3_3_Area4)
@@ -70370,7 +69021,7 @@ off_BANK8_8067:.BYTE low8(LevelData_3_3_Area1)	  ; data used at 8000
       .BYTE low8(LevelData_4_2_Area3)
       .BYTE low8(LevelData_4_2_Area3)
       .BYTE low8(LevelData_4_2_Area3)
-off_BANK8_8083:.BYTE low8(LevelData_4_3_Area0)	  ; data used at 8000
+      .BYTE low8(LevelData_4_3_Area0)		  ; data used at 8000
       .BYTE low8(LevelData_4_3_Area1)		  ; data used at 8000
       .BYTE low8(LevelData_4_3_Area2)
       .BYTE low8(LevelData_4_3_Area3)
@@ -70663,7 +69314,7 @@ LevelDataPointersHi:.BYTE high8(LevelData_1_1_Area0) ; DATA XREF: GetLevelPointe
 						  ; here -- it's in another bank so
 						  ; the	disassembler is	choking	on it
       .BYTE $A0	; †
-unk_BANK8_81A2:.BYTE $A0 ; †
+      .BYTE $A0	; †
       .BYTE $A0	; †
       .BYTE $A0	; †
       .BYTE $A0	; †				  ; data used at 8000
@@ -70999,7 +69650,7 @@ LevelData_3_3_Area0:.BYTE $80, $E1, $30, 0, $35, $10, $29, $11,	$36, $C2, $17, $
       .BYTE $8B, $11, $17, $10,	$32, $2B, $12, $F, $10,	$F, $13, 1, 5, $52, 8, $26; $10	; data used at 8000
       .BYTE $5C, $18, $45, $10,	$49, $F, $72, $18, 8, $18, $96,	$A, 8, $23, $FF; $20
 LevelData_3_3_Area1:.BYTE $A0, $EA, $33, $19, $55, 1, $B, $2D, $6C, 9, 8, $39, $F0, $5C, $F0, $75; 0
-						  ; DATA XREF: BANK8:off_BANK8_8067o
+						  ; DATA XREF: BANK8:8067o
 						  ; BANK8:8139o
       .BYTE $F1, $1C, $F1, $55,	$82, $A8, $22, 5, $55, $A, 8, $46, $F1,	$9C, $F1, $D5; $10 ; data used at 8000
       .BYTE $AC, $A, 8,	$53, $D, $82, $19, $81,	$1A, $80, $B, $80, $C, $80, $F0, $5C; $20
@@ -71105,7 +69756,7 @@ LevelData_4_2_Area3:.BYTE $91, $EA, $20, $32, $81, $13,	$A, $33, $F0, $4C, $F0,	
       .BYTE $3B, $F0, $D, $F0, $48, $F0, $70, $F1, $F7,	$F2, $F0, $30, $F0, $77, $F0, $8F; $10 ; data used at 8000
       .BYTE $F1, $10, $F1, $8A,	$F5, $B, 0, $FF	  ; $20
 LevelData_4_3_Area0:.BYTE $91, $EA, 2, $11, $4B, $14, $B, $11, $D, $A8,	$F0, $54, $F0, $D3, $F1, $15; 0
-						  ; DATA XREF: BANK8:off_BANK8_8083o
+						  ; DATA XREF: BANK8:8083o
 						  ; BANK8:8155o
       .BYTE $F1, $CA, $FF			  ; $10	; data used at 8000
 LevelData_4_3_Area1:.BYTE $80, $E1, $91, 0, 0, $8A, $2A, $10, $1D, $11,	$14, $2B, $14, $F, $33,	$F; 0
@@ -71430,15 +70081,15 @@ LevelData_7_1_Area3:.BYTE 0, $F3, $30, 0, $64, $A6, $A,	$A6, $22, $E1, 4, 5, 5,	
       .BYTE $F5, $12, $40, $C2,	$F, $C,	$F, $FF	  ; $60
 LevelData_7_1_Area4:.BYTE $A1, $EA, $10, 2, $48, $A		; 0 ; DATA XREF: BANK8:80CDo
 						  ; BANK8:819Fo
-; end of 'BANK8'                                  ; data used at 8000
+; end of 'BANK8'                                  ; Data continues at the start of bank 9
 
 ; ===========================================================================
 
 ; Segment type:	Pure code
       ;.segment	BANK9
       *	=  $A000
-      .BYTE $F5, $12, $30, $C, $33, $F0, $8B, $F1, $6C,	$F2, $74, $39, $1A, $43, $1A, $43; 0 ; data used at a000
-      .BYTE 0, 0, $F0, $8D, $F1, $4C, $F1, $CA,	$F5, $13, 0, $FF; $10
+      .BYTE $F5, $12, $30, $C, $33, $F0, $8B, $F1, $6C,	$F2, $74, $39, $1A, $43, $1A, $43; 0 ; Data continues from LevelData_7_1_Area4
+      .BYTE 0, 0, $F0, $8D, $F1, $4C, $F1, $CA,	$F5, $13, 0, $FF; $10 ;	in bank	8
 LevelData_7_1_Area5:.BYTE $A1, $EA, 0, 1, $4C, 0, $21, $2D, 2, $21, 3, $21, 4, $21, 5, $21; 0 ;	data used at a000
       .BYTE 6, $26, 7, $51, $11, $38, $3A, $32,	$17, $A, $F5, $12, $16,	$F0, $3C, $F1; $10
       .BYTE $EA, $FF				  ; $20
@@ -71650,7 +70301,7 @@ EnemyPointers_Level_1_2_Hi:.BYTE high8(EnemyPointers_Level_1_2_Area0)
 						  ; data used at a000
       .BYTE high8(EnemyPointers_Level_1_2_Area1)
       .BYTE high8(EnemyPointers_Level_1_2_Area2)  ; data used at a000
-off_BANK9_A56B:.BYTE high8(EnemyPointers_Level_1_2_Area3)
+      .BYTE high8(EnemyPointers_Level_1_2_Area3)
       .BYTE high8(EnemyPointers_Level_1_2_Area4)
       .BYTE high8(EnemyPointers_Level_1_2_Area5)
       .BYTE high8(EnemyPointers_Level_1_2_Area5)
@@ -72244,7 +70895,7 @@ EnemyPointers_Level_1_2_Area2:.BYTE 1		  ; DATA XREF: BANK9:A56Ao
       .BYTE 3,$43,$38				  ; 0 ;	data used at a000
       .BYTE 1					  ; data used at a000
 EnemyPointers_Level_1_2_Area3:.BYTE 5,$3D,$79,$17,$77			  ; 0
-						  ; DATA XREF: BANK9:off_BANK9_A56Bo
+						  ; DATA XREF: BANK9:A56Bo
 						  ; BANK9:A575o
 						  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -73314,7 +71965,7 @@ EnemyPointers_Level_7_3_Area3:.BYTE 1		  ; DATA XREF: BANK9:A6E7o
 EnemyPointers_Level_7_3_Area4:.BYTE 1		  ; DATA XREF: BANK9:A6E8o
 						  ; BANK9:A6E9o BANK9:A6EAo ...
 						  ; data used at a000
-      .BYTE 1					  ; data used at a000
+      .BYTE 1					  ; Unused
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
@@ -73583,7 +72234,7 @@ _unused_BANK9_B025:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       ;.segment	BANKA
       *	=  $8000
 World1thru6TitleCard:.BYTE $FB,	$FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB; 0
-						  ; DATA XREF: sub_BANKA_8327:loc_BANKA_8347r
+						  ; DATA XREF: DrawTitleCardWorldImage:loc_BANKA_8347r
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1,	$FB, $FB, $FB, $FB; $10	; This title card is used for every world
       .BYTE $FB, $FB, $B4, $B5,	$FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8,	$BA, $BC, $FB, $FB; $20	; from 1 to 6. The only	difference is
       .BYTE $FB, $FB, $B4, $B5,	$FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9,	$BB, $BD, $FB, $FB; $30	; the loaded CHR banks.
@@ -73594,7 +72245,7 @@ World1thru6TitleCard:.BYTE $FB,	$FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB,	$FB, $FB
       .BYTE $CE, $CF, $CE, $CF,	$CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF,	$CE, $CF, $CE, $CF; $80
       .BYTE $CF, $CE, $CF, $CE,	$CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE,	$CF, $CE, $CF, $CE; $90
 World7TitleCard:.BYTE $FB, $FB,	$B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB; 0
-						  ; DATA XREF: sub_BANKA_8327:loc_BANKA_83ABr
+						  ; DATA XREF: DrawTitleCardWorldImage:loc_BANKA_83ABr
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1,	$FB, $FB, $FB, $FB; $10	; data used at 8000
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8,	$BA, $BC, $FB, $FB; $20
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9,	$BB, $BD, $FB, $FB; $30
@@ -73604,471 +72255,78 @@ World7TitleCard:.BYTE $FB, $FB,	$B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB
       .BYTE $A9, $AD, $AB, $AD,	$AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD,	$AB, $AD, $AB, $AF; $70
       .BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB; $80
       .BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB; $90
-BonusChanceLayout:.BYTE	$20			  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANKA_8312r
+BonusChanceLayout:.BYTE	$20,0,$60,$FD			      ;	0
+						  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANKA_8312r
 						  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $80	; Ä				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $A0	; †				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $80	; Ä				  ; data used at 8000
-      .BYTE $D6	; ÷				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $81	; Å				  ; data used at 8000
-      .BYTE $D6	; ÷				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $82	; Ç				  ; data used at 8000
-      .BYTE $D6	; ÷				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $9D	; ù				  ; data used at 8000
-      .BYTE $D6	; ÷				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $9E	; û				  ; data used at 8000
-      .BYTE $D6	; ÷				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $9F	; ü				  ; data used at 8000
-      .BYTE $D6	; ÷				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $68	; h				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $4A	; J				  ; data used at 8000
-      .BYTE $4C	; L				  ; data used at 8000
-      .BYTE $4E	; N				  ; data used at 8000
-      .BYTE $50	; P				  ; data used at 8000
-      .BYTE $51	; Q				  ; data used at 8000
-      .BYTE $52	; R				  ; data used at 8000
-      .BYTE $53	; S				  ; data used at 8000
-      .BYTE $54	; T				  ; data used at 8000
-      .BYTE $55	; U				  ; data used at 8000
-      .BYTE $56	; V				  ; data used at 8000
-      .BYTE $57	; W				  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
-      .BYTE $5A	; Z				  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-      .BYTE $5E	; ^				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $83	; É				  ; data used at 8000
-      .BYTE   9					  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $24	; $				  ; data used at 8000
-      .BYTE $49	; I				  ; data used at 8000
-      .BYTE $4B	; K				  ; data used at 8000
-      .BYTE $4D	; M				  ; data used at 8000
-      .BYTE $4F	; O				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $94	; î				  ; data used at 8000
-      .BYTE   9					  ; data used at 8000
-      .BYTE $59	; Y				  ; data used at 8000
-      .BYTE $5B	; [				  ; data used at 8000
-      .BYTE $5D	; ]				  ; data used at 8000
-      .BYTE $5F	; _				  ; data used at 8000
-      .BYTE $2E	; .				  ; data used at 8000
-      .BYTE $2F	; /				  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-unk_BANKA_81A2:.BYTE $FD ; ˝			  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $A3	; £				  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE $26	; &				  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $B9	; π				  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE $31	; 1				  ; data used at 8000
-      .BYTE $32	; 2				  ; data used at 8000
-      .BYTE $33	; 3				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $C3	; √				  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $29	; )				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $D9	; Ÿ				  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE $35	; 5				  ; data used at 8000
-      .BYTE $36	; 6				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $E3	; „				  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $2B	; +				  ; data used at 8000
-      .BYTE $2C	; ,				  ; data used at 8000
-      .BYTE $2D	; -				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $FA	; ˙				  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $37	; 7				  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $39	; 9				  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $3A	; :				  ; data used at 8000
-      .BYTE $3B	; ;				  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $1B					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $40	; @				  ; data used at 8000
-      .BYTE $41	; A				  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-unk_BANKA_81D6:.BYTE $23 ; #			  ; data used at 8000
-      .BYTE $D0	; –				  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE $D0	; –				  ; data used at 8000
-      .BYTE $42	; B				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE $3F	; ?				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $61	; a				  ; data used at 8000
-      .BYTE $62	; b				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $43	; C				  ; data used at 8000
-      .BYTE $44	; D				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $63	; c				  ; data used at 8000
-      .BYTE $64	; d				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $43	; C				  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE $45	; E				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $5C	; \                               ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE $65	; e				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $C4	; ƒ				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $A6	; ¶				  ; data used at 8000
-      .BYTE $A8	; ®				  ; data used at 8000
-unk_BANKA_81FE:.BYTE $22 ; "			  ; data used at 8000
-      .BYTE $E4	; ‰				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $A7	; ß				  ; data used at 8000
-      .BYTE $A9	; ©				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $FA	; ˙				  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE $80	; Ä				  ; data used at 8000
-      .BYTE $82	; Ç				  ; data used at 8000
-      .BYTE $88	; à				  ; data used at 8000
-      .BYTE $8A	; ä				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $90	; ê				  ; data used at 8000
-      .BYTE $92	; í				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $9E	; û				  ; data used at 8000
-      .BYTE $A0	; †				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE $81	; Å				  ; data used at 8000
-      .BYTE $83	; É				  ; data used at 8000
-      .BYTE $89	; â				  ; data used at 8000
-      .BYTE $8B	; ã				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $46	; F				  ; data used at 8000
-      .BYTE $91	; ë				  ; data used at 8000
-      .BYTE $93	; ì				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $A2	; ¢				  ; data used at 8000
-      .BYTE $A4	; §				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $2E	; .				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $67	; g				  ; data used at 8000
-      .BYTE $6C	; l				  ; data used at 8000
-      .BYTE $6E	; n				  ; data used at 8000
-      .BYTE $70	; p				  ; data used at 8000
-      .BYTE $72	; r				  ; data used at 8000
-      .BYTE $69	; i				  ; data used at 8000
-      .BYTE $9F	; ü				  ; data used at 8000
-      .BYTE $A1	; °				  ; data used at 8000
-      .BYTE $75	; u				  ; data used at 8000
-      .BYTE $98	; ò				  ; data used at 8000
-      .BYTE $9A	; ö				  ; data used at 8000
-      .BYTE $FB	; ˚				  ; data used at 8000
-      .BYTE $84	; Ñ				  ; data used at 8000
-      .BYTE $86	; Ü				  ; data used at 8000
-      .BYTE $8C	; å				  ; data used at 8000
-      .BYTE $8E	; é				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $43	; C				  ; data used at 8000
-      .BYTE $1B					  ; data used at 8000
-      .BYTE $47	; G				  ; data used at 8000
-unk_BANKA_823D:.BYTE $94 ; î			  ; data used at 8000
-      .BYTE $96	; ñ				  ; data used at 8000
-      .BYTE $74	; t				  ; data used at 8000
-BonusChanceLayout2:.BYTE $74 ; t		  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANKA_831Dr
-						  ; data used at 8000
-      .BYTE $74	; t				  ; data used at 8000
-      .BYTE $74	; t				  ; data used at 8000
-      .BYTE $A3	; £				  ; data used at 8000
-      .BYTE $A5	; •				  ; data used at 8000
-      .BYTE $74	; t				  ; data used at 8000
-      .BYTE $66	; f				  ; data used at 8000
-      .BYTE $68	; h				  ; data used at 8000
-      .BYTE $6D	; m				  ; data used at 8000
-      .BYTE $6F	; o				  ; data used at 8000
-      .BYTE $71	; q				  ; data used at 8000
-      .BYTE $73	; s				  ; data used at 8000
-      .BYTE $6A	; j				  ; data used at 8000
-      .BYTE $6B	; k				  ; data used at 8000
-      .BYTE $74	; t				  ; data used at 8000
-      .BYTE $74	; t				  ; data used at 8000
-      .BYTE $99	; ô				  ; data used at 8000
-      .BYTE $9B	; õ				  ; data used at 8000
-      .BYTE $74	; t				  ; data used at 8000
-      .BYTE $85	; Ö				  ; data used at 8000
-      .BYTE $87	; á				  ; data used at 8000
-      .BYTE $8D	; ç				  ; data used at 8000
-      .BYTE $8F	; è				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $64	; d				  ; data used at 8000
-      .BYTE   5					  ; data used at 8000
-      .BYTE $95	; ï				  ; data used at 8000
-      .BYTE $97	; ó				  ; data used at 8000
-      .BYTE $FD	; ˝				  ; data used at 8000
-      .BYTE $AA	; ™				  ; data used at 8000
-      .BYTE $AB	; ´				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $77	; w				  ; data used at 8000
-      .BYTE   5					  ; data used at 8000
-      .BYTE $9C	; ú				  ; data used at 8000
-      .BYTE $9D	; ù				  ; data used at 8000
-      .BYTE $AA	; ™				  ; data used at 8000
-      .BYTE $AB	; ´				  ; data used at 8000
-      .BYTE $AB	; ´				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $89	; â				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $AA	; ™				  ; data used at 8000
-      .BYTE $AB	; ´				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $C9	; …				  ; data used at 8000
-      .BYTE  $E					  ; data used at 8000
-      .BYTE $78	; x				  ; data used at 8000
-      .BYTE $AC	; ¨				  ; data used at 8000
-      .BYTE $B0	; ∞				  ; data used at 8000
-      .BYTE $B4	; ¥				  ; data used at 8000
-      .BYTE $B7	; ∑				  ; data used at 8000
-      .BYTE $BA	; ∫				  ; data used at 8000
-      .BYTE $FB	; ˚				  ; data used at 8000
-      .BYTE $BC	; º				  ; data used at 8000
-      .BYTE $BE	; æ				  ; data used at 8000
-      .BYTE $C1	; ¡				  ; data used at 8000
-      .BYTE $C4	; ƒ				  ; data used at 8000
-      .BYTE $C7	; «				  ; data used at 8000
-      .BYTE $CB	; À				  ; data used at 8000
-      .BYTE $7C	; |				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $E8	; Ë				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE $79	; y				  ; data used at 8000
-      .BYTE $AD	; ≠				  ; data used at 8000
-      .BYTE $B1	; ±				  ; data used at 8000
-      .BYTE $B5	; µ				  ; data used at 8000
-      .BYTE $B8	; ∏				  ; data used at 8000
-      .BYTE $BB	; ª				  ; data used at 8000
-      .BYTE $FB	; ˚				  ; data used at 8000
-      .BYTE $BD	; Ω				  ; data used at 8000
-      .BYTE $BF	; ø				  ; data used at 8000
-      .BYTE $C2	; ¬				  ; data used at 8000
-      .BYTE $C5	; ≈				  ; data used at 8000
-      .BYTE $C8	; »				  ; data used at 8000
-      .BYTE $CC	; Ã				  ; data used at 8000
-      .BYTE $7D	; }				  ; data used at 8000
-      .BYTE $1E					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE   8					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $1D					  ; data used at 8000
-      .BYTE $7A	; z				  ; data used at 8000
-      .BYTE $AE	; Æ				  ; data used at 8000
-      .BYTE $B2	; ≤				  ; data used at 8000
-      .BYTE $B6	; ∂				  ; data used at 8000
-      .BYTE $B9	; π				  ; data used at 8000
-      .BYTE $FB	; ˚				  ; data used at 8000
-      .BYTE $FB	; ˚				  ; data used at 8000
-      .BYTE $FB	; ˚				  ; data used at 8000
-      .BYTE $C0	; ¿				  ; data used at 8000
-      .BYTE $C3	; √				  ; data used at 8000
-      .BYTE $C6	; ∆				  ; data used at 8000
-      .BYTE $C9	; …				  ; data used at 8000
-      .BYTE $CD	; Õ				  ; data used at 8000
-      .BYTE $7E	; ~				  ; data used at 8000
-      .BYTE $1F					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $29	; )				  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $7B	; {				  ; data used at 8000
-      .BYTE $AF	; Ø				  ; data used at 8000
-      .BYTE $B3	; ≥				  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $34	; 4				  ; data used at 8000
-      .BYTE   3					  ; data used at 8000
-      .BYTE $CA	;  				  ; data used at 8000
-      .BYTE $CE	; Œ				  ; data used at 8000
-      .BYTE $7F	; 				  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $6A	; j				  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $8A	; ä				  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $AA	; ™				  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $FC	; ¸				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $21	; !				  ; data used at 8000
-      .BYTE $CA	;  				  ; data used at 8000
-      .BYTE  $C					  ; data used at 8000
-      .BYTE $15					  ; data used at 8000
-      .BYTE $13					  ; data used at 8000
-      .BYTE $13					  ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE $15					  ; data used at 8000
-      .BYTE $13					  ; data used at 8000
-      .BYTE $13					  ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE $15					  ; data used at 8000
-      .BYTE $13					  ; data used at 8000
-      .BYTE $13					  ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE  $D					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $2D	; -				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $19					  ; data used at 8000
-      .BYTE $1B					  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $D2	; “				  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE $80	; Ä				  ; data used at 8000
-      .BYTE $A0	; †				  ; data used at 8000
-      .BYTE $A0	; †				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $DA	; ⁄				  ; data used at 8000
-      .BYTE   4					  ; data used at 8000
-      .BYTE $88	; à				  ; data used at 8000
-      .BYTE $AA	; ™				  ; data used at 8000
-      .BYTE $AA	; ™				  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $E4	; ‰				  ; data used at 8000
-      .BYTE   1					  ; data used at 8000
-      .BYTE  $A					  ; data used at 8000
-      .BYTE $23	; #				  ; data used at 8000
-      .BYTE $EA	; Í				  ; data used at 8000
-      .BYTE   5					  ; data used at 8000
-      .BYTE $A0	; †				  ; data used at 8000
-      .BYTE $A0	; †				  ; data used at 8000
-      .BYTE $A0	; †				  ; data used at 8000
-      .BYTE $A0	; †				  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
+      .BYTE $20,$20,$60,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$40,$60,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$60,$60,$FD			  ; 0 ;	data used at 8000
+      .BYTE $23,$40,$60,$FD			  ; 0 ;	data used at 8000
+      .BYTE $23,$60,$60,$FD			  ; 0 ;	data used at 8000
+      .BYTE $23,$80,$60,$FD			  ; 0 ;	data used at 8000
+      .BYTE $23,$A0,$60,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$80,$D6,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$81,$D6,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$82,$D6,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$9D,$D6,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$9E,$D6,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$9F,$D6,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$68,$10,$48,$4A,$4C,$4E,$50,$51,$52,$53,$54,$55,$56,$57; 0 ; data used at 8000
+      .BYTE $58,$5A,$5C,$5E			  ; $F
+      .BYTE $20,$83,9,$FD,$FD,$22,$23,$24,$49,$4B,$4D,$4F; 0 ; data used at 8000
+      .BYTE $20,$94,9,$59,$5B,$5D,$5F,$2E,$2F,$30,$FD,$FD; 0 ; data used at 8000
+      .BYTE $20,$A3,4,$FD,$25,$26,$27		  ; 0 ;	data used at 8000
+      .BYTE $20,$B9,4,$31,$32,$33,$FD		  ; 0 ;	data used at 8000
+      .BYTE $20,$C3,4,$FD,$28,$29,$2A		  ; 0 ;	data used at 8000
+      .BYTE $20,$D9,4,$34,$35,$36,$FD		  ; 0 ;	data used at 8000
+      .BYTE $20,$E3,3,$2B,$2C,$2D		  ; 0 ;	data used at 8000
+      .BYTE $20,$FA,3,$37,$38,$39		  ; 0 ;	data used at 8000
+      .BYTE $21,3,2,$3A,$3B			  ; 0 ;	data used at 8000
+      .BYTE $21,$1B,2,$40,$41			  ; 0 ;	data used at 8000
+      .BYTE $21,$23,$D0,$3C			  ; 0 ;	data used at 8000
+      .BYTE $21,$3C,$D0,$42			  ; 0 ;	data used at 8000
+      .BYTE $22,2,2,$3E,$3F			  ; 0 ;	data used at 8000
+      .BYTE $22,$1C,2,$61,$62			  ; 0 ;	data used at 8000
+      .BYTE $22,$22,2,$43,$44			  ; 0 ;	data used at 8000
+      .BYTE $22,$3C,2,$63,$64			  ; 0 ;	data used at 8000
+      .BYTE $22,$43,1,$45			  ; 0 ;	data used at 8000
+      .BYTE $22,$5C,1,$65			  ; 0 ;	data used at 8000
+      .BYTE $22,$C4,2,$A6,$A8			  ; 0 ;	data used at 8000
+      .BYTE $22,$E4,2,$A7,$A9			  ; 0 ;	data used at 8000
+      .BYTE $22,$FA,4,$80,$82,$88,$8A		  ; 0 ;	data used at 8000
+      .BYTE $23,4,2,$90,$92			  ; 0 ;	data used at 8000
+      .BYTE $23,$14,2,$9E,$A0			  ; 0 ;	data used at 8000
+      .BYTE $23,$1A,4,$81,$83,$89,$8B		  ; 0 ;	data used at 8000
+      .BYTE $23,$23,3,$46,$91,$93		  ; 0 ;	data used at 8000
+      .BYTE $23,$2A,2,$A2,$A4			  ; 0 ;	data used at 8000
+      .BYTE $23,$2E,$10,$67,$6C,$6E,$70,$72,$69,$9F,$A1,$75,$98,$9A,$FB; 0 ; data used at 8000
+      .BYTE $84,$86,$8C,$8E			  ; $F
+BonusChanceLayout_:.BYTE $23,$43,$1B,$47,$94,$96,$74,$74,$74,$74,$A3,$A5,$74,$66,$68; 0
+						  ; DATA XREF: CopyBonusChanceLayoutToRAM:loc_BANKA_831Dr
+      .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F; $F ; This is still part of the	original, but used
+						  ; to copy data $100 bytes in in this disassembly
+						  ; @TODO Fix later
+      .BYTE $23,$64,5,$95,$97,$FD,$AA,$AB	  ; 0 ;	data used at 8000
+      .BYTE $23,$77,5,$9C,$9D,$AA,$AB,$AB	  ; 0 ;	data used at 8000
+      .BYTE $23,$89,2,$AA,$AB			  ; 0 ;	data used at 8000
+      .BYTE $20,$C9,$E,$78,$AC,$B0,$B4,$B7,$BA,$FB,$BC,$BE,$C1,$C4,$C7;	0 ; data used at 8000
+      .BYTE $CB,$7C				  ; $F
+      .BYTE $20,$E8,$10,$1C,$79,$AD,$B1,$B5,$B8,$BB,$FB,$BD,$BF,$C2,$C5; 0 ; data used at 8000
+      .BYTE $C8,$CC,$7D,$1E			  ; $F
+      .BYTE $21,8,$10,$1D,$7A,$AE,$B2,$B6,$B9,$FB,$FB,$FB,$C0,$C3,$C6; 0 ; data	used at	8000
+      .BYTE $C9,$CD,$7E,$1F			  ; $F
+      .BYTE $21,$29,3,$7B,$AF,$B3		  ; 0 ;	data used at 8000
+      .BYTE $21,$34,3,$CA,$CE,$7F		  ; 0 ;	data used at 8000
+      .BYTE $21,$6A,$C,$14,$10,$10,$16,$14,$10,$10,$16,$14,$10,$10,$16;	0 ; data used at 8000
+      .BYTE $21,$8A,$C,$11,$FC,$FC,$12,$11,$FC,$FC,$12,$11,$FC,$FC,$12;	0 ; data used at 8000
+      .BYTE $21,$AA,$C,$11,$FC,$FC,$12,$11,$FC,$FC,$12,$11,$FC,$FC,$12;	0 ; data used at 8000
+      .BYTE $21,$CA,$C,$15,$13,$13,$17,$15,$13,$13,$17,$15,$13,$13,$17;	0 ; data used at 8000
+      .BYTE $22,$D,2,$18,$1A			  ; 0 ;	data used at 8000
+      .BYTE $22,$2D,2,$19,$1B			  ; 0 ;	data used at 8000
+      .BYTE $23,$D2,4,$80,$A0,$A0,$20		  ; 0 ;	data used at 8000
+      .BYTE $23,$DA,4,$88,$AA,$AA,$22		  ; 0 ;	data used at 8000
+      .BYTE $23,$E4,1,$A			  ; 0 ;	data used at 8000
+      .BYTE $23,$EA,5,$A0,$A0,$A0,$A0,$20	  ; 0 ;	data used at 8000
       .BYTE 0					  ; data used at 8000
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -74093,7 +72351,7 @@ loc_BANKA_8312:					  ; CODE XREF: CopyBonusChanceLayoutToRAM+9j
 
 
 loc_BANKA_831D:					  ; CODE XREF: CopyBonusChanceLayoutToRAM+14j
-      LDA     BonusChanceLayout2,Y		  ; Blindly copy $100 more bytes from $8240 to $7500
+      LDA     BonusChanceLayout_+7,Y		  ; Blindly copy $100 more bytes from $8240 to $7500
 						  ; That range includes	this code! clap. clap.
       STA     BonusChanceLayoutRAM2,Y
       DEY
@@ -74107,20 +72365,20 @@ loc_BANKA_831D:					  ; CODE XREF: CopyBonusChanceLayoutToRAM+14j
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKA_8327:					  ; CODE XREF: sub_BANKF_E228+34P
+DrawTitleCardWorldImage:			  ; CODE XREF: DisplayLevelTitleCardAndMore+34P
       LDA     CurrentWorld			  ; code used as data at 8000
       CMP     #6				  ; code used as data at 8000
-      BEQ     loc_BANKA_8392			  ; code used as data at 8000
+      BEQ     loc_BANKA_8392			  ; Special case for World 7's title card
 
-      LDA     #$25 ; '%'                          ; code used as data at 8000
+      LDA     #$25 ; '%'                          ; PPU address
       STA     byte_RAM_0			  ; code used as data at 8000
       LDA     #$C8 ; '»'                          ; code used as data at 8000
       STA     byte_RAM_1			  ; code used as data at 8000
       LDY     #0				  ; code used as data at 8000
 
 
-loc_BANKA_8338:					  ; CODE XREF: sub_BANKA_8327+3Aj
-						  ; sub_BANKA_8327+60j
+loc_BANKA_8338:					  ; CODE XREF: DrawTitleCardWorldImage+3Aj
+						  ; DrawTitleCardWorldImage+60j
       LDX     #$F				  ; code used as data at 8000
       LDA     PPUSTATUS				  ; code used as data at 8000
       LDA     byte_RAM_0			  ; code used as data at 8000
@@ -74131,7 +72389,7 @@ loc_BANKA_8342:					  ; code used at 8000
       STA     PPUADDR				  ; code used at 8000
 
 
-loc_BANKA_8347:					  ; CODE XREF: sub_BANKA_8327+28j
+loc_BANKA_8347:					  ; CODE XREF: DrawTitleCardWorldImage+28j
       LDA     World1thru6TitleCard,Y		  ; code used at 8000
       STA     PPUDATA				  ; code used at 8000
       INY					  ; code used at 8000
@@ -74151,7 +72409,7 @@ loc_BANKA_8347:					  ; CODE XREF: sub_BANKA_8327+28j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKA_8364:					  ; CODE XREF: sub_BANKA_8327+2Cj
+loc_BANKA_8364:					  ; CODE XREF: DrawTitleCardWorldImage+2Cj
       LDA     CurrentWorld			  ; code used at 8000
       CMP     #1				  ; code used at 8000
       BEQ     loc_BANKA_8371			  ; code used at 8000
@@ -74162,8 +72420,8 @@ loc_BANKA_8364:					  ; CODE XREF: sub_BANKA_8327+2Cj
       BNE     loc_BANKA_8389			  ; code used at 8000
 
 
-loc_BANKA_8371:					  ; CODE XREF: sub_BANKA_8327+42j
-						  ; sub_BANKA_8327+46j
+loc_BANKA_8371:					  ; CODE XREF: DrawTitleCardWorldImage+42j
+						  ; DrawTitleCardWorldImage+46j
       AND     #$80 ; 'Ä'                          ; code used at 8000
       BNE     loc_BANKA_8389			  ; code used at 8000
 
@@ -74178,8 +72436,8 @@ loc_BANKA_8371:					  ; CODE XREF: sub_BANKA_8327+42j
       BNE     loc_BANKA_8338			  ; code used at 8000
 
 
-loc_BANKA_8389:					  ; CODE XREF: sub_BANKA_8327+48j
-						  ; sub_BANKA_8327+4Cj
+loc_BANKA_8389:					  ; CODE XREF: DrawTitleCardWorldImage+48j
+						  ; DrawTitleCardWorldImage+4Cj
       LDA     CurrentWorld			  ; code used at 8000
       AND     #$F				  ; code used at 8000
       STA     CurrentWorld			  ; code used at 8000
@@ -74187,7 +72445,7 @@ loc_BANKA_8389:					  ; CODE XREF: sub_BANKA_8327+48j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKA_8392:					  ; CODE XREF: sub_BANKA_8327+5j
+loc_BANKA_8392:					  ; CODE XREF: DrawTitleCardWorldImage+5j
       LDA     #$25 ; '%'                          ; code used at 8000
       STA     byte_RAM_0			  ; code used at 8000
       LDA     #$C8 ; '»'                          ; code used at 8000
@@ -74195,7 +72453,7 @@ loc_BANKA_8392:					  ; CODE XREF: sub_BANKA_8327+5j
       LDY     #0				  ; code used at 8000
 
 
-loc_BANKA_839C:					  ; CODE XREF: sub_BANKA_8327+9Ej
+loc_BANKA_839C:					  ; CODE XREF: DrawTitleCardWorldImage+9Ej
       LDX     #$F				  ; code used at 8000
       LDA     PPUSTATUS				  ; code used at 8000
       LDA     byte_RAM_0			  ; code used at 8000
@@ -74204,7 +72462,7 @@ loc_BANKA_839C:					  ; CODE XREF: sub_BANKA_8327+9Ej
       STA     PPUADDR				  ; code used at 8000
 
 
-loc_BANKA_83AB:					  ; CODE XREF: sub_BANKA_8327+8Cj
+loc_BANKA_83AB:					  ; CODE XREF: DrawTitleCardWorldImage+8Cj
       LDA     World7TitleCard,Y			  ; code used at 8000
       STA     PPUDATA				  ; code used at 8000
       INY					  ; code used at 8000
@@ -74224,18 +72482,18 @@ loc_BANKA_83AB:					  ; CODE XREF: sub_BANKA_8327+8Cj
 
 ; ---------------------------------------------------------------------------
 
-locret_BANKA_83C8:				  ; CODE XREF: sub_BANKA_8327+90j
+locret_BANKA_83C8:				  ; CODE XREF: DrawTitleCardWorldImage+90j
       RTS					  ; code used at 8000
 
-; End of function sub_BANKA_8327
+; End of function DrawTitleCardWorldImage
 
 ; ---------------------------------------------------------------------------
-StatOffsets:.BYTE 0				  ; DATA XREF: sub_BANKA_8451+2r
-						  ; data used at 8000
+StatOffsets:.BYTE 0				  ; DATA XREF: CopyCharacterStatsAndStuff+2r
+						  ; @TODO Assembler update: (MarioStats	- $)
       .BYTE $45	; E				  ; data used at 8000
       .BYTE $17					  ; data used at 8000
       .BYTE $2E					  ; data used at 8000
-MarioStats:.BYTE   0				  ; DATA XREF: sub_BANKA_8451:loc_BANKA_8458r
+MarioStats:.BYTE   0				  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_8458r
 						  ; data used at 8000
       .BYTE   4					  ; data used at 8000
       .BYTE   2					  ; data used at 8000
@@ -74329,12 +72587,12 @@ PrincessStats:.BYTE   0				  ; data used at 8000
       .BYTE $EB	; Î				  ; data used at 8000
       .BYTE $FC	; ¸				  ; data used at 8000
 MarioPalette:.BYTE $F,1,$16,$27				 ; 0
-						  ; DATA XREF: sub_BANKA_8451:loc_BANKA_846Br
+						  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_846Br
 						  ; data used at 8000
 PrincessPalette:.BYTE $F,6,$25,$36			    ; 0	; data used at 8000
 ToadPalette:.BYTE $F,1,$30,$27				; 0 ; data used	at 8000
 LuigiPalette:.BYTE $F,1,$2A,$36				 ; 0 ; data used at 8000
-MysteryData14439:.BYTE $DF			  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84A0r
+MysteryData14439:.BYTE $DF			  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_84A0r
 						  ; data used at 8000
       .BYTE $EF					  ; data used at 8000
       .BYTE $F7					  ; data used at 8000
@@ -74363,15 +72621,19 @@ MysteryData14439:.BYTE $DF			  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84A0r
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKA_8451:					  ; CODE XREF: sub_BANKF_E228+12P
-						  ; sub_BANKF_E228+59P
-						  ; sub_BANKF_E288+13P
-      LDX     CurrentCharacter			  ; code used at 8000
+CopyCharacterStatsAndStuff:			  ; CODE XREF: DisplayLevelTitleCardAndMore+12P
+						  ; DisplayLevelTitleCardAndMore+59P
+						  ; DoCharacterSelectMenu+13P
+      LDX     CurrentCharacter			  ; This copies	the selected character's stats
+						  ; into memory	for use	later, but also	a bunch
+						  ; of other unrelated crap like the
+						  ; Bonus Chance slot reels (???) and
+						  ; god	knows what else.
       LDY     StatOffsets,X			  ; code used at 8000
       LDX     #0				  ; code used at 8000
 
 
-loc_BANKA_8458:					  ; CODE XREF: sub_BANKA_8451+11j
+loc_BANKA_8458:					  ; CODE XREF: CopyCharacterStatsAndStuff+11j
       LDA     MarioStats,Y			  ; code used at 8000
 
 loc_BANKA_845B:					  ; code used at 8000
@@ -74388,7 +72650,7 @@ loc_BANKA_845B:					  ; code used at 8000
       LDX     #0				  ; code used at 8000
 
 
-loc_BANKA_846B:					  ; CODE XREF: sub_BANKA_8451+24j
+loc_BANKA_846B:					  ; CODE XREF: CopyCharacterStatsAndStuff+24j
       LDA     MarioPalette,Y			  ; code used at 8000
       STA     unk_RAM_637,X			  ; code used at 8000
       INY					  ; code used at 8000
@@ -74399,9 +72661,9 @@ loc_BANKA_846B:					  ; CODE XREF: sub_BANKA_8451+24j
       LDY     #$4C ; 'L'                          ; code used at 8000
 
 
-loc_BANKA_8479:					  ; CODE XREF: sub_BANKA_8451+31j
+loc_BANKA_8479:					  ; CODE XREF: CopyCharacterStatsAndStuff+31j
       LDA     PlayerSelectPalettes,Y		  ; code used at 8000
-      STA     unk_RAM_55F,Y			  ; code used at 8000
+      STA     PPUBuffer_55F,Y			  ; code used at 8000
       DEY					  ; code used at 8000
       CPY     #$FF				  ; code used at 8000
       BNE     loc_BANKA_8479			  ; code used at 8000
@@ -74409,7 +72671,7 @@ loc_BANKA_8479:					  ; CODE XREF: sub_BANKA_8451+31j
       LDY     #$B6 ; '∂'                          ; code used at 8000
 
 
-loc_BANKA_8486:					  ; CODE XREF: sub_BANKA_8451:loc_BANKA_848Fj
+loc_BANKA_8486:					  ; CODE XREF: CopyCharacterStatsAndStuff:loc_BANKA_848Fj
       LDA     BonusChanceReel1Order,Y		  ; code used at 8000
       STA     SlotMachineReelOrder1RAM,Y	  ; code used at 8000
       DEY					  ; code used at 8000
@@ -74423,9 +72685,9 @@ loc_BANKA_8491:					  ; code used at 8000
       LDY     #$63 ; 'c'
 
 
-loc_BANKA_8493:					  ; CODE XREF: sub_BANKA_8451+4Bj
+loc_BANKA_8493:					  ; CODE XREF: CopyCharacterStatsAndStuff+4Bj
       LDA     Text_Unknown5,Y			  ; code used at 8000
-      STA     unk_RAM_7168,Y			  ; code used at 8000
+      STA     PPUBuffer_7168,Y			  ; code used at 8000
       DEY					  ; code used at 8000
       CPY     #$FF				  ; code used at 8000
       BNE     loc_BANKA_8493			  ; code used at 8000
@@ -74433,7 +72695,7 @@ loc_BANKA_8493:					  ; CODE XREF: sub_BANKA_8451+4Bj
       LDY     #$17				  ; code used at 8000
 
 
-loc_BANKA_84A0:					  ; CODE XREF: sub_BANKA_8451+56j
+loc_BANKA_84A0:					  ; CODE XREF: CopyCharacterStatsAndStuff+56j
       LDA     MysteryData14439,Y		  ; code used at 8000
       STA     unk_RAM_7150,Y			  ; code used at 8000
       DEY					  ; code used at 8000
@@ -74442,7 +72704,7 @@ loc_BANKA_84A0:					  ; CODE XREF: sub_BANKA_8451+56j
       LDY     #$4F ; 'O'                          ; code used at 8000
 
 
-loc_BANKA_84AB:					  ; CODE XREF: sub_BANKA_8451+61j
+loc_BANKA_84AB:					  ; CODE XREF: CopyCharacterStatsAndStuff+61j
       LDA     byte_BANKF_F099,Y			  ; code used at 8000
       STA     unk_RAM_7100,Y			  ; code used at 8000
       DEY					  ; code used at 8000
@@ -74451,7 +72713,7 @@ loc_BANKA_84AB:					  ; CODE XREF: sub_BANKA_8451+61j
       LDY     #3				  ; code used at 8000
 
 
-loc_BANKA_84B6:					  ; CODE XREF: sub_BANKA_8451+6Cj
+loc_BANKA_84B6:					  ; CODE XREF: CopyCharacterStatsAndStuff+6Cj
       LDA     byte_BANKA_84E1,Y			  ; code used at 8000
       STA     byte_RAM_71CC,Y			  ; code used at 8000
       DEY					  ; code used at 8000
@@ -74460,7 +72722,7 @@ loc_BANKA_84B6:					  ; CODE XREF: sub_BANKA_8451+6Cj
       LDY     #$49 ; 'I'                          ; code used at 8000
 
 
-loc_BANKA_84C1:					  ; CODE XREF: sub_BANKA_8451+77j
+loc_BANKA_84C1:					  ; CODE XREF: CopyCharacterStatsAndStuff+77j
       LDA     byte_BANKF_F607,Y			  ; code used at 8000
       STA     unk_RAM_71D1,Y			  ; code used at 8000
       DEY					  ; code used at 8000
@@ -74469,16 +72731,16 @@ loc_BANKA_84C1:					  ; CODE XREF: sub_BANKA_8451+77j
       LDY     #$20 ; ' '                          ; code used at 8000
 
 
-loc_BANKA_84CC:					  ; CODE XREF: sub_BANKA_8451+82j
+loc_BANKA_84CC:					  ; CODE XREF: CopyCharacterStatsAndStuff+82j
       LDA     byte_BANKF_FA7D,Y			  ; code used at 8000
-      STA     byte_RAM_721B,Y			  ; code used at 8000
+      STA     PPUBuffer_721B,Y			  ; code used at 8000
       DEY					  ; code used at 8000
       BPL     loc_BANKA_84CC			  ; code used at 8000
 
       LDY     #6				  ; code used at 8000
 
 
-loc_BANKA_84D7:					  ; CODE XREF: sub_BANKA_8451+8Dj
+loc_BANKA_84D7:					  ; CODE XREF: CopyCharacterStatsAndStuff+8Dj
       LDA     byte_BANKA_84E5,Y			  ; code used at 8000
       STA     unk_RAM_7265,Y			  ; code used at 8000
       DEY					  ; code used at 8000
@@ -74486,15 +72748,15 @@ loc_BANKA_84D7:					  ; CODE XREF: sub_BANKA_8451+8Dj
 
       RTS					  ; code used at 8000
 
-; End of function sub_BANKA_8451
+; End of function CopyCharacterStatsAndStuff
 
 ; ---------------------------------------------------------------------------
-byte_BANKA_84E1:.BYTE 0				  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84B6r
+byte_BANKA_84E1:.BYTE 0				  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_84B6r
 						  ; data used at 8000
       .BYTE 1					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
       .BYTE 0					  ; data used at 8000
-byte_BANKA_84E5:.BYTE 0				  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84D7r
+byte_BANKA_84E5:.BYTE 0				  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_84D7r
 						  ; data used at 8000
       .BYTE $E0					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
@@ -74503,7 +72765,7 @@ byte_BANKA_84E5:.BYTE 0				  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84D7r
       .BYTE $E0					  ; data used at 8000
       .BYTE $FF					  ; data used at 8000
 PlayerSelectPalettes:.BYTE $3F,0,$20,$F				 ; 0
-						  ; DATA XREF: sub_BANKA_8451:loc_BANKA_8479r
+						  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_8479r
       .BYTE $28,$16,6,$F			  ; 4 ;	data used at 8000
       .BYTE $30,$12,$16,$F			  ; 8
       .BYTE $30,$16,$12,$F			  ; $C
@@ -74520,7 +72782,7 @@ BonusChanceBackgroundPalettes:.BYTE $F,$27,$17,7			  ; 0 ;	data used at 8000
       .BYTE $F,$30,$10,0			  ; 8
       .BYTE $F,$21,$12,1			  ; $C
 BonusChanceReel1Order:.BYTE Slot_Snifit				  ; 0
-						  ; DATA XREF: sub_BANKA_8451:loc_BANKA_8486r
+						  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_8486r
       .BYTE Slot_Turnip				  ; 1 ;	Graphics exist for a mushroom (not used)
       .BYTE Slot_Star				  ; 2
       .BYTE Slot_Turnip				  ; 3
@@ -74563,7 +72825,7 @@ Text_Unknown3:.BYTE $22,$AA,$4D,$FB,0			  ; 0 ;	data used at 8000
 Text_Unknown4:.BYTE $22,$EB,$4B,$FB,0			  ; 0 ;	data used at 8000
 Text_PAUSE_Erase:.BYTE $25,$ED,5,$FB,$FB,$FB,$FB,$FB,0	     ; 0 ; data	used at	8000
 Text_Unknown5:.BYTE $25,$E,7,$FB,$FB,$FB,$FB,$FB,$FB,$FB  ; 0
-						  ; DATA XREF: sub_BANKA_8451:loc_BANKA_8493r
+						  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_8493r
 						  ; This one is	actually used, just not	sure what for
 Text_WORLD_1_1:.BYTE $24,$CA,$B,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$F3,$D1; 0 ; data used at 8000
 Text_EXTRA_LIFE_0:.BYTE	$23,$48,$10,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9; 0 ; data used at 8000
@@ -74578,7 +72840,7 @@ Text_Unknown8:.BYTE $21,$97,$C6,$FB,0			  ; 0 ;	data used at 8000
 UnusedText_THANK_YOU:.BYTE $21,$C,9,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE; 0 ; data used at 8000
 UnusedText_Blank214D:.BYTE $21,$4D,6,$FB,$FB,$FB,$FB,$FB,$FB,0	 ; 0 ; data used at 8000
 ; [000019AC BYTES: BEGIN OF AREA UNUSED-BANKA:8654. PRESS KEYPAD "-" TO	COLLAPSE]
-byte_BANKA_8654:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; 0
+_unused_BANKA_8654:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -74998,7 +73260,7 @@ byte_BANKA_8654:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       ;.segment	BANKB
       *	=  $A000
 ; [00002000 BYTES: BEGIN OF AREA UNUSED-BANKB:A000. PRESS KEYPAD "-" TO	COLLAPSE]
-byte_BANKB_A000:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; 0	; data used at a000
+_unused_BANKB:.BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0 ;	Another	empty bank to go hog wild with
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -75529,7 +73791,7 @@ byte_BANKC_8001:.BYTE 3				  ; DATA XREF: sub_BANKC_801C+9r
       .WORD MarioDream_EraseBubble2		  ; data used at 8000
       .WORD MarioDream_EraseBubble3		  ; data used at 8000
       .WORD MarioDream_EraseBubble4		  ; data used at 8000
-off_BANKC_8010:.WORD MarioDream_EraseBubble5	  ; data used at 8000
+      .WORD MarioDream_EraseBubble5		  ; data used at 8000
       .WORD MarioDream_Palettes			  ; data used at 8000
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -75599,742 +73861,144 @@ sub_BANKC_8033:					  ; CODE XREF: BANKC:8352p
       RTS
 
 ; ---------------------------------------------------------------------------
-MarioDream_Palettes:.BYTE $3F ;	?		  ; DATA XREF: BANKC:8012o
+MarioDream_Palettes:.BYTE $3F,0,$20,2				; 0 ; DATA XREF: BANKC:8012o
+      .BYTE $22,$12,$F,2			  ; 4 ;	data used at 8000
+      .BYTE $30,$16,$F,2			  ; 8
+      .BYTE $30,$16,$28,2			  ; $C
+      .BYTE $22,$31,$F,2			  ; $10
+      .BYTE $27,$16,$F,2			  ; $14
+      .BYTE $27,$2A,$F,2			  ; $18
+      .BYTE $27,$25,$F,2			  ; $1C
+      .BYTE $27,$3C,$F,0			  ; $20
+MarioDream_Bed:.BYTE $20,0,$60,$FF			   ; 0 ; DATA XREF: BANKC:8002o
 						  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $30	; 0				  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $22	; "				  ; data used at 8000
-      .BYTE $31	; 1				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $2A	; *				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $25	; %				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   2					  ; data used at 8000
-      .BYTE $27	; '                               ; data used at 8000
-      .BYTE $3C	; <				  ; data used at 8000
-      .BYTE  $F					  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-MarioDream_Bed:.BYTE $20			  ; DATA XREF: BANKC:8002o
+      .BYTE $20,$20,$60,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$40,$60,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$60,$60,$FF			  ; 0 ;	data used at 8000
+      .BYTE $23,$40,$60,$FF			  ; 0 ;	data used at 8000
+      .BYTE $23,$60,$60,$FF			  ; 0 ;	data used at 8000
+      .BYTE $23,$80,$60,$FF			  ; 0 ;	data used at 8000
+      .BYTE $23,$A0,$60,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$80,$D6,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$81,$D6,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$82,$D6,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$83,$D6,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$9C,$D6,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$9D,$D6,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$9E,$D6,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$9F,$D6,$FF			  ; 0 ;	data used at 8000
+      .BYTE $20,$84,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $20,$A4,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $20,$C4,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $20,$E4,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,4,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,$24,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,$44,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,$64,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,$84,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,$A4,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,$C4,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,$E4,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $22,4,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $22,$24,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $22,$44,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $22,$64,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $22,$84,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $22,$A4,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $22,$C4,$58,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,$4E,2,$60,$61			  ; 0 ;	data used at 8000
+      .BYTE $21,$6E,2,$70,$71			  ; 0 ;	data used at 8000
+      .BYTE $21,$8E,2,$80,$81			  ; 0 ;	data used at 8000
+      .BYTE $21,$AC,6,$36,$37,$38,$39,$3A,$3B	  ; 0 ;	data used at 8000
+      .BYTE $21,$CA,$C,$36,$37,$35,$47,$48,$49,$4A,$4B,$4C,$4D,$4E,$4F;	0 ; data used at 8000
+      .BYTE $21,$E8,$E,$36,$37,$35,$55,$56,$57,$58,$59,$5A,$5B,$5C,$5D;	0 ; data used at 8000
+      .BYTE $5E,$5F				  ; $F
+      .BYTE $22,6,$10,$36,$37,$35,$FC,$64,$65,$66,$67,$68,$69,$6A,$6B; 0 ; data	used at	8000
+      .BYTE $6C,$6D,$6E,$6F			  ; $F
+      .BYTE $22,$24,$12,$36,$37,$35,$FC,$FC,$FC,$74,$75,$76,$77,$78,$79; 0 ; data used at 8000
+      .BYTE $7A,$7B,$7C,$7D,$7E,$7F		  ; $F
+      .BYTE $22,$44,$18,$35,$FC,$FC,$FC,$82,$83,$84,$85,$86,$87,$88,$89; 0 ; data used at 8000
+      .BYTE $8A,$8B,$8C,$8D,$8E,$8F,0,1,2,3,4,5	  ; $F
+      .BYTE $22,$68,$14,$92,$93,$94,$95,$96,$97,$98,$99,$9A,$9B,$9C,$9D; 0 ; data used at 8000
+      .BYTE $9E,$9F,$10,$11,$12,$13,$14,$15	  ; $F
+      .BYTE $22,$88,$14,$A2,$A3,$A4,$A5,$A6,$A7,$A8,$A9,$AA,$AB,$AC,$AD; 0 ; data used at 8000
+      .BYTE $AE,$AF,$FE,$FE,$FE,$FE,$FE,$FE	  ; $F
+      .BYTE $22,$A7,$15,$B1,$B2,$B3,$B4,$B5,$B6,$B7,$B8,$B9,$BA,$BB,$BC; 0 ; data used at 8000
+      .BYTE $BD,$BE,$BF,$FE,$FE,$FE,$FE,$FE,$FE	  ; $F
+      .BYTE $22,$C6,$16,$C0,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$C9,$CA,$CB; 0 ; data used at 8000
+      .BYTE $CC,$CD,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE; $F
+      .BYTE $22,$E4,$18,$B1,$F1,$D0,$D1,$D2,$D3,$D4,$D5,$D6,$D7,$D8,$D9; 0 ; data used at 8000
+      .BYTE $DA,$DB,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE; $F
+      .BYTE $23,4,$18,$F0,$FE,$FE,$FE,$E2,$E3,$E4,$E5,$E6,$E7,$E8,$E9; 0 ; data	used at	8000
+      .BYTE $EA,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE; $F
+      .BYTE $23,$24,$18,$FE,$FE,$FE,$FE,$F2,$F3,$F4,$F5,$F6,$F7,$F8,$F9; 0 ; data used at 8000
+      .BYTE $FA,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE; $F
+      .BYTE 0					  ; data used at 8000
+MarioDream_Bubble:.BYTE	$20,$8F,$84,6,$16,7,$17		      ;	0 ; DATA XREF: BANKC:8004o
 						  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $40					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE $40					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE $80					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-byte_BANKC_8083:.BYTE $23			  ; data used at 8000
-      .BYTE $A0					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $80					  ; data used at 8000
-      .BYTE $D6					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $81					  ; data used at 8000
-      .BYTE $D6					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $82					  ; data used at 8000
-      .BYTE $D6					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $83					  ; data used at 8000
-      .BYTE $D6					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $9C					  ; data used at 8000
-      .BYTE $D6					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $9D					  ; data used at 8000
-      .BYTE $D6					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $9E					  ; data used at 8000
-      .BYTE $D6					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $9F					  ; data used at 8000
-      .BYTE $D6					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $84					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $A4					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $C4					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE 4					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $44					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $64					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $84					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $A4					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $C4					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE 4					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $44					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $64					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $84					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $A4					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $C4					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $4E					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $61					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $6E					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $70					  ; data used at 8000
-      .BYTE $71					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $8E					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $80					  ; data used at 8000
-      .BYTE $81					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $AC					  ; data used at 8000
-      .BYTE 6					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $37					  ; data used at 8000
-      .BYTE $38					  ; data used at 8000
-      .BYTE $39					  ; data used at 8000
-      .BYTE $3A					  ; data used at 8000
-      .BYTE $3B					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $CA					  ; data used at 8000
-      .BYTE $C					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $37					  ; data used at 8000
-      .BYTE $35					  ; data used at 8000
-      .BYTE $47					  ; data used at 8000
-      .BYTE $48					  ; data used at 8000
-      .BYTE $49					  ; data used at 8000
-      .BYTE $4A					  ; data used at 8000
-      .BYTE $4B					  ; data used at 8000
-      .BYTE $4C					  ; data used at 8000
-      .BYTE $4D					  ; data used at 8000
-      .BYTE $4E					  ; data used at 8000
-      .BYTE $4F					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $E8					  ; data used at 8000
-      .BYTE $E					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $37					  ; data used at 8000
-      .BYTE $35					  ; data used at 8000
-      .BYTE $55					  ; data used at 8000
-      .BYTE $56					  ; data used at 8000
-      .BYTE $57					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $59					  ; data used at 8000
-      .BYTE $5A					  ; data used at 8000
-      .BYTE $5B					  ; data used at 8000
-      .BYTE $5C					  ; data used at 8000
-      .BYTE $5D					  ; data used at 8000
-      .BYTE $5E					  ; data used at 8000
-      .BYTE $5F					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE 6					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $37					  ; data used at 8000
-      .BYTE $35					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $64					  ; data used at 8000
-      .BYTE $65					  ; data used at 8000
-      .BYTE $66					  ; data used at 8000
-      .BYTE $67					  ; data used at 8000
-      .BYTE $68					  ; data used at 8000
-      .BYTE $69					  ; data used at 8000
-      .BYTE $6A					  ; data used at 8000
-      .BYTE $6B					  ; data used at 8000
-      .BYTE $6C					  ; data used at 8000
-      .BYTE $6D					  ; data used at 8000
-      .BYTE $6E					  ; data used at 8000
-      .BYTE $6F					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $37					  ; data used at 8000
-      .BYTE $35					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $74					  ; data used at 8000
-      .BYTE $75					  ; data used at 8000
-      .BYTE $76					  ; data used at 8000
-      .BYTE $77					  ; data used at 8000
-      .BYTE $78					  ; data used at 8000
-      .BYTE $79					  ; data used at 8000
-      .BYTE $7A					  ; data used at 8000
-      .BYTE $7B					  ; data used at 8000
-      .BYTE $7C					  ; data used at 8000
-      .BYTE $7D					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7F					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $44					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $35					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $82					  ; data used at 8000
-      .BYTE $83					  ; data used at 8000
-      .BYTE $84					  ; data used at 8000
-      .BYTE $85					  ; data used at 8000
-      .BYTE $86					  ; data used at 8000
-      .BYTE $87					  ; data used at 8000
-      .BYTE $88					  ; data used at 8000
-      .BYTE $89					  ; data used at 8000
-      .BYTE $8A					  ; data used at 8000
-      .BYTE $8B					  ; data used at 8000
-      .BYTE $8C					  ; data used at 8000
-      .BYTE $8D					  ; data used at 8000
-      .BYTE $8E					  ; data used at 8000
-      .BYTE $8F					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 1					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE 3					  ; data used at 8000
-      .BYTE 4					  ; data used at 8000
-      .BYTE 5					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $68					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $92					  ; data used at 8000
-      .BYTE $93					  ; data used at 8000
-      .BYTE $94					  ; data used at 8000
-      .BYTE $95					  ; data used at 8000
-      .BYTE $96					  ; data used at 8000
-      .BYTE $97					  ; data used at 8000
-      .BYTE $98					  ; data used at 8000
-      .BYTE $99					  ; data used at 8000
-      .BYTE $9A					  ; data used at 8000
-      .BYTE $9B					  ; data used at 8000
-      .BYTE $9C					  ; data used at 8000
-      .BYTE $9D					  ; data used at 8000
-      .BYTE $9E					  ; data used at 8000
-      .BYTE $9F					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $13					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $15					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $88					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $A2					  ; data used at 8000
-      .BYTE $A3					  ; data used at 8000
-      .BYTE $A4					  ; data used at 8000
-      .BYTE $A5					  ; data used at 8000
-      .BYTE $A6					  ; data used at 8000
-      .BYTE $A7					  ; data used at 8000
-      .BYTE $A8					  ; data used at 8000
-      .BYTE $A9					  ; data used at 8000
-      .BYTE $AA					  ; data used at 8000
-      .BYTE $AB					  ; data used at 8000
-      .BYTE $AC					  ; data used at 8000
-      .BYTE $AD					  ; data used at 8000
-      .BYTE $AE					  ; data used at 8000
-      .BYTE $AF					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $A7					  ; data used at 8000
-      .BYTE $15					  ; data used at 8000
-      .BYTE $B1					  ; data used at 8000
-      .BYTE $B2					  ; data used at 8000
-      .BYTE $B3					  ; data used at 8000
-byte_BANKC_81A2:.BYTE $B4			  ; data used at 8000
-      .BYTE $B5					  ; data used at 8000
-      .BYTE $B6					  ; data used at 8000
-      .BYTE $B7					  ; data used at 8000
-      .BYTE $B8					  ; data used at 8000
-      .BYTE $B9					  ; data used at 8000
-      .BYTE $BA					  ; data used at 8000
-      .BYTE $BB					  ; data used at 8000
-      .BYTE $BC					  ; data used at 8000
-      .BYTE $BD					  ; data used at 8000
-      .BYTE $BE					  ; data used at 8000
-      .BYTE $BF					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $C6					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $C0					  ; data used at 8000
-      .BYTE $C1					  ; data used at 8000
-      .BYTE $C2					  ; data used at 8000
-      .BYTE $C3					  ; data used at 8000
-      .BYTE $C4					  ; data used at 8000
-      .BYTE $C5					  ; data used at 8000
-      .BYTE $C6					  ; data used at 8000
-      .BYTE $C7					  ; data used at 8000
-      .BYTE $C8					  ; data used at 8000
-      .BYTE $C9					  ; data used at 8000
-      .BYTE $CA					  ; data used at 8000
-      .BYTE $CB					  ; data used at 8000
-      .BYTE $CC					  ; data used at 8000
-      .BYTE $CD					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $B1					  ; data used at 8000
-      .BYTE $F1					  ; data used at 8000
-      .BYTE $D0					  ; data used at 8000
-      .BYTE $D1					  ; data used at 8000
-      .BYTE $D2					  ; data used at 8000
-      .BYTE $D3					  ; data used at 8000
-byte_BANKC_81D6:.BYTE $D4			  ; data used at 8000
-      .BYTE $D5					  ; data used at 8000
-      .BYTE $D6					  ; data used at 8000
-      .BYTE $D7					  ; data used at 8000
-      .BYTE $D8					  ; data used at 8000
-      .BYTE $D9					  ; data used at 8000
-      .BYTE $DA					  ; data used at 8000
-      .BYTE $DB					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE 4					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $F0					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $E2					  ; data used at 8000
-      .BYTE $E3					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE $E5					  ; data used at 8000
-      .BYTE $E6					  ; data used at 8000
-      .BYTE $E7					  ; data used at 8000
-      .BYTE $E8					  ; data used at 8000
-      .BYTE $E9					  ; data used at 8000
-      .BYTE $EA					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-byte_BANKC_81FE:.BYTE $FE			  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $F2					  ; data used at 8000
-      .BYTE $F3					  ; data used at 8000
-      .BYTE $F4					  ; data used at 8000
-      .BYTE $F5					  ; data used at 8000
-      .BYTE $F6					  ; data used at 8000
-      .BYTE $F7					  ; data used at 8000
-      .BYTE $F8					  ; data used at 8000
-      .BYTE $F9					  ; data used at 8000
-      .BYTE $FA					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-MarioDream_Bubble:.BYTE	$20			  ; DATA XREF: BANKC:8004o
-						  ; data used at 8000
-      .BYTE $8F					  ; data used at 8000
-      .BYTE $84					  ; data used at 8000
-      .BYTE 6					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE 7					  ; data used at 8000
-      .BYTE $17					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $D0					  ; data used at 8000
-      .BYTE $85					  ; data used at 8000
-      .BYTE 8					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE 9					  ; data used at 8000
-      .BYTE $19					  ; data used at 8000
-      .BYTE $1D					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $90					  ; data used at 8000
-      .BYTE $4C					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $B0					  ; data used at 8000
-      .BYTE $4C					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $D1					  ; data used at 8000
-      .BYTE $4B					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $F1					  ; data used at 8000
-      .BYTE $B					  ; data used at 8000
-byte_BANKC_823D:.BYTE $FD			  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $28					  ; data used at 8000
-      .BYTE $29					  ; data used at 8000
-      .BYTE $29					  ; data used at 8000
-      .BYTE $29					  ; data used at 8000
-      .BYTE $29					  ; data used at 8000
-      .BYTE $2A					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $11					  ; data used at 8000
-      .BYTE $B					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $27					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $27					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $31					  ; data used at 8000
-      .BYTE $B					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $27					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $27					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $51					  ; data used at 8000
-      .BYTE $B					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $25					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $25					  ; data used at 8000
-      .BYTE $25					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $71					  ; data used at 8000
-      .BYTE $B					  ; data used at 8000
-      .BYTE $B					  ; data used at 8000
-      .BYTE $C					  ; data used at 8000
-      .BYTE $D					  ; data used at 8000
-      .BYTE $E					  ; data used at 8000
-      .BYTE $F					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $95					  ; data used at 8000
-      .BYTE 7					  ; data used at 8000
-      .BYTE $1F					  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE $30					  ; data used at 8000
-      .BYTE $31					  ; data used at 8000
-      .BYTE $32					  ; data used at 8000
-      .BYTE $33					  ; data used at 8000
-      .BYTE $1B					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $B5					  ; data used at 8000
-      .BYTE 6					  ; data used at 8000
-      .BYTE $53					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $40					  ; data used at 8000
-      .BYTE $41					  ; data used at 8000
-      .BYTE $42					  ; data used at 8000
-      .BYTE $43					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $D7					  ; data used at 8000
-      .BYTE 3					  ; data used at 8000
-      .BYTE $50					  ; data used at 8000
-      .BYTE $51					  ; data used at 8000
-      .BYTE $52					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $F6					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE $CB					  ; data used at 8000
-      .BYTE 4					  ; data used at 8000
-      .BYTE $44					  ; data used at 8000
-      .BYTE $55					  ; data used at 8000
-      .BYTE $A5					  ; data used at 8000
-      .BYTE $65					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE $D4					  ; data used at 8000
-      .BYTE 3					  ; data used at 8000
-      .BYTE $55					  ; data used at 8000
-      .BYTE $5A					  ; data used at 8000
-      .BYTE $56					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE $DD					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $45					  ; data used at 8000
-      .BYTE $15					  ; data used at 8000
-      .BYTE $23					  ; data used at 8000
-      .BYTE $E4					  ; data used at 8000
-      .BYTE 1					  ; data used at 8000
-      .BYTE $3F					  ; data used at 8000
+      .BYTE $20,$D0,$85,8,$18,9,$19,$1D		  ; 0 ;	data used at 8000
+      .BYTE $20,$90,$4C,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$B0,$4C,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$D1,$4B,$FD			  ; 0 ;	data used at 8000
+      .BYTE $20,$F1,$B,$FD,$FD,$FD,$28,$29,$29,$29,$29,$2A,$FD,$FD; 0 ;	data used at 8000
+      .BYTE $21,$11,$B,$FD,$FD,$FD,$FD,$27,$FD,$FD,$27,$FD,$FD,$FD; 0 ;	data used at 8000
+      .BYTE $21,$31,$B,$FD,$FD,$FD,$FD,$27,$FD,$FD,$27,$FD,$FD,$FD; 0 ;	data used at 8000
+      .BYTE $21,$51,$B,$FD,$FD,$23,$24,$25,$22,$23,$24,$25,$25,$FD; 0 ;	data used at 8000
+      .BYTE $21,$71,$B,$B,$C,$D,$E,$F,$FD,$FD,$FD,$FD,$FD,$FD; 0 ; data	used at	8000
+      .BYTE $21,$95,7,$1F,$1A,$30,$31,$32,$33,$1B ; 0 ;	data used at 8000
+      .BYTE $21,$B5,6,$53,$FC,$40,$41,$42,$43	  ; 0 ;	data used at 8000
+      .BYTE $21,$D7,3,$50,$51,$52		  ; 0 ;	data used at 8000
+      .BYTE $21,$F6,2,$20,$21			  ; 0 ;	data used at 8000
+      .BYTE $23,$CB,4,$44,$55,$A5,$65		  ; 0 ;	data used at 8000
+      .BYTE $23,$D4,3,$55,$5A,$56		  ; 0 ;	data used at 8000
+      .BYTE $23,$DD,2,$45,$15			  ; 0 ;	data used at 8000
+      .BYTE $23,$E4,1,$3F			  ; 0 ;	data used at 8000
       .BYTE 0					  ; data used at 8000
 MarioDream_DoNothing:.BYTE 0			  ; DATA XREF: BANKC:8006o
-						  ; data used at 8000
-      .BYTE $23	; #
-      .BYTE $CB	; À
-      .BYTE $44	; D
+						  ; @TODO This is pointed to, but the very first byte
+						  ; is the terminating 0, so nothing gets drawn.
+						  ; Possibly unused PPU	writes?
+      .BYTE $23,$CB,$44,0			  ; 0
+      .BYTE $23,$D4,$43,0			  ; 0
+      .BYTE $23,$DD,$42,0			  ; 0
       .BYTE   0
-      .BYTE $23	; #
-      .BYTE $D4	; ‘
-      .BYTE $43	; C
-      .BYTE   0
-      .BYTE $23	; #
-      .BYTE $DD	; ›
-      .BYTE $42	; B
-      .BYTE   0
-      .BYTE   0
-MarioDream_EraseBubble1:.BYTE $20		  ; DATA XREF: BANKC:8008o
+MarioDream_EraseBubble1:.BYTE $20,$8F,$4D,$FC			    ; 0
+						  ; DATA XREF: BANKC:8008o
 						  ; data used at 8000
-      .BYTE $8F					  ; data used at 8000
-      .BYTE $4D					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $AF					  ; data used at 8000
-      .BYTE $4D					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-MarioDream_EraseBubble2:.BYTE $20		  ; DATA XREF: BANKC:800Ao
+      .BYTE $20,$AF,$4D,$FC			  ; 0 ;	data used at 8000
+      .BYTE   0					  ; data used at 8000
+MarioDream_EraseBubble2:.BYTE $20,$CF,$4D,$FC			    ; 0
+						  ; DATA XREF: BANKC:800Ao
 						  ; data used at 8000
-      .BYTE $CF					  ; data used at 8000
-      .BYTE $4D					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $EF					  ; data used at 8000
-      .BYTE $4D					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-MarioDream_EraseBubble3:.BYTE $21		  ; DATA XREF: BANKC:800Co
+      .BYTE $20,$EF,$4D,$FC			  ; 0 ;	data used at 8000
+      .BYTE   0					  ; data used at 8000
+MarioDream_EraseBubble3:.BYTE $21,$10,$4C,$FC			    ; 0
+						  ; DATA XREF: BANKC:800Co
 						  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $4C					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $30					  ; data used at 8000
-      .BYTE $4C					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-MarioDream_EraseBubble4:.BYTE $21		  ; DATA XREF: BANKC:800Eo
+      .BYTE $21,$30,$4C,$FC			  ; 0 ;	data used at 8000
+      .BYTE   0					  ; data used at 8000
+MarioDream_EraseBubble4:.BYTE $21,$50,$4C,$FC			    ; 0
+						  ; DATA XREF: BANKC:800Eo
 						  ; data used at 8000
-      .BYTE $50					  ; data used at 8000
-      .BYTE $4C					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $71					  ; data used at 8000
-      .BYTE $4B					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-MarioDream_EraseBubble5:.BYTE $21		  ; DATA XREF: BANKC:off_BANKC_8010o
+      .BYTE $21,$71,$4B,$FC			  ; 0 ;	data used at 8000
+      .BYTE   0					  ; data used at 8000
+MarioDream_EraseBubble5:.BYTE $21,$95,$47,$FC			    ; 0
+						  ; DATA XREF: BANKC:8010o
 						  ; data used at 8000
-      .BYTE $95					  ; data used at 8000
-      .BYTE $47					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $B5					  ; data used at 8000
-      .BYTE $46					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $D7					  ; data used at 8000
-      .BYTE $43					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $21					  ; data used at 8000
-      .BYTE $F6					  ; data used at 8000
-      .BYTE $42					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
+      .BYTE $21,$B5,$46,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,$D7,$43,$FC			  ; 0 ;	data used at 8000
+      .BYTE $21,$F6,$42,$FC			  ; 0 ;	data used at 8000
       .BYTE 0					  ; data used at 8000
-MarioDream_BubbleSprites:.BYTE $28		  ; DATA XREF: sub_BANKC_8493:loc_BANKC_849Br
-						  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $A8					  ; data used at 8000
-      .BYTE $28					  ; data used at 8000
-      .BYTE 4					  ; data used at 8000
-      .BYTE 1					  ; data used at 8000
-      .BYTE $B0					  ; data used at 8000
-      .BYTE $28					  ; data used at 8000
-      .BYTE 8					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $C0					  ; data used at 8000
-      .BYTE $28					  ; data used at 8000
-      .BYTE $C					  ; data used at 8000
-      .BYTE 3					  ; data used at 8000
-      .BYTE $B8					  ; data used at 8000
-byte_BANKC_8308:.BYTE $28			  ; DATA XREF: sub_BANKC_8493:loc_BANKC_84A5r
-						  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $A8					  ; data used at 8000
-      .BYTE $28					  ; data used at 8000
-      .BYTE 6					  ; data used at 8000
-      .BYTE 1					  ; data used at 8000
-      .BYTE $B0					  ; data used at 8000
-byte_BANKC_8310:.BYTE $28			  ; data used at 8000
-      .BYTE $A					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE $C0					  ; data used at 8000
-      .BYTE $28					  ; data used at 8000
-      .BYTE $E					  ; data used at 8000
-      .BYTE 3					  ; data used at 8000
-      .BYTE $B8					  ; data used at 8000
+MarioDream_BubbleSprites:.BYTE $28,0,0,$A8			     ; 0
+						  ; DATA XREF: sub_BANKC_8493:loc_BANKC_849Br
+      .BYTE $28,4,1,$B0				  ; 4 ;	data used at 8000
+      .BYTE $28,8,2,$C0				  ; 8
+      .BYTE $28,$C,3,$B8			  ; $C
+byte_BANKC_8308:.BYTE $28,2,0,$A8			    ; 0
+						  ; DATA XREF: sub_BANKC_8493:loc_BANKC_84A5r
+      .BYTE $28,6,1,$B0				  ; 4 ;	data used at 8000
+byte_BANKC_8310:.BYTE $28,$A,2,$C0			    ; 0	; data used at 8000
+      .BYTE $28,$E,3,$B8			  ; 4
 MarioDream_SnoringFrameCounts:.BYTE $20		  ; DATA XREF: BANKC:8395r
 						  ; BANKC:8443r BANKC:847Br
 						  ; data used at 8000
@@ -76687,23 +74351,11 @@ loc_BANKC_84C0:					  ; CODE XREF: BANKC:84B8j
       RTS
 
 ; ---------------------------------------------------------------------------
-CastRoll_CASTText:.BYTE	$60 ; `			  ; DATA XREF: sub_BANKC_84FB:loc_BANKC_855Cr
-						  ; data used at 8000
-      .BYTE $D4	; ‘				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $28	; (				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $D0	; –				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $38	; 8				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $F4	; Ù				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $48	; H				  ; data used at 8000
-      .BYTE $60	; `				  ; data used at 8000
-      .BYTE $F6	; ˆ				  ; data used at 8000
-      .BYTE   0					  ; data used at 8000
-      .BYTE $58	; X				  ; data used at 8000
+CastRoll_CASTText:.BYTE	$60,$D4,0,$28			      ;	0
+						  ; DATA XREF: sub_BANKC_84FB:loc_BANKC_855Cr
+      .BYTE $60,$D0,0,$38			  ; 4 ;	data used at 8000
+      .BYTE $60,$F4,0,$48			  ; 8
+      .BYTE $60,$F6,0,$58			  ; $C
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -76794,20 +74446,16 @@ loc_BANKC_855C:					  ; CODE XREF: sub_BANKC_84FB+68j
       BPL     loc_BANKC_855C			  ; code used at 8000
 
       LDA     #$3F ; '?'                          ; code used at 8000
-      STA     _RAM_PPUDataBuffer		  ; code used at 8000
+      STA     PPUBuffer_301			  ; code used at 8000
       LDA     #$11				  ; code used at 8000
       STA     byte_RAM_302			  ; code used at 8000
       LDA     #1				  ; code used at 8000
       STA     byte_RAM_303			  ; code used at 8000
       LDA     #$12				  ; code used at 8000
-
-loc_BANKC_8576:					  ; code used at 8000
-      STA     byte_RAM_304
+      STA     byte_RAM_304			  ; code used at 8000
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_305			  ; code used at 8000
-
-loc_BANKC_857E:					  ; code used at 8000
-      LDA     #$10
+      LDA     #$10				  ; code used at 8000
       STA     PlayerXLo				  ; code used at 8000
       LDA     #0				  ; code used at 8000
       STA     ObjectXLo				  ; code used at 8000
@@ -76834,7 +74482,7 @@ loc_BANKC_8593:					  ; DATA XREF: BANKC:84C5o
       LDA     #$10				  ; code used at 8000
       STA     PlayerXLo				  ; code used at 8000
       LDA     #$3F ; '?'                          ; code used at 8000
-      STA     _RAM_PPUDataBuffer		  ; code used at 8000
+      STA     PPUBuffer_301			  ; code used at 8000
       LDA     #$11				  ; code used at 8000
       STA     byte_RAM_302			  ; code used at 8000
       LDA     #1				  ; code used at 8000
@@ -77702,7 +75350,7 @@ loc_BANKC_8A04:					  ; DATA XREF: BANKC:84D3o
       LDA     #$10				  ; code used at 8000
       STA     PlayerXLo				  ; code used at 8000
       LDA     #$3F ; '?'                          ; code used at 8000
-      STA     _RAM_PPUDataBuffer		  ; code used at 8000
+      STA     PPUBuffer_301			  ; code used at 8000
       LDA     #$11				  ; code used at 8000
       STA     byte_RAM_302			  ; code used at 8000
       LDA     #1				  ; code used at 8000
@@ -77773,7 +75421,7 @@ loc_BANKC_8A5C:					  ; code used at 8000
       LDA     #$14				  ; code used at 8000
       STA     ObjectXHi+8			  ; code used at 8000
       LDA     #$3F ; '?'                          ; code used at 8000
-      STA     _RAM_PPUDataBuffer		  ; code used at 8000
+      STA     PPUBuffer_301			  ; code used at 8000
       LDA     #$11				  ; code used at 8000
       STA     byte_RAM_302			  ; code used at 8000
       LDA     #1				  ; code used at 8000
@@ -79519,8123 +77167,592 @@ _unused_BANKD:.BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
 ; Segment type:	Pure code
       ;.segment	BANKE
       *	=  $C000
-      .BYTE $55					  ; PCM	data bank
-      .BYTE $2D					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $78					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $2E					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $1C					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $F5					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F3					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $9E					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $F5					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $28					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE $A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $38					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE $83					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $B1					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F7					  ; pcm	data
-      .BYTE $43					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $62					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $DD					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $A2					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $AC					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE $9A					  ; pcm	data
-      .BYTE $44					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $94					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $9C					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $D7					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8B					  ; pcm	data
-      .BYTE $EE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $16					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $11					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $6C					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $5D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $10					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $77					  ; pcm	data
-      .BYTE $E9					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE $6C					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $45					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $BC					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $10					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $EE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $AC					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $3E					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $6E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $BD					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $87					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C9					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $E2					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E3					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E3					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E3					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $6C					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F9					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E3					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $3B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $4E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F7					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $DC					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $1E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $9D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3B					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $16					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $D6					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $5B					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $AE					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $76					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE $C9					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $D4					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $97					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $7B					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $3B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $45					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $DD					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $8A					  ; pcm	data
-      .BYTE $BD					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $EE					  ; pcm	data
-      .BYTE $D7					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $BC					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $C7					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $BE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $23					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C2					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE $7A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $BA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $D1					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $85					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $7C					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $A1					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE $9D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $74					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $6E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $83					  ; pcm	data
-      .BYTE $1B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $BA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8B					  ; pcm	data
-      .BYTE $96					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $7A					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $47					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $7A					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $7D					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $83					  ; pcm	data
-      .BYTE $3B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $90					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $3E					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $CF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $15					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E2					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $94					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $79					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E3					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $7C					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F7					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E7					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $1E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C7					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E2					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E7					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $EB					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7B					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $1D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C7					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $89					  ; pcm	data
-      .BYTE $50					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $56					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $3E					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE $78					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $BD					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $F7					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B4					  ; pcm	data
-      .BYTE $7B					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $D4					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $B2					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $4D					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $2D					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $D3					  ; pcm	data
-      .BYTE $CA					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $D3					  ; pcm	data
-      .BYTE $D4					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $B4					  ; pcm	data
-      .BYTE $B2					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $34					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $2D					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $CA					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $53	; S
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $B5	; µ
-      .BYTE $FA	; ˙
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE  $B
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   7
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   5
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FA	; ˙
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   7
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $D0	; –
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FD	; ˝
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   2
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   0
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $5F	; _
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $B
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $9F	; ü
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $B
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   2
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FA	; ˙
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FA	; ˙
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   7
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FA	; ˙
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   2
-      .BYTE   0
-      .BYTE   0
-      .BYTE $40	; @
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F4	; Ù
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $40	; @
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FD	; ˝
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FA	; ˙
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   9
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FB	; ˚
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   2
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F4	; Ù
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   7
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $13
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $27	; '
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $13
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   2
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   5
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   2
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   2
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $B
-      .BYTE   0
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $17
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $B
-      .BYTE   0
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FD	; ˝
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   2
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FA	; ˙
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $17
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FA	; ˙
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   2
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $B
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   7
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F6	; ˆ
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $9F	; ü
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FB	; ˚
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $27	; '
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $4F	; O
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE   7
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $5F	; _
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $27	; '
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   2
-      .BYTE   0
-      .BYTE $D0	; –
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   7
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $B
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   2
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   7
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   1
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   7
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   3
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $4F	; O
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   9
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $27	; '
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   2
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $17
-      .BYTE   0
-      .BYTE   0
-      .BYTE $74	; t
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $4B	; K
-      .BYTE   0
-      .BYTE   0
-      .BYTE $74	; t
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $15
-      .BYTE   4
-      .BYTE   0
-      .BYTE $69	; i
-      .BYTE $7B	; {
-      .BYTE $AB	; ´
-      .BYTE $B5	; µ
-      .BYTE $AD	; ≠
-      .BYTE $5A	; Z
-      .BYTE $55	; U
-      .BYTE $AB	; ´
-      .BYTE $AA	; ™
-      .BYTE $AA	; ™
-      .BYTE $AA	; ™
-      .BYTE $2A	; *
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $6B					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $68					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $DC					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $DC					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $89					  ; pcm	data
-      .BYTE $1D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $68					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $B8					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8B					  ; pcm	data
-      .BYTE $16					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $41					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $3B					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C4					  ; pcm	data
-      .BYTE $47					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE $2E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $89					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $87					  ; pcm	data
-      .BYTE $4E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE $6C					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $62					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $A1					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $83					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $A3					  ; pcm	data
-      .BYTE $15					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $3D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $3A					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $9B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $BA					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $3D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $1D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE $78					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $78					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $3A					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE $14					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BE					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $EE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $EB					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1C					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B8					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $18					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $A2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $41					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E3					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $59					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $1A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F5					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $38					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $16					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C7					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $98					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E3					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $63					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 6					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $63					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 6					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $28					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $A7					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $23					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $71					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $A7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $CF					  ; pcm	data
-      .BYTE $A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $EB					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $F7					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $14					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 6					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $59					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $18					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $29					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $E3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $87					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B9					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $1B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 6					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $31					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $8E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $BA					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $A7					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $97					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $2E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $8E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $B8					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $8E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $D					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $2D					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $79					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $81					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $8F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5B	; [
-      .BYTE   2
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE   3
-      .BYTE $D0	; –
-      .BYTE $FF
-      .BYTE   2
-      .BYTE $F8	; ¯
-      .BYTE $57	; W
-      .BYTE   0
-      .BYTE $FB	; ˚
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE $FA	; ˙
-      .BYTE $BF	; ø
-      .BYTE   1
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE   7
-      .BYTE $7E	; ~
-      .BYTE   2
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE $E0	; ‡
-      .BYTE   4
-      .BYTE   0
-      .BYTE $F4	; Ù
-      .BYTE $FF
-      .BYTE $AB	; ´
-      .BYTE   1
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE   2
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $2F	; /
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $3F	; ?
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $23	; #
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE   2
-      .BYTE $F8	; ¯
-      .BYTE $1F
-      .BYTE $40	; @
-      .BYTE $FF
-      .BYTE   3
-      .BYTE $E0	; ‡
-      .BYTE $BF	; ø
-      .BYTE   3
-      .BYTE $E8	; Ë
-      .BYTE $BF	; ø
-      .BYTE   2
-      .BYTE $D0	; –
-      .BYTE $FF
-      .BYTE   2
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE  $B
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $5F	; _
-      .BYTE   7
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $FF
-      .BYTE $F1	; Ò
-      .BYTE   2
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE $B8	; ∏
-      .BYTE   3
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $EF	; Ô
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE $80	; Ä
-      .BYTE $3B	; ;
-      .BYTE   0
-      .BYTE   0
-      .BYTE $D8	; ÿ
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE $C0	; ¿
-      .BYTE $13
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $8F	; è
-      .BYTE $8E	; é
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE  $F
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE  $A
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE $F4	; Ù
-      .BYTE $7F	; 
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE   0
-      .BYTE $FA	; ˙
-      .BYTE $8F	; è
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE  $B
-      .BYTE $D0	; –
-      .BYTE $7F	; 
-      .BYTE   0
-      .BYTE $FB	; ˚
-      .BYTE  $F
-      .BYTE   0
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $5F	; _
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $DF	; ﬂ
-      .BYTE   1
-      .BYTE $80	; Ä
-      .BYTE $FE	; ˛
-      .BYTE $EF	; Ô
-      .BYTE   5
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $CB	; À
-      .BYTE $13
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE   9
-      .BYTE $EE	; Ó
-      .BYTE   0
-      .BYTE   0
-      .BYTE $70	; p
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $9F	; ü
-      .BYTE   0
-      .BYTE $7E	; ~
-      .BYTE   0
-      .BYTE   0
-      .BYTE $B8	; ∏
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE  $F
-      .BYTE $74	; t
-      .BYTE   3
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE $E2	; ‚
-      .BYTE   3
-      .BYTE   0
-      .BYTE $EC	; Ï
-      .BYTE $FF
-      .BYTE $3B	; ;
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $9F	; ü
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE   4
-      .BYTE $B0	; ∞
-      .BYTE $BF	; ø
-      .BYTE   7
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE   7
-      .BYTE $C0	; ¿
-      .BYTE $7F	; 
-      .BYTE   5
-      .BYTE $F0	; 
-      .BYTE $1F
-      .BYTE $C0	; ¿
-      .BYTE $FE	; ˛
-      .BYTE   1
-      .BYTE $F8	; ¯
-      .BYTE $BF	; ø
-      .BYTE   2
-      .BYTE $E8	; Ë
-      .BYTE $3F	; ?
-      .BYTE   2
-      .BYTE $F8	; ¯
-      .BYTE $BF	; ø
-      .BYTE   2
-      .BYTE $D0	; –
-      .BYTE $FF
-      .BYTE   2
-      .BYTE $40	; @
-      .BYTE $FF
-      .BYTE $77	; w
-      .BYTE   0
-      .BYTE $40	; @
-      .BYTE $FD	; ˝
-      .BYTE $FF
-      .BYTE   6
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE $3C	; <
-      .BYTE   1
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $40	; @
-      .BYTE $37	; 7
-      .BYTE   0
-      .BYTE   0
-      .BYTE $B8	; ∏
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   0
-      .BYTE $3B	; ;
-      .BYTE   1
-      .BYTE   0
-      .BYTE $D0	; –
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $27	; '
-      .BYTE $3A	; :
-      .BYTE   2
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $2F	; /
-      .BYTE  $F
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $EB	; Î
-      .BYTE   2
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   1
-      .BYTE $E8	; Ë
-      .BYTE $FF
-      .BYTE   1
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE  $A
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE  $B
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $17
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $FF
-      .BYTE   2
-      .BYTE $D0	; –
-      .BYTE $7F	; 
-      .BYTE   7
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $9D	; ù
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $3B	; ;
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FE	; ˛
-      .BYTE $9F	; ü
-      .BYTE $5D	; ]
-      .BYTE   1
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $FF
-      .BYTE $5F	; _
-      .BYTE $F8	; ¯
-      .BYTE  $A
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE   1
-      .BYTE $EE	; Ó
-      .BYTE   0
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $7F	; 
-      .BYTE $C0	; ¿
-      .BYTE $4E	; N
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE $3A	; :
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE $FF
-      .BYTE $3D	; =
-      .BYTE   0
-      .BYTE $60	; `
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE   0
-      .BYTE $F8	; ¯
-      .BYTE $DF	; ﬂ
-      .BYTE   1
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE  $B
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE $FE	; ˛
-      .BYTE  $F
-      .BYTE $C0	; ¿
-      .BYTE $7F	; 
-      .BYTE   2
-      .BYTE $FC	; ¸
-      .BYTE  $F
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE  $A
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE   7
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $4F	; O
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $7F	; 
-      .BYTE   1
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $6B	; k
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $AF	; Ø
-      .BYTE  $E
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $C4	; ƒ
-      .BYTE   7
-      .BYTE   0
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE $80	; Ä
-      .BYTE $AF	; Ø
-      .BYTE   0
-      .BYTE   0
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $5F	; _
-      .BYTE $C0	; ¿
-      .BYTE $2E	; .
-      .BYTE   0
-      .BYTE   0
-      .BYTE $F4	; Ù
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $A1	; °
-      .BYTE $13
-      .BYTE   0
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $BF	; ø
-      .BYTE $3E	; >
-      .BYTE   0
-      .BYTE $C0	; ¿
-      .BYTE $FF
-      .BYTE $77	; w
-      .BYTE   0
-      .BYTE $A0	; †
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE   0
-      .BYTE $FC	; ¸
-      .BYTE $7F	; 
-      .BYTE   1
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE   1
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE   0
-      .BYTE $E8	; Ë
-      .BYTE $3F	; ?
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE   5
-      .BYTE $F0	; 
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE $F4	; Ù
-      .BYTE $BF	; ø
-      .BYTE   0
-      .BYTE $F4	; Ù
-      .BYTE $EF	; Ô
-      .BYTE   0
-      .BYTE $F0	; 
-      .BYTE $BF	; ø
-      .BYTE   7
-      .BYTE $80	; Ä
-      .BYTE $FD	; ˝
-      .BYTE $6F	; o
-      .BYTE   1
-      .BYTE $80	; Ä
-      .BYTE $FF
-      .BYTE $8F	; è
-      .BYTE  $B
-      .BYTE   0
-      .BYTE $B8	; ∏
-      .BYTE $FF
-      .BYTE $3F	; ?
-      .BYTE $3A	; :
-      .BYTE   2
-      .BYTE   0
-      .BYTE $BA	; ∫
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $80	; Ä
-      .BYTE $56	; V
-      .BYTE   0
-      .BYTE   4
-      .BYTE $75	; u
-      .BYTE $FB	; ˚
-      .BYTE $FF
-      .BYTE $1F
-      .BYTE $C0	; ¿
-      .BYTE $56	; V
-      .BYTE   0
-      .BYTE $84	; Ñ
-      .BYTE $DA	; ⁄
-      .BYTE $7F	; 
-      .BYTE $FF
-      .BYTE   9
-      .BYTE $5C	; \
-      .BYTE   4
-      .BYTE $40	; @
-      .BYTE $ED	; Ì
-      .BYTE $FF
-      .BYTE $87	; á
-      .BYTE $16
-      .BYTE   0
-      .BYTE $DA	; ⁄
-      .BYTE $FF
-      .BYTE $65	; e
-      .BYTE   1
-      .BYTE $E0	; ‡
-      .BYTE $FF
-      .BYTE $31	; 1
-      .BYTE   2
-      .BYTE $FA	; ˙
-      .BYTE $CF	; œ
-      .BYTE  $A
-      .BYTE $E0	; ‡
-      .BYTE $7F	; 
-      .BYTE $55					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $8B					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $AE					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $23					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE $C4					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE $A2					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $E4					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $F1					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $D					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $46					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $83					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE $62					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE $84					  ; pcm	data
-      .BYTE $7D					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $BE					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE $11					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $BA					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $70					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $5D					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $93					  ; pcm	data
-      .BYTE $84					  ; pcm	data
-      .BYTE $BE					  ; pcm	data
-      .BYTE $8B					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $3E					  ; pcm	data
-      .BYTE $82					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 6					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $4E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $20					  ; pcm	data
-      .BYTE $70					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $37					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $EB					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $56					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $2D					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $2D					  ; pcm	data
-      .BYTE $35					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $82					  ; pcm	data
-      .BYTE $20					  ; pcm	data
-      .BYTE $59					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $D4					  ; pcm	data
-      .BYTE $7D					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $A6					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $9A					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $4D					  ; pcm	data
-      .BYTE $DD					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $20					  ; pcm	data
-      .BYTE $A4					  ; pcm	data
-      .BYTE $96					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $75					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE $11					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $EE					  ; pcm	data
-      .BYTE $D3					  ; pcm	data
-      .BYTE $BE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $47					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $41					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $50					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $8A					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE $28					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $D3					  ; pcm	data
-      .BYTE $34					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $9A					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $96					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $BA					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $89					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A8					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $50					  ; pcm	data
-      .BYTE $7D					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE $93					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $88					  ; pcm	data
-      .BYTE $84					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $DD					  ; pcm	data
-      .BYTE $76					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-byte_BANKE_D460:.BYTE $DB			  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $CA					  ; pcm	data
-      .BYTE $B2					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $34					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $35					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $B4					  ; pcm	data
-      .BYTE $B2					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $59					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $CB					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $B2					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $B2					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $59					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $96					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $65					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $9A					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $59					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $A6					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $65					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $A6					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $65					  ; pcm	data
-      .BYTE $59					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $65					  ; pcm	data
-      .BYTE $59					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $65					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $97					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $BE					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $5C					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EE					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $90					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F7					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $90					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $96					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $D4					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $93					  ; pcm	data
-      .BYTE $A					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $65					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $6E					  ; pcm	data
-      .BYTE $DD					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D4					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $51					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $CA					  ; pcm	data
-      .BYTE $B2					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $68					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $BD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $37					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $DD					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $20					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $5B					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $29					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $DE					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $F7					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $29					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE $A8					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $7B					  ; pcm	data
-      .BYTE $F7					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $44					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $84					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $BA					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $A2					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $9B					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $7B					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $A4					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $D6					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $CA					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $D3					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $45					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $DD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $EB					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $89					  ; pcm	data
-      .BYTE $94					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $91					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $68					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $68					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $28					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $B2					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $7D					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $70					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $21					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $28					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE $29					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $BE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $3F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $60					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $EB					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE $89					  ; pcm	data
-      .BYTE $D2					  ; pcm	data
-      .BYTE $B4					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $29					  ; pcm	data
-      .BYTE $11					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $EB					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $A4					  ; pcm	data
-      .BYTE $CA					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE $50					  ; pcm	data
-      .BYTE $F5					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $77					  ; pcm	data
-      .BYTE $91					  ; pcm	data
-      .BYTE $A4					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $89					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $A1					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $9F					  ; pcm	data
-      .BYTE $8A					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $B4					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $93					  ; pcm	data
-      .BYTE $88					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $F7					  ; pcm	data
-      .BYTE $91					  ; pcm	data
-      .BYTE $20					  ; pcm	data
-      .BYTE $29					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $46					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $D1					  ; pcm	data
-      .BYTE $5D					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $82					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $4F					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $7D					  ; pcm	data
-      .BYTE $41					  ; pcm	data
-      .BYTE $90					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $74					  ; pcm	data
-      .BYTE $11					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $BE					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $6E					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $A7					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $77					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $15					  ; pcm	data
-      .BYTE $A8					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $B8					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $8B					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE $B8					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $97					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE $38					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $2E					  ; pcm	data
-      .BYTE $82					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $58					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $9A					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $EB					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $26					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE $75					  ; pcm	data
-      .BYTE $41					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $30					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $C0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $45					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $23					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $C1					  ; pcm	data
-      .BYTE $6E					  ; pcm	data
-      .BYTE $EB					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $AF					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE $E0					  ; pcm	data
-      .BYTE $85					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $17					  ; pcm	data
-      .BYTE $41					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE $6C					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $AE					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $DD					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $74					  ; pcm	data
-      .BYTE $E4					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $F4					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE $14					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $44					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $43					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $A7					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $87					  ; pcm	data
-      .BYTE $4E					  ; pcm	data
-      .BYTE $EE					  ; pcm	data
-      .BYTE $C3					  ; pcm	data
-      .BYTE $4E					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $37					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $A					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE $EC					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $C9					  ; pcm	data
-      .BYTE $43					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $B1					  ; pcm	data
-      .BYTE $89	; â
-      .BYTE   0
-      .BYTE  $A
-      .BYTE   0
-      .BYTE $FF
-      .BYTE $DF	; ﬂ
-      .BYTE $49	; I
-      .BYTE   2
-      .BYTE  $A
-      .BYTE $70	; p
-      .BYTE $EA	; Í
-      .BYTE   7
-      .BYTE $EE	; Ó
-      .BYTE $EA	; Í
-      .BYTE $F6	; ˆ
-      .BYTE $6A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $85					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $D7					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $62					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $27					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $E8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 7					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FC					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $FD					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $B0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 5					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $EE					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $1F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $FA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 3					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $BA					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D0					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $F8					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $FB					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $40					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $FF					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $64					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $93					  ; pcm	data
-      .BYTE $44					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $F5					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $44					  ; pcm	data
-      .BYTE $80					  ; pcm	data
-      .BYTE $94					  ; pcm	data
-      .BYTE $A6					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $9B					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $56					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $35					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE $A4					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $15					  ; pcm	data
-      .BYTE 4					  ; pcm	data
-      .BYTE $A4					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $A2					  ; pcm	data
-      .BYTE $D4					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $5B					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $56					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $28					  ; pcm	data
-      .BYTE $E2					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $7E					  ; pcm	data
-      .BYTE $4C					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $41					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $BF					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE 0					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $5B					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $13					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $BA					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE $45					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $85					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $BD					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE 2					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $56					  ; pcm	data
-      .BYTE $93					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE $51					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $BE					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE 8					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $DD					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $44					  ; pcm	data
-      .BYTE $59					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $91					  ; pcm	data
-      .BYTE $94					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $A8					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $75					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $91					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $5D					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $41					  ; pcm	data
-      .BYTE $94					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $D7					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $29					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE $A2					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $29					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $2D					  ; pcm	data
-      .BYTE $29					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $93					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $5B					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $91					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $59					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $8A					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $F6					  ; pcm	data
-      .BYTE $B2					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $56					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $94					  ; pcm	data
-      .BYTE $CA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $A4					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $56					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $65					  ; pcm	data
-      .BYTE $45					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $85					  ; pcm	data
-      .BYTE $8A					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $EF					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $A0					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $A2					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $82					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $DE					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $5B					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $93					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $CB					  ; pcm	data
-      .BYTE $96					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $C9					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $76					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $88					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE 9					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $7F					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $51					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $D8					  ; pcm	data
-      .BYTE $F5					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $48					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $DD					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE 1					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $96					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE $24					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $DF					  ; pcm	data
-      .BYTE $5E					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE $29					  ; pcm	data
-      .BYTE $69					  ; pcm	data
-      .BYTE $5B					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $20					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $6F					  ; pcm	data
-      .BYTE $5B					  ; pcm	data
-      .BYTE $51					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $96					  ; pcm	data
-      .BYTE $AC					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $2D					  ; pcm	data
-      .BYTE $4B					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $65					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $D4					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $57					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $44					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $B7					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $CA					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $AE					  ; pcm	data
-      .BYTE $2B					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $94					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $DA					  ; pcm	data
-      .BYTE $55					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $22					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $EA					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $2D					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $5A					  ; pcm	data
-      .BYTE $5B					  ; pcm	data
-      .BYTE $12					  ; pcm	data
-      .BYTE $A2					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $6E					  ; pcm	data
-      .BYTE $5F					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $44					  ; pcm	data
-      .BYTE $BB					  ; pcm	data
-      .BYTE $5D					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $45					  ; pcm	data
-      .BYTE $A2					  ; pcm	data
-      .BYTE $54					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $77					  ; pcm	data
-      .BYTE $2F					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $82					  ; pcm	data
-      .BYTE $A4					  ; pcm	data
-      .BYTE $D6					  ; pcm	data
-      .BYTE $EE					  ; pcm	data
-      .BYTE $6B					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $42					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $DB					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $6A					  ; pcm	data
-      .BYTE $53					  ; pcm	data
-      .BYTE $A1					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $B6					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $49					  ; pcm	data
-      .BYTE $ED					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $A2					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $56					  ; pcm	data
-      .BYTE $5B					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $92					  ; pcm	data
-      .BYTE $25					  ; pcm	data
-      .BYTE $A5					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $6D					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $56					  ; pcm	data
-      .BYTE $A9					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $AB					  ; pcm	data
-      .BYTE $D6					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $AD					  ; pcm	data
-      .BYTE $AA					  ; pcm	data
-      .BYTE $52					  ; pcm	data
-      .BYTE $95					  ; pcm	data
-      .BYTE $2A					  ; pcm	data
-      .BYTE $B5					  ; pcm	data
-      .BYTE $D5					  ; pcm	data
-      .BYTE $4A					  ; pcm	data
-      .BYTE $A9	; ©
-      .BYTE $2A	; *
-      .BYTE $55	; U
-      .BYTE $6D	; m
-      .BYTE $6B	; k
-      .BYTE $A5	; •
-      .BYTE $AA	; ™
-      .BYTE $24	; $
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $DB	; €
-      .BYTE $4A	; J
-      .BYTE $95	; ï
-      .BYTE $2A	; *
-      .BYTE $B5	; µ
-      .BYTE $AD	; ≠
-      .BYTE $AA	; ™
-      .BYTE $AA	; ™
-      .BYTE $49	; I
-      .BYTE $52	; R
-      .BYTE $B5	; µ
-      .BYTE $A9	; ©
-      .BYTE $AA	; ™
-      .BYTE $CA	;  
-      .BYTE $52	; R
-      .BYTE $6B	; k
-      .BYTE $DB	; €
-      .BYTE $AA	; ™
-      .BYTE $92	; í
-      .BYTE $44	; D
-      .BYTE $92	; í
-      .BYTE $D5	; ’
-      .BYTE $B7	; ∑
-      .BYTE $55	; U
-      .BYTE $45	; E
-      .BYTE $89	; â
-      .BYTE $B2	; ≤
-      .BYTE $DD	; ›
-      .BYTE $5A	; Z
-      .BYTE $95	; ï
-      .BYTE $92	; í
-      .BYTE $54	; T
-      .BYTE $4A	; J
-      .BYTE $DF	; ﬂ
-      .BYTE $DA	; ⁄
-      .BYTE $A2	; ¢
-      .BYTE $22	; "
-      .BYTE $A9	; ©
-      .BYTE $6A	; j
-      .BYTE $DB	; €
-      .BYTE $36	; 6
-      .BYTE $91	; ë
-      .BYTE $54	; T
-      .BYTE $B5	; µ
-      .BYTE $B6	; ∂
-      .BYTE $5A	; Z
-      .BYTE $49	; I
-      .BYTE $4A	; J
-      .BYTE $2D	; -
-      .BYTE $AB	; ´
-      .BYTE $B5	; µ
-      .BYTE $A5	; •
-      .BYTE $24	; $
-      .BYTE $55	; U
-      .BYTE $D5	; ’
-      .BYTE $DA	; ⁄
-      .BYTE $6A	; j
-      .BYTE $2B	; +
-      .BYTE $44	; D
-      .BYTE $B2	; ≤
-      .BYTE $7A	; z
-      .BYTE $B7	; ∑
-      .BYTE $A9	; ©
-      .BYTE   4
-      .BYTE $A5	; •
-      .BYTE $AA	; ™
-      .BYTE $DB	; €
-      .BYTE $56	; V
-      .BYTE $4A	; J
-      .BYTE $25	; %
-      .BYTE $D1	; —
-      .BYTE $B2	; ≤
-      .BYTE $DB	; €
-      .BYTE $B5	; µ
-      .BYTE $52	; R
-      .BYTE $22	; "
-      .BYTE $A5	; •
-      .BYTE $6A	; j
-      .BYTE $5F	; _
-      .BYTE $4B	; K
-      .BYTE $92	; í
-      .BYTE $24	; $
-      .BYTE $B5	; µ
-      .BYTE $B7	; ∑
-      .BYTE $AD	; ≠
-      .BYTE $24	; $
-      .BYTE $92	; í
-      .BYTE $54	; T
-      .BYTE $DB	; €
-      .BYTE $6E	; n
-      .BYTE $95	; ï
-      .BYTE $46	; F
-      .BYTE $91	; ë
-      .BYTE $52	; R
-      .BYTE $DB	; €
-      .BYTE $6D	; m
-      .BYTE $27	; '
-      .BYTE $49	; I
-      .BYTE $42	; B
-      .BYTE $6D	; m
-      .BYTE $77	; w
-      .BYTE $8D	; ç
-      .BYTE $A5	; •
-      .BYTE $54	; T
-      .BYTE $49	; I
-      .BYTE $D3	; ”
-      .BYTE $AA	; ™
-      .BYTE $49	; I
-      .BYTE $6D	; m
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $DB	; €
-      .BYTE $24	; $
-      .BYTE $A9	; ©
-      .BYTE $52	; R
-      .BYTE $D9	; Ÿ
-      .BYTE $6A	; j
-      .BYTE $AF	; Ø
-      .BYTE $24	; $
-      .BYTE $91	; ë
-      .BYTE $D2	; “
-      .BYTE $B6	; ∂
-      .BYTE $6D	; m
-      .BYTE $17
-      .BYTE   9
-      .BYTE $92	; í
-      .BYTE $6A	; j
-      .BYTE $F7	; ˜
-      .BYTE $B6	; ∂
-      .BYTE $25	; %
-      .BYTE   9
-      .BYTE $89	; â
-      .BYTE $DA	; ⁄
-      .BYTE $BE	; æ
-      .BYTE $B7	; ∑
-      .BYTE $2A	; *
-      .BYTE   8
-      .BYTE $82	; Ç
-      .BYTE $DD	; ›
-      .BYTE $BE	; æ
-      .BYTE $55	; U
-      .BYTE $95	; ï
-      .BYTE $A4	; §
-      .BYTE $52	; R
-      .BYTE $DB	; €
-      .BYTE $56	; V
-      .BYTE $A9	; ©
-      .BYTE $94	; î
-      .BYTE $24	; $
-      .BYTE $B5	; µ
-      .BYTE $BB	; ª
-      .BYTE $56	; V
-      .BYTE $4A	; J
-      .BYTE $25	; %
-      .BYTE $D5	; ’
-      .BYTE $AA	; ™
-      .BYTE $AB	; ´
-      .BYTE $2A	; *
-      .BYTE $51	; Q
-      .BYTE $53	; S
-      .BYTE $B5	; µ
-      .BYTE $B5	; µ
-      .BYTE $2A	; *
-      .BYTE $A5	; •
-      .BYTE $92	; í
-      .BYTE $55	; U
-      .BYTE $DB	; €
-      .BYTE $6A	; j
-      .BYTE $95	; ï
-      .BYTE $24	; $
-      .BYTE $69	; i
-      .BYTE $AD	; ≠
-      .BYTE $B6	; ∂
-      .BYTE $95	; ï
-      .BYTE $24	; $
-      .BYTE $A5	; •
-      .BYTE $B2	; ≤
-      .BYTE $5B	; [
-      .BYTE $AB	; ´
-      .BYTE $4A	; J
-      .BYTE $95	; ï
-      .BYTE $B4	; ¥
-      .BYTE $AA	; ™
-      .BYTE $6D	; m
-      .BYTE $4B	; K
-      .BYTE $8A	; ä
-      .BYTE $2A	; *
-      .BYTE $B5	; µ
-      .BYTE $B6	; ∂
-      .BYTE $55	; U
-      .BYTE   9
-      .BYTE $12
-      .BYTE $ED	; Ì
-      .BYTE $F6	; ˆ
-      .BYTE $AA	; ™
-      .BYTE $AB	; ´
-      .BYTE $24	; $
-      .BYTE $A9	; ©
-      .BYTE $94	; î
-      .BYTE $B6	; ∂
-      .BYTE $56	; V
-      .BYTE $5B	; [
-      .BYTE $49	; I
-      .BYTE $52	; R
-      .BYTE $D3	; ”
-      .BYTE $D6	; ÷
-      .BYTE $6A	; j
-      .BYTE $25	; %
-      .BYTE $A9	; ©
-      .BYTE $B6	; ∂
-      .BYTE $55	; U
-      .BYTE $25	; %
-      .BYTE $49	; I
-      .BYTE $A5	; •
-      .BYTE $AA	; ™
-      .BYTE $AE	; Æ
-      .BYTE $AD	; ≠
-      .BYTE $2A	; *
-      .BYTE $A9	; ©
-      .BYTE $D2	; “
-      .BYTE $5A	; Z
-      .BYTE $B5	; µ
-      .BYTE $AA	; ™
-      .BYTE $56	; V
-      .BYTE $42	; B
-      .BYTE $55	; U
-      .BYTE $5B	; [
-      .BYTE $55	; U
-      .BYTE $2B	; +
-      .BYTE $25	; %
-      .BYTE $55	; U
-      .BYTE $6B	; k
-      .BYTE $AB	; ´
-      .BYTE $A9	; ©
-      .BYTE $55	; U
-      .BYTE $29	; )
-      .BYTE $A9	; ©
-      .BYTE $9A	; ö
-      .BYTE $4A	; J
-      .BYTE $B5	; µ
-      .BYTE $6A	; j
-      .BYTE $A9	; ©
-      .BYTE $AA	; ™
-      .BYTE $55	; U
-      .BYTE $A9	; ©
-      .BYTE $6A	; j
-      .BYTE $AB	; ´
-      .BYTE $AA	; ™
-      .BYTE $95	; ï
-      .BYTE $2A	; *
-      .BYTE $28	; (
-      .BYTE $AD	; ≠
-      .BYTE $5D	; ]
-      .BYTE $DB	; €
-      .BYTE $92	; í
-      .BYTE $24	; $
-      .BYTE $55	; U
-      .BYTE $B5	; µ
-      .BYTE $DA	; ⁄
-      .BYTE $B5	; µ
-      .BYTE $92	; í
-      .BYTE $A2	; ¢
-      .BYTE $54	; T
-      .BYTE $B5	; µ
-      .BYTE $6D	; m
-      .BYTE $2B	; +
-      .BYTE $12
-      .BYTE $AA	; ™
-      .BYTE $D4	; ‘
-      .BYTE $6A	; j
-      .BYTE $DF	; ﬂ
-      .BYTE $2A	; *
-      .BYTE $89	; â
-      .BYTE $AA	; ™
-      .BYTE $5A	; Z
-      .BYTE $55	; U
-      .BYTE $D7	; ◊
-      .BYTE $24	; $
-      .BYTE $51	; Q
-      .BYTE $55	; U
-      .BYTE $B5	; µ
-      .BYTE $56	; V
-      .BYTE $2D	; -
-      .BYTE $29	; )
-      .BYTE $69	; i
-      .BYTE $AF	; Ø
-      .BYTE $56	; V
-      .BYTE $B5	; µ
-      .BYTE $94	; î
-      .BYTE $88	; à
-      .BYTE $AA	; ™
-      .BYTE $2D	; -
-      .BYTE $5B	; [
-      .BYTE $AD	; ≠
-      .BYTE $52	; R
-      .BYTE $A5	; •
-      .BYTE $AA	; ™
-      .BYTE $AA	; ™
-      .BYTE $5A	; Z
-      .BYTE $B5	; µ
-      .BYTE $94	; î
-      .BYTE $DA	; ⁄
-      .BYTE $AA	; ™
-      .BYTE $AA	; ™
-      .BYTE $A4	; §
-      .BYTE $12
-      .BYTE $AD	; ≠
-      .BYTE $B6	; ∂
-      .BYTE $95	; ï
-      .BYTE $A5	; •
-      .BYTE $AA	; ™
-      .BYTE $B2	; ≤
-      .BYTE $DA	; ⁄
-      .BYTE $56	; V
-      .BYTE $A9	; ©
-      .BYTE $6A	; j
-      .BYTE $29	; )
-      .BYTE $89	; â
-      .BYTE $D5	; ’
-      .BYTE $AA	; ™
-      .BYTE $AA	; ™
-      .BYTE $A5	; •
-      .BYTE $4A	; J
-      .BYTE $55	; U
-      .BYTE $6B	; k
-      .BYTE $59	; Y
-      .BYTE $69	; i
-      .BYTE $AD	; ≠
-      .BYTE $D4	; ‘
-      .BYTE $AA	; ™
-      .BYTE $A5	; •
-      .BYTE $A8	; ®
-      .BYTE $52	; R
-      .BYTE $55	; U
-      .BYTE $B5	; µ
-      .BYTE $A9	; ©
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $55	; U
-      .BYTE $6B	; k
-      .BYTE $55	; U
-      .BYTE $95	; ï
-      .BYTE $92	; í
-      .BYTE $2A	; *
-      .BYTE $A9	; ©
-      .BYTE $55	; U
-      .BYTE $AB	; ´
-      .BYTE $52	; R
-      .BYTE $AD	; ≠
-      .BYTE $AA	; ™
-      .BYTE $E9	; È
-      .BYTE $5A	; Z
-      .BYTE $55	; U
-      .BYTE $42	; B
-      .BYTE $AB	; ´
-      .BYTE $56	; V
-      .BYTE $55	; U
-      .BYTE $53	; S
-      .BYTE $29	; )
-      .BYTE $B1	; ±
-      .BYTE $7A	; z
-      .BYTE $59	; Y
-      .BYTE $B5	; µ
-      .BYTE $54	; T
-      .BYTE $55	; U
-      .BYTE $52	; R
-      .BYTE $6B	; k
-      .BYTE $AB	; ´
-      .BYTE $56	; V
-      .BYTE $25	; %
-      .BYTE $49	; I
-      .BYTE $56	; V
-      .BYTE $6D	; m
-off_BANKE_DC00:.WORD _RAM_PPUDataBuffer		  ; DATA XREF: WaitForNMI+4r
+      .BYTE $55,$2D,$55,$55,$D5,$54,$55,$55,$55,$55,$AB,$54,$55,$AD,$B6; 0 ; Logged as PCM data
+      .BYTE $FF,$3F,0,0,$80,$FE,$FF,3,$78,0,0,0,$FC,$FF,$FF,$1F,$F8,$F;	$F
+      .BYTE 0,0,$80,$FF,$FF,$FF,3,$FF,9,0,0,$A0,$FF,$FF,$FF,$FF,0,$F6; $21
+      .BYTE 3,0,0,0,$FF,$FF,$FF,$FF,1,0,$FF,9,0,0,0,$EC,$FF,$FF,$FF,$FF; $33
+      .BYTE $F,0,$E8,$2E,2,0,$80,2,$D8,$FF,$FF,$FF,$FB,$FF,7,0,0,$DA,$5E; $47
+      .BYTE 0,0,0,$1C,$E8,$F5,$FF,$FF,$FF,$F3,$FF,$5E,0,0,$80,$9E,$3F; $5A
+      .BYTE 1,0,0,$A0,$13,$FC,$F5,$FF,$FF,$FF,$F,$FF,$AB,$B,0,0,0,$C0; $6B
+      .BYTE $FF,$7F,$22,0,0,$28,$F8,$13,$FD,$BB,$FF,$BF,$FA,$FF,$C0,$F;	$7D
+      .BYTE $FE,7,$3F,2,0,0,0,$C0,$FF,$FF,$27,$A,0,$38,0,$F4,$83,$FE,$17; $8D
+      .BYTE $F8,$7F,$ED,$DB,$7F,$B1,$FF,$7F,0,$F8,0,$FC,$3F,0,$7E,4,0; $A0
+      .BYTE 0,$E8,4,0,$E0,$FF,$FF,$FF,$F7,$43,$52,9,0,$F8,$4F,0,$E8,$FF; $B1
+      .BYTE 1,$FB,$FF,2,$E0,$FE,$FF,$62,$B5,$AB,$DD,$57,$80,$FD,$FE,$1F; $C3
+      .BYTE 0,$B0,2,0,$FE,$FF,0,0,$FD,5,1,$42,5,$80,$FE,$2F,0,0,$F8,$FF; $D3
+      .BYTE $FF,$FF,$FF,$A2,$ED,$F,$42,$AA,$24,2,0,$FE,$FF,0,0,$FE,$FF;	$E7
+      .BYTE $5F,0,$FF,$7F,0,$D0,$FE,$5F,$54,$DB,$AA,$ED,$2B,1,$ED,$FE; $F8
+      .BYTE $FF,0,0,$AC,0,$F0,$FF,7,0,$FC,3,1,$48,0,$F0,$BF,0,0,$E8,$FF; $108
+      .BYTE $FF,$FF,$FF,$3F,$12,$9A,$44,0,$E8,$3F,0,$C0,$FF,$1F,$F8,$FF; $11C
+      .BYTE 3,$C0,$FF,$4B,$DB,$B5,$ED,$13,$A9,$FF,$3F,0,$94,0,$FE,$1F; $12C
+      .BYTE $40,$2F,0,4,0,$9C,0,$80,$FF,$FF,$FF,$BF,$12,0,$E8,4,$B0,$1F; $13C
+      .BYTE $F8,$7F,$40,$FF,$D7,$6D,$FF,$8B,$EE,$FF,$80,$16,$D8,$3F,$E8; $14E
+      .BYTE 5,0,0,0,$80,$FF,$FF,$2F,$11,$80,0,$6C,$E8,$2F,$F4,$DF,$F6; $15D
+      .BYTE $FF,$EA,$7F,$EC,$E8,$3F,$5D,0,0,0,$C0,$FF,$5F,$22,0,0,$10; $16E
+      .BYTE $7F,$E0,$6F,$BF,$7F,$FF,$77,$E9,$DF,$F,0,0,$80,$7E,$5F,1,0;	$17F
+      .BYTE $80,$E,$6C,$FF,$BF,$FF,$BF,$FE,$5F,0,0,$40,$FF,$45,0,0,$48;	$190
+      .BYTE $B0,$FB,$FE,$FF,$FF,$FF,$8B,0,0,$BC,$2F,0,0,$10,$B0,$EE,$FF; $1A1
+      .BYTE $FF,$FF,$FF,9,0,$60,$5F,0,0,0,$AC,$FB,$FF,$FF,$FF,$5F,0,$C0; $1B2
+      .BYTE $3E,2,0,0,$54,$FF,$FF,$FF,$FF,$B,0,$FA,0,0,0,$B8,$FF,$FF,$FF; $1C4
+      .BYTE $FF,0,$A0,$F,0,0,$80,$FF,$FF,$FF,$3F,$80,$6E,0,0,0,$FB,$FF;	$1D7
+      .BYTE $FF,$FF,0,$BD,0,0,0,$FF,$FF,$FF,7,$F0,3,0,0,$EC,$FF,$FF,$1F; $1E9
+      .BYTE $F8,1,0,0,$F6,$FF,$FF,$81,$9F,0,0,$60,$FF,$FF,$1F,$FA,0,0; $1FC
+      .BYTE $C0,$FF,$FF,$87,$7E,0,0,$A0,$FF,$FF,$C9,$B,0,0,$FD,$FF,$2F;	$20E
+      .BYTE $FE,0,0,$E0,$FF,$7F,$E2,7,0,0,$FF,$FF,$E3,7,0,$80,$FF,$FF; $21F
+      .BYTE $E3,7,0,0,$FF,$FF,$E3,3,0,$E0,$FF,$7F,$6C,0,0,$E8,$FF,$AF; $231
+      .BYTE $1F,0,0,$FE,$FF,$F9,3,0,$B0,$FF,$AF,$E,0,$C0,$FF,$FF,$F8,0;	$243
+      .BYTE 0,$F8,$FF,$E3,7,0,$E0,$FF,$8F,$1F,0,$80,$FF,$3F,$7E,0,0,$FE; $255
+      .BYTE $BF,$3B,0,0,$FF,$FF,$1E,0,$80,$FF,$BF,$4E,0,$C0,$FF,$AF,7; $267
+      .BYTE 0,$E0,$FF,$F7,1,0,$FA,$FF,$DC,0,0,$FF,$7F,$1E,0,$A0,$FF,$EF; $278
+      .BYTE 1,0,$FA,$7F,$9D,0,$A0,$FF,$EF,1,0,$FA,$FF,$E,0,$F0,$FF,$3B;	$28A
+      .BYTE 1,0,$FF,$BF,3,0,$FE,$5F,$17,0,$E8,$FF,$5E,0,$D0,$FF,$57,0; $29C
+      .BYTE $A0,$FF,$DF,1,0,$FF,$AF,3,0,$FE,$5F,$27,0,$FC,$BF,$E,0,$F8;	$2AE
+      .BYTE $FF,$8E,0,$F0,$FF,$3A,0,$E0,$FF,$F,0,$F8,$FF,$16,0,$F8,$7F;	$2C0
+      .BYTE $27,0,$EC,$FF,5,0,$FA,$FF,3,0,$FE,$FF,0,$80,$FF,$6F,1,$80; $2D1
+      .BYTE $FF,$3F,0,$E0,$FF,$F,0,$F6,$BF,5,0,$FE,$7F,1,$EC,3,$FE,1,$FB; $2E3
+      .BYTE 1,$FE,$40,$7F,0,$7F,$81,$BF,$C0,$4F,0,$DA,$D6,$B6,$D5,$AA; $2F6
+      .BYTE $55,$AB,$AA,$4A,$AB,$AA,$4A,$5B,$D5,$AE,2,0,$F6,$FF,1,0,$E8; $306
+      .BYTE $B6,$BF,$25,$AA,$6A,$57,$D5,$76,$13,$C9,$ED,$FF,0,$E0,3,$D4; $317
+      .BYTE $FF,$22,$D0,$97,4,$49,0,$7B,1,$80,$FF,$FF,$EF,$2B,$25,2,$3B; $327
+      .BYTE 0,$FD,$45,$FF,1,$DD,$B5,$6D,$5F,$FB,$B,$1F,$FA,$13,$2F,$40;	$338
+      .BYTE 0,4,$D0,$FF,$BB,$24,$40,4,$8A,$BD,$E8,$B6,$EE,$D7,$7F,$BC; $348
+      .BYTE $F8,$C7,$13,4,0,0,$D0,$BB,$B7,$DB,$DA,$AA,$AB,$5A,$6A,$55; $358
+      .BYTE $A5,$A9,$A5,$2A,$55,$55,$55,$AA,$AA,$4A,$55,$55,$55,$AA,$AA; $368
+      .BYTE $AA,$52,$53,$55,$55,$55,$55,$55,$55,$95,$55,$55,$A9,$55,$55; $377
+      .BYTE $69,$55,$55,$55,$FB,$7F,2,0,$F0,$EF,$17,$F0,2,0,$B0,$FF,$FF; $386
+      .BYTE $81,$F,0,$C0,$FD,$FF,$F,$7E,0,0,$BE,$FF,$7F,$E0,$23,0,$60; $397
+      .BYTE $FF,$FF,3,$3F,0,0,$FB,$FF,$1F,$D8,1,0,$D8,$FE,$FF,$C2,$E,0;	$3A8
+      .BYTE $C0,$FE,$FF,$27,$7A,0,0,$BA,$FF,$3F,$D1,9,0,$A0,$FF,$FF,$85; $3BA
+      .BYTE $17,0,$80,$FD,$FF,$F,$7C,2,0,$E8,$FF,$7F,$A1,$13,0,$A0,$FF;	$3CB
+      .BYTE $FF,$13,$9D,0,0,$FA,$FF,$5F,$D8,$A,0,$C0,$FF,$FF,7,$2B,0,$80; $3DC
+      .BYTE $FE,$FF,$2F,$74,1,0,$B8,$FF,$FF,$81,$B,0,$A0,$FF,$FF,7,$6E;	$3EE
+      .BYTE 0,0,$FE,$FF,$5F,$E0,5,0,$E0,$FB,$FF,$83,$1B,0,$80,$FB,$FF; $3FF
+      .BYTE $1F,$F8,0,0,$F8,$FF,$FF,$C0,$E,0,$C0,$FE,$FF,7,$7E,0,0,$BA;	$410
+      .BYTE $FF,$BF,$B0,3,0,$A0,$FF,$FF,$8B,$96,0,0,$FE,$FF,$5F,$E8,2; $422
+      .BYTE 0,$E0,$FF,$FF,3,$2F,0,0,$FB,$FF,$1F,$7A,1,0,$E0,$FF,$FF,$D0; $433
+      .BYTE 7,0,$80,$FE,$FF,$47,$2F,0,0,$FA,$FF,$3F,$7A,1,0,$C0,$FF,$FF; $445
+      .BYTE 7,$7D,4,0,$E0,$FF,$FF,$83,$3B,0,0,$E8,$FE,$FF,$27,5,0,0,$F6; $457
+      .BYTE $FF,$FF,$F0,$17,0,$80,$FE,$FF,$3F,$E8,2,0,0,$FB,$FF,$FF,$90; $46A
+      .BYTE 0,0,$F8,$FF,$FF,$E8,$F,0,0,$FE,$FF,$2F,$4A,0,0,$FE,$FF,$2F;	$47B
+      .BYTE $3E,1,0,$80,$FF,$FF,$CF,2,0,$80,$FF,$FF,$FF,$15,0,0,$E0,$FF; $48D
+      .BYTE $7F,$95,0,$A,$E0,$FF,$7F,$5E,3,0,0,$FF,$FF,$E2,7,0,$F4,$FF;	$49F
+      .BYTE $7F,$94,0,0,$F0,$FF,$FF,$6F,0,0,$80,$FF,$7F,$FC,0,0,$FC,$FF; $4B1
+      .BYTE $8F,$B,0,0,$FE,$FF,$FF,$8B,0,0,$E0,$FF,$8F,$9F,0,$80,$FD,$FF; $4C3
+      .BYTE $8F,3,0,$80,$FE,$FF,$FF,$13,0,0,$EC,$FF,$81,$1F,0,$A0,$FF; $4D5
+      .BYTE $FF,$79,0,0,$A0,$FF,$FF,$7F,0,0,$F0,$FF,$FF,$B,0,$80,$FE,$1F; $4E6
+      .BYTE $3F,0,0,$FA,$FF,$E3,7,0,$E0,$FF,$FF,$17,0,0,$FC,$FF,$FB,1; $4F8
+      .BYTE 0,$F0,$FD,$EF,$5E,0,0,$F0,$FF,$FF,$F,0,0,$FE,$5F,$3F,0,0,$F8; $50A
+      .BYTE $FF,$FF,0,0,$E0,$FF,$FF,$D,0,0,$FC,$FF,$FF,3,0,$80,$FF,$FF;	$51D
+      .BYTE $7F,0,0,$F0,$FF,$E8,$F,0,$C0,$FF,$1F,$F8,1,0,$F8,$FF,$FF,2;	$52F
+      .BYTE 0,$80,$FF,$FF,$9F,0,0,$7C,$FF,$F7,3,0,0,$FC,$FF,$FF,3,0,$A0; $541
+      .BYTE $FF,$E7,$F,0,$C0,$FE,$FF,$17,0,0,$F8,$FF,$9F,3,0,0,$FF,$FF;	$554
+      .BYTE $FF,2,0,$80,$FF,$FF,$9F,0,0,$EC,$FF,$FB,3,0,$80,$FF,$3F,$7E; $566
+      .BYTE 0,0,$FE,$FF,$EF,0,0,$80,$FE,$FF,$FF,0,0,$C0,$FF,$FF,$3F,0; $578
+      .BYTE 0,$F8,$FF,$FE,0,0,$E0,$FF,$7F,$1E,0,0,$FC,$FF,$7F,0,0,$80; $58A
+      .BYTE $FF,$FF,$7F,0,0,$F0,$FF,$FF,$F,0,0,$FE,$1F,$FF,1,0,$E8,$FF;	$59C
+      .BYTE $B,$3F,0,0,$FF,$FF,$5F,0,0,$E0,$FF,$BF,$1F,0,0,$FD,$FF,$FF;	$5AE
+      .BYTE 2,0,$C0,$FF,$C7,$7F,0,0,$F8,$FF,$E2,$F,0,$C0,$FF,$FF,$2A,0;	$5C0
+      .BYTE 0,$F8,$FF,$EF,0,0,$80,$FF,$FF,$FF,0,0,$E0,$FF,$FF,$1F,0,0; $5D2
+      .BYTE $FC,$FF,$7E,2,0,$F0,$FF,$E7,$F,0,$80,$FE,$FF,$3D,0,0,$F8,$FF; $5E4
+      .BYTE $EB,$3F,0,0,$F8,$FF,$FF,2,0,0,$FF,$8F,$FF,0,0,$FC,$FF,$81; $5F6
+      .BYTE $1F,0,$80,$FF,$FF,$F,0,0,$FA,$FF,$FF,1,0,$E8,$FB,$9F,$3F,0;	$608
+      .BYTE 0,$C0,$FE,$FF,$3F,0,0,$FB,$FF,$FD,0,0,$E0,$FF,$FF,3,0,0,$FE; $61A
+      .BYTE $FF,$7B,2,0,$A0,$FF,$FF,$7F,0,0,$F0,$FF,$FF,9,0,0,$FE,$5F; $62D
+      .BYTE $BF,0,0,$F8,$FF,$AF,7,0,$E0,$FF,$7F,$1D,0,0,$FC,$FF,$AF,$B;	$63F
+      .BYTE 0,0,$FE,$FF,$FF,3,0,$80,$FF,$AF,$7E,0,0,$FA,$FF,$C7,7,0,$C0; $651
+      .BYTE $FE,$FF,$3D,0,0,$E0,$FF,$FF,$3F,0,0,$F8,$FF,$FF,5,0,0,$FF; $664
+      .BYTE $8F,$FF,0,0,$EC,$FF,$81,$1F,0,$B0,$FF,$FF,$E,0,$E8,$FF,3,0;	$676
+      .BYTE $FE,$9F,0,$F0,$FF,5,$80,$FF,$27,0,$FC,$3F,0,$FC,$BF,0,$EC; $688
+      .BYTE $7F,1,$E0,$FF,0,$EC,$BF,0,$FC,$3F,0,$FC,$2F,$80,$FF,3,0,$A0; $699
+      .BYTE $7F,$B7,$B7,$DF,$2A,$89,$50,$B5,$56,$D5,$3E,$81,$DA,$7F,0; $6AB
+      .BYTE $3F,$D0,$9F,$78,1,0,0,$80,$FF,$6F,9,0,$55,$F,$BD,$FB,$F7,$FF; $6BA
+      .BYTE $FB,$3F,2,0,0,$B4,$7B,$DB,$B5,$D5,$AA,$55,$AB,$D4,$52,$55; $6CC
+      .BYTE $A9,$4A,$53,$55,$A9,$AA,$4A,$55,$55,$A9,$52,$55,$55,$AA,$AA; $6DC
+      .BYTE $AA,$AA,$AA,$AA,$B2,$AA,$4A,$4D,$53,$55,$55,$55,$55,$55,$2D; $6EB
+      .BYTE $D5,$52,$D3,$CA,$52,$AB,$AA,$AA,$AA,$AA,$AA,$6A,$55,$69,$55; $6FA
+      .BYTE $55,$A9,$55,$55,$69,$55,$55,$55,$55,$55,$55,$D3,$D4,$52,$55; $709
+      .BYTE $55,$55,$AB,$B4,$B2,$AA,$AA,$52,$AB,$34,$55,$53,$55,$55,$2D; $718
+      .BYTE $AB,$52,$AB,$CA,$52,$2B,$55,$55,$55,$55,$55,$55,$55,$55,$2B; $727
+      .BYTE $D5,$52,$55,$55,$55,$55,$55,$55,$55,$55,$55; $736
+      .BYTE $53,$55,$55,$55,$55,$55,$55,$55,$B5,$FA,$FE,$FF,$3F,0,0,0; 0 ; NOT logged as PCM data!
+      .BYTE $80,$FE,$FF,$B,0,0,$80,$FF,$FF,$FF,1,0,0,$FC,$FF,$FF,$1F,0;	$10
+      .BYTE 0,$E0,$FF,$FF,$FF,0,0,0,$FF,$FF,$FF,7,0,0,$E8,$FF,$FF,$1F; $22
+      .BYTE 0,0,$C0,$FE,$FF,$FF,0,0,0,$FE,$FF,$FF,5,0,0,$A0,$FF,$FF,$7F; $34
+      .BYTE 0,0,$80,$FE,$FF,$FF,3,0,0,$E8,$FF,$FF,$1F,0,0,$80,$FF,$FF; $47
+      .BYTE $FF,0,0,0,$FA,$FF,$FF,7,0,0,$E8,$FF,$FF,$3F,0,0,$C0,$FE,$FF; $59
+      .BYTE $FF,1,0,0,$FE,$FF,$FF,1,0,0,$F8,$FF,$FF,$F,0,0,$F0,$FF,$FF;	$6C
+      .BYTE $F,0,0,$D0,$FF,$FF,$7F,0,0,$80,$FE,$FF,$FF,3,0,0,$FC,$FF,$FF; $7F
+      .BYTE 3,0,0,$E0,$FF,$FF,$1F,0,0,$E0,$FF,$FF,$1F,0,0,$E0,$FF,$FF; $92
+      .BYTE $1F,0,0,$E0,$FF,$FF,$1F,0,0,$E8,$FF,$FF,3,0,0,$FC,$FF,$FF; $A4
+      .BYTE 3,0,0,$FD,$FF,$FF,2,0,$80,$FE,$FF,$7F,0,0,$80,$FF,$FF,$7F; $B6
+      .BYTE 0,0,$C0,$FF,$FF,$5F,0,0,$A0,$FF,$FF,$2F,0,0,$F0,$FF,$FF,$F;	$C8
+      .BYTE 0,0,$F0,$FF,$FF,$F,0,0,$F0,$FF,$FF,$B,0,0,$FE,$FF,$FF,1,0; $DA
+      .BYTE 0,$FE,$FF,$3F,0,0,$F8,$FF,$FF,3,0,0,$FF,$FF,$9F,0,0,$E0,$FF; $ED
+      .BYTE $FF,$B,0,0,$FC,$FF,$7F,2,0,$A0,$FF,$FF,$F,0,0,$FA,$FF,$FF; $100
+      .BYTE 1,0,$C0,$FF,$FF,$2F,0,0,$F8,$FF,$FF,0,0,0,$FF,$FF,$1F,0,0; $112
+      .BYTE $EC,$FF,$FF,3,0,$80,$FF,$FF,$F,0,0,$FA,$FF,$FF,1,0,$C0,$FF;	$125
+      .BYTE $FF,7,0,0,$FA,$FF,$FF,2,0,0,$40,$FF,$FF,$FF,$FF,$FF,0,0,0; $137
+      .BYTE 0,$80,$FE,$FF,$FF,$FF,$3F,1,0,0,0,$A0,$FF,$FF,$FF,$FF,$2F; $14A
+      .BYTE 0,0,0,0,$E8,$FF,$FF,$FF,$FF,3,0,0,0,0,$FE,$FF,$FF,$FF,$FF; $15B
+      .BYTE 0,0,0,0,$A0,$FF,$FF,$FF,$FF,$2F,0,0,0,0,$F4,$FF,$FF,$FF,$FF; $16E
+      .BYTE 1,0,0,0,$40,$FF,$FF,$FF,$FF,$F,0,0,0,0,$FD,$FF,$FF,$FF,$7F;	$181
+      .BYTE 0,0,0,0,$C0,$FF,$FF,$FF,$FF,$BF,0,0,0,0,$80,$FF,$FF,$FF,$FF; $194
+      .BYTE $3F,0,0,0,0,$E0,$FF,$FF,$FF,$FF,$F,0,0,0,0,$F8,$FF,$FF,$FF;	$1A7
+      .BYTE $FF,3,0,0,0,0,$FE,$FF,$FF,$FF,$1F,0,0,0,0,$FA,$FF,$FF,$FF; $1BA
+      .BYTE $FF,0,0,0,0,$80,$FF,$FF,$FF,$FF,$2F,0,0,0,0,$FC,$FF,$FF,$FF; $1CD
+      .BYTE $3F,0,0,0,0,$EC,$FF,$FF,$FF,$FF,9,0,0,0,0,$FB,$FF,$FF,$FF; $1E0
+      .BYTE $FF,3,0,0,0,0,$FF,$FF,$FF,$FF,$1F,0,0,0,0,$F0,$FF,$FF,$FF; $1F3
+      .BYTE $FF,2,0,0,0,$80,$FF,$FF,$FF,$FF,$1F,0,0,0,0,$FC,$FF,$FF,$FF; $206
+      .BYTE $BF,0,0,0,0,$E8,$FF,$FF,$FF,$FF,0,0,0,0,$E8,$FF,$FF,$FF,$FF; $219
+      .BYTE 1,0,0,0,$E0,$FF,$FF,$FF,$FF,1,0,0,0,$F0,$FF,$FF,$FF,$BF,0; $22C
+      .BYTE 0,0,0,$F4,$FF,$FF,$FF,$7F,1,0,0,0,$E0,$FF,$FF,$FF,$FF,1,0; $23F
+      .BYTE 0,0,$E0,$FF,$FF,$FF,$FF,0,0,0,0,$EC,$FF,$FF,$FF,$3F,0,0,0; $252
+      .BYTE $80,$FE,$FF,$FF,$FF,7,0,0,0,$A0,$FE,$FF,$FF,$FF,0,0,0,0,$FE; $265
+      .BYTE $FF,$FF,$FF,$13,0,0,0,$E8,$FF,$FF,$FF,$3F,0,0,0,0,$FF,$FF; $278
+      .BYTE $FF,$FF,1,0,0,0,$EC,$FF,$FF,$FF,$1F,0,0,0,$C0,$FF,$FF,$FF; $28A
+      .BYTE $FF,0,0,0,0,$FE,$FF,$FF,$FF,3,0,0,0,$E8,$FF,$FF,$FF,$2F,0; $29C
+      .BYTE 0,0,$A0,$FF,$FF,$FF,$3F,0,0,0,$A0,$FF,$FF,$FF,$1F,0,0,0,$E8; $2AF
+      .BYTE $FF,$FF,$FF,$F,0,0,0,$E8,$FF,$FF,$FF,$27,0,0,0,$F8,$FF,$FF;	$2C2
+      .BYTE $FF,3,0,0,0,$FF,$FF,$FF,$3F,0,0,0,$F0,$FF,$FF,$FF,$13,0,0; $2D4
+      .BYTE 0,$F8,$FF,$FF,$FF,1,0,0,$80,$FF,$FF,$FF,$1F,0,0,0,$FC,$FF; $2E7
+      .BYTE $FF,$BF,0,0,0,$F0,$FF,$FF,$FF,3,0,0,0,$FF,$FF,$FF,$2F,0,0; $2F9
+      .BYTE 0,$FE,$FF,$FF,$3F,0,0,0,$EC,$FF,$FF,$BF,0,0,0,$F8,$FF,$FF; $30C
+      .BYTE $BF,0,0,0,$F0,$FF,$FF,$FF,2,0,0,$E0,$FF,$FF,$FF,0,0,0,$F8; $31E
+      .BYTE $FF,$FF,$3F,0,0,0,$FE,$FF,$FF,$F,0,0,$80,$FF,$FF,$FF,3,0,0;	$331
+      .BYTE $E0,$FF,$FF,$FF,0,0,0,$F8,$FF,$FF,$2F,0,0,$C0,$FF,$FF,$BF; $344
+      .BYTE 0,0,0,$FE,$FF,$FF,5,0,0,$F8,$FF,$FF,$F,0,0,$A0,$FF,$FF,$7F;	$355
+      .BYTE 2,0,$80,$FE,$FF,$FF,2,0,0,$FC,$FF,$FF,3,0,0,$FC,$FF,$FF,3; $368
+      .BYTE 0,0,$EC,$FF,$FF,$B,0,0,$EC,$FF,$FF,$1F,0,0,$E0,$FF,$FF,$F; $37B
+      .BYTE 0,0,$F0,$FF,$FF,$17,0,0,$E8,$FF,$FF,$B,0,0,$EC,$FF,$FF,3,0;	$38D
+      .BYTE 0,$FC,$FF,$FF,3,0,0,$FD,$FF,$FF,2,0,$80,$FF,$FF,$3F,0,0,$A0; $3A0
+      .BYTE $FF,$FF,$F,0,0,$FA,$FF,$FF,1,0,$80,$FE,$FF,$3F,0,0,$E0,$FF;	$3B3
+      .BYTE $FF,$17,0,0,$FA,$FF,$FF,0,0,$A0,$FF,$FF,$1F,0,0,$FC,$FF,$7F; $3C5
+      .BYTE 2,0,$80,$FF,$FF,$F,0,0,$FE,$FF,$3F,0,0,$F8,$FF,$FF,0,0,$E0;	$3D7
+      .BYTE $FF,$FF,3,0,$80,$FF,$FF,$B,0,$C0,$FF,$FF,7,0,0,$FF,$FF,$1F;	$3EA
+      .BYTE 0,0,$FC,$FF,$3F,0,0,$F6,$FF,$3F,0,0,$F8,$FF,$9F,0,0,$FE,$FF; $3FC
+      .BYTE $2F,0,0,$FE,$FF,$3F,0,0,$FB,$FF,$1F,0,0,$FC,$FF,$F,0,$80,$FE; $40F
+      .BYTE $FF,$27,0,$80,$FF,$FF,3,0,$F0,$FF,$FF,1,0,$E8,$FF,$BF,0,0; $422
+      .BYTE $EC,$FF,$4F,0,0,$FE,$FF,7,0,$E0,$FF,$FF,3,0,$F0,$FF,$3F,0; $434
+      .BYTE 0,$F8,$FF,$5F,0,0,$FE,$FF,$F,0,$80,$FE,$FF,$27,0,$80,$FF,$FF; $446
+      .BYTE 3,0,$F0,$FF,$FF,1,0,$E8,$FF,$FF,0,0,$E0,$FF,$FF,2,0,$D0,$FF; $458
+      .BYTE $FF,1,0,$C0,$FF,$FF,7,0,0,$FF,$FF,$B,0,$80,$FF,$FF,$F,0,0; $46B
+      .BYTE $FE,$FF,$3F,0,0,$F8,$FF,$BF,0,0,$E8,$FF,$FF,2,0,$F0,$FF,$FF; $47E
+      .BYTE 1,0,$C0,$FF,$FF,7,0,0,$FF,$FF,$F,0,0,$FE,$FF,$7F,0,0,$F0,$FF; $490
+      .BYTE $FF,1,0,$80,$FE,$FF,$3F,0,0,$E8,$FF,$FF,7,0,0,$FF,$FF,$1F; $4A4
+      .BYTE 0,0,$EC,$FF,$FF,3,0,$80,$FF,$FF,$4F,0,0,$F0,$FF,$FF,9,0,0; $4B6
+      .BYTE $FE,$FF,$BF,0,0,$E0,$FF,$FF,$27,0,0,$F8,$FF,$FF,2,0,$80,$FF; $4C9
+      .BYTE $FF,$1F,0,0,$E8,$FF,$FF,$17,0,0,$74,$FF,$FF,$4B,0,0,$74,$FF; $4DB
+      .BYTE $FF,$15,4,0,$69,$7B,$AB,$B5,$AD,$5A,$55,$AB,$AA,$AA,$AA,$2A; $4ED
+      .BYTE $55,$55				  ; $4FD
+      .BYTE $6B,$FF,$1F,0,0,$E8,$FF,$F,$68,5,0,$A0,$FF,$FF,$F,$DC,0,0; 0 ; Logged as PCM data
+      .BYTE $DC,$FE,$FF,7,$7E,0,0,$F6,$FF,$FF,$81,$F,0,0,$FE,$FF,$7F,$E0; $12
+      .BYTE 5,0,$60,$FB,$FF,$B,$3F,0,0,$FC,$FF,$FF,$C0,$E,0,0,$FE,$FF; $24
+      .BYTE $3F,$B0,3,0,$B0,$FF,$FF,$89,$1D,0,0,$EE,$FF,$7F,$68,5,0,$60; $36
+      .BYTE $FF,$FF,3,$1F,1,0,$FA,$FF,$BF,$D0,5,0,$C0,$FF,$FF,7,$5E,0; $48
+      .BYTE 0,$FA,$FF,$3F,$B8,1,0,$B0,$FF,$FF,$8B,$16,0,$80,$FE,$FF,$4F; $5A
+      .BYTE $EC,4,0,$E0,$FF,$FF,$41,$27,0,0,$FF,$FF,$F,$3B,1,0,$F8,$FF;	$6B
+      .BYTE $7F,$E8,8,0,$E0,$FF,$FF,$C4,$47,0,0,$FF,$FF,$17,$2E,0,0,$FA; $7D
+      .BYTE $FF,$3F,$F0,3,0,$D0,$FF,$FF,$89,$B,0,$80,$FF,$FF,$87,$4E,0;	$8F
+      .BYTE 0,$FE,$FF,$4F,$6C,0,0,$FC,$FF,$3F,$E8,3,0,$E0,$FF,$FF,$62; $A0
+      .BYTE 7,0,$A0,$FF,$FF,$A1,7,0,$80,$FF,$FF,$83,$17,0,$80,$FF,$FF; $B1
+      .BYTE $A3,$15,0,0,$FF,$FF,$4B,$1F,0,0,$FA,$FF,$1F,$3D,0,0,$FB,$FF; $C2
+      .BYTE $1F,$3A,1,0,$F8,$FF,$1F,$BB,0,0,$F8,$FF,$1F,$9B,0,0,$FB,$FF; $D4
+      .BYTE $1F,$BA,0,0,$E8,$FF,$1F,$3D,0,$80,$FB,$FF,$1F,$1D,0,0,$FA; $E6
+      .BYTE $FF,$1F,$9F,0,0,$F8,$FF,$9F,$78,1,0,$FC,$FF,$1F,$78,1,0,$FA; $F7
+      .BYTE $FF,$1F,$3A,1,0,$F8,$FF,$9F,$14,0,$E8,$FF,$8F,$B,0,$F8,$FF;	$109
+      .BYTE $FC,9,0,$F8,$FF,$BE,0,$80,$EE,$FF,$E,0,$E0,$FF,$EB,4,0,$EC;	$11A
+      .BYTE $FF,$2B,2,0,$FE,$FF,$1C,0,$E0,$FF,$3F,$E,0,$B8,$FE,$EF,$F; $12C
+      .BYTE 0,$F8,$7F,$FC,4,0,$FC,$FF,$4E,0,$C0,$FE,$5F,3,0,$EC,$FF,$2B; $13D
+      .BYTE 2,$80,$FE,$FF,$18,0,$F0,$FF,$8F,$F,0,$F8,$FF,$FA,1,0,$FB,$AF; $14F
+      .BYTE $F,0,$A0,$FF,$BF,0,0,$FB,$FF,$A2,0,$80,$FF,$FF,$41,0,$F8,$FF; $161
+      .BYTE $E3,7,0,$FC,$FF,$5E,0,$80,$FE,$EF,2,0,$EC,$FF,$59,0,$C0,$FF; $173
+      .BYTE $5F,$1A,0,$F0,$FF,$F5,3,0,$FA,$FF,$1F,1,$80,$FB,$BF,1,0,$F6; $185
+      .BYTE $FF,$38,0,$A0,$FF,$3F,$16,0,$F8,$FF,$FC,1,0,$FA,$FF,$F,0,$B0; $197
+      .BYTE $FF,$2F,1,0,$FF,$7F,8,0,$F8,$FF,$C7,5,0,$FB,$FF,$8F,0,$A0; $1A9
+      .BYTE $FF,$5F,1,0,$FF,$5F,8,0,$F4,$FF,$C7,0,$80,$FF,$FF,$F,0,$F0;	$1BB
+      .BYTE $FF,$3D,0,$80,$FF,$8F,1,0,$FF,$FF,$98,0,$60,$FF,$FF,3,0,$F6; $1CD
+      .BYTE $7F,$27,0,$E0,$FF,$4B,0,$C0,$FF,$1F,$2F,0,$F0,$FF,$7F,0,$80; $1DF
+      .BYTE $FE,$BF,4,0,$FC,$FF,$48,0,$E8,$FF,$E3,7,0,$FE,$FF,7,0,$D8; $1F0
+      .BYTE $FF,$95,0,$80,$FF,$3F,4,0,$FB,$FF,$1F,0,$F0,$FF,$1D,0,$60; $202
+      .BYTE $FF,$8F,2,$80,$FE,$1F,$3F,0,$E8,$FF,$7F,0,$C0,$FE,$63,0,$C0; $213
+      .BYTE $FF,$3F,6,0,$FD,$FF,$1F,0,$D0,$FF,$3A,0,$A0,$FF,$8F,1,$80; $224
+      .BYTE $FE,$FF,$17,0,$E8,$FF,$E,0,$E8,$FF,$63,0,$C0,$FF,$FF,6,0,$FA; $235
+      .BYTE $BF,3,0,$FE,$BF,$28,0,$E8,$FF,$7F,0,$C0,$FF,$57,0,$A0,$FF; $247
+      .BYTE $A7,8,0,$FF,$FF,$F,0,$F8,$BF,$23,0,$E8,$FF,$71,0,$E0,$FF,$FF; $258
+      .BYTE 0,$80,$FF,$A7,0,$40,$FF,$CF,$A,0,$FE,$FF,$2F,0,$E0,$FF,$A; $26A
+      .BYTE 0,$F8,$FF,$E2,0,$B0,$FF,$FF,0,$80,$FF,$4B,0,$C0,$FF,$EB,7; $27B
+      .BYTE $80,$F7,$FF,0,0,$FB,$3F,$14,0,$F6,$FF,$3F,0,$E0,$FF,6,0,$F8; $28C
+      .BYTE $FF,$E2,0,$B0,$FF,$7F,1,$40,$FF,$59,0,$C0,$FF,$EF,3,$80,$FF; $29E
+      .BYTE $AF,0,$80,$FF,$8F,2,$80,$FE,$FF,7,0,$FC,$3F,9,0,$FD,$AF,$1F; $2AF
+      .BYTE 0,$F6,$FF,3,0,$FC,$3F,$A,0,$F8,$FF,$5F,0,$F0,$FF,$24,0,$EC;	$2C1
+      .BYTE $7F,$7F,0,$D0,$FF,$D,0,$F8,$FF,$18,0,$E8,$FF,$7F,0,$C0,$FF;	$2D3
+      .BYTE $13,0,$F0,$FF,$7F,1,$A0,$FF,$29,0,$E8,$FF,$E3,0,$A0,$FF,$BF; $2E4
+      .BYTE 0,$60,$FF,$4B,0,$C0,$FF,$FF,2,$80,$FF,$87,0,$E0,$FF,$B9,3; $2F5
+      .BYTE $C0,$FE,$FF,0,$80,$FF,$27,4,0,$FF,$FF,$B,0,$FE,$1F,5,0,$FD;	$306
+      .BYTE $EF,$F,0,$FD,$DF,1,0,$FE,$1F,$1B,0,$EC,$FF,$4F,0,$F8,$7F,8;	$318
+      .BYTE 0,$F8,$FF,$3F,0,$F0,$FF,6,0,$FC,$7F,$F4,0,$A0,$FF,$3F,0,$E0; $32A
+      .BYTE $FF,$31,0,$E8,$FF,$BF,$E0,$E,0,0,$F6,$FF,$FF,$B,$8E,0,$A0; $33C
+      .BYTE $FF,$1F,0,$FC,$3F,0,$FD,7,$D0,$7F,3,$B0,$FF,2,$80,$FF,$DB; $34D
+      .BYTE 1,0,$F8,$FF,$FF,2,$BA,1,0,$A0,$FF,$FF,$A7,3,0,$FE,$BF,0,$FA; $35E
+      .BYTE $F,$40,$FF,9,$C0,$FF,3,$C0,$FF,3,0,$FF,$7F,$F8,8,0,$C0,$FE;	$371
+      .BYTE $FF,$BF,$80,$97,0,0,$FD,$FF,$27,0,$FA,$7F,0,$FA,$F,$40,$FF;	$383
+      .BYTE 5,$E0,$FF,1,$E0,$BF,$2E,0,$E0,$FF,$7F,$C0,$F,0,0,$F6,$FF,$FF; $394
+      .BYTE $B,$8E,0,$A0,$FF,$1F,0,$FC,$3F,$80,$FE,3,$D0,$7F,2,$F0,$FF;	$3A6
+      .BYTE 4,$80,$FF,$FB,8,0,$E8,$FE,$FF,7,$B8,3,0,$80,$FF,$FF,$AB,3; $3B7
+      .BYTE 0,$FE,$9F,0,$FE,$F,$40,$FF,1,$F8,$BF,2,$E8,$DF,1,0,$FF,$7F;	$3C9
+      .BYTE $F8,8,0,$C0,$FE,$FF,$7F,$81,$8E,0,$80,$FE,$7F,7,0,$FF,$2F; $3DB
+      .BYTE 0,$FB,$F,$A0,$FF,0,$F0,$FF,0,$E0,$FF,$F,0,$C0,$FF,$FF,$C0; $3EC
+      .BYTE $4F,0,0,$F4,$FF,$FF,$B,$D,0,$B0,$FF,$2F,$80,$FE,$2D,$80,$7F; $3FD
+      .BYTE 3,$B0,$FF,0,$F8,$EF,0,$D0,$FF,$ED,8,0,$D0,$FF,$FF,7,$F0,3; $40E
+      .BYTE 0,$80,$FF,$FF,$79,1,$C0,$FF,$17,0,$FF,3,$E0,$7F,2,$F8,$3F; $420
+      .BYTE 0,$FC,$BF,2,$80,$FE,$BF,$F8,1,0,$C0,$FE,$FF,$7F,$81,$B,0,$80; $431
+      .BYTE $FF,$FF,9,$40,$FF,$B,$A0,$FF,0,$EC,$3F,0,$FD,$1F,0,$FC,$DF;	$443
+      .BYTE 9,0,$F8,$FF,$1F,$D8,$B,0,0,$FE,$FF,$FF,$D0,1,0,$FE,$7F,2,$B0; $454
+      .BYTE $FF,2,$F0,$5F,0,$FE,$F,0,$FF,$8F,0,$F8,$FF,$D8,5,0,$C0,$FF;	$467
+      .BYTE $FF,$3F,$80,$F,0,$80,$FE,$FF	  ; $479
+      .BYTE $5B,2,$C0,$FF,3,$D0,$FF,2,$F8,$57,0,$FB,$2F,0,$FA,$BF,1,0; 0 ; NOT logged as PCM data!
+      .BYTE $FE,$FF,7,$7E,2,0,$C0,$FE,$FF,$7F,$E0,4,0,$F4,$FF,$AB,1,0; $12
+      .BYTE $FF,$BF,2,$80,$FF,$2F,0,$FE,$2F,0,$FC,$3F,$80,$FE,$23,$80; $24
+      .BYTE $FF,2,$F8,$1F,$40,$FF,3,$E0,$BF,3,$E8,$BF,2,$D0,$FF,2,$C0; $34
+      .BYTE $FF,$B,0,$FE,$5F,7,0,$FC,$FF,$F1,2,0,$F0,$FF,$3F,$B8,3,0,$C0; $45
+      .BYTE $EF,$FF,$7F,$80,$3B,0,0,$D8,$FF,$FF,$3F,$C0,$13,0,$80,$FE; $58
+      .BYTE $FF,$8F,$8E,0,$80,$FF,$3F,$F,0,$F8,$FF,$A,0,$FE,$BF,0,$F4; $68
+      .BYTE $7F,0,$F0,$FF,0,$FA,$8F,0,$FE,$B,$D0,$7F,0,$FB,$F,0,$FF,$F;	$79
+      .BYTE 0,$FF,$F,0,$FF,$5F,0,$F8,$DF,1,$80,$FE,$EF,5,0,$EC,$FF,$CB;	$8B
+      .BYTE $13,0,$C0,$FF,$FF,9,$EE,0,0,$70,$FF,$FF,$9F,0,$7E,0,0,$B8; $9D
+      .BYTE $FF,$FF,$F,$74,3,0,$E0,$FF,$7F,$E2,3,0,$EC,$FF,$3B,0,$C0,$FF; $AF
+      .BYTE $9F,0,$F0,$FF,4,$B0,$BF,7,$80,$FF,7,$C0,$7F,5,$F0,$1F,$C0; $C1
+      .BYTE $FE,1,$F8,$BF,2,$E8,$3F,2,$F8,$BF,2,$D0,$FF,2,$40,$FF,$77; $D2
+      .BYTE 0,$40,$FD,$FF,6,0,$F8,$FF,$1F,$3C,1,0,$F8,$FF,$FF,$40,$37; $E3
+      .BYTE 0,0,$B8,$FF,$FF,$7F,0,$3B,1,0,$D0,$FF,$FF,$27,$3A,2,0,$F8; $F4
+      .BYTE $FF,$2F,$F,0,$E0,$FF,$EB,2,$80,$FF,$1F,1,$E8,$FF,1,$E0,$FF;	$106
+      .BYTE $A,$80,$FF,$B,$A0,$FF,0,$FC,$17,$C0,$FF,0,$F0,$FF,0,$F0,$FF; $117
+      .BYTE 2,$D0,$7F,7,$80,$FF,$9D,0,$E0,$FF,$3B,0,$C0,$FE,$9F,$5D,1; $128
+      .BYTE 0,$F8,$FF,$5F,$F8,$A,0,0,$FF,$FF,$7F,1,$EE,0,0,$A0,$FF,$FF;	$139
+      .BYTE $7F,$C0,$4E,0,0,$FE,$FF,$1F,$3A,0,0,$FE,$FF,$3D,0,$60,$FF; $14B
+      .BYTE $3F,0,$F8,$DF,1,$C0,$FF,$B,0,$FF,$1F,0,$FE,$F,$C0,$7F,2,$FC; $15C
+      .BYTE $F,$A0,$FF,$A,$80,$FF,7,0,$FF,$4F,0,$FC,$7F,1,$C0,$FF,$6B; $16E
+      .BYTE 0,$C0,$FF,$AF,$E,0,$C0,$FF,$FF,$C4,7,0,0,$FF,$FF,$BF,$80,$AF; $17F
+      .BYTE 0,0,$E0,$FF,$FF,$5F,$C0,$2E,0,0,$F4,$FF,$FF,$A1,$13,0,$80; $191
+      .BYTE $FF,$BF,$3E,0,$C0,$FF,$77,0,$A0,$FF,$1F,0,$FC,$7F,1,$E0,$FF; $1A2
+      .BYTE 1,$E0,$FF,0,$E8,$3F,$80,$FF,5,$F0,$BF,0,$F4,$BF,0,$F4,$EF; $1B3
+      .BYTE 0,$F0,$BF,7,$80,$FD,$6F,1,$80,$FF,$8F,$B,0,$B8,$FF,$3F,$3A;	$1C4
+      .BYTE 2,0,$BA,$FF,$FF,$80,$56,0,4,$75,$FB,$FF,$1F,$C0,$56,0,$84; $1D5
+      .BYTE $DA,$7F,$FF,9,$5C,4,$40,$ED,$FF,$87,$16,0,$DA,$FF,$65,1,$E0; $1E6
+      .BYTE $FF,$31,2,$FA,$CF,$A,$E0,$7F	  ; $1F7
+      .BYTE $55,$95,$55,$55,$55,$55,$55,$55,$D5,$AA,$FF,$3F,0,$48,$25; 0 ; Logged as PCM data
+      .BYTE $B0,$8B,$80,$AE,$B,$F8,$4F,$80,$7F,$B,$EC,$2F,$A0,$7F,$23; $F
+      .BYTE $F0,$4F,$C4,$DF,9,$F8,$27,$A2,$DF,$B,$E8,$95,$D0,$6F,3,$F4;	$1E
+      .BYTE $4A,$E4,$3F,1,$FA,$49,$F0,$BF,0,$FC,5,$F1,$AF,0,$FE,$13,$D8; $2E
+      .BYTE $2F,0,$FF,9,$EC,$2F,$80,$FE,5,$F6,$D,$C0,$7F,1,$FD,$46,0,$FF; $3F
+      .BYTE 5,$EC,$9F,0,$E8,$3F,$A0,$FF,2,$A0,$FF,2,$FE,$17,0,$FE,$83; $51
+      .BYTE $F8,$5F,0,$F8,$4B,$62,$FF,4,$E0,$9F,$84,$7D,$2F,$80,$5F,5; $62
+      .BYTE $BE,$57,$C0,$7E,$11,$FC,$BA,2,$FB,5,$70,$6F,$B,$EC,$2F,$80;	$72
+      .BYTE $5D,$2F,$80,$FF,$22,$B0,$7F,5,$D0,$FF,4,$FA,$5F,0,$FA,$93; $82
+      .BYTE $84,$BE,$8B,$C0,$3E,$82,$F8,$DB,2,$FC,$F,0,$FF,$5A,0,$FA,$5F; $92
+      .BYTE $A0,$FF,6,0,$FF,$4F,$60,$DF,$4E,0,$BF,$20,$70,$5F,7,$40,$FF; $A3
+      .BYTE $F,$42,$FF,$4F,0,$BF,$54,$A0,$5F,$27,0,$FF,$B,$40,$FF,$B,0;	$B4
+      .BYTE $FB,$7F,$80,$7F,$37,1,$F8,$F,2,$F8,$DF,$12,0,$C0,$EB,$7F,$B7; $C5
+      .BYTE $AD,$AD,$56,$B5,$AA,$2A,$55,$55,$A5,$4A,$2D,$55,$A9,$52,$55; $D6
+      .BYTE $A9,$2A,$55,$A9,$AA,$4A,$55,$55,$A5,$A9,$AA,$5A,$AA,$AA,$AA; $E5
+      .BYTE $AA,$AA,$AA,$AA,$6A,$A5,$69,$55,$55,$55,$2D,$35,0,$B0,$82; $F4
+      .BYTE $20,$59,$52,4,0,$FD,$FF,7,0,$F8,$FF,$FF,$17,$C0,$F6,$FF,$7F; $103
+      .BYTE 0,$80,$D4,$7D,$FF,$57,$95,$A0,$A6,$B5,$9A,$2A,$4D,$DD,$4B; $114
+      .BYTE $92,$20,$A4,$96,$DB,$F6,$75,$FF,1,0,0,$F0,$AF,$25,1,$40,$D5; $123
+      .BYTE $FA,$FF,$FF,1,0,4,$B0,$BF,$FB,$27,$11,$92,$48,$69,$55,$AB; $134
+      .BYTE $AD,4,$D8,$6A,$DF,$FE,$5F,$A5,$24,0,$DA,$C0,$EE,$D3,$BE,$FF; $144
+      .BYTE $FF,$FB,$4F,$EA,$47,$80,0,$41,0,$50,$D5,$6A,$D5,$FE,$8A,$22; $154
+      .BYTE $28,$49,$D3,$34,$55,$57,$55,$AA,$9A,$AA,2,$D0,$F6,$96,$EC; $164
+      .BYTE $BA,$EF,$FF,$2A,$55,$AB,$24,$89,0,$A8,$6D,$2B,$50,$7D,$DF; $173
+      .BYTE $F6,$B6,$5A,$B5,$7E,$93,$48,$88,$84,$4A,$95,$2A,1,$E0,$DD; $182
+      .BYTE $76,$AD,$6B,$DB,$FD,$FF,$2F,0,0,0,0,0,$BF,$EF,$DB,$DB,$6A; $191
+      .BYTE $6B,$B5,$52,$AB,$AA,$AA,$AA,$CA,$B2,$54,$55,$4A,$AB,$54,$95; $1A2
+      .BYTE $95,$AA,$4A,$AB,$34,$55,$53,$35,$55,$55,$55,$55,$55,$55,$55; $1B1
+      .BYTE $D5,$B4,$B2,$AA,$AA,$AA,$AA,$AA,$AA,$AA,$AA,$AA,$5A,$59,$A9; $1C0
+      .BYTE $55,$55,$69,$55,$55,$55,$55,$CB,$52,$AB,$AA,$AA,$AA,$2A,$AD; $1CF
+      .BYTE $AA,$AA,$B2,$AA,$AA,$B2,$AA,$AA,$52,$2B,$2B,$B5,$52,$55,$55; $1DE
+      .BYTE $53,$55,$55,$53,$55,$55,$55,$55,$55,$55,$55,$55,$55,$55,$55; $1ED
+      .BYTE $55,$55,$69,$55,$55,$69,$55,$55,$55,$55,$55,$95,$55,$55,$69; $1FC
+      .BYTE $55,$55,$55,$55,$55,$55,$55,$59,$A9,$A5,$AA,$AA,$5A,$55,$96; $20B
+      .BYTE $55,$A5,$AA,$65,$A9,$AA,$9A,$AA,$AA,$AA,$5A,$AA,$5A,$A5,$A9; $21A
+      .BYTE $A5,$AA,$AA,$AA,$AA,$AA,$AA,$AA,$AA,$AA,$AA,$AA,$AA,$AA,$AA; $229
+      .BYTE $6A,$59,$AA,$95,$A6,$AA,$65,$A9,$AA,$AA,$AA,$AA,$A5,$A6,$A9; $238
+      .BYTE $55,$A5,$A9,$AA,$AA,$A9,$65,$59,$A9,$55,$55,$A9,$55,$A5,$A9; $247
+      .BYTE $55,$A5,$69,$65,$59,$A9,$55,$55,$69,$55,$55,$A9,$55,$A5,$69; $256
+      .BYTE $65,$55,$69,$55,$55,$55,$55,$B5,$EA,$FF,$FF,3,0,9,$40,4,0; $265
+      .BYTE $E8,7,0,$FE,$1F,$F4,$FF,3,$F4,$FF,$97,$B6,$57,$EF,$BE,9,$6A; $276
+      .BYTE $BF,$FF,3,0,$5C,0,$F4,$FF,3,0,$ED,$27,0,$42,$25,0,$EE,$9F; $287
+      .BYTE 0,0,$F8,$FF,$FF,$FF,$5F,$54,$FB,$49,$90,$AA,$24,2,0,$F7,$FF; $299
+      .BYTE 5,0,$E8,$FF,$FF,$13,$40,$FB,$FF,$3F,0,0,$D8,$F6,$FE,$AD,$54; $2AA
+      .BYTE $90,$55,$AB,$96,$A5,$D4,$EA,$93,$A,1,$65,$D5,$6E,$DD,$B7,$FF; $2BB
+      .BYTE 0,0,0,$F8,$DF,$92,4,0,$55,$FF,$FF,$FF,4,0,0,$D4,$BF,$FD,$27; $2CB
+      .BYTE 9,$51,$92,$CA,$B2,$DA,$5A,9,$68,$AB,$BD,$FF,$37,$55,$25,1; $2DE
+      .BYTE $B0,5,$F6,$4B,$EF,$FF,$FF,$DD,$7F,$52,$3F,1,2,$20,0,$40,$55; $2EE
+      .BYTE $5B,$55,$DB,$5F,$48,$22,$49,$A9,$AA,$AA,$6A,$55,$55,$55,$55; $2FF
+      .BYTE $29,1,$DA,$DE,$92,$D5,$B7,$F7,$BF,$54,$69,$2B,$29,$12,0,$AA; $30E
+      .BYTE $6B,$13,$A8,$ED,$7B,$F7,$B6,$6A,$B5,$FD,$92,$44,$48,$84,$4A; $31E
+      .BYTE $AA,$2A,1,$60,$FB,$BA,$B5,$6D,$AB,$FD,$FF,$7F,0,0,0,0,$40; $32D
+      .BYTE $DB,$A2,$DA,$B7,$6B,$9B,$AA,$B5,$DB,$AA,$55,$6B,$55,$69,$55; $33E
+      .BYTE $7B,$A9,$A4,$24,$95,$25,$A5,$4A,$55,$A5,$42,$6A,$B5,$6A,$AB; $34D
+      .BYTE $D6,$AA,$6A,$55,$55,$AD,$CA,$52,$D3,$54,$A9,$55,$55,$55,$55; $35C
+      .BYTE $55,$55,$DB,$55,$4A,$95,$4A,$AA,$2A,$55,9,$6A,$B5,$55,$DB; $36B
+      .BYTE $AA,$69,$AB,$B6,$AB,$52,$A5,$6A,$2F,$45,$4A,$DD,$FF,3,0,0; $37A
+      .BYTE 0,0,$F6,$EF,$FF,$B6,$EB,$FD,$7F,$89,$94,$4A,$91,$22,1,$68; $38A
+      .BYTE $6B,$55,$AD,$DB,$FE,$4F,$A5,$F4,$4B,4,1,$48,$52,9,$68,$DB; $39A
+      .BYTE $BF,$AB,$ED,$5F,$12,$92,$28,$A9,$24,$D5,$B2,$6A,$D5,$6A,$AB; $3AA
+      .BYTE $4A,0,$DB,$B6,$B6,$7D,$FF,$52,$2A,$A5,2,$40,$55,$70,$BB,$DA; $3B9
+      .BYTE $FD,$7F,$DB,$4F,$D5,$5E,$40,4,$21,0,$55,$AB,$EA,$9F,$48,$48; $3C9
+      .BYTE $2A,$55,$55,$55,$55,2,$54,$55,$ED,$FF,$DB,$4A,4,$28,$B0,$FB; $3D9
+      .BYTE $BF,$7F,$13,$29,$80,$DA,$BE,$FF,$3F,0,0,$60,$B5,$EB,$5F,$4B; $3E9
+      .BYTE $89,$D2,$B4,$6A,$53,$55,$55,$5F,$29,$11,$52,$D5,$6D,$DF,$FF; $3F9
+      .BYTE 3,0,0,$FC,$2B,1,$48,$EB,$FF,$5F,4,0,$ED,$FD,$49,$48,$A4,$CA; $408
+      .BYTE $12,$50,$F5,$FE,$55,1,$80,$EA,$FE,$FF,$FF,$7F,1,$5A,$77,$91; $41A
+      .BYTE $A4,$4A,$89,0,$A1,$7F,$2F,1,$A0,$FB,$7F,2,$DA,$FF,$B,0,$D5;	$42A
+      .BYTE $ED,$9F,$8A,$AA,$D5,$B4,$B6,$93,$88,$6A,$FF,$7E,0,$40,$2B; $43B
+      .BYTE 2,$F8,$FF,1,$40,$F7,$91,$20,$29,$80,$FA,$46,0,$E0,$FF,$FF; $44A
+      .BYTE $FF,$D1,$5D,$2A,$25,1,$E8,$5E,0,$EC,$7F,$82,$FB,$4F,$40,$DF; $45A
+      .BYTE $AF,$52,$DB,$DA,$AD,$92,$F6,$FF,0,$B0,1,$FA,$5F,0,$7D,$41; $46A
+      .BYTE $90,0,$74,$11,0,$FE,$FF,$BF,$BE,$92,$2A,0,$6E,5,$B0,$BF,$E8; $47A
+      .BYTE $7F,$80,$FA,$A7,$B5,$6D,$77,$52,$DF,$2F,$A0,$15,$A8,$7F,$A0; $48B
+      .BYTE $5E,$40,4,$D0,2,0,$FE,$FF,$DF,$2B,$4A,4,$B8,2,$F8,$8B,$FE; $49A
+      .BYTE 7,$B8,$AF,$DA,$DB,$97,$DA,$FF,3,$38,$D0,$7F,$C0,$2E,$82,0; $4AB
+      .BYTE $58,0,$C0,$FF,$FF,$2F,$25,1,$9A,0,$FD,$D0,$7F,$A0,$FB,$AA; $4BB
+      .BYTE $EB,$BB,$AA,$FF,$C0,$26,$EC,$17,$75,$41,4,$30,2,$C0,$FF,$BF; $4CB
+      .BYTE $2B,$45,$80,$23,$D0,$49,$7F,$C1,$6E,$EB,$B6,$AF,$FA,$7E,$E0; $4DB
+      .BYTE $85,$FE,$42,$17,$41,$80,4,$80,$FF,$DF,$55,$12,$D0,8,$6C,$EA; $4EA
+      .BYTE $F,$EC,$D5,$AE,$6F,$DD,$5F,$74,$E4,$2F,$F4,4,8,$14,0,$FE,$BF; $4FA
+      .BYTE $AB,$44,$A0,0,$57,$EC,$43,$BB,$EA,$DB,$A7,$EF,$87,$4E,$EE; $50B
+      .BYTE $C3,$4E,$80,$80,0,$F0,$FF,$37,$95,$80,$A,$E8,$E8,$F,$EC,$DA; $51A
+      .BYTE $DB,$AB,$FB,$C9,$43,$7F,$B1		  ; $52A
+      .BYTE $89,0,$A,0,$FF,$DF,$49,2,$A,$70,$EA,7,$EE,$EA,$F6; 0 ; NOT logged as PCM data
+      .BYTE $6A,$55,$55,$D5,$54,$AA,$5A,$55,$55,$85,$D8,$EA,$D7,$FF,2; 0 ; Logged as PCM data
+      .BYTE 0,0,$FE,$FF,$5F,$62,0,0,0,$FF,$FF,$FF,$27,0,0,$E8,$FF,$FF; $F
+      .BYTE 7,0,$FC,$FF,$FF,$FF,0,0,0,$F8,$FF,3,0,$80,$FD,$FF,$7F,0,0; $21
+      .BYTE $B0,$FF,$FF,1,0,0,$FF,$FF,$FF,$F,0,0,$FE,$FF,5,0,0,$FA,$FF;	$34
+      .BYTE $5F,4,$80,$EE,$FF,$FF,$1F,0,0,0,$FA,$FF,3,0,$BA,$FF,$FF,$5F; $47
+      .BYTE 0,0,$D0,$EF,$EF,8,0,$40,$FF,$FF,$FF,8,0,$D8,$FF,$FF,2,0,0; $59
+      .BYTE $F8,$FF,$6F,$13,1,$6A,$FB,$B6,$AA,0,$40,$B6,$FF,$B7,$12,$24; $6C
+      .BYTE $B5,$ED,$6B,$49,0,$64,$BB,$B7,$93,$44,$A9,$55,$F5,$ED,$AB; $7C
+      .BYTE $44,$80,$94,$A6,$B7,$9B,$54,$6A,$95,$56,$B5,$5A,$35,$95,$22; $8B
+      .BYTE $A4,$B6,$6A,$DB,$6A,$25,$A9,$AA,$6D,$BB,$15,4,$A4,$6A,$6F; $9A
+      .BYTE $AB,$12,$6A,$DB,$B6,$95,$54,$92,$A2,$D4,$6A,$6F,$A5,$42,$55; $A9
+      .BYTE $D5,$EA,$5B,9,$49,$AD,$B6,$56,$25,$28,$E2,$ED,$7E,$4C,$2B; $B8
+      .BYTE $41,$92,$6D,$BF,$AB,$24,0,$52,$6F,$B7,$B5,$6A,$49,$55,$5B; $C7
+      .BYTE $AB,$6A,$13,8,$69,$DB,$5A,$95,$24,$BA,$6F,$57,$45,$48,$55; $D6
+      .BYTE $DB,$AD,$85,$24,$42,$D5,$F6,$BD,$AD,$24,2,$D5,$F6,$56,$93; $E5
+      .BYTE 8,$51,$DB,$BE,$AD,$2A,$24,$49,$6F,$B7,$A9,$22,8,$B5,$DD,$AB; $F4
+      .BYTE $A9,$44,$59,$6D,$6F,$25,$91,$94,$AA,$B6,$6D,$A9,$92,$A8,$DA; $104
+      .BYTE $75,$AB,$24,$91,$6A,$BB,$5D,$25,$41,$94,$6D,$D7,$AA,$52,$29; $113
+      .BYTE $55,$6D,$B5,$A9,$52,$49,$B5,$6D,$4B,$A2,$54,$D5,$B6,$5A,$29; $122
+      .BYTE $92,$54,$DB,$6D,$2D,$29,$52,$A5,$B6,$6D,$93,$4A,$52,$6B,$D5; $131
+      .BYTE $92,$AA,$AA,$55,$5B,$55,$91,$54,$59,$B5,$55,$55,$49,$A5,$DA; $140
+      .BYTE $B6,$AB,$8A,$42,$A5,$F6,$B2,$25,$49,$56,$6D,$B5,$A9,$94,$CA; $14F
+      .BYTE $AA,$6A,$AB,$4A,$A5,$54,$69,$DB,$2B,$A9,$A4,$AA,$6A,$6D,$25; $15E
+      .BYTE $49,$AD,$56,$55,$65,$45,$95,$6B,$D5,$55,$85,$8A,$52,$EF,$B6; $16D
+      .BYTE $B5,$24,$A0,$AA,$D5,$55,$95,$52,$55,$B5,$5A,$AB,$A2,$AA,$AA; $17C
+      .BYTE $B6,$55,$A5,$82,$54,$DB,$6D,$55,$49,$48,$DB,$DE,$AA,$52,9; $18B
+      .BYTE $95,$6A,$5B,$55,$93,$2A,$55,$6B,$CB,$96,$52,$C9,$EA,$D5,$54; $19A
+      .BYTE $42,$52,$B5,$6D,$6B,$A9,$42,$25,$BB,$76,$AD,$54,$88,$AA,$B6; $1A9
+      .BYTE $6D,$55,9,$69,$6B,$AB,$55,$92,$24,$55,$7F,$A5,$52,$A5,$54; $1B8
+      .BYTE $6A,$57,$55,$55,$95,$AA,$B5,$55,$51,$49,$52,$BB,$B7,$25,$24; $1C7
+      .BYTE $A9,$D8,$F5,$55,$95,$48,$92,$DD,$B7,$53,$22,1,$69,$DF,$B7; $1D6
+      .BYTE $96,$22,$24,$69,$DF,$5E,$95,$12,$29,$69,$5B,$AB,$A9,$20,$A9; $1E5
+      .BYTE $6D,$6F,$5B,$51,$2A,$55,$96,$AC,$4A,$B5,$2D,$4B,$A9,$65,$55; $1F4
+      .BYTE $95,$AD,$2A,$95,$A5,$D4,$6A,$57,$25,$92,$AA,$DA,$6D,$AB,$44; $203
+      .BYTE $52,$25,$B5,$B7,$D5,$CA,$42,$2A,$D5,$AE,$2B,$4A,$94,$AA,$DA; $212
+      .BYTE $55,$AB,$5A,$A9,$22,$A9,$EA,$5A,$AB,$52,$AA,$5A,$AD,$2D,$A9; $221
+      .BYTE $4A,$53,$A9,$AA,$5A,$5B,$12,$A2,$B6,$6E,$5F,$49,$92,$44,$BB; $230
+      .BYTE $5D,$53,$45,$A2,$54,$AB,$77,$2F,$25,$82,$A4,$D6,$EE,$6B,$49; $23F
+      .BYTE $42,$6A,$DB,$4A,$95,$AA,$92,$AD,$B6,$6A,$53,$A1,$AA,$AA,$B6; $24E
+      .BYTE $52,$25,$49,$ED,$AD,$AA,$A2,$AA,$AA,$56,$5B,$A5,$92,$25,$A5; $25D
+      .BYTE $A9,$6D,$AB,$4A,$95,$56,$A9,$95,$AA,$52,$AB,$D6,$52,$AD,$AA; $26C
+      .BYTE $52,$95,$2A,$B5,$D5,$4A		  ; $27B
+      .BYTE $A9,$2A,$55,$6D,$6B,$A5,$AA,$24,$55,$55,$DB,$4A,$95,$2A,$B5; 0 ; NOT logged	as PCM data
+      .BYTE $AD,$AA,$AA,$49,$52,$B5,$A9,$AA,$CA,$52,$6B,$DB,$AA,$92,$44; $F
+      .BYTE $92,$D5,$B7,$55,$45,$89,$B2,$DD,$5A,$95,$92,$54,$4A,$DF,$DA; $1E
+      .BYTE $A2,$22,$A9,$6A,$DB,$36,$91,$54,$B5,$B6,$5A,$49,$4A,$2D,$AB; $2D
+      .BYTE $B5,$A5,$24,$55,$D5,$DA,$6A,$2B,$44,$B2,$7A,$B7,$A9,4,$A5; $3C
+      .BYTE $AA,$DB,$56,$4A,$25,$D1,$B2,$DB,$B5,$52,$22,$A5,$6A,$5F,$4B; $4B
+      .BYTE $92,$24,$B5,$B7,$AD,$24,$92,$54,$DB,$6E,$95,$46,$91,$52,$DB; $5A
+      .BYTE $6D,$27,$49,$42,$6D,$77,$8D,$A5,$54,$49,$D3,$AA,$49,$6D,$55; $69
+      .BYTE $55,$DB,$24,$A9,$52,$D9,$6A,$AF,$24,$91,$D2,$B6,$6D,$17,9; $78
+      .BYTE $92,$6A,$F7,$B6,$25,9,$89,$DA,$BE,$B7,$2A,8,$82,$DD,$BE,$55; $87
+      .BYTE $95,$A4,$52,$DB,$56,$A9,$94,$24,$B5,$BB,$56,$4A,$25,$D5,$AA; $97
+      .BYTE $AB,$2A,$51,$53,$B5,$B5,$2A,$A5,$92,$55,$DB,$6A,$95,$24,$69; $A6
+      .BYTE $AD,$B6,$95,$24,$A5,$B2,$5B,$AB,$4A,$95,$B4,$AA,$6D,$4B,$8A; $B5
+      .BYTE $2A,$B5,$B6,$55,9,$12,$ED,$F6,$AA,$AB,$24,$A9,$94,$B6,$56; $C4
+      .BYTE $5B,$49,$52,$D3,$D6,$6A,$25,$A9,$B6,$55,$25,$49,$A5,$AA,$AE; $D3
+      .BYTE $AD,$2A,$A9,$D2,$5A,$B5,$AA,$56,$42,$55,$5B,$55,$2B,$25,$55; $E2
+      .BYTE $6B,$AB,$A9,$55,$29,$A9,$9A,$4A,$B5,$6A,$A9,$AA,$55,$A9,$6A; $F1
+      .BYTE $AB,$AA,$95,$2A,$28,$AD,$5D,$DB,$92,$24,$55,$B5,$DA,$B5,$92; $100
+      .BYTE $A2,$54,$B5,$6D,$2B,$12,$AA,$D4,$6A,$DF,$2A,$89,$AA,$5A,$55; $10F
+      .BYTE $D7,$24,$51,$55,$B5,$56,$2D,$29,$69,$AF,$56,$B5,$94,$88,$AA; $11E
+      .BYTE $2D,$5B,$AD,$52,$A5,$AA,$AA,$5A,$B5,$94,$DA,$AA,$AA,$A4,$12; $12D
+      .BYTE $AD,$B6,$95,$A5,$AA,$B2,$DA,$56,$A9,$6A,$29,$89,$D5,$AA,$AA; $13C
+      .BYTE $A5,$4A,$55,$6B,$59,$69,$AD,$D4,$AA,$A5,$A8,$52,$55,$B5,$A9; $14B
+      .BYTE $55,$55,$55,$6B,$55,$95,$92,$2A,$A9,$55,$AB,$52,$AD,$AA,$E9; $15A
+      .BYTE $5A,$55,$42,$AB,$56,$55,$53,$29,$B1,$7A,$59,$B5,$54,$55,$52; $169
+      .BYTE $6B,$AB,$56,$25,$49,$56,$6D		  ; $178
+ScreenUpdateBufferPointers:.WORD PPUBuffer_301	  ; DATA XREF: WaitForNMI+4r
 						  ; WaitForNMI+9r
 						  ; data used at c000
-      .WORD unk_RAM_583				  ; data used at c000
-      .WORD unk_RAM_55F				  ; data used at c000
-      .WORD byte_BANKE_DC30			  ; data used at c000
-      .WORD byte_BANKE_DE7A			  ; data used at c000
-      .WORD Text_Game_Over
-      .WORD unk_RAM_67B
-      .WORD Text_Retry
-      .WORD unk_RAM_7168			  ; data used at c000
-      .WORD unk_RAM_67B
-      .WORD unk_RAM_693				  ; data used at c000
-      .WORD unk_RAM_6AB
-      .WORD unk_RAM_6BD
-      .WORD unk_RAM_6CC				  ; data used at c000
-      .WORD unk_RAM_6E9				  ; data used at c000
-      .WORD unk_RAM_6DA				  ; data used at c000
-      .WORD unk_RAM_6DF
-      .WORD unk_RAM_6E4
-      .WORD unk_RAM_7194
-      .WORD unk_RAM_71A8
-      .WORD byte_RAM_721B			  ; data used at c000
-      .WORD byte_BANKE_DFAF			  ; data used at c000
-      .WORD byte_BANKE_DFA7			  ; data used at c000
+      .WORD PPUBuffer_583			  ; data used at c000
+      .WORD PPUBuffer_55F			  ; data used at c000
+      .WORD PPUBuffer_CharacterSelect		  ; data used at c000
+      .WORD PPUBuffer_BANKE_DE7A		  ; data used at c000
+      .WORD PPUBuffer_Text_Game_Over
+      .WORD PPUBuffer_67B
+      .WORD PPUBuffer_Text_Retry
+      .WORD PPUBuffer_7168			  ; data used at c000
+      .WORD PPUBuffer_67B
+      .WORD PPUBuffer_693			  ; data used at c000
+      .WORD PPUBuffer_6AB
+      .WORD PPUBuffer_6BD
+      .WORD PPUBuffer_6CC			  ; data used at c000
+      .WORD PPUBuffer_6E9			  ; data used at c000
+      .WORD PPUBuffer_6DA			  ; data used at c000
+      .WORD PPUBuffer_6DF
+      .WORD PPUBuffer_6E4
+      .WORD PPUBuffer_7194
+      .WORD PPUBuffer_71A8
+      .WORD PPUBuffer_721B			  ; data used at c000
+      .WORD PPUBuffer_BANKE_DFAF		  ; data used at c000
+      .WORD PPUBuffer_BANKE_DFA7		  ; data used at c000
       .WORD BonusChanceLayoutRAM		  ; data used at c000
-byte_BANKE_DC30:.BYTE $21,$49,6,$E9,$E5,$DE,$DA,$EC,$DE	    ; 0	; DATA XREF: BANKE:DC06o
+PPUBuffer_CharacterSelect:.BYTE	$21,$49,6,$E9,$E5,$DE,$DA,$EC,$DE     ;	0
+						  ; DATA XREF: BANKE:DC06o
 						  ; PLEASE
       .BYTE $21,$50,6,$EC,$DE,$E5,$DE,$DC,$ED	  ; 0 ;	SELECT
       .BYTE $21,$8C,6,$E9,$E5,$DA,$F2,$DE,$EB	  ; 0 ;	PLAYER
       .BYTE $20,0,$20,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8; 0 ; Probably the	checkerboard diamonds or w/e
       .BYTE $B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7; $F
-      .BYTE $B8,$B7,$B8,$B7,$B8,$20		  ; $1E
-      .BYTE $20					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $80					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $A0					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $20					  ; data used at c000
+      .BYTE $B8,$B7,$B8,$B7,$B8			  ; $1E
+      .BYTE $20,$20,$20,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA; 0 ; data used at c000
+      .BYTE $B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9; $F
+      .BYTE $BA,$B9,$BA,$B9,$BA			  ; $1E
+      .BYTE $23,$80,$20,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8; 0 ; data used at c000
+      .BYTE $B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7; $F
+      .BYTE $B8,$B7,$B8,$B7,$B8			  ; $1E
+      .BYTE $23,$A0,$20,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA; 0 ; data used at c000
+      .BYTE $B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9; $F
+      .BYTE $BA,$B9,$BA,$B9,$BA			  ; $1E
+      .BYTE $20,0,$9E,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9; 0 ; data	used at	c000
+      .BYTE $B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7; $F
+      .BYTE $B9,$B7,$B9				  ; $1E
+      .BYTE $20,1,$9E,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA; 0 ; data	used at	c000
+      .BYTE $B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8; $F
+      .BYTE $BA,$B8,$BA				  ; $1E
+      .BYTE $20,$1E,$9E,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9; 0 ; data used at c000
+      .BYTE $B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7; $F
+      .BYTE $B9,$B7,$B9				  ; $1E
+      .BYTE $20,$1F,$9E,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA; 0 ; data used at c000
+      .BYTE $B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8; $F
+      .BYTE $BA,$B8,$BA				  ; $1E
+      .BYTE $20,$42,$5C,$FD			  ; 0 ;	data used at c000
+      .BYTE $20,$62,$5C,$FD			  ; 0 ;	data used at c000
+      .BYTE $20,$47,5,0,1,2,3,4			  ; 0 ;	data used at c000
+      .BYTE $20,$54,5,5,6,7,8,9			  ; 0 ;	data used at c000
+      .BYTE $20,$63,$A,$A,$B,$C,$D,$E,$F,$10,$11,$12,$13; 0 ; data used	at c000
+      .BYTE $20,$73,$A,$14,$15,$16,$17,$18,$19,$1A,$1B,$1C,$1D;	0 ; data used at c000
+      .BYTE $20,$82,$1C,$1E,$1F,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29; 0 ; data used at c000
+      .BYTE $FD,$FD,$FD,$FD,$2A,$2B,$2C,$2D,$2E,$2F,$30,$31,$32,$33,$34; $F
+      .BYTE $35					  ; $1E
+      .BYTE $20,$A2,6,$36,$37,$38,$39,$3A,$3B	  ; 0 ;	data used at c000
+      .BYTE $20,$AB,$A,$3C,$3D,$3E,$3F,$40,$43,$44,$45,$46,$47;	0 ; data used at c000
+      .BYTE $20,$B8,6,$48,$49,$4A,$4B,$4C,$4D	  ; 0 ;	data used at c000
+      .BYTE $20,$C2,5,$4E,$4F,$50,$51,$52	  ; 0 ;	data used at c000
+      .BYTE $20,$D9,5,$53,$54,$55,$56,$57	  ; 0 ;	data used at c000
+      .BYTE $20,$E2,4,$58,$59,$5A,$5B		  ; 0 ;	data used at c000
+      .BYTE $20,$E6,$CD,$5C			  ; 0 ;	data used at c000
+      .BYTE $20,$F9,$CD,$5C			  ; 0 ;	data used at c000
+      .BYTE $20,$FA,4,$5D,$5E,$5F,$60		  ; 0 ;	data used at c000
+      .BYTE $21,2,$83,$61,$64,$67		  ; 0 ;	data used at c000
+      .BYTE $21,3,$8B,$62,$65,$68,$6A,$6C,$6F,$72,$75,$78,$7B,$7E; 0 ; data used at c000
+      .BYTE $21,4,$94,$63,$66,$69,$6B,$6D,$70,$73,$76,$79,$7C,$7F,$81; 0 ; data	used at	c000
+      .BYTE $82,$83,$84,$85,$86,$87,$88,$89	  ; $F
+      .BYTE $21,$85,$89,$6E,$71,$74,$77,$7A,$7D,$80,$6E,$6E; 0 ; data used at c000
+      .BYTE $21,$9A,$89,$97,$9A,$9D,$BB,$A0,$A3,$A6,$A9,$AB; 0 ; data used at c000
+      .BYTE $21,$1B,$94,$8C,$8F,$92,$95,$98,$9B,$9E,$BC,$A1,$A4,$A7,$AA; 0 ; data used at c000
+      .BYTE $AC,$AD,$AE,$B0,$B1,$B2,$B3,$B4	  ; $F
+      .BYTE $21,$1C,$8B,$8D,$90,$93,$96,$99,$9C,$9F,$BD,$A2,$A5,$A8; 0 ; data used at c000
+      .BYTE $21,$1D,$83,$8E,$91,$94		  ; 0 ;	data used at c000
+      .BYTE $21,$62,$D1,$FD			  ; 0 ;	data used at c000
+      .BYTE $21,$7D,$D1,$FD			  ; 0 ;	data used at c000
+      .BYTE $22,$63,$C9,$FD,$22,$7C,$C9,$FD,$22,$86,$82,$8A,$8B,$22,$99; 0 ; data used at c000
+      .BYTE $82,$8A,$8B				  ; $F
       .BYTE 0					  ; data used at c000
-      .BYTE $9E					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE $9E					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $1E					  ; data used at c000
-      .BYTE $9E					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $B7					  ; data used at c000
-      .BYTE $B9					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $1F					  ; data used at c000
-      .BYTE $9E					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE $BA					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $42					  ; data used at c000
-      .BYTE $5C					  ; data used at c000
-      .BYTE $FD					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $62					  ; data used at c000
-      .BYTE $5C					  ; data used at c000
-      .BYTE $FD					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $47					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE 2					  ; data used at c000
-      .BYTE 3					  ; data used at c000
-      .BYTE 4					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $54					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE 7					  ; data used at c000
-      .BYTE 8					  ; data used at c000
-      .BYTE 9					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $63					  ; data used at c000
-      .BYTE $A					  ; data used at c000
-      .BYTE $A					  ; data used at c000
-      .BYTE $B					  ; data used at c000
-      .BYTE $C					  ; data used at c000
-      .BYTE $D					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $F					  ; data used at c000
-      .BYTE $10					  ; data used at c000
-      .BYTE $11					  ; data used at c000
-      .BYTE $12					  ; data used at c000
-      .BYTE $13					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $73					  ; data used at c000
-      .BYTE $A					  ; data used at c000
-      .BYTE $14					  ; data used at c000
-      .BYTE $15					  ; data used at c000
-      .BYTE $16					  ; data used at c000
-      .BYTE $17					  ; data used at c000
-      .BYTE $18					  ; data used at c000
-      .BYTE $19					  ; data used at c000
-      .BYTE $1A					  ; data used at c000
-      .BYTE $1B					  ; data used at c000
-      .BYTE $1C					  ; data used at c000
-      .BYTE $1D					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $82					  ; data used at c000
-      .BYTE $1C					  ; data used at c000
-      .BYTE $1E					  ; data used at c000
-      .BYTE $1F					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE $22					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $25					  ; data used at c000
-      .BYTE $26					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $28					  ; data used at c000
-      .BYTE $29					  ; data used at c000
-      .BYTE $FD					  ; data used at c000
-      .BYTE $FD					  ; data used at c000
-      .BYTE $FD					  ; data used at c000
-      .BYTE $FD					  ; data used at c000
-      .BYTE $2A					  ; data used at c000
-      .BYTE $2B					  ; data used at c000
-      .BYTE $2C					  ; data used at c000
-      .BYTE $2D					  ; data used at c000
-      .BYTE $2E					  ; data used at c000
-      .BYTE $2F					  ; data used at c000
-      .BYTE $30					  ; data used at c000
-      .BYTE $31					  ; data used at c000
-      .BYTE $32					  ; data used at c000
-      .BYTE $33					  ; data used at c000
-      .BYTE $34					  ; data used at c000
-      .BYTE $35					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $A2					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE $36					  ; data used at c000
-      .BYTE $37					  ; data used at c000
-      .BYTE $38					  ; data used at c000
-      .BYTE $39					  ; data used at c000
-      .BYTE $3A					  ; data used at c000
-      .BYTE $3B					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $AB					  ; data used at c000
-      .BYTE $A					  ; data used at c000
-      .BYTE $3C					  ; data used at c000
-      .BYTE $3D					  ; data used at c000
-      .BYTE $3E					  ; data used at c000
-      .BYTE $3F					  ; data used at c000
-      .BYTE $40					  ; data used at c000
-      .BYTE $43					  ; data used at c000
-      .BYTE $44					  ; data used at c000
-      .BYTE $45					  ; data used at c000
-      .BYTE $46					  ; data used at c000
-      .BYTE $47					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $B8					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE $48					  ; data used at c000
-      .BYTE $49					  ; data used at c000
-      .BYTE $4A					  ; data used at c000
-      .BYTE $4B					  ; data used at c000
-      .BYTE $4C					  ; data used at c000
-      .BYTE $4D					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $C2					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE $4E					  ; data used at c000
-      .BYTE $4F					  ; data used at c000
-      .BYTE $50					  ; data used at c000
-      .BYTE $51					  ; data used at c000
-      .BYTE $52					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $D9					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE $53					  ; data used at c000
-      .BYTE $54					  ; data used at c000
-      .BYTE $55					  ; data used at c000
-      .BYTE $56					  ; data used at c000
-      .BYTE $57					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $E2					  ; data used at c000
-      .BYTE 4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $59					  ; data used at c000
-      .BYTE $5A					  ; data used at c000
-      .BYTE $5B					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $E6					  ; data used at c000
-      .BYTE $CD					  ; data used at c000
-      .BYTE $5C					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $F9					  ; data used at c000
-      .BYTE $CD					  ; data used at c000
-      .BYTE $5C					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $FA					  ; data used at c000
-      .BYTE 4					  ; data used at c000
-      .BYTE $5D					  ; data used at c000
-      .BYTE $5E					  ; data used at c000
-      .BYTE $5F					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE 2					  ; data used at c000
-      .BYTE $83					  ; data used at c000
-      .BYTE $61					  ; data used at c000
-      .BYTE $64					  ; data used at c000
-      .BYTE $67					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE 3					  ; data used at c000
-      .BYTE $8B					  ; data used at c000
-      .BYTE $62					  ; data used at c000
-      .BYTE $65					  ; data used at c000
-      .BYTE $68					  ; data used at c000
-      .BYTE $6A					  ; data used at c000
-      .BYTE $6C					  ; data used at c000
-      .BYTE $6F					  ; data used at c000
-      .BYTE $72					  ; data used at c000
-      .BYTE $75					  ; data used at c000
-      .BYTE $78					  ; data used at c000
-      .BYTE $7B					  ; data used at c000
-      .BYTE $7E					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE 4					  ; data used at c000
-      .BYTE $94					  ; data used at c000
-      .BYTE $63					  ; data used at c000
-      .BYTE $66					  ; data used at c000
-      .BYTE $69					  ; data used at c000
-      .BYTE $6B					  ; data used at c000
-      .BYTE $6D					  ; data used at c000
-      .BYTE $70					  ; data used at c000
-      .BYTE $73					  ; data used at c000
-      .BYTE $76					  ; data used at c000
-      .BYTE $79					  ; data used at c000
-      .BYTE $7C					  ; data used at c000
-      .BYTE $7F					  ; data used at c000
-      .BYTE $81					  ; data used at c000
-      .BYTE $82					  ; data used at c000
-      .BYTE $83					  ; data used at c000
-      .BYTE $84					  ; data used at c000
-      .BYTE $85					  ; data used at c000
-      .BYTE $86					  ; data used at c000
-      .BYTE $87					  ; data used at c000
-      .BYTE $88					  ; data used at c000
-      .BYTE $89					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE $85					  ; data used at c000
-      .BYTE $89					  ; data used at c000
-      .BYTE $6E					  ; data used at c000
-      .BYTE $71					  ; data used at c000
-      .BYTE $74					  ; data used at c000
-      .BYTE $77					  ; data used at c000
-      .BYTE $7A					  ; data used at c000
-      .BYTE $7D					  ; data used at c000
-      .BYTE $80					  ; data used at c000
-      .BYTE $6E					  ; data used at c000
-      .BYTE $6E					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE $9A					  ; data used at c000
-      .BYTE $89					  ; data used at c000
-      .BYTE $97					  ; data used at c000
-      .BYTE $9A					  ; data used at c000
-      .BYTE $9D					  ; data used at c000
-      .BYTE $BB					  ; data used at c000
-      .BYTE $A0					  ; data used at c000
-      .BYTE $A3					  ; data used at c000
-      .BYTE $A6					  ; data used at c000
-      .BYTE $A9					  ; data used at c000
-      .BYTE $AB					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE $1B					  ; data used at c000
-      .BYTE $94					  ; data used at c000
-      .BYTE $8C					  ; data used at c000
-      .BYTE $8F					  ; data used at c000
-      .BYTE $92					  ; data used at c000
-      .BYTE $95					  ; data used at c000
-      .BYTE $98					  ; data used at c000
-      .BYTE $9B					  ; data used at c000
-      .BYTE $9E					  ; data used at c000
-      .BYTE $BC					  ; data used at c000
-      .BYTE $A1					  ; data used at c000
-      .BYTE $A4					  ; data used at c000
-      .BYTE $A7					  ; data used at c000
-      .BYTE $AA					  ; data used at c000
-      .BYTE $AC					  ; data used at c000
-      .BYTE $AD					  ; data used at c000
-      .BYTE $AE					  ; data used at c000
-      .BYTE $B0					  ; data used at c000
-      .BYTE $B1					  ; data used at c000
-      .BYTE $B2					  ; data used at c000
-      .BYTE $B3					  ; data used at c000
-      .BYTE $B4					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE $1C					  ; data used at c000
-      .BYTE $8B					  ; data used at c000
-      .BYTE $8D					  ; data used at c000
-      .BYTE $90					  ; data used at c000
-      .BYTE $93					  ; data used at c000
-      .BYTE $96					  ; data used at c000
-      .BYTE $99					  ; data used at c000
-      .BYTE $9C					  ; data used at c000
-      .BYTE $9F					  ; data used at c000
-      .BYTE $BD					  ; data used at c000
-      .BYTE $A2					  ; data used at c000
-      .BYTE $A5					  ; data used at c000
-      .BYTE $A8					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE $1D					  ; data used at c000
-      .BYTE $83					  ; data used at c000
-      .BYTE $8E					  ; data used at c000
-      .BYTE $91					  ; data used at c000
-      .BYTE $94					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE $62					  ; data used at c000
-      .BYTE $D1					  ; data used at c000
-      .BYTE $FD					  ; data used at c000
-      .BYTE $21					  ; data used at c000
-      .BYTE $7D					  ; data used at c000
-      .BYTE $D1					  ; data used at c000
-      .BYTE $FD					  ; data used at c000
-      .BYTE $22					  ; data used at c000
-      .BYTE $63					  ; data used at c000
-      .BYTE $C9					  ; data used at c000
-      .BYTE $FD					  ; data used at c000
-      .BYTE $22					  ; data used at c000
-      .BYTE $7C					  ; data used at c000
-      .BYTE $C9					  ; data used at c000
-      .BYTE $FD					  ; data used at c000
-      .BYTE $22					  ; data used at c000
-      .BYTE $86					  ; data used at c000
-      .BYTE $82					  ; data used at c000
-      .BYTE $8A					  ; data used at c000
-      .BYTE $8B					  ; data used at c000
-      .BYTE $22					  ; data used at c000
-      .BYTE $99					  ; data used at c000
-      .BYTE $82					  ; data used at c000
-      .BYTE $8A					  ; data used at c000
-      .BYTE $8B					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-byte_BANKE_DE7A:.BYTE $23			  ; DATA XREF: BANKE:DC08o
+PPUBuffer_BANKE_DE7A:.BYTE $23,$C0,9,$3E,$E,$E,$E,$E,$E,$E,$8E,$32; 0
+						  ; DATA XREF: BANKE:DC08o
 						  ; data used at c000
-      .BYTE $C0					  ; data used at c000
-      .BYTE 9					  ; data used at c000
-      .BYTE $3E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $8E					  ; data used at c000
-      .BYTE $32					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $CF					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE $8C					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $D0					  ; data used at c000
-      .BYTE $10					  ; data used at c000
-      .BYTE $32					  ; data used at c000
+      .BYTE $23,$CF,1,$8C			  ; 0 ;	data used at c000
+      .BYTE $23,$D0,$10,$32,0,$A0,$A0,$A0,$20,0,$8C,$32,0,0,$A,2,0,0,$8C; 0 ; data used	at c000
+      .BYTE $23,$E0,9,$32,0,0,$E,0,0,0,$8C,$32	  ; 0 ;	data used at c000
+      .BYTE $23,$EF,1,$8C			  ; 0 ;	data used at c000
+      .BYTE $23,$F0,6,$32,0,$A0,$A0,$A0,$A0	  ; 0 ;	data used at c000
+      .BYTE $23,$F7,9,$8C,$E,$E,$E,$E,$E,$E,$E,$E ; 0 ;	data used at c000
+      .BYTE $24,0,$60,$FF			  ; 0 ;	data used at c000
+      .BYTE $24,$20,$60,$FF			  ; 0 ;	data used at c000
+      .BYTE $24,$40,$60,$FF			  ; 0 ;	data used at c000
+      .BYTE $24,$60,$60,$FF			  ; 0 ;	data used at c000
+      .BYTE $27,$40,$60,$FF			  ; 0 ;	data used at c000
+      .BYTE $27,$60,$60,$FF			  ; 0 ;	data used at c000
+      .BYTE $27,$80,$60,$FF			  ; 0 ;	data used at c000
+      .BYTE $27,$A0,$60,$FF			  ; 0 ;	data used at c000
+      .BYTE $24,$80,$D6,$FF			  ; 0 ;	data used at c000
+      .BYTE $24,$81,$D6,$FF			  ; 0 ;	data used at c000
+      .BYTE $24,$82,$D6,$FF			  ; 0 ;	data used at c000
+      .BYTE $24,$9D,$D6,$FF			  ; 0 ;	data used at c000
+      .BYTE $24,$9E,$D6,$FF			  ; 0 ;	data used at c000
+      .BYTE $24,$9F,$D6,$FF			  ; 0 ;	data used at c000
+      .BYTE $24,$83,1,$D0			  ; 0 ;	data used at c000
+      .BYTE $24,$9C,1,$D8			  ; 0 ;	data used at c000
+      .BYTE $24,$84,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $24,$A3,$D4,$D1			  ; 0 ;	data used at c000
+      .BYTE $24,$BC,$D4,$D7			  ; 0 ;	data used at c000
+      .BYTE $24,$A4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $24,$C4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $24,$E4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $25,4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $25,$24,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $25,$44,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $25,$64,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $25,$84,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $25,$A4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $25,$C4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $25,$E4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $26,4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $26,$24,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $26,$44,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $26,$64,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $26,$84,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $26,$A4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $26,$C4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $26,$E4,$58,$FB			  ; 0 ;	data used at c000
+      .BYTE $27,$23,1,$D2			  ; 0 ;	data used at c000
+      .BYTE $27,$3C,1,$D6			  ; 0 ;	data used at c000
+      .BYTE $27,$24,$58,$D3			  ; 0 ;	data used at c000
+      .BYTE $27,$C8,8,$44,$FF,$BF,$AF,$AF,$AF,$FF,$11; 0 ; data	used at	c000
+      .BYTE $27,$D0,$10,$44,$BF,$AF,$AF,$AF,$AF,$EF,$11,$44,$FF,$FF,$FF; 0 ; data used at c000
+      .BYTE $FF,$FF,$FF,$11			  ; $F
+      .BYTE $27,$E0,$10,$44,$FF,$FF,$FF,$FF,$FF,$FF,$11,$44,$FF,$FF,$FF; 0 ; data used at c000
+      .BYTE $FF,$FF,$AF,$11			  ; $F
+      .BYTE $27,$F0,8,$44,5,5,5,5,5,5,1		  ; 0 ;	data used at c000
+      .BYTE $27,4,$58,$FB			  ; 0 ;	data used at c000
       .BYTE 0					  ; data used at c000
-      .BYTE $A0					  ; data used at c000
-      .BYTE $A0					  ; data used at c000
-      .BYTE $A0					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $8C					  ; data used at c000
-      .BYTE $32					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $A					  ; data used at c000
-      .BYTE 2					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $8C					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $E0					  ; data used at c000
-      .BYTE 9					  ; data used at c000
-      .BYTE $32					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $8C					  ; data used at c000
-      .BYTE $32					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $EF					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE $8C					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $F0					  ; data used at c000
-      .BYTE 6					  ; data used at c000
-      .BYTE $32					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $A0					  ; data used at c000
-      .BYTE $A0					  ; data used at c000
-      .BYTE $A0					  ; data used at c000
-      .BYTE $A0					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $F7					  ; data used at c000
-      .BYTE 9					  ; data used at c000
-      .BYTE $8C					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $E					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $40					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $40					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $80					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $A0					  ; data used at c000
-      .BYTE $60					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $80					  ; data used at c000
-      .BYTE $D6					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $81					  ; data used at c000
-      .BYTE $D6					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $82					  ; data used at c000
-      .BYTE $D6					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $9D					  ; data used at c000
-      .BYTE $D6					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $9E					  ; data used at c000
-      .BYTE $D6					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $9F					  ; data used at c000
-      .BYTE $D6					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $83					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE $D0					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $9C					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE $D8					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $84					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $A3					  ; data used at c000
-      .BYTE $D4					  ; data used at c000
-      .BYTE $D1					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $BC					  ; data used at c000
-      .BYTE $D4					  ; data used at c000
-      .BYTE $D7					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $A4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $C4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $E4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $25					  ; data used at c000
-      .BYTE 4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $25					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $25					  ; data used at c000
-      .BYTE $44					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $25					  ; data used at c000
-      .BYTE $64					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $25					  ; data used at c000
-      .BYTE $84					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $25					  ; data used at c000
-      .BYTE $A4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $25					  ; data used at c000
-      .BYTE $C4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $25					  ; data used at c000
-      .BYTE $E4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $26					  ; data used at c000
-      .BYTE 4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $26					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $26					  ; data used at c000
-      .BYTE $44					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $26					  ; data used at c000
-      .BYTE $64					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $26					  ; data used at c000
-      .BYTE $84					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $26					  ; data used at c000
-      .BYTE $A4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $26					  ; data used at c000
-      .BYTE $C4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $26					  ; data used at c000
-      .BYTE $E4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE $D2					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $3C					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE $D6					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $24					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $D3					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $C8					  ; data used at c000
-      .BYTE 8					  ; data used at c000
-      .BYTE $44					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $BF					  ; data used at c000
-      .BYTE $AF					  ; data used at c000
-      .BYTE $AF					  ; data used at c000
-      .BYTE $AF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $11					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $D0					  ; data used at c000
-      .BYTE $10					  ; data used at c000
-      .BYTE $44					  ; data used at c000
-      .BYTE $BF					  ; data used at c000
-      .BYTE $AF					  ; data used at c000
-      .BYTE $AF					  ; data used at c000
-      .BYTE $AF					  ; data used at c000
-      .BYTE $AF					  ; data used at c000
-      .BYTE $EF					  ; data used at c000
-      .BYTE $11					  ; data used at c000
-      .BYTE $44					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $11					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $E0					  ; data used at c000
-      .BYTE $10					  ; data used at c000
-      .BYTE $44					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $11					  ; data used at c000
-      .BYTE $44					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $AF					  ; data used at c000
-      .BYTE $11					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE $F0					  ; data used at c000
-      .BYTE 8					  ; data used at c000
-      .BYTE $44					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE $27					  ; data used at c000
-      .BYTE 4					  ; data used at c000
-      .BYTE $58					  ; data used at c000
-      .BYTE $FB					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-byte_BANKE_DFA7:.BYTE $27			  ; DATA XREF: BANKE:DC2Co
+PPUBuffer_BANKE_DFA7:.BYTE $27,$EA,5,$AA,$AA,$AA,$AA,$AA	 ; 0
+						  ; DATA XREF: BANKE:DC2Co
 						  ; data used at c000
-      .BYTE $EA					  ; data used at c000
-      .BYTE 5					  ; data used at c000
-      .BYTE $AA					  ; data used at c000
-      .BYTE $AA					  ; data used at c000
-      .BYTE $AA					  ; data used at c000
-      .BYTE $AA					  ; data used at c000
-      .BYTE $AA					  ; data used at c000
-byte_BANKE_DFAF:.BYTE $20			  ; DATA XREF: BANKE:DC2Ao
-						  ; data used at c000
-      .BYTE $1E					  ; data used at c000
-      .BYTE $9E					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $20					  ; data used at c000
-      .BYTE $1F					  ; data used at c000
-      .BYTE $9E					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $FF					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $C7					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $CF					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $D7					  ; data used at c000
-      .BYTE 1					  ; data used at c000
-      .BYTE 0					  ; data used at c000
-      .BYTE $23					  ; data used at c000
-      .BYTE $DF					  ; data used at c000
-      .BYTE 1					  ; data used at c000
+PPUBuffer_BANKE_DFAF:.BYTE $20,$1E,$9E,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF;	0
+						  ; DATA XREF: BANKE:DC2Ao
+      .BYTE $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; $F ; data used	at c000
+      .BYTE $FF,$FF,$FF				  ; $1E
+      .BYTE $20,$1F,$9E,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0 ; data used at c000
+      .BYTE $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; $F
+      .BYTE $FF,$FF,$FF				  ; $1E
+      .BYTE $23,$C7,1,0				  ; 0 ;	data used at c000
+      .BYTE $23,$CF,1,0				  ; 0 ;	data used at c000
+      .BYTE $23,$D7,1,0				  ; 0 ;	data used at c000
+      .BYTE $23,$DF,1				  ; 0 ;	Data continues in Bank E
 ; end of 'BANKE'
 
 ; ===========================================================================
@@ -87643,23 +77760,11 @@ byte_BANKE_DFAF:.BYTE $20			  ; DATA XREF: BANKE:DC2Ao
 ; Segment type:	Pure code
       ;.segment	BANKF
       *	=  $E000
-      .BYTE 0					  ; data used at e000
-      .BYTE $23	; #				  ; data used at e000
-      .BYTE $E7	; Á				  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE   0					  ; data used at e000
-      .BYTE $23	; #				  ; data used at e000
-      .BYTE $EF	; Ô				  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE 0					  ; data used at e000
-      .BYTE $23	; #				  ; data used at e000
-      .BYTE $F7	; ˜				  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE 0					  ; data used at e000
-      .BYTE $23	; #				  ; data used at e000
-      .BYTE $FF					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE 0					  ; data used at e000
+      .BYTE 0					  ; PPUBuffer_BANKE_DFA7 continued from	end of Bank D
+      .BYTE $23,$E7,1,0				  ; 0 ;	data used at e000
+      .BYTE $23,$EF,1,0				  ; 0 ;	data used at e000
+      .BYTE $23,$F7,1,0				  ; 0 ;	data used at e000
+      .BYTE $23,$FF,1,0				  ; 0 ;	data used at e000
       .BYTE 0					  ; data used at e000
 WorldStartingLevel:.BYTE 0			  ; DATA XREF: sub_BANKF_E198+2Br
 						  ; sub_BANKF_E198+3Br
@@ -87674,284 +77779,96 @@ WorldPlus1StartingLevel:.BYTE 3					    ; 0
       .BYTE $F					  ; 4
       .BYTE $12					  ; 5
       .BYTE $14					  ; 6
-PlayerSelectMarioSprites1:.BYTE	$8F ; è		  ; DATA XREF: sub_BANKF_E288:loc_BANKF_E2CAr
-						  ; sub_BANKF_E288:loc_BANKF_E3DFr
-						  ; data used at e000
-      .BYTE   0					  ; data used at e000
-      .BYTE   0					  ; data used at e000
-      .BYTE $48	; H				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE   0					  ; data used at e000
-      .BYTE $40	; @				  ; data used at e000
-      .BYTE $50	; P				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE   2					  ; data used at e000
-      .BYTE   0					  ; data used at e000
-      .BYTE $48	; H				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE   2					  ; data used at e000
-      .BYTE $40	; @				  ; data used at e000
-      .BYTE $50	; P				  ; data used at e000
-PlayerSelectLuigiSprites1:.BYTE	$8F ; è		  ; data used at e000
-      .BYTE   4					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE $68	; h				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE   4					  ; data used at e000
-      .BYTE $41	; A				  ; data used at e000
-      .BYTE $70	; p				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE   6					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE $68	; h				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE   6					  ; data used at e000
-      .BYTE $41	; A				  ; data used at e000
-      .BYTE $70	; p				  ; data used at e000
-PlayerSelectToadSprites1:.BYTE $8F ; è		  ; data used at e000
-      .BYTE   8					  ; data used at e000
-      .BYTE   2					  ; data used at e000
-      .BYTE $88	; à				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE   8					  ; data used at e000
-      .BYTE $42	; B				  ; data used at e000
-      .BYTE $90	; ê				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE  $A					  ; data used at e000
-      .BYTE   2					  ; data used at e000
-      .BYTE $88	; à				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE  $A					  ; data used at e000
-      .BYTE $42	; B				  ; data used at e000
-      .BYTE $90	; ê				  ; data used at e000
-PlayerSelectPrincessSprites1:.BYTE $8F ; è	  ; data used at e000
-      .BYTE  $C					  ; data used at e000
-      .BYTE   3					  ; data used at e000
-      .BYTE $A8	; ®				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE  $C					  ; data used at e000
-      .BYTE $43	; C				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE  $E					  ; data used at e000
-      .BYTE   3					  ; data used at e000
-      .BYTE $A8	; ®				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE  $E					  ; data used at e000
-      .BYTE $43	; C				  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-PlayerSelectMarioSprites2:.BYTE	$8F ; è		  ; DATA XREF: sub_BANKF_E288:loc_BANKF_E3CCr
-						  ; data used at e000
-      .BYTE $10					  ; data used at e000
-      .BYTE   0					  ; data used at e000
-      .BYTE $48	; H				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE $12					  ; data used at e000
-      .BYTE   0					  ; data used at e000
-      .BYTE $50	; P				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE $14					  ; data used at e000
-      .BYTE   0					  ; data used at e000
-      .BYTE $48	; H				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE $16					  ; data used at e000
-      .BYTE   0					  ; data used at e000
-      .BYTE $50	; P				  ; data used at e000
-PlayerSelectLuigiSprites2:.BYTE	$8F ; è		  ; data used at e000
-      .BYTE $18					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE $68	; h				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE $1A					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE $70	; p				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE $1C					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE $68	; h				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE $1E					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE $70	; p				  ; data used at e000
-PlayerSelectToadSprites2:.BYTE $8F ; è		  ; data used at e000
-      .BYTE $20					  ; data used at e000
-      .BYTE   2					  ; data used at e000
-      .BYTE $88	; à				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE $22	; "				  ; data used at e000
-      .BYTE   2					  ; data used at e000
-      .BYTE $90	; ê				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE $24	; $				  ; data used at e000
-      .BYTE   2					  ; data used at e000
-      .BYTE $88	; à				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE $26	; &				  ; data used at e000
-      .BYTE   2					  ; data used at e000
-      .BYTE $90	; ê				  ; data used at e000
-PlayerSelectPrincessSprites2:.BYTE $8F ; è	  ; data used at e000
-      .BYTE $28	; (				  ; data used at e000
-      .BYTE   3					  ; data used at e000
-      .BYTE $A8	; ®				  ; data used at e000
-      .BYTE $8F	; è				  ; data used at e000
-      .BYTE $2A	; *				  ; data used at e000
-      .BYTE   3					  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE $2C	; ,				  ; data used at e000
-      .BYTE   3					  ; data used at e000
-      .BYTE $A8	; ®				  ; data used at e000
-      .BYTE $9F	; ü				  ; data used at e000
-      .BYTE $2E	; .				  ; data used at e000
-      .BYTE   3					  ; data used at e000
-      .BYTE $B0	; ∞				  ; data used at e000
+PlayerSelectMarioSprites1:.BYTE	$8F,0,0,$48			      ;	0
+						  ; DATA XREF: DoCharacterSelectMenu:loc_BANKF_E2CAr
+						  ; DoCharacterSelectMenu:loc_BANKF_E3DFr
+      .BYTE $8F,0,$40,$50			  ; 4 ;	data used at e000
+      .BYTE $9F,2,0,$48				  ; 8
+      .BYTE $9F,2,$40,$50			  ; $C
+PlayerSelectLuigiSprites1:.BYTE	$8F,4,1,$68			      ;	0 ; data used at e000
+      .BYTE $8F,4,$41,$70			  ; 4
+      .BYTE $9F,6,1,$68				  ; 8
+      .BYTE $9F,6,$41,$70			  ; $C
+PlayerSelectToadSprites1:.BYTE $8F,8,2,$88			     ; 0 ; data	used at	e000
+      .BYTE $8F,8,$42,$90			  ; 4
+      .BYTE $9F,$A,2,$88			  ; 8
+      .BYTE $9F,$A,$42,$90			  ; $C
+PlayerSelectPrincessSprites1:.BYTE $8F,$C,3,$A8				 ; 0 ; data used at e000
+      .BYTE $8F,$C,$43,$B0			  ; 4
+      .BYTE $9F,$E,3,$A8			  ; 8
+      .BYTE $9F,$E,$43,$B0			  ; $C
+PlayerSelectMarioSprites2:.BYTE	$8F,$10,0,$48			      ;	0
+						  ; DATA XREF: DoCharacterSelectMenu:loc_BANKF_E3CCr
+      .BYTE $8F,$12,0,$50			  ; 4 ;	data used at e000
+      .BYTE $9F,$14,0,$48			  ; 8
+      .BYTE $9F,$16,0,$50			  ; $C
+PlayerSelectLuigiSprites2:.BYTE	$8F,$18,1,$68			      ;	0 ; data used at e000
+      .BYTE $8F,$1A,1,$70			  ; 4
+      .BYTE $9F,$1C,1,$68			  ; 8
+      .BYTE $9F,$1E,1,$70			  ; $C
+PlayerSelectToadSprites2:.BYTE $8F,$20,2,$88			     ; 0 ; data	used at	e000
+      .BYTE $8F,$22,2,$90			  ; 4
+      .BYTE $9F,$24,2,$88			  ; 8
+      .BYTE $9F,$26,2,$90			  ; $C
+PlayerSelectPrincessSprites2:.BYTE $8F,$28,3,$A8			 ; 0 ; data used at e000
+      .BYTE $8F,$2A,3,$B0			  ; 4
+      .BYTE $9F,$2C,3,$A8			  ; 8
+      .BYTE $9F,$2E,3,$B0			  ; $C
 PlayerSelectSpriteIndexes:.BYTE	0, $30,	$20, $10		      ;	0
-						  ; DATA XREF: sub_BANKF_E288+140r
+						  ; DATA XREF: DoCharacterSelectMenu+140r
 						  ; data used at e000
-BonusChanceCherrySprite:.BYTE $5F ; _		  ; DATA XREF: sub_BANKF_EAF6:loc_BANKF_EB0Dr
-      .BYTE   5
-      .BYTE   1
-      .BYTE $58	; X
-      .BYTE $5F	; _
-      .BYTE   7
-      .BYTE   1
-      .BYTE $60	; `
-BonusChanceStarSprite:.BYTE $5F	; _
-      .BYTE   9
-      .BYTE   1
-      .BYTE $58	; X
-      .BYTE $5F	; _
-      .BYTE   9
-      .BYTE $41	; A
-      .BYTE $60	; `
-BonusChanceVeggieSprite:.BYTE $5F ; _
-      .BYTE  $B
-      .BYTE   1
-      .BYTE $58	; X
-      .BYTE $5F	; _
-      .BYTE  $B
-      .BYTE $41	; A
-      .BYTE $60	; `
-BonusChanceSnifitSprite:.BYTE $5F ; _
-      .BYTE   1
-      .BYTE   1
-      .BYTE $58	; X
-      .BYTE $5F	; _
-      .BYTE   3
-      .BYTE   1
-      .BYTE $60	; `
-PlayerSelectSpritePalettesDark:.BYTE $3F ; ?	  ; DATA XREF: sub_BANKF_E288:loc_BANKF_E37Dr
-						  ; data used at e000
-      .BYTE $10					  ; data used at e000
-      .BYTE $10					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $22	; "				  ; data used at e000
-      .BYTE $12					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $22	; "				  ; data used at e000
-      .BYTE $12					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $22	; "				  ; data used at e000
-      .BYTE $12					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
+BonusChanceCherrySprite:.BYTE $5F,5,1,$58			    ; 0
+						  ; DATA XREF: sub_BANKF_EAF6:loc_BANKF_EB0Dr
+      .BYTE $5F,7,1,$60				  ; 4
+BonusChanceStarSprite:.BYTE $5F,9,1,$58				  ; 0
+      .BYTE $5F,9,$41,$60			  ; 4
+BonusChanceVeggieSprite:.BYTE $5F,$B,1,$58			    ; 0
+      .BYTE $5F,$B,$41,$60			  ; 4
+BonusChanceSnifitSprite:.BYTE $5F,1,1,$58			    ; 0
+      .BYTE $5F,3,1,$60				  ; 4
+PlayerSelectSpritePalettesDark:.BYTE $3F,$10,$10,$F			   ; 0
+						  ; DATA XREF: DoCharacterSelectMenu:loc_BANKF_E37Dr
+      .BYTE $22,$12,1,$F			  ; 4 ;	data used at e000
+      .BYTE $22,$12,1,$F			  ; 8
+      .BYTE $22,$12,1,$F			  ; $C
       .BYTE $22					  ; data used at e000
       .BYTE $12					  ; data used at e000
       .BYTE 1					  ; data used at e000
-unk_BANKF_E0D1:.BYTE   0			  ; DATA XREF: sub_BANKF_E288+105r
+unk_BANKF_E0D1:.BYTE   0			  ; DATA XREF: DoCharacterSelectMenu+105r
 						  ; data used at e000
       .BYTE $15					  ; data used at e000
       .BYTE  $E					  ; data used at e000
       .BYTE   7					  ; data used at e000
-unk_BANKF_E0D5:.BYTE $3F ; ?			  ; DATA XREF: sub_BANKF_E288:loc_BANKF_E391r
-						  ; data used at e000
-      .BYTE $10					  ; data used at e000
-      .BYTE   4					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $27	; '                               ; data used at e000
-      .BYTE $16					  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE $3F	; ?				  ; data used at e000
-      .BYTE $14					  ; data used at e000
-      .BYTE   4					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $36	; 6				  ; data used at e000
-      .BYTE $2A	; *				  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE $3F	; ?				  ; data used at e000
-      .BYTE $18					  ; data used at e000
-      .BYTE   4					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $27	; '                               ; data used at e000
-      .BYTE $30	; 0				  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE $3F	; ?				  ; data used at e000
-      .BYTE $1C					  ; data used at e000
-      .BYTE   4					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $36	; 6				  ; data used at e000
-      .BYTE $25	; %				  ; data used at e000
-      .BYTE   7					  ; data used at e000
-TitleCardPalettes:.BYTE	$3F ; ?			  ; DATA XREF: sub_BANKF_E228:loc_BANKF_E245r
+byte_BANKF_E0D5:.BYTE $3F,$10,4,$F			    ; 0
+						  ; DATA XREF: DoCharacterSelectMenu:loc_BANKF_E391r
+      .BYTE $27,$16,1,$3F			  ; 4 ;	data used at e000
+      .BYTE $14,4,$F,$36			  ; 8
+      .BYTE $2A,1,$3F,$18			  ; $C
+      .BYTE 4,$F,$27,$30			  ; $10
+      .BYTE 1,$3F,$1C,4				  ; $14
+      .BYTE $F,$36,$25,7			  ; $18
+TitleCardPalettes:.BYTE	$3F,0,$20,$38			      ;	0
+						  ; DATA XREF: DisplayLevelTitleCardAndMore:loc_BANKF_E245r
 						  ; sub_BANKF_E9F4:loc_BANKF_EA04r
-						  ; data used at e000
-      .BYTE   0					  ; data used at e000
-      .BYTE $20					  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE $30	; 0				  ; data used at e000
-      .BYTE $1A					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE $17					  ; data used at e000
-      .BYTE $17					  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE $28	; (				  ; data used at e000
-      .BYTE $18					  ; data used at e000
-      .BYTE   8					  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE $30	; 0				  ; data used at e000
-      .BYTE $27	; '                               ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE $37	; 7				  ; data used at e000
-      .BYTE $27	; '                               ; data used at e000
-      .BYTE   6					  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE $25	; %				  ; data used at e000
-      .BYTE $36	; 6				  ; data used at e000
-      .BYTE   6					  ; data used at e000
-      .BYTE $38	; 8				  ; data used at e000
-      .BYTE $12					  ; data used at e000
-      .BYTE $36	; 6				  ; data used at e000
-      .BYTE   1					  ; data used at e000
-      .BYTE   0					  ; data used at e000
-BonusChanceSpritePalettes:.BYTE	 $F		  ; DATA XREF: sub_BANKF_EA33:SetBonusChancePaletter
-						  ; data used at e000
-      .BYTE $37	; 7				  ; data used at e000
-      .BYTE $16					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $37	; 7				  ; data used at e000
-      .BYTE $16					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $37	; 7				  ; data used at e000
-      .BYTE $16					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
-      .BYTE $37	; 7				  ; data used at e000
-      .BYTE $16					  ; data used at e000
-      .BYTE  $F					  ; data used at e000
+      .BYTE $30,$1A,$F,$38			  ; 4 ;	data used at e000
+      .BYTE $38,$F,$F,$38			  ; 8
+      .BYTE $17,$17,$38,$38			  ; $C
+      .BYTE $28,$18,8,$38			  ; $10
+      .BYTE $30,$27,1,$38			  ; $14
+      .BYTE $37,$27,6,$38			  ; $18
+      .BYTE $25,$36,6,$38			  ; $1C
+      .BYTE $12,$36,1,0				  ; $20
+BonusChanceSpritePalettes:.BYTE	$F,$37,$16,$F			      ;	0
+						  ; DATA XREF: sub_BANKF_EA33:SetBonusChancePaletter
+      .BYTE $F,$37,$16,$F			  ; 4 ;	data used at e000
+      .BYTE $F,$37,$16,$F			  ; 8
+      .BYTE $F,$37,$16,$F			  ; $C
 
 ; =============== S U B	R O U T	I N E =======================================
 
+; Load A with an index and call	this to
+; jump to a pointer from the table directly
+; after	the call.
 
 JumpToTableAfterJump:				  ; CODE XREF: BANK0:8A2CP
 						  ; BANK0:920BP
@@ -87973,10 +77890,8 @@ JumpToTableAfterJump:				  ; CODE XREF: BANK0:8A2CP
 ; End of function JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
-BlackAndWhitePalette:.BYTE  $F			  ; DATA XREF: SetBlackAndWhitePalette+11r
-      .BYTE $30	; 0
-      .BYTE $30	; 0
-      .BYTE  $F
+BlackAndWhitePalette:.BYTE $F,$30,$30,$F			 ; 0
+						  ; DATA XREF: SetBlackAndWhitePalette+11r
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -88023,7 +77938,7 @@ SetScrollXYTo0:					  ; CODE XREF: sub_BANKF_E166+6p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_E166:					  ; CODE XREF: sub_BANKF_E288+16p
+sub_BANKF_E166:					  ; CODE XREF: DoCharacterSelectMenu+16p
 						  ; sub_BANKF_E9F4+19p
       JSR     EnableNMI				  ; code used at e000
 
@@ -88031,7 +77946,7 @@ sub_BANKF_E166:					  ; CODE XREF: sub_BANKF_E288+16p
 
       JSR     SetScrollXYTo0			  ; code used at e000
 
-      LDA     #2				  ; code used at e000
+      LDA     #ScreenUpdateBuffer_RAM_55F	  ; code used at e000
       STA     ScreenUpdateIndex			  ; code used at e000
       JSR     WaitForNMI			  ; code used at e000
 
@@ -88048,7 +77963,7 @@ sub_BANKF_E166:					  ; CODE XREF: sub_BANKF_E288+16p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_E17F:					  ; CODE XREF: sub_BANKF_E288:loc_BANKF_E2B2p
+sub_BANKF_E17F:					  ; CODE XREF: DoCharacterSelectMenu:loc_BANKF_E2B2p
 						  ; sub_BANKF_E9F4+1Cp
       JSR     EnableNMI				  ; code used at e000
 
@@ -88056,11 +77971,11 @@ sub_BANKF_E17F:					  ; CODE XREF: sub_BANKF_E288:loc_BANKF_E2B2p
 
       LDA     #$40 ; '@'                          ; code used at e000
       STA     StackArea				  ; code used at e000
-      LDA     #3				  ; code used at e000
+      LDA     #ScreenUpdateBuffer_CharacterSelect ; code used at e000
       STA     ScreenUpdateIndex			  ; code used at e000
       JSR     WaitForNMI			  ; code used at e000
 
-      LDA     #4				  ; code used at e000
+      LDA     #ScreenUpdateBuffer_BANKE_DE7A	  ; code used at e000
       STA     ScreenUpdateIndex			  ; code used at e000
       JMP     WaitForNMI			  ; code used at e000
 
@@ -88070,8 +77985,8 @@ sub_BANKF_E17F:					  ; CODE XREF: sub_BANKF_E288:loc_BANKF_E2B2p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_E198:					  ; CODE XREF: sub_BANKF_E288+57p
-						  ; sub_BANKF_E288+131p
+sub_BANKF_E198:					  ; CODE XREF: DoCharacterSelectMenu+57p
+						  ; DoCharacterSelectMenu+131p
 						  ; sub_BANKF_E9F4+25p
       INY					  ; code used at e000
       TYA					  ; code used at e000
@@ -88139,7 +78054,7 @@ loc_BANKF_E1E5:					  ; CODE XREF: sub_BANKF_E198+49j
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_E1F4:					  ; CODE XREF: sub_BANKF_E228+48p
+sub_BANKF_E1F4:					  ; CODE XREF: DisplayLevelTitleCardAndMore+48p
 						  ; BANKF:E46Dp BANKF:E55Cp ...
       LDA     #$C0 ; '¿'                          ; code used at e000
       STA     StackArea				  ; code used at e000
@@ -88151,7 +78066,7 @@ sub_BANKF_E1F4:					  ; CODE XREF: sub_BANKF_E228+48p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_E1FA:					  ; CODE XREF: BANKF:E428p
+InitializeSomeLevelStuff:			  ; CODE XREF: BANKF:E428p
 						  ; BANKF:E79Ap
       LDA     #0				  ; code used at e000
       STA     CurrentLevelArea			  ; code used at e000
@@ -88168,15 +78083,15 @@ sub_BANKF_E1FA:					  ; CODE XREF: BANKF:E428p
       STA     byte_RAM_6F6			  ; code used at e000
       RTS					  ; code used at e000
 
-; End of function sub_BANKF_E1FA
+; End of function InitializeSomeLevelStuff
 
 ; ---------------------------------------------------------------------------
-byte_BANKF_E220:.BYTE $C9			  ; DATA XREF: sub_BANKF_E288+BAr
+byte_BANKF_E220:.BYTE $C9			  ; DATA XREF: DoCharacterSelectMenu+BAr
 						  ; data used at e000
       .BYTE $D5					  ; data used at e000
       .BYTE $D1					  ; data used at e000
       .BYTE $CD					  ; data used at e000
-byte_BANKF_E224:.BYTE $E9			  ; DATA XREF: sub_BANKF_E288+D4r
+byte_BANKF_E224:.BYTE $E9			  ; DATA XREF: DoCharacterSelectMenu+D4r
 						  ; data used at e000
       .BYTE $F5					  ; data used at e000
       .BYTE $F1					  ; data used at e000
@@ -88185,45 +78100,46 @@ byte_BANKF_E224:.BYTE $E9			  ; DATA XREF: sub_BANKF_E288+D4r
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_E228:					  ; CODE XREF: BANKF:E42Bp
+DisplayLevelTitleCardAndMore:			  ; CODE XREF: BANKF:E42Bp
 						  ; BANKF:loc_BANKF_E438p
       JSR     WaitForNMI_TurnOffPPU		  ; code used at e000
 
       JSR     DisableNMI			  ; code used at e000
 
-      LDA     #$FF				  ; code used at e000
+      LDA     #$FF				  ; Set	the scrolling mirror over to the right side...
+						  ; This Isn't quiiite correct, and causes a bunch of
+						  ; crud to show on the	very left pixel	-- residue
+						  ; from the character select screen
       STA     PPUScrollXMirror			  ; code used at e000
       JSR     ChangeTitleCardCHR		  ; code used at e000
 
-
-MapperChangeBankA_1:				  ; code used at e000
-      LDA     #5
+      LDA     #PRGBank_A_B			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     sub_BANKA_8451			  ; code used at e000
+      JSR     CopyCharacterStatsAndStuff	  ; code used at e000
 
       JSR     EnableNMI				  ; code used at e000
 
       JSR     HideAllSprites			  ; code used at e000
 
-      LDY     #$23 ; '#'                          ; code used at e000
+      LDY     #$23 ; '#'                          ; Copy the title card palettes to RAM
 
 
-loc_BANKF_E245:					  ; CODE XREF: sub_BANKF_E228+24j
+loc_BANKF_E245:					  ; CODE XREF: DisplayLevelTitleCardAndMore+24j
       LDA     TitleCardPalettes,Y		  ; code used at e000
-      STA     unk_RAM_55F,Y			  ; code used at e000
+      STA     PPUBuffer_55F,Y			  ; code used at e000
       DEY					  ; code used at e000
       BPL     loc_BANKF_E245			  ; code used at e000
 
-      LDA     #2				  ; code used at e000
+      LDA     #ScreenUpdateBuffer_RAM_55F	  ; Then tell it to dump that into the PPU
       STA     ScreenUpdateIndex			  ; code used at e000
       JSR     WaitForNMI			  ; code used at e000
 
-      LDA     #$15				  ; code used at e000
-      STA     ScreenUpdateIndex			  ; code used at e000
+      LDA     #ScreenUpdateBuffer_BANKE_DFAF	  ; @TODO I am not sure	what this is doing, exactly
+      STA     ScreenUpdateIndex			  ; Commenting it out doesn't seem to have any effect
       JSR     WaitForNMI			  ; code used at e000
 
-      JSR     sub_BANKA_8327			  ; code used at e000
+      JSR     DrawTitleCardWorldImage		  ; code used at e000
 
       JSR     WaitForNMI_TurnOnPPU		  ; code used at e000
 
@@ -88233,7 +78149,7 @@ loc_BANKF_E245:					  ; CODE XREF: sub_BANKF_E228+24j
       STA     byte_RAM_2			  ; code used at e000
 
 
-loc_BANKF_E269:					  ; CODE XREF: sub_BANKF_E228+46j
+loc_BANKF_E269:					  ; CODE XREF: DisplayLevelTitleCardAndMore+46j
       JSR     WaitForNMI			  ; code used at e000
 
       DEC     byte_RAM_2			  ; code used at e000
@@ -88247,22 +78163,22 @@ loc_BANKF_E269:					  ; CODE XREF: sub_BANKF_E228+46j
 
       JSR     sub_BANKF_FE16			  ; code used at e000
 
-      LDA     #5				  ; code used at e000
+      LDA     #PRGBank_A_B			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     sub_BANKA_8451			  ; code used at e000
+      JSR     CopyCharacterStatsAndStuff	  ; code used at e000
 
       JSR     EnableNMI				  ; code used at e000
 
       RTS					  ; code used at e000
 
-; End of function sub_BANKF_E228
+; End of function DisplayLevelTitleCardAndMore
 
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_E288:					  ; CODE XREF: BANKF:E425p
+DoCharacterSelectMenu:				  ; CODE XREF: BANKF:E425p
 						  ; BANKF:loc_BANKF_E435p
       JSR     WaitForNMI			  ; code used at e000
 
@@ -88272,10 +78188,10 @@ sub_BANKF_E288:					  ; CODE XREF: BANKF:E425p
 
       JSR     LoadCharacterSelectCHRBanks	  ; code used at e000
 
-      LDA     #5				  ; code used at e000
+      LDA     #PRGBank_A_B			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     sub_BANKA_8451			  ; code used at e000
+      JSR     CopyCharacterStatsAndStuff	  ; code used at e000
 
       JSR     sub_BANKF_E166			  ; code used at e000
 
@@ -88283,19 +78199,19 @@ sub_BANKF_E288:					  ; CODE XREF: BANKF:E425p
       CMP     #$A5 ; '•'                          ; code used at e000
       BEQ     loc_BANKF_E2B2			  ; code used at e000
 
-      LDA     #5				  ; code used at e000
+      LDA     #PRGBank_A_B			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       LDA     #$A5 ; '•'                          ; code used at e000
       STA     byte_RAM_636			  ; code used at e000
 
 
-loc_BANKF_E2B2:					  ; CODE XREF: sub_BANKF_E288+1Ej
+loc_BANKF_E2B2:					  ; CODE XREF: DoCharacterSelectMenu+1Ej
       JSR     sub_BANKF_E17F			  ; code used at e000
 
       JSR     DisableNMI			  ; code used at e000
 
-      LDA     #2				  ; code used at e000
+      LDA     #Music1_CharacterSelect		  ; code used at e000
       STA     Music1Queue			  ; code used at e000
       LDA     CurrentCharacter			  ; code used at e000
       STA     byte_RAM_404			  ; code used at e000
@@ -88304,7 +78220,7 @@ loc_BANKF_E2B2:					  ; CODE XREF: sub_BANKF_E288+1Ej
       LDY     #$3F ; '?'                          ; code used at e000
 
 
-loc_BANKF_E2CA:					  ; CODE XREF: sub_BANKF_E288+49j
+loc_BANKF_E2CA:					  ; CODE XREF: DoCharacterSelectMenu+49j
       LDA     PlayerSelectMarioSprites1,Y	  ; code used at e000
       STA     unk_RAM_210,Y			  ; code used at e000
       DEY					  ; code used at e000
@@ -88324,16 +78240,16 @@ loc_BANKF_E2CA:					  ; CODE XREF: sub_BANKF_E288+49j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKF_E2E8:					  ; CODE XREF: sub_BANKF_E288+123j
+loc_BANKF_E2E8:					  ; CODE XREF: DoCharacterSelectMenu+123j
       LDA     Player1JoypadPress		  ; code used at e000
       AND     #ControllerInput_Right|ControllerInput_Left ; code used at e000
-      BNE     loc_BANKF_E2F1			  ; code used at e000
+      BNE     CharacterSelect_ChangeCharacter	  ; code used at e000
 
       JMP     CharacterSelectMenuLoop		  ; code used at e000
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKF_E2F1:					  ; CODE XREF: sub_BANKF_E288+64j
+CharacterSelect_ChangeCharacter:		  ; CODE XREF: DoCharacterSelectMenu+64j
       LDA     Player1JoypadPress		  ; code used at e000
       AND     #ControllerInput_Right		  ; code used at e000
       BEQ     loc_BANKF_E2FE			  ; code used at e000
@@ -88343,7 +78259,7 @@ loc_BANKF_E2F1:					  ; CODE XREF: sub_BANKF_E288+64j
       STA     SoundEffect1Queue
 
 
-loc_BANKF_E2FE:					  ; CODE XREF: sub_BANKF_E288+6Dj
+loc_BANKF_E2FE:					  ; CODE XREF: DoCharacterSelectMenu+6Dj
       LDA     Player1JoypadPress		  ; code used at e000
       AND     #ControllerInput_Left		  ; code used at e000
       BEQ     loc_BANKF_E30B			  ; code used at e000
@@ -88353,16 +78269,16 @@ loc_BANKF_E2FE:					  ; CODE XREF: sub_BANKF_E288+6Dj
       STA     SoundEffect1Queue			  ; code used at e000
 
 
-loc_BANKF_E30B:					  ; CODE XREF: sub_BANKF_E288+7Aj
+loc_BANKF_E30B:					  ; CODE XREF: DoCharacterSelectMenu+7Aj
       LDA     CurrentCharacter			  ; code used at e000
       AND     #3				  ; code used at e000
       STA     CurrentCharacter			  ; code used at e000
 
 
-loc_BANKF_E311:					  ; CODE XREF: sub_BANKF_E288+5Dj
+loc_BANKF_E311:					  ; CODE XREF: DoCharacterSelectMenu+5Dj
       LDY     #0				  ; code used at e000
       LDA     #$21 ; '!'                          ; code used at e000
-      STA     _RAM_PPUDataBuffer		  ; code used at e000
+      STA     PPUBuffer_301			  ; code used at e000
       LDA     #$C9 ; '…'                          ; code used at e000
       STA     byte_RAM_302			  ; code used at e000
       LDA     #$4F ; 'O'                          ; code used at e000
@@ -88406,9 +78322,9 @@ loc_BANKF_E311:					  ; CODE XREF: sub_BANKF_E288+5Dj
       LDY     #0				  ; code used at e000
 
 
-loc_BANKF_E37D:					  ; CODE XREF: sub_BANKF_E288+FDj
+loc_BANKF_E37D:					  ; CODE XREF: DoCharacterSelectMenu+FDj
       LDA     PlayerSelectSpritePalettesDark,Y	  ; code used at e000
-      STA     _RAM_PPUDataBuffer,Y		  ; code used at e000
+      STA     PPUBuffer_301,Y			  ; code used at e000
       INY					  ; code used at e000
       DEX					  ; code used at e000
       BPL     loc_BANKF_E37D			  ; code used at e000
@@ -88416,23 +78332,24 @@ loc_BANKF_E37D:					  ; CODE XREF: sub_BANKF_E288+FDj
       LDA     #6				  ; code used at e000
       STA     byte_RAM_A			  ; code used at e000
       LDX     CurrentCharacter			  ; code used at e000
-      LDA     unk_BANKF_E0D1,X			  ; code used at e000
+      LDA     unk_BANKF_E0D1,X			  ; @TODO What is this *doing*?
+						  ; It's reading in the middle of some palette data
       TAX					  ; code used at e000
 
 
-loc_BANKF_E391:					  ; CODE XREF: sub_BANKF_E288+113j
-      LDA     unk_BANKF_E0D5,X			  ; code used at e000
-      STA     _RAM_PPUDataBuffer,Y		  ; code used at e000
+loc_BANKF_E391:					  ; CODE XREF: DoCharacterSelectMenu+113j
+      LDA     byte_BANKF_E0D5,X			  ; code used at e000
+      STA     PPUBuffer_301,Y			  ; code used at e000
       INY					  ; code used at e000
       INX					  ; code used at e000
       DEC     byte_RAM_A			  ; code used at e000
       BPL     loc_BANKF_E391			  ; code used at e000
 
       LDA     #0				  ; code used at e000
-      STA     _RAM_PPUDataBuffer,Y		  ; code used at e000
+      STA     PPUBuffer_301,Y			  ; code used at e000
 
 
-CharacterSelectMenuLoop:			  ; CODE XREF: sub_BANKF_E288+66j
+CharacterSelectMenuLoop:			  ; CODE XREF: DoCharacterSelectMenu+66j
       JSR     WaitForNMI_TurnOnPPU		  ; code used at e000
 
       LDA     Player1JoypadPress		  ; code used at e000
@@ -88443,7 +78360,7 @@ CharacterSelectMenuLoop:			  ; CODE XREF: sub_BANKF_E288+66j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKF_E3AE:					  ; CODE XREF: sub_BANKF_E288+121j
+loc_BANKF_E3AE:					  ; CODE XREF: DoCharacterSelectMenu+121j
       LDA     #SoundEffect1_CherryGet		  ; code used at e000
       STA     SoundEffect1Queue			  ; code used at e000
       LDX     CurrentWorld			  ; code used at e000
@@ -88461,7 +78378,7 @@ loc_BANKF_E3AE:					  ; CODE XREF: sub_BANKF_E288+121j
       TAY					  ; code used at e000
 
 
-loc_BANKF_E3CC:					  ; CODE XREF: sub_BANKF_E288+14Cj
+loc_BANKF_E3CC:					  ; CODE XREF: DoCharacterSelectMenu+14Cj
       LDA     PlayerSelectMarioSprites2,Y	  ; code used at e000
       STA     unk_RAM_210,Y			  ; code used at e000
       INY					  ; code used at e000
@@ -88469,7 +78386,7 @@ loc_BANKF_E3CC:					  ; CODE XREF: sub_BANKF_E288+14Cj
       BPL     loc_BANKF_E3CC			  ; code used at e000
 
 
-loc_BANKF_E3D6:					  ; CODE XREF: sub_BANKF_E288+153j
+loc_BANKF_E3D6:					  ; CODE XREF: DoCharacterSelectMenu+153j
       JSR     WaitForNMI			  ; code used at e000
 
       DEC     byte_RAM_10			  ; code used at e000
@@ -88478,7 +78395,7 @@ loc_BANKF_E3D6:					  ; CODE XREF: sub_BANKF_E288+153j
       LDY     #$3F ; '?'                          ; code used at e000
 
 
-loc_BANKF_E3DF:					  ; CODE XREF: sub_BANKF_E288+15Ej
+loc_BANKF_E3DF:					  ; CODE XREF: DoCharacterSelectMenu+15Ej
       LDA     PlayerSelectMarioSprites1,Y	  ; code used at e000
       STA     unk_RAM_210,Y			  ; code used at e000
       DEY					  ; code used at e000
@@ -88488,7 +78405,7 @@ loc_BANKF_E3DF:					  ; CODE XREF: sub_BANKF_E288+15Ej
       STA     byte_RAM_10			  ; code used at e000
 
 
-loc_BANKF_E3EC:					  ; CODE XREF: sub_BANKF_E288+169j
+loc_BANKF_E3EC:					  ; CODE XREF: DoCharacterSelectMenu+169j
       JSR     WaitForNMI			  ; code used at e000
 
       DEC     byte_RAM_10			  ; code used at e000
@@ -88498,30 +78415,33 @@ loc_BANKF_E3EC:					  ; CODE XREF: sub_BANKF_E288+169j
       STA     MusicQueue2			  ; code used at e000
       RTS					  ; code used at e000
 
-; End of function sub_BANKF_E288
+; End of function DoCharacterSelectMenu
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKF_E3F9:					  ; CODE XREF: BANKF:loc_BANKF_E757j
+StartGame:					  ; CODE XREF: BANKF:GameOver_Retryj
 						  ; RESET+20j
-      LDA     #0				  ; code used at e000
+      LDA     #0				  ; This starts	the game once RESET has	done its thing.
+						  ; We also come here after choosing "RETRY"
+						  ; from the game over menu
       STA     PPUMASK				  ; code used at e000
       JSR     DisableNMI			  ; code used at e000
 
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       STA     byte_RAM_6F3			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     sub_BANK0_9A3D			  ; code used at e000
+      JSR     TitleScreen			  ; The	whole title screen is a	subroutine, lol
 
-      INC     byte_RAM_6F3			  ; code used at e000
-      LDA     #2				  ; code used at e000
-      STA     Continues				  ; code used at e000
+      INC     byte_RAM_6F3
+      LDA     #2				  ; Give the player 2 continues	once they start
+      STA     Continues
 
 
-loc_BANKF_E414:					  ; CODE XREF: BANKF:E754j
-      LDA     #3				  ; code used at e000
-      STA     ExtraLives			  ; code used at e000
+ContinueGame:					  ; CODE XREF: BANKF:E754j
+      LDA     #3				  ; We return here after picking "CONTINUE"
+						  ; from the game over menu
+      STA     ExtraLives			  ; You	get 3 extra lives to start. Generous as	always
 
 
 StartCharacterSelectMenu:			  ; CODE XREF: BANKF:E81Bj
@@ -88529,24 +78449,26 @@ StartCharacterSelectMenu:			  ; CODE XREF: BANKF:E81Bj
       LDY     WorldStartingLevel,X		  ; code used at e000
       STY     CurrentLevel			  ; code used at e000
       STY     byte_RAM_4E7			  ; code used at e000
-      JSR     sub_BANKF_E288			  ; code used at e000
+      JSR     DoCharacterSelectMenu		  ; Does Character Select menu stuff
 
-      JSR     sub_BANKF_E1FA			  ; code used at e000
+      JSR     InitializeSomeLevelStuff		  ; Initializes	some level stuff
 
-      JSR     sub_BANKF_E228			  ; code used at e000
+      JSR     DisplayLevelTitleCardAndMore	  ; Displays title card	for the	stage,
+						  ; and	seems to load the proper graphics
+						  ; and	reset some variables
 
-      LDA     #$FF				  ; code used at e000
-      STA     byte_RAM_545			  ; code used at e000
-      BNE     loc_BANKF_E43B			  ; code used at e000
+      LDA     #$FF
+      STA     byte_RAM_545
+      BNE     loc_BANKF_E43B			  ; Branch always?
 
 
 loc_BANKF_E435:					  ; CODE XREF: BANKF:E79Dj
 						  ; BANKF:E861j
-      JSR     sub_BANKF_E288			  ; code used at e000
+      JSR     DoCharacterSelectMenu		  ; code used at e000
 
 
 loc_BANKF_E438:					  ; CODE XREF: BANKF:E69Cj
-      JSR     sub_BANKF_E228			  ; code used at e000
+      JSR     DisplayLevelTitleCardAndMore	  ; code used at e000
 
 
 loc_BANKF_E43B:					  ; CODE XREF: BANKF:E433j
@@ -88567,12 +78489,12 @@ loc_BANKF_E44A:					  ; CODE XREF: BANKF:E444j
       STA     PPUCTRL				  ; code used at e000
       LDA     #$80 ; 'Ä'                          ; code used at e000
       STA     StackArea				  ; code used at e000
-      LDA     #4				  ; code used at e000
+      LDA     #PRGBank_8_9			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     GetLevelPointers			  ; code used at e000
 
-      LDA     #3				  ; code used at e000
+      LDA     #PRGBank_6_7			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK6_9567			  ; code used at e000
@@ -88585,7 +78507,7 @@ loc_BANKF_E44A:					  ; CODE XREF: BANKF:E444j
 
       JSR     sub_BANKF_E1F4			  ; code used at e000
 
-      LDA     #$B0 ; '∞'                          ; code used at e000
+      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled ; code used	at e000
       STA     PPUCtrlMirror			  ; code used at e000
       LDA     IsHorizontalLevel			  ; code used at e000
       BEQ     loc_BANKF_E4CC			  ; code used at e000
@@ -88594,7 +78516,7 @@ loc_BANKF_E44A:					  ; CODE XREF: BANKF:E444j
 loc_BANKF_E478:					  ; CODE XREF: BANKF:E488j
       JSR     WaitForNMI			  ; code used at e000
 
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK0_8500			  ; code used at e000
@@ -88664,7 +78586,7 @@ loc_BANKF_E4CC:					  ; CODE XREF: BANKF:E476j
 						  ; BANKF:E4DCj
       JSR     WaitForNMI			  ; code used at e000
 
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK0_8000			  ; code used at e000
@@ -88688,12 +78610,12 @@ loc_BANKF_E4E5:					  ; CODE XREF: BANKF:E505j
       BNE     loc_BANKF_E4F4			  ; code used at e000
 
       LDA     Player1JoypadPress		  ; code used at e000
-      AND     #$10				  ; code used at e000
+      AND     #ControllerInput_Start		  ; code used at e000
       BNE     loc_BANKF_E515			  ; code used at e000
 
 
 loc_BANKF_E4F4:					  ; CODE XREF: BANKF:E4ECj
-      JSR     HideAllSprites			  ; code used at e000
+      JSR     HideAllSprites			  ; Pause stuff
 
       JSR     sub_BANKF_F17E			  ; code used at e000
 
@@ -88759,8 +78681,8 @@ loc_BANKF_E533:					  ; CODE XREF: BANKF:E528j
       LDA     byte_RAM_7			  ; code used at e000
       AND     #1				  ; code used at e000
       CLC					  ; code used at e000
-      ADC     #$D				  ; code used at e000
-      STA     ScreenUpdateIndex			  ; code used at e000
+      ADC     #$D				  ; Will use either $D or $E from the update index pointers
+      STA     ScreenUpdateIndex			  ; @TODO I assume this	is what	blinks "PAUSE"
       JMP     loc_BANKF_E51D			  ; code used at e000
 
 ; ---------------------------------------------------------------------------
@@ -88770,7 +78692,7 @@ loc_BANKF_E54B:					  ; CODE XREF: BANKF:E537j
 
       JSR     sub_BANKF_FE16			  ; code used at e000
 
-      LDA     #3				  ; code used at e000
+      LDA     #PRGBank_6_7			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK6_93A4			  ; code used at e000
@@ -88781,7 +78703,7 @@ loc_BANKF_E54B:					  ; CODE XREF: BANKF:E537j
 
       JSR     HideAllSprites			  ; code used at e000
 
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK0_81D6			  ; code used at e000
@@ -88833,7 +78755,7 @@ loc_BANKF_E58F:					  ; CODE XREF: BANKF:E598j
 loc_BANKF_E5A0:					  ; CODE XREF: BANKF:E4A8j
       JSR     ClearNametables			  ; code used at e000
 
-      LDA     #3				  ; code used at e000
+      LDA     #PRGBank_6_7			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       LDA     #0				  ; code used at e000
@@ -88842,19 +78764,19 @@ loc_BANKF_E5A0:					  ; CODE XREF: BANKF:E4A8j
       CMP     #2				  ; code used at e000
       BEQ     loc_BANKF_E5D4			  ; code used at e000
 
-      LDA     #4
+      LDA     #PRGBank_8_9
       JSR     ChangeMappedPRGBank
 
       JSR     GetJarPointers
 
       JSR     GetEnemyPointers
 
-      LDA     #3
+      LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK6_94AD
 
-      LDA     #4
+      LDA     #Music1_Inside
       STA     Music1Queue
       LDA     #1
       STA     byte_RAM_545
@@ -88872,7 +78794,7 @@ loc_BANKF_E5D4:					  ; CODE XREF: BANKF:E5B2j
 
 
 loc_BANKF_E5E1:					  ; CODE XREF: BANKF:E5D1j
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK0_870C			  ; code used at e000
@@ -88892,7 +78814,7 @@ loc_BANKF_E5EC:					  ; CODE XREF: BANKF:E5F5j
       CMP     #2				  ; code used at e000
       BEQ     loc_BANKF_E606			  ; code used at e000
 
-      LDA     #3
+      LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
       JSR     sub_BANK6_93A4
@@ -88929,7 +78851,7 @@ loc_BANKF_E61A:					  ; CODE XREF: BANKF:E615j
 loc_BANKF_E627:					  ; CODE XREF: BANKF:E622j
       LDA     CurrentLevelAreaCopy		  ; code used at e000
       STA     CurrentLevelArea			  ; code used at e000
-      LDA     #3				  ; code used at e000
+      LDA     #PRGBank_6_7			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK6_93A4			  ; code used at e000
@@ -88948,7 +78870,7 @@ loc_BANKF_E627:					  ; CODE XREF: BANKF:E622j
 
 
 loc_BANKF_E64C:					  ; CODE XREF: BANKF:E644j
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK0_874C			  ; code used at e000
@@ -89035,7 +78957,7 @@ DoGameOverStuff:				  ; CODE XREF: BANKF:E6BCj
 
       JSR     WaitForNMI_TurnOnPPU
 
-      LDA     #5
+      LDA     #ScreenUpdateBuffer_Text_Game_Over
       STA     ScreenUpdateIndex
       LDA     #$C0 ; '¿'
       STA     byte_RAM_6
@@ -89052,7 +78974,7 @@ loc_BANKF_E6E6:					  ; CODE XREF: BANKF:E6EBj
 
 loc_BANKF_E6EF:					  ; CODE XREF: BANKF:E6F6j
       LDA     Text_Continue,Y
-      STA     unk_RAM_67B,Y
+      STA     PPUBuffer_67B,Y
       DEY
       BPL     loc_BANKF_E6EF
 
@@ -89070,7 +78992,7 @@ loc_BANKF_E6EF:					  ; CODE XREF: BANKF:E6F6j
 
       LDA     #1
       STA     byte_RAM_8
-      LDA     #7
+      LDA     #ScreenUpdateBuffer_Text_Retry
 
 
 loc_BANKF_E717:					  ; CODE XREF: BANKF:E70Fj
@@ -89104,7 +79026,7 @@ loc_BANKF_E733:					  ; CODE XREF: BANKF:E72Dj
       STA     byte_RAM_71AF
       LDA     #$F6 ; 'ˆ'
       STA     byte_RAM_71AB,Y
-      LDA     #$13
+      LDA     #ScreenUpdateBuffer_RAM_71a8
       STA     ScreenUpdateIndex
 
 
@@ -89114,15 +79036,15 @@ loc_BANKF_E747:					  ; CODE XREF: BANKF:E720j
       BEQ     loc_BANKF_E719
 
       LDA     byte_RAM_8
-      BNE     loc_BANKF_E757
+      BNE     GameOver_Retry
 
       STA     SlotMachineCoins
-      JMP     loc_BANKF_E414
+      JMP     ContinueGame
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKF_E757:					  ; CODE XREF: BANKF:E74Fj
-      JMP     loc_BANKF_E3F9
+GameOver_Retry:					  ; CODE XREF: BANKF:E74Fj
+      JMP     StartGame
 
 ; ---------------------------------------------------------------------------
 
@@ -89155,13 +79077,13 @@ loc_BANKF_E75A:					  ; CODE XREF: BANKF:E6BEj
 
       JSR     ChangeTitleCardCHR
 
-      LDA     #$12
+      LDA     #ScreenUpdateBuffer_RAM_7194
       STA     ScreenUpdateIndex
       LDA     #Music2_SlotWarpFanfare
       STA     MusicQueue2
       JSR     sub_BANKF_E94A
 
-      JSR     sub_BANKF_E1FA
+      JSR     InitializeSomeLevelStuff
 
       JMP     loc_BANKF_E435
 
@@ -89190,12 +79112,12 @@ EndOfLevelSlotMachine:				  ; CODE XREF: BANKF:E7AFj
 
       JSR     CopyUnusedCoinSpriteToSpriteArea	  ; code used at e000
 
-      LDA     #5				  ; code used at e000
+      LDA     #PRGBank_A_B			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     CopyBonusChanceLayoutToRAM	  ; code used at e000
 
-      LDA     #$17				  ; code used at e000
+      LDA     #ScreenUpdateBuffer_RAM_BonusChanceLayout	; code used at e000
       STA     ScreenUpdateIndex			  ; code used at e000
       LDA     #$40 ; '@'                          ; code used at e000
       STA     StackArea				  ; code used at e000
@@ -89315,7 +79237,7 @@ DoSlotMachineSpinnyShit:			  ; CODE XREF: BANKF:E89Dj
 
       JSR     sub_BANKF_E916
 
-      LDA     unk_BANKF_E9DF,Y
+      LDA     byte_BANKF_E9DF,Y
       STA     ScreenUpdateIndex
       INC     byte_RAM_6
       LDA     ObjectXLo				  ; Reel 1 still active?
@@ -89323,7 +79245,7 @@ DoSlotMachineSpinnyShit:			  ; CODE XREF: BANKF:E89Dj
       ORA     ObjectXLo+2			  ; Reel 3 still active?
       BNE     DoSlotMachineSpinnyShit		  ; If any are still active, go	back to	waiting
 
-      LDA     #$10
+      LDA     #ScreenUpdateBuffer_RAM_6df
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
@@ -89391,7 +79313,7 @@ loc_BANKF_E8ED:					  ; CODE XREF: BANKF:E8FAj
 
       JSR     sub_BANKF_E916
 
-      LDA     unk_BANKF_E9E3,Y
+      LDA     byte_BANKF_E9E3,Y
       STA     ScreenUpdateIndex
       DEC     byte_RAM_6
       BNE     loc_BANKF_E8ED
@@ -89410,7 +79332,7 @@ SlotMachineLoseFanfare:				  ; CODE XREF: BANKF:E8D7j
 
 
 loc_BANKF_E90C:					  ; CODE XREF: BANKF:E8FCj
-      LDA     #$11
+      LDA     #ScreenUpdateBuffer_RAM_6e4
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
@@ -89508,7 +79430,7 @@ EndingSceneRoutine:				  ; CODE XREF: BANKF:E7B1j
 						  ; It looks like they missed this one,	though.
       ASL     A					  ; code used at e000
       STA     byte_RAM_607			  ; code used at e000
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK1_A43B			  ; code used at e000
@@ -89523,7 +79445,7 @@ EndingSceneRoutine:				  ; CODE XREF: BANKF:E7B1j
 
       JSR     WaitForNMI			  ; code used at e000
 
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       INC     byte_RAM_6F3			  ; code used at e000
@@ -89539,7 +79461,7 @@ EndingSceneRoutine:				  ; CODE XREF: BANKF:E7B1j
 
       JSR     WaitForNMI			  ; code used at e000
 
-      LDA     #6				  ; code used at e000
+      LDA     #PRGBank_C_D			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       INC     byte_RAM_6F3			  ; code used at e000
@@ -89549,9 +79471,9 @@ EndingSceneRoutine:				  ; CODE XREF: BANKF:E7B1j
 ; =============== S U B	R O U T	I N E =======================================
 
 
-DisableNMI:					  ; CODE XREF: sub_BANKF_E228+3p
-						  ; sub_BANKF_E228+4Ep
-						  ; sub_BANKF_E288+8p ...
+DisableNMI:					  ; CODE XREF: DisplayLevelTitleCardAndMore+3p
+						  ; DisplayLevelTitleCardAndMore+4Ep
+						  ; DoCharacterSelectMenu+8p ...
       LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIDisabled ; code used at e000
       STA     PPUCTRL				  ; code used at e000
       STA     PPUCtrlMirror			  ; code used at e000
@@ -89560,28 +79482,31 @@ DisableNMI:					  ; CODE XREF: sub_BANKF_E228+3p
 ; End of function DisableNMI
 
 ; ---------------------------------------------------------------------------
-Text_Game_Over:.BYTE $21, $CB, $A, $E0,	$DA, $E6, $DE, $FB, $FB, $E8, $EF, $DE;	0
+PPUBuffer_Text_Game_Over:.BYTE $21, $CB, $A, $E0, $DA, $E6, $DE, $FB, $FB, $E8,	$EF, $DE; 0
 						  ; DATA XREF: BANKE:DC0Ao
       .BYTE $EB, 0				  ; $C ; "GAME	OVER"
 Text_Continue:.BYTE $21, $75, 1, 0			  ; 0
 						  ; DATA XREF: BANKF:loc_BANKF_E6EFr
 						  ; (Placeholder for continue count)
+						  ; This is loaded manually and	drawn so the count
+						  ; can	be patched in
 						  ; * CONTINUE
       .BYTE $21, $6A, $A, $F6, $FB, $DC, $E8, $E7, $ED,	$E2, $E7, $EE; 0
       .BYTE $DE					  ; $C
-Text_Retry:.BYTE $21, $AA, 7, $F6, $FB,	$EB, $DE, $ED, $EB, $F2; 0 ; DATA XREF:	BANKE:DC0Eo
+PPUBuffer_Text_Retry:.BYTE $21,	$AA, 7,	$F6, $FB, $EB, $DE, $ED, $EB, $F2; 0
+						  ; DATA XREF: BANKE:DC0Eo
 						  ; * RETRY
       .BYTE $21, $CB, $A, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB; 0 ; Blank, erases "GAME	OVER"
       .BYTE $FB, 0				  ; $C
       .BYTE   9
       .BYTE  $F
-unk_BANKF_E9DF:.BYTE  $B			  ; DATA XREF: BANKF:E890r
-      .BYTE $10
-byte_BANKF_E9E1:.BYTE $A			  ; DATA XREF: BANKF:E92Fr
+byte_BANKF_E9DF:.BYTE ScreenUpdateBuffer_RAM_6ab  ; DATA XREF: BANKF:E890r
+      .BYTE ScreenUpdateBuffer_RAM_6df
+byte_BANKF_E9E1:.BYTE ScreenUpdateBuffer_RAM_693  ; DATA XREF: BANKF:E92Fr
 						  ; data used at e000
-      .BYTE $F					  ; data used at e000
-unk_BANKF_E9E3:.BYTE  $C			  ; DATA XREF: BANKF:E8F3r
-      .BYTE  $F
+      .BYTE ScreenUpdateBuffer_RAM_6da		  ; data used at e000
+byte_BANKF_E9E3:.BYTE ScreenUpdateBuffer_RAM_6bd  ; DATA XREF: BANKF:E8F3r
+      .BYTE ScreenUpdateBuffer_RAM_6da
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -89605,7 +79530,7 @@ sub_BANKF_E9F4:					  ; CODE XREF: BANKF:E699p
 
       JSR     ChangeTitleCardCHR		  ; code used at e000
 
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK0_81A2			  ; code used at e000
@@ -89615,7 +79540,7 @@ sub_BANKF_E9F4:					  ; CODE XREF: BANKF:E699p
 
 loc_BANKF_EA04:					  ; CODE XREF: sub_BANKF_E9F4+17j
       LDA     TitleCardPalettes,Y		  ; code used at e000
-      STA     unk_RAM_55F,Y			  ; code used at e000
+      STA     PPUBuffer_55F,Y			  ; code used at e000
       DEY					  ; code used at e000
       BPL     loc_BANKF_EA04			  ; code used at e000
 
@@ -89643,7 +79568,7 @@ loc_BANKF_EA04:					  ; CODE XREF: sub_BANKF_E9F4+17j
 
 EnableNMI:					  ; CODE XREF: sub_BANKF_E166p
 						  ; sub_BANKF_E17Fp
-						  ; sub_BANKF_E228+15p	...
+						  ; DisplayLevelTitleCardAndMore+15p ...
       LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled ; code used	at e000
       STA     PPUCtrlMirror			  ; code used at e000
       STA     PPUCTRL				  ; code used at e000
@@ -89755,7 +79680,7 @@ locret_BANKF_EAA2:				  ; CODE XREF: sub_BANKF_EA8E+10j
 
 WaitForNMI_TurnOffPPU:				  ; CODE XREF: sub_BANKF_E166+3p
 						  ; sub_BANKF_E17F+3p
-						  ; sub_BANKF_E228p ...
+						  ; DisplayLevelTitleCardAndMorep ...
       LDA     #0				  ; code used at e000
       BEQ     _WaitForNMI_StuffPPUMask		  ; Branch always
 
@@ -89765,9 +79690,9 @@ WaitForNMI_TurnOffPPU:				  ; CODE XREF: sub_BANKF_E166+3p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-WaitForNMI_TurnOnPPU:				  ; CODE XREF: sub_BANKF_E228+37p
-						  ; sub_BANKF_E288+EEp
-						  ; sub_BANKF_E288:CharacterSelectMenuLoopp ...
+WaitForNMI_TurnOnPPU:				  ; CODE XREF: DisplayLevelTitleCardAndMore+37p
+						  ; DoCharacterSelectMenu+EEp
+						  ; DoCharacterSelectMenu:CharacterSelectMenuLoopp ...
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites ; code	used at	e000
 
 
@@ -89786,9 +79711,9 @@ WaitForNMI:					  ; CODE XREF: sub_BANKF_E166+Dp
       LDA     ScreenUpdateIndex			  ; code used at e000
       ASL     A					  ; code used at e000
       TAX					  ; code used at e000
-      LDA     off_BANKE_DC00,X			  ; code used at e000
+      LDA     ScreenUpdateBufferPointers,X	  ; code used at e000
       STA     RAM_PPUDataBufferPointer		  ; code used at e000
-      LDA     off_BANKE_DC00+1,X		  ; code used at e000
+      LDA     ScreenUpdateBufferPointers+1,X	  ; code used at e000
       STA     RAM_PPUDataBufferPointer+1	  ; code used at e000
       LDA     #0				  ; code used at e000
       STA     NMIWaitFlag			  ; Start waiting for NMI to finish
@@ -89997,7 +79922,7 @@ loc_BANKF_EB86:					  ; CODE XREF: NMI+1Fj
 
 
       ;	public NMI
-NMI:						  ; DATA XREF: BANKF:FFFAo
+NMI:						  ; DATA XREF: BANKF:NESVectorTableso
       PHP					  ; code used at e000
       PHA					  ; code used at e000
       TXA					  ; code used at e000
@@ -90123,7 +80048,7 @@ loc_BANKF_EC4B:					  ; CODE XREF: BANKF:EB83j
       BNE     loc_BANKF_EC55			  ; code used at e000
 
       STA     byte_RAM_300			  ; code used at e000
-      STA     _RAM_PPUDataBuffer		  ; code used at e000
+      STA     PPUBuffer_301			  ; code used at e000
 
 
 loc_BANKF_EC55:					  ; CODE XREF: NMI+BFj
@@ -90186,7 +80111,7 @@ DoSoundProcessing:				  ; CODE XREF: BANKF:EB51p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-ClearNametables:				  ; CODE XREF: sub_BANK0_9A3D+22P
+ClearNametables:				  ; CODE XREF: TitleScreen+22P
 						  ; sub_BANK1_A43B:loc_BANK1_A43EP
 						  ; sub_BANK1_AA79+8P ...
       LDA     #0				  ; code used at e000
@@ -90207,9 +80132,9 @@ ClearNametables:				  ; CODE XREF: sub_BANK0_9A3D+22P
 ; =============== S U B	R O U T	I N E =======================================
 
 
-HideAllSprites:					  ; CODE XREF: sub_BANK0_9A3D+1F5J
+HideAllSprites:					  ; CODE XREF: TitleScreen+1F5J
 						  ; sub_BANK1_A43B+5BP
-						  ; sub_BANKF_E228+18p	...
+						  ; DisplayLevelTitleCardAndMore+18p ...
       LDY     #0				  ; code used at e000
       LDA     #$F8 ; '¯'                          ; code used at e000
 
@@ -90641,7 +80566,7 @@ byte_BANKF_F055:.BYTE 7				  ; DATA XREF: sub_BANK0_924F:loc_BANK0_927Dr
       .BYTE $A					  ; data used at e000
       .BYTE   8
       .BYTE 8					  ; data used at e000
-byte_BANKF_F099:.BYTE 2				  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84ABr
+byte_BANKF_F099:.BYTE 2				  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_84ABr
 						  ; data used at e000
       .BYTE 2					  ; data used at e000
       .BYTE 3					  ; data used at e000
@@ -90989,7 +80914,7 @@ loc_BANKF_F1E3:					  ; CODE XREF: sub_BANKF_F1E1+9j
 
 RestorePlayerToFullHealth:			  ; CODE XREF: BANK2:90A4P
 						  ; BANK3:B809J
-						  ; sub_BANKF_E228+3Ap
+						  ; DisplayLevelTitleCardAndMore+3Ap
       LDY     PlayerMaxHealth			  ; Get	player's current max HP
       LDA     PlayerHealthValueByHeartCount,Y	  ; Get	the health value for this amount of hearts
       STA     PlayerHealth
@@ -91921,7 +81846,7 @@ unk_BANKF_F5C0:.BYTE   8			  ; DATA XREF: sub_BANK1_B9E3+43r
       .BYTE 2					  ; data used at e000
       .BYTE 2					  ; data used at e000
       .BYTE   2
-byte_BANKF_F607:.BYTE 0				  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84C1r
+byte_BANKF_F607:.BYTE 0				  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_84C1r
 						  ; data used at e000
       .BYTE 0					  ; data used at e000
       .BYTE 0					  ; data used at e000
@@ -92538,7 +82463,7 @@ TileQuads4:.BYTE $40,$42,$41,$43		       ; 0 ; DATA XREF:	BANKF:F7ECo
       .BYTE $8E,$8F,$8F,$8E			  ; $58
       .BYTE $72,$73,$73,$72			  ; $5C
       .BYTE $44,$45,$45,$44			  ; $60
-byte_BANKF_FA7D:.BYTE $22			  ; DATA XREF: sub_BANKA_8451:loc_BANKA_84CCr
+byte_BANKF_FA7D:.BYTE $22			  ; DATA XREF: CopyCharacterStatsAndStuff:loc_BANKA_84CCr
 						  ; data used at e000
       .BYTE $D0					  ; data used at e000
       .BYTE 4					  ; data used at e000
@@ -92798,7 +82723,7 @@ byte_BANKF_FE0E:.BYTE 0				  ; DATA XREF: sub_BANKF_FE16+24r
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_FE16:					  ; CODE XREF: sub_BANKF_E228+51p
+sub_BANKF_FE16:					  ; CODE XREF: DisplayLevelTitleCardAndMore+51p
 						  ; BANKF:E54Ep
       LDY     #8				  ; code used at e000
       STY     SpriteCHR2			  ; code used at e000
@@ -92828,7 +82753,7 @@ loc_BANKF_FE33:					  ; CODE XREF: BANK0:8C06J
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_FE41:					  ; CODE XREF: sub_BANK0_9A3D+1FP
+sub_BANKF_FE41:					  ; CODE XREF: TitleScreen+1FP
       LDA     #$28 ; '('                          ; code used at e000
       STA     BackgroundCHR1			  ; code used at e000
       LDA     #$2A ; '*'                          ; code used at e000
@@ -92854,7 +82779,7 @@ LoadCelebrationSceneBackgroundCHR:		  ; CODE XREF: BANKF:E970p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-LoadCharacterSelectCHRBanks:			  ; CODE XREF: sub_BANKF_E288+Bp
+LoadCharacterSelectCHRBanks:			  ; CODE XREF: DoCharacterSelectMenu+Bp
       LDA     #$30 ; '0'                          ; code used at e000
       STA     SpriteCHR1			  ; code used at e000
       LDA     #$2C ; ','                          ; code used at e000
@@ -92873,7 +82798,7 @@ TitleCardCHRBanks:.BYTE	$40, $42, $40, $44, $40, $42, $46     ;	0
 ; =============== S U B	R O U T	I N E =======================================
 
 
-ChangeTitleCardCHR:				  ; CODE XREF: sub_BANKF_E228+Ap
+ChangeTitleCardCHR:				  ; CODE XREF: DisplayLevelTitleCardAndMore+Ap
 						  ; BANKF:E6CCp BANKF:E78Bp ...
       LDY     CurrentWorld			  ; code used at e000
       LDA     TitleCardCHRBanks,Y		  ; code used at e000
@@ -92933,29 +82858,29 @@ _unused_BANKF_FE97:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
 
       ;	public RESET
 RESET:						  ; DATA XREF: BANKF:FFFCo
-      SEI					  ; code used at e000
-      CLD					  ; code used at e000
+      SEI					  ; This code is called	when the NES is	reset.
+      CLD
       LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable0000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled ; code used	at e000
-      STA     PPUCTRL				  ; code used at e000
-      LDX     #$FF				  ; code used at e000
-      TXS					  ; code used at e000
+      STA     PPUCTRL
+      LDX     #$FF				  ; Reset stack	pointer
+      TXS
 
 
 loc_BANKF_FF5A:					  ; CODE XREF: RESET+Fj
-      LDA     PPUSTATUS				  ; code used at e000
-      AND     #$80 ; 'Ä'                          ; code used at e000
-      BEQ     loc_BANKF_FF5A			  ; code used at e000
+      LDA     PPUSTATUS				  ; Wait for VBlank
+      AND     #PPUStatus_VBlankHit
+      BEQ     loc_BANKF_FF5A
 
 
 loc_BANKF_FF61:					  ; CODE XREF: RESET+14j
-      LDA     PPUSTATUS				  ; code used at e000
-      BPL     loc_BANKF_FF61			  ; code used at e000
+      LDA     PPUSTATUS				  ; Wait for a second VBlank
+      BPL     loc_BANKF_FF61
 
       LDA     #0				  ; code used at e000
       STA     $A000				  ; code used at e000
       LDA     #$80 ; 'Ä'                          ; code used at e000
       STA     $A001				  ; code used at e000
-      JMP     loc_BANKF_E3F9			  ; code used at e000
+      JMP     StartGame				  ; code used at e000
 
 ; End of function RESET
 
@@ -92985,10 +82910,13 @@ loc_BANKF_FF75:					  ; CODE XREF: sub_BANKF_FF73+Fj
 ; =============== S U B	R O U T	I N E =======================================
 
 
-ChangeMappedPRGBank:				  ; CODE XREF: sub_BANKF_E228+Fp
-						  ; sub_BANKF_E228+56p
-						  ; sub_BANKF_E288+10p	...
-      STA     MMC3PRGBankTemp			  ; See	below comment
+ChangeMappedPRGBank:				  ; CODE XREF: DisplayLevelTitleCardAndMore+Fp
+						  ; DisplayLevelTitleCardAndMore+56p
+						  ; DoCharacterSelectMenu+10p ...
+      STA     MMC3PRGBankTemp			  ; See	below comment.
+						  ; Calling this one will save the changed bank
+						  ; to RAM, so if something uses the below version
+						  ; the	original bank set with this can	be restored.
 
 ; End of function ChangeMappedPRGBank
 
@@ -93002,18 +82930,23 @@ ChangeMappedPRGBankWithoutSaving:		  ; CODE XREF: DoSoundProcessing+2p
 						  ; LDA	0 JSR Change...	= Bank 0/1
 						  ; LDA	1 JSR Change...	= Bank 2/3
 						  ; etc.
-      PHA					  ; code used at e000
+						  ;
+						  ; This version changes the bank numbers without
+						  ; saving the change to RAM, so the previous bank
+						  ; can	be recalled later (mostly for temporary	switches,
+						  ; like music handling	and such)
+      PHA
       LDA     #$86 ; 'Ü'                          ; Prepare to change first bank
-      STA     $8000				  ; code used at e000
-      PLA					  ; code used at e000
+      STA     $8000
+      PLA
       STA     $8001				  ; Change first bank
-      ORA     #1				  ; code used at e000
-      PHA					  ; code used at e000
+      ORA     #1				  ; Use	the bank right after this one next
+      PHA
       LDA     #$87 ; 'á'                          ; Prepare to change second bank
-      STA     $8000				  ; code used at e000
-      PLA					  ; code used at e000
+      STA     $8000
+      PLA
       STA     $8001				  ; Change second bank
-      RTS					  ; code used at e000
+      RTS
 
 ; End of function ChangeMappedPRGBankWithoutSaving
 
@@ -93037,15 +82970,28 @@ _unused_BANKF_FFA4:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF	  ; $40
 ; [00000047 BYTES: END OF AREA UNUSED-BANKF:FFA4. PRESS	KEYPAD "-" TO COLLAPSE]
-UnusedTextZELDA:.BYTE $5A
-      .BYTE $45	; E
-      .BYTE $4C	; L
-      .BYTE $44	; D
-      .BYTE $41	; A
-      .BYTE $DF, $E6, 0, 0, $38, 4, 1, 4, 1, $BE  ; 0
-      .WORD NMI					  ; data used at e000
-      .WORD RESET				  ; data used at e000
-      .WORD $FFF0
+UnusedTextZELDA:.BYTE 'ZELDA'                     ; Not used; leftover part of FamicomBox cart title?
+IRQ:  .BYTE $DF	; ﬂ				  ; DATA XREF: BANKF:FFFEo
+						  ; Note that this is NOT CODE.
+						  ; If the NES actually	hits a BRK,
+						  ; the	game will probably just	explode.
+						  ; If you wanted, you could write
+						  ; some sort of crash handler though.
+      .BYTE $E6	; Ê
+      .BYTE   0
+      .BYTE   0
+      .BYTE $38	; 8
+      .BYTE   4
+      .BYTE   1
+      .BYTE   4
+      .BYTE   1
+      .BYTE $BE	; æ
+NESVectorTables:.WORD NMI			  ; Vectors for	the NES	CPU. These should ALWAYS be at $FFFA!
+						  ; Add	a .pad or .base	before here if you change code above.
+						  ; NMI	= VBlank, RESET	= ...well, reset.
+						  ; IRQ	is not used, but you could if you wanted.
+      .WORD RESET
+      .WORD IRQ
 ; end of 'BANKF'
 
 

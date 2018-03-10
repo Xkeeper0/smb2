@@ -1431,7 +1431,7 @@ loc_BANK2_8712:
       STA     byte_RAM_307,X
       PLA
       ORA     byte_RAM_0
-      STA     _RAM_PPUDataBuffer,X
+      STA     PPUBuffer_301,X
       ADC     #0
       STA     byte_RAM_306,X
 
@@ -1535,7 +1535,7 @@ loc_BANK2_87AC:
       DEY
 
 loc_BANK2_87CA:
-      STY     byte_RAM_721B
+      STY     PPUBuffer_721B
       STY     byte_RAM_7222
       INY
       STY     byte_RAM_7229
@@ -1555,8 +1555,8 @@ loc_BANK2_87D9:
 
 loc_BANK2_87E7:
       LDX     byte_BANKF_FA9E,Y
-      ORA     byte_RAM_721B,X
-      STA     byte_RAM_721B,X
+      ORA     PPUBuffer_721B,X
+      STA     PPUBuffer_721B,X
       LDX     byte_RAM_12
       DEY
       BPL     loc_BANK2_87D9

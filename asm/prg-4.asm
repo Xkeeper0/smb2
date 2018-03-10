@@ -320,7 +320,7 @@ locret_BANK4_818E:
 ; ---------------------------------------------------------------------------
 SoundEffectPointers:
 	  .BYTE $4E
-
+						  ; @TODO Figure out format for	this
       .BYTE 8
       .BYTE $6D
       .BYTE $27
@@ -340,8 +340,7 @@ SoundEffects:
       .BYTE $E
       .BYTE $C
       .BYTE $7E
-byte_BANK4_81A2:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $7E
       .BYTE $86
       .BYTE $10
@@ -393,8 +392,7 @@ byte_BANK4_81A2:
       .BYTE $7E
       .BYTE $7E
       .BYTE $7E
-byte_BANK4_81D6:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $7E
       .BYTE $7E
       .BYTE $7E
@@ -434,8 +432,7 @@ byte_BANK4_81D6:
       .BYTE 0
       .BYTE $81
       .BYTE $56
-byte_BANK4_81FE:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $64
       .BYTE $7E
       .BYTE $68
@@ -498,8 +495,7 @@ byte_BANK4_81FE:
       .BYTE $16
       .BYTE $1C
       .BYTE $18
-byte_BANK4_823D:
-	  .BYTE $1A
+      .BYTE $1A
       .BYTE $1E
       .BYTE $18
       .BYTE $16
@@ -632,7 +628,7 @@ loc_BANK4_82C6:
 
 loc_BANK4_82CB:
       LDY     byte_RAM_611
-      LDA     ProcessMusicQueue2,Y
+      LDA     ProcessMusicQueue2,Y		  ; @TODO ??? Uhhhhhhhhhhhhhhhhh????????
       ORA     #$C
       STA     NOISE_LO
       LDA     byte_RAM_611
@@ -695,13 +691,13 @@ loc_BANK4_831C:
       LSR     A
       BCC     loc_BANK4_831C
 
-      LDA     unk_BANK4_8351,Y
+      LDA     DMCFreqTable,Y
       STA     DMC_FREQ
 
 loc_BANK4_8326:
       LDA     locret_BANK4_8341,Y
       STA     DMC_START
-      LDA     unk_BANK4_8349,Y
+      LDA     DMCLengthTable,Y
       STA     DMC_LEN
       LDA     #$A0
       STA     byte_RAM_60A
@@ -716,15 +712,17 @@ locret_BANK4_8341:
 ; End of function ProcessDPCMQueue
 
 ; ---------------------------------------------------------------------------
-byte_BANK4_8342:
-	  .BYTE $4F
+DMCStartTable:
+	  .BYTE $4F				  ; @TODO
+						  ; It seems that the references to these tables are off by one	byte, maybe intentionally?
+						  ; Need to fix	this in	the final disassembly
       .BYTE $60
       .BYTE $4B
       .BYTE 0
       .BYTE $31
       .BYTE $60
       .BYTE $E
-unk_BANK4_8349:
+DMCLengthTable:
 	  .BYTE $1D
       .BYTE $43
       .BYTE $14
@@ -733,7 +731,7 @@ unk_BANK4_8349:
       .BYTE $48
       .BYTE $28
       .BYTE $3C
-unk_BANK4_8351:
+DMCFreqTable:
 	  .BYTE $50
       .BYTE $E
       .BYTE $E
@@ -1141,11 +1139,11 @@ loc_BANK4_8596:
 loc_BANK4_85B2:
       LSR     A
       TAY
-      LDA     byte_BANK4_861D,Y
+      LDA     NoiseVolTable,Y
       STA     NOISE_VOL
-      LDA     byte_BANK4_8621,Y
+      LDA     NoiseLoTable,Y
       STA     NOISE_LO
-      LDA     byte_BANK4_8625,Y
+      LDA     NoiseHiTable,Y
       STA     NOISE_HI
       LDA     byte_RAM_61F
       STA     byte_RAM_61E
@@ -1215,26 +1213,12 @@ loc_BANK4_8614:
 ; End of function ProcessMusicQueue2
 
 ; ---------------------------------------------------------------------------
-byte_BANK4_861D:
-	  .BYTE $10
-
-      .BYTE $1E
-      .BYTE $1F
-      .BYTE $16
-byte_BANK4_8621:
-	  .BYTE 0
-
-      .BYTE 3
-      .BYTE $A
-      .BYTE 2
-byte_BANK4_8625:
-	  .BYTE 0
-
-      .BYTE $18
-      .BYTE $18
-      .BYTE $58
-
-; =============== S U B	R O U T	I N E =======================================
+NoiseVolTable:
+	  .BYTE $10,$1E,$1F,$16			  
+NoiseLoTable:
+	  .BYTE 0,3,$A,2				 
+NoiseHiTable:
+	  .BYTE 0,$18,$18,$58			 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK4_8629:
       AND     #$F
@@ -1535,8 +1519,8 @@ NoteFrequencyData:
       .WORD $EFC				  ; A# / Bb
       .WORD $E24				  ; B
 ; [000007A1 BYTES: BEGIN OF AREA UNUSED-BANK4:875F. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_875F:
-	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_unused_BANK4_875F:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -1673,7 +1657,8 @@ NoteLengthTable:
       .BYTE $18, $15, $16, $20,	$30, $40, $60, $80, 8, 9, $B, $C, $11, $19, $15, $16; $90
       .BYTE $22, $33, $44, $60,	$88, $1A, 9, 9,	$C, $C,	$12, $1B, $18, $18, $24, $36; $A0
       .BYTE $48, $6C, $90			  ; $B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF
+_unused_BANK4_8FB3:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -1694,7 +1679,7 @@ unk_BANK4_9004:
 	  .BYTE $89
 byte_BANK4_9005:
 	  .BYTE $84
-
+						  ; @TODO Figure out the format	of this	stuff
       .BYTE $99
       .BYTE $2A
       .BYTE $30
@@ -1725,8 +1710,7 @@ byte_BANK4_9005:
       .BYTE $CD
       .BYTE $D9
       .BYTE $DF
-byte_BANK4_9024:
-	  .BYTE $EB
+      .BYTE $EB
       .BYTE $E5
       .BYTE $F7
       .BYTE $F1
@@ -1741,8 +1725,7 @@ MusicPartHeaders:
       .BYTE $A0
       .BYTE 0
       .BYTE $5C
-byte_BANK4_9032:
-	  .BYTE $99
+      .BYTE $99
       .BYTE $8E
       .BYTE $48
       .BYTE $B0
@@ -1778,15 +1761,13 @@ byte_BANK4_9032:
       .BYTE $C9
       .BYTE $28
       .BYTE $F9
-byte_BANK4_9056:
-	  .BYTE $9C
+      .BYTE $9C
       .BYTE $DD
       .BYTE $73
       .BYTE $6C
       .BYTE $28
       .BYTE $3F
-byte_BANK4_905C:
-	  .BYTE $9D
+      .BYTE $9D
       .BYTE $B2
       .BYTE $73
       .BYTE $26
@@ -1886,12 +1867,10 @@ byte_BANK4_905C:
       .BYTE $97
       .BYTE $8D
       .BYTE $47
-byte_BANK4_90C0:
-	  .BYTE $BA
+      .BYTE $BA
       .BYTE $1B
       .BYTE $78
-byte_BANK4_90C3:
-	  .BYTE $98
+      .BYTE $98
       .BYTE $24
       .BYTE $12
       .BYTE $29
@@ -1907,8 +1886,7 @@ byte_BANK4_90C3:
       .BYTE $24
       .BYTE $12
       .BYTE $30	
-unk_BANK4_90D3:
-	  .BYTE $28
+      .BYTE $28
       .BYTE $E0
       .BYTE $95
       .BYTE $22
@@ -1970,8 +1948,7 @@ MusicPointersFirstPart:
 MusicPointersEndPart:
 	  .BYTE $16
 
-byte_BANK4_910D:
-	  .BYTE $F
+      .BYTE $F
       .BYTE $29
       .BYTE $17
       .BYTE $18
@@ -2010,8 +1987,7 @@ MusicData:
       .BYTE $8A
       .BYTE $56
       .BYTE $82
-byte_BANK4_9131:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $7E
       .BYTE $52
       .BYTE $52
@@ -2027,8 +2003,7 @@ byte_BANK4_9131:
       .BYTE $3E
       .BYTE $84
       .BYTE $7E
-byte_BANK4_9141:
-	  .BYTE $42
+      .BYTE $42
       .BYTE $3E
       .BYTE $38
       .BYTE $82
@@ -2139,8 +2114,7 @@ byte_BANK4_9141:
       .BYTE $4C
       .BYTE $84
       .BYTE $7E
-byte_BANK4_91B0:
-	  .BYTE $4E
+      .BYTE $4E
       .BYTE $4C
       .BYTE $44
       .BYTE $82
@@ -2260,8 +2234,7 @@ byte_BANK4_91B0:
       .BYTE $46
       .BYTE $50
       .BYTE 0
-byte_BANK4_9228:
-	  .BYTE $88
+      .BYTE $88
       .BYTE $10
       .BYTE $82
       .BYTE $10
@@ -2281,8 +2254,7 @@ byte_BANK4_9228:
       .BYTE $7E
       .BYTE $40
       .BYTE $40
-byte_BANK4_923C:
-	  .BYTE $48
+      .BYTE $48
       .BYTE $8A
       .BYTE $48
       .BYTE $88
@@ -2341,8 +2313,7 @@ byte_BANK4_923C:
       .BYTE $88
       .BYTE $26
       .BYTE $82
-byte_BANK4_9277:
-	  .BYTE $26
+      .BYTE $26
       .BYTE $26
       .BYTE $83
       .BYTE $26
@@ -2357,8 +2328,7 @@ byte_BANK4_9277:
       .BYTE $7E
       .BYTE $46
       .BYTE $48
-byte_BANK4_9286:
-	  .BYTE $4C
+      .BYTE $4C
       .BYTE $8A
       .BYTE $48
       .BYTE $84
@@ -2420,13 +2390,11 @@ byte_BANK4_9286:
       .BYTE $24
       .BYTE $88
       .BYTE $22
-byte_BANK4_92C4:
-	  .BYTE $82
+      .BYTE $82
       .BYTE $22
       .BYTE $22
       .BYTE $83
-byte_BANK4_92C8:
-	  .BYTE $22
+      .BYTE $22
       .BYTE $84
       .BYTE $22
       .BYTE $22
@@ -2498,8 +2466,7 @@ byte_BANK4_92C8:
       .BYTE $88
       .BYTE $3A
       .BYTE $82
-byte_BANK4_9310:
-	  .BYTE $3A
+      .BYTE $3A
       .BYTE $3A
       .BYTE $83
       .BYTE $3A
@@ -2647,8 +2614,7 @@ byte_BANK4_9310:
       .BYTE $78
       .BYTE $76
       .BYTE $7E
-byte_BANK4_93A4:
-	  .BYTE $72
+      .BYTE $72
       .BYTE $6E
       .BYTE $6A
       .BYTE $68
@@ -2671,8 +2637,7 @@ byte_BANK4_93A4:
       .BYTE $7E
       .BYTE $66
       .BYTE $6A
-byte_BANK4_93BB:
-	  .BYTE $6E
+      .BYTE $6E
       .BYTE $FC
       .BYTE $7E
       .BYTE $F4
@@ -2708,8 +2673,7 @@ byte_BANK4_93BB:
       .BYTE $64
       .BYTE $60
       .BYTE $64
-byte_BANK4_93DF:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $5A
       .BYTE $5E
       .BYTE $60
@@ -2757,8 +2721,7 @@ byte_BANK4_93DF:
       .BYTE $56
       .BYTE $46
       .BYTE $56
-byte_BANK4_940F:
-	  .BYTE $4C
+      .BYTE $4C
       .BYTE $56
       .BYTE $44
       .BYTE $52
@@ -2772,8 +2735,7 @@ byte_BANK4_940F:
       .BYTE $50
       .BYTE $48
       .BYTE $50
-byte_BANK4_941D:
-	  .BYTE $3E
+      .BYTE $3E
       .BYTE $4C
       .BYTE $46
       .BYTE $4C
@@ -2792,8 +2754,7 @@ byte_BANK4_941D:
       .BYTE $40
       .BYTE $4E
       .BYTE $48
-byte_BANK4_9430:
-	  .BYTE $4E
+      .BYTE $4E
       .BYTE $3E
       .BYTE $50
       .BYTE $48
@@ -2807,8 +2768,7 @@ byte_BANK4_9430:
       .BYTE $48
       .BYTE $4E
       .BYTE $40
-byte_BANK4_943E:
-	  .BYTE $4E
+      .BYTE $4E
       .BYTE $48
       .BYTE $4E
       .BYTE $3E
@@ -2855,12 +2815,10 @@ byte_BANK4_943E:
       .BYTE $48
       .BYTE $48
       .BYTE $48
-byte_BANK4_946D:
-	  .BYTE $94
+      .BYTE $94
       .BYTE $7E
       .BYTE $48
-byte_BANK4_9470:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $99
       .BYTE $48
       .BYTE $98
@@ -2921,8 +2879,7 @@ byte_BANK4_9470:
       .BYTE $30
       .BYTE $99
       .BYTE $3E
-byte_BANK4_94AD:
-	  .BYTE $48
+      .BYTE $48
       .BYTE $98
       .BYTE $7E
       .BYTE $3E
@@ -3108,8 +3065,7 @@ byte_BANK4_94AD:
       .BYTE $56
       .BYTE $50
       .BYTE $94
-unk_BANK4_9567:
-	  .BYTE $48
+      .BYTE $48
       .BYTE $4C
       .BYTE $99
       .BYTE $46
@@ -3182,8 +3138,7 @@ unk_BANK4_9567:
       .BYTE $40
       .BYTE $42
       .BYTE $48
-unk_BANK4_95B0:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $42
       .BYTE $48
       .BYTE $4C
@@ -3213,8 +3168,7 @@ unk_BANK4_95B0:
       .BYTE $48
       .BYTE $99
       .BYTE $3A
-unk_BANK4_95CE:
-	  .BYTE $94
+      .BYTE $94
       .BYTE $48
       .BYTE $98
       .BYTE $48
@@ -3243,8 +3197,7 @@ unk_BANK4_95CE:
       .BYTE $50
       .BYTE $7E
       .BYTE $60
-unk_BANK4_95EB:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $60
       .BYTE $9A
       .BYTE $60
@@ -3280,8 +3233,7 @@ unk_BANK4_95EB:
       .BYTE $98
       .BYTE $6E
       .BYTE $3E
-unk_BANK4_960F:
-	  .BYTE $98
+      .BYTE $98
       .BYTE $7E
       .BYTE $99
       .BYTE $4E
@@ -3297,8 +3249,7 @@ unk_BANK4_960F:
       .BYTE $40
       .BYTE $98
       .BYTE $7E
-unk_BANK4_961F:
-	  .BYTE $94
+      .BYTE $94
       .BYTE $3A
       .BYTE $98
       .BYTE $7E
@@ -3409,8 +3360,7 @@ unk_BANK4_961F:
       .BYTE $2E
       .BYTE $E8
       .BYTE $3E
-byte_BANK4_968E:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $7E
       .BYTE $E8
       .BYTE $4C
@@ -3549,8 +3499,7 @@ byte_BANK4_968E:
       .BYTE $7E
       .BYTE $3E
       .BYTE $EB
-byte_BANK4_9719:
-	  .BYTE $38
+      .BYTE $38
       .BYTE $E4
       .BYTE $7E
       .BYTE $7E
@@ -3935,8 +3884,7 @@ byte_BANK4_9719:
       .BYTE $18
       .BYTE $7E
       .BYTE 0
-byte_BANK4_989A:
-	  .BYTE $2E
+      .BYTE $2E
       .BYTE $38
       .BYTE $EB
       .BYTE $7E
@@ -3948,8 +3896,7 @@ byte_BANK4_989A:
       .BYTE 1
       .BYTE $10
       .BYTE 1
-byte_BANK4_98A6:
-	  .BYTE 1
+      .BYTE 1
       .BYTE $10
       .BYTE 1
       .BYTE $10
@@ -3988,8 +3935,7 @@ byte_BANK4_98A6:
       .BYTE $7E
       .BYTE $92
       .BYTE $48
-byte_BANK4_98CD:
-	  .BYTE $96
+      .BYTE $96
       .BYTE $48
       .BYTE $92
       .BYTE $48
@@ -3998,8 +3944,7 @@ byte_BANK4_98CD:
       .BYTE $92
       .BYTE $48
       .BYTE $96
-byte_BANK4_98D6:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $92
       .BYTE $48
       .BYTE $96
@@ -4020,8 +3965,7 @@ byte_BANK4_98D6:
       .BYTE $7E
       .BYTE $92
       .BYTE $3E
-byte_BANK4_98EB:
-	  .BYTE $96
+      .BYTE $96
       .BYTE $7E
       .BYTE $92
       .BYTE $3E
@@ -4095,8 +4039,7 @@ byte_BANK4_98EB:
       .BYTE $92
       .BYTE $48
       .BYTE $96
-byte_BANK4_9935:
-	  .BYTE $7E
+      .BYTE $7E
       .BYTE $92
       .BYTE $48
       .BYTE $96
@@ -4165,8 +4108,7 @@ byte_BANK4_9935:
       .BYTE $7E
       .BYTE $A2
       .BYTE $42
-byte_BANK4_997A:
-	  .BYTE $A6
+      .BYTE $A6
       .BYTE $7E
       .BYTE $A2
       .BYTE $3C
@@ -4361,8 +4303,7 @@ byte_BANK4_997A:
       .BYTE $48
       .BYTE $7E
       .BYTE $C2
-byte_BANK4_9A3D:
-	  .BYTE $48
+      .BYTE $48
       .BYTE $C6
       .BYTE $46
       .BYTE $7E
@@ -4584,8 +4525,7 @@ byte_BANK4_9A3D:
       .BYTE $5A
       .BYTE $92
       .BYTE $50
-byte_BANK4_9B1B:
-	  .BYTE $96
+      .BYTE $96
       .BYTE $56
       .BYTE $92
       .BYTE $54
@@ -4725,8 +4665,7 @@ byte_BANK4_9B1B:
       .BYTE $56
       .BYTE $92
       .BYTE $52
-byte_BANK4_9BA7:
-	  .BYTE $96
+      .BYTE $96
       .BYTE $46
       .BYTE $92
       .BYTE $42
@@ -4735,12 +4674,10 @@ byte_BANK4_9BA7:
       .BYTE $92
       .BYTE $46
       .BYTE $96
-byte_BANK4_9BB0:
-	  .BYTE $42
+      .BYTE $42
       .BYTE $92
       .BYTE $3E
-byte_BANK4_9BB3:
-	  .BYTE 0
+      .BYTE 0
       .BYTE $C8
       .BYTE $7E
       .BYTE $46
@@ -4900,8 +4837,7 @@ byte_BANK4_9BB3:
       .BYTE $88
       .BYTE $5A
       .BYTE $82
-byte_BANK4_9C53:
-	  .BYTE $60
+      .BYTE $60
       .BYTE $5E
       .BYTE $7E
       .BYTE $5A
@@ -4974,8 +4910,7 @@ byte_BANK4_9C53:
       .BYTE $50
       .BYTE $7E
       .BYTE $8A
-byte_BANK4_9C9C:
-	  .BYTE $4A
+      .BYTE $4A
       .BYTE $82
       .BYTE $50
       .BYTE $5A
@@ -5061,8 +4996,7 @@ byte_BANK4_9C9C:
       .BYTE 1
       .BYTE 2
       .BYTE $82
-byte_BANK4_9CF2:
-	  .BYTE 2
+      .BYTE 2
       .BYTE 2
       .BYTE 2
       .BYTE 2
@@ -5391,8 +5325,7 @@ byte_BANK4_9CF2:
       .BYTE $2A
       .BYTE $2E
       .BYTE $30
-byte_BANK4_9E3B:
-	  .BYTE $26
+      .BYTE $26
       .BYTE $2A
       .BYTE $2E
       .BYTE $30
@@ -5408,14 +5341,12 @@ byte_BANK4_9E3B:
       .BYTE $82
       .BYTE 2
       .BYTE 1
-byte_BANK4_9E4B:
-	  .BYTE 2
+      .BYTE 2
       .BYTE 0
       .BYTE $E2
       .BYTE $7E
       .BYTE $7E
-byte_BANK4_9E50:
-	  .BYTE $52
+      .BYTE $52
       .BYTE $4E
       .BYTE $7E
       .BYTE $50
@@ -5504,8 +5435,7 @@ byte_BANK4_9E50:
       .BYTE $38
       .BYTE $7E
       .BYTE $E8
-byte_BANK4_9EA9:
-	  .BYTE $46
+      .BYTE $46
       .BYTE $E2
       .BYTE $7E
       .BYTE $E8

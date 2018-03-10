@@ -24,475 +24,76 @@ World7TitleCard:
       .BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB; $80
       .BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB; $90
 BonusChanceLayout:
-	  .BYTE	$20
-
-      .BYTE   0
-      .BYTE $60
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $20
-      .BYTE $60
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $40
-      .BYTE $60
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $60
-      .BYTE $60
-      .BYTE $FD
-      .BYTE $23
-      .BYTE $40
-      .BYTE $60
-      .BYTE $FD
-      .BYTE $23
-      .BYTE $60
-      .BYTE $60
-      .BYTE $FD
-      .BYTE $23
-      .BYTE $80
-      .BYTE $60
-      .BYTE $FD
-      .BYTE $23
-      .BYTE $A0
-      .BYTE $60
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $80
-      .BYTE $D6
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $81
-      .BYTE $D6
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $82
-      .BYTE $D6
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $9D
-      .BYTE $D6
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $9E
-      .BYTE $D6
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $9F
-      .BYTE $D6
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $68
-      .BYTE $10
-      .BYTE $48
-      .BYTE $4A
-      .BYTE $4C
-      .BYTE $4E
-      .BYTE $50
-      .BYTE $51
-      .BYTE $52
-      .BYTE $53
-      .BYTE $54
-      .BYTE $55
-      .BYTE $56
-      .BYTE $57
-      .BYTE $58
-      .BYTE $5A
-      .BYTE $5C
-      .BYTE $5E
-      .BYTE $20
-      .BYTE $83
-      .BYTE   9
-      .BYTE $FD
-      .BYTE $FD
-      .BYTE $22
-      .BYTE $23
-      .BYTE $24
-      .BYTE $49
-      .BYTE $4B
-      .BYTE $4D
-      .BYTE $4F
-      .BYTE $20
-      .BYTE $94
-      .BYTE   9
-      .BYTE $59
-      .BYTE $5B
-      .BYTE $5D
-      .BYTE $5F
-      .BYTE $2E
-      .BYTE $2F
-      .BYTE $30	
-      .BYTE $FD
-unk_BANKA_81A2:
-	  .BYTE $FD
-      .BYTE $20
-      .BYTE $A3
-      .BYTE   4
-      .BYTE $FD
-      .BYTE $25
-      .BYTE $26
-      .BYTE $27
-      .BYTE $20
-      .BYTE $B9
-      .BYTE   4
-      .BYTE $31	; 1
-      .BYTE $32	; 2
-      .BYTE $33	; 3
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $C3
-      .BYTE   4
-      .BYTE $FD
-      .BYTE $28
-      .BYTE $29
-      .BYTE $2A
-      .BYTE $20
-      .BYTE $D9
-      .BYTE   4
-      .BYTE $34	; 4
-      .BYTE $35	; 5
-      .BYTE $36	; 6
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $E3
-      .BYTE   3
-      .BYTE $2B
-      .BYTE $2C
-      .BYTE $2D
-      .BYTE $20
-      .BYTE $FA
-      .BYTE   3
-      .BYTE $37	; 7
-      .BYTE $38	; 8
-      .BYTE $39	; 9
-      .BYTE $21
-      .BYTE   3
-      .BYTE   2
-      .BYTE $3A
-      .BYTE $3B
-      .BYTE $21
-      .BYTE $1B
-      .BYTE   2
-      .BYTE $40
-      .BYTE $41
-      .BYTE $21
-unk_BANKA_81D6:
-	  .BYTE $23
-      .BYTE $D0
-      .BYTE $3C
-      .BYTE $21
-      .BYTE $3C
-      .BYTE $D0
-      .BYTE $42
-      .BYTE $22
-      .BYTE   2
-      .BYTE   2
-      .BYTE $3E
-      .BYTE $3F
-      .BYTE $22
-      .BYTE $1C
-      .BYTE   2
-      .BYTE $61
-      .BYTE $62
-      .BYTE $22
-      .BYTE $22
-      .BYTE   2
-      .BYTE $43
-      .BYTE $44
-      .BYTE $22
-      .BYTE $3C
-      .BYTE   2
-      .BYTE $63
-      .BYTE $64
-      .BYTE $22
-      .BYTE $43
-      .BYTE   1
-      .BYTE $45
-      .BYTE $22
-      .BYTE $5C
-      .BYTE   1
-      .BYTE $65
-      .BYTE $22
-      .BYTE $C4
-      .BYTE   2
-      .BYTE $A6
-      .BYTE $A8
-unk_BANKA_81FE:
-	  .BYTE $22
-      .BYTE $E4
-      .BYTE   2
-      .BYTE $A7
-      .BYTE $A9
-      .BYTE $22
-      .BYTE $FA
-      .BYTE   4
-      .BYTE $80
-      .BYTE $82
-      .BYTE $88
-      .BYTE $8A
-      .BYTE $23
-      .BYTE   4
-      .BYTE   2
-      .BYTE $90
-      .BYTE $92
-      .BYTE $23
-      .BYTE $14
-      .BYTE   2
-      .BYTE $9E
-      .BYTE $A0
-      .BYTE $23
-      .BYTE $1A
-      .BYTE   4
-      .BYTE $81
-      .BYTE $83
-      .BYTE $89
-      .BYTE $8B
-      .BYTE $23
-      .BYTE $23
-      .BYTE   3
-      .BYTE $46
-      .BYTE $91
-      .BYTE $93
-      .BYTE $23
-      .BYTE $2A
-      .BYTE   2
-      .BYTE $A2
-      .BYTE $A4
-      .BYTE $23
-      .BYTE $2E
-      .BYTE $10
-      .BYTE $67
-      .BYTE $6C
-      .BYTE $6E
-      .BYTE $70
-      .BYTE $72
-      .BYTE $69
-      .BYTE $9F
-      .BYTE $A1
-      .BYTE $75
-      .BYTE $98
-      .BYTE $9A
-      .BYTE $FB
-      .BYTE $84
-      .BYTE $86
-      .BYTE $8C
-      .BYTE $8E
-      .BYTE $23
-      .BYTE $43
-      .BYTE $1B
-      .BYTE $47
-unk_BANKA_823D:
-	  .BYTE $94
-      .BYTE $96
-      .BYTE $74
-BonusChanceLayout2:
-	  .BYTE $74
-      .BYTE $74
-      .BYTE $74
-      .BYTE $A3
-      .BYTE $A5
-      .BYTE $74
-      .BYTE $66
-      .BYTE $68
-      .BYTE $6D
-      .BYTE $6F
-      .BYTE $71
-      .BYTE $73
-      .BYTE $6A
-      .BYTE $6B
-      .BYTE $74
-      .BYTE $74
-      .BYTE $99
-      .BYTE $9B
-      .BYTE $74
-      .BYTE $85
-      .BYTE $87
-      .BYTE $8D
-      .BYTE $8F
-      .BYTE $23
-      .BYTE $64
-      .BYTE   5
-      .BYTE $95
-      .BYTE $97
-      .BYTE $FD
-      .BYTE $AA
-      .BYTE $AB
-      .BYTE $23
-      .BYTE $77
-      .BYTE   5
-      .BYTE $9C
-      .BYTE $9D
-      .BYTE $AA
-      .BYTE $AB
-      .BYTE $AB
-      .BYTE $23
-      .BYTE $89
-      .BYTE   2
-      .BYTE $AA
-      .BYTE $AB
-      .BYTE $20
-      .BYTE $C9
-      .BYTE  $E
-      .BYTE $78
-      .BYTE $AC
-      .BYTE $B0
-      .BYTE $B4
-      .BYTE $B7
-      .BYTE $BA
-      .BYTE $FB
-      .BYTE $BC
-      .BYTE $BE
-      .BYTE $C1
-      .BYTE $C4
-      .BYTE $C7
-      .BYTE $CB
-      .BYTE $7C
-      .BYTE $20
-      .BYTE $E8
-      .BYTE $10
-      .BYTE $1C
-      .BYTE $79
-      .BYTE $AD
-      .BYTE $B1
-      .BYTE $B5
-      .BYTE $B8
-      .BYTE $BB
-      .BYTE $FB
-      .BYTE $BD
-      .BYTE $BF
-      .BYTE $C2
-      .BYTE $C5
-      .BYTE $C8
-      .BYTE $CC
-      .BYTE $7D
-      .BYTE $1E
-      .BYTE $21
-      .BYTE   8
-      .BYTE $10
-      .BYTE $1D
-      .BYTE $7A
-      .BYTE $AE
-      .BYTE $B2
-      .BYTE $B6
-      .BYTE $B9
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $C0
-      .BYTE $C3
-      .BYTE $C6
-      .BYTE $C9
-      .BYTE $CD
-      .BYTE $7E
-      .BYTE $1F
-      .BYTE $21
-      .BYTE $29
-      .BYTE   3
-      .BYTE $7B
-      .BYTE $AF
-      .BYTE $B3
-      .BYTE $21
-      .BYTE $34	; 4
-      .BYTE   3
-      .BYTE $CA
-      .BYTE $CE
-      .BYTE $7F
-      .BYTE $21
-      .BYTE $6A
-      .BYTE  $C
-      .BYTE $14
-      .BYTE $10
-      .BYTE $10
-      .BYTE $16
-      .BYTE $14
-      .BYTE $10
-      .BYTE $10
-      .BYTE $16
-      .BYTE $14
-      .BYTE $10
-      .BYTE $10
-      .BYTE $16
-      .BYTE $21
-      .BYTE $8A
-      .BYTE  $C
-      .BYTE $11
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $12
-      .BYTE $11
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $12
-      .BYTE $11
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $12
-      .BYTE $21
-      .BYTE $AA
-      .BYTE  $C
-      .BYTE $11
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $12
-      .BYTE $11
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $12
-      .BYTE $11
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $12
-      .BYTE $21
-      .BYTE $CA
-      .BYTE  $C
-      .BYTE $15
-      .BYTE $13
-      .BYTE $13
-      .BYTE $17
-      .BYTE $15
-      .BYTE $13
-      .BYTE $13
-      .BYTE $17
-      .BYTE $15
-      .BYTE $13
-      .BYTE $13
-      .BYTE $17
-      .BYTE $22
-      .BYTE  $D
-      .BYTE   2
-      .BYTE $18
-      .BYTE $1A
-      .BYTE $22
-      .BYTE $2D
-      .BYTE   2
-      .BYTE $19
-      .BYTE $1B
-      .BYTE $23
-      .BYTE $D2
-      .BYTE   4
-      .BYTE $80
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $20
-      .BYTE $23
-      .BYTE $DA
-      .BYTE   4
-      .BYTE $88
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $22
-      .BYTE $23
-      .BYTE $E4
-      .BYTE   1
-      .BYTE  $A
-      .BYTE $23
-      .BYTE $EA
-      .BYTE   5
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $20
+	  .BYTE	$20,0,$60,$FD			      
+      .BYTE $20,$20,$60,$FD			  
+      .BYTE $20,$40,$60,$FD			  
+      .BYTE $20,$60,$60,$FD			  
+      .BYTE $23,$40,$60,$FD			  
+      .BYTE $23,$60,$60,$FD			  
+      .BYTE $23,$80,$60,$FD			  
+      .BYTE $23,$A0,$60,$FD			  
+      .BYTE $20,$80,$D6,$FD			  
+      .BYTE $20,$81,$D6,$FD			  
+      .BYTE $20,$82,$D6,$FD			  
+      .BYTE $20,$9D,$D6,$FD			  
+      .BYTE $20,$9E,$D6,$FD			  
+      .BYTE $20,$9F,$D6,$FD			  
+      .BYTE $20,$68,$10,$48,$4A,$4C,$4E,$50,$51,$52,$53,$54,$55,$56,$57
+      .BYTE $58,$5A,$5C,$5E			  ; $F
+      .BYTE $20,$83,9,$FD,$FD,$22,$23,$24,$49,$4B,$4D,$4F
+      .BYTE $20,$94,9,$59,$5B,$5D,$5F,$2E,$2F,$30,$FD,$FD
+      .BYTE $20,$A3,4,$FD,$25,$26,$27		  
+      .BYTE $20,$B9,4,$31,$32,$33,$FD		  
+      .BYTE $20,$C3,4,$FD,$28,$29,$2A		  
+      .BYTE $20,$D9,4,$34,$35,$36,$FD		  
+      .BYTE $20,$E3,3,$2B,$2C,$2D		  
+      .BYTE $20,$FA,3,$37,$38,$39		  
+      .BYTE $21,3,2,$3A,$3B			  
+      .BYTE $21,$1B,2,$40,$41			  
+      .BYTE $21,$23,$D0,$3C			  
+      .BYTE $21,$3C,$D0,$42			  
+      .BYTE $22,2,2,$3E,$3F			  
+      .BYTE $22,$1C,2,$61,$62			  
+      .BYTE $22,$22,2,$43,$44			  
+      .BYTE $22,$3C,2,$63,$64			  
+      .BYTE $22,$43,1,$45			  
+      .BYTE $22,$5C,1,$65			  
+      .BYTE $22,$C4,2,$A6,$A8			  
+      .BYTE $22,$E4,2,$A7,$A9			  
+      .BYTE $22,$FA,4,$80,$82,$88,$8A		  
+      .BYTE $23,4,2,$90,$92			  
+      .BYTE $23,$14,2,$9E,$A0			  
+      .BYTE $23,$1A,4,$81,$83,$89,$8B		  
+      .BYTE $23,$23,3,$46,$91,$93		  
+      .BYTE $23,$2A,2,$A2,$A4			  
+      .BYTE $23,$2E,$10,$67,$6C,$6E,$70,$72,$69,$9F,$A1,$75,$98,$9A,$FB
+      .BYTE $84,$86,$8C,$8E			  ; $F
+BonusChanceLayout_:
+	  .BYTE $23,$43,$1B,$47,$94,$96,$74,$74,$74,$74,$A3,$A5,$74,$66,$68
+      .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F; $F ; This is still part of the	original, but used
+						  ; to copy data $100 bytes in in this disassembly
+						  ; @TODO Fix later
+      .BYTE $23,$64,5,$95,$97,$FD,$AA,$AB	  
+      .BYTE $23,$77,5,$9C,$9D,$AA,$AB,$AB	  
+      .BYTE $23,$89,2,$AA,$AB			  
+      .BYTE $20,$C9,$E,$78,$AC,$B0,$B4,$B7,$BA,$FB,$BC,$BE,$C1,$C4,$C7
+      .BYTE $CB,$7C				  ; $F
+      .BYTE $20,$E8,$10,$1C,$79,$AD,$B1,$B5,$B8,$BB,$FB,$BD,$BF,$C2,$C5
+      .BYTE $C8,$CC,$7D,$1E			  ; $F
+      .BYTE $21,8,$10,$1D,$7A,$AE,$B2,$B6,$B9,$FB,$FB,$FB,$C0,$C3,$C6
+      .BYTE $C9,$CD,$7E,$1F			  ; $F
+      .BYTE $21,$29,3,$7B,$AF,$B3		  
+      .BYTE $21,$34,3,$CA,$CE,$7F		  
+      .BYTE $21,$6A,$C,$14,$10,$10,$16,$14,$10,$10,$16,$14,$10,$10,$16
+      .BYTE $21,$8A,$C,$11,$FC,$FC,$12,$11,$FC,$FC,$12,$11,$FC,$FC,$12
+      .BYTE $21,$AA,$C,$11,$FC,$FC,$12,$11,$FC,$FC,$12,$11,$FC,$FC,$12
+      .BYTE $21,$CA,$C,$15,$13,$13,$17,$15,$13,$13,$17,$15,$13,$13,$17
+      .BYTE $22,$D,2,$18,$1A			  
+      .BYTE $22,$2D,2,$19,$1B			  
+      .BYTE $23,$D2,4,$80,$A0,$A0,$20		  
+      .BYTE $23,$DA,4,$88,$AA,$AA,$22		  
+      .BYTE $23,$E4,1,$A			  
+      .BYTE $23,$EA,5,$A0,$A0,$A0,$A0,$20	  
       .BYTE 0
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -514,7 +115,7 @@ loc_BANKA_8312:
       LDY     #0
 
 loc_BANKA_831D:
-      LDA     BonusChanceLayout2,Y		  ; Blindly copy $100 more bytes from $8240 to $7500
+      LDA     BonusChanceLayout_+7,Y		  ; Blindly copy $100 more bytes from $8240 to $7500
 						  ; That range includes	this code! clap. clap.
       STA     BonusChanceLayoutRAM2,Y
       DEY
@@ -526,10 +127,10 @@ loc_BANKA_831D:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANKA_8327:
+DrawTitleCardWorldImage:
       LDA     CurrentWorld
       CMP     #6
-      BEQ     loc_BANKA_8392
+      BEQ     loc_BANKA_8392			  ; Special case for World 7's title card
 
       LDA     #$25
       STA     byte_RAM_0
@@ -637,12 +238,12 @@ loc_BANKA_83AB:
 locret_BANKA_83C8:
       RTS
 
-; End of function sub_BANKA_8327
+; End of function DrawTitleCardWorldImage
 
 ; ---------------------------------------------------------------------------
 StatOffsets:
 	  .BYTE 0
-
+						  ; @TODO Assembler update: (MarioStats	- $)
       .BYTE $45
       .BYTE $17
       .BYTE $2E
@@ -780,8 +381,12 @@ MysteryData14439:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANKA_8451:
-      LDX     CurrentCharacter
+CopyCharacterStatsAndStuff:
+      LDX     CurrentCharacter			  ; This copies	the selected character's stats
+						  ; into memory	for use	later, but also	a bunch
+						  ; of other unrelated crap like the
+						  ; Bonus Chance slot reels (???) and
+						  ; god	knows what else.
       LDY     StatOffsets,X
       LDX     #0
 
@@ -813,7 +418,7 @@ loc_BANKA_846B:
 
 loc_BANKA_8479:
       LDA     PlayerSelectPalettes,Y
-      STA     unk_RAM_55F,Y
+      STA     PPUBuffer_55F,Y
       DEY
       CPY     #$FF
       BNE     loc_BANKA_8479
@@ -834,7 +439,7 @@ loc_BANKA_8491:
 
 loc_BANKA_8493:
       LDA     Text_Unknown5,Y
-      STA     unk_RAM_7168,Y
+      STA     PPUBuffer_7168,Y
       DEY
       CPY     #$FF
       BNE     loc_BANKA_8493
@@ -875,7 +480,7 @@ loc_BANKA_84C1:
 
 loc_BANKA_84CC:
       LDA     byte_BANKF_FA7D,Y
-      STA     byte_RAM_721B,Y
+      STA     PPUBuffer_721B,Y
       DEY
       BPL     loc_BANKA_84CC
 
@@ -889,7 +494,7 @@ loc_BANKA_84D7:
 
       RTS
 
-; End of function sub_BANKA_8451
+; End of function CopyCharacterStatsAndStuff
 
 ; ---------------------------------------------------------------------------
 byte_BANKA_84E1:
@@ -1010,8 +615,8 @@ UnusedText_THANK_YOU:
 	  .BYTE $21,$C,9,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE
 UnusedText_Blank214D:
 	  .BYTE $21,$4D,6,$FB,$FB,$FB,$FB,$FB,$FB,0	 ; [000019AC BYTES: BEGIN OF AREA UNUSED-BANKA:8654. PRESS KEYPAD "-" TO	COLLAPSE]
-byte_BANKA_8654:
-	  .BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
+_unused_BANKA_8654:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
