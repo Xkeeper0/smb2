@@ -72526,15 +72526,18 @@ MarioDream_Bubble:.BYTE	$20,$8F,$84,6,$16,7,$17		      ;	0 ; DATA XREF: BANKC:80
       .BYTE $21,$B5,6,$53,$FC,$40,$41,$42,$43	  ; 0 ;	data used at 8000
       .BYTE $21,$D7,3,$50,$51,$52		  ; 0 ;	data used at 8000
       .BYTE $21,$F6,2,$20,$21			  ; 0 ;	data used at 8000
-      .BYTE $23,$CB,4,$44,$55,$A5,$65		  ; 0 ;	data used at 8000
+      .BYTE $23,$CB,4,$44,$55,$A5,$65		  ; 0 ;	Attribute table	changes
       .BYTE $23,$D4,3,$55,$5A,$56		  ; 0 ;	data used at 8000
       .BYTE $23,$DD,2,$45,$15			  ; 0 ;	data used at 8000
       .BYTE $23,$E4,1,$3F			  ; 0 ;	data used at 8000
       .BYTE 0					  ; data used at 8000
 MarioDream_DoNothing:.BYTE 0			  ; DATA XREF: BANKC:8006o
-						  ; @TODO This is pointed to, but the very first byte
+						  ; This is pointed to,	but the	very first byte
 						  ; is the terminating 0, so nothing gets drawn.
-						  ; Possibly unused PPU	writes?
+						  ; This would have undone the attribute changes
+						  ; done in the	above PPU writing, but I guess
+						  ; Nintendo realized they were	never going to
+						  ; use	that part of the screen	again
       .BYTE $23,$CB,$44,0			  ; 0
       .BYTE $23,$D4,$43,0			  ; 0
       .BYTE $23,$DD,$42,0			  ; 0
@@ -72594,7 +72597,7 @@ MarioDream_SnoringFrameCounts:.BYTE $20		  ; DATA XREF: BANKC:8395r
       .BYTE $A					  ; data used at 8000
 MarioDream_WakingFrameCounts:.BYTE 8		  ; DATA XREF: BANKC:8410r
 						  ; data used at 8000
-byte_BANKC_8327:.BYTE 8				  ; data used at 8000
+      .BYTE 8					  ; data used at 8000
       .BYTE $50					  ; data used at 8000
       .BYTE $40					  ; data used at 8000
       .BYTE $30					  ; data used at 8000
@@ -78208,7 +78211,7 @@ sub_BANKF_EA68:					  ; CODE XREF: BANKF:E86Ap
       CLC					  ; code used at e000
       ADC     #$D0 ; 'Ð'                          ; code used at e000
       STA     byte_RAM_588			  ; code used at e000
-      LDA     #1				  ; code used at e000
+      LDA     #ScreenUpdateBuffer_RAM_583	  ; code used at e000
       STA     ScreenUpdateIndex			  ; code used at e000
       LDA     #$40 ; '@'                          ; code used at e000
       STA     StackArea				  ; code used at e000
@@ -78674,7 +78677,7 @@ sub_BANKF_EC68:					  ; CODE XREF: BANKF:EB71p
 
 DoSoundProcessing:				  ; CODE XREF: BANKF:EB51p
 						  ; NMI:loc_BANKF_EC5Ep
-      LDA     #2				  ; code used at e000
+      LDA     #PRGBank_4_5			  ; code used at e000
       JSR     ChangeMappedPRGBankWithoutSaving	  ; code used at e000
 
       JSR     StartProcessingSoundQueue		  ; code used at e000

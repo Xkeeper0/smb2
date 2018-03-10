@@ -10,11 +10,10 @@ echo Done.
 echo.
 SET ROM="tools\Super Mario Bros. 2 (USA).nes"
 if exist %ROM% (
-	fc /b smb2.nes "tools\Super Mario Bros. 2 (USA).nes" > comparison.txt
-	echo Comparing against reference assembly
+	echo Comparing against the original ROM.
 	echo If you see differences here, you changed something.
 	echo.
-	fc comparison.txt tools\comparison-ref.txt
+	fc /b smb2.nes "tools\Super Mario Bros. 2 (USA).nes"
 ) else (
 	echo If you want to compare against the original ROM
 	echo to check for possible build errors, please place

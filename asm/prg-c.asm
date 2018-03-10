@@ -162,16 +162,19 @@ MarioDream_Bubble:
       .BYTE $21,$B5,6,$53,$FC,$40,$41,$42,$43	  
       .BYTE $21,$D7,3,$50,$51,$52		  
       .BYTE $21,$F6,2,$20,$21			  
-      .BYTE $23,$CB,4,$44,$55,$A5,$65		  
+      .BYTE $23,$CB,4,$44,$55,$A5,$65		  ;	Attribute table	changes
       .BYTE $23,$D4,3,$55,$5A,$56		  
       .BYTE $23,$DD,2,$45,$15			  
       .BYTE $23,$E4,1,$3F			  
       .BYTE 0
 MarioDream_DoNothing:
 	  .BYTE 0
-						  ; @TODO This is pointed to, but the very first byte
+						  ; This is pointed to,	but the	very first byte
 						  ; is the terminating 0, so nothing gets drawn.
-						  ; Possibly unused PPU	writes?
+						  ; This would have undone the attribute changes
+						  ; done in the	above PPU writing, but I guess
+						  ; Nintendo realized they were	never going to
+						  ; use	that part of the screen	again
       .BYTE $23,$CB,$44,0			  
       .BYTE $23,$D4,$43,0			  
       .BYTE $23,$DD,$42,0			  
@@ -228,8 +231,7 @@ MarioDream_SnoringFrameCounts:
 MarioDream_WakingFrameCounts:
 	  .BYTE 8
 
-byte_BANKC_8327:
-	  .BYTE 8
+      .BYTE 8
       .BYTE $50
       .BYTE $40
       .BYTE $30

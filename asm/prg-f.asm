@@ -1751,7 +1751,7 @@ sub_BANKF_EA68:
       CLC
       ADC     #$D0
       STA     byte_RAM_588
-      LDA     #1
+      LDA     #ScreenUpdateBuffer_RAM_583
       STA     ScreenUpdateIndex
       LDA     #$40
       STA     StackArea
@@ -2181,7 +2181,7 @@ sub_BANKF_EC68:
 ; =============== S U B	R O U T	I N E =======================================
 
 DoSoundProcessing:
-      LDA     #2
+      LDA     #PRGBank_4_5
       JSR     ChangeMappedPRGBankWithoutSaving
 
       JSR     StartProcessingSoundQueue
