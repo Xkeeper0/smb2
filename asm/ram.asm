@@ -1702,13 +1702,13 @@ byte_RAM_50D:
 	  .dsb 1                       ; $050d
 byte_RAM_50E:
 	  .dsb 1                       ; $050e
-byte_RAM_50F:
+PlayerXHi_Backup:
 	  .dsb 1                       ; $050f
-byte_RAM_510:
+PlayerYHi_Backup:
 	  .dsb 1                       ; $0510
-byte_RAM_511:
+PlayerXLo_Backup:
 	  .dsb 1                       ; $0511
-byte_RAM_512:
+PlayerYLo_Backup:
 	  .dsb 1                       ; $0512
 byte_RAM_513:
 	  .dsb 1                       ; $0513

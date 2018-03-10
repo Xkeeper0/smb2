@@ -3214,7 +3214,7 @@ loc_BANK3_B060:
       LDA     ObjectYLo,X
       ADC     #$10
       STA     PlayerYLo
-      LDA     #PlayerState_6
+      LDA     #PlayerState_HawkmouthEating
       STA     PlayerState
       LDA     #$60
       STA     byte_RAM_82
@@ -4883,7 +4883,7 @@ loc_BANK3_BA33:
       PHA
       LDX     byte_RAM_12
       LDA     ObjectType,X
-      CMP     #$F
+      CMP     #Enemy_BeezoDiving
       BCS     loc_BANK3_BA48
 
       JSR     sub_BANK2_9E3B
@@ -4951,8 +4951,8 @@ sub_BANK3_BA7D:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_BA83:
-      LDA     PlayerCollision,X
-      ORA     #$10
+      LDA     PlayerCollision,X			  ; Seems to be	deciding if the	player is standing on something
+      ORA     #CollisionFlags_10
       STA     PlayerCollision,X
       LDA     #$E0
       STA     PlayerYAccel,X
@@ -5112,7 +5112,8 @@ locret_BANK3_BB49:
 ; End of function sub_BANK3_BB31
 
 ; ---------------------------------------------------------------------------
-      .BYTE $FF
+_unused_BANK3_BB4A:
+	  .BYTE $FF			  ; May	not be used, but wasn't marked as data
       .BYTE $FF
       .BYTE $FF
       .BYTE $FF
@@ -5495,13 +5496,13 @@ sub_BANK3_BD0F:
       BNE     locret_BANK3_BD28
 
       LDA     PlayerXHi
-      STA     byte_RAM_50F
+      STA     PlayerXHi_Backup
       LDA     PlayerXLo
-      STA     byte_RAM_511
+      STA     PlayerXLo_Backup
       LDA     PlayerYHi
-      STA     byte_RAM_510
+      STA     PlayerYHi_Backup
       LDA     PlayerYLo
-      STA     byte_RAM_512
+      STA     PlayerYLo_Backup
 
 locret_BANK3_BD28:
       RTS

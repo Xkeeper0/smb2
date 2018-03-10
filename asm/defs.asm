@@ -3,12 +3,12 @@
 
 ; enum PlayerStates (width 1 byte)
 PlayerState_Normal =  0
-PlayerState_1 =  1
+PlayerState_Climbing = 	1
 PlayerState_Lifting =  2
-PlayerState_3 =  3
+PlayerState_ClimbingAreaTransition =  3
 PlayerState_GoingDownVase =  4
 PlayerState_ExitingVase =  5
-PlayerState_6 =  6
+PlayerState_HawkmouthEating =  6
 PlayerState_Dying =  7
 PlayerState_ChangingSize =  8
 
@@ -106,6 +106,23 @@ ScreenUpdateBuffer_RAM_721b =  $14
 ScreenUpdateBuffer_BANKE_DFAF =  $15
 ScreenUpdateBuffer_BANKE_DFA7 =  $16
 ScreenUpdateBuffer_RAM_BonusChanceLayout =  $17
+
+; ---------------------------------------------------------------------------
+
+; enum EndingUpdateBuffer (width 1 byte)
+EndingUpdateBuffer_RAM_301 =  0
+EndingUpdateBuffer_JarRoom =  1
+EndingUpdateBuffer_CeilingTextAndPodium =  2
+EndingUpdateBuffer_FloorAndSubconParade =  3
+EndingUpdateBuffer_PaletteFade1 =  4
+EndingUpdateBuffer_PaletteFade2 =  5
+EndingUpdateBuffer_PaletteFade3 =  6
+EndingUpdateBuffer_SubconStandStill =  7
+EndingUpdateBuffer_Unused_THE_END =  8
+EndingUpdateBuffer_Text_MARIO =  9
+EndingUpdateBuffer_Text_PRINCESS =  $A
+EndingUpdateBuffer_Text_TOAD = 	$B
+EndingUpdateBuffer_Text_LUIGI =  $C
 
 ; ---------------------------------------------------------------------------
 
@@ -207,20 +224,20 @@ GameMode_Warp =  4
 
 ; enum PPUControl (bitfield) (width 1 byte)
 PPUCtrl_BaseAddress		 = 3
-PPUCtrl_BaseAddr2000 = 	0
-PPUCtrl_BaseAddr2400 = 	1
-PPUCtrl_BaseAddr2800 = 	2
-PPUCtrl_BaseAddr2C00 = 	3
-PPUCtrl_WriteIncrementHorizontal =  0
-PPUCtrl_WriteIncrementVertical =  4
-PPUCtrl_SpritePatternTable0000 =  0
-PPUCtrl_SpritePatternTable1000 =  8
-PPUCtrl_BackgroundPatternTable0000 =  0
-PPUCtrl_BackgroundPatternTable1000 =  $10
+PPUCtrl_Base2000 =  0
+PPUCtrl_Base2400 =  1
+PPUCtrl_Base2800 =  2
+PPUCtrl_Base2C00 =  3
+PPUCtrl_WriteHorizontal =  0
+PPUCtrl_WriteVertical =  4
+PPUCtrl_Sprite0000 =  0
+PPUCtrl_Sprite1000 =  8
+PPUCtrl_Background0000 =  0
+PPUCtrl_Background1000 =  $10
 PPUCtrl_SpriteSize8x8 =  0
 PPUCtrl_SpriteSize8x16 =  $20
-PPUControl_NMIDisabled =  0
-PPUControl_NMIEnabled =  $80
+PPUCtrl_NMIDisabled =  0
+PPUCtrl_NMIEnabled =  $80
 
 ; ---------------------------------------------------------------------------
 

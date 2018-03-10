@@ -635,7 +635,7 @@ loc_BANK1_A43E:
 
       LDA     #$40
       STA     StackArea
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
       STA     PPUCTRL
       JSR     WaitForNMI_Ending
@@ -1054,1099 +1054,160 @@ loc_BANK1_A646:
 
 ; ---------------------------------------------------------------------------
 EndingCelebrationCeilingTextAndPodium:
-	  .BYTE $20
-
-      .BYTE 0
-      .BYTE $20
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-byte_BANK1_A654:
-	  .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $20
-      .BYTE $20
-      .BYTE $20
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-byte_BANK1_A67D:
-	  .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $20
-      .BYTE $40
-      .BYTE $20
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $20
-      .BYTE $60
-      .BYTE $20
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $20
-      .BYTE $88
-      .BYTE 1
-      .BYTE $5A
-      .BYTE $20
-      .BYTE $89
-      .BYTE $4E
-      .BYTE $9A
-      .BYTE $20
-      .BYTE $97
-      .BYTE 1
-      .BYTE $5C
-      .BYTE $20
-      .BYTE $A8
-      .BYTE $C3
-      .BYTE $9B
-      .BYTE $20
-      .BYTE $B7
-      .BYTE $C3
-      .BYTE $9B
-      .BYTE $21
-      .BYTE 8
-      .BYTE 1
-      .BYTE $5B
-      .BYTE $21
-      .BYTE 9
-      .BYTE $4E
-      .BYTE $9A
-      .BYTE $21
-      .BYTE $17
-      .BYTE 1
-      .BYTE $5D
-      .BYTE $20
-      .BYTE $AB
-      .BYTE $B
-      .BYTE $DC
-      .BYTE $E8
-      .BYTE $E7
-      .BYTE $ED
-      .BYTE $EB
-      .BYTE $E2
-      .BYTE $DB
-      .BYTE $EE
-      .BYTE $ED
-      .BYTE $E8
-      .BYTE $EB
-      .BYTE $20
-      .BYTE $E3
-      .BYTE 4
-      .BYTE $40
-      .BYTE $42
-      .BYTE $44
-      .BYTE $46
-      .BYTE $20
-      .BYTE $F9
-      .BYTE 4
-      .BYTE $40
-      .BYTE $42
-      .BYTE $44
-      .BYTE $46
-      .BYTE $21
-      .BYTE $23
-      .BYTE $C9
-      .BYTE $48
-      .BYTE $21
-      .BYTE $24
-      .BYTE $C9
-      .BYTE $49
-      .BYTE $21
-      .BYTE $25
-      .BYTE $C9
-      .BYTE $4A
-      .BYTE $21
-      .BYTE $26
-      .BYTE $C9
-      .BYTE $4B
-byte_BANK1_A724:
-	  .BYTE $22
-      .BYTE $43
-      .BYTE 4
-      .BYTE $4C
-      .BYTE $4D
-      .BYTE $4E
-      .BYTE $4F
-      .BYTE $21
-      .BYTE 3
-      .BYTE 4
-      .BYTE $41
-      .BYTE $43
-      .BYTE $45
-      .BYTE $47
-      .BYTE $21
-      .BYTE $19
-      .BYTE 4
-      .BYTE $41
-      .BYTE $43
-      .BYTE $45
-      .BYTE $47
-      .BYTE $21
-      .BYTE $39
-      .BYTE $C9
-      .BYTE $48
-      .BYTE $21
-      .BYTE $3A
-      .BYTE $C9
-      .BYTE $49
-      .BYTE $21
-      .BYTE $3B
-      .BYTE $C9
-      .BYTE $4A
-      .BYTE $21
-      .BYTE $3C
-      .BYTE $C9
-      .BYTE $4B
-      .BYTE $22
-      .BYTE $59
-      .BYTE 4
-      .BYTE $4C
-      .BYTE $4D
-      .BYTE $4E
-      .BYTE $4F
-      .BYTE $21
-      .BYTE $CA
-      .BYTE $4C
-      .BYTE $54
-      .BYTE $21
-      .BYTE $EA
-      .BYTE $4C
-      .BYTE $55
-      .BYTE $22
-      .BYTE $B
-      .BYTE $A
-      .BYTE $50
-      .BYTE $52
-byte_BANK1_A75D:
-	  .BYTE $50
-      .BYTE $52
-      .BYTE $50
-      .BYTE $52
-      .BYTE $50
-      .BYTE $52
-      .BYTE $50
-      .BYTE $52
-      .BYTE $22
-      .BYTE $2B
-      .BYTE $A
-      .BYTE $51
-      .BYTE $53
-      .BYTE $51
-      .BYTE $53
-      .BYTE $51
-      .BYTE $53
-      .BYTE $51
-      .BYTE $53
-      .BYTE $51
-      .BYTE $53
-      .BYTE $22
-      .BYTE $4C
-      .BYTE 2
-      .BYTE $3A
-      .BYTE $3B
-      .BYTE $22
-      .BYTE $6C
-      .BYTE $C5
-      .BYTE $3C
-      .BYTE $22
-      .BYTE $6D
-      .BYTE $C5
-      .BYTE $3D
-      .BYTE $22
-      .BYTE $52
-      .BYTE 2
-      .BYTE $3A
-byte_BANK1_A783:
-	  .BYTE $3B
-      .BYTE $22
-      .BYTE $72
-      .BYTE $C5
-      .BYTE $3C
-      .BYTE $22
-      .BYTE $73
-      .BYTE $C5
-      .BYTE $3D
+	  .BYTE $20,0,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
+      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $20,$20,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
+      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $20,$40,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
+      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $20,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
+      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $20,$88,1,$5A			  
+      .BYTE $20,$89,$4E,$9A			  
+      .BYTE $20,$97,1,$5C			  
+      .BYTE $20,$A8,$C3,$9B			  
+      .BYTE $20,$B7,$C3,$9B			  
+      .BYTE $21,8,1,$5B				  
+      .BYTE $21,9,$4E,$9A			  
+      .BYTE $21,$17,1,$5D			  
+      .BYTE $20,$AB,$B,$DC,$E8,$E7,$ED,$EB,$E2,$DB,$EE,$ED,$E8,$EB
+      .BYTE $20,$E3,4,$40,$42,$44,$46		  
+      .BYTE $20,$F9,4,$40,$42,$44,$46		  
+      .BYTE $21,$23,$C9,$48			  
+      .BYTE $21,$24,$C9,$49			  
+      .BYTE $21,$25,$C9,$4A			  
+      .BYTE $21,$26,$C9,$4B			  
+      .BYTE $22,$43,4,$4C,$4D,$4E,$4F		  
+      .BYTE $21,3,4,$41,$43,$45,$47		  
+      .BYTE $21,$19,4,$41,$43,$45,$47		  
+      .BYTE $21,$39,$C9,$48			  
+      .BYTE $21,$3A,$C9,$49			  
+      .BYTE $21,$3B,$C9,$4A			  
+      .BYTE $21,$3C,$C9,$4B			  
+      .BYTE $22,$59,4,$4C,$4D,$4E,$4F		  
+      .BYTE $21,$CA,$4C,$54			  
+      .BYTE $21,$EA,$4C,$55			  
+      .BYTE $22,$B,$A,$50,$52,$50,$52,$50,$52,$50,$52,$50,$52
+      .BYTE $22,$2B,$A,$51,$53,$51,$53,$51,$53,$51,$53,$51,$53
+      .BYTE $22,$4C,2,$3A,$3B			  
+      .BYTE $22,$6C,$C5,$3C			  
+      .BYTE $22,$6D,$C5,$3D			  
+      .BYTE $22,$52,2,$3A,$3B			  
+      .BYTE $22,$72,$C5,$3C			  
+      .BYTE $22,$73,$C5,$3D			  
       .BYTE 0
 EndingCelebrationFloorAndSubconParade:
-	  .BYTE $23
-
-      .BYTE 0
-      .BYTE $20
-      .BYTE 0
-      .BYTE 2
-      .BYTE 8
-      .BYTE $A
-      .BYTE $C
-      .BYTE $E
-      .BYTE 4
-      .BYTE 6
-      .BYTE 8
-      .BYTE $A
-      .BYTE 4
-      .BYTE 6
-      .BYTE $C
-      .BYTE $E
-      .BYTE 4
-      .BYTE 6
-      .BYTE 8
-      .BYTE $A
-      .BYTE 0
-      .BYTE 2
-      .BYTE $C
-      .BYTE $E
-      .BYTE $C
-      .BYTE $E
-      .BYTE 0
-      .BYTE 2
-      .BYTE 4
-      .BYTE 6
-      .BYTE 4
-      .BYTE 6
-      .BYTE 8
-      .BYTE $A
-      .BYTE $23
-      .BYTE $20
-      .BYTE $20
-      .BYTE 1
-      .BYTE 3
-      .BYTE 9
-      .BYTE $B
-      .BYTE $D
-      .BYTE $F
-      .BYTE 5
-      .BYTE 7
-      .BYTE 9
-      .BYTE $B
-      .BYTE 5
-      .BYTE 7
-      .BYTE $D
-      .BYTE $F
-      .BYTE 5
-      .BYTE 7
-      .BYTE 9
-      .BYTE $B
-      .BYTE 1
-      .BYTE 3
-      .BYTE $D
-      .BYTE $F
-      .BYTE $D
-      .BYTE $F
-      .BYTE 1
-      .BYTE 3
-      .BYTE 5
-      .BYTE 7
-      .BYTE 5
-      .BYTE 7
-      .BYTE 9
-      .BYTE $B
-      .BYTE $27
-      .BYTE 0
-      .BYTE $20
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $27
-      .BYTE $20
-      .BYTE $20
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $23
-      .BYTE $40
-      .BYTE $20
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $23
-      .BYTE $60
-      .BYTE $20
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $23
-      .BYTE $80
-      .BYTE $20
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $23
-      .BYTE $A0
-      .BYTE $20
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $27
-      .BYTE $40
-      .BYTE $20
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $27
-      .BYTE $60
-      .BYTE $20
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $27
-      .BYTE $80
-      .BYTE $20
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-byte_BANK1_A8F2:
-	  .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-byte_BANK1_A8FD:
-	  .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $27
-      .BYTE $A0
-      .BYTE $20
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $81
-      .BYTE $80
-      .BYTE $23
-      .BYTE $C0
-      .BYTE $48
-      .BYTE $AA
-      .BYTE $23
-      .BYTE $C8
-      .BYTE 8
-      .BYTE $15
-      .BYTE 5
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $15
-      .BYTE $45
-      .BYTE $23
-      .BYTE $D0
-      .BYTE $20
-      .BYTE $31
-      .BYTE 0
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE 0
-      .BYTE $44
-      .BYTE $33
-      .BYTE 0
-      .BYTE $A6
-      .BYTE $A5
-      .BYTE $A5
-      .BYTE $A6
-      .BYTE 0
-      .BYTE $44
-      .BYTE $F3
-      .BYTE $F0
-      .BYTE $59
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $96
-      .BYTE $F0
-      .BYTE $74
-      .BYTE $DD
-      .BYTE $FF
-      .BYTE $55
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $95
-      .BYTE $55
-      .BYTE $55
-      .BYTE $23
-      .BYTE $F0
-      .BYTE $48
-      .BYTE $A5
-      .BYTE $23
-      .BYTE $F8
-      .BYTE $48
-      .BYTE $A
-      .BYTE $27
-      .BYTE $F0
-      .BYTE $48
-      .BYTE $A5
-      .BYTE $27
-      .BYTE $F8
-      .BYTE $48
-      .BYTE $A
+	  .BYTE $23,0,$20,0,2,8,$A,$C,$E,4,6,8,$A,4,6,$C,$E,4,6,8,$A,0,2,$C
+      .BYTE $E,$C,$E,0,2,4,6,4,6,8,$A		  ; $18
+      .BYTE $23,$20,$20,1,3,9,$B,$D,$F,5,7,9,$B,5,7,$D,$F,5,7,9,$B,1,3
+      .BYTE $D,$F,$D,$F,1,3,5,7,5,7,9,$B	  ; $17
+      .BYTE $27,0,$20,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76
+      .BYTE $74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74; $F
+      .BYTE $76,$74,$76,$74,$76			  ; $1E
+      .BYTE $27,$20,$20,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77
+      .BYTE $75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75; $F
+      .BYTE $77,$75,$77,$75,$77			  ; $1E
+      .BYTE $23,$40,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
+      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $23,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
+      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $23,$80,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
+      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $23,$A0,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
+      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $27,$40,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
+      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $27,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
+      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $27,$80,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
+      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $27,$A0,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
+      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $23,$C0,$48,$AA			  
+      .BYTE $23,$C8,8,$15,5,$FF,$FF,$FF,$FF,$15,$45
+      .BYTE $23,$D0,$20,$31,0,$FF,$FF,$FF,$FF,0,$44,$33,0,$A6,$A5,$A5
+      .BYTE $A6,0,$44,$F3,$F0,$59,$AA,$AA,$96,$F0,$74,$DD,$FF,$55,$AA; $10
+      .BYTE $AA,$95,$55,$55			  ; $1F
+      .BYTE $23,$F0,$48,$A5			  
+      .BYTE $23,$F8,$48,$A			  
+      .BYTE $27,$F0,$48,$A5			  
+      .BYTE $27,$F8,$48,$A			  
       .BYTE 0
 EndingCelebrationSubconStandStill:
-	  .BYTE	$23
-
-      .BYTE 0
-      .BYTE $20
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-byte_BANK1_A97C:
-	  .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $70
-      .BYTE $72
-      .BYTE $23
-      .BYTE $20
-      .BYTE $20
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
-      .BYTE $71
-      .BYTE $73
+	  .BYTE	$23,0,$20,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72
+      .BYTE $70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70; $F
+      .BYTE $72,$70,$72,$70,$72			  ; $1E
+      .BYTE $23,$20,$20,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73
+      .BYTE $71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71; $F
+      .BYTE $73,$71,$73,$71,$73			  ; $1E
       .BYTE 0
 EndingCelebrationUnusedText_THE_END:
-	  .BYTE $21
-      .BYTE $AC
-      .BYTE   7
-      .BYTE $ED
-      .BYTE $E1
-      .BYTE $DE
-      .BYTE $FB
-      .BYTE $DE
-      .BYTE $E7
-      .BYTE $DD
-      .BYTE   0
+	  .BYTE $21,$AC,7,$ED,$E1,$DE,$FB,$DE,$E7,$DD,0
 EndingCelebrationPaletteFade1:
-	  .BYTE $3F
-      .BYTE   0
-      .BYTE $20
-      .BYTE   1
-      .BYTE $30	
-      .BYTE $21
-      .BYTE  $F
-      .BYTE   1
-      .BYTE $30	
-      .BYTE $16
-      .BYTE  $F
-      .BYTE   1
-      .BYTE $28
-      .BYTE $18
-      .BYTE  $F
-      .BYTE   1
-      .BYTE $30	
-      .BYTE $30	
-      .BYTE   1
-      .BYTE   1
-      .BYTE $27
-      .BYTE $16
-      .BYTE  $F
-      .BYTE   1
-      .BYTE $37	; 7
-      .BYTE $2A
-      .BYTE  $F
-      .BYTE   1
-      .BYTE $27
-      .BYTE $30	
-      .BYTE  $F
-      .BYTE   1
-      .BYTE $36	; 6
-      .BYTE $25
-      .BYTE  $F
-      .BYTE   0
+	  .BYTE $3F,0,$20,1				  
+      .BYTE $30,$21,$F,1			  ; 4
+      .BYTE $30,$16,$F,1			  ; 8
+      .BYTE $28,$18,$F,1			  ; $C
+      .BYTE $30,$30,1,1				  ; $10
+      .BYTE $27,$16,$F,1			  ; $14
+      .BYTE $37,$2A,$F,1			  ; $18
+      .BYTE $27,$30,$F,1			  ; $1C
+      .BYTE $36,$25,$F,0			  ; $20
 EndingCelebrationPaletteFade2:
-	  .BYTE $3F
-      .BYTE   0
-      .BYTE $20
-      .BYTE  $F
-      .BYTE $10
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $10
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $10
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $10
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $10
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $10
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $10
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $10
-      .BYTE   0
-      .BYTE  $F
-      .BYTE   0
+	  .BYTE $3F,0,$20,$F			  
+      .BYTE $10,0,$F,$F				  ; 4
+      .BYTE $10,0,$F,$F				  ; 8
+      .BYTE $10,0,$F,$F				  ; $C
+      .BYTE $10,0,$F,$F				  ; $10
+      .BYTE $10,0,$F,$F				  ; $14
+      .BYTE $10,0,$F,$F				  ; $18
+      .BYTE $10,0,$F,$F				  ; $1C
+      .BYTE $10,0,$F,0				  ; $20
 EndingCelebrationPaletteFade3:
-	  .BYTE $3F
-      .BYTE   0
-      .BYTE $20
-      .BYTE  $F
-      .BYTE   0
-      .BYTE  $F
-unk_BANK1_AA14:
-	  .BYTE  $F
-      .BYTE  $F
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   0
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE   0
+	  .BYTE $3F,0,$20,$F			  
+      .BYTE 0,$F,$F,$F				  ; 4
+      .BYTE 0,$F,$F,$F				  ; 8
+      .BYTE 0,$F,$F,$F				  ; $C
+      .BYTE 0,$F,$F,$F				  ; $10
+      .BYTE 0,$F,$F,$F				  ; $14
+      .BYTE 0,$F,$F,$F				  ; $18
+      .BYTE 0,$F,$F,$F				  ; $1C
+      .BYTE 0,$F,$F,0				  ; $20
 byte_BANK1_AA32:
-	  .BYTE 4
-
-      .BYTE 5
-      .BYTE 6
+	  .BYTE EndingUpdateBuffer_PaletteFade1	    
+      .BYTE EndingUpdateBuffer_PaletteFade2	  ; 1 ;	@TODO This seems wrong,	somehow
+      .BYTE EndingUpdateBuffer_PaletteFade3	  ; 2
 byte_BANK1_AA35:
-	  .BYTE $8C
-
-      .BYTE $FC
-      .BYTE $20
-      .BYTE $94
+	  .BYTE $8C,$FC,$20,$94			    
 byte_BANK1_AA39:
-	  .BYTE $4F
-
-      .BYTE $61
-      .BYTE $20
-      .BYTE $50
-      .BYTE $4F
-      .BYTE $63
-      .BYTE $20
-      .BYTE $58
-      .BYTE $5F
-      .BYTE $65
-      .BYTE $20
-      .BYTE $50
-      .BYTE $5F
-      .BYTE $67
-      .BYTE $20
-      .BYTE $58
-      .BYTE $4F
-      .BYTE $69
-      .BYTE $21
-      .BYTE $68
-      .BYTE $4F
-      .BYTE $6B
-      .BYTE $21
-      .BYTE $70
-      .BYTE $5F
-      .BYTE $6D
-      .BYTE $21
-      .BYTE $68
-      .BYTE $5F
-      .BYTE $6F
-      .BYTE $21
-      .BYTE $70
-      .BYTE $4F
-      .BYTE $83
-      .BYTE $22
-      .BYTE $88
-      .BYTE $4F
-      .BYTE $83
-      .BYTE $62
-      .BYTE $90
-      .BYTE $5F
-      .BYTE $87
-      .BYTE $22
-      .BYTE $88
-      .BYTE $5F
-      .BYTE $87
-      .BYTE $62
-      .BYTE $90
-      .BYTE $4F
-      .BYTE $8B
-      .BYTE $23
-      .BYTE $A0
-      .BYTE $4F
-      .BYTE $8D
-      .BYTE $23
-      .BYTE $A8
-      .BYTE $5F
-      .BYTE $8F
-      .BYTE $23
-      .BYTE $A0
-      .BYTE $5F
-      .BYTE $91
-      .BYTE $23
-      .BYTE $A8
+	  .BYTE $4F,$61,$20,$50			    
+      .BYTE $4F,$63,$20,$58			  ; 4
+      .BYTE $5F,$65,$20,$50			  ; 8
+      .BYTE $5F,$67,$20,$58			  ; $C
+      .BYTE $4F,$69,$21,$68			  ; $10
+      .BYTE $4F,$6B,$21,$70			  ; $14
+      .BYTE $5F,$6D,$21,$68			  ; $18
+      .BYTE $5F,$6F,$21,$70			  ; $1C
+      .BYTE $4F,$83,$22,$88			  ; $20
+      .BYTE $4F,$83,$62,$90			  ; $24
+      .BYTE $5F,$87,$22,$88			  ; $28
+      .BYTE $5F,$87,$62,$90			  ; $2C
+      .BYTE $4F,$8B,$23,$A0			  ; $30
+      .BYTE $4F,$8D,$23,$A8			  ; $34
+      .BYTE $5F,$8F,$23,$A0			  ; $38
+      .BYTE $5F,$91,$23,$A8			  ; $3C
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -2164,15 +1225,15 @@ sub_BANK1_AA79:
 
       JSR     WaitForNMI_Ending
 
-      LDA     #2
+      LDA     #EndingUpdateBuffer_CeilingTextAndPodium
       STA     ScreenUpdateIndex
       JSR     WaitForNMI_Ending
 
-      LDA     #3
+      LDA     #EndingUpdateBuffer_FloorAndSubconParade
       STA     ScreenUpdateIndex
       JSR     WaitForNMI_Ending
 
-      JSR     sub_BANK1_AD40
+      JSR     Ending_GetContributor
 
       JSR     WaitForNMI_Ending
 
@@ -2276,7 +1337,7 @@ loc_BANK1_AB20:
       LSR     A
       STA     byte_RAM_F3
       STA     byte_RAM_7
-      LDA     #7
+      LDA     #EndingUpdateBuffer_SubconStandStill
       STA     ScreenUpdateIndex
 
 loc_BANK1_AB32:
@@ -2374,7 +1435,7 @@ locret_BANK1_ABA6:
 
 ; ---------------------------------------------------------------------------
 
-_code_2BA7:
+loc_BANK1_ABA7:
       LDA     byte_RAM_10
       AND     #3
       BNE     locret_BANK1_ABA6
@@ -2392,7 +1453,7 @@ _code_2BA7:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK1_ABBC:
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
       STA     PPUCTRL
       RTS
@@ -2401,8 +1462,9 @@ sub_BANK1_ABBC:
 
 ; ---------------------------------------------------------------------------
 
-_code_2BC4:
-      LDA     #$30
+loc_BANK1_ABC4:
+	  					  ; ? Not marked as used
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
       STA     PPUCTRL
       STA     PPUCtrlMirror
       RTS
@@ -2416,7 +1478,7 @@ loc_BANK1_ABCC:
       JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
-      .WORD _code_2BA7
+      .WORD loc_BANK1_ABA7
       .WORD loc_BANK1_AC0A
       .WORD loc_BANK1_AC87
 byte_BANK1_ABDA:
@@ -2445,8 +1507,7 @@ byte_BANK1_ABE6:
       .BYTE $23
       .BYTE $15
       .BYTE $17
-byte_BANK1_ABEE:
-	  .BYTE $1D
+      .BYTE $1D
       .BYTE $1F
       .BYTE $25
       .BYTE $27
@@ -2750,7 +1811,7 @@ loc_BANK1_AD2B:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANK1_AD40:
+Ending_GetContributor:
       LDA     #0
       STA     byte_RAM_631
       LDY     #3
@@ -2854,7 +1915,7 @@ loc_BANK1_ADB0:
       STA     byte_RAM_5C4
       RTS
 
-; End of function sub_BANK1_AD40
+; End of function Ending_GetContributor
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -2889,57 +1950,16 @@ locret_BANK1_AE12:
 
 ; ---------------------------------------------------------------------------
 EndingCelebrationText_MARIO:
-	  .BYTE $20
-      .BYTE $ED
-      .BYTE   8
-      .BYTE $E6
-      .BYTE $DA
-      .BYTE $EB
-      .BYTE $E2
-      .BYTE $E8
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
+	  .BYTE $20,$ED,8,$E6,$DA,$EB,$E2,$E8,$FB,$FB,$FB
       .BYTE   0
 EndingCelebrationText_PRINCESS:
-	  .BYTE $20
-      .BYTE $ED
-      .BYTE   8
-      .BYTE $E9
-      .BYTE $EB
-      .BYTE $E2
-      .BYTE $E7
-      .BYTE $DC
-      .BYTE $DE
-      .BYTE $EC
-      .BYTE $EC
+	  .BYTE $20,$ED,8,$E9,$EB,$E2,$E7,$DC,$DE,$EC,$EC
       .BYTE   0
 EndingCelebrationText_TOAD:
-	  .BYTE $20
-
-      .BYTE $ED
-      .BYTE   8
-      .BYTE $ED
-      .BYTE $E8
-      .BYTE $DA
-      .BYTE $DD
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
+	  .BYTE $20,$ED,8,$ED,$E8,$DA,$DD,$FB,$FB,$FB,$FB
       .BYTE   0
 EndingCelebrationText_LUIGI:
-	  .BYTE $20
-      .BYTE $ED
-      .BYTE   8
-      .BYTE $E5
-      .BYTE $EE
-      .BYTE $E2
-      .BYTE $E0
-      .BYTE $E2
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
+	  .BYTE $20,$ED,8,$E5,$EE,$E2,$E0,$E2,$FB,$FB,$FB
       .BYTE   0
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -2974,8 +1994,8 @@ loc_BANK1_AE57:
 
 ; ---------------------------------------------------------------------------
 ; [00000AA6 BYTES: BEGIN OF AREA UNUSED-BANK1:AE5A. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_2E5A:
-	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_unused_BANK1_AE5A:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -3148,7 +2168,7 @@ _empty_2E5A:
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF	  ; $AA0
 ; [00000AA6 BYTES: END OF AREA UNUSED-BANK1:AE5A. PRESS	KEYPAD "-" TO COLLAPSE]
 MysteryCharacterData3900:
-	  .BYTE $FB
+	  .BYTE $FB ; û		  ; @TODO ??? Not sure what this is
       .BYTE $FF
       .BYTE   0
       .BYTE   8
@@ -3258,7 +2278,7 @@ loc_BANK1_B969:
       BEQ     loc_BANK1_B97F
 
       LDA     ObjectType,Y
-      CMP     #$3C
+      CMP     #Enemy_SubspaceDoor
       BNE     loc_BANK1_B97F
 
       LDA     #5
@@ -3281,7 +2301,7 @@ _code_3982:
       LDX     byte_RAM_0
       PLA
       STA     unk_RAM_477,X
-      LDA     #$3C
+      LDA     #Enemy_SubspaceDoor
       STA     ObjectType,X
       LDA     PlayerXLo
       ADC     #8
@@ -3294,7 +2314,7 @@ _code_3982:
       STA     ObjectYLo,X
       LDA     PlayerYHi
       STA     ObjectYHi,X
-      LDA     #$41
+      LDA     #ObjAttrib_Palette1|ObjAttrib_16x32
       STA     ObjectAttributes,X
       LDX     byte_RAM_12
       RTS
@@ -3309,13 +2329,13 @@ loc_BANK1_B9B6:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANK1_B9B8:
+CreateStarman:
       JSR     loc_BANK1_BB14
 
       BMI     locret_BANK1_B9E2
 
       LDX     byte_RAM_0
-      LDA     #$45
+      LDA     #Enemy_Starman
       STA     ObjectType,X
       LDA     byte_RAM_4C0
       ADC     #$D0
@@ -3336,7 +2356,7 @@ sub_BANK1_B9B8:
 locret_BANK1_B9E2:
       RTS
 
-; End of function sub_BANK1_B9B8
+; End of function CreateStarman
 
 ; =============== S U B	R O U T	I N E =======================================
 

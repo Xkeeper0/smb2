@@ -59,7 +59,7 @@ loc_BANKC_802E:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKC_8033:
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
       STA     PPUCTRL
       RTS
@@ -67,7 +67,7 @@ sub_BANKC_8033:
 ; End of function sub_BANKC_8033
 
 ; ---------------------------------------------------------------------------
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIDisabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
       STA     PPUCTRL
       STA     PPUCtrlMirror
       RTS

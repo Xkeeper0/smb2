@@ -698,7 +698,7 @@ loc_BANKF_E44A:
 
       JSR     sub_BANKF_E1F4
 
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
       LDA     IsHorizontalLevel
       BEQ     loc_BANKF_E4CC
@@ -1608,7 +1608,7 @@ EndingSceneRoutine:
 ; =============== S U B	R O U T	I N E =======================================
 
 DisableNMI:
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIDisabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
       STA     PPUCTRL
       STA     PPUCtrlMirror
       RTS
@@ -1696,7 +1696,7 @@ loc_BANKF_EA04:
 ; =============== S U B	R O U T	I N E =======================================
 
 EnableNMI:
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
       STA     PPUCTRL
       RTS
@@ -2035,7 +2035,7 @@ NMI:
       LDX     #$1E
       LDY     #0
       LDA     PPUSTATUS
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementVertical|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteVertical|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCTRL
 
 loc_BANKF_EBC9:
@@ -2081,7 +2081,7 @@ loc_BANKF_EBE8:
       LDA     byte_RAM_3BC
       BEQ     loc_BANKF_EC1F
 
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementVertical|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteVertical|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCTRL
       LDY     #0
       LDX     #4
@@ -2230,7 +2230,7 @@ HideAllSpritesLoop:
 
 ClearNametableChunk:
       LDY     PPUSTATUS				  ; Reset PPU address latch
-      LDY     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIDisabled
+      LDY     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
       STY     PPUCTRL				  ; Turn off NMI
       STY     PPUCtrlMirror
       LDY     #0
@@ -2284,7 +2284,7 @@ PPUBufferUpdatesComplete:
 ; a terminating	$00. Welp!
 
 UpdatePPUFromBufferNMI:
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCTRL
       LDY     #0
 
@@ -2358,11 +2358,11 @@ UpdatePPUFromBufferWithOptions:
       PHA
       LDA     PPUCtrlMirror			  ; Enable NMI + Vertical increment
 						  ; + whatever else was	already	set...
-      ORA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementVertical|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable0000|PPUCtrl_SpriteSize8x8|PPUControl_NMIEnabled
+      ORA     #PPUCtrl_Base2000|PPUCtrl_WriteVertical|PPUCtrl_Sprite0000|PPUCtrl_Background0000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIEnabled
       BCS     UpdatePPUFBWO_EnableVerticalIncrement ; ...but only if $80 was set in the	length byte.
 						  ; Otherwise, turn vertical incrementing back off
 
-      AND     #PPUCtrl_BaseAddr2C00|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable1000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x16|PPUControl_NMIEnabled|$40
+      AND     #PPUCtrl_Base2C00|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite1000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled|$40
 
 UpdatePPUFBWO_EnableVerticalIncrement:
       STA     PPUCTRL
@@ -3038,7 +3038,7 @@ locret_BANKF_F297:
 
 loc_BANKF_F298:
       LDA     PlayerState
-      CMP     #PlayerState_1
+      CMP     #PlayerState_Climbing
       BNE     locret_BANKF_F297
 
       LDA     InSubspaceOrJar
@@ -4752,7 +4752,7 @@ _unused_BANKF_FE97:
 RESET:
       SEI					  ; This code is called	when the NES is	reset.
       CLD
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable0000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background0000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIDisabled
       STA     PPUCTRL
       LDX     #$FF				  ; Reset stack	pointer
       TXS

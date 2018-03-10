@@ -937,8 +937,8 @@ sub_BANK0_84AC:
 ; End of function sub_BANK0_84AC
 
 ; ---------------------------------------------------------------------------
-_empty_04B8:
-	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_unused_BANK0_84B8:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -1134,7 +1134,7 @@ sub_BANK0_85EC:
       DEX
       LDA     byte_RAM_538
       STA     byte_RAM_D8
-      JSR     _code_0901
+      JSR     sub_BANK0_8901
 
       LDA     byte_RAM_3
       STA     byte_RAM_D0
@@ -1149,7 +1149,7 @@ loc_BANK0_8618:
       STX     byte_RAM_1
       LDA     byte_RAM_538
       STA     byte_RAM_D8
-      JSR     _code_0901
+      JSR     sub_BANK0_8901
 
       LDA     #0
       STA     byte_RAM_538
@@ -1661,7 +1661,7 @@ loc_BANK0_88A0:
       LDX     #0
       STX     byte_RAM_9
       INX
-      JSR     _code_0901
+      JSR     sub_BANK0_8901
 
       LDA     byte_RAM_3
       STA     byte_RAM_CE
@@ -1688,7 +1688,7 @@ loc_BANK0_88FD:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-_code_0901:
+sub_BANK0_8901:
       JSR     sub_BANK0_883C
 
       LDX     #7
@@ -1714,7 +1714,7 @@ loc_BANK0_890A:
 
       RTS
 
-; End of function _code_0901
+; End of function sub_BANK0_8901
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -1772,8 +1772,8 @@ loc_BANK0_895F:
 ; End of function sub_BANK0_895D
 
 ; ---------------------------------------------------------------------------
-_empty_0966:
-	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_unused_BANK0_8966:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -1810,18 +1810,18 @@ loc_BANK0_8A26:
       LDA     #0
       STA     byte_RAM_64
       LDA     PlayerState
-      JSR     JumpToTableAfterJump
+      JSR     JumpToTableAfterJump		  ; Player state handling?
 
 ; ---------------------------------------------------------------------------
-      .WORD loc_BANK0_8A41
-      .WORD loc_BANK0_8AD1
-      .WORD loc_BANK0_8A87
-      .WORD loc_BANK0_8B8D
-      .WORD loc_BANK0_8B46
-      .WORD loc_BANK0_8B78
-      .WORD loc_BANK0_8BCB
-      .WORD loc_BANK0_8A5C
-      .WORD loc_BANK0_8BF1
+      .WORD loc_BANK0_8A41			  ; Normal
+      .WORD loc_BANK0_8AD1			  ; 1
+      .WORD loc_BANK0_8A87			  ; Lifting
+      .WORD loc_BANK0_8B8D			  ; 3
+      .WORD loc_BANK0_8B46			  ; Going down jar
+      .WORD loc_BANK0_8B78			  ; Exiting jar
+      .WORD loc_BANK0_8BCB			  ; 6
+      .WORD loc_BANK0_8A5C			  ; Dying
+      .WORD loc_BANK0_8BF1			  ; Changing size
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8A41:
@@ -3141,7 +3141,7 @@ loc_BANK0_9006:
       BNE     loc_BANK0_9023
 
       STA     CherryCount
-      JSR     sub_BANK1_B9B8
+      JSR     CreateStarman
 
 loc_BANK0_9023:
       LDA     #SoundEffect1_CherryGet
@@ -3984,7 +3984,7 @@ loc_BANK0_93DE:
 ; ---------------------------------------------------------------------------
 byte_BANK0_940A:
 	  .BYTE $20
-
+						  ; PPU	addresses (high	byte)
       .BYTE $28
       .BYTE $20
       .BYTE $24
@@ -3996,15 +3996,13 @@ sub_BANK0_940E:
       BNE     locret_BANK0_9427
 
       LDA     PlayerXHi
-      STA     byte_RAM_50F
+      STA     PlayerXHi_Backup
       LDA     PlayerXLo
-      STA     byte_RAM_511
-
-loc_BANK0_941D:
+      STA     PlayerXLo_Backup
       LDA     PlayerYHi
-      STA     byte_RAM_510
+      STA     PlayerYHi_Backup
       LDA     PlayerYLo
-      STA     byte_RAM_512
+      STA     PlayerYLo_Backup
 
 locret_BANK0_9427:
       RTS
@@ -4014,19 +4012,15 @@ locret_BANK0_9427:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_9428:
-      LDA     byte_RAM_50F
+      LDA     PlayerXHi_Backup
       STA     PlayerXHi
-      LDA     byte_RAM_511
-
-loc_BANK0_9430:
+      LDA     PlayerXLo_Backup
       STA     PlayerXLo
-      LDA     byte_RAM_510
+      LDA     PlayerYHi_Backup
       STA     PlayerYHi
-      LDA     byte_RAM_512
+      LDA     PlayerYLo_Backup
       STA     PlayerYLo
       LDA     PlayerXLo
-
-loc_BANK0_943E:
       SEC
       SBC     byte_RAM_4C0
       STA     PlayerPageX
@@ -4278,7 +4272,7 @@ loc_BANK0_956A:
       DEC     PlayerYHi
 
 loc_BANK0_9587:
-      LDA     #$A
+      LDA     #SpriteAnimation_Climbing
       STA     PlayerAnimationFrame
       RTS
 
@@ -4334,8 +4328,8 @@ locret_BANK0_95C2:
 ; End of function sub_BANK0_95AF
 
 ; ---------------------------------------------------------------------------
-_empty_15C3:
-	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
+_unused_BANK0_95C3:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF; $30
@@ -4377,576 +4371,107 @@ WaitForNMI_TitleScreenLoop:
 
 ; ---------------------------------------------------------------------------
 TitleLayout1:
-	  .BYTE $20
-
-      .BYTE   0
-      .BYTE $DE
-      .BYTE $FD, $20, 1, $DE, $FD, $20,	2, $DE,	$FD, $20, 3, $DE, $FD, $20, $1C, $DE
-      .BYTE $FD, $20, $1D, $DE,	$FD, $20, $1E, $DE, $FD, $20, $1F, $DE,	$FD, $20, 3, $5D; $10
-      .BYTE $FD, $20, $23, $5D,	$FD, $20, $43, $5D, $FD, $20, $63, $5D,	$FD, $23, $63, $5D; $20
-      .BYTE $FD, $23, $83, $5D,	$FD, $23, $A3, $5D, $FD, $20, $68, $10,	$48, $4A, $4C, $4E; $30
-      .BYTE $50, $51, $52, $53,	$54, $55, $56, $57, $58, $5A, $5C, $5E,	$20, $84, 8, $FD; $40
-      .BYTE $22, $23, $24, $49,	$4B, $4D, $4F, $20, $94, 8, $59, $5B, $5D, $5F;	$50
-      .BYTE $2E
-      .BYTE $2F
-      .BYTE $30	
-      .BYTE $FD
-      .BYTE $20
-      .BYTE $A4
-      .BYTE   3
-      .BYTE $25
-      .BYTE $26
-      .BYTE $27
-      .BYTE $20
-      .BYTE $B9
-      .BYTE   3
-      .BYTE $31	; 1
-      .BYTE $32	; 2
-      .BYTE $33	; 3
-      .BYTE $20
-      .BYTE $C4
-      .BYTE   3
-      .BYTE $28
-      .BYTE $29
-      .BYTE $2A
-      .BYTE $20
-      .BYTE $D9
-      .BYTE   3
-      .BYTE $34	; 4
-      .BYTE $35	; 5
-      .BYTE $36	; 6
-      .BYTE $20
-      .BYTE $E3
-      .BYTE   3
-      .BYTE $2B
-      .BYTE $2C
-      .BYTE $2D
-      .BYTE $20
-      .BYTE $FA
-      .BYTE   3
-      .BYTE $37	; 7
-      .BYTE $38	; 8
-      .BYTE $39	; 9
-      .BYTE $21
-      .BYTE   3
-      .BYTE   2
-      .BYTE $3A
-      .BYTE $3B
-      .BYTE $21
-      .BYTE $1B
-      .BYTE   2
-      .BYTE $40
-      .BYTE $41
-      .BYTE $21
-      .BYTE $23
-      .BYTE $C6
-      .BYTE $3C
-      .BYTE $21
-      .BYTE $3C
-      .BYTE $C6
-      .BYTE $42
-      .BYTE $21
-      .BYTE $E3
-      .BYTE   1
-      .BYTE $3D
-      .BYTE $21
-      .BYTE $FC
-      .BYTE   1
-      .BYTE $60
-      .BYTE $22
-      .BYTE   2
-      .BYTE   2
-      .BYTE $3E
-      .BYTE $3F
-      .BYTE $22
-      .BYTE $1C
-      .BYTE   2
-      .BYTE $61
-      .BYTE $62
-      .BYTE $22
-      .BYTE $22
-      .BYTE   2
-      .BYTE $43
-      .BYTE $44
-      .BYTE $22
-      .BYTE $3C
-      .BYTE   2
-      .BYTE $63
-      .BYTE $64
-      .BYTE $22
-      .BYTE $43
-      .BYTE   1
-      .BYTE $45
-      .BYTE $22
-      .BYTE $5C
-      .BYTE   1
-      .BYTE $65
-      .BYTE $22
-      .BYTE $63
-      .BYTE $C6
-      .BYTE $3C
-      .BYTE $22
-      .BYTE $7C
-      .BYTE $C4
-      .BYTE $42
-      .BYTE $22
-      .BYTE $C4
-      .BYTE   2
-      .BYTE $A6
-      .BYTE $A8
-      .BYTE $22
-      .BYTE $E4
-      .BYTE   2
-      .BYTE $A7
-      .BYTE $A9
-      .BYTE $22
-      .BYTE $FA
-      .BYTE   4
-      .BYTE $80
-      .BYTE $82
-      .BYTE $88
-      .BYTE $8A
-      .BYTE $23
-      .BYTE   4
-      .BYTE   2
-      .BYTE $90
-      .BYTE $92
-      .BYTE $23
-      .BYTE $14
-      .BYTE   2
-      .BYTE $9E
-      .BYTE $A0
-      .BYTE $23
-      .BYTE $1A
-      .BYTE   4
-      .BYTE $81
-      .BYTE $83
-      .BYTE $89
-      .BYTE $8B
-      .BYTE $23
-      .BYTE $23
-      .BYTE   3
-      .BYTE $46
-      .BYTE $91
-      .BYTE $93
-      .BYTE $23
-      .BYTE $2A
-      .BYTE   2
-      .BYTE $A2
-      .BYTE $A4
-      .BYTE $23
-      .BYTE $2E
-      .BYTE  $B
-      .BYTE $67
-      .BYTE $6C
-      .BYTE $6E
-      .BYTE $70
-      .BYTE $72
-      .BYTE $69
-      .BYTE $9F
-      .BYTE $A1
-      .BYTE $75
-      .BYTE $98
-      .BYTE $9A
-      .BYTE $23
-      .BYTE $3A
-      .BYTE   4
-      .BYTE $84
-      .BYTE $86
-      .BYTE $8C
-      .BYTE $8E
-      .BYTE $23
-      .BYTE $43
-      .BYTE $1B
-      .BYTE $47
-      .BYTE $94
-      .BYTE $96
-      .BYTE $74
-      .BYTE $74
-      .BYTE $74
-      .BYTE $74
-      .BYTE $A3
-      .BYTE $A5
-      .BYTE $74
-      .BYTE $66
-      .BYTE $68
-      .BYTE $6D
-      .BYTE $6F
-      .BYTE $71
-      .BYTE $73
-      .BYTE $6A
-      .BYTE $6B
-      .BYTE $74
-      .BYTE $74
-      .BYTE $99
-      .BYTE $9B
-      .BYTE $74
-      .BYTE $85
-      .BYTE $87
-      .BYTE $8D
-      .BYTE $8F
-      .BYTE $23
-      .BYTE $64
-      .BYTE   5
-      .BYTE $95
-      .BYTE $97
-      .BYTE $FD
-      .BYTE $AA
-      .BYTE $AB
-      .BYTE $23
-      .BYTE $77
-      .BYTE   4
-      .BYTE $9C
-      .BYTE $9D
-      .BYTE $AA
-      .BYTE $AB
-      .BYTE $23
-      .BYTE $89
-      .BYTE   2
-      .BYTE $AA
-      .BYTE $AB
-TitleLogoSuper_Line1:
-	  .BYTE $20
-      .BYTE $CB
-      .BYTE  $A
-      .BYTE   0
-      .BYTE   1
-      .BYTE   8
-      .BYTE   8
-      .BYTE $FC
-      .BYTE   1
-      .BYTE $FC
-      .BYTE   8
-      .BYTE $FC
-      .BYTE   1
-TitleLogoSuper_Line2:
-	  .BYTE $20
-      .BYTE $EB
-      .BYTE  $A
-      .BYTE   2
-      .BYTE   3
-      .BYTE   8
-      .BYTE   8
-      .BYTE  $A
-      .BYTE   5
-      .BYTE  $B
-      .BYTE  $C
-      .BYTE  $A
-      .BYTE  $D
-TitleLogoSuper_Line3:
-	  .BYTE $21
-      .BYTE  $B
-      .BYTE  $A
-      .BYTE   4
-      .BYTE   5
-      .BYTE   4
-      .BYTE   5
-      .BYTE  $E
-      .BYTE   7
-      .BYTE $FC
-      .BYTE   8
-      .BYTE  $E
-      .BYTE   8
-TitleLogoSuper_Line4a:
-	  .BYTE $21
-      .BYTE $2B
-      .BYTE   5
-      .BYTE   6
-      .BYTE   7
-      .BYTE   6
-      .BYTE   7
-      .BYTE   9
-TitleLogoSuper_Line4b:
-	  .BYTE $21
-      .BYTE $31	; 1
-      .BYTE   4
-      .BYTE $76
-      .BYTE   9
-      .BYTE   9
-      .BYTE   9
-TitleLogo_TM:
-	  .BYTE $21
-      .BYTE $38	; 8
-      .BYTE   2
-      .BYTE $F9
-      .BYTE $FA
-TitleLayout2:
-	  .BYTE $21
-      .BYTE $46
-      .BYTE  $A
-      .BYTE   0
-      .BYTE  $F
-      .BYTE   1
-      .BYTE   0
-      .BYTE   1
-      .BYTE $FC
-      .BYTE   1
-      .BYTE   8
-      .BYTE   0
-      .BYTE   1
-      .BYTE $21
-      .BYTE $66
-      .BYTE  $A
-      .BYTE $10
-      .BYTE $10
-      .BYTE   8
-      .BYTE $10
-      .BYTE   8
-      .BYTE $10
-      .BYTE   8
-      .BYTE   8
-      .BYTE $10
-      .BYTE   8
-      .BYTE $21
-      .BYTE $86
-      .BYTE  $A
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE $13
-      .BYTE  $D
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE $21
-      .BYTE $A6
-      .BYTE  $A
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE $FC
-      .BYTE   8
-      .BYTE  $E
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE $21
-      .BYTE $C6
-      .BYTE  $A
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE $10
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE   4
-      .BYTE   5
-      .BYTE $21
-      .BYTE $E6
-      .BYTE  $A
-      .BYTE   9
-      .BYTE   9
-      .BYTE   9
-      .BYTE   9
-      .BYTE   9
-      .BYTE   9
-      .BYTE   9
-      .BYTE   9
-      .BYTE   6
-      .BYTE   7
-      .BYTE $21
-      .BYTE $51
-      .BYTE   8
-      .BYTE $FC
-      .BYTE   1
-      .BYTE $FC
-      .BYTE   1
-      .BYTE   0
-      .BYTE   1
-      .BYTE   0
-      .BYTE   1
-      .BYTE $21
-      .BYTE $71
-      .BYTE   8
-      .BYTE $10
-      .BYTE   8
-      .BYTE $10
-      .BYTE   8
-      .BYTE $10
-      .BYTE   8
-      .BYTE $10
-      .BYTE   8
-      .BYTE $21
-      .BYTE $91
-      .BYTE   8
-      .BYTE $13
-      .BYTE  $D
-      .BYTE $13
-      .BYTE  $D
-      .BYTE   8
-      .BYTE   8
-      .BYTE $77
-      .BYTE   3
-      .BYTE $21
-      .BYTE $B1
-      .BYTE   8
-      .BYTE  $E
-      .BYTE   8
-      .BYTE  $E
-      .BYTE   8
-      .BYTE   8
-      .BYTE   8
-      .BYTE $12
-      .BYTE   8
-      .BYTE $21
-      .BYTE $D1
-      .BYTE   9
-      .BYTE $13
-      .BYTE   5
-      .BYTE   8
-      .BYTE   8
-      .BYTE   4
-      .BYTE   5
-      .BYTE   4
-      .BYTE   5
-      .BYTE   8
-      .BYTE $21
-      .BYTE $F1
-      .BYTE   9
-      .BYTE $11
-      .BYTE   7
-      .BYTE   9
-      .BYTE   9
-      .BYTE   6
-      .BYTE   7
-      .BYTE   6
-      .BYTE   7
-      .BYTE   9
-      .BYTE $22
-      .BYTE  $E
-      .BYTE   4
-      .BYTE $14
-      .BYTE $15
-      .BYTE $16
-      .BYTE $17
-      .BYTE $22
-      .BYTE $2E
-      .BYTE   4
-      .BYTE $18
-      .BYTE $19
-      .BYTE $1A
-      .BYTE $1B
-      .BYTE $22
-      .BYTE $4E
-      .BYTE   4
-      .BYTE $1C
-      .BYTE $1D
-      .BYTE $1E
-      .BYTE $1F
-      .BYTE $22
-      .BYTE $6E
-      .BYTE   4
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $20
-      .BYTE $22
-      .BYTE $8E
-      .BYTE   4
-      .BYTE $76
-      .BYTE $76
-      .BYTE $76
-      .BYTE $21
-TitleText_C_1988:
-	  .BYTE $22
-      .BYTE $E9
-      .BYTE   5
-      .BYTE $F8
-      .BYTE $D1
-      .BYTE $D9
-      .BYTE $D8
-      .BYTE $D8
-TitleText_Nintendo:
-	  .BYTE $22
-      .BYTE $EF
-      .BYTE   8
-      .BYTE $E7
-      .BYTE $E2
-      .BYTE $E7
-      .BYTE $ED
-      .BYTE $DE
-      .BYTE $E7
-      .BYTE $DD
-      .BYTE $E8
-      .BYTE $23
-      .BYTE $CA
-      .BYTE   4
-      .BYTE $80
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $20
-      .BYTE $23
-      .BYTE $D1
-      .BYTE  $E
-      .BYTE $80
-      .BYTE $A8
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $A2
-      .BYTE $22
-      .BYTE   0
-      .BYTE   0
-      .BYTE $88
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $22
-      .BYTE $23
-      .BYTE $E3
-      .BYTE   2
-      .BYTE $88
-      .BYTE $22
-      .BYTE $23
-      .BYTE $EA
-      .BYTE   4
-      .BYTE $F0
-      .BYTE $F8
-      .BYTE $F2
-      .BYTE $F0
+	  .BYTE $20,0,$DE,$FD			 
+      .BYTE $20,1,$DE,$FD			  
+      .BYTE $20,2,$DE,$FD			  
+      .BYTE $20,3,$DE,$FD			  
+      .BYTE $20,$1C,$DE,$FD			  
+      .BYTE $20,$1D,$DE,$FD			  
+      .BYTE $20,$1E,$DE,$FD			  
+      .BYTE $20,$1F,$DE,$FD			  
+      .BYTE $20,3,$5D,$FD			  
+      .BYTE $20,$23,$5D,$FD			  
+      .BYTE $20,$43,$5D,$FD			  
+      .BYTE $20,$63,$5D,$FD			  
+      .BYTE $23,$63,$5D,$FD			  
+      .BYTE $23,$83,$5D,$FD			  
+      .BYTE $23,$A3,$5D,$FD			  
+      .BYTE $20,$68,$10,$48,$4A,$4C,$4E,$50,$51,$52,$53,$54,$55,$56,$57
+      .BYTE $58,$5A,$5C,$5E			  ; $F
+      .BYTE $20,$84,8,$FD,$22,$23,$24,$49,$4B,$4D,$4F
+      .BYTE $20,$94,8,$59,$5B,$5D,$5F,$2E,$2F,$30,$FD
+      .BYTE $20,$A4,3,$25,$26,$27		  
+      .BYTE $20,$B9,3,$31,$32,$33		  
+      .BYTE $20,$C4,3,$28,$29,$2A		  
+      .BYTE $20,$D9,3,$34,$35,$36		  
+      .BYTE $20,$E3,3,$2B,$2C,$2D		  
+      .BYTE $20,$FA,3,$37,$38,$39		  
+      .BYTE $21,3,2,$3A,$3B			  
+      .BYTE $21,$1B,2,$40,$41			  
+      .BYTE $21,$23,$C6,$3C			  
+      .BYTE $21,$3C,$C6,$42			  
+      .BYTE $21,$E3,1,$3D			  
+      .BYTE $21,$FC,1,$60			  
+      .BYTE $22,2,2,$3E,$3F			  
+      .BYTE $22,$1C,2,$61,$62			  
+      .BYTE $22,$22,2,$43,$44			  
+      .BYTE $22,$3C,2,$63,$64			  
+      .BYTE $22,$43,1,$45			  
+      .BYTE $22,$5C,1,$65			  
+      .BYTE $22,$63,$C6,$3C			  
+      .BYTE $22,$7C,$C4,$42			  
+      .BYTE $22,$C4,2,$A6,$A8			  
+      .BYTE $22,$E4,2,$A7,$A9			  
+      .BYTE $22,$FA,4,$80,$82,$88,$8A		  
+      .BYTE $23,4,2,$90,$92			  
+      .BYTE $23,$14,2,$9E,$A0			  
+      .BYTE $23,$1A,4,$81,$83,$89,$8B		  
+      .BYTE $23,$23,3,$46,$91,$93		  
+      .BYTE $23,$2A,2,$A2,$A4			  
+      .BYTE $23,$2E,$B,$67,$6C,$6E,$70,$72,$69,$9F,$A1,$75,$98,$9A
+      .BYTE $23,$3A,4,$84,$86,$8C,$8E		  
+      .BYTE $23,$43,$1B,$47,$94,$96,$74,$74,$74,$74,$A3,$A5,$74,$66,$68
+      .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F; $F
+      .BYTE $23,$64,5,$95,$97,$FD,$AA,$AB	  
+      .BYTE $23,$77,4,$9C,$9D,$AA,$AB		  
+      .BYTE $23,$89,2,$AA,$AB			  
+      .BYTE $20,$CB,$A,0,1,8,8,$FC,1,$FC,8,$FC,1  ;	"SUPER"	logo
+      .BYTE $20,$EB,$A,2,3,8,8,$A,5,$B,$C,$A,$D	  
+      .BYTE $21,$B,$A,4,5,4,5,$E,7,$FC,8,$E,8	  
+      .BYTE $21,$2B,5,6,7,6,7,9			  
+      .BYTE $21,$31,4,$76,9,9,9			  
+      .BYTE $21,$38,2,$F9,$FA			  ;	TM
+      .BYTE $21,$46,$A,0,$F,1,0,1,$FC,1,8,0,1	  
+      .BYTE $21,$66,$A,$10,$10,8,$10,8,$10,8,8,$10,8
+      .BYTE $21,$86,$A,8,8,8,8,8,$13,$D,8,8,8	  
+      .BYTE $21,$A6,$A,8,8,8,$FC,8,$E,8,8,8,8	  
+      .BYTE $21,$C6,$A,8,8,8,$10,8,8,8,8,4,5	  
+      .BYTE $21,$E6,$A,9,9,9,9,9,9,9,9,6,7	  
+      .BYTE $21,$51,8,$FC,1,$FC,1,0,1,0,1	  
+      .BYTE $21,$71,8,$10,8,$10,8,$10,8,$10,8	  
+      .BYTE $21,$91,8,$13,$D,$13,$D,8,8,$77,3	  
+      .BYTE $21,$B1,8,$E,8,$E,8,8,8,$12,8	  
+      .BYTE $21,$D1,9,$13,5,8,8,4,5,4,5,8	  
+      .BYTE $21,$F1,9,$11,7,9,9,6,7,6,7,9	  
+      .BYTE $22,$E,4,$14,$15,$16,$17		  
+      .BYTE $22,$2E,4,$18,$19,$1A,$1B		  
+      .BYTE $22,$4E,4,$1C,$1D,$1E,$1F		  
+      .BYTE $22,$6E,4,$FC,$FC,$FC,$20		  
+      .BYTE $22,$8E,4,$76,$76,$76,$21		  
+      .BYTE $22,$E9,5,$F8,$D1,$D9,$D8,$D8	  ;	(C) 1988
+      .BYTE $22,$EF,8,$E7,$E2,$E7,$ED,$DE,$E7,$DD,$E8; NINTENDO
+						  ; (these could have been combined, but... Nintendo)
+      .BYTE $23,$CA,4,$80,$A0,$A0,$20		  
+      .BYTE $23,$D1,$E,$80,$A8,$AA,$AA,$A2,$22,0,0,$88,$AA,$AA,$AA,$AA
+      .BYTE $22					  ; $10
+      .BYTE $23,$E3,2,$88,$22			  
+      .BYTE $23,$EA,4,$F0,$F8,$F2,$F0		  
       .BYTE 0
 TitleBackgroundPalettes:
-	  .BYTE $22
-      .BYTE $37	; 7
-      .BYTE $16
-      .BYTE   7
-      .BYTE $22
-      .BYTE $30	
-      .BYTE $31	; 1
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $30	
-      .BYTE  $F
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $30	
-      .BYTE  $F
-      .BYTE  $F
+	  .BYTE $22,$37,$16,7
+      .BYTE $22,$30,$31,$F			  ; 1: Most of screen, outline,	etc.
+      .BYTE $22,$30,$F,$F			  ; 2: Not used	(?)
+      .BYTE $22,$30,$F,$F			  ; 3: SUPER MARIO BROS. 2 logo
+						  ; 4: (C) 1988	NINTENDO
+						  ;    (this is	the same palette
+						  ;    as the logo, though...)
 TitleSpritePalettes:
-	  .BYTE $22 ;	"		  ; Unused DDP character palettes!
-      .BYTE $30	
-      .BYTE $28
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $30	
-      .BYTE $25
-      .BYTE  $F
-unk_BANK0_989A:
-	  .BYTE $22
-      .BYTE $30	
-      .BYTE $12
-      .BYTE  $F
-      .BYTE $22
-      .BYTE $30	
-      .BYTE $23
-      .BYTE  $F
+	  .BYTE $22,$30,$28,$F	  ; Unused DDP character palettes
+      .BYTE $22,$30,$25,$F			  ; There are no sprites on the	title screen,
+      .BYTE $22,$30,$12,$F			  ; so these are totally unused
+      .BYTE $22,$30,$23,$F
 TitleStoryText_STORY:
-	  .BYTE $EC,	$ED, $E8, $EB, $F2		 
+	  .BYTE $EC,	$ED, $E8, $EB, $F2		 ; STORY
 TitleStoryTextPointersHi:
 	  .BYTE >TitleStoryText_Line01
 
@@ -4957,7 +4482,7 @@ TitleStoryTextPointersHi:
       .BYTE >TitleStoryText_Line06
       .BYTE >TitleStoryText_Line07
       .BYTE >TitleStoryText_Line08
-      .BYTE >TitleStoryText_Line08
+      .BYTE >TitleStoryText_Line08	  ; For	some reason line 8 is referenced twice here, but not used
       .BYTE >TitleStoryText_Line09
       .BYTE >TitleStoryText_Line10
       .BYTE >TitleStoryText_Line11
@@ -4987,85 +4512,69 @@ TitleStoryTextPointersLo:
       .BYTE <TitleStoryText_Line16
 TitleStoryText_Line01:
 	  .BYTE $F0, $E1, $DE, $E7,	$FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB,	$E8, $E9, $DE, $E7
-      .BYTE $DE, $DD, $FB, $DA			  ; $10
+      .BYTE $DE, $DD, $FB, $DA			  ; WHEN MARIO OPENED A
 TitleStoryText_Line02:
 	  .BYTE $DD, $E8, $E8, $EB,	$FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB,	$DC, $E5, $E2, $E6
-      .BYTE $DB, $E2, $E7, $E0			  ; $10
+      .BYTE $DB, $E2, $E7, $E0			  ; DOOR AFTER CLIMBING
 TitleStoryText_Line03:
 	  .BYTE $DA, $FB, $E5, $E8,	$E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB,	$FB, $E2, $E7, $FB
-      .BYTE $FB, $E1, $E2, $EC			  ; $10
+      .BYTE $FB, $E1, $E2, $EC			  ; A LONG STAIR IN HIS
 TitleStoryText_Line04:
 	  .BYTE $DD, $EB, $DE, $DA,	$E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1,	$DE, $EB, $FB, $F0
-      .BYTE $E8, $EB, $E5, $DD			  ; $10
+      .BYTE $E8, $EB, $E5, $DD			  ; DREAM, ANOTHER WORLD
 TitleStoryText_Line05:
 	  .BYTE $EC, $E9, $EB, $DE,	$DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF,	$E8, $EB, $DE, $FB
-      .BYTE $FB, $E1, $E2, $E6			  ; $10
+      .BYTE $FB, $E1, $E2, $E6			  ; SPREAD BEFORE HIM
 TitleStoryText_Line06:
 	  .BYTE $DA, $E7, $DD, $FB,	$E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD,	$FB, $DA, $FB, $EF
-      .BYTE $E8, $E2, $DC, $DE			  ; $10
+      .BYTE $E8, $E2, $DC, $DE			  ; AND	HE HEARD A VOICE
 TitleStoryText_Line07:
 	  .BYTE $DC, $DA, $E5, $E5,	$FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5,	$E9, $FB, $ED, $E8
-      .BYTE $FB, $FB, $DB, $DE			  ; $10
+      .BYTE $FB, $FB, $DB, $DE			  ; CALL FOR HELP TO BE
 TitleStoryText_Line08:
 	  .BYTE $FB, $DF, $EB, $DE,	$DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6,	$FB, $DA, $FB, $EC
-      .BYTE $E9, $DE, $E5, $E5			  ; $10
+      .BYTE $E9, $DE, $E5, $E5			  ; FREED FROM A SPELL
 TitleStoryText_Line09:
 	  .BYTE $DA, $DF, $ED, $DE,	$EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE,	$E7, $E2, $E7, $E0
-      .BYTE $F7, $FB, $FB, $FB			  ; $10
+      .BYTE $F7, $FB, $FB, $FB			  ; AFTER AWAKENING,
 TitleStoryText_Line10:
 	  .BYTE $E6, $DA, $EB, $E2,	$E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB,	$ED, $E8, $FB, $FB
-      .BYTE $DA, $FB, $FB, $FB			  ; $10
+      .BYTE $DA, $FB, $FB, $FB			  ; MARIO WENT TO A
 TitleStoryText_Line11:
 	  .BYTE $DC, $DA, $EF, $DE,	$FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2,	$FB, $DA, $E7, $DD
-      .BYTE $FB, $FB, $ED, $E8			  ; $10
+      .BYTE $FB, $FB, $ED, $E8			  ; CAVE NEARBY	AND TO
 TitleStoryText_Line12:
 	  .BYTE $E1, $E2, $EC, $FB,	$FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC,	$DE, $FB, $E1, $DE
-      .BYTE $FB, $EC, $DA, $F0			  ; $10
+      .BYTE $FB, $EC, $DA, $F0			  ; HIS	SURPRISE HE SAW
 TitleStoryText_Line13:
 	  .BYTE $DE, $F1, $DA, $DC,	$ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA,	$ED, $FB, $E1, $DE
-      .BYTE $FB, $EC, $DA, $F0			  ; $10
+      .BYTE $FB, $EC, $DA, $F0			  ; EXACTLY WHAT HE SAW
 TitleStoryText_Line14:
 	  .BYTE $E2, $E7, $FB, $E1,	$E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6,	$CF, $CF, $CF, $CF
-      .BYTE $FB, $FB, $FB, $FB			  ; $10
+      .BYTE $FB, $FB, $FB, $FB			  ; IN HIS DREAM....
 TitleStoryText_Line15:
 	  .BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB
-      .BYTE $FB, $FB, $FB, $FB			  ; $10
+      .BYTE $FB, $FB, $FB, $FB			  ; (blank)
 TitleStoryText_Line16:
 	  .BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED,	$FB, $DB, $EE, $ED
-      .BYTE $ED, $E8, $E7, $FB			  ; $10
-TitleAttributeData1A09:
-	  .BYTE $23, $CB, $42, $FF, $23, $D1, 1, $CC, $23,	$D2, $44, $FF, $23, $D6, 1, $33
-      .BYTE $23, $D9, 1, $CC, $23, $DA,	$44, $FF  ; $10
-byte_BANK0_9A21:
-	  .BYTE $23
+      .BYTE $ED, $E8, $E7, $FB			  ; PUSH START BUTTON
+TitleAttributeData1:
+	  .BYTE $23, $CB, $42, $FF
 
-      .BYTE $DE
-      .BYTE 1
-      .BYTE $33
-      .BYTE $23
-      .BYTE $E1
-      .BYTE 1
-      .BYTE $CC
-      .BYTE $23
-      .BYTE $E2
-      .BYTE $44
-      .BYTE $FF
-      .BYTE $23
-      .BYTE $E6
-      .BYTE 1
-      .BYTE $33
-      .BYTE $23
-      .BYTE $EA
-      .BYTE $44
-      .BYTE $FF
-      .BYTE $23
-      .BYTE $E9
-      .BYTE 1
-      .BYTE $CC
-      .BYTE $23
-      .BYTE $EE
-      .BYTE 1
-      .BYTE $33
+      .BYTE $23, $D1, 1, $CC
+      .BYTE $23, $D2, $44, $FF
+      .BYTE $23, $D6, 1, $33
+      .BYTE $23, $D9, 1, $CC
+      .BYTE $23, $DA, $44, $FF
+TitleAttributeData2:
+	  .BYTE $23, $DE, 1, $33
+
+      .BYTE $23, $E1, 1, $CC
+      .BYTE $23, $E2, $44, $FF
+      .BYTE $23, $E6, 1, $33
+      .BYTE $23, $EA, $44, $FF
+      .BYTE $23, $E9, 1, $CC
+      .BYTE $23, $EE, 1, $33
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -5118,7 +4627,7 @@ loc_BANK0_9A6F:
       STA     RAM_PPUDataBufferPointer+1
       LDA     #$40
       STA     StackArea
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x8|PPUControl_NMIEnabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
       STA     PPUCTRL
       JSR     WaitForNMI_TitleScreen
@@ -5210,7 +4719,7 @@ loc_BANK0_9B1B:
       LDY     #0
 
 loc_BANK0_9B25:
-      LDA     TitleAttributeData1A09,Y
+      LDA     TitleAttributeData1,Y
       STA     byte_RAM_305,Y
       INY
       DEX
@@ -5224,7 +4733,7 @@ loc_BANK0_9B25:
       LDY     #0
 
 loc_BANK0_9B3B:
-      LDA     byte_BANK0_9A21,Y
+      LDA     TitleAttributeData2,Y
       STA     PPUBuffer_301,Y
       INY
       DEX
@@ -5423,7 +4932,7 @@ loc_BANK0_9C4B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9C4E:
-      LDA     #PPUCtrl_BaseAddr2000|PPUCtrl_WriteIncrementHorizontal|PPUCtrl_SpritePatternTable0000|PPUCtrl_BackgroundPatternTable1000|PPUCtrl_SpriteSize8x8|PPUControl_NMIDisabled
+      LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIDisabled
       STA     PPUCtrlMirror
 
 loc_BANK0_9C52:
