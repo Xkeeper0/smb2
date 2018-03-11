@@ -155,8 +155,8 @@
 	print "\n";
 	// Write segments to files
 	foreach ($segments as $seg => $data) {
-		file_put_contents("asm/$seg.asm", str_replace("\n", "\r\n", $data));
-		print "Dumped asm/$seg.asm\n";
+		file_put_contents("src/$seg.asm", str_replace("\n", "\r\n", $data));
+		print "Dumped src/$seg.asm\n";
 
 	}
 
