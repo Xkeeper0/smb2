@@ -187,7 +187,7 @@ EnemyTimer:
 byte_RAM_80:
 	  .dsb 1                       ; $0080
       .dsb 1                    ; $0081
-byte_RAM_82:
+PlayerStateTimer:
 	  .dsb 1                       ; $0082
 byte_RAM_83:
 	  .dsb 1                       ; $0083
@@ -2385,7 +2385,7 @@ byte_RAM_6F4:
 	  .dsb 1                       ; $06f4
 byte_RAM_6F5:
 	  .dsb 1                       ; $06f5
-byte_RAM_6F6:
+PlayerCurrentSize:
 	  .dsb 1                       ; $06f6
 BackgroundCHR1:
 	  .dsb 1                       ; $06f7

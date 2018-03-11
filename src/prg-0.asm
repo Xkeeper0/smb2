@@ -1783,26 +1783,26 @@ _unused_BANK0_8966:
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; $90
-byte_BANK0_8A00:
+GrowShrinkSFXIndexes:
 	  .BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; ---------------------------------------------------------------------------
 
-loc_BANK0_8A02:
-      LDA     PlayerState
+HandlePlayerState:
+      LDA     PlayerState			  ; Handles player states?
       CMP     #PlayerState_Lifting
-      BCS     loc_BANK0_8A26
+      BCS     loc_BANK0_8A26			  ; If the player is changing size, just handle	that
 
-      LDA     #0
+      LDA     #0				  ; Check if the player	needs to change	size
       LDY     #$10
       CPY     PlayerHealth
       ROL     A
-      EOR     byte_RAM_6F6
+      EOR     PlayerCurrentSize
       BEQ     loc_BANK0_8A26
 
-      LDY     byte_RAM_6F6
-      LDA     byte_BANK0_8A00,Y
+      LDY     PlayerCurrentSize
+      LDA     GrowShrinkSFXIndexes,Y
       STA     SoundEffectQueue2
       LDA     #$1E
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       LDA     #PlayerState_ChangingSize
       STA     PlayerState
 
@@ -1813,18 +1813,18 @@ loc_BANK0_8A26:
       JSR     JumpToTableAfterJump		  ; Player state handling?
 
 ; ---------------------------------------------------------------------------
-      .WORD loc_BANK0_8A41			  ; Normal
-      .WORD loc_BANK0_8AD1			  ; 1
-      .WORD loc_BANK0_8A87			  ; Lifting
-      .WORD loc_BANK0_8B8D			  ; 3
-      .WORD loc_BANK0_8B46			  ; Going down jar
-      .WORD loc_BANK0_8B78			  ; Exiting jar
-      .WORD loc_BANK0_8BCB			  ; 6
-      .WORD loc_BANK0_8A5C			  ; Dying
-      .WORD loc_BANK0_8BF1			  ; Changing size
+      .WORD HandlePlayerState_Normal		  ; Normal
+      .WORD HandlePlayerState_Climbing		  ; Climbing
+      .WORD HandlePlayerState_Lifting		  ; Lifting
+      .WORD HandlePlayerState_ClimbingAreaTransition ; Climbing	area transition
+      .WORD HandlePlayerState_GoingDownJar	  ; Going down jar
+      .WORD HandlePlayerState_ExitingJar	  ; Exiting jar
+      .WORD HandlePlayerState_HawkmouthEating	  ; Hawkmouth eating
+      .WORD HandlePlayerState_Dying		  ; Dying
+      .WORD HandlePlayerState_ChangingSize	  ; Changing size
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8A41:
+HandlePlayerState_Normal:
       JSR     sub_BANK0_8CD9
 
       JSR     sub_BANK0_8C1A
@@ -1853,8 +1853,8 @@ locret_BANK0_8A5B:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8A5C:
-      LDA     byte_RAM_82
+HandlePlayerState_Dying:
+      LDA     PlayerStateTimer
       BNE     locret_BANK0_8A86
 
       LDA     byte_RAM_42A
@@ -1894,8 +1894,8 @@ locret_BANK0_8A86:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8A87:
-      LDA     byte_RAM_82
+HandlePlayerState_Lifting:
+      LDA     PlayerStateTimer
       BNE     locret_BANK0_8AC1
 
       LDX     byte_RAM_42D
@@ -1929,7 +1929,7 @@ loc_BANK0_8AB5:
       LDA     byte_RAM_544,Y
 
 loc_BANK0_8AB8:
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -1966,7 +1966,7 @@ byte_BANK0_8ACE:
       .BYTE $F0
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8AD1:
+HandlePlayerState_Climbing:
       LDA     Player1JoypadHeld
       AND     #ControllerInput_Down|ControllerInput_Up
       LSR     A
@@ -2078,7 +2078,7 @@ locret_BANK0_8B45:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8B46:
+HandlePlayerState_GoingDownJar:
       LDA     #$20
       STA     byte_RAM_64
       INC     PlayerYLo
@@ -2121,7 +2121,7 @@ locret_BANK0_8B77:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8B78:
+HandlePlayerState_ExitingJar:
       LDA     #$20
       STA     byte_RAM_64
       DEC     PlayerYLo
@@ -2149,7 +2149,7 @@ byte_BANK0_8B8B:
       .BYTE $A1
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8B8D:
+HandlePlayerState_ClimbingAreaTransition:
       LDA     PlayerYAccel
       ASL     A
       ROL     A
@@ -2198,8 +2198,8 @@ loc_BANK0_8BC6:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8BCB:
-      LDA     byte_RAM_82
+HandlePlayerState_HawkmouthEating:
+      LDA     PlayerStateTimer
       BEQ     loc_BANK0_8BE9
 
       JSR     sub_BANK0_8EA4
@@ -2244,8 +2244,8 @@ byte_BANK0_8BEC:
       .BYTE $19
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8BF1:
-      LDA     byte_RAM_82
+HandlePlayerState_ChangingSize:
+      LDA     PlayerStateTimer
       BEQ     loc_BANK0_8C0D
 
       INC     DamageInvulnTime
@@ -2255,11 +2255,11 @@ loc_BANK0_8BF9:
       CMP     byte_BANK0_8BEC,Y
       BNE     loc_BANK0_8C09
 
-      LDA     byte_RAM_6F6
+      LDA     PlayerCurrentSize
       EOR     #1
 
 loc_BANK0_8C03:
-      STA     byte_RAM_6F6
+      STA     PlayerCurrentSize
       JMP     loc_BANKF_FE33
 
 ; ---------------------------------------------------------------------------
@@ -2300,7 +2300,7 @@ sub_BANK0_8C1A:
       LDA     byte_RAM_9A
       BEQ     loc_BANK0_8C2B
 
-      LDA     byte_RAM_82
+      LDA     PlayerStateTimer
       BNE     loc_BANK0_8C92
 
       DEC     byte_RAM_9A
@@ -3334,7 +3334,7 @@ loc_BANK0_90EA:
       LDA     #2
       STA     PlayerState
       LDA     #6
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       LDA     #8
       STA     PlayerAnimationFrame
       INC     HoldingItem

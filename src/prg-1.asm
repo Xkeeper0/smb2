@@ -720,10 +720,10 @@ loc_BANK1_A4C0:
       DEC     byte_RAM_84
 
 loc_BANK1_A4C6:
-      LDA     byte_RAM_82
+      LDA     PlayerStateTimer
       BEQ     loc_BANK1_A4CC
 
-      DEC     byte_RAM_82
+      DEC     PlayerStateTimer
 
 loc_BANK1_A4CC:
       LDA     PlayerXLo
@@ -819,7 +819,7 @@ loc_BANK1_A530:
       LDA     #5
       STA     byte_RAM_8E
       LDA     #$28
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
 
 locret_BANK1_A54C:
       RTS
@@ -839,7 +839,7 @@ byte_BANK1_A550:
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_A556:
-      LDA     byte_RAM_82
+      LDA     PlayerStateTimer
       BNE     locret_BANK1_A577
 
       DEC     byte_RAM_8E
@@ -862,7 +862,7 @@ loc_BANK1_A56B:
 loc_BANK1_A570:
       LDY     byte_RAM_8E
       LDA     locret_BANK1_A54C,Y
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
 
 locret_BANK1_A577:
       RTS
@@ -2520,7 +2520,7 @@ loc_BANK1_BA9B:
       BCC     loc_BANK1_BAB4
 
       LDA     #0
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       JSR     KillPlayer
 
 loc_BANK1_BAB4:
@@ -2579,7 +2579,7 @@ loc_BANK1_BAED:
       LDA     #$C0
       STA     PlayerYAccel
       LDA     #$20
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       LDY     byte_RAM_12
       BMI     loc_BANK1_BAFD
 

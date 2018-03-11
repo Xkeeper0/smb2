@@ -3217,7 +3217,7 @@ loc_BANK3_B060:
       LDA     #PlayerState_HawkmouthEating
       STA     PlayerState
       LDA     #$60
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       LDA     #$FC
       STA     PlayerYAccel
 
@@ -4687,7 +4687,7 @@ loc_BANK3_B922:
       LDA     #4
       STA     PlayerAnimationFrame
       LDA     #$10
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
 
 locret_BANK3_B955:
       RTS
@@ -4903,7 +4903,7 @@ loc_BANK3_BA48:
 
 loc_BANK3_BA4E:
       LDA     #$20
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       LDY     byte_RAM_12
       BMI     loc_BANK3_BA5A
 
@@ -5325,7 +5325,7 @@ sub_BANK3_BC1F:
       LDA     #2
       STA     PlayerState
       LDA     #6
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       LDA     #8
       STA     PlayerAnimationFrame
       INC     HoldingItem

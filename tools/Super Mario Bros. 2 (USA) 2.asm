@@ -6,8 +6,8 @@ PlayerState_Normal: = 0
 PlayerState_Climbing: =	1
 PlayerState_Lifting: = 2
 PlayerState_ClimbingAreaTransition: = 3
-PlayerState_GoingDownVase: = 4
-PlayerState_ExitingVase: = 5
+PlayerState_GoingDownJar: = 4
+PlayerState_ExitingJar:	= 5
 PlayerState_HawkmouthEating: = 6
 PlayerState_Dying: = 7
 PlayerState_ChangingSize: = 8
@@ -516,7 +516,7 @@ ObjectYAccel:.BYTE 0 ; (uninited)			 ; 0 ; DATA XREF: sub_BANK0_8DC0+CEw
       .BYTE 0 ;	(uninited)			  ; 6
       .BYTE 0 ;	(uninited)			  ; 7
       .BYTE 0 ;	(uninited)			  ; 8
-PlayerState:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:loc_BANK0_8A02r
+PlayerState:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:HandlePlayerStater
 						  ; BANK0:8A24w BANK0:8A2Ar ...
 						  ; For	player:
 						  ; 00	Normal
@@ -596,9 +596,9 @@ EnemyTimer:.BYTE 0 ; (uninited)			  ; DATA XREF: BANK0:9082w
       ;	0 .BYTE	uninited & unexplored
 byte_RAM_80:.BYTE 0 ; (uninited)
       ;	0 .BYTE	uninited & unexplored
-byte_RAM_82:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8A20w
-						  ; BANK0:loc_BANK0_8A5Cr
-						  ; BANK0:loc_BANK0_8A87r ...
+PlayerStateTimer:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8A20w
+						  ; BANK0:HandlePlayerState_Dyingr
+						  ; BANK0:HandlePlayerState_Liftingr ...
 byte_RAM_83:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK1_A43B+1Ew
 						  ; sub_BANK1_A43B+64r
 						  ; sub_BANK1_A43B+6Ew	...
@@ -842,7 +842,7 @@ Player1JoypadPress:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8C1A:loc_BANK0
 						  ; sub_BANK0_8DC0:loc_BANK0_8E05r
 						  ; sub_BANK0_8DC0+99w	...
 Player2JoypadPress:.BYTE 0 ; (uninited)		  ; DATA XREF: ReadJoypads+19w
-Player1JoypadHeld:.BYTE	0 ; (uninited)		  ; DATA XREF: BANK0:loc_BANK0_8AD1r
+Player1JoypadHeld:.BYTE	0 ; (uninited)		  ; DATA XREF: BANK0:HandlePlayerState_Climbingr
 						  ; BANK0:8AE4r
 						  ; sub_BANK0_8C1A+2Dr	...
 Player2JoypadHeld:.BYTE	0 ; (uninited)		  ; DATA XREF: BANKF:E52Ar
@@ -2899,7 +2899,7 @@ byte_RAM_6F3:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E403w
 						  ; BANKF:E40Cw BANKF:E97Ew ...
 byte_RAM_6F4:.BYTE 0 ; (uninited)		  ; DATA XREF: ReadJoypads+12w
 byte_RAM_6F5:.BYTE 0 ; (uninited)		  ; DATA XREF: ReadJoypads+1Cw
-byte_RAM_6F6:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8A10r
+PlayerCurrentSize:.BYTE	0 ; (uninited)		  ; DATA XREF: BANK0:8A10r
 						  ; BANK0:8A15r BANK0:8BFEr ...
 BackgroundCHR1:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKC:838Cw
 						  ; BANKC:8407w BANKC:843Aw ...
@@ -35955,30 +35955,30 @@ _unused_BANK0_8966:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; $90
-byte_BANK0_8A00:.BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; 0
+GrowShrinkSFXIndexes:.BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; 0
 						  ; DATA XREF: BANK0:8A18r
 						  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8A02:					  ; CODE XREF: sub_BANKF_F0F9+19P
+HandlePlayerState:				  ; CODE XREF: sub_BANKF_F0F9+19P
 						  ; sub_BANKF_F11E+19P
 						  ; sub_BANKF_F17E+1CP
-      LDA     PlayerState
+      LDA     PlayerState			  ; Handles player states?
       CMP     #PlayerState_Lifting		  ; code used at 8000
-      BCS     loc_BANK0_8A26			  ; code used at 8000
+      BCS     loc_BANK0_8A26			  ; If the player is changing size, just handle	that
 
-      LDA     #0				  ; code used at 8000
+      LDA     #0				  ; Check if the player	needs to change	size
       LDY     #$10				  ; code used at 8000
       CPY     PlayerHealth			  ; code used at 8000
       ROL     A					  ; code used at 8000
-      EOR     byte_RAM_6F6			  ; code used at 8000
+      EOR     PlayerCurrentSize			  ; code used at 8000
       BEQ     loc_BANK0_8A26			  ; code used at 8000
 
-      LDY     byte_RAM_6F6			  ; code used at 8000
-      LDA     byte_BANK0_8A00,Y			  ; code used at 8000
+      LDY     PlayerCurrentSize			  ; code used at 8000
+      LDA     GrowShrinkSFXIndexes,Y		  ; code used at 8000
       STA     SoundEffectQueue2			  ; code used at 8000
       LDA     #$1E				  ; code used at 8000
-      STA     byte_RAM_82			  ; code used at 8000
+      STA     PlayerStateTimer			  ; code used at 8000
       LDA     #PlayerState_ChangingSize		  ; code used at 8000
       STA     PlayerState			  ; code used at 8000
 
@@ -35991,18 +35991,18 @@ loc_BANK0_8A26:					  ; CODE XREF: BANK0:8A06j
       JSR     JumpToTableAfterJump		  ; Player state handling?
 
 ; ---------------------------------------------------------------------------
-      .WORD loc_BANK0_8A41			  ; Normal
-      .WORD loc_BANK0_8AD1			  ; 1
-      .WORD loc_BANK0_8A87			  ; Lifting
-      .WORD loc_BANK0_8B8D			  ; 3
-      .WORD loc_BANK0_8B46			  ; Going down jar
-      .WORD loc_BANK0_8B78			  ; Exiting jar
-      .WORD loc_BANK0_8BCB			  ; 6
-      .WORD loc_BANK0_8A5C			  ; Dying
-      .WORD loc_BANK0_8BF1			  ; Changing size
+      .WORD HandlePlayerState_Normal		  ; Normal
+      .WORD HandlePlayerState_Climbing		  ; Climbing
+      .WORD HandlePlayerState_Lifting		  ; Lifting
+      .WORD HandlePlayerState_ClimbingAreaTransition ; Climbing	area transition
+      .WORD HandlePlayerState_GoingDownJar	  ; Going down jar
+      .WORD HandlePlayerState_ExitingJar	  ; Exiting jar
+      .WORD HandlePlayerState_HawkmouthEating	  ; Hawkmouth eating
+      .WORD HandlePlayerState_Dying		  ; Dying
+      .WORD HandlePlayerState_ChangingSize	  ; Changing size
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8A41:					  ; DATA XREF: BANK0:8A2Fo
+HandlePlayerState_Normal:			  ; DATA XREF: BANK0:8A2Fo
       JSR     sub_BANK0_8CD9			  ; code used at 8000
 
       JSR     sub_BANK0_8C1A			  ; code used at 8000
@@ -36036,8 +36036,8 @@ locret_BANK0_8A5B:				  ; CODE XREF: sub_BANK0_8A50+7j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8A5C:					  ; DATA XREF: BANK0:8A3Do
-      LDA     byte_RAM_82			  ; code used at 8000
+HandlePlayerState_Dying:			  ; DATA XREF: BANK0:8A3Do
+      LDA     PlayerStateTimer			  ; code used at 8000
       BNE     locret_BANK0_8A86			  ; code used at 8000
 
       LDA     byte_RAM_42A			  ; code used at 8000
@@ -36081,8 +36081,8 @@ locret_BANK0_8A86:				  ; CODE XREF: BANK0:8A5Ej
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8A87:					  ; DATA XREF: BANK0:8A33o
-      LDA     byte_RAM_82			  ; code used at 8000
+HandlePlayerState_Lifting:			  ; DATA XREF: BANK0:8A33o
+      LDA     PlayerStateTimer			  ; code used at 8000
       BNE     locret_BANK0_8AC1			  ; code used at 8000
 
       LDX     byte_RAM_42D			  ; code used at 8000
@@ -36120,7 +36120,7 @@ loc_BANK0_8AB5:					  ; CODE XREF: BANK0:8AAEj
 
 
 loc_BANK0_8AB8:					  ; CODE XREF: BANK0:8AB3j
-      STA     byte_RAM_82			  ; code used at 8000
+      STA     PlayerStateTimer			  ; code used at 8000
       RTS					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
@@ -36156,7 +36156,7 @@ byte_BANK0_8ACE:.BYTE 0				  ; DATA XREF: BANK0:8AE9r
       .BYTE $F0					  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8AD1:					  ; DATA XREF: BANK0:8A31o
+HandlePlayerState_Climbing:			  ; DATA XREF: BANK0:8A31o
       LDA     Player1JoypadHeld			  ; code used as data at 8000
       AND     #ControllerInput_Down|ControllerInput_Up ; code used at 8000
       LSR     A					  ; code used at 8000
@@ -36280,7 +36280,7 @@ locret_BANK0_8B45:				  ; CODE XREF: sub_BANK0_8B35+Aj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8B46:					  ; DATA XREF: BANK0:8A37o
+HandlePlayerState_GoingDownJar:			  ; DATA XREF: BANK0:8A37o
       LDA     #$20 ; ' '                          ; code used at 8000
       STA     byte_RAM_64			  ; code used at 8000
       INC     PlayerYLo				  ; code used at 8000
@@ -36324,7 +36324,7 @@ locret_BANK0_8B77:				  ; CODE XREF: BANK0:8B50j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8B78:					  ; DATA XREF: BANK0:8A39o
+HandlePlayerState_ExitingJar:			  ; DATA XREF: BANK0:8A39o
       LDA     #$20 ; ' '                          ; code used at 8000
       STA     byte_RAM_64			  ; code used at 8000
       DEC     PlayerYLo				  ; code used at 8000
@@ -36350,7 +36350,7 @@ byte_BANK0_8B8B:.BYTE 9				  ; DATA XREF: BANK0:8BB8r
       .BYTE $A1					  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8B8D:					  ; DATA XREF: BANK0:8A35o
+HandlePlayerState_ClimbingAreaTransition:	  ; DATA XREF: BANK0:8A35o
       LDA     PlayerYAccel			  ; code used at 8000
       ASL     A					  ; code used at 8000
       ROL     A					  ; code used at 8000
@@ -36402,8 +36402,8 @@ loc_BANK0_8BC6:					  ; CODE XREF: BANK0:8BBBj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8BCB:					  ; DATA XREF: BANK0:8A3Bo
-      LDA     byte_RAM_82			  ; code used at 8000
+HandlePlayerState_HawkmouthEating:		  ; DATA XREF: BANK0:8A3Bo
+      LDA     PlayerStateTimer			  ; code used at 8000
       BEQ     loc_BANK0_8BE9			  ; code used at 8000
 
       JSR     sub_BANK0_8EA4			  ; code used at 8000
@@ -36441,8 +36441,8 @@ byte_BANK0_8BEC:.BYTE 5				  ; DATA XREF: BANK0:loc_BANK0_8BF9r
       .BYTE $19					  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
-loc_BANK0_8BF1:					  ; DATA XREF: BANK0:8A3Fo
-      LDA     byte_RAM_82			  ; code used at 8000
+HandlePlayerState_ChangingSize:			  ; DATA XREF: BANK0:8A3Fo
+      LDA     PlayerStateTimer			  ; code used at 8000
       BEQ     loc_BANK0_8C0D			  ; code used at 8000
 
       INC     DamageInvulnTime			  ; code used at 8000
@@ -36453,11 +36453,11 @@ loc_BANK0_8BF9:					  ; CODE XREF: BANK0:8C0Aj
       CMP     byte_BANK0_8BEC,Y			  ; code used at 8000
       BNE     loc_BANK0_8C09			  ; code used at 8000
 
-      LDA     byte_RAM_6F6			  ; code used at 8000
+      LDA     PlayerCurrentSize			  ; code used at 8000
       EOR     #1				  ; code used at 8000
 
 loc_BANK0_8C03:					  ; code used at 8000
-      STA     byte_RAM_6F6
+      STA     PlayerCurrentSize
       JMP     loc_BANKF_FE33			  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
@@ -36500,7 +36500,7 @@ sub_BANK0_8C1A:					  ; CODE XREF: BANK0:8A44p
       LDA     byte_RAM_9A			  ; code used at 8000
       BEQ     loc_BANK0_8C2B			  ; code used at 8000
 
-      LDA     byte_RAM_82			  ; code used at 8000
+      LDA     PlayerStateTimer			  ; code used at 8000
       BNE     loc_BANK0_8C92			  ; code used at 8000
 
       DEC     byte_RAM_9A			  ; code used at 8000
@@ -36655,7 +36655,7 @@ loc_BANK0_8CD3:					  ; CODE XREF: sub_BANK0_8C99+Cj
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK0_8CD9:					  ; CODE XREF: BANK0:loc_BANK0_8A41p
+sub_BANK0_8CD9:					  ; CODE XREF: BANK0:HandlePlayerState_Normalp
       LDA     byte_RAM_4DF			  ; code used at 8000
       CMP     #2				  ; code used at 8000
       BCC     loc_BANK0_8CE5			  ; code used at 8000
@@ -37646,7 +37646,7 @@ loc_BANK0_90EA:					  ; CODE XREF: BANK0:loc_BANK0_90C3j
       LDA     #2				  ; code used at 8000
       STA     PlayerState			  ; code used at 8000
       LDA     #6				  ; code used at 8000
-      STA     byte_RAM_82			  ; code used at 8000
+      STA     PlayerStateTimer			  ; code used at 8000
       LDA     #8				  ; code used at 8000
       STA     PlayerAnimationFrame		  ; code used at 8000
       INC     HoldingItem			  ; code used at 8000
@@ -40191,10 +40191,10 @@ loc_BANK1_A4C0:					  ; CODE XREF: sub_BANK1_A43B+5Ep
 
 
 loc_BANK1_A4C6:					  ; CODE XREF: BANK1:A4C2j
-      LDA     byte_RAM_82			  ; code used at a000
+      LDA     PlayerStateTimer			  ; code used at a000
       BEQ     loc_BANK1_A4CC			  ; code used at a000
 
-      DEC     byte_RAM_82			  ; code used at a000
+      DEC     PlayerStateTimer			  ; code used at a000
 
 
 loc_BANK1_A4CC:					  ; CODE XREF: BANK1:A4C8j
@@ -40295,7 +40295,7 @@ loc_BANK1_A530:					  ; DATA XREF: BANK1:A4E2o
       LDA     #5				  ; code used at a000
       STA     byte_RAM_8E			  ; code used at a000
       LDA     #$28 ; '('                          ; code used at a000
-      STA     byte_RAM_82			  ; code used at a000
+      STA     PlayerStateTimer			  ; code used at a000
 
 
 locret_BANK1_A54C:				  ; DATA XREF: BANK1:A572r
@@ -40315,7 +40315,7 @@ byte_BANK1_A550:.BYTE $A			  ; DATA XREF: sub_BANK1_A5DE:loc_BANK1_A5F6r
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_A556:					  ; DATA XREF: BANK1:A4E4o
-      LDA     byte_RAM_82			  ; code used at a000
+      LDA     PlayerStateTimer			  ; code used at a000
       BNE     locret_BANK1_A577			  ; code used at a000
 
       DEC     byte_RAM_8E			  ; code used at a000
@@ -40338,7 +40338,7 @@ loc_BANK1_A56B:					  ; code used at a000
 loc_BANK1_A570:					  ; CODE XREF: BANK1:A55Cj
       LDY     byte_RAM_8E			  ; code used at a000
       LDA     locret_BANK1_A54C,Y		  ; code used at a000
-      STA     byte_RAM_82			  ; code used at a000
+      STA     PlayerStateTimer			  ; code used at a000
 
 
 locret_BANK1_A577:				  ; CODE XREF: BANK1:A558j
@@ -42088,7 +42088,7 @@ loc_BANK1_BA9B:					  ; CODE XREF: sub_BANK1_BA7C+16j
       BCC     loc_BANK1_BAB4
 
       LDA     #0
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       JSR     KillPlayer
 
 
@@ -42154,7 +42154,7 @@ loc_BANK1_BAED:					  ; CODE XREF: sub_BANK1_BABF+Aj
       LDA     #$C0 ; 'À'
       STA     PlayerYAccel
       LDA     #$20 ; ' '
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       LDY     byte_RAM_12
       BMI     loc_BANK1_BAFD
 
@@ -42376,7 +42376,7 @@ loc_BANK2_801E:					  ; CODE XREF: sub_BANK2_8010+9j
       STA     PlayerXAccel			  ; code used at 8000
       STA     DamageInvulnTime			  ; code used at 8000
       STA     HoldingItem			  ; code used at 8000
-      STA     byte_RAM_82			  ; code used at 8000
+      STA     PlayerStateTimer			  ; code used at 8000
       STA     byte_RAM_4C5			  ; code used at 8000
       STA     byte_RAM_4FD			  ; code used at 8000
       STA     CrouchJumpTimer			  ; code used at 8000
@@ -45253,7 +45253,7 @@ loc_BANK2_8DDB:					  ; CODE XREF: BANK2:8DC1j
       LDA     #6				  ; code used at 8000
       STA     PlayerState			  ; code used at 8000
       LDA     #$30 ; '0'                          ; code used at 8000
-      STA     byte_RAM_82			  ; code used at 8000
+      STA     PlayerStateTimer			  ; code used at 8000
       LDA     #$FC ; 'ü'                          ; code used at 8000
       STA     PlayerYAccel			  ; code used at 8000
       LDA     #SoundEffect1_HawkOpen_WartBarf	  ; code used at 8000
@@ -47184,7 +47184,7 @@ loc_BANK2_9636:					  ; CODE XREF: sub_BANK2_960F+1Bj
       CLC					  ; code used at 8000
       BNE     loc_BANK2_964D			  ; code used at 8000
 
-      LDY     byte_RAM_6F6			  ; code used at 8000
+      LDY     PlayerCurrentSize			  ; code used at 8000
       CPY     #1				  ; code used at 8000
       LDY     CurrentCharacter			  ; code used at 8000
       BCC     loc_BANK2_964A			  ; code used at 8000
@@ -47203,7 +47203,7 @@ loc_BANK2_964D:					  ; CODE XREF: sub_BANK2_960F+2Cj
       PHP					  ; code used at 8000
       LDY     unk_RAM_A8,X			  ; code used at 8000
       CLC					  ; code used at 8000
-      LDX     byte_RAM_6F6			  ; code used at 8000
+      LDX     PlayerCurrentSize			  ; code used at 8000
       BEQ     loc_BANK2_965D			  ; code used at 8000
 
       INY					  ; code used at 8000
@@ -52439,7 +52439,7 @@ loc_BANK3_B060:					  ; CODE XREF: BANK3:B02Fj
       LDA     #PlayerState_HawkmouthEating	  ; code used at a000
       STA     PlayerState			  ; code used at a000
       LDA     #$60 ; '`'                          ; code used at a000
-      STA     byte_RAM_82			  ; code used at a000
+      STA     PlayerStateTimer			  ; code used at a000
       LDA     #$FC ; 'ü'                          ; code used at a000
       STA     PlayerYAccel			  ; code used at a000
 
@@ -54014,7 +54014,7 @@ loc_BANK3_B922:					  ; CODE XREF: BANK3:B91Dj
       LDA     #4
       STA     PlayerAnimationFrame
       LDA     #$10
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
 
 
 locret_BANK3_B955:				  ; CODE XREF: BANK3:B927j
@@ -54248,7 +54248,7 @@ loc_BANK3_BA48:					  ; CODE XREF: BANK3:BA3Aj
 
 loc_BANK3_BA4E:
       LDA     #$20 ; ' '
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       LDY     byte_RAM_12
       BMI     loc_BANK3_BA5A
 
@@ -54714,7 +54714,7 @@ sub_BANK3_BC1F:					  ; CODE XREF: sub_BANK3_B899+29p
       LDA     #2				  ; code used at a000
       STA     PlayerState			  ; code used at a000
       LDA     #6				  ; code used at a000
-      STA     byte_RAM_82			  ; code used at a000
+      STA     PlayerStateTimer			  ; code used at a000
       LDA     #8				  ; code used at a000
       STA     PlayerAnimationFrame		  ; code used at a000
       INC     HoldingItem			  ; code used at a000
@@ -55898,7 +55898,7 @@ loc_BANK4_835B:					  ; CODE XREF: ProcessMusicQueue2+19j
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_835E:					  ; CODE XREF: ProcessMusicQueue2+3j
-      JMP     loc_BANK4_8451			  ; code used at 8000
+      JMP     StopMusic				  ; code used at 8000
 
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -55909,7 +55909,7 @@ ProcessMusicQueue2:				  ; CODE XREF: StartProcessingSoundQueue:ProcessOnlyMusic
       LDA     MusicQueue2			  ; code used at 8000
       BMI     loc_BANK4_835E			  ; code used as data at 8000
 
-      CMP     #4				  ; code used as data at 8000
+      CMP     #Music2_EndingAndCast		  ; code used as data at 8000
       BEQ     loc_BANK4_837D			  ; code used as data at 8000
 
       LDA     MusicQueue2			  ; code used as data at 8000
@@ -55973,7 +55973,7 @@ loc_BANK4_83B2:					  ; CODE XREF: ProcessMusicQueue2:loc_BANK4_8462j
       LDA     byte_RAM_5F0			  ; code used as data at 8000
       BNE     loc_BANK4_83AF			  ; code used as data at 8000
 
-      JMP     loc_BANK4_8451			  ; code used as data at 8000
+      JMP     StopMusic				  ; code used as data at 8000
 
 ; ---------------------------------------------------------------------------
 
@@ -56049,16 +56049,16 @@ loc_BANK4_8441:					  ; code used at 8000
       BEQ     loc_BANK4_8462			  ; code used at 8000
 
       AND     #$25 ; '%'                          ; code used at 8000
-      BEQ     loc_BANK4_8451			  ; code used at 8000
+      BEQ     StopMusic				  ; code used at 8000
 
       LDA     byte_RAM_5F3			  ; code used at 8000
       BNE     loc_BANK4_8465			  ; code used at 8000
 
 
-loc_BANK4_8451:					  ; CODE XREF: BANK4:loc_BANK4_835Ej
+StopMusic:					  ; CODE XREF: BANK4:loc_BANK4_835Ej
 						  ; ProcessMusicQueue2+61j
 						  ; ProcessMusicQueue2+E9j
-      LDA     #0				  ; code used at 8000
+      LDA     #0				  ; Pretty sure	this stops the music
       STA     byte_RAM_606			  ; code used at 8000
       STA     byte_RAM_609			  ; code used at 8000
       STA     SND_CHN				  ; code used at 8000
@@ -76448,7 +76448,7 @@ InitializeSomeLevelStuff:			  ; CODE XREF: BANKF:E428p
       STA     InSubspaceOrJar			  ; code used at e000
       STA     byte_RAM_4EE			  ; code used at e000
       STA     StopwatchTimer			  ; code used at e000
-      STA     byte_RAM_6F6			  ; code used at e000
+      STA     PlayerCurrentSize			  ; code used at e000
       RTS					  ; code used at e000
 
 ; End of function InitializeSomeLevelStuff
@@ -77272,7 +77272,7 @@ loc_BANKF_E665:					  ; CODE XREF: BANKF:E4B6j
       DEY					  ; code used at e000
       BNE     loc_BANKF_E69F			  ; code used at e000
 
-      STY     byte_RAM_6F6			  ; code used at e000
+      STY     PlayerCurrentSize			  ; code used at e000
       JSR     sub_BANKF_F1E1			  ; code used at e000
 
       LDA     #$FF				  ; code used at e000
@@ -77308,7 +77308,7 @@ loc_BANKF_E69F:					  ; CODE XREF: BANKF:E67Dj
 ; ---------------------------------------------------------------------------
 
 DoGameOverStuff:				  ; CODE XREF: BANKF:E6BCj
-      STY     byte_RAM_6F6
+      STY     PlayerCurrentSize
       LDA     #Music2_GameOver
       STA     MusicQueue2
       JSR     WaitForNMI_TurnOffPPU
@@ -77471,7 +77471,7 @@ EndOfLevel:					  ; CODE XREF: BANKF:E75Bj
 ; ---------------------------------------------------------------------------
 
 EndOfLevelSlotMachine:				  ; CODE XREF: BANKF:E7AFj
-      STY     byte_RAM_6F6			  ; code used at e000
+      STY     PlayerCurrentSize			  ; code used at e000
       JSR     WaitForNMI_TurnOffPPU		  ; code used at e000
 
       JSR     ClearNametablesAndSprites		  ; code used at e000
@@ -79062,7 +79062,7 @@ sub_BANKF_F0F9:					  ; CODE XREF: BANKF:E60Fp
       LDA     #0				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     loc_BANK0_8A02			  ; code used at e000
+      JSR     HandlePlayerState			  ; code used at e000
 
 
 loc_BANKF_F115:					  ; CODE XREF: sub_BANKF_F0F9+Dj
@@ -79097,7 +79097,7 @@ sub_BANKF_F11E:					  ; CODE XREF: BANKF:E4AEp
       LDA     byte_RAM_41B			  ; code used at e000
       BNE     loc_BANKF_F13A			  ; code used at e000
 
-      JSR     loc_BANK0_8A02			  ; code used at e000
+      JSR     HandlePlayerState			  ; code used at e000
 
 
 loc_BANKF_F13A:					  ; CODE XREF: sub_BANKF_F11E+12j
@@ -79129,10 +79129,10 @@ loc_BANKF_F146:					  ; CODE XREF: sub_BANKF_F0F9:loc_BANKF_F11Bj
 
 
 loc_BANKF_F159:					  ; CODE XREF: sub_BANKF_F11E+42j
-      LDA     byte_RAM_82,X			  ; code used at e000
+      LDA     PlayerStateTimer,X		  ; code used at e000
       BEQ     loc_BANKF_F15F			  ; code used at e000
 
-      DEC     byte_RAM_82,X			  ; code used at e000
+      DEC     PlayerStateTimer,X		  ; code used at e000
 
 
 loc_BANKF_F15F:					  ; CODE XREF: sub_BANKF_F11E+3Dj
@@ -79184,7 +79184,7 @@ sub_BANKF_F17E:					  ; CODE XREF: BANKF:E4F7p
       LDA     #0				  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
-      JSR     loc_BANK0_8A02			  ; code used at e000
+      JSR     HandlePlayerState			  ; code used at e000
 
 
 loc_BANKF_F19D:					  ; CODE XREF: sub_BANKF_F17E+10j
@@ -79330,7 +79330,7 @@ sub_BANKF_F228:					  ; CODE XREF: sub_BANKF_F0F9:loc_BANKF_F115p
       BMI     loc_BANKF_F254			  ; code used at e000
 
       LDA     #0
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       JMP     KillPlayer
 
 ; ---------------------------------------------------------------------------
@@ -79354,7 +79354,7 @@ loc_BANKF_F254:					  ; CODE XREF: sub_BANKF_F228+23j
       STY     byte_RAM_9A			  ; code used at e000
       STY     PlayerYAccel			  ; code used at e000
       STY     PlayerXAccel			  ; code used at e000
-      LDA     #PlayerState_ExitingVase		  ; code used at e000
+      LDA     #PlayerState_ExitingJar		  ; code used at e000
       STA     PlayerState			  ; code used at e000
       LDA     #SpriteAnimation_Ducking		  ; code used at e000
       STA     PlayerAnimationFrame		  ; code used at e000
@@ -79588,7 +79588,7 @@ loc_BANKF_F350:					  ; CODE XREF: sub_BANKF_F31A+2Ej
       CPY     #4				  ; code used at e000
       BEQ     loc_BANKF_F382			  ; code used at e000
 
-      LDA     byte_RAM_6F6			  ; code used at e000
+      LDA     PlayerCurrentSize			  ; code used at e000
       BEQ     loc_BANKF_F382			  ; code used at e000
 
       LDA     byte_RAM_0			  ; code used at e000
@@ -79722,7 +79722,7 @@ loc_BANKF_F413:					  ; CODE XREF: sub_BANKF_F31A+F5j
       STA     unk_RAM_221			  ; code used at e000
       LDA     byte_BANKF_F2E5,X			  ; code used at e000
       STA     unk_RAM_225			  ; code used at e000
-      LDA     byte_RAM_6F6			  ; code used at e000
+      LDA     PlayerCurrentSize			  ; code used at e000
       BNE     loc_BANKF_F43F			  ; code used at e000
 
       LDA     CurrentCharacter			  ; code used at e000
@@ -79752,7 +79752,7 @@ loc_BANKF_F44A:					  ; CODE XREF: sub_BANKF_F31A+FEj
       STA     unk_RAM_221			  ; code used at e000
       LDA     byte_BANKF_F2E4,X			  ; code used at e000
       STA     unk_RAM_225			  ; code used at e000
-      LDA     byte_RAM_6F6			  ; code used at e000
+      LDA     PlayerCurrentSize			  ; code used at e000
       BNE     loc_BANKF_F46F			  ; code used at e000
 
       LDA     CurrentCharacter			  ; code used at e000
@@ -81109,7 +81109,7 @@ sub_BANKF_FE16:					  ; CODE XREF: DisplayLevelTitleCardAndMore+51p
 loc_BANKF_FE33:					  ; CODE XREF: BANK0:8C06J
       LDA     CurrentCharacter			  ; code used at e000
       ASL     A					  ; code used at e000
-      ORA     byte_RAM_6F6			  ; code used at e000
+      ORA     PlayerCurrentSize			  ; code used at e000
       TAY					  ; code used at e000
       LDA     byte_BANKF_FE0E,Y			  ; code used at e000
       STA     SpriteCHR1			  ; code used at e000

@@ -58,7 +58,7 @@ loc_BANK2_801E:
       STA     PlayerXAccel
       STA     DamageInvulnTime
       STA     HoldingItem
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       STA     byte_RAM_4C5
       STA     byte_RAM_4FD
       STA     CrouchJumpTimer
@@ -2719,7 +2719,7 @@ loc_BANK2_8DDB:
       LDA     #6
       STA     PlayerState
       LDA     #$30
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       LDA     #$FC
       STA     PlayerYAccel
       LDA     #SoundEffect1_HawkOpen_WartBarf
@@ -4484,7 +4484,7 @@ loc_BANK2_9636:
       CLC
       BNE     loc_BANK2_964D
 
-      LDY     byte_RAM_6F6
+      LDY     PlayerCurrentSize
       CPY     #1
       LDY     CurrentCharacter
       BCC     loc_BANK2_964A
@@ -4501,7 +4501,7 @@ loc_BANK2_964D:
       PHP
       LDY     unk_RAM_A8,X
       CLC
-      LDX     byte_RAM_6F6
+      LDX     PlayerCurrentSize
       BEQ     loc_BANK2_965D
 
       INY

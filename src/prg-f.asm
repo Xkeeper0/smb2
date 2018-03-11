@@ -297,7 +297,7 @@ InitializeSomeLevelStuff:
       STA     InSubspaceOrJar
       STA     byte_RAM_4EE
       STA     StopwatchTimer
-      STA     byte_RAM_6F6
+      STA     PlayerCurrentSize
       RTS
 
 ; End of function InitializeSomeLevelStuff
@@ -1072,7 +1072,7 @@ loc_BANKF_E665:
       DEY
       BNE     loc_BANKF_E69F
 
-      STY     byte_RAM_6F6
+      STY     PlayerCurrentSize
       JSR     sub_BANKF_F1E1
 
       LDA     #$FF
@@ -1108,7 +1108,7 @@ loc_BANKF_E69F:
 ; ---------------------------------------------------------------------------
 
 DoGameOverStuff:
-      STY     byte_RAM_6F6
+      STY     PlayerCurrentSize
       LDA     #Music2_GameOver
       STA     MusicQueue2
       JSR     WaitForNMI_TurnOffPPU
@@ -1265,7 +1265,7 @@ EndOfLevel:
 ; ---------------------------------------------------------------------------
 
 EndOfLevelSlotMachine:
-      STY     byte_RAM_6F6
+      STY     PlayerCurrentSize
       JSR     WaitForNMI_TurnOffPPU
 
       JSR     ClearNametablesAndSprites
@@ -2749,7 +2749,7 @@ sub_BANKF_F0F9:
       LDA     #0
       JSR     ChangeMappedPRGBank
 
-      JSR     loc_BANK0_8A02
+      JSR     HandlePlayerState
 
 loc_BANKF_F115:
       JSR     sub_BANKF_F228
@@ -2779,7 +2779,7 @@ sub_BANKF_F11E:
       LDA     byte_RAM_41B
       BNE     loc_BANKF_F13A
 
-      JSR     loc_BANK0_8A02
+      JSR     HandlePlayerState
 
 loc_BANKF_F13A:
       JSR     sub_BANKF_F2C2
@@ -2805,10 +2805,10 @@ loc_BANKF_F146:
       LDX     #3
 
 loc_BANKF_F159:
-      LDA     byte_RAM_82,X
+      LDA     PlayerStateTimer,X
       BEQ     loc_BANKF_F15F
 
-      DEC     byte_RAM_82,X
+      DEC     PlayerStateTimer,X
 
 loc_BANKF_F15F:
       DEX
@@ -2854,7 +2854,7 @@ sub_BANKF_F17E:
       LDA     #0
       JSR     ChangeMappedPRGBank
 
-      JSR     loc_BANK0_8A02
+      JSR     HandlePlayerState
 
 loc_BANKF_F19D:
       LDA     #0
@@ -2982,7 +2982,7 @@ sub_BANKF_F228:
       BMI     loc_BANKF_F254
 
       LDA     #0
-      STA     byte_RAM_82
+      STA     PlayerStateTimer
       JMP     KillPlayer
 
 ; ---------------------------------------------------------------------------
@@ -3006,7 +3006,7 @@ loc_BANKF_F254:
       STY     byte_RAM_9A
       STY     PlayerYAccel
       STY     PlayerXAccel
-      LDA     #PlayerState_ExitingVase
+      LDA     #PlayerState_ExitingJar
       STA     PlayerState
       LDA     #SpriteAnimation_Ducking
       STA     PlayerAnimationFrame
@@ -3231,7 +3231,7 @@ loc_BANKF_F350:
       CPY     #4
       BEQ     loc_BANKF_F382
 
-      LDA     byte_RAM_6F6
+      LDA     PlayerCurrentSize
       BEQ     loc_BANKF_F382
 
       LDA     byte_RAM_0
@@ -3351,7 +3351,7 @@ loc_BANKF_F413:
       STA     SpriteDMAArea + $21
       LDA     byte_BANKF_F2E5,X
       STA     SpriteDMAArea + $25
-      LDA     byte_RAM_6F6
+      LDA     PlayerCurrentSize
       BNE     loc_BANKF_F43F
 
       LDA     CurrentCharacter
@@ -3377,7 +3377,7 @@ loc_BANKF_F44A:
       STA     SpriteDMAArea + $21
       LDA     byte_BANKF_F2E4,X
       STA     SpriteDMAArea + $25
-      LDA     byte_RAM_6F6
+      LDA     PlayerCurrentSize
       BNE     loc_BANKF_F46F
 
       LDA     CurrentCharacter
@@ -4648,7 +4648,7 @@ sub_BANKF_FE16:
 loc_BANKF_FE33:
       LDA     CurrentCharacter
       ASL     A
-      ORA     byte_RAM_6F6
+      ORA     PlayerCurrentSize
       TAY
       LDA     byte_BANKF_FE0E,Y
       STA     SpriteCHR1

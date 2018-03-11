@@ -541,7 +541,7 @@ loc_BANK4_835B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_835E:
-      JMP     loc_BANK4_8451
+      JMP     StopMusic
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -549,7 +549,7 @@ ProcessMusicQueue2:
       LDA     MusicQueue2
       BMI     loc_BANK4_835E
 
-      CMP     #4
+      CMP     #Music2_EndingAndCast
       BEQ     loc_BANK4_837D
 
       LDA     MusicQueue2
@@ -607,7 +607,7 @@ loc_BANK4_83B2:
       LDA     byte_RAM_5F0
       BNE     loc_BANK4_83AF
 
-      JMP     loc_BANK4_8451
+      JMP     StopMusic
 
 ; ---------------------------------------------------------------------------
 
@@ -678,13 +678,13 @@ loc_BANK4_8441:
       BEQ     loc_BANK4_8462
 
       AND     #$25
-      BEQ     loc_BANK4_8451
+      BEQ     StopMusic
 
       LDA     byte_RAM_5F3
       BNE     loc_BANK4_8465
 
-loc_BANK4_8451:
-      LDA     #0
+StopMusic:
+      LDA     #0				  ; Pretty sure	this stops the music
       STA     byte_RAM_606
       STA     byte_RAM_609
       STA     SND_CHN
