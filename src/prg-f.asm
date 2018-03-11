@@ -64,46 +64,33 @@ BonusChanceCherrySprite:
 	  .BYTE $5F,5,1,$58			    
       .BYTE $5F,7,1,$60				  ; 4
 BonusChanceStarSprite:
-	  .BYTE $5F,9,1,$58				  
-      .BYTE $5F,9,$41,$60			  ; 4
+	  .BYTE $5F,9,1,$58
+      .BYTE $5F,9,$41,$60
 BonusChanceVeggieSprite:
-	  .BYTE $5F,$B,1,$58			    
-      .BYTE $5F,$B,$41,$60			  ; 4
+	  .BYTE $5F,$B,1,$58
+      .BYTE $5F,$B,$41,$60
 BonusChanceSnifitSprite:
-	  .BYTE $5F,1,1,$58			    
-      .BYTE $5F,3,1,$60				  ; 4
+	  .BYTE $5F,1,1,$58
+      .BYTE $5F,3,1,$60
 PlayerSelectSpritePalettesDark:
-	  .BYTE $3F,$10,$10,$F			   
-      .BYTE $22,$12,1,$F			  ; 4
-      .BYTE $22,$12,1,$F			  ; 8
-      .BYTE $22,$12,1,$F			  ; $C
-      .BYTE $22
-      .BYTE $12
-      .BYTE 1
-unk_BANKF_E0D1:
-	  .BYTE   0
-
-      .BYTE $15
-      .BYTE  $E
-      .BYTE   7
-byte_BANKF_E0D5:
-	  .BYTE $3F,$10,4,$F			    
-      .BYTE $27,$16,1,$3F			  ; 4
-      .BYTE $14,4,$F,$36			  ; 8
-      .BYTE $2A,1,$3F,$18			  ; $C
-      .BYTE 4,$F,$27,$30			  ; $10
-      .BYTE 1,$3F,$1C,4				  ; $14
-      .BYTE $F,$36,$25,7			  ; $18
+	  .BYTE $3F,$10,$10,$F,$22,$12,1,$F,$22,$12,1,$F,$22,$12,1,$F,$22
+      .BYTE $12,1				  ; This is actually PPU data, not a straight-up palette
+PlayerSelectPaletteOffsets:
+	  .BYTE 0
+      .BYTE $15					  ; These use the internal ordering
+      .BYTE $E					  ; (Mario, Princess, Toad, Luigi)
+      .BYTE 7
+PlayerSelectSpritePalettes:
+	  .BYTE $3F,$10,4,$F,$27,$16,1
+						  ; Mario
+      .BYTE $3F,$14,4,$F,$36,$2A,1		  ; Luigi
+      .BYTE $3F,$18,4,$F,$27,$30,1		  ; Toad
+      .BYTE $3F,$1C,4,$F,$36,$25,7		  ; Princess
 TitleCardPalettes:
-	  .BYTE	$3F,0,$20,$38			      
-      .BYTE $30,$1A,$F,$38			  ; 4
-      .BYTE $38,$F,$F,$38			  ; 8
-      .BYTE $17,$17,$38,$38			  ; $C
-      .BYTE $28,$18,8,$38			  ; $10
-      .BYTE $30,$27,1,$38			  ; $14
-      .BYTE $37,$27,6,$38			  ; $18
-      .BYTE $25,$36,6,$38			  ; $1C
-      .BYTE $12,$36,1,0				  ; $20
+	  .BYTE	$3F,0,$20,$38,$30,$1A,$F,$38,$38,$F,$F,$38,$17,$17,$38,$38
+      .BYTE $28,$18,8,$38,$30,$27,1,$38,$37,$27,6,$38,$25,$36,6,$38,$12	; PPU data for storing the palettes
+      .BYTE $36,1
+      .BYTE   0
 BonusChanceSpritePalettes:
 	  .BYTE	$F,$37,$16,$F			      
       .BYTE $F,$37,$16,$F			  ; 4
@@ -184,7 +171,7 @@ sub_BANKF_E166:
       JSR     WaitForNMI
 
       LDA     #0
-      JSR     sub_BANKF_FFA0
+      JSR     ChangeNametableMirroring
 
       JSR     ClearNametablesAndSprites
 
@@ -538,12 +525,12 @@ loc_BANKF_E37D:
       LDA     #6
       STA     byte_RAM_A
       LDX     CurrentCharacter
-      LDA     unk_BANKF_E0D1,X			  ; @TODO What is this *doing*?
+      LDA     PlayerSelectPaletteOffsets,X	  ; @TODO What is this *doing*?
 						  ; It's reading in the middle of some palette data
       TAX
 
 loc_BANKF_E391:
-      LDA     byte_BANKF_E0D5,X
+      LDA     PlayerSelectSpritePalettes,X
       STA     PPUBuffer_301,Y
       INY
       INX
@@ -890,7 +877,7 @@ loc_BANKF_E54B:
       BNE     loc_BANKF_E587
 
       LDA     #1
-      JSR     sub_BANKF_FFA0
+      JSR     ChangeNametableMirroring
 
       JSR     sub_BANK0_81FE
 
@@ -910,7 +897,7 @@ loc_BANKF_E576:
 
 loc_BANKF_E587:
       LDA     #0
-      JSR     sub_BANKF_FFA0
+      JSR     ChangeNametableMirroring
 
       JSR     sub_BANK0_8785
 
@@ -2971,12 +2958,12 @@ sub_BANKF_F228:
       STA     PlayerPageY
       LDA     PlayerYHi
       SBC     byte_RAM_CA
-      STA     byte_RAM_42A
+      STA     PlayerYHi_Copy
       LDA     PlayerState
       CMP     #PlayerState_Lifting
       BCS     locret_BANKF_F297
 
-      LDA     byte_RAM_42A
+      LDA     PlayerYHi_Copy
       BEQ     loc_BANKF_F298
 
       BMI     loc_BANKF_F254
@@ -3225,7 +3212,7 @@ loc_BANKF_F350:
       STA     SpriteDMAArea + $2F
       LDA     PlayerPageY
       STA     byte_RAM_0
-      LDA     byte_RAM_42A
+      LDA     PlayerYHi_Copy
       STA     byte_RAM_1
       LDY     PlayerAnimationFrame
       CPY     #4
@@ -3437,7 +3424,7 @@ sub_BANKF_F494:
       BCS     locret_BANKF_F4C2
 
       LDA     PlayerPageY
-      LDY     byte_RAM_42A
+      LDY     PlayerYHi_Copy
       BMI     loc_BANKF_F4B0
 
       BNE     loc_BANKF_F4B6
@@ -4832,11 +4819,13 @@ ChangeMappedPRGBankWithoutSaving:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANKF_FFA0:
-      STA     $A000
+ChangeNametableMirroring:
+      STA     $A000				  ; Writing to $A000 sets mirroring.
+						  ; 0 Vertical
+						  ; 1 Horizontal
       RTS
 
-; End of function sub_BANKF_FFA0
+; End of function ChangeNametableMirroring
 
 ; ---------------------------------------------------------------------------
 ; [00000047 BYTES: BEGIN OF AREA UNUSED-BANKF:FFA4. PRESS KEYPAD "-" TO	COLLAPSE]

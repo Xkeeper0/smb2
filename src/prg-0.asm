@@ -9,7 +9,7 @@ sub_BANK0_8000:
       BNE     loc_BANK0_805D
 
       LDA     #1
-      JSR     sub_BANKF_FFA0
+      JSR     ChangeNametableMirroring
 
 _code_000A:
       LDA     byte_RAM_533
@@ -951,7 +951,7 @@ sub_BANK0_8500:
       BNE     loc_BANK0_855C
 
       LDA     #0
-      JSR     sub_BANKF_FFA0
+      JSR     ChangeNametableMirroring
 
       JSR     sub_BANK0_946D
 
@@ -1857,7 +1857,7 @@ HandlePlayerState_Dying:
       LDA     PlayerStateTimer
       BNE     locret_BANK0_8A86
 
-      LDA     byte_RAM_42A
+      LDA     PlayerYHi_Copy
       CMP     #2
       BEQ     LoseALife
 
@@ -2155,7 +2155,7 @@ HandlePlayerState_ClimbingAreaTransition:
       ROL     A
       AND     #1
       TAY
-      LDA     byte_RAM_42A
+      LDA     PlayerYHi_Copy
       CMP     byte_BANK0_8B87,Y
       BNE     loc_BANK0_8BB0
 
@@ -2173,7 +2173,7 @@ HandlePlayerState_ClimbingAreaTransition:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8BB0:
-      LDA     byte_RAM_42A
+      LDA     PlayerYHi_Copy
       BNE     loc_BANK0_8BBD
 
       LDA     PlayerPageY
@@ -3765,7 +3765,7 @@ _code_12E3:
       BCS     locret_BANK0_9311
 
       LDA     PlayerPageY
-      LDY     byte_RAM_42A
+      LDY     PlayerYHi_Copy
       BMI     loc_BANK0_92FF
 
       BNE     loc_BANK0_9305
@@ -4030,7 +4030,7 @@ sub_BANK0_9428:
       STA     PlayerPageY
       LDA     PlayerYHi
       SBC     byte_RAM_CA
-      STA     byte_RAM_42A
+      STA     PlayerYHi_Copy
       LDA     byte_RAM_534
       SEC
       SBC     #4
@@ -4100,7 +4100,7 @@ loc_BANK0_94AC:
       STA     PlayerPageY
       LDA     PlayerYHi
       SBC     byte_RAM_CA
-      STA     byte_RAM_42A
+      STA     PlayerYHi_Copy
       LDA     byte_RAM_534
       CMP     #4
       BNE     loc_BANK0_94C2

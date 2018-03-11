@@ -1215,7 +1215,7 @@ sub_BANK1_AA79:
       JSR     WaitForNMI_Ending_TurnOffPPU
 
       LDA     #0
-      JSR     sub_BANKF_FFA0
+      JSR     ChangeNametableMirroring
 
       JSR     ClearNametablesAndSprites
 
@@ -1238,7 +1238,7 @@ sub_BANK1_AA79:
       JSR     WaitForNMI_Ending
 
       LDA     #1
-      JSR     sub_BANKF_FFA0
+      JSR     ChangeNametableMirroring
 
       LDY     #3
 
@@ -1330,7 +1330,7 @@ loc_BANK1_AB1D:
 
 loc_BANK1_AB20:
       LDA     #0
-      JSR     sub_BANKF_FFA0
+      JSR     ChangeNametableMirroring
 
       LDA     #1
       STA     byte_RAM_F2

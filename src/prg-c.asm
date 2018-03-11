@@ -268,7 +268,7 @@ MarioSleepingScene:
       JSR     sub_BANKC_8014
 
       LDA     #0
-      JSR     sub_BANKF_FFA0
+      JSR     ChangeNametableMirroring
 
       JSR     ClearNametablesAndSprites
 

@@ -1369,7 +1369,7 @@ PlayerPageX:
 	  .dsb 1                       ; $0428
 byte_RAM_429:
 	  .dsb 1                       ; $0429
-byte_RAM_42A:
+PlayerYHi_Copy:
 	  .dsb 1                       ; $042a
 PlayerPageY:
 	  .dsb 1                       ; $042b

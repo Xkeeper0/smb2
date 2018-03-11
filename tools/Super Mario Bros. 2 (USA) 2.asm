@@ -1797,7 +1797,7 @@ PlayerPageX:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8EFA+90r
 byte_RAM_429:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8EFA+93w
 						  ; sub_BANK1_BABF+17r
 						  ; BANK2:8622r ...
-byte_RAM_42A:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8A60r
+PlayerYHi_Copy:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8A60r
 						  ; BANK0:8B94r
 						  ; BANK0:loc_BANK0_8BB0r ...
 PlayerPageY:.BYTE 0 ; (uninited)		  ; DATA XREF: BANK0:8B9Cr
@@ -33981,7 +33981,7 @@ sub_BANK0_8000:					  ; CODE XREF: BANKF:E4D4P
       BNE     loc_BANK0_805D			  ; code used at 8000
 
       LDA     #1				  ; code used at 8000
-      JSR     sub_BANKF_FFA0			  ; code used at 8000
+      JSR     ChangeNametableMirroring		  ; code used at 8000
 
 
 _code_000A:					  ; code used at 8000
@@ -35031,7 +35031,7 @@ sub_BANK0_8500:					  ; CODE XREF: BANKF:E480P
       BNE     loc_BANK0_855C			  ; code used at 8000
 
       LDA     #0				  ; code used at 8000
-      JSR     sub_BANKF_FFA0			  ; code used at 8000
+      JSR     ChangeNametableMirroring		  ; code used at 8000
 
       JSR     sub_BANK0_946D			  ; code used at 8000
 
@@ -36040,7 +36040,7 @@ HandlePlayerState_Dying:			  ; DATA XREF: BANK0:8A3Do
       LDA     PlayerStateTimer			  ; code used at 8000
       BNE     locret_BANK0_8A86			  ; code used at 8000
 
-      LDA     byte_RAM_42A			  ; code used at 8000
+      LDA     PlayerYHi_Copy			  ; code used at 8000
       CMP     #2				  ; code used at 8000
       BEQ     LoseALife				  ; code used at 8000
 
@@ -36356,7 +36356,7 @@ HandlePlayerState_ClimbingAreaTransition:	  ; DATA XREF: BANK0:8A35o
       ROL     A					  ; code used at 8000
       AND     #1				  ; code used at 8000
       TAY					  ; code used at 8000
-      LDA     byte_RAM_42A			  ; code used at 8000
+      LDA     PlayerYHi_Copy			  ; code used at 8000
       CMP     byte_BANK0_8B87,Y			  ; code used at 8000
       BNE     loc_BANK0_8BB0			  ; code used at 8000
 
@@ -36375,7 +36375,7 @@ HandlePlayerState_ClimbingAreaTransition:	  ; DATA XREF: BANK0:8A35o
 
 loc_BANK0_8BB0:					  ; CODE XREF: BANK0:8B9Aj
 						  ; BANK0:8BA2j
-      LDA     byte_RAM_42A			  ; code used at 8000
+      LDA     PlayerYHi_Copy			  ; code used at 8000
       BNE     loc_BANK0_8BBD			  ; code used at 8000
 
       LDA     PlayerPageY			  ; code used at 8000
@@ -38117,7 +38117,7 @@ _code_12E3:
       BCS     locret_BANK0_9311
 
       LDA     PlayerPageY
-      LDY     byte_RAM_42A
+      LDY     PlayerYHi_Copy
       BMI     loc_BANK0_92FF
 
       BNE     loc_BANK0_9305
@@ -38409,7 +38409,7 @@ sub_BANK0_9428:					  ; CODE XREF: sub_BANK0_874C+20p
       STA     PlayerPageY			  ; code used at 8000
       LDA     PlayerYHi				  ; code used at 8000
       SBC     byte_RAM_CA			  ; code used at 8000
-      STA     byte_RAM_42A			  ; code used at 8000
+      STA     PlayerYHi_Copy			  ; code used at 8000
       LDA     byte_RAM_534			  ; code used at 8000
       SEC					  ; code used at 8000
       SBC     #4				  ; code used at 8000
@@ -38486,7 +38486,7 @@ loc_BANK0_94AC:					  ; code used at 8000
       STA     PlayerPageY			  ; code used at 8000
       LDA     PlayerYHi				  ; code used at 8000
       SBC     byte_RAM_CA			  ; code used at 8000
-      STA     byte_RAM_42A			  ; code used at 8000
+      STA     PlayerYHi_Copy			  ; code used at 8000
       LDA     byte_RAM_534			  ; code used at 8000
       CMP     #4				  ; code used at 8000
       BNE     loc_BANK0_94C2			  ; code used at 8000
@@ -40711,7 +40711,7 @@ sub_BANK1_AA79:					  ; CODE XREF: BANKF:E981P
       JSR     WaitForNMI_Ending_TurnOffPPU	  ; code used at a000
 
       LDA     #0				  ; code used at a000
-      JSR     sub_BANKF_FFA0			  ; code used at a000
+      JSR     ChangeNametableMirroring		  ; code used at a000
 
       JSR     ClearNametablesAndSprites		  ; code used at a000
 
@@ -40734,7 +40734,7 @@ sub_BANK1_AA79:					  ; CODE XREF: BANKF:E981P
       JSR     WaitForNMI_Ending			  ; code used at a000
 
       LDA     #1				  ; code used at a000
-      JSR     sub_BANKF_FFA0			  ; code used at a000
+      JSR     ChangeNametableMirroring		  ; code used at a000
 
       LDY     #3				  ; code used at a000
 
@@ -40834,7 +40834,7 @@ loc_BANK1_AB1D:					  ; CODE XREF: sub_BANK1_AA79+97j
 
 loc_BANK1_AB20:					  ; CODE XREF: sub_BANK1_AA79+6Cj
       LDA     #0				  ; code used at a000
-      JSR     sub_BANKF_FFA0			  ; code used at a000
+      JSR     ChangeNametableMirroring		  ; code used at a000
 
       LDA     #1				  ; code used at a000
       STA     byte_RAM_F2			  ; code used at a000
@@ -72421,7 +72421,7 @@ MarioSleepingScene:				  ; CODE XREF: BANKF:E99BJ
       JSR     sub_BANKC_8014			  ; code used at 8000
 
       LDA     #0				  ; code used at 8000
-      JSR     sub_BANKF_FFA0			  ; code used at 8000
+      JSR     ChangeNametableMirroring		  ; code used at 8000
 
       JSR     ClearNametablesAndSprites		  ; code used at 8000
 
@@ -76188,44 +76188,31 @@ PlayerSelectSpriteIndexes:.BYTE	0, $30,	$20, $10		      ;	0
 BonusChanceCherrySprite:.BYTE $5F,5,1,$58			    ; 0
 						  ; DATA XREF: sub_BANKF_EAF6:loc_BANKF_EB0Dr
       .BYTE $5F,7,1,$60				  ; 4
-BonusChanceStarSprite:.BYTE $5F,9,1,$58				  ; 0
-      .BYTE $5F,9,$41,$60			  ; 4
-BonusChanceVeggieSprite:.BYTE $5F,$B,1,$58			    ; 0
-      .BYTE $5F,$B,$41,$60			  ; 4
-BonusChanceSnifitSprite:.BYTE $5F,1,1,$58			    ; 0
-      .BYTE $5F,3,1,$60				  ; 4
-PlayerSelectSpritePalettesDark:.BYTE $3F,$10,$10,$F			   ; 0
+BonusChanceStarSprite:.BYTE $5F,9,1,$58
+      .BYTE $5F,9,$41,$60
+BonusChanceVeggieSprite:.BYTE $5F,$B,1,$58
+      .BYTE $5F,$B,$41,$60
+BonusChanceSnifitSprite:.BYTE $5F,1,1,$58
+      .BYTE $5F,3,1,$60
+PlayerSelectSpritePalettesDark:.BYTE $3F,$10,$10,$F,$22,$12,1,$F,$22,$12,1,$F,$22,$12,1,$F,$22
 						  ; DATA XREF: DoCharacterSelectMenu:loc_BANKF_E37Dr
-      .BYTE $22,$12,1,$F			  ; 4 ;	data used at e000
-      .BYTE $22,$12,1,$F			  ; 8
-      .BYTE $22,$12,1,$F			  ; $C
-      .BYTE $22					  ; data used at e000
-      .BYTE $12					  ; data used at e000
-      .BYTE 1					  ; data used at e000
-unk_BANKF_E0D1:.BYTE   0			  ; DATA XREF: DoCharacterSelectMenu+105r
-						  ; data used at e000
-      .BYTE $15					  ; data used at e000
-      .BYTE  $E					  ; data used at e000
-      .BYTE   7					  ; data used at e000
-byte_BANKF_E0D5:.BYTE $3F,$10,4,$F			    ; 0
+      .BYTE $12,1				  ; This is actually PPU data, not a straight-up palette
+PlayerSelectPaletteOffsets:.BYTE 0		  ; DATA XREF: DoCharacterSelectMenu+105r
+      .BYTE $15					  ; These use the internal ordering
+      .BYTE $E					  ; (Mario, Princess, Toad, Luigi)
+      .BYTE 7
+PlayerSelectSpritePalettes:.BYTE $3F,$10,4,$F,$27,$16,1
 						  ; DATA XREF: DoCharacterSelectMenu:loc_BANKF_E391r
-      .BYTE $27,$16,1,$3F			  ; 4 ;	data used at e000
-      .BYTE $14,4,$F,$36			  ; 8
-      .BYTE $2A,1,$3F,$18			  ; $C
-      .BYTE 4,$F,$27,$30			  ; $10
-      .BYTE 1,$3F,$1C,4				  ; $14
-      .BYTE $F,$36,$25,7			  ; $18
-TitleCardPalettes:.BYTE	$3F,0,$20,$38			      ;	0
+						  ; Mario
+      .BYTE $3F,$14,4,$F,$36,$2A,1		  ; Luigi
+      .BYTE $3F,$18,4,$F,$27,$30,1		  ; Toad
+      .BYTE $3F,$1C,4,$F,$36,$25,7		  ; Princess
+TitleCardPalettes:.BYTE	$3F,0,$20,$38,$30,$1A,$F,$38,$38,$F,$F,$38,$17,$17,$38,$38
 						  ; DATA XREF: DisplayLevelTitleCardAndMore:loc_BANKF_E245r
 						  ; sub_BANKF_E9F4:loc_BANKF_EA04r
-      .BYTE $30,$1A,$F,$38			  ; 4 ;	data used at e000
-      .BYTE $38,$F,$F,$38			  ; 8
-      .BYTE $17,$17,$38,$38			  ; $C
-      .BYTE $28,$18,8,$38			  ; $10
-      .BYTE $30,$27,1,$38			  ; $14
-      .BYTE $37,$27,6,$38			  ; $18
-      .BYTE $25,$36,6,$38			  ; $1C
-      .BYTE $12,$36,1,0				  ; $20
+      .BYTE $28,$18,8,$38,$30,$27,1,$38,$37,$27,6,$38,$25,$36,6,$38,$12	; PPU data for storing the palettes
+      .BYTE $36,1
+      .BYTE   0					  ; data used at e000
 BonusChanceSpritePalettes:.BYTE	$F,$37,$16,$F			      ;	0
 						  ; DATA XREF: sub_BANKF_EA33:SetBonusChancePaletter
       .BYTE $F,$37,$16,$F			  ; 4 ;	data used at e000
@@ -76319,7 +76306,7 @@ sub_BANKF_E166:					  ; CODE XREF: DoCharacterSelectMenu+16p
       JSR     WaitForNMI			  ; code used at e000
 
       LDA     #0				  ; code used at e000
-      JSR     sub_BANKF_FFA0			  ; code used at e000
+      JSR     ChangeNametableMirroring		  ; code used at e000
 
       JSR     ClearNametablesAndSprites		  ; code used at e000
 
@@ -76700,13 +76687,13 @@ loc_BANKF_E37D:					  ; CODE XREF: DoCharacterSelectMenu+FDj
       LDA     #6				  ; code used at e000
       STA     byte_RAM_A			  ; code used at e000
       LDX     CurrentCharacter			  ; code used at e000
-      LDA     unk_BANKF_E0D1,X			  ; @TODO What is this *doing*?
+      LDA     PlayerSelectPaletteOffsets,X	  ; @TODO What is this *doing*?
 						  ; It's reading in the middle of some palette data
       TAX					  ; code used at e000
 
 
 loc_BANKF_E391:					  ; CODE XREF: DoCharacterSelectMenu+113j
-      LDA     byte_BANKF_E0D5,X			  ; code used at e000
+      LDA     PlayerSelectSpritePalettes,X	  ; code used at e000
       STA     PPUBuffer_301,Y			  ; code used at e000
       INY					  ; code used at e000
       INX					  ; code used at e000
@@ -77080,7 +77067,7 @@ loc_BANKF_E54B:					  ; CODE XREF: BANKF:E537j
       BNE     loc_BANKF_E587			  ; code used at e000
 
       LDA     #1				  ; code used at e000
-      JSR     sub_BANKF_FFA0			  ; code used at e000
+      JSR     ChangeNametableMirroring		  ; code used at e000
 
       JSR     sub_BANK0_81FE			  ; code used at e000
 
@@ -77101,7 +77088,7 @@ loc_BANKF_E576:					  ; CODE XREF: BANKF:E57Fj
 
 loc_BANKF_E587:					  ; CODE XREF: BANKF:E56Cj
       LDA     #0				  ; code used at e000
-      JSR     sub_BANKF_FFA0			  ; code used at e000
+      JSR     ChangeNametableMirroring		  ; code used at e000
 
       JSR     sub_BANK0_8785			  ; code used at e000
 
@@ -79319,12 +79306,12 @@ sub_BANKF_F228:					  ; CODE XREF: sub_BANKF_F0F9:loc_BANKF_F115p
       STA     PlayerPageY			  ; code used at e000
       LDA     PlayerYHi				  ; code used at e000
       SBC     byte_RAM_CA			  ; code used at e000
-      STA     byte_RAM_42A			  ; code used at e000
+      STA     PlayerYHi_Copy			  ; code used at e000
       LDA     PlayerState			  ; code used at e000
       CMP     #PlayerState_Lifting		  ; code used at e000
       BCS     locret_BANKF_F297			  ; code used at e000
 
-      LDA     byte_RAM_42A			  ; code used at e000
+      LDA     PlayerYHi_Copy			  ; code used at e000
       BEQ     loc_BANKF_F298			  ; code used at e000
 
       BMI     loc_BANKF_F254			  ; code used at e000
@@ -79582,7 +79569,7 @@ loc_BANKF_F350:					  ; CODE XREF: sub_BANKF_F31A+2Ej
       STA     unk_RAM_22F			  ; code used at e000
       LDA     PlayerPageY			  ; code used at e000
       STA     byte_RAM_0			  ; code used at e000
-      LDA     byte_RAM_42A			  ; code used at e000
+      LDA     PlayerYHi_Copy			  ; code used at e000
       STA     byte_RAM_1			  ; code used at e000
       LDY     PlayerAnimationFrame		  ; code used at e000
       CPY     #4				  ; code used at e000
@@ -79823,7 +79810,7 @@ sub_BANKF_F494:					  ; CODE XREF: sub_BANKF_F17E+3p
       BCS     locret_BANKF_F4C2			  ; code used at e000
 
       LDA     PlayerPageY			  ; code used at e000
-      LDY     byte_RAM_42A			  ; code used at e000
+      LDY     PlayerYHi_Copy			  ; code used at e000
       BMI     loc_BANKF_F4B0			  ; code used at e000
 
       BNE     loc_BANKF_F4B6			  ; code used at e000
@@ -81322,13 +81309,15 @@ ChangeMappedPRGBankWithoutSaving:		  ; CODE XREF: DoSoundProcessing+2p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_FFA0:					  ; CODE XREF: sub_BANK0_8000+7P
+ChangeNametableMirroring:			  ; CODE XREF: sub_BANK0_8000+7P
 						  ; sub_BANK0_8500+7P
 						  ; sub_BANK1_AA79+5P ...
-      STA     $A000				  ; code used at e000
+      STA     $A000				  ; Writing to $A000 sets mirroring.
+						  ; 0 Vertical
+						  ; 1 Horizontal
       RTS					  ; code used at e000
 
-; End of function sub_BANKF_FFA0
+; End of function ChangeNametableMirroring
 
 ; ---------------------------------------------------------------------------
 ; [00000047 BYTES: BEGIN OF AREA UNUSED-BANKF:FFA4. PRESS KEYPAD "-" TO	COLLAPSE]
