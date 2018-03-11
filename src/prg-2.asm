@@ -69,7 +69,7 @@ loc_BANK2_801E:
 
 loc_BANK2_8058:
       LDA     byte_BANK3_BB6B,Y
-      STA     byte_RAM_7F00,Y
+      STA     ItemCarryOffsetsBig,Y
       DEY
       BPL     loc_BANK2_8058
 
@@ -77,9 +77,9 @@ loc_BANK2_8058:
       LDA     byte_BANK2_8000,Y
 
 loc_BANK2_8066:
-      STA     byte_RAM_7F00
+      STA     ItemCarryOffsetsBig
       LDA     byte_BANK2_8008,Y
-      STA     byte_RAM_7F07
+      STA     ItemCarryOffsetsSmall
       LDA     byte_BANK2_8004,Y
       STA     byte_RAM_7F0E
       LDA     byte_BANK2_800C,Y
@@ -112,9 +112,9 @@ loc_BANK2_808D:
       CMP     #$38
       BNE     loc_BANK2_80C7
 
-      STA     unk_RAM_B1,X
+      STA     EnemyArray_B1,X
       STA     byte_RAM_4C7,X
-      STA     unk_RAM_477,X
+      STA     EnemyArray_477,X
       LDA     #0
       STA     ObjectXHi,X
       STA     ObjectYHi,X
@@ -131,12 +131,12 @@ loc_BANK2_808D:
 loc_BANK2_80C7:
       PHA
       STX     byte_RAM_42D
-      JSR     sub_BANK2_845D
+      JSR     EnemyInit_Basic
 
       LDA     #1
-      STA     unk_RAM_A8,X
+      STA     ObjectBeingCarriedTimer,X
       STA     HoldingItem
-      JSR     sub_BANK2_960F
+      JSR     CarryObject
 
       PLA
       CMP     #$3D
@@ -149,7 +149,7 @@ loc_BANK2_80C7:
       STA     EnemyState,X
       LDA     #$17
       STA     ObjectType,X
-      JSR     sub_BANK2_845D
+      JSR     EnemyInit_Basic
 
       LDA     #0
       STA     byte_RAM_5BC
@@ -286,7 +286,7 @@ loc_BANK2_8198:
 
 loc_BANK2_81A0:
       LDA     byte_BANKF_F4DA,Y
-      LDY     unk_RAM_A8,X
+      LDY     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_81B1
 
       LDA     #$10
@@ -310,34 +310,34 @@ loc_BANK2_81B1:
       BNE     loc_BANK2_81D2
 
 loc_BANK2_81C4:
-      LDA     unk_RAM_86,X
+      LDA     BobombExplodeTimer,X
       BEQ     loc_BANK2_81CA
 
-      DEC     unk_RAM_86,X
+      DEC     BobombExplodeTimer,X
 
 loc_BANK2_81CA:
-      LDA     unk_RAM_453,X
+      LDA     EnemyArray_453,X
       BEQ     loc_BANK2_81D2
 
-      DEC     unk_RAM_453,X
+      DEC     EnemyArray_453,X
 
 loc_BANK2_81D2:
-      LDA     unk_RAM_45C,X
+      LDA     EnemyArray_45C,X
 
 loc_BANK2_81D5:
       BEQ     loc_BANK2_81DA
 
-      DEC     unk_RAM_45C,X
+      DEC     EnemyArray_45C,X
 
 loc_BANK2_81DA:
-      LDA     unk_RAM_438,X
+      LDA     EnemyArray_438,X
       BEQ     loc_BANK2_81E7
 
       LDA     byte_RAM_10
       LSR     A
       BCC     loc_BANK2_81E7
 
-      DEC     unk_RAM_438,X
+      DEC     EnemyArray_438,X
 
 loc_BANK2_81E7:
       JSR     sub_BANK2_820E
@@ -709,7 +709,7 @@ loc_BANK2_8377:
       LDA     IsHorizontalLevel
       BEQ     loc_BANK2_8393
 
-      JSR     sub_BANK2_9E3B
+      JSR     EnemyFindWhichSidePlayerIsOn
 
       LDA     byte_RAM_F
       ADC     #$18
@@ -738,77 +738,77 @@ loc_BANK2_83A6:
 
 ; ---------------------------------------------------------------------------
 EnemyInitializationTable:
-	  .WORD sub_BANK2_845D			     
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_8D6C
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_84F2
-      .WORD sub_BANK2_845D
-      .WORD loc_BANK2_921C
-      .WORD loc_BANK2_9215
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_8D6C
-      .WORD loc_BANK2_84B9
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD loc_BANK2_8E63
-      .WORD sub_BANK2_845D
-      .WORD loc_BANK2_8AE6
-      .WORD loc_BANK2_8AE6
-      .WORD loc_BANK2_84E5
-      .WORD loc_BANK3_A8F2
-      .WORD loc_BANK3_A8F2
-      .WORD loc_BANK3_AA14
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_8F52
-      .WORD loc_BANK3_A56B
-      .WORD sub_BANK2_845D
-      .WORD loc_BANK3_A724
-      .WORD sub_BANK2_845D
-      .WORD loc_BANK3_A10A
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_8D6C
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_8D6C
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD loc_BANK3_AEAA
-      .WORD sub_BANK2_845D
-      .WORD loc_BANK3_AC6A
-      .WORD loc_BANK3_AC6A
-      .WORD loc_BANK3_B1CD
-      .WORD loc_BANK3_AFE3
-      .WORD loc_BANK2_8AF4
-      .WORD loc_BANK2_8AF4
-      .WORD loc_BANK2_8AF4
-      .WORD loc_BANK2_8AF4
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_845D
-      .WORD loc_BANK2_98E0
-      .WORD sub_BANK2_845D
-      .WORD loc_BANK2_8C91
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_8D6C
-      .WORD sub_BANK2_8D6C
-      .WORD sub_BANK2_845D
-      .WORD sub_BANK2_8D5F
-      .WORD sub_BANK2_8D5F
-      .WORD loc_BANK2_8CB1
-      .WORD loc_BANK2_8CB1
-      .WORD loc_BANK2_8CB1
+	  .WORD EnemyInit_Basic
+      .WORD EnemyInit_Basic			  ; ShyguyRed
+      .WORD EnemyInit_Basic			  ; Tweeter
+      .WORD EnemyInit_Basic			  ; ShyguyPink
+      .WORD EnemyInit_Basic			  ; Porcupo
+      .WORD EnemyInit_Basic			  ; SnifitRed
+      .WORD EnemyInit_Stationary		  ; SnifitGray
+      .WORD EnemyInit_Basic			  ; SnifitPink
+      .WORD EnemyInit_Basic			  ; Ostro
+      .WORD EnemyInit_Bobomb			  ; BobOmb
+      .WORD EnemyInit_Basic			  ; AlbatossCarryingBobOmb
+      .WORD EnemyInit_AlbatossStartRight	  ; AlbatossStartRight
+      .WORD EnemyInit_AlbatossStartLeft		  ; AlbatossStartLeft
+      .WORD EnemyInit_Basic			  ; NinjiRunning
+      .WORD EnemyInit_Stationary		  ; NinjiJumping
+      .WORD loc_BANK2_84B9			  ; BeezoDiving
+      .WORD EnemyInit_Basic			  ; BeezoStraight
+      .WORD EnemyInit_Basic			  ; WartBubble
+      .WORD EnemyInit_Basic			  ; Pidgit
+      .WORD loc_BANK2_8E63			  ; Trouter
+      .WORD EnemyInit_Basic			  ; Hoopstar
+      .WORD loc_BANK2_8AE6			  ; JarGeneratorShyguy
+      .WORD loc_BANK2_8AE6			  ; JarGeneratorBobOmb
+      .WORD loc_BANK2_84E5			  ; Phanto
+      .WORD loc_BANK3_A8F2			  ; CobratJar
+      .WORD loc_BANK3_A8F2			  ; CobratSand
+      .WORD loc_BANK3_AA14			  ; Pokey
+      .WORD EnemyInit_Basic			  ; Bullet
+      .WORD sub_BANK2_8F52			  ; Birdo
+      .WORD loc_BANK3_A56B			  ; Mouser
+      .WORD EnemyInit_Basic			  ; Egg
+      .WORD loc_BANK3_A724			  ; Tryclyde
+      .WORD EnemyInit_Basic			  ; Fireball
+      .WORD loc_BANK3_A10A			  ; Clawgrip
+      .WORD EnemyInit_Basic			  ; ClawgripRock
+      .WORD EnemyInit_Stationary		  ; PanserStationaryFiresAngled
+      .WORD EnemyInit_Basic			  ; PanserWalking
+      .WORD EnemyInit_Stationary		  ; PanserStationaryFiresUp
+      .WORD EnemyInit_Basic			  ; Autobomb
+      .WORD EnemyInit_Basic			  ; AutobombFire
+      .WORD loc_BANK3_AEAA			  ; WhaleSpout
+      .WORD EnemyInit_Basic			  ; Flurry
+      .WORD loc_BANK3_AC6A			  ; Fryguy
+      .WORD loc_BANK3_AC6A			  ; FryguySplit
+      .WORD loc_BANK3_B1CD			  ; Wart
+      .WORD loc_BANK3_AFE3			  ; HawkmouthBoss
+      .WORD loc_BANK2_8AF4			  ; Spark1
+      .WORD loc_BANK2_8AF4			  ; Spark2
+      .WORD loc_BANK2_8AF4			  ; Spark3
+      .WORD loc_BANK2_8AF4			  ; Spark4
+      .WORD EnemyInit_Basic			  ; VegetableSmall
+      .WORD EnemyInit_Basic			  ; VegetableLarge
+      .WORD EnemyInit_Basic			  ; VegetableWart
+      .WORD EnemyInit_Basic			  ; Shell
+      .WORD EnemyInit_Basic			  ; Coin
+      .WORD EnemyInit_Basic			  ; Bomb
+      .WORD EnemyInit_Basic			  ; Rocket
+      .WORD EnemyInit_Basic			  ; MushroomBlock
+      .WORD EnemyInit_Basic			  ; POWBlock
+      .WORD loc_BANK2_98E0			  ; FallingLogs
+      .WORD EnemyInit_Basic			  ; SubspaceDoor
+      .WORD loc_BANK2_8C91			  ; Key
+      .WORD EnemyInit_Basic			  ; SubspacePotion
+      .WORD EnemyInit_Stationary		  ; Mushroom
+      .WORD EnemyInit_Stationary		  ; Mushroom1up
+      .WORD EnemyInit_Basic			  ; FlyingCarpet
+      .WORD sub_BANK2_8D5F			  ; HawkmouthRight
+      .WORD sub_BANK2_8D5F			  ; HawkmouthLeft
+      .WORD loc_BANK2_8CB1			  ; CrystalBall
+      .WORD loc_BANK2_8CB1			  ; Starman
+      .WORD loc_BANK2_8CB1			  ; Stopwatch
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -831,33 +831,33 @@ loc_BANK2_8450:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANK2_845D:
+EnemyInit_Basic:
       LDA     #0
-      STA     unk_RAM_86,X
+      STA     BobombExplodeTimer,X
 
-; End of function sub_BANK2_845D
+; End of function EnemyInit_Basic
 
 ; =============== S U B	R O U T	I N E =======================================
 
-; This seems to	mostly erase an	enemy for some reason
+; Enemy	initializing (sets most	stuff to 0)
 
 sub_BANK2_8461:
       LDA     #0
       STA     EnemyTimer,X
-      LDA     #0
-      STA     unk_RAM_B1,X
-      STA     unk_RAM_42F,X
-      STA     unk_RAM_A8,X
-      STA     unk_RAM_9F,X
-      STA     unk_RAM_44A,X
+      LDA     #0				  ; You	do realize you already LDA #0, right???
+      STA     EnemyArray_B1,X
+      STA     EnemyArray_42F,X
+      STA     ObjectBeingCarriedTimer,X
+      STA     EnemyArray_9F,X
+      STA     EnemyArray_44A,X
       STA     EnemyCollision,X
-      STA     unk_RAM_438,X
-      STA     unk_RAM_453,X
-      STA     unk_RAM_4CC,X
-      STA     unk_RAM_4D6,X
-      STA     unk_RAM_45C,X
-      STA     unk_RAM_477,X
-      STA     unk_RAM_480,X
+      STA     EnemyArray_438,X
+      STA     EnemyArray_453,X
+      STA     EnemyArray_4CC,X
+      STA     EnemyArray_4D6,X
+      STA     EnemyArray_45C,X
+      STA     EnemyArray_477,X
+      STA     EnemyArray_480,X
       STA     EnemyHP,X
       STA     ObjectYAccel,X
 
@@ -865,7 +865,7 @@ loc_BANK2_848F:
       JSR     sub_BANK2_8441
 
 loc_BANK2_8492:
-      JSR     sub_BANK2_9E3B
+      JSR     EnemyFindWhichSidePlayerIsOn
 
 loc_BANK2_8495:
       INY
@@ -906,7 +906,7 @@ unk_BANK2_84A9:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_84B9:
-      JSR     sub_BANK2_845D
+      JSR     EnemyInit_Basic
 
       LDY     byte_RAM_6E
       LDA     byte_RAM_4C0
@@ -945,7 +945,7 @@ loc_BANK2_84DF:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_84E5:
-      JSR     sub_BANK2_845D
+      JSR     EnemyInit_Basic
 
       LDA     #$C
       STA     ObjectXAccel,X
@@ -955,14 +955,14 @@ loc_BANK2_84E5:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANK2_84F2:
-      JSR     sub_BANK2_845D
+EnemyInit_Bobomb:
+      JSR     EnemyInit_Basic
 
       LDA     #$FF
-      STA     unk_RAM_86,X
+      STA     BobombExplodeTimer,X
       RTS
 
-; End of function sub_BANK2_84F2
+; End of function EnemyInit_Bobomb
 
 ; ---------------------------------------------------------------------------
 
@@ -1056,7 +1056,7 @@ loc_BANK2_8574:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_8577:
-      LDA     unk_RAM_44A,X
+      LDA     EnemyArray_44A,X
       BNE     HandleObjectGravity
 
       JSR     sub_BANK2_9E50
@@ -1085,7 +1085,7 @@ locret_BANK2_858E:
 loc_BANK2_858F:
       JSR     sub_BANK2_88E8
 
-      LDA     unk_RAM_86,X
+      LDA     BobombExplodeTimer,X
       BEQ     loc_BANK2_85AF
 
       TAY
@@ -1117,7 +1117,7 @@ loc_BANK2_85B2:
 
       JSR     sub_BANK2_997A
 
-      LDA     unk_RAM_A8,X
+      LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_85C1
 
       LDA     #1
@@ -1127,7 +1127,7 @@ loc_BANK2_85B2:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_85C1:
-      LDA     unk_RAM_86,X
+      LDA     BobombExplodeTimer,X
       BEQ     loc_BANK2_85AF
 
       LDA     ObjectType,X
@@ -1138,7 +1138,7 @@ loc_BANK2_85C1:
 
       LDA     byte_RAM_10
       AND     #3
-      STA     unk_RAM_44A,X
+      STA     EnemyArray_44A,X
       LDA     byte_RAM_10
       AND     #$10
       LSR     A
@@ -1186,7 +1186,7 @@ loc_BANK2_85F7:
       ORA     byte_RAM_EF
       BNE     loc_BANK2_85AF
 
-      LDA     unk_RAM_86,X
+      LDA     BobombExplodeTimer,X
       BEQ     loc_BANK2_85AF
 
       CMP     #$1A
@@ -1212,11 +1212,11 @@ loc_BANK2_8618:
       LDA     byte_RAM_429
       CLC
       ADC     byte_BANK2_85E7,X
-      STA     SpriteDMAArea + $03,Y
+      STA     SpriteDMAArea+3,Y
       LDA     #1
-      STA     SpriteDMAArea + $02,Y
+      STA     SpriteDMAArea+2,Y
       LDA     byte_RAM_0
-      STA     SpriteDMAArea + $01,Y
+      STA     SpriteDMAArea+1,Y
       CLC
       ADC     #2
       STA     byte_RAM_0
@@ -1504,7 +1504,7 @@ loc_BANK2_879C:
       LDA     ObjectAttributes,X
       ORA     #$10
       STA     ObjectAttributes,X
-      LDA     unk_RAM_86,X
+      LDA     BobombExplodeTimer,X
       BNE     loc_BANK2_87AC
 
 loc_BANK2_87A9:
@@ -1523,7 +1523,7 @@ loc_BANK2_87AC:
       LDA     unk_RAM_49B,X
       BEQ     locret_BANK2_8797
 
-      LDA     unk_RAM_86,X
+      LDA     BobombExplodeTimer,X
       CMP     #3
       BNE     locret_BANK2_8797
 
@@ -1634,7 +1634,7 @@ loc_BANK2_8858:
 
       LDA     #$12
       STA     ObjectAttributes,X
-      LDA     unk_RAM_86,X
+      LDA     BobombExplodeTimer,X
       BEQ     loc_BANK2_8888
 
       LDA     #$F8
@@ -1642,7 +1642,7 @@ loc_BANK2_8858:
       JSR     sub_BANK2_9E4B
 
       LDA     #$B2
-      LDY     unk_RAM_86,X
+      LDY     BobombExplodeTimer,X
       CPY     #$10
       BCS     loc_BANK2_8885
 
@@ -1652,7 +1652,7 @@ loc_BANK2_8858:
       STA     ObjectAttributes,X
       ASL     A
       STA     unk_RAM_6F,X
-      INC     unk_RAM_9F,X
+      INC     EnemyArray_9F,X
       JSR     sub_BANK2_8B5B
 
       LDA     #$B4
@@ -1860,7 +1860,7 @@ loc_BANK2_899C:
       BNE     locret_BANK2_89B8
 
 loc_BANK2_89A5:
-      LDA     unk_RAM_A8,X
+      LDA     ObjectBeingCarriedTimer,X
       BNE     locret_BANK2_89B8
 
 ; End of function sub_BANK2_88E8
@@ -1889,12 +1889,12 @@ locret_BANK2_89B8:
 loc_BANK2_89B9:
       LDA     #1
       STA     unk_RAM_4A4,X
-      LDY     unk_RAM_42F,X
+      LDY     EnemyArray_42F,X
       DEY
       CPY     #$1F
       BCS     loc_BANK2_89C9
 
-      INC     unk_RAM_42F,X
+      INC     EnemyArray_42F,X
 
 loc_BANK2_89C9:
       JSR     sub_BANK2_88E8
@@ -1910,7 +1910,7 @@ loc_BANK2_89C9:
       LDA     StopwatchTimer
       BNE     loc_BANK2_89E2
 
-      LDA     unk_RAM_438,X
+      LDA     EnemyArray_438,X
       BEQ     loc_BANK2_8A0A
 
 loc_BANK2_89E2:
@@ -1927,19 +1927,19 @@ loc_BANK2_89E2:
 loc_BANK2_89F0:
       JSR     sub_BANK2_997A
 
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BEQ     loc_BANK2_89FB
 
       JSR     sub_BANK2_8577
 
 loc_BANK2_89FB:
-      LDA     unk_RAM_A8,X
+      LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_8A04
 
-      DEC     unk_RAM_9F,X
+      DEC     EnemyArray_9F,X
 
 loc_BANK2_8A01:
-      JMP     sub_BANK2_960F
+      JMP     CarryObject
 
 ; ---------------------------------------------------------------------------
 
@@ -1972,7 +1972,7 @@ loc_BANK2_8A15:
       LDA     ObjectAttributes,X
       AND     #ObjAttrib_Palette3|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_16x32|ObjAttrib_UpsideDown
       STA     ObjectAttributes,X
-      LDA     unk_RAM_A8,X
+      LDA     ObjectBeingCarriedTimer,X
       CMP     #2
       BCC     loc_BANK2_8A41
 
@@ -2094,10 +2094,10 @@ off_BANK2_8AC2:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8AE6:
-      JSR     sub_BANK2_845D
+      JSR     EnemyInit_Basic
 
       LDA     #$50
-      STA     unk_RAM_9F,X
+      STA     EnemyArray_9F,X
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -2110,7 +2110,7 @@ loc_BANK2_8AE6:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8AF4:
-      JSR     sub_BANK2_845D
+      JSR     EnemyInit_Basic
 
       LDY     ObjectType,X
       LDA     off_BANK2_8AC0,Y
@@ -2144,7 +2144,7 @@ EnemyBehavior_Spark:
 
       JSR     sub_BANK3_B4F9
 
-      LDY     unk_RAM_477,X
+      LDY     EnemyArray_477,X
       LDA     EnemyCollision,X
       AND     byte_BANK2_8B04,Y
       BEQ     loc_BANK2_8B47
@@ -2156,7 +2156,7 @@ EnemyBehavior_Spark:
 
       TYA
       EOR     #1
-      STA     unk_RAM_477,X
+      STA     EnemyArray_477,X
       TAY
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -2179,11 +2179,11 @@ sub_BANK2_8B36:
 loc_BANK2_8B47:
       TYA
       EOR     #1
-      STA     unk_RAM_477,X
+      STA     EnemyArray_477,X
       JSR     sub_BANK2_8B36
 
 loc_BANK2_8B50:
-      LDA     unk_RAM_477,X
+      LDA     EnemyArray_477,X
       BNE     loc_BANK2_8B58
 
       JMP     sub_BANK2_9E50
@@ -2196,8 +2196,8 @@ loc_BANK2_8B58:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_8B5B:
-      INC     unk_RAM_9F,X
-      INC     unk_RAM_9F,X
+      INC     EnemyArray_9F,X
+      INC     EnemyArray_9F,X
       RTS
 
 ; End of function sub_BANK2_8B5B
@@ -2345,7 +2345,7 @@ byte_BANK2_8C03:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_PanserPink:
-      LDA     unk_RAM_9F,X
+      LDA     EnemyArray_9F,X
       ASL     A
       BNE     EnemyBehavior_PanserRedAndGray
 
@@ -2377,16 +2377,16 @@ loc_BANK2_8C22:
       STA     unk_RAM_6F,X
       JSR     sub_BANK2_997A
 
-      INC     unk_RAM_9F,X
-      LDA     unk_RAM_9F,X
+      INC     EnemyArray_9F,X
+      LDA     EnemyArray_9F,X
       AND     #$2F
       BNE     loc_BANK2_8C3D
 
       LDA     #$10
-      STA     unk_RAM_86,X
+      STA     BobombExplodeTimer,X
 
 loc_BANK2_8C3D:
-      LDY     unk_RAM_86,X
+      LDY     BobombExplodeTimer,X
       BEQ     loc_BANK2_8C8E
 
       CPY     #6
@@ -2403,7 +2403,7 @@ loc_BANK2_8C3D:
       AND     #$F
       ORA     #$BC
       STA     ObjectYAccel,X
-      JSR     sub_BANK2_9E3B
+      JSR     EnemyFindWhichSidePlayerIsOn
 
       PLA
       CMP     #$25
@@ -2468,7 +2468,7 @@ loc_BANK2_8CA3:
       BNE     loc_BANK2_8CAE
 
 loc_BANK2_8CAB:
-      JMP     sub_BANK2_8D6C
+      JMP     EnemyInit_Stationary
 
 ; ---------------------------------------------------------------------------
 
@@ -2533,7 +2533,7 @@ EnemyBehavior_Starman:
       STA     ObjectYAccel,X
       LDY     #$F8
       LDA     byte_RAM_10
-      STA     unk_RAM_45C,X
+      STA     EnemyArray_45C,X
       BPL     loc_BANK2_8D07
 
       LDY     #8
@@ -2555,8 +2555,8 @@ EnemyBehavior_JarGenerators:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8D16:
-      INC     unk_RAM_9F,X
-      LDA     unk_RAM_9F,X
+      INC     EnemyArray_9F,X
+      LDA     EnemyArray_9F,X
       ASL     A
       BNE     locret_BANK2_8D5E
 
@@ -2576,7 +2576,7 @@ loc_BANK2_8D16:
       SBC     #0
       STA     ObjectYHi,Y
       LDA     #$1A
-      STA     unk_RAM_480,Y
+      STA     EnemyArray_480,Y
       LDA     #$F8
       STA     ObjectYAccel,Y
       LDA     ObjectType,X
@@ -2589,7 +2589,7 @@ loc_BANK2_8D16:
       ASL     A
       STA     ObjectXAccel,Y
       LDA     #$FF
-      STA     unk_RAM_86,Y
+      STA     BobombExplodeTimer,Y
 
 locret_BANK2_8D5E:
       RTS
@@ -2608,16 +2608,16 @@ sub_BANK2_8D5F:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANK2_8D6C:
+EnemyInit_Stationary:
 						  ; DATA XREF: ...
-      JSR     sub_BANK2_845D
+      JSR     EnemyInit_Basic
 
 loc_BANK2_8D6F:
       LDA     #0
       STA     ObjectXAccel,X
       RTS
 
-; End of function sub_BANK2_8D6C
+; End of function EnemyInit_Stationary
 
 ; ---------------------------------------------------------------------------
 
@@ -2804,7 +2804,7 @@ loc_BANK2_8E60:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8E63:
-      JSR     sub_BANK2_8D6C
+      JSR     EnemyInit_Stationary
 
       LDA     ObjectXLo,X
       ADC     #8
@@ -2814,9 +2814,9 @@ loc_BANK2_8E63:
       LSR     A
       LSR     A
       LSR     A
-      STA     unk_RAM_B1,X
+      STA     EnemyArray_B1,X
       LDA     #$80
-      STA     unk_RAM_86,X
+      STA     BobombExplodeTimer,X
 
 locret_BANK2_8E78:
       RTS
@@ -2844,7 +2844,7 @@ byte_BANK2_8E85:
 EnemyBehavior_Trouter:
       JSR     sub_BANK2_997A
 
-      INC     unk_RAM_9F,X
+      INC     EnemyArray_9F,X
       JSR     sub_BANK2_98D6
 
       JSR     sub_BANK2_98CD
@@ -2864,15 +2864,15 @@ loc_BANK2_8E9A:
 loc_BANK2_8EA3:
       BCC     loc_BANK2_8EB6
 
-      LDY     unk_RAM_86,X
+      LDY     BobombExplodeTimer,X
       BNE     locret_BANK2_8E78
 
       STA     ObjectYLo,X
-      LDY     unk_RAM_B1,X
+      LDY     EnemyArray_B1,X
       LDA     byte_BANK2_8E79,Y
       STA     ObjectYAccel,X
       LDA     #$C0
-      STA     unk_RAM_86,X
+      STA     BobombExplodeTimer,X
 
 loc_BANK2_8EB6:
       JSR     sub_BANK2_9430
@@ -2894,7 +2894,7 @@ byte_BANK2_8EC0:
 EnemyBehavior_Hoopstar:
       JSR     sub_BANK2_997A
 
-      INC     unk_RAM_9F,X
+      INC     EnemyArray_9F,X
       JSR     sub_BANK2_98CD
 
       JSR     sub_BANK2_9B1B
@@ -2905,7 +2905,7 @@ EnemyBehavior_Hoopstar:
       STA     ObjectXAccel,X
       JSR     sub_BANK3_B4E2
 
-      LDY     unk_RAM_477,X
+      LDY     EnemyArray_477,X
       BCC     loc_BANK2_8EEC
 
       LDA     ObjectYLo,X
@@ -2924,7 +2924,7 @@ loc_BANK2_8EEC:
       EOR     #1
 
 loc_BANK2_8EEF:
-      STA     unk_RAM_477,X
+      STA     EnemyArray_477,X
       TAY
 
 loc_BANK2_8EF3:
@@ -2932,7 +2932,7 @@ loc_BANK2_8EF3:
       STA     ObjectYAccel,X
       LDA     byte_BANK2_8EC0,Y
       STA     ObjectAttributes,X
-      JSR     sub_BANK2_9E3B
+      JSR     EnemyFindWhichSidePlayerIsOn
 
       LDA     byte_RAM_F
       ADC     #$10
@@ -2978,15 +2978,15 @@ loc_BANK2_8F27:
       LDA     byte_RAM_42C
       STA     SpriteDMAArea,Y
       LDA     byte_RAM_429
-      STA     SpriteDMAArea + $03,Y
+      STA     SpriteDMAArea+3,Y
       LDA     #$D8
-      STA     SpriteDMAArea + $01,Y
+      STA     SpriteDMAArea+1,Y
       LDA     byte_RAM_10
       AND     #$20
       EOR     #$20
       ASL     A
       ORA     #1
-      STA     SpriteDMAArea + $02,Y
+      STA     SpriteDMAArea+2,Y
 
 locret_BANK2_8F4E:
       RTS
@@ -3001,7 +3001,7 @@ byte_BANK2_8F4F:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_8F52:
-      JSR     sub_BANK2_845D
+      JSR     EnemyInit_Basic
 
       LDY     #0
       LDA     ObjectXLo,X
@@ -3042,7 +3042,7 @@ EnemyBehavior_Birdo:
 
       LDA     #0
       STA     ObjectXAccel,X
-      JSR     sub_BANK2_9E3B
+      JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
       STY     unk_RAM_6F,X
@@ -3084,21 +3084,21 @@ loc_BANK2_8FA3:
       BNE     loc_BANK2_8FB6
 
       LDA     #$1C
-      STA     unk_RAM_86,X
+      STA     BobombExplodeTimer,X
 
 loc_BANK2_8FB6:
-      LDY     unk_RAM_86,X
+      LDY     BobombExplodeTimer,X
       BNE     BirdoBehavior_SpitEgg
 
-      INC     unk_RAM_B1,X
-      LDA     unk_RAM_B1,X
+      INC     EnemyArray_B1,X
+      LDA     EnemyArray_B1,X
       AND     #$40
       BEQ     loc_BANK2_901B
 
       JSR     sub_BANK2_8B5B
 
       LDA     #$A
-      LDY     unk_RAM_B1,X
+      LDY     EnemyArray_B1,X
       BMI     loc_BANK2_8FCD
 
       LDA     #$F6
@@ -3223,7 +3223,7 @@ EnemyBehavior_CrystalBall:
       JSR     sub_BANK2_91C7
 
 EnemyBehavior_Mushroom:
-      LDA     unk_RAM_A8,X
+      LDA     ObjectBeingCarriedTimer,X
       CMP     #1
       BNE     loc_BANK2_9066
 
@@ -3236,11 +3236,11 @@ loc_BANK2_9066:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9069:
-      JSR     sub_BANK2_960F
+      JSR     CarryObject
 
       LDA     #0
       STA     HoldingItem
-      STA     unk_RAM_A8,X
+      STA     ObjectBeingCarriedTimer,X
       JSR     MakeMushroomExplodeIntoPuffOfSmoke
 
       LDA     ObjectType,X
@@ -3357,25 +3357,25 @@ loc_BANK2_90FB:
       CMP     #Enemy_Bomb
       BNE     EnemyBehavior_Vegetable
 
-      LDA     unk_RAM_86,X
+      LDA     BobombExplodeTimer,X
       BNE     loc_BANK2_9122
 
-      LDY     unk_RAM_A8,X
+      LDY     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_910D
 
       STA     HoldingItem
-      STA     unk_RAM_A8,X
+      STA     ObjectBeingCarriedTimer,X
 
 loc_BANK2_910D:
       LDA     #EnemyState_BombExploding
       STA     EnemyState,X
       LDA     #$20
-      STA     unk_RAM_86,X
+      STA     BobombExplodeTimer,X
       STA     byte_RAM_4C6
       LDA     #DPCM_DoorOpenBombBom
       STA     DPCMQueue
       LSR     A
-      STA     unk_RAM_42F,X
+      STA     EnemyArray_42F,X
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -3398,7 +3398,7 @@ EnemyBehavior_Vegetable:
       JSR     sub_BANK2_8577
 
 loc_BANK2_9137:
-      LDA     unk_RAM_B1,X
+      LDA     EnemyArray_B1,X
       BNE     loc_BANK2_913E
 
       JMP     sub_BANK2_9BA7
@@ -3445,10 +3445,10 @@ loc_BANK2_9157:
       ADC     #0
       STA     ObjectXHi,X
       LDA     #$10
-      STA     unk_RAM_453,X
+      STA     EnemyArray_453,X
       LDA     #SoundEffect1_PotionDoorBong
       STA     SoundEffect1Queue
-      INC     unk_RAM_B1,X
+      INC     EnemyArray_B1,X
       LDA     #Enemy_SubspaceDoor
       STA     ObjectType,X
       JSR     sub_BANK2_8441
@@ -3489,9 +3489,9 @@ MakeMushroomExplodeIntoPuffOfSmoke:
       LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,X			  ; WINNERS DON'T
 						  ; SMOKE SHROOMS
-      STA     unk_RAM_9F,X			  ; No idea what this address is for
+      STA     EnemyArray_9F,X			  ; No idea what this address is for
       LDA     #$1F
-      STA     unk_RAM_86,X			  ; Puff-of-smoke animation timer?
+      STA     BobombExplodeTimer,X		  ; Puff-of-smoke animation timer?
       LDX     byte_RAM_12
 
 locret_BANK2_91C4:
@@ -3543,7 +3543,7 @@ loc_BANK2_91E5:
       LDA     ObjectYLo,Y
       ADC     #$E
       STA     ObjectYLo,X
-      JSR     sub_BANK2_9E3B
+      JSR     EnemyFindWhichSidePlayerIsOn
 
       LDA     byte_BANK2_91C5,Y
       STA     ObjectXAccel,X
@@ -3569,20 +3569,20 @@ byte_BANK2_9213:
       .BYTE 0
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9215:
-      JSR     sub_BANK2_845D
+EnemyInit_AlbatossStartLeft:
+      JSR     EnemyInit_Basic
 
       LDA     #$F0
       BNE     loc_BANK2_9221
 
-loc_BANK2_921C:
-      JSR     sub_BANK2_845D
+EnemyInit_AlbatossStartRight:
+      JSR     EnemyInit_Basic
 
       LDA     #$10
 
 loc_BANK2_9221:
       STA     ObjectXAccel,X
-      INC     unk_RAM_B1,X
+      INC     EnemyArray_B1,X
       LDA     ObjectType,X
       SEC
 
@@ -3602,15 +3602,15 @@ loc_BANK2_9228:
 EnemyBehavior_Albatoss:
       JSR     sub_BANK2_9AF2
 
-      INC     unk_RAM_9F,X
-      LDA     unk_RAM_B1,X
+      INC     EnemyArray_9F,X
+      LDA     EnemyArray_B1,X
       BNE     loc_BANK2_9271
 
       LDA     EnemyCollision,X
       AND     #CollisionFlags_10
       BNE     loc_BANK2_9256
 
-      JSR     sub_BANK2_9E3B
+      JSR     EnemyFindWhichSidePlayerIsOn
 
       LDA     byte_RAM_F
       ADC     #$30
@@ -3628,10 +3628,10 @@ loc_BANK2_9256:
       LDA     ObjectYLo,X
       ADC     #$10
       STA     ObjectYLo,X
-      JSR     sub_BANK2_84F2
+      JSR     EnemyInit_Bobomb
 
       LDX     byte_RAM_12
-      INC     unk_RAM_B1,X
+      INC     EnemyArray_B1,X
 
 loc_BANK2_926E:
       JMP     loc_BANK2_9274
@@ -3677,8 +3677,8 @@ sub_BANK2_9289:
 
       JSR     sub_BANK2_98CD
 
-      LDA     unk_RAM_B1,X
-      ORA     unk_RAM_42F,X
+      LDA     EnemyArray_B1,X
+      ORA     EnemyArray_42F,X
       BEQ     loc_BANK2_9299
 
       JMP     loc_BANK2_8574
@@ -3689,14 +3689,14 @@ loc_BANK2_9299:
       LDA     ObjectYAccel,X
       BPL     loc_BANK2_929F
 
-      STA     unk_RAM_B1,X
+      STA     EnemyArray_B1,X
 
 loc_BANK2_929F:
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Right|CollisionFlags_Left
       BEQ     loc_BANK2_92BE
 
-      STA     unk_RAM_B1,X
+      STA     EnemyArray_B1,X
       LDA     ObjectType,X
       CMP     #Enemy_Bullet
       BNE     loc_BANK2_92B5
@@ -3764,7 +3764,7 @@ loc_BANK2_92D3:
       STY     byte_RAM_0
       TYA
       TAX
-      JSR     sub_BANK2_845D
+      JSR     EnemyInit_Basic
 
       JSR     sub_BANK2_8569
 
@@ -3795,10 +3795,10 @@ byte_BANK2_930D:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Phanto:
-      LDA     unk_RAM_44A,X
+      LDA     EnemyArray_44A,X
       BEQ     loc_BANK2_9318
 
-      DEC     unk_RAM_44A,X
+      DEC     EnemyArray_44A,X
 
 loc_BANK2_9318:
       JSR     sub_BANK2_9B1B
@@ -3851,13 +3851,13 @@ loc_BANK2_9351:
       STA     ObjectYAccel,X
 
 loc_BANK2_935E:
-      LDA     unk_RAM_480,X
+      LDA     EnemyArray_480,X
       CLC
       ADC     #$A0
-      STA     unk_RAM_480,X
+      STA     EnemyArray_480,X
       BCC     loc_BANK2_937F
 
-      LDA     unk_RAM_477,X
+      LDA     EnemyArray_477,X
       AND     #1
       TAY
       LDA     ObjectXAccel,X
@@ -3867,14 +3867,14 @@ loc_BANK2_935E:
       CMP     byte_BANK2_9308,Y
       BNE     loc_BANK2_937F
 
-      INC     unk_RAM_477,X
+      INC     EnemyArray_477,X
 
 loc_BANK2_937F:
       LDA     IsHorizontalLevel
       BEQ     loc_BANK2_9388
 
       LDA     PlayerXAccel
-      STA     unk_RAM_4CC,X
+      STA     EnemyArray_4CC,X
 
 loc_BANK2_9388:
       LDY     byte_RAM_5BC
@@ -3887,14 +3887,14 @@ loc_BANK2_9388:
       BNE     loc_BANK2_939A
 
       LDA     #$40
-      STA     unk_RAM_45C,X
+      STA     EnemyArray_45C,X
 
 loc_BANK2_939A:
       CPY     #$40
       BNE     loc_BANK2_93A8
 
       LDA     #$40
-      STA     unk_RAM_44A,X
+      STA     EnemyArray_44A,X
 
 loc_BANK2_93A3:
       LDA     #SoundEffect3_Rumble_B
@@ -3905,7 +3905,7 @@ loc_BANK2_93A8:
 
 loc_BANK2_93AB:
       LDA     #0
-      STA     unk_RAM_4CC,X
+      STA     EnemyArray_4CC,X
       STA     ObjectXAccel,X
       STA     ObjectYAccel,X
 
@@ -3926,7 +3926,7 @@ EnemyBehavior_NinjiJumping:
       AND     #CollisionFlags_Down
       BEQ     loc_BANK2_940C
 
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BNE     loc_BANK2_93C8
 
       STA     ObjectXAccel,X
@@ -3940,7 +3940,7 @@ loc_BANK2_93C8:
       AND     #$3F
       BNE     loc_BANK2_940C
 
-      LDA     unk_RAM_9F,X
+      LDA     EnemyArray_9F,X
       AND     #$C0
       ASL     A
       ROL     A
@@ -3960,7 +3960,7 @@ EnemyBehavior_NinjiRunning:
       CMP     ObjectYLo,X
       BNE     loc_BANK2_940C
 
-      JSR     sub_BANK2_9E3B
+      JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
       TYA
@@ -3976,9 +3976,9 @@ EnemyBehavior_NinjiRunning:
 
 loc_BANK2_9401:
       STA     ObjectYAccel,X
-      LDA     unk_RAM_9F,X
+      LDA     EnemyArray_9F,X
       AND     #$F0
-      STA     unk_RAM_9F,X
+      STA     EnemyArray_9F,X
       JSR     sub_BANK2_9E4B
 
 loc_BANK2_940C:
@@ -3991,7 +3991,7 @@ EnemyBehavior_Beezo:
 
       JSR     sub_BANK2_9B1B
 
-      INC     unk_RAM_9F,X
+      INC     EnemyArray_9F,X
       JSR     sub_BANK2_98D6
 
       JSR     sub_BANK2_8B5B
@@ -4004,7 +4004,7 @@ loc_BANK2_941D:
 
       BPL     loc_BANK2_9429
 
-      STA     unk_RAM_42F,X
+      STA     EnemyArray_42F,X
 
 loc_BANK2_9429:
       LDA     byte_RAM_10
@@ -4036,7 +4036,7 @@ loc_BANK2_9439:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_BobOmb:
-      LDY     unk_RAM_86,X
+      LDY     BobombExplodeTimer,X
       CPY     #$3A
       BCS     EnemyBehavior_BasicWalker
 
@@ -4048,15 +4048,15 @@ EnemyBehavior_BobOmb:
       STA     ObjectXAccel,X
 
 loc_BANK2_944E:
-      DEC     unk_RAM_9F,X
+      DEC     EnemyArray_9F,X
       TYA
       BNE     loc_BANK2_945E
 
-      LDA     unk_RAM_A8,X
+      LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_945B
 
       STY     HoldingItem
-      STY     unk_RAM_A8,X
+      STY     ObjectBeingCarriedTimer,X
 
 loc_BANK2_945B:
       JMP     loc_BANK2_910D
@@ -4081,7 +4081,7 @@ EnemyBehavior_BasicWalker:
 loc_BANK2_9470:
       JSR     sub_BANK2_997A
 
-      LDA     unk_RAM_480,X
+      LDA     EnemyArray_480,X
       BEQ     loc_BANK2_9492
 
       LDA     EnemyCollision,X
@@ -4093,8 +4093,8 @@ loc_BANK2_9470:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9481:
-      DEC     unk_RAM_480,X
-      INC     unk_RAM_86,X
+      DEC     EnemyArray_480,X
+      INC     BobombExplodeTimer,X
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -4117,7 +4117,7 @@ loc_BANK2_9492:
 
       JSR     sub_BANK2_9EA9
 
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BEQ     loc_BANK2_94A6
 
       JSR     sub_BANK2_95B0
@@ -4125,7 +4125,7 @@ loc_BANK2_9492:
       JSR     sub_BANK2_95B0
 
 loc_BANK2_94A6:
-      INC     unk_RAM_9F,X
+      INC     EnemyArray_9F,X
       JSR     sub_BANK2_98CD
 
 loc_BANK2_94AB:
@@ -4135,7 +4135,7 @@ loc_BANK2_94AB:
       CMP     #Enemy_SnifitGray
       BNE     loc_BANK2_94BB
 
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BNE     loc_BANK2_94BB
 
       STA     ObjectXAccel,X
@@ -4157,7 +4157,7 @@ loc_BANK2_94BB:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_94CD:
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BNE     loc_BANK2_94E6
 
       LDA     ObjectType,X
@@ -4174,7 +4174,7 @@ loc_BANK2_94CD:
       JSR     sub_BANK2_95EB
 
 loc_BANK2_94E6:
-      DEC     unk_RAM_9F,X
+      DEC     EnemyArray_9F,X
       LDA     ObjectType,X
       CMP     #Enemy_SnifitPink
       BEQ     loc_BANK2_94F2
@@ -4183,13 +4183,13 @@ loc_BANK2_94E6:
       BNE     locret_BANK2_9502
 
 loc_BANK2_94F2:
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BNE     locret_BANK2_9502
 
-      LDA     unk_RAM_477,X
+      LDA     EnemyArray_477,X
       BNE     locret_BANK2_9502
 
-      INC     unk_RAM_477,X
+      INC     EnemyArray_477,X
       JMP     sub_BANK2_9EA9
 
 ; ---------------------------------------------------------------------------
@@ -4204,7 +4204,7 @@ loc_BANK2_9503:
       BEQ     loc_BANK2_94CD
 
       LDA     #0
-      STA     unk_RAM_477,X
+      STA     EnemyArray_477,X
       LDY     ObjectType,X			  ; Get	the current object ID
       CPY     #Enemy_Tweeter			  ; Check if this enemy	is a Tweeter
       BNE     loc_BANK2_9528			  ; If not, go handle some other enemies
@@ -4253,14 +4253,14 @@ loc_BANK2_9528:
       CPY     #Enemy_SnifitGray
       BNE     loc_BANK2_959D
 
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BNE     loc_BANK2_959D
 
-      JSR     sub_BANK2_9E3B
+      JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
       STY     unk_RAM_6F,X
-      LDA     unk_RAM_9F,X
+      LDA     EnemyArray_9F,X
       AND     #$3F
       BNE     loc_BANK2_9562
 
@@ -4271,12 +4271,12 @@ loc_BANK2_9528:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9562:
-      LDA     unk_RAM_44A,X
+      LDA     EnemyArray_44A,X
       BEQ     loc_BANK2_9574
 
 loc_BANK2_9567:
-      DEC     unk_RAM_9F,X
-      DEC     unk_RAM_44A,X
+      DEC     EnemyArray_9F,X
+      DEC     EnemyArray_44A,X
       BNE     loc_BANK2_9574
 
       JSR     sub_BANK2_95EB
@@ -4312,7 +4312,7 @@ loc_BANK2_9589:
       BNE     loc_BANK2_9597
 
       LDA     #$30
-      STA     unk_RAM_44A,X
+      STA     EnemyArray_44A,X
 
 loc_BANK2_9597:
       LDA     #$7F
@@ -4320,11 +4320,11 @@ loc_BANK2_9597:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_9599:
-      AND     unk_RAM_9F,X
+      AND     EnemyArray_9F,X
       BEQ     loc_BANK2_95B8
 
 loc_BANK2_959D:
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BEQ     loc_BANK2_95BB
 
       LDA     ObjectYAccel,X
@@ -4451,7 +4451,11 @@ byte_BANK2_9607:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANK2_960F:
+; This is run when the player is carrying
+; something, to	update its position to
+; wherever the player is above their head
+
+CarryObject:
       LDA     byte_RAM_9D
       EOR     #1
       TAY
@@ -4480,7 +4484,7 @@ loc_BANK2_961F:
 
 loc_BANK2_9636:
       LDY     PlayerAnimationFrame
-      CPY     #4
+      CPY     #SpriteAnimation_Ducking
       CLC
       BNE     loc_BANK2_964D
 
@@ -4499,7 +4503,7 @@ loc_BANK2_964A:
 
 loc_BANK2_964D:
       PHP
-      LDY     unk_RAM_A8,X
+      LDY     ObjectBeingCarriedTimer,X
       CLC
       LDX     PlayerCurrentSize
       BEQ     loc_BANK2_965D
@@ -4521,7 +4525,7 @@ loc_BANK2_965D:
       PLP
       ADC     #0
       STA     ObjectYHi,X
-      LDY     unk_RAM_A8,X
+      LDY     ObjectBeingCarriedTimer,X
       CPY     #5
       BCS     loc_BANK2_9686
 
@@ -4529,12 +4533,12 @@ loc_BANK2_965D:
       CMP     #$32
       BCS     loc_BANK2_9686
 
-      LDA     unk_RAM_438,X
+      LDA     EnemyArray_438,X
 
 loc_BANK2_967D:
       BNE     loc_BANK2_9681
 
-      INC     unk_RAM_9F,X
+      INC     EnemyArray_9F,X
 
 loc_BANK2_9681:
       ASL     ObjectAttributes,X
@@ -4546,7 +4550,7 @@ loc_BANK2_9686:
 
       JMP     sub_BANK2_9B1B
 
-; End of function sub_BANK2_960F
+; End of function CarryObject
 
 ; ---------------------------------------------------------------------------
       .BYTE $10
@@ -4562,12 +4566,12 @@ locret_BANK2_9691:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_9692:
-      LDA     unk_RAM_A8,X
+      LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_969B
 
       PLA
       PLA
-      JMP     sub_BANK2_960F
+      JMP     CarryObject
 
 ; ---------------------------------------------------------------------------
 
@@ -4575,7 +4579,7 @@ loc_BANK2_969B:
       JSR     sub_BANK2_9B1B
 
       LDA     ObjectType,X
-      CMP     #$3A
+      CMP     #Enemy_POWBlock
       BCS     loc_BANK2_96AA
 
       JSR     sub_BANK3_B4F9
@@ -4588,7 +4592,7 @@ loc_BANK2_96AA:
       JSR     sub_BANK3_B4FD
 
 loc_BANK2_96AD:
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BEQ     locret_BANK2_9691
 
       JSR     sub_BANK2_8577
@@ -4702,7 +4706,7 @@ EnemyBehavior_SubspaceDoor:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9741:
-      LDA     unk_RAM_453,X
+      LDA     EnemyArray_453,X
       BNE     locret_BANK2_9718
 
       LDA     byte_RAM_4B3
@@ -4757,11 +4761,11 @@ loc_BANK2_9784:
       JSR     sub_BANK2_9BB3
 
       LDY     byte_RAM_F4
-      LDA     SpriteDMAArea + $07,Y
+      LDA     SpriteDMAArea+7,Y
       SEC
       SBC     #4
-      STA     SpriteDMAArea + $07,Y
-      STA     SpriteDMAArea + $0F,Y
+      STA     SpriteDMAArea+7,Y
+      STA     SpriteDMAArea+$F,Y
       PLA
       STA     byte_RAM_F4
 
@@ -4794,7 +4798,7 @@ loc_BANK2_97AF:
 
 loc_BANK2_97BA:
       LDA     #$76
-      LDY     unk_RAM_477,X
+      LDY     EnemyArray_477,X
       BEQ     loc_BANK2_97C3
 
       LDA     #$7E
@@ -4811,9 +4815,9 @@ loc_BANK2_97C3:
       BMI     loc_BANK2_9805
 
       CLC
-      ADC     SpriteDMAArea + $03,Y
-      STA     SpriteDMAArea + $03,Y
-      STA     SpriteDMAArea + $0B,Y
+      ADC     SpriteDMAArea+3,Y
+      STA     SpriteDMAArea+3,Y
+      STA     SpriteDMAArea+$B,Y
       CPX     #$30
       BNE     loc_BANK2_9805
 
@@ -4923,7 +4927,7 @@ loc_BANK2_9846:
       LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,Y
       LDA     #$20
-      STA     unk_RAM_86,Y
+      STA     BobombExplodeTimer,Y
 
 loc_BANK2_985C:
       DEY
@@ -4938,7 +4942,7 @@ loc_BANK2_985C:
       STA     byte_RAM_4B3
       LDX     byte_RAM_0
       PLA
-      STA     unk_RAM_477,X
+      STA     EnemyArray_477,X
       LDA     #$3C
       STA     ObjectType,X
       JSR     sub_BANK2_8441
@@ -5013,7 +5017,7 @@ sub_BANK2_98C4:
       LDA     #EnemyState_BlockFizzle
       STA     EnemyState,X
       LDA     #$18
-      STA     unk_RAM_86,X
+      STA     BobombExplodeTimer,X
 
 locret_BANK2_98CC:
       RTS
@@ -5023,19 +5027,19 @@ locret_BANK2_98CC:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_98CD:
-      LDA     unk_RAM_A8,X
+      LDA     ObjectBeingCarriedTimer,X
       BEQ     locret_BANK2_98CC
 
       PLA
       PLA
-      JMP     sub_BANK2_960F
+      JMP     CarryObject
 
 ; End of function sub_BANK2_98CD
 
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_98D6:
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BEQ     locret_BANK2_98EA
 
       PLA
@@ -5045,9 +5049,9 @@ sub_BANK2_98D6:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_98E0:
-      JSR     sub_BANK2_8D6C
+      JSR     EnemyInit_Stationary
 
-      STA     unk_RAM_438,X
+      STA     EnemyArray_438,X
       LDA     ObjectYLo,X
       STA     EnemyTimer,X
 
@@ -5066,7 +5070,7 @@ EnemyBehavior_FallingLogs:
       ASL     A
       ASL     A
       ROR     ObjectAttributes,X
-      LDY     unk_RAM_B1,X
+      LDY     EnemyArray_B1,X
       BNE     loc_BANK2_9919
 
       LDA     ObjectAttributes,X
@@ -5082,7 +5086,7 @@ EnemyBehavior_FallingLogs:
       LDA     ObjectAttributes,X
       AND     #$DF
       STA     ObjectAttributes,X
-      INC     unk_RAM_B1,X
+      INC     EnemyArray_B1,X
       LDA     #4
 
 loc_BANK2_9914:
@@ -5106,7 +5110,7 @@ loc_BANK2_9921:
       BCC     loc_BANK2_9932
 
       LDA     #0
-      STA     unk_RAM_B1,X
+      STA     EnemyArray_B1,X
       LDA     EnemyTimer,X
       STA     ObjectYLo,X
 
@@ -5184,7 +5188,7 @@ sub_BANK2_997A:
       AND     #$10
       BEQ     locret_BANK2_99B3
 
-      LDA     unk_RAM_A8,X
+      LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_9988
 
       LDA     #0
@@ -5211,7 +5215,7 @@ loc_BANK2_99A1:
       CPY     #$12
       BNE     loc_BANK2_99AD
 
-      LDA     unk_RAM_42F,X
+      LDA     EnemyArray_42F,X
       BNE     loc_BANK2_99AD
 
       JSR     sub_BANK3_A440
@@ -5369,8 +5373,7 @@ byte_BANK2_99B5:
       .BYTE $92
       .BYTE $94
       .BYTE $29
-byte_BANK2_9A3D:
-	  .BYTE $29
+      .BYTE $29
       .BYTE $2B
       .BYTE $2B
       .BYTE $3D
@@ -5419,85 +5422,86 @@ byte_BANK2_9A3D:
       .BYTE $A6
       .BYTE $AB
       .BYTE $AB
-unk_BANK2_9A6E:
-	  .BYTE   0
-      .BYTE 0
-      .BYTE 8
-      .BYTE 0
-      .BYTE $C
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $40
-      .BYTE $14
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $20
-      .BYTE $20
-      .BYTE $24
-      .BYTE $24
-      .BYTE $BE
-      .BYTE 0
-      .BYTE $86
-      .BYTE $88
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $8C
-      .BYTE $5C
-      .BYTE $5C
-      .BYTE $6C
-      .BYTE $56
-      .BYTE $5A
-      .BYTE $14
-      .BYTE $72
-      .BYTE 0
-      .BYTE $A8
-      .BYTE 0
-      .BYTE $D6
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $74
-      .BYTE $7A
-      .BYTE $92
-      .BYTE $9A
-      .BYTE $80
-      .BYTE $90
-      .BYTE 0
-      .BYTE 0
-      .BYTE $B6
-      .BYTE $B6
-      .BYTE $B6
-      .BYTE $B6
-      .BYTE $28
-      .BYTE $2A
-      .BYTE $2C
-      .BYTE $2E
-      .BYTE $30	
-      .BYTE $34
-      .BYTE 0
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $42
-      .BYTE $82
-      .BYTE $82
-      .BYTE $84
-      .BYTE $A0
-      .BYTE $A2
-      .BYTE 4
-      .BYTE $8E
-      .BYTE $8E
-      .BYTE $9E
-      .BYTE $A6
-      .BYTE $A4
+UnkEnemyDisplayData:
+	  .BYTE 0					
+      .BYTE 0					  ; 1 ;	@TODO figure this out.
+      .BYTE 8					  ; 2 ;	$FF means "don't display this";
+      .BYTE 0					  ; 3 ;	otherwise seems	to be some sort	of
+      .BYTE $C					  ; 4 ;	index to graphics
+      .BYTE $10					  ; 5 ;	Setting	everything to $0 results in a
+      .BYTE $10					  ; 6 ;	lot of shyguys and not much else
+      .BYTE $10					  ; 7
+      .BYTE $40					  ; 8
+      .BYTE $14					  ; 9
+      .BYTE $18					  ; $A
+      .BYTE $18					  ; $B
+      .BYTE $18					  ; $C
+      .BYTE $20					  ; $D
+      .BYTE $20					  ; $E
+      .BYTE $24					  ; $F
+      .BYTE $24					  ; $10
+      .BYTE $BE					  ; $11
+      .BYTE 0					  ; $12
+      .BYTE $86					  ; $13
+      .BYTE $88					  ; $14
+      .BYTE $FF					  ; $15
+      .BYTE $FF					  ; $16
+      .BYTE $8C					  ; $17
+      .BYTE $5C					  ; $18
+      .BYTE $5C					  ; $19
+      .BYTE $6C					  ; $1A
+      .BYTE $56					  ; $1B
+      .BYTE $5A					  ; $1C
+      .BYTE $14					  ; $1D
+      .BYTE $72					  ; $1E
+      .BYTE 0					  ; $1F
+      .BYTE $A8					  ; $20
+      .BYTE 0					  ; $21
+      .BYTE $D6					  ; $22
+      .BYTE $AC					  ; $23
+      .BYTE $AC					  ; $24
+      .BYTE $AC					  ; $25
+      .BYTE $74					  ; $26
+      .BYTE $7A					  ; $27
+      .BYTE $92					  ; $28
+      .BYTE $9A					  ; $29
+      .BYTE $80					  ; $2A
+      .BYTE $90					  ; $2B
+      .BYTE 0					  ; $2C
+      .BYTE 0					  ; $2D
+      .BYTE $B6					  ; $2E
+      .BYTE $B6					  ; $2F
+      .BYTE $B6					  ; $30
+      .BYTE $B6					  ; $31
+      .BYTE $28					  ; $32
+      .BYTE $2A					  ; $33
+      .BYTE $2C					  ; $34
+      .BYTE $2E					  ; $35
+      .BYTE $30					  ; $36
+      .BYTE $34					  ; $37
+      .BYTE 0					  ; $38
+      .BYTE $38					  ; $39
+      .BYTE $3A					  ; $3A
+      .BYTE $42					  ; $3B
+      .BYTE $82					  ; $3C
+      .BYTE $82					  ; $3D
+      .BYTE $84					  ; $3E
+      .BYTE $A0					  ; $3F
+      .BYTE $A2					  ; $40
+      .BYTE 4					  ; $41
+      .BYTE $8E					  ; $42
+      .BYTE $8E					  ; $43
+      .BYTE $9E					  ; $44
+      .BYTE $A6					  ; $45
+      .BYTE $A4					  ; $46
+
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK2_9AB5:
       LDA     ObjectYLo,X
       CLC
       SBC     byte_RAM_CB
-      LDY     unk_RAM_A8,X
+      LDY     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_9ACA
 
       LDY     PlayerAnimationFrame
@@ -5527,7 +5531,7 @@ loc_BANK2_9AD7:
       CMP     #1
       BNE     loc_BANK2_9AE2
 
-      LDA     unk_RAM_45C,X
+      LDA     EnemyArray_45C,X
       BEQ     loc_BANK2_9AE6
 
 loc_BANK2_9AE2:
@@ -5535,7 +5539,7 @@ loc_BANK2_9AE2:
       BNE     loc_BANK2_9AEC
 
 loc_BANK2_9AE6:
-      LDA     unk_RAM_86,X
+      LDA     BobombExplodeTimer,X
       BEQ     loc_BANK2_9AEF
 
       LDA     #$62
@@ -5558,7 +5562,7 @@ sub_BANK2_9AF2:
       PLA
       ASL     A
       STA     byte_RAM_EE
-      LDA     unk_RAM_B1,X
+      LDA     EnemyArray_B1,X
       ORA     byte_RAM_EF
       BNE     locret_BANK2_9B40
 
@@ -5581,7 +5585,7 @@ sub_BANK2_9AF2:
 
 sub_BANK2_9B1B:
       LDY     ObjectType,X
-      LDA     unk_BANK2_9A6E,Y
+      LDA     UnkEnemyDisplayData,Y
       CMP     #$FF
       BEQ     locret_BANK2_9B40
 
@@ -5748,7 +5752,7 @@ sub_BANK2_9BA7:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9BB0:
-      LDA     unk_BANK2_9A6E,Y
+      LDA     UnkEnemyDisplayData,Y
 
 ; End of function sub_BANK2_9BA7
 
@@ -5764,7 +5768,7 @@ sub_BANK2_9BB3:
       STA     byte_RAM_B
       LDY     unk_RAM_6F,X
       LDA     ObjectAttributes,X
-      AND     #$18
+      AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_08|ObjAttrib_Mirrored
       BEQ     loc_BANK2_9BD2
 
       LDY     #2
@@ -5783,7 +5787,7 @@ loc_BANK2_9BD2:
       STA     byte_RAM_0
       LDA     #0
       STA     word_RAM_C+1
-      LDA     unk_RAM_44A,X
+      LDA     EnemyArray_44A,X
       AND     #2
       LSR     A
       LDY     byte_RAM_EE
@@ -5796,7 +5800,7 @@ loc_BANK2_9BEF:
       STA     byte_RAM_1
       LDA     ObjectAttributes,X
       AND     #$A3
-      LDY     unk_RAM_45C,X
+      LDY     EnemyArray_45C,X
       BEQ     loc_BANK2_9C07
 
       AND     #$A0
@@ -5811,7 +5815,7 @@ loc_BANK2_9C07:
       LDA     unk_RAM_46E,X
       STA     word_RAM_C
       ASL     A
-      LDA     unk_RAM_9F,X
+      LDA     EnemyArray_9F,X
       LDX     byte_RAM_F
       AND     #8
       BEQ     loc_BANK2_9C31
@@ -5907,33 +5911,33 @@ loc_BANK2_9C7A:
 
 loc_BANK2_9C9C:
       STA     SpriteDMAArea,Y
-      LDA     SpriteDMAArea + $04,X
+      LDA     SpriteDMAArea+4,X
       PHA
-      LDA     SpriteDMAArea + $04,Y
-      STA     SpriteDMAArea + $04,X
+      LDA     SpriteDMAArea+4,Y
+      STA     SpriteDMAArea+4,X
       PLA
-      STA     SpriteDMAArea + $04,Y
-      LDA     SpriteDMAArea + $08,X
+      STA     SpriteDMAArea+4,Y
+      LDA     SpriteDMAArea+8,X
       PHA
-      LDA     SpriteDMAArea + $08,Y
-      STA     SpriteDMAArea + $08,X
+      LDA     SpriteDMAArea+8,Y
+      STA     SpriteDMAArea+8,X
       PLA
-      STA     SpriteDMAArea + $08,Y
+      STA     SpriteDMAArea+8,Y
       BCS     loc_BANK2_9CD9
 
 loc_BANK2_9CBD:
       LDA     SpriteDMAArea,Y
       PHA
-      LDA     SpriteDMAArea + $08,Y
+      LDA     SpriteDMAArea+8,Y
       STA     SpriteDMAArea,Y
       PLA
-      STA     SpriteDMAArea + $08,Y
-      LDA     SpriteDMAArea + $04,Y
+      STA     SpriteDMAArea+8,Y
+      LDA     SpriteDMAArea+4,Y
       PHA
-      LDA     SpriteDMAArea + $0C,Y
-      STA     SpriteDMAArea + $04,Y
+      LDA     SpriteDMAArea+$C,Y
+      STA     SpriteDMAArea+4,Y
       PLA
-      STA     SpriteDMAArea + $0C,Y
+      STA     SpriteDMAArea+$C,Y
 
 loc_BANK2_9CD9:
       LDX     byte_RAM_12
@@ -5942,11 +5946,11 @@ loc_BANK2_9CD9:
       BEQ     locret_BANK2_9CF1
 
       LDA     byte_RAM_3
-      STA     SpriteDMAArea + $02,Y
-      STA     SpriteDMAArea + $0A,Y
+      STA     SpriteDMAArea+2,Y
+      STA     SpriteDMAArea+$A,Y
       ORA     #$40
-      STA     SpriteDMAArea + $06,Y
-      STA     SpriteDMAArea + $0E,Y
+      STA     SpriteDMAArea+6,Y
+      STA     SpriteDMAArea+$E,Y
 
 locret_BANK2_9CF1:
       RTS
@@ -5964,16 +5968,16 @@ sub_BANK2_9CF2:
       BNE     loc_BANK2_9D0A
 
       LDA     byte_BANK2_99B4,X
-      STA     SpriteDMAArea + $01,Y
+      STA     SpriteDMAArea+1,Y
       LDA     byte_BANK2_99B5,X
-      STA     SpriteDMAArea + $05,Y
+      STA     SpriteDMAArea+5,Y
       BNE     loc_BANK2_9D16
 
 loc_BANK2_9D0A:
-      LDA     MysteryData6030,X
-      STA     SpriteDMAArea + $01,Y
-      LDA     byte_BANK3_A031,X
-      STA     SpriteDMAArea + $05,Y
+      LDA     _Mystery_BANK3_A030,X
+      STA     SpriteDMAArea+1,Y
+      LDA     _Mystery_BANK3_A030+1,X
+      STA     SpriteDMAArea+5,Y
 
 loc_BANK2_9D16:
       LDA     byte_RAM_2
@@ -5981,21 +5985,21 @@ loc_BANK2_9D16:
       LDA     #0
       BCC     loc_BANK2_9D2D
 
-      LDA     SpriteDMAArea + $01,Y
+      LDA     SpriteDMAArea+1,Y
       PHA
-      LDA     SpriteDMAArea + $05,Y
-      STA     SpriteDMAArea + $01,Y
+      LDA     SpriteDMAArea+5,Y
+      STA     SpriteDMAArea+1,Y
       PLA
-      STA     SpriteDMAArea + $05,Y
+      STA     SpriteDMAArea+5,Y
       LDA     #$40
 
 loc_BANK2_9D2D:
       ORA     byte_RAM_3
-      STA     SpriteDMAArea + $02,Y
-      STA     SpriteDMAArea + $06,Y
+      STA     SpriteDMAArea+2,Y
+      STA     SpriteDMAArea+6,Y
       LDA     #$F8
       STA     SpriteDMAArea,Y
-      STA     SpriteDMAArea + $04,Y
+      STA     SpriteDMAArea+4,Y
       LDA     byte_RAM_EE
       AND     #8
       BNE     loc_BANK2_9D48
@@ -6009,7 +6013,7 @@ loc_BANK2_9D48:
       BNE     loc_BANK2_9D53
 
       LDA     byte_RAM_0
-      STA     SpriteDMAArea + $04,Y
+      STA     SpriteDMAArea+4,Y
 
 loc_BANK2_9D53:
       LDA     byte_RAM_0
@@ -6017,10 +6021,10 @@ loc_BANK2_9D53:
       ADC     #$10
       STA     byte_RAM_0
       LDA     byte_RAM_1
-      STA     SpriteDMAArea + $03,Y
+      STA     SpriteDMAArea+3,Y
       CLC
       ADC     #8
-      STA     SpriteDMAArea + $07,Y
+      STA     SpriteDMAArea+7,Y
       TYA
       CLC
       ADC     #8
@@ -6032,34 +6036,34 @@ loc_BANK2_9D53:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9D6D:
-      LDA     MysteryData6030,X
-      STA     SpriteDMAArea + $01,Y
-      LDA     byte_BANK3_A031,X
-      STA     SpriteDMAArea + $05,Y
-      LDA     unk_BANK3_A032,X
-      STA     SpriteDMAArea + $09,Y
+      LDA     _Mystery_BANK3_A030,X
+      STA     SpriteDMAArea+1,Y
+      LDA     _Mystery_BANK3_A030+1,X
+      STA     SpriteDMAArea+5,Y
+      LDA     _Mystery_BANK3_A030+2,X
+      STA     SpriteDMAArea+9,Y
       LDA     byte_RAM_2
       LSR     A
       LDA     #0
       BCC     loc_BANK2_9D96
 
-      LDA     SpriteDMAArea + $01,Y
+      LDA     SpriteDMAArea+1,Y
       PHA
-      LDA     SpriteDMAArea + $09,Y
-      STA     SpriteDMAArea + $01,Y
+      LDA     SpriteDMAArea+9,Y
+      STA     SpriteDMAArea+1,Y
       PLA
-      STA     SpriteDMAArea + $09,Y
+      STA     SpriteDMAArea+9,Y
       LDA     #$40
 
 loc_BANK2_9D96:
       ORA     byte_RAM_3
-      STA     SpriteDMAArea + $02,Y
-      STA     SpriteDMAArea + $06,Y
-      STA     SpriteDMAArea + $0A,Y
+      STA     SpriteDMAArea+2,Y
+      STA     SpriteDMAArea+6,Y
+      STA     SpriteDMAArea+$A,Y
       LDA     #$F8
       STA     SpriteDMAArea,Y
-      STA     SpriteDMAArea + $04,Y
-      STA     SpriteDMAArea + $08,Y
+      STA     SpriteDMAArea+4,Y
+      STA     SpriteDMAArea+8,Y
       LDA     byte_RAM_EE
       AND     #8
       BNE     loc_BANK2_9DB7
@@ -6073,7 +6077,7 @@ loc_BANK2_9DB7:
       BNE     loc_BANK2_9DC2
 
       LDA     byte_RAM_0
-      STA     SpriteDMAArea + $04,Y
+      STA     SpriteDMAArea+4,Y
 
 loc_BANK2_9DC2:
       LDA     byte_RAM_EE
@@ -6081,7 +6085,7 @@ loc_BANK2_9DC2:
       BNE     loc_BANK2_9DCD
 
       LDA     byte_RAM_0
-      STA     SpriteDMAArea + $08,Y
+      STA     SpriteDMAArea+8,Y
 
 loc_BANK2_9DCD:
       LDA     byte_RAM_0
@@ -6089,11 +6093,11 @@ loc_BANK2_9DCD:
       ADC     #$10
       STA     byte_RAM_0
       LDA     byte_RAM_1
-      STA     SpriteDMAArea + $03,Y
+      STA     SpriteDMAArea+3,Y
       ADC     #8
-      STA     SpriteDMAArea + $07,Y
+      STA     SpriteDMAArea+7,Y
       ADC     #8
-      STA     SpriteDMAArea + $0B,Y
+      STA     SpriteDMAArea+$B,Y
       TXA
       PHA
       JSR     loc_BANKF_FAFE
@@ -6147,7 +6151,7 @@ loc_BANK2_9E06:
       AND     #$C
       BNE     locret_BANK2_9E3A
 
-      LDA     unk_RAM_9F,X
+      LDA     EnemyArray_9F,X
       AND     #$C
       LSR     A
       LSR     A
@@ -6165,9 +6169,9 @@ loc_BANK2_9E06:
       LDA     SpriteDMAArea,Y
       ADC     byte_BANK2_9DFA,X
       STA     SpriteDMAArea,Y
-      LDA     SpriteDMAArea + $03,Y
+      LDA     SpriteDMAArea+3,Y
       ADC     loc_BANK2_9DF2,X
-      STA     SpriteDMAArea + $03,Y
+      STA     SpriteDMAArea+3,Y
       LDX     byte_RAM_12
 
 locret_BANK2_9E3A:
@@ -6175,7 +6179,11 @@ locret_BANK2_9E3A:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANK2_9E3B:
+; Compares our position	to the player's, and returns
+; Y = 1	(Player	to left)
+; Y = 0	(Player	to right)
+
+EnemyFindWhichSidePlayerIsOn:
       LDA     PlayerXLo
       SBC     ObjectXLo,X
       STA     byte_RAM_F
@@ -6189,7 +6197,7 @@ sub_BANK2_9E3B:
 locret_BANK2_9E4A:
       RTS
 
-; End of function sub_BANK2_9E3B
+; End of function EnemyFindWhichSidePlayerIsOn
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -6206,7 +6214,7 @@ sub_BANK2_9E4B:
 sub_BANK2_9E50:
       LDA     ObjectXAccel,X
       CLC
-      ADC     unk_RAM_4CC,X
+      ADC     EnemyArray_4CC,X
       PHA
       ASL     A
       ASL     A
@@ -6291,7 +6299,8 @@ loc_BANK2_9EBA:
 ; End of function sub_BANK2_9EA9
 
 ; ---------------------------------------------------------------------------
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF
+_unused_BANK2_9EBD:
+	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30

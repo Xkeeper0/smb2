@@ -267,7 +267,8 @@
       .BYTE $4C
       .BYTE $3E
       .BYTE $42
-      .BYTE $7E
+byte_BANK5_A10A:
+	  .BYTE $7E
       .BYTE $30
       .BYTE $7E
       .BYTE $26

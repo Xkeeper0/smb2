@@ -1899,7 +1899,7 @@ HandlePlayerState_Lifting:
       BNE     locret_BANK0_8AC1
 
       LDX     byte_RAM_42D
-      LDY     unk_RAM_A8,X
+      LDY     ObjectBeingCarriedTimer,X
       CPY     #2
       BCC     loc_BANK0_8ABB
 
@@ -1910,7 +1910,7 @@ HandlePlayerState_Lifting:
       STA     DPCMQueue
 
 loc_BANK0_8A9D:
-      DEC     unk_RAM_A8,X
+      DEC     ObjectBeingCarriedTimer,X
       LDA     byte_BANK0_8AC6,Y
       STA     PlayerAnimationFrame
       LDA     EnemyState,X
@@ -2818,9 +2818,9 @@ loc_BANK0_8E89:
       LDA     byte_BANK0_8DB2,Y
       STA     ObjectXAccel,X
       LDA     #1
-      STA     unk_RAM_42F,X
+      STA     EnemyArray_42F,X
       LSR     A
-      STA     unk_RAM_A8,X
+      STA     ObjectBeingCarriedTimer,X
       RTS
 
 ; End of function sub_BANK0_8DC0
@@ -3255,9 +3255,9 @@ loc_BANK0_9080:
       LDA     byte_RAM_6
       STA     ObjectYLo,X
       LDA     #0
-      STA     unk_RAM_42F,X
-      STA     unk_RAM_9F,X
-      STA     unk_RAM_B1,X
+      STA     EnemyArray_42F,X
+      STA     EnemyArray_9F,X
+      STA     EnemyArray_B1,X
       JSR     sub_BANK1_BA48
 
       LDA     #1
@@ -3266,7 +3266,7 @@ loc_BANK0_9080:
       BNE     loc_BANK0_90AE
 
       LDA     #$20
-      STA     unk_RAM_86,X
+      STA     BobombExplodeTimer,X
       LDA     #6
 
 loc_BANK0_90AE:
@@ -3284,7 +3284,7 @@ loc_BANK0_90BF:
       LDY     #$50
 
 loc_BANK0_90C1:
-      STY     unk_RAM_86,X
+      STY     BobombExplodeTimer,X
 
 loc_BANK0_90C3:
       BNE     loc_BANK0_90EA
@@ -3329,7 +3329,7 @@ loc_BANK0_90EA:
       JSR     sub_BANK0_934F
 
       LDA     #7
-      STA     unk_RAM_A8,X
+      STA     ObjectBeingCarriedTimer,X
       STX     byte_RAM_42D
       LDA     #2
       STA     PlayerState

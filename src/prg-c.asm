@@ -347,9 +347,9 @@ loc_BANKC_83BB:
       STA     ScreenUpdateIndex
       LDA     #$F8
       STA     SpriteDMAArea
-      STA     SpriteDMAArea + $04
-      STA     SpriteDMAArea + $08
-      STA     SpriteDMAArea + $0C
+      STA     SpriteDMAArea+4
+      STA     SpriteDMAArea+8
+      STA     SpriteDMAArea+$C
       JSR     sub_BANKC_801C
 
       LDA     #4
@@ -631,7 +631,7 @@ loc_BANKC_853A:
 
 loc_BANKC_855C:
       LDA     CastRoll_CASTText,X
-      STA     SpriteDMAArea + $40,X
+      STA     SpriteDMAArea+$40,X
       DEX
       BPL     loc_BANKC_855C
 
@@ -732,19 +732,19 @@ loc_BANKC_85EB:
       SEC
       SBC     #1
       STA     ObjectYHi
-      STA     SpriteDMAArea + $40
-      STA     SpriteDMAArea + $44
-      STA     SpriteDMAArea + $48
-      STA     SpriteDMAArea + $4C
+      STA     SpriteDMAArea+$40
+      STA     SpriteDMAArea+$44
+      STA     SpriteDMAArea+$48
+      STA     SpriteDMAArea+$4C
       LDA     ObjectYHi
       CMP     #$10
       BNE     loc_BANKC_861C
 
       LDA     #$F8
-      STA     SpriteDMAArea + $40
-      STA     SpriteDMAArea + $44
-      STA     SpriteDMAArea + $48
-      STA     SpriteDMAArea + $4A
+      STA     SpriteDMAArea+$40
+      STA     SpriteDMAArea+$44
+      STA     SpriteDMAArea+$48
+      STA     SpriteDMAArea+$4A
       INC     ObjectXLo
       LDA     #0
       STA     ObjectYLo+5
@@ -763,7 +763,7 @@ loc_BANKC_861C:
 
 loc_BANKC_8629:
       LDA     (ObjectXLo+6),Y
-      STA     SpriteDMAArea + $40,Y
+      STA     SpriteDMAArea+$40,Y
       DEY
       BPL     loc_BANKC_8629
 
@@ -789,7 +789,7 @@ loc_BANKC_8641:
 
 loc_BANKC_864E:
       LDA     (ObjectXLo+6),Y
-      STA     SpriteDMAArea + $80,Y
+      STA     SpriteDMAArea+$80,Y
       DEY
       BPL     loc_BANKC_864E
 
@@ -815,7 +815,7 @@ loc_BANKC_8666:
 
 loc_BANKC_8673:
       LDA     (ObjectXLo+6),Y
-      STA     SpriteDMAArea + $C0,Y
+      STA     SpriteDMAArea+$C0,Y
       DEY
       BPL     loc_BANKC_8673
 
@@ -853,7 +853,7 @@ loc_BANKC_869A:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_86A3:
-      LDA     SpriteDMAArea + $40
+      LDA     SpriteDMAArea+$40
       CMP     #$F8
       BEQ     loc_BANKC_86C3
 
@@ -867,13 +867,13 @@ loc_BANKC_86A3:
 
 loc_BANKC_86B5:
       STA     ObjectYHi
-      STA     SpriteDMAArea + $40
-      STA     SpriteDMAArea + $44
-      STA     SpriteDMAArea + $48
-      STA     SpriteDMAArea + $4C
+      STA     SpriteDMAArea+$40
+      STA     SpriteDMAArea+$44
+      STA     SpriteDMAArea+$48
+      STA     SpriteDMAArea+$4C
 
 loc_BANKC_86C3:
-      LDA     SpriteDMAArea + $50
+      LDA     SpriteDMAArea+$50
       CMP     #$F8
       BEQ     loc_BANKC_86F2
 
@@ -900,13 +900,13 @@ loc_BANKC_86E4:
       LDA     #$F8
 
 loc_BANKC_86E6:
-      STA     SpriteDMAArea + $50
-      STA     SpriteDMAArea + $54
-      STA     SpriteDMAArea + $58
-      STA     SpriteDMAArea + $5C
+      STA     SpriteDMAArea+$50
+      STA     SpriteDMAArea+$54
+      STA     SpriteDMAArea+$58
+      STA     SpriteDMAArea+$5C
 
 loc_BANKC_86F2:
-      LDA     SpriteDMAArea + $60
+      LDA     SpriteDMAArea+$60
       CMP     #$F8
       BEQ     loc_BANKC_873A
 
@@ -940,14 +940,14 @@ loc_BANKC_8720:
       LDA     #$F8
 
 loc_BANKC_8722:
-      STA     SpriteDMAArea + $60
-      STA     SpriteDMAArea + $64
-      STA     SpriteDMAArea + $68
-      STA     SpriteDMAArea + $6C
-      STA     SpriteDMAArea + $70
-      STA     SpriteDMAArea + $74
-      STA     SpriteDMAArea + $78
-      STA     SpriteDMAArea + $7C
+      STA     SpriteDMAArea+$60
+      STA     SpriteDMAArea+$64
+      STA     SpriteDMAArea+$68
+      STA     SpriteDMAArea+$6C
+      STA     SpriteDMAArea+$70
+      STA     SpriteDMAArea+$74
+      STA     SpriteDMAArea+$78
+      STA     SpriteDMAArea+$7C
 
 loc_BANKC_873A:
       LDA     ObjectXLo+5
@@ -959,7 +959,7 @@ loc_BANKC_873A:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_8743:
-      LDA     SpriteDMAArea + $80
+      LDA     SpriteDMAArea+$80
       CMP     #$F8
       BEQ     loc_BANKC_8763
 
@@ -975,13 +975,13 @@ loc_BANKC_874C:
 
 loc_BANKC_8755:
       STA     ObjectYHi+3
-      STA     SpriteDMAArea + $80
-      STA     SpriteDMAArea + $84
-      STA     SpriteDMAArea + $88
-      STA     SpriteDMAArea + $8C
+      STA     SpriteDMAArea+$80
+      STA     SpriteDMAArea+$84
+      STA     SpriteDMAArea+$88
+      STA     SpriteDMAArea+$8C
 
 loc_BANKC_8763:
-      LDA     SpriteDMAArea + $90
+      LDA     SpriteDMAArea+$90
       CMP     #$F8
       BEQ     loc_BANKC_878A
 
@@ -1001,15 +1001,15 @@ loc_BANKC_8776:
       LDA     #$F8
 
 loc_BANKC_877E:
-      STA     SpriteDMAArea + $90
-      STA     SpriteDMAArea + $94
+      STA     SpriteDMAArea+$90
+      STA     SpriteDMAArea+$94
 
 loc_BANKC_8784:
-      STA     SpriteDMAArea + $98
-      STA     SpriteDMAArea + $9C
+      STA     SpriteDMAArea+$98
+      STA     SpriteDMAArea+$9C
 
 loc_BANKC_878A:
-      LDA     SpriteDMAArea + $A0
+      LDA     SpriteDMAArea+$A0
       CMP     #$F8
       BEQ     loc_BANKC_87D2
 
@@ -1044,14 +1044,14 @@ loc_BANKC_87B8:
       LDA     #$F8
 
 loc_BANKC_87BA:
-      STA     SpriteDMAArea + $A0
-      STA     SpriteDMAArea + $A4
-      STA     SpriteDMAArea + $A8
-      STA     SpriteDMAArea + $AC
-      STA     SpriteDMAArea + $B0
-      STA     SpriteDMAArea + $B4
-      STA     SpriteDMAArea + $B8
-      STA     SpriteDMAArea + $BC
+      STA     SpriteDMAArea+$A0
+      STA     SpriteDMAArea+$A4
+      STA     SpriteDMAArea+$A8
+      STA     SpriteDMAArea+$AC
+      STA     SpriteDMAArea+$B0
+      STA     SpriteDMAArea+$B4
+      STA     SpriteDMAArea+$B8
+      STA     SpriteDMAArea+$BC
 
 loc_BANKC_87D2:
       LDA     ObjectXLo+5
@@ -1063,7 +1063,7 @@ loc_BANKC_87D2:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_87DB:
-      LDA     SpriteDMAArea + $C0
+      LDA     SpriteDMAArea+$C0
       CMP     #$F8
       BEQ     loc_BANKC_87FB
 
@@ -1077,13 +1077,13 @@ loc_BANKC_87DB:
 
 loc_BANKC_87ED:
       STA     ObjectYHi+6
-      STA     SpriteDMAArea + $C0
-      STA     SpriteDMAArea + $C4
-      STA     SpriteDMAArea + $C8
-      STA     SpriteDMAArea + $CC
+      STA     SpriteDMAArea+$C0
+      STA     SpriteDMAArea+$C4
+      STA     SpriteDMAArea+$C8
+      STA     SpriteDMAArea+$CC
 
 loc_BANKC_87FB:
-      LDA     SpriteDMAArea + $D0
+      LDA     SpriteDMAArea+$D0
       CMP     #$F8
       BEQ     loc_BANKC_8822
 
@@ -1103,13 +1103,13 @@ loc_BANKC_880E:
       LDA     #$F8
 
 loc_BANKC_8816:
-      STA     SpriteDMAArea + $D0
-      STA     SpriteDMAArea + $D4
-      STA     SpriteDMAArea + $D8
-      STA     SpriteDMAArea + $DC
+      STA     SpriteDMAArea+$D0
+      STA     SpriteDMAArea+$D4
+      STA     SpriteDMAArea+$D8
+      STA     SpriteDMAArea+$DC
 
 loc_BANKC_8822:
-      LDA     SpriteDMAArea + $E0
+      LDA     SpriteDMAArea+$E0
       CMP     #$F8
       BEQ     locret_BANKC_8897
 
@@ -1155,14 +1155,14 @@ loc_BANKC_8860:
       LDA     #$F8
 
 loc_BANKC_8862:
-      STA     SpriteDMAArea + $E0
-      STA     SpriteDMAArea + $E4
-      STA     SpriteDMAArea + $E8
-      STA     SpriteDMAArea + $EC
-      STA     SpriteDMAArea + $F0
-      STA     SpriteDMAArea + $F4
-      STA     SpriteDMAArea + $F8
-      STA     SpriteDMAArea + $FC
+      STA     SpriteDMAArea+$E0
+      STA     SpriteDMAArea+$E4
+      STA     SpriteDMAArea+$E8
+      STA     SpriteDMAArea+$EC
+      STA     SpriteDMAArea+$F0
+      STA     SpriteDMAArea+$F4
+      STA     SpriteDMAArea+$F8
+      STA     SpriteDMAArea+$FC
       LDA     ObjectXAccel+2
       BEQ     locret_BANKC_8897
 
@@ -1170,7 +1170,7 @@ loc_BANKC_8862:
 
 loc_BANKC_8880:
       LDA     CastRoll_TriclydeText,Y
-      STA     SpriteDMAArea + $40,Y
+      STA     SpriteDMAArea+$40,Y
       DEY
       BPL     loc_BANKC_8880
 
@@ -1202,7 +1202,7 @@ loc_BANKC_8898:
 
 loc_BANKC_88AB:
       LDA     CastRoll_Wart,Y
-      STA     SpriteDMAArea + $40,Y
+      STA     SpriteDMAArea+$40,Y
       DEY
       BPL     loc_BANKC_88AB
 
@@ -1212,7 +1212,7 @@ loc_BANKC_88AB:
       LDA     #$C0
 
 loc_BANKC_88BC:
-      STA     SpriteDMAArea + $01,Y
+      STA     SpriteDMAArea+1,Y
       INY
       INY
       INY
@@ -1242,7 +1242,7 @@ loc_BANKC_88D7:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_88E0:
-      LDA     SpriteDMAArea + $40
+      LDA     SpriteDMAArea+$40
       CMP     #$F8
       BEQ     loc_BANKC_8906
 
@@ -1259,14 +1259,14 @@ loc_BANKC_88E0:
 
 loc_BANKC_88F5:
       STA     ObjectYHi
-      STA     SpriteDMAArea + $40
-      STA     SpriteDMAArea + $44
-      STA     SpriteDMAArea + $48
-      STA     SpriteDMAArea + $4C
-      STA     SpriteDMAArea + $50
+      STA     SpriteDMAArea+$40
+      STA     SpriteDMAArea+$44
+      STA     SpriteDMAArea+$48
+      STA     SpriteDMAArea+$4C
+      STA     SpriteDMAArea+$50
 
 loc_BANKC_8906:
-      LDA     SpriteDMAArea + $54
+      LDA     SpriteDMAArea+$54
       CMP     #$F8
       BEQ     loc_BANKC_8930
 
@@ -1286,14 +1286,14 @@ loc_BANKC_8919:
       LDA     #$F8
 
 loc_BANKC_8921:
-      STA     SpriteDMAArea + $54
-      STA     SpriteDMAArea + $58
-      STA     SpriteDMAArea + $5C
-      STA     SpriteDMAArea + $60
-      STA     SpriteDMAArea + $64
+      STA     SpriteDMAArea+$54
+      STA     SpriteDMAArea+$58
+      STA     SpriteDMAArea+$5C
+      STA     SpriteDMAArea+$60
+      STA     SpriteDMAArea+$64
 
 loc_BANKC_8930:
-      LDA     SpriteDMAArea + $68
+      LDA     SpriteDMAArea+$68
       CMP     #$F8
       BEQ     loc_BANKC_895A
 
@@ -1313,14 +1313,14 @@ loc_BANKC_8943:
       LDA     #$F8
 
 loc_BANKC_894B:
-      STA     SpriteDMAArea + $68
-      STA     SpriteDMAArea + $6C
-      STA     SpriteDMAArea + $70
-      STA     SpriteDMAArea + $74
-      STA     SpriteDMAArea + $78
+      STA     SpriteDMAArea+$68
+      STA     SpriteDMAArea+$6C
+      STA     SpriteDMAArea+$70
+      STA     SpriteDMAArea+$74
+      STA     SpriteDMAArea+$78
 
 loc_BANKC_895A:
-      LDA     SpriteDMAArea + $7C
+      LDA     SpriteDMAArea+$7C
       CMP     #$F8
       BEQ     loc_BANKC_898D
 
@@ -1340,14 +1340,14 @@ loc_BANKC_896D:
       LDA     #$F8
 
 loc_BANKC_8975:
-      STA     SpriteDMAArea + $7C
-      STA     SpriteDMAArea + $80
-      STA     SpriteDMAArea + $84
-      STA     SpriteDMAArea + $88
-      STA     SpriteDMAArea + $8C
-      STA     SpriteDMAArea + $90
-      STA     SpriteDMAArea + $94
-      STA     SpriteDMAArea + $98
+      STA     SpriteDMAArea+$7C
+      STA     SpriteDMAArea+$80
+      STA     SpriteDMAArea+$84
+      STA     SpriteDMAArea+$88
+      STA     SpriteDMAArea+$8C
+      STA     SpriteDMAArea+$90
+      STA     SpriteDMAArea+$94
+      STA     SpriteDMAArea+$98
 
 loc_BANKC_898D:
       LDA     #0
@@ -1423,7 +1423,7 @@ loc_BANKC_89CD:
 loc_BANKC_89D7:
       INC     ObjectXAccel
       LDA     byte_BANKC_8998,X
-      STA     SpriteDMAArea + $41,Y
+      STA     SpriteDMAArea+$41,Y
       INY
       INY
       INY
@@ -1443,7 +1443,7 @@ loc_BANKC_89EB:
 
 loc_BANKC_89F1:
       LDA     byte_BANKC_89A7,X
-      STA     SpriteDMAArea + $41,Y
+      STA     SpriteDMAArea+$41,Y
       INY
       INY
       INY
@@ -1504,7 +1504,7 @@ loc_BANKC_8A37:
       LDA     #$F8
 
 loc_BANKC_8A41:
-      STA     SpriteDMAArea + $40,Y
+      STA     SpriteDMAArea+$40,Y
       INY
       INY
       INY
@@ -1618,17 +1618,17 @@ loc_BANKC_8ACD:
 
 loc_BANKC_8ADD:
       LDA     #$40
-      STA     SpriteDMAArea + $10,X
+      STA     SpriteDMAArea+$10,X
       INX
       LDA     byte_BANKC_93A6,Y
-      STA     SpriteDMAArea + $10,X
+      STA     SpriteDMAArea+$10,X
       INY
       INX
       LDA     #0
-      STA     SpriteDMAArea + $10,X
+      STA     SpriteDMAArea+$10,X
       INX
       LDA     byte_BANKC_93A6,Y
-      STA     SpriteDMAArea + $10,X
+      STA     SpriteDMAArea+$10,X
       INY
       INX
       DEC     ObjectXHi+6

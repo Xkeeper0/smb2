@@ -224,7 +224,8 @@ EnemyPointers_Level_1_2_Hi:
 
       .BYTE >EnemyPointers_Level_1_2_Area1
       .BYTE >EnemyPointers_Level_1_2_Area2
-      .BYTE >EnemyPointers_Level_1_2_Area3
+off_BANK9_A56B:
+	  .BYTE >EnemyPointers_Level_1_2_Area3
       .BYTE >EnemyPointers_Level_1_2_Area4
       .BYTE >EnemyPointers_Level_1_2_Area5
       .BYTE >EnemyPointers_Level_1_2_Area5
@@ -719,7 +720,8 @@ EnemyPointers_Level_1_1_Area1:
 EnemyPointers_Level_1_1_Area2:
 	  .BYTE 3,1,$EC				  
       .BYTE 7,1,$1C,2,$5C,3,$E5			  
-      .BYTE 7,1,$6C,2,$8C,1,$CC			  
+byte_BANK9_A720:
+	  .BYTE 7,1,$6C,2,$8C,1,$CC		    
       .BYTE 5,3,$79,1,$D4			  
       .BYTE 9,1,4,2,$34,$3B,$87,$3B,$C7		  
       .BYTE 7,3,$A9,3,$BC,3,$C6			  
@@ -917,7 +919,8 @@ EnemyPointers_Level_2_2_Area5:
 	  .BYTE 1
 
       .BYTE 5,$1C,$B4,$44,$B4			  
-      .BYTE 3,$43,$B3				  
+byte_BANK9_A8F0:
+	  .BYTE 3,$43,$B3				    
       .BYTE 1
 EnemyPointers_Level_2_3_Area0:
 	  .BYTE 3,$42,$17				  
@@ -1359,7 +1362,8 @@ EnemyPointers_Level_5_1_Area0:
 EnemyPointers_Level_5_1_Area1:
 	  .BYTE 1
 
-      .BYTE 3,$3B,$E4				  
+byte_BANK9_AC69:
+	  .BYTE 3,$3B,$E4				    
       .BYTE 9,$3B,$34,$3B,$84,$13,$B2,$3B,$D4	  
       .BYTE 5,$13,$82,$13,$C2			  
       .BYTE 5,$13,2,$3B,$A4			  
@@ -1695,7 +1699,8 @@ EnemyPointers_Level_7_2_Area6:
 EnemyPointers_Level_7_2_Area7:
 	  .BYTE 9,3,$76,7,$69,7,$99,$30,$8F		  
       .BYTE 9,$2F,$A2,$31,$73,$31,$68,$2E,$AD	  
-      .BYTE 7,$31,$80,$31,$97,$2E,$7F		  
+byte_BANK9_AFDD:
+	  .BYTE 7,$31,$80,$31,$97,$2E,$7F		    
       .BYTE 5,7,$80,1,$84			  
       .BYTE 1
 EnemyPointers_Level_7_2_Area8:

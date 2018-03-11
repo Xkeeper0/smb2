@@ -195,19 +195,15 @@ byte_RAM_84:
 	  .dsb 1                       ; $0084
 DamageInvulnTime:
 	  .dsb 1                       ; $0085
-unk_RAM_86:
-	  .dsb 1                       ; $0086
 BobombExplodeTimer:
-	  .dsb 1                       ; $0087
-      .dsb 1                    ; $0088
-unk_RAM_89:
-	  .dsb 1                       ; $0089
-      .dsb 1                    ; $008a
-      .dsb 1                    ; $008b
-BombExplodeTimer:
-	  .dsb 1                       ; $008c
-unk_RAM_8D:
-	  .dsb 1                       ; $008d
+	  .dsb 1                       ; $0086
+      .dsb 1 ; 1                ; $0087
+      .dsb 1 ; 2                ; $0088
+      .dsb 1 ; 3                ; $0089
+      .dsb 1 ; 4                ; $008a
+      .dsb 1 ; 5                ; $008b
+      .dsb 1 ; 6                ; $008c
+      .dsb 1 ; 7                ; $008d
 byte_RAM_8E:
 	  .dsb 1                       ; $008e
 CurrentCharacter:
@@ -239,7 +235,7 @@ byte_RAM_9D:
 	  .dsb 1                       ; $009d
 unk_RAM_9E:
 	  .dsb 1                       ; $009e
-unk_RAM_9F:
+EnemyArray_9F:
 	  .dsb 1                       ; $009f
 unk_RAM_A0:
 	  .dsb 1                       ; $00a0
@@ -254,19 +250,17 @@ unk_RAM_A6:
 	  .dsb 1                       ; $00a6
 unk_RAM_A7:
 	  .dsb 1                       ; $00a7
-unk_RAM_A8:
-	  .dsb 1                       ; $00a8
-      .dsb 1                    ; $00a9
-unk_RAM_AA:
-	  .dsb 1                       ; $00aa
-      .dsb 1                    ; $00ab
-      .dsb 1                    ; $00ac
-unk_RAM_AD:
-	  .dsb 1	  ; "Holding Key"     ; $00ad
+ObjectBeingCarriedTimer:
+	  .dsb 1	                      ; $00a8
+      .dsb 1 ; Set	to 7 when lifting, then	stays at 1 ; $00a9
+      .dsb 1 ; Note that this doesn't seem to actually ; $00aa
+      .dsb 1 ; make you carry an item, it just THINKS ; $00ab
+      .dsb 1 ; it's being carried. ; $00ac
+      .dsb 1                    ; $00ad
       .dsb 1                    ; $00ae
       .dsb 1                    ; $00af
       .dsb 1                    ; $00b0
-unk_RAM_B1:
+EnemyArray_B1:
 	  .dsb 1                       ; $00b1
       .dsb 1                    ; $00b2
       .dsb 1                    ; $00b3
@@ -669,364 +663,262 @@ StackArea:
       .dsb 1 ; $FE              ; $01fe
       .dsb 1 ; $FF              ; $01ff
 SpriteDMAArea:
-	  .dsb 1                       ; $0200
-unk_RAM_201:
-	  .dsb 1                       ; $0201
-unk_RAM_202:
-	  .dsb 1                       ; $0202
-unk_RAM_203:
-	  .dsb 1                       ; $0203
-unk_RAM_204:
-	  .dsb 1                       ; $0204
-unk_RAM_205:
-	  .dsb 1                       ; $0205
-unk_RAM_206:
-	  .dsb 1                       ; $0206
-unk_RAM_207:
-	  .dsb 1                       ; $0207
-unk_RAM_208:
-	  .dsb 1                       ; $0208
-unk_RAM_209:
-	  .dsb 1                       ; $0209
-unk_RAM_20A:
-	  .dsb 1                       ; $020a
-unk_RAM_20B:
-	  .dsb 1                       ; $020b
-unk_RAM_20C:
-	  .dsb 1                       ; $020c
-unk_RAM_20D:
-	  .dsb 1                       ; $020d
-unk_RAM_20E:
-	  .dsb 1                       ; $020e
-unk_RAM_20F:
-	  .dsb 1                       ; $020f
-unk_RAM_210:
-	  .dsb 1                       ; $0210
-unk_RAM_211:
-	  .dsb 1                       ; $0211
-      .dsb 1                    ; $0212
-      .dsb 1                    ; $0213
-      .dsb 1                    ; $0214
-      .dsb 1                    ; $0215
-      .dsb 1                    ; $0216
-      .dsb 1                    ; $0217
-      .dsb 1                    ; $0218
-      .dsb 1                    ; $0219
-      .dsb 1                    ; $021a
-      .dsb 1                    ; $021b
-      .dsb 1                    ; $021c
-      .dsb 1                    ; $021d
-      .dsb 1                    ; $021e
-      .dsb 1                    ; $021f
-unk_RAM_220:
-	  .dsb 1                       ; $0220
-unk_RAM_221:
-	  .dsb 1                       ; $0221
-unk_RAM_222:
-	  .dsb 1                       ; $0222
-unk_RAM_223:
-	  .dsb 1                       ; $0223
-unk_RAM_224:
-	  .dsb 1                       ; $0224
-unk_RAM_225:
-	  .dsb 1                       ; $0225
-unk_RAM_226:
-	  .dsb 1                       ; $0226
-unk_RAM_227:
-	  .dsb 1                       ; $0227
-unk_RAM_228:
-	  .dsb 1                       ; $0228
-unk_RAM_229:
-	  .dsb 1                       ; $0229
-unk_RAM_22A:
-	  .dsb 1                       ; $022a
-unk_RAM_22B:
-	  .dsb 1                       ; $022b
-unk_RAM_22C:
-	  .dsb 1                       ; $022c
-unk_RAM_22D:
-	  .dsb 1                       ; $022d
-unk_RAM_22E:
-	  .dsb 1                       ; $022e
-unk_RAM_22F:
-	  .dsb 1                       ; $022f
-      .dsb 1                    ; $0230
-      .dsb 1                    ; $0231
-unk_RAM_232:
-	  .dsb 1                       ; $0232
-      .dsb 1                    ; $0233
-      .dsb 1                    ; $0234
-      .dsb 1                    ; $0235
-      .dsb 1                    ; $0236
-      .dsb 1                    ; $0237
-      .dsb 1                    ; $0238
-      .dsb 1                    ; $0239
-      .dsb 1                    ; $023a
-      .dsb 1                    ; $023b
-      .dsb 1                    ; $023c
-      .dsb 1                    ; $023d
-      .dsb 1                    ; $023e
-      .dsb 1                    ; $023f
-unk_RAM_240:
-	  .dsb 1                       ; $0240
-unk_RAM_241:
-	  .dsb 1                       ; $0241
-      .dsb 1                    ; $0242
-      .dsb 1                    ; $0243
-unk_RAM_244:
-	  .dsb 1                       ; $0244
-      .dsb 1                    ; $0245
-      .dsb 1                    ; $0246
-      .dsb 1                    ; $0247
-unk_RAM_248:
-	  .dsb 1                       ; $0248
-      .dsb 1                    ; $0249
-unk_RAM_24A:
-	  .dsb 1                       ; $024a
-      .dsb 1                    ; $024b
-unk_RAM_24C:
-	  .dsb 1                       ; $024c
-      .dsb 1                    ; $024d
-      .dsb 1                    ; $024e
-      .dsb 1                    ; $024f
-unk_RAM_250:
-	  .dsb 1                       ; $0250
-      .dsb 1                    ; $0251
-      .dsb 1                    ; $0252
-      .dsb 1                    ; $0253
-unk_RAM_254:
-	  .dsb 1                       ; $0254
-      .dsb 1                    ; $0255
-      .dsb 1                    ; $0256
-      .dsb 1                    ; $0257
-unk_RAM_258:
-	  .dsb 1                       ; $0258
-unk_RAM_259:
-	  .dsb 1                       ; $0259
-unk_RAM_25A:
-	  .dsb 1                       ; $025a
-unk_RAM_25B:
-	  .dsb 1                       ; $025b
-unk_RAM_25C:
-	  .dsb 1                       ; $025c
-unk_RAM_25D:
-	  .dsb 1                       ; $025d
-unk_RAM_25E:
-	  .dsb 1                       ; $025e
-unk_RAM_25F:
-	  .dsb 1                       ; $025f
-unk_RAM_260:
-	  .dsb 1                       ; $0260
-      .dsb 1                    ; $0261
-      .dsb 1                    ; $0262
-      .dsb 1                    ; $0263
-unk_RAM_264:
-	  .dsb 1                       ; $0264
-      .dsb 1                    ; $0265
-      .dsb 1                    ; $0266
-      .dsb 1                    ; $0267
-unk_RAM_268:
-	  .dsb 1                       ; $0268
-      .dsb 1                    ; $0269
-      .dsb 1                    ; $026a
-      .dsb 1                    ; $026b
-unk_RAM_26C:
-	  .dsb 1                       ; $026c
-      .dsb 1                    ; $026d
-      .dsb 1                    ; $026e
-      .dsb 1                    ; $026f
-unk_RAM_270:
-	  .dsb 1                       ; $0270
-unk_RAM_271:
-	  .dsb 1                       ; $0271
-unk_RAM_272:
-	  .dsb 1                       ; $0272
-unk_RAM_273:
-	  .dsb 1                       ; $0273
-unk_RAM_274:
-	  .dsb 1                       ; $0274
-      .dsb 1                    ; $0275
-      .dsb 1                    ; $0276
-      .dsb 1                    ; $0277
-unk_RAM_278:
-	  .dsb 1                       ; $0278
-      .dsb 1                    ; $0279
-      .dsb 1                    ; $027a
-      .dsb 1                    ; $027b
-unk_RAM_27C:
-	  .dsb 1                       ; $027c
-      .dsb 1                    ; $027d
-      .dsb 1                    ; $027e
-      .dsb 1                    ; $027f
-unk_RAM_280:
-	  .dsb 1                       ; $0280
-      .dsb 1                    ; $0281
-      .dsb 1                    ; $0282
-      .dsb 1                    ; $0283
-unk_RAM_284:
-	  .dsb 1                       ; $0284
-      .dsb 1                    ; $0285
-      .dsb 1                    ; $0286
-      .dsb 1                    ; $0287
-unk_RAM_288:
-	  .dsb 1                       ; $0288
-      .dsb 1                    ; $0289
-      .dsb 1                    ; $028a
-      .dsb 1                    ; $028b
-unk_RAM_28C:
-	  .dsb 1                       ; $028c
-      .dsb 1                    ; $028d
-      .dsb 1                    ; $028e
-      .dsb 1                    ; $028f
-unk_RAM_290:
-	  .dsb 1                       ; $0290
-unk_RAM_291:
-	  .dsb 1                       ; $0291
-unk_RAM_292:
-	  .dsb 1                       ; $0292
-unk_RAM_293:
-	  .dsb 1                       ; $0293
-unk_RAM_294:
-	  .dsb 1                       ; $0294
-unk_RAM_295:
-	  .dsb 1                       ; $0295
-unk_RAM_296:
-	  .dsb 1                       ; $0296
-unk_RAM_297:
-	  .dsb 1                       ; $0297
-unk_RAM_298:
-	  .dsb 1                       ; $0298
-unk_RAM_299:
-	  .dsb 1                       ; $0299
-unk_RAM_29A:
-	  .dsb 1                       ; $029a
-unk_RAM_29B:
-	  .dsb 1                       ; $029b
-unk_RAM_29C:
-	  .dsb 1                       ; $029c
-      .dsb 1                    ; $029d
-      .dsb 1                    ; $029e
-      .dsb 1                    ; $029f
-unk_RAM_2A0:
-	  .dsb 1                       ; $02a0
-      .dsb 1                    ; $02a1
-      .dsb 1                    ; $02a2
-      .dsb 1                    ; $02a3
-unk_RAM_2A4:
-	  .dsb 1                       ; $02a4
-      .dsb 1                    ; $02a5
-      .dsb 1                    ; $02a6
-      .dsb 1                    ; $02a7
-unk_RAM_2A8:
-	  .dsb 1                       ; $02a8
-      .dsb 1                    ; $02a9
-      .dsb 1                    ; $02aa
-      .dsb 1                    ; $02ab
-unk_RAM_2AC:
-	  .dsb 1                       ; $02ac
-      .dsb 1                    ; $02ad
-      .dsb 1                    ; $02ae
-      .dsb 1                    ; $02af
-unk_RAM_2B0:
-	  .dsb 1                       ; $02b0
-      .dsb 1                    ; $02b1
-      .dsb 1                    ; $02b2
-      .dsb 1                    ; $02b3
-unk_RAM_2B4:
-	  .dsb 1                       ; $02b4
-      .dsb 1                    ; $02b5
-      .dsb 1                    ; $02b6
-      .dsb 1                    ; $02b7
-unk_RAM_2B8:
-	  .dsb 1                       ; $02b8
-      .dsb 1                    ; $02b9
-      .dsb 1                    ; $02ba
-      .dsb 1                    ; $02bb
-unk_RAM_2BC:
-	  .dsb 1                       ; $02bc
-      .dsb 1                    ; $02bd
-      .dsb 1                    ; $02be
-      .dsb 1                    ; $02bf
-unk_RAM_2C0:
-	  .dsb 1                       ; $02c0
-      .dsb 1                    ; $02c1
-      .dsb 1                    ; $02c2
-      .dsb 1                    ; $02c3
-unk_RAM_2C4:
-	  .dsb 1                       ; $02c4
-      .dsb 1                    ; $02c5
-      .dsb 1                    ; $02c6
-      .dsb 1                    ; $02c7
-unk_RAM_2C8:
-	  .dsb 1                       ; $02c8
-      .dsb 1                    ; $02c9
-      .dsb 1                    ; $02ca
-      .dsb 1                    ; $02cb
-unk_RAM_2CC:
-	  .dsb 1                       ; $02cc
-      .dsb 1                    ; $02cd
-      .dsb 1                    ; $02ce
-      .dsb 1                    ; $02cf
-unk_RAM_2D0:
-	  .dsb 1                       ; $02d0
-      .dsb 1                    ; $02d1
-      .dsb 1                    ; $02d2
-      .dsb 1                    ; $02d3
-unk_RAM_2D4:
-	  .dsb 1                       ; $02d4
-      .dsb 1                    ; $02d5
-      .dsb 1                    ; $02d6
-      .dsb 1                    ; $02d7
-unk_RAM_2D8:
-	  .dsb 1                       ; $02d8
-      .dsb 1                    ; $02d9
-      .dsb 1                    ; $02da
-      .dsb 1                    ; $02db
-unk_RAM_2DC:
-	  .dsb 1                       ; $02dc
-      .dsb 1                    ; $02dd
-      .dsb 1                    ; $02de
-      .dsb 1                    ; $02df
-unk_RAM_2E0:
-	  .dsb 1                       ; $02e0
-      .dsb 1                    ; $02e1
-      .dsb 1                    ; $02e2
-      .dsb 1                    ; $02e3
-unk_RAM_2E4:
-	  .dsb 1                       ; $02e4
-      .dsb 1                    ; $02e5
-      .dsb 1                    ; $02e6
-      .dsb 1                    ; $02e7
-unk_RAM_2E8:
-	  .dsb 1                       ; $02e8
-      .dsb 1                    ; $02e9
-      .dsb 1                    ; $02ea
-      .dsb 1                    ; $02eb
-unk_RAM_2EC:
-	  .dsb 1                       ; $02ec
-      .dsb 1                    ; $02ed
-      .dsb 1                    ; $02ee
-      .dsb 1                    ; $02ef
-unk_RAM_2F0:
-	  .dsb 1                       ; $02f0
-      .dsb 1                    ; $02f1
-      .dsb 1                    ; $02f2
-      .dsb 1                    ; $02f3
-unk_RAM_2F4:
-	  .dsb 1                       ; $02f4
-      .dsb 1                    ; $02f5
-      .dsb 1                    ; $02f6
-      .dsb 1                    ; $02f7
-unk_RAM_2F8:
-	  .dsb 1                       ; $02f8
-      .dsb 1                    ; $02f9
-      .dsb 1                    ; $02fa
-      .dsb 1                    ; $02fb
-unk_RAM_2FC:
-	  .dsb 1                       ; $02fc
-      .dsb 1                    ; $02fd
-      .dsb 1                    ; $02fe
-      .dsb 1                    ; $02ff
+	  .dsb 1 ;	DATA XREF: sub_BANK1_A60E+5w ; $0200
+      .dsb 1 ; 1                ; $0201
+      .dsb 1 ; 2                ; $0202
+      .dsb 1 ; 3                ; $0203
+      .dsb 1 ; 4                ; $0204
+      .dsb 1 ; 5                ; $0205
+      .dsb 1 ; 6                ; $0206
+      .dsb 1 ; 7                ; $0207
+      .dsb 1 ; 8                ; $0208
+      .dsb 1 ; 9                ; $0209
+      .dsb 1 ; $A               ; $020a
+      .dsb 1 ; $B               ; $020b
+      .dsb 1 ; $C               ; $020c
+      .dsb 1 ; $D               ; $020d
+      .dsb 1 ; $E               ; $020e
+      .dsb 1 ; $F               ; $020f
+      .dsb 1 ; $10              ; $0210
+      .dsb 1 ; $11              ; $0211
+      .dsb 1 ; $12              ; $0212
+      .dsb 1 ; $13              ; $0213
+      .dsb 1 ; $14              ; $0214
+      .dsb 1 ; $15              ; $0215
+      .dsb 1 ; $16              ; $0216
+      .dsb 1 ; $17              ; $0217
+      .dsb 1 ; $18              ; $0218
+      .dsb 1 ; $19              ; $0219
+      .dsb 1 ; $1A              ; $021a
+      .dsb 1 ; $1B              ; $021b
+      .dsb 1 ; $1C              ; $021c
+      .dsb 1 ; $1D              ; $021d
+      .dsb 1 ; $1E              ; $021e
+      .dsb 1 ; $1F              ; $021f
+      .dsb 1 ; $20              ; $0220
+      .dsb 1 ; $21              ; $0221
+      .dsb 1 ; $22              ; $0222
+      .dsb 1 ; $23              ; $0223
+      .dsb 1 ; $24              ; $0224
+      .dsb 1 ; $25              ; $0225
+      .dsb 1 ; $26              ; $0226
+      .dsb 1 ; $27              ; $0227
+      .dsb 1 ; $28              ; $0228
+      .dsb 1 ; $29              ; $0229
+      .dsb 1 ; $2A              ; $022a
+      .dsb 1 ; $2B              ; $022b
+      .dsb 1 ; $2C              ; $022c
+      .dsb 1 ; $2D              ; $022d
+      .dsb 1 ; $2E              ; $022e
+      .dsb 1 ; $2F              ; $022f
+      .dsb 1 ; $30              ; $0230
+      .dsb 1 ; $31              ; $0231
+      .dsb 1 ; $32              ; $0232
+      .dsb 1 ; $33              ; $0233
+      .dsb 1 ; $34              ; $0234
+      .dsb 1 ; $35              ; $0235
+      .dsb 1 ; $36              ; $0236
+      .dsb 1 ; $37              ; $0237
+      .dsb 1 ; $38              ; $0238
+      .dsb 1 ; $39              ; $0239
+      .dsb 1 ; $3A              ; $023a
+      .dsb 1 ; $3B              ; $023b
+      .dsb 1 ; $3C              ; $023c
+      .dsb 1 ; $3D              ; $023d
+      .dsb 1 ; $3E              ; $023e
+      .dsb 1 ; $3F              ; $023f
+      .dsb 1 ; $40              ; $0240
+      .dsb 1 ; $41              ; $0241
+      .dsb 1 ; $42              ; $0242
+      .dsb 1 ; $43              ; $0243
+      .dsb 1 ; $44              ; $0244
+      .dsb 1 ; $45              ; $0245
+      .dsb 1 ; $46              ; $0246
+      .dsb 1 ; $47              ; $0247
+      .dsb 1 ; $48              ; $0248
+      .dsb 1 ; $49              ; $0249
+      .dsb 1 ; $4A              ; $024a
+      .dsb 1 ; $4B              ; $024b
+      .dsb 1 ; $4C              ; $024c
+      .dsb 1 ; $4D              ; $024d
+      .dsb 1 ; $4E              ; $024e
+      .dsb 1 ; $4F              ; $024f
+      .dsb 1 ; $50              ; $0250
+      .dsb 1 ; $51              ; $0251
+      .dsb 1 ; $52              ; $0252
+      .dsb 1 ; $53              ; $0253
+      .dsb 1 ; $54              ; $0254
+      .dsb 1 ; $55              ; $0255
+      .dsb 1 ; $56              ; $0256
+      .dsb 1 ; $57              ; $0257
+      .dsb 1 ; $58              ; $0258
+      .dsb 1 ; $59              ; $0259
+      .dsb 1 ; $5A              ; $025a
+      .dsb 1 ; $5B              ; $025b
+      .dsb 1 ; $5C              ; $025c
+      .dsb 1 ; $5D              ; $025d
+      .dsb 1 ; $5E              ; $025e
+      .dsb 1 ; $5F              ; $025f
+      .dsb 1 ; $60              ; $0260
+      .dsb 1 ; $61              ; $0261
+      .dsb 1 ; $62              ; $0262
+      .dsb 1 ; $63              ; $0263
+      .dsb 1 ; $64              ; $0264
+      .dsb 1 ; $65              ; $0265
+      .dsb 1 ; $66              ; $0266
+      .dsb 1 ; $67              ; $0267
+      .dsb 1 ; $68              ; $0268
+      .dsb 1 ; $69              ; $0269
+      .dsb 1 ; $6A              ; $026a
+      .dsb 1 ; $6B              ; $026b
+      .dsb 1 ; $6C              ; $026c
+      .dsb 1 ; $6D              ; $026d
+      .dsb 1 ; $6E              ; $026e
+      .dsb 1 ; $6F              ; $026f
+      .dsb 1 ; $70              ; $0270
+      .dsb 1 ; $71              ; $0271
+      .dsb 1 ; $72              ; $0272
+      .dsb 1 ; $73              ; $0273
+      .dsb 1 ; $74              ; $0274
+      .dsb 1 ; $75              ; $0275
+      .dsb 1 ; $76              ; $0276
+      .dsb 1 ; $77              ; $0277
+      .dsb 1 ; $78              ; $0278
+      .dsb 1 ; $79              ; $0279
+      .dsb 1 ; $7A              ; $027a
+      .dsb 1 ; $7B              ; $027b
+      .dsb 1 ; $7C              ; $027c
+      .dsb 1 ; $7D              ; $027d
+      .dsb 1 ; $7E              ; $027e
+      .dsb 1 ; $7F              ; $027f
+      .dsb 1 ; $80              ; $0280
+      .dsb 1 ; $81              ; $0281
+      .dsb 1 ; $82              ; $0282
+      .dsb 1 ; $83              ; $0283
+      .dsb 1 ; $84              ; $0284
+      .dsb 1 ; $85              ; $0285
+      .dsb 1 ; $86              ; $0286
+      .dsb 1 ; $87              ; $0287
+      .dsb 1 ; $88              ; $0288
+      .dsb 1 ; $89              ; $0289
+      .dsb 1 ; $8A              ; $028a
+      .dsb 1 ; $8B              ; $028b
+      .dsb 1 ; $8C              ; $028c
+      .dsb 1 ; $8D              ; $028d
+      .dsb 1 ; $8E              ; $028e
+      .dsb 1 ; $8F              ; $028f
+      .dsb 1 ; $90              ; $0290
+      .dsb 1 ; $91              ; $0291
+      .dsb 1 ; $92              ; $0292
+      .dsb 1 ; $93              ; $0293
+      .dsb 1 ; $94              ; $0294
+      .dsb 1 ; $95              ; $0295
+      .dsb 1 ; $96              ; $0296
+      .dsb 1 ; $97              ; $0297
+      .dsb 1 ; $98              ; $0298
+      .dsb 1 ; $99              ; $0299
+      .dsb 1 ; $9A              ; $029a
+      .dsb 1 ; $9B              ; $029b
+      .dsb 1 ; $9C              ; $029c
+      .dsb 1 ; $9D              ; $029d
+      .dsb 1 ; $9E              ; $029e
+      .dsb 1 ; $9F              ; $029f
+      .dsb 1 ; $A0              ; $02a0
+      .dsb 1 ; $A1              ; $02a1
+      .dsb 1 ; $A2              ; $02a2
+      .dsb 1 ; $A3              ; $02a3
+      .dsb 1 ; $A4              ; $02a4
+      .dsb 1 ; $A5              ; $02a5
+      .dsb 1 ; $A6              ; $02a6
+      .dsb 1 ; $A7              ; $02a7
+      .dsb 1 ; $A8              ; $02a8
+      .dsb 1 ; $A9              ; $02a9
+      .dsb 1 ; $AA              ; $02aa
+      .dsb 1 ; $AB              ; $02ab
+      .dsb 1 ; $AC              ; $02ac
+      .dsb 1 ; $AD              ; $02ad
+      .dsb 1 ; $AE              ; $02ae
+      .dsb 1 ; $AF              ; $02af
+      .dsb 1 ; $B0              ; $02b0
+      .dsb 1 ; $B1              ; $02b1
+      .dsb 1 ; $B2              ; $02b2
+      .dsb 1 ; $B3              ; $02b3
+      .dsb 1 ; $B4              ; $02b4
+      .dsb 1 ; $B5              ; $02b5
+      .dsb 1 ; $B6              ; $02b6
+      .dsb 1 ; $B7              ; $02b7
+      .dsb 1 ; $B8              ; $02b8
+      .dsb 1 ; $B9              ; $02b9
+      .dsb 1 ; $BA              ; $02ba
+      .dsb 1 ; $BB              ; $02bb
+      .dsb 1 ; $BC              ; $02bc
+      .dsb 1 ; $BD              ; $02bd
+      .dsb 1 ; $BE              ; $02be
+      .dsb 1 ; $BF              ; $02bf
+      .dsb 1 ; $C0              ; $02c0
+      .dsb 1 ; $C1              ; $02c1
+      .dsb 1 ; $C2              ; $02c2
+      .dsb 1 ; $C3              ; $02c3
+      .dsb 1 ; $C4              ; $02c4
+      .dsb 1 ; $C5              ; $02c5
+      .dsb 1 ; $C6              ; $02c6
+      .dsb 1 ; $C7              ; $02c7
+      .dsb 1 ; $C8              ; $02c8
+      .dsb 1 ; $C9              ; $02c9
+      .dsb 1 ; $CA              ; $02ca
+      .dsb 1 ; $CB              ; $02cb
+      .dsb 1 ; $CC              ; $02cc
+      .dsb 1 ; $CD              ; $02cd
+      .dsb 1 ; $CE              ; $02ce
+      .dsb 1 ; $CF              ; $02cf
+      .dsb 1 ; $D0              ; $02d0
+      .dsb 1 ; $D1              ; $02d1
+      .dsb 1 ; $D2              ; $02d2
+      .dsb 1 ; $D3              ; $02d3
+      .dsb 1 ; $D4              ; $02d4
+      .dsb 1 ; $D5              ; $02d5
+      .dsb 1 ; $D6              ; $02d6
+      .dsb 1 ; $D7              ; $02d7
+      .dsb 1 ; $D8              ; $02d8
+      .dsb 1 ; $D9              ; $02d9
+      .dsb 1 ; $DA              ; $02da
+      .dsb 1 ; $DB              ; $02db
+      .dsb 1 ; $DC              ; $02dc
+      .dsb 1 ; $DD              ; $02dd
+      .dsb 1 ; $DE              ; $02de
+      .dsb 1 ; $DF              ; $02df
+      .dsb 1 ; $E0              ; $02e0
+      .dsb 1 ; $E1              ; $02e1
+      .dsb 1 ; $E2              ; $02e2
+      .dsb 1 ; $E3              ; $02e3
+      .dsb 1 ; $E4              ; $02e4
+      .dsb 1 ; $E5              ; $02e5
+      .dsb 1 ; $E6              ; $02e6
+      .dsb 1 ; $E7              ; $02e7
+      .dsb 1 ; $E8              ; $02e8
+      .dsb 1 ; $E9              ; $02e9
+      .dsb 1 ; $EA              ; $02ea
+      .dsb 1 ; $EB              ; $02eb
+      .dsb 1 ; $EC              ; $02ec
+      .dsb 1 ; $ED              ; $02ed
+      .dsb 1 ; $EE              ; $02ee
+      .dsb 1 ; $EF              ; $02ef
+      .dsb 1 ; $F0              ; $02f0
+      .dsb 1 ; $F1              ; $02f1
+      .dsb 1 ; $F2              ; $02f2
+      .dsb 1 ; $F3              ; $02f3
+      .dsb 1 ; $F4              ; $02f4
+      .dsb 1 ; $F5              ; $02f5
+      .dsb 1 ; $F6              ; $02f6
+      .dsb 1 ; $F7              ; $02f7
+      .dsb 1 ; $F8              ; $02f8
+      .dsb 1 ; $F9              ; $02f9
+      .dsb 1 ; $FA              ; $02fa
+      .dsb 1 ; $FB              ; $02fb
+      .dsb 1 ; $FC              ; $02fc
+      .dsb 1 ; $FD              ; $02fd
+      .dsb 1 ; $FE              ; $02fe
+      .dsb 1 ; $FF              ; $02ff
 byte_RAM_300:
 	  .dsb 1                       ; $0300
 PPUBuffer_301:
@@ -1379,7 +1271,7 @@ byte_RAM_42D:
 	  .dsb 1                       ; $042d
 unk_RAM_42E:
 	  .dsb 1                       ; $042e
-unk_RAM_42F:
+EnemyArray_42F:
 	  .dsb 1                       ; $042f
       .dsb 1                    ; $0430
       .dsb 1                    ; $0431
@@ -1390,7 +1282,7 @@ unk_RAM_42F:
       .dsb 1                    ; $0436
 unk_RAM_437:
 	  .dsb 1                       ; $0437
-unk_RAM_438:
+EnemyArray_438:
 	  .dsb 1                       ; $0438
       .dsb 1                    ; $0439
       .dsb 1                    ; $043a
@@ -1411,7 +1303,7 @@ byte_RAM_446:
       .dsb 1                    ; $0447
       .dsb 1                    ; $0448
       .dsb 1                    ; $0449
-unk_RAM_44A:
+EnemyArray_44A:
 	  .dsb 1                       ; $044a
       .dsb 1                    ; $044b
       .dsb 1                    ; $044c
@@ -1422,7 +1314,7 @@ unk_RAM_44A:
       .dsb 1                    ; $0451
 unk_RAM_452:
 	  .dsb 1                       ; $0452
-unk_RAM_453:
+EnemyArray_453:
 	  .dsb 1                       ; $0453
       .dsb 1                    ; $0454
       .dsb 1                    ; $0455
@@ -1433,7 +1325,7 @@ unk_RAM_453:
       .dsb 1                    ; $045a
 unk_RAM_45B:
 	  .dsb 1                       ; $045b
-unk_RAM_45C:
+EnemyArray_45C:
 	  .dsb 1                       ; $045c
       .dsb 1                    ; $045d
       .dsb 1                    ; $045e
@@ -1465,7 +1357,7 @@ unk_RAM_46E:
       .dsb 1                    ; $0474
       .dsb 1                    ; $0475
       .dsb 1                    ; $0476
-unk_RAM_477:
+EnemyArray_477:
 	  .dsb 1                       ; $0477
       .dsb 1                    ; $0478
       .dsb 1                    ; $0479
@@ -1475,7 +1367,7 @@ unk_RAM_477:
       .dsb 1                    ; $047d
       .dsb 1                    ; $047e
       .dsb 1                    ; $047f
-unk_RAM_480:
+EnemyArray_480:
 	  .dsb 1                       ; $0480
       .dsb 1                    ; $0481
       .dsb 1                    ; $0482
@@ -1592,7 +1484,7 @@ CrouchJumpTimer:
 	  .dsb 1	                      ; $04ca
 byte_RAM_4CB:
 	  .dsb 1                       ; $04cb
-unk_RAM_4CC:
+EnemyArray_4CC:
 	  .dsb 1                       ; $04cc
       .dsb 1                    ; $04cd
       .dsb 1                    ; $04ce
@@ -1604,7 +1496,7 @@ unk_RAM_4CC:
       .dsb 1                    ; $04d4
 byte_RAM_4D5:
 	  .dsb 1                       ; $04d5
-unk_RAM_4D6:
+EnemyArray_4D6:
 	  .dsb 1                       ; $04d6
       .dsb 1                    ; $04d7
       .dsb 1                    ; $04d8
@@ -2823,9 +2715,9 @@ unk_RAM_7DF1 = $7df1
 
 unk_RAM_7EFF = $7eff
 
-byte_RAM_7F00 = $7f00
+ItemCarryOffsetsBig = $7f00
 
-byte_RAM_7F07 = $7f07
+ItemCarryOffsetsSmall = $7f07
 
 unk_RAM_7F0D = $7f0d
 

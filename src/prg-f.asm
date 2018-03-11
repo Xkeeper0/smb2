@@ -79,7 +79,7 @@ PlayerSelectPaletteOffsets:
 	  .BYTE 0
       .BYTE $15					  ; These use the internal ordering
       .BYTE $E					  ; (Mario, Princess, Toad, Luigi)
-      .BYTE 7
+      .BYTE 7					  ; @TODO Use relative pointers
 PlayerSelectSpritePalettes:
 	  .BYTE $3F,$10,4,$F,$27,$16,1
 						  ; Mario
@@ -419,7 +419,7 @@ loc_BANKF_E2B2:
 
 loc_BANKF_E2CA:
       LDA     PlayerSelectMarioSprites1,Y
-      STA     SpriteDMAArea + $10,Y
+      STA     SpriteDMAArea+$10,Y
       DEY
       BPL     loc_BANKF_E2CA
 
@@ -525,8 +525,7 @@ loc_BANKF_E37D:
       LDA     #6
       STA     byte_RAM_A
       LDX     CurrentCharacter
-      LDA     PlayerSelectPaletteOffsets,X	  ; @TODO What is this *doing*?
-						  ; It's reading in the middle of some palette data
+      LDA     PlayerSelectPaletteOffsets,X
       TAX
 
 loc_BANKF_E391:
@@ -570,7 +569,7 @@ loc_BANKF_E3AE:
 
 loc_BANKF_E3CC:
       LDA     PlayerSelectMarioSprites2,Y
-      STA     SpriteDMAArea + $10,Y
+      STA     SpriteDMAArea+$10,Y
       INY
       DEX
       BPL     loc_BANKF_E3CC
@@ -585,7 +584,7 @@ loc_BANKF_E3D6:
 
 loc_BANKF_E3DF:
       LDA     PlayerSelectMarioSprites1,Y
-      STA     SpriteDMAArea + $10,Y
+      STA     SpriteDMAArea+$10,Y
       DEY
       BPL     loc_BANKF_E3DF
 
@@ -1894,7 +1893,7 @@ loc_BANKF_EAFA:
 
 loc_BANKF_EB0D:
       LDA     BonusChanceCherrySprite,Y
-      STA     SpriteDMAArea + $10,X
+      STA     SpriteDMAArea+$10,X
       INX
       INY
       DEC     byte_RAM_1
@@ -1910,8 +1909,8 @@ loc_BANKF_EB1F:
       AND     #$18
       ASL     A
       ASL     A
-      ADC     SpriteDMAArea + $10,X
-      STA     SpriteDMAArea + $10,X
+      ADC     SpriteDMAArea+$10,X
+      STA     SpriteDMAArea+$10,X
       DEX
       DEX
       DEX
@@ -1930,7 +1929,7 @@ CopyUnusedCoinSpriteToSpriteArea:
 
 loc_BANKF_EB33:
       LDA     unk_RAM_653,Y			  ; Copy two sprites from memory to memory.
-      STA     SpriteDMAArea + $28,Y			  ; This is definitely efficient.
+      STA     SpriteDMAArea+$28,Y		  ; This is definitely efficient.
       INY					  ; Two	sprites	for each half of the coin.
       CPY     #8				  ; Four bytes per sprite * 2 sprites =	8 bytes
       BCC     loc_BANKF_EB33
@@ -3204,12 +3203,12 @@ loc_BANKF_F345:
 
 loc_BANKF_F350:
       LDA     PlayerPageX
-      STA     SpriteDMAArea + $23
-      STA     SpriteDMAArea + $2B
+      STA     SpriteDMAArea+$23
+      STA     SpriteDMAArea+$2B
       CLC
       ADC     #8
-      STA     SpriteDMAArea + $27
-      STA     SpriteDMAArea + $2F
+      STA     SpriteDMAArea+$27
+      STA     SpriteDMAArea+$2F
       LDA     PlayerPageY
       STA     byte_RAM_0
       LDA     PlayerYHi_Copy
@@ -3253,8 +3252,8 @@ loc_BANKF_F394:
 
       LDA     byte_RAM_0
       STA     SpriteDMAArea,Y
-      STA     SpriteDMAArea + $20
-      STA     SpriteDMAArea + $24
+      STA     SpriteDMAArea+$20
+      STA     SpriteDMAArea+$24
 
 loc_BANKF_F3A6:
       LDA     byte_RAM_0
@@ -3266,8 +3265,8 @@ loc_BANKF_F3A6:
       BNE     loc_BANKF_F3BB
 
       LDA     byte_RAM_0
-      STA     SpriteDMAArea + $28
-      STA     SpriteDMAArea + $2C
+      STA     SpriteDMAArea+$28
+      STA     SpriteDMAArea+$2C
 
 loc_BANKF_F3BB:
       LDA     CrouchJumpTimer
@@ -3287,7 +3286,7 @@ loc_BANKF_F3CA:
       ORA     byte_RAM_64
       AND     #$FC
       ORA     #1
-      STA     SpriteDMAArea + $02,Y
+      STA     SpriteDMAArea+2,Y
       LDX     PlayerAnimationFrame
       CPX     #7
       BEQ     loc_BANKF_F3E2
@@ -3297,20 +3296,20 @@ loc_BANKF_F3CA:
 
 loc_BANKF_F3E2:
       LDA     byte_RAM_64
-      STA     SpriteDMAArea + $22
-      STA     SpriteDMAArea + $2A
+      STA     SpriteDMAArea+$22
+      STA     SpriteDMAArea+$2A
       ORA     #$40
       BNE     loc_BANKF_F3F8
 
 loc_BANKF_F3EE:
       AND     #$FC
       ORA     byte_RAM_64
-      STA     SpriteDMAArea + $22
-      STA     SpriteDMAArea + $2A
+      STA     SpriteDMAArea+$22
+      STA     SpriteDMAArea+$2A
 
 loc_BANKF_F3F8:
-      STA     SpriteDMAArea + $26
-      STA     SpriteDMAArea + $2E
+      STA     SpriteDMAArea+$26
+      STA     SpriteDMAArea+$2E
       LDA     byte_BANKF_F2D5,X
       BNE     loc_BANKF_F408
 
@@ -3318,7 +3317,7 @@ loc_BANKF_F3F8:
       LDA     byte_BANKF_F2E0,X
 
 loc_BANKF_F408:
-      STA     SpriteDMAArea + $01,Y
+      STA     SpriteDMAArea+1,Y
       LDA     PlayerAnimationFrame
       CMP     #6
       BCS     loc_BANKF_F413
@@ -3332,12 +3331,12 @@ loc_BANKF_F413:
       LDA     byte_RAM_9D
       BNE     loc_BANKF_F44A
 
-      LDA     SpriteDMAArea + $23
-      STA     SpriteDMAArea + $03,Y
+      LDA     SpriteDMAArea+$23
+      STA     SpriteDMAArea+3,Y
       LDA     byte_BANKF_F2E4,X
-      STA     SpriteDMAArea + $21
+      STA     SpriteDMAArea+$21
       LDA     byte_BANKF_F2E5,X
-      STA     SpriteDMAArea + $25
+      STA     SpriteDMAArea+$25
       LDA     PlayerCurrentSize
       BNE     loc_BANKF_F43F
 
@@ -3353,17 +3352,17 @@ loc_BANKF_F413:
 
 loc_BANKF_F43F:
       LDA     byte_BANKF_F2E6,X
-      STA     SpriteDMAArea + $29
+      STA     SpriteDMAArea+$29
       LDA     byte_BANKF_F2E7,X
       BNE     loc_BANKF_F478
 
 loc_BANKF_F44A:
-      LDA     SpriteDMAArea + $27
-      STA     SpriteDMAArea + $03,Y
+      LDA     SpriteDMAArea+$27
+      STA     SpriteDMAArea+3,Y
       LDA     byte_BANKF_F2E5,X
-      STA     SpriteDMAArea + $21
+      STA     SpriteDMAArea+$21
       LDA     byte_BANKF_F2E4,X
-      STA     SpriteDMAArea + $25
+      STA     SpriteDMAArea+$25
       LDA     PlayerCurrentSize
       BNE     loc_BANKF_F46F
 
@@ -3379,11 +3378,11 @@ loc_BANKF_F44A:
 
 loc_BANKF_F46F:
       LDA     byte_BANKF_F2E7,X
-      STA     SpriteDMAArea + $29
+      STA     SpriteDMAArea+$29
       LDA     byte_BANKF_F2E6,X
 
 loc_BANKF_F478:
-      STA     SpriteDMAArea + $2D
+      STA     SpriteDMAArea+$2D
       RTS
 
 ; End of function sub_BANKF_F31A
@@ -3996,7 +3995,7 @@ loc_BANKF_F6EA:
       LDA     EnemyState,X
       BEQ     loc_BANKF_F6FE
 
-      LDA     unk_RAM_A8,X
+      LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANKF_F6FB
 
       LDA     ObjectType,X
@@ -4051,9 +4050,9 @@ KillPlayer:
       DEC     HoldingItem			  ; Probably something to throw	away
 						  ; a held item	on death
       LDY     byte_RAM_42D
-      STA     unk_RAM_42F,Y
+      STA     EnemyArray_42F,Y
       LSR     A
-      STA     unk_RAM_A8,Y
+      STA     ObjectBeingCarriedTimer,Y
       STA     ObjectXAccel,Y
       LDA     #$E0
       STX     word_RAM_C+1
@@ -4510,7 +4509,7 @@ loc_BANKF_FB04:
       CMP     #$F8
       BNE     loc_BANKF_FB17
 
-      LDA     SpriteDMAArea + $04,Y
+      LDA     SpriteDMAArea+4,Y
       CMP     #$F8
       BEQ     loc_BANKF_FB19
 
@@ -4534,7 +4533,7 @@ loc_BANKF_FB1C:
       CMP     #$F8
       BNE     loc_BANKF_FB04
 
-      LDA     SpriteDMAArea + $04,Y
+      LDA     SpriteDMAArea+4,Y
       CMP     #$F8
       BNE     loc_BANKF_FB04
 

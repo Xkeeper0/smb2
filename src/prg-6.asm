@@ -3818,15 +3818,15 @@ sub_BANK6_98F7:
       STA     EnemyState
       STY     EnemyTimer
       LDA     #0
-      STA     unk_RAM_86,X
-      STA     unk_RAM_B1,X
-      STA     unk_RAM_A8,X
-      STA     unk_RAM_9F,X
-      STA     unk_RAM_44A,X
+      STA     BobombExplodeTimer,X
+      STA     EnemyArray_B1,X
+      STA     ObjectBeingCarriedTimer,X
+      STA     EnemyArray_9F,X
+      STA     EnemyArray_44A,X
       STA     EnemyCollision,X
-      STA     unk_RAM_438,X
-      STA     unk_RAM_453,X
-      STA     unk_RAM_45C,X
+      STA     EnemyArray_438,X
+      STA     EnemyArray_453,X
+      STA     EnemyArray_45C,X
       STA     ObjectYAccel,X
       STA     ObjectXAccel,X
 
