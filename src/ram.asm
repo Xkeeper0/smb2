@@ -159,8 +159,9 @@ unk_RAM_6B:
 	  .dsb 1                       ; $006b
       .dsb 1                    ; $006c
       .dsb 1                    ; $006d
-byte_RAM_6E:
-	  .dsb 1                       ; $006e
+PlayerMovementDirection:
+	  .dsb 1	                      ; $006e
+						  ; 02 if moving left, 01 otherwise?
 unk_RAM_6F:
 	  .dsb 1                       ; $006f
       .dsb 1                    ; $0070
@@ -172,12 +173,18 @@ unk_RAM_6F:
       .dsb 1                    ; $0076
       .dsb 1                    ; $0077
       .dsb 1                    ; $0078
-EnemyTimer:
+EnemyVariable:
 	  .dsb 1                       ; $0079
 						  ; This is set	on entering subspace, depending
 						  ; on which particular	mushroom is on the screen
 						  ; (used to determine if it should show up
 						  ;  and also which mushroom it	marks as collected)
+						  ;
+						  ; This also seems to determine a few other things:
+						  ; - Tweeter jumps
+						  ; - Falling log height
+						  ; - Birdo subtype
+						  ; etc.
       .dsb 1                    ; $007a
       .dsb 1                    ; $007b
       .dsb 1                    ; $007c
@@ -195,7 +202,7 @@ byte_RAM_84:
 	  .dsb 1                       ; $0084
 DamageInvulnTime:
 	  .dsb 1                       ; $0085
-BobombExplodeTimer:
+BombExplodeTimer:
 	  .dsb 1                       ; $0086
       .dsb 1 ; 1                ; $0087
       .dsb 1 ; 2                ; $0088
@@ -300,10 +307,12 @@ byte_RAM_C8:
 	  .dsb 1                       ; $00c8
 byte_RAM_C9:
 	  .dsb 1                       ; $00c9
-byte_RAM_CA:
+ScreenYHi:
 	  .dsb 1                       ; $00ca
-byte_RAM_CB:
+						  ; Not	sure about this, but seems to be that way
+ScreenYLo:
 	  .dsb 1                       ; $00cb
+						  ; Not	sure about this	either
 byte_RAM_CC:
 	  .dsb 1                       ; $00cc
 byte_RAM_CD:
@@ -1347,7 +1356,7 @@ EnemyHP:
       .dsb 1                    ; $046c
 unk_RAM_46D:
 	  .dsb 1                       ; $046d
-unk_RAM_46E:
+EnemyArray_46E:
 	  .dsb 1                       ; $046e
       .dsb 1                    ; $046f
       .dsb 1                    ; $0470
@@ -1378,7 +1387,7 @@ EnemyArray_480:
       .dsb 1                    ; $0487
 unk_RAM_488:
 	  .dsb 1                       ; $0488
-unk_RAM_489:
+EnemyArray_489:
 	  .dsb 1                       ; $0489
       .dsb 1                    ; $048a
       .dsb 1                    ; $048b
@@ -1389,7 +1398,7 @@ unk_RAM_489:
       .dsb 1                    ; $0490
 unk_RAM_491:
 	  .dsb 1                       ; $0491
-unk_RAM_492:
+EnemyArray_492:
 	  .dsb 1                       ; $0492
       .dsb 1                    ; $0493
       .dsb 1                    ; $0494
@@ -1453,13 +1462,13 @@ byte_RAM_4BC:
 	  .dsb 1                       ; $04bc
 byte_RAM_4BD:
 	  .dsb 1                       ; $04bd
-byte_RAM_4BE:
+ScreenBoundaryLeftHi:
 	  .dsb 1                       ; $04be
-byte_RAM_4BF:
+ScreenBoundaryRightHi:
 	  .dsb 1                       ; $04bf
-byte_RAM_4C0:
+ScreenBoundaryLeftLo:
 	  .dsb 1                       ; $04c0
-byte_RAM_4C1:
+ScreenBoundaryRightLo:
 	  .dsb 1                       ; $04c1
 PlayerHealth:
 	  .dsb 1                       ; $04c2
@@ -1802,12 +1811,10 @@ unk_RAM_59C:
       .dsb 1                    ; $05a9
       .dsb 1                    ; $05aa
       .dsb 1                    ; $05ab
-byte_RAM_5AC:
-	  .dsb 1                       ; $05ac
-byte_RAM_5AD:
-	  .dsb 1                       ; $05ad
-byte_RAM_5AE:
-	  .dsb 1                       ; $05ae
+PseudoRNGValues:
+	  .dsb 1	                      ; $05ac
+      .dsb 1                    ; $05ad
+      .dsb 1                    ; $05ae
       .dsb 1                    ; $05af
       .dsb 1                    ; $05b0
       .dsb 1                    ; $05b1

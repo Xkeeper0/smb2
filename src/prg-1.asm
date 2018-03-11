@@ -919,7 +919,7 @@ sub_BANK1_A5A1:
 
 loc_BANK1_A5A3:
       STX     byte_RAM_12
-      LDA     BobombExplodeTimer,X
+      LDA     BombExplodeTimer,X
       BEQ     loc_BANK1_A5B4
 
       CMP     #1
@@ -951,10 +951,10 @@ loc_BANK1_A5CC:
       STA     byte_RAM_F
       JSR     sub_BANK1_A60E
 
-      INC     BobombExplodeTimer,X
+      INC     BombExplodeTimer,X
 
 loc_BANK1_A5D8:
-      DEC     BobombExplodeTimer,X
+      DEC     BombExplodeTimer,X
       DEX
       BPL     loc_BANK1_A5A3
 
@@ -2286,7 +2286,7 @@ loc_BANK1_B969:
       LDA     #5
       STA     EnemyState,Y
       LDA     #$20
-      STA     BobombExplodeTimer,Y
+      STA     BombExplodeTimer,Y
 
 loc_BANK1_B97F:
       DEY
@@ -2339,16 +2339,16 @@ CreateStarman:
       LDX     byte_RAM_0
       LDA     #Enemy_Starman
       STA     ObjectType,X
-      LDA     byte_RAM_4C0
+      LDA     ScreenBoundaryLeftLo
       ADC     #$D0
       STA     ObjectXLo,X
-      LDA     byte_RAM_4BE
+      LDA     ScreenBoundaryLeftHi
       ADC     #0
       STA     ObjectXHi,X
-      LDA     byte_RAM_CB
+      LDA     ScreenYLo
       ADC     #$E0
       STA     ObjectYLo,X
-      LDA     byte_RAM_CA
+      LDA     ScreenYHi
       ADC     #0
       STA     ObjectYHi,X
       JSR     loc_BANK1_BA17
@@ -2364,9 +2364,9 @@ locret_BANK1_B9E2:
 
 sub_BANK1_B9E3:
       LDA     #0
-      STA     BobombExplodeTimer,X
+      STA     BombExplodeTimer,X
       LDA     #0
-      STA     EnemyTimer,X
+      STA     EnemyVariable,X
 
 loc_BANK1_B9EB:
       LDA     #0
@@ -2392,12 +2392,12 @@ loc_BANK1_BA17:
       LDA     ObjectAttributeTable,Y
       AND     #ObjAttrib_Palette3|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32
       STA     ObjectAttributes,X
-      LDA     byte_BANKF_F532,Y
-      STA     unk_RAM_46E,X
-      LDA     unk_BANKF_F5C0,Y
-      STA     unk_RAM_489,X
-      LDA     unk_BANKF_F579,Y
-      STA     unk_RAM_492,X
+      LDA     EnemyArray_46E_Data,Y
+      STA     EnemyArray_46E,X
+      LDA     EnemyArray_489_Data,Y
+      STA     EnemyArray_489,X
+      LDA     EnemyArray_492_Data,Y
+      STA     EnemyArray_492,X
       RTS
 
 ; End of function sub_BANK1_B9E3
@@ -2413,7 +2413,7 @@ sub_BANK1_BA33:
       STA     EnemyState,X
       STA     EnemyArray_9F,X
       LDA     #$1F
-      STA     BobombExplodeTimer,X
+      STA     BombExplodeTimer,X
       LDX     byte_RAM_12
       RTS
 

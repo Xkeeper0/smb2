@@ -61,8 +61,8 @@ loc_BANK0_802B:
       LDY     byte_RAM_533
       JSR     sub_BANK0_95AF
 
-      STA     byte_RAM_CB
-      STY     byte_RAM_CA
+      STA     ScreenYLo
+      STY     ScreenYHi
       JSR     sub_BANK0_946D
 
 loc_BANK0_805D:
@@ -139,13 +139,13 @@ loc_BANK0_80B1:
       SEC
       SBC     #4
       STA     PPUScrollYMirror
-      LDA     byte_RAM_CB
+      LDA     ScreenYLo
       SEC
       SBC     #4
-      STA     byte_RAM_CB
+      STA     ScreenYLo
       BCS     loc_BANK0_80C8
 
-      DEC     byte_RAM_CA
+      DEC     ScreenYHi
 
 loc_BANK0_80C8:
       LDA     PPUScrollYMirror
@@ -227,13 +227,13 @@ loc_BANK0_8121:
       CLC
       ADC     #4
       STA     PPUScrollYMirror
-      LDA     byte_RAM_CB
+      LDA     ScreenYLo
       CLC
       ADC     #4
-      STA     byte_RAM_CB
+      STA     ScreenYLo
       BCC     loc_BANK0_8138
 
-      INC     byte_RAM_CA
+      INC     ScreenYHi
 
 loc_BANK0_8138:
       LDA     PPUScrollYMirror
@@ -333,11 +333,11 @@ sub_BANK0_81A2:
       STA     byte_RAM_50B
       LDA     byte_RAM_C9
       STA     byte_RAM_50C
-      LDA     byte_RAM_CA
+      LDA     ScreenYHi
       STA     byte_RAM_513
-      LDA     byte_RAM_CB
+      LDA     ScreenYLo
       STA     byte_RAM_515
-      LDA     byte_RAM_4BE
+      LDA     ScreenBoundaryLeftHi
       STA     byte_RAM_514
       LDA     byte_RAM_E1
       STA     byte_RAM_517
@@ -357,17 +357,17 @@ sub_BANK0_81D6:
       STA     PPUScrollYMirror
       LDA     byte_RAM_50A
       STA     PPUScrollXMirror
-      STA     byte_RAM_4C0
+      STA     ScreenBoundaryLeftLo
       LDA     byte_RAM_50B
       STA     byte_RAM_C8
       LDA     byte_RAM_50C
       STA     byte_RAM_C9
       LDA     byte_RAM_514
-      STA     byte_RAM_4BE
+      STA     ScreenBoundaryLeftHi
       LDA     byte_RAM_513
-      STA     byte_RAM_CA
+      STA     ScreenYHi
       LDA     byte_RAM_515
-      STA     byte_RAM_CB
+      STA     ScreenYLo
       RTS
 
 ; End of function sub_BANK0_81D6
@@ -990,7 +990,7 @@ loc_BANK0_8532:
 
       INC     byte_RAM_502
       LDA     byte_RAM_533
-      STA     byte_RAM_4BE
+      STA     ScreenBoundaryLeftHi
       LDA     #1
       STA     byte_RAM_53A
       LSR     A
@@ -1095,13 +1095,13 @@ loc_BANK0_85C4:
 
       LDA     byte_RAM_BA
       STA     PPUScrollXMirror
-      STA     byte_RAM_4C0
+      STA     ScreenBoundaryLeftLo
       AND     #$F0
       STA     byte_RAM_536
       LDA     byte_RAM_BA
       BPL     loc_BANK0_85E7
 
-      DEC     byte_RAM_4BE
+      DEC     ScreenBoundaryLeftHi
       LDA     byte_RAM_C9
       EOR     #1
       STA     byte_RAM_C9
@@ -1181,7 +1181,7 @@ loc_BANK0_8642:
       LDA     PPUScrollXMirror
       BNE     loc_BANK0_8651
 
-      LDA     byte_RAM_4BE
+      LDA     ScreenBoundaryLeftHi
       CMP     byte_RAM_53F
       BNE     loc_BANK0_8651
 
@@ -1194,10 +1194,10 @@ loc_BANK0_8651:
       CLC
       ADC     #1
       STA     PPUScrollXMirror
-      STA     byte_RAM_4C0
+      STA     ScreenBoundaryLeftLo
       BCC     loc_BANK0_8669
 
-      INC     byte_RAM_4BE
+      INC     ScreenBoundaryLeftHi
       LDA     byte_RAM_C9
       EOR     #1
       STA     byte_RAM_C9
@@ -1205,7 +1205,7 @@ loc_BANK0_8651:
       STA     byte_RAM_C8
 
 loc_BANK0_8669:
-      LDA     byte_RAM_4BE
+      LDA     ScreenBoundaryLeftHi
       CMP     byte_RAM_53F
       BEQ     loc_BANK0_8685
 
@@ -1248,7 +1248,7 @@ loc_BANK0_869C:
       LDA     PPUScrollXMirror
       BNE     loc_BANK0_86A8
 
-      LDA     byte_RAM_4BE
+      LDA     ScreenBoundaryLeftHi
       BNE     loc_BANK0_86A8
 
       JMP     loc_BANK0_86E9
@@ -1260,10 +1260,10 @@ loc_BANK0_86A8:
       SEC
       SBC     #1
       STA     PPUScrollXMirror
-      STA     byte_RAM_4C0
+      STA     ScreenBoundaryLeftLo
       BCS     loc_BANK0_86C0
 
-      DEC     byte_RAM_4BE
+      DEC     ScreenBoundaryLeftHi
       LDA     byte_RAM_C9
       EOR     #1
       STA     byte_RAM_C9
@@ -1347,7 +1347,7 @@ sub_BANK0_870C:
       STA     byte_RAM_50A
       LDA     byte_RAM_C9
       STA     byte_RAM_50C
-      LDA     byte_RAM_4BE
+      LDA     ScreenBoundaryLeftHi
       STA     byte_RAM_514
       INC     byte_RAM_53D
       LDA     byte_BANK0_870B
@@ -1356,9 +1356,9 @@ sub_BANK0_870C:
 
       LDA     #0
       STA     PPUScrollXMirror
-      STA     byte_RAM_4C0
+      STA     ScreenBoundaryLeftLo
       LDA     byte_BANK0_870B
-      STA     byte_RAM_4BE
+      STA     ScreenBoundaryLeftHi
       JSR     sub_BANK0_946D
 
       LDA     byte_BANK0_870B
@@ -1378,11 +1378,11 @@ sub_BANK0_870C:
 sub_BANK0_874C:
       LDA     byte_RAM_50A
       STA     PPUScrollXMirror
-      STA     byte_RAM_4C0
+      STA     ScreenBoundaryLeftLo
       LDA     byte_RAM_50C
       STA     byte_RAM_C9
       LDA     byte_RAM_514
-      STA     byte_RAM_4BE
+      STA     ScreenBoundaryLeftHi
       LDA     byte_RAM_53D
       BNE     locret_BANK0_8784
 
@@ -3033,7 +3033,7 @@ loc_BANK0_8F95:
       JSR     sub_BANK0_8FF5
 
 loc_BANK0_8FA3:
-      STY     byte_RAM_6E
+      STY     PlayerMovementDirection
       JSR     sub_BANK0_8FB2
 
       LDA     PlayerCollision
@@ -3245,7 +3245,7 @@ loc_BANK0_9076:
 
 loc_BANK0_9080:
       LDA     byte_RAM_0
-      STA     EnemyTimer,X
+      STA     EnemyVariable,X
       LDA     byte_RAM_3
       STA     ObjectXHi,X
       LDA     byte_RAM_4
@@ -3266,7 +3266,7 @@ loc_BANK0_9080:
       BNE     loc_BANK0_90AE
 
       LDA     #$20
-      STA     BobombExplodeTimer,X
+      STA     BombExplodeTimer,X
       LDA     #6
 
 loc_BANK0_90AE:
@@ -3284,7 +3284,7 @@ loc_BANK0_90BF:
       LDY     #$50
 
 loc_BANK0_90C1:
-      STY     BobombExplodeTimer,X
+      STY     BombExplodeTimer,X
 
 loc_BANK0_90C3:
       BNE     loc_BANK0_90EA
@@ -3815,7 +3815,7 @@ sub_BANK0_9316:
       BEQ     locret_BANK0_9327
 
       LDA     PlayerPageX
-      LDY     byte_RAM_6E
+      LDY     PlayerMovementDirection
       CPY     #1
       BEQ     loc_BANK0_9328
 
@@ -3838,7 +3838,7 @@ loc_BANK0_932C:
 
 loc_BANK0_9333:
       LDX     #0
-      LDY     byte_RAM_6E
+      LDY     PlayerMovementDirection
       LDA     PlayerXAccel
       EOR     byte_BANK0_9313,Y
       BPL     loc_BANK0_9340
@@ -4022,14 +4022,14 @@ sub_BANK0_9428:
       STA     PlayerYLo
       LDA     PlayerXLo
       SEC
-      SBC     byte_RAM_4C0
+      SBC     ScreenBoundaryLeftLo
       STA     PlayerPageX
       LDA     PlayerYLo
       SEC
-      SBC     byte_RAM_CB
+      SBC     ScreenYLo
       STA     PlayerPageY
       LDA     PlayerYHi
-      SBC     byte_RAM_CA
+      SBC     ScreenYHi
       STA     PlayerYHi_Copy
       LDA     byte_RAM_534
       SEC
@@ -4090,16 +4090,16 @@ loc_BANK0_9492:
       STA     PlayerYLo
       LDA     PlayerXLo
       SEC
-      SBC     byte_RAM_4C0
+      SBC     ScreenBoundaryLeftLo
       STA     PlayerPageX
       LDA     PlayerYLo
       SEC
 
 loc_BANK0_94AC:
-      SBC     byte_RAM_CB
+      SBC     ScreenYLo
       STA     PlayerPageY
       LDA     PlayerYHi
-      SBC     byte_RAM_CA
+      SBC     ScreenYHi
       STA     PlayerYHi_Copy
       LDA     byte_RAM_534
       CMP     #4

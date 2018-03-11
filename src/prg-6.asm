@@ -2548,10 +2548,10 @@ loc_BANK6_9346:
       STA     byte_RAM_536
       STA     byte_RAM_D5
       STA     byte_RAM_E6
-      STA     byte_RAM_CA
-      STA     byte_RAM_CB
-      STA     byte_RAM_4BE
-      STA     byte_RAM_4C0
+      STA     ScreenYHi
+      STA     ScreenYLo
+      STA     ScreenBoundaryLeftHi
+      STA     ScreenBoundaryLeftLo
 IFDEF _COMPATIBILITY_
 	  .db $8d, $d8, $00 ; STA $00D8
 ENDIF
@@ -2709,11 +2709,11 @@ sub_BANK6_941D:
       STA     byte_RAM_F
       JSR     sub_BANK6_93B8
 
-      LDA     byte_RAM_4BE
+      LDA     ScreenBoundaryLeftHi
       STA     byte_RAM_E8
 
 loc_BANK6_942F:
-      LDA     byte_RAM_4C0
+      LDA     ScreenBoundaryLeftLo
       CLC
       ADC     #8
       BCC     loc_BANK6_9439
@@ -2726,7 +2726,7 @@ loc_BANK6_9439:
       SEC
 
 loc_BANK6_943D:
-      SBC     byte_RAM_4C0
+      SBC     ScreenBoundaryLeftLo
       STA     byte_RAM_BA
       PLA
       LSR     A
@@ -3016,7 +3016,7 @@ loc_BANK6_95C1:
 
 loc_BANK6_95CE:
       ORA     byte_RAM_10
-      STA     byte_RAM_5AC
+      STA     PseudoRNGValues
       RTS
 
 ; End of function sub_BANK6_9567
@@ -3816,9 +3816,9 @@ sub_BANK6_98F7:
       STA     ObjectType
       LDA     #1
       STA     EnemyState
-      STY     EnemyTimer
+      STY     EnemyVariable
       LDA     #0
-      STA     BobombExplodeTimer,X
+      STA     BombExplodeTimer,X
       STA     EnemyArray_B1,X
       STA     ObjectBeingCarriedTimer,X
       STA     EnemyArray_9F,X
@@ -3835,12 +3835,12 @@ loc_BANK6_9934:
       LDA     ObjectAttributeTable,Y
       AND     #$7F
       STA     ObjectAttributes,X
-      LDA     byte_BANKF_F532,Y
-      STA     unk_RAM_46E,X
-      LDA     unk_BANKF_F5C0,Y
-      STA     unk_RAM_489,X
-      LDA     unk_BANKF_F579,Y
-      STA     unk_RAM_492,X
+      LDA     EnemyArray_46E_Data,Y
+      STA     EnemyArray_46E,X
+      LDA     EnemyArray_489_Data,Y
+      STA     EnemyArray_489,X
+      LDA     EnemyArray_492_Data,Y
+      STA     EnemyArray_492,X
       LDA     #$FF
       STA     unk_RAM_441,X
       PLA

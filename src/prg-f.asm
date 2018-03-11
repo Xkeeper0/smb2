@@ -2949,14 +2949,14 @@ byte_BANKF_F227:
 sub_BANKF_F228:
       LDA     PlayerXLo
       SEC
-      SBC     byte_RAM_4C0
+      SBC     ScreenBoundaryLeftLo
       STA     PlayerPageX
       LDA     PlayerYLo
       CLC
-      SBC     byte_RAM_CB
+      SBC     ScreenYLo
       STA     PlayerPageY
       LDA     PlayerYHi
-      SBC     byte_RAM_CA
+      SBC     ScreenYHi
       STA     PlayerYHi_Copy
       LDA     PlayerState
       CMP     #PlayerState_Lifting
@@ -3063,7 +3063,7 @@ sub_BANKF_F2C2:
       SEC
       SBC     #$78
       SEC
-      SBC     byte_RAM_4C0
+      SBC     ScreenBoundaryLeftLo
 
 loc_BANKF_F2D2:
       STA     byte_RAM_BA
@@ -3578,7 +3578,7 @@ ObjectAttributeTable:
       .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $44
       .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored ; $45
       .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown;	$46
-byte_BANKF_F532:
+EnemyArray_46E_Data:
 	  .BYTE 4
 
       .BYTE 0
@@ -3651,7 +3651,7 @@ byte_BANKF_F532:
       .BYTE $C
       .BYTE 4
       .BYTE   4
-unk_BANKF_F579:
+EnemyArray_492_Data:
 	  .BYTE   0
       .BYTE 5
       .BYTE 5
@@ -3723,7 +3723,7 @@ unk_BANKF_F579:
       .BYTE 5
       .BYTE 5
       .BYTE   5
-unk_BANKF_F5C0:
+EnemyArray_489_Data:
 	  .BYTE   8
       .BYTE 2
       .BYTE 2
