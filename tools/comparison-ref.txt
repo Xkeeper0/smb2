@@ -1,3 +1,0 @@
-Comparing files smb2.nes and TOOLS\SUPER MARIO BROS. 2 (USA).NES
-FC: no differences encountered
-

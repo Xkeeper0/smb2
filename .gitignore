@@ -1,10 +1,2 @@
-*.lst
-*.bin
-*.fns
-*.deb
-*.html
+bin/*
 *.nes
-test.txt
-comparison.txt
-*.log
-*.nl

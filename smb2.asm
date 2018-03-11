@@ -17,79 +17,79 @@
     ; -----------------------------------------
     ; Add definitions
 	.enum $0000
-	.include "asm/defs.asm"
+	.include "src/defs.asm"
 	.ende
 
     ; Add RAM definitions
 	.enum $0000
-	.include "asm/ram.asm"
+	.include "src/ram.asm"
 	.ende
 
     ; -----------------------------------------
     ; Add each of the 16 banks ....
 
 	.base $8000
-	.include "asm/prg-0.asm"
+	.include "src/prg-0.asm"
 
 	;.pad $a000, $ff
 	.base $A000
-	.include "asm/prg-1.asm"
+	.include "src/prg-1.asm"
 
 	;.pad $bfff, $ff
 	.base $8000
-	.include "asm/prg-2.asm"
+	.include "src/prg-2.asm"
 
 	;.pad $a000, $ff
 	.base $A000
-	.include "asm/prg-3.asm"
+	.include "src/prg-3.asm"
 
 	;.pad $bfff, $ff
 	.base $8000
-	.include "asm/prg-4.asm"
+	.include "src/prg-4.asm"
 
 	;.pad $a000, $ff
 	.base $A000
-	.include "asm/prg-5.asm"
+	.include "src/prg-5.asm"
 
 	;.pad $bfff, $ff
 	.base $8000
-	.include "asm/prg-6.asm"
+	.include "src/prg-6.asm"
 
 	;.pad $a000, $ff
 	.base $A000
-	.include "asm/prg-7.asm"
+	.include "src/prg-7.asm"
 
 	;.pad $bfff, $ff
 	.base $8000
-	.include "asm/prg-8.asm"
+	.include "src/prg-8.asm"
 
 	;.pad $a000, $ff
 	.base $A000
-	.include "asm/prg-9.asm"
+	.include "src/prg-9.asm"
 
 	;.pad $bfff, $ff
 	.base $8000
-	.include "asm/prg-a.asm"
+	.include "src/prg-a.asm"
 
 	;.pad $a000, $ff
 	.base $A000
-	.include "asm/prg-b.asm"
+	.include "src/prg-b.asm"
 
 	;.pad $bfff, $ff
 	.base $8000
-	.include "asm/prg-c.asm"
+	.include "src/prg-c.asm"
 
 	;.pad $a000, $ff
 	.base $A000
-	.include "asm/prg-d.asm"
+	.include "src/prg-d.asm"
 
 	;.pad $c000, $ff
 	.base $C000
-	.include "asm/prg-e.asm"
+	.include "src/prg-e.asm"
 
 	;.pad $c000, $ff
 	.base $E000
-	.include "asm/prg-f.asm"
+	.include "src/prg-f.asm"
 
 
     ; -----------------------------------------
