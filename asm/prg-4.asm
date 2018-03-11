@@ -319,263 +319,54 @@ locret_BANK4_818E:
 
 ; ---------------------------------------------------------------------------
 SoundEffectPointers:
-	  .BYTE $4E
-						  ; @TODO Figure out format for	this
-      .BYTE 8
-      .BYTE $6D
-      .BYTE $27
-      .BYTE $D7
-      .BYTE $74
-      .BYTE $8B
-      .BYTE $A5
-SoundEffects:
-	  .BYTE $9F
-      .BYTE $10
-      .BYTE $E
-      .BYTE $C
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $10
-      .BYTE $E
-      .BYTE $C
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $86
-      .BYTE $10
-      .BYTE $E
-      .BYTE $C
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE 0
-      .BYTE $9F
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $9E
-      .BYTE $68
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $9D
-      .BYTE $6A
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $9C
-      .BYTE $6E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $9B
-      .BYTE $72
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $9A
-      .BYTE $76
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $84
-      .BYTE $78
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE 0
-      .BYTE $9F
-      .BYTE $30
-      .BYTE $34
-      .BYTE $36
-      .BYTE $38
-      .BYTE $9F
-      .BYTE $3C
-      .BYTE $3E
-      .BYTE $40
-      .BYTE $42
-      .BYTE $9A
-      .BYTE $3A
-      .BYTE $3C
-      .BYTE $3E
-      .BYTE $40
-      .BYTE $9C
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3C
-      .BYTE $3E
-      .BYTE $96
-      .BYTE $36
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3C
-      .BYTE $98
-      .BYTE $34
-      .BYTE $36
-      .BYTE $38
-      .BYTE $36
-      .BYTE 0
-      .BYTE $81
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $68
-      .BYTE 0
-      .BYTE $99
-      .BYTE $18
-      .BYTE $1A
-      .BYTE $18
-      .BYTE $1C
-      .BYTE $18
-      .BYTE $1A
-      .BYTE $9B
-      .BYTE $18
-      .BYTE $1C
-      .BYTE $18
-      .BYTE $20
-      .BYTE $18
-      .BYTE $22
-      .BYTE $9F
-      .BYTE $18
-      .BYTE $3C
-      .BYTE $24
-      .BYTE $30
-      .BYTE $3C
-      .BYTE $18
-      .BYTE $30
-      .BYTE 0
-      .BYTE $80
-      .BYTE $68
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $60
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE   0
-      .BYTE $80
-      .BYTE $1E
-      .BYTE $1C
-      .BYTE $1E
-      .BYTE $1A
-      .BYTE $18
-      .BYTE $16
-      .BYTE $1C
-      .BYTE $18
-      .BYTE $1A
-      .BYTE $1E
-      .BYTE $18
-      .BYTE $16
-      .BYTE $14
-      .BYTE $12
-      .BYTE $14
-      .BYTE $16
-      .BYTE $14
-      .BYTE $12
-      .BYTE $2C
-      .BYTE $2C
-      .BYTE $2A
-      .BYTE $2E
-      .BYTE $2C
-      .BYTE $2A
-      .BYTE $28
-      .BYTE $26
-      .BYTE $28
-      .BYTE $24
-      .BYTE $22
-      .BYTE $20
-      .BYTE $1E
-      .BYTE $1C
-      .BYTE $1A
-      .BYTE $18
-      .BYTE $16
-      .BYTE $14
-      .BYTE $14
-      .BYTE $12
-      .BYTE $10
-      .BYTE $E
-      .BYTE $C
-      .BYTE $A
-      .BYTE 8
-      .BYTE 8
-      .BYTE 6
-      .BYTE 4
-      .BYTE 2
-      .BYTE 2
-      .BYTE 0
-      .BYTE $81
-      .BYTE $5E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $76
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $6E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $72
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7C
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE   0
+	  .BYTE $4E, 8, $6D, $27, $D7, $74, $8B, $A5
+						  ; Relative pointers to the below sound effect	data.
+						  ; If you want	to edit	this easier, or	once the main
+						  ; part of disassembling is done, replace this	with:
+						  ;
+						  ; @TODO asm.php should have a	"replace this" directive
+						  ;
+						  ; tmp	= $   ;	For relative offset calculations
+						  ; .BYTE <(SoundEffect1Data_BirdoShot - tmp)
+						  ; .BYTE <(SoundEffect1Data_PotionDoorBong - tmp)
+						  ; .BYTE <(SoundEffect1Data_CherryGet - tmp)
+						  ; .BYTE <(SoundEffect1Data_ThrowItem - tmp)
+						  ; .BYTE <(SoundEffect1Data_1UP - tmp)
+						  ; .BYTE <(SoundEffect1Data_EnemyHit -	tmp)
+						  ; .BYTE <(SoundEffect1Data_StopwatchTick - tmp)
+						  ; .BYTE <(SoundEffect1Data_HawkOpen_WartBarf - tmp)
+SoundEffect1Data_PotionDoorBong:
+	  .BYTE $9F, $10,	$E, $C,	$7E, $7E, $7E, $10, $E,	$C, $7E, $7E, $7E
+      .BYTE $86, $10, $E, $C, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $7E, $7E, $7E, $7E,	0
+SoundEffect1Data_ThrowItem:
+	  .BYTE $9F, $64, $7E,	$7E, $9E, $68, $7E, $7E, $9D, $6A, $7E,	$7E
+      .BYTE $9C, $6E, $7E, $7E,	$9B, $72, $7E, $7E, $9A, $76, $7E, $7E
+      .BYTE $84, $78, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $7E, $7E, 0
+SoundEffect1Data_BirdoShot:
+	  .BYTE $9F, $30, $34,	$36, $38, $9F, $3C, $3E, $40, $42, $9A,	$3A
+      .BYTE $3C, $3E, $40, $9C,	$38, $3A, $3C, $3E, $96, $36, $38, $3A
+      .BYTE $3C, $98, $34, $36,	$38, $36, 0
+SoundEffect1Data_CherryGet:
+	  .BYTE $81, $56, $7E,	$64, $7E, $68, 0
+SoundEffect1Data_EnemyHit:
+	  .BYTE	$99, $18, $1A, $18, $1C, $18, $1A, $9B,	$18, $1C, $18, $20
+      .BYTE $18, $22, $9F, $18,	$3C, $24, $30, $3C, $18, $30, 0
+SoundEffect1Data_StopwatchTick:
+	  .BYTE $80, $68, $7E, $7E, $7E, $7E, $7E,	$7E, $7E, $7E, $60, $7E
+      .BYTE $7E, $64, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $56, $7E
+      .BYTE $7E, 0
+SoundEffect1Data_HawkOpen_WartBarf:
+	  .BYTE $80, $1E, $1C,	$1E, $1A, $18, $16, $1C, $18, $1A, $1E,	$18
+      .BYTE $16, $14, $12, $14,	$16, $14, $12, $2C, $2C, $2A, $2E, $2C
+      .BYTE $2A, $28, $26, $28,	$24, $22, $20, $1E, $1C, $1A, $18, $16
+      .BYTE $14, $14, $12, $10,	$E, $C,	$A, 8, 8, 6, 4,	2, 2, 0
+SoundEffect1Data_HawkOpen_1UP:
+	  .BYTE $81, $5E, $7E, $7E,	$7E, $7E, $7E, $7E, $64, $7E, $7E, $7E
+      .BYTE $7E, $7E, $7E, $76,	$7E, $7E, $7E, $7E, $7E, $7E, $6E, $7E
+      .BYTE $7E, $7E, $7E, $7E,	$7E, $72, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $7C, $7E, $7E, 0
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_828E:

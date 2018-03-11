@@ -55665,263 +55665,48 @@ locret_BANK4_818E:				  ; DATA XREF: ProcessSoundEffectQueue1+1Dr
 ; End of function ProcessSoundEffectQueue1
 
 ; ---------------------------------------------------------------------------
-SoundEffectPointers:.BYTE $4E			  ; DATA XREF: ProcessSoundEffectQueue1+26r
+SoundEffectPointers:.BYTE $4E, 8, $6D, $27, $D7, $74, $8B, $A5
+						  ; DATA XREF: ProcessSoundEffectQueue1+26r
 						  ; ProcessSoundEffectQueue1+47r
-						  ; @TODO Figure out format for	this
-      .BYTE 8					  ; data used at 8000
-      .BYTE $6D					  ; data used at 8000
-      .BYTE $27					  ; data used at 8000
-      .BYTE $D7	; ◊
-      .BYTE $74					  ; data used at 8000
-      .BYTE $8B	; ã
-      .BYTE $A5					  ; data used at 8000
-SoundEffects:.BYTE $9F				  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $E					  ; data used at 8000
-      .BYTE $C					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $E					  ; data used at 8000
-      .BYTE $C					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $86					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $E					  ; data used at 8000
-      .BYTE $C					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $9F					  ; data used at 8000
-      .BYTE $64					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $9E					  ; data used at 8000
-      .BYTE $68					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $9D					  ; data used at 8000
-      .BYTE $6A					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $9C					  ; data used at 8000
-      .BYTE $6E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $9B					  ; data used at 8000
-      .BYTE $72					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $9A					  ; data used at 8000
-      .BYTE $76					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $84					  ; data used at 8000
-      .BYTE $78					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $9F					  ; data used at 8000
-      .BYTE $30					  ; data used at 8000
-      .BYTE $34					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $38					  ; data used at 8000
-      .BYTE $9F					  ; data used at 8000
-      .BYTE $3C					  ; data used at 8000
-      .BYTE $3E					  ; data used at 8000
-      .BYTE $40					  ; data used at 8000
-      .BYTE $42					  ; data used at 8000
-      .BYTE $9A					  ; data used at 8000
-      .BYTE $3A					  ; data used at 8000
-      .BYTE $3C					  ; data used at 8000
-      .BYTE $3E					  ; data used at 8000
-      .BYTE $40					  ; data used at 8000
-      .BYTE $9C					  ; data used at 8000
-      .BYTE $38					  ; data used at 8000
-      .BYTE $3A					  ; data used at 8000
-      .BYTE $3C					  ; data used at 8000
-      .BYTE $3E					  ; data used at 8000
-      .BYTE $96					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $38					  ; data used at 8000
-      .BYTE $3A					  ; data used at 8000
-      .BYTE $3C					  ; data used at 8000
-      .BYTE $98					  ; data used at 8000
-      .BYTE $34					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $38					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $81					  ; data used at 8000
-      .BYTE $56					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $64					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $68					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $99					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE $9B					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $9F					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $3C					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $30					  ; data used at 8000
-      .BYTE $3C					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $30					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $80	; Ä
-      .BYTE $68	; h
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $60	; `
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $64	; d
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $56	; V
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE   0
-      .BYTE $80					  ; data used at 8000
-      .BYTE $1E					  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE $1E					  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE $1E					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $2C					  ; data used at 8000
-      .BYTE $2C					  ; data used at 8000
-      .BYTE $2A					  ; data used at 8000
-      .BYTE $2E					  ; data used at 8000
-      .BYTE $2C					  ; data used at 8000
-      .BYTE $2A					  ; data used at 8000
-      .BYTE $28					  ; data used at 8000
-      .BYTE $26					  ; data used at 8000
-      .BYTE $28					  ; data used at 8000
-      .BYTE $24					  ; data used at 8000
-      .BYTE $22					  ; data used at 8000
-      .BYTE $20					  ; data used at 8000
-      .BYTE $1E					  ; data used at 8000
-      .BYTE $1C					  ; data used at 8000
-      .BYTE $1A					  ; data used at 8000
-      .BYTE $18					  ; data used at 8000
-      .BYTE $16					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $14					  ; data used at 8000
-      .BYTE $12					  ; data used at 8000
-      .BYTE $10					  ; data used at 8000
-      .BYTE $E					  ; data used at 8000
-      .BYTE $C					  ; data used at 8000
-      .BYTE $A					  ; data used at 8000
-      .BYTE 8					  ; data used at 8000
-      .BYTE 8					  ; data used at 8000
-      .BYTE 6					  ; data used at 8000
-      .BYTE 4					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $81	; Å
-      .BYTE $5E	; ^
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $64	; d
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $76	; v
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $6E	; n
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $72	; r
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE $7C	; |
-      .BYTE $7E	; ~
-      .BYTE $7E	; ~
-      .BYTE   0
+						  ; Relative pointers to the below sound effect	data.
+						  ; If you want	to edit	this easier, or	once the main
+						  ; part of disassembling is done, replace this	with:
+						  ;
+						  ; @TODO asm.php should have a	"replace this" directive
+						  ;
+						  ; tmp	= $   ;	For relative offset calculations
+						  ; .BYTE <(SoundEffect1Data_BirdoShot - tmp)
+						  ; .BYTE <(SoundEffect1Data_PotionDoorBong - tmp)
+						  ; .BYTE <(SoundEffect1Data_CherryGet - tmp)
+						  ; .BYTE <(SoundEffect1Data_ThrowItem - tmp)
+						  ; .BYTE <(SoundEffect1Data_1UP - tmp)
+						  ; .BYTE <(SoundEffect1Data_EnemyHit -	tmp)
+						  ; .BYTE <(SoundEffect1Data_StopwatchTick - tmp)
+						  ; .BYTE <(SoundEffect1Data_HawkOpen_WartBarf - tmp)
+SoundEffect1Data_PotionDoorBong:.BYTE $9F, $10,	$E, $C,	$7E, $7E, $7E, $10, $E,	$C, $7E, $7E, $7E ; data used at 8000
+      .BYTE $86, $10, $E, $C, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $7E, $7E, $7E, $7E,	0
+SoundEffect1Data_ThrowItem:.BYTE $9F, $64, $7E,	$7E, $9E, $68, $7E, $7E, $9D, $6A, $7E,	$7E ; data used	at 8000
+      .BYTE $9C, $6E, $7E, $7E,	$9B, $72, $7E, $7E, $9A, $76, $7E, $7E
+      .BYTE $84, $78, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $7E, $7E, 0
+SoundEffect1Data_BirdoShot:.BYTE $9F, $30, $34,	$36, $38, $9F, $3C, $3E, $40, $42, $9A,	$3A ; data used	at 8000
+      .BYTE $3C, $3E, $40, $9C,	$38, $3A, $3C, $3E, $96, $36, $38, $3A
+      .BYTE $3C, $98, $34, $36,	$38, $36, 0
+SoundEffect1Data_CherryGet:.BYTE $81, $56, $7E,	$64, $7E, $68, 0 ; data	used at	8000
+SoundEffect1Data_EnemyHit:.BYTE	$99, $18, $1A, $18, $1C, $18, $1A, $9B,	$18, $1C, $18, $20 ; data used at 8000
+      .BYTE $18, $22, $9F, $18,	$3C, $24, $30, $3C, $18, $30, 0
+SoundEffect1Data_StopwatchTick:.BYTE $80, $68, $7E, $7E, $7E, $7E, $7E,	$7E, $7E, $7E, $60, $7E
+      .BYTE $7E, $64, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $56, $7E
+      .BYTE $7E, 0
+SoundEffect1Data_HawkOpen_WartBarf:.BYTE $80, $1E, $1C,	$1E, $1A, $18, $16, $1C, $18, $1A, $1E,	$18 ; data used	at 8000
+      .BYTE $16, $14, $12, $14,	$16, $14, $12, $2C, $2C, $2A, $2E, $2C
+      .BYTE $2A, $28, $26, $28,	$24, $22, $20, $1E, $1C, $1A, $18, $16
+      .BYTE $14, $14, $12, $10,	$E, $C,	$A, 8, 8, 6, 4,	2, 2, 0
+SoundEffect1Data_HawkOpen_1UP:.BYTE $81, $5E, $7E, $7E,	$7E, $7E, $7E, $7E, $64, $7E, $7E, $7E
+      .BYTE $7E, $7E, $7E, $76,	$7E, $7E, $7E, $7E, $7E, $7E, $6E, $7E
+      .BYTE $7E, $7E, $7E, $7E,	$7E, $72, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $7C, $7E, $7E, 0
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_828E:					  ; CODE XREF: ProcessSoundEffectQueue3+Bj
