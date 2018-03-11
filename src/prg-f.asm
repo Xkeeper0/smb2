@@ -186,7 +186,7 @@ sub_BANKF_E166:
       LDA     #0
       JSR     sub_BANKF_FFA0
 
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       RTS
 
@@ -929,7 +929,7 @@ loc_BANKF_E58F:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_E5A0:
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
@@ -1115,7 +1115,7 @@ DoGameOverStuff:
 
       JSR     ChangeTitleCardCHR
 
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       JSR     SetBlackAndWhitePalette
 
@@ -1231,7 +1231,7 @@ loc_BANKF_E75A:
 
       JSR     SetScrollXYTo0
 
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       JSR     SetBlackAndWhitePalette
 
@@ -1268,7 +1268,7 @@ EndOfLevelSlotMachine:
       STY     byte_RAM_6F6
       JSR     WaitForNMI_TurnOffPPU
 
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       JSR     LoadBonusChanceCHRBanks
 
@@ -2193,7 +2193,7 @@ DoSoundProcessing:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-ClearNametables:
+ClearNametablesAndSprites:
       LDA     #0
       STA     PPUMaskMirror
       STA     PPUMASK
@@ -2206,7 +2206,7 @@ ClearNametables:
       LDA     #$28
       JSR     ClearNametableChunk
 
-; End of function ClearNametables
+; End of function ClearNametablesAndSprites
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -4658,14 +4658,14 @@ loc_BANKF_FE33:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANKF_FE41:
+LoadTitleScreenCHRBanks:
       LDA     #$28
       STA     BackgroundCHR1
       LDA     #$2A
       STA     BackgroundCHR2
       RTS
 
-; End of function sub_BANKF_FE41
+; End of function LoadTitleScreenCHRBanks
 
 ; =============== S U B	R O U T	I N E =======================================
 

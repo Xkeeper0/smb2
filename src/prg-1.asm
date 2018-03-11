@@ -631,7 +631,7 @@ sub_BANK1_A43B:
       JSR     WaitForNMI_Ending_TurnOffPPU
 
 loc_BANK1_A43E:
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       LDA     #$40
       STA     StackArea
@@ -1217,7 +1217,7 @@ sub_BANK1_AA79:
       LDA     #0
       JSR     sub_BANKF_FFA0
 
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       LDA     #$40
       STA     StackArea

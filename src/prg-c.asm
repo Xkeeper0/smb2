@@ -270,7 +270,7 @@ MarioSleepingScene:
       LDA     #0
       JSR     sub_BANKF_FFA0
 
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       LDA     #$40
       STA     StackArea

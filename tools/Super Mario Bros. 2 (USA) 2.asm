@@ -39004,23 +39004,24 @@ TitleAttributeData2:.BYTE $23, $DE, 1, $33	  ; DATA XREF: TitleScreen:loc_BANK0_
 
 
 TitleScreen:					  ; CODE XREF: BANKF:E409P
-      LDY     #7				  ; code used at 8000
-      STY     byte_RAM_1			  ; code used at 8000
+      LDY     #7				  ; Does initialization	of RAM.
+      STY     byte_RAM_1			  ; This clears	$200 to	$7FF.
       LDY     #0				  ; code used at 8000
       STY     byte_RAM_0			  ; code used at 8000
       TYA					  ; code used at 8000
 
 
-loc_BANK0_9A46:					  ; CODE XREF: TitleScreen+Cj
+InitMemoryLoop:					  ; CODE XREF: TitleScreen+Cj
 						  ; TitleScreen+14j
-      STA     (byte_RAM_0),Y			  ; code used at 8000
+      STA     (byte_RAM_0),Y			  ; I'm not sure if a different method of initializing memory
+						  ; would work better in this case.
       DEY					  ; code used at 8000
-      BNE     loc_BANK0_9A46			  ; code used at 8000
+      BNE     InitMemoryLoop			  ; code used at 8000
 
       DEC     byte_RAM_1			  ; code used at 8000
       LDX     byte_RAM_1			  ; code used at 8000
       CPX     #2				  ; code used at 8000
-      BCS     loc_BANK0_9A46			  ; code used at 8000
+      BCS     InitMemoryLoop			  ; Stop initialization	after we hit $200.
 
 
 loc_BANK0_9A53:					  ; CODE XREF: TitleScreen+218j
@@ -39028,14 +39029,16 @@ loc_BANK0_9A53:					  ; CODE XREF: TitleScreen+218j
       TAY					  ; code used at 8000
 
 
-loc_BANK0_9A56:					  ; CODE XREF: TitleScreen+1Dj
-      STA     byte_RAM_0,Y			  ; code used at 8000
-      INY					  ; code used at 8000
-      BNE     loc_BANK0_9A56			  ; code used at 8000
+InitMemoryLoop2:				  ; CODE XREF: TitleScreen+1Dj
+      STA     byte_RAM_0,Y			  ; Now	we clear $00-$FF.
+      INY					  ; Notably, this leaves the stack area,
+						  ; $100-$1FF, uninitialized.
+      BNE     InitMemoryLoop2			  ; This is not	super important, but you might want to
+						  ; do this yourself to	track stack corruption or whatever.
 
-      JSR     sub_BANKF_FE41			  ; code used at 8000
+      JSR     LoadTitleScreenCHRBanks		  ; code used at 8000
 
-      JSR     ClearNametables			  ; code used at 8000
+      JSR     ClearNametablesAndSprites		  ; code used at 8000
 
       LDA     PPUSTATUS				  ; code used at 8000
       LDA     #$3F ; '?'                          ; code used at 8000
@@ -40093,7 +40096,7 @@ sub_BANK1_A43B:					  ; CODE XREF: BANKF:E967P
 
 
 loc_BANK1_A43E:					  ; code used at a000
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       LDA     #$40 ; '@'                          ; code used at a000
       STA     StackArea				  ; code used at a000
@@ -40710,7 +40713,7 @@ sub_BANK1_AA79:					  ; CODE XREF: BANKF:E981P
       LDA     #0				  ; code used at a000
       JSR     sub_BANKF_FFA0			  ; code used at a000
 
-      JSR     ClearNametables			  ; code used at a000
+      JSR     ClearNametablesAndSprites		  ; code used at a000
 
       LDA     #$40 ; '@'                          ; code used at a000
       STA     StackArea				  ; code used at a000
@@ -72420,7 +72423,7 @@ MarioSleepingScene:				  ; CODE XREF: BANKF:E99BJ
       LDA     #0				  ; code used at 8000
       JSR     sub_BANKF_FFA0			  ; code used at 8000
 
-      JSR     ClearNametables			  ; code used at 8000
+      JSR     ClearNametablesAndSprites		  ; code used at 8000
 
       LDA     #$40 ; '@'                          ; code used at 8000
       STA     StackArea				  ; code used at 8000
@@ -76318,7 +76321,7 @@ sub_BANKF_E166:					  ; CODE XREF: DoCharacterSelectMenu+16p
       LDA     #0				  ; code used at e000
       JSR     sub_BANKF_FFA0			  ; code used at e000
 
-      JSR     ClearNametables			  ; code used at e000
+      JSR     ClearNametablesAndSprites		  ; code used at e000
 
       RTS					  ; code used at e000
 
@@ -77118,7 +77121,7 @@ loc_BANKF_E58F:					  ; CODE XREF: BANKF:E598j
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_E5A0:					  ; CODE XREF: BANKF:E4A8j
-      JSR     ClearNametables			  ; code used at e000
+      JSR     ClearNametablesAndSprites		  ; code used at e000
 
       LDA     #PRGBank_6_7			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
@@ -77312,7 +77315,7 @@ DoGameOverStuff:				  ; CODE XREF: BANKF:E6BCj
 
       JSR     ChangeTitleCardCHR
 
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       JSR     SetBlackAndWhitePalette
 
@@ -77434,7 +77437,7 @@ loc_BANKF_E75A:					  ; CODE XREF: BANKF:E6BEj
 
       JSR     SetScrollXYTo0
 
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       JSR     SetBlackAndWhitePalette
 
@@ -77471,7 +77474,7 @@ EndOfLevelSlotMachine:				  ; CODE XREF: BANKF:E7AFj
       STY     byte_RAM_6F6			  ; code used at e000
       JSR     WaitForNMI_TurnOffPPU		  ; code used at e000
 
-      JSR     ClearNametables			  ; code used at e000
+      JSR     ClearNametablesAndSprites		  ; code used at e000
 
       JSR     LoadBonusChanceCHRBanks		  ; code used at e000
 
@@ -78476,7 +78479,7 @@ DoSoundProcessing:				  ; CODE XREF: BANKF:EB51p
 ; =============== S U B	R O U T	I N E =======================================
 
 
-ClearNametables:				  ; CODE XREF: TitleScreen+22P
+ClearNametablesAndSprites:			  ; CODE XREF: TitleScreen+22P
 						  ; sub_BANK1_A43B:loc_BANK1_A43EP
 						  ; sub_BANK1_AA79+8P ...
       LDA     #0				  ; code used at e000
@@ -78491,7 +78494,7 @@ ClearNametables:				  ; CODE XREF: TitleScreen+22P
       LDA     #$28 ; '('                          ; code used at e000
       JSR     ClearNametableChunk		  ; code used at e000
 
-; End of function ClearNametables
+; End of function ClearNametablesAndSprites
 
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -78520,9 +78523,9 @@ HideAllSpritesLoop:				  ; CODE XREF: HideAllSprites+Bj
 ; =============== S U B	R O U T	I N E =======================================
 
 
-ClearNametableChunk:				  ; CODE XREF: ClearNametables+9p
-						  ; ClearNametables+Ep
-						  ; ClearNametables+13p
+ClearNametableChunk:				  ; CODE XREF: ClearNametablesAndSprites+9p
+						  ; ClearNametablesAndSprites+Ep
+						  ; ClearNametablesAndSprites+13p
       LDY     PPUSTATUS				  ; Reset PPU address latch
       LDY     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled ; code used at e000
       STY     PPUCTRL				  ; Turn off NMI
@@ -81118,14 +81121,14 @@ loc_BANKF_FE33:					  ; CODE XREF: BANK0:8C06J
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_FE41:					  ; CODE XREF: TitleScreen+1FP
+LoadTitleScreenCHRBanks:			  ; CODE XREF: TitleScreen+1FP
       LDA     #$28 ; '('                          ; code used at e000
       STA     BackgroundCHR1			  ; code used at e000
       LDA     #$2A ; '*'                          ; code used at e000
       STA     BackgroundCHR2			  ; code used at e000
       RTS					  ; code used at e000
 
-; End of function sub_BANKF_FE41
+; End of function LoadTitleScreenCHRBanks
 
 
 ; =============== S U B	R O U T	I N E =======================================

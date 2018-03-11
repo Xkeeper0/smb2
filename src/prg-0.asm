@@ -4579,34 +4579,37 @@ TitleAttributeData2:
 ; =============== S U B	R O U T	I N E =======================================
 
 TitleScreen:
-      LDY     #7
-      STY     byte_RAM_1
+      LDY     #7				  ; Does initialization	of RAM.
+      STY     byte_RAM_1			  ; This clears	$200 to	$7FF.
       LDY     #0
       STY     byte_RAM_0
       TYA
 
-loc_BANK0_9A46:
-      STA     (byte_RAM_0),Y
+InitMemoryLoop:
+      STA     (byte_RAM_0),Y			  ; I'm not sure if a different method of initializing memory
+						  ; would work better in this case.
       DEY
-      BNE     loc_BANK0_9A46
+      BNE     InitMemoryLoop
 
       DEC     byte_RAM_1
       LDX     byte_RAM_1
       CPX     #2
-      BCS     loc_BANK0_9A46
+      BCS     InitMemoryLoop			  ; Stop initialization	after we hit $200.
 
 loc_BANK0_9A53:
       LDA     #0
       TAY
 
-loc_BANK0_9A56:
-      STA     byte_RAM_0,Y
-      INY
-      BNE     loc_BANK0_9A56
+InitMemoryLoop2:
+      STA     byte_RAM_0,Y			  ; Now	we clear $00-$FF.
+      INY					  ; Notably, this leaves the stack area,
+						  ; $100-$1FF, uninitialized.
+      BNE     InitMemoryLoop2			  ; This is not	super important, but you might want to
+						  ; do this yourself to	track stack corruption or whatever.
 
-      JSR     sub_BANKF_FE41
+      JSR     LoadTitleScreenCHRBanks
 
-      JSR     ClearNametables
+      JSR     ClearNametablesAndSprites
 
       LDA     PPUSTATUS
       LDA     #$3F

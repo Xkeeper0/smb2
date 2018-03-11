@@ -82,7 +82,7 @@
 	$segments	= [];
 	foreach($split as $n => $s) {
 		if ($n === 0) {
-			$segments['defs']	= $s;
+			$segments['defs']	= ".ignorenl\n$s\n.endinl";
 		} elseif ($n === 1) {
 			$segments['ram']	= $s;
 		} else {

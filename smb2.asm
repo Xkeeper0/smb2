@@ -87,7 +87,6 @@
 	.base $C000
 	.include "src/prg-e.asm"
 
-	;.pad $c000, $ff
 	.base $E000
 	.include "src/prg-f.asm"
 
