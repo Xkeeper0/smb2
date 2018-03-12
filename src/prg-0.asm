@@ -1808,7 +1808,7 @@ HandlePlayerState:
 
 loc_BANK0_8A26:
       LDA     #0
-      STA     byte_RAM_64
+      STA     PlayerAttributesMaybe
       LDA     PlayerState
       JSR     JumpToTableAfterJump		  ; Player state handling?
 
@@ -2080,7 +2080,7 @@ locret_BANK0_8B45:
 
 HandlePlayerState_GoingDownJar:
       LDA     #$20
-      STA     byte_RAM_64
+      STA     PlayerAttributesMaybe
       INC     PlayerYLo
       LDA     PlayerYLo
       AND     #$F
@@ -2094,7 +2094,7 @@ HandlePlayerState_GoingDownJar:
       JSR     sub_BANK0_940E
 
       LDA     #2
-      STA     byte_RAM_534
+      STA     TransitionType
       LDA     byte_RAM_4EE
       BNE     loc_BANK0_8B6C
 
@@ -2123,7 +2123,7 @@ locret_BANK0_8B77:
 
 HandlePlayerState_ExitingJar:
       LDA     #$20
-      STA     byte_RAM_64
+      STA     PlayerAttributesMaybe
       DEC     PlayerYLo
       LDA     PlayerYLo
       AND     #$F
@@ -2167,7 +2167,7 @@ HandlePlayerState_ClimbingAreaTransition:
 
       INC     byte_RAM_627
       LDA     #3
-      STA     byte_RAM_534
+      STA     TransitionType
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -2215,7 +2215,7 @@ ENDIF
       BEQ     locret_BANK0_8BEB
 
       LDA     #$20
-      STA     byte_RAM_64
+      STA     PlayerAttributesMaybe
       LDA     #4
       STA     PlayerXAccel
       LDA     #1
@@ -2310,7 +2310,7 @@ loc_BANK0_8C2B:
       BPL     loc_BANK0_8C3D
 
       INC     byte_RAM_99
-      LDA     #6
+      LDA     #SpriteAnimation_Jumping
       STA     PlayerAnimationFrame
       JSR     sub_BANK0_8C99
 
@@ -3018,7 +3018,7 @@ loc_BANK0_8F7A:
       BCC     loc_BANK0_8F95
 
       LDA     PlayerPageX
-      STA     byte_RAM_429
+      STA     SpriteTempScreenX
       ROR     byte_RAM_12
       JSR     sub_BANK1_BABF
 
@@ -3037,7 +3037,7 @@ loc_BANK0_8FA3:
       JSR     sub_BANK0_8FB2
 
       LDA     PlayerCollision
-      AND     #3
+      AND     #CollisionFlags_Right|CollisionFlags_Left
       BEQ     locret_BANK0_8FB1
 
       JMP     loc_BANK0_9333
@@ -3266,7 +3266,7 @@ loc_BANK0_9080:
       BNE     loc_BANK0_90AE
 
       LDA     #$20
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
       LDA     #6
 
 loc_BANK0_90AE:
@@ -3284,7 +3284,7 @@ loc_BANK0_90BF:
       LDY     #$50
 
 loc_BANK0_90C1:
-      STY     BombExplodeTimer,X
+      STY     EnemyTimer,X
 
 loc_BANK0_90C3:
       BNE     loc_BANK0_90EA
@@ -3313,7 +3313,7 @@ loc_BANK0_90D5:
       CPY     #5
       BCC     loc_BANK0_90E7
 
-      LDA     #$46
+      LDA     #Enemy_Stopwatch
       STA     ObjectType,X
       LDY     #0
 
@@ -3323,7 +3323,7 @@ loc_BANK0_90E7:
 loc_BANK0_90EA:
       JSR     loc_BANK1_B9EB
 
-      LDA     #4
+      LDA     #CollisionFlags_Down
       STA     EnemyCollision,X
       LDA     #$40
       JSR     sub_BANK0_934F
@@ -3331,11 +3331,11 @@ loc_BANK0_90EA:
       LDA     #7
       STA     ObjectBeingCarriedTimer,X
       STX     byte_RAM_42D
-      LDA     #2
+      LDA     #PlayerState_Lifting
       STA     PlayerState
       LDA     #6
       STA     PlayerStateTimer
-      LDA     #8
+      LDA     #SpriteAnimation_Pulling
       STA     PlayerAnimationFrame
       INC     HoldingItem
       RTS
@@ -3529,7 +3529,7 @@ loc_BANK0_91E3:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_91EB:
-      LDA     Player1JoypadPress
+      LDA     Player1JoypadPress		  ; @TODO Seems	to be code for handling	doors
       AND     #ControllerInput_Up
       BEQ     locret_BANK0_91CE
 
@@ -3551,7 +3551,7 @@ loc_BANK0_91EB:
 
 loc_BANK0_9205:
       LDA     #1
-      STA     byte_RAM_534
+      STA     TransitionType
       TYA
       JSR     JumpToTableAfterJump
 
@@ -3797,15 +3797,15 @@ loc_BANK0_930F:
       STX     byte_RAM_D8
 
 locret_BANK0_9311:
-						  ; DATA XREF: ...
       RTS
 
 ; ---------------------------------------------------------------------------
-      .BYTE 1
-byte_BANK0_9313:
-	  .BYTE 2
+CollisionResultTable:
+	  .BYTE CollisionFlags_Right
+      .BYTE CollisionFlags_Left
+TableUsedAt_BANK0_9333:
+	  .BYTE $80
 
-      .BYTE $80
       .BYTE 0
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -3833,21 +3833,21 @@ loc_BANK0_9328:
 
 loc_BANK0_932C:
       LDA     PlayerCollision
-      ORA     locret_BANK0_9311,Y
+      ORA     CollisionResultTable-1,Y
       STA     PlayerCollision
 
 loc_BANK0_9333:
       LDX     #0
       LDY     PlayerMovementDirection
       LDA     PlayerXAccel
-      EOR     byte_BANK0_9313,Y
+      EOR     TableUsedAt_BANK0_9333-1,Y
       BPL     loc_BANK0_9340
 
       STX     PlayerXAccel
 
 loc_BANK0_9340:
       LDA     byte_RAM_4CB
-      EOR     byte_BANK0_9313,Y
+      EOR     CollisionResultTable+1,Y
       BPL     loc_BANK0_934B
 
       STX     byte_RAM_4CB
@@ -3863,7 +3863,7 @@ locret_BANK0_934E:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_934F:
-      PHA
+      PHA					  ; Something to update	the PPU	for some tile change
       LDA     ObjectXLo,X
       CLC
       ADC     #8
@@ -3984,7 +3984,7 @@ loc_BANK0_93DE:
 ; ---------------------------------------------------------------------------
 byte_BANK0_940A:
 	  .BYTE $20
-						  ; PPU	addresses (high	byte)
+						  ; Another byte of PPU	high addresses for horiz/vert levels
       .BYTE $28
       .BYTE $20
       .BYTE $24
@@ -4031,7 +4031,7 @@ sub_BANK0_9428:
       LDA     PlayerYHi
       SBC     ScreenYHi
       STA     PlayerYHi_Copy
-      LDA     byte_RAM_534
+      LDA     TransitionType
       SEC
       SBC     #4
       BNE     locret_BANK0_9427
@@ -4050,7 +4050,7 @@ sub_BANK0_9428:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_946D:
-      LDA     byte_RAM_534
+      LDA     TransitionType
 
 loc_BANK0_9470:
       CMP     #2
@@ -4101,7 +4101,7 @@ loc_BANK0_94AC:
       LDA     PlayerYHi
       SBC     ScreenYHi
       STA     PlayerYHi_Copy
-      LDA     byte_RAM_534
+      LDA     TransitionType
       CMP     #4
       BNE     loc_BANK0_94C2
 
@@ -4119,7 +4119,7 @@ loc_BANK0_94C2:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_94CA:
-      LDA     byte_RAM_534
+      LDA     TransitionType
       JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------

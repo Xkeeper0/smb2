@@ -141,59 +141,48 @@ EnemyCollision:
       .dsb 1 ; 2                ; $005d
       .dsb 1 ; 3                ; $005e
       .dsb 1 ; 4                ; $005f
-unk_RAM_60:
-	  .dsb 1                       ; $0060
-      .dsb 1                    ; $0061
-      .dsb 1                    ; $0062
-      .dsb 1                    ; $0063
-byte_RAM_64:
+      .dsb 1 ; 5                ; $0060
+      .dsb 1 ; 6                ; $0061
+      .dsb 1 ; 7                ; $0062
+      .dsb 1 ; 8                ; $0063
+PlayerAttributesMaybe:
 	  .dsb 1                       ; $0064
 ObjectAttributes:
 	  .dsb 1                       ; $0065
-      .dsb 1                    ; $0066
-      .dsb 1                    ; $0067
-      .dsb 1                    ; $0068
-      .dsb 1                    ; $0069
-      .dsb 1                    ; $006a
-unk_RAM_6B:
-	  .dsb 1                       ; $006b
-      .dsb 1                    ; $006c
-      .dsb 1                    ; $006d
+      .dsb 1 ; 1                ; $0066
+      .dsb 1 ; 2                ; $0067
+      .dsb 1 ; 3                ; $0068
+      .dsb 1 ; 4                ; $0069
+      .dsb 1 ; 5                ; $006a
+      .dsb 1 ; 6                ; $006b
+      .dsb 1 ; 7                ; $006c
+      .dsb 1 ; 8                ; $006d
 PlayerMovementDirection:
 	  .dsb 1	                      ; $006e
 						  ; 02 if moving left, 01 otherwise?
-unk_RAM_6F:
+EnemyMovementDirectionMaybe:
 	  .dsb 1                       ; $006f
-      .dsb 1                    ; $0070
-      .dsb 1                    ; $0071
-      .dsb 1                    ; $0072
-      .dsb 1                    ; $0073
-      .dsb 1                    ; $0074
-      .dsb 1                    ; $0075
-      .dsb 1                    ; $0076
-      .dsb 1                    ; $0077
-      .dsb 1                    ; $0078
+      .dsb 1 ; 1                ; $0070
+      .dsb 1 ; 2                ; $0071
+      .dsb 1 ; 3                ; $0072
+      .dsb 1 ; 4                ; $0073
+      .dsb 1 ; 5                ; $0074
+      .dsb 1 ; 6                ; $0075
+      .dsb 1 ; 7                ; $0076
+      .dsb 1 ; 8                ; $0077
+      .dsb 1		  ; Where the player "variable"	would be, if used(?) ; $0078
 EnemyVariable:
-	  .dsb 1                       ; $0079
-						  ; This is set	on entering subspace, depending
-						  ; on which particular	mushroom is on the screen
-						  ; (used to determine if it should show up
-						  ;  and also which mushroom it	marks as collected)
-						  ;
-						  ; This also seems to determine a few other things:
-						  ; - Tweeter jumps
-						  ; - Falling log height
+	  .dsb 1 ;	DATA XREF: BANK0:9082w ; $0079
+      .dsb 1 ; 1 ;	This is	set on entering	subspace, depending ; $007a
+      .dsb 1 ; 2 ;	on which particular mushroom is	on the screen ; $007b
+      .dsb 1 ; 3 ;	(used to determine if it should	show up ; $007c
+      .dsb 1 ; 4 ;	 and also which	mushroom it marks as collected) ; $007d
+      .dsb 1 ; 5 ;              ; $007e
+      .dsb 1 ; 6 ;	This also seems	to determine a few other things: ; $007f
+      .dsb 1 ; 7 ;	- Tweeter jumps ; $0080
+      .dsb 1 ; 8 ;	- Falling log height ; $0081
 						  ; - Birdo subtype
 						  ; etc.
-      .dsb 1                    ; $007a
-      .dsb 1                    ; $007b
-      .dsb 1                    ; $007c
-      .dsb 1                    ; $007d
-      .dsb 1                    ; $007e
-      .dsb 1                    ; $007f
-byte_RAM_80:
-	  .dsb 1                       ; $0080
-      .dsb 1                    ; $0081
 PlayerStateTimer:
 	  .dsb 1                       ; $0082
 byte_RAM_83:
@@ -202,7 +191,7 @@ byte_RAM_84:
 	  .dsb 1                       ; $0084
 DamageInvulnTime:
 	  .dsb 1                       ; $0085
-BombExplodeTimer:
+EnemyTimer:
 	  .dsb 1                       ; $0086
       .dsb 1 ; 1                ; $0087
       .dsb 1 ; 2                ; $0088
@@ -221,15 +210,14 @@ CurrentCharacter:
 						  ; 03	Luigi
 ObjectType:
 	  .dsb 1                       ; $0090
-unk_RAM_91:
-	  .dsb 1                       ; $0091
-      .dsb 1                    ; $0092
-      .dsb 1                    ; $0093
-      .dsb 1                    ; $0094
-      .dsb 1                    ; $0095
-      .dsb 1                    ; $0096
-      .dsb 1                    ; $0097
-      .dsb 1                    ; $0098
+      .dsb 1 ; 1                ; $0091
+      .dsb 1 ; 2                ; $0092
+      .dsb 1 ; 3                ; $0093
+      .dsb 1 ; 4                ; $0094
+      .dsb 1 ; 5                ; $0095
+      .dsb 1 ; 6                ; $0096
+      .dsb 1 ; 7                ; $0097
+      .dsb 1 ; 8                ; $0098
 byte_RAM_99:
 	  .dsb 1                       ; $0099
 byte_RAM_9A:
@@ -243,20 +231,15 @@ byte_RAM_9D:
 unk_RAM_9E:
 	  .dsb 1                       ; $009e
 EnemyArray_9F:
-	  .dsb 1                       ; $009f
-unk_RAM_A0:
-	  .dsb 1                       ; $00a0
-      .dsb 1                    ; $00a1
-unk_RAM_A2:
-	  .dsb 1                       ; $00a2
-      .dsb 1                    ; $00a3
-      .dsb 1                    ; $00a4
-unk_RAM_A5:
-	  .dsb 1                       ; $00a5
-unk_RAM_A6:
-	  .dsb 1                       ; $00a6
-unk_RAM_A7:
-	  .dsb 1                       ; $00a7
+	  .dsb 1 ;	DATA XREF: BANK0:9099w ; $009f
+      .dsb 1 ; 1                ; $00a0
+      .dsb 1 ; 2                ; $00a1
+      .dsb 1 ; 3                ; $00a2
+      .dsb 1 ; 4                ; $00a3
+      .dsb 1 ; 5                ; $00a4
+      .dsb 1 ; 6                ; $00a5
+      .dsb 1 ; 7                ; $00a6
+      .dsb 1 ; 8                ; $00a7
 ObjectBeingCarriedTimer:
 	  .dsb 1	                      ; $00a8
       .dsb 1 ; Set	to 7 when lifting, then	stays at 1 ; $00a9
@@ -276,8 +259,7 @@ EnemyArray_B1:
       .dsb 1                    ; $00b6
       .dsb 1                    ; $00b7
       .dsb 1                    ; $00b8
-PidgitCarpetTimer:
-	  .dsb 1                       ; $00b9
+      .dsb 1                    ; $00b9
 byte_RAM_BA:
 	  .dsb 1                       ; $00ba
 byte_RAM_BB:
@@ -1268,13 +1250,13 @@ byte_RAM_427:
 	  .dsb 1                       ; $0427
 PlayerPageX:
 	  .dsb 1                       ; $0428
-byte_RAM_429:
+SpriteTempScreenX:
 	  .dsb 1                       ; $0429
 PlayerYHi_Copy:
 	  .dsb 1                       ; $042a
 PlayerPageY:
 	  .dsb 1                       ; $042b
-byte_RAM_42C:
+SpriteTempScreenY:
 	  .dsb 1                       ; $042c
 byte_RAM_42D:
 	  .dsb 1                       ; $042d
@@ -1655,8 +1637,14 @@ CurrentLevelArea:
 	  .dsb 1                       ; $0532
 byte_RAM_533:
 	  .dsb 1                       ; $0533
-byte_RAM_534:
+TransitionType:
 	  .dsb 1                       ; $0534
+						  ; Seems to be	set depending on how you
+						  ; transitioned areas last.
+						  ; 0 =	? (Start of level?)
+						  ; 1 =	Door
+						  ; 2 =	Jar
+						  ; 3 =	Vine
 byte_RAM_535:
 	  .dsb 1                       ; $0535
 byte_RAM_536:
@@ -2722,15 +2710,7 @@ unk_RAM_7DF1 = $7df1
 
 unk_RAM_7EFF = $7eff
 
-ItemCarryOffsetsBig = $7f00
-
-ItemCarryOffsetsSmall = $7f07
-
-unk_RAM_7F0D = $7f0d
-
-byte_RAM_7F0E = $7f0e
-
-byte_RAM_7F15 = $7f15
+byte_RAM_7F00 = $7f00
 
 MMC3PRGBank8000Temp = $7ffe
 

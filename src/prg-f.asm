@@ -277,7 +277,7 @@ InitializeSomeLevelStuff:
       STA     byte_RAM_4E8
       STA     byte_RAM_533
       STA     byte_RAM_4E9
-      STA     byte_RAM_534
+      STA     TransitionType
       STA     byte_RAM_4EA
       STA     PlayerState
       STA     byte_RAM_4E6
@@ -1342,7 +1342,7 @@ loc_BANKF_E826:
       STA     byte_RAM_4E9
       LDY     #0
       STY     byte_RAM_4E6
-      STY     byte_RAM_534
+      STY     TransitionType
       STY     byte_RAM_4EA
       DEY
       STY     byte_RAM_545
@@ -3190,16 +3190,16 @@ loc_BANKF_F337:
 
 loc_BANKF_F33F:
       AND     #3
-      ORA     byte_RAM_64
-      STA     byte_RAM_64
+      ORA     PlayerAttributesMaybe
+      STA     PlayerAttributesMaybe
 
 loc_BANKF_F345:
       LDA     byte_RAM_4DF
       BEQ     loc_BANKF_F350
 
       LDA     #$20
-      ORA     byte_RAM_64
-      STA     byte_RAM_64
+      ORA     PlayerAttributesMaybe
+      STA     PlayerAttributesMaybe
 
 loc_BANKF_F350:
       LDA     PlayerPageX
@@ -3275,15 +3275,15 @@ loc_BANKF_F3BB:
 
       LDA     byte_RAM_10
       AND     #1
-      ORA     byte_RAM_64
-      STA     byte_RAM_64
+      ORA     PlayerAttributesMaybe
+      STA     PlayerAttributesMaybe
 
 loc_BANKF_F3CA:
       LDA     byte_RAM_9D
       LSR     A
       ROR     A
       ROR     A
-      ORA     byte_RAM_64
+      ORA     PlayerAttributesMaybe
       AND     #$FC
       ORA     #1
       STA     SpriteDMAArea+2,Y
@@ -3295,7 +3295,7 @@ loc_BANKF_F3CA:
       BNE     loc_BANKF_F3EE
 
 loc_BANKF_F3E2:
-      LDA     byte_RAM_64
+      LDA     PlayerAttributesMaybe
       STA     SpriteDMAArea+$22
       STA     SpriteDMAArea+$2A
       ORA     #$40
@@ -3303,7 +3303,7 @@ loc_BANKF_F3E2:
 
 loc_BANKF_F3EE:
       AND     #$FC
-      ORA     byte_RAM_64
+      ORA     PlayerAttributesMaybe
       STA     SpriteDMAArea+$22
       STA     SpriteDMAArea+$2A
 

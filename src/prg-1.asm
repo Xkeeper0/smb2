@@ -671,7 +671,7 @@ loc_BANK1_A470:
       LDA     byte_BANK1_A431,X
 
 loc_BANK1_A48C:
-      STA     byte_RAM_64,X
+      STA     PlayerAttributesMaybe,X
       DEX
       BPL     loc_BANK1_A470
 
@@ -847,9 +847,9 @@ loc_BANK1_A556:
 
       INC     PlayerState
       INC     byte_RAM_99
-      LDA     #6
+      LDA     #SpriteAnimation_Jumping
       STA     PlayerAnimationFrame
-      LDA     #8
+      LDA     #DPCM_ItemPull
       STA     DPCMQueue
 
 loc_BANK1_A56B:
@@ -919,7 +919,7 @@ sub_BANK1_A5A1:
 
 loc_BANK1_A5A3:
       STX     byte_RAM_12
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       BEQ     loc_BANK1_A5B4
 
       CMP     #1
@@ -951,10 +951,10 @@ loc_BANK1_A5CC:
       STA     byte_RAM_F
       JSR     sub_BANK1_A60E
 
-      INC     BombExplodeTimer,X
+      INC     EnemyTimer,X
 
 loc_BANK1_A5D8:
-      DEC     BombExplodeTimer,X
+      DEC     EnemyTimer,X
       DEX
       BPL     loc_BANK1_A5A3
 
@@ -2283,17 +2283,16 @@ loc_BANK1_B969:
       CMP     #Enemy_SubspaceDoor
       BNE     loc_BANK1_B97F
 
-      LDA     #5
+      LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,Y
       LDA     #$20
-      STA     BombExplodeTimer,Y
+      STA     EnemyTimer,Y
 
 loc_BANK1_B97F:
       DEY
       BPL     loc_BANK1_B969
 
-_code_3982:
-      JSR     sub_BANK1_BB10
+      JSR     CreateEnemy_TryAllSlots_Bank1
 
       BMI     loc_BANK1_B9B6
 
@@ -2332,7 +2331,7 @@ loc_BANK1_B9B6:
 ; =============== S U B	R O U T	I N E =======================================
 
 CreateStarman:
-      JSR     loc_BANK1_BB14
+      JSR     CreateEnemy_Bank1
 
       BMI     locret_BANK1_B9E2
 
@@ -2362,9 +2361,9 @@ locret_BANK1_B9E2:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANK1_B9E3:
+EnemyInit_Basic_Bank1:
       LDA     #0
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
       LDA     #0
       STA     EnemyVariable,X
 
@@ -2400,7 +2399,7 @@ loc_BANK1_BA17:
       STA     EnemyArray_492,X
       RTS
 
-; End of function sub_BANK1_B9E3
+; End of function EnemyInit_Basic_Bank1
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -2413,7 +2412,7 @@ sub_BANK1_BA33:
       STA     EnemyState,X
       STA     EnemyArray_9F,X
       LDA     #$1F
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
       LDX     byte_RAM_12
       RTS
 
@@ -2557,7 +2556,7 @@ sub_BANK1_BABF:
       STA     DamageInvulnTime
       LDA     PlayerPageX
       SEC
-      SBC     byte_RAM_429
+      SBC     SpriteTempScreenX
       ASL     A
       ASL     A
       STA     PlayerXAccel
@@ -2610,11 +2609,17 @@ loc_BANK1_BB0B:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-sub_BANK1_BB10:
+; Creates a generic red	Shyguy enemy and
+; does some basic initialization for it.
+;
+; This is a copy of the	"CreateEnemy" routine
+; in bank 2, but it's here instead for... reasons.
+
+CreateEnemy_TryAllSlots_Bank1:
       LDY     #8
       BNE     loc_BANK1_BB16
 
-loc_BANK1_BB14:
+CreateEnemy_Bank1:
       LDY     #5
 
 loc_BANK1_BB16:
@@ -2629,11 +2634,11 @@ loc_BANK1_BB16:
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_BB1F:
-      LDA     #1
+      LDA     #EnemyState_Alive
       STA     EnemyState,Y
       LSR     A
       STA     unk_RAM_49B,Y
-      LDA     #1
+      LDA     #Enemy_ShyguyRed
       STA     ObjectType,Y
       LDA     ObjectXLo,X
       ADC     #5
@@ -2648,14 +2653,14 @@ loc_BANK1_BB1F:
       STY     byte_RAM_0
       TYA
       TAX
-      JSR     sub_BANK1_B9E3
+      JSR     EnemyInit_Basic_Bank1
 
       JSR     sub_BANK1_BA48
 
       LDX     byte_RAM_12
       RTS
 
-; End of function sub_BANK1_BB10
+; End of function CreateEnemy_TryAllSlots_Bank1
 
 ; ---------------------------------------------------------------------------
 ; [000004AE BYTES: BEGIN OF AREA UNUSED_empty_3B52. PRESS KEYPAD "-" TO	COLLAPSE]

@@ -268,6 +268,7 @@ ObjAttrib_UpsideDown = 	$80
 ; ---------------------------------------------------------------------------
 
 ; enum EnemyIds
+Enemy_Heart =  0
 Enemy_ShyguyRed =  1
 Enemy_Tweeter =  2
 Enemy_ShyguyPink =  3

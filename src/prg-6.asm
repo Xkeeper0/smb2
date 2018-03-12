@@ -3818,7 +3818,7 @@ sub_BANK6_98F7:
       STA     EnemyState
       STY     EnemyVariable
       LDA     #0
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
       STA     EnemyArray_B1,X
       STA     ObjectBeingCarriedTimer,X
       STA     EnemyArray_9F,X

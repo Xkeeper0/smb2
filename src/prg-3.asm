@@ -226,7 +226,7 @@ _Mystery_BANK3_A030:
       .BYTE $27
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A10A:
+EnemyInit_Clawgrip:
       JSR     EnemyInit_Birdo
 
       LDA     #4
@@ -279,7 +279,7 @@ loc_BANK3_A13B:
       JSR     sub_BANK2_95CE
 
 loc_BANK3_A147:
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       BNE     loc_BANK3_A179
 
       LDA     EnemyVariable,X
@@ -296,7 +296,7 @@ loc_BANK3_A147:
       BCC     loc_BANK3_A168
 
       LDA     #$7F
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
       LDY     #0
       BEQ     loc_BANK3_A174
 
@@ -409,7 +409,7 @@ ENDIF
 
       LDY     #$D2
       LDA     #0
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
       BEQ     loc_BANK3_A21C
 
 loc_BANK3_A1FA:
@@ -421,7 +421,7 @@ loc_BANK3_A1FA:
       LDY     #$C6
 
 loc_BANK3_A204:
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       BEQ     loc_BANK3_A21C
 
       LDY     #$CA
@@ -440,7 +440,7 @@ loc_BANK3_A204:
 
 loc_BANK3_A21C:
       LDA     #2
-      STA     unk_RAM_6F,X
+      STA     EnemyMovementDirectionMaybe,X
       TYA
       JSR     sub_BANK2_9BB3
 
@@ -452,7 +452,7 @@ loc_BANK3_A21C:
       LDY     #$C2
 
 loc_BANK3_A22E:
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       BEQ     loc_BANK3_A246
 
       LDY     #$CE
@@ -476,17 +476,17 @@ loc_BANK3_A246:
       LDY     #$D2
 
 loc_BANK3_A24D:
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       CLC
       ADC     #$10
-      STA     byte_RAM_429
+      STA     SpriteTempScreenX
       ASL     byte_RAM_EE
       ASL     byte_RAM_EE
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       CMP     #$60
       BCS     loc_BANK3_A262
 
-      LSR     unk_RAM_6F,X
+      LSR     EnemyMovementDirectionMaybe,X
 
 loc_BANK3_A262:
       TYA
@@ -497,7 +497,7 @@ loc_BANK3_A262:
       PLA
       JSR     sub_BANK2_9BB3
 
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       BEQ     loc_BANK3_A2D2
 
       LSR     A
@@ -515,12 +515,12 @@ loc_BANK3_A262:
       STA     ObjectXLo,X
       SEC
       SBC     ScreenBoundaryLeftLo
-      STA     byte_RAM_429
+      STA     SpriteTempScreenX
       LDA     ObjectYLo,X
       CLC
       ADC     byte_BANK3_A1D8,Y
-      STA     byte_RAM_42C
-      LDA     BombExplodeTimer,X
+      STA     SpriteTempScreenY
+      LDA     EnemyTimer,X
       CMP     #$30
       BCC     loc_BANK3_A2AA
 
@@ -530,10 +530,10 @@ loc_BANK3_A262:
       LSR     A
       AND     #7
       TAY
-      LDA     byte_RAM_42C
+      LDA     SpriteTempScreenY
       SEC
       SBC     byte_BANK3_A1DC,Y
-      STA     byte_RAM_42C
+      STA     SpriteTempScreenY
 
 loc_BANK3_A2AA:
       JSR     sub_BANK2_8894
@@ -684,7 +684,7 @@ loc_BANK3_A344:
       EOR     #1
 
 loc_BANK3_A354:
-      STA     unk_RAM_6F,X
+      STA     EnemyMovementDirectionMaybe,X
       LDA     byte_RAM_0
       AND     #8
       ASL     A
@@ -749,7 +749,7 @@ loc_BANK3_A39B:
       LDA     ObjectXAccel,X
       BEQ     loc_BANK3_A3A5
 
-      LDA     unk_RAM_6F,X
+      LDA     EnemyMovementDirectionMaybe,X
       AND     #1
       STA     byte_RAM_9D
 
@@ -817,7 +817,7 @@ loc_BANK3_A3EA:
 loc_BANK3_A3F2:
       STY     byte_RAM_71CC
       LDA     #$20
-      CMP     byte_RAM_42C
+      CMP     SpriteTempScreenY
       LDA     #0
       ROL     A
       ASL     A
@@ -880,7 +880,7 @@ loc_BANK3_A43D:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK3_A440:
-      JSR     sub_BANK2_92C4
+      JSR     CreateEnemy_TryAllSlots
 
       BMI     loc_BANK3_A478
 
@@ -979,7 +979,7 @@ loc_BANK3_A4A3:
       STA     EnemyArray_B1,X
       STA     ObjectXAccel,X
       STA     ObjectYAccel,X
-      DEC     BombExplodeTimer,X
+      DEC     EnemyTimer,X
 
 loc_BANK3_A4BE:
       JMP     loc_BANK3_A502
@@ -987,7 +987,7 @@ loc_BANK3_A4BE:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A4C1:
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       BNE     loc_BANK3_A4D6
 
       LDA     #$30
@@ -1071,13 +1071,13 @@ ENDIF
       STA     ObjectXHi,X
       PLA
       STA     ObjectXLo,X
-      LDA     byte_RAM_42C
+      LDA     SpriteTempScreenY
       CLC
       ADC     #$C
-      STA     byte_RAM_42C
-      LDA     byte_RAM_429
+      STA     SpriteTempScreenY
+      LDA     SpriteTempScreenX
       SBC     #7
-      STA     byte_RAM_429
+      STA     SpriteTempScreenX
       JSR     sub_BANK3_A552
 
       LDA     #$D
@@ -1104,7 +1104,7 @@ sub_BANK3_A552:
 loc_BANK3_A55F:
       TAY
       LDA     byte_BANK3_A47B,Y
-      STA     unk_RAM_6F,X
+      STA     EnemyMovementDirectionMaybe,X
       LDA     byte_BANK3_A47F,Y
       JMP     sub_BANK2_9BB3
 
@@ -1112,7 +1112,7 @@ loc_BANK3_A55F:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A56B:
+EnemyInit_Mouser:
       JSR     EnemyInit_Birdo
 
       LDA     #2
@@ -1141,7 +1141,7 @@ loc_BANK3_A586:
       JSR     sub_BANK3_B4FD
 
       LDA     #2
-      STA     unk_RAM_6F,X
+      STA     EnemyMovementDirectionMaybe,X
       JSR     sub_BANK2_9B1B
 
       LDA     EnemyCollision,X
@@ -1164,10 +1164,10 @@ loc_BANK3_A5A5:
       BNE     loc_BANK3_A5AF
 
       LDA     #$20
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
 
 loc_BANK3_A5AF:
-      LDY     BombExplodeTimer,X
+      LDY     EnemyTimer,X
       BNE     loc_BANK3_A5CE
 
       INC     EnemyArray_B1,X
@@ -1194,7 +1194,7 @@ loc_BANK3_A5CE:
       CPY     #$10
       BNE     locret_BANK3_A5F4
 
-      JSR     sub_BANK2_92C4
+      JSR     CreateEnemy_TryAllSlots
 
       BMI     locret_BANK3_A5F4
 
@@ -1209,7 +1209,7 @@ loc_BANK3_A5CE:
       JSR     SetEnemyAttributes
 
       LDA     #$FF
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
       LDA     #$E0
       STA     ObjectXAccel,X
       LDX     byte_RAM_12
@@ -1243,7 +1243,7 @@ loc_BANK3_A609:
       BNE     loc_BANK3_A61B
 
 loc_BANK3_A612:
-      LDY     BombExplodeTimer,X
+      LDY     EnemyTimer,X
       DEY
       CPY     #$10
       BCS     loc_BANK3_A621
@@ -1260,7 +1260,7 @@ loc_BANK3_A61B:
 loc_BANK3_A621:
       JSR     sub_BANK2_9BA7
 
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       CMP     #$10
       BCC     loc_BANK3_A648
 
@@ -1268,10 +1268,10 @@ loc_BANK3_A621:
       STA     ObjectAttributes,X
       LDA     #$10
       STA     EnemyArray_46E,X
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       CLC
       ADC     #$B
-      STA     byte_RAM_429
+      STA     SpriteTempScreenX
       ASL     byte_RAM_EE
       LDY     #0
 IFDEF _COMPATIBILITY_
@@ -1312,7 +1312,7 @@ loc_BANK3_A654:
       SEC
       SBC     #2
       STA     byte_RAM_0
-      LDY     unk_RAM_6F,X
+      LDY     EnemyMovementDirectionMaybe,X
       LDA     byte_RAM_1
       CLC
       ADC     locret_BANK3_A651,Y
@@ -1398,7 +1398,7 @@ loc_BANK3_A6E1:
       JSR     sub_BANK3_B4FD
 
       LDA     EnemyCollision,X
-      AND     unk_RAM_6F,X
+      AND     EnemyMovementDirectionMaybe,X
       BEQ     loc_BANK3_A6ED
 
       JSR     sub_BANK2_9EA9
@@ -1442,7 +1442,7 @@ loc_BANK3_A71E:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A724:
+EnemyInit_Tryclyde:
       JSR     EnemyInit_Basic
 
       LDA     #$40
@@ -1611,7 +1611,7 @@ loc_BANK3_A7C8:
       LSR     A
       TAY
       LDA     byte_BANK3_A734,Y
-      ADC     byte_RAM_429
+      ADC     SpriteTempScreenX
       ADC     #$F0
       STA     byte_RAM_1
       LDX     #$56
@@ -1644,7 +1644,7 @@ loc_BANK3_A815:
       LSR     A
       TAY
       LDA     byte_BANK3_A734,Y
-      ADC     byte_RAM_429
+      ADC     SpriteTempScreenX
       ADC     #$F0
       STA     byte_RAM_1
       LDA     #0
@@ -1689,7 +1689,7 @@ loc_BANK3_A84C:
       STA     SpriteDMAArea+$5B
       LDA     ObjectYLo,X
       STA     SpriteDMAArea+$5C
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       SEC
       SBC     #8
       STA     SpriteDMAArea+$5F
@@ -1901,11 +1901,11 @@ loc_BANK3_A993:
       JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
-      STY     unk_RAM_6F,X
+      STY     EnemyMovementDirectionMaybe,X
       LDA     EnemyArray_B1,X
       BNE     loc_BANK3_A9BC
 
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       BNE     loc_BANK3_A9AA
 
       LDA     #$D0
@@ -1971,7 +1971,7 @@ loc_BANK3_A9E9:
       LDA     #0
       STA     EnemyArray_B1,X
       LDA     #$A0
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
 
 loc_BANK3_A9F9:
       JSR     HandleObjectGravity
@@ -1987,7 +1987,7 @@ loc_BANK3_A9FE:
       CMP     #5
       BNE     loc_BANK3_AA0C
 
-      JSR     sub_BANK2_95EB
+      JSR     CreateBullet
 
 loc_BANK3_AA0C:
       LDA     #$64
@@ -2137,11 +2137,11 @@ loc_BANK3_AAB1:
 
 loc_BANK3_AABF:
       STY     byte_RAM_7
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       STA     byte_RAM_4FD
       CLC
       ADC     byte_BANK3_AAAA,Y
-      STA     byte_RAM_429
+      STA     SpriteTempScreenX
       JSR     sub_BANK2_9BA7
 
       LDA     EnemyVariable,X
@@ -2207,13 +2207,13 @@ loc_BANK3_AB20:
 
 loc_BANK3_AB2A:
       LDY     #$3F
-      INC     byte_RAM_429
+      INC     SpriteTempScreenX
       LDA     byte_RAM_10
       AND     #2
       BNE     loc_BANK3_AB3B
 
-      DEC     byte_RAM_429
-      DEC     byte_RAM_429
+      DEC     SpriteTempScreenX
+      DEC     SpriteTempScreenX
 
 loc_BANK3_AB3B:
       TYA
@@ -2237,7 +2237,7 @@ loc_BANK3_AB42:
       STA     byte_RAM_4AF
       INC     byte_RAM_627
       LDA     #5
-      STA     byte_RAM_534
+      STA     TransitionType
       LDA     #0
 IFDEF _COMPATIBILITY_
 	  .db $8d, $50, $00 ; STA $0000 + PlayerState
@@ -2279,7 +2279,7 @@ loc_BANK3_AB76:
 loc_BANK3_AB88:
       JSR     sub_BANK3_ABEE
 
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       SEC
       SBC     #4
       STA     SpriteDMAArea+$93
@@ -2295,7 +2295,7 @@ loc_BANK3_AB88:
       LDA     #$15
 
 loc_BANK3_ABA8:
-      ADC     byte_RAM_42C
+      ADC     SpriteTempScreenY
       STA     SpriteDMAArea+$90
       STA     SpriteDMAArea+$94
       STA     SpriteDMAArea+$98
@@ -2337,9 +2337,9 @@ loc_BANK3_ABEB:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK3_ABEE:
-      LDA     byte_RAM_42C
+      LDA     SpriteTempScreenY
       STA     byte_RAM_0
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       SEC
       SBC     #8
       STA     byte_RAM_1
@@ -2359,7 +2359,7 @@ sub_BANK3_ABEE:
       ADC     #$10
       STA     byte_RAM_1
       DEC     byte_RAM_2
-      LDA     byte_RAM_42C
+      LDA     SpriteTempScreenY
       STA     byte_RAM_0
       LDY     #$10
       LDX     #$96
@@ -2388,11 +2388,11 @@ sub_BANK3_AC28:
       LSR     A
       STA     byte_RAM_7
       LDY     byte_RAM_7
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       PHA
       CLC
       ADC     byte_BANK3_AC25,Y
-      STA     byte_RAM_429
+      STA     SpriteTempScreenX
       LDA     #$80
       LDY     EnemyArray_45C,X
       BEQ     loc_BANK3_AC4B
@@ -2416,7 +2416,7 @@ ENDIF
       CLC
       LDY     byte_RAM_7
       ADC     byte_BANK3_AC26,Y
-      STA     byte_RAM_429
+      STA     SpriteTempScreenX
       LDA     #$84
       LDY     EnemyArray_45C,X
       BEQ     loc_BANK3_AC67
@@ -2430,7 +2430,7 @@ loc_BANK3_AC67:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_AC6A:
+EnemyInit_Fryguy:
       JSR     EnemyInit_Basic
 
       LDA     #4
@@ -2478,7 +2478,7 @@ byte_BANK3_AC89:
 
 EnemyBehavior_Fryguy:
       LDA     #2
-      STA     unk_RAM_6F,X
+      STA     EnemyMovementDirectionMaybe,X
       INC     EnemyArray_9F,X
       LDY     EnemyHP,X
       DEY
@@ -2499,7 +2499,7 @@ loc_BANK3_ACA1:
       STA     unk_RAM_4EF,Y
       LDA     #$F0
       STA     ObjectYAccel,Y
-      LDA     #$2B
+      LDA     #Enemy_FryguySplit
       STA     ObjectType,Y
       LDA     #$30
       STA     EnemyArray_453,Y
@@ -2508,7 +2508,7 @@ loc_BANK3_ACA1:
       LDX     byte_RAM_9
       LDA     byte_BANK3_AC77,X
       STA     ObjectXAccel,Y
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       ADC     byte_BANK3_AC7B,X
       STA     ObjectXLo,Y
       PLA
@@ -2611,7 +2611,7 @@ EnemyBehavior_FryguySplit:
 
 loc_BANK3_AD59:
       LDA     #2
-      STA     unk_RAM_6F,X
+      STA     EnemyMovementDirectionMaybe,X
       LDA     byte_RAM_10
       STA     EnemyArray_44A,X
       INC     EnemyArray_9F,X
@@ -2753,7 +2753,7 @@ loc_BANK3_AE28:
 
       JSR     loc_BANK2_8492
 
-      JSR     sub_BANK2_95EB
+      JSR     CreateBullet
 
       BMI     loc_BANK3_AE45
 
@@ -2799,10 +2799,10 @@ IFNDEF _COMPATIBILITY_
 ENDIF
 
       PHA
-      LDA     byte_RAM_42C
+      LDA     SpriteTempScreenY
       CLC
       ADC     #$F5
-      STA     byte_RAM_42C
+      STA     SpriteTempScreenY
       JSR     loc_BANKF_FAFE
 
 IFDEF _COMPATIBILITY_
@@ -2828,11 +2828,11 @@ ENDIF
 
 loc_BANK3_AE7C:
       LDA     ObjectYLo,X
-      STA     byte_RAM_42C
+      STA     SpriteTempScreenY
       JSR     sub_BANK2_9BA7
 
       LDA     #2
-      STA     unk_RAM_6F,X
+      STA     EnemyMovementDirectionMaybe,X
       TYA
       CLC
       ADC     #8
@@ -2845,7 +2845,7 @@ IFNDEF _COMPATIBILITY_
 ENDIF
 
       LDA     byte_RAM_0
-      STA     byte_RAM_42C
+      STA     SpriteTempScreenY
       LDA     #$D0
       STA     EnemyArray_46E,X
       LDA     #$78
@@ -2863,7 +2863,7 @@ loc_BANK3_AEA6:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_AEAA:
+EnemyInit_WhaleSpout:
       JSR     EnemyInit_Basic
 
       LDA     ObjectYLo,X
@@ -2986,7 +2986,7 @@ ENDIF
       STA     SpriteDMAArea+6,Y
       STA     SpriteDMAArea+$A,Y
       STA     SpriteDMAArea+$E,Y
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       CLC
       ADC     #4
       STA     SpriteDMAArea+3,Y
@@ -3072,7 +3072,7 @@ loc_BANK3_AFBF:
       JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
-      STY     unk_RAM_6F,X
+      STY     EnemyMovementDirectionMaybe,X
       LDA     byte_RAM_10
       AND     #1
       BNE     loc_BANK3_AFDA
@@ -3094,8 +3094,8 @@ loc_BANK3_AFDA:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_AFE3:
-      JSR     sub_BANK2_8D5F
+EnemyInit_HawkmouthBoss:
+      JSR     EnemyInit_Hawkmouth		  ; Falls through to EnemyInit_Stationary
 
       LDA     #3
       STA     EnemyHP,X
@@ -3135,7 +3135,7 @@ EnemyBehavior_HawkmouthBoss:
 
       STA     EnemyArray_480,X
       LDA     #$90
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
       LDA     #$40
       STA     EnemyArray_438,X
       STA     EnemyArray_45C,X
@@ -3172,7 +3172,7 @@ loc_BANK3_B03B:
       BNE     loc_BANK3_B060
 
       LDA     #1
-      STA     byte_RAM_534
+      STA     TransitionType
       JSR     sub_BANKF_F6DA
 
       LDA     #9
@@ -3295,12 +3295,12 @@ sub_BANK3_B0E8:
       AND     #$C
       BNE     loc_BANK3_B16D
 
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       STA     byte_RAM_7
       JSR     loc_BANKF_FAFE
 
       LDX     byte_RAM_2
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       CLC
       ADC     loc_BANK3_B0E3+2,X
       PHA
@@ -3404,7 +3404,7 @@ loc_BANK3_B180:
       BNE     locret_BANK3_B1CC
 
       INC     byte_RAM_4F9
-      JSR     sub_BANK2_92C4
+      JSR     CreateEnemy_TryAllSlots
 
       BMI     locret_BANK3_B1CC
 
@@ -3446,7 +3446,7 @@ locret_BANK3_B1CC:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_B1CD:
+EnemyInit_Wart:
       JSR     EnemyInit_Basic
 
       LDA     #6
@@ -3472,7 +3472,7 @@ EnemyBehavior_Wart:
       BNE     loc_BANK3_B1F0
 
       LDA     #$80
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
       STA     EnemyArray_B1,X
       BNE     loc_BANK3_B253
 
@@ -3483,7 +3483,7 @@ loc_BANK3_B1F0:
       BNE     loc_BANK3_B1FF
 
       LDA     #$5F
-      STA     BombExplodeTimer,X
+      STA     EnemyTimer,X
       INC     EnemyArray_480,X
 
 loc_BANK3_B1FF:
@@ -3509,7 +3509,7 @@ loc_BANK3_B216:
       LDA     EnemyArray_45C,X
       BNE     loc_BANK3_B253
 
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       BEQ     loc_BANK3_B253
 
       AND     #$F
@@ -3524,7 +3524,7 @@ loc_BANK3_B216:
       LDA     EnemyArray_480,X
       AND     #3
       TAY
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       LDX     byte_RAM_0
       LSR     A
       EOR     #$FF
@@ -3546,7 +3546,7 @@ loc_BANK3_B253:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B256:
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       BEQ     loc_BANK3_B269
 
       STA     EnemyArray_45C,X
@@ -3671,7 +3671,7 @@ loc_BANK3_B2EC:
 
 loc_BANK3_B2EF:
       LDA     #$9E
-      LDY     BombExplodeTimer,X
+      LDY     EnemyTimer,X
       BEQ     loc_BANK3_B2F7
 
       LDA     #$A2
@@ -3680,7 +3680,7 @@ loc_BANK3_B2F7:
       JSR     sub_BANK2_9BB3
 
       LDA     byte_RAM_0
-      STA     byte_RAM_42C
+      STA     SpriteTempScreenY
       LDY     byte_RAM_7
       LDA     unk_RAM_7266,Y
 IFDEF _COMPATIBILITY_
@@ -3707,7 +3707,7 @@ ENDIF
       BEQ     loc_BANK3_B322
 
 loc_BANK3_B31C:
-      LDA     BombExplodeTimer,X
+      LDA     EnemyTimer,X
       BEQ     loc_BANK3_B322
 
 loc_BANK3_B320:
@@ -3720,7 +3720,7 @@ loc_BANK3_B322:
       JSR     sub_BANK2_9BB3
 
       LDA     byte_RAM_0
-      STA     byte_RAM_42C
+      STA     SpriteTempScreenY
       LDY     byte_RAM_7
       LDA     byte_RAM_7267,Y
 IFDEF _COMPATIBILITY_
@@ -3755,7 +3755,7 @@ loc_BANK3_B347:
       LDX     byte_RAM_7267,Y
       LDA     unk_RAM_7268,Y
       TAY
-      LDA     byte_RAM_429
+      LDA     SpriteTempScreenX
       CLC
       ADC     #$20
       BCS     loc_BANK3_B398
@@ -4169,7 +4169,7 @@ loc_BANK3_B690:
       BNE     loc_BANK3_B6F0
 
 loc_BANK3_B692:
-      LDA     unk_RAM_A7,X
+      LDA     EnemyArray_9F+8,X
       BNE     loc_BANK3_B6F0
 
       LDA     PlayerCollision,X
@@ -4315,7 +4315,7 @@ loc_BANK3_B749:
       JSR     sub_BANK3_BD0F
 
       LDA     #4
-      STA     byte_RAM_534
+      STA     TransitionType
       JMP     loc_BANK3_BBF4
 
 ; ---------------------------------------------------------------------------
@@ -4786,7 +4786,7 @@ loc_BANK3_B9B7:
       LDA     #5
       STA     EnemyState,Y
       LDA     #$1E
-      STA     BombExplodeTimer,Y
+      STA     EnemyTimer,Y
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -4851,7 +4851,7 @@ DamagePlayer:
 
       LDA     PlayerPageX
       SEC
-      SBC     byte_RAM_429
+      SBC     SpriteTempScreenX
       ASL     A
       ASL     A
       STA     PlayerXAccel
@@ -4887,7 +4887,7 @@ loc_BANK3_BA33:
 
       INY
       TYA
-      CMP     unk_RAM_6F,X
+      CMP     EnemyMovementDirectionMaybe,X
       BEQ     loc_BANK3_BA48
 
       JSR     sub_BANK2_9EA9
@@ -5152,8 +5152,8 @@ locret_BANK3_BB6A:
 ; End of function sub_BANK3_BB5A
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_BB6B:
-	  .BYTE $F9
+ItemCarryYOffsets:
+	  .BYTE	$F9
 
       .BYTE $FF
       .BYTE 0
