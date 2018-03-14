@@ -42623,7 +42623,7 @@ loc_BANK2_81E7:					  ; CODE XREF: BANK2:81DDj
 						  ; BANK2:81E2j
       JSR     DoPRNGBullshitProbably		  ; code used at 8000
 
-      JSR     sub_BANK2_9AB5			  ; code used at 8000
+      JSR     PutCarriedObjectInHands		  ; code used at 8000
 
       JSR     EnemyStateHandling		  ; code used at 8000
 
@@ -47190,7 +47190,7 @@ loc_BANK2_9681:					  ; CODE XREF: CarryObject:loc_BANK2_967Dj
 
 loc_BANK2_9686:					  ; CODE XREF: CarryObject+63j
 						  ; CarryObject+69j
-      JSR     sub_BANK2_9AB5			  ; code used at 8000
+      JSR     PutCarriedObjectInHands		  ; code used at 8000
 
       JMP     sub_BANK2_9B1B			  ; code used at 8000
 
@@ -48132,17 +48132,17 @@ byte_BANK2_99B5:.BYTE $D2			  ; DATA XREF: sub_BANK2_9CF2+10r
       .BYTE $A6					  ; data used at 8000
       .BYTE $AB					  ; data used at 8000
       .BYTE $AB					  ; data used at 8000
-UnkEnemyDisplayData:.BYTE 0					; 0
+EnemyAnimationTable:.BYTE 0					; 0
 						  ; DATA XREF: sub_BANK2_9B1B+2r
 						  ; sub_BANK2_9BA7:loc_BANK2_9BB0r
-      .BYTE 0					  ; 1 ;	@TODO figure this out.
-      .BYTE 8					  ; 2 ;	$FF means "don't display this";
-      .BYTE 0					  ; 3 ;	otherwise seems	to be some sort	of
-      .BYTE $C					  ; 4 ;	index to graphics
-      .BYTE $10					  ; 5 ;	Setting	everything to $0 results in a
-      .BYTE $10					  ; 6 ;	lot of shyguys and not much else
-      .BYTE $10					  ; 7
-      .BYTE $40					  ; 8
+      .BYTE 0					  ; 1 ;	Not sure what this does, but it's some sort of
+      .BYTE 8					  ; 2 ;	pointer	that determines	where an enemy's animation
+      .BYTE 0					  ; 3 ;	frames are hiding.
+      .BYTE $C					  ; 4 ;
+      .BYTE $10					  ; 5 ;	$FF means "none", used for the enemy-generating	jars.
+      .BYTE $10					  ; 6 ;	You could theoretically	make them visible that way...
+      .BYTE $10					  ; 7 ;
+      .BYTE $40					  ; 8 ;	These go in order of enemy indexes.
       .BYTE $14					  ; 9
       .BYTE $18					  ; $A
       .BYTE $18					  ; $B
@@ -48208,37 +48208,42 @@ UnkEnemyDisplayData:.BYTE 0					; 0
 
 ; =============== S U B	R O U T	I N E =======================================
 
+; The first part of this routine determines if we are the Princess,
+; who does not bob her vegetables (or whatever other Subcon detritus
+; she happens to be holding)
+;
+; After	that it	just moves the sprite into the player's hands.
 
-sub_BANK2_9AB5:					  ; CODE XREF: BANK2:81EAp
+PutCarriedObjectInHands:			  ; CODE XREF: BANK2:81EAp
 						  ; CarryObject:loc_BANK2_9686p
-      LDA     ObjectYLo,X			  ; This whole block of	code seems to just be
-      CLC					  ; determining	if it should lower the
-      SBC     ScreenYLo				  ; sprite Y position on screen	by one pixel.
+      LDA     ObjectYLo,X
+      CLC
+      SBC     ScreenYLo
       LDY     ObjectBeingCarriedTimer,X		  ; code used at 8000
       BEQ     loc_BANK2_9ACA			  ; code used at 8000
 
       LDY     PlayerAnimationFrame		  ; code used at 8000
       BNE     loc_BANK2_9ACA			  ; code used at 8000
 
-      LDY     CurrentCharacter			  ; code used at 8000
+      LDY     CurrentCharacter			  ; Check if we	are Princess
       DEY					  ; code used at 8000
-      BEQ     loc_BANK2_9ACA			  ; code used at 8000
+      BEQ     loc_BANK2_9ACA			  ; If so, skip	making it bob sometimes.
 
       SEC					  ; code used at 8000
       SBC     #1				  ; code used at 8000
 
 
-loc_BANK2_9ACA:					  ; CODE XREF: sub_BANK2_9AB5+7j
-						  ; sub_BANK2_9AB5+Bj
-						  ; sub_BANK2_9AB5+10j
-      STA     SpriteTempScreenY			  ; But	otherwise here,	seems to determine
-      LDA     ObjectXLo,X			  ; where it should show up on screen
-      SEC					  ; and	put it in that place.
+loc_BANK2_9ACA:					  ; CODE XREF: PutCarriedObjectInHands+7j
+						  ; PutCarriedObjectInHands+Bj
+						  ; PutCarriedObjectInHands+10j
+      STA     SpriteTempScreenY			  ; Determine where it should show up on
+      LDA     ObjectXLo,X			  ; the	screen and put it in that place.
+      SEC
       SBC     ScreenBoundaryLeftLo		  ; code used at 8000
       STA     SpriteTempScreenX			  ; code used at 8000
       RTS					  ; code used at 8000
 
-; End of function sub_BANK2_9AB5
+; End of function PutCarriedObjectInHands
 
 ; ---------------------------------------------------------------------------
 
@@ -48311,7 +48316,7 @@ sub_BANK2_9B1B:					  ; CODE XREF: BANK2:loc_BANK2_8574p
 						  ; BANK2:loc_BANK2_8A07j
 						  ; BANK2:8B0Ep ...
       LDY     ObjectType,X			  ; code used at 8000
-      LDA     UnkEnemyDisplayData,Y		  ; code used at 8000
+      LDA     EnemyAnimationTable,Y		  ; code used at 8000
       CMP     #$FF				  ; code used at 8000
       BEQ     locret_BANK2_9B40			  ; code used at 8000
 
@@ -48487,7 +48492,7 @@ sub_BANK2_9BA7:					  ; CODE XREF: BANK2:913Bj
 
 loc_BANK2_9BB0:					  ; CODE XREF: sub_BANK2_9BA7+4j
 						  ; BANK3:loc_BANK3_A654P
-      LDA     UnkEnemyDisplayData,Y		  ; code used at 8000
+      LDA     EnemyAnimationTable,Y		  ; code used at 8000
 
 ; End of function sub_BANK2_9BA7
 
