@@ -2780,7 +2780,7 @@ loc_BANK3_AE4B:
       CMP     #EnemyState_Alive
       BEQ     loc_BANK3_AE5C
 
-      LDA     #$C1
+      LDA     #ObjAttrib_Palette1|ObjAttrib_16x32|ObjAttrib_UpsideDown
       STA     ObjectAttributes,X
       STA     EnemyArray_9F,X
       LDA     #$76

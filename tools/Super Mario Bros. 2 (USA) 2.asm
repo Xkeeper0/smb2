@@ -51967,7 +51967,7 @@ loc_BANK3_AE4B:					  ; CODE XREF: sub_BANK2_9B1B+3FJ
       CMP     #EnemyState_Alive			  ; code used at a000
       BEQ     loc_BANK3_AE5C			  ; code used at a000
 
-      LDA     #$C1 ; 'Á'                          ; code used at a000
+      LDA     #ObjAttrib_Palette1|ObjAttrib_16x32|ObjAttrib_UpsideDown ; code used at a000
       STA     ObjectAttributes,X		  ; code used at a000
       STA     EnemyArray_9F,X			  ; code used at a000
       LDA     #$76 ; 'v'                          ; code used at a000
