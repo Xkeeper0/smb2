@@ -160,7 +160,7 @@ ObjectAttributes:
 PlayerMovementDirection:
 	  .dsb 1	                      ; $006e
 						  ; 02 if moving left, 01 otherwise?
-EnemyMovementDirectionMaybe:
+EnemyMovementDirection:
 	  .dsb 1                       ; $006f
       .dsb 1 ; 1                ; $0070
       .dsb 1 ; 2                ; $0071
@@ -262,10 +262,8 @@ EnemyArray_B1:
       .dsb 1                    ; $00b9
 byte_RAM_BA:
 	  .dsb 1                       ; $00ba
-byte_RAM_BB:
-	  .dsb 1                       ; $00bb
-byte_RAM_BC:
-	  .dsb 1                       ; $00bc
+CurrentMusicPointer:
+	  .dsb 2                       ; $00bb
 byte_RAM_BD:
 	  .dsb 1                       ; $00bd
 byte_RAM_BE:

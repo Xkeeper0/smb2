@@ -14,8 +14,6 @@ StartProcessingSoundQueue:
 
       LDA     #$C				  ; Mute the two square	channels
 						  ; (TODO: Bitmask pls)
-
-loc_BANK4_800E:
       STA     SND_CHN
       JMP     ProcessOnlyMusicQueue2		  ; You	would think you	could skip processing,
 						  ; since if the game is paused, nothing should
@@ -230,7 +228,7 @@ loc_BANK4_8107:
       BCS     loc_BANK4_80D3
 
       TAY
-      LDA     loc_BANK4_8117+2,Y
+      LDA     MushroomSoundData-1,Y
       LDX     #$5D
       LDY     #$7F
       JSR     sub_BANK4_86C8
@@ -482,13 +480,13 @@ loc_BANK4_831C:
       LSR     A
       BCC     loc_BANK4_831C
 
-      LDA     DMCFreqTable,Y
+      LDA     DMCFreqTable-1,Y
       STA     DMC_FREQ
 
 loc_BANK4_8326:
-      LDA     locret_BANK4_8341,Y
+      LDA     DMCStartTable-1,Y
       STA     DMC_START
-      LDA     DMCLengthTable,Y
+      LDA     DMCLengthTable-1,Y
       STA     DMC_LEN
       LDA     #$A0
       STA     byte_RAM_60A
@@ -496,15 +494,14 @@ loc_BANK4_8326:
       STA     SND_CHN
       LDA     #$1F
       STA     SND_CHN
-
-locret_BANK4_8341:
       RTS
 
 ; End of function ProcessDPCMQueue
 
 ; ---------------------------------------------------------------------------
 DMCStartTable:
-	  .BYTE $4F				  ; @TODO
+	  .BYTE $4F
+						  ; @TODO
 						  ; It seems that the references to these tables are off by one	byte, maybe intentionally?
 						  ; Need to fix	this in	the final disassembly
       .BYTE $60
@@ -513,18 +510,20 @@ DMCStartTable:
       .BYTE $31
       .BYTE $60
       .BYTE $E
+      .BYTE $1D
 DMCLengthTable:
-	  .BYTE $1D
-      .BYTE $43
+	  .BYTE $43
+
       .BYTE $14
       .BYTE $10
       .BYTE $38
       .BYTE $48
       .BYTE $28
       .BYTE $3C
+      .BYTE $50
 DMCFreqTable:
-	  .BYTE $50
-      .BYTE $E
+	  .BYTE $E
+
       .BYTE $E
       .BYTE $F
       .BYTE $F
@@ -624,19 +623,19 @@ loc_BANK4_83D3:
       BCC     loc_BANK4_83D3
 
 loc_BANK4_83D7:
-      LDA     unk_BANK4_8FFF,Y
+      LDA     MusicPartPointers-1,Y
       TAY
       LDA     MusicPartPointers,Y
       STA     MusicTempoSetting
-      LDA     byte_BANK4_9001,Y
-      STA     byte_RAM_BB
-      LDA     unk_BANK4_9002,Y
-      STA     byte_RAM_BC
-      LDA     byte_BANK4_9003,Y
+      LDA     MusicPartPointers+1,Y
+      STA     CurrentMusicPointer
+      LDA     MusicPartPointers+2,Y
+      STA     CurrentMusicPointer+1
+      LDA     MusicPartPointers+3,Y
       STA     byte_RAM_615
-      LDA     unk_BANK4_9004,Y
+      LDA     MusicPartPointers+4,Y
       STA     byte_RAM_614
-      LDA     byte_BANK4_9005,Y
+      LDA     MusicPartPointers+5,Y
       STA     byte_RAM_616
       STA     byte_RAM_5F5
       STA     byte_RAM_5FF
@@ -661,7 +660,7 @@ loc_BANK4_8429:
 
       LDY     byte_RAM_613
       INC     byte_RAM_613
-      LDA     (byte_RAM_BB),Y
+      LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_843C
 
       BPL     loc_BANK4_847D
@@ -716,7 +715,7 @@ loc_BANK4_8468:
       STA     byte_RAM_617
       LDY     byte_RAM_613
       INC     byte_RAM_613
-      LDA     (byte_RAM_BB),Y
+      LDA     (CurrentMusicPointer),Y
 
 loc_BANK4_847D:
       LDX     byte_RAM_607
@@ -772,7 +771,7 @@ loc_BANK4_84BF:
 loc_BANK4_84C4:
       LDY     byte_RAM_614
       INC     byte_RAM_614
-      LDA     (byte_RAM_BB),Y
+      LDA     (CurrentMusicPointer),Y
       BPL     loc_BANK4_84E3
 
       TAX
@@ -784,7 +783,7 @@ loc_BANK4_84C4:
       STA     byte_RAM_5ED
       LDY     byte_RAM_614
       INC     byte_RAM_614
-      LDA     (byte_RAM_BB),Y
+      LDA     (CurrentMusicPointer),Y
 
 loc_BANK4_84E3:
       TAY
@@ -856,7 +855,7 @@ loc_BANK4_853B:
 
       LDY     byte_RAM_615
       INC     byte_RAM_615
-      LDA     (byte_RAM_BB),Y
+      LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_8582
 
       BPL     loc_BANK4_8566
@@ -868,7 +867,7 @@ loc_BANK4_853B:
       STA     TRI_LINEAR
       LDY     byte_RAM_615
       INC     byte_RAM_615
-      LDA     (byte_RAM_BB),Y
+      LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_8582
 
 loc_BANK4_8566:
@@ -914,7 +913,7 @@ loc_BANK4_8585:
 loc_BANK4_8596:
       LDY     byte_RAM_616
       INC     byte_RAM_616
-      LDA     (byte_RAM_BB),Y
+      LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_85CF
 
       BPL     loc_BANK4_85B2
@@ -924,7 +923,7 @@ loc_BANK4_8596:
       STA     byte_RAM_61F
       LDY     byte_RAM_616
       INC     byte_RAM_616
-      LDA     (byte_RAM_BB),Y
+      LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_85CF
 
 loc_BANK4_85B2:
@@ -970,7 +969,7 @@ loc_BANK4_85E0:
 loc_BANK4_85EA:
       LDY     byte_RAM_5FF
       INC     byte_RAM_5FF
-      LDA     (byte_RAM_BB),Y
+      LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_8614
 
       BPL     loc_BANK4_8606
@@ -980,7 +979,7 @@ loc_BANK4_85EA:
       STA     byte_RAM_5FB
       LDY     byte_RAM_5FF
       INC     byte_RAM_5FF
-      LDA     (byte_RAM_BB),Y
+      LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_8614
 
 loc_BANK4_8606:
@@ -1454,74 +1453,16 @@ _unused_BANK4_8FB3:
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$40
-unk_BANK4_8FFF:
-	  .BYTE $FF
+      .BYTE $FF
 MusicPartPointers:
-	  .BYTE	$99 ; ™
-byte_BANK4_9001:
-	  .BYTE $8E
-
-unk_BANK4_9002:
-	  .BYTE $84
-byte_BANK4_9003:
-	  .BYTE $A4
-
-unk_BANK4_9004:
-	  .BYTE $89
-byte_BANK4_9005:
-	  .BYTE $84
-						  ; @TODO Figure out the format	of this	stuff
-      .BYTE $99
-      .BYTE $2A
-      .BYTE $30
-      .BYTE $36
-      .BYTE $30
-      .BYTE $3C
-      .BYTE $42
-      .BYTE $A9
-      .BYTE $9E
-      .BYTE $93
-      .BYTE $48
-      .BYTE $4E
-      .BYTE $54
-      .BYTE $5A
-      .BYTE $54
-      .BYTE $60
-      .BYTE $66
-      .BYTE $72
-      .BYTE $78
-      .BYTE $7E
-      .BYTE $B5
-      .BYTE $AF
-      .BYTE $BB
-      .BYTE $C1
-      .BYTE $C7
-      .BYTE $CD
-      .BYTE $D3
-      .BYTE $CD
-      .BYTE $D9
-      .BYTE $DF
-      .BYTE $EB
-      .BYTE $E5
-      .BYTE $F7
-      .BYTE $F1
-      .BYTE $FD
-      .BYTE $6C
-MusicPartHeaders:
-	  .BYTE 0
-      .BYTE $AD
-      .BYTE $98
-      .BYTE $6B
-      .BYTE $36
-      .BYTE $A0
-      .BYTE 0
-      .BYTE $5C
-      .BYTE $99
-      .BYTE $8E
-      .BYTE $48
-      .BYTE $B0
-      .BYTE 0
-      .BYTE $9A
+	  .BYTE	$99,$8E,$84,$A4,$89,$84,$99
+      .BYTE $2A,$30,$36,$30,$3C,$42,$A9
+      .BYTE $9E,$93,$48,$4E,$54,$5A,$54
+      .BYTE $60,$66,$72,$78,$7E,$B5,$AF
+      .BYTE $BB,$C1,$C7,$CD,$D3,$CD,$D9
+      .BYTE $DF,$EB,$E5,$F7,$F1,$FD,$6C
+      .BYTE 0,$AD,$98,$6B,$36,$A0,0
+      .BYTE $5C,$99,$8E,$48,$B0,0,$9A
       .BYTE $99
       .BYTE $6F
       .BYTE $48

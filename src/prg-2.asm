@@ -867,7 +867,7 @@ loc_BANK2_8492:
 
 loc_BANK2_8495:
       INY
-      STY     EnemyMovementDirectionMaybe,X
+      STY     EnemyMovementDirection,X
       LDA     EnemyInitialAccelerationTable,Y
       STA     ObjectXAccel,X
       LDA     EnemyArray_46E,X
@@ -991,7 +991,7 @@ loc_BANK2_852D:
       LDA     #$41
       STA     ObjectAttributes,X
       STA     EnemyArray_46E,X
-      JMP     MakeMushroomExplodeIntoPuffOfSmoke
+      JMP     TurnIntoPuffOfSmoke
 
 ; ---------------------------------------------------------------------------
 
@@ -1079,7 +1079,7 @@ loc_BANK2_858F:
       LSR     A
       LSR     A
       AND     #1
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       LDA     #1
       STA     ObjectAttributes,X
       STA     EnemyArray_46E,X
@@ -1133,7 +1133,7 @@ loc_BANK2_85C1:
       LSR     A
       LSR     A
       ADC     #1
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
 
 loc_BANK2_85E1:
       JSR     sub_BANK2_9486
@@ -1638,7 +1638,7 @@ loc_BANK2_8858:
       LDA     #1
       STA     ObjectAttributes,X
       ASL     A
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       INC     EnemyArray_9F,X
       JSR     sub_BANK2_8B5B
 
@@ -1948,7 +1948,7 @@ loc_BANK2_8A0A:
       INY
 
 loc_BANK2_8A13:
-      STY     EnemyMovementDirectionMaybe,X
+      STY     EnemyMovementDirection,X
 
 loc_BANK2_8A15:
       LDY     ObjectType,X
@@ -2319,7 +2319,7 @@ loc_BANK2_8BF7:
       AND     #CollisionFlags_Right|CollisionFlags_Left
       BEQ     loc_BANK2_8C00
 
-      JSR     MakeMushroomExplodeIntoPuffOfSmoke
+      JSR     TurnIntoPuffOfSmoke
 
 loc_BANK2_8C00:
       JMP     sub_BANK2_9430
@@ -2361,7 +2361,7 @@ loc_BANK2_8C22:
       LDA     #$83
       STA     EnemyArray_46E,X
       LDA     #2
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       JSR     sub_BANK2_997A
 
       INC     EnemyArray_9F,X
@@ -2720,7 +2720,7 @@ loc_BANK2_8E05:
       LDA     ObjectType,X
       SEC
       SBC     #$41
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       LDA     CrystalAndHawkmouthOpenSize
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -3020,7 +3020,7 @@ loc_BANK2_8F6F:
 ; End of function EnemyInit_Birdo
 
 ; ---------------------------------------------------------------------------
-BirdoProjectileXOffsets:
+ProjectileLaunchXOffsets:
 	  .BYTE $FE
 
       .BYTE $F8
@@ -3036,7 +3036,7 @@ EnemyBehavior_Birdo:
       JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
-      STY     EnemyMovementDirectionMaybe,X
+      STY     EnemyMovementDirection,X
       JSR     sub_BANK2_9B1B
 
       LDA     EnemyCollision,X
@@ -3146,9 +3146,9 @@ sub_BANK2_9004:
       CLC
       ADC     #3
       STA     ObjectYLo,X
-      LDY     EnemyMovementDirectionMaybe,X
+      LDY     EnemyMovementDirection,X
       LDA     ObjectXLo,X
-      ADC     BirdoProjectileXOffsets-1,Y
+      ADC     ProjectileLaunchXOffsets-1,Y
       STA     ObjectXLo,X
       JSR     SetEnemyAttributes
 
@@ -3185,7 +3185,7 @@ EnemyBehavior_Mushroom1up:
       CMP     #$10
       BMI     EnemyBehavior_Mushroom
 
-      JSR     MakeMushroomExplodeIntoPuffOfSmoke
+      JSR     TurnIntoPuffOfSmoke
 
       LDA     ObjectType,X
       CMP     #Enemy_Mushroom1up
@@ -3233,7 +3233,7 @@ loc_BANK2_9069:
       LDA     #0
       STA     HoldingItem
       STA     ObjectBeingCarriedTimer,X
-      JSR     MakeMushroomExplodeIntoPuffOfSmoke
+      JSR     TurnIntoPuffOfSmoke
 
       LDA     ObjectType,X
       CMP     #$44
@@ -3303,7 +3303,7 @@ EnemyBehavior_Bomb:
 
       LDA     EnemyCollision,X
       PHA
-      AND     EnemyMovementDirectionMaybe,X
+      AND     EnemyMovementDirection,X
       BEQ     loc_BANK2_90D9
 
       JSR     sub_BANK2_9EA9
@@ -3471,9 +3471,9 @@ loc_BANK2_9198:
 
 ; =============== S U B	R O U T	I N E =======================================
 
-; X = Enemy index of mushroom to poof
+; X = Enemy index of object to poof
 
-MakeMushroomExplodeIntoPuffOfSmoke:
+TurnIntoPuffOfSmoke:
       LDA     ObjectAttributes,X		  ; Get	current	object sprite attributes...
       AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32|ObjAttrib_UpsideDown
       ORA     #1				  ; Clear current palette, then	set to $01
@@ -3489,7 +3489,7 @@ MakeMushroomExplodeIntoPuffOfSmoke:
 locret_BANK2_91C4:
       RTS
 
-; End of function MakeMushroomExplodeIntoPuffOfSmoke
+; End of function TurnIntoPuffOfSmoke
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_91C5:
@@ -3813,6 +3813,9 @@ loc_BANK2_9318:
       LDX     byte_RAM_12
       CMP     #Enemy_Key			  ; Strange code. Phanto only chases you if you	have the key.
       BCC     loc_BANK2_933B			  ; So you should just be able to use BEQ/BNE.
+						  ; This way seems to imply that Phanto	would
+						  ; chase you if you were carrying a range of items,
+						  ; but...  what could those items have	been?
 
       CMP     #Enemy_SubspacePotion		  ; But	instead	we do it like this for... reasons.
       BCS     loc_BANK2_933B			  ; Nintendo.
@@ -3965,7 +3968,7 @@ EnemyBehavior_NinjiRunning:
 
       INY
       TYA
-      CMP     EnemyMovementDirectionMaybe,X
+      CMP     EnemyMovementDirection,X
       BNE     loc_BANK2_940C
 
       LDA     byte_RAM_F
@@ -4115,7 +4118,7 @@ sub_BANK2_9486:
 
 loc_BANK2_9492:
       LDA     EnemyCollision,X
-      AND     EnemyMovementDirectionMaybe,X
+      AND     EnemyMovementDirection,X
       BEQ     loc_BANK2_94A6
 
       JSR     sub_BANK2_9EA9
@@ -4262,7 +4265,7 @@ loc_BANK2_9528:
       JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
-      STY     EnemyMovementDirectionMaybe,X
+      STY     EnemyMovementDirection,X
       LDA     EnemyArray_9F,X
       AND     #$3F
       BNE     loc_BANK2_9562
@@ -4423,7 +4426,7 @@ CreateBullet:
 CreateBullet_WithSlotInY:
       BMI     locret_BANK2_9606
 
-      LDY     EnemyMovementDirectionMaybe,X
+      LDY     EnemyMovementDirection,X
       LDX     byte_RAM_0
       LDA     BulletProjectileXSpeeds-1,Y
       STA     ObjectXAccel,X
@@ -4463,7 +4466,7 @@ CarryObject:
       EOR     #1
       TAY
       INY
-      STY     EnemyMovementDirectionMaybe,X
+      STY     EnemyMovementDirection,X
       LDA     PlayerXLo
       STA     ObjectXLo,X
       LDA     PlayerXHi
@@ -4686,7 +4689,7 @@ EnemyBehavior_SubspaceDoor:
       LDA     #4
       STA     EnemyArray_489,X
       LDA     #2
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       LDY     SubspaceTimer
       BEQ     loc_BANK2_9741
 
@@ -4718,7 +4721,7 @@ loc_BANK2_9741:
       DEC     byte_RAM_4B3
       BNE     loc_BANK2_9753
 
-      JMP     MakeMushroomExplodeIntoPuffOfSmoke
+      JMP     TurnIntoPuffOfSmoke
 
 ; ---------------------------------------------------------------------------
 
@@ -4733,7 +4736,7 @@ loc_BANK2_9753:
       BCC     loc_BANK2_9767
 
       INY
-      STY     EnemyMovementDirectionMaybe,X
+      STY     EnemyMovementDirection,X
 
 loc_BANK2_9767:
       LDA     byte_RAM_4BD
@@ -4745,7 +4748,7 @@ loc_BANK2_9767:
 
       CPY     byte_RAM_F4
       PHP
-      LDA     EnemyMovementDirectionMaybe,X
+      LDA     EnemyMovementDirection,X
       CMP     #1
       BNE     loc_BANK2_977F
 
@@ -4777,7 +4780,7 @@ loc_BANK2_979A:
 
       CPY     byte_RAM_F4
       PHP
-      LDA     EnemyMovementDirectionMaybe,X
+      LDA     EnemyMovementDirection,X
       CMP     #1
       BNE     loc_BANK2_97AA
 
@@ -4993,7 +4996,7 @@ EnemyBehavior_Shell:
 sub_BANK2_98A6:
       LDA     #SoundEffect1_EnemyHit
       STA     SoundEffect1Queue
-      JMP     MakeMushroomExplodeIntoPuffOfSmoke
+      JMP     TurnIntoPuffOfSmoke
 
 ; End of function sub_BANK2_98A6
 
@@ -5009,7 +5012,7 @@ loc_BANK2_98AE:
 loc_BANK2_98B7:
       JSR     sub_BANK2_9B1B
 
-      LDY     EnemyMovementDirectionMaybe,X
+      LDY     EnemyMovementDirection,X
       LDA     locret_BANK2_9897,Y
       STA     ObjectXAccel,X
       JMP     sub_BANK2_8577
@@ -5158,7 +5161,7 @@ loc_BANK2_994F:
 
 loc_BANK2_995C:
       STX     byte_RAM_E
-      JSR     MakeMushroomExplodeIntoPuffOfSmoke
+      JSR     TurnIntoPuffOfSmoke
 
       LDX     byte_RAM_E
       JMP     loc_BANK2_9974
@@ -5572,7 +5575,7 @@ sub_BANK2_9AF2:
       LDA     SpriteTempScreenX
       ADC     #8
       STA     byte_RAM_1
-      LDA     EnemyMovementDirectionMaybe,X
+      LDA     EnemyMovementDirection,X
       STA     byte_RAM_2
       LDA     #1
       STA     byte_RAM_3
@@ -5771,7 +5774,7 @@ sub_BANK2_9BB3:
       LDA     EnemyArray_46E,X
       AND     #$10
       STA     byte_RAM_B
-      LDY     EnemyMovementDirectionMaybe,X
+      LDY     EnemyMovementDirection,X
       LDA     ObjectAttributes,X
       AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_08|ObjAttrib_Mirrored
       BEQ     loc_BANK2_9BD2
@@ -6161,7 +6164,7 @@ loc_BANK2_9E06:
       LSR     A
       LSR     A
       STA     byte_RAM_0
-      LDA     EnemyMovementDirectionMaybe,X
+      LDA     EnemyMovementDirection,X
       TAX
       LDA     locret_BANK2_9DF3,X
       ADC     byte_RAM_F4
@@ -6294,9 +6297,9 @@ sub_BANK2_9EA9:
       STA     ObjectXAccel,X
       BEQ     loc_BANK2_9EBA
 
-      LDA     EnemyMovementDirectionMaybe,X
+      LDA     EnemyMovementDirection,X
       EOR     #3
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
 
 loc_BANK2_9EBA:
       JMP     sub_BANK2_9E50

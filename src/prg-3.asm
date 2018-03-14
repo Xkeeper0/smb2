@@ -440,7 +440,7 @@ loc_BANK3_A204:
 
 loc_BANK3_A21C:
       LDA     #2
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       TYA
       JSR     sub_BANK2_9BB3
 
@@ -486,7 +486,7 @@ loc_BANK3_A24D:
       CMP     #$60
       BCS     loc_BANK3_A262
 
-      LSR     EnemyMovementDirectionMaybe,X
+      LSR     EnemyMovementDirection,X
 
 loc_BANK3_A262:
       TYA
@@ -684,7 +684,7 @@ loc_BANK3_A344:
       EOR     #1
 
 loc_BANK3_A354:
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       LDA     byte_RAM_0
       AND     #8
       ASL     A
@@ -749,7 +749,7 @@ loc_BANK3_A39B:
       LDA     ObjectXAccel,X
       BEQ     loc_BANK3_A3A5
 
-      LDA     EnemyMovementDirectionMaybe,X
+      LDA     EnemyMovementDirection,X
       AND     #1
       STA     byte_RAM_9D
 
@@ -1104,7 +1104,7 @@ sub_BANK3_A552:
 loc_BANK3_A55F:
       TAY
       LDA     byte_BANK3_A47B,Y
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       LDA     byte_BANK3_A47F,Y
       JMP     sub_BANK2_9BB3
 
@@ -1141,7 +1141,7 @@ loc_BANK3_A586:
       JSR     sub_BANK3_B4FD
 
       LDA     #2
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       JSR     sub_BANK2_9B1B
 
       LDA     EnemyCollision,X
@@ -1312,7 +1312,7 @@ loc_BANK3_A654:
       SEC
       SBC     #2
       STA     byte_RAM_0
-      LDY     EnemyMovementDirectionMaybe,X
+      LDY     EnemyMovementDirection,X
       LDA     byte_RAM_1
       CLC
       ADC     locret_BANK3_A651,Y
@@ -1398,7 +1398,7 @@ loc_BANK3_A6E1:
       JSR     sub_BANK3_B4FD
 
       LDA     EnemyCollision,X
-      AND     EnemyMovementDirectionMaybe,X
+      AND     EnemyMovementDirection,X
       BEQ     loc_BANK3_A6ED
 
       JSR     sub_BANK2_9EA9
@@ -1901,7 +1901,7 @@ loc_BANK3_A993:
       JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
-      STY     EnemyMovementDirectionMaybe,X
+      STY     EnemyMovementDirection,X
       LDA     EnemyArray_B1,X
       BNE     loc_BANK3_A9BC
 
@@ -2478,7 +2478,7 @@ byte_BANK3_AC89:
 
 EnemyBehavior_Fryguy:
       LDA     #2
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       INC     EnemyArray_9F,X
       LDY     EnemyHP,X
       DEY
@@ -2605,13 +2605,13 @@ EnemyBehavior_FryguySplit:
 
       LDA     #0
       STA     EnemyArray_46E,X
-      JMP     MakeMushroomExplodeIntoPuffOfSmoke
+      JMP     TurnIntoPuffOfSmoke
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_AD59:
       LDA     #2
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       LDA     byte_RAM_10
       STA     EnemyArray_44A,X
       INC     EnemyArray_9F,X
@@ -2757,9 +2757,11 @@ loc_BANK3_AE28:
 
       BMI     loc_BANK3_AE45
 
-      LDX     byte_RAM_0
-      LDA     #$27
-      JSR     sub_BANK2_9004
+      LDX     byte_RAM_0			  ; X has the new enemy	index
+      LDA     #Enemy_AutobombFire
+      JSR     sub_BANK2_9004			  ; Set	the enemy type and attributes
+						  ; Bug: sets RAM $0!
+						  ; Should have	pushed it to stack instead.
 
       LDX     byte_RAM_0
       DEC     ObjectYLo,X
@@ -2775,7 +2777,7 @@ loc_BANK3_AE45:
 
 loc_BANK3_AE4B:
       LDA     EnemyState,X
-      CMP     #1
+      CMP     #EnemyState_Alive
       BEQ     loc_BANK3_AE5C
 
       LDA     #$C1
@@ -2832,7 +2834,7 @@ loc_BANK3_AE7C:
       JSR     sub_BANK2_9BA7
 
       LDA     #2
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
       TYA
       CLC
       ADC     #8
@@ -3026,14 +3028,14 @@ EnemyBehavior_Flurry:
       JSR     sub_BANK3_B4FD
 
       LDA     EnemyCollision,X
-      AND     #3
+      AND     #CollisionFlags_Right|CollisionFlags_Left
       BEQ     loc_BANK3_AF8D
 
       JSR     sub_BANK2_9EA9
 
 loc_BANK3_AF8D:
       LDA     EnemyCollision,X
-      AND     #4
+      AND     #CollisionFlags_Down
       BEQ     loc_BANK3_AFB4
 
       LDA     ObjectYAccel,X
@@ -3072,7 +3074,7 @@ loc_BANK3_AFBF:
       JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
-      STY     EnemyMovementDirectionMaybe,X
+      STY     EnemyMovementDirection,X
       LDA     byte_RAM_10
       AND     #1
       BNE     loc_BANK3_AFDA
@@ -3168,7 +3170,7 @@ loc_BANK3_B03B:
 
       DEC     EnemyArray_B1,X
       LDA     PlayerState
-      CMP     #6
+      CMP     #PlayerState_HawkmouthEating
       BNE     loc_BANK3_B060
 
       LDA     #1
@@ -3189,18 +3191,18 @@ locret_BANK3_B05F:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B060:
-      LDA     EnemyArray_480,X
+      LDA     EnemyArray_480,X			  ; Hawkmouth code?
       CMP     #$30
       BNE     locret_BANK3_B09A
 
       LDA     EnemyCollision,X
-      AND     #CollisionFlags_PlayerInsideMaybe
-      BEQ     locret_BANK3_B09A
+      AND     #CollisionFlags_PlayerInsideMaybe	  ; Check if the player	is inside...
+      BEQ     locret_BANK3_B09A			  ; If not, return
 
-      LDA     HoldingItem
-      BNE     locret_BANK3_B09A
+      LDA     HoldingItem			  ; Check if the player	is holding something...
+      BNE     locret_BANK3_B09A			  ; If so, return
 
-      STA     PlayerCollision
+      STA     PlayerCollision			  ; Otherwise, start eating the	player
       INC     EnemyArray_B1,X
       INC     HawkmouthClosing
       DEC     EnemyArray_480,X
@@ -3221,7 +3223,7 @@ loc_BANK3_B060:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK3_B095:
-      LDA     #$80
+      LDA     #SoundEffect1_HawkOpen_WartBarf
       STA     SoundEffect1Queue
 
 locret_BANK3_B09A:
@@ -3279,7 +3281,8 @@ loc_BANK3_B0E3:
       JMP     sub_BANK2_9430
 
 ; ---------------------------------------------------------------------------
-      .BYTE $F8
+byte_BANK3_B0E6:
+	  .BYTE $F8
       .BYTE $10
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -3302,7 +3305,7 @@ sub_BANK3_B0E8:
       LDX     byte_RAM_2
       LDA     SpriteTempScreenX
       CLC
-      ADC     loc_BANK3_B0E3+2,X
+      ADC     byte_BANK3_B0E6-1,X
       PHA
       PHP
       DEX
@@ -3582,7 +3585,7 @@ loc_BANK3_B269:
       LDA     ObjectYLo,X
       ADC     #8
       STA     ObjectYLo,X
-      JSR     MakeMushroomExplodeIntoPuffOfSmoke
+      JSR     TurnIntoPuffOfSmoke
 
 loc_BANK3_B295:
       LDA     ObjectYLo,X
@@ -4887,7 +4890,7 @@ loc_BANK3_BA33:
 
       INY
       TYA
-      CMP     EnemyMovementDirectionMaybe,X
+      CMP     EnemyMovementDirection,X
       BEQ     loc_BANK3_BA48
 
       JSR     sub_BANK2_9EA9

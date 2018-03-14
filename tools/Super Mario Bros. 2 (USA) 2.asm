@@ -573,7 +573,7 @@ PlayerMovementDirection:.BYTE 0	; (uninited)	  ; DATA XREF: sub_BANK0_8EFA:loc_B
 						  ; sub_BANK0_9316+7r
 						  ; sub_BANK0_9316+1Fr	...
 						  ; 02 if moving left, 01 otherwise?
-EnemyMovementDirectionMaybe:.BYTE 0 ; (uninited)			; 0
+EnemyMovementDirection:.BYTE 0 ; (uninited)			   ; 0
 						  ; DATA XREF: EnemyInit_BasicWithoutBombTimer+35w
 						  ; BANK2:859Bw BANK2:85DFw ...
       .BYTE 0 ;	(uninited)			  ; 1
@@ -694,10 +694,9 @@ EnemyArray_B1:.BYTE 0 ;	(uninited)		  ; DATA XREF: BANK0:909Bw
 byte_RAM_BA:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_856A+5r
 						  ; sub_BANK0_856A+11r
 						  ; sub_BANK0_856A+17r	...
-byte_RAM_BB:.BYTE 0 ; (uninited)		  ; DATA XREF: ProcessMusicQueue2+83w
+CurrentMusicPointer:.BYTE 0,0 ;	(uninited)	  ; DATA XREF: ProcessMusicQueue2+83w
 						  ; ProcessMusicQueue2+D3r
 						  ; ProcessMusicQueue2+11Ar ...
-byte_RAM_BC:.BYTE 0 ; (uninited)		  ; DATA XREF: ProcessMusicQueue2+88w
 byte_RAM_BD:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK4_86CE+26w
 						  ; sub_BANK4_86CE+2Fw
 						  ; sub_BANK4_86CE+3Bw	...
@@ -17507,7 +17506,7 @@ DMC_START:.BYTE	0 ; (uninited)			  ; DATA XREF: ProcessDPCMQueue+2Cw
 DMC_LEN:.BYTE 0	; (uninited)			  ; DATA XREF: ProcessDPCMQueue+32w
 OAM_DMA:.BYTE 0	; (uninited)			  ; DATA XREF: BANKF:EB46w
 						  ; BANKF:EB68w NMI+17w
-SND_CHN:.BYTE 0	; (uninited)			  ; DATA XREF: StartProcessingSoundQueue:loc_BANK4_800Ew
+SND_CHN:.BYTE 0	; (uninited)			  ; DATA XREF: StartProcessingSoundQueue+Ew
 						  ; ProcessSoundEffectQueue2+61w
 						  ; ProcessSoundEffectQueue2+66w ...
 JOY1: .BYTE 0 ;	(uninited)			  ; DATA XREF: ReadJoypads+2w
@@ -43201,7 +43200,7 @@ loc_BANK2_8492:					  ; CODE XREF: BANK2:8C0Ap
 loc_BANK2_8495:					  ; CODE XREF: BANK2:8B88p
 						  ; BANK2:8BB6p
       INY					  ; code used at 8000
-      STY     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STY     EnemyMovementDirection,X		  ; code used at 8000
       LDA     EnemyInitialAccelerationTable,Y	  ; code used at 8000
       STA     ObjectXAccel,X			  ; code used at 8000
       LDA     EnemyArray_46E,X			  ; code used at 8000
@@ -43335,7 +43334,7 @@ loc_BANK2_852D:					  ; CODE XREF: BANK2:8529j
       LDA     #$41 ; 'A'                          ; code used at 8000
       STA     ObjectAttributes,X		  ; code used at 8000
       STA     EnemyArray_46E,X			  ; code used at 8000
-      JMP     MakeMushroomExplodeIntoPuffOfSmoke  ; code used at 8000
+      JMP     TurnIntoPuffOfSmoke		  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
@@ -43439,7 +43438,7 @@ loc_BANK2_858F:					  ; DATA XREF: BANK2:8248o
       LSR     A					  ; code used at 8000
       LSR     A					  ; code used at 8000
       AND     #1				  ; code used at 8000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STA     EnemyMovementDirection,X		  ; code used at 8000
       LDA     #1				  ; code used at 8000
       STA     ObjectAttributes,X		  ; code used at 8000
       STA     EnemyArray_46E,X			  ; code used at 8000
@@ -43495,7 +43494,7 @@ loc_BANK2_85C1:					  ; CODE XREF: BANK2:85BAj
       LSR     A
       LSR     A
       ADC     #1
-      STA     EnemyMovementDirectionMaybe,X
+      STA     EnemyMovementDirection,X
 
 
 loc_BANK2_85E1:					  ; CODE XREF: BANK2:85C9j
@@ -44016,7 +44015,7 @@ loc_BANK2_8858:					  ; DATA XREF: BANK2:824Eo
       LDA     #1				  ; code used at 8000
       STA     ObjectAttributes,X		  ; code used at 8000
       ASL     A					  ; code used at 8000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STA     EnemyMovementDirection,X		  ; code used at 8000
       INC     EnemyArray_9F,X			  ; code used at 8000
       JSR     sub_BANK2_8B5B			  ; code used at 8000
 
@@ -44363,7 +44362,7 @@ loc_BANK2_8A0A:					  ; CODE XREF: BANK2:89E0j
 
 
 loc_BANK2_8A13:					  ; CODE XREF: BANK2:8A10j
-      STY     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STY     EnemyMovementDirection,X		  ; code used at 8000
 
 
 loc_BANK2_8A15:					  ; CODE XREF: BANK2:8A0Ej
@@ -44752,7 +44751,7 @@ loc_BANK2_8BF7:					  ; CODE XREF: BANK2:8BF2j
       AND     #CollisionFlags_Right|CollisionFlags_Left	; code used at 8000
       BEQ     loc_BANK2_8C00			  ; code used at 8000
 
-      JSR     MakeMushroomExplodeIntoPuffOfSmoke  ; code used at 8000
+      JSR     TurnIntoPuffOfSmoke		  ; code used at 8000
 
 
 loc_BANK2_8C00:					  ; CODE XREF: BANK2:8BFBj
@@ -44799,7 +44798,7 @@ loc_BANK2_8C22:					  ; CODE XREF: BANK2:8C1Dj
       LDA     #$83 ; 'ƒ'                          ; code used at 8000
       STA     EnemyArray_46E,X			  ; code used at 8000
       LDA     #2				  ; code used at 8000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STA     EnemyMovementDirection,X		  ; code used at 8000
       JSR     sub_BANK2_997A			  ; code used at 8000
 
       INC     EnemyArray_9F,X			  ; code used at 8000
@@ -45194,7 +45193,7 @@ loc_BANK2_8E05:					  ; CODE XREF: BANK2:loc_BANK2_8D78j
       LDA     ObjectType,X			  ; code used at 8000
       SEC					  ; code used at 8000
       SBC     #$41 ; 'A'                          ; code used at 8000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STA     EnemyMovementDirection,X		  ; code used at 8000
       LDA     CrystalAndHawkmouthOpenSize	  ; code used at 8000
 
 
@@ -45514,7 +45513,7 @@ loc_BANK2_8F6F:					  ; CODE XREF: BANK3:A731J
 ; End of function EnemyInit_Birdo
 
 ; ---------------------------------------------------------------------------
-BirdoProjectileXOffsets:.BYTE $FE		  ; DATA XREF: sub_BANK2_9004+Dt
+ProjectileLaunchXOffsets:.BYTE $FE		  ; DATA XREF: sub_BANK2_9004+Dt
 						  ; data used at 8000
       .BYTE $F8					  ; data used at 8000
 ; ---------------------------------------------------------------------------
@@ -45529,7 +45528,7 @@ EnemyBehavior_Birdo:				  ; DATA XREF: BANK2:8A90o
       JSR     EnemyFindWhichSidePlayerIsOn	  ; code used at 8000
 
       INY					  ; code used at 8000
-      STY     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STY     EnemyMovementDirection,X		  ; code used at 8000
       JSR     sub_BANK2_9B1B			  ; code used at 8000
 
       LDA     EnemyCollision,X			  ; code used at 8000
@@ -45647,9 +45646,9 @@ sub_BANK2_9004:					  ; CODE XREF: BANK2:9000j
       CLC					  ; code used at 8000
       ADC     #3				  ; code used at 8000
       STA     ObjectYLo,X			  ; code used at 8000
-      LDY     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      LDY     EnemyMovementDirection,X		  ; code used at 8000
       LDA     ObjectXLo,X			  ; code used at 8000
-      ADC     BirdoProjectileXOffsets-1,Y	  ; code used at 8000
+      ADC     ProjectileLaunchXOffsets-1,Y	  ; code used at 8000
       STA     ObjectXLo,X			  ; code used at 8000
       JSR     SetEnemyAttributes		  ; code used at 8000
 
@@ -45689,7 +45688,7 @@ EnemyBehavior_Mushroom1up:			  ; CODE XREF: BANK2:902Bj
       CMP     #$10
       BMI     EnemyBehavior_Mushroom
 
-      JSR     MakeMushroomExplodeIntoPuffOfSmoke
+      JSR     TurnIntoPuffOfSmoke
 
       LDA     ObjectType,X
       CMP     #Enemy_Mushroom1up
@@ -45742,7 +45741,7 @@ loc_BANK2_9069:					  ; CODE XREF: BANK2:9064j
       LDA     #0				  ; code used at 8000
       STA     HoldingItem			  ; code used at 8000
       STA     ObjectBeingCarriedTimer,X		  ; code used at 8000
-      JSR     MakeMushroomExplodeIntoPuffOfSmoke  ; code used at 8000
+      JSR     TurnIntoPuffOfSmoke		  ; code used at 8000
 
       LDA     ObjectType,X			  ; code used at 8000
       CMP     #$44 ; 'D'                          ; code used at 8000
@@ -45816,7 +45815,7 @@ EnemyBehavior_Bomb:				  ; CODE XREF: BANK2:loc_BANK2_9066j
 
       LDA     EnemyCollision,X			  ; code used at 8000
       PHA					  ; code used at 8000
-      AND     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      AND     EnemyMovementDirection,X		  ; code used at 8000
       BEQ     loc_BANK2_90D9			  ; code used at 8000
 
       JSR     sub_BANK2_9EA9			  ; code used at 8000
@@ -45997,9 +45996,9 @@ loc_BANK2_9198:					  ; CODE XREF: BANK2:918Ej
 
 ; =============== S U B	R O U T	I N E =======================================
 
-; X = Enemy index of mushroom to poof
+; X = Enemy index of object to poof
 
-MakeMushroomExplodeIntoPuffOfSmoke:		  ; CODE XREF: BANK2:8536j
+TurnIntoPuffOfSmoke:				  ; CODE XREF: BANK2:8536j
 						  ; BANK2:8BFDp BANK2:9038p ...
       LDA     ObjectAttributes,X		  ; Get	current	object sprite attributes...
       AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32|ObjAttrib_UpsideDown ; code	used at	8000
@@ -46017,7 +46016,7 @@ MakeMushroomExplodeIntoPuffOfSmoke:		  ; CODE XREF: BANK2:8536j
 locret_BANK2_91C4:				  ; CODE XREF: BANK2:919Bj
       RTS					  ; code used at 8000
 
-; End of function MakeMushroomExplodeIntoPuffOfSmoke
+; End of function TurnIntoPuffOfSmoke
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_91C5:.BYTE $F8			  ; DATA XREF: sub_BANK2_91C7+34r
@@ -46363,6 +46362,9 @@ loc_BANK2_9318:					  ; CODE XREF: BANK2:9313j
       LDX     byte_RAM_12			  ; code used at 8000
       CMP     #Enemy_Key			  ; Strange code. Phanto only chases you if you	have the key.
       BCC     loc_BANK2_933B			  ; So you should just be able to use BEQ/BNE.
+						  ; This way seems to imply that Phanto	would
+						  ; chase you if you were carrying a range of items,
+						  ; but...  what could those items have	been?
 
       CMP     #Enemy_SubspacePotion		  ; But	instead	we do it like this for... reasons.
       BCS     loc_BANK2_933B			  ; Nintendo.
@@ -46528,7 +46530,7 @@ EnemyBehavior_NinjiRunning:			  ; DATA XREF: BANK2:8A72o
 
       INY					  ; code used at 8000
       TYA					  ; code used at 8000
-      CMP     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      CMP     EnemyMovementDirection,X		  ; code used at 8000
       BNE     loc_BANK2_940C			  ; code used at 8000
 
       LDA     byte_RAM_F			  ; code used at 8000
@@ -46695,7 +46697,7 @@ sub_BANK2_9486:					  ; CODE XREF: BANK2:loc_BANK2_85E1p
 
 loc_BANK2_9492:					  ; CODE XREF: BANK2:9476j
       LDA     EnemyCollision,X			  ; code used at 8000
-      AND     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      AND     EnemyMovementDirection,X		  ; code used at 8000
       BEQ     loc_BANK2_94A6			  ; code used at 8000
 
       JSR     sub_BANK2_9EA9			  ; code used at 8000
@@ -46853,7 +46855,7 @@ loc_BANK2_9528:					  ; CODE XREF: BANK2:9510j
       JSR     EnemyFindWhichSidePlayerIsOn	  ; code used at 8000
 
       INY					  ; code used at 8000
-      STY     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STY     EnemyMovementDirection,X		  ; code used at 8000
       LDA     EnemyArray_9F,X			  ; code used at 8000
       AND     #$3F ; '?'                          ; code used at 8000
       BNE     loc_BANK2_9562			  ; code used at 8000
@@ -47051,7 +47053,7 @@ CreateBullet:					  ; CODE XREF: BANK2:94E3p
 CreateBullet_WithSlotInY:			  ; CODE XREF: sub_BANK2_95E5+3j
       BMI     locret_BANK2_9606			  ; code used at 8000
 
-      LDY     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      LDY     EnemyMovementDirection,X		  ; code used at 8000
       LDX     byte_RAM_0			  ; code used at 8000
       LDA     BulletProjectileXSpeeds-1,Y	  ; code used at 8000
       STA     ObjectXAccel,X			  ; code used at 8000
@@ -47093,7 +47095,7 @@ CarryObject:					  ; CODE XREF: sub_BANK2_8010+C4p
       EOR     #1				  ; code used at 8000
       TAY					  ; code used at 8000
       INY					  ; code used at 8000
-      STY     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STY     EnemyMovementDirection,X		  ; code used at 8000
       LDA     PlayerXLo				  ; code used at 8000
       STA     ObjectXLo,X			  ; code used at 8000
       LDA     PlayerXHi				  ; code used at 8000
@@ -47335,7 +47337,7 @@ EnemyBehavior_SubspaceDoor:			  ; DATA XREF: BANK2:8AD0o
       LDA     #4				  ; code used at 8000
       STA     EnemyArray_489,X			  ; code used at 8000
       LDA     #2				  ; code used at 8000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STA     EnemyMovementDirection,X		  ; code used at 8000
       LDY     SubspaceTimer			  ; code used at 8000
       BEQ     loc_BANK2_9741			  ; code used at 8000
 
@@ -47368,7 +47370,7 @@ loc_BANK2_9741:					  ; CODE XREF: BANK2:9725j
       DEC     byte_RAM_4B3			  ; code used at 8000
       BNE     loc_BANK2_9753			  ; code used at 8000
 
-      JMP     MakeMushroomExplodeIntoPuffOfSmoke  ; code used at 8000
+      JMP     TurnIntoPuffOfSmoke		  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
@@ -47384,7 +47386,7 @@ loc_BANK2_9753:					  ; CODE XREF: BANK2:9749j
       BCC     loc_BANK2_9767			  ; code used at 8000
 
       INY					  ; code used at 8000
-      STY     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STY     EnemyMovementDirection,X		  ; code used at 8000
 
 
 loc_BANK2_9767:					  ; CODE XREF: BANK2:9762j
@@ -47397,7 +47399,7 @@ loc_BANK2_9767:					  ; CODE XREF: BANK2:9762j
 
       CPY     byte_RAM_F4			  ; code used at 8000
       PHP					  ; code used at 8000
-      LDA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      LDA     EnemyMovementDirection,X		  ; code used at 8000
       CMP     #1				  ; code used at 8000
       BNE     loc_BANK2_977F			  ; code used at 8000
 
@@ -47432,7 +47434,7 @@ loc_BANK2_979A:					  ; CODE XREF: BANK2:976Aj
 
       CPY     byte_RAM_F4			  ; code used at 8000
       PHP					  ; code used at 8000
-      LDA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      LDA     EnemyMovementDirection,X		  ; code used at 8000
       CMP     #1				  ; code used at 8000
       BNE     loc_BANK2_97AA			  ; code used at 8000
 
@@ -47663,7 +47665,7 @@ EnemyBehavior_Shell:				  ; DATA XREF: BANK2:8AC2o
 sub_BANK2_98A6:					  ; CODE XREF: BANK3:B860P
       LDA     #SoundEffect1_EnemyHit
       STA     SoundEffect1Queue
-      JMP     MakeMushroomExplodeIntoPuffOfSmoke
+      JMP     TurnIntoPuffOfSmoke
 
 ; End of function sub_BANK2_98A6
 
@@ -47680,7 +47682,7 @@ loc_BANK2_98AE:					  ; CODE XREF: BANK2:98A4j
 loc_BANK2_98B7:					  ; CODE XREF: BANK2:98B2j
       JSR     sub_BANK2_9B1B
 
-      LDY     EnemyMovementDirectionMaybe,X
+      LDY     EnemyMovementDirection,X
       LDA     locret_BANK2_9897,Y
       STA     ObjectXAccel,X
       JMP     sub_BANK2_8577
@@ -47851,7 +47853,7 @@ loc_BANK2_994F:					  ; CODE XREF: sub_BANK2_9937+12j
 loc_BANK2_995C:					  ; CODE XREF: sub_BANK2_9937+1Aj
 						  ; sub_BANK2_9937+1Fj
       STX     byte_RAM_E			  ; code used at 8000
-      JSR     MakeMushroomExplodeIntoPuffOfSmoke  ; code used at 8000
+      JSR     TurnIntoPuffOfSmoke		  ; code used at 8000
 
       LDX     byte_RAM_E			  ; code used at 8000
       JMP     loc_BANK2_9974			  ; code used at 8000
@@ -48289,7 +48291,7 @@ sub_BANK2_9AF2:					  ; CODE XREF: BANK2:EnemyBehavior_Albatossp
       LDA     SpriteTempScreenX			  ; code used at 8000
       ADC     #8				  ; code used at 8000
       STA     byte_RAM_1			  ; code used at 8000
-      LDA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      LDA     EnemyMovementDirection,X		  ; code used at 8000
       STA     byte_RAM_2			  ; code used at 8000
       LDA     #1				  ; code used at 8000
       STA     byte_RAM_3			  ; code used at 8000
@@ -48503,7 +48505,7 @@ sub_BANK2_9BB3:					  ; CODE XREF: BANK2:loc_BANK2_85ACj
       LDA     EnemyArray_46E,X			  ; code used at 8000
       AND     #$10				  ; code used at 8000
       STA     byte_RAM_B			  ; code used at 8000
-      LDY     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      LDY     EnemyMovementDirection,X		  ; code used at 8000
       LDA     ObjectAttributes,X		  ; code used at 8000
       AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_08|ObjAttrib_Mirrored ; code used at 8000
       BEQ     loc_BANK2_9BD2			  ; code used at 8000
@@ -48927,7 +48929,7 @@ loc_BANK2_9E06:					  ; CODE XREF: sub_BANK2_9B1B+31j
       LSR     A					  ; code used at 8000
       LSR     A					  ; code used at 8000
       STA     byte_RAM_0			  ; code used at 8000
-      LDA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      LDA     EnemyMovementDirection,X		  ; code used at 8000
       TAX					  ; code used at 8000
       LDA     locret_BANK2_9DF3,X		  ; code used at 8000
       ADC     byte_RAM_F4			  ; code used at 8000
@@ -49081,9 +49083,9 @@ sub_BANK2_9EA9:					  ; CODE XREF: BANK2:8C1Fp
       STA     ObjectXAccel,X			  ; code used at 8000
       BEQ     loc_BANK2_9EBA			  ; code used at 8000
 
-      LDA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      LDA     EnemyMovementDirection,X		  ; code used at 8000
       EOR     #3				  ; code used at 8000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at 8000
+      STA     EnemyMovementDirection,X		  ; code used at 8000
 
 
 loc_BANK2_9EBA:					  ; CODE XREF: sub_BANK2_9EA9+9j
@@ -49561,7 +49563,7 @@ loc_BANK3_A204:					  ; CODE XREF: BANK3:A200j
 loc_BANK3_A21C:					  ; CODE XREF: BANK3:A1F8j
 						  ; BANK3:A206j BANK3:A20Cj ...
       LDA     #2				  ; code used at a000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      STA     EnemyMovementDirection,X		  ; code used at a000
       TYA					  ; code used at a000
       JSR     sub_BANK2_9BB3			  ; code used at a000
 
@@ -49611,7 +49613,7 @@ loc_BANK3_A24D:					  ; CODE XREF: BANK3:A249j
       CMP     #$60 ; '`'                          ; code used at a000
       BCS     loc_BANK3_A262			  ; code used at a000
 
-      LSR     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      LSR     EnemyMovementDirection,X		  ; code used at a000
 
 
 loc_BANK3_A262:					  ; CODE XREF: BANK3:A25Ej
@@ -49798,7 +49800,7 @@ loc_BANK3_A344:					  ; CODE XREF: BANK3:A33Aj
 
 
 loc_BANK3_A354:					  ; CODE XREF: BANK3:A350j
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      STA     EnemyMovementDirection,X		  ; code used at a000
       LDA     byte_RAM_0			  ; code used at a000
       AND     #8				  ; code used at a000
       ASL     A					  ; code used at a000
@@ -49866,7 +49868,7 @@ loc_BANK3_A39B:					  ; CODE XREF: BANK3:A396j
       LDA     ObjectXAccel,X			  ; code used at a000
       BEQ     loc_BANK3_A3A5			  ; code used at a000
 
-      LDA     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      LDA     EnemyMovementDirection,X		  ; code used at a000
       AND     #1				  ; code used at a000
       STA     byte_RAM_9D			  ; code used at a000
 
@@ -50229,7 +50231,7 @@ sub_BANK3_A552:					  ; CODE XREF: BANK3:A38Cj
 loc_BANK3_A55F:					  ; CODE XREF: sub_BANK3_A552+9j
       TAY					  ; code used at a000
       LDA     byte_BANK3_A47B,Y			  ; code used at a000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      STA     EnemyMovementDirection,X		  ; code used at a000
       LDA     byte_BANK3_A47F,Y			  ; code used at a000
       JMP     sub_BANK2_9BB3			  ; code used at a000
 
@@ -50267,7 +50269,7 @@ loc_BANK3_A586:					  ; CODE XREF: BANK3:A581j
       JSR     sub_BANK3_B4FD			  ; code used at a000
 
       LDA     #2				  ; code used at a000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      STA     EnemyMovementDirection,X		  ; code used at a000
       JSR     sub_BANK2_9B1B			  ; code used at a000
 
       LDA     EnemyCollision,X			  ; code used at a000
@@ -50443,7 +50445,7 @@ loc_BANK3_A654:					  ; CODE XREF: sub_BANK2_9B1B+70J
       SEC					  ; code used at a000
       SBC     #2				  ; code used at a000
       STA     byte_RAM_0			  ; code used at a000
-      LDY     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      LDY     EnemyMovementDirection,X		  ; code used at a000
       LDA     byte_RAM_1			  ; code used at a000
       CLC					  ; code used at a000
       ADC     locret_BANK3_A651,Y		  ; code used at a000
@@ -50533,7 +50535,7 @@ loc_BANK3_A6E1:					  ; CODE XREF: BANK3:A6D8j
       JSR     sub_BANK3_B4FD			  ; code used at a000
 
       LDA     EnemyCollision,X			  ; code used at a000
-      AND     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      AND     EnemyMovementDirection,X		  ; code used at a000
       BEQ     loc_BANK3_A6ED			  ; code used at a000
 
       JSR     sub_BANK2_9EA9
@@ -51063,7 +51065,7 @@ loc_BANK3_A993:					  ; CODE XREF: BANK3:A98Cj
       JSR     EnemyFindWhichSidePlayerIsOn	  ; code used at a000
 
       INY					  ; code used at a000
-      STY     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      STY     EnemyMovementDirection,X		  ; code used at a000
       LDA     EnemyArray_B1,X			  ; code used at a000
       BNE     loc_BANK3_A9BC			  ; code used at a000
 
@@ -51647,7 +51649,7 @@ byte_BANK3_AC89:.BYTE $18			  ; DATA XREF: BANK3:AD1Ar
 
 EnemyBehavior_Fryguy:				  ; DATA XREF: BANK2:8AACo
       LDA     #2				  ; code used at a000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      STA     EnemyMovementDirection,X		  ; code used at a000
       INC     EnemyArray_9F,X			  ; code used at a000
       LDY     EnemyHP,X				  ; code used at a000
       DEY					  ; code used at a000
@@ -51779,13 +51781,13 @@ EnemyBehavior_FryguySplit:			  ; DATA XREF: BANK2:8AAEo
 
       LDA     #0				  ; code used at a000
       STA     EnemyArray_46E,X			  ; code used at a000
-      JMP     MakeMushroomExplodeIntoPuffOfSmoke  ; code used at a000
+      JMP     TurnIntoPuffOfSmoke		  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_AD59:					  ; CODE XREF: BANK3:AD4Cj
       LDA     #2				  ; code used at a000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      STA     EnemyMovementDirection,X		  ; code used at a000
       LDA     byte_RAM_10			  ; code used at a000
       STA     EnemyArray_44A,X			  ; code used at a000
       INC     EnemyArray_9F,X			  ; code used at a000
@@ -51940,9 +51942,11 @@ loc_BANK3_AE28:					  ; CODE XREF: BANK3:AE23j
 
       BMI     loc_BANK3_AE45
 
-      LDX     byte_RAM_0
-      LDA     #$27 ; '''
-      JSR     sub_BANK2_9004
+      LDX     byte_RAM_0			  ; X has the new enemy	index
+      LDA     #Enemy_AutobombFire
+      JSR     sub_BANK2_9004			  ; Set	the enemy type and attributes
+						  ; Bug: sets RAM $0!
+						  ; Should have	pushed it to stack instead.
 
       LDX     byte_RAM_0
       DEC     ObjectYLo,X
@@ -51960,7 +51964,7 @@ loc_BANK3_AE45:					  ; CODE XREF: BANK3:AE18j
 
 loc_BANK3_AE4B:					  ; CODE XREF: sub_BANK2_9B1B+3FJ
       LDA     EnemyState,X			  ; code used at a000
-      CMP     #1				  ; code used at a000
+      CMP     #EnemyState_Alive			  ; code used at a000
       BEQ     loc_BANK3_AE5C			  ; code used at a000
 
       LDA     #$C1 ; 'Á'                          ; code used at a000
@@ -51997,7 +52001,7 @@ loc_BANK3_AE7C:					  ; CODE XREF: BANK3:AE5Ej
       JSR     sub_BANK2_9BA7			  ; code used at a000
 
       LDA     #2				  ; code used at a000
-      STA     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      STA     EnemyMovementDirection,X		  ; code used at a000
       TYA					  ; code used at a000
       CLC					  ; code used at a000
       ADC     #8				  ; code used at a000
@@ -52189,7 +52193,7 @@ EnemyBehavior_Flurry:				  ; DATA XREF: BANK2:8AAAo
       JSR     sub_BANK3_B4FD			  ; code used at a000
 
       LDA     EnemyCollision,X			  ; code used at a000
-      AND     #3				  ; code used at a000
+      AND     #CollisionFlags_Right|CollisionFlags_Left	; code used at a000
       BEQ     loc_BANK3_AF8D			  ; code used at a000
 
       JSR     sub_BANK2_9EA9			  ; code used at a000
@@ -52197,7 +52201,7 @@ EnemyBehavior_Flurry:				  ; DATA XREF: BANK2:8AAAo
 
 loc_BANK3_AF8D:					  ; CODE XREF: BANK3:AF88j
       LDA     EnemyCollision,X			  ; code used at a000
-      AND     #4				  ; code used at a000
+      AND     #CollisionFlags_Down		  ; code used at a000
       BEQ     loc_BANK3_AFB4			  ; code used at a000
 
       LDA     ObjectYAccel,X			  ; code used at a000
@@ -52239,7 +52243,7 @@ loc_BANK3_AFBF:					  ; CODE XREF: BANK3:AFB8j
       JSR     EnemyFindWhichSidePlayerIsOn	  ; code used at a000
 
       INY					  ; code used at a000
-      STY     EnemyMovementDirectionMaybe,X	  ; code used at a000
+      STY     EnemyMovementDirection,X		  ; code used at a000
       LDA     byte_RAM_10			  ; code used at a000
       AND     #1				  ; code used at a000
       BNE     loc_BANK3_AFDA			  ; code used at a000
@@ -52336,7 +52340,7 @@ loc_BANK3_B03B:					  ; CODE XREF: BANK3:B025j
 
       DEC     EnemyArray_B1,X			  ; code used at a000
       LDA     PlayerState			  ; code used at a000
-      CMP     #6				  ; code used at a000
+      CMP     #PlayerState_HawkmouthEating	  ; code used at a000
       BNE     loc_BANK3_B060			  ; code used at a000
 
       LDA     #1				  ; code used at a000
@@ -52359,18 +52363,18 @@ locret_BANK3_B05F:				  ; CODE XREF: BANK3:B004j
 
 loc_BANK3_B060:					  ; CODE XREF: BANK3:B02Fj
 						  ; BANK3:B042j BANK3:B04Aj
-      LDA     EnemyArray_480,X			  ; code used at a000
+      LDA     EnemyArray_480,X			  ; Hawkmouth code?
       CMP     #$30 ; '0'                          ; code used at a000
       BNE     locret_BANK3_B09A			  ; code used at a000
 
       LDA     EnemyCollision,X			  ; code used at a000
-      AND     #CollisionFlags_PlayerInsideMaybe	  ; code used at a000
-      BEQ     locret_BANK3_B09A			  ; code used at a000
+      AND     #CollisionFlags_PlayerInsideMaybe	  ; Check if the player	is inside...
+      BEQ     locret_BANK3_B09A			  ; If not, return
 
-      LDA     HoldingItem			  ; code used at a000
-      BNE     locret_BANK3_B09A			  ; code used at a000
+      LDA     HoldingItem			  ; Check if the player	is holding something...
+      BNE     locret_BANK3_B09A			  ; If so, return
 
-      STA     PlayerCollision			  ; code used at a000
+      STA     PlayerCollision			  ; Otherwise, start eating the	player
       INC     EnemyArray_B1,X			  ; code used at a000
       INC     HawkmouthClosing			  ; code used at a000
       DEC     EnemyArray_480,X			  ; code used at a000
@@ -52394,7 +52398,7 @@ loc_BANK3_B060:					  ; CODE XREF: BANK3:B02Fj
 
 sub_BANK3_B095:					  ; CODE XREF: BANK3:B038p
 						  ; BANK3:B0AFp
-      LDA     #$80 ; '€'                          ; code used at a000
+      LDA     #SoundEffect1_HawkOpen_WartBarf	  ; code used at a000
       STA     SoundEffect1Queue			  ; code used at a000
 
 
@@ -52455,11 +52459,10 @@ loc_BANK3_B0D3:					  ; CODE XREF: BANK3:B0CFj
 
 loc_BANK3_B0E3:					  ; CODE XREF: BANK3:B0BDj
 						  ; BANK3:B0DBj
-						  ; DATA XREF: sub_BANK3_B0E8+1Er
       JMP     sub_BANK2_9430			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
-      .BYTE $F8	; ø
+byte_BANK3_B0E6:.BYTE $F8			  ; DATA XREF: sub_BANK3_B0E8+1Et
       .BYTE $10					  ; data used at a000
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -52484,7 +52487,7 @@ sub_BANK3_B0E8:					  ; CODE XREF: sub_BANK2_9B1B+22J
       LDX     byte_RAM_2			  ; code used at a000
       LDA     SpriteTempScreenX			  ; code used at a000
       CLC					  ; code used at a000
-      ADC     loc_BANK3_B0E3+2,X		  ; code used at a000
+      ADC     byte_BANK3_B0E6-1,X		  ; code used at a000
       PHA					  ; code used at a000
       PHP					  ; code used at a000
       DEX					  ; code used at a000
@@ -52769,7 +52772,7 @@ loc_BANK3_B269:					  ; CODE XREF: BANK3:B258j
       LDA     ObjectYLo,X			  ; code used at a000
       ADC     #8				  ; code used at a000
       STA     ObjectYLo,X			  ; code used at a000
-      JSR     MakeMushroomExplodeIntoPuffOfSmoke  ; code used at a000
+      JSR     TurnIntoPuffOfSmoke		  ; code used at a000
 
 
 loc_BANK3_B295:					  ; CODE XREF: BANK3:B276j
@@ -54178,7 +54181,7 @@ loc_BANK3_BA33:
 
       INY
       TYA
-      CMP     EnemyMovementDirectionMaybe,X
+      CMP     EnemyMovementDirection,X
       BEQ     loc_BANK3_BA48
 
       JSR     sub_BANK2_9EA9
@@ -55278,8 +55281,6 @@ StartProcessingSoundQueue:			  ; CODE XREF: DoSoundProcessing+5P
 
       LDA     #$C				  ; Mute the two square	channels
 						  ; (TODO: Bitmask pls)
-
-loc_BANK4_800E:
       STA     SND_CHN
       JMP     ProcessOnlyMusicQueue2		  ; You	would think you	could skip processing,
 						  ; since if the game is paused, nothing should
@@ -55517,19 +55518,20 @@ loc_BANK4_8107:					  ; CODE XREF: ProcessSoundEffectQueue2+42j
       BCS     loc_BANK4_80D3
 
       TAY
-      LDA     loc_BANK4_8117+2,Y
+      LDA     MushroomSoundData-1,Y
       LDX     #$5D ; ']'
       LDY     #$7F ; ''
       JSR     sub_BANK4_86C8
 
 
-loc_BANK4_8117:					  ; DATA XREF: ProcessSoundEffectQueue2+95r
+loc_BANK4_8117:
       JMP     loc_BANK4_80D3
 
 ; End of function ProcessSoundEffectQueue2
 
 ; ---------------------------------------------------------------------------
 MushroomSoundData:.BYTE	$6A, $74, $6A, $64, $5C, $52, $5C, $52,	$4C, $44, $66, $70, $66, $60, $58, $4E;	0
+						  ; DATA XREF: ProcessSoundEffectQueue2+95t
       .BYTE $58, $4E, $48, $40,	$56, $60, $56, $50, $48, $3E, $48, $3E,	$38, $30; $10
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -55786,13 +55788,13 @@ loc_BANK4_831C:					  ; CODE XREF: ProcessDPCMQueue+21j
       LSR     A					  ; code used at 8000
       BCC     loc_BANK4_831C			  ; code used at 8000
 
-      LDA     DMCFreqTable,Y			  ; code used at 8000
+      LDA     DMCFreqTable-1,Y			  ; code used at 8000
       STA     DMC_FREQ				  ; code used at 8000
 
 loc_BANK4_8326:					  ; code used at 8000
-      LDA     locret_BANK4_8341,Y
+      LDA     DMCStartTable-1,Y
       STA     DMC_START				  ; code used at 8000
-      LDA     DMCLengthTable,Y			  ; code used at 8000
+      LDA     DMCLengthTable-1,Y		  ; code used at 8000
       STA     DMC_LEN				  ; code used at 8000
       LDA     #$A0 ; ' '                          ; code used at 8000
       STA     byte_RAM_60A			  ; code used at 8000
@@ -55800,15 +55802,13 @@ loc_BANK4_8326:					  ; code used at 8000
       STA     SND_CHN				  ; code used at 8000
       LDA     #$1F				  ; code used at 8000
       STA     SND_CHN				  ; code used at 8000
-
-
-locret_BANK4_8341:				  ; DATA XREF: ProcessDPCMQueue:loc_BANK4_8326r
       RTS					  ; code used at 8000
 
 ; End of function ProcessDPCMQueue
 
 ; ---------------------------------------------------------------------------
-DMCStartTable:.BYTE $4F				  ; @TODO
+DMCStartTable:.BYTE $4F				  ; DATA XREF: ProcessDPCMQueue:loc_BANK4_8326t
+						  ; @TODO
 						  ; It seems that the references to these tables are off by one	byte, maybe intentionally?
 						  ; Need to fix	this in	the final disassembly
       .BYTE $60					  ; data used at 8000
@@ -55817,16 +55817,18 @@ DMCStartTable:.BYTE $4F				  ; @TODO
       .BYTE $31					  ; data used at 8000
       .BYTE $60					  ; data used at 8000
       .BYTE $E					  ; data used at 8000
-DMCLengthTable:.BYTE $1D			  ; DATA XREF: ProcessDPCMQueue+2Fr
-      .BYTE $43					  ; data used at 8000
+      .BYTE $1D
+DMCLengthTable:.BYTE $43			  ; DATA XREF: ProcessDPCMQueue+2Ft
+						  ; data used at 8000
       .BYTE $14					  ; data used at 8000
       .BYTE $10					  ; data used at 8000
       .BYTE $38					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
       .BYTE $28					  ; data used at 8000
       .BYTE $3C					  ; data used at 8000
-DMCFreqTable:.BYTE $50 ; P			  ; DATA XREF: ProcessDPCMQueue+23r
-      .BYTE $E					  ; data used at 8000
+      .BYTE $50	; P
+DMCFreqTable:.BYTE $E				  ; DATA XREF: ProcessDPCMQueue+23t
+						  ; data used at 8000
       .BYTE $E					  ; data used at 8000
       .BYTE $F					  ; data used at 8000
       .BYTE $F					  ; data used at 8000
@@ -55937,19 +55939,19 @@ loc_BANK4_83D3:					  ; CODE XREF: ProcessMusicQueue2+74j
 
 
 loc_BANK4_83D7:					  ; CODE XREF: ProcessMusicQueue2+5Aj
-      LDA     unk_BANK4_8FFF,Y			  ; code used as data at 8000
+      LDA     MusicPartPointers-1,Y		  ; code used as data at 8000
       TAY					  ; code used as data at 8000
       LDA     MusicPartPointers,Y		  ; code used as data at 8000
       STA     MusicTempoSetting			  ; code used as data at 8000
-      LDA     byte_BANK4_9001,Y			  ; code used at 8000
-      STA     byte_RAM_BB			  ; code used at 8000
-      LDA     unk_BANK4_9002,Y			  ; code used at 8000
-      STA     byte_RAM_BC			  ; code used at 8000
-      LDA     byte_BANK4_9003,Y			  ; code used at 8000
+      LDA     MusicPartPointers+1,Y		  ; code used at 8000
+      STA     CurrentMusicPointer		  ; code used at 8000
+      LDA     MusicPartPointers+2,Y		  ; code used at 8000
+      STA     CurrentMusicPointer+1		  ; code used at 8000
+      LDA     MusicPartPointers+3,Y		  ; code used at 8000
       STA     byte_RAM_615			  ; code used at 8000
-      LDA     unk_BANK4_9004,Y			  ; code used at 8000
+      LDA     MusicPartPointers+4,Y		  ; code used at 8000
       STA     byte_RAM_614			  ; code used at 8000
-      LDA     byte_BANK4_9005,Y			  ; code used at 8000
+      LDA     MusicPartPointers+5,Y		  ; code used at 8000
       STA     byte_RAM_616			  ; code used at 8000
       STA     byte_RAM_5F5			  ; code used at 8000
       STA     byte_RAM_5FF			  ; code used at 8000
@@ -55975,7 +55977,7 @@ loc_BANK4_8429:					  ; CODE XREF: BANK4:loc_BANK4_835Bj
 
       LDY     byte_RAM_613			  ; code used at 8000
       INC     byte_RAM_613			  ; code used at 8000
-      LDA     (byte_RAM_BB),Y			  ; code used at 8000
+      LDA     (CurrentMusicPointer),Y		  ; code used at 8000
       BEQ     loc_BANK4_843C			  ; code used at 8000
 
       BPL     loc_BANK4_847D			  ; code used at 8000
@@ -56036,7 +56038,7 @@ loc_BANK4_8468:					  ; CODE XREF: ProcessMusicQueue2+D9j
       STA     byte_RAM_617			  ; code used at 8000
       LDY     byte_RAM_613			  ; code used at 8000
       INC     byte_RAM_613			  ; code used at 8000
-      LDA     (byte_RAM_BB),Y			  ; code used at 8000
+      LDA     (CurrentMusicPointer),Y		  ; code used at 8000
 
 
 loc_BANK4_847D:					  ; CODE XREF: ProcessMusicQueue2+D7j
@@ -56099,7 +56101,7 @@ loc_BANK4_84BF:					  ; CODE XREF: ProcessMusicQueue2+143j
 loc_BANK4_84C4:					  ; CODE XREF: ProcessMusicQueue2+192j
       LDY     byte_RAM_614			  ; code used at 8000
       INC     byte_RAM_614			  ; code used at 8000
-      LDA     (byte_RAM_BB),Y			  ; code used at 8000
+      LDA     (CurrentMusicPointer),Y		  ; code used at 8000
       BPL     loc_BANK4_84E3			  ; code used at 8000
 
       TAX					  ; code used at 8000
@@ -56111,7 +56113,7 @@ loc_BANK4_84C4:					  ; CODE XREF: ProcessMusicQueue2+192j
       STA     byte_RAM_5ED			  ; code used at 8000
       LDY     byte_RAM_614			  ; code used at 8000
       INC     byte_RAM_614			  ; code used at 8000
-      LDA     (byte_RAM_BB),Y			  ; code used at 8000
+      LDA     (CurrentMusicPointer),Y		  ; code used at 8000
 
 
 loc_BANK4_84E3:					  ; CODE XREF: ProcessMusicQueue2+16Bj
@@ -56192,7 +56194,7 @@ loc_BANK4_853B:					  ; CODE XREF: ProcessMusicQueue2+1BAj
 
       LDY     byte_RAM_615			  ; code used at 8000
       INC     byte_RAM_615			  ; code used at 8000
-      LDA     (byte_RAM_BB),Y			  ; code used at 8000
+      LDA     (CurrentMusicPointer),Y		  ; code used at 8000
       BEQ     loc_BANK4_8582			  ; code used at 8000
 
       BPL     loc_BANK4_8566			  ; code used at 8000
@@ -56204,7 +56206,7 @@ loc_BANK4_853B:					  ; CODE XREF: ProcessMusicQueue2+1BAj
       STA     TRI_LINEAR			  ; code used at 8000
       LDY     byte_RAM_615			  ; code used at 8000
       INC     byte_RAM_615			  ; code used at 8000
-      LDA     (byte_RAM_BB),Y			  ; code used at 8000
+      LDA     (CurrentMusicPointer),Y		  ; code used at 8000
       BEQ     loc_BANK4_8582			  ; code used at 8000
 
 
@@ -56259,7 +56261,7 @@ loc_BANK4_8585:					  ; CODE XREF: ProcessMusicQueue2+1DDj
 loc_BANK4_8596:					  ; CODE XREF: ProcessMusicQueue2+274j
       LDY     byte_RAM_616			  ; code used at 8000
       INC     byte_RAM_616			  ; code used at 8000
-      LDA     (byte_RAM_BB),Y			  ; code used at 8000
+      LDA     (CurrentMusicPointer),Y		  ; code used at 8000
       BEQ     loc_BANK4_85CF			  ; code used at 8000
 
       BPL     loc_BANK4_85B2			  ; code used at 8000
@@ -56269,7 +56271,7 @@ loc_BANK4_8596:					  ; CODE XREF: ProcessMusicQueue2+274j
       STA     byte_RAM_61F			  ; code used at 8000
       LDY     byte_RAM_616			  ; code used at 8000
       INC     byte_RAM_616			  ; code used at 8000
-      LDA     (byte_RAM_BB),Y			  ; code used at 8000
+      LDA     (CurrentMusicPointer),Y		  ; code used at 8000
       BEQ     loc_BANK4_85CF			  ; code used at 8000
 
 
@@ -56321,7 +56323,7 @@ loc_BANK4_85E0:					  ; CODE XREF: ProcessMusicQueue2+229j
 loc_BANK4_85EA:					  ; CODE XREF: ProcessMusicQueue2+2B9j
       LDY     byte_RAM_5FF			  ; code used at 8000
       INC     byte_RAM_5FF			  ; code used at 8000
-      LDA     (byte_RAM_BB),Y			  ; code used at 8000
+      LDA     (CurrentMusicPointer),Y		  ; code used at 8000
       BEQ     loc_BANK4_8614			  ; code used at 8000
 
       BPL     loc_BANK4_8606			  ; code used at 8000
@@ -56331,7 +56333,7 @@ loc_BANK4_85EA:					  ; CODE XREF: ProcessMusicQueue2+2B9j
       STA     byte_RAM_5FB			  ; code used at 8000
       LDY     byte_RAM_5FF			  ; code used at 8000
       INC     byte_RAM_5FF			  ; code used at 8000
-      LDA     (byte_RAM_BB),Y			  ; code used at 8000
+      LDA     (CurrentMusicPointer),Y		  ; code used at 8000
       BEQ     loc_BANK4_8614			  ; code used at 8000
 
 
@@ -56862,66 +56864,18 @@ _unused_BANK4_8FB3:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$40
-unk_BANK4_8FFF:.BYTE $FF			  ; DATA XREF: ProcessMusicQueue2:loc_BANK4_83D7r
-MusicPartPointers:.BYTE	$99 ; ™			  ; DATA XREF: ProcessMusicQueue2+7Ar
-byte_BANK4_9001:.BYTE $8E			  ; DATA XREF: ProcessMusicQueue2+80r
-						  ; data used at 8000
-unk_BANK4_9002:.BYTE $84 ; „			  ; DATA XREF: ProcessMusicQueue2+85r
-byte_BANK4_9003:.BYTE $A4			  ; DATA XREF: ProcessMusicQueue2+8Ar
-						  ; data used at 8000
-unk_BANK4_9004:.BYTE $89 ; ‰			  ; DATA XREF: ProcessMusicQueue2+90r
-byte_BANK4_9005:.BYTE $84			  ; DATA XREF: ProcessMusicQueue2+96r
-						  ; @TODO Figure out the format	of this	stuff
-      .BYTE $99					  ; data used at 8000
-      .BYTE $2A					  ; data used at 8000
-      .BYTE $30					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $30					  ; data used at 8000
-      .BYTE $3C					  ; data used at 8000
-      .BYTE $42					  ; data used at 8000
-      .BYTE $A9					  ; data used at 8000
-      .BYTE $9E					  ; data used at 8000
-      .BYTE $93					  ; data used at 8000
-      .BYTE $48					  ; data used at 8000
-      .BYTE $4E					  ; data used at 8000
-      .BYTE $54					  ; data used at 8000
-      .BYTE $5A					  ; data used at 8000
-      .BYTE $54					  ; data used at 8000
-      .BYTE $60					  ; data used at 8000
-      .BYTE $66					  ; data used at 8000
-      .BYTE $72					  ; data used at 8000
-      .BYTE $78					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $B5					  ; data used at 8000
-      .BYTE $AF					  ; data used at 8000
-      .BYTE $BB					  ; data used at 8000
-      .BYTE $C1					  ; data used at 8000
-      .BYTE $C7					  ; data used at 8000
-      .BYTE $CD	; Í
-      .BYTE $D3	; Ó
-      .BYTE $CD	; Í
-      .BYTE $D9	; Ù
-      .BYTE $DF					  ; data used at 8000
-      .BYTE $EB					  ; data used at 8000
-      .BYTE $E5					  ; data used at 8000
-      .BYTE $F7					  ; data used at 8000
-      .BYTE $F1					  ; data used at 8000
-      .BYTE $FD					  ; data used at 8000
-      .BYTE $6C					  ; data used at 8000
-MusicPartHeaders:.BYTE 0			  ; data used at 8000
-      .BYTE $AD					  ; data used at 8000
-      .BYTE $98					  ; data used at 8000
-      .BYTE $6B					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $A0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $5C					  ; data used at 8000
-      .BYTE $99					  ; data used at 8000
-      .BYTE $8E					  ; data used at 8000
-      .BYTE $48					  ; data used at 8000
-      .BYTE $B0					  ; data used at 8000
-      .BYTE 0					  ; data used at 8000
-      .BYTE $9A					  ; data used at 8000
+      .BYTE $FF
+MusicPartPointers:.BYTE	$99,$8E,$84,$A4,$89,$84,$99
+						  ; DATA XREF: ProcessMusicQueue2:loc_BANK4_83D7t
+						  ; ProcessMusicQueue2+7Ar
+						  ; ProcessMusicQueue2+80r ...
+      .BYTE $2A,$30,$36,$30,$3C,$42,$A9
+      .BYTE $9E,$93,$48,$4E,$54,$5A,$54
+      .BYTE $60,$66,$72,$78,$7E,$B5,$AF
+      .BYTE $BB,$C1,$C7,$CD,$D3,$CD,$D9
+      .BYTE $DF,$EB,$E5,$F7,$F1,$FD,$6C
+      .BYTE 0,$AD,$98,$6B,$36,$A0,0
+      .BYTE $5C,$99,$8E,$48,$B0,0,$9A
       .BYTE $99					  ; data used at 8000
       .BYTE $6F					  ; data used at 8000
       .BYTE $48					  ; data used at 8000
