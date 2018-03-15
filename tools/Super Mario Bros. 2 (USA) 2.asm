@@ -546,7 +546,7 @@ PlayerCollision:.BYTE 0	; (uninited)		  ; DATA XREF: BANK0:8BD2r
 						  ; sub_BANK0_8EFA+2Br	...
 EnemyCollision:.BYTE 0 ; (uninited)			   ; 0 ; DATA XREF: BANK0:90EFw
 						  ; EnemyInit_Basic_Bank1+16w
-						  ; EnemyInit_BasicWithoutBombTimer+12w ...
+						  ; EnemyInit_BasicWithoutTimer+12w ...
       .BYTE 0 ;	(uninited)			  ; 1
       .BYTE 0 ;	(uninited)			  ; 2
       .BYTE 0 ;	(uninited)			  ; 3
@@ -574,7 +574,7 @@ PlayerMovementDirection:.BYTE 0	; (uninited)	  ; DATA XREF: sub_BANK0_8EFA:loc_B
 						  ; sub_BANK0_9316+1Fr	...
 						  ; 02 if moving left, 01 otherwise?
 EnemyMovementDirection:.BYTE 0 ; (uninited)			   ; 0
-						  ; DATA XREF: EnemyInit_BasicWithoutBombTimer+35w
+						  ; DATA XREF: EnemyInit_BasicWithoutTimer+35w
 						  ; BANK2:859Bw BANK2:85DFw ...
       .BYTE 0 ;	(uninited)			  ; 1
       .BYTE 0 ;	(uninited)			  ; 2
@@ -1777,7 +1777,7 @@ byte_RAM_446:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK2_8010+92w
       ;	0 .BYTE	uninited & unexplored
 EnemyArray_44A:; 0 .BYTE uninited & unexplored	  ; DATA XREF: sub_BANK1_B948r
 						  ; EnemyInit_Basic_Bank1+13w
-						  ; EnemyInit_BasicWithoutBombTimer+Fw	...
+						  ; EnemyInit_BasicWithoutTimer+Fw ...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -1813,7 +1813,7 @@ unk_RAM_464:; 0	.BYTE uninited & unexplored	  ; DATA XREF: BANK3:B9AEr
 						  ; sub_BANK3_BA5D:loc_BANK3_BA6Fw
 EnemyHP:.BYTE 0	; (uninited)			    ; 0
 						  ; DATA XREF: EnemyInit_Basic_Bank1+2Dw
-						  ; EnemyInit_BasicWithoutBombTimer+29w
+						  ; EnemyInit_BasicWithoutTimer+29w
 						  ; EnemyInit_Birdo+1Aw ...
       .BYTE 0 ;	(uninited)			  ; 1
       .BYTE 0 ;	(uninited)			  ; 2
@@ -1826,7 +1826,7 @@ unk_RAM_46D:; 0	.BYTE uninited & unexplored	  ; DATA XREF: sub_BANK3_B5CC+D0r
 						  ; sub_BANK3_BA5D+8r
 EnemyArray_46E:; 0 .BYTE uninited & unexplored	  ; DATA XREF: EnemyInit_Basic_Bank1+40w
 						  ; SetEnemyAttributes+Cw
-						  ; EnemyInit_BasicWithoutBombTimer+3Cr ...
+						  ; EnemyInit_BasicWithoutTimer+3Cr ...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -1847,7 +1847,7 @@ EnemyArray_477:; 0 .BYTE uninited & unexplored	  ; DATA XREF: sub_BANK1_B960+32
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
 EnemyArray_480:; 0 .BYTE uninited & unexplored	  ; DATA XREF: EnemyInit_Basic_Bank1+2Aw
-						  ; EnemyInit_BasicWithoutBombTimer+26w
+						  ; EnemyInit_BasicWithoutTimer+26w
 						  ; BANK2:8D3Fw ...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -1987,7 +1987,7 @@ byte_RAM_4CB:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8EA6+3r
 						  ; sub_BANK0_8EFA+71w	...
 EnemyArray_4CC:; 0 .BYTE uninited & unexplored	  ; DATA XREF: sub_BANK1_B90C+3r
 						  ; EnemyInit_Basic_Bank1+1Ew
-						  ; EnemyInit_BasicWithoutBombTimer+1Aw ...
+						  ; EnemyInit_BasicWithoutTimer+1Aw ...
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -2000,7 +2000,7 @@ byte_RAM_4D5:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8EFA+20r
 						  ; sub_BANK0_8EFA+84w
 						  ; sub_BANK3_BA95+8Aw
 EnemyArray_4D6:; 0 .BYTE uninited & unexplored	  ; DATA XREF: EnemyInit_Basic_Bank1+21w
-						  ; EnemyInit_BasicWithoutBombTimer+1Dw
+						  ; EnemyInit_BasicWithoutTimer+1Dw
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
       ;	0 .BYTE	uninited & unexplored
@@ -42176,7 +42176,7 @@ loc_BANK1_BB1F:					  ; CODE XREF: CreateEnemy_TryAllSlots_Bank1+9j
 
 ; ---------------------------------------------------------------------------
 ; [000004AE BYTES: BEGIN OF AREA UNUSED_empty_3B52. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_3B52:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_unused_BANK1_BB52:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -42360,7 +42360,7 @@ loc_BANK2_808D:					  ; CODE XREF: sub_BANK2_8010+76j
       BEQ     loc_BANK2_8106			  ; code used at 8000
 
       STA     ObjectType,X			  ; code used at 8000
-      LDY     #1				  ; code used at 8000
+      LDY     #EnemyState_Alive			  ; code used at 8000
       STY     EnemyState+5			  ; code used at 8000
       LDY     #$FF				  ; code used at 8000
       STY     byte_RAM_446			  ; code used at 8000
@@ -42395,15 +42395,15 @@ loc_BANK2_80C7:					  ; CODE XREF: sub_BANK2_8010+97j
       JSR     CarryObject			  ; code used at 8000
 
       PLA					  ; code used at 8000
-      CMP     #$3D ; '='                          ; code used at 8000
+      CMP     #Enemy_Key			  ; code used at 8000
       BNE     loc_BANK2_8106			  ; code used at 8000
 
       INC     EnemyVariable,X			  ; code used at 8000
       DEX					  ; code used at 8000
       STX     byte_RAM_12			  ; code used at 8000
-      LDA     #1				  ; code used at 8000
+      LDA     #EnemyState_Alive			  ; code used at 8000
       STA     EnemyState,X			  ; code used at 8000
-      LDA     #$17				  ; code used at 8000
+      LDA     #Enemy_Phanto			  ; code used at 8000
       STA     ObjectType,X			  ; code used at 8000
       JSR     EnemyInit_Basic			  ; code used at 8000
 
@@ -43131,7 +43131,7 @@ EnemyInitializationTable:.WORD EnemyInit_Basic
 
 
 SetEnemyAttributes:				  ; CODE XREF: sub_BANK2_8010+A7p
-						  ; EnemyInit_BasicWithoutBombTimer:loc_BANK2_848Fp
+						  ; EnemyInit_BasicWithoutTimer:loc_BANK2_848Fp
 						  ; BANK2:8B7Ap ...
       LDY     ObjectType,X			  ; code used at 8000
       LDA     ObjectAttributeTable,Y		  ; code used at 8000
@@ -43164,7 +43164,7 @@ EnemyInit_Basic:				  ; CODE XREF: sub_BANK2_8010+BBp
 
 ; Enemy	initializing (sets most	stuff to 0)
 
-EnemyInit_BasicWithoutBombTimer:		  ; CODE XREF: sub_BANK2_8670+11Fp
+EnemyInit_BasicWithoutTimer:			  ; CODE XREF: sub_BANK2_8670+11Fp
 						  ; BANK2:loc_BANK2_95B8p
 						  ; BANK2:95C7p
       LDA     #0
@@ -43210,10 +43210,10 @@ loc_BANK2_8495:					  ; CODE XREF: BANK2:8B88p
       ASL     ObjectXAccel,X			  ; Change the speed of	certain	objects?
 
 
-locret_BANK2_84A6:				  ; CODE XREF: EnemyInit_BasicWithoutBombTimer+41j
+locret_BANK2_84A6:				  ; CODE XREF: EnemyInit_BasicWithoutTimer+41j
       RTS					  ; code used at 8000
 
-; End of function EnemyInit_BasicWithoutBombTimer
+; End of function EnemyInit_BasicWithoutTimer
 
 ; ---------------------------------------------------------------------------
 BeezoXOffsetTable:.BYTE	$FE			  ; DATA XREF: BANK2:84C1t
@@ -43301,7 +43301,7 @@ loc_BANK2_84FA:					  ; DATA XREF: BANK2:8246o
 
 loc_BANK2_8500:					  ; code used at 8000
       LDA     EnemyState,X
-      BNE     loc_BANK2_856F			  ; code used at 8000
+      BNE     MakeEnemyFlipUpsideDown		  ; code used at 8000
 
       LDA     unk_RAM_49B,X			  ; code used at 8000
       BEQ     EnemyDeathMaybe			  ; code used at 8000
@@ -43340,22 +43340,22 @@ loc_BANK2_852D:					  ; CODE XREF: BANK2:8529j
 
 EnemyDeathMaybe:				  ; CODE XREF: BANK2:8507j
       LDA     ObjectType,X			  ; code used at 8000
-      CMP     #$1B				  ; "Stray bullet" enemy type
-      BEQ     loc_BANK2_856F			  ; code used at 8000
+      CMP     #Enemy_Bullet			  ; "Stray bullet" enemy type
+      BEQ     MakeEnemyFlipUpsideDown		  ; code used at 8000
 
       INC     EnemiesKilledForHeart		  ; code used at 8000
       LDY     EnemiesKilledForHeart		  ; code used at 8000
       CPY     #8				  ; code used at 8000
-      BCC     loc_BANK2_856F			  ; code used at 8000
+      BCC     MakeEnemyFlipUpsideDown		  ; code used at 8000
 
-      LDA     #0				  ; code used at 8000
+      LDA     #0				  ; This spawns	a heart	for killing 8 enemies
       STA     EnemiesKilledForHeart		  ; code used at 8000
-      LDA     #1				  ; code used at 8000
+      LDA     #EnemyState_Alive			  ; code used at 8000
       STA     EnemyState,X			  ; code used at 8000
       STA     ObjectAttributes,X		  ; code used at 8000
       LDA     #7				  ; code used at 8000
       STA     EnemyArray_46E,X			  ; code used at 8000
-      LDA     #0				  ; $00	= Heart
+      LDA     #Enemy_Heart			  ; $00	= Heart
       STA     ObjectType,X			  ; code used at 8000
       LDA     ObjectYLo,X			  ; code used at 8000
       SBC     #$60 ; '`'                          ; code used at 8000
@@ -43378,17 +43378,17 @@ sub_BANK2_8569:					  ; CODE XREF: sub_BANK2_8010+F3p
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_856F:					  ; CODE XREF: BANK2:8502j
+MakeEnemyFlipUpsideDown:			  ; CODE XREF: BANK2:8502j
 						  ; BANK2:853Dj BANK2:8547j
-      ASL     ObjectAttributes,X		  ; code used at 8000
-      SEC					  ; code used at 8000
-      ROR     ObjectAttributes,X		  ; code used at 8000
+      ASL     ObjectAttributes,X		  ; Shift left...
+      SEC					  ; Set	carry...
+      ROR     ObjectAttributes,X		  ; Shift right. Effectively sets $80 bit
 
 
 loc_BANK2_8574:					  ; CODE XREF: BANK2:8D09j
 						  ; sub_BANK2_9289+Dj
 						  ; sub_BANK2_98D6+7j
-      JSR     sub_BANK2_9B1B			  ; code used at 8000
+      JSR     RenderSprite			  ; code used at 8000
 
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -43515,7 +43515,7 @@ byte_BANK2_85EC:.BYTE $10			  ; data used at 8000
 byte_BANK2_85EF:.BYTE $F8			  ; DATA XREF: BANK2:861Cr
 						  ; data used at 8000
       .BYTE $F8					  ; data used at 8000
-EnemyInitialAccelerationTable:.BYTE 8		  ; DATA XREF: EnemyInit_BasicWithoutBombTimer+37r
+EnemyInitialAccelerationTable:.BYTE 8		  ; DATA XREF: EnemyInit_BasicWithoutTimer+37r
 						  ; data used at 8000
       .BYTE 8					  ; data used at 8000
       .BYTE $F8					  ; data used at 8000
@@ -43832,7 +43832,7 @@ loc_BANK2_8785:					  ; CODE XREF: sub_BANK2_8670+112j
       STA     ObjectYLo,X			  ; code used at 8000
       LDA     byte_RAM_F			  ; code used at 8000
       STA     ObjectYHi,X			  ; code used at 8000
-      JSR     EnemyInit_BasicWithoutBombTimer	  ; code used at 8000
+      JSR     EnemyInit_BasicWithoutTimer	  ; code used at 8000
 
       JSR     sub_BANK2_98C4			  ; code used at 8000
 
@@ -44346,7 +44346,7 @@ loc_BANK2_8A04:					  ; CODE XREF: BANK2:89FDj
 
 
 loc_BANK2_8A07:					  ; CODE XREF: BANK2:89D6j
-      JMP     sub_BANK2_9B1B			  ; code used at 8000
+      JMP     RenderSprite			  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
@@ -44543,7 +44543,7 @@ EnemyBehavior_Spark:				  ; DATA XREF: BANK2:8AB4o
 
       JSR     sub_BANK2_8B5B			  ; code used at 8000
 
-      JSR     sub_BANK2_9B1B			  ; code used at 8000
+      JSR     RenderSprite			  ; code used at 8000
 
       LDA     ObjectXLo,X			  ; code used at 8000
       ORA     ObjectYLo,X			  ; code used at 8000
@@ -44737,7 +44737,7 @@ EnemyBehavior_Fireball:				  ; DATA XREF: BANK2:8A98o
 
       JSR     sub_BANK2_997A			  ; code used at 8000
 
-      JSR     sub_BANK2_9B1B			  ; code used at 8000
+      JSR     RenderSprite			  ; code used at 8000
 
       LDA     EnemyVariable,X			  ; code used at 8000
       BNE     loc_BANK2_8BF7			  ; code used at 8000
@@ -44869,7 +44869,7 @@ loc_BANK2_8C7C:					  ; CODE XREF: BANK2:8C43j
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8C8E:					  ; CODE XREF: BANK2:8C3Fj
-      JMP     sub_BANK2_9B1B			  ; code used at 8000
+      JMP     RenderSprite			  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
@@ -45347,7 +45347,7 @@ loc_BANK2_8EB6:					  ; CODE XREF: BANK2:loc_BANK2_8EA3j
       JSR     sub_BANK2_9430			  ; code used at 8000
 
       INC     ObjectYAccel,X			  ; code used at 8000
-      JMP     sub_BANK2_9B1B			  ; code used at 8000
+      JMP     RenderSprite			  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_8EBE:.BYTE $FA			  ; DATA XREF: BANK2:loc_BANK2_8EF3r
@@ -45364,7 +45364,7 @@ EnemyBehavior_Hoopstar:				  ; DATA XREF: BANK2:8A80o
       INC     EnemyArray_9F,X			  ; code used at 8000
       JSR     sub_BANK2_98CD			  ; code used at 8000
 
-      JSR     sub_BANK2_9B1B			  ; code used at 8000
+      JSR     RenderSprite			  ; code used at 8000
 
       JSR     sub_BANK2_98D6			  ; code used at 8000
 
@@ -45441,7 +45441,7 @@ loc_BANK2_8F1E:					  ; CODE XREF: BANK2:8F1Aj
       JSR     sub_BANK2_9430			  ; code used at 8000
 
 
-loc_BANK2_8F27:					  ; CODE XREF: sub_BANK2_9B1B+69j
+loc_BANK2_8F27:					  ; CODE XREF: RenderSprite+69j
       LDA     byte_RAM_EE			  ; code used at 8000
       AND     #8				  ; code used at 8000
       ORA     byte_RAM_EF			  ; code used at 8000
@@ -45529,7 +45529,7 @@ EnemyBehavior_Birdo:				  ; DATA XREF: BANK2:8A90o
 
       INY					  ; code used at 8000
       STY     EnemyMovementDirection,X		  ; code used at 8000
-      JSR     sub_BANK2_9B1B			  ; code used at 8000
+      JSR     RenderSprite			  ; code used at 8000
 
       LDA     EnemyCollision,X			  ; code used at 8000
       AND     #CollisionFlags_Down		  ; code used at 8000
@@ -45657,7 +45657,7 @@ sub_BANK2_9004:					  ; CODE XREF: BANK2:9000j
 
 loc_BANK2_901B:					  ; CODE XREF: BANK2:8FC0j
 						  ; BANK2:8FD7j BANK2:8FE1j
-      JMP     sub_BANK2_9B1B			  ; code used at 8000
+      JMP     RenderSprite			  ; code used at 8000
 
 ; End of function sub_BANK2_9004
 
@@ -45911,7 +45911,7 @@ EnemyBehavior_Vegetable:			  ; CODE XREF: BANK2:90FFj
       JSR     sub_BANK2_8577			  ; code used at 8000
 
 
-loc_BANK2_9137:					  ; CODE XREF: sub_BANK2_9B1B+38j
+loc_BANK2_9137:					  ; CODE XREF: RenderSprite+38j
       LDA     EnemyArray_B1,X			  ; code used at 8000
       BNE     loc_BANK2_913E			  ; code used at 8000
 
@@ -46079,7 +46079,7 @@ loc_BANK2_91E5:					  ; CODE XREF: sub_BANK2_91C7+12j
       STA     EnemyArray_46E,X			  ; code used at 8000
       LDA     #$30 ; '0'                          ; code used at 8000
       STA     byte_RAM_F4			  ; code used at 8000
-      JMP     sub_BANK2_9B1B			  ; code used at 8000
+      JMP     RenderSprite			  ; code used at 8000
 
 ; End of function sub_BANK2_91C7
 
@@ -46253,7 +46253,7 @@ loc_BANK2_92B5:					  ; CODE XREF: sub_BANK2_9289+22j
 loc_BANK2_92BE:					  ; CODE XREF: sub_BANK2_9289+1Aj
       JSR     sub_BANK2_9E50			  ; code used at 8000
 
-      JMP     sub_BANK2_9B1B			  ; code used at 8000
+      JMP     RenderSprite			  ; code used at 8000
 
 ; End of function sub_BANK2_9289
 
@@ -46351,7 +46351,7 @@ EnemyBehavior_Phanto:				  ; DATA XREF: BANK2:8A86o
 
 
 loc_BANK2_9318:					  ; CODE XREF: BANK2:9313j
-      JSR     sub_BANK2_9B1B			  ; code used at 8000
+      JSR     RenderSprite			  ; code used at 8000
 
       LDY     #1				  ; code used at 8000
       LDA     HoldingItem			  ; code used at 8000
@@ -46559,7 +46559,7 @@ EnemyBehavior_Beezo:				  ; DATA XREF: BANK2:8A76o
 						  ; BANK2:8A78o
       JSR     sub_BANK2_997A			  ; code used at 8000
 
-      JSR     sub_BANK2_9B1B			  ; code used at 8000
+      JSR     RenderSprite			  ; code used at 8000
 
       INC     EnemyArray_9F,X			  ; code used at 8000
       JSR     sub_BANK2_98D6			  ; code used at 8000
@@ -46689,7 +46689,7 @@ sub_BANK2_9486:					  ; CODE XREF: BANK2:loc_BANK2_85E1p
       STA     ObjectAttributes,X		  ; code used at 8000
       JSR     sub_BANK2_9E4B			  ; code used at 8000
 
-      JMP     sub_BANK2_9B1B			  ; code used at 8000
+      JMP     RenderSprite			  ; code used at 8000
 
 ; End of function sub_BANK2_9486
 
@@ -46717,7 +46717,7 @@ loc_BANK2_94A6:					  ; CODE XREF: BANK2:9496j
 
 
 loc_BANK2_94AB:					  ; code used at 8000
-      JSR     sub_BANK2_9B1B
+      JSR     RenderSprite
 
       LDA     ObjectType,X			  ; code used at 8000
       CMP     #Enemy_SnifitGray			  ; code used at 8000
@@ -46972,7 +46972,7 @@ sub_BANK2_95B0:					  ; CODE XREF: BANK2:90D0p
 
 loc_BANK2_95B8:					  ; CODE XREF: sub_BANK2_9599+2j
 						  ; sub_BANK2_9599+Dj
-      JSR     EnemyInit_BasicWithoutBombTimer	  ; code used at 8000
+      JSR     EnemyInit_BasicWithoutTimer	  ; code used at 8000
 
 
 loc_BANK2_95BB:					  ; CODE XREF: BANK2:9571j
@@ -46985,7 +46985,7 @@ loc_BANK2_95BB:					  ; CODE XREF: BANK2:9571j
       CMP     #4				  ; code used at 8000
       BCC     loc_BANK2_95CA			  ; code used at 8000
 
-      JSR     EnemyInit_BasicWithoutBombTimer	  ; code used at 8000
+      JSR     EnemyInit_BasicWithoutTimer	  ; code used at 8000
 
 
 loc_BANK2_95CA:					  ; CODE XREF: BANK2:9586j
@@ -47192,7 +47192,7 @@ loc_BANK2_9686:					  ; CODE XREF: CarryObject+63j
 						  ; CarryObject+69j
       JSR     PutCarriedObjectInHands		  ; code used at 8000
 
-      JMP     sub_BANK2_9B1B			  ; code used at 8000
+      JMP     RenderSprite			  ; code used at 8000
 
 ; End of function CarryObject
 
@@ -47224,7 +47224,7 @@ sub_BANK2_9692:					  ; CODE XREF: BANK2:EnemyBehavior_MushroomBlockAndPOWp
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_969B:					  ; CODE XREF: sub_BANK2_9692+2j
-      JSR     sub_BANK2_9B1B			  ; code used at 8000
+      JSR     RenderSprite			  ; code used at 8000
 
       LDA     ObjectType,X			  ; code used at 8000
       CMP     #Enemy_POWBlock			  ; code used at 8000
@@ -47680,7 +47680,7 @@ loc_BANK2_98AE:					  ; CODE XREF: BANK2:98A4j
 
 
 loc_BANK2_98B7:					  ; CODE XREF: BANK2:98B2j
-      JSR     sub_BANK2_9B1B
+      JSR     RenderSprite
 
       LDY     EnemyMovementDirection,X
       LDA     locret_BANK2_9897,Y
@@ -47807,7 +47807,7 @@ loc_BANK2_9921:					  ; CODE XREF: BANK2:9916j
 
 
 loc_BANK2_9932:					  ; CODE XREF: BANK2:9928j
-      JMP     sub_BANK2_9B1B			  ; code used at 8000
+      JMP     RenderSprite			  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
@@ -47825,17 +47825,17 @@ sub_BANK2_9937:					  ; CODE XREF: BANK2:850Cp
 
 loc_BANK2_993B:					  ; CODE XREF: sub_BANK2_9937+3Ej
       LDA     EnemyState,X			  ; code used at 8000
-      CMP     #1				  ; code used at 8000
+      CMP     #EnemyState_Alive			  ; code used at 8000
       BNE     loc_BANK2_9974			  ; code used at 8000
 
       LDA     byte_RAM_0			  ; code used at 8000
       BEQ     loc_BANK2_9966			  ; code used at 8000
 
       LDA     ObjectType,X			  ; code used at 8000
-      CMP     #$37 ; '7'                          ; code used at 8000
+      CMP     #Enemy_Bomb			  ; code used at 8000
       BEQ     loc_BANK2_994F			  ; code used at 8000
 
-      CMP     #$32 ; '2'                          ; code used at 8000
+      CMP     #Enemy_VegetableSmall		  ; code used at 8000
       BCS     loc_BANK2_9974			  ; code used at 8000
 
 
@@ -47867,7 +47867,7 @@ loc_BANK2_9966:					  ; CODE XREF: sub_BANK2_9937+Cj
       LDA     #$D8 ; 'Ø'                          ; code used at 8000
       STA     ObjectYAccel,X			  ; code used at 8000
       LDA     EnemyCollision,X			  ; code used at 8000
-      ORA     #$10				  ; code used at 8000
+      ORA     #CollisionFlags_10		  ; code used at 8000
       STA     EnemyCollision,X			  ; code used at 8000
 
 
@@ -47890,7 +47890,7 @@ sub_BANK2_997A:					  ; CODE XREF: BANK2:85B5p
 						  ; BANK2:loc_BANK2_89F0p
 						  ; BANK2:EnemyBehavior_Sparkp	...
       LDA     EnemyCollision,X			  ; code used at 8000
-      AND     #$10				  ; code used at 8000
+      AND     #CollisionFlags_10		  ; code used at 8000
       BEQ     locret_BANK2_99B3			  ; code used at 8000
 
       LDA     ObjectBeingCarriedTimer,X		  ; code used at 8000
@@ -47921,7 +47921,7 @@ loc_BANK2_999E:					  ; CODE XREF: sub_BANK2_997A+16j
 
 loc_BANK2_99A1:					  ; CODE XREF: sub_BANK2_997A+1Bj
 						  ; sub_BANK2_997A+22j
-      CPY     #$12				  ; code used at 8000
+      CPY     #Enemy_Pidgit			  ; code used at 8000
       BNE     loc_BANK2_99AD			  ; code used at 8000
 
       LDA     EnemyArray_42F,X			  ; code used at 8000
@@ -47932,7 +47932,7 @@ loc_BANK2_99A1:					  ; CODE XREF: sub_BANK2_997A+1Bj
 
 loc_BANK2_99AD:					  ; CODE XREF: sub_BANK2_997A+29j
 						  ; sub_BANK2_997A+2Ej
-      LDA     #2				  ; code used at 8000
+      LDA     #EnemyState_Dead			  ; code used at 8000
       STA     EnemyState,X			  ; code used at 8000
       PLA					  ; code used at 8000
       PLA					  ; code used at 8000
@@ -48133,7 +48133,7 @@ byte_BANK2_99B5:.BYTE $D2			  ; DATA XREF: sub_BANK2_9CF2+10r
       .BYTE $AB					  ; data used at 8000
       .BYTE $AB					  ; data used at 8000
 EnemyAnimationTable:.BYTE 0					; 0
-						  ; DATA XREF: sub_BANK2_9B1B+2r
+						  ; DATA XREF: RenderSprite+2r
 						  ; sub_BANK2_9BA7:loc_BANK2_9BB0r
       .BYTE 0					  ; 1 ;	Not sure what this does, but it's some sort of
       .BYTE 8					  ; 2 ;	pointer	that determines	where an enemy's animation
@@ -48247,7 +48247,7 @@ loc_BANK2_9ACA:					  ; CODE XREF: PutCarriedObjectInHands+7j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9AD7:					  ; CODE XREF: sub_BANK2_9B1B+7Ej
+loc_BANK2_9AD7:					  ; CODE XREF: RenderSprite+7Ej
       LDA     EnemyState,X			  ; code used at 8000
       CMP     #EnemyState_Alive			  ; code used at 8000
       BNE     loc_BANK2_9AE2			  ; code used at 8000
@@ -48281,7 +48281,7 @@ loc_BANK2_9AEF:					  ; CODE XREF: BANK2:9AE8j
 
 
 sub_BANK2_9AF2:					  ; CODE XREF: BANK2:EnemyBehavior_Albatossp
-						  ; sub_BANK2_9B1B+89j
+						  ; RenderSprite+89j
       LDA     byte_RAM_EE			  ; code used at 8000
       PHA					  ; code used at 8000
       JSR     sub_BANK2_9BA7			  ; code used at 8000
@@ -48312,7 +48312,7 @@ sub_BANK2_9AF2:					  ; CODE XREF: BANK2:EnemyBehavior_Albatossp
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK2_9B1B:					  ; CODE XREF: BANK2:loc_BANK2_8574p
+RenderSprite:					  ; CODE XREF: BANK2:loc_BANK2_8574p
 						  ; BANK2:loc_BANK2_8A07j
 						  ; BANK2:8B0Ep ...
       LDY     ObjectType,X			  ; code used at 8000
@@ -48327,7 +48327,7 @@ sub_BANK2_9B1B:					  ; CODE XREF: BANK2:loc_BANK2_8574p
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B2B:					  ; CODE XREF: sub_BANK2_9B1B+Bj
+loc_BANK2_9B2B:					  ; CODE XREF: RenderSprite+Bj
       CPY     #Enemy_Clawgrip			  ; code used at 8000
       BNE     loc_BANK2_9B32			  ; code used at 8000
 
@@ -48335,7 +48335,7 @@ loc_BANK2_9B2B:					  ; CODE XREF: sub_BANK2_9B1B+Bj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B32:					  ; CODE XREF: sub_BANK2_9B1B+12j
+loc_BANK2_9B32:					  ; CODE XREF: RenderSprite+12j
       CPY     #Enemy_ClawgripRock		  ; code used at 8000
       BNE     loc_BANK2_9B39			  ; code used at 8000
 
@@ -48343,7 +48343,7 @@ loc_BANK2_9B32:					  ; CODE XREF: sub_BANK2_9B1B+12j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B39:					  ; CODE XREF: sub_BANK2_9B1B+19j
+loc_BANK2_9B39:					  ; CODE XREF: RenderSprite+19j
       CPY     #Enemy_HawkmouthBoss		  ; code used at 8000
       BNE     loc_BANK2_9B41			  ; code used at 8000
 
@@ -48352,13 +48352,13 @@ loc_BANK2_9B39:					  ; CODE XREF: sub_BANK2_9B1B+19j
 ; ---------------------------------------------------------------------------
 
 locret_BANK2_9B40:				  ; CODE XREF: sub_BANK2_9AF2+Ej
-						  ; sub_BANK2_9B1B+7j
+						  ; RenderSprite+7j
 						  ; sub_BANK2_9BB3+4j
       RTS					  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B41:					  ; CODE XREF: sub_BANK2_9B1B+20j
+loc_BANK2_9B41:					  ; CODE XREF: RenderSprite+20j
       CPY     #Enemy_Pidgit			  ; code used at 8000
       BNE     loc_BANK2_9B48			  ; code used at 8000
 
@@ -48366,7 +48366,7 @@ loc_BANK2_9B41:					  ; CODE XREF: sub_BANK2_9B1B+20j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B48:					  ; CODE XREF: sub_BANK2_9B1B+28j
+loc_BANK2_9B48:					  ; CODE XREF: RenderSprite+28j
       CPY     #Enemy_Porcupo			  ; code used at 8000
       BNE     loc_BANK2_9B4F			  ; code used at 8000
 
@@ -48374,7 +48374,7 @@ loc_BANK2_9B48:					  ; CODE XREF: sub_BANK2_9B1B+28j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B4F:					  ; CODE XREF: sub_BANK2_9B1B+2Fj
+loc_BANK2_9B4F:					  ; CODE XREF: RenderSprite+2Fj
       CPY     #Enemy_VegetableLarge		  ; code used at 8000
       BNE     loc_BANK2_9B56			  ; code used at 8000
 
@@ -48382,7 +48382,7 @@ loc_BANK2_9B4F:					  ; CODE XREF: sub_BANK2_9B1B+2Fj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B56:					  ; CODE XREF: sub_BANK2_9B1B+36j
+loc_BANK2_9B56:					  ; CODE XREF: RenderSprite+36j
       CPY     #Enemy_Autobomb			  ; code used at 8000
       BNE     loc_BANK2_9B5D			  ; code used at 8000
 
@@ -48390,7 +48390,7 @@ loc_BANK2_9B56:					  ; CODE XREF: sub_BANK2_9B1B+36j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B5D:					  ; CODE XREF: sub_BANK2_9B1B+3Dj
+loc_BANK2_9B5D:					  ; CODE XREF: RenderSprite+3Dj
       CPY     #Enemy_Fryguy			  ; code used at 8000
       BNE     loc_BANK2_9B64			  ; code used at 8000
 
@@ -48398,7 +48398,7 @@ loc_BANK2_9B5D:					  ; CODE XREF: sub_BANK2_9B1B+3Dj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B64:					  ; CODE XREF: sub_BANK2_9B1B+44j
+loc_BANK2_9B64:					  ; CODE XREF: RenderSprite+44j
       CPY     #Enemy_HawkmouthLeft		  ; code used at 8000
       BNE     loc_BANK2_9B6B			  ; code used at 8000
 
@@ -48406,7 +48406,7 @@ loc_BANK2_9B64:					  ; CODE XREF: sub_BANK2_9B1B+44j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B6B:					  ; CODE XREF: sub_BANK2_9B1B+4Bj
+loc_BANK2_9B6B:					  ; CODE XREF: RenderSprite+4Bj
       CPY     #Enemy_Wart			  ; code used at 8000
       BNE     loc_BANK2_9B72			  ; code used at 8000
 
@@ -48414,7 +48414,7 @@ loc_BANK2_9B6B:					  ; CODE XREF: sub_BANK2_9B1B+4Bj
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B72:					  ; CODE XREF: sub_BANK2_9B1B+52j
+loc_BANK2_9B72:					  ; CODE XREF: RenderSprite+52j
       CPY     #Enemy_WhaleSpout			  ; code used at 8000
       BNE     loc_BANK2_9B79			  ; code used at 8000
 
@@ -48422,7 +48422,7 @@ loc_BANK2_9B72:					  ; CODE XREF: sub_BANK2_9B1B+52j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B79:					  ; CODE XREF: sub_BANK2_9B1B+59j
+loc_BANK2_9B79:					  ; CODE XREF: RenderSprite+59j
       CPY     #Enemy_Pokey			  ; code used at 8000
       BNE     loc_BANK2_9B80			  ; code used at 8000
 
@@ -48430,7 +48430,7 @@ loc_BANK2_9B79:					  ; CODE XREF: sub_BANK2_9B1B+59j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B80:					  ; CODE XREF: sub_BANK2_9B1B+60j
+loc_BANK2_9B80:					  ; CODE XREF: RenderSprite+60j
       CPY     #Enemy_Heart			  ; ???	Compare	against	a Heart
       BNE     loc_BANK2_9B87
 
@@ -48440,7 +48440,7 @@ loc_BANK2_9B80:					  ; CODE XREF: sub_BANK2_9B1B+60j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B87:					  ; CODE XREF: sub_BANK2_9B1B+67j
+loc_BANK2_9B87:					  ; CODE XREF: RenderSprite+67j
       CPY     #Enemy_Ostro			  ; code used at 8000
       BNE     loc_BANK2_9B8E			  ; code used at 8000
 
@@ -48448,7 +48448,7 @@ loc_BANK2_9B87:					  ; CODE XREF: sub_BANK2_9B1B+67j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B8E:					  ; CODE XREF: sub_BANK2_9B1B+6Ej
+loc_BANK2_9B8E:					  ; CODE XREF: RenderSprite+6Ej
       CPY     #Enemy_Tryclyde			  ; code used at 8000
       BNE     loc_BANK2_9B95			  ; code used at 8000
 
@@ -48456,7 +48456,7 @@ loc_BANK2_9B8E:					  ; CODE XREF: sub_BANK2_9B1B+6Ej
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B95:					  ; CODE XREF: sub_BANK2_9B1B+75j
+loc_BANK2_9B95:					  ; CODE XREF: RenderSprite+75j
       CPY     #Enemy_Birdo			  ; code used at 8000
       BNE     loc_BANK2_9B9C			  ; code used at 8000
 
@@ -48464,7 +48464,7 @@ loc_BANK2_9B95:					  ; CODE XREF: sub_BANK2_9B1B+75j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9B9C:					  ; CODE XREF: sub_BANK2_9B1B+7Cj
+loc_BANK2_9B9C:					  ; CODE XREF: RenderSprite+7Cj
       CPY     #Enemy_AlbatossCarryingBobOmb	  ; code used at 8000
       BCC     sub_BANK2_9BA7			  ; code used at 8000
 
@@ -48473,7 +48473,7 @@ loc_BANK2_9B9C:					  ; CODE XREF: sub_BANK2_9B1B+7Cj
 
       JMP     sub_BANK2_9AF2
 
-; End of function sub_BANK2_9B1B
+; End of function RenderSprite
 
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -48922,7 +48922,7 @@ byte_BANK2_9DFA:.BYTE 1				  ; DATA XREF: BANK2:9E29r
       .BYTE 1					  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9E06:					  ; CODE XREF: sub_BANK2_9B1B+31j
+loc_BANK2_9E06:					  ; CODE XREF: RenderSprite+31j
       JSR     sub_BANK2_9BA7			  ; code used at 8000
 
       LDA     byte_RAM_EE			  ; code used at 8000
@@ -48964,7 +48964,7 @@ locret_BANK2_9E3A:				  ; CODE XREF: BANK2:9E0Dj
 ; Y = 0	(Player	to right)
 
 EnemyFindWhichSidePlayerIsOn:			  ; CODE XREF: BANK2:8388p
-						  ; EnemyInit_BasicWithoutBombTimer:loc_BANK2_8492p
+						  ; EnemyInit_BasicWithoutTimer:loc_BANK2_8492p
 						  ; BANK2:8C58p ...
       LDA     PlayerXLo				  ; code used at 8000
       SBC     ObjectXLo,X			  ; code used at 8000
@@ -49047,13 +49047,13 @@ loc_BANK2_9E70:					  ; CODE XREF: sub_BANK2_9E50+1Dj
       LDA     #0				  ; code used at 8000
       STA     unk_RAM_4A4,X			  ; code used at 8000
       LDA     ObjectType,X			  ; code used at 8000
-      CMP     #$1B				  ; code used at 8000
+      CMP     #Enemy_Bullet			  ; code used at 8000
       BEQ     loc_BANK2_9E9E			  ; code used at 8000
 
-      CMP     #$F				  ; code used at 8000
+      CMP     #Enemy_BeezoDiving		  ; code used at 8000
       BEQ     loc_BANK2_9E9E			  ; code used at 8000
 
-      CMP     #$10				  ; code used at 8000
+      CMP     #Enemy_BeezoStraight		  ; code used at 8000
       BEQ     loc_BANK2_9E9E			  ; code used at 8000
 
       LDY     IsHorizontalLevel			  ; code used at 8000
@@ -49390,7 +49390,7 @@ EnemyBehavior_Clawgrip:				  ; DATA XREF: BANK2:8A9Ao
       ORA     EnemyArray_438,X			  ; code used at a000
       BEQ     loc_BANK3_A13B			  ; code used at a000
 
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -49501,7 +49501,7 @@ loc_BANK3_A1CD:					  ; CODE XREF: BANK3:A176j
 
 
 loc_BANK3_A1D3:					  ; DATA XREF: BANK3:A27Dr
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
       .BYTE 8					  ; data used at a000
@@ -49522,7 +49522,7 @@ byte_BANK3_A1DC:.BYTE 4				  ; DATA XREF: BANK3:A2A4r
       .BYTE 4					  ; data used at a000
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A1E4:					  ; CODE XREF: sub_BANK2_9B1B+14J
+loc_BANK3_A1E4:					  ; CODE XREF: RenderSprite+14J
       LDA     byte_RAM_F4			  ; NOPfix - .db $ad, $f4, $00 ; LDA $00F4
       STA     EnemyArray_B1,X			  ; code used at a000
       LDY     EnemyState,X			  ; code used at a000
@@ -49759,11 +49759,11 @@ loc_BANK3_A30A:					  ; CODE XREF: BANK3:A302j
 
 
 loc_BANK3_A320:					  ; CODE XREF: BANK3:A30Ej
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A323:					  ; CODE XREF: sub_BANK2_9B1B+1BJ
+loc_BANK3_A323:					  ; CODE XREF: RenderSprite+1BJ
       LDA     ObjectBeingCarriedTimer,X		  ; NOPfix - .db $bd, $a8, $00 ; LDA $00A8, X
       ORA     EnemyArray_438,X			  ; code used at a000
       BNE     loc_BANK3_A362			  ; code used at a000
@@ -50166,7 +50166,7 @@ loc_BANK3_A502:					  ; CODE XREF: BANK3:loc_BANK3_A4BEj
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK3_A508:					  ; CODE XREF: sub_BANK2_9B1B+2AJ
+sub_BANK3_A508:					  ; CODE XREF: RenderSprite+2AJ
 						  ; BANK3:A49Dp BANK3:A4D3j
       JSR     sub_BANK2_9BA7			  ; code used at a000
 
@@ -50266,7 +50266,7 @@ EnemyBehavior_Mouser:				  ; DATA XREF: BANK2:8A92o
       LDA     EnemyArray_45C,X			  ; code used at a000
       BEQ     loc_BANK3_A586			  ; code used at a000
 
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -50275,7 +50275,7 @@ loc_BANK3_A586:					  ; CODE XREF: BANK3:A581j
 
       LDA     #2				  ; code used at a000
       STA     EnemyMovementDirection,X		  ; code used at a000
-      JSR     sub_BANK2_9B1B			  ; code used at a000
+      JSR     RenderSprite			  ; code used at a000
 
       LDA     EnemyCollision,X			  ; code used at a000
       AND     #4				  ; code used at a000
@@ -50363,7 +50363,7 @@ loc_BANK3_A5F5:					  ; CODE XREF: BANK3:A594j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A5F8:					  ; CODE XREF: sub_BANK2_9B1B+DJ
+loc_BANK3_A5F8:					  ; CODE XREF: RenderSprite+DJ
       LDA     EnemyState,X			  ; code used at a000
       CMP     #1				  ; code used at a000
       BNE     loc_BANK3_A609			  ; code used at a000
@@ -50437,7 +50437,7 @@ locret_BANK3_A651:				  ; DATA XREF: BANK3:A66Dr
       .BYTE 5					  ; data used at a000
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A654:					  ; CODE XREF: sub_BANK2_9B1B+70J
+loc_BANK3_A654:					  ; CODE XREF: RenderSprite+70J
       JSR     loc_BANK2_9BB0			  ; code used at a000
 
       LDA     byte_RAM_EE			  ; code used at a000
@@ -50585,7 +50585,7 @@ loc_BANK3_A71E:					  ; CODE XREF: BANK3:A712j
 						  ; BANK3:A719j
       JSR     sub_BANK2_8577			  ; code used at a000
 
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -50678,7 +50678,7 @@ loc_BANK3_A76F:					  ; CODE XREF: BANK3:A766j
       INC     EnemyArray_480,X			  ; code used at a000
 
 
-loc_BANK3_A783:					  ; CODE XREF: sub_BANK2_9B1B+77J
+loc_BANK3_A783:					  ; CODE XREF: RenderSprite+77J
 						  ; BANK3:A77Ej
       LDA     byte_RAM_EF			  ; code used at a000
       BNE     locret_BANK3_A75C			  ; code used at a000
@@ -50985,7 +50985,7 @@ loc_BANK3_A932:					  ; CODE XREF: BANK3:A92Ej
 
       LDA     #$61 ; 'a'                          ; code used at a000
       STA     ObjectAttributes,X		  ; code used at a000
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -51174,7 +51174,7 @@ loc_BANK3_AA0C:					  ; CODE XREF: BANK3:AA07j
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_AA11:					  ; CODE XREF: BANK3:AA03j
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -51285,7 +51285,7 @@ loc_BANK3_AA99:					  ; CODE XREF: BANK3:AA3Cj
 loc_BANK3_AAA4:					  ; CODE XREF: sub_BANK3_AA3E+61j
       JSR     sub_BANK2_9E50			  ; code used at a000
 
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; End of function sub_BANK3_AA3E
 
@@ -51303,7 +51303,7 @@ byte_BANK3_AAAD:.BYTE $FF			  ; DATA XREF: BANK3:AB0Cr
       .BYTE 0					  ; data used at a000
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_AAB1:					  ; CODE XREF: sub_BANK2_9B1B+62J
+loc_BANK3_AAB1:					  ; CODE XREF: RenderSprite+62J
       LDY     #0				  ; code used at a000
       LDA     byte_RAM_EE			  ; code used at a000
       BNE     loc_BANK3_AABF			  ; code used at a000
@@ -51564,7 +51564,7 @@ byte_BANK3_AC26:.BYTE 0				  ; DATA XREF: sub_BANK3_AC28+30r
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK3_AC28:					  ; CODE XREF: sub_BANK2_9B1B+46J
+sub_BANK3_AC28:					  ; CODE XREF: RenderSprite+46J
 						  ; BANK3:loc_BANK3_AD37p
       LDA     #0				  ; code used at a000
       STA     byte_RAM_EE			  ; code used at a000
@@ -51799,7 +51799,7 @@ loc_BANK3_AD59:					  ; CODE XREF: BANK3:AD4Cj
       INC     EnemyArray_9F,X			  ; code used at a000
       JSR     sub_BANK3_B4FD			  ; code used at a000
 
-      JSR     sub_BANK2_9B1B			  ; code used at a000
+      JSR     RenderSprite			  ; code used at a000
 
       LDA     EnemyCollision,X			  ; code used at a000
       PHA					  ; code used at a000
@@ -51963,11 +51963,11 @@ loc_BANK3_AE45:					  ; CODE XREF: BANK3:AE18j
 						  ; BANK3:AE2Cj BANK3:AE34j
       JSR     sub_BANK2_8577			  ; code used at a000
 
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_AE4B:					  ; CODE XREF: sub_BANK2_9B1B+3FJ
+loc_BANK3_AE4B:					  ; CODE XREF: RenderSprite+3FJ
       LDA     EnemyState,X			  ; code used at a000
       CMP     #EnemyState_Alive			  ; code used at a000
       BEQ     loc_BANK3_AE5C			  ; code used at a000
@@ -52093,7 +52093,7 @@ loc_BANK3_AEE6:					  ; CODE XREF: BANK3:AED6j
       JSR     sub_BANK2_9E4B			  ; code used at a000
 
 
-loc_BANK3_AEEB:					  ; CODE XREF: sub_BANK2_9B1B+5BJ
+loc_BANK3_AEEB:					  ; CODE XREF: RenderSprite+5BJ
       LDA     byte_RAM_EE			  ; code used at a000
       AND     #$C				  ; code used at a000
       BNE     locret_BANK3_AEC2			  ; code used at a000
@@ -52268,7 +52268,7 @@ loc_BANK3_AFDA:					  ; CODE XREF: BANK3:AFAAj
       JSR     sub_BANK2_8577			  ; code used at a000
 
       INC     unk_RAM_4A4,X			  ; code used at a000
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -52473,7 +52473,7 @@ byte_BANK3_B0E6:.BYTE $F8			  ; DATA XREF: sub_BANK3_B0E8+1Et
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK3_B0E8:					  ; CODE XREF: sub_BANK2_9B1B+22J
+sub_BANK3_B0E8:					  ; CODE XREF: RenderSprite+22J
 						  ; BANK3:EnemyBehavior_HawkmouthBossp
       LDA     EnemyArray_480,X			  ; code used at a000
       JSR     sub_BANK2_8E13			  ; code used at a000
@@ -52735,7 +52735,7 @@ loc_BANK3_B216:					  ; CODE XREF: BANK3:B207j
 
 loc_BANK3_B253:					  ; CODE XREF: BANK3:B1EEj
 						  ; BANK3:B21Cj BANK3:B220j ...
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -52792,7 +52792,7 @@ loc_BANK3_B295:					  ; CODE XREF: BANK3:B276j
 
 loc_BANK3_B29F:					  ; CODE XREF: BANK3:B267j
 						  ; BANK3:B299j
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -52803,7 +52803,7 @@ EnemyBehavior_WartBubble:			  ; DATA XREF: BANK2:8A7Ao
       JSR     sub_BANK2_9E4B			  ; code used at a000
 
       INC     ObjectYAccel,X			  ; code used at a000
-      JMP     sub_BANK2_9B1B			  ; code used at a000
+      JMP     RenderSprite			  ; code used at a000
 
 ; ---------------------------------------------------------------------------
 
@@ -52812,7 +52812,7 @@ locret_BANK3_B2AF:				  ; CODE XREF: BANK3:B2C8j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_B2B0:					  ; CODE XREF: sub_BANK2_9B1B+54J
+loc_BANK3_B2B0:					  ; CODE XREF: RenderSprite+54J
       LDA     byte_RAM_F4			  ; NOPfix - .db $ad, $f4, $00 ; LDA $00F4
       STA     byte_RAM_7267			  ; code used at a000
       STA     byte_RAM_726B			  ; code used at a000

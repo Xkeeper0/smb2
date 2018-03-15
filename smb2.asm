@@ -26,69 +26,77 @@
 	.ende
 
     ; -----------------------------------------
-    ; Add each of the 16 banks ....
+    ; Add each of the 16 banks.
+    ; In SMB2, banks are swapped in pairs.
+    ; The game was clearly designed originally to use the MMC1 mapper,
+    ; and very minimal changes were made to make that work.
+    ; These banks are still TECHNICALLY two different banks,
+    ; but due to this little hack a lot of data runs between
+    ; bank boundaries, and it's easier to keep together
+    ; You should split these again if you plan on making any
+    ; really huge modifications...
 
+    ; ----------------------------------------
+    ; Banks 0 and 1. Basically potpourri.
+    ; Lots of crap everywhere.
+    ; Title screen and some other stuff too.
 	.base $8000
-	.include "src/prg-0.asm"
+	.include "src/prg-0-1.asm"
+    .pad $c000, $ff
 
-	;.pad $a000, $ff
-	.base $A000
-	.include "src/prg-1.asm"
-
-	;.pad $bfff, $ff
+    ; ----------------------------------------
+    ; Banks 2 and 3. Enemy/object code.
 	.base $8000
-	.include "src/prg-2.asm"
+	.include "src/prg-2-3.asm"
+    .pad $c000, $ff
 
-	;.pad $a000, $ff
-	.base $A000
-	.include "src/prg-3.asm"
-
-	;.pad $bfff, $ff
+    ; ----------------------------------------
+    ; Banks 4 and 5. Music engine and song data.
 	.base $8000
-	.include "src/prg-4.asm"
+	.include "src/prg-4-5.asm"
+    .pad $c000, $ff
 
-	;.pad $a000, $ff
-	.base $A000
-	.include "src/prg-5.asm"
-
-	;.pad $bfff, $ff
+    ; ----------------------------------------
+    ; Bank 6 and 7. Level handling ode, I think.
+    ; Hmm, I wonder how this actually works when
+    ; dealing with the fact the level data is
+    ; in another bank...
+    ; Bank 7 is completely empty.
 	.base $8000
-	.include "src/prg-6.asm"
+	.include "src/prg-6-7.asm"
+    .pad $c000, $ff
 
-	;.pad $a000, $ff
-	.base $A000
-	.include "src/prg-7.asm"
-
-	;.pad $bfff, $ff
+    ; ----------------------------------------
+    ; Bank 8 and 9. Entirely level data.
+    ; Some more unused space as usual.
 	.base $8000
-	.include "src/prg-8.asm"
+	.include "src/prg-8-9.asm"
+    .pad $c000, $ff
 
-	;.pad $a000, $ff
-	.base $A000
-	.include "src/prg-9.asm"
-
-	;.pad $bfff, $ff
+    ; ----------------------------------------
+    ; Banks A and B. Mostly bonus chance,
+    ; character stats, and some PPU commands.
+    ; Lots of empty space here too
 	.base $8000
-	.include "src/prg-a.asm"
+	.include "src/prg-a-b.asm"
+    .pad $c000, $ff
 
-	;.pad $a000, $ff
-	.base $A000
-	.include "src/prg-b.asm"
-
-	;.pad $bfff, $ff
+    ; ----------------------------------------
+    ; Banks C and D. The first half is
+    ; a lot of data for the credits.
+    ; The second half is totally empty.
 	.base $8000
-	.include "src/prg-c.asm"
+	.include "src/prg-c-d.asm"
+    .org $c000, $ff
 
-	;.pad $a000, $ff
-	.base $A000
-	.include "src/prg-d.asm"
-
-	;.pad $c000, $ff
-	.base $C000
-	.include "src/prg-e.asm"
-
-	.base $E000
-	.include "src/prg-f.asm"
+    ; ----------------------------------------
+    ; Banks E and F. Fixed at $C000-FFFF.
+    ; Important things like NMI and often-used
+    ; routines.
+    ; Bank E also contains PCM data for the
+    ; drums and samples.
+	.base $c000    ; Technically not needed but consistent
+	.include "src/prg-e-f.asm"
 
 
     ; -----------------------------------------

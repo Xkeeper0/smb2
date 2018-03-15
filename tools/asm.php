@@ -86,10 +86,13 @@
 		} elseif ($n === 1) {
 			$segments['ram']	= $s;
 		} else {
-			// Make sprite DMA area references better
-			$s	= preg_replace('/unk_RAM_2([0-9a-f]{2})([^0-9a-f])/im', 'SpriteDMAArea + $\1\2', $s, -1, $count);
-			printf("Update sprite references: %d\n", $count);
-			$segments[sprintf("prg-%x", $n - 2)]	= $s;
+			$prgbank	= floor(($n - 2) / 2) * 2;
+			$segname	= sprintf("prg-%x-%x", $prgbank, $prgbank + 1);
+			if (!isset($segments[$segname])) {
+				$segments[$segname]	= $s;
+			} else {
+				$segments[$segname]	.= "\n\n; -------------------------------------------\n\n" . $s;
+			}
 		}
 	}
 
