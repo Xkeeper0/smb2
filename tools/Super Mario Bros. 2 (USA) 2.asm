@@ -48637,8 +48637,8 @@ loc_BANK2_9EBA:					  ; CODE XREF: sub_BANK2_9EA9+9j
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
      ; Unused space in the original
-     ; $9EBD - $9FFF
-     .pad $A000, $FF
+     ; $9EBD - $A02F
+     .pad $A030, $FF
 ENDIF
 #DELETE-START
 _unused_BANK2_9EBD:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
@@ -48673,6 +48673,7 @@ _unused_BANK2_9EBD:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
 _unused_BANK3_A000:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
+#DELETE-END
 EnemyTilemap2:.BYTE $2D,$2F				  ; 0
 						  ; DATA XREF: sub_BANK2_9CF2:loc_BANK2_9D0Ar
 						  ; sub_BANK2_9CF2:loc_BANK2_9D6Dr

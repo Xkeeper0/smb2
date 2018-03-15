@@ -6225,8 +6225,8 @@ loc_BANK2_9EBA:
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
      ; Unused space in the original
-     ; $9EBD - $9FFF
-     .pad $A000, $FF
+     ; $9EBD - $A02F
+     .pad $A030, $FF
 ENDIF
 
 ; ===========================================================================
@@ -6236,12 +6236,6 @@ ENDIF
 ; -------------------------------------------
 
 
-      ;.segment	BANK3
-;       *	=  $A000
-_unused_BANK3_A000:
-	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
 EnemyTilemap2:
 	  .BYTE $2D,$2F				  
       .BYTE $2D,$2F				  ; 2 ;	@TODO Figure out how this differs from
