@@ -851,7 +851,7 @@ Player1JoypadHeld:.BYTE	0 ; (uninited)		  ; DATA XREF: BANK0:HandlePlayerState_C
 						  ; sub_BANK0_8C1A+2Dr	...
 Player2JoypadHeld:.BYTE	0 ; (uninited)		  ; DATA XREF: BANKF:E52Ar
       ;	0 .BYTE	uninited & unexplored
-      ;	0 .BYTE	uninited & unexplored
+unk_RAM_FA:; 0 .BYTE uninited &	unexplored
 unk_RAM_FB:; 0 .BYTE uninited &	unexplored
 PPUScrollYMirror:.BYTE 0 ; (uninited)		  ; DATA XREF: sub_BANK0_8083+1Dr
 						  ; sub_BANK0_8083+33r
@@ -47581,194 +47581,100 @@ locret_BANK2_99B3:				  ; CODE XREF: sub_BANK2_997A+4j
 ; End of function sub_BANK2_997A
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_99B4:.BYTE $D0			  ; DATA XREF: sub_BANK2_9CF2+Ar
-						  ; data used at 8000
-byte_BANK2_99B5:.BYTE $D2			  ; DATA XREF: sub_BANK2_9CF2+10r
-						  ; data used at 8000
-      .BYTE $D4					  ; data used at 8000
-      .BYTE $D6					  ; data used at 8000
-      .BYTE $F8	; ø
-      .BYTE $F8	; ø
-      .BYTE $FA					  ; data used at 8000
-      .BYTE $FA					  ; data used at 8000
-      .BYTE $CC					  ; data used at 8000
-      .BYTE $CE					  ; data used at 8000
-      .BYTE $CC					  ; data used at 8000
-      .BYTE $CE					  ; data used at 8000
-      .BYTE $C8					  ; data used at 8000
-      .BYTE $CA					  ; data used at 8000
-      .BYTE $C8					  ; data used at 8000
-      .BYTE $CA					  ; data used at 8000
-      .BYTE $70					  ; data used at 8000
-      .BYTE $72					  ; data used at 8000
-      .BYTE $74					  ; data used at 8000
-      .BYTE $76					  ; data used at 8000
-      .BYTE $C0					  ; data used at 8000
-      .BYTE $C2					  ; data used at 8000
-      .BYTE $C4					  ; data used at 8000
-      .BYTE $C6					  ; data used at 8000
-      .BYTE $E1					  ; data used at 8000
-      .BYTE $E3					  ; data used at 8000
-      .BYTE $E5					  ; data used at 8000
-      .BYTE $E7					  ; data used at 8000
-      .BYTE $E1					  ; data used at 8000
-      .BYTE $E3					  ; data used at 8000
-      .BYTE $E5					  ; data used at 8000
-      .BYTE $E7					  ; data used at 8000
-      .BYTE $78					  ; data used at 8000
-      .BYTE $7A					  ; data used at 8000
-      .BYTE $7C					  ; data used at 8000
-      .BYTE $7E					  ; data used at 8000
-      .BYTE $DC					  ; data used at 8000
-      .BYTE $DA					  ; data used at 8000
-      .BYTE $DC					  ; data used at 8000
-      .BYTE $DE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FE					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $FC					  ; data used at 8000
-      .BYTE $94	; ”
-      .BYTE $94	; ”
-      .BYTE $96	; –
-      .BYTE $96	; –
-      .BYTE $98	; ˜
-      .BYTE $98	; ˜
-      .BYTE $9A	; š
-      .BYTE $9A	; š
-      .BYTE $DB					  ; data used at 8000
-      .BYTE $DD					  ; data used at 8000
-      .BYTE $DB	; Û
-      .BYTE $DD	; Ý
-      .BYTE $7D					  ; data used at 8000
-      .BYTE $7F					  ; data used at 8000
-      .BYTE $C1					  ; data used at 8000
-      .BYTE $C3					  ; data used at 8000
-      .BYTE $8C					  ; data used at 8000
-      .BYTE $8C					  ; data used at 8000
-      .BYTE $8E					  ; data used at 8000
-      .BYTE $8E					  ; data used at 8000
-      .BYTE $E0	; à
-      .BYTE $E2	; â
-      .BYTE $6B					  ; data used at 8000
-      .BYTE $6D					  ; data used at 8000
-      .BYTE $6D					  ; data used at 8000
-      .BYTE $6F					  ; data used at 8000
-      .BYTE $3A					  ; data used at 8000
-      .BYTE $3A					  ; data used at 8000
-      .BYTE $3A					  ; data used at 8000
-      .BYTE $3A					  ; data used at 8000
-      .BYTE $38					  ; data used at 8000
-      .BYTE $38					  ; data used at 8000
-      .BYTE $38					  ; data used at 8000
-      .BYTE $38					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $36					  ; data used at 8000
-      .BYTE $34					  ; data used at 8000
-      .BYTE $34					  ; data used at 8000
-      .BYTE $34					  ; data used at 8000
-      .BYTE $34					  ; data used at 8000
-      .BYTE $AE					  ; data used at 8000
-      .BYTE $FB					  ; data used at 8000
-      .BYTE $AE	; ®
-      .BYTE $FB	; û
-      .BYTE $80					  ; data used at 8000
-      .BYTE $82					  ; data used at 8000
-      .BYTE $84					  ; data used at 8000
-      .BYTE $86					  ; data used at 8000
-      .BYTE $80					  ; data used at 8000
-      .BYTE $82					  ; data used at 8000
-      .BYTE $AA					  ; data used at 8000
-      .BYTE $AC					  ; data used at 8000
-      .BYTE $88					  ; data used at 8000
-      .BYTE $8A					  ; data used at 8000
-      .BYTE $84					  ; data used at 8000
-      .BYTE $86					  ; data used at 8000
-      .BYTE $88					  ; data used at 8000
-      .BYTE $8A					  ; data used at 8000
-      .BYTE $AA					  ; data used at 8000
-      .BYTE $AC					  ; data used at 8000
-      .BYTE $BC					  ; data used at 8000
-      .BYTE $BE					  ; data used at 8000
-      .BYTE $AA					  ; data used at 8000
-      .BYTE $AC					  ; data used at 8000
-      .BYTE $BC					  ; data used at 8000
-      .BYTE $BE					  ; data used at 8000
-      .BYTE $AA					  ; data used at 8000
-      .BYTE $AC					  ; data used at 8000
-      .BYTE $B5					  ; data used at 8000
-      .BYTE $B9					  ; data used at 8000
-      .BYTE $B5					  ; data used at 8000
-      .BYTE $B9					  ; data used at 8000
-      .BYTE $81					  ; data used at 8000
-      .BYTE $83					  ; data used at 8000
-      .BYTE $85					  ; data used at 8000
-      .BYTE $87					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $FF					  ; data used at 8000
-      .BYTE $81					  ; data used at 8000
-      .BYTE $83					  ; data used at 8000
-      .BYTE $F5					  ; data used at 8000
-      .BYTE $87					  ; data used at 8000
-      .BYTE $C5					  ; data used at 8000
-      .BYTE $C7					  ; data used at 8000
-      .BYTE $C9					  ; data used at 8000
-      .BYTE $CB					  ; data used at 8000
-      .BYTE $92					  ; data used at 8000
-      .BYTE $94					  ; data used at 8000
-      .BYTE $29					  ; data used at 8000
-      .BYTE $29					  ; data used at 8000
-      .BYTE $2B					  ; data used at 8000
-      .BYTE $2B					  ; data used at 8000
-      .BYTE $3D					  ; data used at 8000
-      .BYTE $3F					  ; data used at 8000
-      .BYTE $4C					  ; data used at 8000
-      .BYTE $4E					  ; data used at 8000
-      .BYTE $50					  ; data used at 8000
-      .BYTE $52					  ; data used at 8000
-      .BYTE $4C					  ; data used at 8000
-      .BYTE $4E					  ; data used at 8000
-      .BYTE $56					  ; data used at 8000
-      .BYTE $58					  ; data used at 8000
-      .BYTE $FB					  ; data used at 8000
-      .BYTE $5C					  ; data used at 8000
-      .BYTE $FB					  ; data used at 8000
-      .BYTE $5A					  ; data used at 8000
-      .BYTE $FB					  ; data used at 8000
-      .BYTE $FB					  ; data used at 8000
-      .BYTE $FB					  ; data used at 8000
-      .BYTE $54					  ; data used at 8000
-      .BYTE $CF					  ; data used at 8000
-      .BYTE $CF					  ; data used at 8000
-      .BYTE $A5	; ¥
-      .BYTE $A5	; ¥
-      .BYTE $B0	; °
-      .BYTE $B2	; ²
-      .BYTE $90	; 
-      .BYTE $90	; 
-      .BYTE $CD					  ; data used at 8000
-      .BYTE $CD					  ; data used at 8000
-      .BYTE $A8					  ; data used at 8000
-      .BYTE $A8					  ; data used at 8000
-      .BYTE $A8	; ¨
-      .BYTE $A8	; ¨
-      .BYTE $A0					  ; data used at 8000
-      .BYTE $A2					  ; data used at 8000
-      .BYTE $A4					  ; data used at 8000
-      .BYTE $A4					  ; data used at 8000
-      .BYTE $A4	; ¤
-      .BYTE $A4	; ¤
-      .BYTE $4D					  ; data used at 8000
-      .BYTE $4D					  ; data used at 8000
-      .BYTE $8C					  ; data used at 8000
-      .BYTE $8C					  ; data used at 8000
-      .BYTE $A6					  ; data used at 8000
-      .BYTE $A6					  ; data used at 8000
-      .BYTE $AB					  ; data used at 8000
-      .BYTE $AB					  ; data used at 8000
+EnemyTilemap1:.BYTE $D0,$D2			  ; DATA XREF: sub_BANK2_9CF2+Ar
+						  ; sub_BANK2_9CF2+10r
+      .BYTE $D4,$D6				  ; @TODO Figure out what the difference is
+      .BYTE $F8,$F8				  ; between this and EnemyTilemap2
+      .BYTE $FA,$FA
+      .BYTE $CC,$CE
+      .BYTE $CC,$CE
+      .BYTE $C8,$CA
+      .BYTE $C8,$CA
+      .BYTE $70,$72
+      .BYTE $74,$76
+      .BYTE $C0,$C2
+      .BYTE $C4,$C6
+      .BYTE $E1,$E3
+      .BYTE $E5,$E7
+      .BYTE $E1,$E3
+      .BYTE $E5,$E7
+      .BYTE $78,$7A
+      .BYTE $7C,$7E
+      .BYTE $DC,$DA
+      .BYTE $DC,$DE
+      .BYTE $FE,$FE
+      .BYTE $FC,$FC
+      .BYTE $94,$94
+      .BYTE $96,$96
+      .BYTE $98,$98
+      .BYTE $9A,$9A
+      .BYTE $DB,$DD
+      .BYTE $DB,$DD
+      .BYTE $7D,$7F
+      .BYTE $C1,$C3
+      .BYTE $8C,$8C
+      .BYTE $8E,$8E
+      .BYTE $E0,$E2
+      .BYTE $6B,$6D
+      .BYTE $6D,$6F
+      .BYTE $3A,$3A
+      .BYTE $3A,$3A
+      .BYTE $38,$38
+      .BYTE $38,$38
+      .BYTE $36,$36
+      .BYTE $36,$36
+      .BYTE $34,$34
+      .BYTE $34,$34
+      .BYTE $AE,$FB
+      .BYTE $AE,$FB
+      .BYTE $80,$82
+      .BYTE $84,$86
+      .BYTE $80,$82
+      .BYTE $AA,$AC
+      .BYTE $88,$8A
+      .BYTE $84,$86
+      .BYTE $88,$8A
+      .BYTE $AA,$AC
+      .BYTE $BC,$BE
+      .BYTE $AA,$AC
+      .BYTE $BC,$BE
+      .BYTE $AA,$AC
+      .BYTE $B5,$B9
+      .BYTE $B5,$B9
+      .BYTE $81,$83
+      .BYTE $85,$87
+      .BYTE $FF,$FF
+      .BYTE $FF,$FF
+      .BYTE $81,$83
+      .BYTE $F5,$87
+      .BYTE $C5,$C7
+      .BYTE $C9,$CB
+      .BYTE $92,$94
+      .BYTE $29,$29
+      .BYTE $2B,$2B
+      .BYTE $3D,$3F
+      .BYTE $4C,$4E
+      .BYTE $50,$52
+      .BYTE $4C,$4E
+      .BYTE $56,$58
+      .BYTE $FB,$5C
+      .BYTE $FB,$5A
+      .BYTE $FB,$FB
+      .BYTE $FB,$54
+      .BYTE $CF,$CF
+      .BYTE $A5,$A5
+      .BYTE $B0,$B2
+      .BYTE $90,$90
+      .BYTE $CD,$CD
+      .BYTE $A8,$A8
+      .BYTE $A8,$A8
+      .BYTE $A0,$A2
+      .BYTE $A4,$A4
+      .BYTE $A4,$A4
+      .BYTE $4D,$4D
+      .BYTE $8C,$8C
+      .BYTE $A6,$A6
+      .BYTE $AB,$AB
 EnemyAnimationTable:.BYTE 0					; 0
 						  ; DATA XREF: RenderSprite+2r
 						  ; sub_BANK2_9BA7:loc_BANK2_9BB0r
@@ -48371,17 +48277,17 @@ sub_BANK2_9CF2:					  ; CODE XREF: sub_BANK2_8E13+47p
       LDA     byte_RAM_B			  ; code used at 8000
       BNE     loc_BANK2_9D0A			  ; code used at 8000
 
-      LDA     byte_BANK2_99B4,X			  ; code used at 8000
+      LDA     EnemyTilemap1,X			  ; code used at 8000
       STA     SpriteDMAArea+1,Y			  ; code used at 8000
-      LDA     byte_BANK2_99B5,X			  ; code used at 8000
+      LDA     EnemyTilemap1+1,X			  ; code used at 8000
       STA     SpriteDMAArea+5,Y			  ; code used at 8000
       BNE     loc_BANK2_9D16			  ; code used at 8000
 
 
 loc_BANK2_9D0A:					  ; CODE XREF: sub_BANK2_9CF2+8j
-      LDA     _Mystery_BANK3_A030,X		  ; code used at 8000
+      LDA     EnemyTilemap2,X			  ; code used at 8000
       STA     SpriteDMAArea+1,Y			  ; code used at 8000
-      LDA     _Mystery_BANK3_A030+1,X		  ; code used at 8000
+      LDA     EnemyTilemap2+1,X			  ; code used at 8000
       STA     SpriteDMAArea+5,Y			  ; code used at 8000
 
 
@@ -48445,11 +48351,11 @@ loc_BANK2_9D53:					  ; CODE XREF: sub_BANK2_9CF2+5Aj
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9D6D:					  ; CODE XREF: sub_BANK2_9CF2+4j
-      LDA     _Mystery_BANK3_A030,X		  ; code used at 8000
+      LDA     EnemyTilemap2,X			  ; code used at 8000
       STA     SpriteDMAArea+1,Y			  ; code used at 8000
-      LDA     _Mystery_BANK3_A030+1,X		  ; code used at 8000
+      LDA     EnemyTilemap2+1,X			  ; code used at 8000
       STA     SpriteDMAArea+5,Y			  ; code used at 8000
-      LDA     _Mystery_BANK3_A030+2,X		  ; code used at 8000
+      LDA     EnemyTilemap2+2,X			  ; code used at 8000
       STA     SpriteDMAArea+9,Y			  ; code used at 8000
       LDA     byte_RAM_2			  ; code used at 8000
       LSR     A					  ; code used at 8000
@@ -48767,227 +48673,118 @@ _unused_BANK2_9EBD:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
 _unused_BANK3_A000:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
-_Mystery_BANK3_A030:.BYTE $2D					; 0
+EnemyTilemap2:.BYTE $2D,$2F				  ; 0
 						  ; DATA XREF: sub_BANK2_9CF2:loc_BANK2_9D0Ar
 						  ; sub_BANK2_9CF2:loc_BANK2_9D6Dr
 						  ; sub_BANK2_9CF2+1Er	...
-      .BYTE $2F					  ; 1 ;	data used at a000
-      .BYTE $2D					  ; 2
-      .BYTE $2F	; /
-      .BYTE $E0					  ; data used at a000
-      .BYTE $E2					  ; data used at a000
-      .BYTE $E4					  ; data used at a000
-      .BYTE $E6					  ; data used at a000
-      .BYTE $E0	; à
-      .BYTE $E2	; â
-      .BYTE $E4	; ä
-      .BYTE $E6	; æ
-      .BYTE $E8					  ; data used at a000
-      .BYTE $EA					  ; data used at a000
-      .BYTE $EC					  ; data used at a000
-      .BYTE $EE					  ; data used at a000
-      .BYTE $E8	; è
-      .BYTE $EA	; ê
-      .BYTE $EC	; ì
-      .BYTE $EE	; î
-      .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $11					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $1B					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $1B					  ; data used at a000
-      .BYTE $1D					  ; data used at a000
-      .BYTE $1F					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $21					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $27					  ; data used at a000
-      .BYTE $1D
-      .BYTE $1F
-      .BYTE $25	; %
-      .BYTE $21	; !
-      .BYTE $23	; #
-      .BYTE $27	; '
-      .BYTE $9C					  ; data used at a000
-      .BYTE $9E					  ; data used at a000
-      .BYTE $9C					  ; data used at a000
-      .BYTE $9E					  ; data used at a000
-      .BYTE $D0					  ; data used at a000
-      .BYTE $D2					  ; data used at a000
-      .BYTE $D4	; Ô
-      .BYTE $D6	; Ö
-      .BYTE $F0					  ; data used at a000
-      .BYTE $F2					  ; data used at a000
-      .BYTE $F4					  ; data used at a000
-      .BYTE $F6					  ; data used at a000
-      .BYTE $F0					  ; data used at a000
-      .BYTE $F2					  ; data used at a000
-      .BYTE $F8					  ; data used at a000
-      .BYTE $FA					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $11					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $1F					  ; data used at a000
-      .BYTE $11					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $1B					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $1D					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $55					  ; data used at a000
-      .BYTE $59					  ; data used at a000
-      .BYTE $5B					  ; data used at a000
-      .BYTE $5D					  ; data used at a000
-      .BYTE $F0					  ; data used at a000
-      .BYTE $F2					  ; data used at a000
-      .BYTE $F4					  ; data used at a000
-      .BYTE $F6					  ; data used at a000
-      .BYTE $45					  ; data used at a000
-      .BYTE $59					  ; data used at a000
-      .BYTE $5B					  ; data used at a000
-      .BYTE $5D					  ; data used at a000
-      .BYTE $45					  ; data used at a000
-      .BYTE $59					  ; data used at a000
-      .BYTE $5B					  ; data used at a000
-      .BYTE $5D					  ; data used at a000
-      .BYTE $E8					  ; data used at a000
-      .BYTE $EA					  ; data used at a000
-      .BYTE $EC	; ì
-      .BYTE $EE	; î
-      .BYTE $EC					  ; data used at a000
-      .BYTE $EE					  ; data used at a000
-      .BYTE $EC	; ì
-      .BYTE $EE	; î
-      .BYTE $F0					  ; data used at a000
-      .BYTE $F2					  ; data used at a000
-      .BYTE $F0					  ; data used at a000
-      .BYTE $F2					  ; data used at a000
-      .BYTE $F4					  ; data used at a000
-      .BYTE $F6					  ; data used at a000
-      .BYTE $F8	; ø
-      .BYTE $FA	; ú
-      .BYTE $D0					  ; data used at a000
-      .BYTE $D2					  ; data used at a000
-      .BYTE $D4					  ; data used at a000
-      .BYTE $D6					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE $11					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $1B					  ; data used at a000
-      .BYTE $2D					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $3A	; :
-      .BYTE $3A	; :
-      .BYTE $E0					  ; data used at a000
-      .BYTE $E2					  ; data used at a000
-      .BYTE $E4					  ; data used at a000
-      .BYTE $E6					  ; data used at a000
-      .BYTE $E8					  ; data used at a000
-      .BYTE $EA					  ; data used at a000
-      .BYTE $EC					  ; data used at a000
-      .BYTE $EE					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE $4F					  ; data used at a000
-      .BYTE $5D					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $27					  ; data used at a000
-      .BYTE $79					  ; data used at a000
-      .BYTE $7B					  ; data used at a000
-      .BYTE $2D					  ; data used at a000
-      .BYTE $4F					  ; data used at a000
-      .BYTE $2F					  ; data used at a000
-      .BYTE $45					  ; data used at a000
-      .BYTE $55					  ; data used at a000
-      .BYTE $11					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $1F					  ; data used at a000
-      .BYTE $21					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $11					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $59					  ; data used at a000
-      .BYTE $59					  ; data used at a000
-      .BYTE $5B					  ; data used at a000
-      .BYTE $5B					  ; data used at a000
-      .BYTE 1					  ; data used at a000
-      .BYTE 3					  ; data used at a000
-      .BYTE 5					  ; data used at a000
-      .BYTE 7					  ; data used at a000
-      .BYTE 9					  ; data used at a000
-      .BYTE $B					  ; data used at a000
-      .BYTE $D					  ; data used at a000
-      .BYTE $F					  ; data used at a000
-      .BYTE $FB					  ; data used at a000
-      .BYTE $11					  ; data used at a000
-      .BYTE $15					  ; data used at a000
-      .BYTE $17					  ; data used at a000
-      .BYTE $13					  ; data used at a000
-      .BYTE $FB					  ; data used at a000
-      .BYTE $19					  ; data used at a000
-      .BYTE $1B					  ; data used at a000
-      .BYTE $1D					  ; data used at a000
-      .BYTE $1F					  ; data used at a000
-      .BYTE $21					  ; data used at a000
-      .BYTE $23					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $27					  ; data used at a000
-      .BYTE $25					  ; data used at a000
-      .BYTE $27					  ; data used at a000
+      .BYTE $2D,$2F				  ; 2 ;	@TODO Figure out how this differs from
+      .BYTE $E0,$E2				  ; 4 ;	EnemyTilemap1 and why
+      .BYTE $E4,$E6				  ; 6
+      .BYTE $E0,$E2				  ; 8
+      .BYTE $E4,$E6				  ; $A
+      .BYTE $E8,$EA				  ; $C
+      .BYTE $EC,$EE				  ; $E
+      .BYTE $E8,$EA				  ; $10
+      .BYTE $EC,$EE				  ; $12
+      .BYTE 1,3					  ; $14
+      .BYTE 9,5					  ; $16
+      .BYTE 7,$B				  ; $18
+      .BYTE $D,$F				  ; $1A
+      .BYTE $15,$11				  ; $1C
+      .BYTE $13,$17				  ; $1E
+      .BYTE 1,3					  ; $20
+      .BYTE 9,5					  ; $22
+      .BYTE $19,$1B				  ; $24
+      .BYTE 1,3					  ; $26
+      .BYTE 9,5					  ; $28
+      .BYTE $19,$1B				  ; $2A
+      .BYTE $1D,$1F				  ; $2C
+      .BYTE $25,$21				  ; $2E
+      .BYTE $23,$27				  ; $30
+      .BYTE $1D,$1F				  ; $32
+      .BYTE $25,$21				  ; $34
+      .BYTE $23,$27				  ; $36
+      .BYTE $9C,$9E				  ; $38
+      .BYTE $9C,$9E				  ; $3A
+      .BYTE $D0,$D2				  ; $3C
+      .BYTE $D4,$D6				  ; $3E
+      .BYTE $F0,$F2				  ; $40
+      .BYTE $F4,$F6				  ; $42
+      .BYTE $F0,$F2				  ; $44
+      .BYTE $F8,$FA				  ; $46
+      .BYTE $F,$11				  ; $48
+      .BYTE $13,$15				  ; $4A
+      .BYTE $1F,$11				  ; $4C
+      .BYTE $13,$15				  ; $4E
+      .BYTE $17,$19				  ; $50
+      .BYTE $1B,$17				  ; $52
+      .BYTE $19,$1D				  ; $54
+      .BYTE 9,$B				  ; $56
+      .BYTE 1,3					  ; $58
+      .BYTE 5,7					  ; $5A
+      .BYTE $55,$59				  ; $5C
+      .BYTE $5B,$5D				  ; $5E
+      .BYTE $F0,$F2				  ; $60
+      .BYTE $F4,$F6				  ; $62
+      .BYTE $45,$59				  ; $64
+      .BYTE $5B,$5D				  ; $66
+      .BYTE $45,$59				  ; $68
+      .BYTE $5B,$5D				  ; $6A
+      .BYTE $E8,$EA				  ; $6C
+      .BYTE $EC,$EE				  ; $6E
+      .BYTE $EC,$EE				  ; $70
+      .BYTE $EC,$EE				  ; $72
+      .BYTE $F0,$F2				  ; $74
+      .BYTE $F0,$F2				  ; $76
+      .BYTE $F4,$F6				  ; $78
+      .BYTE $F8,$FA				  ; $7A
+      .BYTE $D0,$D2				  ; $7C
+      .BYTE $D4,$D6				  ; $7E
+      .BYTE 1,3					  ; $80
+      .BYTE 5,7					  ; $82
+      .BYTE 9,$B				  ; $84
+      .BYTE $D,$F				  ; $86
+      .BYTE 1,$11				  ; $88
+      .BYTE 5,$15				  ; $8A
+      .BYTE $13,$B				  ; $8C
+      .BYTE $17,$F				  ; $8E
+      .BYTE $19,$1B				  ; $90
+      .BYTE $2D,$2F				  ; $92
+      .BYTE $3A,$3A				  ; $94
+      .BYTE $E0,$E2				  ; $96
+      .BYTE $E4,$E6				  ; $98
+      .BYTE $E8,$EA				  ; $9A
+      .BYTE $EC,$EE				  ; $9C
+      .BYTE 1,3					  ; $9E
+      .BYTE 5,7					  ; $A0
+      .BYTE $4F,$5D				  ; $A2
+      .BYTE 5,7					  ; $A4
+      .BYTE 9,$B				  ; $A6
+      .BYTE $D,$F				  ; $A8
+      .BYTE $27,$79				  ; $AA
+      .BYTE $7B,$2D				  ; $AC
+      .BYTE $4F,$2F				  ; $AE
+      .BYTE $45,$55				  ; $B0
+      .BYTE $11,$13				  ; $B2
+      .BYTE $15,$17				  ; $B4
+      .BYTE $1F,$21				  ; $B6
+      .BYTE $23,$25				  ; $B8
+      .BYTE $11,$13				  ; $BA
+      .BYTE $23,$25				  ; $BC
+      .BYTE $59,$59				  ; $BE
+      .BYTE $5B,$5B				  ; $C0
+      .BYTE 1,3					  ; $C2
+      .BYTE 5,7					  ; $C4
+      .BYTE 9,$B				  ; $C6
+      .BYTE $D,$F				  ; $C8
+      .BYTE $FB,$11				  ; $CA
+      .BYTE $15,$17				  ; $CC
+      .BYTE $13,$FB				  ; $CE
+      .BYTE $19,$1B				  ; $D0
+      .BYTE $1D,$1F				  ; $D2
+      .BYTE $21,$23				  ; $D4
+      .BYTE $25,$27				  ; $D6
+      .BYTE $25,$27				  ; $D8
 ; ---------------------------------------------------------------------------
 
 EnemyInit_Clawgrip:				  ; DATA XREF: BANK2:83F5o
@@ -67002,33 +66799,31 @@ LevelDataPointersLo:.BYTE low8(LevelData_1_1_Area0) ; DATA XREF: GetLevelPointer
       .BYTE low8(LevelData_7_1_Area2)		  ; data used at 8000
       .BYTE low8(LevelData_7_1_Area3)		  ; data used at 8000
       .BYTE low8(LevelData_7_1_Area4)		  ; data used at 8000
-      .BYTE $1C					  ; This is all	data for 7-1 and 7-2 pointers
-						  ; but	since it's in another bank, the disassembler pukes
-						  ; Not	a big deal, just annoying
-      .BYTE $1C
-      .BYTE $1C
-      .BYTE $1C
-      .BYTE $1C
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE $78	; x				  ; data used at 8000
-      .BYTE $DA	; Ú				  ; data used at 8000
-      .BYTE $8F	; 
-      .BYTE $C7	; Ç				  ; data used at 8000
-      .BYTE $3E	; >				  ; data used at 8000
-      .BYTE $79	; y
-      .BYTE   2
-      .BYTE $4B	; K
-      .BYTE $D0	; Ð
-      .BYTE $1F
-      .BYTE $1F
-      .BYTE $1F
-      .BYTE $1F
-      .BYTE $1F
-      .BYTE $1F
-      .BYTE $1F
-      .BYTE $1F
-      .BYTE $1F
-      .BYTE $1F
+      .BYTE low8(LevelData_7_1_Area5)
+      .BYTE low8(LevelData_7_1_Area5)
+      .BYTE low8(LevelData_7_1_Area5)
+      .BYTE low8(LevelData_7_1_Area5)
+      .BYTE low8(LevelData_7_1_Area5)
+      .BYTE low8(LevelData_7_2_Area0)		  ; data used at 8000
+      .BYTE low8(LevelData_7_2_Area1)		  ; data used at 8000
+      .BYTE low8(LevelData_7_2_Area2)		  ; data used at 8000
+      .BYTE low8(LevelData_7_2_Area3)
+      .BYTE low8(LevelData_7_2_Area4)		  ; data used at 8000
+      .BYTE low8(LevelData_7_2_Area5)		  ; data used at 8000
+      .BYTE low8(LevelData_7_2_Area6)
+      .BYTE low8(LevelData_7_2_Area7)
+      .BYTE low8(LevelData_7_2_Area8)
+      .BYTE low8(LevelData_7_2_Area9)
+      .BYTE low8(LevelData_7_3_Area0)
+      .BYTE low8(LevelData_7_3_Area0)
+      .BYTE low8(LevelData_7_3_Area0)
+      .BYTE low8(LevelData_7_3_Area0)
+      .BYTE low8(LevelData_7_3_Area0)
+      .BYTE low8(LevelData_7_3_Area0)
+      .BYTE low8(LevelData_7_3_Area0)
+      .BYTE low8(LevelData_7_3_Area0)
+      .BYTE low8(LevelData_7_3_Area0)
+      .BYTE low8(LevelData_7_3_Area0)
 LevelDataPointersHi:.BYTE high8(LevelData_1_1_Area0) ; DATA XREF: GetLevelPointers+10r
 						  ; GetJarPointers+Fr
 						  ; data used at 8000
@@ -67216,33 +67011,31 @@ LevelDataPointersHi:.BYTE high8(LevelData_1_1_Area0) ; DATA XREF: GetLevelPointe
       .BYTE high8(LevelData_7_1_Area2)		  ; data used at 8000
       .BYTE high8(LevelData_7_1_Area3)		  ; data used at 8000
       .BYTE high8(LevelData_7_1_Area4)		  ; data used at 8000
-      .BYTE $A0	;  				  ; Data for the end of	7-1 and	beyond
-						  ; here -- it's in another bank so
-						  ; the	disassembler is	choking	on it
-      .BYTE $A0	;  
-      .BYTE $A0	;  
-      .BYTE $A0	;  
-      .BYTE $A0	;  
-      .BYTE $A0	;  				  ; data used at 8000
-      .BYTE $A0	;  				  ; data used at 8000
-      .BYTE $A0	;  				  ; data used at 8000
-      .BYTE $A1	; ¡
-      .BYTE $A1	; ¡				  ; data used at 8000
-      .BYTE $A2	; ¢				  ; data used at 8000
-      .BYTE $A2	; ¢
-      .BYTE $A3	; £
-      .BYTE $A3	; £
-      .BYTE $A3	; £
-      .BYTE $A4	; ¤
-      .BYTE $A4	; ¤
-      .BYTE $A4	; ¤
-      .BYTE $A4	; ¤
-      .BYTE $A4	; ¤
-      .BYTE $A4	; ¤
-      .BYTE $A4	; ¤
-      .BYTE $A4	; ¤
-      .BYTE $A4	; ¤
-      .BYTE $A4	; ¤
+      .BYTE high8(LevelData_7_1_Area5)
+      .BYTE high8(LevelData_7_1_Area5)
+      .BYTE high8(LevelData_7_1_Area5)
+      .BYTE high8(LevelData_7_1_Area5)
+      .BYTE high8(LevelData_7_1_Area5)
+      .BYTE high8(LevelData_7_2_Area0)		  ; data used at 8000
+      .BYTE high8(LevelData_7_2_Area1)		  ; data used at 8000
+      .BYTE high8(LevelData_7_2_Area2)		  ; data used at 8000
+      .BYTE high8(LevelData_7_2_Area3)
+      .BYTE high8(LevelData_7_2_Area4)		  ; data used at 8000
+      .BYTE high8(LevelData_7_2_Area5)		  ; data used at 8000
+      .BYTE high8(LevelData_7_2_Area6)
+      .BYTE high8(LevelData_7_2_Area7)
+      .BYTE high8(LevelData_7_2_Area8)
+      .BYTE high8(LevelData_7_2_Area9)
+      .BYTE high8(LevelData_7_3_Area0)
+      .BYTE high8(LevelData_7_3_Area0)
+      .BYTE high8(LevelData_7_3_Area0)
+      .BYTE high8(LevelData_7_3_Area0)
+      .BYTE high8(LevelData_7_3_Area0)
+      .BYTE high8(LevelData_7_3_Area0)
+      .BYTE high8(LevelData_7_3_Area0)
+      .BYTE high8(LevelData_7_3_Area0)
+      .BYTE high8(LevelData_7_3_Area0)
+      .BYTE high8(LevelData_7_3_Area0)
 LevelData_1_1_Area0:.BYTE 9, $F3, $30, 0, $B7, $A, 0, 0, $56, $10, $1A,	$10, $D6, $C2, $29, $10; 0
 						  ; DATA XREF: BANK8:LevelDataPointersLoo
 						  ; BANK8:LevelDataPointersHio
@@ -67996,22 +67789,30 @@ LevelData_7_1_Area4:.BYTE $A1, $EA, $10, 2, $48, $A		; 0 ; DATA XREF: BANK8:80CD
       *	=  $A000
       .BYTE $F5, $12, $30, $C, $33, $F0, $8B, $F1, $6C,	$F2, $74, $39, $1A, $43, $1A, $43; 0 ; Data continues from LevelData_7_1_Area4
       .BYTE 0, 0, $F0, $8D, $F1, $4C, $F1, $CA,	$F5, $13, 0, $FF; $10 ;	in bank	8
-LevelData_7_1_Area5:.BYTE $A1, $EA, 0, 1, $4C, 0, $21, $2D, 2, $21, 3, $21, 4, $21, 5, $21; 0 ;	data used at a000
-      .BYTE 6, $26, 7, $51, $11, $38, $3A, $32,	$17, $A, $F5, $12, $16,	$F0, $3C, $F1; $10
+LevelData_7_1_Area5:.BYTE $A1, $EA, 0, 1, $4C, 0, $21, $2D, 2, $21, 3, $21, 4, $21, 5, $21; 0
+						  ; DATA XREF: BANK8:80CEt
+						  ; BANK8:80CFt BANK8:80D0t ...
+      .BYTE 6, $26, 7, $51, $11, $38, $3A, $32,	$17, $A, $F5, $12, $16,	$F0, $3C, $F1; $10 ; data used at a000
       .BYTE $EA, $FF				  ; $20
-LevelData_7_2_Area0:.BYTE $80, $FF, $20, 0, $80, $E5, $D, $E5, $2A, $E5, $36, $E5, $52,	$10, $1A, $10; 0 ; data	used at	a000
-      .BYTE $1C, $10, $63, $E6,	$B, $E6, $62, $10, $47,	$B5, $52, $65, $27, $E8, $F5, $13; $10
+LevelData_7_2_Area0:.BYTE $80, $FF, $20, 0, $80, $E5, $D, $E5, $2A, $E5, $36, $E5, $52,	$10, $1A, $10; 0
+						  ; DATA XREF: BANK8:80D3t
+						  ; BANK8:81A5t
+      .BYTE $1C, $10, $63, $E6,	$B, $E6, $62, $10, $47,	$B5, $52, $65, $27, $E8, $F5, $13; $10 ; data used at a000
       .BYTE $10, $F4, $20, $C4,	$4F, $F, $F2, $95, $F, $E, $F, $68, $19, $E, $19, $3B; $20
       .BYTE $1D, $E, $1D, $27, $40, $28, $1C, $28, $B, $FF; $30
-LevelData_7_2_Area1:.BYTE $A1, $EA, $65, 1, $87, $13, $F5, $13,	2, $22,	$3D, $F0, $50, $85, $84, $B; 0 ; data used at a000
-      .BYTE $84, $6F, 4, $10, $3E, $F0,	$34, $F0, $70, $F1, $14, $F1, $50, $F1,	$94, $F1; $10
+LevelData_7_2_Area1:.BYTE $A1, $EA, $65, 1, $87, $13, $F5, $13,	2, $22,	$3D, $F0, $50, $85, $84, $B; 0
+						  ; DATA XREF: BANK8:80D4t
+						  ; BANK8:81A6t
+      .BYTE $84, $6F, 4, $10, $3E, $F0,	$34, $F0, $70, $F1, $14, $F1, $50, $F1,	$94, $F1; $10 ;	data used at a000
       .BYTE $B0, $F1, $EF, $D1,	$4E, $42, $7D, $F0, $17, $F0, $50, $CD,	4, $10,	$4C, $D; $20
       .BYTE $82, $E, $43, $20, $7C, $E,	$75, $F1, $14, $F1, $50, $A2, $3D, $27,	$80, $17; $30
       .BYTE $A4, $F5, $13, $60,	$E, $4F, $14, $81, $27,	3, $90,	$35, $3E, $46, $24, $76; $40
       .BYTE $C,	$78, $38, $A6, $F5, $13, $22, $86, $84,	7, $84,	8, $84,	$45, $80, $F1; $50
       .BYTE $2A, $FF				  ; $60
-LevelData_7_2_Area2:.BYTE $A1, $EA, $95, 1, $88, $A, $F5, $13, $93, $13, $2B, 5, $F, $B, $F, $13; 0 ; data used	at a000
-      .BYTE $F,	$D, $F,	$24, $2A, $C, $26, $F0,	$50, $F0, $EF, $F1, $50, $F1, $EA, $38;	$10
+LevelData_7_2_Area2:.BYTE $A1, $EA, $95, 1, $88, $A, $F5, $13, $93, $13, $2B, 5, $F, $B, $F, $13; 0
+						  ; DATA XREF: BANK8:80D5t
+						  ; BANK8:81A7t
+      .BYTE $F,	$D, $F,	$24, $2A, $C, $26, $F0,	$50, $F0, $EF, $F1, $50, $F1, $EA, $38;	$10 ; data used	at a000
       .BYTE $A9, $F5, $13, $86,	$3C, $81, $D, $80, $3A,	$A3, $5C, $81, $1D, $80, $F0, $10; $20
       .BYTE $F0, $91, $F1, $90,	$62, $80, 3, $81, $35, $A3, 7, $A8, $F5, $13, $16, $47;	$30
       .BYTE 3, $13, $81, $12, $80, $17,	3, $F0,	$91, $F1, $A, $28, $A9,	$F5, $13, $73; $40
@@ -68022,24 +67823,32 @@ LevelData_7_2_Area2:.BYTE $A1, $EA, $95, 1, $88, $A, $F5, $13, $93, $13, $2B, 5,
       .BYTE $F0, $AF, $62, $A7,	$F5, $13, $44, $86, $2D, $16, $F, $19, $F, $F, $F, $1C;	$90
       .BYTE $F,	$1B, $26, $D, $2A, $F0,	$6A, $F0, $DC, $7C, $A,	$F5, $13, $32, $52, $F;	$A0
       .BYTE $F0, $6E, $F1, $CA,	$FF		  ; $B0
-LevelData_7_2_Area3:.BYTE $A1, $EA, $34, 1, $5C, $40, $1C, $A4,	$25, $A, $F5, $13, $63,	$24, $33, $F0; 0 ; data	used at	a000
-      .BYTE $50, $80, $4F, $10,	$A7, 5,	$A7, $C, $A7, $80, $4F,	$60, $4F, $10, $4F, $10; $10
+LevelData_7_2_Area3:.BYTE $A1, $EA, $34, 1, $5C, $40, $1C, $A4,	$25, $A, $F5, $13, $63,	$24, $33, $F0; 0
+						  ; DATA XREF: BANK8:80D6t
+						  ; BANK8:81A8t
+      .BYTE $50, $80, $4F, $10,	$A7, 5,	$A7, $C, $A7, $80, $4F,	$60, $4F, $10, $4F, $10; $10 ; data used at a000
       .BYTE $A5, $35, $35, $13,	$A, $F5, $13, $29, $20,	$4F, $10, $4F, $90, $A3, $28, $A; $20
       .BYTE $F5, $13, $69, $F0,	$11, $F1, $4A, $FF; $30
-LevelData_7_2_Area4:.BYTE $A1, $EA, $95, 2, $3F, $A7, $36, $80,	$16, $A3, $43, $A, $F5,	$13, $80, $19; 0 ; data	used at	a000
-      .BYTE 1, $F0, $50, $80, $87, 1, $87, 2, $3D, $47,	$80, $B, $81, $E, $81, $F; $10
+LevelData_7_2_Area4:.BYTE $A1, $EA, $95, 2, $3F, $A7, $36, $80,	$16, $A3, $43, $A, $F5,	$13, $80, $19; 0
+						  ; DATA XREF: BANK8:80D7t
+						  ; BANK8:81A9t
+      .BYTE 1, $F0, $50, $80, $87, 1, $87, 2, $3D, $47,	$80, $B, $81, $E, $81, $F; $10 ; data used at a000
       .BYTE $81, $17, $A4, $F5,	$13, $25, $37, 3, $70, $3F, $55, $F, $B, $F, $14, $F; $20
       .BYTE 8, 9, $F5, $13, $47, $C, $F, $90, $3F, $52,	$80, 5,	$80, $17, $A, $F5; $30
       .BYTE $13, $27, $7A, $A6,	$D, $AB, $20, $37, 8, $87, 9, $87, $8D,	3, $F5,	$13; $40
       .BYTE $28, $F1, $CA, $F3,	$F2, $B7, $A, $F5, $13,	$42, $F0, $50, $E3, 0, 8, 0; $50
       .BYTE $13, $F, 8,	$F, $F2, $A4, $F, $12, $F, 3, $F, 5, $F, 6, $F,	$F1; $60
       .BYTE $4F, $F1, $8A, $F5,	$13, $50, $FF	  ; $70
-LevelData_7_2_Area5:.BYTE $AA, $EA, $22, $B, $3D, $2C, $62, $48, $F0, $4F, $F0,	$AC, $F1, $6E, $90, $2C; 0 ; data used at a000
-      .BYTE 3, $2C, 6, $2C, $1D, $2C, $4F, $32,	$29, $44, $F1, $3A, $F1, $DC, $90, $2C;	$10
+LevelData_7_2_Area5:.BYTE $AA, $EA, $22, $B, $3D, $2C, $62, $48, $F0, $4F, $F0,	$AC, $F1, $6E, $90, $2C; 0
+						  ; DATA XREF: BANK8:80D8t
+						  ; BANK8:81AAt
+      .BYTE 3, $2C, 6, $2C, $1D, $2C, $4F, $32,	$29, $44, $F1, $3A, $F1, $DC, $90, $2C;	$10 ; data used	at a000
       .BYTE 3, $2C, 6, $2C, 9, $2C, $34, $32, $22, $1A,	$10, $1A, 4, $1A, 8, $F; $20
       .BYTE 9, $44, $12, $41, $10, $45,	$F1, $7A, $F1, $D8, $FF; $30
-LevelData_7_2_Area6:.BYTE $21, $E0, $97, 1, 8, $A5, $F5, $13, $14, $92,	$4B, $42, $4B, $F0, $55, $F1; 0	; data used at a000
-      .BYTE $DC, $33, $29, $22,	$4B, $42, $4B, $3C, $29, $22, $4B, $F0,	$75, $F1, $1C, $F1; $10
+LevelData_7_2_Area6:.BYTE $21, $E0, $97, 1, 8, $A5, $F5, $13, $14, $92,	$4B, $42, $4B, $F0, $55, $F1; 0
+						  ; DATA XREF: BANK8:80D9t
+						  ; BANK8:81ABt
+      .BYTE $DC, $33, $29, $22,	$4B, $42, $4B, $3C, $29, $22, $4B, $F0,	$75, $F1, $1C, $F1; $10	; data used at a000
       .BYTE $95, $42, $4B, $3C,	$29, $22, $4B, $42, $4B, $33, $29, $F0,	$5C, $F0, $D5, $F1; $20
       .BYTE $7C, $22, $4B, $37,	$29, $12, $4B, $7A, $A,	$F5, $13, $30, $F0, $15, $F1, $A0; $30
       .BYTE $F3, $F2, $48, $AA,	$27, $A, $F5, $13, $24,	$28, 3,	$F0, $97, $F1, 0, $78; $40
@@ -68047,12 +67856,16 @@ LevelData_7_2_Area6:.BYTE $21, $E0, $97, 1, 8, $A5, $F5, $13, $14, $92,	$4B, $42
       .BYTE $56, $28, $A4, $18,	3, $3B,	$29, $14, $29, $18, $A5, $28, 3, $46, $29, $A; $60
       .BYTE $29, $18, $AB, $F0,	$20, $F0, $56, $F1, 0, $F1, $36, $28, 3, $B7, $A, $F5; $70
       .BYTE $13, $33, $F0, 0, $F1, $17,	$F1, $A0, $FF; $80
-LevelData_7_2_Area7:.BYTE $21, $E0, $35, 1, 8, $A4, $F5, $13, $26, $76,	$33, $34, $37, $31, $33, $B; 0 ; data used at a000
-      .BYTE $43, $F0, $54, $35,	$36, $15, $46, $25, $46, $15, $36, $22,	$42, $33, $44, $38; $10
+LevelData_7_2_Area7:.BYTE $21, $E0, $35, 1, 8, $A4, $F5, $13, $26, $76,	$33, $34, $37, $31, $33, $B; 0
+						  ; DATA XREF: BANK8:80DAt
+						  ; BANK8:81ACt
+      .BYTE $43, $F0, $54, $35,	$36, $15, $46, $25, $46, $15, $36, $22,	$42, $33, $44, $38; $10	; data used at a000
       .BYTE $33, $F0, $F5, $3B,	$42, $26, $73, $C, $31,	$46, $35, $33, $39, $36, $33, $F0; $20
       .BYTE $9C, $F0, $B4, $33,	$49, $32, $49, $2C, $42, $24, $37, $17,	$80, $11, $32, 7; $30
       .BYTE $A4, $F5, $13, $23,	$37, 3,	$F1, $A0, $FF; $40
 LevelData_7_2_Area8:.BYTE $21, $E0, $64, 1, $28, $A8, $2C, $A, $F5, $13, $40, $29, $45,	$F0, $54, $95; 0
+						  ; DATA XREF: BANK8:80DBt
+						  ; BANK8:81ADt
       .BYTE $35, $52, $32, $45,	$33, $48, $34, $34, $37, $32, $33, $2C,	$31, $46, $32, $38; $10
       .BYTE $33, $F0, $95, $35,	$35, $52, $33, $15, $AD, 7, $33, $12, $A, $F5, $13, $90; $20
       .BYTE $22, $32, 5, 3, $A,	$31, $1A, $A9, $2A, 3, $B, $32,	$F1, $5C, $81, $86; $30
@@ -68062,11 +67875,14 @@ LevelData_7_2_Area8:.BYTE $21, $E0, $64, 1, $28, $A8, $2C, $A, $F5, $13, $40, $2
       .BYTE $94, $F1, $A0, $F4,	$D6, $F, 9, $F,	$53, $F, $46, $F, $3A, $F, $B7,	$F; $70
       .BYTE $2A, $F, $B6, $F, $FF		  ; $80
 LevelData_7_2_Area9:.BYTE 1, $FE, $30, 0, $28, $10, $4D, $81, $2B, $AD,	$D, $A,	$F5, $13, $83, $2B; 0
+						  ; DATA XREF: BANK8:80DCt
+						  ; BANK8:81AEt
       .BYTE 5, $C, $41,	$22, $10, $46, $10, $4C, $AA, $2B, $80,	$C, 5, $11, $10, $28; $10
       .BYTE $11, $4B, $AA, $15,	$10, $1B, 5, $C, $80, $7C, $AA,	$11, $10, $1B, $80, $C;	$20
       .BYTE 5, $24, $35, $14, $35, $14,	$35, $14, $35, $14, $33, 8, $AB, $14, $33, $14;	$30
       .BYTE $33, $18, 5, $77, $A, $F5, $13, $20, $F0, $80, $F1,	$57, $F1, $A0, $FF; $40
-LevelData_7_3_Area0:.BYTE $FF
+LevelData_7_3_Area0:.BYTE $FF			  ; DATA XREF: BANK8:80DDt
+						  ; BANK8:80DEt BANK8:80DFt ...
 ; [000000E0 BYTES: BEGIN OF AREA UNUSED-BANK9:A420. PRESS KEYPAD "-" TO	COLLAPSE]
 _empty_12420:.BYTE $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -69876,6 +69692,12 @@ EnemyPointers_Level_7_3_Area4:.BYTE 1		  ; DATA XREF: BANK9:A6E8o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $B025 - $BFFF
+     .pad $C000, $FF
+ENDIF
+#DELETE-START
 ; [00000FDB BYTES: BEGIN OF AREA UNUSED-BANK9:B025. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANK9_B025:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0 ; data used at a000
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -70133,6 +69955,7 @@ _unused_BANK9_B025:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF; $FD0
 ; end of 'BANK9'
 
+#DELETE-END
 ; [00000FDB BYTES: END OF AREA UNUSED-BANK9:B025. PRESS	KEYPAD "-" TO COLLAPSE]
 ; ===========================================================================
 
@@ -70152,8 +69975,8 @@ World1thru6TitleCard:.BYTE $FB,	$FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB,	$FB, $FB
       .BYTE $CF, $CE, $CF, $CE,	$CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE,	$CF, $CE, $CF, $CE; $90
 World7TitleCard:.BYTE $FB, $FB,	$B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB; 0
 						  ; DATA XREF: DrawTitleCardWorldImage:loc_BANKA_83ABr
-      .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1,	$FB, $FB, $FB, $FB; $10	; data used at 8000
-      .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8,	$BA, $BC, $FB, $FB; $20
+      .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1,	$FB, $FB, $FB, $FB; $10	; This one is the special one used for World 7,
+      .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8,	$BA, $BC, $FB, $FB; $20	; if you couldn't guess
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9,	$BB, $BD, $FB, $FB; $30
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $CA, $FC, $FC, $FC,	$FC, $CC, $FB, $FB; $40
       .BYTE $FB, $FB, $B1, $B3,	$C0, $C1, $FB, $FB, $CA, $FC, $FC, $FC,	$FC, $CC, $FB, $FB; $50

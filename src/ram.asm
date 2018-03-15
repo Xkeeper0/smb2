@@ -383,7 +383,8 @@ Player1JoypadHeld:
 Player2JoypadHeld:
 	  .dsb 1                       ; $00f8
       .dsb 1                    ; $00f9
-      .dsb 1                    ; $00fa
+unk_RAM_FA:
+	  .dsb 1                       ; $00fa
 unk_RAM_FB:
 	  .dsb 1                       ; $00fb
 PPUScrollYMirror:

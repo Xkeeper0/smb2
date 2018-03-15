@@ -14,8 +14,8 @@ World1thru6TitleCard:
       .BYTE $CF, $CE, $CF, $CE,	$CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE,	$CF, $CE, $CF, $CE; $90
 World7TitleCard:
 	  .BYTE $FB, $FB,	$B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB
-      .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1,	$FB, $FB, $FB, $FB; $10
-      .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8,	$BA, $BC, $FB, $FB; $20
+      .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1,	$FB, $FB, $FB, $FB; $10	; This one is the special one used for World 7,
+      .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8,	$BA, $BC, $FB, $FB; $20	; if you couldn't guess
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9,	$BB, $BD, $FB, $FB; $30
       .BYTE $FB, $FB, $B1, $B3,	$FB, $FB, $FB, $FB, $CA, $FC, $FC, $FC,	$FC, $CC, $FB, $FB; $40
       .BYTE $FB, $FB, $B1, $B3,	$C0, $C1, $FB, $FB, $CA, $FC, $FC, $FC,	$FC, $CC, $FB, $FB; $50

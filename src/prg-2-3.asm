@@ -5244,196 +5244,100 @@ locret_BANK2_99B3:
 ; End of function sub_BANK2_997A
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_99B4:
-	  .BYTE $D0
-
-byte_BANK2_99B5:
-	  .BYTE $D2
-
-      .BYTE $D4
-      .BYTE $D6
-      .BYTE $F8
-      .BYTE $F8
-      .BYTE $FA
-      .BYTE $FA
-      .BYTE $CC
-      .BYTE $CE
-      .BYTE $CC
-      .BYTE $CE
-      .BYTE $C8
-      .BYTE $CA
-      .BYTE $C8
-      .BYTE $CA
-      .BYTE $70
-      .BYTE $72
-      .BYTE $74
-      .BYTE $76
-      .BYTE $C0
-      .BYTE $C2
-      .BYTE $C4
-      .BYTE $C6
-      .BYTE $E1
-      .BYTE $E3
-      .BYTE $E5
-      .BYTE $E7
-      .BYTE $E1
-      .BYTE $E3
-      .BYTE $E5
-      .BYTE $E7
-      .BYTE $78
-      .BYTE $7A
-      .BYTE $7C
-      .BYTE $7E
-      .BYTE $DC
-      .BYTE $DA
-      .BYTE $DC
-      .BYTE $DE
-      .BYTE $FE
-      .BYTE $FE
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $94
-      .BYTE $94
-      .BYTE $96
-      .BYTE $96
-      .BYTE $98
-      .BYTE $98
-      .BYTE $9A
-      .BYTE $9A
-      .BYTE $DB
-      .BYTE $DD
-      .BYTE $DB
-      .BYTE $DD
-      .BYTE $7D
-      .BYTE $7F
-      .BYTE $C1
-      .BYTE $C3
-      .BYTE $8C
-      .BYTE $8C
-      .BYTE $8E
-      .BYTE $8E
-      .BYTE $E0
-      .BYTE $E2
-      .BYTE $6B
-      .BYTE $6D
-      .BYTE $6D
-      .BYTE $6F
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $38
-      .BYTE $38
-      .BYTE $38
-      .BYTE $36
-      .BYTE $36
-      .BYTE $36
-      .BYTE $36
-      .BYTE $34
-      .BYTE $34
-      .BYTE $34
-      .BYTE $34
-      .BYTE $AE
-      .BYTE $FB
-      .BYTE $AE
-      .BYTE $FB
-      .BYTE $80
-      .BYTE $82
-      .BYTE $84
-      .BYTE $86
-      .BYTE $80
-      .BYTE $82
-      .BYTE $AA
-      .BYTE $AC
-      .BYTE $88
-      .BYTE $8A
-      .BYTE $84
-      .BYTE $86
-      .BYTE $88
-      .BYTE $8A
-      .BYTE $AA
-      .BYTE $AC
-      .BYTE $BC
-      .BYTE $BE
-      .BYTE $AA
-      .BYTE $AC
-      .BYTE $BC
-      .BYTE $BE
-      .BYTE $AA
-      .BYTE $AC
-      .BYTE $B5
-      .BYTE $B9
-      .BYTE $B5
-      .BYTE $B9
-      .BYTE $81
-      .BYTE $83
-      .BYTE $85
-      .BYTE $87
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $81
-      .BYTE $83
-      .BYTE $F5
-      .BYTE $87
-      .BYTE $C5
-      .BYTE $C7
-      .BYTE $C9
-      .BYTE $CB
-      .BYTE $92
-      .BYTE $94
-      .BYTE $29
-      .BYTE $29
-      .BYTE $2B
-      .BYTE $2B
-      .BYTE $3D
-      .BYTE $3F
-      .BYTE $4C
-      .BYTE $4E
-      .BYTE $50
-      .BYTE $52
-      .BYTE $4C
-      .BYTE $4E
-      .BYTE $56
-      .BYTE $58
-      .BYTE $FB
-      .BYTE $5C
-      .BYTE $FB
-      .BYTE $5A
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $54
-      .BYTE $CF
-      .BYTE $CF
-      .BYTE $A5
-      .BYTE $A5
-      .BYTE $B0
-      .BYTE $B2
-      .BYTE $90
-      .BYTE $90
-      .BYTE $CD
-      .BYTE $CD
-      .BYTE $A8
-      .BYTE $A8
-      .BYTE $A8
-      .BYTE $A8
-      .BYTE $A0
-      .BYTE $A2
-      .BYTE $A4
-      .BYTE $A4
-      .BYTE $A4
-      .BYTE $A4
-      .BYTE $4D
-      .BYTE $4D
-      .BYTE $8C
-      .BYTE $8C
-      .BYTE $A6
-      .BYTE $A6
-      .BYTE $AB
-      .BYTE $AB
+EnemyTilemap1:
+	  .BYTE $D0,$D2
+      .BYTE $D4,$D6				  ; @TODO Figure out what the difference is
+      .BYTE $F8,$F8				  ; between this and EnemyTilemap2
+      .BYTE $FA,$FA
+      .BYTE $CC,$CE
+      .BYTE $CC,$CE
+      .BYTE $C8,$CA
+      .BYTE $C8,$CA
+      .BYTE $70,$72
+      .BYTE $74,$76
+      .BYTE $C0,$C2
+      .BYTE $C4,$C6
+      .BYTE $E1,$E3
+      .BYTE $E5,$E7
+      .BYTE $E1,$E3
+      .BYTE $E5,$E7
+      .BYTE $78,$7A
+      .BYTE $7C,$7E
+      .BYTE $DC,$DA
+      .BYTE $DC,$DE
+      .BYTE $FE,$FE
+      .BYTE $FC,$FC
+      .BYTE $94,$94
+      .BYTE $96,$96
+      .BYTE $98,$98
+      .BYTE $9A,$9A
+      .BYTE $DB,$DD
+      .BYTE $DB,$DD
+      .BYTE $7D,$7F
+      .BYTE $C1,$C3
+      .BYTE $8C,$8C
+      .BYTE $8E,$8E
+      .BYTE $E0,$E2
+      .BYTE $6B,$6D
+      .BYTE $6D,$6F
+      .BYTE $3A,$3A
+      .BYTE $3A,$3A
+      .BYTE $38,$38
+      .BYTE $38,$38
+      .BYTE $36,$36
+      .BYTE $36,$36
+      .BYTE $34,$34
+      .BYTE $34,$34
+      .BYTE $AE,$FB
+      .BYTE $AE,$FB
+      .BYTE $80,$82
+      .BYTE $84,$86
+      .BYTE $80,$82
+      .BYTE $AA,$AC
+      .BYTE $88,$8A
+      .BYTE $84,$86
+      .BYTE $88,$8A
+      .BYTE $AA,$AC
+      .BYTE $BC,$BE
+      .BYTE $AA,$AC
+      .BYTE $BC,$BE
+      .BYTE $AA,$AC
+      .BYTE $B5,$B9
+      .BYTE $B5,$B9
+      .BYTE $81,$83
+      .BYTE $85,$87
+      .BYTE $FF,$FF
+      .BYTE $FF,$FF
+      .BYTE $81,$83
+      .BYTE $F5,$87
+      .BYTE $C5,$C7
+      .BYTE $C9,$CB
+      .BYTE $92,$94
+      .BYTE $29,$29
+      .BYTE $2B,$2B
+      .BYTE $3D,$3F
+      .BYTE $4C,$4E
+      .BYTE $50,$52
+      .BYTE $4C,$4E
+      .BYTE $56,$58
+      .BYTE $FB,$5C
+      .BYTE $FB,$5A
+      .BYTE $FB,$FB
+      .BYTE $FB,$54
+      .BYTE $CF,$CF
+      .BYTE $A5,$A5
+      .BYTE $B0,$B2
+      .BYTE $90,$90
+      .BYTE $CD,$CD
+      .BYTE $A8,$A8
+      .BYTE $A8,$A8
+      .BYTE $A0,$A2
+      .BYTE $A4,$A4
+      .BYTE $A4,$A4
+      .BYTE $4D,$4D
+      .BYTE $8C,$8C
+      .BYTE $A6,$A6
+      .BYTE $AB,$AB
 EnemyAnimationTable:
 	  .BYTE 0					
       .BYTE 0					  ; 1 ;	Not sure what this does, but it's some sort of
@@ -5987,16 +5891,16 @@ sub_BANK2_9CF2:
       LDA     byte_RAM_B
       BNE     loc_BANK2_9D0A
 
-      LDA     byte_BANK2_99B4,X
+      LDA     EnemyTilemap1,X
       STA     SpriteDMAArea+1,Y
-      LDA     byte_BANK2_99B5,X
+      LDA     EnemyTilemap1+1,X
       STA     SpriteDMAArea+5,Y
       BNE     loc_BANK2_9D16
 
 loc_BANK2_9D0A:
-      LDA     _Mystery_BANK3_A030,X
+      LDA     EnemyTilemap2,X
       STA     SpriteDMAArea+1,Y
-      LDA     _Mystery_BANK3_A030+1,X
+      LDA     EnemyTilemap2+1,X
       STA     SpriteDMAArea+5,Y
 
 loc_BANK2_9D16:
@@ -6056,11 +5960,11 @@ loc_BANK2_9D53:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9D6D:
-      LDA     _Mystery_BANK3_A030,X
+      LDA     EnemyTilemap2,X
       STA     SpriteDMAArea+1,Y
-      LDA     _Mystery_BANK3_A030+1,X
+      LDA     EnemyTilemap2+1,X
       STA     SpriteDMAArea+5,Y
-      LDA     _Mystery_BANK3_A030+2,X
+      LDA     EnemyTilemap2+2,X
       STA     SpriteDMAArea+9,Y
       LDA     byte_RAM_2
       LSR     A
@@ -6356,225 +6260,116 @@ _unused_BANK3_A000:
 	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
-_Mystery_BANK3_A030:
-	  .BYTE $2D					
-      .BYTE $2F					  ; 1
-      .BYTE $2D					  ; 2
-      .BYTE $2F
-      .BYTE $E0
-      .BYTE $E2
-      .BYTE $E4
-      .BYTE $E6
-      .BYTE $E0
-      .BYTE $E2
-      .BYTE $E4
-      .BYTE $E6
-      .BYTE $E8
-      .BYTE $EA
-      .BYTE $EC
-      .BYTE $EE
-      .BYTE $E8
-      .BYTE $EA
-      .BYTE $EC
-      .BYTE $EE
-      .BYTE 1
-      .BYTE 3
-      .BYTE 9
-      .BYTE 5
-      .BYTE 7
-      .BYTE $B
-      .BYTE $D
-      .BYTE $F
-      .BYTE $15
-      .BYTE $11
-      .BYTE $13
-      .BYTE $17
-      .BYTE 1
-      .BYTE 3
-      .BYTE 9
-      .BYTE 5
-      .BYTE $19
-      .BYTE $1B
-      .BYTE 1
-      .BYTE 3
-      .BYTE 9
-      .BYTE 5
-      .BYTE $19
-      .BYTE $1B
-      .BYTE $1D
-      .BYTE $1F
-      .BYTE $25
-      .BYTE $21
-      .BYTE $23
-      .BYTE $27
-      .BYTE $1D
-      .BYTE $1F
-      .BYTE $25
-      .BYTE $21
-      .BYTE $23
-      .BYTE $27
-      .BYTE $9C
-      .BYTE $9E
-      .BYTE $9C
-      .BYTE $9E
-      .BYTE $D0
-      .BYTE $D2
-      .BYTE $D4
-      .BYTE $D6
-      .BYTE $F0
-      .BYTE $F2
-      .BYTE $F4
-      .BYTE $F6
-      .BYTE $F0
-      .BYTE $F2
-      .BYTE $F8
-      .BYTE $FA
-      .BYTE $F
-      .BYTE $11
-      .BYTE $13
-      .BYTE $15
-      .BYTE $1F
-      .BYTE $11
-      .BYTE $13
-      .BYTE $15
-      .BYTE $17
-      .BYTE $19
-      .BYTE $1B
-      .BYTE $17
-      .BYTE $19
-      .BYTE $1D
-      .BYTE 9
-      .BYTE $B
-      .BYTE 1
-      .BYTE 3
-      .BYTE 5
-      .BYTE 7
-      .BYTE $55
-      .BYTE $59
-      .BYTE $5B
-      .BYTE $5D
-      .BYTE $F0
-      .BYTE $F2
-      .BYTE $F4
-      .BYTE $F6
-      .BYTE $45
-      .BYTE $59
-      .BYTE $5B
-      .BYTE $5D
-      .BYTE $45
-      .BYTE $59
-      .BYTE $5B
-      .BYTE $5D
-      .BYTE $E8
-      .BYTE $EA
-      .BYTE $EC
-      .BYTE $EE
-      .BYTE $EC
-      .BYTE $EE
-      .BYTE $EC
-      .BYTE $EE
-      .BYTE $F0
-      .BYTE $F2
-      .BYTE $F0
-      .BYTE $F2
-      .BYTE $F4
-      .BYTE $F6
-      .BYTE $F8
-      .BYTE $FA
-      .BYTE $D0
-      .BYTE $D2
-      .BYTE $D4
-      .BYTE $D6
-      .BYTE 1
-      .BYTE 3
-      .BYTE 5
-      .BYTE 7
-      .BYTE 9
-      .BYTE $B
-      .BYTE $D
-      .BYTE $F
-      .BYTE 1
-      .BYTE $11
-      .BYTE 5
-      .BYTE $15
-      .BYTE $13
-      .BYTE $B
-      .BYTE $17
-      .BYTE $F
-      .BYTE $19
-      .BYTE $1B
-      .BYTE $2D
-      .BYTE $2F
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $E0
-      .BYTE $E2
-      .BYTE $E4
-      .BYTE $E6
-      .BYTE $E8
-      .BYTE $EA
-      .BYTE $EC
-      .BYTE $EE
-      .BYTE 1
-      .BYTE 3
-      .BYTE 5
-      .BYTE 7
-      .BYTE $4F
-      .BYTE $5D
-      .BYTE 5
-      .BYTE 7
-      .BYTE 9
-      .BYTE $B
-      .BYTE $D
-      .BYTE $F
-      .BYTE $27
-      .BYTE $79
-      .BYTE $7B
-      .BYTE $2D
-      .BYTE $4F
-      .BYTE $2F
-      .BYTE $45
-      .BYTE $55
-      .BYTE $11
-      .BYTE $13
-      .BYTE $15
-      .BYTE $17
-      .BYTE $1F
-      .BYTE $21
-      .BYTE $23
-      .BYTE $25
-      .BYTE $11
-      .BYTE $13
-      .BYTE $23
-      .BYTE $25
-      .BYTE $59
-      .BYTE $59
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE 1
-      .BYTE 3
-      .BYTE 5
-      .BYTE 7
-      .BYTE 9
-      .BYTE $B
-      .BYTE $D
-      .BYTE $F
-      .BYTE $FB
-      .BYTE $11
-      .BYTE $15
-      .BYTE $17
-      .BYTE $13
-      .BYTE $FB
-      .BYTE $19
-      .BYTE $1B
-      .BYTE $1D
-      .BYTE $1F
-      .BYTE $21
-      .BYTE $23
-      .BYTE $25
-      .BYTE $27
-      .BYTE $25
-      .BYTE $27
+EnemyTilemap2:
+	  .BYTE $2D,$2F				  
+      .BYTE $2D,$2F				  ; 2 ;	@TODO Figure out how this differs from
+      .BYTE $E0,$E2				  ; 4 ;	EnemyTilemap1 and why
+      .BYTE $E4,$E6				  ; 6
+      .BYTE $E0,$E2				  ; 8
+      .BYTE $E4,$E6				  ; $A
+      .BYTE $E8,$EA				  ; $C
+      .BYTE $EC,$EE				  ; $E
+      .BYTE $E8,$EA				  ; $10
+      .BYTE $EC,$EE				  ; $12
+      .BYTE 1,3					  ; $14
+      .BYTE 9,5					  ; $16
+      .BYTE 7,$B				  ; $18
+      .BYTE $D,$F				  ; $1A
+      .BYTE $15,$11				  ; $1C
+      .BYTE $13,$17				  ; $1E
+      .BYTE 1,3					  ; $20
+      .BYTE 9,5					  ; $22
+      .BYTE $19,$1B				  ; $24
+      .BYTE 1,3					  ; $26
+      .BYTE 9,5					  ; $28
+      .BYTE $19,$1B				  ; $2A
+      .BYTE $1D,$1F				  ; $2C
+      .BYTE $25,$21				  ; $2E
+      .BYTE $23,$27				  ; $30
+      .BYTE $1D,$1F				  ; $32
+      .BYTE $25,$21				  ; $34
+      .BYTE $23,$27				  ; $36
+      .BYTE $9C,$9E				  ; $38
+      .BYTE $9C,$9E				  ; $3A
+      .BYTE $D0,$D2				  ; $3C
+      .BYTE $D4,$D6				  ; $3E
+      .BYTE $F0,$F2				  ; $40
+      .BYTE $F4,$F6				  ; $42
+      .BYTE $F0,$F2				  ; $44
+      .BYTE $F8,$FA				  ; $46
+      .BYTE $F,$11				  ; $48
+      .BYTE $13,$15				  ; $4A
+      .BYTE $1F,$11				  ; $4C
+      .BYTE $13,$15				  ; $4E
+      .BYTE $17,$19				  ; $50
+      .BYTE $1B,$17				  ; $52
+      .BYTE $19,$1D				  ; $54
+      .BYTE 9,$B				  ; $56
+      .BYTE 1,3					  ; $58
+      .BYTE 5,7					  ; $5A
+      .BYTE $55,$59				  ; $5C
+      .BYTE $5B,$5D				  ; $5E
+      .BYTE $F0,$F2				  ; $60
+      .BYTE $F4,$F6				  ; $62
+      .BYTE $45,$59				  ; $64
+      .BYTE $5B,$5D				  ; $66
+      .BYTE $45,$59				  ; $68
+      .BYTE $5B,$5D				  ; $6A
+      .BYTE $E8,$EA				  ; $6C
+      .BYTE $EC,$EE				  ; $6E
+      .BYTE $EC,$EE				  ; $70
+      .BYTE $EC,$EE				  ; $72
+      .BYTE $F0,$F2				  ; $74
+      .BYTE $F0,$F2				  ; $76
+      .BYTE $F4,$F6				  ; $78
+      .BYTE $F8,$FA				  ; $7A
+      .BYTE $D0,$D2				  ; $7C
+      .BYTE $D4,$D6				  ; $7E
+      .BYTE 1,3					  ; $80
+      .BYTE 5,7					  ; $82
+      .BYTE 9,$B				  ; $84
+      .BYTE $D,$F				  ; $86
+      .BYTE 1,$11				  ; $88
+      .BYTE 5,$15				  ; $8A
+      .BYTE $13,$B				  ; $8C
+      .BYTE $17,$F				  ; $8E
+      .BYTE $19,$1B				  ; $90
+      .BYTE $2D,$2F				  ; $92
+      .BYTE $3A,$3A				  ; $94
+      .BYTE $E0,$E2				  ; $96
+      .BYTE $E4,$E6				  ; $98
+      .BYTE $E8,$EA				  ; $9A
+      .BYTE $EC,$EE				  ; $9C
+      .BYTE 1,3					  ; $9E
+      .BYTE 5,7					  ; $A0
+      .BYTE $4F,$5D				  ; $A2
+      .BYTE 5,7					  ; $A4
+      .BYTE 9,$B				  ; $A6
+      .BYTE $D,$F				  ; $A8
+      .BYTE $27,$79				  ; $AA
+      .BYTE $7B,$2D				  ; $AC
+      .BYTE $4F,$2F				  ; $AE
+      .BYTE $45,$55				  ; $B0
+      .BYTE $11,$13				  ; $B2
+      .BYTE $15,$17				  ; $B4
+      .BYTE $1F,$21				  ; $B6
+      .BYTE $23,$25				  ; $B8
+      .BYTE $11,$13				  ; $BA
+      .BYTE $23,$25				  ; $BC
+      .BYTE $59,$59				  ; $BE
+      .BYTE $5B,$5B				  ; $C0
+      .BYTE 1,3					  ; $C2
+      .BYTE 5,7					  ; $C4
+      .BYTE 9,$B				  ; $C6
+      .BYTE $D,$F				  ; $C8
+      .BYTE $FB,$11				  ; $CA
+      .BYTE $15,$17				  ; $CC
+      .BYTE $13,$FB				  ; $CE
+      .BYTE $19,$1B				  ; $D0
+      .BYTE $1D,$1F				  ; $D2
+      .BYTE $21,$23				  ; $D4
+      .BYTE $25,$27				  ; $D6
+      .BYTE $25,$27				  ; $D8
 ; ---------------------------------------------------------------------------
 
 EnemyInit_Clawgrip:
