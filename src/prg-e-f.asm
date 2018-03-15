@@ -2619,19 +2619,19 @@ NMI:
       STA     PPUCTRL
 
 loc_BANKF_EBC9:
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ad, $d1, $00 ; LDA $00D1
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDA     byte_RAM_D1			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
       STA     PPUADDR
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ad, $d2, $00 ; LDA $00D2
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDA     byte_RAM_D2			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -2646,10 +2646,10 @@ loc_BANKF_EBD5:
       BNE     loc_BANKF_EBD5
 
       LDX     #$1E
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ee, $d2, $00 ; INC $00D2
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       INC     byte_RAM_D2			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -3743,10 +3743,10 @@ DamageInvulnBlinkFrames:
 	  .BYTE 1, 1, 1, 2, 2, 4,	4, 4		    ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKF_F31A:
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ac, $50, $00 ; LDA $0000 + PlayerState
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDY     PlayerState			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF

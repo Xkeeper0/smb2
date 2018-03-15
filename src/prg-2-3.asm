@@ -342,14 +342,14 @@ loc_BANK2_81E7:
 
       JSR     PutCarriedObjectInHands
 
-      JSR     EnemyStateHandling
+      JSR     HandleEnemyState
 
       LDX     byte_RAM_12
       DEX
       BPL     loc_BANK2_8198
 
       LDA     byte_RAM_4B9
-      BEQ     locret_BANK2_820D
+      BEQ     HandleEnemyState_Inactive
 
       SEC
       SBC     #$47
@@ -369,7 +369,7 @@ sub_BANK2_8208:
       LDA     #0
       STA     byte_RAM_4B9
 
-locret_BANK2_820D:
+HandleEnemyState_Inactive:
       RTS
 
 ; End of function sub_BANK2_8208
@@ -420,20 +420,24 @@ loc_BANK2_8233:
 
 ; ---------------------------------------------------------------------------
 
-EnemyStateHandling:
+HandleEnemyState:
       LDA     EnemyState,X
       JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
-      .WORD locret_BANK2_820D			  
-      .WORD loc_BANK2_89B9			  ; Alive
-      .WORD loc_BANK2_84FA			  ; Dead
-      .WORD loc_BANK2_858F			  ; Block fizzle
-      .WORD loc_BANK2_85F7			  ; Bomb exploding
-      .WORD loc_BANK2_879C			  ; Puff of smoke
-      .WORD loc_BANK2_8858
+      .WORD HandleEnemyState_Inactive		  ; 0 (not active)
+      .WORD HandleEnemyState_Alive		  ; Alive
+      .WORD HandleEnemyState_Dead		  ; Dead
+      .WORD HandleEnemyState_BlockFizzle	  ; Block fizzle
+      .WORD HandleEnemyState_BombExploding	  ; Bomb exploding
+      .WORD HandleEnemyState_PuffOfSmoke	  ; Puff of smoke
+      .WORD HandleEnemyState_6			  ; 6 (?)
 off_BANK2_8250:
 	  .WORD loc_BANK2_85B2
+						  ; Don't think this is part of state handling (?)
+						  ; but	not sure at all
+						  ;
+						  ; Is this for	being carried/thrown??
       .BYTE $18
 byte_BANK2_8253:
 	  .BYTE $E0
@@ -953,7 +957,7 @@ EnemyInit_Bobomb:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_84FA:
+HandleEnemyState_Dead:
       JSR     sub_BANK3_B5CC
 
       JSR     sub_BANK2_88E8
@@ -1069,7 +1073,7 @@ locret_BANK2_858E:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_858F:
+HandleEnemyState_BlockFizzle:
       JSR     sub_BANK2_88E8
 
       LDA     EnemyTimer,X
@@ -1166,7 +1170,7 @@ EnemyInitialAccelerationTable:
       .BYTE 8
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_85F7:
+HandleEnemyState_BombExploding:
       JSR     sub_BANK2_88E8
 
       LDA     byte_RAM_EE
@@ -1485,11 +1489,11 @@ byte_BANK2_8798:
       .BYTE $52
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_879C:
+HandleEnemyState_PuffOfSmoke:
       JSR     sub_BANK2_88E8
 
       LDA     ObjectAttributes,X
-      ORA     #$10
+      ORA     #ObjAttrib_Palette0|ObjAttrib_Mirrored
       STA     ObjectAttributes,X
       LDA     EnemyTimer,X
       BNE     loc_BANK2_87AC
@@ -1519,7 +1523,9 @@ loc_BANK2_87AC:
       CMP     #Enemy_Clawgrip
       BNE     loc_BANK2_87CA
 
-      DEY
+      DEY					  ; Clawgrip special hack:
+						  ; Move the "Draw the door" PPU command
+						  ; up 8 tile rows ($100) to be	on the platform
 
 loc_BANK2_87CA:
       STY     PPUBuffer_721B
@@ -1616,7 +1622,7 @@ loc_BANK2_8855:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_8858:
+HandleEnemyState_6:
       JSR     sub_BANK2_88E8
 
       LDA     #$12
@@ -1873,7 +1879,7 @@ locret_BANK2_89B8:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_89B9:
+HandleEnemyState_Alive:
       LDA     #1
       STA     unk_RAM_4A4,X
       LDY     EnemyArray_42F,X
@@ -6737,10 +6743,10 @@ byte_BANK3_A1DC:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A1E4:
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ad, $f4, $00 ; LDA $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDA     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -6884,10 +6890,10 @@ loc_BANK3_A2AA:
       JSR     sub_BANK2_8894
 
       LDY     #0
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8c, $f4, $00 ; STY $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STY     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -6920,10 +6926,10 @@ loc_BANK3_A2D2:
       AND     #4
       BEQ     loc_BANK3_A2E1
 
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ae, $f4, $00 ; LDX $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDX     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -6985,10 +6991,10 @@ loc_BANK3_A320:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A323:
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $bd, $a8, $00 ; LDA $00A8, X
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDA     ObjectBeingCarriedTimer,X		  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -7124,10 +7130,10 @@ loc_BANK3_A3C7:
       LDA     Player1JoypadHeld
       AND     #ControllerInput_Right|ControllerInput_Left
       TAY
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $2d, $5a, $00 ; AND $0000 + PlayerCollision
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       AND     PlayerCollision			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -7391,10 +7397,10 @@ sub_BANK3_A508:
 
       JSR     loc_BANKF_FAFE
 
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8c, $f4, $00 ; STY $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STY     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -7619,10 +7625,10 @@ loc_BANK3_A621:
       STA     SpriteTempScreenX
       ASL     byte_RAM_EE
       LDY     #0
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8c, $f4, $00 ; STY $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STY     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -7894,10 +7900,10 @@ loc_BANK3_A783:
 loc_BANK3_A79B:
       TYA
       LDY     #$30
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8c, $f4, $00 ; STY $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STY     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -8584,10 +8590,10 @@ loc_BANK3_AB42:
       LDA     #5
       STA     TransitionType
       LDA     #0
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8d, $50, $00 ; STA $0000 + PlayerState
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STA     PlayerState			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -8749,10 +8755,10 @@ loc_BANK3_AC4B:
 
       JSR     loc_BANKF_FAFE
 
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8c, $f4, $00 ; STY $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STY     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -9137,10 +9143,10 @@ loc_BANK3_AE5C:
       LDA     EnemyArray_B1,X
       BNE     loc_BANK3_AE7C
 
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ad, $f4, $00 ; LDA $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDA     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -9152,10 +9158,10 @@ ENDIF
       STA     SpriteTempScreenY
       JSR     loc_BANKF_FAFE
 
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8c, $f4, $00 ; STY $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STY     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -9164,10 +9170,10 @@ ENDIF
       JSR     sub_BANK2_9BB3
 
       PLA
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8d, $f4, $00 ; STA $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STA     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -9183,10 +9189,10 @@ loc_BANK3_AE7C:
       TYA
       CLC
       ADC     #8
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8d, $f4, $00 ; STA $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STA     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -9320,10 +9326,10 @@ loc_BANK3_AF29:
 
 loc_BANK3_AF34:
       STA     SpriteDMAArea+$D,Y
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ae, $f4, $00 ; LDX $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDX     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -9691,10 +9697,10 @@ loc_BANK3_B13B:
       STA     SpriteDMAArea+6,Y
       STA     SpriteDMAArea+$A,Y
       STA     SpriteDMAArea+$E,Y
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ae, $f4, $00 ; LDX $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDX     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -9962,10 +9968,10 @@ locret_BANK3_B2AF:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B2B0:
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ad, $f4, $00 ; LDA $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDA     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -9977,10 +9983,10 @@ ENDIF
       STA     byte_RAM_7
       TAY
       LDA     unk_RAM_7265,Y
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8d, $f4, $00 ; STA $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STA     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -10031,10 +10037,10 @@ loc_BANK3_B2F7:
       STA     SpriteTempScreenY
       LDY     byte_RAM_7
       LDA     unk_RAM_7266,Y
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8d, $f4, $00 ; STA $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STA     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -10071,10 +10077,10 @@ loc_BANK3_B322:
       STA     SpriteTempScreenY
       LDY     byte_RAM_7
       LDA     byte_RAM_7267,Y
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8d, $f4, $00 ; STA $00F4
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STA     byte_RAM_F4			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF

@@ -248,6 +248,7 @@ EnemyState_Dead: = 2
 EnemyState_BlockFizzle:	= 3
 EnemyState_BombExploding: = 4
 EnemyState_PuffOfSmoke:	= 5
+EnemyState_6: =	6
 
 ; ---------------------------------------------------------------------------
 
@@ -34952,11 +34953,18 @@ sub_BANK0_84AC:					  ; CODE XREF: sub_BANK0_8314:loc_BANK0_832Ep
 ; End of function sub_BANK0_84AC
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $84B8 - $84FF
+     .pad $8500, $FF
+ENDIF
+#DELETE-START
 _unused_BANK0_84B8:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $40
+#DELETE-END
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -35880,6 +35888,12 @@ loc_BANK0_895F:					  ; CODE XREF: sub_BANK0_895D+6j
 ; End of function sub_BANK0_895D
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $8966 - $89FF
+     .pad $8A00, $FF
+ENDIF
+#DELETE-START
 _unused_BANK0_8966:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
@@ -35890,6 +35904,7 @@ _unused_BANK0_8966:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; $90
+#DELETE-END
 GrowShrinkSFXIndexes:.BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; 0
 						  ; DATA XREF: BANK0:8A18r
 						  ; data used at 8000
@@ -36909,19 +36924,19 @@ loc_BANK0_8E05:					  ; CODE XREF: sub_BANK0_8DC0+41j
 
 loc_BANK0_8E12:					  ; code used at 8000
       LDA     EnemyState,X
-      CMP     #6				  ; code used at 8000
+      CMP     #EnemyState_6			  ; code used at 8000
       BEQ     locret_BANK0_8E41			  ; code used at 8000
 
       LDA     ObjectType,X			  ; code used at 8000
-      CMP     #$39 ; '9'                          ; code used at 8000
+      CMP     #Enemy_MushroomBlock		  ; code used at 8000
       BCC     loc_BANK0_8E22			  ; code used at 8000
 
-      CMP     #$3A ; ':'                          ; code used at 8000
+      CMP     #Enemy_POWBlock			  ; code used at 8000
       BCC     loc_BANK0_8E28			  ; code used at 8000
 
 
 loc_BANK0_8E22:					  ; CODE XREF: sub_BANK0_8DC0+5Cj
-      CMP     #$37 ; '7'                          ; code used at 8000
+      CMP     #Enemy_Bomb			  ; code used at 8000
       BCC     loc_BANK0_8E42			  ; code used at 8000
 
       LDY     #2				  ; code used at 8000
@@ -36953,21 +36968,21 @@ locret_BANK0_8E41:				  ; CODE XREF: sub_BANK0_8DC0+47j
 
 loc_BANK0_8E42:					  ; CODE XREF: sub_BANK0_8DC0+64j
 						  ; sub_BANK0_8DC0+7Fj
-      LDA     #9				  ; code used at 8000
+      LDA     #SpriteAnimation_Throwing		  ; code used at 8000
       STA     PlayerAnimationFrame		  ; code used at 8000
       LDA     #2				  ; code used at 8000
       STA     byte_RAM_9B			  ; code used at 8000
       LDA     #$A				  ; code used at 8000
       STA     byte_RAM_84			  ; code used at 8000
       DEC     HoldingItem			  ; code used at 8000
-      LDA     #8				  ; code used at 8000
+      LDA     #SoundEffect1_ThrowItem		  ; code used at 8000
       STA     SoundEffect1Queue			  ; code used at 8000
       LDA     #0				  ; code used at 8000
       STA     byte_RAM_9A			  ; code used at 8000
       STA     Player1JoypadPress		  ; code used at 8000
       STA     byte_RAM_1			  ; code used at 8000
       LDX     byte_RAM_42D			  ; code used at 8000
-      LDA     #$36 ; '6'                          ; code used at 8000
+      LDA     #Enemy_Coin			  ; code used at 8000
       CMP     ObjectType,X			  ; code used at 8000
       ROL     byte_RAM_1			  ; code used at 8000
       LDA     PlayerXAccel			  ; code used at 8000
@@ -37104,15 +37119,14 @@ byte_BANK0_8EE8:.BYTE 2				  ; DATA XREF: sub_BANK0_8FB2+Cr
       .BYTE 2					  ; data used at 8000
       .BYTE 2					  ; data used at 8000
       .BYTE 2					  ; data used at 8000
-byte_BANK0_8EF0:.BYTE 8				  ; DATA XREF: sub_BANK0_8FB2:loc_BANK0_8FEBr
-						  ; data used at 8000
-      .BYTE 8					  ; data used at 8000
-      .BYTE 4					  ; data used at 8000
-      .BYTE 4					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE 2					  ; data used at 8000
-      .BYTE 1					  ; data used at 8000
-      .BYTE 1					  ; data used at 8000
+CollisionFlagTableThing:.BYTE CollisionFlags_Up	  ; DATA XREF: sub_BANK0_8FB2:loc_BANK0_8FEBr
+      .BYTE CollisionFlags_Up			  ; data used at 8000
+      .BYTE CollisionFlags_Down
+      .BYTE CollisionFlags_Down
+      .BYTE CollisionFlags_Left
+      .BYTE CollisionFlags_Left
+      .BYTE CollisionFlags_Right
+      .BYTE CollisionFlags_Right
 byte_BANK0_8EF8:.BYTE $F0			  ; DATA XREF: sub_BANK0_8EFA+6Er
 						  ; data used at 8000
       .BYTE $10					  ; data used at 8000
@@ -37314,7 +37328,7 @@ loc_BANK0_8FDE:					  ; CODE XREF: sub_BANK0_8FB2+23j
 loc_BANK0_8FEB:					  ; CODE XREF: sub_BANK0_8FB2+1Fj
 						  ; sub_BANK0_8FB2+2Aj
 						  ; sub_BANK0_8FB2+31j
-      LDA     byte_BANK0_8EF0,X			  ; code used at 8000
+      LDA     CollisionFlagTableThing,X		  ; code used at 8000
       ORA     PlayerCollision			  ; code used at 8000
       STA     PlayerCollision			  ; code used at 8000
 
@@ -37400,11 +37414,11 @@ loc_BANK0_9031:					  ; code used at 8000
       CMP     #8				  ; code used at 8000
       BCS     locret_BANK0_9052			  ; code used at 8000
 
-      LDA     #1				  ; code used at 8000
+      LDA     #PlayerState_Climbing		  ; code used at 8000
       STA     PlayerState			  ; code used at 8000
       STY     byte_RAM_99			  ; code used at 8000
       STY     byte_RAM_9A			  ; code used at 8000
-      LDA     #$A				  ; code used at 8000
+      LDA     #SpriteAnimation_Climbing		  ; code used at 8000
       STA     PlayerAnimationFrame		  ; code used at 8000
       PLA					  ; code used at 8000
       PLA					  ; code used at 8000
@@ -37506,7 +37520,7 @@ loc_BANK0_9080:					  ; CODE XREF: BANK0:9078j
 
       LDA     #$20 ; ' '                          ; code used at 8000
       STA     EnemyTimer,X			  ; code used at 8000
-      LDA     #6				  ; code used at 8000
+      LDA     #EnemyState_6			  ; code used at 8000
 
 
 loc_BANK0_90AE:					  ; CODE XREF: BANK0:90A6j
@@ -37539,7 +37553,7 @@ loc_BANK0_90C5:					  ; CODE XREF: BANK0:90BDj
       LDA     Mushroom1upPulled
       BEQ     loc_BANK0_90EA
 
-      LDA     #$32 ; '2'
+      LDA     #Enemy_VegetableSmall
       STA     ObjectType,X
 
 loc_BANK0_90D2:
@@ -37548,7 +37562,7 @@ loc_BANK0_90D2:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_90D5:					  ; CODE XREF: BANK0:90C7j
-      CMP     #$33 ; '3'                          ; code used at 8000
+      CMP     #Enemy_VegetableLarge		  ; code used at 8000
       BNE     loc_BANK0_90EA			  ; code used at 8000
 
       LDY     BigVeggiesPulled			  ; code used at 8000
@@ -38670,10 +38684,17 @@ locret_BANK0_95C2:				  ; CODE XREF: sub_BANK0_95AF+2j
 ; End of function sub_BANK0_95AF
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $95C3 - $95FF
+     .pad $9600, $FF
+ENDIF
+#DELETE-START
 _unused_BANK0_95C3:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF; $30
+#DELETE-END
 TitleScreenPPUDataPointers:.WORD PPUBuffer_301	  ; DATA XREF: WaitForNMI_TitleScreen+4r
 						  ; WaitForNMI_TitleScreen+9r
 						  ; data used at 8000
@@ -39330,8 +39351,14 @@ loc_BANK0_9C52:					  ; code used at 8000
 ; End of function TitleScreen
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $9C58 - $A1FF
+     .pad $A200, $FF
+ENDIF
+#DELETE-START
 ; [000003A8 BYTES: BEGIN OF AREA UNUSED-BANK0-9C58. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_1C58:.BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; 0
+_unused_BANK0_9C58:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
@@ -39431,6 +39458,7 @@ byte_BANK1_A000:.BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1D0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1E0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1F0
+#DELETE-END
 ; [00000200 BYTES: END OF AREA UNUSED-BANK1_A000. PRESS	KEYPAD "-" TO COLLAPSE]
 EndingPPUDataPointers:.WORD PPUBuffer_301	  ; DATA XREF: WaitForNMI_Ending+4r
 						  ; WaitForNMI_Ending+9r
@@ -39499,467 +39527,58 @@ WaitForNMI_EndingLoop:				  ; CODE XREF: WaitForNMI_Ending+14j
 ; End of function WaitForNMI_Ending
 
 ; ---------------------------------------------------------------------------
-EndingCorkJarRoom:.BYTE	$20			  ; DATA XREF: BANK1:A202o
-						  ; data used at a000
+EndingCorkJarRoom:.BYTE	$20,0,$9E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+						  ; DATA XREF: BANK1:A202o
+      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72	; data used at a000
+      .BYTE $73,$72,$73
+      .BYTE $20,1,$9E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72 ;	data used at a000
+      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $72,$73,$72
+      .BYTE $22,2,$8E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73 ;	data used at a000
+      .BYTE $72,$73
+      .BYTE $22,3,$8E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72 ;	data used at a000
+      .BYTE $73,$72
+      .BYTE $23,$44,$18,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73	; data used at a000
+      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $23,$64,$18,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72	; data used at a000
+      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $23,$84,$18,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73	; data used at a000
+      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $23,$A4,$18,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72	; data used at a000
+      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $22,$1C,$8E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73	; data used at a000
+      .BYTE $72,$73
+      .BYTE $22,$1D,$8E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72	; data used at a000
+      .BYTE $73,$72
+      .BYTE $20,$1E,$9E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73	; data used at a000
+      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $73,$72,$73
+      .BYTE $20,$1F,$9E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72	; data used at a000
+      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $72,$73,$72
+      .BYTE $22,$C6,$C4,$FC			  ; data used at a000
+      .BYTE $22,$C7,$C4,$FC			  ; data used at a000
+      .BYTE $22,$C8,$84,$AD,$AC,$AC,$AC		  ; data used at a000
+      .BYTE $22,$E9,$83,$AD,$AC,$AC		  ; data used at a000
+      .BYTE $23,$A,$82,$AD,$AC			  ; data used at a000
+      .BYTE $23,$2B,1,$AD			  ; data used at a000
+      .BYTE $22,$90,$84,$88,$89,$89,$8C		  ; data used at a000
+      .BYTE $22,$91,$84,$8A,$8B,$8B,$8D		  ; data used at a000
+      .BYTE $23,$E,6,$74,$76,$74,$76,$74,$76	  ; data used at a000
+      .BYTE $23,$2E,6,$75,$77,$75,$77,$75,$77	  ; data used at a000
+      .BYTE $23,$C0,$20,$22,0,0,0,0,0,0,$88,$22,0,0,0,0,0,0,$88,$22,0 ;	data used at a000
+      .BYTE 0,0,0,0,0,$88,$22,0,0,0,0,0,0,$88
+      .BYTE $23,$E0,$20,$AA,0,0,0,0,0,0,$AA,$AA,0,0,0,$11,0,0,$AA,$AA ;	data used at a000
+      .BYTE $A0,$A0,$A4,$A5,$A0,$A0,$AA,$A,$A,$A,$A,$A,$A,$A,$A
       .BYTE   0					  ; data used at a000
-      .BYTE $9E	; û				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $20					  ; data used at a000
-      .BYTE   1					  ; data used at a000
-      .BYTE $9E	; û				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE   2					  ; data used at a000
-      .BYTE $8E	; é				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE   3					  ; data used at a000
-      .BYTE $8E	; é				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $23	; #				  ; data used at a000
-      .BYTE $44	; D				  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $23	; #				  ; data used at a000
-      .BYTE $64	; d				  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $23	; #				  ; data used at a000
-      .BYTE $84	; Ñ				  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $23	; #				  ; data used at a000
-      .BYTE $A4	; §				  ; data used at a000
-      .BYTE $18					  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE $1C					  ; data used at a000
-      .BYTE $8E	; é				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE $1D					  ; data used at a000
-      .BYTE $8E	; é				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-unk_BANK1_A323:.BYTE $73 ; s			  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $20					  ; data used at a000
-      .BYTE $1E					  ; data used at a000
-      .BYTE $9E	; û				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $20					  ; data used at a000
-      .BYTE $1F					  ; data used at a000
-      .BYTE $9E	; û				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $73	; s				  ; data used at a000
-      .BYTE $72	; r				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE $C6	; ∆				  ; data used at a000
-      .BYTE $C4	; ƒ				  ; data used at a000
-      .BYTE $FC	; ¸				  ; fart
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE $C7	; «				  ; data used at a000
-      .BYTE $C4	; ƒ				  ; data used at a000
-      .BYTE $FC	; ¸				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE $C8	; »				  ; data used at a000
-      .BYTE $84	; Ñ				  ; data used at a000
-      .BYTE $AD	; ≠				  ; data used at a000
-      .BYTE $AC	; ¨				  ; data used at a000
-      .BYTE $AC	; ¨				  ; data used at a000
-      .BYTE $AC	; ¨				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE $E9	; È				  ; data used at a000
-      .BYTE $83	; É				  ; data used at a000
-      .BYTE $AD	; ≠				  ; data used at a000
-      .BYTE $AC	; ¨				  ; data used at a000
-      .BYTE $AC	; ¨				  ; data used at a000
-      .BYTE $23	; #				  ; data used at a000
-      .BYTE  $A					  ; data used at a000
-      .BYTE $82	; Ç				  ; data used at a000
-      .BYTE $AD	; ≠				  ; data used at a000
-      .BYTE $AC	; ¨				  ; data used at a000
-      .BYTE $23	; #				  ; data used at a000
-      .BYTE $2B	; +				  ; data used at a000
-      .BYTE   1					  ; data used at a000
-      .BYTE $AD	; ≠				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE $90	; ê				  ; data used at a000
-      .BYTE $84	; Ñ				  ; data used at a000
-      .BYTE $88	; à				  ; data used at a000
-      .BYTE $89	; â				  ; data used at a000
-      .BYTE $89	; â				  ; data used at a000
-      .BYTE $8C	; å				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE $91	; ë				  ; data used at a000
-      .BYTE $84	; Ñ				  ; data used at a000
-      .BYTE $8A	; ä				  ; data used at a000
-      .BYTE $8B	; ã				  ; data used at a000
-      .BYTE $8B	; ã				  ; data used at a000
-      .BYTE $8D	; ç				  ; data used at a000
-      .BYTE $23	; #				  ; data used at a000
-      .BYTE  $E					  ; data used at a000
-      .BYTE   6					  ; data used at a000
-      .BYTE $74	; t				  ; data used at a000
-      .BYTE $76	; v				  ; data used at a000
-      .BYTE $74	; t				  ; data used at a000
-      .BYTE $76	; v				  ; data used at a000
-      .BYTE $74	; t				  ; data used at a000
-      .BYTE $76	; v				  ; data used at a000
-      .BYTE $23	; #				  ; data used at a000
-      .BYTE $2E	; .				  ; data used at a000
-      .BYTE   6					  ; data used at a000
-      .BYTE $75	; u				  ; data used at a000
-      .BYTE $77	; w				  ; data used at a000
-      .BYTE $75	; u				  ; data used at a000
-      .BYTE $77	; w				  ; data used at a000
-      .BYTE $75	; u				  ; data used at a000
-      .BYTE $77	; w				  ; data used at a000
-      .BYTE $23	; #				  ; data used at a000
-      .BYTE $C0	; ¿				  ; data used at a000
-      .BYTE $20					  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE $88	; à				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE $88	; à				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE $88	; à				  ; data used at a000
-      .BYTE $22	; "				  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE $88	; à				  ; data used at a000
-      .BYTE $23	; #				  ; data used at a000
-      .BYTE $E0	; ‡				  ; data used at a000
-      .BYTE $20					  ; data used at a000
-      .BYTE $AA	; ™				  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE $AA	; ™				  ; data used at a000
-      .BYTE $AA	; ™				  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE $11					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-      .BYTE $AA	; ™				  ; data used at a000
-      .BYTE $AA	; ™				  ; data used at a000
-      .BYTE $A0	; †				  ; data used at a000
-      .BYTE $A0	; †				  ; data used at a000
-      .BYTE $A4	; §				  ; data used at a000
-      .BYTE $A5	; •				  ; data used at a000
-      .BYTE $A0	; †				  ; data used at a000
-      .BYTE $A0	; †				  ; data used at a000
-      .BYTE $AA	; ™				  ; data used at a000
-      .BYTE  $A					  ; data used at a000
-      .BYTE  $A					  ; data used at a000
-      .BYTE  $A					  ; data used at a000
-      .BYTE  $A					  ; data used at a000
-      .BYTE  $A					  ; data used at a000
-      .BYTE  $A					  ; data used at a000
-      .BYTE  $A					  ; data used at a000
-      .BYTE  $A					  ; data used at a000
-      .BYTE   0					  ; data used at a000
-EndingCelebrationUnusedText_THANK_YOU:.BYTE $21	; !
-      .BYTE  $C
-      .BYTE   9
-      .BYTE $ED	; Ì
-      .BYTE $E1	; ·
-      .BYTE $DA	; ⁄
-      .BYTE $E7	; Á
-      .BYTE $E4	; ‰
-      .BYTE $FB	; ˚
-      .BYTE $F2	; Ú
-      .BYTE $E8	; Ë
-      .BYTE $EE	; Ó
+EndingCelebrationUnusedText_THANK_YOU:.BYTE $21,$C,9,$ED,$E1,$DA,$E7,$E4,$FB,$F2,$E8,$EE
       .BYTE   0
-byte_BANK1_A3FF:.BYTE $30			  ; DATA XREF: sub_BANK1_A43B:loc_BANK1_A470r
+unk_BANK1_A3FF:.BYTE $30 ; 0			  ; DATA XREF: sub_BANK1_A43B:loc_BANK1_A470r
 						  ; data used at a000
-      .BYTE $80					  ; data used at a000
-      .BYTE $80					  ; data used at a000
-      .BYTE $80					  ; data used at a000
-      .BYTE $80					  ; data used at a000
+      .BYTE $80	; Ä				  ; data used at a000
+      .BYTE $80	; Ä				  ; data used at a000
+      .BYTE $80	; Ä				  ; data used at a000
+      .BYTE $80	; Ä				  ; data used at a000
       .BYTE $80					  ; data used at a000
       .BYTE $80					  ; data used at a000
       .BYTE $80					  ; data used at a000
@@ -40058,7 +39677,7 @@ loc_BANK1_A43E:					  ; code used at a000
 
 
 loc_BANK1_A470:					  ; CODE XREF: sub_BANK1_A43B+54j
-      LDA     byte_BANK1_A3FF,X			  ; code used at a000
+      LDA     unk_BANK1_A3FF,X			  ; code used at a000
       STA     PlayerXLo,X			  ; code used at a000
       LDA     byte_BANK1_A409,X			  ; code used at a000
       STA     PlayerYLo,X			  ; code used at a000
@@ -40224,20 +39843,18 @@ loc_BANK1_A530:					  ; DATA XREF: BANK1:A4E2o
 
       INC     PlayerState			  ; code used at a000
       INC     HoldingItem			  ; code used at a000
-      LDA     #8				  ; code used at a000
+      LDA     #SpriteAnimation_Pulling		  ; code used at a000
       STA     PlayerAnimationFrame		  ; code used at a000
       LDA     #5				  ; code used at a000
       STA     byte_RAM_8E			  ; code used at a000
       LDA     #$28 ; '('                          ; code used at a000
       STA     PlayerStateTimer			  ; code used at a000
-
-
-locret_BANK1_A54C:				  ; DATA XREF: BANK1:A572r
       RTS					  ; code used at a000
 
 ; ---------------------------------------------------------------------------
-      .BYTE $14					  ; data used at a000
-      .BYTE $A					  ; data used at a000
+byte_BANK1_A54D:.BYTE $14			  ; DATA XREF: BANK1:A572t
+						  ; data used at a000
+      .BYTE  $A					  ; data used at a000
       .BYTE $14					  ; data used at a000
 byte_BANK1_A550:.BYTE $A			  ; DATA XREF: sub_BANK1_A5DE:loc_BANK1_A5F6r
 						  ; data used at a000
@@ -40271,7 +39888,7 @@ loc_BANK1_A56B:					  ; code used at a000
 
 loc_BANK1_A570:					  ; CODE XREF: BANK1:A55Cj
       LDY     byte_RAM_8E			  ; code used at a000
-      LDA     locret_BANK1_A54C,Y		  ; code used at a000
+      LDA     byte_BANK1_A54D-1,Y		  ; code used at a000
       STA     PlayerStateTimer			  ; code used at a000
 
 
@@ -40508,7 +40125,7 @@ EndingCelebrationCeilingTextAndPodium:.BYTE $20,0,$20,$80,$81,$80,$81,$80,$81,$8
       .BYTE $21,$24,$C9,$49			  ; 0 ;	data used at a000
       .BYTE $21,$25,$C9,$4A			  ; 0 ;	data used at a000
       .BYTE $21,$26,$C9,$4B			  ; 0 ;	data used at a000
-byte_BANK1_A724:.BYTE $22,$43,4,$4C,$4D,$4E,$4F		    ; 0	; data used at a000
+      .BYTE $22,$43,4,$4C,$4D,$4E,$4F		  ; 0 ;	data used at a000
       .BYTE $21,3,4,$41,$43,$45,$47		  ; 0 ;	data used at a000
       .BYTE $21,$19,4,$41,$43,$45,$47		  ; 0 ;	data used at a000
       .BYTE $21,$39,$C9,$48			  ; 0 ;	data used at a000
@@ -40556,7 +40173,7 @@ EndingCelebrationFloorAndSubconParade:.BYTE $23,0,$20,0,2,8,$A,$C,$E,4,6,8,$A,4,
       .BYTE $27,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; 0 ; data used at a000
       .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
       .BYTE $80,$81,$80,$81,$80			  ; $1E
-byte_BANK1_A8EB:.BYTE $27,$80,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; 0 ; data used at a000
+      .BYTE $27,$80,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; 0 ; data used at a000
       .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
       .BYTE $81,$80,$81,$80,$81			  ; $1E
       .BYTE $27,$A0,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; 0 ; data used at a000
@@ -41451,6 +41068,12 @@ loc_BANK1_AE57:					  ; CODE XREF: sub_BANK1_AE43+10j
 ; End of function sub_BANK1_AE43
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $AE5A - $B8FF
+     .pad $B900, $FF
+ENDIF
+#DELETE-START
 ; [00000AA6 BYTES: BEGIN OF AREA UNUSED-BANK1:AE5A. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANK1_AE5A:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -41623,6 +41246,7 @@ _unused_BANK1_AE5A:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A80
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A90
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF	  ; $AA0
+#DELETE-END
 ; [00000AA6 BYTES: END OF AREA UNUSED-BANK1:AE5A. PRESS	KEYPAD "-" TO COLLAPSE]
 MysteryCharacterData3900:.BYTE $FB ; ˚		  ; @TODO ??? Not sure what this is
       .BYTE $FF
@@ -41893,7 +41517,7 @@ sub_BANK1_BA33:					  ; CODE XREF: BANK0:loc_BANK0_923BP
       AND     #$FC ; '¸'                          ; code used at a000
       ORA     #1				  ; code used at a000
       STA     ObjectAttributes,X		  ; code used at a000
-      LDA     #5				  ; code used at a000
+      LDA     #EnemyState_PuffOfSmoke		  ; code used at a000
       STA     EnemyState,X			  ; code used at a000
       STA     EnemyArray_9F,X			  ; code used at a000
       LDA     #$1F				  ; code used at a000
@@ -42175,6 +41799,12 @@ loc_BANK1_BB1F:					  ; CODE XREF: CreateEnemy_TryAllSlots_Bank1+9j
 ; End of function CreateEnemy_TryAllSlots_Bank1
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $BB52 - $BFFF
+     .pad $C000, $FF
+ENDIF
+#DELETE-START
 ; [000004AE BYTES: BEGIN OF AREA UNUSED_empty_3B52. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANK1_BB52:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -42253,6 +41883,7 @@ _unused_BANK1_BB52:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; $4A0
 ; end of 'BANK1'
 
+#DELETE-END
 ; [000004AE BYTES: END OF AREA UNUSED_empty_3B52. PRESS	KEYPAD "-" TO COLLAPSE]
 ; ===========================================================================
 
@@ -42625,14 +42256,14 @@ loc_BANK2_81E7:					  ; CODE XREF: BANK2:81DDj
 
       JSR     PutCarriedObjectInHands		  ; code used at 8000
 
-      JSR     EnemyStateHandling		  ; code used at 8000
+      JSR     HandleEnemyState			  ; code used at 8000
 
       LDX     byte_RAM_12			  ; code used at 8000
       DEX					  ; code used at 8000
       BPL     loc_BANK2_8198			  ; code used at 8000
 
       LDA     byte_RAM_4B9			  ; code used at 8000
-      BEQ     locret_BANK2_820D			  ; code used at 8000
+      BEQ     HandleEnemyState_Inactive		  ; code used at 8000
 
       SEC					  ; code used at 8000
       SBC     #$47 ; 'G'                          ; code used at 8000
@@ -42655,7 +42286,7 @@ sub_BANK2_8208:					  ; CODE XREF: BANK2:850Fp
       STA     byte_RAM_4B9			  ; code used at 8000
 
 
-locret_BANK2_820D:				  ; CODE XREF: BANK2:81F8j
+HandleEnemyState_Inactive:			  ; CODE XREF: BANK2:81F8j
 						  ; DATA XREF: BANK2:8242o
       RTS					  ; code used at 8000
 
@@ -42714,20 +42345,24 @@ loc_BANK2_8233:					  ; CODE XREF: sub_BANK2_8214+16j
 
 ; ---------------------------------------------------------------------------
 
-EnemyStateHandling:				  ; CODE XREF: BANK2:81EDp
+HandleEnemyState:				  ; CODE XREF: BANK2:81EDp
       LDA     EnemyState,X			  ; code used at 8000
       JSR     JumpToTableAfterJump		  ; code used at 8000
 
 ; ---------------------------------------------------------------------------
-      .WORD locret_BANK2_820D			  ; 0
-      .WORD loc_BANK2_89B9			  ; Alive
-      .WORD loc_BANK2_84FA			  ; Dead
-      .WORD loc_BANK2_858F			  ; Block fizzle
-      .WORD loc_BANK2_85F7			  ; Bomb exploding
-      .WORD loc_BANK2_879C			  ; Puff of smoke
-      .WORD loc_BANK2_8858			  ; data used at 8000
+      .WORD HandleEnemyState_Inactive		  ; 0 (not active)
+      .WORD HandleEnemyState_Alive		  ; Alive
+      .WORD HandleEnemyState_Dead		  ; Dead
+      .WORD HandleEnemyState_BlockFizzle	  ; Block fizzle
+      .WORD HandleEnemyState_BombExploding	  ; Bomb exploding
+      .WORD HandleEnemyState_PuffOfSmoke	  ; Puff of smoke
+      .WORD HandleEnemyState_6			  ; 6 (?)
 off_BANK2_8250:.WORD loc_BANK2_85B2		  ; DATA XREF: BANK2:826Ar
 						  ; BANK2:82FFr
+						  ; Don't think this is part of state handling (?)
+						  ; but	not sure at all
+						  ;
+						  ; Is this for	being carried/thrown??
       .BYTE $18					  ; data used at 8000
 byte_BANK2_8253:.BYTE $E0			  ; DATA XREF: BANK2:8274r
 						  ; BANK2:8308r
@@ -43293,7 +42928,7 @@ EnemyInit_Bobomb:				  ; CODE XREF: BANK2:9267p
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_84FA:					  ; DATA XREF: BANK2:8246o
+HandleEnemyState_Dead:				  ; DATA XREF: BANK2:8246o
       JSR     sub_BANK3_B5CC			  ; code used at 8000
 
       JSR     sub_BANK2_88E8			  ; code used at 8000
@@ -43428,7 +43063,7 @@ locret_BANK2_858E:				  ; CODE XREF: sub_BANK2_8577+11j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_858F:					  ; DATA XREF: BANK2:8248o
+HandleEnemyState_BlockFizzle:			  ; DATA XREF: BANK2:8248o
       JSR     sub_BANK2_88E8			  ; code used at 8000
 
       LDA     EnemyTimer,X			  ; code used at 8000
@@ -43524,7 +43159,7 @@ EnemyInitialAccelerationTable:.BYTE 8		  ; DATA XREF: EnemyInit_BasicWithoutTime
       .BYTE 8					  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_85F7:					  ; DATA XREF: BANK2:824Ao
+HandleEnemyState_BombExploding:			  ; DATA XREF: BANK2:824Ao
       JSR     sub_BANK2_88E8			  ; code used at 8000
 
       LDA     byte_RAM_EE			  ; code used at 8000
@@ -43855,11 +43490,11 @@ byte_BANK2_8798:.BYTE $46			  ; DATA XREF: BANK2:87B0r
       .BYTE $52					  ; data used at 8000
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_879C:					  ; DATA XREF: BANK2:824Co
+HandleEnemyState_PuffOfSmoke:			  ; DATA XREF: BANK2:824Co
       JSR     sub_BANK2_88E8			  ; code used at 8000
 
       LDA     ObjectAttributes,X		  ; code used at 8000
-      ORA     #$10				  ; code used at 8000
+      ORA     #ObjAttrib_Palette0|ObjAttrib_Mirrored ; code used at 8000
       STA     ObjectAttributes,X		  ; code used at 8000
       LDA     EnemyTimer,X			  ; code used at 8000
       BNE     loc_BANK2_87AC			  ; code used at 8000
@@ -43890,7 +43525,9 @@ loc_BANK2_87AC:					  ; CODE XREF: BANK2:87A7j
       CMP     #Enemy_Clawgrip			  ; code used at 8000
       BNE     loc_BANK2_87CA			  ; code used at 8000
 
-      DEY					  ; code used at 8000
+      DEY					  ; Clawgrip special hack:
+						  ; Move the "Draw the door" PPU command
+						  ; up 8 tile rows ($100) to be	on the platform
 
 
 loc_BANK2_87CA:					  ; CODE XREF: BANK2:87C7j
@@ -43993,7 +43630,7 @@ loc_BANK2_8855:					  ; CODE XREF: BANK2:8846j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_8858:					  ; DATA XREF: BANK2:824Eo
+HandleEnemyState_6:				  ; DATA XREF: BANK2:824Eo
       JSR     sub_BANK2_88E8			  ; code used at 8000
 
       LDA     #$12				  ; code used at 8000
@@ -44124,7 +43761,7 @@ byte_BANK2_88E4:.BYTE 0				  ; DATA XREF: sub_BANK2_8894+2Ar
 
 
 sub_BANK2_88E8:					  ; CODE XREF: BANK2:84FDp
-						  ; BANK2:loc_BANK2_858Fp
+						  ; BANK2:HandleEnemyState_BlockFizzlep
 						  ; BANK2:loc_BANK2_85B2p ...
       JSR     sub_BANK2_8894			  ; code used at 8000
 
@@ -44279,7 +43916,7 @@ locret_BANK2_89B8:				  ; CODE XREF: sub_BANK2_88E8+B2j
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_89B9:					  ; DATA XREF: BANK2:8244o
+HandleEnemyState_Alive:				  ; DATA XREF: BANK2:8244o
       LDA     #1				  ; code used at 8000
       STA     unk_RAM_4A4,X			  ; code used at 8000
       LDY     EnemyArray_42F,X			  ; code used at 8000
@@ -53238,7 +52875,7 @@ byte_BANK3_B5C4:.BYTE 8				  ; DATA XREF: sub_BANK3_B58C+14r
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANK3_B5CC:					  ; CODE XREF: BANK2:loc_BANK2_84FAP
+sub_BANK3_B5CC:					  ; CODE XREF: BANK2:HandleEnemyState_DeadP
 						  ; BANK2:85E4J BANK2:8646J ...
       LDA     #0				  ; code used at a000
       STA     EnemyArray_4CC,X			  ; code used at a000

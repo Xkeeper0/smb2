@@ -2155,10 +2155,10 @@ loc_BANK6_909C:
       STA     byte_RAM_E7
       LDA     #$D
       STA     byte_RAM_50E
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ad, $07, $00 ; LDA $0007
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDA     byte_RAM_7			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -2552,10 +2552,10 @@ loc_BANK6_9346:
       STA     ScreenYLo
       STA     ScreenBoundaryLeftHi
       STA     ScreenBoundaryLeftLo
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8d, $d8, $00 ; STA $00D8
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STA     byte_RAM_D8			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF

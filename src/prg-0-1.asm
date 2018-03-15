@@ -937,12 +937,12 @@ sub_BANK0_84AC:
 ; End of function sub_BANK0_84AC
 
 ; ---------------------------------------------------------------------------
-_unused_BANK0_84B8:
-	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $40
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $84B8 - $84FF
+     .pad $8500, $FF
+ENDIF
+
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -1772,17 +1772,12 @@ loc_BANK0_895F:
 ; End of function sub_BANK0_895D
 
 ; ---------------------------------------------------------------------------
-_unused_BANK0_8966:
-	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $40
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $50
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $60
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; $90
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $8966 - $89FF
+     .pad $8A00, $FF
+ENDIF
+
 GrowShrinkSFXIndexes:
 	  .BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; ---------------------------------------------------------------------------
 
@@ -2204,10 +2199,10 @@ HandlePlayerState_HawkmouthEating:
 
       JSR     sub_BANK0_8EA4
 
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ad, $5a, $00 ; LDA $0000 + PlayerCollision
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       LDA     PlayerCollision			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -2725,18 +2720,18 @@ loc_BANK0_8E05:
 
 loc_BANK0_8E12:
       LDA     EnemyState,X
-      CMP     #6
+      CMP     #EnemyState_6
       BEQ     locret_BANK0_8E41
 
       LDA     ObjectType,X
-      CMP     #$39
+      CMP     #Enemy_MushroomBlock
       BCC     loc_BANK0_8E22
 
-      CMP     #$3A
+      CMP     #Enemy_POWBlock
       BCC     loc_BANK0_8E28
 
 loc_BANK0_8E22:
-      CMP     #$37
+      CMP     #Enemy_Bomb
       BCC     loc_BANK0_8E42
 
       LDY     #2
@@ -2763,21 +2758,21 @@ locret_BANK0_8E41:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8E42:
-      LDA     #9
+      LDA     #SpriteAnimation_Throwing
       STA     PlayerAnimationFrame
       LDA     #2
       STA     byte_RAM_9B
       LDA     #$A
       STA     byte_RAM_84
       DEC     HoldingItem
-      LDA     #8
+      LDA     #SoundEffect1_ThrowItem
       STA     SoundEffect1Queue
       LDA     #0
       STA     byte_RAM_9A
       STA     Player1JoypadPress
       STA     byte_RAM_1
       LDX     byte_RAM_42D
-      LDA     #$36
+      LDA     #Enemy_Coin
       CMP     ObjectType,X
       ROL     byte_RAM_1
       LDA     PlayerXAccel
@@ -2902,16 +2897,15 @@ byte_BANK0_8EE8:
       .BYTE 2
       .BYTE 2
       .BYTE 2
-byte_BANK0_8EF0:
-	  .BYTE 8
-
-      .BYTE 8
-      .BYTE 4
-      .BYTE 4
-      .BYTE 2
-      .BYTE 2
-      .BYTE 1
-      .BYTE 1
+CollisionFlagTableThing:
+	  .BYTE CollisionFlags_Up
+      .BYTE CollisionFlags_Up
+      .BYTE CollisionFlags_Down
+      .BYTE CollisionFlags_Down
+      .BYTE CollisionFlags_Left
+      .BYTE CollisionFlags_Left
+      .BYTE CollisionFlags_Right
+      .BYTE CollisionFlags_Right
 byte_BANK0_8EF8:
 	  .BYTE $F0
 
@@ -3092,7 +3086,7 @@ loc_BANK0_8FDE:
       STA     byte_RAM_A
 
 loc_BANK0_8FEB:
-      LDA     byte_BANK0_8EF0,X
+      LDA     CollisionFlagTableThing,X
       ORA     PlayerCollision
       STA     PlayerCollision
 
@@ -3168,11 +3162,11 @@ loc_BANK0_9031:
       CMP     #8
       BCS     locret_BANK0_9052
 
-      LDA     #1
+      LDA     #PlayerState_Climbing
       STA     PlayerState
       STY     byte_RAM_99
       STY     byte_RAM_9A
-      LDA     #$A
+      LDA     #SpriteAnimation_Climbing
       STA     PlayerAnimationFrame
       PLA
       PLA
@@ -3267,7 +3261,7 @@ loc_BANK0_9080:
 
       LDA     #$20
       STA     EnemyTimer,X
-      LDA     #6
+      LDA     #EnemyState_6
 
 loc_BANK0_90AE:
       STA     EnemyState,X
@@ -3296,7 +3290,7 @@ loc_BANK0_90C5:
       LDA     Mushroom1upPulled
       BEQ     loc_BANK0_90EA
 
-      LDA     #$32
+      LDA     #Enemy_VegetableSmall
       STA     ObjectType,X
 
 loc_BANK0_90D2:
@@ -3305,7 +3299,7 @@ loc_BANK0_90D2:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_90D5:
-      CMP     #$33
+      CMP     #Enemy_VegetableLarge
       BNE     loc_BANK0_90EA
 
       LDY     BigVeggiesPulled
@@ -4328,11 +4322,12 @@ locret_BANK0_95C2:
 ; End of function sub_BANK0_95AF
 
 ; ---------------------------------------------------------------------------
-_unused_BANK0_95C3:
-	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF; $30
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $95C3 - $95FF
+     .pad $9600, $FF
+ENDIF
+
 TitleScreenPPUDataPointers:
 	  .WORD PPUBuffer_301
 
@@ -4945,113 +4940,16 @@ loc_BANK0_9C52:
 ; End of function TitleScreen
 
 ; ---------------------------------------------------------------------------
-; [000003A8 BYTES: BEGIN OF AREA UNUSED-BANK0-9C58. PRESS KEYPAD "-" TO	COLLAPSE]
-_empty_1C58:
-	  .BYTE $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $40
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $50
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $60
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $90
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $100
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $110
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $120
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $130
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $140
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $150
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $160
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $170
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $180
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $190
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $200
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $210
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $220
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $230
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $240
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $250
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $260
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $270
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $280
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $290
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $300
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $310
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $320
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $330
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $340
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $350
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $360
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $370
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $380
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $390
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3A0
-; end of 'BANK0'
-
-; [000003A8 BYTES: END OF AREA UNUSED-BANK0-9C58. PRESS	KEYPAD "-" TO COLLAPSE]
-; ===========================================================================
-
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $9C58 - $A1FF
+     .pad $A200, $FF
+ENDIF
 
 
 ; -------------------------------------------
 
 
-      ;.segment	BANK1
-;       *	=  $A000
-; [00000200 BYTES: BEGIN OF AREA UNUSED-BANK1_A000. PRESS KEYPAD "-" TO	COLLAPSE]
-byte_BANK1_A000:
-	  .BYTE $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $40
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $50
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $60
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $90
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $100
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $110
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $120
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $130
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $140
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $150
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $160
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $170
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $180
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $190
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1F0
 ; [00000200 BYTES: END OF AREA UNUSED-BANK1_A000. PRESS	KEYPAD "-" TO COLLAPSE]
 EndingPPUDataPointers:
 	  .WORD PPUBuffer_301
@@ -5110,466 +5008,54 @@ WaitForNMI_EndingLoop:
 
 ; ---------------------------------------------------------------------------
 EndingCorkJarRoom:
-	  .BYTE	$20
-
-      .BYTE   0
-      .BYTE $9E
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $20
-      .BYTE   1
-      .BYTE $9E
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $22
-      .BYTE   2
-      .BYTE $8E
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $22
-      .BYTE   3
-      .BYTE $8E
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $23
-      .BYTE $44
-      .BYTE $18
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $23
-      .BYTE $64
-      .BYTE $18
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $23
-      .BYTE $84
-      .BYTE $18
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $23
-      .BYTE $A4
-      .BYTE $18
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $22
-      .BYTE $1C
-      .BYTE $8E
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $22
-      .BYTE $1D
-      .BYTE $8E
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-unk_BANK1_A323:
-	  .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $20
-      .BYTE $1E
-      .BYTE $9E
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $20
-      .BYTE $1F
-      .BYTE $9E
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $73
-      .BYTE $72
-      .BYTE $22
-      .BYTE $C6
-      .BYTE $C4
-      .BYTE $FC	; ü				  ; fart
-      .BYTE $22
-      .BYTE $C7
-      .BYTE $C4
-      .BYTE $FC
-      .BYTE $22
-      .BYTE $C8
-      .BYTE $84
-      .BYTE $AD
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $22
-      .BYTE $E9
-      .BYTE $83
-      .BYTE $AD
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $23
-      .BYTE  $A
-      .BYTE $82
-      .BYTE $AD
-      .BYTE $AC
-      .BYTE $23
-      .BYTE $2B
-      .BYTE   1
-      .BYTE $AD
-      .BYTE $22
-      .BYTE $90
-      .BYTE $84
-      .BYTE $88
-      .BYTE $89
-      .BYTE $89
-      .BYTE $8C
-      .BYTE $22
-      .BYTE $91
-      .BYTE $84
-      .BYTE $8A
-      .BYTE $8B
-      .BYTE $8B
-      .BYTE $8D
-      .BYTE $23
-      .BYTE  $E
-      .BYTE   6
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $74
-      .BYTE $76
-      .BYTE $23
-      .BYTE $2E
-      .BYTE   6
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $75
-      .BYTE $77
-      .BYTE $23
-      .BYTE $C0
-      .BYTE $20
-      .BYTE $22
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $88
-      .BYTE $22
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $88
-      .BYTE $22
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $88
-      .BYTE $22
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $88
-      .BYTE $23
-      .BYTE $E0
-      .BYTE $20
-      .BYTE $AA
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE   0
-      .BYTE   0
-      .BYTE   0
-      .BYTE $11
-      .BYTE   0
-      .BYTE   0
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A4
-      .BYTE $A5
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $AA
-      .BYTE  $A
-      .BYTE  $A
-      .BYTE  $A
-      .BYTE  $A
-      .BYTE  $A
-      .BYTE  $A
-      .BYTE  $A
-      .BYTE  $A
+	  .BYTE	$20,0,$9E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $73,$72,$73
+      .BYTE $20,1,$9E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $72,$73,$72
+      .BYTE $22,2,$8E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $72,$73
+      .BYTE $22,3,$8E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $73,$72
+      .BYTE $23,$44,$18,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $23,$64,$18,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $23,$84,$18,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $23,$A4,$18,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $22,$1C,$8E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $72,$73
+      .BYTE $22,$1D,$8E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $73,$72
+      .BYTE $20,$1E,$9E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $73,$72,$73
+      .BYTE $20,$1F,$9E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $72,$73,$72
+      .BYTE $22,$C6,$C4,$FC
+      .BYTE $22,$C7,$C4,$FC
+      .BYTE $22,$C8,$84,$AD,$AC,$AC,$AC
+      .BYTE $22,$E9,$83,$AD,$AC,$AC
+      .BYTE $23,$A,$82,$AD,$AC
+      .BYTE $23,$2B,1,$AD
+      .BYTE $22,$90,$84,$88,$89,$89,$8C
+      .BYTE $22,$91,$84,$8A,$8B,$8B,$8D
+      .BYTE $23,$E,6,$74,$76,$74,$76,$74,$76
+      .BYTE $23,$2E,6,$75,$77,$75,$77,$75,$77
+      .BYTE $23,$C0,$20,$22,0,0,0,0,0,0,$88,$22,0,0,0,0,0,0,$88,$22,0
+      .BYTE 0,0,0,0,0,$88,$22,0,0,0,0,0,0,$88
+      .BYTE $23,$E0,$20,$AA,0,0,0,0,0,0,$AA,$AA,0,0,0,$11,0,0,$AA,$AA
+      .BYTE $A0,$A0,$A4,$A5,$A0,$A0,$AA,$A,$A,$A,$A,$A,$A,$A,$A
       .BYTE   0
 EndingCelebrationUnusedText_THANK_YOU:
-	  .BYTE $21
-      .BYTE  $C
-      .BYTE   9
-      .BYTE $ED
-      .BYTE $E1
-      .BYTE $DA
-      .BYTE $E7
-      .BYTE $E4
-      .BYTE $FB
-      .BYTE $F2
-      .BYTE $E8
-      .BYTE $EE
+	  .BYTE $21,$C,9,$ED,$E1,$DA,$E7,$E4,$FB,$F2,$E8,$EE
       .BYTE   0
-byte_BANK1_A3FF:
-	  .BYTE $30
-
+unk_BANK1_A3FF:
+	  .BYTE $30 
       .BYTE $80
       .BYTE $80
       .BYTE $80
@@ -5675,7 +5161,7 @@ loc_BANK1_A43E:
       LDX     #9
 
 loc_BANK1_A470:
-      LDA     byte_BANK1_A3FF,X
+      LDA     unk_BANK1_A3FF,X
       STA     PlayerXLo,X
       LDA     byte_BANK1_A409,X
       STA     PlayerYLo,X
@@ -5831,19 +5317,19 @@ loc_BANK1_A530:
 
       INC     PlayerState
       INC     HoldingItem
-      LDA     #8
+      LDA     #SpriteAnimation_Pulling
       STA     PlayerAnimationFrame
       LDA     #5
       STA     byte_RAM_8E
       LDA     #$28
       STA     PlayerStateTimer
-
-locret_BANK1_A54C:
       RTS
 
 ; ---------------------------------------------------------------------------
-      .BYTE $14
-      .BYTE $A
+byte_BANK1_A54D:
+	  .BYTE $14
+
+      .BYTE  $A
       .BYTE $14
 byte_BANK1_A550:
 	  .BYTE $A
@@ -5878,7 +5364,7 @@ loc_BANK1_A56B:
 
 loc_BANK1_A570:
       LDY     byte_RAM_8E
-      LDA     locret_BANK1_A54C,Y
+      LDA     byte_BANK1_A54D-1,Y
       STA     PlayerStateTimer
 
 locret_BANK1_A577:
@@ -6098,8 +5584,7 @@ EndingCelebrationCeilingTextAndPodium:
       .BYTE $21,$24,$C9,$49			  
       .BYTE $21,$25,$C9,$4A			  
       .BYTE $21,$26,$C9,$4B			  
-byte_BANK1_A724:
-	  .BYTE $22,$43,4,$4C,$4D,$4E,$4F		    
+      .BYTE $22,$43,4,$4C,$4D,$4E,$4F		  
       .BYTE $21,3,4,$41,$43,$45,$47		  
       .BYTE $21,$19,4,$41,$43,$45,$47		  
       .BYTE $21,$39,$C9,$48			  
@@ -6147,8 +5632,7 @@ EndingCelebrationFloorAndSubconParade:
       .BYTE $27,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
       .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
       .BYTE $80,$81,$80,$81,$80			  ; $1E
-byte_BANK1_A8EB:
-	  .BYTE $27,$80,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
+      .BYTE $27,$80,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
       .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
       .BYTE $81,$80,$81,$80,$81			  ; $1E
       .BYTE $27,$A0,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
@@ -6571,10 +6055,10 @@ loc_BANK1_AC0A:
       CMP     #$20
       BCC     loc_BANK1_AC37
 
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ee, $e6, $00 ; INC $00E6
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       INC     byte_RAM_E6			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -6682,10 +6166,10 @@ loc_BANK1_AC8B:
       STA     ObjectXAccel+6
       LDA     #$DA
       STA     ObjectYAccel+6
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $ee, $e6, $00 ; INC $00E6
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       INC     byte_RAM_E6			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -6948,10 +6432,10 @@ sub_BANK1_ADF1:
       LDA     unk_RAM_5BE,Y
       CLC
       ADC     #9
-IFDEF _COMPATIBILITY_
+IFDEF COMPATIBILITY
 	  .db $8d, $11, $00 ; STA $0011
 ENDIF
-IFNDEF _COMPATIBILITY_
+IFNDEF COMPATIBILITY
       STA     ScreenUpdateIndex			  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
@@ -7012,179 +6496,12 @@ loc_BANK1_AE57:
 ; End of function sub_BANK1_AE43
 
 ; ---------------------------------------------------------------------------
-; [00000AA6 BYTES: BEGIN OF AREA UNUSED-BANK1:AE5A. PRESS KEYPAD "-" TO	COLLAPSE]
-_unused_BANK1_AE5A:
-	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $40
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $50
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $60
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $90
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $100
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $110
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $120
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $130
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $140
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $150
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $160
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $170
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $180
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $190
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $200
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $210
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $220
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $230
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $240
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $250
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $260
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $270
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $280
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $290
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $300
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $310
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $320
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $330
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $340
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $350
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $360
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $370
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $380
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $390
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $400
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $410
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $420
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $430
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $440
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $450
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $460
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $470
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $480
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $490
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $4A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $4B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $4C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $4D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $4E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $4F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $500
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $510
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $520
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $530
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $540
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $550
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $560
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $570
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $580
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $590
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $5A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $5B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $5C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $5D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $5E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $5F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $600
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $610
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $620
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $630
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $640
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $650
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $660
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $670
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $680
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $690
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $6A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $6B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $6C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $6D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $6E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $6F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $700
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $710
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $720
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $730
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $740
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $750
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $760
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $770
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $780
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $790
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $7A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $7B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $7C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $7D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $7E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $7F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $800
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $810
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $820
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $830
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $840
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $850
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $860
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $870
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $880
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $890
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $8A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $8B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $8C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $8D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $8E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $8F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $900
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $910
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $920
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $930
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $940
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $950
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $960
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $970
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $980
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $990
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $9A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $9B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $9C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $9D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $9E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $9F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A00
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A10
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A20
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A30
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A40
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A50
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A60
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A70
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A80
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A90
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF	  ; $AA0
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $AE5A - $B8FF
+     .pad $B900, $FF
+ENDIF
+
 ; [00000AA6 BYTES: END OF AREA UNUSED-BANK1:AE5A. PRESS	KEYPAD "-" TO COLLAPSE]
 MysteryCharacterData3900:
 	  .BYTE $FB ; û		  ; @TODO ??? Not sure what this is
@@ -7425,7 +6742,7 @@ sub_BANK1_BA33:
       AND     #$FC
       ORA     #1
       STA     ObjectAttributes,X
-      LDA     #5
+      LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,X
       STA     EnemyArray_9F,X
       LDA     #$1F
@@ -7680,84 +6997,11 @@ loc_BANK1_BB1F:
 ; End of function CreateEnemy_TryAllSlots_Bank1
 
 ; ---------------------------------------------------------------------------
-; [000004AE BYTES: BEGIN OF AREA UNUSED_empty_3B52. PRESS KEYPAD "-" TO	COLLAPSE]
-_unused_BANK1_BB52:
-	  .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $40
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $50
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $60
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $70
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $80
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $90
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $100
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $110
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $120
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $130
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $140
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $150
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $160
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $170
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $180
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $190
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $200
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $210
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $220
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $230
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $240
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $250
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $260
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $270
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $280
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $290
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $300
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $310
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $320
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $330
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $340
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $350
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $360
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $370
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $380
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $390
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3D0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3E0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $3F0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $400
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $410
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $420
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $430
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $440
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $450
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $460
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $470
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $480
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $490
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF; $4A0
-; end of 'BANK1'
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $BB52 - $BFFF
+     .pad $C000, $FF
+ENDIF
 
 ; [000004AE BYTES: END OF AREA UNUSED_empty_3B52. PRESS	KEYPAD "-" TO COLLAPSE]
 ; ===========================================================================

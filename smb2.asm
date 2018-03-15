@@ -14,6 +14,8 @@
     .db $40|0 ;mapper 4 and mirroring
     .dsb 9, $00 ;clear the remaining bytes
 
+    .include "config.asm"
+
     ; -----------------------------------------
     ; Add definitions
 	.enum $0000

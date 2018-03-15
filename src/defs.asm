@@ -249,6 +249,7 @@ EnemyState_Dead =  2
 EnemyState_BlockFizzle =  3
 EnemyState_BombExploding =  4
 EnemyState_PuffOfSmoke =  5
+EnemyState_6 = 	6
 
 ; ---------------------------------------------------------------------------
 

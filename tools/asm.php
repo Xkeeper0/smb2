@@ -8,11 +8,15 @@
 	// assembly file at tools/Super Mario Bros. 2 (USA) 2.asm
 	chdir(__DIR__ ."/../");
 
+	// Let PCRE do really dumb things
+	ini_set("pcre.backtrack_limit", 5000000);
+
 	$asm	= file_get_contents("tools/Super Mario Bros. 2 (USA) 2.asm");
 	$asm	= str_replace("\r\n", "\n", $asm);
 
 	// Remove some of the generic crap from the assembly
 	$count	= 0;
+
 	// Remove ; '?' useless ASCII crap
 	$asm	= preg_replace('/\s*; \'.\'.*$/im', '', $asm, -1, $count);
 	printf("Removed single-byte ascii comments: %d\n", $count);
@@ -64,7 +68,7 @@
 	printf("Fix .END: %d\n", $count);
 
 	// Handle Magic NOPs
-	$asm	= preg_replace('/^(.*)\s+;\s+NOPfix\s*-\s*(.*)$/im', "IFDEF _COMPATIBILITY_\n\t  \\2\nENDIF\nIFNDEF _COMPATIBILITY_\n\\1 ; Absolute address for zero-page\n\t  NOP ; Alignment fix\nENDIF\n", $asm, -1, $count);
+	$asm	= preg_replace('/^(.*)\s+;\s+NOPfix\s*-\s*(.*)$/im', "IFDEF COMPATIBILITY\n\t  \\2\nENDIF\nIFNDEF COMPATIBILITY\n\\1 ; Absolute address for zero-page\n\t  NOP ; Alignment fix\nENDIF\n", $asm, -1, $count);
 	printf("NOP hotfixes: %d\n", $count);
 
 	// Give labels their own line
@@ -81,6 +85,18 @@
 
 	$segments	= [];
 	foreach($split as $n => $s) {
+
+		// Remove stuff to delete
+		$count	= 0;
+		$s	= preg_replace('/#DELETE-START.*?#DELETE-END/is', '', $s, -1, $count);
+		printf("Deleted full delete-me sections: %d\n", $count);
+		$s	= preg_replace('/#DELETE-START.*/is', '', $s, -1, $count);
+		printf("Deleted end-missing delete-me sections: %d\n", $count);
+		$s	= preg_replace('/.*?#DELETE-END/is', '', $s, -1, $count);
+		printf("Deleted start-missing delete-me sections: %d\n", $count);
+
+
+
 		if ($n === 0) {
 			$segments['defs']	= ".ignorenl\n$s\n.endinl";
 		} elseif ($n === 1) {

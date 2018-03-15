@@ -5,7 +5,7 @@ rem One way to do this is "php tools\asm.php && build"
 rem (if your setup isn't bad you can also just put it here...)
 
 echo Assembling...
-tools\asm6f.exe smb2.asm -n -c -d_COMPATIBILITY_ -L bin\smb2.nes > bin\assembler.log 2> bin\assembler-err.log
+tools\asm6f.exe smb2.asm -n -c -L bin\smb2.nes > bin\assembler.log 2> bin\assembler-err.log
 if %ERRORLEVEL% neq 0 goto buildfail
 move /y smb2.lst bin > nul
 move /y smb2.cdl bin > nul
