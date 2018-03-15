@@ -11,26 +11,25 @@ To build, run
 
 This will generate a few files:
 
-* `smb2.nes`, your ROM
-* `comparison.txt`, a byte comparison against the original ROM
-* `smb2.lst`, the assembler listing
-* `assembler.txt` and `assembler-err.txt`, logs from the assembler
-* a bunch of assorted other files
+* `bin/smb2.nes`, your ROM.
+* `bin/smb2.lst`, the assembler listing. Use this to see how the code assembled.
+* `bin/assembler.txt` and `bin/assembler-err.txt`, logs from the assembler
+* a bunch of assorted other files.
 
 By default, the build script will build a byte-for-byte copy of the game.
 You can change this behavior by removing the `-d_COMPATIBILITY_` flag from `build.bat`.
 
 ## Assembly
-The "source" lives in the `asm` directory:
+The "source" lives in the `src` directory:
 
-* `prg-x.asm` are the program banks.
+* `prg-x-x.asm` are the program banks. They are grouped in pairs, as that is how SMB2 loads them. If you want to change this, you will need to split them apart again.
 * `defs.asm` are some definitions.
 * `ram.asm` are definitions and labels for RAM addresses.
 
 The `tools/Super Mario Bros. 2 (USA) 2.asm` file is an auto-generated disassembly
 from a certain disassembly tool. If you modify it (for some reason),
 you can use `php tools/asm.php` to re-split the disassembly and clean it up.
-Note that doing so will *lose all changes* in the split disassembly!
+Note that doing so will *lose all changes* you might have made in the split disassembly!
 
 If you want to build the *Rev A* version of the game that fixes a soft-lock bug
 involving the Fryguy boss, you should check out the `rev-a` branch.
