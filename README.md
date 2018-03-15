@@ -6,16 +6,32 @@ This is designed for use with [asm6f](https://github.com/freem/asm6f/).
 For your convinience, a binary of that is included.
 
 ## Building
-To build, run
+
+### Windows
+Open a command prompt window and run:
 
     build
 
-This will generate a few files:
+This will optionally also compare the ROM built against the original, if you
+place the original ROM in the `tools/` folder. The batch file will output
+instructions to this effect.
+
+You can start the batch file from Explorer, but the window will auto-close,
+so you will have to check the output yourself.
+
+### Linux, etc
+You will need to build your own copy of `asm6f`.
+
+    asm6f smb2.asm -n -L bin/smb2.nes > bin/assembler.log 2> bin/assembler-err.log
+
+### Output
+The build process will generate a few files:
 
 * `bin/smb2.nes`, your ROM.
 * `bin/smb2.lst`, the assembler listing. Use this to see how the code assembled.
 * `bin/assembler.txt` and `bin/assembler-err.txt`, logs from the assembler
-* a bunch of assorted other files.
+* `bin/smb2.*.nl`, name-listing files for FCEUX's debugger.
+* Some other cruft, probably
 
 By default, the build script will create a byte-for-byte copy of the game.
 
