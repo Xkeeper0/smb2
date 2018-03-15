@@ -1,7 +1,8 @@
-# Super Mario Bros. 2, The Disassembly
-A disassembly of Super Mario Bros. 2, in progress.
+# Super Mario Bros. 2, Discombobulated
+![Logo](tools/logo.png "Logo")\
+A disassembly of Super Mario Bros. 2.
 
-This is built for use with ASM6 (https://github.com/freem/asm6f/).
+This is designed for use with [asm6f](https://github.com/freem/asm6f/).
 For your convinience, a binary of that is included.
 
 ## Building
@@ -16,8 +17,9 @@ This will generate a few files:
 * `bin/assembler.txt` and `bin/assembler-err.txt`, logs from the assembler
 * a bunch of assorted other files.
 
-By default, the build script will build a byte-for-byte copy of the game.
-You can change this behavior by removing the `-d_COMPATIBILITY_` flag from `build.bat`.
+By default, the build script will create a byte-for-byte copy of the game.
+
+You can edit `config.asm` to change some build options; see that file for details.
 
 ## Assembly
 The "source" lives in the `src` directory:
@@ -32,9 +34,19 @@ you can use `php tools/asm.php` to re-split the disassembly and clean it up.
 Note that doing so will *lose all changes* you might have made in the split disassembly!
 
 If you want to build the *Rev A* version of the game that fixes a soft-lock bug
-involving the Fryguy boss, you should check out the `rev-a` branch.
+involving the Fryguy boss, you should check out the `rev-a` branch. This will eventually
+be incorporated into the main branch, but for now it is separate.
 
-## Whoops
-If you goof up and something breaks, `tools/offsetcompare.php` may help;
-it uses labels like `unk_byte_ABCD` to check if the code has gotten
-shifted or offset in some way (so you can go fix it).
+## Contributing
+Right now, most of the work is being done in a different tool. Unfortunately, that
+tool is not very usable in a collaborative way. However, you can open issues or
+pull requests that describe data or suggest fixes, and I will implement them.
+
+At some point in the future, once most of the memory addresses and routines are
+mostly named, we will start using the split disassembly exclusively and from there
+typical pull requests will be preferred.
+
+## See Also
+* [Data Crystal's SMB2 page](http://datacrystal.romhacking.net/wiki/Super_Mario_Bros._2)
+* [CaptainSouthbird's SMB3 disassembly](https://github.com/Drakim/smb3) and [Drakim's asm6f version](https://github.com/Drakim/smb3)
+* [Our Discord server](https://discord.gg/TsWMMeV)
