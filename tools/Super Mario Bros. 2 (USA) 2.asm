@@ -41796,11 +41796,7 @@ loc_BANK1_BB1F:					  ; CODE XREF: CreateEnemy_TryAllSlots_Bank1+9j
 ; End of function CreateEnemy_TryAllSlots_Bank1
 
 ; ---------------------------------------------------------------------------
-IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $BB52 - $BFFF
-     .pad $C000, $FF
-ENDIF
+; The rest of this bank	is empty
 #DELETE-START
 ; [000004AE BYTES: BEGIN OF AREA UNUSED_empty_3B52. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANK1_BB52:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
@@ -48639,6 +48635,12 @@ loc_BANK2_9EBA:					  ; CODE XREF: sub_BANK2_9EA9+9j
 ; End of function sub_BANK2_9EA9
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $9EBD - $9FFF
+     .pad $A000, $FF
+ENDIF
+#DELETE-START
 _unused_BANK2_9EBD:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
@@ -48662,6 +48664,7 @@ _unused_BANK2_9EBD:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF			  ; $140
 ; end of 'BANK2'
 
+#DELETE-END
 ; ===========================================================================
 
 ; Segment type:	Pure code
@@ -52403,6 +52406,12 @@ loc_BANK3_B398:					  ; CODE XREF: BANK3:B350j
       RTS					  ; code used at a000
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $B39B - $B4DF
+     .pad $B4E0, $FF
+ENDIF
+#DELETE-START
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
@@ -52424,7 +52433,8 @@ loc_BANK3_B398:					  ; CODE XREF: BANK3:B350j
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $120
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $130
       .BYTE $FF, $FF, $FF, $FF,	$FF		  ; $140
-unk_BANK3_B4E0:.BYTE $F0 ; ð			  ; DATA XREF: sub_BANK3_B4FD+66r
+#DELETE-END
+byte_BANK3_B4E0:.BYTE $F0			  ; DATA XREF: sub_BANK3_B4FD+66r
       .BYTE $10					  ; data used at a000
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -52551,7 +52561,7 @@ loc_BANK3_B540:					  ; CODE XREF: sub_BANK3_B4FD+27j
       AND     #3				  ; code used at a000
       BNE     loc_BANK3_B57B			  ; code used at a000
 
-      LDA     unk_BANK3_B4E0,Y			  ; code used at a000
+      LDA     byte_BANK3_B4E0,Y			  ; code used at a000
       STA     PlayerXAccel,X			  ; code used at a000
       STA     byte_RAM_B			  ; code used at a000
       BNE     loc_BANK3_B57B			  ; code used at a000
@@ -54668,6 +54678,8 @@ locret_BANK3_BEAF:				  ; CODE XREF: sub_BANK3_BE0B+8Cj
 ; End of function sub_BANK3_BE0B
 
 ; ---------------------------------------------------------------------------
+; The rest of this bank	is empty
+#DELETE-START
 _unused_BANK3_BEB0:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$C
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$18
@@ -54698,6 +54710,7 @@ _unused_BANK3_BEB0:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$144
 ; end of 'BANK3'
 
+#DELETE-END
 ; ===========================================================================
 
 ; Segment type:	Pure code
@@ -56157,6 +56170,16 @@ NoteFrequencyData:.WORD	$1AB8				      ;	0
       .WORD $FE0				  ; A
       .WORD $EFC				  ; A# / Bb
       .WORD $E24				  ; B
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $875F - $8EFF
+ENDIF
+     ; @TODO
+     ; Music pointers are not currently	defined	and labeled yet,
+     ; so we have to keep proper alignment
+     .pad $8F00, $FF
+
+#DELETE-START
 ; [000007A1 BYTES: BEGIN OF AREA UNUSED-BANK4:875F. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANK4_875F:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -56281,6 +56304,7 @@ _unused_BANK4_875F:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $780
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $790
       .BYTE $FF					  ; $7A0
+#DELETE-END
 ; [000007A1 BYTES: END OF AREA UNUSED-BANK4:875F. PRESS	KEYPAD "-" TO COLLAPSE]
 NoteLengthTable:.BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5; 0
 						  ; DATA XREF: sub_BANK4_8629+7r
@@ -56295,12 +56319,22 @@ NoteLengthTable:.BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5; 0
       .BYTE $18, $15, $16, $20,	$30, $40, $60, $80, 8, 9, $B, $C, $11, $19, $15, $16; $90
       .BYTE $22, $33, $44, $60,	$88, $1A, 9, 9,	$C, $C,	$12, $1B, $18, $18, $24, $36; $A0
       .BYTE $48, $6C, $90			  ; $B0
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $8FB3 - $8FFF
+ENDIF
+     ; @TODO
+     ; Music pointers are not currently	defined	and labeled yet,
+     ; so we have to keep proper alignment
+     .pad $9000, $FF
+
+#DELETE-START
 _unused_BANK4_8FB3:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF;	$40
-      .BYTE $FF
+      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF; $40
+#DELETE-END
 MusicPartPointers:.BYTE	$99,$8E,$84,$A4,$89,$84,$99
 						  ; DATA XREF: ProcessMusicQueue2:loc_BANK4_83D7t
 						  ; ProcessMusicQueue2+7Ar
@@ -60628,7 +60662,7 @@ MusicData:.BYTE	$8A				  ; data used at 8000
       .BYTE $4C					  ; data used at a000
       .BYTE $3E					  ; data used at a000
       .BYTE $42					  ; data used at a000
-byte_BANK5_A10A:.BYTE $7E			  ; data used at a000
+      .BYTE $7E					  ; data used at a000
       .BYTE $30					  ; data used at a000
       .BYTE $7E					  ; data used at a000
       .BYTE $26					  ; data used at a000
@@ -61381,6 +61415,8 @@ byte_BANK5_A3AF:.BYTE $50			  ; DATA XREF: sub_BANK4_8643+61r
       .BYTE $53	; S
       .BYTE $54	; T
       .BYTE $55	; U
+; The rest of this bank	is empty
+#DELETE-START
 ; [00001C11 BYTES: BEGIN OF AREA UNUSED-BANK5:A3EF. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANK5_A3EF:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0 ; Look at all this space you	can use!
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -65945,6 +65981,8 @@ loc_BANK6_9934:
 ; End of function sub_BANK6_98F7
 
 ; ---------------------------------------------------------------------------
+; The rest of this bank	pair is	empty
+#DELETE-START
 ; [000006A9 BYTES: BEGIN OF AREA UNUSED-BANK6:9957. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANK6_9957:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -66576,6 +66614,7 @@ _unused_BANK7:.BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1FF0
 ; end of 'BANK7'
 
+#DELETE-END
 ; [00002000 BYTES: END OF AREA BANK7:A000. PRESS KEYPAD	"-" TO COLLAPSE]
 ; ===========================================================================
 
@@ -69689,11 +69728,7 @@ EnemyPointers_Level_7_3_Area4:.BYTE 1		  ; DATA XREF: BANK9:A6E8o
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
       .BYTE 1					  ; data used at a000
-IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $B025 - $BFFF
-     .pad $C000, $FF
-ENDIF
+; The rest of this bank	is empty
 #DELETE-START
 ; [00000FDB BYTES: BEGIN OF AREA UNUSED-BANK9:B025. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANK9_B025:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0 ; data used at a000
@@ -70565,6 +70600,8 @@ Text_Unknown7:.BYTE $21,$AA,1,$FB,0			  ; 0 ;	data used at 8000
 Text_Unknown8:.BYTE $21,$97,$C6,$FB,0			  ; 0 ;	data used at 8000
 UnusedText_THANK_YOU:.BYTE $21,$C,9,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE; 0 ; data used at 8000
 UnusedText_Blank214D:.BYTE $21,$4D,6,$FB,$FB,$FB,$FB,$FB,$FB,0	 ; 0 ; data used at 8000
+; The rest of this bank	pair is	empty
+#DELETE-START
 ; [000019AC BYTES: BEGIN OF AREA UNUSED-BANKA:8654. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANKA_8654:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -71500,6 +71537,7 @@ _unused_BANKB:.BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1FF0
 ; end of 'BANKB'
 
+#DELETE-END
 ; [00002000 BYTES: END OF AREA UNUSED-BANKB:A000. PRESS	KEYPAD "-" TO COLLAPSE]
 ; ===========================================================================
 
@@ -74177,6 +74215,8 @@ byte_BANKC_93A6:.BYTE $44			  ; DATA XREF: BANKC:8AE3r
       .BYTE $7A					  ; data used at 8000
       .BYTE $C8					  ; data used at 8000
       .BYTE $60	; `
+;The rest of this bank pair is empty
+#DELETE-START
 ; [00000BC1 BYTES: BEGIN OF AREA UNUSED-BANKC:943F. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANKC_943F:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -74890,6 +74930,7 @@ _unused_BANKD:.BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $1FF0
 ; end of 'BANKD'
 
+#DELETE-END
 ; [00002000 BYTES: END OF AREA UNUSED-BANKC. PRESS KEYPAD "-" TO COLLAPSE]
 ; ===========================================================================
 

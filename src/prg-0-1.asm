@@ -6993,11 +6993,7 @@ loc_BANK1_BB1F:
 ; End of function CreateEnemy_TryAllSlots_Bank1
 
 ; ---------------------------------------------------------------------------
-IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $BB52 - $BFFF
-     .pad $C000, $FF
-ENDIF
+; The rest of this bank	is empty
 
 ; [000004AE BYTES: END OF AREA UNUSED_empty_3B52. PRESS	KEYPAD "-" TO COLLAPSE]
 ; ===========================================================================

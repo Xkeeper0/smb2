@@ -2841,11 +2841,7 @@ EnemyPointers_Level_7_3_Area4:
       .BYTE 1
       .BYTE 1
       .BYTE 1
-IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $B025 - $BFFF
-     .pad $C000, $FF
-ENDIF
+; The rest of this bank	is empty
 
 ; [00000FDB BYTES: END OF AREA UNUSED-BANK9:B025. PRESS	KEYPAD "-" TO COLLAPSE]
 ; ===========================================================================
