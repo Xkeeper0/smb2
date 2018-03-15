@@ -3183,14 +3183,10 @@ locret_BANK0_9052:
 sub_BANK0_9053:
       PHA
       AND     #$C0
-
-loc_BANK0_9056:
       ASL     A
       ROL     A
       ROL     A
       ADC     byte_BANK0_9062,Y
-
-loc_BANK0_905C:
       TAY
       PLA
       CMP     byte_BANKF_F64E,Y

@@ -2267,9 +2267,9 @@ MMC3PRGBankTemp:
 	  .dsb 1	                      ; $06f2
 byte_RAM_6F3:
 	  .dsb 1                       ; $06f3
-byte_RAM_6F4:
+Player1JoypadUnk:
 	  .dsb 1                       ; $06f4
-byte_RAM_6F5:
+Player2JoypadUnk:
 	  .dsb 1                       ; $06f5
 PlayerCurrentSize:
 	  .dsb 1                       ; $06f6

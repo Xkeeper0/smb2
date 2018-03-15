@@ -249,6 +249,7 @@ EnemyState_BlockFizzle:	= 3
 EnemyState_BombExploding: = 4
 EnemyState_PuffOfSmoke:	= 5
 EnemyState_6: =	6
+EnemyState_7: =	7
 
 ; ---------------------------------------------------------------------------
 
@@ -2832,8 +2833,8 @@ MMC3PRGBankTemp:.BYTE 0	; (uninited)		  ; DATA XREF: DoSoundProcessing+8r
 						  ; ChangeMappedPRGBankw
 byte_RAM_6F3:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKF:E403w
 						  ; BANKF:E40Cw BANKF:E97Ew ...
-byte_RAM_6F4:.BYTE 0 ; (uninited)		  ; DATA XREF: ReadJoypads+12w
-byte_RAM_6F5:.BYTE 0 ; (uninited)		  ; DATA XREF: ReadJoypads+1Cw
+Player1JoypadUnk:.BYTE 0 ; (uninited)		  ; DATA XREF: ReadJoypads+12w
+Player2JoypadUnk:.BYTE 0 ; (uninited)		  ; DATA XREF: ReadJoypads+1Cw
 PlayerCurrentSize:.BYTE	0 ; (uninited)		  ; DATA XREF: BANK0:8A10r
 						  ; BANK0:8A15r BANK0:8BFEr ...
 BackgroundCHR1:.BYTE 0 ; (uninited)		  ; DATA XREF: BANKC:838Cw
@@ -37441,15 +37442,11 @@ sub_BANK0_9053:					  ; CODE XREF: sub_BANK0_8DC0+7Cp
 						  ; sub_BANK0_8FB2+11p
       PHA					  ; code used at 8000
       AND     #$C0 ; 'À'                          ; code used at 8000
-
-loc_BANK0_9056:					  ; code used at 8000
-      ASL     A
+      ASL     A					  ; code used at 8000
       ROL     A					  ; code used at 8000
       ROL     A					  ; code used at 8000
       ADC     byte_BANK0_9062,Y			  ; code used at 8000
-
-loc_BANK0_905C:					  ; code used at 8000
-      TAY
+      TAY					  ; code used at 8000
       PLA					  ; code used at 8000
       CMP     byte_BANKF_F64E,Y			  ; code used at 8000
       RTS					  ; code used at 8000
@@ -77772,7 +77769,7 @@ loc_BANKF_EC4B:					  ; CODE XREF: BANKF:EB83j
 loc_BANKF_EC55:					  ; CODE XREF: NMI+BFj
       LDA     #0				  ; code used at e000
       STA     ScreenUpdateIndex			  ; code used at e000
-      JSR     sub_BANKF_F661			  ; code used at e000
+      JSR     UpdateJoypads			  ; code used at e000
 
       DEC     NMIWaitFlag			  ; code used at e000
 
@@ -78076,6 +78073,12 @@ UpdatePPUFBWO_CopySingleTileSkip:		  ; CODE XREF: UpdatePPUFromBufferWithOptions
 ; End of function UpdatePPUFromBufferWithOptions
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $ED4D - $EFFF
+     .pad $F000, $FF
+ENDIF
+#DELETE-START
 ; [000002B3 BYTES: BEGIN OF AREA UNUSED-BANKF:ED4D. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANKF_ED4D:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -78121,6 +78124,7 @@ _unused_BANKF_ED4D:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $290
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2A0
       .BYTE $FF, $FF, $FF			  ; $2B0
+#DELETE-END
 ; [000002B3 BYTES: END OF AREA UNUSED-BANKF:ED4D. PRESS	KEYPAD "-" TO COLLAPSE]
 byte_BANKF_F000:.BYTE 0				  ; DATA XREF: sub_BANK0_8EFA+18r
 						  ; sub_BANK3_B5AC+Cr
@@ -78409,7 +78413,7 @@ sub_BANKF_F0F9:					  ; CODE XREF: BANKF:E60Fp
       LDA     byte_RAM_41B			  ; code used at e000
       BNE     loc_BANKF_F115			  ; code used at e000
 
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     HandlePlayerState			  ; code used at e000
@@ -78437,7 +78441,7 @@ sub_BANKF_F11E:					  ; CODE XREF: BANKF:E4AEp
       LDA     byte_RAM_4C7			  ; code used at e000
       BNE     loc_BANKF_F146			  ; code used at e000
 
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       LDA     byte_RAM_606			  ; code used at e000
@@ -78464,7 +78468,7 @@ loc_BANKF_F13A:					  ; CODE XREF: sub_BANKF_F11E+12j
 loc_BANKF_F146:					  ; CODE XREF: sub_BANKF_F0F9:loc_BANKF_F11Bj
 						  ; sub_BANKF_F11E+6j
 						  ; sub_BANKF_F17E:loc_BANKF_F1ABj
-      LDA     #1				  ; code used at e000
+      LDA     #PRGBank_2_3			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK2_8010			  ; code used at e000
@@ -78531,7 +78535,7 @@ sub_BANKF_F17E:					  ; CODE XREF: BANKF:E4F7p
       LDA     byte_RAM_41B			  ; code used at e000
       BNE     loc_BANKF_F19D			  ; code used at e000
 
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     HandlePlayerState			  ; code used at e000
@@ -78539,7 +78543,7 @@ sub_BANKF_F17E:					  ; CODE XREF: BANKF:E4F7p
 
 loc_BANKF_F19D:					  ; CODE XREF: sub_BANKF_F17E+10j
 						  ; sub_BANKF_F17E+15j
-      LDA     #0				  ; code used at e000
+      LDA     #PRGBank_0_1			  ; code used at e000
       JSR     ChangeMappedPRGBank		  ; code used at e000
 
       JSR     sub_BANK0_8083			  ; code used at e000
@@ -79655,12 +79659,13 @@ WarpDestinations:.BYTE 3, 1, 4,	5, 6, 5, 6		     ; 0 ; DATA	XREF: BANKF:E763r
 ; =============== S U B	R O U T	I N E =======================================
 
 
-sub_BANKF_F661:					  ; CODE XREF: NMI+CBp
+UpdateJoypads:					  ; CODE XREF: NMI+CBp
       JSR     ReadJoypads			  ; code used at e000
 
 
-loc_BANKF_F664:					  ; CODE XREF: sub_BANKF_F661+Aj
-      LDY     Player1JoypadPress		  ; code used at e000
+loc_BANKF_F664:					  ; CODE XREF: UpdateJoypads+Aj
+      LDY     Player1JoypadPress		  ; Work around	DPCM sample bug,
+						  ; where some spurious	inputs are read
       JSR     ReadJoypads			  ; code used at e000
 
       CPY     Player1JoypadPress		  ; code used at e000
@@ -79669,8 +79674,8 @@ loc_BANKF_F664:					  ; CODE XREF: sub_BANKF_F661+Aj
       LDX     #1				  ; code used at e000
 
 
-loc_BANKF_F66F:					  ; CODE XREF: sub_BANKF_F661+1Aj
-      LDA     Player1JoypadPress,X		  ; code used at e000
+loc_BANKF_F66F:					  ; CODE XREF: UpdateJoypads+1Aj
+      LDA     Player1JoypadPress,X		  ; Update the press/held values
       TAY					  ; code used at e000
       EOR     Player1JoypadHeld,X		  ; code used at e000
       AND     Player1JoypadPress,X		  ; code used at e000
@@ -79681,14 +79686,14 @@ loc_BANKF_F66F:					  ; CODE XREF: sub_BANKF_F661+1Aj
 
       RTS					  ; code used at e000
 
-; End of function sub_BANKF_F661
+; End of function UpdateJoypads
 
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
-ReadJoypads:					  ; CODE XREF: sub_BANKF_F661p
-						  ; sub_BANKF_F661+5p
+ReadJoypads:					  ; CODE XREF: UpdateJoypadsp
+						  ; UpdateJoypads+5p
       LDX     #1				  ; code used at e000
       STX     JOY1				  ; code used at e000
       DEX					  ; code used at e000
@@ -79701,12 +79706,14 @@ ReadJoypadLoop:					  ; CODE XREF: ReadJoypads+20j
       LSR     A					  ; code used at e000
       ROL     Player1JoypadPress		  ; code used at e000
       LSR     A					  ; code used at e000
-      ROL     byte_RAM_6F4			  ; code used at e000
+      ROL     Player1JoypadUnk			  ; @TODO These	seem to	never be read, and even	then are using a
+						  ; second bit from JOY1/JOY2 ... Was this reading from
+						  ; the	expansion port???
       LDA     JOY2				  ; code used at e000
       LSR     A					  ; code used at e000
       ROL     Player2JoypadPress		  ; code used at e000
       LSR     A					  ; code used at e000
-      ROL     byte_RAM_6F5			  ; code used at e000
+      ROL     Player2JoypadUnk			  ; code used at e000
       DEX					  ; code used at e000
       BNE     ReadJoypadLoop			  ; code used at e000
 
@@ -79743,10 +79750,13 @@ sub_BANKF_F6A1:					  ; CODE XREF: BANKF:E4BEp
 
 ; =============== S U B	R O U T	I N E =======================================
 
+; @TODO	Handle music changes?
+; Seems	to compare against the currently selected music
+; and check if a Starman is still active ...
 
 sub_BANKF_F6C0:					  ; CODE XREF: BANKF:E483p
 						  ; BANKF:E4D7p
-      LDA     byte_RAM_544			  ; code used at e000
+      LDA     byte_RAM_544
       CMP     byte_RAM_545			  ; code used at e000
       BEQ     locret_BANKF_F6D9			  ; code used at e000
 
@@ -79789,7 +79799,7 @@ loc_BANKF_F6EA:					  ; CODE XREF: sub_BANKF_F6DA+25j
       BEQ     loc_BANKF_F6FB			  ; code used at e000
 
       LDA     ObjectType,X			  ; code used at e000
-      CMP     #$39 ; '9'                          ; code used at e000
+      CMP     #Enemy_MushroomBlock		  ; code used at e000
       BEQ     loc_BANKF_F6FB			  ; code used at e000
 
       STA     byte_RAM_4AF			  ; code used at e000
@@ -79823,7 +79833,7 @@ sub_BANKF_F704:					  ; CODE XREF: sub_BANKF_F6DA:loc_BANKF_F6FBp
 
 
 loc_BANKF_F70F:					  ; CODE XREF: sub_BANKF_F704+3j
-      LDA     #0				  ; code used at e000
+      LDA     #EnemyState_0			  ; code used at e000
       STA     EnemyState,X			  ; code used at e000
       RTS					  ; code used at e000
 
@@ -79857,7 +79867,7 @@ KillPlayer:					  ; CODE XREF: sub_BANK1_BA7C+35P
       LDA     #$E0 ; 'à'
       STX     word_RAM_C+1
       LDX     EnemyState,Y
-      CPX     #7
+      CPX     #EnemyState_7
       BEQ     loc_BANKF_F747
 
       STA     ObjectYAccel,Y
@@ -80314,7 +80324,7 @@ locret_BANKF_FAFD:				  ; CODE XREF: sub_BANKF_FACA+3j
 loc_BANKF_FAFE:					  ; CODE XREF: sub_BANK2_8E13+33P
 						  ; BANK2:976FP
 						  ; BANK2:loc_BANK2_979AP ...
-      LDX     #8				  ; code used at e000
+      LDX     #8				  ; @TODO Something to with drawing certain sprites?
 
 
 loc_BANKF_FB00:					  ; CODE XREF: BANKF:FB05j
@@ -80366,6 +80376,12 @@ loc_BANKF_FB1C:					  ; CODE XREF: BANKF:FB02j
       BEQ     loc_BANKF_FB19			  ; code used at e000
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $FB36 - $FDFF
+     .pad $FE00, $FF
+ENDIF
+#DELETE-START
 ; [000002CA BYTES: BEGIN OF AREA BANKF:FB36. PRESS KEYPAD "-" TO COLLAPSE]
 _unused_fb36:.BYTE $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -80412,8 +80428,10 @@ _unused_fb36:.BYTE $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2A0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $2B0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF; $2C0
+#DELETE-END
 ; [000002CA BYTES: END OF AREA BANKF:FB36. PRESS KEYPAD	"-" TO COLLAPSE]
 byte_BANKF_FE00:.BYTE $C			  ; DATA XREF: sub_BANKF_FE16+Cr
+						  ; @TODO Sprite CHR banks?
       .BYTE $D					  ; data used at e000
       .BYTE $C					  ; data used at e000
       .BYTE $E
@@ -80421,7 +80439,7 @@ byte_BANKF_FE00:.BYTE $C			  ; DATA XREF: sub_BANKF_FE16+Cr
       .BYTE $D					  ; data used at e000
       .BYTE $F
 byte_BANKF_FE07:.BYTE $10			  ; DATA XREF: sub_BANKF_FE16+12r
-						  ; data used at e000
+						  ; @TODO Sprite CHR banks?
       .BYTE $12					  ; data used at e000
       .BYTE $10
       .BYTE $14					  ; data used at e000
@@ -80429,7 +80447,7 @@ byte_BANKF_FE07:.BYTE $10			  ; DATA XREF: sub_BANKF_FE16+12r
       .BYTE $12					  ; data used at e000
       .BYTE $16					  ; data used at e000
 byte_BANKF_FE0E:.BYTE 0				  ; DATA XREF: sub_BANKF_FE16+24r
-						  ; data used at e000
+						  ; @TODO Player size CHR bank?
       .BYTE 4					  ; data used at e000
       .BYTE 2					  ; data used at e000
       .BYTE   6
@@ -80556,6 +80574,12 @@ LoadMarioSleepingCHRBanks:			  ; CODE XREF: BANKF:E98Ap
 ; End of function LoadMarioSleepingCHRBanks
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $FE97 - $FF4F
+     .pad $FF50, $FF
+ENDIF
+#DELETE-START
 ; [000000B9 BYTES: BEGIN OF AREA UNUSED-BANKF:FE97. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANKF_FE97:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
@@ -80569,6 +80593,7 @@ _unused_BANKF_FE97:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $90
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $A0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; $B0
+#DELETE-END
 ; [000000B9 BYTES: END OF AREA UNUSED-BANKF:FE97. PRESS	KEYPAD "-" TO COLLAPSE]
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -80683,13 +80708,23 @@ ChangeNametableMirroring:			  ; CODE XREF: sub_BANK0_8000+7P
 ; End of function ChangeNametableMirroring
 
 ; ---------------------------------------------------------------------------
+IFDEF PRESERVE_UNUSED_SPACE
+     ; Unused space in the original
+     ; $FFA4 - $FFEA
+     .pad $FFEB, $FF
+ENDIF
+#DELETE-START
 ; [00000047 BYTES: BEGIN OF AREA UNUSED-BANKF:FFA4. PRESS KEYPAD "-" TO	COLLAPSE]
 _unused_BANKF_FFA4:.BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF; 0
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $10
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $20
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF; $30
       .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF	  ; $40
+#DELETE-END
 ; [00000047 BYTES: END OF AREA UNUSED-BANKF:FFA4. PRESS	KEYPAD "-" TO COLLAPSE]
+; Technically you can delete the stuff from here to the	vector table
+; as well, but because it looks	slightly less like unused space
+; it isn't being removed now
 UnusedTextZELDA:.BYTE 'ZELDA'                     ; Not used; leftover part of FamicomBox cart title?
 IRQ:  .BYTE $DF	; ß				  ; DATA XREF: BANKF:FFFEo
 						  ; Note that this is NOT CODE.
@@ -80706,6 +80741,8 @@ IRQ:  .BYTE $DF	; ß				  ; DATA XREF: BANKF:FFFEo
       .BYTE   4
       .BYTE   1
       .BYTE $BE	; ¾
+      ;	Ensure our vectors are always here
+      .pad $FFFA, $FF
 NESVectorTables:.WORD NMI			  ; Vectors for	the NES	CPU. These should ALWAYS be at $FFFA!
 						  ; Add	a .pad or .base	before here if you change code above.
 						  ; NMI	= VBlank, RESET	= ...well, reset.
