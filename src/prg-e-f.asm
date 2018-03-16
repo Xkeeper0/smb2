@@ -481,25 +481,25 @@ PPUBuffer_CharacterSelect:
       .BYTE $20,$1F,$9E,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA
       .BYTE $B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8; $F
       .BYTE $BA,$B8,$BA				  ; $1E
-      .BYTE $20,$42,$5C,$FD			  
-      .BYTE $20,$62,$5C,$FD			  
-      .BYTE $20,$47,5,0,1,2,3,4			  
-      .BYTE $20,$54,5,5,6,7,8,9			  
+      .BYTE $20,$42,$5C,$FD
+      .BYTE $20,$62,$5C,$FD
+      .BYTE $20,$47,5,0,1,2,3,4
+      .BYTE $20,$54,5,5,6,7,8,9
       .BYTE $20,$63,$A,$A,$B,$C,$D,$E,$F,$10,$11,$12,$13
       .BYTE $20,$73,$A,$14,$15,$16,$17,$18,$19,$1A,$1B,$1C,$1D
       .BYTE $20,$82,$1C,$1E,$1F,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29
       .BYTE $FD,$FD,$FD,$FD,$2A,$2B,$2C,$2D,$2E,$2F,$30,$31,$32,$33,$34; $F
       .BYTE $35					  ; $1E
-      .BYTE $20,$A2,6,$36,$37,$38,$39,$3A,$3B	  
+      .BYTE $20,$A2,6,$36,$37,$38,$39,$3A,$3B
       .BYTE $20,$AB,$A,$3C,$3D,$3E,$3F,$40,$43,$44,$45,$46,$47
-      .BYTE $20,$B8,6,$48,$49,$4A,$4B,$4C,$4D	  
-      .BYTE $20,$C2,5,$4E,$4F,$50,$51,$52	  
-      .BYTE $20,$D9,5,$53,$54,$55,$56,$57	  
-      .BYTE $20,$E2,4,$58,$59,$5A,$5B		  
-      .BYTE $20,$E6,$CD,$5C			  
-      .BYTE $20,$F9,$CD,$5C			  
-      .BYTE $20,$FA,4,$5D,$5E,$5F,$60		  
-      .BYTE $21,2,$83,$61,$64,$67		  
+      .BYTE $20,$B8,6,$48,$49,$4A,$4B,$4C,$4D
+      .BYTE $20,$C2,5,$4E,$4F,$50,$51,$52
+      .BYTE $20,$D9,5,$53,$54,$55,$56,$57
+      .BYTE $20,$E2,4,$58,$59,$5A,$5B
+      .BYTE $20,$E6,$CD,$5C
+      .BYTE $20,$F9,$CD,$5C
+      .BYTE $20,$FA,4,$5D,$5E,$5F,$60
+      .BYTE $21,2,$83,$61,$64,$67
       .BYTE $21,3,$8B,$62,$65,$68,$6A,$6C,$6F,$72,$75,$78,$7B,$7E
       .BYTE $21,4,$94,$63,$66,$69,$6B,$6D,$70,$73,$76,$79,$7C,$7F,$81
       .BYTE $82,$83,$84,$85,$86,$87,$88,$89	  ; $F
@@ -508,71 +508,71 @@ PPUBuffer_CharacterSelect:
       .BYTE $21,$1B,$94,$8C,$8F,$92,$95,$98,$9B,$9E,$BC,$A1,$A4,$A7,$AA
       .BYTE $AC,$AD,$AE,$B0,$B1,$B2,$B3,$B4	  ; $F
       .BYTE $21,$1C,$8B,$8D,$90,$93,$96,$99,$9C,$9F,$BD,$A2,$A5,$A8
-      .BYTE $21,$1D,$83,$8E,$91,$94		  
-      .BYTE $21,$62,$D1,$FD			  
-      .BYTE $21,$7D,$D1,$FD			  
+      .BYTE $21,$1D,$83,$8E,$91,$94
+      .BYTE $21,$62,$D1,$FD
+      .BYTE $21,$7D,$D1,$FD
       .BYTE $22,$63,$C9,$FD,$22,$7C,$C9,$FD,$22,$86,$82,$8A,$8B,$22,$99
       .BYTE $82,$8A,$8B				  ; $F
       .BYTE 0
 PPUBuffer_BANKE_DE7A:
 	  .BYTE $23,$C0,9,$3E,$E,$E,$E,$E,$E,$E,$8E,$32
-      .BYTE $23,$CF,1,$8C			  
+      .BYTE $23,$CF,1,$8C
       .BYTE $23,$D0,$10,$32,0,$A0,$A0,$A0,$20,0,$8C,$32,0,0,$A,2,0,0,$8C
-      .BYTE $23,$E0,9,$32,0,0,$E,0,0,0,$8C,$32	  
-      .BYTE $23,$EF,1,$8C			  
-      .BYTE $23,$F0,6,$32,0,$A0,$A0,$A0,$A0	  
-      .BYTE $23,$F7,9,$8C,$E,$E,$E,$E,$E,$E,$E,$E 
-      .BYTE $24,0,$60,$FF			  
-      .BYTE $24,$20,$60,$FF			  
-      .BYTE $24,$40,$60,$FF			  
-      .BYTE $24,$60,$60,$FF			  
-      .BYTE $27,$40,$60,$FF			  
-      .BYTE $27,$60,$60,$FF			  
-      .BYTE $27,$80,$60,$FF			  
-      .BYTE $27,$A0,$60,$FF			  
-      .BYTE $24,$80,$D6,$FF			  
-      .BYTE $24,$81,$D6,$FF			  
-      .BYTE $24,$82,$D6,$FF			  
-      .BYTE $24,$9D,$D6,$FF			  
-      .BYTE $24,$9E,$D6,$FF			  
-      .BYTE $24,$9F,$D6,$FF			  
-      .BYTE $24,$83,1,$D0			  
-      .BYTE $24,$9C,1,$D8			  
-      .BYTE $24,$84,$58,$FB			  
-      .BYTE $24,$A3,$D4,$D1			  
-      .BYTE $24,$BC,$D4,$D7			  
-      .BYTE $24,$A4,$58,$FB			  
-      .BYTE $24,$C4,$58,$FB			  
-      .BYTE $24,$E4,$58,$FB			  
-      .BYTE $25,4,$58,$FB			  
-      .BYTE $25,$24,$58,$FB			  
-      .BYTE $25,$44,$58,$FB			  
-      .BYTE $25,$64,$58,$FB			  
-      .BYTE $25,$84,$58,$FB			  
-      .BYTE $25,$A4,$58,$FB			  
-      .BYTE $25,$C4,$58,$FB			  
-      .BYTE $25,$E4,$58,$FB			  
-      .BYTE $26,4,$58,$FB			  
-      .BYTE $26,$24,$58,$FB			  
-      .BYTE $26,$44,$58,$FB			  
-      .BYTE $26,$64,$58,$FB			  
-      .BYTE $26,$84,$58,$FB			  
-      .BYTE $26,$A4,$58,$FB			  
-      .BYTE $26,$C4,$58,$FB			  
-      .BYTE $26,$E4,$58,$FB			  
-      .BYTE $27,$23,1,$D2			  
-      .BYTE $27,$3C,1,$D6			  
-      .BYTE $27,$24,$58,$D3			  
+      .BYTE $23,$E0,9,$32,0,0,$E,0,0,0,$8C,$32
+      .BYTE $23,$EF,1,$8C
+      .BYTE $23,$F0,6,$32,0,$A0,$A0,$A0,$A0
+      .BYTE $23,$F7,9,$8C,$E,$E,$E,$E,$E,$E,$E,$E
+      .BYTE $24,0,$60,$FF
+      .BYTE $24,$20,$60,$FF
+      .BYTE $24,$40,$60,$FF
+      .BYTE $24,$60,$60,$FF
+      .BYTE $27,$40,$60,$FF
+      .BYTE $27,$60,$60,$FF
+      .BYTE $27,$80,$60,$FF
+      .BYTE $27,$A0,$60,$FF
+      .BYTE $24,$80,$D6,$FF
+      .BYTE $24,$81,$D6,$FF
+      .BYTE $24,$82,$D6,$FF
+      .BYTE $24,$9D,$D6,$FF
+      .BYTE $24,$9E,$D6,$FF
+      .BYTE $24,$9F,$D6,$FF
+      .BYTE $24,$83,1,$D0
+      .BYTE $24,$9C,1,$D8
+      .BYTE $24,$84,$58,$FB
+      .BYTE $24,$A3,$D4,$D1
+      .BYTE $24,$BC,$D4,$D7
+      .BYTE $24,$A4,$58,$FB
+      .BYTE $24,$C4,$58,$FB
+      .BYTE $24,$E4,$58,$FB
+      .BYTE $25,4,$58,$FB
+      .BYTE $25,$24,$58,$FB
+      .BYTE $25,$44,$58,$FB
+      .BYTE $25,$64,$58,$FB
+      .BYTE $25,$84,$58,$FB
+      .BYTE $25,$A4,$58,$FB
+      .BYTE $25,$C4,$58,$FB
+      .BYTE $25,$E4,$58,$FB
+      .BYTE $26,4,$58,$FB
+      .BYTE $26,$24,$58,$FB
+      .BYTE $26,$44,$58,$FB
+      .BYTE $26,$64,$58,$FB
+      .BYTE $26,$84,$58,$FB
+      .BYTE $26,$A4,$58,$FB
+      .BYTE $26,$C4,$58,$FB
+      .BYTE $26,$E4,$58,$FB
+      .BYTE $27,$23,1,$D2
+      .BYTE $27,$3C,1,$D6
+      .BYTE $27,$24,$58,$D3
       .BYTE $27,$C8,8,$44,$FF,$BF,$AF,$AF,$AF,$FF,$11
       .BYTE $27,$D0,$10,$44,$BF,$AF,$AF,$AF,$AF,$EF,$11,$44,$FF,$FF,$FF
       .BYTE $FF,$FF,$FF,$11			  ; $F
       .BYTE $27,$E0,$10,$44,$FF,$FF,$FF,$FF,$FF,$FF,$11,$44,$FF,$FF,$FF
       .BYTE $FF,$FF,$AF,$11			  ; $F
-      .BYTE $27,$F0,8,$44,5,5,5,5,5,5,1		  
-      .BYTE $27,4,$58,$FB			  
+      .BYTE $27,$F0,8,$44,5,5,5,5,5,5,1
+      .BYTE $27,4,$58,$FB
       .BYTE 0
 PPUBuffer_BANKE_DFA7:
-	  .BYTE $27,$EA,5,$AA,$AA,$AA,$AA,$AA	 
+	  .BYTE $27,$EA,5,$AA,$AA,$AA,$AA,$AA
 PPUBuffer_BANKE_DFAF:
 	  .BYTE $20,$1E,$9E,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
       .BYTE $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; $F
@@ -580,9 +580,9 @@ PPUBuffer_BANKE_DFAF:
       .BYTE $20,$1F,$9E,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
       .BYTE $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; $F
       .BYTE $FF,$FF,$FF				  ; $1E
-      .BYTE $23,$C7,1,0				  
-      .BYTE $23,$CF,1,0				  
-      .BYTE $23,$D7,1,0				  
+      .BYTE $23,$C7,1,0
+      .BYTE $23,$CF,1,0
+      .BYTE $23,$D7,1,0
       .BYTE $23,$DF,1				  ;	Data continues in Bank E
 ; end of 'BANKE'
 
@@ -596,16 +596,16 @@ PPUBuffer_BANKE_DFAF:
       ;.segment	BANKF
 ;       *	=  $E000
       .BYTE 0					  ; PPUBuffer_BANKE_DFA7 continued from	end of Bank D
-      .BYTE $23,$E7,1,0				  
-      .BYTE $23,$EF,1,0				  
-      .BYTE $23,$F7,1,0				  
-      .BYTE $23,$FF,1,0				  
+      .BYTE $23,$E7,1,0
+      .BYTE $23,$EF,1,0
+      .BYTE $23,$F7,1,0
+      .BYTE $23,$FF,1,0
       .BYTE 0
 WorldStartingLevel:
 	  .BYTE 0
 
 WorldPlus1StartingLevel:
-	  .BYTE 3					    
+	  .BYTE 3
       .BYTE 6					  ; 1
       .BYTE 9					  ; 2
       .BYTE $C					  ; 3
@@ -613,49 +613,49 @@ WorldPlus1StartingLevel:
       .BYTE $12					  ; 5
       .BYTE $14					  ; 6
 PlayerSelectMarioSprites1:
-	  .BYTE	$8F,0,0,$48			      
+	  .BYTE	$8F,0,0,$48
       .BYTE $8F,0,$40,$50			  ; 4
       .BYTE $9F,2,0,$48				  ; 8
       .BYTE $9F,2,$40,$50			  ; $C
 PlayerSelectLuigiSprites1:
-	  .BYTE	$8F,4,1,$68			      
+	  .BYTE	$8F,4,1,$68
       .BYTE $8F,4,$41,$70			  ; 4
       .BYTE $9F,6,1,$68				  ; 8
       .BYTE $9F,6,$41,$70			  ; $C
 PlayerSelectToadSprites1:
-	  .BYTE $8F,8,2,$88			     
+	  .BYTE $8F,8,2,$88
       .BYTE $8F,8,$42,$90			  ; 4
       .BYTE $9F,$A,2,$88			  ; 8
       .BYTE $9F,$A,$42,$90			  ; $C
 PlayerSelectPrincessSprites1:
-	  .BYTE $8F,$C,3,$A8				 
+	  .BYTE $8F,$C,3,$A8
       .BYTE $8F,$C,$43,$B0			  ; 4
       .BYTE $9F,$E,3,$A8			  ; 8
       .BYTE $9F,$E,$43,$B0			  ; $C
 PlayerSelectMarioSprites2:
-	  .BYTE	$8F,$10,0,$48			      
+	  .BYTE	$8F,$10,0,$48
       .BYTE $8F,$12,0,$50			  ; 4
       .BYTE $9F,$14,0,$48			  ; 8
       .BYTE $9F,$16,0,$50			  ; $C
 PlayerSelectLuigiSprites2:
-	  .BYTE	$8F,$18,1,$68			      
+	  .BYTE	$8F,$18,1,$68
       .BYTE $8F,$1A,1,$70			  ; 4
       .BYTE $9F,$1C,1,$68			  ; 8
       .BYTE $9F,$1E,1,$70			  ; $C
 PlayerSelectToadSprites2:
-	  .BYTE $8F,$20,2,$88			     
+	  .BYTE $8F,$20,2,$88
       .BYTE $8F,$22,2,$90			  ; 4
       .BYTE $9F,$24,2,$88			  ; 8
       .BYTE $9F,$26,2,$90			  ; $C
 PlayerSelectPrincessSprites2:
-	  .BYTE $8F,$28,3,$A8			 
+	  .BYTE $8F,$28,3,$A8
       .BYTE $8F,$2A,3,$B0			  ; 4
       .BYTE $9F,$2C,3,$A8			  ; 8
       .BYTE $9F,$2E,3,$B0			  ; $C
 PlayerSelectSpriteIndexes:
-	  .BYTE	0, $30,	$20, $10		      
+	  .BYTE	0, $30,	$20, $10
 BonusChanceCherrySprite:
-	  .BYTE $5F,5,1,$58			    
+	  .BYTE $5F,5,1,$58
       .BYTE $5F,7,1,$60				  ; 4
 BonusChanceStarSprite:
 	  .BYTE $5F,9,1,$58
@@ -686,7 +686,7 @@ TitleCardPalettes:
       .BYTE $36,1
       .BYTE   0
 BonusChanceSpritePalettes:
-	  .BYTE	$F,$37,$16,$F			      
+	  .BYTE	$F,$37,$16,$F
       .BYTE $F,$37,$16,$F			  ; 4
       .BYTE $F,$37,$16,$F			  ; 8
       .BYTE $F,$37,$16,$F			  ; $C
@@ -2733,6 +2733,19 @@ loc_BANKF_EC55:
 loc_BANKF_EC5E:
       JSR     DoSoundProcessing
 
+IFDEF DEBUG
+DebugHook:
+     LDA Player1JoypadPress
+     CMP #ControllerInput_Select
+     BNE loc_BANKF_EC61
+     LDA #>Debug_Init
+     PHA
+     LDA #<Debug_Init
+     PHA
+     PHP
+     RTI
+ENDIF
+
 loc_BANKF_EC61:
       PLA
       TAY
@@ -2993,6 +3006,9 @@ UpdatePPUFBWO_CopySingleTileSkip:
 
 ; End of function UpdatePPUFromBufferWithOptions
 
+IFDEF DEBUG
+      .include "src/debug-f.asm"
+ENDIF
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
      ; Unused space in the original
@@ -3155,7 +3171,7 @@ byte_BANKF_F055:
       .BYTE 8
       .BYTE 8
       .BYTE   3
-      .BYTE $30	
+      .BYTE $30
       .BYTE $18
       .BYTE $18
       .BYTE $FF
@@ -3265,7 +3281,7 @@ locret_BANKF_F0F3:
 
 ; ---------------------------------------------------------------------------
 LevelMusicIndexes:
-	  .BYTE	Music1_Overworld		      
+	  .BYTE	Music1_Overworld
       .BYTE Music1_Inside			  ; 1 ;	Music1 indexes.
       .BYTE Music1_Boss				  ; 2
       .BYTE Music1_Wart				  ; 3
@@ -4061,7 +4077,7 @@ byte_BANKF_F4DA:
       .BYTE $B0
       .BYTE $60
 ObjectAttributeTable:
-	  .BYTE ObjAttrib_Palette1			 
+	  .BYTE ObjAttrib_Palette1
       .BYTE ObjAttrib_Palette1			  ; 1
       .BYTE ObjAttrib_Palette1			  ; 2
       .BYTE ObjAttrib_Palette3			  ; 3
@@ -4761,7 +4777,7 @@ TileQuadPointersHi:
       .BYTE >TileQuads3
       .BYTE >TileQuads4
 TileQuads1:
-	  .BYTE $FE,$FE,$FE,$FE		       
+	  .BYTE $FE,$FE,$FE,$FE
       .BYTE $B4,$B6,$B5,$B7			  ; 4
       .BYTE $B8,$FA,$B9,$FA			  ; 8
       .BYTE $FA,$FA,$B2,$B3			  ; $C
@@ -4797,7 +4813,7 @@ TileQuads1:
       .BYTE $33,$35,$33,$35			  ; $84
       .BYTE $24,$26,$25,$27			  ; $88
 TileQuads2:
-	  .BYTE $FA,$FA,$FA,$FA		       
+	  .BYTE $FA,$FA,$FA,$FA
       .BYTE $FA,$FA,$FA,$FA			  ; 4
       .BYTE $FA,$FA,$FA,$FA			  ; 8
       .BYTE $FA,$FA,$B0,$B1			  ; $C
@@ -4857,7 +4873,7 @@ TileQuads2:
       .BYTE $32,$34,$33,$35			  ; $E4
       .BYTE $33,$35,$33,$35			  ; $E8
 TileQuads3:
-	  .BYTE $94,$95,$94,$95		       
+	  .BYTE $94,$95,$94,$95
       .BYTE $96,$97,$96,$97			  ; 4
       .BYTE $48,$49,$48,$49			  ; 8
       .BYTE $FE,$FE,$FE,$FE			  ; $C
@@ -4902,7 +4918,7 @@ TileQuads3:
       .BYTE $40,$42,$41,$43			  ; $A8
       .BYTE $41,$43,$41,$43			  ; $AC
 TileQuads4:
-	  .BYTE $40,$42,$41,$43		       
+	  .BYTE $40,$42,$41,$43
       .BYTE $40,$42,$41,$43			  ; 4
       .BYTE $BA,$BC,$BB,$BD			  ; 8
       .BYTE $BA,$BC,$90,$91			  ; $C
@@ -5005,7 +5021,7 @@ byte_BANKF_FAB2:
       .BYTE 3
       .BYTE 0
 BackgroundCHRAnimationSpeedByWorld:
-	  .BYTE 7, 7, 7, 7, 9,	7, 5		       
+	  .BYTE 7, 7, 7, 7, 9,	7, 5
       .BYTE $B
 
 ; =============== S U B	R O U T	I N E =======================================

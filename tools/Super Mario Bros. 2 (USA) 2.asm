@@ -70601,6 +70601,9 @@ Text_Unknown7:.BYTE $21,$AA,1,$FB,0			  ; 0 ;	data used at 8000
 Text_Unknown8:.BYTE $21,$97,$C6,$FB,0			  ; 0 ;	data used at 8000
 UnusedText_THANK_YOU:.BYTE $21,$C,9,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE; 0 ; data used at 8000
 UnusedText_Blank214D:.BYTE $21,$4D,6,$FB,$FB,$FB,$FB,$FB,$FB,0	 ; 0 ; data used at 8000
+IFDEF DEBUG
+     .include "src/debug-a.asm"
+ENDIF
 ; The rest of this bank	pair is	empty
 #DELETE-START
 ; [000019AC BYTES: BEGIN OF AREA UNUSED-BANKA:8654. PRESS KEYPAD "-" TO	COLLAPSE]
@@ -77819,6 +77822,16 @@ loc_BANKF_EC55:					  ; CODE XREF: NMI+BFj
 loc_BANKF_EC5E:					  ; CODE XREF: BANKF:EB8Bj
       JSR     DoSoundProcessing			  ; code used at e000
 
+IFDEF DEBUG
+     LDA Player1JoypadPress
+     CMP ControllerInput_Select
+     BNE loc_BANKF_EC61
+     LDA >Debug_Init
+     PHA
+     LDA <Debug_Init
+     PHA
+     RTI
+ENDIF
 
 loc_BANKF_EC61:					  ; CODE XREF: BANKF:EB5Bj
       PLA					  ; code used at e000
@@ -78114,6 +78127,9 @@ UpdatePPUFBWO_CopySingleTileSkip:		  ; CODE XREF: UpdatePPUFromBufferWithOptions
 
 ; End of function UpdatePPUFromBufferWithOptions
 
+IFDEF DEBUG
+      .include "src/debug-f.asm"
+ENDIF
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
      ; Unused space in the original

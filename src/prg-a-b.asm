@@ -614,7 +614,11 @@ Text_Unknown8:
 UnusedText_THANK_YOU:
 	  .BYTE $21,$C,9,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE
 UnusedText_Blank214D:
-	  .BYTE $21,$4D,6,$FB,$FB,$FB,$FB,$FB,$FB,0	 ; The rest of this bank	pair is	empty
+	  .BYTE $21,$4D,6,$FB,$FB,$FB,$FB,$FB,$FB,0	 
+IFDEF DEBUG
+     .include "src/debug-a.asm"
+ENDIF
+; The rest of this bank	pair is	empty
 
 
 ; -------------------------------------------

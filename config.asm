@@ -17,3 +17,6 @@ COMPATIBILITY = 1
 ; ...but it might also cause problems if data gets relocated
 ; when it isn't properly pointed to.
 PRESERVE_UNUSED_SPACE = 1
+
+; Include debugging tools
+DEBUG = 1
