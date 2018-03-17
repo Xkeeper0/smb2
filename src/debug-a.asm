@@ -51,6 +51,7 @@ Debug_InitMenu:
 	JSR WaitForNMI
 	LDA #5						; B BUTTON ... ABORT
 	JSR Debug_BufferText
+	JSR WaitForNMI
 
 	JSR Debug_UpdateWorld		; Draw in the actual values...
 	JSR WaitForNMI
@@ -103,7 +104,13 @@ Debug_MenuLoop:
 	CMP #ControllerInput_Up			; Maybe up instead?
 	BEQ Debug_MenuUp
 
-	BNE Debug_MenuLoop				; No? Wait more, then...
+	LDA Debug_CurrentMenuOption
+	JSR JumpToTableAfterJump
+	.word DebugMenu_World
+	.word DebugMenu_Level
+	.word DebugMenu_Area
+	.word DebugMenu_Character
+
 
 Debug_DoAbort:
 	JMP Debug_Abort
@@ -127,6 +134,108 @@ Debug_MenuDown:
 
 
 
+DebugMenu_DoNothing:
+-f	LDA #SoundEffect1_HawkOpen_WartBarf
+	STA SoundEffect1Queue
+-q	JMP Debug_MenuLoop
+
+DebugMenu_World:
+	LDA Player1JoypadPress
+	CMP #ControllerInput_Left		; If left, decrease
+	BEQ +l
+	CMP #ControllerInput_Right		; If right, increase
+	BEQ +r
+	BNE -q
++l	LDA CurrentWorld				; Check current world...
+	BEQ -f							; World is already 1, go away
+	DEC CurrentWorld				; Decrease
+	JMP +s							; Skip ahead
++r	LDA CurrentWorld
+	CMP #6							; bug: lets you go one too high lol oops
+	BEQ -f							; Already at world 7, go away
+	INC CurrentWorld				; Otherwise increase
++s	LDA #SoundEffect2_CoinGet
+	STA SoundEffectQueue2
+	JSR Debug_UpdateWorld
+	JMP Debug_MenuLoop
+
+
+DebugMenu_Level:
+	LDA Player1JoypadPress
+	CMP #ControllerInput_Left		; If left, decrease
+	BEQ +l
+	CMP #ControllerInput_Right		; If right, increase
+	BEQ +r
+	BNE -q
++l	LDA CurrentLevel				; Check current world...
+	BEQ -f							; Level is already 0, go away
+	DEC CurrentLevel				; Decrease
+	JMP +s							; Skip ahead
++r	LDA CurrentLevel
+	CMP #WorldStartingLevel+7
+	BEQ -f							; Already at last level, go away
+	INC CurrentLevel				; Otherwise increase
++s	LDA #SoundEffect2_CoinGet
+	STA SoundEffectQueue2
+	JSR Debug_UpdateLevel
+	JMP Debug_MenuLoop
+
+
+DebugMenu_Area:
+	LDA Player1JoypadPress
+	CMP #ControllerInput_Left		; If left, decrease
+	BEQ +l
+	CMP #ControllerInput_Right		; If right, increase
+	BEQ +r
+	BNE +q
++l	LDA CurrentLevelArea			; Check current area...
+	BEQ +f							; Area is already 0, go away
+	DEC CurrentLevelArea			; Decrease
+	JMP +s							; Skip ahead
++r	LDA CurrentLevelArea
+	CMP #$9
+	BEQ +f							; Already at area 9, go away
+	INC CurrentLevelArea			; Otherwise increase
++s	LDA #SoundEffect2_CoinGet
+	STA SoundEffectQueue2
+	JSR Debug_UpdateArea
+	JMP Debug_MenuLoop
+
+-f
++f
+	LDA #SoundEffect1_HawkOpen_WartBarf
+	STA SoundEffect1Queue
++q
+-q
+	JMP Debug_MenuLoop
+
+
+DebugMenu_Character:
+	LDA Player1JoypadPress
+	CMP #ControllerInput_Left		; If left, decrease
+	BEQ +l
+	CMP #ControllerInput_Right		; If right, increase
+	BEQ +r
+	BNE -q
++l	LDA CurrentCharacter			; Check current character...
+	BEQ -f							; Character is already 0, go away
+	DEC CurrentCharacter			; Decrease
+	JMP +s							; Skip ahead
++r	LDA CurrentCharacter
+	CMP #3
+	BEQ -f							; Already at character 3, go away
+	INC CurrentCharacter			; Otherwise increase
++s	LDA #SoundEffect2_CoinGet
+	STA SoundEffectQueue2
+	JSR Debug_UpdateCharacter
+	JMP Debug_MenuLoop
+
+
+
+
+
+
+; Part of update menu screen loop pls ignore
 -:
 	JSR Debug_BufferText	; Draw requested text
 	PLA						; Pull the value to update...
@@ -143,12 +252,6 @@ Debug_UpdateWorld:
 	LDA #6					; Load text to update
 	BNE -					; Go do that.
 
-Debug_UpdateLevel:
-	LDA CurrentLevel		; Load current world
-	PHA						; Push onto stack
-	LDA #7					; Load text to update
-	BNE -					; Go do that.
-
 Debug_UpdateArea:
 	LDA CurrentLevelArea	; Load current world
 	PHA						; Push onto stack
@@ -161,6 +264,51 @@ Debug_UpdateCharacter:
 	ADC CurrentCharacter	; Add the character index ...
 	JSR Debug_BufferText	; ...and draw it.
 	RTS
+
+
+Debug_UpdateLevel:
+	LDX #0						; Set X to 0
+-	LDA CurrentLevel			; Get the starting level index
+	CMP WorldStartingLevel, X	; Is it higher than our current level?
+	BCC +						; Yep, jump outta here
+	INX							; No, try next index
+	BNE -
+	; At this point, X has the index we used
++
+	DEX							; Go down one
+	TXA							; This is current world - 1
+	PHA							; Stuff onto stack
+	LDA CurrentLevel
+	SEC
+	SBC WorldStartingLevel, X	; Get the starting level index
+	PHA
+
+	LDA #7					; Load text offset of Mario (0)
+	JSR Debug_BufferText	; ...and draw it.
+	PLA						; Then draw the level number...
+	CLC
+	ADC #$D1
+	STA PPUBuffer_301+9
+	PLA						; ...and the world number...
+	CLC
+	ADC #$D1
+	STA PPUBuffer_301+7
+	LDA CurrentLevel		; ...and the internal level number high nybble...
+	LSR
+	LSR
+	LSR
+	LSR
+	CLC
+	ADC #$D0
+	STA PPUBuffer_301+3
+	LDA CurrentLevel		; ...and the internal level number low nybble.
+	AND #$0F
+	CLC
+	ADC #$D0
+	STA PPUBuffer_301+4
+	RTS
+
+; WorldStartingLevel
 
 
 Debug_BufferText:
@@ -206,31 +354,31 @@ DebugPPU_DebugText:			; DEBUG
 	.db # 10+4, #$20, #$CB, #$A, #$DD, #$DE, #$DB, #$EE, #$E0, #$FB, #$E6, #$DE, #$E7, #$EE, #0
 
 DebugPPU_WorldText:			; WORLD ?
-	.db #  7+4, #$21, #$46, #$7, #$F0, #$E8, #$EB, #$E5, #$DD, #$FB, #$F5, #0
+	.db #  8+4, #$21, #$46, #$8, #$F0, #$E8, #$EB, #$E5, #$DD, #$FB, #$FB, #$F5, #0
 
 DebugPPU_LevelText:			; LEVEL ?
-	.db #  7+4, #$21, #$86, #$7, #$E5, #$DE, #$EF, #$DE, #$E5, #$FB, #$F5, #0
+	.db #  8+4, #$21, #$86, #$8, #$E5, #$DE, #$EF, #$DE, #$E5, #$FB, #$FB, #$F5, #0
 
 DebugPPU_AreaText:			; AREA  ?
-	.db #  7+4, #$21, #$C6, #$7, #$DA, #$EB, #$DE, #$DA, #$FB, #$FB, #$F5, #0
+	.db #  8+4, #$21, #$C6, #$8, #$DA, #$EB, #$DE, #$DA, #$FB, #$FB, #$FB, #$F5, #0
 
 DebugPPU_CharacterText:		; CHARACTER ?
-	.db # 12+4, #$22, #$06, #$B, #$DC, #$E1, #$DA, #$EB, #$DA, #$DC, #$ED, #$DE, #$EB, #$FB, #$F5, #0
+	.db # 13+4, #$22, #$06, #$C, #$DC, #$E1, #$DA, #$EB, #$DA, #$DC, #$ED, #$DE, #$EB, #$FB, #$FB, #$F5, #0
 
 DebugPPU_AbortText:			; B BUTTON...ABORT
 	.db #$12+4, #$23, #$27, #$12, #$DB, #$FB, #$DB, #$EE, #$ED, #$ED, #$E8, #$E7, #$FB, #$CF, #$CF, #$CF, #$FB,#$DA, #$DB, #$E8, #$EB, #$ED, #$00
 
 DebugPPU_UpdateWorld:		; ?
-	.db	#1+4, #$21, #$4C, #1, #$FB, #0
+	.db	#1+4, #$21, #$4D, #1, #$FB, #0
 DebugPPU_UpdateLevel:		; ?
-	.db	#1+4, #$21, #$8C, #1, #$FB, #0
+	.db	#6+7, #$21, #$8C, #7, #$F5, #$F5, #$FB, #$FB, #$F5, #$F4, #$F5, #0
 DebugPPU_UpdateArea:		; ?
-	.db	#1+4, #$21, #$cC, #1, #$FB, #0
+	.db	#1+4, #$21, #$CD, #1, #$FB, #0
 DebugPPU_UpdateCharacter0:	; 0 MARIO
-	.db	#$A+4, #$22, #$10, #$A, #$D0, #$FB, #$E6, #$DA, #$EB, #$E2, #$E8, #$FB, #$FB, #$FB, #0
+	.db	#$A+4, #$22, #$11, #$A, #$D0, #$FB, #$E6, #$DA, #$EB, #$E2, #$E8, #$FB, #$FB, #$FB, #0
 DebugPPU_UpdateCharacter1:	; 1 PRINCESS
-	.db	#$A+4, #$22, #$10, #$A, #$D1, #$FB, #$E9, #$EB, #$E2, #$E7, #$DC, #$DE, #$EC, #$EC, #0
+	.db	#$A+4, #$22, #$11, #$A, #$D1, #$FB, #$E9, #$EB, #$E2, #$E7, #$DC, #$DE, #$EC, #$EC, #0
 DebugPPU_UpdateCharacter2:	; 2 TOAD
-	.db	#$A+4, #$22, #$10, #$A, #$D2, #$FB, #$ED, #$E8, #$DA, #$DD, #$FB, #$FB, #$FB, #$FB, #0
+	.db	#$A+4, #$22, #$11, #$A, #$D2, #$FB, #$ED, #$E8, #$DA, #$DD, #$FB, #$FB, #$FB, #$FB, #0
 DebugPPU_UpdateCharacter3:	; 3 LUIGI
-	.db	#$A+4, #$22, #$10, #$A, #$D3, #$FB, #$E5, #$EE, #$E2, #$E0, #$E2, #$FB, #$FB, #$FB, #0
+	.db	#$A+4, #$22, #$11, #$A, #$D3, #$FB, #$E5, #$EE, #$E2, #$E0, #$E2, #$FB, #$FB, #$FB, #0
