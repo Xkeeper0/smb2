@@ -65,3 +65,24 @@ Debug_AlreadyIn:
 	PLA
 	PLP
 	RTI
+
+Debug_Activate:
+	LDA #0
+	STA Debug_InMenu
+	LDA #Music2_StopMusic
+	STA MusicQueue2
+	LDA #1
+	STA PlayerState
+	LDA #1
+	STA PlayerStateTimer
+	STA TransitionType
+	PLA					; Clean up the stack from our mess earlier
+	PLA
+	TAY
+	PLA
+	TAX
+	PLA
+	PLP
+	PLA
+	PLA
+	JMP loc_BANKF_E438

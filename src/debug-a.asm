@@ -98,6 +98,10 @@ Debug_MenuLoop:
 	CMP #ControllerInput_B
 	BEQ Debug_DoAbort
 
+	LDA Player1JoypadPress			; Check if we should abort
+	CMP #ControllerInput_A
+	BEQ Debug_DoActivate
+
 	CMP #ControllerInput_Down		; Otherwise, move the cursor down?
 	BEQ Debug_MenuDown
 
@@ -115,6 +119,8 @@ Debug_MenuLoop:
 Debug_DoAbort:
 	JMP Debug_Abort
 
+Debug_DoActivate:
+	JMP Debug_Activate
 
 Debug_MenuUp:
 	LDA Debug_CurrentMenuOption
