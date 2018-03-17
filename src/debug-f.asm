@@ -1,10 +1,10 @@
 
 ; Debug tools
 Debug_Init:
-	LDA MMC3PRGBankTemp		; Save the current bank...
-	PHA						; and put it on the stack.
 	LDA Debug_InMenu		; If already in the debug menu,
 	BNE Debug_AlreadyIn		; don't re-hook everything. That's bad.
+	LDA MMC3PRGBankTemp		; Save the current bank...
+	PHA						; and put it on the stack.
 	LDA #1
 	STA Debug_InMenu
 	LDA #PRGBank_A_B		; Swap to the debug/credits bank
@@ -15,10 +15,14 @@ Debug_Init:
 Debug_Abort:
 	LDA #0
 	STA Debug_InMenu
-Debug_AlreadyIn:
 	PLA
 	JSR ChangeMappedPRGBank
-	; This will almost certainly crash everything lol
+Debug_AlreadyIn:
+	; Restore the stack to the way it was (that is, undo our hijack)
+	; This will NOT fix anything the debug menu wiped out, like
+	; the nametables, palettes, whatever else...
+	; It's basically a "I just want to see what happens" button.
+	; Sometimes you can almost fix it if you pause/unpause though.
 	PLA
 	TAY
 	PLA
