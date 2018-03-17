@@ -1,5 +1,19 @@
 
+Debug_CurrentMenuOption	= $7FE0
+Debug_MenuOptionCount	= #$4
+Debug_InMenu			= $7FEF
+
+; Custom debug menu for SMB2, probably to help with speedrunners
+; or just testing this disassembly.
+; @TODO Shoudl probably save a handful of important memory values,
+; like the nametable scroll position, maybe some other stuff like
+; the contents of $00 and $01 since we clobber those.
+; The ability to "abort" is a huuuuge gamble since the game will
+; most likely take it *extremely* poorly.
+
 Debug_InitMenu:
+	LDA #0
+	STA Debug_CurrentMenuOption
 
 	JSR EnableNMI
 	JSR WaitForNMI_TurnOffPPU
@@ -20,24 +34,25 @@ Debug_InitMenu:
 	JSR WaitForNMI_TurnOnPPU
 
 	; Draw debug meu text
-	LDA #0
+	LDA #0						; DEBUG MENU
 	JSR Debug_BufferText
 	JSR WaitForNMI
-	LDA #1
+	LDA #1						; WORLD ?
 	JSR Debug_BufferText
 	JSR WaitForNMI
-	LDA #2
+	LDA #2						; LEVEL ?
 	JSR Debug_BufferText
 	JSR WaitForNMI
-	LDA #3
+	LDA #3						; AREA ?
 	JSR Debug_BufferText
 	JSR WaitForNMI
-	LDA #4
+	LDA #4						; CHARACTER ?
 	JSR Debug_BufferText
 	JSR WaitForNMI
-	LDA #5
+	LDA #5						; B BUTTON ... ABORT
 	JSR Debug_BufferText
 
+	; Add the goofy smiley cursor
 	LDA #$4a				; Y
 	STA SpriteDMAArea
 	LDA #$38				; Tile
@@ -56,13 +71,59 @@ Debug_InitMenu:
 	STA SpriteDMAArea+7
 
 
--	JSR WaitForNMI
-	LDA Player1JoypadPress
-	CMP #ControllerInput_B
-	BEQ +
-	BNE -
+Debug_MenuLoop:
+	JSR WaitForNMI
 
-+	JMP Debug_Abort
+	LDA Debug_CurrentMenuOption		; Update cursor sprite
+	ASL A
+	ASL A
+	ASL A
+	ASL A
+	CLC
+	ADC #$4a						; Move the cursor
+	STA SpriteDMAArea
+	STA SpriteDMAArea+4
+
+	LDA Player1JoypadPress			; Check if we should abort
+	CMP #ControllerInput_B
+	BEQ Debug_DoAbort
+
+	CMP #ControllerInput_Down		; Otherwise, move the cursor down?
+	BEQ Debug_MenuDown
+
+	CMP #ControllerInput_Up			; Maybe up instead?
+	BEQ Debug_MenuUp
+
+	BNE Debug_MenuLoop				; No? Wait more, then...
+
+Debug_DoAbort:
+	JMP Debug_Abort
+
+
+Debug_MenuUp:
+	LDA Debug_CurrentMenuOption
+	BEQ Debug_MenuLoop
+	DEC Debug_CurrentMenuOption
+	JMP +
+
+Debug_MenuDown:
+	LDA Debug_CurrentMenuOption
+	CMP #Debug_MenuOptionCount - 1
+	BEQ Debug_MenuLoop
+	INC Debug_CurrentMenuOption
+
++	LDA #SoundEffect1_CherryGet
+	STA SoundEffect1Queue
+	JMP Debug_MenuLoop
+
+
+
+
+
+
+
+
+
 
 Debug_BufferText:
 	ASL A							; Rotate A left one
