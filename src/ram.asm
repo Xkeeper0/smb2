@@ -218,8 +218,9 @@ ObjectType:
       .dsb 1 ; 6                ; $0096
       .dsb 1 ; 7                ; $0097
       .dsb 1 ; 8                ; $0098
-byte_RAM_99:
+PlayerInAir:
 	  .dsb 1                       ; $0099
+						  ; 00 = on ground or enemy, 01	= in air
 byte_RAM_9A:
 	  .dsb 1                       ; $009a
 byte_RAM_9B:
@@ -228,7 +229,7 @@ HoldingItem:
 	  .dsb 1                       ; $009c
 byte_RAM_9D:
 	  .dsb 1                       ; $009d
-unk_RAM_9E:
+byte_RAM_9E:
 	  .dsb 1                       ; $009e
 EnemyArray_9F:
 	  .dsb 1 ;	DATA XREF: BANK0:9099w ; $009f
@@ -317,20 +318,20 @@ byte_RAM_D6:
 	  .dsb 1                       ; $00d6
 byte_RAM_D7:
 	  .dsb 1                       ; $00d7
-byte_RAM_D8:
+NeedVerticalScroll:
 	  .dsb 1                       ; $00d8
-unk_RAM_D9:
+						  ; @TODO understand better
+						  ; 01 = scroll	up, 02 = scroll	down
+						  ; (vertical areas only..?)
+EnemyArray_D9:
 	  .dsb 1                       ; $00d9
-unk_RAM_DA:
-	  .dsb 1                       ; $00da
-      .dsb 1                    ; $00db
-unk_RAM_DC:
-	  .dsb 1                       ; $00dc
-unk_RAM_DD:
-	  .dsb 1                       ; $00dd
-      .dsb 1                    ; $00de
-      .dsb 1                    ; $00df
-      .dsb 1                    ; $00e0
+      .dsb 1 ; 1                ; $00da
+      .dsb 1 ; 2                ; $00db
+      .dsb 1 ; 3                ; $00dc
+      .dsb 1 ; 4                ; $00dd
+      .dsb 1 ; 5                ; $00de
+      .dsb 1 ; 6                ; $00df
+      .dsb 1 ; 7                ; $00e0
 byte_RAM_E1:
 	  .dsb 1                       ; $00e1
 byte_RAM_E2:
@@ -383,10 +384,8 @@ Player1JoypadHeld:
 Player2JoypadHeld:
 	  .dsb 1                       ; $00f8
       .dsb 1                    ; $00f9
-unk_RAM_FA:
-	  .dsb 1                       ; $00fa
-unk_RAM_FB:
-	  .dsb 1                       ; $00fb
+      .dsb 1                    ; $00fa
+      .dsb 1                    ; $00fb
 PPUScrollYMirror:
 	  .dsb 1                       ; $00fc
 PPUScrollXMirror:
@@ -1247,14 +1246,14 @@ byte_RAM_426:
 	  .dsb 1                       ; $0426
 byte_RAM_427:
 	  .dsb 1                       ; $0427
-PlayerPageX:
+PlayerScreenX:
 	  .dsb 1                       ; $0428
 SpriteTempScreenX:
 	  .dsb 1                       ; $0429
-PlayerYHi_Copy:
-	  .dsb 1                       ; $042a
-PlayerPageY:
-	  .dsb 1                       ; $042b
+PlayerScreenYHi:
+	  .dsb 1	                      ; $042a
+PlayerScreenYLo:
+	  .dsb 1	                      ; $042b
 SpriteTempScreenY:
 	  .dsb 1                       ; $042c
 byte_RAM_42D:
@@ -1634,7 +1633,7 @@ CurrentLevel:
 	  .dsb 1                       ; $0531
 CurrentLevelArea:
 	  .dsb 1                       ; $0532
-byte_RAM_533:
+CurrentLevelPage:
 	  .dsb 1                       ; $0533
 TransitionType:
 	  .dsb 1                       ; $0534

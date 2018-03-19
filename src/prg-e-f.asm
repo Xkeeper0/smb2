@@ -869,7 +869,7 @@ InitializeSomeLevelStuff:
       LDA     #0
       STA     CurrentLevelArea
       STA     byte_RAM_4E8
-      STA     byte_RAM_533
+      STA     CurrentLevelPage
       STA     byte_RAM_4E9
       STA     TransitionType
       STA     byte_RAM_4EA
@@ -1303,7 +1303,7 @@ loc_BANKF_E478:
 loc_BANKF_E491:
       JSR     WaitForNMI
 
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       AND     #4
       BNE     loc_BANKF_E4A3
 
@@ -1369,7 +1369,7 @@ loc_BANKF_E4CC:
 loc_BANKF_E4E5:
       JSR     WaitForNMI
 
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       AND     #4
       BNE     loc_BANKF_E4F4
 
@@ -1932,7 +1932,7 @@ loc_BANKF_E826:
       STA     byte_RAM_4E7
       LDA     CurrentLevelArea
       STA     byte_RAM_4E8
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       STA     byte_RAM_4E9
       LDY     #0
       STY     byte_RAM_4E6
@@ -2733,6 +2733,20 @@ loc_BANKF_EC55:
 loc_BANKF_EC5E:
       JSR     DoSoundProcessing
 
+IFDEF DEBUG
+DebugHook:
+     ; Hook into debug routine if select is pressed
+     LDA Player1JoypadPress
+     CMP #ControllerInput_Select
+     BNE loc_BANKF_EC61
+     LDA #>Debug_Init
+     PHA
+     LDA #<Debug_Init
+     PHA
+     PHP
+     RTI
+ENDIF
+
 loc_BANKF_EC61:
       PLA
       TAY
@@ -2993,6 +3007,9 @@ UpdatePPUFBWO_CopySingleTileSkip:
 
 ; End of function UpdatePPUFromBufferWithOptions
 
+IFDEF DEBUG
+      .include "src/debug-f.asm"
+ENDIF
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
      ; Unused space in the original
@@ -3430,9 +3447,9 @@ loc_BANKF_F1B7:
       STA     byte_RAM_4E1
       LDA     PlayerYLo
       STA     byte_RAM_4E2
-      LDA     PlayerPageX
+      LDA     PlayerScreenX
       STA     byte_RAM_4E3
-      LDA     PlayerPageY
+      LDA     PlayerScreenYLo
       STA     byte_RAM_4E4
       LDA     PlayerYAccel
       STA     byte_RAM_4E5
@@ -3460,9 +3477,9 @@ loc_BANKF_F1E3:
       LDA     byte_RAM_4E2
       STA     PlayerYLo
       LDA     byte_RAM_4E3
-      STA     PlayerPageX
+      STA     PlayerScreenX
       LDA     byte_RAM_4E4
-      STA     PlayerPageY
+      STA     PlayerScreenYLo
       LDA     byte_RAM_4E5
       STA     PlayerYAccel
       LDA     byte_RAM_4E6
@@ -3470,7 +3487,7 @@ loc_BANKF_F1E3:
       LDA     #0
       STA     InSubspaceOrJar
       STA     byte_RAM_4EE
-      STA     byte_RAM_99
+      STA     PlayerInAir
       STA     DamageInvulnTime
 
 ; End of function sub_BANKF_F1E1
@@ -3504,19 +3521,19 @@ sub_BANKF_F228:
       LDA     PlayerXLo
       SEC
       SBC     ScreenBoundaryLeftLo
-      STA     PlayerPageX
+      STA     PlayerScreenX
       LDA     PlayerYLo
       CLC
       SBC     ScreenYLo
-      STA     PlayerPageY
+      STA     PlayerScreenYLo
       LDA     PlayerYHi
       SBC     ScreenYHi
-      STA     PlayerYHi_Copy
+      STA     PlayerScreenYHi
       LDA     PlayerState
       CMP     #PlayerState_Lifting
       BCS     locret_BANKF_F297
 
-      LDA     PlayerYHi_Copy
+      LDA     PlayerScreenYHi
       BEQ     loc_BANKF_F298
 
       BMI     loc_BANKF_F254
@@ -3589,7 +3606,7 @@ loc_BANKF_F298:
       LDY     PlayerYHi
       BMI     loc_BANKF_F2BB
 
-      LDA     PlayerPageY
+      LDA     PlayerScreenYLo
       CMP     #$B8
       BCC     locret_BANKF_F297
 
@@ -3756,16 +3773,16 @@ loc_BANKF_F345:
       STA     PlayerAttributesMaybe
 
 loc_BANKF_F350:
-      LDA     PlayerPageX
+      LDA     PlayerScreenX
       STA     SpriteDMAArea+$23
       STA     SpriteDMAArea+$2B
       CLC
       ADC     #8
       STA     SpriteDMAArea+$27
       STA     SpriteDMAArea+$2F
-      LDA     PlayerPageY
+      LDA     PlayerScreenYLo
       STA     byte_RAM_0
-      LDA     PlayerYHi_Copy
+      LDA     PlayerScreenYHi
       STA     byte_RAM_1
       LDY     PlayerAnimationFrame
       CPY     #4
@@ -3969,15 +3986,15 @@ loc_BANKF_F490:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANKF_F494:
-      LDX     byte_RAM_D8
+      LDX     NeedVerticalScroll
       BNE     locret_BANKF_F4C2
 
       LDA     PlayerState
       CMP     #PlayerState_Lifting
       BCS     locret_BANKF_F4C2
 
-      LDA     PlayerPageY
-      LDY     PlayerYHi_Copy
+      LDA     PlayerScreenYLo
+      LDY     PlayerScreenYHi
       BMI     loc_BANKF_F4B0
 
       BNE     loc_BANKF_F4B6
@@ -3989,7 +4006,7 @@ sub_BANKF_F494:
       BCS     loc_BANKF_F4B8
 
 loc_BANKF_F4B0:
-      LDY     byte_RAM_99
+      LDY     PlayerInAir
       BNE     loc_BANKF_F4B8
 
       BEQ     loc_BANKF_F4B7
@@ -4005,7 +4022,7 @@ loc_BANKF_F4B8:
       STX     byte_RAM_425
       BNE     locret_BANKF_F4C2
 
-      STX     byte_RAM_D8
+      STX     NeedVerticalScroll
 
 locret_BANKF_F4C2:
       RTS
@@ -4512,7 +4529,7 @@ sub_BANKF_F6A1:
       STA     CurrentLevelArea
       LDA     unk_RAM_51D,Y
       AND     #$F
-      STA     byte_RAM_533
+      STA     CurrentLevelPage
       RTS
 
 ; End of function sub_BANKF_F6A1
@@ -5266,6 +5283,9 @@ loc_BANKF_FF61:
       BPL     loc_BANKF_FF61
 
       LDA     #0
+IFDEF DEBUG
+       STA Debug_InMenu
+ENDIF
       STA     $A000
       LDA     #$80
       STA     $A001
