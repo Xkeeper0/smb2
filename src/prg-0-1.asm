@@ -12,7 +12,7 @@ sub_BANK0_8000:
       JSR     ChangeNametableMirroring
 
 _code_000A:
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       BNE     loc_BANK0_8013
 
 loc_BANK0_800F:
@@ -29,7 +29,7 @@ loc_BANK0_8016:
       SEC
       SBC     #$40
       STA     byte_RAM_CE
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
 
 loc_BANK0_8022:
       CLC
@@ -42,7 +42,7 @@ loc_BANK0_8022:
 loc_BANK0_802B:
       ORA     #$10
       STA     byte_RAM_D0
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       LDY     #0
       JSR     sub_BANK0_86EE
 
@@ -58,7 +58,7 @@ loc_BANK0_802B:
       STA     byte_RAM_53A
       LSR     A
       STA     byte_RAM_D2
-      LDY     byte_RAM_533
+      LDY     CurrentLevelPage
       JSR     sub_BANK0_95AF
 
       STA     ScreenYLo
@@ -95,11 +95,11 @@ locret_BANK0_8082:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_8083:
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       AND     #4
       BNE     loc_BANK0_809D
 
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       AND     #7
       BNE     loc_BANK0_8092
 
@@ -108,14 +108,14 @@ sub_BANK0_8083:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8092:
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       ORA     #4
-      STA     byte_RAM_D8
+      STA     NeedVerticalScroll
       LDA     #$12
       STA     byte_RAM_504
 
 loc_BANK0_809D:
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       LSR     A
       LDA     PPUScrollYMirror
       BCC     loc_BANK0_8103
@@ -285,7 +285,7 @@ loc_BANK0_8170:
 
       LDA     #1
       STA     byte_RAM_E4
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       LSR     A
       BCC     loc_BANK0_8186
 
@@ -312,7 +312,7 @@ loc_BANK0_818F:
 
 loc_BANK0_819C:
       LDA     #0
-      STA     byte_RAM_D8
+      STA     NeedVerticalScroll
 
 locret_BANK0_81A0:
       RTS
@@ -718,7 +718,7 @@ loc_BANK0_83A7:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_83C2:
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       LSR     A
       BCS     loc_BANK0_83D4
 
@@ -741,7 +741,7 @@ loc_BANK0_83D4:
 
 loc_BANK0_83DE:
       LDX     #0
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       LSR     A
       BCC     loc_BANK0_83FA
 
@@ -814,7 +814,7 @@ loc_BANK0_842B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_843B:
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       LSR     A
       BCC     loc_BANK0_8452
 
@@ -957,7 +957,7 @@ sub_BANK0_8500:
 
       LDA     #0
       STA     PPUScrollYMirror
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       BNE     loc_BANK0_851A
 
       LDA     #9
@@ -973,7 +973,7 @@ loc_BANK0_851D:
       SEC
       SBC     #$20
       STA     byte_RAM_CE
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       CLC
       ADC     #1
       CMP     #$A
@@ -984,12 +984,12 @@ loc_BANK0_851D:
 loc_BANK0_8532:
       ORA     #$10
       STA     byte_RAM_D0
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       LDY     #1
       JSR     sub_BANK0_86EE
 
       INC     byte_RAM_502
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       STA     ScreenBoundaryLeftHi
       LDA     #1
       STA     byte_RAM_53A
@@ -1018,13 +1018,13 @@ locret_BANK0_8569:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_856A:
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       BNE     loc_BANK0_8576
 
       LDA     byte_RAM_BA
       BMI     loc_BANK0_85E7
 
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
 
 loc_BANK0_8576:
       CMP     byte_RAM_53F
@@ -1133,7 +1133,7 @@ sub_BANK0_85EC:
       STA     byte_RAM_1
       DEX
       LDA     byte_RAM_538
-      STA     byte_RAM_D8
+      STA     NeedVerticalScroll
       JSR     sub_BANK0_8901
 
       LDA     byte_RAM_3
@@ -1148,7 +1148,7 @@ loc_BANK0_8618:
       DEX
       STX     byte_RAM_1
       LDA     byte_RAM_538
-      STA     byte_RAM_D8
+      STA     NeedVerticalScroll
       JSR     sub_BANK0_8901
 
       LDA     #0
@@ -1167,14 +1167,14 @@ loc_BANK0_8631:
       BPL     loc_BANK0_863C
 
       LDA     #1
-      STA     byte_RAM_D8
+      STA     NeedVerticalScroll
       JMP     loc_BANK0_869A
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_863C:
       LDA     #2
-      STA     byte_RAM_D8
+      STA     NeedVerticalScroll
       LDX     byte_RAM_BA
 
 loc_BANK0_8642:
@@ -1303,7 +1303,7 @@ loc_BANK0_86E6:
 
 loc_BANK0_86E9:
       LDA     #0
-      STA     byte_RAM_D8
+      STA     NeedVerticalScroll
       RTS
 
 ; End of function sub_BANK0_85EC
@@ -1351,7 +1351,7 @@ sub_BANK0_870C:
       STA     byte_RAM_514
       INC     byte_RAM_53D
       LDA     byte_BANK0_870B
-      STA     byte_RAM_533
+      STA     CurrentLevelPage
       JSR     sub_BANK0_86EE
 
       LDA     #0
@@ -1439,7 +1439,7 @@ sub_BANK0_87AA:
       LDX     #0
       STX     byte_RAM_537
       STX     byte_RAM_51C
-      STX     byte_RAM_D8
+      STX     NeedVerticalScroll
       JSR     sub_BANK0_8812
 
       JSR     sub_BANK0_8872
@@ -1645,7 +1645,7 @@ loc_BANK0_88A0:
 
       LDA     #0
       STA     byte_RAM_3BC
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       LSR     A
       BCS     loc_BANK0_88F2
 
@@ -1653,7 +1653,7 @@ loc_BANK0_88A0:
       AND     #2
       BEQ     loc_BANK0_88FD
 
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       BNE     loc_BANK0_88F8
 
       LDA     #$10
@@ -1677,7 +1677,7 @@ loc_BANK0_88F2:
       BNE     loc_BANK0_88FD
 
 loc_BANK0_88F8:
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       STA     byte_RAM_538
 
 loc_BANK0_88FD:
@@ -1852,7 +1852,7 @@ HandlePlayerState_Dying:
       LDA     PlayerStateTimer
       BNE     locret_BANK0_8A86
 
-      LDA     PlayerYHi_Copy
+      LDA     PlayerScreenYHi
       CMP     #2
       BEQ     LoseALife
 
@@ -1931,7 +1931,7 @@ loc_BANK0_8AB8:
 
 loc_BANK0_8ABB:
       STA     PlayerState
-      INC     byte_RAM_99
+      INC     PlayerInAir
 
 loc_BANK0_8ABF:
       INC     byte_RAM_9A
@@ -2150,11 +2150,11 @@ HandlePlayerState_ClimbingAreaTransition:
       ROL     A
       AND     #1
       TAY
-      LDA     PlayerYHi_Copy
+      LDA     PlayerScreenYHi
       CMP     byte_BANK0_8B87,Y
       BNE     loc_BANK0_8BB0
 
-      LDA     PlayerPageY
+      LDA     PlayerScreenYLo
       CMP     byte_BANK0_8B89,Y
       BNE     loc_BANK0_8BB0
 
@@ -2168,10 +2168,10 @@ HandlePlayerState_ClimbingAreaTransition:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8BB0:
-      LDA     PlayerYHi_Copy
+      LDA     PlayerScreenYHi
       BNE     loc_BANK0_8BBD
 
-      LDA     PlayerPageY
+      LDA     PlayerScreenYLo
       CMP     byte_BANK0_8B8B,Y
       BEQ     loc_BANK0_8BC6
 
@@ -2289,7 +2289,7 @@ byte_BANK0_8C18:
 sub_BANK0_8C1A:
       JSR     sub_BANK0_8D6F
 
-      LDA     byte_RAM_99
+      LDA     PlayerInAir
       BNE     loc_BANK0_8C63
 
       LDA     byte_RAM_9A
@@ -2304,7 +2304,7 @@ loc_BANK0_8C2B:
       LDA     Player1JoypadPress
       BPL     loc_BANK0_8C3D
 
-      INC     byte_RAM_99
+      INC     PlayerInAir
       LDA     #SpriteAnimation_Jumping
       STA     PlayerAnimationFrame
       JSR     sub_BANK0_8C99
@@ -2326,7 +2326,7 @@ loc_BANK0_8C3D:
       INC     byte_RAM_9A
       LDA     #SpriteAnimation_Ducking
       STA     PlayerAnimationFrame
-      LDA     byte_RAM_99
+      LDA     PlayerInAir
       BNE     loc_BANK0_8C63
 
       LDA     CrouchJumpTimer
@@ -2506,7 +2506,7 @@ byte_BANK0_8D2A:
 ; =============== S U B	R O U T	I N E =======================================
 
 sub_BANK0_8D2C:
-      LDA     byte_RAM_99
+      LDA     PlayerInAir
       BNE     locret_BANK0_8D61
 
       LDA     byte_RAM_10
@@ -2575,7 +2575,7 @@ sub_BANK0_8D6F:
       BNE     locret_BANK0_8DB1
 
 loc_BANK0_8D73:
-      LDA     byte_RAM_99
+      LDA     PlayerInAir
       BEQ     loc_BANK0_8D85
 
       LDA     CurrentCharacter
@@ -2965,7 +2965,7 @@ loc_BANK0_8F44:
 
 loc_BANK0_8F47:
       STA     byte_RAM_4DF
-      STX     byte_RAM_99
+      STX     PlayerInAir
       JMP     loc_BANK0_8F95
 
 ; ---------------------------------------------------------------------------
@@ -2979,7 +2979,7 @@ loc_BANK0_8F51:
       AND     #$C
       BNE     loc_BANK0_8F95
 
-      STA     byte_RAM_99
+      STA     PlayerInAir
       LDA     PlayerYLo
       AND     #$F0
       STA     PlayerYLo
@@ -3010,7 +3010,7 @@ loc_BANK0_8F7A:
       LSR     byte_RAM_E
       BCC     loc_BANK0_8F95
 
-      LDA     PlayerPageX
+      LDA     PlayerScreenX
       STA     SpriteTempScreenX
       ROR     byte_RAM_12
       JSR     sub_BANK1_BABF
@@ -3163,7 +3163,7 @@ loc_BANK0_9031:
 
       LDA     #PlayerState_Climbing
       STA     PlayerState
-      STY     byte_RAM_99
+      STY     PlayerInAir
       STY     byte_RAM_9A
       LDA     #SpriteAnimation_Climbing
       STA     PlayerAnimationFrame
@@ -3746,15 +3746,15 @@ byte_BANK0_92E1:
 ; ---------------------------------------------------------------------------
 
 _code_12E3:
-      LDX     byte_RAM_D8
+      LDX     NeedVerticalScroll
       BNE     locret_BANK0_9311
 
       LDA     PlayerState
       CMP     #PlayerState_Lifting
       BCS     locret_BANK0_9311
 
-      LDA     PlayerPageY
-      LDY     PlayerYHi_Copy
+      LDA     PlayerScreenYLo
+      LDY     PlayerScreenYHi
       BMI     loc_BANK0_92FF
 
       BNE     loc_BANK0_9305
@@ -3766,7 +3766,7 @@ _code_12E3:
       BCS     loc_BANK0_9307
 
 loc_BANK0_92FF:
-      LDY     byte_RAM_99
+      LDY     PlayerInAir
       BNE     loc_BANK0_9307
 
       BEQ     loc_BANK0_9306
@@ -3783,7 +3783,7 @@ loc_BANK0_9307:
       BNE     locret_BANK0_9311
 
 loc_BANK0_930F:
-      STX     byte_RAM_D8
+      STX     NeedVerticalScroll
 
 locret_BANK0_9311:
       RTS
@@ -3803,7 +3803,7 @@ sub_BANK0_9316:
       LDA     IsHorizontalLevel
       BEQ     locret_BANK0_9327
 
-      LDA     PlayerPageX
+      LDA     PlayerScreenX
       LDY     PlayerMovementDirection
       CPY     #1
       BEQ     loc_BANK0_9328
@@ -4012,14 +4012,14 @@ sub_BANK0_9428:
       LDA     PlayerXLo
       SEC
       SBC     ScreenBoundaryLeftLo
-      STA     PlayerPageX
+      STA     PlayerScreenX
       LDA     PlayerYLo
       SEC
       SBC     ScreenYLo
-      STA     PlayerPageY
+      STA     PlayerScreenYLo
       LDA     PlayerYHi
       SBC     ScreenYHi
-      STA     PlayerYHi_Copy
+      STA     PlayerScreenYHi
       LDA     TransitionType
       SEC
       SBC     #4
@@ -4055,7 +4055,7 @@ loc_BANK0_9470:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_947F:
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       LDY     #0
       LDX     IsHorizontalLevel
       BNE     loc_BANK0_948E
@@ -4080,16 +4080,16 @@ loc_BANK0_9492:
       LDA     PlayerXLo
       SEC
       SBC     ScreenBoundaryLeftLo
-      STA     PlayerPageX
+      STA     PlayerScreenX
       LDA     PlayerYLo
       SEC
 
 loc_BANK0_94AC:
       SBC     ScreenYLo
-      STA     PlayerPageY
+      STA     PlayerScreenYLo
       LDA     PlayerYHi
       SBC     ScreenYHi
-      STA     PlayerYHi_Copy
+      STA     PlayerScreenYHi
       LDA     TransitionType
       CMP     #4
       BNE     loc_BANK0_94C2
@@ -4133,7 +4133,7 @@ loc_BANK0_94DC:
       LDA     #$D0
       STA     PlayerYLo
       STA     byte_RAM_E6
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       STA     byte_RAM_E8
       LDA     #$C
       STA     byte_RAM_3
@@ -4182,7 +4182,7 @@ loc_BANK0_9514:
       LDA     #$E0
       STA     PlayerYLo
       STA     byte_RAM_E6
-      LDA     byte_RAM_533
+      LDA     CurrentLevelPage
       STA     byte_RAM_E8
       LDA     #$D
       STA     byte_RAM_3
@@ -4231,7 +4231,7 @@ loc_BANK0_955D:
 
 sub_BANK0_9561:
       LDA     #1
-      STA     byte_RAM_99
+      STA     PlayerInAir
       LDA     #$78
 
 loc_BANK0_9567:
@@ -4249,7 +4249,7 @@ loc_BANK0_956A:
       AND     #$F0
       EOR     #$F0
       STA     PlayerXLo
-      LDA     PlayerPageY
+      LDA     PlayerScreenYLo
       CLC
       ADC     #8
       AND     #$F0
@@ -4268,14 +4268,14 @@ loc_BANK0_9587:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_958C:
-      LDA     PlayerPageX
+      LDA     PlayerScreenX
       SEC
       SBC     byte_RAM_BA
       EOR     #$FF
       CLC
       ADC     #$F1
       STA     PlayerXLo
-      LDA     PlayerPageY
+      LDA     PlayerScreenYLo
       STA     PlayerYLo
       DEC     byte_RAM_41B
       LDA     #$60
@@ -5225,9 +5225,9 @@ loc_BANK1_A4C6:
 
 loc_BANK1_A4CC:
       LDA     PlayerXLo
-      STA     PlayerPageX
+      STA     PlayerScreenX
       LDA     PlayerYLo
-      STA     PlayerPageY
+      STA     PlayerScreenYLo
       JSR     sub_BANKF_F31A
 
       LDA     PlayerState
@@ -5251,7 +5251,7 @@ loc_BANK1_A4E8:
       BCC     locret_BANK1_A52F
 
       INC     PlayerState
-      INC     byte_RAM_99
+      INC     PlayerInAir
       LDA     #SpriteAnimation_Jumping
       STA     PlayerAnimationFrame
 
@@ -5294,7 +5294,7 @@ loc_BANK1_A521:
       BCC     locret_BANK1_A52F
 
       INC     PlayerState
-      DEC     byte_RAM_99
+      DEC     PlayerInAir
 
 locret_BANK1_A52F:
       RTS
@@ -5344,7 +5344,7 @@ loc_BANK1_A556:
       BNE     loc_BANK1_A570
 
       INC     PlayerState
-      INC     byte_RAM_99
+      INC     PlayerInAir
       LDA     #SpriteAnimation_Jumping
       STA     PlayerAnimationFrame
       LDA     #DPCM_ItemPull
@@ -6883,7 +6883,7 @@ sub_BANK1_BABF:
       STA     PlayerHealth
       LDA     #$7F
       STA     DamageInvulnTime
-      LDA     PlayerPageX
+      LDA     PlayerScreenX
       SEC
       SBC     SpriteTempScreenX
       ASL     A

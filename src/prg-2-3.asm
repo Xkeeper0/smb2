@@ -583,7 +583,7 @@ loc_BANK2_82ED:
       AND     #1
       TAY
       INY
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       BEQ     loc_BANK2_82FC
 
       AND     #3
@@ -1896,7 +1896,7 @@ loc_BANK2_89C9:
       CMP     #PlayerState_ChangingSize
       BEQ     loc_BANK2_89E2
 
-      LDA     byte_RAM_D8
+      LDA     NeedVerticalScroll
       AND     #4
       BNE     loc_BANK2_8A07
 
@@ -8396,7 +8396,7 @@ loc_BANK3_AB76:
       LDA     ObjectYLo,X
       ADC     #$20
       STA     PlayerYLo
-      STA     PlayerPageY
+      STA     PlayerScreenYLo
 
 loc_BANK3_AB88:
       JSR     sub_BANK3_ABEE
@@ -10661,7 +10661,7 @@ loc_BANK3_B896:
 
 sub_BANK3_B899:
       LDA     #0
-      STA     byte_RAM_99
+      STA     PlayerInAir
       LDX     byte_RAM_12
       LDA     EnemyCollision,X
       ORA     #$20
@@ -10959,7 +10959,7 @@ DamagePlayer:
       CMP     #$10
       BCC     loc_BANK3_BA2C
 
-      LDA     PlayerPageX
+      LDA     PlayerScreenX
       SEC
       SBC     SpriteTempScreenX
       ASL     A

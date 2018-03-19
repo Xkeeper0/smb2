@@ -2556,7 +2556,7 @@ IFDEF COMPATIBILITY
 	  .db $8d, $d8, $00 ; STA $00D8
 ENDIF
 IFNDEF COMPATIBILITY
-      STA     byte_RAM_D8			  ; Absolute address for zero-page
+      STA     NeedVerticalScroll		  ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -2944,7 +2944,7 @@ locret_BANK6_9547:
       STA     CurrentLevelArea
       LDA     unk_RAM_51D,Y
       AND     #$F
-      STA     byte_RAM_533
+      STA     CurrentLevelPage
       RTS
 
 ; =============== S U B	R O U T	I N E =======================================

@@ -218,8 +218,9 @@ ObjectType:
       .dsb 1 ; 6                ; $0096
       .dsb 1 ; 7                ; $0097
       .dsb 1 ; 8                ; $0098
-byte_RAM_99:
+PlayerInAir:
 	  .dsb 1                       ; $0099
+						  ; 00 = on ground or enemy, 01	= in air
 byte_RAM_9A:
 	  .dsb 1                       ; $009a
 byte_RAM_9B:
@@ -317,8 +318,11 @@ byte_RAM_D6:
 	  .dsb 1                       ; $00d6
 byte_RAM_D7:
 	  .dsb 1                       ; $00d7
-byte_RAM_D8:
+NeedVerticalScroll:
 	  .dsb 1                       ; $00d8
+						  ; @TODO understand better
+						  ; 01 = scroll	up, 02 = scroll	down
+						  ; (vertical areas only..?)
 EnemyArray_D9:
 	  .dsb 1                       ; $00d9
       .dsb 1 ; 1                ; $00da
@@ -1242,14 +1246,14 @@ byte_RAM_426:
 	  .dsb 1                       ; $0426
 byte_RAM_427:
 	  .dsb 1                       ; $0427
-PlayerPageX:
+PlayerScreenX:
 	  .dsb 1                       ; $0428
 SpriteTempScreenX:
 	  .dsb 1                       ; $0429
-PlayerYHi_Copy:
-	  .dsb 1                       ; $042a
-PlayerPageY:
-	  .dsb 1                       ; $042b
+PlayerScreenYHi:
+	  .dsb 1	                      ; $042a
+PlayerScreenYLo:
+	  .dsb 1	                      ; $042b
 SpriteTempScreenY:
 	  .dsb 1                       ; $042c
 byte_RAM_42D:
@@ -1629,7 +1633,7 @@ CurrentLevel:
 	  .dsb 1                       ; $0531
 CurrentLevelArea:
 	  .dsb 1                       ; $0532
-byte_RAM_533:
+CurrentLevelPage:
 	  .dsb 1                       ; $0533
 TransitionType:
 	  .dsb 1                       ; $0534
