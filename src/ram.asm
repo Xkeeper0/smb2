@@ -228,7 +228,7 @@ HoldingItem:
 	  .dsb 1                       ; $009c
 byte_RAM_9D:
 	  .dsb 1                       ; $009d
-unk_RAM_9E:
+byte_RAM_9E:
 	  .dsb 1                       ; $009e
 EnemyArray_9F:
 	  .dsb 1 ;	DATA XREF: BANK0:9099w ; $009f
@@ -319,18 +319,15 @@ byte_RAM_D7:
 	  .dsb 1                       ; $00d7
 byte_RAM_D8:
 	  .dsb 1                       ; $00d8
-unk_RAM_D9:
+EnemyArray_D9:
 	  .dsb 1                       ; $00d9
-unk_RAM_DA:
-	  .dsb 1                       ; $00da
-      .dsb 1                    ; $00db
-unk_RAM_DC:
-	  .dsb 1                       ; $00dc
-unk_RAM_DD:
-	  .dsb 1                       ; $00dd
-      .dsb 1                    ; $00de
-      .dsb 1                    ; $00df
-      .dsb 1                    ; $00e0
+      .dsb 1 ; 1                ; $00da
+      .dsb 1 ; 2                ; $00db
+      .dsb 1 ; 3                ; $00dc
+      .dsb 1 ; 4                ; $00dd
+      .dsb 1 ; 5                ; $00de
+      .dsb 1 ; 6                ; $00df
+      .dsb 1 ; 7                ; $00e0
 byte_RAM_E1:
 	  .dsb 1                       ; $00e1
 byte_RAM_E2:
@@ -383,10 +380,8 @@ Player1JoypadHeld:
 Player2JoypadHeld:
 	  .dsb 1                       ; $00f8
       .dsb 1                    ; $00f9
-unk_RAM_FA:
-	  .dsb 1                       ; $00fa
-unk_RAM_FB:
-	  .dsb 1                       ; $00fb
+      .dsb 1                    ; $00fa
+      .dsb 1                    ; $00fb
 PPUScrollYMirror:
 	  .dsb 1                       ; $00fc
 PPUScrollXMirror:

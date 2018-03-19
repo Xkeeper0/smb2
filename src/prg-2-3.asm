@@ -10042,11 +10042,11 @@ loc_BANK3_B56C:
       LSR     A
       BCS     loc_BANK3_B579
 
-      DEC     unk_RAM_9E,X
-      DEC     unk_RAM_9E,X
+      DEC     byte_RAM_9E,X
+      DEC     byte_RAM_9E,X
 
 loc_BANK3_B579:
-      INC     unk_RAM_9E,X
+      INC     byte_RAM_9E,X
 
 loc_BANK3_B57B:
       LDA     PlayerXAccel,X
@@ -11179,7 +11179,7 @@ loc_BANK3_BB22:
       STA     PlayerYAccel,X
       LDA     unk_RAM_412,Y
       STA     ObjectYSubpixel,X
-      INC     unk_RAM_9E,X
+      INC     byte_RAM_9E,X
 
 locret_BANK3_BB2E:
       RTS

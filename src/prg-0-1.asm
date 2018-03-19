@@ -803,12 +803,12 @@ loc_BANK0_842B:
       LDA     byte_RAM_539
       BEQ     loc_BANK0_843B
 
-      LDA     unk_RAM_D9,X
+      LDA     EnemyArray_D9,X
       LSR     A
       LSR     A
       LSR     A
       LSR     A
-      STA     unk_RAM_D9,X
+      STA     EnemyArray_D9,X
       JMP     loc_BANK0_8452
 
 ; ---------------------------------------------------------------------------
@@ -819,13 +819,13 @@ loc_BANK0_843B:
       BCC     loc_BANK0_8452
 
 loc_BANK0_8440:
-      LDA     unk_RAM_D9,X
+      LDA     EnemyArray_D9,X
       ASL     A
       ASL     A
       ASL     A
       ASL     A
       STA     byte_RAM_1
-      LDA     unk_RAM_D9,X
+      LDA     EnemyArray_D9,X
       LSR     A
       LSR     A
       LSR     A
@@ -833,10 +833,10 @@ loc_BANK0_8440:
       ORA     byte_RAM_1
 
 loc_BANK0_8450:
-      STA     unk_RAM_D9,X
+      STA     EnemyArray_D9,X
 
 loc_BANK0_8452:
-      LDA     unk_RAM_D9,X
+      LDA     EnemyArray_D9,X
       STA     PPUBuffer_301,Y
       INY
       DEX
@@ -895,18 +895,18 @@ sub_BANK0_8488:
       LDA     byte_RAM_E3
       LSR     A
       TAY
-      LDA     unk_RAM_D9,Y
+      LDA     EnemyArray_D9,Y
 
 loc_BANK0_848F:
       LSR     A
       LSR     A
 
 loc_BANK0_8491:
-      STA     unk_RAM_D9,Y
+      STA     EnemyArray_D9,Y
       LDA     byte_RAM_51B
       AND     #$C0
-      ORA     unk_RAM_D9,Y
-      STA     unk_RAM_D9,Y
+      ORA     EnemyArray_D9,Y
+      STA     EnemyArray_D9,Y
       DEC     byte_RAM_E3
       RTS
 
@@ -919,7 +919,7 @@ _code_04A2:
       LDA     #0
 
 loc_BANK0_84A6:
-      STA     unk_RAM_D9,X
+      STA     EnemyArray_D9,X
       DEX
       BNE     loc_BANK0_84A6
 
@@ -1697,14 +1697,14 @@ sub_BANK0_8901:
 
 loc_BANK0_890A:
       LDX     byte_RAM_E
-      LDA     unk_RAM_D9,X
+      LDA     EnemyArray_D9,X
       STA     unk_RAM_3BE,Y
       INY
       DEX
       DEX
       DEX
       DEX
-      LDA     unk_RAM_D9,X
+      LDA     EnemyArray_D9,X
       STA     unk_RAM_3BE,Y
       INY
       DEC     byte_RAM_E
@@ -1726,23 +1726,23 @@ sub_BANK0_8925:
       LDX     byte_RAM_E3
 
 loc_BANK0_892F:
-      LDA     unk_RAM_D9,X
+      LDA     EnemyArray_D9,X
       LSR     A
       LSR     A
-      STA     unk_RAM_D9,X
+      STA     EnemyArray_D9,X
       LDA     (byte_RAM_E9),Y
       AND     #$C0
-      ORA     unk_RAM_D9,X
-      STA     unk_RAM_D9,X
+      ORA     EnemyArray_D9,X
+      STA     EnemyArray_D9,X
       INY
-      LDA     unk_RAM_D9,X
+      LDA     EnemyArray_D9,X
       LSR     A
       LSR     A
-      STA     unk_RAM_D9,X
+      STA     EnemyArray_D9,X
       LDA     (byte_RAM_E9),Y
       AND     #$C0
-      ORA     unk_RAM_D9,X
-      STA     unk_RAM_D9,X
+      ORA     EnemyArray_D9,X
+      STA     EnemyArray_D9,X
       LDA     byte_RAM_D7
       CLC
       ADC     #$10
@@ -2324,7 +2324,7 @@ loc_BANK0_8C3D:
       BEQ     loc_BANK0_8C63
 
       INC     byte_RAM_9A
-      LDA     #4
+      LDA     #SpriteAnimation_Ducking
       STA     PlayerAnimationFrame
       LDA     byte_RAM_99
       BNE     loc_BANK0_8C63
@@ -2534,10 +2534,10 @@ loc_BANK0_8D4D:
       BNE     locret_BANK0_8D61
 
       LDA     PlayerAnimationFrame
-      CMP     #9
+      CMP     #SpriteAnimation_Throwing
       BEQ     locret_BANK0_8D61
 
-      LDA     #2
+      LDA     #SpriteAnimation_Standing
       STA     PlayerAnimationFrame
       LDA     #0
       STA     byte_RAM_84
@@ -2564,10 +2564,9 @@ byte_BANK0_8D62:
       .BYTE   2
       .BYTE   2
 byte_BANK0_8D6C:
-	  .BYTE 2
-
-      .BYTE 0
-      .BYTE 9
+	  .BYTE SpriteAnimation_Standing		    
+      .BYTE SpriteAnimation_Walking		  ; 1
+      .BYTE SpriteAnimation_Throwing		  ; 2
 
 ; =============== S U B	R O U T	I N E =======================================
 
