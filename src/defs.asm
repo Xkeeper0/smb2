@@ -270,22 +270,22 @@ ObjAttrib_UpsideDown = 	$80
 ; ---------------------------------------------------------------------------
 
 ; enum EnemyIds
-Enemy_Heart =  0
-Enemy_ShyguyRed =  1
-Enemy_Tweeter =  2
-Enemy_ShyguyPink =  3
-Enemy_Porcupo =  4
-Enemy_SnifitRed =  5
-Enemy_SnifitGray =  6
-Enemy_SnifitPink =  7
-Enemy_Ostro =  8
-Enemy_BobOmb = 	9
-Enemy_AlbatossCarryingBobOmb = 	$A
-Enemy_AlbatossStartRight =  $B
-Enemy_AlbatossStartLeft =  $C
-Enemy_NinjiRunning =  $D
-Enemy_NinjiJumping =  $E
-Enemy_BeezoDiving =  $F
+Enemy_Heart =  $00
+Enemy_ShyguyRed =  $01
+Enemy_Tweeter =  $02
+Enemy_ShyguyPink =  $03
+Enemy_Porcupo =  $04
+Enemy_SnifitRed =  $05
+Enemy_SnifitGray =  $06
+Enemy_SnifitPink =  $07
+Enemy_Ostro =  $08
+Enemy_BobOmb = 	$09
+Enemy_AlbatossCarryingBobOmb = 	$0A
+Enemy_AlbatossStartRight =  $0B
+Enemy_AlbatossStartLeft =  $0C
+Enemy_NinjiRunning =  $0D
+Enemy_NinjiJumping =  $0E
+Enemy_BeezoDiving =  $0F
 Enemy_BeezoStraight =  $10
 Enemy_WartBubble =  $11
 Enemy_Pidgit = 	$12
@@ -345,13 +345,13 @@ Enemy_Stopwatch =  $46
 ; ---------------------------------------------------------------------------
 
 ; enum CollisionFlags (bitfield) (width	1 byte)
-CollisionFlags_Right = 	1
-CollisionFlags_Left =  %10
-CollisionFlags_Down =  %100
-CollisionFlags_Up =  %1000
-CollisionFlags_10 =  %10000
-CollisionFlags_PlayerOnTop =  %100000
-CollisionFlags_PlayerInsideMaybe =  %1000000
+CollisionFlags_Right = 	%00000001
+CollisionFlags_Left =  %00000010
+CollisionFlags_Down =  %00000100
+CollisionFlags_Up =  %00001000
+CollisionFlags_10 =  %00010000
+CollisionFlags_PlayerOnTop =  %00100000
+CollisionFlags_PlayerInsideMaybe =  %01000000
 CollisionFlags_80 =  %10000000
 
 ;

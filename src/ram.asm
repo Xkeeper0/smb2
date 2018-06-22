@@ -133,10 +133,10 @@ EnemyState:
       .dsb 1 ; 6                ; $0057
       .dsb 1 ; 7                ; $0058
       .dsb 1 ; 8                ; $0059
-PlayerCollision:
-      .dsb 1	                      ; $005a
+PlayerCollision: ; see CollisionFlags enum for bit definitions
+      .dsb 1                    ; $005a
 EnemyCollision:
-      .dsb 1                       ; $005b
+      .dsb 1                    ; $005b
       .dsb 1 ; 1                ; $005c
       .dsb 1 ; 2                ; $005d
       .dsb 1 ; 3                ; $005e

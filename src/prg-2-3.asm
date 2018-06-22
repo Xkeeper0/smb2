@@ -1006,20 +1006,21 @@ EnemyDeathMaybe:
 
       INC     EnemiesKilledForHeart
       LDY     EnemiesKilledForHeart
-      CPY     #8
+      CPY     #$08 ; number of enemies to kill before a heart appears
       BCC     MakeEnemyFlipUpsideDown
 
-      LDA     #0				  ; This spawns	a heart	for killing 8 enemies
+      LDA     #$00 ; reset enemy kill counter for heart counter
       STA     EnemiesKilledForHeart
-      LDA     #EnemyState_Alive
+
+      LDA     #EnemyState_Alive ; convert dead enemy to living heart
       STA     EnemyState,X
       STA     ObjectAttributes,X
-      LDA     #7
+      LDA     #$07 ; what's this magic number for?
       STA     EnemyArray_46E,X
-      LDA     #Enemy_Heart			  ; $00	= Heart
+      LDA     #Enemy_Heart
       STA     ObjectType,X
       LDA     ObjectYLo,X
-      SBC     #$60
+      SBC     #$60 ; subtract this amount from the y position where the enemy despawned
       STA     ObjectYLo,X
       LDA     ObjectYHi,X
       SBC     #0
@@ -1974,7 +1975,7 @@ loc_BANK2_8A15:
       BNE     loc_BANK2_8A36
 
       LDA     EnemyCollision,X
-      AND     #4
+      AND     #CollisionFlags_Down
       BNE     loc_BANK2_8A3B
 
 loc_BANK2_8A36:
@@ -2113,10 +2114,9 @@ EnemyInit_Sparks:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8B04:
-      .BYTE $C
-
-      .BYTE 3
+SparkCollision: ; spark movement based on collision
+      .BYTE %00001100 ; top/bottom (horizontal)
+      .BYTE %00000011 ; left/right (vertical)
 byte_BANK2_8B06:
       .BYTE 0
 
@@ -2139,10 +2139,10 @@ EnemyBehavior_Spark:
 
       LDY     EnemyArray_477,X
       LDA     EnemyCollision,X
-      AND     byte_BANK2_8B04,Y
+      AND     SparkCollision,Y
       BEQ     loc_BANK2_8B47
 
-      LDA     byte_BANK2_8B04,Y
+      LDA     SparkCollision,Y
       EOR     #$F
       AND     EnemyCollision,X
       BEQ     loc_BANK2_8B50
@@ -2359,7 +2359,7 @@ loc_BANK2_8C1A:
       AND     #3
       BEQ     loc_BANK2_8C22
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
 loc_BANK2_8C22:
       JSR     sub_BANK2_8577
@@ -2695,7 +2695,7 @@ loc_BANK2_8DD8:
 
 loc_BANK2_8DDB:
       LDA     EnemyCollision,X
-      AND     #$40
+      AND     #CollisionFlags_PlayerInsideMaybe
       BEQ     loc_BANK2_8E05
 
       LDA     ObjectYLo,X
@@ -2703,7 +2703,7 @@ loc_BANK2_8DDB:
       BCS     loc_BANK2_8E05
 
       LDA     PlayerCollision
-      AND     #4
+      AND     #CollisionFlags_Down
       BEQ     loc_BANK2_8E05
 
       LDA     HoldingItem
@@ -3312,7 +3312,7 @@ EnemyBehavior_Bomb:
       AND     EnemyMovementDirection,X
       BEQ     loc_BANK2_90D9
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
       JSR     sub_BANK2_95B0
 
@@ -3418,7 +3418,7 @@ EnemyBehavior_SubspacePotion:
       AND     #CollisionFlags_Right|CollisionFlags_Left
       BEQ     loc_BANK2_9157
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
       JSR     sub_BANK2_95B0
 
@@ -3705,7 +3705,7 @@ loc_BANK2_929F:
       INC     ObjectYLo,X
 
 loc_BANK2_92B5:
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
       JSR     sub_BANK2_95B0
 
@@ -4127,7 +4127,7 @@ loc_BANK2_9492:
       AND     EnemyMovementDirection,X
       BEQ     loc_BANK2_94A6
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
       LDA     EnemyArray_42F,X
       BEQ     loc_BANK2_94A6
@@ -4170,43 +4170,46 @@ loc_BANK2_94BB:
 
 loc_BANK2_94CD:
       LDA     EnemyArray_42F,X
-      BNE     loc_BANK2_94E6
+      BNE     EnemyBehavior_Walk
 
+      ; check if this enemy fires bullets when jumping
       LDA     ObjectType,X
       CMP     #Enemy_SnifitGray
-      BNE     loc_BANK2_94E6
+      BNE     EnemyBehavior_Walk
 
-      LDA     ObjectYAccel,X
+      ; bullet generator
+      LDA     ObjectYAccel,X ; check if enemy is starting to fall
       CMP     #$FE
-      BNE     loc_BANK2_94E6
+      BNE     EnemyBehavior_Walk
 
-      LDA     PseudoRNGValues+2
-      BPL     loc_BANK2_94E6
+      LDA     PseudoRNGValues+2 ; check random number generator
+      BPL     EnemyBehavior_Walk
 
       JSR     CreateBullet
 
-loc_BANK2_94E6:
+EnemyBehavior_Walk:
       DEC     EnemyArray_9F,X
       LDA     ObjectType,X
       CMP     #Enemy_SnifitPink
-      BEQ     loc_BANK2_94F2
+      BEQ     EnemyBehavior_TurnAtCliff
 
       CMP     #Enemy_ShyguyPink
-      BNE     locret_BANK2_9502
+      BNE     EnemyBehavior_BasicWalkerExit
 
-loc_BANK2_94F2:
+EnemyBehavior_TurnAtCliff:
       LDA     EnemyArray_42F,X
-      BNE     locret_BANK2_9502
+      BNE     EnemyBehavior_BasicWalkerExit
 
       LDA     EnemyArray_477,X
-      BNE     locret_BANK2_9502
+      BNE     EnemyBehavior_BasicWalkerExit
 
       INC     EnemyArray_477,X
-      JMP     sub_BANK2_9EA9
+      JMP     EnemyBehavior_TurnAround
 
 ; ---------------------------------------------------------------------------
 
-locret_BANK2_9502:
+; exit enemy movement
+EnemyBehavior_BasicWalkerExit:
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -6205,22 +6208,25 @@ loc_BANK2_9EA6:
 
 ; =============== S U B	R O U T I N E =======================================
 
-sub_BANK2_9EA9:
+EnemyBehavior_TurnAround:
+      ; flip x-velocity
       LDA     ObjectXAccel,X
       EOR     #$FF
       CLC
-      ADC     #1
+      ADC     #$01
       STA     ObjectXAccel,X
-      BEQ     loc_BANK2_9EBA
+      ; if the enemy is not moving, flip direction next
+      BEQ     EnemyBehavior_TurnAroundExit
 
+      ; flip enemy movement direction
       LDA     EnemyMovementDirection,X
-      EOR     #3
+      EOR     #$03 ; $01 XOR $03 = $02, $02 XOR $03 = $01
       STA     EnemyMovementDirection,X
 
-loc_BANK2_9EBA:
+EnemyBehavior_TurnAroundExit:
       JMP     sub_BANK2_9E50
 
-; End of function sub_BANK2_9EA9
+; End of function EnemyBehavior_TurnAround
 
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
@@ -6737,7 +6743,7 @@ EnemyBehavior_ClawgripRock:
       AND     #3
       BEQ     loc_BANK3_A30A
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
       JSR     sub_BANK2_95B0
 
@@ -6905,8 +6911,8 @@ IFDEF COMPATIBILITY
       .db $2d, $5a, $00 ; AND $0000 + PlayerCollision
 ENDIF
 IFNDEF COMPATIBILITY
-      AND     PlayerCollision			  ; Absolute address for zero-page
-	  NOP ; Alignment fix
+      AND     PlayerCollision ; Absolute address for zero-page
+      NOP ; Alignment fix
 ENDIF
 
       BNE     loc_BANK3_A3E6
@@ -7523,7 +7529,7 @@ loc_BANK3_A6E1:
       AND     EnemyMovementDirection,X
       BEQ     loc_BANK3_A6ED
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
 loc_BANK3_A6ED:
       LDA     EnemyCollision,X
@@ -7986,7 +7992,7 @@ loc_BANK3_A968:
       AND     #3
       BEQ     loc_BANK3_A971
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
 loc_BANK3_A971:
       LDA     #$41
@@ -8757,7 +8763,7 @@ loc_BANK3_AD7A:
       AND     #3
       BEQ     loc_BANK3_AD85
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
       JSR     sub_BANK2_95B0
 
@@ -8848,7 +8854,7 @@ loc_BANK3_AE09:
       AND     #3
       BEQ     loc_BANK3_AE14
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
       JSR     sub_BANK2_9E50
 
@@ -9153,7 +9159,7 @@ EnemyBehavior_Flurry:
       AND     #CollisionFlags_Right|CollisionFlags_Left
       BEQ     loc_BANK3_AF8D
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
 loc_BANK3_AF8D:
       LDA     EnemyCollision,X
@@ -9276,7 +9282,7 @@ loc_BANK3_B01C:
       INC     EnemyArray_480,X
       LDA     EnemyArray_480,X
       CMP     #$31
-      BNE     loc_BANK3_B060
+      BNE     HawkmouthEat
 
       LDA     EnemyArray_453,X
       BNE     loc_BANK3_B03B
@@ -9288,12 +9294,12 @@ loc_BANK3_B03B:
       DEC     EnemyArray_480,X
       LDY     EnemyArray_480,X
       DEY
-      BNE     loc_BANK3_B060
+      BNE     HawkmouthEat
 
       DEC     EnemyArray_B1,X
       LDA     PlayerState
       CMP     #PlayerState_HawkmouthEating
-      BNE     loc_BANK3_B060
+      BNE     HawkmouthEat
 
       LDA     #1
       STA     TransitionType
@@ -9312,19 +9318,19 @@ locret_BANK3_B05F:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_B060:
-      LDA     EnemyArray_480,X			  ; Hawkmouth code?
+HawkmouthEat:
+      LDA     EnemyArray_480,X ; Hawkmouth code?
       CMP     #$30
       BNE     locret_BANK3_B09A
 
-      LDA     EnemyCollision,X
-      AND     #CollisionFlags_PlayerInsideMaybe	  ; Check if the player	is inside...
-      BEQ     locret_BANK3_B09A			  ; If not, return
+      LDA     EnemyCollision,X ; make sure the player is inside Hawkmouth
+      AND     #CollisionFlags_PlayerInsideMaybe
+      BEQ     locret_BANK3_B09A
 
-      LDA     HoldingItem			  ; Check if the player	is holding something...
-      BNE     locret_BANK3_B09A			  ; If so, return
+      LDA     HoldingItem ; make sure player is not holding something
+      BNE     locret_BANK3_B09A
 
-      STA     PlayerCollision			  ; Otherwise, start eating the	player
+      STA     PlayerCollision ; start eating player
       INC     EnemyArray_B1,X
       INC     HawkmouthClosing
       DEC     EnemyArray_480,X
@@ -10497,7 +10503,7 @@ loc_BANK3_B7A4:
 
 loc_BANK3_B7BD:
       LDA     EnemyCollision,Y
-      ORA     #$10
+      ORA     #CollisionFlags_10
       STA     EnemyCollision,Y
       LDA     #$E0
       STA     ObjectYAccel,Y
@@ -10550,7 +10556,7 @@ loc_BANK3_B7E5:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B80C:
-      CMP     #$17				  ; Phanto
+      CMP     #Enemy_Phanto
       BNE     loc_BANK3_B815
 
       LDY     byte_RAM_5BC
@@ -10628,7 +10634,7 @@ loc_BANK3_B866:
       LDA     #$E0
       STA     ObjectYAccel,X
       LDA     EnemyCollision,X
-      ORA     #$10
+      ORA     #CollisionFlags_10
       STA     EnemyCollision,X
 
 loc_BANK3_B878:
@@ -10664,7 +10670,7 @@ sub_BANK3_B899:
       STA     PlayerInAir
       LDX     byte_RAM_12
       LDA     EnemyCollision,X
-      ORA     #$20
+      ORA     #CollisionFlags_PlayerOnTop
       STA     EnemyCollision,X
       LDA     EnemyArray_46E,X
       AND     #2
@@ -10722,7 +10728,7 @@ loc_BANK3_B8E4:
       BEQ     loc_BANK3_B8F8
 
       DEX
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
       LDX     byte_RAM_ED
 
@@ -10748,7 +10754,7 @@ unk_BANK3_B903:
 
 loc_BANK3_B905:
       LDA     EnemyCollision,Y
-      ORA     #$40
+      ORA     #CollisionFlags_PlayerInsideMaybe
       STA     EnemyCollision,Y
       JSR     sub_BANK3_BA95
 
@@ -11000,7 +11006,7 @@ loc_BANK3_BA33:
       CMP     EnemyMovementDirection,X
       BEQ     loc_BANK3_BA48
 
-      JSR     sub_BANK2_9EA9
+      JSR     EnemyBehavior_TurnAround
 
 loc_BANK3_BA48:
       PLA
@@ -11058,7 +11064,7 @@ sub_BANK3_BA7D:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_BA83:
-      LDA     PlayerCollision,X			  ; Seems to be	deciding if the	player is standing on something
+      LDA     PlayerCollision,X ; Seems to be if the player is standing on something
       ORA     #CollisionFlags_10
       STA     PlayerCollision,X
       LDA     #$E0

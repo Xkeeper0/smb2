@@ -3316,7 +3316,7 @@ loc_BANK0_90EA:
 
       LDA     #CollisionFlags_Down
       STA     EnemyCollision,X
-      LDA     #$40
+      LDA     #$40 ; blank tile to replace lifted tile
       JSR     sub_BANK0_934F
 
       LDA     #7
