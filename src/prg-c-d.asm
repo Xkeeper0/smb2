@@ -2,10 +2,10 @@
       ;.segment	BANKC
 ;       *	=  $8000
 MarioDream_Pointers:
-	  .BYTE 1
+      .BYTE 1
 
 byte_BANKC_8001:
-	  .BYTE 3
+      .BYTE 3
 
       .WORD MarioDream_Bed
       .WORD MarioDream_Bubble
@@ -17,7 +17,7 @@ byte_BANKC_8001:
       .WORD MarioDream_EraseBubble5
       .WORD MarioDream_Palettes
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANKC_8014:
       LDA     #0
@@ -25,7 +25,7 @@ sub_BANKC_8014:
 
 ; End of function sub_BANKC_8014
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANKC_8018:
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
@@ -35,7 +35,7 @@ loc_BANKC_801A:
 
 ; End of function sub_BANKC_8018
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANKC_801C:
       LDA     ScreenUpdateIndex
@@ -56,7 +56,7 @@ loc_BANKC_802E:
 
 ; End of function sub_BANKC_801C
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANKC_8033:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
@@ -74,7 +74,7 @@ sub_BANKC_8033:
 
 ; ---------------------------------------------------------------------------
 MarioDream_Palettes:
-	  .BYTE $3F,0,$20,2				
+      .BYTE $3F,0,$20,2
       .BYTE $22,$12,$F,2			  ; 4
       .BYTE $30,$16,$F,2			  ; 8
       .BYTE $30,$16,$28,2			  ; $C
@@ -84,45 +84,45 @@ MarioDream_Palettes:
       .BYTE $27,$25,$F,2			  ; $1C
       .BYTE $27,$3C,$F,0			  ; $20
 MarioDream_Bed:
-	  .BYTE $20,0,$60,$FF			   
-      .BYTE $20,$20,$60,$FF			  
-      .BYTE $20,$40,$60,$FF			  
-      .BYTE $20,$60,$60,$FF			  
-      .BYTE $23,$40,$60,$FF			  
-      .BYTE $23,$60,$60,$FF			  
-      .BYTE $23,$80,$60,$FF			  
-      .BYTE $23,$A0,$60,$FF			  
-      .BYTE $20,$80,$D6,$FF			  
-      .BYTE $20,$81,$D6,$FF			  
-      .BYTE $20,$82,$D6,$FF			  
-      .BYTE $20,$83,$D6,$FF			  
-      .BYTE $20,$9C,$D6,$FF			  
-      .BYTE $20,$9D,$D6,$FF			  
-      .BYTE $20,$9E,$D6,$FF			  
-      .BYTE $20,$9F,$D6,$FF			  
-      .BYTE $20,$84,$58,$FC			  
-      .BYTE $20,$A4,$58,$FC			  
-      .BYTE $20,$C4,$58,$FC			  
-      .BYTE $20,$E4,$58,$FC			  
-      .BYTE $21,4,$58,$FC			  
-      .BYTE $21,$24,$58,$FC			  
-      .BYTE $21,$44,$58,$FC			  
-      .BYTE $21,$64,$58,$FC			  
-      .BYTE $21,$84,$58,$FC			  
-      .BYTE $21,$A4,$58,$FC			  
-      .BYTE $21,$C4,$58,$FC			  
-      .BYTE $21,$E4,$58,$FC			  
-      .BYTE $22,4,$58,$FC			  
-      .BYTE $22,$24,$58,$FC			  
-      .BYTE $22,$44,$58,$FC			  
-      .BYTE $22,$64,$58,$FC			  
-      .BYTE $22,$84,$58,$FC			  
-      .BYTE $22,$A4,$58,$FC			  
-      .BYTE $22,$C4,$58,$FC			  
-      .BYTE $21,$4E,2,$60,$61			  
-      .BYTE $21,$6E,2,$70,$71			  
-      .BYTE $21,$8E,2,$80,$81			  
-      .BYTE $21,$AC,6,$36,$37,$38,$39,$3A,$3B	  
+      .BYTE $20,0,$60,$FF
+      .BYTE $20,$20,$60,$FF
+      .BYTE $20,$40,$60,$FF
+      .BYTE $20,$60,$60,$FF
+      .BYTE $23,$40,$60,$FF
+      .BYTE $23,$60,$60,$FF
+      .BYTE $23,$80,$60,$FF
+      .BYTE $23,$A0,$60,$FF
+      .BYTE $20,$80,$D6,$FF
+      .BYTE $20,$81,$D6,$FF
+      .BYTE $20,$82,$D6,$FF
+      .BYTE $20,$83,$D6,$FF
+      .BYTE $20,$9C,$D6,$FF
+      .BYTE $20,$9D,$D6,$FF
+      .BYTE $20,$9E,$D6,$FF
+      .BYTE $20,$9F,$D6,$FF
+      .BYTE $20,$84,$58,$FC
+      .BYTE $20,$A4,$58,$FC
+      .BYTE $20,$C4,$58,$FC
+      .BYTE $20,$E4,$58,$FC
+      .BYTE $21,4,$58,$FC
+      .BYTE $21,$24,$58,$FC
+      .BYTE $21,$44,$58,$FC
+      .BYTE $21,$64,$58,$FC
+      .BYTE $21,$84,$58,$FC
+      .BYTE $21,$A4,$58,$FC
+      .BYTE $21,$C4,$58,$FC
+      .BYTE $21,$E4,$58,$FC
+      .BYTE $22,4,$58,$FC
+      .BYTE $22,$24,$58,$FC
+      .BYTE $22,$44,$58,$FC
+      .BYTE $22,$64,$58,$FC
+      .BYTE $22,$84,$58,$FC
+      .BYTE $22,$A4,$58,$FC
+      .BYTE $22,$C4,$58,$FC
+      .BYTE $21,$4E,2,$60,$61
+      .BYTE $21,$6E,2,$70,$71
+      .BYTE $21,$8E,2,$80,$81
+      .BYTE $21,$AC,6,$36,$37,$38,$39,$3A,$3B
       .BYTE $21,$CA,$C,$36,$37,$35,$47,$48,$49,$4A,$4B,$4C,$4D,$4E,$4F
       .BYTE $21,$E8,$E,$36,$37,$35,$55,$56,$57,$58,$59,$5A,$5B,$5C,$5D
       .BYTE $5E,$5F				  ; $F
@@ -148,72 +148,72 @@ MarioDream_Bed:
       .BYTE $FA,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE,$FE; $F
       .BYTE 0
 MarioDream_Bubble:
-	  .BYTE	$20,$8F,$84,6,$16,7,$17		      
-      .BYTE $20,$D0,$85,8,$18,9,$19,$1D		  
-      .BYTE $20,$90,$4C,$FD			  
-      .BYTE $20,$B0,$4C,$FD			  
-      .BYTE $20,$D1,$4B,$FD			  
+      .BYTE $20,$8F,$84,6,$16,7,$17
+      .BYTE $20,$D0,$85,8,$18,9,$19,$1D
+      .BYTE $20,$90,$4C,$FD
+      .BYTE $20,$B0,$4C,$FD
+      .BYTE $20,$D1,$4B,$FD
       .BYTE $20,$F1,$B,$FD,$FD,$FD,$28,$29,$29,$29,$29,$2A,$FD,$FD
       .BYTE $21,$11,$B,$FD,$FD,$FD,$FD,$27,$FD,$FD,$27,$FD,$FD,$FD
       .BYTE $21,$31,$B,$FD,$FD,$FD,$FD,$27,$FD,$FD,$27,$FD,$FD,$FD
       .BYTE $21,$51,$B,$FD,$FD,$23,$24,$25,$22,$23,$24,$25,$25,$FD
       .BYTE $21,$71,$B,$B,$C,$D,$E,$F,$FD,$FD,$FD,$FD,$FD,$FD
-      .BYTE $21,$95,7,$1F,$1A,$30,$31,$32,$33,$1B 
-      .BYTE $21,$B5,6,$53,$FC,$40,$41,$42,$43	  
-      .BYTE $21,$D7,3,$50,$51,$52		  
-      .BYTE $21,$F6,2,$20,$21			  
+      .BYTE $21,$95,7,$1F,$1A,$30,$31,$32,$33,$1B
+      .BYTE $21,$B5,6,$53,$FC,$40,$41,$42,$43
+      .BYTE $21,$D7,3,$50,$51,$52
+      .BYTE $21,$F6,2,$20,$21
       .BYTE $23,$CB,4,$44,$55,$A5,$65		  ;	Attribute table	changes
-      .BYTE $23,$D4,3,$55,$5A,$56		  
-      .BYTE $23,$DD,2,$45,$15			  
-      .BYTE $23,$E4,1,$3F			  
+      .BYTE $23,$D4,3,$55,$5A,$56
+      .BYTE $23,$DD,2,$45,$15
+      .BYTE $23,$E4,1,$3F
       .BYTE 0
 MarioDream_DoNothing:
-	  .BYTE 0
+      .BYTE 0
 						  ; This is pointed to,	but the	very first byte
 						  ; is the terminating 0, so nothing gets drawn.
 						  ; This would have undone the attribute changes
 						  ; done in the	above PPU writing, but I guess
 						  ; Nintendo realized they were	never going to
 						  ; use	that part of the screen	again
-      .BYTE $23,$CB,$44,0			  
-      .BYTE $23,$D4,$43,0			  
-      .BYTE $23,$DD,$42,0			  
+      .BYTE $23,$CB,$44,0
+      .BYTE $23,$D4,$43,0
+      .BYTE $23,$DD,$42,0
       .BYTE   0
 MarioDream_EraseBubble1:
-	  .BYTE $20,$8F,$4D,$FC			    
-      .BYTE $20,$AF,$4D,$FC			  
+      .BYTE $20,$8F,$4D,$FC
+      .BYTE $20,$AF,$4D,$FC
       .BYTE   0
 MarioDream_EraseBubble2:
-	  .BYTE $20,$CF,$4D,$FC			    
-      .BYTE $20,$EF,$4D,$FC			  
+      .BYTE $20,$CF,$4D,$FC
+      .BYTE $20,$EF,$4D,$FC
       .BYTE   0
 MarioDream_EraseBubble3:
-	  .BYTE $21,$10,$4C,$FC			    
-      .BYTE $21,$30,$4C,$FC			  
+      .BYTE $21,$10,$4C,$FC
+      .BYTE $21,$30,$4C,$FC
       .BYTE   0
 MarioDream_EraseBubble4:
-	  .BYTE $21,$50,$4C,$FC			    
-      .BYTE $21,$71,$4B,$FC			  
+      .BYTE $21,$50,$4C,$FC
+      .BYTE $21,$71,$4B,$FC
       .BYTE   0
 MarioDream_EraseBubble5:
-	  .BYTE $21,$95,$47,$FC			    
-      .BYTE $21,$B5,$46,$FC			  
-      .BYTE $21,$D7,$43,$FC			  
-      .BYTE $21,$F6,$42,$FC			  
+      .BYTE $21,$95,$47,$FC
+      .BYTE $21,$B5,$46,$FC
+      .BYTE $21,$D7,$43,$FC
+      .BYTE $21,$F6,$42,$FC
       .BYTE 0
 MarioDream_BubbleSprites:
-	  .BYTE $28,0,0,$A8			     
+      .BYTE $28,0,0,$A8
       .BYTE $28,4,1,$B0				  ; 4
       .BYTE $28,8,2,$C0				  ; 8
       .BYTE $28,$C,3,$B8			  ; $C
 byte_BANKC_8308:
-	  .BYTE $28,2,0,$A8			    
+      .BYTE $28,2,0,$A8
       .BYTE $28,6,1,$B0				  ; 4
 byte_BANKC_8310:
-	  .BYTE $28,$A,2,$C0			    
+      .BYTE $28,$A,2,$C0
       .BYTE $28,$E,3,$B8			  ; 4
 MarioDream_SnoringFrameCounts:
-	  .BYTE $20
+      .BYTE $20
 
       .BYTE $A
       .BYTE $A
@@ -229,7 +229,7 @@ MarioDream_SnoringFrameCounts:
       .BYTE $A
       .BYTE $A
 MarioDream_WakingFrameCounts:
-	  .BYTE 8
+      .BYTE 8
 
       .BYTE 8
       .BYTE $50
@@ -238,7 +238,7 @@ MarioDream_WakingFrameCounts:
       .BYTE $10
       .BYTE $10
 MarioDream_SnoringFrames:
-	  .BYTE $50
+      .BYTE $50
 
       .BYTE $54
       .BYTE $58
@@ -254,7 +254,7 @@ MarioDream_SnoringFrames:
       .BYTE $58
       .BYTE $54
 MarioDream_WakingFrames:
-	  .BYTE $78
+      .BYTE $78
 
       .BYTE $74
       .BYTE $70
@@ -482,7 +482,7 @@ loc_BANKC_848E:
 loc_BANKC_8490:
       JMP     loc_BANKC_8462
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANKC_8493:
       LDY     #$F
@@ -512,7 +512,7 @@ loc_BANKC_84A5:
 
 ; ---------------------------------------------------------------------------
 CastRoll_PaletteFadeIn:
-	  .BYTE $22
+      .BYTE $22
 
       .BYTE $32
       .BYTE $30
@@ -549,12 +549,12 @@ loc_BANKC_84C0:
 
 ; ---------------------------------------------------------------------------
 CastRoll_CASTText:
-	  .BYTE	$60,$D4,0,$28			      
+      .BYTE $60,$D4,0,$28
       .BYTE $60,$D0,0,$38			  ; 4
       .BYTE $60,$F4,0,$48			  ; 8
       .BYTE $60,$F6,0,$58			  ; $C
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANKC_84EC:
       LDY     ObjectXLo+2
@@ -567,7 +567,7 @@ sub_BANKC_84EC:
 
 ; End of function sub_BANKC_84EC
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANKC_84FB:
       LDY     #$4C
@@ -1359,7 +1359,7 @@ loc_BANKC_898D:
 
 ; ---------------------------------------------------------------------------
 byte_BANKC_8998:
-	  .BYTE $9E
+      .BYTE $9E
 
       .BYTE $A0
       .BYTE $A2
@@ -1376,11 +1376,11 @@ byte_BANKC_8998:
       .BYTE $9A
       .BYTE $9C
 byte_BANKC_89A7:
-	  .BYTE $AE
+      .BYTE $AE
 
       .BYTE $B0
 byte_BANKC_89A9:
-	  .BYTE $B2
+      .BYTE $B2
       .BYTE $B4
       .BYTE $BE
       .BYTE $B6
@@ -1457,10 +1457,10 @@ locret_BANKC_8A00:
 
 ; ---------------------------------------------------------------------------
 CastRoll_PaletteFadeOut:
-	  .BYTE $32
+      .BYTE $32
 
 byte_BANKC_8A02:
-	  .BYTE $22
+      .BYTE $22
       .BYTE $12
 ; ---------------------------------------------------------------------------
 
@@ -1646,7 +1646,7 @@ locret_BANKC_8B07:
 
 ; ---------------------------------------------------------------------------
 CastRoll_SpritePointersHi:
-	  .BYTE	>CastRoll_Mario ;	DATA XREF: sub_BANKC_84EC+7r
+      .BYTE	>CastRoll_Mario ;	DATA XREF: sub_BANKC_84EC+7r
 
       .BYTE >CastRoll_Luigi
       .BYTE >CastRoll_Princess
@@ -1677,7 +1677,7 @@ CastRoll_SpritePointersHi:
       .BYTE >CastRoll_Clawglip
       .BYTE >CastRoll_Triclyde
 CastRoll_SpritePointersLo:
-	  .BYTE	<CastRoll_Mario
+      .BYTE	<CastRoll_Mario
 
       .BYTE <CastRoll_Luigi
       .BYTE <CastRoll_Princess
@@ -1708,7 +1708,7 @@ CastRoll_SpritePointersLo:
       .BYTE <CastRoll_Clawglip
       .BYTE <CastRoll_Triclyde
 CastRoll_Mario:
-	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, 0, 0, $38			  ; 4
       .BYTE $D0, 2, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1725,7 +1725,7 @@ CastRoll_Mario:
       .BYTE $F9, $3E, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Luigi:
-	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, 8, 0, $38			  ; 4
       .BYTE $D0, $A, 0,	$40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1742,7 +1742,7 @@ CastRoll_Luigi:
       .BYTE $F9, $3E, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Princess:
-	  .BYTE	$D0, $3E, 0, $30		      
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $10, 0, $38			  ; 4
       .BYTE $D0, $12, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1759,7 +1759,7 @@ CastRoll_Princess:
       .BYTE $F9, $F4, 0, $50			  ; $38
       .BYTE $F9, $F4, 0, $58			  ; $3C
 CastRoll_Toad:
-	  .BYTE $D0, $3E, 0, $30			  ;	DATA XREF: BANKC:8B0Bo
+      .BYTE $D0, $3E, 0, $30			  ;	DATA XREF: BANKC:8B0Bo
       .BYTE $D0, $18, 0, $38			  ; 4
       .BYTE $D0, $1A, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1776,7 +1776,7 @@ CastRoll_Toad:
       .BYTE $F9, $3E, 0, $50			  ; $38
       .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Shyguy:
-	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E,	0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1793,7 +1793,7 @@ CastRoll_Shyguy:
       .BYTE $F9, $CC, 0, $50			  ; $38
       .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Snifit:
-	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E,	0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1810,7 +1810,7 @@ CastRoll_Snifit:
       .BYTE $F9, $F6, 0, $50			  ; $38
       .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Ninji:
-	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1827,7 +1827,7 @@ CastRoll_Ninji:
       .BYTE $F9, $3E, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Beezo:
-	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1844,7 +1844,7 @@ CastRoll_Beezo:
       .BYTE $F9, $3E, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Porcupo:
-	  .BYTE $D0, $3E, 0, $30			     
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1853,7 +1853,7 @@ CastRoll_Porcupo:
       .BYTE $F9, $32, 0, $40			  ; $18
       .BYTE $F9					  ; $1C
 byte_BANKC_8D5F:
-	  .BYTE $3E, 0, $48, $F9			    
+      .BYTE $3E, 0, $48, $F9
       .BYTE $EE, 0, $24, $F9			  ; 4
       .BYTE $EC, 0, $2C, $F9			  ; 8
       .BYTE $F2, 0, $34, $F9			  ; $C
@@ -1863,7 +1863,7 @@ byte_BANKC_8D5F:
       .BYTE $EC, 0, $54, $F9			  ; $1C
       .BYTE $3E, 0, $5C				  ; $20
 CastRoll_Tweeter:
-	  .BYTE $D0, $3E, 0, $30			     
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1880,7 +1880,7 @@ CastRoll_Tweeter:
       .BYTE $F9, $F2, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_BobOmb:
-	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E,	0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1897,7 +1897,7 @@ CastRoll_BobOmb:
       .BYTE $F9, $D2, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Hoopstar:
-	  .BYTE	$D0, $3E, 0, $30		      
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1914,7 +1914,7 @@ CastRoll_Hoopstar:
       .BYTE $F9, $D0, 0, $50			  ; $38
       .BYTE $F9, $F2, 0, $58			  ; $3C
 CastRoll_Trouter:
-	  .BYTE $D0, $3E, 0, $30			     
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1931,7 +1931,7 @@ CastRoll_Trouter:
       .BYTE $F9, $F2, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Pidgit:
-	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E,	0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1948,7 +1948,7 @@ CastRoll_Pidgit:
       .BYTE $F9, $F6, 0, $50			  ; $38
       .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Panser:
-	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E,	0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1965,7 +1965,7 @@ CastRoll_Panser:
       .BYTE $F9, $F2, 0, $50			  ; $38
       .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Flurry:
-	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E,	0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1982,7 +1982,7 @@ CastRoll_Flurry:
       .BYTE $F9, $CC, 0, $50			  ; $38
       .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Albatoss:
-	  .BYTE	$D0, $3E, 0, $30		      
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -1999,7 +1999,7 @@ CastRoll_Albatoss:
       .BYTE $F9, $F4, 0, $50			  ; $38
       .BYTE $F9, $F4, 0, $58			  ; $3C
 CastRoll_Phanto:
-	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E,	0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -2016,7 +2016,7 @@ CastRoll_Phanto:
       .BYTE $F9, $EC, 0, $50			  ; $38
       .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Spark:
-	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -2033,7 +2033,7 @@ CastRoll_Spark:
       .BYTE $F9, $3E, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Subcon:
-	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E,	0, $30
       .BYTE $D0, $3E, 0, $38			  ; 4
       .BYTE $D0, $3E, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -2050,7 +2050,7 @@ CastRoll_Subcon:
       .BYTE $F9, $EA, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Pokey:
-	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $60, 0, $38			  ; 4
       .BYTE $D0, $62, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -2067,7 +2067,7 @@ CastRoll_Pokey:
       .BYTE $F9, $3E, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Birdo:
-	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $70, 0, $38			  ; 4
       .BYTE $D0, $72, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -2084,7 +2084,7 @@ CastRoll_Birdo:
       .BYTE $F9, $3E, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Ostro:
-	  .BYTE $D0, $3E, 0, $30			   
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $78, 0, $38			  ; 4
       .BYTE $D0, $7A, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -2101,7 +2101,7 @@ CastRoll_Ostro:
       .BYTE $F9, $3E, 0, $54			  ; $38
       .BYTE $F9, $3E, 0, $5C			  ; $3C
 CastRoll_Autobomb:
-	  .BYTE	$D0, $3E, 0, $30		      
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $80, 0, $38			  ; 4
       .BYTE $D0, $82, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -2118,7 +2118,7 @@ CastRoll_Autobomb:
       .BYTE $F9, $E8, 0, $50			  ; $38
       .BYTE $F9, $D2, 0, $58			  ; $3C
 CastRoll_Cobrat:
-	  .BYTE $D0, $3E,	0, $30			    
+      .BYTE $D0, $3E,	0, $30
       .BYTE $D0, $58, 0, $38			  ; 4
       .BYTE $D0, $5A, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -2135,7 +2135,7 @@ CastRoll_Cobrat:
       .BYTE $F9, $F6, 0, $50			  ; $38
       .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Mouser:
-	  .BYTE $D0, $88,	0, $30			    
+      .BYTE $D0, $88,	0, $30
       .BYTE $D0, $8A, 0, $38			  ; 4
       .BYTE $D0, $8C, 0, $40			  ; 8
       .BYTE $D0, $3E, 0, $48			  ; $C
@@ -2152,7 +2152,7 @@ CastRoll_Mouser:
       .BYTE $F9, $F2, 0, $4C			  ; $38
       .BYTE $F9, $3E, 0, $54			  ; $3C
 CastRoll_Fryguy:
-	  .BYTE $D0, $AA,	0, $30			    
+      .BYTE $D0, $AA,	0, $30
       .BYTE $D0, $AC, 0, $38			  ; 4
       .BYTE $D0, $AE, 0, $40			  ; 8
       .BYTE $D0, $B0, 0, $48			  ; $C
@@ -2169,7 +2169,7 @@ CastRoll_Fryguy:
       .BYTE $F9, $CC, 0, $50			  ; $38
       .BYTE $F9, $3E, 0, $58			  ; $3C
 CastRoll_Clawglip:
-	  .BYTE	$D0, $BA, 0, $30		      
+      .BYTE $D0, $BA, 0, $30
       .BYTE $D0, $BC, 0, $38			  ; 4
       .BYTE $D0, $BE, 0, $40			  ; 8
       .BYTE $D0, $C0, 0, $48			  ; $C
@@ -2186,7 +2186,7 @@ CastRoll_Clawglip:
       .BYTE $F9, $E0, 0, $50			  ; $38
       .BYTE $F9, $EE, 0, $58			  ; $3C
 CastRoll_Triclyde:
-	  .BYTE	$D0, $94, 0, $30		      
+      .BYTE $D0, $94, 0, $30
       .BYTE $D0, $96, 0, $38			  ; 4
       .BYTE $D0, $98, 0, $40			  ; 8
       .BYTE $D0, $9A, 0, $48			  ; $C
@@ -2203,7 +2203,7 @@ CastRoll_Triclyde:
       .BYTE $F9, $3E, 0, $60			  ; $38
       .BYTE $F9, $3E, 0, $68			  ; $3C
 CastRoll_TriclydeText:
-	  .BYTE $D0, $F6, 0, $20			  
+      .BYTE $D0, $F6, 0, $20
       .BYTE $D0, $F2, 0, $28			  ; 4
       .BYTE $D0, $E0, 0, $30			  ; 8
       .BYTE $D0, $D4, 0, $38			  ; $C
@@ -2212,7 +2212,7 @@ CastRoll_TriclydeText:
       .BYTE $D0, $D6, 0, $50			  ; $18
       .BYTE $D0, $D8, 0, $58			  ; $1C
 CastRoll_Wart:
-	  .BYTE $D0, $80, 0, $28			  
+      .BYTE $D0, $80, 0, $28
       .BYTE $D0, $82, 0, $30			  ; 4
       .BYTE $D0, $84, 0, $38			  ; 8
       .BYTE $D0, $86, 0, $40			  ; $C
@@ -2236,7 +2236,7 @@ CastRoll_Wart:
       .BYTE $F9, $C0, 0, $50			  ; $54
       .BYTE $F9, $C0, 0, $58			  ; $58
 byte_BANKC_92FE:
-	  .BYTE $10
+      .BYTE $10
 
       .BYTE $90
       .BYTE $7C
@@ -2406,7 +2406,7 @@ byte_BANKC_92FE:
       .BYTE $42
       .BYTE $A8
 byte_BANKC_93A6:
-	  .BYTE $44
+      .BYTE $44
 
       .BYTE $B0
       .BYTE $46

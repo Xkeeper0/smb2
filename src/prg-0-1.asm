@@ -2,7 +2,7 @@
       ;.segment	BANK0
 ;       *	=  $8000
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8000:
       LDA     byte_RAM_502
@@ -92,7 +92,7 @@ locret_BANK0_8082:
 
 ; End of function sub_BANK0_8000
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8083:
       LDA     NeedVerticalScroll
@@ -322,7 +322,7 @@ locret_BANK0_81A0:
 ; ---------------------------------------------------------------------------
       .BYTE   1
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_81A2:
       LDA     PPUScrollYMirror
@@ -350,7 +350,7 @@ sub_BANK0_81A2:
 
 ; End of function sub_BANK0_81A2
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_81D6:
       LDA     byte_RAM_509
@@ -372,7 +372,7 @@ sub_BANK0_81D6:
 
 ; End of function sub_BANK0_81D6
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_81FE:
       LDA     byte_RAM_CF
@@ -413,7 +413,7 @@ loc_BANK0_820B:
 
 ; End of function sub_BANK0_81FE
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_823D:
       LDX     #0
@@ -477,7 +477,7 @@ locret_BANK0_828E:
 
 ; End of function sub_BANK0_823D
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_828F:
       LDA     byte_RAM_D2,X
@@ -488,7 +488,7 @@ sub_BANK0_828F:
 
 ; End of function sub_BANK0_828F
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8297:
       LDA     byte_RAM_CF,X
@@ -522,7 +522,7 @@ locret_BANK0_82BD:
 
 ; End of function sub_BANK0_8297
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_82BE:
       LDA     byte_RAM_CE,X
@@ -553,7 +553,7 @@ locret_BANK0_82E1:
 
 ; End of function sub_BANK0_82BE
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_82E2:
       LDA     byte_RAM_CE,X
@@ -595,7 +595,7 @@ locret_BANK0_8313:
 
 ; End of function sub_BANK0_82E2
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8314:
       LDA     byte_RAM_CE,X
@@ -628,7 +628,7 @@ loc_BANK0_832E:
 
 ; End of function sub_BANK0_8314
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_833E:
       LDX     byte_RAM_300
@@ -783,7 +783,7 @@ loc_BANK0_840B:
 
 ; End of function sub_BANK0_833E
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8412:
       LDY     byte_RAM_300
@@ -854,7 +854,7 @@ loc_BANK0_845D:
 
 ; End of function sub_BANK0_8412
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_846A:
       LDA     byte_RAM_E1,X
@@ -871,7 +871,7 @@ locret_BANK0_8477:
 
 ; End of function sub_BANK0_846A
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8478:
       LDA     byte_RAM_E1,X
@@ -889,7 +889,7 @@ locret_BANK0_8487:
 
 ; End of function sub_BANK0_8478
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8488:
       LDA     byte_RAM_E3
@@ -925,7 +925,7 @@ loc_BANK0_84A6:
 
       RTS
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_84AC:
       LDY     byte_RAM_D7
@@ -944,7 +944,7 @@ IFDEF PRESERVE_UNUSED_SPACE
 ENDIF
 
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8500:
       LDA     byte_RAM_502
@@ -1015,7 +1015,7 @@ locret_BANK0_8569:
 
 ; End of function sub_BANK0_8500
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_856A:
       LDA     CurrentLevelPage
@@ -1115,7 +1115,7 @@ loc_BANK0_85E7:
 
 ; End of function sub_BANK0_856A
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_85EC:
       LDA     #0
@@ -1308,7 +1308,7 @@ loc_BANK0_86E9:
 
 ; End of function sub_BANK0_85EC
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_86EE:
       LSR     A
@@ -1335,12 +1335,12 @@ loc_BANK0_8705:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8709:
-	  .BYTE $28
+      .BYTE $28
       .BYTE $24
 byte_BANK0_870B:
-	  .BYTE $A
+      .BYTE $A
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_870C:
       LDA     PPUScrollXMirror
@@ -1373,7 +1373,7 @@ sub_BANK0_870C:
 
 ; End of function sub_BANK0_870C
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_874C:
       LDA     byte_RAM_50A
@@ -1406,7 +1406,7 @@ locret_BANK0_8784:
 
 ; End of function sub_BANK0_874C
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8785:
       LDA     byte_RAM_CF
@@ -1433,7 +1433,7 @@ loc_BANK0_87A2:
 
 ; End of function sub_BANK0_8785
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_87AA:
       LDX     #0
@@ -1514,7 +1514,7 @@ locret_BANK0_8811:
 
 ; End of function sub_BANK0_87AA
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8812:
       STY     byte_RAM_F
@@ -1547,7 +1547,7 @@ loc_BANK0_8837:
 
 ; End of function sub_BANK0_8812
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_883C:
       STX     byte_RAM_8
@@ -1585,7 +1585,7 @@ loc_BANK0_8856:
 
 ; End of function sub_BANK0_883C
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8872:
       LDA     #$F
@@ -1686,7 +1686,7 @@ loc_BANK0_88FD:
 
 ; End of function sub_BANK0_8872
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8901:
       JSR     sub_BANK0_883C
@@ -1716,7 +1716,7 @@ loc_BANK0_890A:
 
 ; End of function sub_BANK0_8901
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8925:
       STY     byte_RAM_F
@@ -1757,7 +1757,7 @@ loc_BANK0_892F:
 
 ; End of function sub_BANK0_8925
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_895D:
       LDX     #7
@@ -1779,7 +1779,7 @@ IFDEF PRESERVE_UNUSED_SPACE
 ENDIF
 
 GrowShrinkSFXIndexes:
-	  .BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; ---------------------------------------------------------------------------
+      .BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; ---------------------------------------------------------------------------
 
 HandlePlayerState:
       LDA     PlayerState			  ; Handles player states?
@@ -1830,7 +1830,7 @@ HandlePlayerState_Normal:
 
       JSR     sub_BANK0_8EA4
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8A50:
       LDX     #0
@@ -1934,7 +1934,7 @@ loc_BANK0_8ABB:
       INC     PlayerInAir
 
 loc_BANK0_8ABF:
-      INC     byte_RAM_9A
+      INC     PlayerDucking
 
 locret_BANK0_8AC1:
       RTS
@@ -1945,7 +1945,7 @@ locret_BANK0_8AC1:
       .BYTE 1
       .BYTE 1
 byte_BANK0_8AC6:
-	  .BYTE 1
+      .BYTE 1
 
       .BYTE 2
       .BYTE 4
@@ -1955,7 +1955,7 @@ byte_BANK0_8AC6:
       .BYTE 8
       .BYTE 8
 byte_BANK0_8ACE:
-	  .BYTE 0
+      .BYTE 0
 
       .BYTE $10
       .BYTE $F0
@@ -2017,7 +2017,7 @@ loc_BANK0_8B14:
       STA     PlayerState
       RTS
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8B19:
       LDA     byte_RAM_10
@@ -2037,7 +2037,7 @@ locret_BANK0_8B2A:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8B2B:
-	  .BYTE $C2
+      .BYTE $C2
 
       .BYTE $D4
       .BYTE $C3
@@ -2049,7 +2049,7 @@ byte_BANK0_8B2B:
       .BYTE $95
       .BYTE $17
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8B35:
       JSR     sub_BANK0_924F
@@ -2088,7 +2088,7 @@ HandlePlayerState_GoingDownJar:
       PLA
       JSR     sub_BANK0_940E
 
-      LDA     #2
+      LDA     #$02
       STA     TransitionType
       LDA     byte_RAM_4EE
       BNE     loc_BANK0_8B6C
@@ -2131,15 +2131,15 @@ locret_BANK0_8B86:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8B87:
-	  .BYTE 0
+      .BYTE 0
 
       .BYTE $FF
 byte_BANK0_8B89:
-	  .BYTE $EE
+      .BYTE $EE
 
       .BYTE $DE
 byte_BANK0_8B8B:
-	  .BYTE 9
+      .BYTE 9
 
       .BYTE $A1
 ; ---------------------------------------------------------------------------
@@ -2200,7 +2200,7 @@ HandlePlayerState_HawkmouthEating:
       JSR     sub_BANK0_8EA4
 
 IFDEF COMPATIBILITY
-	  .db $ad, $5a, $00 ; LDA $0000 + PlayerCollision
+      .db $ad, $5a, $00 ; LDA $0000 + PlayerCollision
 ENDIF
 IFNDEF COMPATIBILITY
       LDA     PlayerCollision			  ; Absolute address for zero-page
@@ -2219,7 +2219,7 @@ ENDIF
 loc_BANK0_8BE3:
       JSR     sub_BANK0_8A50
 
-      JMP     sub_BANK0_8D6F
+      JMP     PlayerWalkJumpAnim
 
 ; ---------------------------------------------------------------------------
 
@@ -2231,7 +2231,7 @@ locret_BANK0_8BEB:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8BEC:
-	  .BYTE 5
+      .BYTE 5
 
       .BYTE $A
       .BYTE $F
@@ -2280,25 +2280,26 @@ loc_BANK0_8C15:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8C18:
-	  .BYTE $FE
+      .BYTE $FE
 
       .BYTE 2
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
+; player crouch subroutine
 sub_BANK0_8C1A:
-      JSR     sub_BANK0_8D6F
+      JSR     PlayerWalkJumpAnim
 
       LDA     PlayerInAir
-      BNE     loc_BANK0_8C63
+      BNE     ResetPartialCrouchJumpTimer
 
-      LDA     byte_RAM_9A
+      LDA     PlayerDucking
       BEQ     loc_BANK0_8C2B
 
       LDA     PlayerStateTimer
       BNE     loc_BANK0_8C92
 
-      DEC     byte_RAM_9A
+      DEC     PlayerDucking
 
 loc_BANK0_8C2B:
       LDA     Player1JoypadPress
@@ -2317,31 +2318,31 @@ loc_BANK0_8C3D:
       BNE     loc_BANK0_8C92
 
       LDA     byte_RAM_4DF
-      BNE     loc_BANK0_8C63
+      BNE     ResetPartialCrouchJumpTimer
 
-      LDA     Player1JoypadHeld
+      LDA     Player1JoypadHeld ; skip if down button is not pressed
       AND     #ControllerInput_Down
-      BEQ     loc_BANK0_8C63
+      BEQ     ResetPartialCrouchJumpTimer
 
-      INC     byte_RAM_9A
-      LDA     #SpriteAnimation_Ducking
+      INC     PlayerDucking ; set ducking state?
+      LDA     #SpriteAnimation_Ducking ; set ducking animation
       STA     PlayerAnimationFrame
-      LDA     PlayerInAir
-      BNE     loc_BANK0_8C63
+      LDA     PlayerInAir ; skip ahead if player is in air
+      BNE     ResetPartialCrouchJumpTimer
 
-      LDA     CrouchJumpTimer
+      LDA     CrouchJumpTimer ; check if crouch jump is charged
       CMP     #$3C
       BCS     loc_BANK0_8C92
 
-      INC     CrouchJumpTimer
+      INC     CrouchJumpTimer ; increment crouch jump charge
       BNE     loc_BANK0_8C92
 
-loc_BANK0_8C63:
+ResetPartialCrouchJumpTimer: ; reset crouch jump timer if it isn't full
       LDA     CrouchJumpTimer
-      CMP     #$3C
+      CMP     #$3C ; max crouch jump timer
       BCS     loc_BANK0_8C6F
 
-      LDA     #0
+      LDA     #0 ; reset crouch jump timer to zero
       STA     CrouchJumpTimer
 
 loc_BANK0_8C6F:
@@ -2356,17 +2357,17 @@ loc_BANK0_8C6F:
       LSR     A
       LSR     A
       AND     byte_RAM_10
-      BNE     loc_BANK0_8C8B
+      BNE     ResetCrouchJumpTimer
 
       LDA     PlayerXAccel
       CLC
       ADC     byte_BANK0_8C18,Y
       STA     PlayerXAccel
 
-loc_BANK0_8C8B:
+ResetCrouchJumpTimer:
       LDA     #0
       STA     CrouchJumpTimer
-      BEQ     loc_BANK0_8C95
+      BEQ     loc_BANK0_8C95 ; unconditional branch?
 
 loc_BANK0_8C92:
       JSR     sub_BANK0_8D2C
@@ -2378,7 +2379,7 @@ loc_BANK0_8C95:
 
 ; End of function sub_BANK0_8C1A
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8C99:
       LDA     byte_RAM_4DF
@@ -2428,7 +2429,7 @@ loc_BANK0_8CD3:
 
 ; End of function sub_BANK0_8C99
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8CD9:
       LDA     byte_RAM_4DF
@@ -2493,17 +2494,17 @@ locret_BANK0_8D25:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8D26:
-	  .BYTE $FC
+      .BYTE $FC
 
       .BYTE 0
       .BYTE 4
       .BYTE 0
 byte_BANK0_8D2A:
-	  .BYTE $FD
+      .BYTE $FD
 
       .BYTE 3
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8D2C:
       LDA     PlayerInAir
@@ -2530,7 +2531,7 @@ loc_BANK0_8D4B:
       STX     PlayerXAccel
 
 loc_BANK0_8D4D:
-      LDA     byte_RAM_9A
+      LDA     PlayerDucking
       BNE     locret_BANK0_8D61
 
       LDA     PlayerAnimationFrame
@@ -2540,10 +2541,10 @@ loc_BANK0_8D4D:
       LDA     #SpriteAnimation_Standing
       STA     PlayerAnimationFrame
       LDA     #0
-      STA     byte_RAM_84
+      STA     PlayerWalkFrameCounter
 
 loc_BANK0_8D5F:
-      STA     byte_RAM_9B
+      STA     PlayerWalkFrame
 
 locret_BANK0_8D61:
       RTS
@@ -2551,86 +2552,87 @@ locret_BANK0_8D61:
 ; End of function sub_BANK0_8D2C
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8D62:
-	  .BYTE $C
+PlayerWalkFrameDurations:
+      .BYTE $0C
+      .BYTE $0A
+      .BYTE $08
+      .BYTE $05
+      .BYTE $03
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+PlayerWalkFrames:
+      .BYTE SpriteAnimation_Standing      ; $00
+      .BYTE SpriteAnimation_Walking       ; $01
+      .BYTE SpriteAnimation_Throwing;     ; $02
 
-      .BYTE $A
-      .BYTE 8
-      .BYTE 5
-      .BYTE 3
-      .BYTE 2
-      .BYTE   2
-      .BYTE   2
-      .BYTE   2
-      .BYTE   2
-byte_BANK0_8D6C:
-	  .BYTE SpriteAnimation_Standing		    
-      .BYTE SpriteAnimation_Walking		  ; 1
-      .BYTE SpriteAnimation_Throwing		  ; 2
+; =============== S U B	R O U T I N E =======================================
 
-; =============== S U B	R O U T	I N E =======================================
+; jump animation subroutine
+PlayerWalkJumpAnim:
+      LDA     PlayerDucking ; exit if we're ducking, since the player will be ducking
+      BNE     ExitPlayerWalkJumpAnim
 
-sub_BANK0_8D6F:
-      LDA     byte_RAM_9A
-      BNE     locret_BANK0_8DB1
-
-loc_BANK0_8D73:
+      ; if we're not in the air, skip ahead
       LDA     PlayerInAir
-      BEQ     loc_BANK0_8D85
+      BEQ     PlayerWalkAnim
 
-      LDA     CurrentCharacter
+      LDA     CurrentCharacter ; does this character get to flutter jump?
       CMP     #Character_Luigi
-      BNE     locret_BANK0_8DB1
+      BNE     ExitPlayerWalkJumpAnim
 
-      LDA     byte_RAM_84
-      BNE     loc_BANK0_8DAA
+      LDA     PlayerWalkFrameCounter
+      BNE     UpdatePlayerAnimationFrame ; maintain current frame
 
-      LDA     #2
-      BNE     loc_BANK0_8DA0
+      LDA     #$02 ; fast animation
+      BNE     NextPlayerWalkFrame
 
-loc_BANK0_8D85:
-      LDA     byte_RAM_84
-      BNE     loc_BANK0_8DAA
+PlayerWalkAnim:
+      LDA     PlayerWalkFrameCounter
+      BNE     UpdatePlayerAnimationFrame ; maintain current frame
 
-      LDA     #5
+      LDA     #$05
       LDY     byte_RAM_624
-      BNE     loc_BANK0_8DA0
+      BNE     NextPlayerWalkFrame
 
       LDA     PlayerXAccel
-      BPL     loc_BANK0_8D99
+      BPL     PlayerWalkFrameDuration
 
+      ; use absolute value of PlayerXAccel
       EOR     #$FF
       CLC
-      ADC     #1
+      ADC     #$01
 
-loc_BANK0_8D99:
+PlayerWalkFrameDuration:
       LSR     A
       LSR     A
       LSR     A
       TAY
-      LDA     byte_BANK0_8D62,Y
+      LDA     PlayerWalkFrameDurations,Y
 
-loc_BANK0_8DA0:
-      STA     byte_RAM_84
-      DEC     byte_RAM_9B
-      BPL     loc_BANK0_8DAA
+NextPlayerWalkFrame:
+      STA     PlayerWalkFrameCounter ; hold frame for duration specified in accumulator
+      DEC     PlayerWalkFrame
+      BPL     UpdatePlayerAnimationFrame
 
-      LDA     #1
-      STA     byte_RAM_9B
+      LDA     #$01 ; next walk frame
+      STA     PlayerWalkFrame
 
-loc_BANK0_8DAA:
-      LDY     byte_RAM_9B
-      LDA     byte_BANK0_8D6C,Y
+UpdatePlayerAnimationFrame:
+      LDY     PlayerWalkFrame
+      LDA     PlayerWalkFrames,Y
       STA     PlayerAnimationFrame
 
-locret_BANK0_8DB1:
+ExitPlayerWalkJumpAnim:
       RTS
 
-; End of function sub_BANK0_8D6F
+; End of function PlayerWalkJumpAnim
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8DB2:
-	  .BYTE 0
+      .BYTE 0
 
       .BYTE 0
       .BYTE $D0
@@ -2640,17 +2642,17 @@ byte_BANK0_8DB2:
       .BYTE $D0
       .BYTE $30
 byte_BANK0_8DBA:
-	  .BYTE $18
+      .BYTE $18
 
       .BYTE 0
       .BYTE $18
       .BYTE $F8
 byte_BANK0_8DBE:
-	  .BYTE $F0
+      .BYTE $F0
 
       .BYTE $10
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8DC0:
       LDY     #2
@@ -2739,7 +2741,7 @@ loc_BANK0_8E28:
       STY     byte_RAM_7
       LDA     byte_RAM_9D
       ASL     A
-      ORA     byte_RAM_9A
+      ORA     PlayerDucking
       TAX
       LDY     byte_BANKF_F006,X
       LDX     #0
@@ -2760,14 +2762,14 @@ loc_BANK0_8E42:
       LDA     #SpriteAnimation_Throwing
       STA     PlayerAnimationFrame
       LDA     #2
-      STA     byte_RAM_9B
+      STA     PlayerWalkFrame
       LDA     #$A
-      STA     byte_RAM_84
+      STA     PlayerWalkFrameCounter
       DEC     HoldingItem
       LDA     #SoundEffect1_ThrowItem
       STA     SoundEffect1Queue
       LDA     #0
-      STA     byte_RAM_9A
+      STA     PlayerDucking
       STA     Player1JoypadPress
       STA     byte_RAM_1
       LDX     byte_RAM_42D
@@ -2819,14 +2821,14 @@ loc_BANK0_8E89:
 
 ; End of function sub_BANK0_8DC0
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8EA4:
       LDX     #$A
 
 ; End of function sub_BANK0_8EA4
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8EA6:
       LDA     PlayerXAccel,X
@@ -2887,7 +2889,7 @@ loc_BANK0_8ED8:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8EE8:
-	  .BYTE 2
+      .BYTE 2
 
       .BYTE 2
       .BYTE 1
@@ -2897,7 +2899,7 @@ byte_BANK0_8EE8:
       .BYTE 2
       .BYTE 2
 CollisionFlagTableThing:
-	  .BYTE CollisionFlags_Up
+      .BYTE CollisionFlags_Up
       .BYTE CollisionFlags_Up
       .BYTE CollisionFlags_Down
       .BYTE CollisionFlags_Down
@@ -2906,14 +2908,14 @@ CollisionFlagTableThing:
       .BYTE CollisionFlags_Right
       .BYTE CollisionFlags_Right
 byte_BANK0_8EF8:
-	  .BYTE $F0
+      .BYTE $F0
 
       .BYTE $10
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8EFA:
-      LDA     #0
+      LDA     #$00
       STA     PlayerCollision
       STA     byte_RAM_624
       STA     byte_RAM_7
@@ -2923,7 +2925,7 @@ sub_BANK0_8EFA:
       JSR     sub_BANK0_8FFD
 
 loc_BANK0_8F0C:
-      LDA     byte_RAM_9A
+      LDA     PlayerDucking
       ASL     A
       ORA     HoldingItem
       TAX
@@ -3042,7 +3044,7 @@ locret_BANK0_8FB1:
 
 ; End of function sub_BANK0_8EFA
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8FB2:
       JSR     loc_BANK0_8FB5
@@ -3094,7 +3096,7 @@ loc_BANK0_8FF2:
 
 ; End of function sub_BANK0_8FB2
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8FF5:
       JSR     loc_BANK0_8FF8
@@ -3106,7 +3108,7 @@ loc_BANK0_8FF8:
 
 ; End of function sub_BANK0_8FF5
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_8FFD:
       LDY     byte_BANKF_F00A
@@ -3164,7 +3166,7 @@ loc_BANK0_9031:
       LDA     #PlayerState_Climbing
       STA     PlayerState
       STY     PlayerInAir
-      STY     byte_RAM_9A
+      STY     PlayerDucking
       LDA     #SpriteAnimation_Climbing
       STA     PlayerAnimationFrame
       PLA
@@ -3177,7 +3179,7 @@ locret_BANK0_9052:
 
 ; End of function sub_BANK0_8FFD
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_9053:
       PHA
@@ -3195,12 +3197,12 @@ sub_BANK0_9053:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_9062:
-	  .BYTE 0
+      .BYTE 0
 
       .BYTE 4
       .BYTE 8
 PickUpToEnemyTypeTable:
-	  .BYTE Enemy_MushroomBlock		   
+      .BYTE Enemy_MushroomBlock
       .BYTE Enemy_MushroomBlock			  ; 1
       .BYTE Enemy_MushroomBlock			  ; 2
       .BYTE Enemy_POWBlock			  ; 3
@@ -3329,13 +3331,13 @@ loc_BANK0_90EA:
       INC     HoldingItem
       RTS
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_910C:
       LDY     HoldingItem
       BNE     loc_BANK0_917C
 
-      LDA     byte_RAM_9A
+      LDA     PlayerDucking
       BEQ     loc_BANK0_9155
 
       LDA     byte_RAM_0
@@ -3378,7 +3380,7 @@ loc_BANK0_9140:
 
 ; End of function sub_BANK0_910C
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_9143:
       LDA     PlayerXLo
@@ -3433,7 +3435,7 @@ loc_BANK0_9177:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_917C:
-      LDA     byte_RAM_9A
+      LDA     PlayerDucking
       BNE     locret_BANK0_91CE
 
       LDA     byte_RAM_6
@@ -3496,15 +3498,15 @@ locret_BANK0_91CE:
 
 loc_BANK0_91CF:
       LDX     InSubspaceOrJar
-      CPX     #2
+      CPX     #$02
       BNE     loc_BANK0_91E3
 
       LDA     SubspaceVisits
-      CMP     #2
-      BCS     loc_BANK0_91E2
+      CMP     #$02
+      BCS     loc_BANK0_91E2 ; skip if we've already visited Subspace twice
 
-      INC     byte_RAM_622
-      LDX     #0
+      INC     SubspaceCoins
+      LDX     #$00
 
 loc_BANK0_91E2:
       TXA
@@ -3597,14 +3599,14 @@ loc_BANK0_9247:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_924A:
-	  .BYTE $51
+      .BYTE $51
 
       .BYTE $50
       .BYTE $83
       .BYTE $52
       .BYTE $56
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_924F:
       TXA
@@ -3680,7 +3682,7 @@ loc_BANK0_92A5:
 
 ; End of function sub_BANK0_924F
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_92AA:
       STA     byte_RAM_F
@@ -3708,7 +3710,7 @@ locret_BANK0_92C0:
 
 ; End of function sub_BANK0_92AA
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_92C1:
       LDY     byte_RAM_1
@@ -3737,10 +3739,10 @@ locret_BANK0_92DF:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_92E0:
-	  .BYTE $A
+      .BYTE $A
 
 byte_BANK0_92E1:
-	  .BYTE 1
+      .BYTE 1
 
       .BYTE $B
 ; ---------------------------------------------------------------------------
@@ -3790,14 +3792,14 @@ locret_BANK0_9311:
 
 ; ---------------------------------------------------------------------------
 CollisionResultTable:
-	  .BYTE CollisionFlags_Right
+      .BYTE CollisionFlags_Right
       .BYTE CollisionFlags_Left
 TableUsedAt_BANK0_9333:
-	  .BYTE $80
+      .BYTE $80
 
       .BYTE 0
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_9316:
       LDA     IsHorizontalLevel
@@ -3849,7 +3851,7 @@ locret_BANK0_934E:
 
 ; End of function sub_BANK0_9316
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_934F:
       PHA					  ; Something to update	the PPU	for some tile change
@@ -3972,13 +3974,13 @@ loc_BANK0_93DE:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_940A:
-	  .BYTE $20
+      .BYTE $20
 						  ; Another byte of PPU	high addresses for horiz/vert levels
       .BYTE $28
       .BYTE $20
       .BYTE $24
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_940E:
       LDA     InSubspaceOrJar
@@ -3998,8 +4000,9 @@ locret_BANK0_9427:
 
 ; End of function sub_BANK0_940E
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
+; player placement after exiting subspace (maybe other times?)
 sub_BANK0_9428:
       LDA     PlayerXHi_Backup
       STA     PlayerXHi
@@ -4025,6 +4028,7 @@ sub_BANK0_9428:
       SBC     #4
       BNE     locret_BANK0_9427
 
+      ; resetting these to zero
       STA     PlayerState
       STA     byte_RAM_41B
       STA     SubspaceTimer
@@ -4036,7 +4040,7 @@ sub_BANK0_9428:
 
 ; End of function sub_BANK0_9428
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_946D:
       LDA     TransitionType
@@ -4105,7 +4109,7 @@ loc_BANK0_94C2:
 
 ; End of function sub_BANK0_946D
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_94CA:
       LDA     TransitionType
@@ -4154,7 +4158,7 @@ loc_BANK0_94F8:
 
 ; End of function sub_BANK0_94CA
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_950C:
       LDA     PlayerYLo
@@ -4227,7 +4231,7 @@ loc_BANK0_955D:
       LDA     #0
       STA     PlayerYLo
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_9561:
       LDA     #1
@@ -4291,7 +4295,7 @@ loc_BANK0_95A7:
       STA     PlayerYLo
       RTS
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK0_95AF:
       CPY     #0
@@ -4324,11 +4328,11 @@ IFDEF PRESERVE_UNUSED_SPACE
 ENDIF
 
 TitleScreenPPUDataPointers:
-	  .WORD PPUBuffer_301
+      .WORD PPUBuffer_301
 
       .WORD TitleLayout1
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 WaitForNMI_TitleScreen_TurnOnPPU:
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
@@ -4336,7 +4340,7 @@ WaitForNMI_TitleScreen_TurnOnPPU:
 
 ; End of function WaitForNMI_TitleScreen_TurnOnPPU
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 WaitForNMI_TitleScreen:
       LDA     ScreenUpdateIndex
@@ -4361,94 +4365,94 @@ WaitForNMI_TitleScreenLoop:
 
 ; ---------------------------------------------------------------------------
 TitleLayout1:
-	  .BYTE $20,0,$DE,$FD			 
-      .BYTE $20,1,$DE,$FD			  
-      .BYTE $20,2,$DE,$FD			  
-      .BYTE $20,3,$DE,$FD			  
-      .BYTE $20,$1C,$DE,$FD			  
-      .BYTE $20,$1D,$DE,$FD			  
-      .BYTE $20,$1E,$DE,$FD			  
-      .BYTE $20,$1F,$DE,$FD			  
-      .BYTE $20,3,$5D,$FD			  
-      .BYTE $20,$23,$5D,$FD			  
-      .BYTE $20,$43,$5D,$FD			  
-      .BYTE $20,$63,$5D,$FD			  
-      .BYTE $23,$63,$5D,$FD			  
-      .BYTE $23,$83,$5D,$FD			  
-      .BYTE $23,$A3,$5D,$FD			  
+      .BYTE $20,0,$DE,$FD
+      .BYTE $20,1,$DE,$FD
+      .BYTE $20,2,$DE,$FD
+      .BYTE $20,3,$DE,$FD
+      .BYTE $20,$1C,$DE,$FD
+      .BYTE $20,$1D,$DE,$FD
+      .BYTE $20,$1E,$DE,$FD
+      .BYTE $20,$1F,$DE,$FD
+      .BYTE $20,3,$5D,$FD
+      .BYTE $20,$23,$5D,$FD
+      .BYTE $20,$43,$5D,$FD
+      .BYTE $20,$63,$5D,$FD
+      .BYTE $23,$63,$5D,$FD
+      .BYTE $23,$83,$5D,$FD
+      .BYTE $23,$A3,$5D,$FD
       .BYTE $20,$68,$10,$48,$4A,$4C,$4E,$50,$51,$52,$53,$54,$55,$56,$57
       .BYTE $58,$5A,$5C,$5E			  ; $F
       .BYTE $20,$84,8,$FD,$22,$23,$24,$49,$4B,$4D,$4F
       .BYTE $20,$94,8,$59,$5B,$5D,$5F,$2E,$2F,$30,$FD
-      .BYTE $20,$A4,3,$25,$26,$27		  
-      .BYTE $20,$B9,3,$31,$32,$33		  
-      .BYTE $20,$C4,3,$28,$29,$2A		  
-      .BYTE $20,$D9,3,$34,$35,$36		  
-      .BYTE $20,$E3,3,$2B,$2C,$2D		  
-      .BYTE $20,$FA,3,$37,$38,$39		  
-      .BYTE $21,3,2,$3A,$3B			  
-      .BYTE $21,$1B,2,$40,$41			  
-      .BYTE $21,$23,$C6,$3C			  
-      .BYTE $21,$3C,$C6,$42			  
-      .BYTE $21,$E3,1,$3D			  
-      .BYTE $21,$FC,1,$60			  
-      .BYTE $22,2,2,$3E,$3F			  
-      .BYTE $22,$1C,2,$61,$62			  
-      .BYTE $22,$22,2,$43,$44			  
-      .BYTE $22,$3C,2,$63,$64			  
-      .BYTE $22,$43,1,$45			  
-      .BYTE $22,$5C,1,$65			  
-      .BYTE $22,$63,$C6,$3C			  
-      .BYTE $22,$7C,$C4,$42			  
-      .BYTE $22,$C4,2,$A6,$A8			  
-      .BYTE $22,$E4,2,$A7,$A9			  
-      .BYTE $22,$FA,4,$80,$82,$88,$8A		  
-      .BYTE $23,4,2,$90,$92			  
-      .BYTE $23,$14,2,$9E,$A0			  
-      .BYTE $23,$1A,4,$81,$83,$89,$8B		  
-      .BYTE $23,$23,3,$46,$91,$93		  
-      .BYTE $23,$2A,2,$A2,$A4			  
+      .BYTE $20,$A4,3,$25,$26,$27
+      .BYTE $20,$B9,3,$31,$32,$33
+      .BYTE $20,$C4,3,$28,$29,$2A
+      .BYTE $20,$D9,3,$34,$35,$36
+      .BYTE $20,$E3,3,$2B,$2C,$2D
+      .BYTE $20,$FA,3,$37,$38,$39
+      .BYTE $21,3,2,$3A,$3B
+      .BYTE $21,$1B,2,$40,$41
+      .BYTE $21,$23,$C6,$3C
+      .BYTE $21,$3C,$C6,$42
+      .BYTE $21,$E3,1,$3D
+      .BYTE $21,$FC,1,$60
+      .BYTE $22,2,2,$3E,$3F
+      .BYTE $22,$1C,2,$61,$62
+      .BYTE $22,$22,2,$43,$44
+      .BYTE $22,$3C,2,$63,$64
+      .BYTE $22,$43,1,$45
+      .BYTE $22,$5C,1,$65
+      .BYTE $22,$63,$C6,$3C
+      .BYTE $22,$7C,$C4,$42
+      .BYTE $22,$C4,2,$A6,$A8
+      .BYTE $22,$E4,2,$A7,$A9
+      .BYTE $22,$FA,4,$80,$82,$88,$8A
+      .BYTE $23,4,2,$90,$92
+      .BYTE $23,$14,2,$9E,$A0
+      .BYTE $23,$1A,4,$81,$83,$89,$8B
+      .BYTE $23,$23,3,$46,$91,$93
+      .BYTE $23,$2A,2,$A2,$A4
       .BYTE $23,$2E,$B,$67,$6C,$6E,$70,$72,$69,$9F,$A1,$75,$98,$9A
-      .BYTE $23,$3A,4,$84,$86,$8C,$8E		  
+      .BYTE $23,$3A,4,$84,$86,$8C,$8E
       .BYTE $23,$43,$1B,$47,$94,$96,$74,$74,$74,$74,$A3,$A5,$74,$66,$68
       .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F; $F
-      .BYTE $23,$64,5,$95,$97,$FD,$AA,$AB	  
-      .BYTE $23,$77,4,$9C,$9D,$AA,$AB		  
-      .BYTE $23,$89,2,$AA,$AB			  
+      .BYTE $23,$64,5,$95,$97,$FD,$AA,$AB
+      .BYTE $23,$77,4,$9C,$9D,$AA,$AB
+      .BYTE $23,$89,2,$AA,$AB
       .BYTE $20,$CB,$A,0,1,8,8,$FC,1,$FC,8,$FC,1  ;	"SUPER"	logo
-      .BYTE $20,$EB,$A,2,3,8,8,$A,5,$B,$C,$A,$D	  
-      .BYTE $21,$B,$A,4,5,4,5,$E,7,$FC,8,$E,8	  
-      .BYTE $21,$2B,5,6,7,6,7,9			  
-      .BYTE $21,$31,4,$76,9,9,9			  
+      .BYTE $20,$EB,$A,2,3,8,8,$A,5,$B,$C,$A,$D
+      .BYTE $21,$B,$A,4,5,4,5,$E,7,$FC,8,$E,8
+      .BYTE $21,$2B,5,6,7,6,7,9
+      .BYTE $21,$31,4,$76,9,9,9
       .BYTE $21,$38,2,$F9,$FA			  ;	TM
-      .BYTE $21,$46,$A,0,$F,1,0,1,$FC,1,8,0,1	  
+      .BYTE $21,$46,$A,0,$F,1,0,1,$FC,1,8,0,1
       .BYTE $21,$66,$A,$10,$10,8,$10,8,$10,8,8,$10,8
-      .BYTE $21,$86,$A,8,8,8,8,8,$13,$D,8,8,8	  
-      .BYTE $21,$A6,$A,8,8,8,$FC,8,$E,8,8,8,8	  
-      .BYTE $21,$C6,$A,8,8,8,$10,8,8,8,8,4,5	  
-      .BYTE $21,$E6,$A,9,9,9,9,9,9,9,9,6,7	  
-      .BYTE $21,$51,8,$FC,1,$FC,1,0,1,0,1	  
-      .BYTE $21,$71,8,$10,8,$10,8,$10,8,$10,8	  
-      .BYTE $21,$91,8,$13,$D,$13,$D,8,8,$77,3	  
-      .BYTE $21,$B1,8,$E,8,$E,8,8,8,$12,8	  
-      .BYTE $21,$D1,9,$13,5,8,8,4,5,4,5,8	  
-      .BYTE $21,$F1,9,$11,7,9,9,6,7,6,7,9	  
-      .BYTE $22,$E,4,$14,$15,$16,$17		  
-      .BYTE $22,$2E,4,$18,$19,$1A,$1B		  
-      .BYTE $22,$4E,4,$1C,$1D,$1E,$1F		  
-      .BYTE $22,$6E,4,$FC,$FC,$FC,$20		  
-      .BYTE $22,$8E,4,$76,$76,$76,$21		  
+      .BYTE $21,$86,$A,8,8,8,8,8,$13,$D,8,8,8
+      .BYTE $21,$A6,$A,8,8,8,$FC,8,$E,8,8,8,8
+      .BYTE $21,$C6,$A,8,8,8,$10,8,8,8,8,4,5
+      .BYTE $21,$E6,$A,9,9,9,9,9,9,9,9,6,7
+      .BYTE $21,$51,8,$FC,1,$FC,1,0,1,0,1
+      .BYTE $21,$71,8,$10,8,$10,8,$10,8,$10,8
+      .BYTE $21,$91,8,$13,$D,$13,$D,8,8,$77,3
+      .BYTE $21,$B1,8,$E,8,$E,8,8,8,$12,8
+      .BYTE $21,$D1,9,$13,5,8,8,4,5,4,5,8
+      .BYTE $21,$F1,9,$11,7,9,9,6,7,6,7,9
+      .BYTE $22,$E,4,$14,$15,$16,$17
+      .BYTE $22,$2E,4,$18,$19,$1A,$1B
+      .BYTE $22,$4E,4,$1C,$1D,$1E,$1F
+      .BYTE $22,$6E,4,$FC,$FC,$FC,$20
+      .BYTE $22,$8E,4,$76,$76,$76,$21
       .BYTE $22,$E9,5,$F8,$D1,$D9,$D8,$D8	  ;	(C) 1988
       .BYTE $22,$EF,8,$E7,$E2,$E7,$ED,$DE,$E7,$DD,$E8; NINTENDO
 						  ; (these could have been combined, but... Nintendo)
-      .BYTE $23,$CA,4,$80,$A0,$A0,$20		  
+      .BYTE $23,$CA,4,$80,$A0,$A0,$20
       .BYTE $23,$D1,$E,$80,$A8,$AA,$AA,$A2,$22,0,0,$88,$AA,$AA,$AA,$AA
       .BYTE $22					  ; $10
-      .BYTE $23,$E3,2,$88,$22			  
-      .BYTE $23,$EA,4,$F0,$F8,$F2,$F0		  
+      .BYTE $23,$E3,2,$88,$22
+      .BYTE $23,$EA,4,$F0,$F8,$F2,$F0
       .BYTE 0
 TitleBackgroundPalettes:
-	  .BYTE $22,$37,$16,7
+      .BYTE $22,$37,$16,7
       .BYTE $22,$30,$31,$F			  ; 1: Most of screen, outline,	etc.
       .BYTE $22,$30,$F,$F			  ; 2: Not used	(?)
       .BYTE $22,$30,$F,$F			  ; 3: SUPER MARIO BROS. 2 logo
@@ -4456,14 +4460,14 @@ TitleBackgroundPalettes:
 						  ;    (this is	the same palette
 						  ;    as the logo, though...)
 TitleSpritePalettes:
-	  .BYTE $22,$30,$28,$F	  ; Unused DDP character palettes
+      .BYTE $22,$30,$28,$F	  ; Unused DDP character palettes
       .BYTE $22,$30,$25,$F			  ; There are no sprites on the	title screen,
       .BYTE $22,$30,$12,$F			  ; so these are totally unused
       .BYTE $22,$30,$23,$F
 TitleStoryText_STORY:
-	  .BYTE $EC,	$ED, $E8, $EB, $F2		 ; STORY
+      .BYTE $EC,	$ED, $E8, $EB, $F2		 ; STORY
 TitleStoryTextPointersHi:
-	  .BYTE >TitleStoryText_Line01
+      .BYTE >TitleStoryText_Line01
 
       .BYTE >TitleStoryText_Line02
       .BYTE >TitleStoryText_Line03
@@ -4482,7 +4486,7 @@ TitleStoryTextPointersHi:
       .BYTE >TitleStoryText_Line15
       .BYTE >TitleStoryText_Line16
 TitleStoryTextPointersLo:
-	  .BYTE <TitleStoryText_Line01
+      .BYTE <TitleStoryText_Line01
 
       .BYTE <TitleStoryText_Line02
       .BYTE <TitleStoryText_Line03
@@ -4501,55 +4505,55 @@ TitleStoryTextPointersLo:
       .BYTE <TitleStoryText_Line15
       .BYTE <TitleStoryText_Line16
 TitleStoryText_Line01:
-	  .BYTE $F0, $E1, $DE, $E7,	$FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB,	$E8, $E9, $DE, $E7
+      .BYTE $F0, $E1, $DE, $E7,	$FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB,	$E8, $E9, $DE, $E7
       .BYTE $DE, $DD, $FB, $DA			  ; WHEN MARIO OPENED A
 TitleStoryText_Line02:
-	  .BYTE $DD, $E8, $E8, $EB,	$FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB,	$DC, $E5, $E2, $E6
+      .BYTE $DD, $E8, $E8, $EB,	$FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB,	$DC, $E5, $E2, $E6
       .BYTE $DB, $E2, $E7, $E0			  ; DOOR AFTER CLIMBING
 TitleStoryText_Line03:
-	  .BYTE $DA, $FB, $E5, $E8,	$E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB,	$FB, $E2, $E7, $FB
+      .BYTE $DA, $FB, $E5, $E8,	$E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB,	$FB, $E2, $E7, $FB
       .BYTE $FB, $E1, $E2, $EC			  ; A LONG STAIR IN HIS
 TitleStoryText_Line04:
-	  .BYTE $DD, $EB, $DE, $DA,	$E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1,	$DE, $EB, $FB, $F0
+      .BYTE $DD, $EB, $DE, $DA,	$E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1,	$DE, $EB, $FB, $F0
       .BYTE $E8, $EB, $E5, $DD			  ; DREAM, ANOTHER WORLD
 TitleStoryText_Line05:
-	  .BYTE $EC, $E9, $EB, $DE,	$DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF,	$E8, $EB, $DE, $FB
+      .BYTE $EC, $E9, $EB, $DE,	$DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF,	$E8, $EB, $DE, $FB
       .BYTE $FB, $E1, $E2, $E6			  ; SPREAD BEFORE HIM
 TitleStoryText_Line06:
-	  .BYTE $DA, $E7, $DD, $FB,	$E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD,	$FB, $DA, $FB, $EF
+      .BYTE $DA, $E7, $DD, $FB,	$E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD,	$FB, $DA, $FB, $EF
       .BYTE $E8, $E2, $DC, $DE			  ; AND	HE HEARD A VOICE
 TitleStoryText_Line07:
-	  .BYTE $DC, $DA, $E5, $E5,	$FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5,	$E9, $FB, $ED, $E8
+      .BYTE $DC, $DA, $E5, $E5,	$FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5,	$E9, $FB, $ED, $E8
       .BYTE $FB, $FB, $DB, $DE			  ; CALL FOR HELP TO BE
 TitleStoryText_Line08:
-	  .BYTE $FB, $DF, $EB, $DE,	$DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6,	$FB, $DA, $FB, $EC
+      .BYTE $FB, $DF, $EB, $DE,	$DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6,	$FB, $DA, $FB, $EC
       .BYTE $E9, $DE, $E5, $E5			  ; FREED FROM A SPELL
 TitleStoryText_Line09:
-	  .BYTE $DA, $DF, $ED, $DE,	$EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE,	$E7, $E2, $E7, $E0
+      .BYTE $DA, $DF, $ED, $DE,	$EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE,	$E7, $E2, $E7, $E0
       .BYTE $F7, $FB, $FB, $FB			  ; AFTER AWAKENING,
 TitleStoryText_Line10:
-	  .BYTE $E6, $DA, $EB, $E2,	$E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB,	$ED, $E8, $FB, $FB
+      .BYTE $E6, $DA, $EB, $E2,	$E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB,	$ED, $E8, $FB, $FB
       .BYTE $DA, $FB, $FB, $FB			  ; MARIO WENT TO A
 TitleStoryText_Line11:
-	  .BYTE $DC, $DA, $EF, $DE,	$FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2,	$FB, $DA, $E7, $DD
+      .BYTE $DC, $DA, $EF, $DE,	$FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2,	$FB, $DA, $E7, $DD
       .BYTE $FB, $FB, $ED, $E8			  ; CAVE NEARBY	AND TO
 TitleStoryText_Line12:
-	  .BYTE $E1, $E2, $EC, $FB,	$FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC,	$DE, $FB, $E1, $DE
+      .BYTE $E1, $E2, $EC, $FB,	$FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC,	$DE, $FB, $E1, $DE
       .BYTE $FB, $EC, $DA, $F0			  ; HIS	SURPRISE HE SAW
 TitleStoryText_Line13:
-	  .BYTE $DE, $F1, $DA, $DC,	$ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA,	$ED, $FB, $E1, $DE
+      .BYTE $DE, $F1, $DA, $DC,	$ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA,	$ED, $FB, $E1, $DE
       .BYTE $FB, $EC, $DA, $F0			  ; EXACTLY WHAT HE SAW
 TitleStoryText_Line14:
-	  .BYTE $E2, $E7, $FB, $E1,	$E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6,	$CF, $CF, $CF, $CF
+      .BYTE $E2, $E7, $FB, $E1,	$E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6,	$CF, $CF, $CF, $CF
       .BYTE $FB, $FB, $FB, $FB			  ; IN HIS DREAM....
 TitleStoryText_Line15:
-	  .BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB
+      .BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB
       .BYTE $FB, $FB, $FB, $FB			  ; (blank)
 TitleStoryText_Line16:
-	  .BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED,	$FB, $DB, $EE, $ED
+      .BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED,	$FB, $DB, $EE, $ED
       .BYTE $ED, $E8, $E7, $FB			  ; PUSH START BUTTON
 TitleAttributeData1:
-	  .BYTE $23, $CB, $42, $FF
+      .BYTE $23, $CB, $42, $FF
 
       .BYTE $23, $D1, 1, $CC
       .BYTE $23, $D2, $44, $FF
@@ -4557,7 +4561,7 @@ TitleAttributeData1:
       .BYTE $23, $D9, 1, $CC
       .BYTE $23, $DA, $44, $FF
 TitleAttributeData2:
-	  .BYTE $23, $DE, 1, $33
+      .BYTE $23, $DE, 1, $33
 
       .BYTE $23, $E1, 1, $CC
       .BYTE $23, $E2, $44, $FF
@@ -4566,7 +4570,7 @@ TitleAttributeData2:
       .BYTE $23, $E9, 1, $CC
       .BYTE $23, $EE, 1, $33
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 TitleScreen:
       LDY     #7				  ; Does initialization	of RAM.
@@ -4947,7 +4951,7 @@ ENDIF
 
 ; [00000200 BYTES: END OF AREA UNUSED-BANK1_A000. PRESS	KEYPAD "-" TO COLLAPSE]
 EndingPPUDataPointers:
-	  .WORD PPUBuffer_301
+      .WORD PPUBuffer_301
 
       .WORD EndingCorkJarRoom
       .WORD EndingCelebrationCeilingTextAndPodium
@@ -4962,7 +4966,7 @@ EndingPPUDataPointers:
       .WORD EndingCelebrationText_TOAD
       .WORD EndingCelebrationText_LUIGI
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 WaitForNMI_Ending_TurnOffPPU:
       LDA     #0
@@ -4970,7 +4974,7 @@ WaitForNMI_Ending_TurnOffPPU:
 
 ; End of function WaitForNMI_Ending_TurnOffPPU
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 WaitForNMI_Ending_TurnOnPPU:
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
@@ -4980,7 +4984,7 @@ loc_BANK1_A220:
 
 ; End of function WaitForNMI_Ending_TurnOnPPU
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 WaitForNMI_Ending:
       LDA     ScreenUpdateIndex
@@ -5003,7 +5007,7 @@ WaitForNMI_EndingLoop:
 
 ; ---------------------------------------------------------------------------
 EndingCorkJarRoom:
-	  .BYTE	$20,0,$9E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $20,0,$9E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
       .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
       .BYTE $73,$72,$73
       .BYTE $20,1,$9E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
@@ -5047,10 +5051,10 @@ EndingCorkJarRoom:
       .BYTE $A0,$A0,$A4,$A5,$A0,$A0,$AA,$A,$A,$A,$A,$A,$A,$A,$A
       .BYTE   0
 EndingCelebrationUnusedText_THANK_YOU:
-	  .BYTE $21,$C,9,$ED,$E1,$DA,$E7,$E4,$FB,$F2,$E8,$EE
+      .BYTE $21,$C,9,$ED,$E1,$DA,$E7,$E4,$FB,$F2,$E8,$EE
       .BYTE   0
 unk_BANK1_A3FF:
-	  .BYTE $30 
+      .BYTE $30
       .BYTE $80
       .BYTE $80
       .BYTE $80
@@ -5061,7 +5065,7 @@ unk_BANK1_A3FF:
       .BYTE $80
       .BYTE $80
 byte_BANK1_A409:
-	  .BYTE $B0
+      .BYTE $B0
 
       .BYTE $A0
       .BYTE $A0
@@ -5073,7 +5077,7 @@ byte_BANK1_A409:
       .BYTE $A0
       .BYTE $95
 byte_BANK1_A413:
-	  .BYTE $10
+      .BYTE $10
 
       .BYTE $F4
       .BYTE $C
@@ -5085,7 +5089,7 @@ byte_BANK1_A413:
       .BYTE 8
       .BYTE 0
 byte_BANK1_A41D:
-	  .BYTE 0
+      .BYTE 0
 
       .BYTE $C4
       .BYTE $C4
@@ -5097,7 +5101,7 @@ byte_BANK1_A41D:
       .BYTE $A0
       .BYTE 0
 byte_BANK1_A427:
-	  .BYTE 0
+      .BYTE 0
 
       .BYTE $F0
       .BYTE $E0
@@ -5109,10 +5113,10 @@ byte_BANK1_A427:
       .BYTE $20
       .BYTE 0
 byte_BANK1_A431:
-	  .BYTE 0
+      .BYTE 0
 
 byte_BANK1_A432:
-	  .BYTE $21
+      .BYTE $21
 
       .BYTE $61
       .BYTE $21
@@ -5123,7 +5127,7 @@ byte_BANK1_A432:
       .BYTE $61
       .BYTE $22
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_A43B:
       JSR     WaitForNMI_Ending_TurnOffPPU
@@ -5212,10 +5216,10 @@ loc_BANK1_A4B8:
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_A4C0:
-      LDA     byte_RAM_84
+      LDA     PlayerWalkFrameCounter
       BEQ     loc_BANK1_A4C6
 
-      DEC     byte_RAM_84
+      DEC     PlayerWalkFrameCounter
 
 loc_BANK1_A4C6:
       LDA     PlayerStateTimer
@@ -5242,7 +5246,7 @@ loc_BANK1_A4CC:
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_A4E8:
-      JSR     sub_BANK0_8D6F
+      JSR     PlayerWalkJumpAnim
 
       JSR     sub_BANK0_8A50
 
@@ -5263,7 +5267,7 @@ loc_BANK1_A4FC:
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_A504:
-      JSR     sub_BANK0_8D6F
+      JSR     PlayerWalkJumpAnim
 
 loc_BANK1_A507:
       JSR     sub_BANK0_8A50
@@ -5302,7 +5306,7 @@ locret_BANK1_A52F:
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_A530:
-      JSR     sub_BANK0_8D6F
+      JSR     PlayerWalkJumpAnim
 
       JSR     sub_BANK0_8A50
 
@@ -5322,12 +5326,12 @@ loc_BANK1_A530:
 
 ; ---------------------------------------------------------------------------
 byte_BANK1_A54D:
-	  .BYTE $14
+      .BYTE $14
 
       .BYTE  $A
       .BYTE $14
 byte_BANK1_A550:
-	  .BYTE $A
+      .BYTE $A
 
       .BYTE $1C
       .BYTE $1B
@@ -5373,7 +5377,7 @@ loc_BANK1_A578:
 loc_BANK1_A57B:
       JSR     sub_BANK1_A596
 
-      JSR     sub_BANK0_8D6F
+      JSR     PlayerWalkJumpAnim
 
       JSR     sub_BANK0_8EA4
 
@@ -5393,12 +5397,12 @@ locret_BANK1_A591:
 
 ; ---------------------------------------------------------------------------
 unk_BANK1_A592:
-	  .BYTE   4
+      .BYTE   4
       .BYTE   4
       .BYTE 4
       .BYTE   1
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_A596:
       LDY     CurrentCharacter
@@ -5410,7 +5414,7 @@ sub_BANK1_A596:
 
 ; End of function sub_BANK1_A596
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_A5A1:
       LDX     #7
@@ -5460,7 +5464,7 @@ loc_BANK1_A5D8:
 
 ; End of function sub_BANK1_A5A1
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_A5DE:
       LDA     #4
@@ -5493,17 +5497,17 @@ locret_BANK1_A5FE:
 
 ; ---------------------------------------------------------------------------
 byte_BANK1_A5FF:
-	  .BYTE $E8
+      .BYTE $E8
 
 byte_BANK1_A600:
-	  .BYTE $EA
+      .BYTE $EA
 
       .BYTE $EC
       .BYTE $EE
       .BYTE $61
       .BYTE $63
 byte_BANK1_A605:
-	  .BYTE $30
+      .BYTE $30
 
       .BYTE $38
       .BYTE $40
@@ -5514,7 +5518,7 @@ byte_BANK1_A605:
       .BYTE $68
       .BYTE 0
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_A60E:
       LDY     byte_BANK1_A605,X
@@ -5552,7 +5556,7 @@ loc_BANK1_A646:
 
 ; ---------------------------------------------------------------------------
 EndingCelebrationCeilingTextAndPodium:
-	  .BYTE $20,0,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
+      .BYTE $20,0,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
       .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
       .BYTE $81,$80,$81,$80,$81			  ; $1E
       .BYTE $20,$20,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
@@ -5564,42 +5568,42 @@ EndingCelebrationCeilingTextAndPodium:
       .BYTE $20,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
       .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
       .BYTE $80,$81,$80,$81,$80			  ; $1E
-      .BYTE $20,$88,1,$5A			  
-      .BYTE $20,$89,$4E,$9A			  
-      .BYTE $20,$97,1,$5C			  
-      .BYTE $20,$A8,$C3,$9B			  
-      .BYTE $20,$B7,$C3,$9B			  
-      .BYTE $21,8,1,$5B				  
-      .BYTE $21,9,$4E,$9A			  
-      .BYTE $21,$17,1,$5D			  
+      .BYTE $20,$88,1,$5A
+      .BYTE $20,$89,$4E,$9A
+      .BYTE $20,$97,1,$5C
+      .BYTE $20,$A8,$C3,$9B
+      .BYTE $20,$B7,$C3,$9B
+      .BYTE $21,8,1,$5B
+      .BYTE $21,9,$4E,$9A
+      .BYTE $21,$17,1,$5D
       .BYTE $20,$AB,$B,$DC,$E8,$E7,$ED,$EB,$E2,$DB,$EE,$ED,$E8,$EB
-      .BYTE $20,$E3,4,$40,$42,$44,$46		  
-      .BYTE $20,$F9,4,$40,$42,$44,$46		  
-      .BYTE $21,$23,$C9,$48			  
-      .BYTE $21,$24,$C9,$49			  
-      .BYTE $21,$25,$C9,$4A			  
-      .BYTE $21,$26,$C9,$4B			  
-      .BYTE $22,$43,4,$4C,$4D,$4E,$4F		  
-      .BYTE $21,3,4,$41,$43,$45,$47		  
-      .BYTE $21,$19,4,$41,$43,$45,$47		  
-      .BYTE $21,$39,$C9,$48			  
-      .BYTE $21,$3A,$C9,$49			  
-      .BYTE $21,$3B,$C9,$4A			  
-      .BYTE $21,$3C,$C9,$4B			  
-      .BYTE $22,$59,4,$4C,$4D,$4E,$4F		  
-      .BYTE $21,$CA,$4C,$54			  
-      .BYTE $21,$EA,$4C,$55			  
+      .BYTE $20,$E3,4,$40,$42,$44,$46
+      .BYTE $20,$F9,4,$40,$42,$44,$46
+      .BYTE $21,$23,$C9,$48
+      .BYTE $21,$24,$C9,$49
+      .BYTE $21,$25,$C9,$4A
+      .BYTE $21,$26,$C9,$4B
+      .BYTE $22,$43,4,$4C,$4D,$4E,$4F
+      .BYTE $21,3,4,$41,$43,$45,$47
+      .BYTE $21,$19,4,$41,$43,$45,$47
+      .BYTE $21,$39,$C9,$48
+      .BYTE $21,$3A,$C9,$49
+      .BYTE $21,$3B,$C9,$4A
+      .BYTE $21,$3C,$C9,$4B
+      .BYTE $22,$59,4,$4C,$4D,$4E,$4F
+      .BYTE $21,$CA,$4C,$54
+      .BYTE $21,$EA,$4C,$55
       .BYTE $22,$B,$A,$50,$52,$50,$52,$50,$52,$50,$52,$50,$52
       .BYTE $22,$2B,$A,$51,$53,$51,$53,$51,$53,$51,$53,$51,$53
-      .BYTE $22,$4C,2,$3A,$3B			  
-      .BYTE $22,$6C,$C5,$3C			  
-      .BYTE $22,$6D,$C5,$3D			  
-      .BYTE $22,$52,2,$3A,$3B			  
-      .BYTE $22,$72,$C5,$3C			  
-      .BYTE $22,$73,$C5,$3D			  
+      .BYTE $22,$4C,2,$3A,$3B
+      .BYTE $22,$6C,$C5,$3C
+      .BYTE $22,$6D,$C5,$3D
+      .BYTE $22,$52,2,$3A,$3B
+      .BYTE $22,$72,$C5,$3C
+      .BYTE $22,$73,$C5,$3D
       .BYTE 0
 EndingCelebrationFloorAndSubconParade:
-	  .BYTE $23,0,$20,0,2,8,$A,$C,$E,4,6,8,$A,4,6,$C,$E,4,6,8,$A,0,2,$C
+      .BYTE $23,0,$20,0,2,8,$A,$C,$E,4,6,8,$A,4,6,$C,$E,4,6,8,$A,0,2,$C
       .BYTE $E,$C,$E,0,2,4,6,4,6,8,$A		  ; $18
       .BYTE $23,$20,$20,1,3,9,$B,$D,$F,5,7,9,$B,5,7,$D,$F,5,7,9,$B,1,3
       .BYTE $D,$F,$D,$F,1,3,5,7,5,7,9,$B	  ; $17
@@ -5633,18 +5637,18 @@ EndingCelebrationFloorAndSubconParade:
       .BYTE $27,$A0,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
       .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
       .BYTE $80,$81,$80,$81,$80			  ; $1E
-      .BYTE $23,$C0,$48,$AA			  
+      .BYTE $23,$C0,$48,$AA
       .BYTE $23,$C8,8,$15,5,$FF,$FF,$FF,$FF,$15,$45
       .BYTE $23,$D0,$20,$31,0,$FF,$FF,$FF,$FF,0,$44,$33,0,$A6,$A5,$A5
       .BYTE $A6,0,$44,$F3,$F0,$59,$AA,$AA,$96,$F0,$74,$DD,$FF,$55,$AA; $10
       .BYTE $AA,$95,$55,$55			  ; $1F
-      .BYTE $23,$F0,$48,$A5			  
-      .BYTE $23,$F8,$48,$A			  
-      .BYTE $27,$F0,$48,$A5			  
-      .BYTE $27,$F8,$48,$A			  
+      .BYTE $23,$F0,$48,$A5
+      .BYTE $23,$F8,$48,$A
+      .BYTE $27,$F0,$48,$A5
+      .BYTE $27,$F8,$48,$A
       .BYTE 0
 EndingCelebrationSubconStandStill:
-	  .BYTE	$23,0,$20,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72
+      .BYTE $23,0,$20,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72
       .BYTE $70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70; $F
       .BYTE $72,$70,$72,$70,$72			  ; $1E
       .BYTE $23,$20,$20,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73
@@ -5652,9 +5656,9 @@ EndingCelebrationSubconStandStill:
       .BYTE $73,$71,$73,$71,$73			  ; $1E
       .BYTE 0
 EndingCelebrationUnusedText_THE_END:
-	  .BYTE $21,$AC,7,$ED,$E1,$DE,$FB,$DE,$E7,$DD,0
+      .BYTE $21,$AC,7,$ED,$E1,$DE,$FB,$DE,$E7,$DD,0
 EndingCelebrationPaletteFade1:
-	  .BYTE $3F,0,$20,1				  
+      .BYTE $3F,0,$20,1
       .BYTE $30,$21,$F,1			  ; 4
       .BYTE $30,$16,$F,1			  ; 8
       .BYTE $28,$18,$F,1			  ; $C
@@ -5664,7 +5668,7 @@ EndingCelebrationPaletteFade1:
       .BYTE $27,$30,$F,1			  ; $1C
       .BYTE $36,$25,$F,0			  ; $20
 EndingCelebrationPaletteFade2:
-	  .BYTE $3F,0,$20,$F			  
+      .BYTE $3F,0,$20,$F
       .BYTE $10,0,$F,$F				  ; 4
       .BYTE $10,0,$F,$F				  ; 8
       .BYTE $10,0,$F,$F				  ; $C
@@ -5674,7 +5678,7 @@ EndingCelebrationPaletteFade2:
       .BYTE $10,0,$F,$F				  ; $1C
       .BYTE $10,0,$F,0				  ; $20
 EndingCelebrationPaletteFade3:
-	  .BYTE $3F,0,$20,$F			  
+      .BYTE $3F,0,$20,$F
       .BYTE 0,$F,$F,$F				  ; 4
       .BYTE 0,$F,$F,$F				  ; 8
       .BYTE 0,$F,$F,$F				  ; $C
@@ -5684,13 +5688,13 @@ EndingCelebrationPaletteFade3:
       .BYTE 0,$F,$F,$F				  ; $1C
       .BYTE 0,$F,$F,0				  ; $20
 byte_BANK1_AA32:
-	  .BYTE EndingUpdateBuffer_PaletteFade1	    
+      .BYTE EndingUpdateBuffer_PaletteFade1
       .BYTE EndingUpdateBuffer_PaletteFade2	  ; 1 ;	@TODO This seems wrong,	somehow
       .BYTE EndingUpdateBuffer_PaletteFade3	  ; 2
 byte_BANK1_AA35:
-	  .BYTE $8C,$FC,$20,$94			    
+      .BYTE $8C,$FC,$20,$94
 byte_BANK1_AA39:
-	  .BYTE $4F,$61,$20,$50			    
+      .BYTE $4F,$61,$20,$50
       .BYTE $4F,$63,$20,$58			  ; 4
       .BYTE $5F,$65,$20,$50			  ; 8
       .BYTE $5F,$67,$20,$58			  ; $C
@@ -5707,7 +5711,7 @@ byte_BANK1_AA39:
       .BYTE $5F,$8F,$23,$A0			  ; $38
       .BYTE $5F,$91,$23,$A8			  ; $3C
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_AA79:
       JSR     WaitForNMI_Ending_TurnOffPPU
@@ -5905,7 +5909,7 @@ loc_BANK1_AB80:
 
 ; End of function sub_BANK1_AA79
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_AB90:
       LDA     byte_RAM_10
@@ -5948,7 +5952,7 @@ loc_BANK1_ABA7:
       INC     byte_RAM_E6
       RTS
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_ABBC:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
@@ -5980,7 +5984,7 @@ loc_BANK1_ABCC:
       .WORD loc_BANK1_AC0A
       .WORD loc_BANK1_AC87
 byte_BANK1_ABDA:
-	  .BYTE $C0
+      .BYTE $C0
 
       .BYTE $C8
       .BYTE $B8
@@ -5988,7 +5992,7 @@ byte_BANK1_ABDA:
       .BYTE $C8
       .BYTE $C0
 byte_BANK1_ABE0:
-	  .BYTE $C0
+      .BYTE $C0
 
       .BYTE 8
       .BYTE $E0
@@ -5996,7 +6000,7 @@ byte_BANK1_ABE0:
       .BYTE $D0
       .BYTE $E8
 byte_BANK1_ABE6:
-	  .BYTE $11
+      .BYTE $11
 
       .BYTE $13
       .BYTE $19
@@ -6010,7 +6014,7 @@ byte_BANK1_ABE6:
       .BYTE $25
       .BYTE $27
 byte_BANK1_ABF2:
-	  .BYTE 0
+      .BYTE 0
 
       .BYTE 8
       .BYTE $10
@@ -6024,7 +6028,7 @@ byte_BANK1_ABF2:
       .BYTE $20
       .BYTE $28
 byte_BANK1_ABFE:
-	  .BYTE 0
+      .BYTE 0
 
       .BYTE 0
       .BYTE 0
@@ -6051,7 +6055,7 @@ loc_BANK1_AC0A:
       BCC     loc_BANK1_AC37
 
 IFDEF COMPATIBILITY
-	  .db $ee, $e6, $00 ; INC $00E6
+      .db $ee, $e6, $00 ; INC $00E6
 ENDIF
 IFNDEF COMPATIBILITY
       INC     byte_RAM_E6			  ; Absolute address for zero-page
@@ -6129,7 +6133,7 @@ loc_BANK1_AC73:
 
 ; ---------------------------------------------------------------------------
 byte_BANK1_AC7B:
-	  .BYTE $39
+      .BYTE $39
 
       .BYTE $35
       .BYTE $37
@@ -6137,7 +6141,7 @@ byte_BANK1_AC7B:
       .BYTE $37
       .BYTE $39
 byte_BANK1_AC81:
-	  .BYTE 0
+      .BYTE 0
 
       .BYTE 6
       .BYTE 3
@@ -6162,7 +6166,7 @@ loc_BANK1_AC8B:
       LDA     #$DA
       STA     ObjectYAccel+6
 IFDEF COMPATIBILITY
-	  .db $ee, $e6, $00 ; INC $00E6
+      .db $ee, $e6, $00 ; INC $00E6
 ENDIF
 IFNDEF COMPATIBILITY
       INC     byte_RAM_E6			  ; Absolute address for zero-page
@@ -6223,7 +6227,7 @@ loc_BANK1_ACD6:
 
 ; ---------------------------------------------------------------------------
 byte_BANK1_ACE8:
-	  .BYTE $61
+      .BYTE $61
 
       .BYTE $61
       .BYTE $63
@@ -6257,19 +6261,19 @@ byte_BANK1_ACE8:
       .BYTE $91
       .BYTE $91
 byte_BANK1_AD08:
-	  .BYTE 6
+      .BYTE 6
 
       .BYTE $E
       .BYTE $16
       .BYTE $1E
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_AD0C:
-      INC     byte_RAM_9B
+      INC     PlayerWalkFrame
       LDA     #3
       STA     byte_RAM_0
-      LDA     byte_RAM_9B
+      LDA     PlayerWalkFrame
       STA     byte_RAM_1
       LDY     #$3C
 
@@ -6307,7 +6311,7 @@ loc_BANK1_AD2B:
 
 ; End of function sub_BANK1_AD0C
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 Ending_GetContributor:
       LDA     #0
@@ -6415,7 +6419,7 @@ loc_BANK1_ADB0:
 
 ; End of function Ending_GetContributor
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_ADF1:
       DEC     byte_RAM_5C4
@@ -6428,7 +6432,7 @@ sub_BANK1_ADF1:
       CLC
       ADC     #9
 IFDEF COMPATIBILITY
-	  .db $8d, $11, $00 ; STA $0011
+      .db $8d, $11, $00 ; STA $0011
 ENDIF
 IFNDEF COMPATIBILITY
       STA     ScreenUpdateIndex			  ; Absolute address for zero-page
@@ -6448,19 +6452,19 @@ locret_BANK1_AE12:
 
 ; ---------------------------------------------------------------------------
 EndingCelebrationText_MARIO:
-	  .BYTE $20,$ED,8,$E6,$DA,$EB,$E2,$E8,$FB,$FB,$FB
+      .BYTE $20,$ED,8,$E6,$DA,$EB,$E2,$E8,$FB,$FB,$FB
       .BYTE   0
 EndingCelebrationText_PRINCESS:
-	  .BYTE $20,$ED,8,$E9,$EB,$E2,$E7,$DC,$DE,$EC,$EC
+      .BYTE $20,$ED,8,$E9,$EB,$E2,$E7,$DC,$DE,$EC,$EC
       .BYTE   0
 EndingCelebrationText_TOAD:
-	  .BYTE $20,$ED,8,$ED,$E8,$DA,$DD,$FB,$FB,$FB,$FB
+      .BYTE $20,$ED,8,$ED,$E8,$DA,$DD,$FB,$FB,$FB,$FB
       .BYTE   0
 EndingCelebrationText_LUIGI:
-	  .BYTE $20,$ED,8,$E5,$EE,$E2,$E0,$E2,$FB,$FB,$FB
+      .BYTE $20,$ED,8,$E5,$EE,$E2,$E0,$E2,$FB,$FB,$FB
       .BYTE   0
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_AE43:
       LDY     #$D0
@@ -6499,7 +6503,7 @@ ENDIF
 
 ; [00000AA6 BYTES: END OF AREA UNUSED-BANK1:AE5A. PRESS	KEYPAD "-" TO COLLAPSE]
 MysteryCharacterData3900:
-	  .BYTE $FB ; û		  ; @TODO ??? Not sure what this is
+      .BYTE $FB ; ï¿½		  ; @TODO ??? Not sure what this is
       .BYTE $FF
       .BYTE   0
       .BYTE   8
@@ -6507,7 +6511,7 @@ MysteryCharacterData3900:
       .BYTE $18
       .BYTE $1A
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_B907:
       TXA
@@ -6517,7 +6521,7 @@ sub_BANK1_B907:
 
 ; End of function sub_BANK1_B907
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_B90C:
       LDA     ObjectXAccel,X
@@ -6565,7 +6569,7 @@ loc_BANK1_B92C:
 
 ; End of function sub_BANK1_B90C
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_B948:
       LDA     EnemyArray_44A,X
@@ -6591,7 +6595,7 @@ locret_BANK1_B95F:
 
 ; End of function sub_BANK1_B948
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_B960:
       LDA     #1
@@ -6657,7 +6661,7 @@ loc_BANK1_B9B6:
 
 ; End of function sub_BANK1_B960
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 CreateStarman:
       JSR     CreateEnemy_Bank1
@@ -6688,7 +6692,7 @@ locret_BANK1_B9E2:
 
 ; End of function CreateStarman
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 EnemyInit_Basic_Bank1:
       LDA     #0
@@ -6730,7 +6734,7 @@ loc_BANK1_BA17:
 
 ; End of function EnemyInit_Basic_Bank1
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_BA33:
       LDA     ObjectAttributes,X
@@ -6747,7 +6751,7 @@ sub_BANK1_BA33:
 
 ; End of function sub_BANK1_BA33
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_BA48:
       LDA     #$FF
@@ -6756,7 +6760,7 @@ sub_BANK1_BA48:
 
 ; End of function sub_BANK1_BA48
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_BA4E:
       LDX     byte_RAM_E8
@@ -6772,7 +6776,7 @@ sub_BANK1_BA4E:
 
 ; ---------------------------------------------------------------------------
 byte_BANK1_BA5B:
-	  .BYTE 0
+      .BYTE 0
 
       .BYTE $F0
       .BYTE $E0
@@ -6785,7 +6789,7 @@ byte_BANK1_BA5B:
       .BYTE $70
       .BYTE 0
 byte_BANK1_BA66:
-	  .BYTE $60
+      .BYTE $60
 
       .BYTE $60
       .BYTE $61
@@ -6798,7 +6802,7 @@ byte_BANK1_BA66:
       .BYTE $68
       .BYTE 7
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_BA71:
       LDA     byte_BANK1_BA5B,X
@@ -6809,7 +6813,7 @@ sub_BANK1_BA71:
 
 ; End of function sub_BANK1_BA71
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_BA7C:
       LDA     #1
@@ -6869,7 +6873,7 @@ loc_BANK1_BABC:
 
 ; End of function sub_BANK1_BA7C
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK1_BABF:
       LDA     DamageInvulnTime
@@ -6936,7 +6940,7 @@ loc_BANK1_BB0B:
       STA     EnemyState,X
       RTS
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 ; Creates a generic red	Shyguy enemy and
 ; does some basic initialization for it.

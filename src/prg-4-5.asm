@@ -2,7 +2,7 @@
       ;.segment	BANK4
 ;       *	=  $8000
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 StartProcessingSoundQueue:
       LDA     #$FF
@@ -103,7 +103,7 @@ loc_BANK4_806B:
 loc_BANK4_8076:
       BNE     loc_BANK4_80D3
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 ProcessSoundEffectQueue2:
       LDA     byte_RAM_60D
@@ -240,10 +240,10 @@ loc_BANK4_8117:
 
 ; ---------------------------------------------------------------------------
 MushroomSoundData:
-	  .BYTE	$6A, $74, $6A, $64, $5C, $52, $5C, $52,	$4C, $44, $66, $70, $66, $60, $58, $4E
+      .BYTE $6A, $74, $6A, $64, $5C, $52, $5C, $52,	$4C, $44, $66, $70, $66, $60, $58, $4E
       .BYTE $58, $4E, $48, $40,	$56, $60, $56, $50, $48, $3E, $48, $3E,	$38, $30; $10
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 ProcessSoundEffectQueue1:
       LDA     SoundEffect1Queue
@@ -317,7 +317,7 @@ locret_BANK4_818E:
 
 ; ---------------------------------------------------------------------------
 SoundEffectPointers:
-	  .BYTE $4E, 8, $6D, $27, $D7, $74, $8B, $A5
+      .BYTE $4E, 8, $6D, $27, $D7, $74, $8B, $A5
 						  ; Relative pointers to the below sound effect	data.
 						  ; If you want	to edit	this easier, or	once the main
 						  ; part of disassembling is done, replace this	with:
@@ -334,34 +334,34 @@ SoundEffectPointers:
 						  ; .BYTE <(SoundEffect1Data_StopwatchTick - tmp)
 						  ; .BYTE <(SoundEffect1Data_HawkOpen_WartBarf - tmp)
 SoundEffect1Data_PotionDoorBong:
-	  .BYTE $9F, $10,	$E, $C,	$7E, $7E, $7E, $10, $E,	$C, $7E, $7E, $7E
+      .BYTE $9F, $10,	$E, $C,	$7E, $7E, $7E, $10, $E,	$C, $7E, $7E, $7E
       .BYTE $86, $10, $E, $C, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E
       .BYTE $7E, $7E, $7E, $7E,	0
 SoundEffect1Data_ThrowItem:
-	  .BYTE $9F, $64, $7E,	$7E, $9E, $68, $7E, $7E, $9D, $6A, $7E,	$7E
+      .BYTE $9F, $64, $7E,	$7E, $9E, $68, $7E, $7E, $9D, $6A, $7E,	$7E
       .BYTE $9C, $6E, $7E, $7E,	$9B, $72, $7E, $7E, $9A, $76, $7E, $7E
       .BYTE $84, $78, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
       .BYTE $7E, $7E, 0
 SoundEffect1Data_BirdoShot:
-	  .BYTE $9F, $30, $34,	$36, $38, $9F, $3C, $3E, $40, $42, $9A,	$3A
+      .BYTE $9F, $30, $34,	$36, $38, $9F, $3C, $3E, $40, $42, $9A,	$3A
       .BYTE $3C, $3E, $40, $9C,	$38, $3A, $3C, $3E, $96, $36, $38, $3A
       .BYTE $3C, $98, $34, $36,	$38, $36, 0
 SoundEffect1Data_CherryGet:
-	  .BYTE $81, $56, $7E,	$64, $7E, $68, 0
+      .BYTE $81, $56, $7E,	$64, $7E, $68, 0
 SoundEffect1Data_EnemyHit:
-	  .BYTE	$99, $18, $1A, $18, $1C, $18, $1A, $9B,	$18, $1C, $18, $20
+      .BYTE $99, $18, $1A, $18, $1C, $18, $1A, $9B,	$18, $1C, $18, $20
       .BYTE $18, $22, $9F, $18,	$3C, $24, $30, $3C, $18, $30, 0
 SoundEffect1Data_StopwatchTick:
-	  .BYTE $80, $68, $7E, $7E, $7E, $7E, $7E,	$7E, $7E, $7E, $60, $7E
+      .BYTE $80, $68, $7E, $7E, $7E, $7E, $7E,	$7E, $7E, $7E, $60, $7E
       .BYTE $7E, $64, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $56, $7E
       .BYTE $7E, 0
 SoundEffect1Data_HawkOpen_WartBarf:
-	  .BYTE $80, $1E, $1C,	$1E, $1A, $18, $16, $1C, $18, $1A, $1E,	$18
+      .BYTE $80, $1E, $1C,	$1E, $1A, $18, $16, $1C, $18, $1A, $1E,	$18
       .BYTE $16, $14, $12, $14,	$16, $14, $12, $2C, $2C, $2A, $2E, $2C
       .BYTE $2A, $28, $26, $28,	$24, $22, $20, $1E, $1C, $1A, $18, $16
       .BYTE $14, $14, $12, $10,	$E, $C,	$A, 8, 8, 6, 4,	2, 2, 0
 SoundEffect1Data_HawkOpen_1UP:
-	  .BYTE $81, $5E, $7E, $7E,	$7E, $7E, $7E, $7E, $64, $7E, $7E, $7E
+      .BYTE $81, $5E, $7E, $7E,	$7E, $7E, $7E, $7E, $64, $7E, $7E, $7E
       .BYTE $7E, $7E, $7E, $76,	$7E, $7E, $7E, $7E, $7E, $7E, $6E, $7E
       .BYTE $7E, $7E, $7E, $7E,	$7E, $72, $7E, $7E, $7E, $7E, $7E, $7E
       .BYTE $7C, $7E, $7E, 0
@@ -379,7 +379,7 @@ loc_BANK4_8293:
       STA     NOISE_HI
       BNE     loc_BANK4_82E8
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 ProcessSoundEffectQueue3:
       LDY     SoundEffectQueue3
@@ -446,7 +446,7 @@ locret_BANK4_82FC:
 
 ; End of function ProcessSoundEffectQueue3
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 ProcessDPCMQueue:
       LDA     DPCMQueue
@@ -500,7 +500,7 @@ loc_BANK4_8326:
 
 ; ---------------------------------------------------------------------------
 DMCStartTable:
-	  .BYTE $4F
+      .BYTE $4F
 						  ; @TODO
 						  ; It seems that the references to these tables are off by one	byte, maybe intentionally?
 						  ; Need to fix	this in	the final disassembly
@@ -512,7 +512,7 @@ DMCStartTable:
       .BYTE $E
       .BYTE $1D
 DMCLengthTable:
-	  .BYTE $43
+      .BYTE $43
 
       .BYTE $14
       .BYTE $10
@@ -522,7 +522,7 @@ DMCLengthTable:
       .BYTE $3C
       .BYTE $50
 DMCFreqTable:
-	  .BYTE $E
+      .BYTE $E
 
       .BYTE $E
       .BYTE $F
@@ -542,7 +542,7 @@ loc_BANK4_835B:
 loc_BANK4_835E:
       JMP     StopMusic
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 ProcessMusicQueue2:
       LDA     MusicQueue2
@@ -1004,11 +1004,11 @@ loc_BANK4_8614:
 
 ; ---------------------------------------------------------------------------
 NoiseVolTable:
-	  .BYTE $10,$1E,$1F,$16			  
+      .BYTE $10,$1E,$1F,$16
 NoiseLoTable:
-	  .BYTE 0,3,$A,2				 
+      .BYTE 0,3,$A,2
 NoiseHiTable:
-	  .BYTE 0,$18,$18,$58			 ; =============== S U B	R O U T	I N E =======================================
+      .BYTE 0,$18,$18,$58			 ; =============== S U B	R O U T I N E =======================================
 
 sub_BANK4_8629:
       AND     #$F
@@ -1020,7 +1020,7 @@ sub_BANK4_8629:
 
 ; End of function sub_BANK4_8629
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK4_8634:
       CMP     #$13
@@ -1039,7 +1039,7 @@ loc_BANK4_863E:
 
 ; End of function sub_BANK4_8634
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK4_8643:
       CPX     #$90
@@ -1167,7 +1167,7 @@ locret_BANK4_86B9:
 
 ; End of function sub_BANK4_8643
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK4_86BA:
       STY     SQ1_SWEEP
@@ -1176,7 +1176,7 @@ sub_BANK4_86BA:
 
 ; End of function sub_BANK4_86BA
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK4_86C1:
       STX     SQ2_VOL
@@ -1185,7 +1185,7 @@ sub_BANK4_86C1:
 
 ; End of function sub_BANK4_86C1
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK4_86C8:
       STX     SQ1_VOL
@@ -1193,7 +1193,7 @@ sub_BANK4_86C8:
 
 ; End of function sub_BANK4_86C8
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK4_86CE:
       LDX     #0
@@ -1282,7 +1282,7 @@ loc_BANK4_8727:
       STX     SQ2_VOL
       STY     SQ2_SWEEP
 
-; =============== S U B	R O U T	I N E =======================================
+; =============== S U B	R O U T I N E =======================================
 
 sub_BANK4_873F:
       LDX     #4
@@ -1296,7 +1296,7 @@ loc_BANK4_8743:
 
 ; ---------------------------------------------------------------------------
 NoteFrequencyData:
-	  .WORD	$1AB8				      ; C
+      .WORD	$1AB8				      ; C
       .WORD $1938				  ; C# / Db
       .WORD $17CC				  ; D
       .WORD $1678				  ; D# / Eb
@@ -1320,7 +1320,7 @@ ENDIF
 
 ; [000007A1 BYTES: END OF AREA UNUSED-BANK4:875F. PRESS	KEYPAD "-" TO COLLAPSE]
 NoteLengthTable:
-	  .BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5
+      .BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5
       .BYTE 4, 7, $A, 9, $A, $E, $15, $1C, $2A,	$38, $B, 4, 4, 5, 6, 8;	$10
       .BYTE $C,	$B, $A,	$10, $18, $20, $30, $40, 4, 5, 6, 6, 9,	$D, $C,	$C; $20
       .BYTE $12, $1B, $24, $36,	$48, $E, 3, 5, 5, 7, 6,	$A, $F,	$D, $E,	$14; $30
@@ -1343,7 +1343,7 @@ ENDIF
 
 
 MusicPartPointers:
-	  .BYTE	$99,$8E,$84,$A4,$89,$84,$99
+      .BYTE $99,$8E,$84,$A4,$89,$84,$99
       .BYTE $2A,$30,$36,$30,$3C,$42,$A9
       .BYTE $9E,$93,$48,$4E,$54,$5A,$54
       .BYTE $60,$66,$72,$78,$7E,$B5,$AF
@@ -1505,7 +1505,7 @@ MusicPartPointers:
       .BYTE $95
       .BYTE $24
       .BYTE $12
-      .BYTE $30	
+      .BYTE $30
       .BYTE $28
       .BYTE $E0
       .BYTE $95
@@ -1555,7 +1555,7 @@ MusicPartPointers:
       .BYTE $72
       .BYTE 0
 MusicPointersFirstPart:
-	  .BYTE $10
+      .BYTE $10
 
       .BYTE 7
       .BYTE $29
@@ -1566,7 +1566,7 @@ MusicPointersFirstPart:
       .BYTE $1A
       .BYTE $23
 MusicPointersEndPart:
-	  .BYTE $16
+      .BYTE $16
 
       .BYTE $F
       .BYTE $29
@@ -1577,7 +1577,7 @@ MusicPointersEndPart:
       .BYTE $1D
       .BYTE $28
 MusicPointersLoopPart:
-	  .BYTE $11
+      .BYTE $11
 
       .BYTE 8
       .BYTE $29
@@ -1588,7 +1588,7 @@ MusicPointersLoopPart:
       .BYTE 0
       .BYTE $28
 MusicData:
-	  .BYTE	$8A
+      .BYTE $8A
       .BYTE $50
       .BYTE $84
       .BYTE $7E
@@ -2695,14 +2695,14 @@ MusicData:
       .BYTE $30
       .BYTE $26
       .BYTE $98
-      .BYTE $30	
+      .BYTE $30
       .BYTE $34	; 4
       .BYTE $94
       .BYTE $32	; 2
       .BYTE $98
-      .BYTE $30	
+      .BYTE $30
       .BYTE $96
-      .BYTE $30	
+      .BYTE $30
       .BYTE $3E
       .BYTE $46
       .BYTE $98
@@ -2778,11 +2778,11 @@ MusicData:
       .BYTE $3A
       .BYTE $3E
       .BYTE $7E
-      .BYTE $30	
+      .BYTE $30
       .BYTE $38	; 8
       .BYTE $3A
       .BYTE $99
-      .BYTE $30	
+      .BYTE $30
       .BYTE $3E
       .BYTE $98
       .BYTE $48
@@ -2841,7 +2841,7 @@ MusicData:
       .BYTE $99
       .BYTE $7E
       .BYTE $99
-      .BYTE $30	
+      .BYTE $30
       .BYTE $38	; 8
       .BYTE $94
       .BYTE $3E
@@ -2877,7 +2877,7 @@ MusicData:
       .BYTE $38	; 8
       .BYTE $7E
       .BYTE $98
-      .BYTE $30	
+      .BYTE $30
       .BYTE $99
       .BYTE $40
       .BYTE $44
@@ -2886,7 +2886,7 @@ MusicData:
       .BYTE $3E
       .BYTE $98
       .BYTE $3E
-      .BYTE $30	
+      .BYTE $30
       .BYTE $98
       .BYTE   4
       .BYTE $92
@@ -5625,21 +5625,21 @@ MusicData:
       .BYTE $26
       .BYTE $2A
       .BYTE $98
-      .BYTE $30	
+      .BYTE $30
       .BYTE $26
-      .BYTE $30	
+      .BYTE $30
       .BYTE   0
       .BYTE $98
       .BYTE $7E
       .BYTE $94
-      .BYTE $30	
+      .BYTE $30
       .BYTE $98
       .BYTE $7E
       .BYTE $94
-      .BYTE $30	
+      .BYTE $30
       .BYTE $98
       .BYTE $7E
-      .BYTE $30	
+      .BYTE $30
       .BYTE $3A
       .BYTE $38	; 8
       .BYTE $88
@@ -5648,9 +5648,9 @@ MusicData:
       .BYTE $60
       .BYTE $48
       .BYTE $88
-      .BYTE $30	
+      .BYTE $30
       .BYTE $3E
-      .BYTE $30	
+      .BYTE $30
       .BYTE $94
       .BYTE $42
       .BYTE $48
@@ -5807,10 +5807,10 @@ MusicData:
       .BYTE $8A
       .BYTE $30
 byte_BANK5_A18D:
-	  .BYTE $90
+      .BYTE $90
 
 InstrumentSoundData:
-	  .BYTE $95			  ; @TODO Should this label be moved up? oops
+      .BYTE $95			  ; @TODO Should this label be moved up? oops
       .BYTE $95
       .BYTE $95
       .BYTE $95
@@ -5874,7 +5874,7 @@ InstrumentSoundData:
       .BYTE $98
       .BYTE $98
 byte_BANK5_A1CD:
-	  .BYTE $90
+      .BYTE $90
 
       .BYTE $92
       .BYTE $94
@@ -5899,7 +5899,7 @@ byte_BANK5_A1CD:
       .BYTE $98
       .BYTE $98
 byte_BANK5_A1E4:
-	  .BYTE $51
+      .BYTE $51
 
       .BYTE $51
       .BYTE $51
@@ -5965,7 +5965,7 @@ byte_BANK5_A1E4:
       .BYTE $5A
       .BYTE $5B
 byte_BANK5_A224:
-	  .BYTE $51
+      .BYTE $51
 
       .BYTE $51
       .BYTE $51
@@ -5990,7 +5990,7 @@ byte_BANK5_A224:
       .BYTE $5A
       .BYTE $5B
 byte_BANK5_A23B:
-	  .BYTE $10
+      .BYTE $10
 
       .BYTE $11
       .BYTE $11
@@ -6056,7 +6056,7 @@ byte_BANK5_A23B:
       .BYTE $1B
       .BYTE $1C
 byte_BANK5_A27B:
-	  .BYTE $10
+      .BYTE $10
 
       .BYTE $11
       .BYTE $12
@@ -6082,7 +6082,7 @@ byte_BANK5_A27B:
       .BYTE $1B
       .BYTE $1C
 byte_BANK5_A293:
-	  .BYTE $51
+      .BYTE $51
 
       .BYTE $52
       .BYTE $52
@@ -6148,7 +6148,7 @@ byte_BANK5_A293:
       .BYTE $56
       .BYTE $56
 byte_BANK5_A2D3:
-	  .BYTE $51
+      .BYTE $51
 
       .BYTE $52
       .BYTE $52
@@ -6173,7 +6173,7 @@ byte_BANK5_A2D3:
       .BYTE $56
       .BYTE $56
 byte_BANK5_A2EA:
-	  .BYTE $51
+      .BYTE $51
 
       .BYTE $52
       .BYTE $53
@@ -6198,7 +6198,7 @@ byte_BANK5_A2EA:
       .BYTE $55
       .BYTE $55
 byte_BANK5_A301:
-	  .BYTE $51
+      .BYTE $51
 
       .BYTE $52
       .BYTE $52
@@ -6264,7 +6264,7 @@ byte_BANK5_A301:
       .BYTE $55
       .BYTE $55
 unk_BANK5_A341:
-	  .BYTE $50
+      .BYTE $50
       .BYTE $50
       .BYTE $50
       .BYTE $50
@@ -6329,7 +6329,7 @@ unk_BANK5_A341:
       .BYTE $DA
       .BYTE $9B
 unk_BANK5_A381:
-	  .BYTE $50
+      .BYTE $50
       .BYTE $51
       .BYTE $51
       .BYTE $51
@@ -6353,7 +6353,7 @@ unk_BANK5_A381:
       .BYTE $DA
       .BYTE $9B
 byte_BANK5_A398:
-	  .BYTE $50
+      .BYTE $50
 
       .BYTE $50
       .BYTE $50
@@ -6378,7 +6378,7 @@ byte_BANK5_A398:
       .BYTE $54
       .BYTE $55
 byte_BANK5_A3AF:
-	  .BYTE $50
+      .BYTE $50
 
       .BYTE $50
       .BYTE $50
