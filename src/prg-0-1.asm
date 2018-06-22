@@ -3110,14 +3110,15 @@ loc_BANK0_8FF8:
 
 ; =============== S U B	R O U T I N E =======================================
 
+; collision detection for vines (and cherries?)
 sub_BANK0_8FFD:
       LDY     byte_BANKF_F00A
+
+      ; byte_RAM_10 seems to be a global counter
+      ; this code increments y every other frame
       LDA     byte_RAM_10
       LSR     A
-
-loc_BANK0_9003:
       BCS     loc_BANK0_9006
-
       INY
 
 loc_BANK0_9006:
@@ -3138,10 +3139,11 @@ loc_BANK0_9006:
       STA     CherryCount
       JSR     CreateStarman
 
+; play sound and clear cherry
 loc_BANK0_9023:
       LDA     #SoundEffect1_CherryGet
       STA     SoundEffect1Queue
-      LDA     #$40
+      LDA     #$40 ; blank tile to replace cherry tile
       JMP     loc_BANK0_937C
 
 ; ---------------------------------------------------------------------------
@@ -3853,6 +3855,7 @@ locret_BANK0_934E:
 
 ; =============== S U B	R O U T I N E =======================================
 
+; replace tile when something is picked up
 sub_BANK0_934F:
       PHA					  ; Something to update	the PPU	for some tile change
       LDA     ObjectXLo,X
@@ -3886,6 +3889,7 @@ loc_BANK0_9365:
       PLA
       BCS     locret_BANK0_934E
 
+; replace tile for cherry
 loc_BANK0_937C:
       STX     byte_RAM_3
       PHA
