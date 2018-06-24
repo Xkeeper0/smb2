@@ -26,7 +26,7 @@ CarryYOffsetSmallHi:
       .BYTE $00; Toad
       .BYTE $FF; Luigi
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8010:
       LDA     byte_RAM_627
@@ -198,7 +198,7 @@ loc_BANK2_8130:
 
 ; End of function sub_BANK2_8010
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8138:
       LDA     byte_RAM_5
@@ -257,7 +257,7 @@ loc_BANK2_816C:
       BNE     loc_BANK2_817F
 
       LDY     #SoundEffect1_StopwatchTick
-      STY     SoundEffect1Queue
+      STY     SoundEffectQueue1
 
 loc_BANK2_817F:
       LSR     A
@@ -363,7 +363,7 @@ loc_BANK2_81FD:
       .WORD sub_BANK2_8208
       .WORD loc_BANK3_B180
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8208:
       LDA     #0
@@ -374,7 +374,7 @@ HandleEnemyState_Inactive:
 
 ; End of function sub_BANK2_8208
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; I am very good at figuring out what things do. Yes.
 
@@ -386,7 +386,7 @@ DoPRNGBullshitProbably:
 
 ; End of function DoPRNGBullshitProbably
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8214:
       LDA     PseudoRNGValues
@@ -471,7 +471,7 @@ loc_BANK2_8264:
       CMP     #$A
       BCS     locret_BANK2_82AB
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_827D:
       LDA     InSubspaceOrJar
@@ -742,79 +742,79 @@ loc_BANK2_83A6:
 
 ; ---------------------------------------------------------------------------
 EnemyInitializationTable:
-      .WORD EnemyInit_Basic
-      .WORD EnemyInit_Basic			  ; ShyguyRed
-      .WORD EnemyInit_Basic			  ; Tweeter
-      .WORD EnemyInit_Basic			  ; ShyguyPink
-      .WORD EnemyInit_Basic			  ; Porcupo
-      .WORD EnemyInit_Basic			  ; SnifitRed
-      .WORD EnemyInit_Stationary		  ; SnifitGray
-      .WORD EnemyInit_Basic			  ; SnifitPink
-      .WORD EnemyInit_Basic			  ; Ostro
-      .WORD EnemyInit_Bobomb			  ; BobOmb
-      .WORD EnemyInit_Basic			  ; AlbatossCarryingBobOmb
-      .WORD EnemyInit_AlbatossStartRight	  ; AlbatossStartRight
-      .WORD EnemyInit_AlbatossStartLeft		  ; AlbatossStartLeft
-      .WORD EnemyInit_Basic			  ; NinjiRunning
-      .WORD EnemyInit_Stationary		  ; NinjiJumping
-      .WORD EnemyInit_BeezoDiving		  ; BeezoDiving
-      .WORD EnemyInit_Basic			  ; BeezoStraight
-      .WORD EnemyInit_Basic			  ; WartBubble
-      .WORD EnemyInit_Basic			  ; Pidgit
-      .WORD EnemyInit_Trouter			  ; Trouter
-      .WORD EnemyInit_Basic			  ; Hoopstar
-      .WORD EnemyInit_JarGenerators		  ; JarGeneratorShyguy
-      .WORD EnemyInit_JarGenerators		  ; JarGeneratorBobOmb
-      .WORD EnemyInit_Phanto			  ; Phanto
-      .WORD EnemyInit_Cobrats			  ; CobratJar
-      .WORD EnemyInit_Cobrats			  ; CobratSand
-      .WORD EnemyInit_Pokey			  ; Pokey
-      .WORD EnemyInit_Basic			  ; Bullet
-      .WORD EnemyInit_Birdo			  ; Birdo
-      .WORD EnemyInit_Mouser			  ; Mouser
-      .WORD EnemyInit_Basic			  ; Egg
-      .WORD EnemyInit_Tryclyde			  ; Tryclyde
-      .WORD EnemyInit_Basic			  ; Fireball
-      .WORD EnemyInit_Clawgrip			  ; Clawgrip
-      .WORD EnemyInit_Basic			  ; ClawgripRock
-      .WORD EnemyInit_Stationary		  ; PanserStationaryFiresAngled
-      .WORD EnemyInit_Basic			  ; PanserWalking
-      .WORD EnemyInit_Stationary		  ; PanserStationaryFiresUp
-      .WORD EnemyInit_Basic			  ; Autobomb
-      .WORD EnemyInit_Basic			  ; AutobombFire
-      .WORD EnemyInit_WhaleSpout		  ; WhaleSpout
-      .WORD EnemyInit_Basic			  ; Flurry
-      .WORD EnemyInit_Fryguy			  ; Fryguy
-      .WORD EnemyInit_Fryguy			  ; FryguySplit
-      .WORD EnemyInit_Wart			  ; Wart
-      .WORD EnemyInit_HawkmouthBoss		  ; HawkmouthBoss
-      .WORD EnemyInit_Sparks			  ; Spark1
-      .WORD EnemyInit_Sparks			  ; Spark2
-      .WORD EnemyInit_Sparks			  ; Spark3
-      .WORD EnemyInit_Sparks			  ; Spark4
-      .WORD EnemyInit_Basic			  ; VegetableSmall
-      .WORD EnemyInit_Basic			  ; VegetableLarge
-      .WORD EnemyInit_Basic			  ; VegetableWart
-      .WORD EnemyInit_Basic			  ; Shell
-      .WORD EnemyInit_Basic			  ; Coin
-      .WORD EnemyInit_Basic			  ; Bomb
-      .WORD EnemyInit_Basic			  ; Rocket
-      .WORD EnemyInit_Basic			  ; MushroomBlock
-      .WORD EnemyInit_Basic			  ; POWBlock
-      .WORD EnemyInit_FallingLogs		  ; FallingLogs
-      .WORD EnemyInit_Basic			  ; SubspaceDoor
-      .WORD EnemyInit_Key			  ; Key
-      .WORD EnemyInit_Basic			  ; SubspacePotion
-      .WORD EnemyInit_Stationary		  ; Mushroom
-      .WORD EnemyInit_Stationary		  ; Mushroom1up
-      .WORD EnemyInit_Basic			  ; FlyingCarpet
-      .WORD EnemyInit_Hawkmouth			  ; HawkmouthRight
-      .WORD EnemyInit_Hawkmouth			  ; HawkmouthLeft
-      .WORD EnemyInit_CrystalBallStarmanStopwatch ; CrystalBall
-      .WORD EnemyInit_CrystalBallStarmanStopwatch ; Starman
-      .WORD EnemyInit_CrystalBallStarmanStopwatch ; Stopwatch
+      .WORD EnemyInit_Basic                           ; Heart
+      .WORD EnemyInit_Basic                           ; ShyguyRed
+      .WORD EnemyInit_Basic                           ; Tweeter
+      .WORD EnemyInit_Basic                           ; ShyguyPink
+      .WORD EnemyInit_Basic                           ; Porcupo
+      .WORD EnemyInit_Basic                           ; SnifitRed
+      .WORD EnemyInit_Stationary                      ; SnifitGray
+      .WORD EnemyInit_Basic                           ; SnifitPink
+      .WORD EnemyInit_Basic                           ; Ostro
+      .WORD EnemyInit_Bobomb                          ; BobOmb
+      .WORD EnemyInit_Basic                           ; AlbatossCarryingBobOmb
+      .WORD EnemyInit_AlbatossStartRight              ; AlbatossStartRight
+      .WORD EnemyInit_AlbatossStartLeft               ; AlbatossStartLeft
+      .WORD EnemyInit_Basic                           ; NinjiRunning
+      .WORD EnemyInit_Stationary                      ; NinjiJumping
+      .WORD EnemyInit_BeezoDiving                     ; BeezoDiving
+      .WORD EnemyInit_Basic                           ; BeezoStraight
+      .WORD EnemyInit_Basic                           ; WartBubble
+      .WORD EnemyInit_Basic                           ; Pidgit
+      .WORD EnemyInit_Trouter                         ; Trouter
+      .WORD EnemyInit_Basic                           ; Hoopstar
+      .WORD EnemyInit_JarGenerators                   ; JarGeneratorShyguy
+      .WORD EnemyInit_JarGenerators                   ; JarGeneratorBobOmb
+      .WORD EnemyInit_Phanto                          ; Phanto
+      .WORD EnemyInit_Cobrats                         ; CobratJar
+      .WORD EnemyInit_Cobrats                         ; CobratSand
+      .WORD EnemyInit_Pokey                           ; Pokey
+      .WORD EnemyInit_Basic                           ; Bullet
+      .WORD EnemyInit_Birdo                           ; Birdo
+      .WORD EnemyInit_Mouser                          ; Mouser
+      .WORD EnemyInit_Basic                           ; Egg
+      .WORD EnemyInit_Tryclyde                        ; Tryclyde
+      .WORD EnemyInit_Basic                           ; Fireball
+      .WORD EnemyInit_Clawgrip                        ; Clawgrip
+      .WORD EnemyInit_Basic                           ; ClawgripRock
+      .WORD EnemyInit_Stationary                      ; PanserStationaryFiresAngled
+      .WORD EnemyInit_Basic                           ; PanserWalking
+      .WORD EnemyInit_Stationary                      ; PanserStationaryFiresUp
+      .WORD EnemyInit_Basic                           ; Autobomb
+      .WORD EnemyInit_Basic                           ; AutobombFire
+      .WORD EnemyInit_WhaleSpout                      ; WhaleSpout
+      .WORD EnemyInit_Basic                           ; Flurry
+      .WORD EnemyInit_Fryguy                          ; Fryguy
+      .WORD EnemyInit_Fryguy                          ; FryguySplit
+      .WORD EnemyInit_Wart                            ; Wart
+      .WORD EnemyInit_HawkmouthBoss                   ; HawkmouthBoss
+      .WORD EnemyInit_Sparks                          ; Spark1
+      .WORD EnemyInit_Sparks                          ; Spark2
+      .WORD EnemyInit_Sparks                          ; Spark3
+      .WORD EnemyInit_Sparks                          ; Spark4
+      .WORD EnemyInit_Basic                           ; VegetableSmall
+      .WORD EnemyInit_Basic                           ; VegetableLarge
+      .WORD EnemyInit_Basic                           ; VegetableWart
+      .WORD EnemyInit_Basic                           ; Shell
+      .WORD EnemyInit_Basic                           ; Coin
+      .WORD EnemyInit_Basic                           ; Bomb
+      .WORD EnemyInit_Basic                           ; Rocket
+      .WORD EnemyInit_Basic                           ; MushroomBlock
+      .WORD EnemyInit_Basic                           ; POWBlock
+      .WORD EnemyInit_FallingLogs                     ; FallingLogs
+      .WORD EnemyInit_Basic                           ; SubspaceDoor
+      .WORD EnemyInit_Key                             ; Key
+      .WORD EnemyInit_Basic                           ; SubspacePotion
+      .WORD EnemyInit_Stationary                      ; Mushroom
+      .WORD EnemyInit_Stationary                      ; Mushroom1up
+      .WORD EnemyInit_Basic                           ; FlyingCarpet
+      .WORD EnemyInit_Hawkmouth                       ; HawkmouthRight
+      .WORD EnemyInit_Hawkmouth                       ; HawkmouthLeft
+      .WORD EnemyInit_CrystalBallStarmanStopwatch     ; CrystalBall
+      .WORD EnemyInit_CrystalBallStarmanStopwatch     ; Starman
+      .WORD EnemyInit_CrystalBallStarmanStopwatch     ; Stopwatch
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 SetEnemyAttributes:
       LDY     ObjectType,X
@@ -831,7 +831,7 @@ SetEnemyAttributes:
 
 ; End of function SetEnemyAttributes
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 EnemyInit_Basic:
       LDA     #0
@@ -839,7 +839,7 @@ EnemyInit_Basic:
 
 ; End of function EnemyInit_Basic
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; Enemy	initializing (sets most	stuff to 0)
 
@@ -906,7 +906,7 @@ EnemyInit_BeezoDiving:
       ADC     #0
       STA     ObjectXHi,X
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 EnemyBeezoDiveSetup:
       LDA     PlayerYHi
@@ -944,7 +944,7 @@ EnemyInit_Phanto:
       STA     byte_RAM_5BC
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 EnemyInit_Bobomb:
       JSR     EnemyInit_Basic
@@ -1026,7 +1026,7 @@ EnemyDeathMaybe:
       SBC     #0
       STA     ObjectYHi,X
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8569:
       LDA     #$FF
@@ -1045,7 +1045,7 @@ MakeEnemyFlipUpsideDown:
 loc_BANK2_8574:
       JSR     RenderSprite
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8577:
       LDA     EnemyArray_44A,X
@@ -1278,7 +1278,7 @@ byte_BANK2_866E:
 
       .BYTE   6
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8670:
       LDA     ObjectXLo,X
@@ -1606,7 +1606,7 @@ loc_BANK2_8827:
 
 loc_BANK2_8842:
       LDA     ObjectType,X
-      CMP     #$2B
+      CMP     #Enemy_FryguySplit
       BNE     loc_BANK2_8855
 
       DEC     byte_RAM_4F8
@@ -1666,7 +1666,7 @@ loc_BANK2_8888:
 loc_BANK2_8891:
       JMP     sub_BANK2_89A9
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8894:
       LDA     #0
@@ -1677,7 +1677,7 @@ sub_BANK2_8894:
       BNE     loc_BANK2_88B9
 
       LDA     ObjectType,X
-      CMP     #$1A
+      CMP     #Enemy_Pokey
       BEQ     loc_BANK2_88B9
 
       CMP     #8
@@ -1737,7 +1737,7 @@ byte_BANK2_88E4:
       .BYTE $10
       .BYTE $18
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_88E8:
       JSR     sub_BANK2_8894
@@ -1859,7 +1859,7 @@ loc_BANK2_89A5:
 
 ; End of function sub_BANK2_88E8
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_89A9:
       LDY     unk_RAM_441,X
@@ -1909,7 +1909,7 @@ loc_BANK2_89C9:
 
 loc_BANK2_89E2:
       LDA     ObjectType,X
-      CMP     #0
+      CMP     #Enemy_Heart
       BEQ     loc_BANK2_8A0A
 
       CMP     #Enemy_FlyingCarpet
@@ -1971,7 +1971,7 @@ loc_BANK2_8A15:
       BCC     loc_BANK2_8A41
 
       LDA     ObjectType,X
-      CMP     #9
+      CMP     #Enemy_BobOmb
       BNE     loc_BANK2_8A36
 
       LDA     EnemyCollision,X
@@ -2152,7 +2152,7 @@ EnemyBehavior_Spark:
       STA     EnemyArray_477,X
       TAY
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8B36:
       TXA
@@ -2186,7 +2186,7 @@ loc_BANK2_8B50:
 loc_BANK2_8B58:
       JMP     sub_BANK2_9E4B
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8B5B:
       INC     EnemyArray_9F,X
@@ -2265,7 +2265,7 @@ loc_BANK2_8BA1:
 
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8BBD:
       LDA     StopwatchTimer
@@ -2587,7 +2587,7 @@ loc_BANK2_8D16:
 locret_BANK2_8D5E:
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 EnemyInit_Hawkmouth:
       DEC     ObjectYLo,X
@@ -2599,7 +2599,7 @@ EnemyInit_Hawkmouth:
 
 ; End of function EnemyInit_Hawkmouth
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 EnemyInit_Stationary:
 						  ; DATA XREF: ...
@@ -2631,7 +2631,7 @@ loc_BANK2_8D7B:
       BNE     loc_BANK2_8D78
 
       LDA     #SoundEffect1_HawkOpen_WartBarf
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
 
 loc_BANK2_8D8A:
       LDA     HawkmouthClosing
@@ -2716,7 +2716,7 @@ loc_BANK2_8DDB:
       LDA     #$FC
       STA     PlayerYAccel
       LDA     #SoundEffect1_HawkOpen_WartBarf
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       INC     HawkmouthClosing
 
 loc_BANK2_8E05:
@@ -2729,7 +2729,7 @@ loc_BANK2_8E05:
       STA     EnemyMovementDirection,X
       LDA     CrystalAndHawkmouthOpenSize
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_8E13:
       STA     byte_RAM_7
@@ -2990,7 +2990,7 @@ Enemy_Birdo_Attributes:
       .BYTE ObjAttrib_Palette1|ObjAttrib_16x32
       .BYTE ObjAttrib_Palette2|ObjAttrib_16x32
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 EnemyInit_Birdo:
       JSR     EnemyInit_Basic
@@ -3117,7 +3117,7 @@ BirdoBehavior_SpitProjectile:
       BNE     loc_BANK2_901B
 
       LDA     #SoundEffect1_BirdoShot
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       JSR     sub_BANK2_95E5
 
       BMI     loc_BANK2_901B
@@ -3144,7 +3144,7 @@ _Birdo_SpitFire:
 _Birdo_SpitEgg:
       LDA     #Enemy_Egg			  ; Shoot an egg
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9004:
       STA     ObjectType,X
@@ -3211,7 +3211,7 @@ Award1upMushroom:
 
 loc_BANK2_9050:
       LDA     #SoundEffect1_1UP
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -3445,7 +3445,7 @@ loc_BANK2_9157:
       LDA     #$10
       STA     EnemyArray_453,X
       LDA     #SoundEffect1_PotionDoorBong
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       INC     EnemyArray_B1,X
       LDA     #Enemy_SubspaceDoor
       STA     ObjectType,X
@@ -3475,7 +3475,7 @@ loc_BANK2_9198:
       TYA
       TAX
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; X = Enemy index of object to poof
 
@@ -3503,7 +3503,7 @@ byte_BANK2_91C5:
 
       .BYTE 8
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_91C7:
       LDA     EnemyVariable,X
@@ -3647,7 +3647,7 @@ loc_BANK2_9274:
 EnemyBehavior_AutobombFire:
       JSR     sub_BANK2_9289
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_927A:
       ASL     ObjectAttributes,X
@@ -3668,7 +3668,7 @@ sub_BANK2_927A:
 EnemyBehavior_BulletAndEgg:
       JSR     sub_BANK3_B4FD
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9289:
       JSR     sub_BANK2_997A
@@ -3718,7 +3718,7 @@ loc_BANK2_92BE:
 
 ; End of function sub_BANK2_9289
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; See CreateEnemy, but this tests all 6	slots instead of just the first	6.
 
@@ -3728,7 +3728,7 @@ CreateEnemy_TryAllSlots:
 
 ; End of function CreateEnemy_TryAllSlots
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; Creates a generic red	Shyguy enemy and
 ; does some basic initialization for it.
@@ -4023,7 +4023,7 @@ loc_BANK2_9429:
 
       DEC     ObjectYAccel,X
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9430:
       JSR     sub_BANK2_9E50
@@ -4108,7 +4108,7 @@ loc_BANK2_9481:
       DEC     EnemyArray_480,X
       INC     EnemyTimer,X
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9486:
       LDA     ObjectAttributes,X
@@ -4332,7 +4332,7 @@ loc_BANK2_9589:
 loc_BANK2_9597:
       LDA     #$7F
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9599:
       AND     EnemyArray_9F,X
@@ -4350,7 +4350,7 @@ loc_BANK2_959D:
 
 ; End of function sub_BANK2_9599
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_95AA:
       JSR     sub_BANK2_95D0
@@ -4359,7 +4359,7 @@ sub_BANK2_95AA:
 
 ; End of function sub_BANK2_95AA
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_95B0:
       LDA     ObjectXAccel,X
@@ -4390,14 +4390,14 @@ loc_BANK2_95CA:
       ASL     ObjectAttributes,X
       LSR     ObjectAttributes,X
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_95CE:
       LDA     #0
 
 ; End of function sub_BANK2_95CE
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_95D0:
       STA     ObjectYAccel,X
@@ -4418,7 +4418,7 @@ loc_BANK2_95E0:
 
 ; End of function sub_BANK2_95D0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_95E5:
       JSR     CreateEnemy_TryAllSlots
@@ -4427,7 +4427,7 @@ sub_BANK2_95E5:
 
 ; End of function sub_BANK2_95E5
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 CreateBullet:
       JSR     CreateEnemy
@@ -4464,7 +4464,7 @@ byte_BANK2_9607:
       .BYTE 4
       .BYTE 6
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; This is run when the player is carrying
 ; something, to	update its position to
@@ -4578,7 +4578,7 @@ EnemyBehavior_MushroomBlockAndPOW:
 locret_BANK2_9691:
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9692:
       LDA     ObjectBeingCarriedTimer,X
@@ -4659,7 +4659,7 @@ loc_BANK2_96EC:
 
       LDA     #$20
       STA     POWQuakeTimer
-      LDA     #4
+      LDA     #SoundEffect3_Rumble_B
       STA     SoundEffectQueue3
       JMP     sub_BANK2_98C4
 
@@ -5000,11 +5000,11 @@ EnemyBehavior_Shell:
       AND     #CollisionFlags_Right|CollisionFlags_Left
       BEQ     loc_BANK2_98AE
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_98A6:
       LDA     #SoundEffect1_EnemyHit
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       JMP     TurnIntoPuffOfSmoke
 
 ; End of function sub_BANK2_98A6
@@ -5026,7 +5026,7 @@ loc_BANK2_98B7:
       STA     ObjectXAccel,X
       JMP     sub_BANK2_8577
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_98C4:
       LDA     #EnemyState_BlockFizzle
@@ -5039,7 +5039,7 @@ locret_BANK2_98CC:
 
 ; End of function sub_BANK2_98C4
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_98CD:
       LDA     ObjectBeingCarriedTimer,X
@@ -5051,7 +5051,7 @@ sub_BANK2_98CD:
 
 ; End of function sub_BANK2_98CD
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_98D6:
       LDA     EnemyArray_42F,X
@@ -5137,7 +5137,7 @@ loc_BANK2_9932:
 loc_BANK2_9935:
       LDA     #0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9937:
       STA     byte_RAM_0
@@ -5196,7 +5196,7 @@ loc_BANK2_9974:
 
 ; End of function sub_BANK2_9937
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_997A:
       LDA     EnemyCollision,X
@@ -5220,7 +5220,7 @@ loc_BANK2_9988:
       BNE     loc_BANK2_99A1
 
       LDA     #SoundEffect1_EnemyHit
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       BNE     loc_BANK2_99A1
 
 loc_BANK2_999E:
@@ -5414,7 +5414,7 @@ EnemyAnimationTable:
       .BYTE $A6					  ; $45
       .BYTE $A4					  ; $46
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; The first part of this routine determines if we are the Princess,
 ; who does not bob her vegetables (or whatever other Subcon detritus
@@ -5477,7 +5477,7 @@ loc_BANK2_9AEC:
 loc_BANK2_9AEF:
       JMP     sub_BANK2_9BA7
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9AF2:
       LDA     byte_RAM_EE
@@ -5506,7 +5506,7 @@ sub_BANK2_9AF2:
 
 ; End of function sub_BANK2_9AF2
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 RenderSprite:
       LDY     ObjectType,X
@@ -5667,7 +5667,7 @@ loc_BANK2_9B9C:
 
 ; End of function RenderSprite
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9BA7:
       LDY     ObjectType,X
@@ -5683,7 +5683,7 @@ loc_BANK2_9BB0:
 
 ; End of function sub_BANK2_9BA7
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9BB3:
       STA     byte_RAM_F
@@ -5884,7 +5884,7 @@ locret_BANK2_9CF1:
 
 ; End of function sub_BANK2_9BB3
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9CF2:
       LDA     word_RAM_C
@@ -6104,7 +6104,7 @@ loc_BANK2_9E06:
 locret_BANK2_9E3A:
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; Compares our position	to the player's, and returns
 ; Y = 1	(Player	to left)
@@ -6126,7 +6126,7 @@ locret_BANK2_9E4A:
 
 ; End of function EnemyFindWhichSidePlayerIsOn
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9E4B:
       TXA
@@ -6136,7 +6136,7 @@ sub_BANK2_9E4B:
 
 ; End of function sub_BANK2_9E4B
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9E50:
       LDA     ObjectXAccel,X
@@ -6206,7 +6206,7 @@ loc_BANK2_9EA6:
 
 ; End of function sub_BANK2_9E50
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 EnemyBehavior_TurnAround:
       ; flip x-velocity
@@ -7005,7 +7005,7 @@ loc_BANK3_A43A:
 loc_BANK3_A43D:
       JMP     sub_BANK3_A552
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_A440:
       JSR     CreateEnemy_TryAllSlots
@@ -7160,7 +7160,7 @@ loc_BANK3_A502:
 
       JSR     sub_BANK2_9E50
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_A508:
       JSR     sub_BANK2_9BA7
@@ -7216,7 +7216,7 @@ locret_BANK3_A551:
 
 ; End of function sub_BANK3_A508
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_A552:
       LDA     byte_RAM_10
@@ -7831,7 +7831,7 @@ loc_BANK3_A88B:
       INC     byte_RAM_5
       LDA     EnemyArray_480,X
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_A89A:
       AND     #$67
@@ -7846,7 +7846,7 @@ sub_BANK3_A89A:
       BMI     locret_BANK3_A8F1
 
       LDA     #SoundEffect1_BirdoShot
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       LDY     byte_RAM_0
       LDA     #Enemy_Fireball
       STA     ObjectType,Y
@@ -7884,7 +7884,7 @@ loc_BANK3_A8DD:
 
 ; End of function sub_BANK3_A89A
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_A8EA:
       TYA
@@ -8169,7 +8169,7 @@ loc_BANK3_AA3A:
       LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK3_AA99
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_AA3E:
       LDA     EnemyVariable,X
@@ -8462,7 +8462,7 @@ loc_BANK3_ABD7:
 loc_BANK3_ABEB:
       JSR     CarryObject
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_ABEE:
       LDA     SpriteTempScreenY
@@ -8504,7 +8504,7 @@ byte_BANK3_AC26:
 
       .BYTE $F0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_AC28:
       LDA     #0
@@ -9027,7 +9027,7 @@ loc_BANK3_AEC3:
       STA     ObjectYLo,X
 
 loc_BANK3_AECD:
-      LDA     #1
+      LDA     #SoundEffect3_ShortNoise
       STA     SoundEffectQueue3
       LDA     EnemyVariable,X
       CMP     #$80
@@ -9348,11 +9348,11 @@ HawkmouthEat:
       LDA     #$FC
       STA     PlayerYAccel
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B095:
       LDA     #SoundEffect1_HawkOpen_WartBarf
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
 
 locret_BANK3_B09A:
       RTS
@@ -9413,7 +9413,7 @@ byte_BANK3_B0E6:
       .BYTE $F8
       .BYTE $10
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B0E8:
       LDA     EnemyArray_480,X
@@ -9651,7 +9651,7 @@ loc_BANK3_B216:
       BMI     loc_BANK3_B253
 
       LDA     #SoundEffect1_HawkOpen_WartBarf
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       LDA     EnemyArray_480,X
       AND     #3
       TAY
@@ -9927,7 +9927,7 @@ byte_BANK3_B4E0:
       .BYTE $F0
       .BYTE $10
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B4E2:
       JSR     sub_BANK3_B5AC
@@ -9955,7 +9955,7 @@ loc_BANK3_B4F7:
 
 ; End of function sub_BANK3_B4E2
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B4F9:
       LDA     #4
@@ -9963,7 +9963,7 @@ sub_BANK3_B4F9:
 
 ; End of function sub_BANK3_B4F9
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B4FD:
       LDA     #0
@@ -10071,7 +10071,7 @@ loc_BANK3_B587:
 
 ; End of function sub_BANK3_B4FD
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B58C:
       LDY     byte_RAM_8
@@ -10097,7 +10097,7 @@ loc_BANK3_B5A7:
 
 ; End of function sub_BANK3_B58C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B5AC:
       INX
@@ -10135,7 +10135,7 @@ byte_BANK3_B5C4:
       .BYTE 2
       .BYTE 1
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B5CC:
       LDA     #0
@@ -10366,7 +10366,7 @@ locret_BANK3_B6F8:
 
 ; End of function sub_BANK3_B5CC
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B6F9:
       TXA
@@ -10542,7 +10542,7 @@ loc_BANK3_B7E5:
 
       STA     EnemyState,Y
       LDA     #4
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       LDY     PlayerMaxHealth
       LDA     PlayerHealth
       CLC
@@ -10563,12 +10563,12 @@ loc_BANK3_B80C:
       BNE     locret_BANK3_B828
 
 loc_BANK3_B815:
-      CMP     #$45
+      CMP     #Enemy_Starman
       BNE     loc_BANK3_B829
 
       LDA     #$3F
       STA     StarInvincibilityTimer
-      LDA     #$10
+      LDA     #Music1_Invincible
       STA     Music1Queue
       LDA     #0
       STA     EnemyState,Y
@@ -10579,7 +10579,7 @@ locret_BANK3_B828:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B829:
-      CMP     #$28
+      CMP     #Enemy_WhaleSpout
       BNE     loc_BANK3_B844
 
       LDA     EnemyVariable,Y
@@ -10600,7 +10600,7 @@ locret_BANK3_B843:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B844:
-      CMP     #$2C
+      CMP     #Enemy_Wart
       BNE     loc_BANK3_B84C
 
       LDA     EnemyArray_B1,X
@@ -10663,7 +10663,7 @@ loc_BANK3_B87D:
 loc_BANK3_B896:
       JMP     DamagePlayer
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B899:
       LDA     #0
@@ -11026,7 +11026,7 @@ loc_BANK3_BA4E:
 loc_BANK3_BA5A:
       JMP     KillPlayer
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BA5D:
       LDA     unk_RAM_452,X
@@ -11052,7 +11052,7 @@ loc_BANK3_BA7A:
 
 ; End of function sub_BANK3_BA5D
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BA7D:
       LDA     #$40
@@ -11076,7 +11076,7 @@ loc_BANK3_BA83:
 locret_BANK3_BA94:
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BA95:
       LDA     #0
@@ -11198,7 +11198,7 @@ byte_BANK3_BB2F:
 
       .BYTE $10
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BB31:
       LDY     #0
@@ -11245,7 +11245,7 @@ byte_BANK3_BB50:
       .BYTE $95
       .BYTE $17
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BB5A:
       JSR     sub_BANK3_BB87
@@ -11299,7 +11299,7 @@ ItemCarryYOffsets:
       .BYTE 0
       .BYTE 0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BB87:
       TXA
@@ -11373,7 +11373,7 @@ loc_BANK3_BBDD:
 
 ; End of function sub_BANK3_BB87
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BBE2:
       PHA
@@ -11406,7 +11406,7 @@ loc_BANK3_BBF4:
       STA     DPCMQueue
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BC03:
       LDX     #0
@@ -11432,7 +11432,7 @@ locret_BANK3_BC1E:
 
 ; End of function sub_BANK3_BC03
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BC1F:
       LDA     #2
@@ -11446,7 +11446,7 @@ sub_BANK3_BC1F:
 
 ; End of function sub_BANK3_BC1F
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BC2E:
       LDY     byte_RAM_1
@@ -11479,7 +11479,7 @@ byte_BANK3_BC4E:
 
       .BYTE $B
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BC50:
       PHA
@@ -11602,7 +11602,7 @@ unk_BANK3_BD0B:
       .BYTE $20
       .BYTE $24
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BD0F:
       LDA     InSubspaceOrJar
@@ -11622,7 +11622,7 @@ locret_BANK3_BD28:
 
 ; End of function sub_BANK3_BD0F
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BD29:
       LDX     byte_RAM_E8
@@ -11664,7 +11664,7 @@ byte_BANK3_BD41:
       .BYTE $68
       .BYTE 7
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BD4C:
       LDA     byte_BANK3_BD36,X
@@ -11681,7 +11681,7 @@ locret_BANK3_BD56:
       .BYTE $80
       .BYTE   0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BD59:
       LDA     PlayerXLo
@@ -11701,7 +11701,7 @@ locret_BANK3_BD6A:
 
 ; End of function sub_BANK3_BD59
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BD6B:
       STA     byte_RAM_F
@@ -11729,7 +11729,7 @@ locret_BANK3_BD81:
 
 ; End of function sub_BANK3_BD6B
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BD82:
       LDA     byte_RAM_5,Y
@@ -11749,7 +11749,7 @@ loc_BANK3_BD91:
 
 ; End of function sub_BANK3_BD82
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BD95:
       LDA     byte_RAM_5,Y
@@ -11787,7 +11787,7 @@ loc_BANK3_BDBF:
 
 ; End of function sub_BANK3_BD95
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BDC5:
       TXA
@@ -11871,7 +11871,7 @@ byte_BANK3_BE07:
       .BYTE $22
       .BYTE $26
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BE0B:
       LDA     SkyFlashTimer
@@ -11894,6 +11894,7 @@ sub_BANK3_BE0B:
       TAY
       LDA     byte_BANK3_BE07,Y
 
+; some kind of palette copying routine
 loc_BANK3_BE34:
       STA     byte_RAM_304,X
       LDA     byte_RAM_638

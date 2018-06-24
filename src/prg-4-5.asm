@@ -2,7 +2,7 @@
       ;.segment	BANK4
 ;       *	=  $8000
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 StartProcessingSoundQueue:
       LDA     #$FF
@@ -42,7 +42,7 @@ ProcessOnlyMusicQueue2:
       LDA     #0
       STA     SoundEffectQueue2
       STA     MusicQueue2
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       STA     DPCMQueue
       STA     Music1Queue
       STA     SoundEffectQueue3
@@ -103,7 +103,7 @@ loc_BANK4_806B:
 loc_BANK4_8076:
       BNE     loc_BANK4_80D3
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ProcessSoundEffectQueue2:
       LDA     byte_RAM_60D
@@ -243,10 +243,10 @@ MushroomSoundData:
       .BYTE $6A, $74, $6A, $64, $5C, $52, $5C, $52,	$4C, $44, $66, $70, $66, $60, $58, $4E
       .BYTE $58, $4E, $48, $40,	$56, $60, $56, $50, $48, $3E, $48, $3E,	$38, $30; $10
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ProcessSoundEffectQueue1:
-      LDA     SoundEffect1Queue
+      LDA     SoundEffectQueue1
       BEQ     loc_BANK4_8146
 
       CMP     #SoundEffect1_StopwatchTick
@@ -379,7 +379,7 @@ loc_BANK4_8293:
       STA     NOISE_HI
       BNE     loc_BANK4_82E8
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ProcessSoundEffectQueue3:
       LDY     SoundEffectQueue3
@@ -446,7 +446,7 @@ locret_BANK4_82FC:
 
 ; End of function ProcessSoundEffectQueue3
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ProcessDPCMQueue:
       LDA     DPCMQueue
@@ -542,7 +542,7 @@ loc_BANK4_835B:
 loc_BANK4_835E:
       JMP     StopMusic
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ProcessMusicQueue2:
       LDA     MusicQueue2
@@ -1008,7 +1008,7 @@ NoiseVolTable:
 NoiseLoTable:
       .BYTE 0,3,$A,2
 NoiseHiTable:
-      .BYTE 0,$18,$18,$58			 ; =============== S U B	R O U T I N E =======================================
+      .BYTE 0,$18,$18,$58			 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_8629:
       AND     #$F
@@ -1020,7 +1020,7 @@ sub_BANK4_8629:
 
 ; End of function sub_BANK4_8629
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_8634:
       CMP     #$13
@@ -1039,7 +1039,7 @@ loc_BANK4_863E:
 
 ; End of function sub_BANK4_8634
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_8643:
       CPX     #$90
@@ -1167,7 +1167,7 @@ locret_BANK4_86B9:
 
 ; End of function sub_BANK4_8643
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_86BA:
       STY     SQ1_SWEEP
@@ -1176,7 +1176,7 @@ sub_BANK4_86BA:
 
 ; End of function sub_BANK4_86BA
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_86C1:
       STX     SQ2_VOL
@@ -1185,7 +1185,7 @@ sub_BANK4_86C1:
 
 ; End of function sub_BANK4_86C1
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_86C8:
       STX     SQ1_VOL
@@ -1193,7 +1193,7 @@ sub_BANK4_86C8:
 
 ; End of function sub_BANK4_86C8
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_86CE:
       LDX     #0
@@ -1282,7 +1282,7 @@ loc_BANK4_8727:
       STX     SQ2_VOL
       STY     SQ2_SWEEP
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_873F:
       LDX     #4

@@ -2,7 +2,7 @@
       ;.segment	BANK0
 ;       *	=  $8000
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8000:
       LDA     byte_RAM_502
@@ -92,7 +92,7 @@ locret_BANK0_8082:
 
 ; End of function sub_BANK0_8000
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8083:
       LDA     NeedVerticalScroll
@@ -322,7 +322,7 @@ locret_BANK0_81A0:
 ; ---------------------------------------------------------------------------
       .BYTE   1
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_81A2:
       LDA     PPUScrollYMirror
@@ -350,7 +350,7 @@ sub_BANK0_81A2:
 
 ; End of function sub_BANK0_81A2
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_81D6:
       LDA     byte_RAM_509
@@ -372,7 +372,7 @@ sub_BANK0_81D6:
 
 ; End of function sub_BANK0_81D6
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_81FE:
       LDA     byte_RAM_CF
@@ -413,7 +413,7 @@ loc_BANK0_820B:
 
 ; End of function sub_BANK0_81FE
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_823D:
       LDX     #0
@@ -477,7 +477,7 @@ locret_BANK0_828E:
 
 ; End of function sub_BANK0_823D
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_828F:
       LDA     byte_RAM_D2,X
@@ -488,7 +488,7 @@ sub_BANK0_828F:
 
 ; End of function sub_BANK0_828F
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8297:
       LDA     byte_RAM_CF,X
@@ -522,7 +522,7 @@ locret_BANK0_82BD:
 
 ; End of function sub_BANK0_8297
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_82BE:
       LDA     byte_RAM_CE,X
@@ -553,7 +553,7 @@ locret_BANK0_82E1:
 
 ; End of function sub_BANK0_82BE
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_82E2:
       LDA     byte_RAM_CE,X
@@ -595,7 +595,7 @@ locret_BANK0_8313:
 
 ; End of function sub_BANK0_82E2
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8314:
       LDA     byte_RAM_CE,X
@@ -628,7 +628,7 @@ loc_BANK0_832E:
 
 ; End of function sub_BANK0_8314
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_833E:
       LDX     byte_RAM_300
@@ -783,7 +783,7 @@ loc_BANK0_840B:
 
 ; End of function sub_BANK0_833E
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8412:
       LDY     byte_RAM_300
@@ -854,7 +854,7 @@ loc_BANK0_845D:
 
 ; End of function sub_BANK0_8412
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_846A:
       LDA     byte_RAM_E1,X
@@ -871,7 +871,7 @@ locret_BANK0_8477:
 
 ; End of function sub_BANK0_846A
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8478:
       LDA     byte_RAM_E1,X
@@ -889,7 +889,7 @@ locret_BANK0_8487:
 
 ; End of function sub_BANK0_8478
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8488:
       LDA     byte_RAM_E3
@@ -925,7 +925,7 @@ loc_BANK0_84A6:
 
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_84AC:
       LDY     byte_RAM_D7
@@ -944,7 +944,7 @@ IFDEF PRESERVE_UNUSED_SPACE
 ENDIF
 
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8500:
       LDA     byte_RAM_502
@@ -1015,7 +1015,7 @@ locret_BANK0_8569:
 
 ; End of function sub_BANK0_8500
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_856A:
       LDA     CurrentLevelPage
@@ -1115,7 +1115,7 @@ loc_BANK0_85E7:
 
 ; End of function sub_BANK0_856A
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_85EC:
       LDA     #0
@@ -1308,7 +1308,7 @@ loc_BANK0_86E9:
 
 ; End of function sub_BANK0_85EC
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_86EE:
       LSR     A
@@ -1340,7 +1340,7 @@ byte_BANK0_8709:
 byte_BANK0_870B:
       .BYTE $A
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_870C:
       LDA     PPUScrollXMirror
@@ -1373,7 +1373,7 @@ sub_BANK0_870C:
 
 ; End of function sub_BANK0_870C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_874C:
       LDA     byte_RAM_50A
@@ -1406,7 +1406,7 @@ locret_BANK0_8784:
 
 ; End of function sub_BANK0_874C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8785:
       LDA     byte_RAM_CF
@@ -1433,7 +1433,7 @@ loc_BANK0_87A2:
 
 ; End of function sub_BANK0_8785
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_87AA:
       LDX     #0
@@ -1514,7 +1514,7 @@ locret_BANK0_8811:
 
 ; End of function sub_BANK0_87AA
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8812:
       STY     byte_RAM_F
@@ -1547,7 +1547,7 @@ loc_BANK0_8837:
 
 ; End of function sub_BANK0_8812
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_883C:
       STX     byte_RAM_8
@@ -1585,7 +1585,7 @@ loc_BANK0_8856:
 
 ; End of function sub_BANK0_883C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8872:
       LDA     #$F
@@ -1686,7 +1686,7 @@ loc_BANK0_88FD:
 
 ; End of function sub_BANK0_8872
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8901:
       JSR     sub_BANK0_883C
@@ -1716,7 +1716,7 @@ loc_BANK0_890A:
 
 ; End of function sub_BANK0_8901
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8925:
       STY     byte_RAM_F
@@ -1757,7 +1757,7 @@ loc_BANK0_892F:
 
 ; End of function sub_BANK0_8925
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_895D:
       LDX     #7
@@ -1808,15 +1808,15 @@ loc_BANK0_8A26:
       JSR     JumpToTableAfterJump		  ; Player state handling?
 
 ; ---------------------------------------------------------------------------
-      .WORD HandlePlayerState_Normal		  ; Normal
-      .WORD HandlePlayerState_Climbing		  ; Climbing
-      .WORD HandlePlayerState_Lifting		  ; Lifting
-      .WORD HandlePlayerState_ClimbingAreaTransition ; Climbing	area transition
-      .WORD HandlePlayerState_GoingDownJar	  ; Going down jar
-      .WORD HandlePlayerState_ExitingJar	  ; Exiting jar
-      .WORD HandlePlayerState_HawkmouthEating	  ; Hawkmouth eating
-      .WORD HandlePlayerState_Dying		  ; Dying
-      .WORD HandlePlayerState_ChangingSize	  ; Changing size
+      .WORD HandlePlayerState_Normal                  ; Normal
+      .WORD HandlePlayerState_Climbing                ; Climbing
+      .WORD HandlePlayerState_Lifting                 ; Lifting
+      .WORD HandlePlayerState_ClimbingAreaTransition  ; Climbing area transition
+      .WORD HandlePlayerState_GoingDownJar            ; Going down jar
+      .WORD HandlePlayerState_ExitingJar              ; Exiting jar
+      .WORD HandlePlayerState_HawkmouthEating         ; Hawkmouth eating
+      .WORD HandlePlayerState_Dying                   ; Dying
+      .WORD HandlePlayerState_ChangingSize            ; Changing size
 ; ---------------------------------------------------------------------------
 
 HandlePlayerState_Normal:
@@ -1830,7 +1830,7 @@ HandlePlayerState_Normal:
 
       JSR     sub_BANK0_8EA4
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8A50:
       LDX     #0
@@ -2017,7 +2017,7 @@ loc_BANK0_8B14:
       STA     PlayerState
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8B19:
       LDA     byte_RAM_10
@@ -2027,7 +2027,7 @@ sub_BANK0_8B19:
       LDA     byte_RAM_9D
       EOR     #1
       STA     byte_RAM_9D
-      LDA     #2
+      LDA     #SoundEffect2_Climbing
       STA     SoundEffectQueue2
 
 locret_BANK0_8B2A:
@@ -2049,7 +2049,7 @@ byte_BANK0_8B2B:
       .BYTE $95
       .BYTE $17
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8B35:
       JSR     sub_BANK0_924F
@@ -2284,7 +2284,7 @@ byte_BANK0_8C18:
 
       .BYTE 2
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; player crouch subroutine
 sub_BANK0_8C1A:
@@ -2303,14 +2303,14 @@ sub_BANK0_8C1A:
 
 loc_BANK0_8C2B:
       LDA     Player1JoypadPress
-      BPL     loc_BANK0_8C3D
+      BPL     loc_BANK0_8C3D ; branch if not pressing A Button
 
       INC     PlayerInAir
       LDA     #SpriteAnimation_Jumping
       STA     PlayerAnimationFrame
       JSR     sub_BANK0_8C99
 
-      LDA     #1
+      LDA     #SoundEffect2_Jump
       STA     SoundEffectQueue2
 
 loc_BANK0_8C3D:
@@ -2379,7 +2379,7 @@ loc_BANK0_8C95:
 
 ; End of function sub_BANK0_8C1A
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8C99:
       LDA     byte_RAM_4DF
@@ -2429,7 +2429,7 @@ loc_BANK0_8CD3:
 
 ; End of function sub_BANK0_8C99
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8CD9:
       LDA     byte_RAM_4DF
@@ -2441,7 +2441,7 @@ sub_BANK0_8CD9:
 
 loc_BANK0_8CE5:
       LDA     byte_RAM_554
-      LDY     Player1JoypadHeld
+      LDY     Player1JoypadHeld ; holding jump button to fight physics
       BPL     loc_BANK0_8D0B
 
       LDA     JumpPhysicsShit
@@ -2504,7 +2504,7 @@ byte_BANK0_8D2A:
 
       .BYTE 3
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8D2C:
       LDA     PlayerInAir
@@ -2568,7 +2568,7 @@ PlayerWalkFrames:
       .BYTE SpriteAnimation_Walking       ; $01
       .BYTE SpriteAnimation_Throwing;     ; $02
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; jump animation subroutine
 PlayerWalkJumpAnim:
@@ -2652,7 +2652,7 @@ byte_BANK0_8DBE:
 
       .BYTE $10
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8DC0:
       LDY     #2
@@ -2767,7 +2767,7 @@ loc_BANK0_8E42:
       STA     PlayerWalkFrameCounter
       DEC     HoldingItem
       LDA     #SoundEffect1_ThrowItem
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       LDA     #0
       STA     PlayerDucking
       STA     Player1JoypadPress
@@ -2821,14 +2821,14 @@ loc_BANK0_8E89:
 
 ; End of function sub_BANK0_8DC0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8EA4:
       LDX     #$A
 
 ; End of function sub_BANK0_8EA4
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8EA6:
       LDA     PlayerXAccel,X
@@ -2912,7 +2912,7 @@ byte_BANK0_8EF8:
 
       .BYTE $10
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8EFA:
       LDA     #$00
@@ -3044,7 +3044,7 @@ locret_BANK0_8FB1:
 
 ; End of function sub_BANK0_8EFA
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8FB2:
       JSR     loc_BANK0_8FB5
@@ -3096,7 +3096,7 @@ loc_BANK0_8FF2:
 
 ; End of function sub_BANK0_8FB2
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8FF5:
       JSR     loc_BANK0_8FF8
@@ -3108,7 +3108,7 @@ loc_BANK0_8FF8:
 
 ; End of function sub_BANK0_8FF5
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; collision detection for vines (and cherries?)
 sub_BANK0_8FFD:
@@ -3142,7 +3142,7 @@ loc_BANK0_9006:
 ; play sound and clear cherry
 loc_BANK0_9023:
       LDA     #SoundEffect1_CherryGet
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       LDA     #$40 ; blank tile to replace cherry tile
       JMP     loc_BANK0_937C
 
@@ -3181,7 +3181,7 @@ locret_BANK0_9052:
 
 ; End of function sub_BANK0_8FFD
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_9053:
       PHA
@@ -3333,7 +3333,7 @@ loc_BANK0_90EA:
       INC     HoldingItem
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_910C:
       LDY     HoldingItem
@@ -3382,7 +3382,7 @@ loc_BANK0_9140:
 
 ; End of function sub_BANK0_910C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_9143:
       LDA     PlayerXLo
@@ -3608,7 +3608,7 @@ byte_BANK0_924A:
       .BYTE $52
       .BYTE $56
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_924F:
       TXA
@@ -3684,7 +3684,7 @@ loc_BANK0_92A5:
 
 ; End of function sub_BANK0_924F
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_92AA:
       STA     byte_RAM_F
@@ -3712,7 +3712,7 @@ locret_BANK0_92C0:
 
 ; End of function sub_BANK0_92AA
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_92C1:
       LDY     byte_RAM_1
@@ -3801,7 +3801,7 @@ TableUsedAt_BANK0_9333:
 
       .BYTE 0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_9316:
       LDA     IsHorizontalLevel
@@ -3853,7 +3853,7 @@ locret_BANK0_934E:
 
 ; End of function sub_BANK0_9316
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; replace tile when something is picked up
 sub_BANK0_934F:
@@ -3984,7 +3984,7 @@ byte_BANK0_940A:
       .BYTE $20
       .BYTE $24
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_940E:
       LDA     InSubspaceOrJar
@@ -4004,7 +4004,7 @@ locret_BANK0_9427:
 
 ; End of function sub_BANK0_940E
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; player placement after exiting subspace (maybe other times?)
 sub_BANK0_9428:
@@ -4044,7 +4044,7 @@ sub_BANK0_9428:
 
 ; End of function sub_BANK0_9428
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_946D:
       LDA     TransitionType
@@ -4113,7 +4113,7 @@ loc_BANK0_94C2:
 
 ; End of function sub_BANK0_946D
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_94CA:
       LDA     TransitionType
@@ -4162,7 +4162,7 @@ loc_BANK0_94F8:
 
 ; End of function sub_BANK0_94CA
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_950C:
       LDA     PlayerYLo
@@ -4235,7 +4235,7 @@ loc_BANK0_955D:
       LDA     #0
       STA     PlayerYLo
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_9561:
       LDA     #1
@@ -4299,7 +4299,7 @@ loc_BANK0_95A7:
       STA     PlayerYLo
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_95AF:
       CPY     #0
@@ -4336,7 +4336,7 @@ TitleScreenPPUDataPointers:
 
       .WORD TitleLayout1
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_TitleScreen_TurnOnPPU:
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
@@ -4344,7 +4344,7 @@ WaitForNMI_TitleScreen_TurnOnPPU:
 
 ; End of function WaitForNMI_TitleScreen_TurnOnPPU
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_TitleScreen:
       LDA     ScreenUpdateIndex
@@ -4574,7 +4574,7 @@ TitleAttributeData2:
       .BYTE $23, $E9, 1, $CC
       .BYTE $23, $EE, 1, $33
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 TitleScreen:
       LDY     #7				  ; Does initialization	of RAM.
@@ -4970,7 +4970,7 @@ EndingPPUDataPointers:
       .WORD EndingCelebrationText_TOAD
       .WORD EndingCelebrationText_LUIGI
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_Ending_TurnOffPPU:
       LDA     #0
@@ -4978,7 +4978,7 @@ WaitForNMI_Ending_TurnOffPPU:
 
 ; End of function WaitForNMI_Ending_TurnOffPPU
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_Ending_TurnOnPPU:
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
@@ -4988,7 +4988,7 @@ loc_BANK1_A220:
 
 ; End of function WaitForNMI_Ending_TurnOnPPU
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_Ending:
       LDA     ScreenUpdateIndex
@@ -5131,7 +5131,7 @@ byte_BANK1_A432:
       .BYTE $61
       .BYTE $22
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_A43B:
       JSR     WaitForNMI_Ending_TurnOffPPU
@@ -5406,7 +5406,7 @@ unk_BANK1_A592:
       .BYTE 4
       .BYTE   1
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_A596:
       LDY     CurrentCharacter
@@ -5418,7 +5418,7 @@ sub_BANK1_A596:
 
 ; End of function sub_BANK1_A596
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_A5A1:
       LDX     #7
@@ -5432,7 +5432,7 @@ loc_BANK1_A5A3:
       BNE     loc_BANK1_A5D8
 
       LDA     #SoundEffect1_ThrowItem
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       BNE     loc_BANK1_A5D8
 
 loc_BANK1_A5B4:
@@ -5468,7 +5468,7 @@ loc_BANK1_A5D8:
 
 ; End of function sub_BANK1_A5A1
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_A5DE:
       LDA     #4
@@ -5522,7 +5522,7 @@ byte_BANK1_A605:
       .BYTE $68
       .BYTE 0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_A60E:
       LDY     byte_BANK1_A605,X
@@ -5715,7 +5715,7 @@ byte_BANK1_AA39:
       .BYTE $5F,$8F,$23,$A0			  ; $38
       .BYTE $5F,$91,$23,$A8			  ; $3C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_AA79:
       JSR     WaitForNMI_Ending_TurnOffPPU
@@ -5913,7 +5913,7 @@ loc_BANK1_AB80:
 
 ; End of function sub_BANK1_AA79
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_AB90:
       LDA     byte_RAM_10
@@ -5956,7 +5956,7 @@ loc_BANK1_ABA7:
       INC     byte_RAM_E6
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_ABBC:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
@@ -6271,7 +6271,7 @@ byte_BANK1_AD08:
       .BYTE $16
       .BYTE $1E
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_AD0C:
       INC     PlayerWalkFrame
@@ -6315,7 +6315,7 @@ loc_BANK1_AD2B:
 
 ; End of function sub_BANK1_AD0C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 Ending_GetContributor:
       LDA     #0
@@ -6423,7 +6423,7 @@ loc_BANK1_ADB0:
 
 ; End of function Ending_GetContributor
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_ADF1:
       DEC     byte_RAM_5C4
@@ -6468,7 +6468,7 @@ EndingCelebrationText_LUIGI:
       .BYTE $20,$ED,8,$E5,$EE,$E2,$E0,$E2,$FB,$FB,$FB
       .BYTE   0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_AE43:
       LDY     #$D0
@@ -6515,7 +6515,7 @@ MysteryCharacterData3900:
       .BYTE $18
       .BYTE $1A
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_B907:
       TXA
@@ -6525,7 +6525,7 @@ sub_BANK1_B907:
 
 ; End of function sub_BANK1_B907
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_B90C:
       LDA     ObjectXAccel,X
@@ -6573,7 +6573,7 @@ loc_BANK1_B92C:
 
 ; End of function sub_BANK1_B90C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_B948:
       LDA     EnemyArray_44A,X
@@ -6599,7 +6599,7 @@ locret_BANK1_B95F:
 
 ; End of function sub_BANK1_B948
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_B960:
       LDA     #1
@@ -6665,7 +6665,7 @@ loc_BANK1_B9B6:
 
 ; End of function sub_BANK1_B960
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 CreateStarman:
       JSR     CreateEnemy_Bank1
@@ -6696,7 +6696,7 @@ locret_BANK1_B9E2:
 
 ; End of function CreateStarman
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 EnemyInit_Basic_Bank1:
       LDA     #0
@@ -6738,7 +6738,7 @@ loc_BANK1_BA17:
 
 ; End of function EnemyInit_Basic_Bank1
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_BA33:
       LDA     ObjectAttributes,X
@@ -6755,7 +6755,7 @@ sub_BANK1_BA33:
 
 ; End of function sub_BANK1_BA33
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_BA48:
       LDA     #$FF
@@ -6764,7 +6764,7 @@ sub_BANK1_BA48:
 
 ; End of function sub_BANK1_BA48
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_BA4E:
       LDX     byte_RAM_E8
@@ -6806,7 +6806,7 @@ byte_BANK1_BA66:
       .BYTE $68
       .BYTE 7
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_BA71:
       LDA     byte_BANK1_BA5B,X
@@ -6817,7 +6817,7 @@ sub_BANK1_BA71:
 
 ; End of function sub_BANK1_BA71
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_BA7C:
       LDA     #1
@@ -6877,7 +6877,7 @@ loc_BANK1_BABC:
 
 ; End of function sub_BANK1_BA7C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_BABF:
       LDA     DamageInvulnTime
@@ -6944,7 +6944,7 @@ loc_BANK1_BB0B:
       STA     EnemyState,X
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; Creates a generic red	Shyguy enemy and
 ; does some basic initialization for it.

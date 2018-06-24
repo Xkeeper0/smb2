@@ -1927,7 +1927,7 @@ DPCMQueue:
 						  ; 20	Drum sample B
 						  ; 40	Enemy scream B
 						  ; 80	Enemy scream C
-SoundEffect1Queue:
+SoundEffectQueue1:
       .dsb 1                       ; $0602
 						  ; 01	Birdo/etc shoot	noise
 						  ; 02	Potion door creation

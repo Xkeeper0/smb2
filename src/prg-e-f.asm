@@ -691,7 +691,7 @@ BonusChanceSpritePalettes:
       .BYTE $F,$37,$16,$F			  ; 8
       .BYTE $F,$37,$16,$F			  ; $C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; Load A with an index and call	this to
 ; jump to a pointer from the table directly
@@ -716,7 +716,7 @@ JumpToTableAfterJump:
 
 ; ---------------------------------------------------------------------------
 BlackAndWhitePalette:
-      .BYTE $F,$30,$30,$F			 ; =============== S U B	R O U T I N E =======================================
+      .BYTE $F,$30,$30,$F			 ; =============== S U B R O U T I N E =======================================
 
 SetBlackAndWhitePalette:
       LDA     PPUSTATUS
@@ -739,7 +739,7 @@ loc_BANKF_E14B:
 
 ; End of function SetBlackAndWhitePalette
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 SetScrollXYTo0:
       LDA     #0
@@ -751,7 +751,7 @@ SetScrollXYTo0:
 
 ; End of function SetScrollXYTo0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_E166:
       JSR     EnableNMI
@@ -773,7 +773,7 @@ sub_BANKF_E166:
 
 ; End of function sub_BANKF_E166
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_E17F:
       JSR     EnableNMI
@@ -792,7 +792,7 @@ sub_BANKF_E17F:
 
 ; End of function sub_BANKF_E17F
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_E198:
       INY
@@ -854,7 +854,7 @@ loc_BANKF_E1E5:
 
 ; End of function sub_BANKF_E198
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_E1F4:
       LDA     #$C0
@@ -863,10 +863,10 @@ sub_BANKF_E1F4:
 
 ; End of function sub_BANKF_E1F4
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 InitializeSomeLevelStuff:
-      LDA     #0
+      LDA     #$00
       STA     CurrentLevelArea
       STA     byte_RAM_4E8
       STA     CurrentLevelPage
@@ -897,7 +897,7 @@ byte_BANKF_E224:
       .BYTE $F1
       .BYTE $ED
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 DisplayLevelTitleCardAndMore:
       JSR     WaitForNMI_TurnOffPPU
@@ -970,7 +970,7 @@ loc_BANKF_E269:
 
 ; End of function DisplayLevelTitleCardAndMore
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 DoCharacterSelectMenu:
       JSR     WaitForNMI
@@ -1047,7 +1047,7 @@ CharacterSelect_ChangeCharacter:
 
       DEC     CurrentCharacter
       LDA     #SoundEffect1_CherryGet
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
 
 loc_BANKF_E2FE:
       LDA     Player1JoypadPress
@@ -1056,7 +1056,7 @@ loc_BANKF_E2FE:
 
       INC     CurrentCharacter
       LDA     #SoundEffect1_CherryGet
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
 
 loc_BANKF_E30B:
       LDA     CurrentCharacter
@@ -1146,7 +1146,7 @@ CharacterSelectMenuLoop:
 
 loc_BANKF_E3AE:
       LDA     #SoundEffect1_CherryGet
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       LDX     CurrentWorld
       LDY     CurrentLevel
       JSR     sub_BANKF_E198
@@ -1323,6 +1323,7 @@ loc_BANKF_E4A3:
 
 ; ---------------------------------------------------------------------------
 
+; horizontal level
 loc_BANKF_E4AB:
       JSR     HideAllSprites
 
@@ -1377,8 +1378,9 @@ loc_BANKF_E4E5:
       AND     #ControllerInput_Start
       BNE     loc_BANKF_E515
 
+; vertical level
 loc_BANKF_E4F4:
-      JSR     HideAllSprites			  ; Pause stuff
+      JSR     HideAllSprites
 
       JSR     sub_BANKF_F17E
 
@@ -1576,6 +1578,7 @@ loc_BANKF_E5EC:
 loc_BANKF_E606:
       JSR     WaitForNMI_TurnOnPPU
 
+; subspace
 loc_BANKF_E609:
       JSR     WaitForNMI
 
@@ -2068,7 +2071,7 @@ loc_BANKF_E90C:
 
       JMP     loc_BANKF_E7FD
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_E916:
       LDA     byte_RAM_6
@@ -2111,7 +2114,7 @@ loc_BANKF_E938:
 
       JMP     loc_BANKF_E802
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_E946:
       LDA     #$50
@@ -2119,7 +2122,7 @@ sub_BANKF_E946:
 
 ; End of function sub_BANKF_E946
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_E94A:
       LDA     #$A0
@@ -2185,7 +2188,7 @@ EndingSceneRoutine:
       INC     byte_RAM_6F3
       JMP     MarioSleepingScene
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 DisableNMI:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
@@ -2223,7 +2226,7 @@ byte_BANKF_E9E3:
       .BYTE ScreenUpdateBuffer_RAM_6bd
       .BYTE ScreenUpdateBuffer_RAM_6da
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_E9E5:
       LDA     #$16
@@ -2235,7 +2238,7 @@ sub_BANKF_E9E5:
 
 ; End of function sub_BANKF_E9E5
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_E9F4:
       JSR     WaitForNMI_TurnOffPPU
@@ -2273,7 +2276,7 @@ loc_BANKF_EA04:
 
 ; End of function sub_BANKF_E9F4
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 EnableNMI:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
@@ -2283,7 +2286,7 @@ EnableNMI:
 
 ; End of function EnableNMI
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EA33:
       JSR     SetScrollXYTo0
@@ -2317,7 +2320,7 @@ SetBonusChancePalette:
 
 ; End of function sub_BANKF_EA33
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EA68:
       LDY     ExtraLives
@@ -2341,7 +2344,7 @@ sub_BANKF_EA68:
 
 ; End of function sub_BANKF_EA68
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EA8E:
       LDY     #$D0
@@ -2368,7 +2371,7 @@ locret_BANKF_EAA2:
 
 ; End of function sub_BANKF_EA8E
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_TurnOffPPU:
       LDA     #0
@@ -2376,7 +2379,7 @@ WaitForNMI_TurnOffPPU:
 
 ; End of function WaitForNMI_TurnOffPPU
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_TurnOnPPU:
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
@@ -2386,7 +2389,7 @@ _WaitForNMI_StuffPPUMask:
 
 ; End of function WaitForNMI_TurnOnPPU
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 WaitForNMI:
       LDA     ScreenUpdateIndex
@@ -2407,7 +2410,7 @@ WaitForNMILoop:
 
 ; End of function WaitForNMI
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EAC2:
       LDA     Player1JoypadPress
@@ -2432,12 +2435,12 @@ loc_BANKF_EAD2:
       LDA     #0
       STA     ObjectXLo,X
       LDA     #SoundEffect1_CherryGet
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       RTS
 
 ; End of function sub_BANKF_EAC2
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EADC:
       LDX     #2
@@ -2465,7 +2468,7 @@ loc_BANKF_EAF2:
 
 ; End of function sub_BANKF_EADC
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EAF6:
       LDA     #2
@@ -2515,7 +2518,7 @@ loc_BANKF_EB1F:
 
 ; End of function sub_BANKF_EAF6
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 CopyUnusedCoinSpriteToSpriteArea:
       LDY     #0				  ; This copies	the unused coin	sprite from memory
@@ -2579,7 +2582,7 @@ loc_BANKF_EB86:
       STA     PPUMASK
       JMP     loc_BANKF_EC5E
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
       ;	public NMI
 NMI:
@@ -2758,7 +2761,7 @@ loc_BANKF_EC61:
 
 ; End of function NMI
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EC68:
       LDA     PPUSTATUS
@@ -2772,7 +2775,7 @@ sub_BANKF_EC68:
 
 ; End of function sub_BANKF_EC68
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 DoSoundProcessing:
       LDA     #PRGBank_4_5
@@ -2785,7 +2788,7 @@ DoSoundProcessing:
 
 ; End of function DoSoundProcessing
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ClearNametablesAndSprites:
       LDA     #0
@@ -2802,7 +2805,7 @@ ClearNametablesAndSprites:
 
 ; End of function ClearNametablesAndSprites
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 HideAllSprites:
       LDY     #0
@@ -2820,7 +2823,7 @@ HideAllSpritesLoop:
 
 ; End of function HideAllSprites
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ClearNametableChunk:
       LDY     PPUSTATUS				  ; Reset PPU address latch
@@ -2861,7 +2864,7 @@ PPUBufferUpdatesComplete:
 
 ; End of function ClearNametableChunk
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; Used to update the PPU nametable / palette data during NMI.
 ;
@@ -2907,7 +2910,7 @@ UpdatePPUFromBufferNMI_CopyLoop:
 
 ; End of function UpdatePPUFromBufferNMI
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; This reads from $F0/$F1 to determine where a "buffer"	is.
 ; Basically, a buffer is like this:
@@ -3266,7 +3269,7 @@ byte_BANKF_F099:
       .BYTE $48
       .BYTE $26
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F0E9:
       DEC     byte_RAM_400
@@ -3288,7 +3291,7 @@ LevelMusicIndexes:
       .BYTE Music1_Wart				  ; 3
       .BYTE Music1_Subspace			  ; 4
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F0F9:
       JSR     sub_BANKF_F0E9
@@ -3318,7 +3321,7 @@ loc_BANKF_F11B:
 
 ; End of function sub_BANKF_F0F9
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F11E:
       JSR     sub_BANKF_F0E9
@@ -3391,7 +3394,7 @@ locret_BANKF_F17D:
 
 ; End of function sub_BANKF_F11E
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F17E:
       JSR     sub_BANKF_F0E9
@@ -3428,7 +3431,7 @@ loc_BANKF_F1AB:
 
 ; End of function sub_BANKF_F17E
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F1AE:
       LDA     byte_RAM_627
@@ -3461,7 +3464,7 @@ locret_BANKF_F1E0:
 
 ; End of function sub_BANKF_F1AE
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F1E1:
       LDY     #3
@@ -3492,7 +3495,7 @@ loc_BANKF_F1E3:
 
 ; End of function sub_BANKF_F1E1
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 RestorePlayerToFullHealth:
       LDY     PlayerMaxHealth			  ; Get	player's current max HP
@@ -3515,7 +3518,7 @@ byte_BANKF_F226:
 byte_BANKF_F227:
       .BYTE $F0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F228:
       LDA     PlayerXLo
@@ -3623,7 +3626,7 @@ loc_BANKF_F2BB:
 
 ; End of function sub_BANKF_F228
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F2C2:
       LDA     #0
@@ -3717,7 +3720,7 @@ byte_BANKF_F2E7:
       .BYTE $B4
       .BYTE $B6
 DamageInvulnBlinkFrames:
-      .BYTE 1, 1, 1, 2, 2, 4,	4, 4		    ; =============== S U B	R O U T I N E =======================================
+      .BYTE 1, 1, 1, 2, 2, 4,	4, 4		    ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F31A:
 IFDEF COMPATIBILITY
@@ -3958,7 +3961,7 @@ loc_BANKF_F478:
 
 ; End of function sub_BANKF_F31A
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F47C:
       LDA     IsHorizontalLevel
@@ -3983,7 +3986,7 @@ loc_BANKF_F490:
 
 ; End of function sub_BANKF_F47C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F494:
       LDX     NeedVerticalScroll
@@ -4029,7 +4032,7 @@ locret_BANKF_F4C2:
 
 ; End of function sub_BANKF_F494
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F4C3:
       STA     byte_RAM_F
@@ -4454,7 +4457,7 @@ byte_BANKF_F64E:
       .BYTE $98
       .BYTE $D5
 WarpDestinations:
-      .BYTE 3, 1, 4,	5, 6, 5, 6		     ; =============== S U B	R O U T I N E =======================================
+      .BYTE 3, 1, 4,	5, 6, 5, 6		     ; =============== S U B R O U T I N E =======================================
 
 UpdateJoypads:
       JSR     ReadJoypads
@@ -4483,7 +4486,7 @@ loc_BANKF_F66F:
 
 ; End of function UpdateJoypads
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ReadJoypads:
       LDX     #1
@@ -4512,7 +4515,7 @@ ReadJoypadLoop:
 
 ; End of function ReadJoypads
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F6A1:
       LDA     byte_RAM_535
@@ -4534,7 +4537,7 @@ sub_BANKF_F6A1:
 
 ; End of function sub_BANKF_F6A1
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; @TODO	Handle music changes?
 ; Seems	to compare against the currently selected music
@@ -4559,7 +4562,7 @@ locret_BANKF_F6D9:
 
 ; End of function sub_BANKF_F6C0
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F6DA:
       LDA     #0
@@ -4594,7 +4597,7 @@ loc_BANKF_F6FE:
 
 ; End of function sub_BANKF_F6DA
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F704:
       LDY     unk_RAM_441,X
@@ -4611,7 +4614,7 @@ loc_BANKF_F70F:
 
 ; End of function sub_BANKF_F704
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 KillPlayer:
       LDA     #PlayerState_Dying		  ; Mark player	as dead
@@ -4653,7 +4656,7 @@ loc_BANKF_F749:
 
 ; End of function KillPlayer
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ; Something to do with loading levels here
 
@@ -4684,7 +4687,7 @@ CopyLevelDataToMemory:
 
 ; End of function GetLevelPointers
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 GetEnemyPointers:
       LDY     CurrentLevel
@@ -4730,7 +4733,7 @@ CopyEnemyDataToMemory:
 
 ; End of function GetEnemyPointers
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 GetJarPointers:
       LDY     CurrentLevel			  ; Get	the area starting index	for the	current	level
@@ -5025,7 +5028,7 @@ BackgroundCHRAnimationSpeedByWorld:
       .BYTE 7, 7, 7, 7, 9,	7, 5
       .BYTE $B
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_FACA:
       DEC     BackgroundCHR2Timer
@@ -5154,7 +5157,7 @@ byte_BANKF_FE0E:
       .BYTE 1
       .BYTE 5
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_FE16:
       LDY     #8
@@ -5169,6 +5172,7 @@ sub_BANKF_FE16:
       LDA     #$18
       STA     BackgroundCHR2
 
+; load current player sprites
 loc_BANKF_FE33:
       LDA     CurrentCharacter
       ASL     A
@@ -5180,7 +5184,7 @@ loc_BANKF_FE33:
 
 ; End of function sub_BANKF_FE16
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 LoadTitleScreenCHRBanks:
       LDA     #$28
@@ -5191,7 +5195,7 @@ LoadTitleScreenCHRBanks:
 
 ; End of function LoadTitleScreenCHRBanks
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 LoadCelebrationSceneBackgroundCHR:
       LDA     #$38
@@ -5202,7 +5206,7 @@ LoadCelebrationSceneBackgroundCHR:
 
 ; End of function LoadCelebrationSceneBackgroundCHR
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 LoadCharacterSelectCHRBanks:
       LDA     #$30
@@ -5217,7 +5221,7 @@ LoadCharacterSelectCHRBanks:
 
 ; ---------------------------------------------------------------------------
 TitleCardCHRBanks:
-      .BYTE $40, $42, $40, $44, $40, $42, $46     ; =============== S U B	R O U T I N E =======================================
+      .BYTE $40, $42, $40, $44, $40, $42, $46     ; =============== S U B R O U T I N E =======================================
 
 ChangeTitleCardCHR:
       LDY     CurrentWorld
@@ -5227,7 +5231,7 @@ ChangeTitleCardCHR:
 
 ; End of function ChangeTitleCardCHR
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 LoadBonusChanceCHRBanks:
       LDA     #$34
@@ -5238,7 +5242,7 @@ LoadBonusChanceCHRBanks:
 
 ; End of function LoadBonusChanceCHRBanks
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 LoadMarioSleepingCHRBanks:
       LDY     #$48
@@ -5262,7 +5266,7 @@ ENDIF
 
 ; [000000B9 BYTES: END OF AREA UNUSED-BANKF:FE97. PRESS	KEYPAD "-" TO COLLAPSE]
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
       ;	public RESET
 RESET:
@@ -5293,7 +5297,7 @@ ENDIF
 
 ; End of function RESET
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_FF73:
       LDY     #5
@@ -5311,7 +5315,7 @@ loc_BANKF_FF75:
 
 ; End of function sub_BANKF_FF73
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ChangeMappedPRGBank:
       STA     MMC3PRGBankTemp			  ; See	below comment.
@@ -5321,7 +5325,7 @@ ChangeMappedPRGBank:
 
 ; End of function ChangeMappedPRGBank
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ChangeMappedPRGBankWithoutSaving:
       ASL     A					  ; Any	call to	this sub switches the lower
@@ -5349,7 +5353,7 @@ ChangeMappedPRGBankWithoutSaving:
 
 ; End of function ChangeMappedPRGBankWithoutSaving
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 ChangeNametableMirroring:
       STA     $A000				  ; Writing to $A000 sets mirroring.

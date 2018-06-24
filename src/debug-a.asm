@@ -135,14 +135,14 @@ Debug_MenuDown:
 	INC Debug_CurrentMenuOption
 
 +	LDA #SoundEffect1_CherryGet
-	STA SoundEffect1Queue
+	STA SoundEffectQueue1
 	JMP Debug_MenuLoop
 
 
 
 DebugMenu_DoNothing:
 -f	LDA #SoundEffect1_HawkOpen_WartBarf
-	STA SoundEffect1Queue
+	STA SoundEffectQueue1
 -q	JMP Debug_MenuLoop
 
 DebugMenu_World:
@@ -210,7 +210,7 @@ DebugMenu_Area:
 -f
 +f
 	LDA #SoundEffect1_HawkOpen_WartBarf
-	STA SoundEffect1Queue
+	STA SoundEffectQueue1
 +q
 -q
 	JMP Debug_MenuLoop

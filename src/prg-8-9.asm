@@ -2,13 +2,13 @@
       ;.segment	BANK8
 ;       *	=  $8000
 LevelAreaStartIndexes:
-      .BYTE 0
+      .BYTE $00
 						  ; Table to determine what "total" index a given
 						  ; level + area is. Get the starting area from	this
 						  ; table (based on CurrentLevel) and add the area to it
 						  ;
 						  ; Level 1-1
-      .BYTE $A					  ; Level 1-2
+      .BYTE $0A					  ; Level 1-2
       .BYTE $14					  ; Level 1-3
       .BYTE $1E					  ; Level 2-1
       .BYTE $28					  ; Level 2-2
@@ -1799,39 +1799,43 @@ EnemyPointers_Level_7_3_Lo:
       .BYTE <EnemyPointers_Level_7_3_Area4
       .BYTE <EnemyPointers_Level_7_3_Area4
       .BYTE <EnemyPointers_Level_7_3_Area4
+
+;
+; Enemy Data
+; ==========
+;
+; This data is broken down by page (ie. screen), where the first byte indicates
+; the number of bytes for this page. Each enemy is two bytes, where the first
+; byte is the enemy, and the second byte is YX position.
+;
+; Examples:
+;   $01 - an empty page
+;   $03,$01,$47 - a page with a single pink shyguy ($01) at Y=4, X=7
+;
 EnemyPointers_Level_1_1_Area0:
-      .BYTE 1
-						  ; The	format for all of these	is:
-						  ; <# of bytes	this page>
-						  ; [<enemy id>, <YX position as byte>]
-						  ; ...
-						  ; 1 is an empty page
-						  ;
-						  ; e.g. to put	a single shyguy	on a page at Y=4 X=7:
-						  ; 03 01 47
-      .BYTE 1
-      .BYTE 5,3,$76,3,$6C
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
+      .BYTE $05,$03,$76,$03,$6C
+      .BYTE $01
+      .BYTE $01
 EnemyPointers_Level_1_1_Area1:
-      .BYTE 5,$14,$56,$14,$AD
-      .BYTE 3,3,$9D
-      .BYTE 7,$E,$83,$E,$79,3,$BC
-      .BYTE 5,$E,$90,$E,$75
-      .BYTE 1
+      .BYTE $05,$14,$56,$14,$AD
+      .BYTE $03,$03,$9D
+      .BYTE $07,$0E,$83,$0E,$79,$03,$BC
+      .BYTE $05,$0E,$90,$0E,$75
+      .BYTE $01
 EnemyPointers_Level_1_1_Area2:
-      .BYTE 3,1,$EC
-      .BYTE 7,1,$1C,2,$5C,3,$E5
-byte_BANK9_A720:
-      .BYTE 7,1,$6C,2,$8C,1,$CC
-      .BYTE 5,3,$79,1,$D4
-      .BYTE 9,1,4,2,$34,$3B,$87,$3B,$C7
-      .BYTE 7,3,$A9,3,$BC,3,$C6
-      .BYTE 5,1,$9C,3,$E5
-      .BYTE 5,1,$2C,2,$4C
-      .BYTE 7,1,$1C,3,$45,2,$4C
-      .BYTE 5,1,$95,$14,$D1
-      .BYTE 1
+      .BYTE $03,$01,$EC
+      .BYTE $07,$01,$1C,$02,$5C,$03,$E5
+      .BYTE $07,$01,$6C,$02,$8C,$01,$CC
+      .BYTE $05,$03,$79,$01,$D4
+      .BYTE $09,$01,$04,$02,$34,$3B,$87,$3B,$C7
+      .BYTE $07,$03,$A9,$03,$BC,3,$C6
+      .BYTE $05,$01,$9C,$03,$E5
+      .BYTE $05,$01,$2C,$02,$4C
+      .BYTE $07,$01,$1C,$03,$45,$02,$4C
+      .BYTE $05,$01,$95,$14,$D1
+      .BYTE $01
 EnemyPointers_Level_1_1_Area3:
       .BYTE 3,3,$85
       .BYTE 1

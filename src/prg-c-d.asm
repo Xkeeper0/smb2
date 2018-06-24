@@ -17,7 +17,7 @@ byte_BANKC_8001:
       .WORD MarioDream_EraseBubble5
       .WORD MarioDream_Palettes
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKC_8014:
       LDA     #0
@@ -25,7 +25,7 @@ sub_BANKC_8014:
 
 ; End of function sub_BANKC_8014
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKC_8018:
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
@@ -35,7 +35,7 @@ loc_BANKC_801A:
 
 ; End of function sub_BANKC_8018
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKC_801C:
       LDA     ScreenUpdateIndex
@@ -56,7 +56,7 @@ loc_BANKC_802E:
 
 ; End of function sub_BANKC_801C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKC_8033:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
@@ -482,7 +482,7 @@ loc_BANKC_848E:
 loc_BANKC_8490:
       JMP     loc_BANKC_8462
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKC_8493:
       LDY     #$F
@@ -554,7 +554,7 @@ CastRoll_CASTText:
       .BYTE $60,$F4,0,$48			  ; 8
       .BYTE $60,$F6,0,$58			  ; $C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKC_84EC:
       LDY     ObjectXLo+2
@@ -567,7 +567,7 @@ sub_BANKC_84EC:
 
 ; End of function sub_BANKC_84EC
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKC_84FB:
       LDY     #$4C

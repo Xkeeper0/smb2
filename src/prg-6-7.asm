@@ -1621,7 +1621,7 @@ loc_BANK6_8E1E:
       STA     (byte_RAM_1),Y
       BNE     loc_BANK6_8E14
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_8E24:
       LDA     byte_RAM_9
@@ -1706,7 +1706,7 @@ byte_BANK6_8E80:
 byte_BANK6_8E85:
       .BYTE 0,$14,$61,$59,$C
 byte_BANK6_8E8A:
-      .BYTE 0,$15,$62,$59,$C			    ; =============== S U B	R O U T I N E =======================================
+      .BYTE 0,$15,$62,$59,$C			    ; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_8E8F:
       LDY     byte_RAM_E7
@@ -1900,7 +1900,7 @@ loc_BANK6_8F77:
       STA     (byte_RAM_1),Y
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_8F83:
       STX     byte_RAM_7
@@ -1961,7 +1961,7 @@ loc_BANK6_8FB4:
 locret_BANK6_8FC1:
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_8FC2:
       LDA     #$5D
@@ -2109,7 +2109,7 @@ byte_BANK6_905A:
 byte_BANK6_905E:
       .BYTE 0,$14,$CD,$B
 byte_BANK6_9062:
-      .BYTE 0,$15,$CF,$D			    ; =============== S U B	R O U T I N E =======================================
+      .BYTE 0,$15,$CF,$D			    ; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9066:
       LDY     byte_RAM_E7
@@ -2521,7 +2521,7 @@ unk_BANK6_9324:
       .BYTE  $D
       .BYTE   9
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_933A:
       LDA     #0
@@ -2564,7 +2564,7 @@ ENDIF
 
 ; End of function sub_BANK6_933A
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9370:
       STY     byte_RAM_E
@@ -2582,7 +2582,7 @@ sub_BANK6_9370:
 
 ; End of function sub_BANK6_9370
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_938A:
       STY     byte_RAM_E
@@ -2600,7 +2600,7 @@ sub_BANK6_938A:
 
 ; End of function sub_BANK6_938A
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_93A4:
       LDA     InSubspaceOrJar
@@ -2623,7 +2623,7 @@ loc_BANK6_93B4:
 
 ; End of function sub_BANK6_93A4
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_93B8:
       STA     byte_RAM_F
@@ -2700,7 +2700,7 @@ loc_BANK6_940F:
 
 ; End of function sub_BANK6_93B8
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_941D:
       LDA     CurrentLevelArea
@@ -2775,7 +2775,7 @@ loc_BANK6_946F:
 
 ; End of function sub_BANK6_941D
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9479:
       STY     byte_RAM_8
@@ -2826,7 +2826,7 @@ loc_BANK6_94A8:
 
 ; End of function sub_BANK6_9479
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_94AD:
       LDX     #0
@@ -2883,7 +2883,7 @@ ClearSubAreaTileLayout:
 
 ; End of function sub_BANK6_94AD
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_950E:
       LDY     #3
@@ -2947,7 +2947,7 @@ locret_BANK6_9547:
       STA     CurrentLevelPage
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9567:
       JSR     sub_BANK6_933A
@@ -3021,7 +3021,7 @@ loc_BANK6_95CE:
 
 ; End of function sub_BANK6_9567
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 RestoreLevelDataCopyAddress:
       LDA     #$78
@@ -3032,7 +3032,7 @@ RestoreLevelDataCopyAddress:
 
 ; End of function RestoreLevelDataCopyAddress
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 HijackLevelDataCopyAddressWithJar:
       LDA     #$7A
@@ -3043,7 +3043,7 @@ HijackLevelDataCopyAddressWithJar:
 
 ; End of function HijackLevelDataCopyAddressWithJar
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_95E6:
       LDA     #0
@@ -3168,7 +3168,7 @@ loc_BANK6_966C:
 
 ; End of function sub_BANK6_95E6
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_967B:
       CLC
@@ -3268,7 +3268,7 @@ loc_BANK6_96CD:
       STY     byte_RAM_F
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_96E3:
       LDY     byte_RAM_F
@@ -3347,7 +3347,7 @@ loc_BANK6_971B:
       STA     byte_RAM_55E
       RTS
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9728:
       LDA     #0
@@ -3492,7 +3492,7 @@ loc_BANK6_97C5:
 
 ; End of function sub_BANK6_9728
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_97D6:
       LDA     IsHorizontalLevel
@@ -3511,7 +3511,7 @@ locret_BANK6_97E1:
 
 ; End of function sub_BANK6_97D6
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_97E2:
       STY     byte_RAM_4
@@ -3558,7 +3558,7 @@ loc_BANK6_9813:
 
 ; End of function sub_BANK6_97E2
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9816:
       LSR     A
@@ -3566,7 +3566,7 @@ sub_BANK6_9816:
 
 ; End of function sub_BANK6_9816
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9818:
       LSR     A
@@ -3574,7 +3574,7 @@ sub_BANK6_9818:
 
 ; End of function sub_BANK6_9818
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_981A:
       LSR     A
@@ -3582,7 +3582,7 @@ sub_BANK6_981A:
 
 ; End of function sub_BANK6_981A
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_981C:
       AND     #3
@@ -3626,7 +3626,7 @@ loc_BANK6_983E:
 
 ; End of function sub_BANK6_981C
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9844:
       STX     word_RAM_C
@@ -3644,7 +3644,7 @@ sub_BANK6_9844:
 
 ; End of function sub_BANK6_9844
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_985E:
       STX     word_RAM_C
@@ -3662,7 +3662,7 @@ sub_BANK6_985E:
 
 ; End of function sub_BANK6_985E
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9878:
       LDX     byte_RAM_E8
@@ -3676,7 +3676,7 @@ sub_BANK6_9878:
 
 ; End of function sub_BANK6_9878
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9885:
       LDA     byte_BANK6_92F8,X
@@ -3687,7 +3687,7 @@ sub_BANK6_9885:
 
 ; End of function sub_BANK6_9885
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9890:
       INY
@@ -3715,7 +3715,7 @@ locret_BANK6_98A7:
 
 ; End of function sub_BANK6_9890
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_98A8:
       TYA
@@ -3738,7 +3738,7 @@ locret_BANK6_98BB:
 
 ; End of function sub_BANK6_98A8
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_98BC:
       LDY     byte_RAM_4
@@ -3769,7 +3769,7 @@ loc_BANK6_98D6:
 unk_BANK6_98DA:
       .BYTE $28
       .BYTE $24
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_98DC:
       LSR     A
@@ -3794,7 +3794,7 @@ loc_BANK6_98F3:
 
 ; End of function sub_BANK6_98DC
 
-; =============== S U B	R O U T I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_98F7:
       TXA
