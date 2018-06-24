@@ -1,6 +1,6 @@
 
-      ;.segment	BANK0
-;       *	=  $8000
+; .segment BANK0
+; * =  $8000
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -938,9 +938,9 @@ sub_BANK0_84AC:
 
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $84B8 - $84FF
-     .pad $8500, $FF
+; Unused space in the original
+; $84B8 - $84FF
+      .pad $8500, $FF
 ENDIF
 
 
@@ -1773,20 +1773,20 @@ loc_BANK0_895F:
 
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $8966 - $89FF
-     .pad $8A00, $FF
+; Unused space in the original
+; $8966 - $89FF
+      .pad $8A00, $FF
 ENDIF
 
 GrowShrinkSFXIndexes:
-      .BYTE SoundEffect2_Shrinking, SoundEffect2_Growing; ---------------------------------------------------------------------------
+      .BYTE SoundEffect2_Shrinking, SoundEffect2_Growing ; ---------------------------------------------------------------------------
 
 HandlePlayerState:
-      LDA     PlayerState			  ; Handles player states?
+      LDA     PlayerState ; Handles player states?
       CMP     #PlayerState_Lifting
-      BCS     loc_BANK0_8A26			  ; If the player is changing size, just handle	that
+      BCS     loc_BANK0_8A26 ; If the player is changing size, just handle that
 
-      LDA     #0				  ; Check if the player	needs to change	size
+      LDA     #0				  ; Check if the player needs to change size
       LDY     #$10
       CPY     PlayerHealth
       ROL     A
@@ -1805,18 +1805,18 @@ loc_BANK0_8A26:
       LDA     #0
       STA     PlayerAttributesMaybe
       LDA     PlayerState
-      JSR     JumpToTableAfterJump		  ; Player state handling?
+      JSR     JumpToTableAfterJump ; Player state handling?
 
 ; ---------------------------------------------------------------------------
-      .WORD HandlePlayerState_Normal                  ; Normal
-      .WORD HandlePlayerState_Climbing                ; Climbing
-      .WORD HandlePlayerState_Lifting                 ; Lifting
-      .WORD HandlePlayerState_ClimbingAreaTransition  ; Climbing area transition
-      .WORD HandlePlayerState_GoingDownJar            ; Going down jar
-      .WORD HandlePlayerState_ExitingJar              ; Exiting jar
-      .WORD HandlePlayerState_HawkmouthEating         ; Hawkmouth eating
-      .WORD HandlePlayerState_Dying                   ; Dying
-      .WORD HandlePlayerState_ChangingSize            ; Changing size
+      .WORD HandlePlayerState_Normal ; Normal
+      .WORD HandlePlayerState_Climbing ; Climbing
+      .WORD HandlePlayerState_Lifting ; Lifting
+      .WORD HandlePlayerState_ClimbingAreaTransition ; Climbing area transition
+      .WORD HandlePlayerState_GoingDownJar ; Going down jar
+      .WORD HandlePlayerState_ExitingJar ; Exiting jar
+      .WORD HandlePlayerState_HawkmouthEating ; Hawkmouth eating
+      .WORD HandlePlayerState_Dying ; Dying
+      .WORD HandlePlayerState_ChangingSize ; Changing size
 ; ---------------------------------------------------------------------------
 
 HandlePlayerState_Normal:
@@ -1874,12 +1874,12 @@ loc_BANK0_8A72:
 LoseALife:
       LDA     #2
       STA     PlayerAnimationFrame
-      LDY     #1				  ; Set	game mode to title card
+      LDY     #1 ; Set game mode to title card
       DEC     ExtraLives
       BNE     SetGameModeAfterDeath
 
-      INY					  ; If no lives, increase game mode
-						  ; from 1 (title card)	to 2 (game over)
+      INY ; If no lives, increase game mode
+; from 1 (title card) to 2 (game over)
 
 SetGameModeAfterDeath:
       STY     GameMode
@@ -2203,8 +2203,8 @@ IFDEF COMPATIBILITY
       .db $ad, $5a, $00 ; LDA $0000 + PlayerCollision
 ENDIF
 IFNDEF COMPATIBILITY
-      LDA     PlayerCollision			  ; Absolute address for zero-page
-	  NOP ; Alignment fix
+      LDA     PlayerCollision ; Absolute address for zero-page
+      NOP ; Alignment fix
 ENDIF
 
       BEQ     locret_BANK0_8BEB
@@ -2564,9 +2564,9 @@ PlayerWalkFrameDurations:
       .BYTE $02
       .BYTE $02
 PlayerWalkFrames:
-      .BYTE SpriteAnimation_Standing      ; $00
-      .BYTE SpriteAnimation_Walking       ; $01
-      .BYTE SpriteAnimation_Throwing;     ; $02
+      .BYTE SpriteAnimation_Standing ; $00
+      .BYTE SpriteAnimation_Walking ; $01
+      .BYTE SpriteAnimation_Throwing ; ; $02
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2575,7 +2575,7 @@ PlayerWalkJumpAnim:
       LDA     PlayerDucking ; exit if we're ducking, since the player will be ducking
       BNE     ExitPlayerWalkJumpAnim
 
-      ; if we're not in the air, skip ahead
+; if we're not in the air, skip ahead
       LDA     PlayerInAir
       BEQ     PlayerWalkAnim
 
@@ -2600,7 +2600,7 @@ PlayerWalkAnim:
       LDA     PlayerXAccel
       BPL     PlayerWalkFrameDuration
 
-      ; use absolute value of PlayerXAccel
+; use absolute value of PlayerXAccel
       EOR     #$FF
       CLC
       ADC     #$01
@@ -3114,8 +3114,8 @@ loc_BANK0_8FF8:
 sub_BANK0_8FFD:
       LDY     byte_BANKF_F00A
 
-      ; byte_RAM_10 seems to be a global counter
-      ; this code increments y every other frame
+; byte_RAM_10 seems to be a global counter
+; this code increments y every other frame
       LDA     byte_RAM_10
       LSR     A
       BCS     loc_BANK0_9006
@@ -3205,20 +3205,20 @@ byte_BANK0_9062:
       .BYTE 8
 PickUpToEnemyTypeTable:
       .BYTE Enemy_MushroomBlock
-      .BYTE Enemy_MushroomBlock			  ; 1
-      .BYTE Enemy_MushroomBlock			  ; 2
-      .BYTE Enemy_POWBlock			  ; 3
-      .BYTE Enemy_Coin				  ; 4
-      .BYTE Enemy_VegetableLarge		  ; 5
-      .BYTE Enemy_VegetableSmall		  ; 6
-      .BYTE Enemy_Rocket			  ; 7
-      .BYTE Enemy_Shell				  ; 8
-      .BYTE Enemy_Bomb				  ; 9
-      .BYTE Enemy_SubspacePotion		  ; $A
-      .BYTE Enemy_Mushroom1up			  ; $B
-      .BYTE Enemy_POWBlock			  ; $C
-      .BYTE Enemy_BobOmb			  ; $D
-      .BYTE Enemy_MushroomBlock			  ; $E
+      .BYTE Enemy_MushroomBlock ; 1
+      .BYTE Enemy_MushroomBlock ; 2
+      .BYTE Enemy_POWBlock ; 3
+      .BYTE Enemy_Coin ; 4
+      .BYTE Enemy_VegetableLarge ; 5
+      .BYTE Enemy_VegetableSmall ; 6
+      .BYTE Enemy_Rocket ; 7
+      .BYTE Enemy_Shell ; 8
+      .BYTE Enemy_Bomb ; 9
+      .BYTE Enemy_SubspacePotion ; $A
+      .BYTE Enemy_Mushroom1up ; $B
+      .BYTE Enemy_POWBlock ; $C
+      .BYTE Enemy_BobOmb ; $D
+      .BYTE Enemy_MushroomBlock ; $E
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9074:
@@ -3264,7 +3264,7 @@ loc_BANK0_9080:
 
 loc_BANK0_90AE:
       STA     EnemyState,X
-      LDA     PickUpToEnemyTypeTable,Y		  ; What sprite	is spawned for you when	lifting	a bg object
+      LDA     PickUpToEnemyTypeTable,Y		  ; What sprite is spawned for you when lifting a bg object
       STA     ObjectType,X
       LDY     #$FF
       CMP     #$37
@@ -3522,7 +3522,7 @@ loc_BANK0_91E3:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_91EB:
-      LDA     Player1JoypadPress		  ; @TODO Seems	to be code for handling	doors
+      LDA     Player1JoypadPress		  ; @TODO Seems to be code for handling doors
       AND     #ControllerInput_Up
       BEQ     locret_BANK0_91CE
 
@@ -3857,7 +3857,7 @@ locret_BANK0_934E:
 
 ; replace tile when something is picked up
 sub_BANK0_934F:
-      PHA					  ; Something to update	the PPU	for some tile change
+      PHA					  ; Something to update the PPU for some tile change
       LDA     ObjectXLo,X
       CLC
       ADC     #8
@@ -3979,7 +3979,7 @@ loc_BANK0_93DE:
 ; ---------------------------------------------------------------------------
 byte_BANK0_940A:
       .BYTE $20
-						  ; Another byte of PPU	high addresses for horiz/vert levels
+; Another byte of PPU high addresses for horiz/vert levels
       .BYTE $28
       .BYTE $20
       .BYTE $24
@@ -4032,7 +4032,7 @@ sub_BANK0_9428:
       SBC     #4
       BNE     locret_BANK0_9427
 
-      ; resetting these to zero
+; resetting these to zero
       STA     PlayerState
       STA     byte_RAM_41B
       STA     SubspaceTimer
@@ -4326,9 +4326,9 @@ locret_BANK0_95C2:
 
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $95C3 - $95FF
-     .pad $9600, $FF
+; Unused space in the original
+; $95C3 - $95FF
+      .pad $9600, $FF
 ENDIF
 
 TitleScreenPPUDataPointers:
@@ -4385,7 +4385,7 @@ TitleLayout1:
       .BYTE $23,$83,$5D,$FD
       .BYTE $23,$A3,$5D,$FD
       .BYTE $20,$68,$10,$48,$4A,$4C,$4E,$50,$51,$52,$53,$54,$55,$56,$57
-      .BYTE $58,$5A,$5C,$5E			  ; $F
+      .BYTE $58,$5A,$5C,$5E ; $F
       .BYTE $20,$84,8,$FD,$22,$23,$24,$49,$4B,$4D,$4F
       .BYTE $20,$94,8,$59,$5B,$5D,$5F,$2E,$2F,$30,$FD
       .BYTE $20,$A4,3,$25,$26,$27
@@ -4419,16 +4419,16 @@ TitleLayout1:
       .BYTE $23,$2E,$B,$67,$6C,$6E,$70,$72,$69,$9F,$A1,$75,$98,$9A
       .BYTE $23,$3A,4,$84,$86,$8C,$8E
       .BYTE $23,$43,$1B,$47,$94,$96,$74,$74,$74,$74,$A3,$A5,$74,$66,$68
-      .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F; $F
+      .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F ; $F
       .BYTE $23,$64,5,$95,$97,$FD,$AA,$AB
       .BYTE $23,$77,4,$9C,$9D,$AA,$AB
       .BYTE $23,$89,2,$AA,$AB
-      .BYTE $20,$CB,$A,0,1,8,8,$FC,1,$FC,8,$FC,1  ;	"SUPER"	logo
+      .BYTE $20,$CB,$A,0,1,8,8,$FC,1,$FC,8,$FC,1 ; "SUPER" logo
       .BYTE $20,$EB,$A,2,3,8,8,$A,5,$B,$C,$A,$D
       .BYTE $21,$B,$A,4,5,4,5,$E,7,$FC,8,$E,8
       .BYTE $21,$2B,5,6,7,6,7,9
       .BYTE $21,$31,4,$76,9,9,9
-      .BYTE $21,$38,2,$F9,$FA			  ;	TM
+      .BYTE $21,$38,2,$F9,$FA ; TM
       .BYTE $21,$46,$A,0,$F,1,0,1,$FC,1,8,0,1
       .BYTE $21,$66,$A,$10,$10,8,$10,8,$10,8,8,$10,8
       .BYTE $21,$86,$A,8,8,8,8,8,$13,$D,8,8,8
@@ -4446,30 +4446,30 @@ TitleLayout1:
       .BYTE $22,$4E,4,$1C,$1D,$1E,$1F
       .BYTE $22,$6E,4,$FC,$FC,$FC,$20
       .BYTE $22,$8E,4,$76,$76,$76,$21
-      .BYTE $22,$E9,5,$F8,$D1,$D9,$D8,$D8	  ;	(C) 1988
-      .BYTE $22,$EF,8,$E7,$E2,$E7,$ED,$DE,$E7,$DD,$E8; NINTENDO
-						  ; (these could have been combined, but... Nintendo)
+      .BYTE $22,$E9,5,$F8,$D1,$D9,$D8,$D8 ; (C) 1988
+      .BYTE $22,$EF,8,$E7,$E2,$E7,$ED,$DE,$E7,$DD,$E8 ; NINTENDO
+; (these could have been combined, but... Nintendo)
       .BYTE $23,$CA,4,$80,$A0,$A0,$20
       .BYTE $23,$D1,$E,$80,$A8,$AA,$AA,$A2,$22,0,0,$88,$AA,$AA,$AA,$AA
-      .BYTE $22					  ; $10
+      .BYTE $22 ; $10
       .BYTE $23,$E3,2,$88,$22
       .BYTE $23,$EA,4,$F0,$F8,$F2,$F0
       .BYTE 0
 TitleBackgroundPalettes:
       .BYTE $22,$37,$16,7
-      .BYTE $22,$30,$31,$F			  ; 1: Most of screen, outline,	etc.
-      .BYTE $22,$30,$F,$F			  ; 2: Not used	(?)
-      .BYTE $22,$30,$F,$F			  ; 3: SUPER MARIO BROS. 2 logo
-						  ; 4: (C) 1988	NINTENDO
-						  ;    (this is	the same palette
-						  ;    as the logo, though...)
+      .BYTE $22,$30,$31,$F ; 1: Most of screen, outline, etc.
+      .BYTE $22,$30,$F,$F ; 2: Not used (?)
+      .BYTE $22,$30,$F,$F ; 3: SUPER MARIO BROS. 2 logo
+; 4: (C) 1988 NINTENDO
+; (this is the same palette
+;    as the logo, though...)
 TitleSpritePalettes:
-      .BYTE $22,$30,$28,$F	  ; Unused DDP character palettes
-      .BYTE $22,$30,$25,$F			  ; There are no sprites on the	title screen,
-      .BYTE $22,$30,$12,$F			  ; so these are totally unused
+      .BYTE $22,$30,$28,$F ; Unused DDP character palettes
+      .BYTE $22,$30,$25,$F ; There are no sprites on the title screen,
+      .BYTE $22,$30,$12,$F ; so these are totally unused
       .BYTE $22,$30,$23,$F
 TitleStoryText_STORY:
-      .BYTE $EC,	$ED, $E8, $EB, $F2		 ; STORY
+      .BYTE $EC,	$ED, $E8, $EB, $F2 ; STORY
 TitleStoryTextPointersHi:
       .BYTE >TitleStoryText_Line01
 
@@ -4480,7 +4480,7 @@ TitleStoryTextPointersHi:
       .BYTE >TitleStoryText_Line06
       .BYTE >TitleStoryText_Line07
       .BYTE >TitleStoryText_Line08
-      .BYTE >TitleStoryText_Line08	  ; For	some reason line 8 is referenced twice here, but not used
+      .BYTE >TitleStoryText_Line08 ; For some reason line 8 is referenced twice here, but not used
       .BYTE >TitleStoryText_Line09
       .BYTE >TitleStoryText_Line10
       .BYTE >TitleStoryText_Line11
@@ -4510,52 +4510,52 @@ TitleStoryTextPointersLo:
       .BYTE <TitleStoryText_Line16
 TitleStoryText_Line01:
       .BYTE $F0, $E1, $DE, $E7,	$FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB,	$E8, $E9, $DE, $E7
-      .BYTE $DE, $DD, $FB, $DA			  ; WHEN MARIO OPENED A
+      .BYTE $DE, $DD, $FB, $DA ; WHEN MARIO OPENED A
 TitleStoryText_Line02:
       .BYTE $DD, $E8, $E8, $EB,	$FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB,	$DC, $E5, $E2, $E6
-      .BYTE $DB, $E2, $E7, $E0			  ; DOOR AFTER CLIMBING
+      .BYTE $DB, $E2, $E7, $E0 ; DOOR AFTER CLIMBING
 TitleStoryText_Line03:
       .BYTE $DA, $FB, $E5, $E8,	$E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB,	$FB, $E2, $E7, $FB
-      .BYTE $FB, $E1, $E2, $EC			  ; A LONG STAIR IN HIS
+      .BYTE $FB, $E1, $E2, $EC ; A LONG STAIR IN HIS
 TitleStoryText_Line04:
       .BYTE $DD, $EB, $DE, $DA,	$E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1,	$DE, $EB, $FB, $F0
-      .BYTE $E8, $EB, $E5, $DD			  ; DREAM, ANOTHER WORLD
+      .BYTE $E8, $EB, $E5, $DD ; DREAM, ANOTHER WORLD
 TitleStoryText_Line05:
       .BYTE $EC, $E9, $EB, $DE,	$DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF,	$E8, $EB, $DE, $FB
-      .BYTE $FB, $E1, $E2, $E6			  ; SPREAD BEFORE HIM
+      .BYTE $FB, $E1, $E2, $E6 ; SPREAD BEFORE HIM
 TitleStoryText_Line06:
       .BYTE $DA, $E7, $DD, $FB,	$E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD,	$FB, $DA, $FB, $EF
-      .BYTE $E8, $E2, $DC, $DE			  ; AND	HE HEARD A VOICE
+      .BYTE $E8, $E2, $DC, $DE ; AND HE HEARD A VOICE
 TitleStoryText_Line07:
       .BYTE $DC, $DA, $E5, $E5,	$FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5,	$E9, $FB, $ED, $E8
-      .BYTE $FB, $FB, $DB, $DE			  ; CALL FOR HELP TO BE
+      .BYTE $FB, $FB, $DB, $DE ; CALL FOR HELP TO BE
 TitleStoryText_Line08:
       .BYTE $FB, $DF, $EB, $DE,	$DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6,	$FB, $DA, $FB, $EC
-      .BYTE $E9, $DE, $E5, $E5			  ; FREED FROM A SPELL
+      .BYTE $E9, $DE, $E5, $E5 ; FREED FROM A SPELL
 TitleStoryText_Line09:
       .BYTE $DA, $DF, $ED, $DE,	$EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE,	$E7, $E2, $E7, $E0
-      .BYTE $F7, $FB, $FB, $FB			  ; AFTER AWAKENING,
+      .BYTE $F7, $FB, $FB, $FB ; AFTER AWAKENING,
 TitleStoryText_Line10:
       .BYTE $E6, $DA, $EB, $E2,	$E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB,	$ED, $E8, $FB, $FB
-      .BYTE $DA, $FB, $FB, $FB			  ; MARIO WENT TO A
+      .BYTE $DA, $FB, $FB, $FB ; MARIO WENT TO A
 TitleStoryText_Line11:
       .BYTE $DC, $DA, $EF, $DE,	$FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2,	$FB, $DA, $E7, $DD
-      .BYTE $FB, $FB, $ED, $E8			  ; CAVE NEARBY	AND TO
+      .BYTE $FB, $FB, $ED, $E8 ; CAVE NEARBY AND TO
 TitleStoryText_Line12:
       .BYTE $E1, $E2, $EC, $FB,	$FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC,	$DE, $FB, $E1, $DE
-      .BYTE $FB, $EC, $DA, $F0			  ; HIS	SURPRISE HE SAW
+      .BYTE $FB, $EC, $DA, $F0 ; HIS SURPRISE HE SAW
 TitleStoryText_Line13:
       .BYTE $DE, $F1, $DA, $DC,	$ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA,	$ED, $FB, $E1, $DE
-      .BYTE $FB, $EC, $DA, $F0			  ; EXACTLY WHAT HE SAW
+      .BYTE $FB, $EC, $DA, $F0 ; EXACTLY WHAT HE SAW
 TitleStoryText_Line14:
       .BYTE $E2, $E7, $FB, $E1,	$E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6,	$CF, $CF, $CF, $CF
-      .BYTE $FB, $FB, $FB, $FB			  ; IN HIS DREAM....
+      .BYTE $FB, $FB, $FB, $FB ; IN HIS DREAM....
 TitleStoryText_Line15:
       .BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB
-      .BYTE $FB, $FB, $FB, $FB			  ; (blank)
+      .BYTE $FB, $FB, $FB, $FB ; (blank)
 TitleStoryText_Line16:
       .BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED,	$FB, $DB, $EE, $ED
-      .BYTE $ED, $E8, $E7, $FB			  ; PUSH START BUTTON
+      .BYTE $ED, $E8, $E7, $FB ; PUSH START BUTTON
 TitleAttributeData1:
       .BYTE $23, $CB, $42, $FF
 
@@ -4577,33 +4577,33 @@ TitleAttributeData2:
 ; =============== S U B R O U T I N E =======================================
 
 TitleScreen:
-      LDY     #7				  ; Does initialization	of RAM.
-      STY     byte_RAM_1			  ; This clears	$200 to	$7FF.
+      LDY     #7 ; Does initialization of RAM.
+      STY     byte_RAM_1			  ; This clears $200 to $7FF.
       LDY     #0
       STY     byte_RAM_0
       TYA
 
 InitMemoryLoop:
-      STA     (byte_RAM_0),Y			  ; I'm not sure if a different method of initializing memory
-						  ; would work better in this case.
+      STA     (byte_RAM_0),Y ; I'm not sure if a different method of initializing memory
+; would work better in this case.
       DEY
       BNE     InitMemoryLoop
 
       DEC     byte_RAM_1
       LDX     byte_RAM_1
       CPX     #2
-      BCS     InitMemoryLoop			  ; Stop initialization	after we hit $200.
+      BCS     InitMemoryLoop ; Stop initialization after we hit $200.
 
 loc_BANK0_9A53:
       LDA     #0
       TAY
 
 InitMemoryLoop2:
-      STA     byte_RAM_0,Y			  ; Now	we clear $00-$FF.
-      INY					  ; Notably, this leaves the stack area,
-						  ; $100-$1FF, uninitialized.
-      BNE     InitMemoryLoop2			  ; This is not	super important, but you might want to
-						  ; do this yourself to	track stack corruption or whatever.
+      STA     byte_RAM_0,Y ; Now we clear $00-$FF.
+      INY ; Notably, this leaves the stack area,
+; $100-$1FF, uninitialized.
+      BNE     InitMemoryLoop2 ; This is not super important, but you might want to
+; do this yourself to track stack corruption or whatever.
 
       JSR     LoadTitleScreenCHRBanks
 
@@ -4790,17 +4790,17 @@ TitleScreen_WriteSTORYText:
       STA     PPUBuffer_301
       LDA     #$AE
       STA     byte_RAM_302
-      LDA     #5				  ; Length of STORY text (5 bytes)
+      LDA     #5 ; Length of STORY text (5 bytes)
       STA     byte_RAM_303
-      LDY     #4				  ; Bytes to copy minus	one (5-1=4)
+      LDY     #4 ; Bytes to copy minus one (5-1=4)
 
 TitleScreen_WriteSTORYTextLoop:
-      LDA     TitleStoryText_STORY,Y		  ; Copy STORY text to PPU write buffer
+      LDA     TitleStoryText_STORY,Y ; Copy STORY text to PPU write buffer
       STA     byte_RAM_304,Y
       DEY
       BPL     TitleScreen_WriteSTORYTextLoop
 
-      LDA     #0				  ; Terminate STORY text in buffer
+      LDA     #0 ; Terminate STORY text in buffer
       STA     byte_RAM_309
 
 loc_BANK0_9B93:
@@ -4944,16 +4944,16 @@ loc_BANK0_9C52:
 
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $9C58 - $A1FF
-     .pad $A200, $FF
+; Unused space in the original
+; $9C58 - $A1FF
+      .pad $A200, $FF
 ENDIF
 
 
 ; -------------------------------------------
 
 
-; [00000200 BYTES: END OF AREA UNUSED-BANK1_A000. PRESS	KEYPAD "-" TO COLLAPSE]
+; [00000200 BYTES: END OF AREA UNUSED-BANK1_A000. PRESS KEYPAD "-" TO COLLAPSE]
 EndingPPUDataPointers:
       .WORD PPUBuffer_301
 
@@ -5561,17 +5561,17 @@ loc_BANK1_A646:
 ; ---------------------------------------------------------------------------
 EndingCelebrationCeilingTextAndPodium:
       .BYTE $20,0,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
-      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
+      .BYTE $81,$80,$81,$80,$81 ; $1E
       .BYTE $20,$20,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
-      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
+      .BYTE $80,$81,$80,$81,$80 ; $1E
       .BYTE $20,$40,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
-      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
+      .BYTE $81,$80,$81,$80,$81 ; $1E
       .BYTE $20,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
-      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
+      .BYTE $80,$81,$80,$81,$80 ; $1E
       .BYTE $20,$88,1,$5A
       .BYTE $20,$89,$4E,$9A
       .BYTE $20,$97,1,$5C
@@ -5608,44 +5608,44 @@ EndingCelebrationCeilingTextAndPodium:
       .BYTE 0
 EndingCelebrationFloorAndSubconParade:
       .BYTE $23,0,$20,0,2,8,$A,$C,$E,4,6,8,$A,4,6,$C,$E,4,6,8,$A,0,2,$C
-      .BYTE $E,$C,$E,0,2,4,6,4,6,8,$A		  ; $18
+      .BYTE $E,$C,$E,0,2,4,6,4,6,8,$A ; $18
       .BYTE $23,$20,$20,1,3,9,$B,$D,$F,5,7,9,$B,5,7,$D,$F,5,7,9,$B,1,3
-      .BYTE $D,$F,$D,$F,1,3,5,7,5,7,9,$B	  ; $17
+      .BYTE $D,$F,$D,$F,1,3,5,7,5,7,9,$B ; $17
       .BYTE $27,0,$20,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76
-      .BYTE $74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74; $F
-      .BYTE $76,$74,$76,$74,$76			  ; $1E
+      .BYTE $74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74 ; $F
+      .BYTE $76,$74,$76,$74,$76 ; $1E
       .BYTE $27,$20,$20,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77
-      .BYTE $75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75; $F
-      .BYTE $77,$75,$77,$75,$77			  ; $1E
+      .BYTE $75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75 ; $F
+      .BYTE $77,$75,$77,$75,$77 ; $1E
       .BYTE $23,$40,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
-      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
+      .BYTE $81,$80,$81,$80,$81 ; $1E
       .BYTE $23,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
-      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
+      .BYTE $80,$81,$80,$81,$80 ; $1E
       .BYTE $23,$80,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
-      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
+      .BYTE $81,$80,$81,$80,$81 ; $1E
       .BYTE $23,$A0,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
-      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
+      .BYTE $80,$81,$80,$81,$80 ; $1E
       .BYTE $27,$40,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
-      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
+      .BYTE $81,$80,$81,$80,$81 ; $1E
       .BYTE $27,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
-      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
+      .BYTE $80,$81,$80,$81,$80 ; $1E
       .BYTE $27,$80,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80; $F
-      .BYTE $81,$80,$81,$80,$81			  ; $1E
+      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
+      .BYTE $81,$80,$81,$80,$81 ; $1E
       .BYTE $27,$A0,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81; $F
-      .BYTE $80,$81,$80,$81,$80			  ; $1E
+      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
+      .BYTE $80,$81,$80,$81,$80 ; $1E
       .BYTE $23,$C0,$48,$AA
       .BYTE $23,$C8,8,$15,5,$FF,$FF,$FF,$FF,$15,$45
       .BYTE $23,$D0,$20,$31,0,$FF,$FF,$FF,$FF,0,$44,$33,0,$A6,$A5,$A5
-      .BYTE $A6,0,$44,$F3,$F0,$59,$AA,$AA,$96,$F0,$74,$DD,$FF,$55,$AA; $10
-      .BYTE $AA,$95,$55,$55			  ; $1F
+      .BYTE $A6,0,$44,$F3,$F0,$59,$AA,$AA,$96,$F0,$74,$DD,$FF,$55,$AA ; $10
+      .BYTE $AA,$95,$55,$55 ; $1F
       .BYTE $23,$F0,$48,$A5
       .BYTE $23,$F8,$48,$A
       .BYTE $27,$F0,$48,$A5
@@ -5653,67 +5653,67 @@ EndingCelebrationFloorAndSubconParade:
       .BYTE 0
 EndingCelebrationSubconStandStill:
       .BYTE $23,0,$20,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72
-      .BYTE $70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70; $F
-      .BYTE $72,$70,$72,$70,$72			  ; $1E
+      .BYTE $70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70 ; $F
+      .BYTE $72,$70,$72,$70,$72 ; $1E
       .BYTE $23,$20,$20,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73
-      .BYTE $71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71; $F
-      .BYTE $73,$71,$73,$71,$73			  ; $1E
+      .BYTE $71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71 ; $F
+      .BYTE $73,$71,$73,$71,$73 ; $1E
       .BYTE 0
 EndingCelebrationUnusedText_THE_END:
       .BYTE $21,$AC,7,$ED,$E1,$DE,$FB,$DE,$E7,$DD,0
 EndingCelebrationPaletteFade1:
       .BYTE $3F,0,$20,1
-      .BYTE $30,$21,$F,1			  ; 4
-      .BYTE $30,$16,$F,1			  ; 8
-      .BYTE $28,$18,$F,1			  ; $C
-      .BYTE $30,$30,1,1				  ; $10
-      .BYTE $27,$16,$F,1			  ; $14
-      .BYTE $37,$2A,$F,1			  ; $18
-      .BYTE $27,$30,$F,1			  ; $1C
-      .BYTE $36,$25,$F,0			  ; $20
+      .BYTE $30,$21,$F,1 ; 4
+      .BYTE $30,$16,$F,1 ; 8
+      .BYTE $28,$18,$F,1 ; $C
+      .BYTE $30,$30,1,1 ; $10
+      .BYTE $27,$16,$F,1 ; $14
+      .BYTE $37,$2A,$F,1 ; $18
+      .BYTE $27,$30,$F,1 ; $1C
+      .BYTE $36,$25,$F,0 ; $20
 EndingCelebrationPaletteFade2:
       .BYTE $3F,0,$20,$F
-      .BYTE $10,0,$F,$F				  ; 4
-      .BYTE $10,0,$F,$F				  ; 8
-      .BYTE $10,0,$F,$F				  ; $C
-      .BYTE $10,0,$F,$F				  ; $10
-      .BYTE $10,0,$F,$F				  ; $14
-      .BYTE $10,0,$F,$F				  ; $18
-      .BYTE $10,0,$F,$F				  ; $1C
-      .BYTE $10,0,$F,0				  ; $20
+      .BYTE $10,0,$F,$F ; 4
+      .BYTE $10,0,$F,$F ; 8
+      .BYTE $10,0,$F,$F ; $C
+      .BYTE $10,0,$F,$F ; $10
+      .BYTE $10,0,$F,$F ; $14
+      .BYTE $10,0,$F,$F ; $18
+      .BYTE $10,0,$F,$F ; $1C
+      .BYTE $10,0,$F,0 ; $20
 EndingCelebrationPaletteFade3:
       .BYTE $3F,0,$20,$F
-      .BYTE 0,$F,$F,$F				  ; 4
-      .BYTE 0,$F,$F,$F				  ; 8
-      .BYTE 0,$F,$F,$F				  ; $C
-      .BYTE 0,$F,$F,$F				  ; $10
-      .BYTE 0,$F,$F,$F				  ; $14
-      .BYTE 0,$F,$F,$F				  ; $18
-      .BYTE 0,$F,$F,$F				  ; $1C
-      .BYTE 0,$F,$F,0				  ; $20
+      .BYTE 0,$F,$F,$F ; 4
+      .BYTE 0,$F,$F,$F ; 8
+      .BYTE 0,$F,$F,$F ; $C
+      .BYTE 0,$F,$F,$F ; $10
+      .BYTE 0,$F,$F,$F ; $14
+      .BYTE 0,$F,$F,$F ; $18
+      .BYTE 0,$F,$F,$F ; $1C
+      .BYTE 0,$F,$F,0 ; $20
 byte_BANK1_AA32:
       .BYTE EndingUpdateBuffer_PaletteFade1
-      .BYTE EndingUpdateBuffer_PaletteFade2	  ; 1 ;	@TODO This seems wrong,	somehow
-      .BYTE EndingUpdateBuffer_PaletteFade3	  ; 2
+      .BYTE EndingUpdateBuffer_PaletteFade2 ; 1 ; @TODO This seems wrong, somehow
+      .BYTE EndingUpdateBuffer_PaletteFade3 ; 2
 byte_BANK1_AA35:
       .BYTE $8C,$FC,$20,$94
 byte_BANK1_AA39:
       .BYTE $4F,$61,$20,$50
-      .BYTE $4F,$63,$20,$58			  ; 4
-      .BYTE $5F,$65,$20,$50			  ; 8
-      .BYTE $5F,$67,$20,$58			  ; $C
-      .BYTE $4F,$69,$21,$68			  ; $10
-      .BYTE $4F,$6B,$21,$70			  ; $14
-      .BYTE $5F,$6D,$21,$68			  ; $18
-      .BYTE $5F,$6F,$21,$70			  ; $1C
-      .BYTE $4F,$83,$22,$88			  ; $20
-      .BYTE $4F,$83,$62,$90			  ; $24
-      .BYTE $5F,$87,$22,$88			  ; $28
-      .BYTE $5F,$87,$62,$90			  ; $2C
-      .BYTE $4F,$8B,$23,$A0			  ; $30
-      .BYTE $4F,$8D,$23,$A8			  ; $34
-      .BYTE $5F,$8F,$23,$A0			  ; $38
-      .BYTE $5F,$91,$23,$A8			  ; $3C
+      .BYTE $4F,$63,$20,$58 ; 4
+      .BYTE $5F,$65,$20,$50 ; 8
+      .BYTE $5F,$67,$20,$58 ; $C
+      .BYTE $4F,$69,$21,$68 ; $10
+      .BYTE $4F,$6B,$21,$70 ; $14
+      .BYTE $5F,$6D,$21,$68 ; $18
+      .BYTE $5F,$6F,$21,$70 ; $1C
+      .BYTE $4F,$83,$22,$88 ; $20
+      .BYTE $4F,$83,$62,$90 ; $24
+      .BYTE $5F,$87,$22,$88 ; $28
+      .BYTE $5F,$87,$62,$90 ; $2C
+      .BYTE $4F,$8B,$23,$A0 ; $30
+      .BYTE $4F,$8D,$23,$A8 ; $34
+      .BYTE $5F,$8F,$23,$A0 ; $38
+      .BYTE $5F,$91,$23,$A8 ; $3C
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5969,7 +5969,7 @@ sub_BANK1_ABBC:
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_ABC4:
-	  					  ; ? Not marked as used
+; ? Not marked as used
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
       STA     PPUCTRL
       STA     PPUCtrlMirror
@@ -6062,8 +6062,8 @@ IFDEF COMPATIBILITY
       .db $ee, $e6, $00 ; INC $00E6
 ENDIF
 IFNDEF COMPATIBILITY
-      INC     byte_RAM_E6			  ; Absolute address for zero-page
-	  NOP ; Alignment fix
+      INC     byte_RAM_E6 ; Absolute address for zero-page
+      NOP ; Alignment fix
 ENDIF
 
       LDA     #$A0
@@ -6173,8 +6173,8 @@ IFDEF COMPATIBILITY
       .db $ee, $e6, $00 ; INC $00E6
 ENDIF
 IFNDEF COMPATIBILITY
-      INC     byte_RAM_E6			  ; Absolute address for zero-page
-	  NOP ; Alignment fix
+      INC     byte_RAM_E6 ; Absolute address for zero-page
+      NOP ; Alignment fix
 ENDIF
 
 
@@ -6439,8 +6439,8 @@ IFDEF COMPATIBILITY
       .db $8d, $11, $00 ; STA $0011
 ENDIF
 IFNDEF COMPATIBILITY
-      STA     ScreenUpdateIndex			  ; Absolute address for zero-page
-	  NOP ; Alignment fix
+      STA     ScreenUpdateIndex ; Absolute address for zero-page
+      NOP ; Alignment fix
 ENDIF
 
       DEC     byte_RAM_5C3
@@ -6500,14 +6500,14 @@ loc_BANK1_AE57:
 
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $AE5A - $B8FF
-     .pad $B900, $FF
+; Unused space in the original
+; $AE5A - $B8FF
+      .pad $B900, $FF
 ENDIF
 
-; [00000AA6 BYTES: END OF AREA UNUSED-BANK1:AE5A. PRESS	KEYPAD "-" TO COLLAPSE]
+; [00000AA6 BYTES: END OF AREA UNUSED-BANK1:AE5A. PRESS KEYPAD "-" TO COLLAPSE]
 MysteryCharacterData3900:
-      .BYTE $FB ; �		  ; @TODO ??? Not sure what this is
+      .BYTE $FB ; � ; @TODO ??? Not sure what this is
       .BYTE $FF
       .BYTE   0
       .BYTE   8
@@ -6946,10 +6946,10 @@ loc_BANK1_BB0B:
 
 ; =============== S U B R O U T I N E =======================================
 
-; Creates a generic red	Shyguy enemy and
+; Creates a generic red Shyguy enemy and
 ; does some basic initialization for it.
 ;
-; This is a copy of the	"CreateEnemy" routine
+; This is a copy of the "CreateEnemy" routine
 ; in bank 2, but it's here instead for... reasons.
 
 CreateEnemy_TryAllSlots_Bank1:
@@ -7000,8 +7000,8 @@ loc_BANK1_BB1F:
 ; End of function CreateEnemy_TryAllSlots_Bank1
 
 ; ---------------------------------------------------------------------------
-; The rest of this bank	is empty
+; The rest of this bank is empty
 
-; [000004AE BYTES: END OF AREA UNUSED_empty_3B52. PRESS	KEYPAD "-" TO COLLAPSE]
+; [000004AE BYTES: END OF AREA UNUSED_empty_3B52. PRESS KEYPAD "-" TO COLLAPSE]
 ; ===========================================================================
 

@@ -1,6 +1,6 @@
 
-      ;.segment	BANK2
-;       *	=  $8000
+; .segment BANK2
+; * =  $8000
 
 CarryYOffsetBigLo:
       .BYTE $FA ; Mario
@@ -9,22 +9,22 @@ CarryYOffsetBigLo:
       .BYTE $F7 ; Luigi
 
 CarryYOffsetBigHi:
-      .BYTE $FF; Mario
-      .BYTE $FF; Princess
-      .BYTE $FF; Toad
-      .BYTE $FF; Luigi
+      .BYTE $FF ; Mario
+      .BYTE $FF ; Princess
+      .BYTE $FF ; Toad
+      .BYTE $FF ; Luigi
 
 CarryYOffsetSmallLo:
-      .BYTE $02; Mario
-      .BYTE $FE; Princess
-      .BYTE $04; Toad
-      .BYTE $FF; Luigi
+      .BYTE $02 ; Mario
+      .BYTE $FE ; Princess
+      .BYTE $04 ; Toad
+      .BYTE $FF ; Luigi
 
 CarryYOffsetSmallHi:
-      .BYTE $00; Mario
-      .BYTE $FF; Princess
-      .BYTE $00; Toad
-      .BYTE $FF; Luigi
+      .BYTE $00 ; Mario
+      .BYTE $FF ; Princess
+      .BYTE $00 ; Toad
+      .BYTE $FF ; Luigi
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -68,13 +68,13 @@ loc_BANK2_801E:
       LDY     #$1B
 
 loc_BANK2_8058:
-      LDA     ItemCarryYOffsets,Y		  ; Copy the global carrying Y offsets to memory
-      STA     byte_RAM_7F00,Y			  ; These are used for every character for different
-      DEY					  ; frames of the pickup animation
+      LDA     ItemCarryYOffsets,Y ; Copy the global carrying Y offsets to memory
+      STA     byte_RAM_7F00,Y ; These are used for every character for different
+      DEY ; frames of the pickup animation
       BPL     loc_BANK2_8058
 
-      LDY     CurrentCharacter			  ; Copy the character-specific
-      LDA     CarryYOffsetBigLo,Y		  ; FINAL carrying heights into	memory
+      LDY     CurrentCharacter ; Copy the character-specific
+      LDA     CarryYOffsetBigLo,Y ; FINAL carrying heights into memory
       STA     byte_RAM_7F00
       LDA     CarryYOffsetSmallLo,Y
       STA     byte_RAM_7F00+7
@@ -90,8 +90,8 @@ loc_BANK2_8083:
       ORA     CurrentLevel
       BNE     loc_BANK2_808D
 
-      LDA     #SoundEffect2_IntroFallSlide	  ; This is what plays the slide-whistle when
-      STA     SoundEffectQueue2			  ; you	start the game and drop	into 1-1
+      LDA     #SoundEffect2_IntroFallSlide ; This is what plays the slide-whistle when
+      STA     SoundEffectQueue2			  ; you start the game and drop into 1-1
 
 loc_BANK2_808D:
       LDA     byte_RAM_4AF
@@ -425,19 +425,19 @@ HandleEnemyState:
       JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
-      .WORD HandleEnemyState_Inactive		  ; 0 (not active)
-      .WORD HandleEnemyState_Alive		  ; Alive
-      .WORD HandleEnemyState_Dead		  ; Dead
-      .WORD HandleEnemyState_BlockFizzle	  ; Block fizzle
-      .WORD HandleEnemyState_BombExploding	  ; Bomb exploding
-      .WORD HandleEnemyState_PuffOfSmoke	  ; Puff of smoke
-      .WORD HandleEnemyState_6			  ; 6 (?)
+      .WORD HandleEnemyState_Inactive ; 0 (not active)
+      .WORD HandleEnemyState_Alive ; Alive
+      .WORD HandleEnemyState_Dead ; Dead
+      .WORD HandleEnemyState_BlockFizzle ; Block fizzle
+      .WORD HandleEnemyState_BombExploding ; Bomb exploding
+      .WORD HandleEnemyState_PuffOfSmoke ; Puff of smoke
+      .WORD HandleEnemyState_6 ; 6 (?)
 off_BANK2_8250:
       .WORD loc_BANK2_85B2
-						  ; Don't think this is part of state handling (?)
-						  ; but	not sure at all
-						  ;
-						  ; Is this for	being carried/thrown??
+; Don't think this is part of state handling (?)
+; but not sure at all
+;
+; Is this for being carried/thrown??
       .BYTE $18
 byte_BANK2_8253:
       .BYTE $E0
@@ -742,77 +742,77 @@ loc_BANK2_83A6:
 
 ; ---------------------------------------------------------------------------
 EnemyInitializationTable:
-      .WORD EnemyInit_Basic                           ; Heart
-      .WORD EnemyInit_Basic                           ; ShyguyRed
-      .WORD EnemyInit_Basic                           ; Tweeter
-      .WORD EnemyInit_Basic                           ; ShyguyPink
-      .WORD EnemyInit_Basic                           ; Porcupo
-      .WORD EnemyInit_Basic                           ; SnifitRed
-      .WORD EnemyInit_Stationary                      ; SnifitGray
-      .WORD EnemyInit_Basic                           ; SnifitPink
-      .WORD EnemyInit_Basic                           ; Ostro
-      .WORD EnemyInit_Bobomb                          ; BobOmb
-      .WORD EnemyInit_Basic                           ; AlbatossCarryingBobOmb
-      .WORD EnemyInit_AlbatossStartRight              ; AlbatossStartRight
-      .WORD EnemyInit_AlbatossStartLeft               ; AlbatossStartLeft
-      .WORD EnemyInit_Basic                           ; NinjiRunning
-      .WORD EnemyInit_Stationary                      ; NinjiJumping
-      .WORD EnemyInit_BeezoDiving                     ; BeezoDiving
-      .WORD EnemyInit_Basic                           ; BeezoStraight
-      .WORD EnemyInit_Basic                           ; WartBubble
-      .WORD EnemyInit_Basic                           ; Pidgit
-      .WORD EnemyInit_Trouter                         ; Trouter
-      .WORD EnemyInit_Basic                           ; Hoopstar
-      .WORD EnemyInit_JarGenerators                   ; JarGeneratorShyguy
-      .WORD EnemyInit_JarGenerators                   ; JarGeneratorBobOmb
-      .WORD EnemyInit_Phanto                          ; Phanto
-      .WORD EnemyInit_Cobrats                         ; CobratJar
-      .WORD EnemyInit_Cobrats                         ; CobratSand
-      .WORD EnemyInit_Pokey                           ; Pokey
-      .WORD EnemyInit_Basic                           ; Bullet
-      .WORD EnemyInit_Birdo                           ; Birdo
-      .WORD EnemyInit_Mouser                          ; Mouser
-      .WORD EnemyInit_Basic                           ; Egg
-      .WORD EnemyInit_Tryclyde                        ; Tryclyde
-      .WORD EnemyInit_Basic                           ; Fireball
-      .WORD EnemyInit_Clawgrip                        ; Clawgrip
-      .WORD EnemyInit_Basic                           ; ClawgripRock
-      .WORD EnemyInit_Stationary                      ; PanserStationaryFiresAngled
-      .WORD EnemyInit_Basic                           ; PanserWalking
-      .WORD EnemyInit_Stationary                      ; PanserStationaryFiresUp
-      .WORD EnemyInit_Basic                           ; Autobomb
-      .WORD EnemyInit_Basic                           ; AutobombFire
-      .WORD EnemyInit_WhaleSpout                      ; WhaleSpout
-      .WORD EnemyInit_Basic                           ; Flurry
-      .WORD EnemyInit_Fryguy                          ; Fryguy
-      .WORD EnemyInit_Fryguy                          ; FryguySplit
-      .WORD EnemyInit_Wart                            ; Wart
-      .WORD EnemyInit_HawkmouthBoss                   ; HawkmouthBoss
-      .WORD EnemyInit_Sparks                          ; Spark1
-      .WORD EnemyInit_Sparks                          ; Spark2
-      .WORD EnemyInit_Sparks                          ; Spark3
-      .WORD EnemyInit_Sparks                          ; Spark4
-      .WORD EnemyInit_Basic                           ; VegetableSmall
-      .WORD EnemyInit_Basic                           ; VegetableLarge
-      .WORD EnemyInit_Basic                           ; VegetableWart
-      .WORD EnemyInit_Basic                           ; Shell
-      .WORD EnemyInit_Basic                           ; Coin
-      .WORD EnemyInit_Basic                           ; Bomb
-      .WORD EnemyInit_Basic                           ; Rocket
-      .WORD EnemyInit_Basic                           ; MushroomBlock
-      .WORD EnemyInit_Basic                           ; POWBlock
-      .WORD EnemyInit_FallingLogs                     ; FallingLogs
-      .WORD EnemyInit_Basic                           ; SubspaceDoor
-      .WORD EnemyInit_Key                             ; Key
-      .WORD EnemyInit_Basic                           ; SubspacePotion
-      .WORD EnemyInit_Stationary                      ; Mushroom
-      .WORD EnemyInit_Stationary                      ; Mushroom1up
-      .WORD EnemyInit_Basic                           ; FlyingCarpet
-      .WORD EnemyInit_Hawkmouth                       ; HawkmouthRight
-      .WORD EnemyInit_Hawkmouth                       ; HawkmouthLeft
-      .WORD EnemyInit_CrystalBallStarmanStopwatch     ; CrystalBall
-      .WORD EnemyInit_CrystalBallStarmanStopwatch     ; Starman
-      .WORD EnemyInit_CrystalBallStarmanStopwatch     ; Stopwatch
+      .WORD EnemyInit_Basic ; Heart
+      .WORD EnemyInit_Basic ; ShyguyRed
+      .WORD EnemyInit_Basic ; Tweeter
+      .WORD EnemyInit_Basic ; ShyguyPink
+      .WORD EnemyInit_Basic ; Porcupo
+      .WORD EnemyInit_Basic ; SnifitRed
+      .WORD EnemyInit_Stationary ; SnifitGray
+      .WORD EnemyInit_Basic ; SnifitPink
+      .WORD EnemyInit_Basic ; Ostro
+      .WORD EnemyInit_Bobomb ; BobOmb
+      .WORD EnemyInit_Basic ; AlbatossCarryingBobOmb
+      .WORD EnemyInit_AlbatossStartRight ; AlbatossStartRight
+      .WORD EnemyInit_AlbatossStartLeft ; AlbatossStartLeft
+      .WORD EnemyInit_Basic ; NinjiRunning
+      .WORD EnemyInit_Stationary ; NinjiJumping
+      .WORD EnemyInit_BeezoDiving ; BeezoDiving
+      .WORD EnemyInit_Basic ; BeezoStraight
+      .WORD EnemyInit_Basic ; WartBubble
+      .WORD EnemyInit_Basic ; Pidgit
+      .WORD EnemyInit_Trouter ; Trouter
+      .WORD EnemyInit_Basic ; Hoopstar
+      .WORD EnemyInit_JarGenerators ; JarGeneratorShyguy
+      .WORD EnemyInit_JarGenerators ; JarGeneratorBobOmb
+      .WORD EnemyInit_Phanto ; Phanto
+      .WORD EnemyInit_Cobrats ; CobratJar
+      .WORD EnemyInit_Cobrats ; CobratSand
+      .WORD EnemyInit_Pokey ; Pokey
+      .WORD EnemyInit_Basic ; Bullet
+      .WORD EnemyInit_Birdo ; Birdo
+      .WORD EnemyInit_Mouser ; Mouser
+      .WORD EnemyInit_Basic ; Egg
+      .WORD EnemyInit_Tryclyde ; Tryclyde
+      .WORD EnemyInit_Basic ; Fireball
+      .WORD EnemyInit_Clawgrip ; Clawgrip
+      .WORD EnemyInit_Basic ; ClawgripRock
+      .WORD EnemyInit_Stationary ; PanserStationaryFiresAngled
+      .WORD EnemyInit_Basic ; PanserWalking
+      .WORD EnemyInit_Stationary ; PanserStationaryFiresUp
+      .WORD EnemyInit_Basic ; Autobomb
+      .WORD EnemyInit_Basic ; AutobombFire
+      .WORD EnemyInit_WhaleSpout ; WhaleSpout
+      .WORD EnemyInit_Basic ; Flurry
+      .WORD EnemyInit_Fryguy ; Fryguy
+      .WORD EnemyInit_Fryguy ; FryguySplit
+      .WORD EnemyInit_Wart ; Wart
+      .WORD EnemyInit_HawkmouthBoss ; HawkmouthBoss
+      .WORD EnemyInit_Sparks ; Spark1
+      .WORD EnemyInit_Sparks ; Spark2
+      .WORD EnemyInit_Sparks ; Spark3
+      .WORD EnemyInit_Sparks ; Spark4
+      .WORD EnemyInit_Basic ; VegetableSmall
+      .WORD EnemyInit_Basic ; VegetableLarge
+      .WORD EnemyInit_Basic ; VegetableWart
+      .WORD EnemyInit_Basic ; Shell
+      .WORD EnemyInit_Basic ; Coin
+      .WORD EnemyInit_Basic ; Bomb
+      .WORD EnemyInit_Basic ; Rocket
+      .WORD EnemyInit_Basic ; MushroomBlock
+      .WORD EnemyInit_Basic ; POWBlock
+      .WORD EnemyInit_FallingLogs ; FallingLogs
+      .WORD EnemyInit_Basic ; SubspaceDoor
+      .WORD EnemyInit_Key ; Key
+      .WORD EnemyInit_Basic ; SubspacePotion
+      .WORD EnemyInit_Stationary ; Mushroom
+      .WORD EnemyInit_Stationary ; Mushroom1up
+      .WORD EnemyInit_Basic ; FlyingCarpet
+      .WORD EnemyInit_Hawkmouth ; HawkmouthRight
+      .WORD EnemyInit_Hawkmouth ; HawkmouthLeft
+      .WORD EnemyInit_CrystalBallStarmanStopwatch ; CrystalBall
+      .WORD EnemyInit_CrystalBallStarmanStopwatch ; Starman
+      .WORD EnemyInit_CrystalBallStarmanStopwatch ; Stopwatch
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -841,12 +841,12 @@ EnemyInit_Basic:
 
 ; =============== S U B R O U T I N E =======================================
 
-; Enemy	initializing (sets most	stuff to 0)
+; Enemy initializing (sets most stuff to 0)
 
 EnemyInit_BasicWithoutTimer:
       LDA     #0
       STA     EnemyVariable,X
-      LDA     #0				  ; You	do realize you already LDA #0, right???
+      LDA     #0 ; You do realize you already LDA #0, right???
       STA     EnemyArray_B1,X
       STA     EnemyArray_42F,X
       STA     ObjectBeingCarriedTimer,X
@@ -878,7 +878,7 @@ loc_BANK2_8495:
       AND     #$40
       BEQ     locret_BANK2_84A6
 
-      ASL     ObjectXAccel,X			  ; Change the speed of	certain	objects?
+      ASL     ObjectXAccel,X			  ; Change the speed of certain objects?
 
 locret_BANK2_84A6:
       RTS
@@ -888,8 +888,8 @@ locret_BANK2_84A6:
 ; ---------------------------------------------------------------------------
 BeezoXOffsetTable:
       .BYTE $FE
-						  ; If player moving right
-      .BYTE 0					  ; If moving left
+; If player moving right
+      .BYTE 0 ; If moving left
 BeezoDiveSpeedTable:
       .BYTE $12,$16,$1A,$1E,$22,$26,$2A,$2D
       .BYTE $30,$32,$34,$37,$39,$3B,$3D,$3E
@@ -898,10 +898,10 @@ BeezoDiveSpeedTable:
 EnemyInit_BeezoDiving:
       JSR     EnemyInit_Basic
 
-      LDY     PlayerMovementDirection		  ; 2 if travelling left, 1 otherwise
+      LDY     PlayerMovementDirection ; 2 if travelling left, 1 otherwise
       LDA     ScreenBoundaryLeftLo
       ADC     BeezoXOffsetTable-1,Y
-      STA     ObjectXLo,X			  ; Spawn in front of the player to dive at them
+      STA     ObjectXLo,X ; Spawn in front of the player to dive at them
       LDA     ScreenBoundaryLeftHi
       ADC     #0
       STA     ObjectXHi,X
@@ -913,15 +913,15 @@ EnemyBeezoDiveSetup:
       BPL     loc_BANK2_84D5
 
       LDY     #0
-      BEQ     loc_BANK2_84DF			  ; If above the screen, just abort
-						  ; and	use the	least descend-y	one
+      BEQ     loc_BANK2_84DF ; If above the screen, just abort
+; and use the least descend-y one
 
 loc_BANK2_84D5:
-      LDA     PlayerYLo				  ; Check how far down on the screen the player	is
+      LDA     PlayerYLo ; Check how far down on the screen the player is
       SEC
       SBC     ScreenYLo
-      LSR     A					  ; And	then take only the highest 4 bits
-      LSR     A					  ; (divide by 16)
+      LSR     A ; And then take only the highest 4 bits
+      LSR     A ; (divide by 16)
       LSR     A
       LSR     A
       TAY
@@ -1001,7 +1001,7 @@ loc_BANK2_852D:
 
 EnemyDeathMaybe:
       LDA     ObjectType,X
-      CMP     #Enemy_Bullet			  ; "Stray bullet" enemy type
+      CMP     #Enemy_Bullet ; "Stray bullet" enemy type
       BEQ     MakeEnemyFlipUpsideDown
 
       INC     EnemiesKilledForHeart
@@ -1038,9 +1038,9 @@ sub_BANK2_8569:
 ; ---------------------------------------------------------------------------
 
 MakeEnemyFlipUpsideDown:
-      ASL     ObjectAttributes,X		  ; Shift left...
-      SEC					  ; Set	carry...
-      ROR     ObjectAttributes,X		  ; Shift right. Effectively sets $80 bit
+      ASL     ObjectAttributes,X ; Shift left...
+      SEC ; Set carry...
+      ROR     ObjectAttributes,X ; Shift right. Effectively sets $80 bit
 
 loc_BANK2_8574:
       JSR     RenderSprite
@@ -1063,9 +1063,9 @@ HandleObjectGravity:
       BCS     locret_BANK2_858E
 
 loc_BANK2_858A:
-      INC     ObjectYAccel,X			  ; Makes objects slowly fall down
-      INC     ObjectYAccel,X			  ; Turning these into DECs causes...
-						  ;			    problems.
+      INC     ObjectYAccel,X ; Makes objects slowly fall down
+      INC     ObjectYAccel,X ; Turning these into DECs causes...
+;			    problems.
 
 locret_BANK2_858E:
       RTS
@@ -1524,9 +1524,9 @@ loc_BANK2_87AC:
       CMP     #Enemy_Clawgrip
       BNE     loc_BANK2_87CA
 
-      DEY					  ; Clawgrip special hack:
-						  ; Move the "Draw the door" PPU command
-						  ; up 8 tile rows ($100) to be	on the platform
+      DEY ; Clawgrip special hack:
+; Move the "Draw the door" PPU command
+; up 8 tile rows ($100) to be on the platform
 
 loc_BANK2_87CA:
       STY     PPUBuffer_721B
@@ -2022,7 +2022,7 @@ EnemyBehaviorPointerTable:
       .WORD EnemyBehavior_BasicWalker
       .WORD EnemyBehavior_Ostro
       .WORD EnemyBehavior_BobOmb
-      .WORD EnemyBehavior_Albatoss		  ; 10
+      .WORD EnemyBehavior_Albatoss ; 10
       .WORD EnemyBehavior_Albatoss
       .WORD EnemyBehavior_Albatoss
       .WORD EnemyBehavior_NinjiRunning
@@ -2032,7 +2032,7 @@ EnemyBehaviorPointerTable:
       .WORD EnemyBehavior_WartBubble
       .WORD EnemyBehavior_Pidgit
       .WORD EnemyBehavior_Trouter
-      .WORD EnemyBehavior_Hoopstar		  ; 20
+      .WORD EnemyBehavior_Hoopstar ; 20
       .WORD EnemyBehavior_JarGenerators
       .WORD EnemyBehavior_JarGenerators
       .WORD EnemyBehavior_Phanto
@@ -2042,7 +2042,7 @@ EnemyBehaviorPointerTable:
       .WORD EnemyBehavior_BulletAndEgg
       .WORD EnemyBehavior_Birdo
       .WORD EnemyBehavior_Mouser
-      .WORD EnemyBehavior_BulletAndEgg		  ; 30
+      .WORD EnemyBehavior_BulletAndEgg ; 30
       .WORD EnemyBehavior_Tryclyde
       .WORD EnemyBehavior_Fireball
       .WORD EnemyBehavior_Clawgrip
@@ -2052,7 +2052,7 @@ EnemyBehaviorPointerTable:
       .WORD EnemyBehavior_PanserRedAndGray
       .WORD EnemyBehavior_Autobomb
       .WORD EnemyBehavior_AutobombFire
-      .WORD EnemyBehavior_WhaleSpout		  ; 40
+      .WORD EnemyBehavior_WhaleSpout ; 40
       .WORD EnemyBehavior_Flurry
       .WORD EnemyBehavior_Fryguy
       .WORD EnemyBehavior_FryguySplit
@@ -2062,7 +2062,7 @@ EnemyBehaviorPointerTable:
       .WORD EnemyBehavior_Spark
       .WORD EnemyBehavior_Spark
       .WORD EnemyBehavior_Spark
-      .WORD EnemyBehavior_Vegetable		  ; 50
+      .WORD EnemyBehavior_Vegetable ; 50
       .WORD EnemyBehavior_Vegetable
       .WORD EnemyBehavior_Vegetable
       .WORD EnemyBehavior_Shell
@@ -2072,7 +2072,7 @@ EnemyBehaviorPointerTable:
       .WORD EnemyBehavior_MushroomBlockAndPOW
       .WORD EnemyBehavior_MushroomBlockAndPOW
       .WORD EnemyBehavior_FallingLogs
-      .WORD EnemyBehavior_SubspaceDoor		  ; 60
+      .WORD EnemyBehavior_SubspaceDoor ; 60
       .WORD EnemyBehavior_Key
       .WORD EnemyBehavior_SubspacePotion
       .WORD EnemyBehavior_Mushroom
@@ -2082,7 +2082,7 @@ EnemyBehaviorPointerTable:
       .WORD EnemyBehavior_Hawkmouth
       .WORD EnemyBehavior_CrystalBall
       .WORD EnemyBehavior_Starman
-      .WORD EnemyBehavior_Mushroom		  ; 70
+      .WORD EnemyBehavior_Mushroom ; 70
 ; ---------------------------------------------------------------------------
 
 EnemyInit_JarGenerators:
@@ -2237,7 +2237,7 @@ byte_BANK2_8B8E:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8B90:
-      JSR     sub_BANK2_8BBD			  ; Beezo swarm	handler?
+      JSR     sub_BANK2_8BBD ; Beezo swarm handler?
 
       ADC     byte_BANK2_8B8E,Y
       STA     ObjectXLo,X
@@ -2602,7 +2602,7 @@ EnemyInit_Hawkmouth:
 ; =============== S U B R O U T I N E =======================================
 
 EnemyInit_Stationary:
-						  ; DATA XREF: ...
+; DATA XREF: ...
       JSR     EnemyInit_Basic
 
 loc_BANK2_8D6F:
@@ -2967,9 +2967,9 @@ loc_BANK2_8F27:
       ORA     byte_RAM_EF
       BNE     locret_BANK2_8F4E
 
-      LDY     byte_RAM_F4			  ; This part of the code seems	to only	run
-      LDA     SpriteTempScreenY			  ; if the graph we're trying to draw is
-      STA     SpriteDMAArea,Y			  ; a heart sprite ...
+      LDY     byte_RAM_F4			  ; This part of the code seems to only run
+      LDA     SpriteTempScreenY ; if the graph we're trying to draw is
+      STA     SpriteDMAArea,Y ; a heart sprite ...
       LDA     SpriteTempScreenX
       STA     SpriteDMAArea+3,Y
       LDA     #$D8
@@ -2995,24 +2995,24 @@ Enemy_Birdo_Attributes:
 EnemyInit_Birdo:
       JSR     EnemyInit_Basic
 
-      LDY     #0				  ; Default to the Gray	Birdo
-						  ; (fires only	fireballs)
-      LDA     ObjectXLo,X			  ; Check if this is a special Birdo.
+      LDY     #0 ; Default to the Gray Birdo
+; (fires only fireballs)
+      LDA     ObjectXLo,X ; Check if this is a special Birdo.
       CMP     #$A0
-						  ; means this is a Pink Birdo
-						  ; (fires only	eggs, slowly)
+; means this is a Pink Birdo
+; (fires only eggs, slowly)
       BEQ     loc_BANK2_8F63
 
       INY
       CMP     #$B0
-						  ; X position on page = B
-      BEQ     loc_BANK2_8F63			  ; If yes, this is a Red Birdo
-						  ; (fires eggs	and fireballs)
+; X position on page = B
+      BEQ     loc_BANK2_8F63 ; If yes, this is a Red Birdo
+; (fires eggs and fireballs)
 
       INY
 
 loc_BANK2_8F63:
-      STY     EnemyVariable,X			  ; Set	the Birdo type
+      STY     EnemyVariable,X ; Set the Birdo type
       LDA     Enemy_Birdo_Attributes,Y
       STA     ObjectAttributes,X
       LDA     #2
@@ -3066,9 +3066,9 @@ byte_BANK2_8F9D:
       .BYTE $3F
 BirdoHealthEggProbabilities:
       .BYTE 8
-      .BYTE 6					  ; Health-based Birdo egg/fire	chances.
-      .BYTE 4					  ; If PRNG & $1F >= this, shoot an egg
-						  ; Otherwise, shoot a fireball
+      .BYTE 6 ; Health-based Birdo egg/fire chances.
+      .BYTE 4 ; If PRNG & $1F >= this, shoot an egg
+; Otherwise, shoot a fireball
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8FA3:
@@ -3125,24 +3125,24 @@ BirdoBehavior_SpitProjectile:
       LDY     EnemyHP,X
       LDA     EnemyVariable,X
       LDX     byte_RAM_0
-      CMP     #2				  ; If we're a Gray Birdo, always shoot fire
+      CMP     #2 ; If we're a Gray Birdo, always shoot fire
       BEQ     _Birdo_SpitFire
 
-      CMP     #1				  ; If we're a Pink Birdo, always shoot eggs
+      CMP     #1 ; If we're a Pink Birdo, always shoot eggs
       BNE     _Birdo_SpitEgg
 
-      LDA     PseudoRNGValues+2			  ; Otherwise, randomly	determine what to fire
-      AND     #$1F				  ; If PRNG & $1F >= our health-probability number,
-      CMP     BirdoHealthEggProbabilities,Y	  ; fire an egg	out
-      BCS     _Birdo_SpitEgg			  ; Otherwise just fall	through	to barfing fire
+      LDA     PseudoRNGValues+2 ; Otherwise, randomly determine what to fire
+      AND     #$1F ; If PRNG & $1F >= our health-probability number,
+      CMP     BirdoHealthEggProbabilities,Y ; fire an egg out
+      BCS     _Birdo_SpitEgg			  ; Otherwise just fall through to barfing fire
 
 _Birdo_SpitFire:
-      INC     EnemyVariable,X			  ; Shoot a fireball
+      INC     EnemyVariable,X ; Shoot a fireball
       LDA     #Enemy_Fireball
       BNE     sub_BANK2_9004
 
 _Birdo_SpitEgg:
-      LDA     #Enemy_Egg			  ; Shoot an egg
+      LDA     #Enemy_Egg ; Shoot an egg
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3205,7 +3205,7 @@ EnemyBehavior_Mushroom1up:
 Award1upMushroom:
       INC     Mushroom1upPulled
       INC     ExtraLives
-      BNE     loc_BANK2_9050			  ; Check if lives overflow. If	so, reduce by one again
+      BNE     loc_BANK2_9050 ; Check if lives overflow. If so, reduce by one again
 
       DEC     ExtraLives
 
@@ -3480,16 +3480,16 @@ loc_BANK2_9198:
 ; X = Enemy index of object to poof
 
 TurnIntoPuffOfSmoke:
-      LDA     ObjectAttributes,X		  ; Get	current	object sprite attributes...
+      LDA     ObjectAttributes,X		  ; Get current object sprite attributes...
       AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32|ObjAttrib_UpsideDown
-      ORA     #1				  ; Clear current palette, then	set to $01
+      ORA     #1 ; Clear current palette, then set to $01
       STA     ObjectAttributes,X
       LDA     #EnemyState_PuffOfSmoke
-      STA     EnemyState,X			  ; WINNERS DON'T
-						  ; SMOKE SHROOMS
-      STA     EnemyArray_9F,X			  ; No idea what this address is for
+      STA     EnemyState,X ; WINNERS DON'T
+; SMOKE SHROOMS
+      STA     EnemyArray_9F,X ; No idea what this address is for
       LDA     #$1F
-      STA     EnemyTimer,X			  ; Puff-of-smoke animation timer?
+      STA     EnemyTimer,X ; Puff-of-smoke animation timer?
       LDX     byte_RAM_12
 
 locret_BANK2_91C4:
@@ -3720,7 +3720,7 @@ loc_BANK2_92BE:
 
 ; =============== S U B R O U T I N E =======================================
 
-; See CreateEnemy, but this tests all 6	slots instead of just the first	6.
+; See CreateEnemy, but this tests all 6 slots instead of just the first 6.
 
 CreateEnemy_TryAllSlots:
       LDY     #8
@@ -3730,7 +3730,7 @@ CreateEnemy_TryAllSlots:
 
 ; =============== S U B R O U T I N E =======================================
 
-; Creates a generic red	Shyguy enemy and
+; Creates a generic red Shyguy enemy and
 ; does some basic initialization for it.
 ;
 ; Checks the first 6 object slots.
@@ -3817,14 +3817,14 @@ loc_BANK2_9318:
       LDX     byte_RAM_42D
       LDA     ObjectType,X
       LDX     byte_RAM_12
-      CMP     #Enemy_Key			  ; Strange code. Phanto only chases you if you	have the key.
-      BCC     loc_BANK2_933B			  ; So you should just be able to use BEQ/BNE.
-						  ; This way seems to imply that Phanto	would
-						  ; chase you if you were carrying a range of items,
-						  ; but...  what could those items have	been?
+      CMP     #Enemy_Key ; Strange code. Phanto only chases you if you have the key.
+      BCC     loc_BANK2_933B ; So you should just be able to use BEQ/BNE.
+; This way seems to imply that Phanto would
+; chase you if you were carrying a range of items,
+; but...  what could those items have been?
 
-      CMP     #Enemy_SubspacePotion		  ; BuT Instead	we do it like this for... reasons.
-      BCS     loc_BANK2_933B			  ; Nintendo.
+      CMP     #Enemy_SubspacePotion ; BuT Instead we do it like this for... reasons.
+      BCS     loc_BANK2_933B ; Nintendo.
 
       LDA     byte_RAM_5BC
       CMP     #$A0
@@ -4172,12 +4172,12 @@ loc_BANK2_94CD:
       LDA     EnemyArray_42F,X
       BNE     EnemyBehavior_Walk
 
-      ; check if this enemy fires bullets when jumping
+; check if this enemy fires bullets when jumping
       LDA     ObjectType,X
       CMP     #Enemy_SnifitGray
       BNE     EnemyBehavior_Walk
 
-      ; bullet generator
+; bullet generator
       LDA     ObjectYAccel,X ; check if enemy is starting to fall
       CMP     #$FE
       BNE     EnemyBehavior_Walk
@@ -4220,25 +4220,25 @@ loc_BANK2_9503:
 
       LDA     #0
       STA     EnemyArray_477,X
-      LDY     ObjectType,X			  ; Get	the current object ID
-      CPY     #Enemy_Tweeter			  ; Check if this enemy	is a Tweeter
-      BNE     loc_BANK2_9528			  ; If not, go handle some other enemies
+      LDY     ObjectType,X ; Get the current object ID
+      CPY     #Enemy_Tweeter ; Check if this enemy is a Tweeter
+      BNE     loc_BANK2_9528 ; If not, go handle some other enemies
 
       LDA     #$3F
-      JSR     sub_BANK2_9599			  ; ...but very, very, very rarely, only
-						  ; when their timer (that incremenets once per	bounce)
-						  ; hits #$3F -- almost	unnoticable
+      JSR     sub_BANK2_9599 ; ...but very, very, very rarely, only
+; when their timer (that incremenets once per bounce)
+; hits #$3F -- almost unnoticable
 
-      INC     EnemyVariable,X			  ; Make small jump 3 times, then make big jump
+      INC     EnemyVariable,X ; Make small jump 3 times, then make big jump
       LDY     #$F0
       LDA     EnemyVariable,X
-      AND     #3				  ; Check if the timer is a multiple of	4
-      BNE     loc_BANK2_9523			  ; If not, skip over the next bit
+      AND     #3 ; Check if the timer is a multiple of 4
+      BNE     loc_BANK2_9523 ; If not, skip over the next bit
 
       LDY     #$E0
 
 loc_BANK2_9523:
-      STY     ObjectYAccel,X			  ; Set	Y accelleration	for bouncing
+      STY     ObjectYAccel,X			  ; Set Y accelleration for bouncing
       JMP     sub_BANK2_9E4B
 
 ; ---------------------------------------------------------------------------
@@ -4467,7 +4467,7 @@ byte_BANK2_9607:
 ; =============== S U B R O U T I N E =======================================
 
 ; This is run when the player is carrying
-; something, to	update its position to
+; something, to update its position to
 ; wherever the player is above their head
 
 CarryObject:
@@ -5249,8 +5249,8 @@ locret_BANK2_99B3:
 ; ---------------------------------------------------------------------------
 EnemyTilemap1:
       .BYTE $D0,$D2
-      .BYTE $D4,$D6				  ; @TODO Figure out what the difference is
-      .BYTE $F8,$F8				  ; between this and EnemyTilemap2
+      .BYTE $D4,$D6 ; @TODO Figure out what the difference is
+      .BYTE $F8,$F8 ; between this and EnemyTilemap2
       .BYTE $FA,$FA
       .BYTE $CC,$CE
       .BYTE $CC,$CE
@@ -5343,76 +5343,76 @@ EnemyTilemap1:
       .BYTE $AB,$AB
 EnemyAnimationTable:
       .BYTE 0
-      .BYTE 0					  ; 1 ;	Not sure what this does, but it's some sort of
-      .BYTE 8					  ; 2 ;	pointer	that determines	where an enemy's animation
-      .BYTE 0					  ; 3 ;	frames are hiding.
-      .BYTE $C					  ; 4 ;
-      .BYTE $10					  ; 5 ;	$FF means "none", used for the enemy-generating	jars.
-      .BYTE $10					  ; 6 ;	You could theoretically	make them visible that way...
-      .BYTE $10					  ; 7 ;
-      .BYTE $40					  ; 8 ;	These go in order of enemy indexes.
-      .BYTE $14					  ; 9
-      .BYTE $18					  ; $A
-      .BYTE $18					  ; $B
-      .BYTE $18					  ; $C
-      .BYTE $20					  ; $D
-      .BYTE $20					  ; $E
-      .BYTE $24					  ; $F
-      .BYTE $24					  ; $10
-      .BYTE $BE					  ; $11
-      .BYTE 0					  ; $12
-      .BYTE $86					  ; $13
-      .BYTE $88					  ; $14
-      .BYTE $FF					  ; $15
-      .BYTE $FF					  ; $16
-      .BYTE $8C					  ; $17
-      .BYTE $5C					  ; $18
-      .BYTE $5C					  ; $19
-      .BYTE $6C					  ; $1A
-      .BYTE $56					  ; $1B
-      .BYTE $5A					  ; $1C
-      .BYTE $14					  ; $1D
-      .BYTE $72					  ; $1E
-      .BYTE 0					  ; $1F
-      .BYTE $A8					  ; $20
-      .BYTE 0					  ; $21
-      .BYTE $D6					  ; $22
-      .BYTE $AC					  ; $23
-      .BYTE $AC					  ; $24
-      .BYTE $AC					  ; $25
-      .BYTE $74					  ; $26
-      .BYTE $7A					  ; $27
-      .BYTE $92					  ; $28
-      .BYTE $9A					  ; $29
-      .BYTE $80					  ; $2A
-      .BYTE $90					  ; $2B
-      .BYTE 0					  ; $2C
-      .BYTE 0					  ; $2D
-      .BYTE $B6					  ; $2E
-      .BYTE $B6					  ; $2F
-      .BYTE $B6					  ; $30
-      .BYTE $B6					  ; $31
-      .BYTE $28					  ; $32
-      .BYTE $2A					  ; $33
-      .BYTE $2C					  ; $34
-      .BYTE $2E					  ; $35
-      .BYTE $30					  ; $36
-      .BYTE $34					  ; $37
-      .BYTE 0					  ; $38
-      .BYTE $38					  ; $39
-      .BYTE $3A					  ; $3A
-      .BYTE $42					  ; $3B
-      .BYTE $82					  ; $3C
-      .BYTE $82					  ; $3D
-      .BYTE $84					  ; $3E
-      .BYTE $A0					  ; $3F
-      .BYTE $A2					  ; $40
-      .BYTE 4					  ; $41
-      .BYTE $8E					  ; $42
-      .BYTE $8E					  ; $43
-      .BYTE $9E					  ; $44
-      .BYTE $A6					  ; $45
-      .BYTE $A4					  ; $46
+      .BYTE 0 ; 1 ; Not sure what this does, but it's some sort of
+      .BYTE 8					  ; 2 ; pointer that determines where an enemy's animation
+      .BYTE 0 ; 3 ; frames are hiding.
+      .BYTE $C ; 4 ;
+      .BYTE $10 ; 5 ; $FF means "none", used for the enemy-generating jars.
+      .BYTE $10 ; 6 ; You could theoretically make them visible that way...
+      .BYTE $10 ; 7 ;
+      .BYTE $40 ; 8 ; These go in order of enemy indexes.
+      .BYTE $14 ; 9
+      .BYTE $18 ; $A
+      .BYTE $18 ; $B
+      .BYTE $18 ; $C
+      .BYTE $20 ; $D
+      .BYTE $20 ; $E
+      .BYTE $24 ; $F
+      .BYTE $24 ; $10
+      .BYTE $BE ; $11
+      .BYTE 0 ; $12
+      .BYTE $86 ; $13
+      .BYTE $88 ; $14
+      .BYTE $FF ; $15
+      .BYTE $FF ; $16
+      .BYTE $8C ; $17
+      .BYTE $5C ; $18
+      .BYTE $5C ; $19
+      .BYTE $6C ; $1A
+      .BYTE $56 ; $1B
+      .BYTE $5A ; $1C
+      .BYTE $14 ; $1D
+      .BYTE $72 ; $1E
+      .BYTE 0 ; $1F
+      .BYTE $A8 ; $20
+      .BYTE 0 ; $21
+      .BYTE $D6 ; $22
+      .BYTE $AC ; $23
+      .BYTE $AC ; $24
+      .BYTE $AC ; $25
+      .BYTE $74 ; $26
+      .BYTE $7A ; $27
+      .BYTE $92 ; $28
+      .BYTE $9A ; $29
+      .BYTE $80 ; $2A
+      .BYTE $90 ; $2B
+      .BYTE 0 ; $2C
+      .BYTE 0 ; $2D
+      .BYTE $B6 ; $2E
+      .BYTE $B6 ; $2F
+      .BYTE $B6 ; $30
+      .BYTE $B6 ; $31
+      .BYTE $28 ; $32
+      .BYTE $2A ; $33
+      .BYTE $2C ; $34
+      .BYTE $2E ; $35
+      .BYTE $30 ; $36
+      .BYTE $34 ; $37
+      .BYTE 0 ; $38
+      .BYTE $38 ; $39
+      .BYTE $3A ; $3A
+      .BYTE $42 ; $3B
+      .BYTE $82 ; $3C
+      .BYTE $82 ; $3D
+      .BYTE $84 ; $3E
+      .BYTE $A0 ; $3F
+      .BYTE $A2 ; $40
+      .BYTE 4 ; $41
+      .BYTE $8E ; $42
+      .BYTE $8E ; $43
+      .BYTE $9E ; $44
+      .BYTE $A6 ; $45
+      .BYTE $A4 ; $46
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5420,7 +5420,7 @@ EnemyAnimationTable:
 ; who does not bob her vegetables (or whatever other Subcon detritus
 ; she happens to be holding)
 ;
-; After	that it	just moves the sprite into the player's hands.
+; After that it just moves the sprite into the player's hands.
 
 PutCarriedObjectInHands:
       LDA     ObjectYLo,X
@@ -5432,16 +5432,16 @@ PutCarriedObjectInHands:
       LDY     PlayerAnimationFrame
       BNE     loc_BANK2_9ACA
 
-      LDY     CurrentCharacter			  ; Check if we	are Princess
+      LDY     CurrentCharacter ; Check if we are Princess
       DEY
-      BEQ     loc_BANK2_9ACA			  ; If so, skip	making it bob sometimes.
+      BEQ     loc_BANK2_9ACA ; If so, skip making it bob sometimes.
 
       SEC
       SBC     #1
 
 loc_BANK2_9ACA:
-      STA     SpriteTempScreenY			  ; Determine where it should show up on
-      LDA     ObjectXLo,X			  ; the	screen and put it in that place.
+      STA     SpriteTempScreenY ; Determine where it should show up on
+      LDA     ObjectXLo,X ; the screen and put it in that place.
       SEC
       SBC     ScreenBoundaryLeftLo
       STA     SpriteTempScreenX
@@ -5623,12 +5623,12 @@ loc_BANK2_9B79:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B80:
-      CPY     #Enemy_Heart			  ; ???	Compare	against	a Heart
+      CPY     #Enemy_Heart			  ; ??? Compare against a Heart
       BNE     loc_BANK2_9B87
 
-      JMP     loc_BANK2_8F27			  ; This jump appears to never be taken;
-						  ; I don't think this code even runs with
-						  ; an enemy ID	of 0 (heart)
+      JMP     loc_BANK2_8F27 ; This jump appears to never be taken;
+; I don't think this code even runs with
+; an enemy ID of 0 (heart)
 
 ; ---------------------------------------------------------------------------
 
@@ -6106,9 +6106,9 @@ locret_BANK2_9E3A:
 
 ; =============== S U B R O U T I N E =======================================
 
-; Compares our position	to the player's, and returns
-; Y = 1	(Player	to left)
-; Y = 0	(Player	to right)
+; Compares our position to the player's, and returns
+; Y = 1 (Player to left)
+; Y = 0 (Player to right)
 
 EnemyFindWhichSidePlayerIsOn:
       LDA     PlayerXLo
@@ -6209,16 +6209,16 @@ loc_BANK2_9EA6:
 ; =============== S U B R O U T I N E =======================================
 
 EnemyBehavior_TurnAround:
-      ; flip x-velocity
+; flip x-velocity
       LDA     ObjectXAccel,X
       EOR     #$FF
       CLC
       ADC     #$01
       STA     ObjectXAccel,X
-      ; if the enemy is not moving, flip direction next
+; if the enemy is not moving, flip direction next
       BEQ     EnemyBehavior_TurnAroundExit
 
-      ; flip enemy movement direction
+; flip enemy movement direction
       LDA     EnemyMovementDirection,X
       EOR     #$03 ; $01 XOR $03 = $02, $02 XOR $03 = $01
       STA     EnemyMovementDirection,X
@@ -6230,8 +6230,8 @@ EnemyBehavior_TurnAroundExit:
 
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $9EBD - $A02F
+; Unused space in the original
+; $9EBD - $A02F
      .pad $A030, $FF
 ENDIF
 
@@ -6244,114 +6244,114 @@ ENDIF
 
 EnemyTilemap2:
       .BYTE $2D,$2F
-      .BYTE $2D,$2F				  ; 2 ;	@TODO Figure out how this differs from
-      .BYTE $E0,$E2				  ; 4 ;	EnemyTilemap1 and why
-      .BYTE $E4,$E6				  ; 6
-      .BYTE $E0,$E2				  ; 8
-      .BYTE $E4,$E6				  ; $A
-      .BYTE $E8,$EA				  ; $C
-      .BYTE $EC,$EE				  ; $E
-      .BYTE $E8,$EA				  ; $10
-      .BYTE $EC,$EE				  ; $12
-      .BYTE 1,3					  ; $14
-      .BYTE 9,5					  ; $16
-      .BYTE 7,$B				  ; $18
-      .BYTE $D,$F				  ; $1A
-      .BYTE $15,$11				  ; $1C
-      .BYTE $13,$17				  ; $1E
-      .BYTE 1,3					  ; $20
-      .BYTE 9,5					  ; $22
-      .BYTE $19,$1B				  ; $24
-      .BYTE 1,3					  ; $26
-      .BYTE 9,5					  ; $28
-      .BYTE $19,$1B				  ; $2A
-      .BYTE $1D,$1F				  ; $2C
-      .BYTE $25,$21				  ; $2E
-      .BYTE $23,$27				  ; $30
-      .BYTE $1D,$1F				  ; $32
-      .BYTE $25,$21				  ; $34
-      .BYTE $23,$27				  ; $36
-      .BYTE $9C,$9E				  ; $38
-      .BYTE $9C,$9E				  ; $3A
-      .BYTE $D0,$D2				  ; $3C
-      .BYTE $D4,$D6				  ; $3E
-      .BYTE $F0,$F2				  ; $40
-      .BYTE $F4,$F6				  ; $42
-      .BYTE $F0,$F2				  ; $44
-      .BYTE $F8,$FA				  ; $46
-      .BYTE $F,$11				  ; $48
-      .BYTE $13,$15				  ; $4A
-      .BYTE $1F,$11				  ; $4C
-      .BYTE $13,$15				  ; $4E
-      .BYTE $17,$19				  ; $50
-      .BYTE $1B,$17				  ; $52
-      .BYTE $19,$1D				  ; $54
-      .BYTE 9,$B				  ; $56
-      .BYTE 1,3					  ; $58
-      .BYTE 5,7					  ; $5A
-      .BYTE $55,$59				  ; $5C
-      .BYTE $5B,$5D				  ; $5E
-      .BYTE $F0,$F2				  ; $60
-      .BYTE $F4,$F6				  ; $62
-      .BYTE $45,$59				  ; $64
-      .BYTE $5B,$5D				  ; $66
-      .BYTE $45,$59				  ; $68
-      .BYTE $5B,$5D				  ; $6A
-      .BYTE $E8,$EA				  ; $6C
-      .BYTE $EC,$EE				  ; $6E
-      .BYTE $EC,$EE				  ; $70
-      .BYTE $EC,$EE				  ; $72
-      .BYTE $F0,$F2				  ; $74
-      .BYTE $F0,$F2				  ; $76
-      .BYTE $F4,$F6				  ; $78
-      .BYTE $F8,$FA				  ; $7A
-      .BYTE $D0,$D2				  ; $7C
-      .BYTE $D4,$D6				  ; $7E
-      .BYTE 1,3					  ; $80
-      .BYTE 5,7					  ; $82
-      .BYTE 9,$B				  ; $84
-      .BYTE $D,$F				  ; $86
-      .BYTE 1,$11				  ; $88
-      .BYTE 5,$15				  ; $8A
-      .BYTE $13,$B				  ; $8C
-      .BYTE $17,$F				  ; $8E
-      .BYTE $19,$1B				  ; $90
-      .BYTE $2D,$2F				  ; $92
-      .BYTE $3A,$3A				  ; $94
-      .BYTE $E0,$E2				  ; $96
-      .BYTE $E4,$E6				  ; $98
-      .BYTE $E8,$EA				  ; $9A
-      .BYTE $EC,$EE				  ; $9C
-      .BYTE 1,3					  ; $9E
-      .BYTE 5,7					  ; $A0
-      .BYTE $4F,$5D				  ; $A2
-      .BYTE 5,7					  ; $A4
-      .BYTE 9,$B				  ; $A6
-      .BYTE $D,$F				  ; $A8
-      .BYTE $27,$79				  ; $AA
-      .BYTE $7B,$2D				  ; $AC
-      .BYTE $4F,$2F				  ; $AE
-      .BYTE $45,$55				  ; $B0
-      .BYTE $11,$13				  ; $B2
-      .BYTE $15,$17				  ; $B4
-      .BYTE $1F,$21				  ; $B6
-      .BYTE $23,$25				  ; $B8
-      .BYTE $11,$13				  ; $BA
-      .BYTE $23,$25				  ; $BC
-      .BYTE $59,$59				  ; $BE
-      .BYTE $5B,$5B				  ; $C0
-      .BYTE 1,3					  ; $C2
-      .BYTE 5,7					  ; $C4
-      .BYTE 9,$B				  ; $C6
-      .BYTE $D,$F				  ; $C8
-      .BYTE $FB,$11				  ; $CA
-      .BYTE $15,$17				  ; $CC
-      .BYTE $13,$FB				  ; $CE
-      .BYTE $19,$1B				  ; $D0
-      .BYTE $1D,$1F				  ; $D2
-      .BYTE $21,$23				  ; $D4
-      .BYTE $25,$27				  ; $D6
-      .BYTE $25,$27				  ; $D8
+      .BYTE $2D,$2F ; 2 ; @TODO Figure out how this differs from
+      .BYTE $E0,$E2 ; 4 ; EnemyTilemap1 and why
+      .BYTE $E4,$E6 ; 6
+      .BYTE $E0,$E2 ; 8
+      .BYTE $E4,$E6 ; $A
+      .BYTE $E8,$EA ; $C
+      .BYTE $EC,$EE ; $E
+      .BYTE $E8,$EA ; $10
+      .BYTE $EC,$EE ; $12
+      .BYTE 1,3 ; $14
+      .BYTE 9,5 ; $16
+      .BYTE 7,$B ; $18
+      .BYTE $D,$F ; $1A
+      .BYTE $15,$11 ; $1C
+      .BYTE $13,$17 ; $1E
+      .BYTE 1,3 ; $20
+      .BYTE 9,5 ; $22
+      .BYTE $19,$1B ; $24
+      .BYTE 1,3 ; $26
+      .BYTE 9,5 ; $28
+      .BYTE $19,$1B ; $2A
+      .BYTE $1D,$1F ; $2C
+      .BYTE $25,$21 ; $2E
+      .BYTE $23,$27 ; $30
+      .BYTE $1D,$1F ; $32
+      .BYTE $25,$21 ; $34
+      .BYTE $23,$27 ; $36
+      .BYTE $9C,$9E ; $38
+      .BYTE $9C,$9E ; $3A
+      .BYTE $D0,$D2 ; $3C
+      .BYTE $D4,$D6 ; $3E
+      .BYTE $F0,$F2 ; $40
+      .BYTE $F4,$F6 ; $42
+      .BYTE $F0,$F2 ; $44
+      .BYTE $F8,$FA ; $46
+      .BYTE $F,$11 ; $48
+      .BYTE $13,$15 ; $4A
+      .BYTE $1F,$11 ; $4C
+      .BYTE $13,$15 ; $4E
+      .BYTE $17,$19 ; $50
+      .BYTE $1B,$17 ; $52
+      .BYTE $19,$1D ; $54
+      .BYTE 9,$B ; $56
+      .BYTE 1,3 ; $58
+      .BYTE 5,7 ; $5A
+      .BYTE $55,$59 ; $5C
+      .BYTE $5B,$5D ; $5E
+      .BYTE $F0,$F2 ; $60
+      .BYTE $F4,$F6 ; $62
+      .BYTE $45,$59 ; $64
+      .BYTE $5B,$5D ; $66
+      .BYTE $45,$59 ; $68
+      .BYTE $5B,$5D ; $6A
+      .BYTE $E8,$EA ; $6C
+      .BYTE $EC,$EE ; $6E
+      .BYTE $EC,$EE ; $70
+      .BYTE $EC,$EE ; $72
+      .BYTE $F0,$F2 ; $74
+      .BYTE $F0,$F2 ; $76
+      .BYTE $F4,$F6 ; $78
+      .BYTE $F8,$FA ; $7A
+      .BYTE $D0,$D2 ; $7C
+      .BYTE $D4,$D6 ; $7E
+      .BYTE 1,3 ; $80
+      .BYTE 5,7 ; $82
+      .BYTE 9,$B ; $84
+      .BYTE $D,$F ; $86
+      .BYTE 1,$11 ; $88
+      .BYTE 5,$15 ; $8A
+      .BYTE $13,$B ; $8C
+      .BYTE $17,$F ; $8E
+      .BYTE $19,$1B ; $90
+      .BYTE $2D,$2F ; $92
+      .BYTE $3A,$3A ; $94
+      .BYTE $E0,$E2 ; $96
+      .BYTE $E4,$E6 ; $98
+      .BYTE $E8,$EA ; $9A
+      .BYTE $EC,$EE ; $9C
+      .BYTE 1,3 ; $9E
+      .BYTE 5,7 ; $A0
+      .BYTE $4F,$5D ; $A2
+      .BYTE 5,7 ; $A4
+      .BYTE 9,$B ; $A6
+      .BYTE $D,$F ; $A8
+      .BYTE $27,$79 ; $AA
+      .BYTE $7B,$2D ; $AC
+      .BYTE $4F,$2F ; $AE
+      .BYTE $45,$55 ; $B0
+      .BYTE $11,$13 ; $B2
+      .BYTE $15,$17 ; $B4
+      .BYTE $1F,$21 ; $B6
+      .BYTE $23,$25 ; $B8
+      .BYTE $11,$13 ; $BA
+      .BYTE $23,$25 ; $BC
+      .BYTE $59,$59 ; $BE
+      .BYTE $5B,$5B ; $C0
+      .BYTE 1,3 ; $C2
+      .BYTE 5,7 ; $C4
+      .BYTE 9,$B ; $C6
+      .BYTE $D,$F ; $C8
+      .BYTE $FB,$11 ; $CA
+      .BYTE $15,$17 ; $CC
+      .BYTE $13,$FB ; $CE
+      .BYTE $19,$1B ; $D0
+      .BYTE $1D,$1F ; $D2
+      .BYTE $21,$23 ; $D4
+      .BYTE $25,$27 ; $D6
+      .BYTE $25,$27 ; $D8
 ; ---------------------------------------------------------------------------
 
 EnemyInit_Clawgrip:
@@ -6524,7 +6524,7 @@ IFDEF COMPATIBILITY
       .db $ad, $f4, $00 ; LDA $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      LDA     byte_RAM_F4			  ; Absolute address for zero-page
+      LDA     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -6671,7 +6671,7 @@ IFDEF COMPATIBILITY
       .db $8c, $f4, $00 ; STY $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STY     byte_RAM_F4			  ; Absolute address for zero-page
+      STY     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -6707,7 +6707,7 @@ IFDEF COMPATIBILITY
       .db $ae, $f4, $00 ; LDX $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      LDX     byte_RAM_F4			  ; Absolute address for zero-page
+      LDX     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -6772,7 +6772,7 @@ IFDEF COMPATIBILITY
       .db $bd, $a8, $00 ; LDA $00A8, X
 ENDIF
 IFNDEF COMPATIBILITY
-      LDA     ObjectBeingCarriedTimer,X		  ; Absolute address for zero-page
+      LDA     ObjectBeingCarriedTimer,X ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -7178,7 +7178,7 @@ IFDEF COMPATIBILITY
       .db $8c, $f4, $00 ; STY $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STY     byte_RAM_F4			  ; Absolute address for zero-page
+      STY     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -7406,7 +7406,7 @@ IFDEF COMPATIBILITY
       .db $8c, $f4, $00 ; STY $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STY     byte_RAM_F4			  ; Absolute address for zero-page
+      STY     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -7681,7 +7681,7 @@ IFDEF COMPATIBILITY
       .db $8c, $f4, $00 ; STY $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STY     byte_RAM_F4			  ; Absolute address for zero-page
+      STY     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -7876,7 +7876,7 @@ loc_BANK3_A8CF:
       LDA     #$B
 
 loc_BANK3_A8DD:
-      TAX					  ; These may be fireball speed	pointers
+      TAX ; These may be fireball speed pointers
       LDA     unk_BANK3_A744,X
       STA     ObjectYAccel,Y
       LDA     unk_BANK3_A750,X
@@ -8371,7 +8371,7 @@ IFDEF COMPATIBILITY
       .db $8d, $50, $00 ; STA $0000 + PlayerState
 ENDIF
 IFNDEF COMPATIBILITY
-      STA     PlayerState			  ; Absolute address for zero-page
+      STA     PlayerState ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -8536,7 +8536,7 @@ IFDEF COMPATIBILITY
       .db $8c, $f4, $00 ; STY $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STY     byte_RAM_F4			  ; Absolute address for zero-page
+      STY     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -8885,11 +8885,11 @@ loc_BANK3_AE28:
 
       BMI     loc_BANK3_AE45
 
-      LDX     byte_RAM_0			  ; X has the new enemy	index
+      LDX     byte_RAM_0 ; X has the new enemy index
       LDA     #Enemy_AutobombFire
-      JSR     sub_BANK2_9004			  ; Set	the enemy type and attributes
-						  ; Bug: sets RAM $0!
-						  ; Should have	pushed it to stack instead.
+      JSR     sub_BANK2_9004 ; Set the enemy type and attributes
+; Bug: sets RAM $0!
+; Should have pushed it to stack instead.
 
       LDX     byte_RAM_0
       DEC     ObjectYLo,X
@@ -8924,7 +8924,7 @@ IFDEF COMPATIBILITY
       .db $ad, $f4, $00 ; LDA $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      LDA     byte_RAM_F4			  ; Absolute address for zero-page
+      LDA     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -8939,7 +8939,7 @@ IFDEF COMPATIBILITY
       .db $8c, $f4, $00 ; STY $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STY     byte_RAM_F4			  ; Absolute address for zero-page
+      STY     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -8951,7 +8951,7 @@ IFDEF COMPATIBILITY
       .db $8d, $f4, $00 ; STA $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STA     byte_RAM_F4			  ; Absolute address for zero-page
+      STA     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -8970,7 +8970,7 @@ IFDEF COMPATIBILITY
       .db $8d, $f4, $00 ; STA $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STA     byte_RAM_F4			  ; Absolute address for zero-page
+      STA     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -9107,7 +9107,7 @@ IFDEF COMPATIBILITY
       .db $ae, $f4, $00 ; LDX $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      LDX     byte_RAM_F4			  ; Absolute address for zero-page
+      LDX     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -9225,7 +9225,7 @@ loc_BANK3_AFDA:
 ; ---------------------------------------------------------------------------
 
 EnemyInit_HawkmouthBoss:
-      JSR     EnemyInit_Hawkmouth		  ; Falls through to EnemyInit_Stationary
+      JSR     EnemyInit_Hawkmouth ; Falls through to EnemyInit_Stationary
 
       LDA     #3
       STA     EnemyHP,X
@@ -9478,7 +9478,7 @@ IFDEF COMPATIBILITY
       .db $ae, $f4, $00 ; LDX $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      LDX     byte_RAM_F4			  ; Absolute address for zero-page
+      LDX     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -9749,7 +9749,7 @@ IFDEF COMPATIBILITY
       .db $ad, $f4, $00 ; LDA $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      LDA     byte_RAM_F4			  ; Absolute address for zero-page
+      LDA     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -9764,7 +9764,7 @@ IFDEF COMPATIBILITY
       .db $8d, $f4, $00 ; STA $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STA     byte_RAM_F4			  ; Absolute address for zero-page
+      STA     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -9818,7 +9818,7 @@ IFDEF COMPATIBILITY
       .db $8d, $f4, $00 ; STA $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STA     byte_RAM_F4			  ; Absolute address for zero-page
+      STA     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -9858,7 +9858,7 @@ IFDEF COMPATIBILITY
       .db $8d, $f4, $00 ; STA $00F4
 ENDIF
 IFNDEF COMPATIBILITY
-      STA     byte_RAM_F4			  ; Absolute address for zero-page
+      STA     byte_RAM_F4 ; Absolute address for zero-page
 	  NOP ; Alignment fix
 ENDIF
 
@@ -9918,8 +9918,8 @@ loc_BANK3_B398:
 
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $B39B - $B4DF
+; Unused space in the original
+; $B39B - $B4DF
      .pad $B4E0, $FF
 ENDIF
 
@@ -11226,7 +11226,7 @@ locret_BANK3_BB49:
 
 ; ---------------------------------------------------------------------------
 _unused_BANK3_BB4A:
-      .BYTE $FF			  ; May	not be used, but wasn't marked as data
+      .BYTE $FF ; May not be used, but wasn't marked as data
       .BYTE $FF
       .BYTE $FF
       .BYTE $FF
@@ -11897,11 +11897,11 @@ sub_BANK3_BE0B:
 ; some kind of palette copying routine
 loc_BANK3_BE34:
       STA     byte_RAM_304,X
-      LDA     byte_RAM_638
+      LDA     RestorePlayerPalette1
       STA     byte_RAM_305,X
-      LDA     byte_RAM_639
+      LDA     RestorePlayerPalette2
       STA     byte_RAM_306,X
-      LDA     byte_RAM_63A
+      LDA     RestorePlayerPalette3
       STA     byte_RAM_307,X
       LDA     #0
       STA     byte_RAM_308,X
@@ -11976,7 +11976,7 @@ locret_BANK3_BEAF:
 ; End of function sub_BANK3_BE0B
 
 ; ---------------------------------------------------------------------------
-; The rest of this bank	is empty
+; The rest of this bank is empty
 
 ; ===========================================================================
 

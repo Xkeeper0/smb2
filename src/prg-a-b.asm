@@ -2,27 +2,27 @@
 ;       * =  $8000
 World1thru6TitleCard:
       .BYTE $FB, $FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
-      .BYTE $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1, $FB, $FB, $FB, $FB; $10 ; This title card is used for every world
-      .BYTE $FB, $FB, $B4, $B5, $FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8, $BA, $BC, $FB, $FB; $20 ; from 1 to 6. The only difference is
-      .BYTE $FB, $FB, $B4, $B5, $FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB; $30 ; the loaded CHR banks.
-      .BYTE $FB, $FB, $B4, $B5, $FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB; $40
-      .BYTE $FB, $FB, $B4, $B5, $C0, $C1, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB; $50
-      .BYTE $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC; $60
-      .BYTE $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD; $70
-      .BYTE $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF; $80
-      .BYTE $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE; $90
+      .BYTE $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1, $FB, $FB, $FB, $FB ; $10 ; This title card is used for every world
+      .BYTE $FB, $FB, $B4, $B5, $FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8, $BA, $BC, $FB, $FB ; $20 ; from 1 to 6. The only difference is
+      .BYTE $FB, $FB, $B4, $B5, $FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB ; $30 ; the loaded CHR banks.
+      .BYTE $FB, $FB, $B4, $B5, $FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB ; $40
+      .BYTE $FB, $FB, $B4, $B5, $C0, $C1, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB ; $50
+      .BYTE $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC ; $60
+      .BYTE $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD ; $70
+      .BYTE $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF ; $80
+      .BYTE $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE ; $90
 
 World7TitleCard:
       .BYTE $FB, $FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
-      .BYTE $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1, $FB, $FB, $FB, $FB; $10 ; This one is the special one used for World 7,
-      .BYTE $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8, $BA, $BC, $FB, $FB; $20 ; if you couldn't guess
-      .BYTE $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB; $30
-      .BYTE $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $CA, $FC, $FC, $FC, $FC, $CC, $FB, $FB; $40
-      .BYTE $FB, $FB, $B1, $B3, $C0, $C1, $FB, $FB, $CA, $FC, $FC, $FC, $FC, $CC, $FB, $FB; $50
-      .BYTE $A8, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AE; $60
-      .BYTE $A9, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AF; $70
-      .BYTE $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB; $80
-      .BYTE $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB; $90
+      .BYTE $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1, $FB, $FB, $FB, $FB ; $10 ; This one is the special one used for World 7,
+      .BYTE $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8, $BA, $BC, $FB, $FB ; $20 ; if you couldn't guess
+      .BYTE $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB ; $30
+      .BYTE $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $CA, $FC, $FC, $FC, $FC, $CC, $FB, $FB ; $40
+      .BYTE $FB, $FB, $B1, $B3, $C0, $C1, $FB, $FB, $CA, $FC, $FC, $FC, $FC, $CC, $FB, $FB ; $50
+      .BYTE $A8, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AE ; $60
+      .BYTE $A9, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AF ; $70
+      .BYTE $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; $80
+      .BYTE $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; $90
 BonusChanceLayout:
       .BYTE $20,0,$60,$FD
       .BYTE $20,$20,$60,$FD
@@ -39,7 +39,7 @@ BonusChanceLayout:
       .BYTE $20,$9E,$D6,$FD
       .BYTE $20,$9F,$D6,$FD
       .BYTE $20,$68,$10,$48,$4A,$4C,$4E,$50,$51,$52,$53,$54,$55,$56,$57
-      .BYTE $58,$5A,$5C,$5E			  ; $F
+      .BYTE $58,$5A,$5C,$5E ; $F
       .BYTE $20,$83,9,$FD,$FD,$22,$23,$24,$49,$4B,$4D,$4F
       .BYTE $20,$94,9,$59,$5B,$5D,$5F,$2E,$2F,$30,$FD,$FD
       .BYTE $20,$A3,4,$FD,$25,$26,$27
@@ -67,21 +67,21 @@ BonusChanceLayout:
       .BYTE $23,$23,3,$46,$91,$93
       .BYTE $23,$2A,2,$A2,$A4
       .BYTE $23,$2E,$10,$67,$6C,$6E,$70,$72,$69,$9F,$A1,$75,$98,$9A,$FB
-      .BYTE $84,$86,$8C,$8E			  ; $F
+      .BYTE $84,$86,$8C,$8E ; $F
 BonusChanceLayout_:
       .BYTE $23,$43,$1B,$47,$94,$96,$74,$74,$74,$74,$A3,$A5,$74,$66,$68
-      .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F; $F ; This is still part of the	original, but used
-						  ; to copy data $100 bytes in in this disassembly
-						  ; @TODO Fix later
+      .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F ; $F ; This is still part of the original, but used
+; to copy data $100 bytes in in this disassembly
+; @TODO Fix later
       .BYTE $23,$64,5,$95,$97,$FD,$AA,$AB
       .BYTE $23,$77,5,$9C,$9D,$AA,$AB,$AB
       .BYTE $23,$89,2,$AA,$AB
       .BYTE $20,$C9,$E,$78,$AC,$B0,$B4,$B7,$BA,$FB,$BC,$BE,$C1,$C4,$C7
-      .BYTE $CB,$7C				  ; $F
+      .BYTE $CB,$7C ; $F
       .BYTE $20,$E8,$10,$1C,$79,$AD,$B1,$B5,$B8,$BB,$FB,$BD,$BF,$C2,$C5
-      .BYTE $C8,$CC,$7D,$1E			  ; $F
+      .BYTE $C8,$CC,$7D,$1E ; $F
       .BYTE $21,8,$10,$1D,$7A,$AE,$B2,$B6,$B9,$FB,$FB,$FB,$C0,$C3,$C6
-      .BYTE $C9,$CD,$7E,$1F			  ; $F
+      .BYTE $C9,$CD,$7E,$1F ; $F
       .BYTE $21,$29,3,$7B,$AF,$B3
       .BYTE $21,$34,3,$CA,$CE,$7F
       .BYTE $21,$6A,$C,$14,$10,$10,$16,$14,$10,$10,$16,$14,$10,$10,$16
@@ -99,15 +99,15 @@ BonusChanceLayout_:
 ; =============== S U B R O U T I N E =======================================
 
 CopyBonusChanceLayoutToRAM:
-      LDY     #0				  ; This copies	the bonus chance layout	from
-						  ; ROM	into some area of save RAM...
-						  ; including some extra data (like this code)
-						  ; This section of RAM	is never used for anything else,
-						  ; so in theory you could free	that by	just...
-						  ; not	doing this.
+      LDY     #0				  ; This copies the bonus chance layout from
+; ROM into some area of save RAM...
+; including some extra data (like this code)
+; This section of RAM is never used for anything else,
+; so in theory you could free that by just...
+; not doing this.
 
 loc_BANKA_8312:
-      LDA     BonusChanceLayout,Y		  ; Blindly copy $100 bytes from $8140 to $7400
+      LDA     BonusChanceLayout,Y ; Blindly copy $100 bytes from $8140 to $7400
       STA     BonusChanceLayoutRAM,Y
       DEY
       BNE     loc_BANKA_8312
@@ -115,8 +115,8 @@ loc_BANKA_8312:
       LDY     #0
 
 loc_BANKA_831D:
-      LDA     BonusChanceLayout_+7,Y		  ; Blindly copy $100 more bytes from $8240 to $7500
-						  ; That range includes	this code! clap. clap.
+      LDA     BonusChanceLayout_+7,Y ; Blindly copy $100 more bytes from $8240 to $7500
+; That range includes this code! clap. clap.
       STA     BonusChanceLayoutRAM2,Y
       DEY
       BNE     loc_BANKA_831D
@@ -130,7 +130,7 @@ loc_BANKA_831D:
 DrawTitleCardWorldImage:
       LDA     CurrentWorld
       CMP     #6
-      BEQ     loc_BANKA_8392     ; Special case for World 7's title card
+      BEQ     loc_BANKA_8392 ; Special case for World 7's title card
 
       LDA     #$25
       STA     byte_RAM_0
@@ -242,9 +242,9 @@ locret_BANKA_83C8:
 
 ; ---------------------------------------------------------------------------
 StatOffsets:
-      ; These offets are relative to MarioStats and used
-      ; to determine where each character's stats begin
-      ; @TODO Have assembler calculate using $ - MarioStats
+; These offets are relative to MarioStats and used
+; to determine where each character's stats begin
+; @TODO Have assembler calculate using $ - MarioStats
       .BYTE $00 ; Mario stats offset
       .BYTE $45 ; Princess stats offset
       .BYTE $17 ; Toad stats offset
@@ -392,11 +392,11 @@ MysteryData14439:
 ; =============== S U B R O U T I N E =======================================
 
 CopyCharacterStatsAndStuff:
-      LDX     CurrentCharacter     ; This copies the selected character's stats
-        ; into memory for use later, but also a bunch
-        ; of other unrelated crap like the
-        ; Bonus Chance slot reels (???) and
-        ; god knows what else.
+      LDX     CurrentCharacter ; This copies the selected character's stats
+; into memory for use later, but also a bunch
+; of other unrelated crap like the
+; Bonus Chance slot reels (???) and
+; god knows what else.
       LDY     StatOffsets,X
       LDX     #0
 
@@ -418,7 +418,7 @@ loc_BANKA_845B:
 
 loc_BANKA_846B:
       LDA     MarioPalette,Y
-      STA     unk_RAM_637,X
+      STA     RestorePlayerPalette0,X
       INY
       INX
       CPX     #4
@@ -524,51 +524,51 @@ byte_BANKA_84E5:
       .BYTE $FF
 PlayerSelectPalettes:
       .BYTE $3F,0,$20,$F
-      .BYTE $28,$16,6,$F			  ; 4
-      .BYTE $30,$12,$16,$F			  ; 8
-      .BYTE $30,$16,$12,$F			  ; $C
-      .BYTE $30,$12,$16,$F			  ; $10
-      .BYTE $22,$12,1,$F			  ; $14
-      .BYTE $22,$12,1,$F			  ; $18
-      .BYTE $22,$12,1,$F			  ; $1C
-      .BYTE $22,$12,1,0				  ; $20
+      .BYTE $28,$16,6,$F ; 4
+      .BYTE $30,$12,$16,$F ; 8
+      .BYTE $30,$16,$12,$F ; $C
+      .BYTE $30,$12,$16,$F ; $10
+      .BYTE $22,$12,1,$F ; $14
+      .BYTE $22,$12,1,$F ; $18
+      .BYTE $22,$12,1,$F ; $1C
+      .BYTE $22,$12,1,0 ; $20
 BonusChanceText_X_1:
       .BYTE $22,$30,3,$EA,$FB,$D1
 BonusChanceText_EXTRA_LIFE_1:
       .BYTE $22,$C9,$F,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
-      .BYTE $F9,$FB,$D1,0			  ; $F
+      .BYTE $F9,$FB,$D1,0 ; $F
 BonusChanceBackgroundPalettes:
       .BYTE $F,$27,$17,7
-      .BYTE $F,$37,$16,$12			  ; 4
-      .BYTE $F,$30,$10,0			  ; 8
-      .BYTE $F,$21,$12,1			  ; $C
+      .BYTE $F,$37,$16,$12 ; 4
+      .BYTE $F,$30,$10,0 ; 8
+      .BYTE $F,$21,$12,1 ; $C
 BonusChanceReel1Order:
       .BYTE Slot_Snifit
-      .BYTE Slot_Turnip				  ; 1 ;	Graphics exist for a mushroom (not used)
-      .BYTE Slot_Star				  ; 2
-      .BYTE Slot_Turnip				  ; 3
-      .BYTE Slot_Snifit				  ; 4
-      .BYTE Slot_Star				  ; 5
-      .BYTE Slot_Cherry				  ; 6
-      .BYTE Slot_Turnip				  ; 7
+      .BYTE Slot_Turnip ; 1 ; Graphics exist for a mushroom (not used)
+      .BYTE Slot_Star ; 2
+      .BYTE Slot_Turnip ; 3
+      .BYTE Slot_Snifit ; 4
+      .BYTE Slot_Star ; 5
+      .BYTE Slot_Cherry ; 6
+      .BYTE Slot_Turnip ; 7
 BonusChanceReel2Order:
       .BYTE Slot_Star
-      .BYTE Slot_Snifit				  ; 1
-      .BYTE Slot_Cherry				  ; 2
-      .BYTE Slot_Snifit				  ; 3
-      .BYTE Slot_Turnip				  ; 4
-      .BYTE Slot_Star				  ; 5
-      .BYTE Slot_Snifit				  ; 6
-      .BYTE Slot_Turnip				  ; 7
+      .BYTE Slot_Snifit ; 1
+      .BYTE Slot_Cherry ; 2
+      .BYTE Slot_Snifit ; 3
+      .BYTE Slot_Turnip ; 4
+      .BYTE Slot_Star ; 5
+      .BYTE Slot_Snifit ; 6
+      .BYTE Slot_Turnip ; 7
 BonusChanceReel3Order:
       .BYTE Slot_Star
-      .BYTE Slot_Snifit				  ; 1
-      .BYTE Slot_Star				  ; 2
-      .BYTE Slot_Turnip				  ; 3
-      .BYTE Slot_Star				  ; 4
-      .BYTE Slot_Cherry				  ; 5
-      .BYTE Slot_Turnip				  ; 6
-      .BYTE Slot_Snifit				  ; 7
+      .BYTE Slot_Snifit ; 1
+      .BYTE Slot_Star ; 2
+      .BYTE Slot_Turnip ; 3
+      .BYTE Slot_Star ; 4
+      .BYTE Slot_Cherry ; 5
+      .BYTE Slot_Turnip ; 6
+      .BYTE Slot_Snifit ; 7
 BonusChanceUnusedCoinSprite:
       .BYTE $F8,$19,1,$60,$F8,$1B,1,$68
 BonusChanceUnusedImajinHead:
@@ -581,13 +581,13 @@ BonusChanceUnusedPapaHead:
       .BYTE $CB,$B4,0,$A0,$CB,$B4,$40,$A8
 BonusChanceUnused_Blank20C6:
       .BYTE $20,$C6,$14,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB
-      .BYTE $FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,0	  ; $F
+      .BYTE $FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,0 ; $F
 BonusChanceText_NO_BONUS:
       .BYTE $22,$86,$14,$FB,$FB,$FB,$FB,$FB,$FB,$E7,$E8,$FB,$DB,$E8,$E7
-      .BYTE $EE,$EC,$FB,$FB,$FB,$FB,$FB,$FB,0	  ; $F
+      .BYTE $EE,$EC,$FB,$FB,$FB,$FB,$FB,$FB,0 ; $F
 BonusChanceText_PUSH_A_BUTTON:
       .BYTE $22,$89,$E,$E9,$EE,$EC,$E1,$FB,$E,$F,$FB,$DB,$EE,$ED,$ED,$E8
-      .BYTE $E7,0				  ; $10
+      .BYTE $E7,0 ; $10
 BonusChanceText_PLAYER_1UP:
       .BYTE $22,$8B,$B,$E9,$E5,$DA,$F2,$DE,$EB,$FB,$FB,$D1,$EE,$E9,0
 Text_PAUSE:
@@ -603,18 +603,18 @@ Text_Unknown4:
 Text_PAUSE_Erase:
       .BYTE $25,$ED,5,$FB,$FB,$FB,$FB,$FB,0
 Text_Unknown5:
-      .BYTE $25,$E,7,$FB,$FB,$FB,$FB,$FB,$FB,$FB  ; This one is	actually used, just not	sure what for
+      .BYTE $25,$E,7,$FB,$FB,$FB,$FB,$FB,$FB,$FB  ; This one is actually used, just not sure what for
 Text_WORLD_1_1:
       .BYTE $24,$CA,$B,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$F3,$D1
 Text_EXTRA_LIFE_0:
       .BYTE $23,$48,$10,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
-      .BYTE $F9,$FB,$FB,$D0,0			  ; $F
+      .BYTE $F9,$FB,$FB,$D0,0 ; $F
 Text_WARP:
       .BYTE $21,$8E,4,$F0,$DA,$EB,$E9
 Text_WORLD_1:
-      .BYTE $22,$C,9,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,0; Doki Doki Panic pseudo-leftover
-						  ; This actually has extra spaces on either end:
-						  ; "-WORLD-" ... It originally	said "CHAPTER"
+      .BYTE $22,$C,9,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,0 ; Doki Doki Panic pseudo-leftover
+; This actually has extra spaces on either end:
+; "-WORLD-" ... It originally said "CHAPTER"
 Text_Unknown6:
       .BYTE $21,$6A,1,$FB
 Text_Unknown7:
@@ -626,14 +626,14 @@ UnusedText_THANK_YOU:
 UnusedText_Blank214D:
       .BYTE $21,$4D,6,$FB,$FB,$FB,$FB,$FB,$FB,0
 IFDEF DEBUG
-     .include "src/debug-a.asm"
+      .include "src/debug-a.asm"
 ENDIF
-; The rest of this bank	pair is	empty
+; The rest of this bank pair is empty
 
 
 ; -------------------------------------------
 
 
-; [00002000 BYTES: END OF AREA UNUSED-BANKB:A000. PRESS	KEYPAD "-" TO COLLAPSE]
+; [00002000 BYTES: END OF AREA UNUSED-BANKB:A000. PRESS KEYPAD "-" TO COLLAPSE]
 ; ===========================================================================
 

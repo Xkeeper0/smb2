@@ -1,6 +1,6 @@
 
-      ;.segment	BANK4
-;       *	=  $8000
+; .segment BANK4
+; * =  $8000
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -9,21 +9,21 @@ StartProcessingSoundQueue:
       STA     JOY2
       LDA     StackArea
       CMP     #$41
-						  ; various values otherwise
+; various values otherwise
       BNE     ProcessMusicAndSfxQueues
 
-      LDA     #$C				  ; Mute the two square	channels
-						  ; (TODO: Bitmask pls)
+      LDA     #$C ; Mute the two square channels
+; (TODO: Bitmask pls)
       STA     SND_CHN
-      JMP     ProcessOnlyMusicQueue2		  ; You	would think you	could skip processing,
-						  ; since if the game is paused, nothing should
-						  ; be setting new music or whatever.
-						  ;
-						  ; You	would be correct, except for the suicide code!
-						  ; That sets MusicQueue2.
-						  ;
-						  ; If not for processing it, the music	would not
-						  ; change (or stop) when you used the code. Welp!
+      JMP     ProcessOnlyMusicQueue2		  ; You would think you could skip processing,
+; since if the game is paused, nothing should
+; be setting new music or whatever.
+;
+; You would be correct, except for the suicide code!
+; That sets MusicQueue2.
+;
+; If not for processing it, the music would not
+; change (or stop) when you used the code. Welp!
 
 ; ---------------------------------------------------------------------------
 
@@ -241,7 +241,7 @@ loc_BANK4_8117:
 ; ---------------------------------------------------------------------------
 MushroomSoundData:
       .BYTE $6A, $74, $6A, $64, $5C, $52, $5C, $52,	$4C, $44, $66, $70, $66, $60, $58, $4E
-      .BYTE $58, $4E, $48, $40,	$56, $60, $56, $50, $48, $3E, $48, $3E,	$38, $30; $10
+      .BYTE $58, $4E, $48, $40,	$56, $60, $56, $50, $48, $3E, $48, $3E,	$38, $30 ; $10
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -318,21 +318,21 @@ locret_BANK4_818E:
 ; ---------------------------------------------------------------------------
 SoundEffectPointers:
       .BYTE $4E, 8, $6D, $27, $D7, $74, $8B, $A5
-						  ; Relative pointers to the below sound effect	data.
-						  ; If you want	to edit	this easier, or	once the main
-						  ; part of disassembling is done, replace this	with:
-						  ;
-						  ; @TODO asm.php should have a	"replace this" directive
-						  ;
-						  ; tmp	= $   ;	For relative offset calculations
-						  ; .BYTE <(SoundEffect1Data_BirdoShot - tmp)
-						  ; .BYTE <(SoundEffect1Data_PotionDoorBong - tmp)
-						  ; .BYTE <(SoundEffect1Data_CherryGet - tmp)
-						  ; .BYTE <(SoundEffect1Data_ThrowItem - tmp)
-						  ; .BYTE <(SoundEffect1Data_1UP - tmp)
-						  ; .BYTE <(SoundEffect1Data_EnemyHit -	tmp)
-						  ; .BYTE <(SoundEffect1Data_StopwatchTick - tmp)
-						  ; .BYTE <(SoundEffect1Data_HawkOpen_WartBarf - tmp)
+; Relative pointers to the below sound effect data.
+; If you want to edit this easier, or once the main
+; part of disassembling is done, replace this with:
+;
+; @TODO asm.php should have a "replace this" directive
+;
+; tmp = $ ; For relative offset calculations
+; .BYTE <(SoundEffect1Data_BirdoShot - tmp)
+; .BYTE <(SoundEffect1Data_PotionDoorBong - tmp)
+; .BYTE <(SoundEffect1Data_CherryGet - tmp)
+; .BYTE <(SoundEffect1Data_ThrowItem - tmp)
+; .BYTE <(SoundEffect1Data_1UP - tmp)
+; .BYTE <(SoundEffect1Data_EnemyHit - tmp)
+; .BYTE <(SoundEffect1Data_StopwatchTick - tmp)
+; .BYTE <(SoundEffect1Data_HawkOpen_WartBarf - tmp)
 SoundEffect1Data_PotionDoorBong:
       .BYTE $9F, $10,	$E, $C,	$7E, $7E, $7E, $10, $E,	$C, $7E, $7E, $7E
       .BYTE $86, $10, $E, $C, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E
@@ -417,7 +417,7 @@ loc_BANK4_82C6:
 
 loc_BANK4_82CB:
       LDY     byte_RAM_611
-      LDA     ProcessMusicQueue2,Y		  ; @TODO ??? Uhhhhhhhhhhhhhhhhh????????
+      LDA     ProcessMusicQueue2,Y ; @TODO ??? Uhhhhhhhhhhhhhhhhh????????
       ORA     #$C
       STA     NOISE_LO
       LDA     byte_RAM_611
@@ -501,9 +501,9 @@ loc_BANK4_8326:
 ; ---------------------------------------------------------------------------
 DMCStartTable:
       .BYTE $4F
-						  ; @TODO
-						  ; It seems that the references to these tables are off by one	byte, maybe intentionally?
-						  ; Need to fix	this in	the final disassembly
+; @TODO
+; It seems that the references to these tables are off by one byte, maybe intentionally?
+; Need to fix this in the final disassembly
       .BYTE $60
       .BYTE $4B
       .BYTE 0
@@ -683,7 +683,7 @@ loc_BANK4_8441:
       BNE     loc_BANK4_8465
 
 StopMusic:
-      LDA     #0				  ; Pretty sure	this stops the music
+      LDA     #0 ; Pretty sure this stops the music
       STA     byte_RAM_606
       STA     byte_RAM_609
       STA     SND_CHN
@@ -1008,7 +1008,7 @@ NoiseVolTable:
 NoiseLoTable:
       .BYTE 0,3,$A,2
 NoiseHiTable:
-      .BYTE 0,$18,$18,$58			 ; =============== S U B R O U T I N E =======================================
+      .BYTE 0,$18,$18,$58 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_8629:
       AND     #$F
@@ -1296,50 +1296,50 @@ loc_BANK4_8743:
 
 ; ---------------------------------------------------------------------------
 NoteFrequencyData:
-      .WORD	$1AB8				      ; C
-      .WORD $1938				  ; C# / Db
-      .WORD $17CC				  ; D
-      .WORD $1678				  ; D# / Eb
-      .WORD $1534				  ; E
-      .WORD $1404				  ; F
-      .WORD $12E4				  ; F# / Gb
-      .WORD $11D4				  ; G
-      .WORD $10D4				  ; G# / Ab
-      .WORD $FE0				  ; A
-      .WORD $EFC				  ; A# / Bb
-      .WORD $E24				  ; B
+      .WORD	$1AB8 ; C
+      .WORD $1938 ; C# / Db
+      .WORD $17CC ; D
+      .WORD $1678 ; D# / Eb
+      .WORD $1534 ; E
+      .WORD $1404 ; F
+      .WORD $12E4 ; F# / Gb
+      .WORD $11D4 ; G
+      .WORD $10D4 ; G# / Ab
+      .WORD $FE0 ; A
+      .WORD $EFC ; A# / Bb
+      .WORD $E24 ; B
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $875F - $8EFF
+; Unused space in the original
+; $875F - $8EFF
 ENDIF
-     ; @TODO
-     ; Music pointers are not currently	defined	and labeled yet,
-     ; so we have to keep proper alignment
-     .pad $8F00, $FF
+; @TODO
+; Music pointers are not currently defined and labeled yet,
+; so we have to keep proper alignment
+      .pad $8F00, $FF
 
 
-; [000007A1 BYTES: END OF AREA UNUSED-BANK4:875F. PRESS	KEYPAD "-" TO COLLAPSE]
+; [000007A1 BYTES: END OF AREA UNUSED-BANK4:875F. PRESS KEYPAD "-" TO COLLAPSE]
 NoteLengthTable:
       .BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5
-      .BYTE 4, 7, $A, 9, $A, $E, $15, $1C, $2A,	$38, $B, 4, 4, 5, 6, 8;	$10
-      .BYTE $C,	$B, $A,	$10, $18, $20, $30, $40, 4, 5, 6, 6, 9,	$D, $C,	$C; $20
-      .BYTE $12, $1B, $24, $36,	$48, $E, 3, 5, 5, 7, 6,	$A, $F,	$D, $E,	$14; $30
-      .BYTE $1E, $28, $3C, $50,	5, 6, 7, 8, $B,	$10, $F, $E, $16, $21, $2C, $42; $40
-      .BYTE $58, $11, 6, 6, 8, 8, $C, $12, $10,	$10, $18, $24, $30, $48, $60, 2; $50
-      .BYTE 6, 7, 9, 8,	$D, $13, $11, $12, $1A,	$27, $34, $4E, $68, $14, 7, 7; $60
-      .BYTE 9, $A, $E, $15, $13, $12, $1C, $2A,	$38, $54, $70, 3, 4, 7,	8, $A; $70
-      .BYTE $A,	$F, $16, $14, $14, $1E,	$2D, $3C, $5A, $78, $17, 8, 8, $B, $A, $10; $80
-      .BYTE $18, $15, $16, $20,	$30, $40, $60, $80, 8, 9, $B, $C, $11, $19, $15, $16; $90
-      .BYTE $22, $33, $44, $60,	$88, $1A, 9, 9,	$C, $C,	$12, $1B, $18, $18, $24, $36; $A0
-      .BYTE $48, $6C, $90			  ; $B0
+      .BYTE 4, 7, $A, 9, $A, $E, $15, $1C, $2A,	$38, $B, 4, 4, 5, 6, 8 ; $10
+      .BYTE $C,	$B, $A,	$10, $18, $20, $30, $40, 4, 5, 6, 6, 9,	$D, $C,	$C ; $20
+      .BYTE $12, $1B, $24, $36,	$48, $E, 3, 5, 5, 7, 6,	$A, $F,	$D, $E,	$14 ; $30
+      .BYTE $1E, $28, $3C, $50,	5, 6, 7, 8, $B,	$10, $F, $E, $16, $21, $2C, $42 ; $40
+      .BYTE $58, $11, 6, 6, 8, 8, $C, $12, $10,	$10, $18, $24, $30, $48, $60, 2 ; $50
+      .BYTE 6, 7, 9, 8,	$D, $13, $11, $12, $1A,	$27, $34, $4E, $68, $14, 7, 7 ; $60
+      .BYTE 9, $A, $E, $15, $13, $12, $1C, $2A,	$38, $54, $70, 3, 4, 7,	8, $A ; $70
+      .BYTE $A,	$F, $16, $14, $14, $1E,	$2D, $3C, $5A, $78, $17, 8, 8, $B, $A, $10 ; $80
+      .BYTE $18, $15, $16, $20,	$30, $40, $60, $80, 8, 9, $B, $C, $11, $19, $15, $16 ; $90
+      .BYTE $22, $33, $44, $60,	$88, $1A, 9, 9,	$C, $C,	$12, $1B, $18, $18, $24, $36 ; $A0
+      .BYTE $48, $6C, $90 ; $B0
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $8FB3 - $8FFF
+; Unused space in the original
+; $8FB3 - $8FFF
 ENDIF
-     ; @TODO
-     ; Music pointers are not currently	defined	and labeled yet,
-     ; so we have to keep proper alignment
-     .pad $9000, $FF
+; @TODO
+; Music pointers are not currently defined and labeled yet,
+; so we have to keep proper alignment
+      .pad $9000, $FF
 
 
 MusicPartPointers:
@@ -2696,9 +2696,9 @@ MusicData:
       .BYTE $26
       .BYTE $98
       .BYTE $30
-      .BYTE $34	; 4
+      .BYTE $34 ; 4
       .BYTE $94
-      .BYTE $32	; 2
+      .BYTE $32 ; 2
       .BYTE $98
       .BYTE $30
       .BYTE $96
@@ -2714,10 +2714,10 @@ MusicData:
       .BYTE $98
       .BYTE $42
       .BYTE $94
-      .BYTE $38	; 8
+      .BYTE $38 ; 8
       .BYTE $3A
       .BYTE $99
-      .BYTE $34	; 4
+      .BYTE $34 ; 4
       .BYTE $99
       .BYTE $3E
       .BYTE $38
@@ -2730,7 +2730,7 @@ MusicData:
       .BYTE $3A
       .BYTE $7E
       .BYTE $96
-      .BYTE $38	; 8
+      .BYTE $38 ; 8
       .BYTE $48
       .BYTE $50
       .BYTE $94
@@ -2774,12 +2774,12 @@ MusicData:
       .BYTE $94
       .BYTE $48
       .BYTE $7E
-      .BYTE $38	; 8
+      .BYTE $38 ; 8
       .BYTE $3A
       .BYTE $3E
       .BYTE $7E
       .BYTE $30
-      .BYTE $38	; 8
+      .BYTE $38 ; 8
       .BYTE $3A
       .BYTE $99
       .BYTE $30
@@ -2842,7 +2842,7 @@ MusicData:
       .BYTE $7E
       .BYTE $99
       .BYTE $30
-      .BYTE $38	; 8
+      .BYTE $38 ; 8
       .BYTE $94
       .BYTE $3E
       .BYTE $98
@@ -2874,7 +2874,7 @@ MusicData:
       .BYTE $98
       .BYTE $7E
       .BYTE $9A
-      .BYTE $38	; 8
+      .BYTE $38 ; 8
       .BYTE $7E
       .BYTE $98
       .BYTE $30
@@ -5407,9 +5407,9 @@ MusicData:
 ; -------------------------------------------
 
 
-      ;.segment	BANK5
-;       *	=  $A000
-      .BYTE $4E					  ; This data continues	from the end of	bank 4
+; .segment BANK5
+; * =  $A000
+      .BYTE $4E					  ; This data continues from the end of bank 4
       .BYTE $52
       .BYTE $50
       .BYTE $52
@@ -5641,7 +5641,7 @@ MusicData:
       .BYTE $7E
       .BYTE $30
       .BYTE $3A
-      .BYTE $38	; 8
+      .BYTE $38 ; 8
       .BYTE $88
       .BYTE $7E
       .BYTE $89
@@ -5810,7 +5810,7 @@ byte_BANK5_A18D:
       .BYTE $90
 
 InstrumentSoundData:
-      .BYTE $95			  ; @TODO Should this label be moved up? oops
+      .BYTE $95 ; @TODO Should this label be moved up? oops
       .BYTE $95
       .BYTE $95
       .BYTE $95
@@ -6443,4 +6443,4 @@ byte_BANK5_A3AF:
       .BYTE $53
       .BYTE $54
       .BYTE $55
-; The rest of this bank	is empty
+; The rest of this bank is empty

@@ -19,4 +19,4 @@ COMPATIBILITY = 1
 PRESERVE_UNUSED_SPACE = 1
 
 ; Include debugging tools
-;DEBUG = 1
+; DEBUG = 1
