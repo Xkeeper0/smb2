@@ -442,7 +442,7 @@ off_BANK2_8250:
 byte_BANK2_8253:
       .BYTE $E0
 
-      .BYTE 1
+      .BYTE $01
       .BYTE $FF
 ; ---------------------------------------------------------------------------
 
@@ -846,7 +846,7 @@ EnemyInit_Basic:
 EnemyInit_BasicWithoutTimer:
       LDA     #0
       STA     EnemyVariable,X
-      LDA     #0 ; You do realize you already LDA #0, right???
+      LDA     #$00 ; You do realize you already LDA #$00, right???
       STA     EnemyArray_B1,X
       STA     EnemyArray_42F,X
       STA     ObjectBeingCarriedTimer,X
@@ -889,7 +889,7 @@ locret_BANK2_84A6:
 BeezoXOffsetTable:
       .BYTE $FE
 ; If player moving right
-      .BYTE 0 ; If moving left
+      .BYTE $00 ; If moving left
 BeezoDiveSpeedTable:
       .BYTE $12,$16,$1A,$1E,$22,$26,$2A,$2D
       .BYTE $30,$32,$34,$37,$39,$3B,$3D,$3E
@@ -898,7 +898,7 @@ BeezoDiveSpeedTable:
 EnemyInit_BeezoDiving:
       JSR     EnemyInit_Basic
 
-      LDY     PlayerMovementDirection ; 2 if travelling left, 1 otherwise
+      LDY     PlayerMovementDirection ; 2 if travelling left, $01 otherwise
       LDA     ScreenBoundaryLeftLo
       ADC     BeezoXOffsetTable-1,Y
       STA     ObjectXLo,X ; Spawn in front of the player to dive at them
@@ -1149,26 +1149,26 @@ loc_BANK2_85E1:
 byte_BANK2_85E7:
       .BYTE $F8
 
-      .BYTE 0
+      .BYTE $00
       .BYTE $F8
-      .BYTE 0
-      .BYTE 8
+      .BYTE $00
+      .BYTE $08
 byte_BANK2_85EC:
       .BYTE $10
-      .BYTE 8
+      .BYTE $08
       .BYTE $10
 byte_BANK2_85EF:
       .BYTE $F8
 
       .BYTE $F8
 EnemyInitialAccelerationTable:
-      .BYTE 8
+      .BYTE $08
 
-      .BYTE 8
+      .BYTE $08
       .BYTE $F8
       .BYTE $F8
-      .BYTE 8
-      .BYTE 8
+      .BYTE $08
+      .BYTE $08
 ; ---------------------------------------------------------------------------
 
 HandleEnemyState_BombExploding:
@@ -1232,33 +1232,33 @@ locret_BANK2_8649:
 byte_BANK2_864A:
       .BYTE $FB
 
-      .BYTE 8
+      .BYTE $08
       .BYTE $15
       .BYTE $FB
-      .BYTE 8
+      .BYTE $08
       .BYTE $15
       .BYTE $FB
-      .BYTE 8
+      .BYTE $08
       .BYTE $15
 byte_BANK2_8653:
       .BYTE $FF
 
-      .BYTE 0
-      .BYTE 0
+      .BYTE $00
+      .BYTE $00
       .BYTE $FF
-      .BYTE 0
-      .BYTE 0
+      .BYTE $00
+      .BYTE $00
       .BYTE $FF
-      .BYTE 0
-      .BYTE   0
+      .BYTE $00
+      .BYTE $00
 byte_BANK2_865C:
       .BYTE $FC
 
       .BYTE $FC
       .BYTE $FC
-      .BYTE 8
-      .BYTE 8
-      .BYTE 8
+      .BYTE $08
+      .BYTE $08
+      .BYTE $08
       .BYTE $14
       .BYTE $14
       .BYTE $14
@@ -1267,16 +1267,16 @@ byte_BANK2_8665:
 
       .BYTE $FF
       .BYTE $FF
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE   0
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
 byte_BANK2_866E:
       .BYTE $5F
 
-      .BYTE   6
+      .BYTE $06
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1725,15 +1725,15 @@ locret_BANK2_88DF:
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_88E0:
-      .BYTE 8
+      .BYTE $08
 
-      .BYTE 4
-      .BYTE 2
-      .BYTE 1
+      .BYTE $04
+      .BYTE $02
+      .BYTE $01
 byte_BANK2_88E4:
-      .BYTE 0
+      .BYTE $00
 
-      .BYTE 8
+      .BYTE $08
       .BYTE $10
       .BYTE $18
 
@@ -2118,9 +2118,9 @@ SparkCollision: ; spark movement based on collision
       .BYTE %00001100 ; top/bottom (horizontal)
       .BYTE %00000011 ; left/right (vertical)
 byte_BANK2_8B06:
-      .BYTE 0
+      .BYTE $00
 
-      .BYTE $A
+      .BYTE $0A
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Spark:
@@ -2199,11 +2199,11 @@ sub_BANK2_8B5B:
 byte_BANK2_8B60:
       .BYTE $F0
 
-      .BYTE 0
+      .BYTE $00
 byte_BANK2_8B62:
       .BYTE $FF
 
-      .BYTE 1
+      .BYTE $01
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8B64:
@@ -2231,7 +2231,7 @@ loc_BANK2_8B64:
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_8B8E:
-      .BYTE 0
+      .BYTE $00
 
       .BYTE $FF
 ; ---------------------------------------------------------------------------
@@ -2877,7 +2877,7 @@ loc_BANK2_8EB6:
 byte_BANK2_8EBE:
       .BYTE $FA
 
-      .BYTE $C
+      .BYTE $0C
 byte_BANK2_8EC0:
       .BYTE $91
 
@@ -2995,7 +2995,7 @@ Enemy_Birdo_Attributes:
 EnemyInit_Birdo:
       JSR     EnemyInit_Basic
 
-      LDY     #0 ; Default to the Gray Birdo
+      LDY     #$00 ; Default to the Gray Birdo
 ; (fires only fireballs)
       LDA     ObjectXLo,X ; Check if this is a special Birdo.
       CMP     #$A0
@@ -3065,9 +3065,9 @@ byte_BANK2_8F9D:
       .BYTE $3F
       .BYTE $3F
 BirdoHealthEggProbabilities:
-      .BYTE 8
-      .BYTE 6 ; Health-based Birdo egg/fire chances.
-      .BYTE 4 ; If PRNG & $1F >= this, shoot an egg
+      .BYTE $08
+      .BYTE $06 ; Health-based Birdo egg/fire chances.
+      .BYTE $04 ; If PRNG & $1F >= this, shoot an egg
 ; Otherwise, shoot a fireball
 ; ---------------------------------------------------------------------------
 
@@ -3125,10 +3125,10 @@ BirdoBehavior_SpitProjectile:
       LDY     EnemyHP,X
       LDA     EnemyVariable,X
       LDX     byte_RAM_0
-      CMP     #2 ; If we're a Gray Birdo, always shoot fire
+      CMP     #$02 ; If we're a Gray Birdo, always shoot fire
       BEQ     _Birdo_SpitFire
 
-      CMP     #1 ; If we're a Pink Birdo, always shoot eggs
+      CMP     #$01 ; If we're a Pink Birdo, always shoot eggs
       BNE     _Birdo_SpitEgg
 
       LDA     PseudoRNGValues+2 ; Otherwise, randomly determine what to fire
@@ -3482,7 +3482,7 @@ loc_BANK2_9198:
 TurnIntoPuffOfSmoke:
       LDA     ObjectAttributes,X		  ; Get current object sprite attributes...
       AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32|ObjAttrib_UpsideDown
-      ORA     #1 ; Clear current palette, then set to $01
+      ORA     #$01 ; Clear current palette, then set to $01
       STA     ObjectAttributes,X
       LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,X ; WINNERS DON'T
@@ -3501,7 +3501,7 @@ locret_BANK2_91C4:
 byte_BANK2_91C5:
       .BYTE $F8
 
-      .BYTE 8
+      .BYTE $08
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3564,7 +3564,7 @@ byte_BANK2_9212:
 byte_BANK2_9213:
       .BYTE $FF
 
-      .BYTE 0
+      .BYTE $00
 ; ---------------------------------------------------------------------------
 
 EnemyInit_AlbatossStartLeft:
@@ -3662,7 +3662,7 @@ sub_BANK2_927A:
 
 ; ---------------------------------------------------------------------------
       .BYTE $D0
-      .BYTE   3
+      .BYTE $03
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_BulletAndEgg:
@@ -3782,7 +3782,7 @@ loc_BANK2_92D3:
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_9306:
-      .BYTE 1
+      .BYTE $01
 
       .BYTE $FF
 byte_BANK2_9308:
@@ -3790,10 +3790,10 @@ byte_BANK2_9308:
 
       .BYTE $D0
 byte_BANK2_930A:
-      .BYTE 1
+      .BYTE $01
 
       .BYTE $FF
-      .BYTE 1
+      .BYTE $01
 byte_BANK2_930D:
       .BYTE $18
 
@@ -4232,7 +4232,7 @@ loc_BANK2_9503:
       INC     EnemyVariable,X ; Make small jump 3 times, then make big jump
       LDY     #$F0
       LDA     EnemyVariable,X
-      AND     #3 ; Check if the timer is a multiple of 4
+      AND     #$03 ; Check if the timer is a multiple of 4
       BNE     loc_BANK2_9523 ; If not, skip over the next bit
 
       LDY     #$E0
@@ -4454,15 +4454,15 @@ locret_BANK2_9606:
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_9607:
-      .BYTE $A
+      .BYTE $0A
 
-      .BYTE  $E
-      .BYTE $A
-      .BYTE $D
-      .BYTE   4
-      .BYTE   7
-      .BYTE 4
-      .BYTE 6
+      .BYTE $0E
+      .BYTE $0A
+      .BYTE $0D
+      .BYTE $04
+      .BYTE $07
+      .BYTE $04
+      .BYTE $06
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -4866,17 +4866,17 @@ loc_BANK2_9805:
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_9808:
-      .BYTE 0
+      .BYTE $00
 
-      .BYTE 1
-      .BYTE 1
-      .BYTE 2
+      .BYTE $01
+      .BYTE $01
+      .BYTE $02
 DoorSpriteAnimation:
-      .BYTE 2
-      .BYTE 3
-      .BYTE 4
-      .BYTE 6
-      .BYTE 8
+      .BYTE $02
+      .BYTE $03
+      .BYTE $04
+      .BYTE $06
+      .BYTE $08
       .BYTE $FF
       .BYTE $FF
       .BYTE $FF
@@ -4893,34 +4893,34 @@ DoorSpriteAnimation:
       .BYTE $FF
       .BYTE $FF
       .BYTE $FF
-      .BYTE 8
-      .BYTE 6
-      .BYTE 4
-      .BYTE 3
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 1
-      .BYTE 1
-      .BYTE 1
-      .BYTE 1
-      .BYTE 1
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
+      .BYTE $08
+      .BYTE $06
+      .BYTE $04
+      .BYTE $03
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $01
+      .BYTE $01
+      .BYTE $01
+      .BYTE $01
+      .BYTE $01
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
       .BYTE $A9
-      .BYTE   2
+      .BYTE $02
       .BYTE $D0
-      .BYTE   6
+      .BYTE $06
 ; ---------------------------------------------------------------------------
       LDA     #1
       BNE     loc_BANK2_9843
@@ -5342,11 +5342,11 @@ EnemyTilemap1:
       .BYTE $A6,$A6
       .BYTE $AB,$AB
 EnemyAnimationTable:
-      .BYTE 0
-      .BYTE 0 ; 1 ; Not sure what this does, but it's some sort of
-      .BYTE 8					  ; 2 ; pointer that determines where an enemy's animation
-      .BYTE 0 ; 3 ; frames are hiding.
-      .BYTE $C ; 4 ;
+      .BYTE $00
+      .BYTE $00 ; 1 ; Not sure what this does, but it's some sort of
+      .BYTE $08					  ; 2 ; pointer that determines where an enemy's animation
+      .BYTE $00 ; 3 ; frames are hiding.
+      .BYTE $0C ; 4 ;
       .BYTE $10 ; 5 ; $FF means "none", used for the enemy-generating jars.
       .BYTE $10 ; 6 ; You could theoretically make them visible that way...
       .BYTE $10 ; 7 ;
@@ -5360,7 +5360,7 @@ EnemyAnimationTable:
       .BYTE $24 ; $F
       .BYTE $24 ; $10
       .BYTE $BE ; $11
-      .BYTE 0 ; $12
+      .BYTE $00 ; $12
       .BYTE $86 ; $13
       .BYTE $88 ; $14
       .BYTE $FF ; $15
@@ -5373,9 +5373,9 @@ EnemyAnimationTable:
       .BYTE $5A ; $1C
       .BYTE $14 ; $1D
       .BYTE $72 ; $1E
-      .BYTE 0 ; $1F
+      .BYTE $00 ; $1F
       .BYTE $A8 ; $20
-      .BYTE 0 ; $21
+      .BYTE $00 ; $21
       .BYTE $D6 ; $22
       .BYTE $AC ; $23
       .BYTE $AC ; $24
@@ -5386,8 +5386,8 @@ EnemyAnimationTable:
       .BYTE $9A ; $29
       .BYTE $80 ; $2A
       .BYTE $90 ; $2B
-      .BYTE 0 ; $2C
-      .BYTE 0 ; $2D
+      .BYTE $00 ; $2C
+      .BYTE $00 ; $2D
       .BYTE $B6 ; $2E
       .BYTE $B6 ; $2F
       .BYTE $B6 ; $30
@@ -5398,7 +5398,7 @@ EnemyAnimationTable:
       .BYTE $2E ; $35
       .BYTE $30 ; $36
       .BYTE $34 ; $37
-      .BYTE 0 ; $38
+      .BYTE $00 ; $38
       .BYTE $38 ; $39
       .BYTE $3A ; $3A
       .BYTE $42 ; $3B
@@ -5407,7 +5407,7 @@ EnemyAnimationTable:
       .BYTE $84 ; $3E
       .BYTE $A0 ; $3F
       .BYTE $A2 ; $40
-      .BYTE 4 ; $41
+      .BYTE $04 ; $41
       .BYTE $8E ; $42
       .BYTE $8E ; $43
       .BYTE $9E ; $44
@@ -6049,26 +6049,26 @@ locret_BANK2_9DF3:
 ; End of function sub_BANK2_9CF2
 
 ; ---------------------------------------------------------------------------
-      .BYTE 4
-      .BYTE 0
+      .BYTE $04
+      .BYTE $00
       .BYTE $FF
       .BYTE $FF
-      .BYTE   0
-      .BYTE   0
+      .BYTE $00
+      .BYTE $00
 byte_BANK2_9DFA:
-      .BYTE 1
+      .BYTE $01
 
-      .BYTE 1
-      .BYTE 0
-      .BYTE 0
-      .BYTE 1
-      .BYTE   0
-      .BYTE   0
-      .BYTE   1
-      .BYTE 1
-      .BYTE 0
-      .BYTE 0
-      .BYTE 1
+      .BYTE $01
+      .BYTE $00
+      .BYTE $00
+      .BYTE $01
+      .BYTE $00
+      .BYTE $00
+      .BYTE $01
+      .BYTE $01
+      .BYTE $00
+      .BYTE $00
+      .BYTE $01
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9E06:
@@ -6253,17 +6253,17 @@ EnemyTilemap2:
       .BYTE $EC,$EE ; $E
       .BYTE $E8,$EA ; $10
       .BYTE $EC,$EE ; $12
-      .BYTE 1,3 ; $14
-      .BYTE 9,5 ; $16
-      .BYTE 7,$B ; $18
-      .BYTE $D,$F ; $1A
+      .BYTE $01,$03 ; $14
+      .BYTE $09,$05 ; $16
+      .BYTE $07,$0B ; $18
+      .BYTE $0D,$0F ; $1A
       .BYTE $15,$11 ; $1C
       .BYTE $13,$17 ; $1E
-      .BYTE 1,3 ; $20
-      .BYTE 9,5 ; $22
+      .BYTE $01,$03 ; $20
+      .BYTE $09,$05 ; $22
       .BYTE $19,$1B ; $24
-      .BYTE 1,3 ; $26
-      .BYTE 9,5 ; $28
+      .BYTE $01,$03 ; $26
+      .BYTE $09,$05 ; $28
       .BYTE $19,$1B ; $2A
       .BYTE $1D,$1F ; $2C
       .BYTE $25,$21 ; $2E
@@ -6279,16 +6279,16 @@ EnemyTilemap2:
       .BYTE $F4,$F6 ; $42
       .BYTE $F0,$F2 ; $44
       .BYTE $F8,$FA ; $46
-      .BYTE $F,$11 ; $48
+      .BYTE $0F,$11 ; $48
       .BYTE $13,$15 ; $4A
       .BYTE $1F,$11 ; $4C
       .BYTE $13,$15 ; $4E
       .BYTE $17,$19 ; $50
       .BYTE $1B,$17 ; $52
       .BYTE $19,$1D ; $54
-      .BYTE 9,$B ; $56
-      .BYTE 1,3 ; $58
-      .BYTE 5,7 ; $5A
+      .BYTE $09,$0B ; $56
+      .BYTE $01,$03 ; $58
+      .BYTE $05,$07 ; $5A
       .BYTE $55,$59 ; $5C
       .BYTE $5B,$5D ; $5E
       .BYTE $F0,$F2 ; $60
@@ -6307,14 +6307,14 @@ EnemyTilemap2:
       .BYTE $F8,$FA ; $7A
       .BYTE $D0,$D2 ; $7C
       .BYTE $D4,$D6 ; $7E
-      .BYTE 1,3 ; $80
-      .BYTE 5,7 ; $82
-      .BYTE 9,$B ; $84
-      .BYTE $D,$F ; $86
-      .BYTE 1,$11 ; $88
-      .BYTE 5,$15 ; $8A
-      .BYTE $13,$B ; $8C
-      .BYTE $17,$F ; $8E
+      .BYTE $01,$03 ; $80
+      .BYTE $05,$07 ; $82
+      .BYTE $09,$0B ; $84
+      .BYTE $0D,$0F ; $86
+      .BYTE $01,$11 ; $88
+      .BYTE $05,$15 ; $8A
+      .BYTE $13,$0B ; $8C
+      .BYTE $17,$0F ; $8E
       .BYTE $19,$1B ; $90
       .BYTE $2D,$2F ; $92
       .BYTE $3A,$3A ; $94
@@ -6322,12 +6322,12 @@ EnemyTilemap2:
       .BYTE $E4,$E6 ; $98
       .BYTE $E8,$EA ; $9A
       .BYTE $EC,$EE ; $9C
-      .BYTE 1,3 ; $9E
-      .BYTE 5,7 ; $A0
+      .BYTE $01,$03 ; $9E
+      .BYTE $05,$07 ; $A0
       .BYTE $4F,$5D ; $A2
-      .BYTE 5,7 ; $A4
-      .BYTE 9,$B ; $A6
-      .BYTE $D,$F ; $A8
+      .BYTE $05,$07 ; $A4
+      .BYTE $09,$0B ; $A6
+      .BYTE $0D,$0F ; $A8
       .BYTE $27,$79 ; $AA
       .BYTE $7B,$2D ; $AC
       .BYTE $4F,$2F ; $AE
@@ -6340,10 +6340,10 @@ EnemyTilemap2:
       .BYTE $23,$25 ; $BC
       .BYTE $59,$59 ; $BE
       .BYTE $5B,$5B ; $C0
-      .BYTE 1,3 ; $C2
-      .BYTE 5,7 ; $C4
-      .BYTE 9,$B ; $C6
-      .BYTE $D,$F ; $C8
+      .BYTE $01,$03 ; $C2
+      .BYTE $05,$07 ; $C4
+      .BYTE $09,$0B ; $C6
+      .BYTE $0D,$0F ; $C8
       .BYTE $FB,$11 ; $CA
       .BYTE $15,$17 ; $CC
       .BYTE $13,$FB ; $CE
@@ -6373,7 +6373,7 @@ unk_BANK3_A120:
       .BYTE $D0
       .BYTE $E0
       .BYTE $F0
-      .BYTE   0
+      .BYTE $00
       .BYTE $10
       .BYTE $20
       .BYTE $C8
@@ -6499,24 +6499,24 @@ loc_BANK3_A1D3:
       JMP     RenderSprite
 
 ; ---------------------------------------------------------------------------
-      .BYTE 8
-      .BYTE 8
+      .BYTE $08
+      .BYTE $08
 byte_BANK3_A1D8:
       .BYTE $1C
 
       .BYTE $F4
       .BYTE $11
-      .BYTE $F
+      .BYTE $0F
 byte_BANK3_A1DC:
-      .BYTE 4
+      .BYTE $04
 
-      .BYTE 6
-      .BYTE 8
-      .BYTE 8
-      .BYTE 8
-      .BYTE 8
-      .BYTE 6
-      .BYTE 4
+      .BYTE $06
+      .BYTE $08
+      .BYTE $08
+      .BYTE $08
+      .BYTE $08
+      .BYTE $06
+      .BYTE $04
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A1E4:
@@ -6827,11 +6827,11 @@ loc_BANK3_A362:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_A365:
-      .BYTE 0
+      .BYTE $00
 
       .BYTE $15
       .BYTE $EB
-      .BYTE   0
+      .BYTE $00
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_FlyingCarpet:
@@ -7046,25 +7046,25 @@ loc_BANK3_A478:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_A47B:
-      .BYTE 2
+      .BYTE $02
 
-      .BYTE 2
-      .BYTE 1
-      .BYTE 1
+      .BYTE $02
+      .BYTE $01
+      .BYTE $01
 byte_BANK3_A47F:
-      .BYTE 4
+      .BYTE $04
 
-      .BYTE $C
-      .BYTE $C
-      .BYTE 4
+      .BYTE $0C
+      .BYTE $0C
+      .BYTE $04
 unk_BANK3_A483:
-      .BYTE   1
+      .BYTE $01
       .BYTE $FF
 unk_BANK3_A485:
-      .BYTE   8
+      .BYTE $08
       .BYTE $F8
 unk_BANK3_A487:
-      .BYTE   1
+      .BYTE $01
       .BYTE $FF
 unk_BANK3_A489:
       .BYTE $20
@@ -7424,7 +7424,7 @@ locret_BANK3_A651:
 
 ; ---------------------------------------------------------------------------
       .BYTE $FB
-      .BYTE 5
+      .BYTE $05
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A654:
@@ -7581,7 +7581,7 @@ EnemyInit_Tryclyde:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_A734:
-      .BYTE 0
+      .BYTE $00
 
       .BYTE $FF
       .BYTE $FE
@@ -7599,10 +7599,10 @@ byte_BANK3_A734:
       .BYTE $FE
       .BYTE $FF
 unk_BANK3_A744:
-      .BYTE  $B
-      .BYTE  $C
-      .BYTE $D
-      .BYTE $F
+      .BYTE $0B
+      .BYTE $0C
+      .BYTE $0D
+      .BYTE $0F
       .BYTE $10
       .BYTE $12
       .BYTE $14
@@ -7623,7 +7623,7 @@ unk_BANK3_A750:
       .BYTE $ED
       .BYTE $F1
       .BYTE $F8
-      .BYTE   0
+      .BYTE $00
 ; ---------------------------------------------------------------------------
 
 locret_BANK3_A75C:
@@ -8137,10 +8137,10 @@ EnemyInit_Pokey:
 
 ; ---------------------------------------------------------------------------
 unk_BANK3_AA1C:
-      .BYTE   2
-      .BYTE   4
-      .BYTE  $D
-      .BYTE  $E
+      .BYTE $02
+      .BYTE $04
+      .BYTE $0D
+      .BYTE $0E
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Pokey:
@@ -8235,20 +8235,20 @@ loc_BANK3_AAA4:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_AAAA:
-      .BYTE 0
+      .BYTE $00
 
 byte_BANK3_AAAB:
-      .BYTE 1
+      .BYTE $01
 
 byte_BANK3_AAAC:
-      .BYTE 0
+      .BYTE $00
 
 byte_BANK3_AAAD:
       .BYTE $FF
 
-      .BYTE 0
-      .BYTE 1
-      .BYTE 0
+      .BYTE $00
+      .BYTE $01
+      .BYTE $00
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_AAB1:
@@ -8500,7 +8500,7 @@ byte_BANK3_AC25:
       .BYTE $F0
 
 byte_BANK3_AC26:
-      .BYTE 0
+      .BYTE $00
 
       .BYTE $F0
 
@@ -8575,19 +8575,19 @@ byte_BANK3_AC77:
       .BYTE $F0
       .BYTE $10
 byte_BANK3_AC7B:
-      .BYTE 4
+      .BYTE $04
 
-      .BYTE $C
-      .BYTE 4
-      .BYTE $C
+      .BYTE $0C
+      .BYTE $04
+      .BYTE $0C
 byte_BANK3_AC7F:
-      .BYTE 4
+      .BYTE $04
 
-      .BYTE 4
-      .BYTE $C
-      .BYTE $C
+      .BYTE $04
+      .BYTE $0C
+      .BYTE $0C
 byte_BANK3_AC83:
-      .BYTE 1
+      .BYTE $01
 
       .BYTE $FF
 byte_BANK3_AC85:
@@ -8595,7 +8595,7 @@ byte_BANK3_AC85:
 
       .BYTE $D6
 byte_BANK3_AC87:
-      .BYTE 1
+      .BYTE $01
 
       .BYTE $FF
 byte_BANK3_AC89:
@@ -9143,7 +9143,7 @@ locret_BANK3_AF74:
 byte_BANK3_AF76:
       .BYTE $E4
 
-      .BYTE 1
+      .BYTE $01
       .BYTE $FF
 ; ---------------------------------------------------------------------------
 
@@ -9233,7 +9233,7 @@ EnemyInit_HawkmouthBoss:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_AFEC:
-      .BYTE 1
+      .BYTE $01
 
       .BYTE $FF
 byte_BANK3_AFEE:
@@ -9241,7 +9241,7 @@ byte_BANK3_AFEE:
 
       .BYTE $D8
 byte_BANK3_AFF0:
-      .BYTE 1
+      .BYTE $01
 
       .BYTE $FF
 byte_BANK3_AFF2:
@@ -9504,7 +9504,7 @@ loc_BANK3_B16D:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_B170:
-      .BYTE 8
+      .BYTE $08
 
       .BYTE $28
       .BYTE $48
@@ -9517,12 +9517,12 @@ byte_BANK3_B174:
       .BYTE $84
 unk_BANK3_B178:
       .BYTE $F8
-      .BYTE 8
+      .BYTE $08
       .BYTE $F8
-      .BYTE 8
-      .BYTE 8
+      .BYTE $08
+      .BYTE $08
       .BYTE $F8
-      .BYTE 8
+      .BYTE $08
       .BYTE $F8
 ; ---------------------------------------------------------------------------
 
@@ -10115,25 +10115,25 @@ locret_BANK3_B5BB:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_B5BC:
-      .BYTE 2
+      .BYTE $02
 
-      .BYTE 1
-      .BYTE 2
-      .BYTE 2
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
+      .BYTE $01
+      .BYTE $02
+      .BYTE $02
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
 byte_BANK3_B5C4:
-      .BYTE 8
+      .BYTE $08
 
-      .BYTE 4
-      .BYTE 2
-      .BYTE 1
-      .BYTE 8
-      .BYTE 4
-      .BYTE 2
-      .BYTE 1
+      .BYTE $04
+      .BYTE $02
+      .BYTE $01
+      .BYTE $08
+      .BYTE $04
+      .BYTE $02
+      .BYTE $01
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -10529,7 +10529,7 @@ loc_BANK3_B7E0:
 byte_BANK3_B7E3:
       .BYTE $F8
 
-      .BYTE 8
+      .BYTE $08
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B7E5:
@@ -10748,8 +10748,8 @@ locret_BANK3_B902:
 
 ; ---------------------------------------------------------------------------
 unk_BANK3_B903:
-      .BYTE   8
-      .BYTE   4
+      .BYTE $08
+      .BYTE $04
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_B905:
@@ -11194,7 +11194,7 @@ locret_BANK3_BB2E:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_BB2F:
-      .BYTE $B
+      .BYTE $0B
 
       .BYTE $10
 
@@ -11238,7 +11238,7 @@ byte_BANK3_BB50:
       .BYTE $D4
       .BYTE $C3
       .BYTE $C4
-      .BYTE 7
+      .BYTE $07
       .BYTE $80
       .BYTE $81
       .BYTE $94
@@ -11272,32 +11272,32 @@ ItemCarryYOffsets:
       .BYTE $F9
 
       .BYTE $FF
-      .BYTE 0
-      .BYTE 8
-      .BYTE $C
+      .BYTE $00
+      .BYTE $08
+      .BYTE $0C
       .BYTE $18
       .BYTE $1A
-      .BYTE 1
-      .BYTE 6
-      .BYTE $A
-      .BYTE $C
+      .BYTE $01
+      .BYTE $06
+      .BYTE $0A
+      .BYTE $0C
       .BYTE $18
       .BYTE $1A
       .BYTE $1C
       .BYTE $FF
       .BYTE $FF
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -11391,10 +11391,10 @@ sub_BANK3_BBE2:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_BBF1:
-      .BYTE 0
+      .BYTE $00
 
-      .BYTE 4
-      .BYTE 8
+      .BYTE $04
+      .BYTE $08
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_BBF4:
@@ -11472,12 +11472,12 @@ locret_BANK3_BC4C:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_BC4D:
-      .BYTE $A
+      .BYTE $0A
 
 byte_BANK3_BC4E:
-      .BYTE 1
+      .BYTE $01
 
-      .BYTE $B
+      .BYTE $0B
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -11638,7 +11638,7 @@ sub_BANK3_BD29:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_BD36:
-      .BYTE 0
+      .BYTE $00
 
       .BYTE $F0
       .BYTE $E0
@@ -11649,7 +11649,7 @@ byte_BANK3_BD36:
       .BYTE $90
       .BYTE $80
       .BYTE $70
-      .BYTE 0
+      .BYTE $00
 byte_BANK3_BD41:
       .BYTE $60
 
@@ -11662,7 +11662,7 @@ byte_BANK3_BD41:
       .BYTE $66
       .BYTE $67
       .BYTE $68
-      .BYTE 7
+      .BYTE $07
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -11679,7 +11679,7 @@ locret_BANK3_BD56:
 
 ; ---------------------------------------------------------------------------
       .BYTE $80
-      .BYTE   0
+      .BYTE $00
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -11859,10 +11859,10 @@ byte_BANK3_BDEF:
       .BYTE $B8
       .BYTE $B8
 byte_BANK3_BE03:
-      .BYTE 0
+      .BYTE $00
 
-      .BYTE 3
-      .BYTE   0
+      .BYTE $03
+      .BYTE $00
       .BYTE $FD
 byte_BANK3_BE07:
       .BYTE $26

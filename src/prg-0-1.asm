@@ -320,7 +320,7 @@ locret_BANK0_81A0:
 ; End of function sub_BANK0_8083
 
 ; ---------------------------------------------------------------------------
-      .BYTE   1
+      .BYTE $01
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1338,7 +1338,7 @@ byte_BANK0_8709:
       .BYTE $28
       .BYTE $24
 byte_BANK0_870B:
-      .BYTE $A
+      .BYTE $0A
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1786,7 +1786,7 @@ HandlePlayerState:
       CMP     #PlayerState_Lifting
       BCS     loc_BANK0_8A26 ; If the player is changing size, just handle that
 
-      LDA     #0				  ; Check if the player needs to change size
+      LDA     #$00				  ; Check if the player needs to change size
       LDY     #$10
       CPY     PlayerHealth
       ROL     A
@@ -1874,7 +1874,7 @@ loc_BANK0_8A72:
 LoseALife:
       LDA     #2
       STA     PlayerAnimationFrame
-      LDY     #1 ; Set game mode to title card
+      LDY     #$01 ; Set game mode to title card
       DEC     ExtraLives
       BNE     SetGameModeAfterDeath
 
@@ -1940,22 +1940,22 @@ locret_BANK0_8AC1:
       RTS
 
 ; ---------------------------------------------------------------------------
-      .BYTE 0
-      .BYTE 1
-      .BYTE 1
-      .BYTE 1
+      .BYTE $00
+      .BYTE $01
+      .BYTE $01
+      .BYTE $01
 byte_BANK0_8AC6:
-      .BYTE 1
+      .BYTE $01
 
-      .BYTE 2
-      .BYTE 4
-      .BYTE 4
-      .BYTE 4
-      .BYTE 4
-      .BYTE 8
-      .BYTE 8
+      .BYTE $02
+      .BYTE $04
+      .BYTE $04
+      .BYTE $04
+      .BYTE $04
+      .BYTE $08
+      .BYTE $08
 byte_BANK0_8ACE:
-      .BYTE 0
+      .BYTE $00
 
       .BYTE $10
       .BYTE $F0
@@ -2042,7 +2042,7 @@ byte_BANK0_8B2B:
       .BYTE $D4
       .BYTE $C3
       .BYTE $C4
-      .BYTE 7
+      .BYTE $07
       .BYTE $80
       .BYTE $81
       .BYTE $94
@@ -2131,7 +2131,7 @@ locret_BANK0_8B86:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8B87:
-      .BYTE 0
+      .BYTE $00
 
       .BYTE $FF
 byte_BANK0_8B89:
@@ -2139,7 +2139,7 @@ byte_BANK0_8B89:
 
       .BYTE $DE
 byte_BANK0_8B8B:
-      .BYTE 9
+      .BYTE $09
 
       .BYTE $A1
 ; ---------------------------------------------------------------------------
@@ -2231,10 +2231,10 @@ locret_BANK0_8BEB:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8BEC:
-      .BYTE 5
+      .BYTE $05
 
-      .BYTE $A
-      .BYTE $F
+      .BYTE $0A
+      .BYTE $0F
       .BYTE $14
       .BYTE $19
 ; ---------------------------------------------------------------------------
@@ -2282,7 +2282,7 @@ loc_BANK0_8C15:
 byte_BANK0_8C18:
       .BYTE $FE
 
-      .BYTE 2
+      .BYTE $02
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2342,7 +2342,7 @@ ResetPartialCrouchJumpTimer: ; reset crouch jump timer if it isn't full
       CMP     #$3C ; max crouch jump timer
       BCS     loc_BANK0_8C6F
 
-      LDA     #0 ; reset crouch jump timer to zero
+      LDA     #$00 ; reset crouch jump timer to zero
       STA     CrouchJumpTimer
 
 loc_BANK0_8C6F:
@@ -2496,13 +2496,13 @@ locret_BANK0_8D25:
 byte_BANK0_8D26:
       .BYTE $FC
 
-      .BYTE 0
-      .BYTE 4
-      .BYTE 0
+      .BYTE $00
+      .BYTE $04
+      .BYTE $00
 byte_BANK0_8D2A:
       .BYTE $FD
 
-      .BYTE 3
+      .BYTE $03
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2632,9 +2632,9 @@ ExitPlayerWalkJumpAnim:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8DB2:
-      .BYTE 0
+      .BYTE $00
 
-      .BYTE 0
+      .BYTE $00
       .BYTE $D0
       .BYTE $30
       .BYTE $D0
@@ -2644,7 +2644,7 @@ byte_BANK0_8DB2:
 byte_BANK0_8DBA:
       .BYTE $18
 
-      .BYTE 0
+      .BYTE $00
       .BYTE $18
       .BYTE $F8
 byte_BANK0_8DBE:
@@ -2889,15 +2889,15 @@ loc_BANK0_8ED8:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8EE8:
-      .BYTE 2
+      .BYTE $02
 
-      .BYTE 2
-      .BYTE 1
-      .BYTE 1
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
+      .BYTE $02
+      .BYTE $01
+      .BYTE $01
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
 CollisionFlagTableThing:
       .BYTE CollisionFlags_Up
       .BYTE CollisionFlags_Up
@@ -3199,10 +3199,10 @@ sub_BANK0_9053:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_9062:
-      .BYTE 0
+      .BYTE $00
 
-      .BYTE 4
-      .BYTE 8
+      .BYTE $04
+      .BYTE $08
 PickUpToEnemyTypeTable:
       .BYTE Enemy_MushroomBlock
       .BYTE Enemy_MushroomBlock ; 1
@@ -3741,12 +3741,12 @@ locret_BANK0_92DF:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_92E0:
-      .BYTE $A
+      .BYTE $0A
 
 byte_BANK0_92E1:
-      .BYTE 1
+      .BYTE $01
 
-      .BYTE $B
+      .BYTE $0B
 ; ---------------------------------------------------------------------------
 
 _code_12E3:
@@ -3799,7 +3799,7 @@ CollisionResultTable:
 TableUsedAt_BANK0_9333:
       .BYTE $80
 
-      .BYTE 0
+      .BYTE $00
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -4369,15 +4369,15 @@ WaitForNMI_TitleScreenLoop:
 
 ; ---------------------------------------------------------------------------
 TitleLayout1:
-      .BYTE $20,0,$DE,$FD
-      .BYTE $20,1,$DE,$FD
-      .BYTE $20,2,$DE,$FD
-      .BYTE $20,3,$DE,$FD
+      .BYTE $20,$00,$DE,$FD
+      .BYTE $20,$01,$DE,$FD
+      .BYTE $20,$02,$DE,$FD
+      .BYTE $20,$03,$DE,$FD
       .BYTE $20,$1C,$DE,$FD
       .BYTE $20,$1D,$DE,$FD
       .BYTE $20,$1E,$DE,$FD
       .BYTE $20,$1F,$DE,$FD
-      .BYTE $20,3,$5D,$FD
+      .BYTE $20,$03,$5D,$FD
       .BYTE $20,$23,$5D,$FD
       .BYTE $20,$43,$5D,$FD
       .BYTE $20,$63,$5D,$FD
@@ -4386,87 +4386,87 @@ TitleLayout1:
       .BYTE $23,$A3,$5D,$FD
       .BYTE $20,$68,$10,$48,$4A,$4C,$4E,$50,$51,$52,$53,$54,$55,$56,$57
       .BYTE $58,$5A,$5C,$5E ; $F
-      .BYTE $20,$84,8,$FD,$22,$23,$24,$49,$4B,$4D,$4F
-      .BYTE $20,$94,8,$59,$5B,$5D,$5F,$2E,$2F,$30,$FD
-      .BYTE $20,$A4,3,$25,$26,$27
-      .BYTE $20,$B9,3,$31,$32,$33
-      .BYTE $20,$C4,3,$28,$29,$2A
-      .BYTE $20,$D9,3,$34,$35,$36
-      .BYTE $20,$E3,3,$2B,$2C,$2D
-      .BYTE $20,$FA,3,$37,$38,$39
-      .BYTE $21,3,2,$3A,$3B
-      .BYTE $21,$1B,2,$40,$41
+      .BYTE $20,$84,$08,$FD,$22,$23,$24,$49,$4B,$4D,$4F
+      .BYTE $20,$94,$08,$59,$5B,$5D,$5F,$2E,$2F,$30,$FD
+      .BYTE $20,$A4,$03,$25,$26,$27
+      .BYTE $20,$B9,$03,$31,$32,$33
+      .BYTE $20,$C4,$03,$28,$29,$2A
+      .BYTE $20,$D9,$03,$34,$35,$36
+      .BYTE $20,$E3,$03,$2B,$2C,$2D
+      .BYTE $20,$FA,$03,$37,$38,$39
+      .BYTE $21,$03,$02,$3A,$3B
+      .BYTE $21,$1B,$02,$40,$41
       .BYTE $21,$23,$C6,$3C
       .BYTE $21,$3C,$C6,$42
-      .BYTE $21,$E3,1,$3D
-      .BYTE $21,$FC,1,$60
-      .BYTE $22,2,2,$3E,$3F
-      .BYTE $22,$1C,2,$61,$62
-      .BYTE $22,$22,2,$43,$44
-      .BYTE $22,$3C,2,$63,$64
-      .BYTE $22,$43,1,$45
-      .BYTE $22,$5C,1,$65
+      .BYTE $21,$E3,$01,$3D
+      .BYTE $21,$FC,$01,$60
+      .BYTE $22,$02,$02,$3E,$3F
+      .BYTE $22,$1C,$02,$61,$62
+      .BYTE $22,$22,$02,$43,$44
+      .BYTE $22,$3C,$02,$63,$64
+      .BYTE $22,$43,$01,$45
+      .BYTE $22,$5C,$01,$65
       .BYTE $22,$63,$C6,$3C
       .BYTE $22,$7C,$C4,$42
-      .BYTE $22,$C4,2,$A6,$A8
-      .BYTE $22,$E4,2,$A7,$A9
-      .BYTE $22,$FA,4,$80,$82,$88,$8A
-      .BYTE $23,4,2,$90,$92
-      .BYTE $23,$14,2,$9E,$A0
-      .BYTE $23,$1A,4,$81,$83,$89,$8B
-      .BYTE $23,$23,3,$46,$91,$93
-      .BYTE $23,$2A,2,$A2,$A4
-      .BYTE $23,$2E,$B,$67,$6C,$6E,$70,$72,$69,$9F,$A1,$75,$98,$9A
-      .BYTE $23,$3A,4,$84,$86,$8C,$8E
+      .BYTE $22,$C4,$02,$A6,$A8
+      .BYTE $22,$E4,$02,$A7,$A9
+      .BYTE $22,$FA,$04,$80,$82,$88,$8A
+      .BYTE $23,$04,$02,$90,$92
+      .BYTE $23,$14,$02,$9E,$A0
+      .BYTE $23,$1A,$04,$81,$83,$89,$8B
+      .BYTE $23,$23,$03,$46,$91,$93
+      .BYTE $23,$2A,$02,$A2,$A4
+      .BYTE $23,$2E,$0B,$67,$6C,$6E,$70,$72,$69,$9F,$A1,$75,$98,$9A
+      .BYTE $23,$3A,$04,$84,$86,$8C,$8E
       .BYTE $23,$43,$1B,$47,$94,$96,$74,$74,$74,$74,$A3,$A5,$74,$66,$68
       .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F ; $F
-      .BYTE $23,$64,5,$95,$97,$FD,$AA,$AB
-      .BYTE $23,$77,4,$9C,$9D,$AA,$AB
-      .BYTE $23,$89,2,$AA,$AB
-      .BYTE $20,$CB,$A,0,1,8,8,$FC,1,$FC,8,$FC,1 ; "SUPER" logo
-      .BYTE $20,$EB,$A,2,3,8,8,$A,5,$B,$C,$A,$D
-      .BYTE $21,$B,$A,4,5,4,5,$E,7,$FC,8,$E,8
-      .BYTE $21,$2B,5,6,7,6,7,9
-      .BYTE $21,$31,4,$76,9,9,9
-      .BYTE $21,$38,2,$F9,$FA ; TM
-      .BYTE $21,$46,$A,0,$F,1,0,1,$FC,1,8,0,1
-      .BYTE $21,$66,$A,$10,$10,8,$10,8,$10,8,8,$10,8
-      .BYTE $21,$86,$A,8,8,8,8,8,$13,$D,8,8,8
-      .BYTE $21,$A6,$A,8,8,8,$FC,8,$E,8,8,8,8
-      .BYTE $21,$C6,$A,8,8,8,$10,8,8,8,8,4,5
-      .BYTE $21,$E6,$A,9,9,9,9,9,9,9,9,6,7
-      .BYTE $21,$51,8,$FC,1,$FC,1,0,1,0,1
-      .BYTE $21,$71,8,$10,8,$10,8,$10,8,$10,8
-      .BYTE $21,$91,8,$13,$D,$13,$D,8,8,$77,3
-      .BYTE $21,$B1,8,$E,8,$E,8,8,8,$12,8
-      .BYTE $21,$D1,9,$13,5,8,8,4,5,4,5,8
-      .BYTE $21,$F1,9,$11,7,9,9,6,7,6,7,9
-      .BYTE $22,$E,4,$14,$15,$16,$17
-      .BYTE $22,$2E,4,$18,$19,$1A,$1B
-      .BYTE $22,$4E,4,$1C,$1D,$1E,$1F
-      .BYTE $22,$6E,4,$FC,$FC,$FC,$20
-      .BYTE $22,$8E,4,$76,$76,$76,$21
-      .BYTE $22,$E9,5,$F8,$D1,$D9,$D8,$D8 ; (C) 1988
-      .BYTE $22,$EF,8,$E7,$E2,$E7,$ED,$DE,$E7,$DD,$E8 ; NINTENDO
+      .BYTE $23,$64,$05,$95,$97,$FD,$AA,$AB
+      .BYTE $23,$77,$04,$9C,$9D,$AA,$AB
+      .BYTE $23,$89,$02,$AA,$AB
+      .BYTE $20,$CB,$0A,$00,$01,$08,$08,$FC,$01,$FC,$08,$FC,$01 ; "SUPER" logo
+      .BYTE $20,$EB,$0A,$02,$03,$08,$08,$0A,$05,$0B,$C,$0A,$D
+      .BYTE $21,$0B,$A,$04,$05,$04,$05,$0E,$07,$FC,$08,$0E,8
+      .BYTE $21,$2B,$05,$06,$07,$06,$07,9
+      .BYTE $21,$31,$04,$76,$09,$09,9
+      .BYTE $21,$38,$02,$F9,$FA ; TM
+      .BYTE $21,$46,$0A,$00,$0F,$01,$00,$01,$FC,$01,$08,$00,1
+      .BYTE $21,$66,$0A,$10,$10,$08,$10,$08,$10,$08,$08,$10,8
+      .BYTE $21,$86,$0A,$08,$08,$08,$08,$08,$13,$0D,$08,$08,8
+      .BYTE $21,$A6,$0A,$08,$08,$08,$FC,$08,$0E,$08,$08,$08,8
+      .BYTE $21,$C6,$0A,$08,$08,$08,$10,$08,$08,$08,$08,$04,5
+      .BYTE $21,$E6,$0A,$09,$09,$09,$09,$09,$09,$09,$09,$06,7
+      .BYTE $21,$51,$08,$FC,$01,$FC,$01,$00,$01,$00,1
+      .BYTE $21,$71,$08,$10,$08,$10,$08,$10,$08,$10,8
+      .BYTE $21,$91,$08,$13,$0D,$13,$0D,$08,$08,$77,3
+      .BYTE $21,$B1,$08,$0E,$08,$0E,$08,$08,$08,$12,8
+      .BYTE $21,$D1,$09,$13,$05,$08,$08,$04,$05,$04,$05,8
+      .BYTE $21,$F1,$09,$11,$07,$09,$09,$06,$07,$06,$07,9
+      .BYTE $22,$0E,$04,$14,$15,$16,$17
+      .BYTE $22,$2E,$04,$18,$19,$1A,$1B
+      .BYTE $22,$4E,$04,$1C,$1D,$1E,$1F
+      .BYTE $22,$6E,$04,$FC,$FC,$FC,$20
+      .BYTE $22,$8E,$04,$76,$76,$76,$21
+      .BYTE $22,$E9,$05,$F8,$D1,$D9,$D8,$D8 ; (C) 1988
+      .BYTE $22,$EF,$08,$E7,$E2,$E7,$ED,$DE,$E7,$DD,$E8 ; NINTENDO
 ; (these could have been combined, but... Nintendo)
-      .BYTE $23,$CA,4,$80,$A0,$A0,$20
-      .BYTE $23,$D1,$E,$80,$A8,$AA,$AA,$A2,$22,0,0,$88,$AA,$AA,$AA,$AA
+      .BYTE $23,$CA,$04,$80,$A0,$A0,$20
+      .BYTE $23,$D1,$0E,$80,$A8,$AA,$AA,$A2,$22,$00,$00,$88,$AA,$AA,$AA,$AA
       .BYTE $22 ; $10
-      .BYTE $23,$E3,2,$88,$22
-      .BYTE $23,$EA,4,$F0,$F8,$F2,$F0
-      .BYTE 0
+      .BYTE $23,$E3,$02,$88,$22
+      .BYTE $23,$EA,$04,$F0,$F8,$F2,$F0
+      .BYTE $00
 TitleBackgroundPalettes:
       .BYTE $22,$37,$16,7
-      .BYTE $22,$30,$31,$F ; 1: Most of screen, outline, etc.
-      .BYTE $22,$30,$F,$F ; 2: Not used (?)
-      .BYTE $22,$30,$F,$F ; 3: SUPER MARIO BROS. 2 logo
+      .BYTE $22,$30,$31,$0F ; 1: Most of screen, outline, etc.
+      .BYTE $22,$30,$0F,$F ; 2: Not used (?)
+      .BYTE $22,$30,$0F,$F ; 3: SUPER MARIO BROS. 2 logo
 ; 4: (C) 1988 NINTENDO
 ; (this is the same palette
 ;    as the logo, though...)
 TitleSpritePalettes:
-      .BYTE $22,$30,$28,$F ; Unused DDP character palettes
-      .BYTE $22,$30,$25,$F ; There are no sprites on the title screen,
-      .BYTE $22,$30,$12,$F ; so these are totally unused
+      .BYTE $22,$30,$28,$0F ; Unused DDP character palettes
+      .BYTE $22,$30,$25,$0F ; There are no sprites on the title screen,
+      .BYTE $22,$30,$12,$0F ; so these are totally unused
       .BYTE $22,$30,$23,$F
 TitleStoryText_STORY:
       .BYTE $EC,	$ED, $E8, $EB, $F2 ; STORY
@@ -4559,25 +4559,25 @@ TitleStoryText_Line16:
 TitleAttributeData1:
       .BYTE $23, $CB, $42, $FF
 
-      .BYTE $23, $D1, 1, $CC
+      .BYTE $23, $D1, $01, $CC
       .BYTE $23, $D2, $44, $FF
-      .BYTE $23, $D6, 1, $33
-      .BYTE $23, $D9, 1, $CC
+      .BYTE $23, $D6, $01, $33
+      .BYTE $23, $D9, $01, $CC
       .BYTE $23, $DA, $44, $FF
 TitleAttributeData2:
-      .BYTE $23, $DE, 1, $33
+      .BYTE $23, $DE, $01, $33
 
-      .BYTE $23, $E1, 1, $CC
+      .BYTE $23, $E1, $01, $CC
       .BYTE $23, $E2, $44, $FF
-      .BYTE $23, $E6, 1, $33
+      .BYTE $23, $E6, $01, $33
       .BYTE $23, $EA, $44, $FF
-      .BYTE $23, $E9, 1, $CC
-      .BYTE $23, $EE, 1, $33
+      .BYTE $23, $E9, $01, $CC
+      .BYTE $23, $EE, $01, $33
 
 ; =============== S U B R O U T I N E =======================================
 
 TitleScreen:
-      LDY     #7 ; Does initialization of RAM.
+      LDY     #$07 ; Does initialization of RAM.
       STY     byte_RAM_1			  ; This clears $200 to $7FF.
       LDY     #0
       STY     byte_RAM_0
@@ -4790,9 +4790,9 @@ TitleScreen_WriteSTORYText:
       STA     PPUBuffer_301
       LDA     #$AE
       STA     byte_RAM_302
-      LDA     #5 ; Length of STORY text (5 bytes)
+      LDA     #$05 ; Length of STORY text (5 bytes)
       STA     byte_RAM_303
-      LDY     #4 ; Bytes to copy minus one (5-1=4)
+      LDY     #$04 ; Bytes to copy minus one (5-1=4)
 
 TitleScreen_WriteSTORYTextLoop:
       LDA     TitleStoryText_STORY,Y ; Copy STORY text to PPU write buffer
@@ -4800,7 +4800,7 @@ TitleScreen_WriteSTORYTextLoop:
       DEY
       BPL     TitleScreen_WriteSTORYTextLoop
 
-      LDA     #0 ; Terminate STORY text in buffer
+      LDA     #$00 ; Terminate STORY text in buffer
       STA     byte_RAM_309
 
 loc_BANK0_9B93:
@@ -5011,15 +5011,15 @@ WaitForNMI_EndingLoop:
 
 ; ---------------------------------------------------------------------------
 EndingCorkJarRoom:
-      .BYTE $20,0,$9E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $20,$00,$9E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
       .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
       .BYTE $73,$72,$73
-      .BYTE $20,1,$9E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $20,$01,$9E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
       .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
       .BYTE $72,$73,$72
-      .BYTE $22,2,$8E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
+      .BYTE $22,$02,$8E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
       .BYTE $72,$73
-      .BYTE $22,3,$8E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
+      .BYTE $22,$03,$8E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
       .BYTE $73,$72
       .BYTE $23,$44,$18,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
       .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
@@ -5043,20 +5043,20 @@ EndingCorkJarRoom:
       .BYTE $22,$C7,$C4,$FC
       .BYTE $22,$C8,$84,$AD,$AC,$AC,$AC
       .BYTE $22,$E9,$83,$AD,$AC,$AC
-      .BYTE $23,$A,$82,$AD,$AC
-      .BYTE $23,$2B,1,$AD
+      .BYTE $23,$0A,$82,$AD,$AC
+      .BYTE $23,$2B,$01,$AD
       .BYTE $22,$90,$84,$88,$89,$89,$8C
       .BYTE $22,$91,$84,$8A,$8B,$8B,$8D
-      .BYTE $23,$E,6,$74,$76,$74,$76,$74,$76
-      .BYTE $23,$2E,6,$75,$77,$75,$77,$75,$77
-      .BYTE $23,$C0,$20,$22,0,0,0,0,0,0,$88,$22,0,0,0,0,0,0,$88,$22,0
-      .BYTE 0,0,0,0,0,$88,$22,0,0,0,0,0,0,$88
-      .BYTE $23,$E0,$20,$AA,0,0,0,0,0,0,$AA,$AA,0,0,0,$11,0,0,$AA,$AA
-      .BYTE $A0,$A0,$A4,$A5,$A0,$A0,$AA,$A,$A,$A,$A,$A,$A,$A,$A
-      .BYTE   0
+      .BYTE $23,$0E,$06,$74,$76,$74,$76,$74,$76
+      .BYTE $23,$2E,$06,$75,$77,$75,$77,$75,$77
+      .BYTE $23,$C0,$20,$22,$00,$00,$00,$00,$00,$00,$88,$22,$00,$00,$00,$00,$00,$00,$88,$22,0
+      .BYTE $00,$00,$00,$00,$00,$88,$22,$00,$00,$00,$00,$00,$00,$88
+      .BYTE $23,$E0,$20,$AA,$00,$00,$00,$00,$00,$00,$AA,$AA,$00,$00,$00,$11,$00,$00,$AA,$AA
+      .BYTE $A0,$A0,$A4,$A5,$A0,$A0,$AA,$0A,$A,$0A,$A,$0A,$A,$0A,$A
+      .BYTE $00
 EndingCelebrationUnusedText_THANK_YOU:
-      .BYTE $21,$C,9,$ED,$E1,$DA,$E7,$E4,$FB,$F2,$E8,$EE
-      .BYTE   0
+      .BYTE $21,$0C,$09,$ED,$E1,$DA,$E7,$E4,$FB,$F2,$E8,$EE
+      .BYTE $00
 unk_BANK1_A3FF:
       .BYTE $30
       .BYTE $80
@@ -5084,16 +5084,16 @@ byte_BANK1_A413:
       .BYTE $10
 
       .BYTE $F4
-      .BYTE $C
+      .BYTE $0C
       .BYTE $E8
       .BYTE $18
       .BYTE $EC
       .BYTE $14
       .BYTE $F8
-      .BYTE 8
-      .BYTE 0
+      .BYTE $08
+      .BYTE $00
 byte_BANK1_A41D:
-      .BYTE 0
+      .BYTE $00
 
       .BYTE $C4
       .BYTE $C4
@@ -5103,9 +5103,9 @@ byte_BANK1_A41D:
       .BYTE $A8
       .BYTE $A0
       .BYTE $A0
-      .BYTE 0
+      .BYTE $00
 byte_BANK1_A427:
-      .BYTE 0
+      .BYTE $00
 
       .BYTE $F0
       .BYTE $E0
@@ -5115,9 +5115,9 @@ byte_BANK1_A427:
       .BYTE $60
       .BYTE $40
       .BYTE $20
-      .BYTE 0
+      .BYTE $00
 byte_BANK1_A431:
-      .BYTE 0
+      .BYTE $00
 
 byte_BANK1_A432:
       .BYTE $21
@@ -5332,10 +5332,10 @@ loc_BANK1_A530:
 byte_BANK1_A54D:
       .BYTE $14
 
-      .BYTE  $A
+      .BYTE $0A
       .BYTE $14
 byte_BANK1_A550:
-      .BYTE $A
+      .BYTE $0A
 
       .BYTE $1C
       .BYTE $1B
@@ -5401,10 +5401,10 @@ locret_BANK1_A591:
 
 ; ---------------------------------------------------------------------------
 unk_BANK1_A592:
-      .BYTE   4
-      .BYTE   4
-      .BYTE 4
-      .BYTE   1
+      .BYTE $04
+      .BYTE $04
+      .BYTE $04
+      .BYTE $01
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5520,7 +5520,7 @@ byte_BANK1_A605:
       .BYTE $58
       .BYTE $60
       .BYTE $68
-      .BYTE 0
+      .BYTE $00
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5560,7 +5560,7 @@ loc_BANK1_A646:
 
 ; ---------------------------------------------------------------------------
 EndingCelebrationCeilingTextAndPodium:
-      .BYTE $20,0,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
+      .BYTE $20,$00,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
       .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
       .BYTE $81,$80,$81,$80,$81 ; $1E
       .BYTE $20,$20,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
@@ -5572,46 +5572,46 @@ EndingCelebrationCeilingTextAndPodium:
       .BYTE $20,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
       .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
       .BYTE $80,$81,$80,$81,$80 ; $1E
-      .BYTE $20,$88,1,$5A
+      .BYTE $20,$88,$01,$5A
       .BYTE $20,$89,$4E,$9A
-      .BYTE $20,$97,1,$5C
+      .BYTE $20,$97,$01,$5C
       .BYTE $20,$A8,$C3,$9B
       .BYTE $20,$B7,$C3,$9B
-      .BYTE $21,8,1,$5B
-      .BYTE $21,9,$4E,$9A
-      .BYTE $21,$17,1,$5D
-      .BYTE $20,$AB,$B,$DC,$E8,$E7,$ED,$EB,$E2,$DB,$EE,$ED,$E8,$EB
-      .BYTE $20,$E3,4,$40,$42,$44,$46
-      .BYTE $20,$F9,4,$40,$42,$44,$46
+      .BYTE $21,$08,$01,$5B
+      .BYTE $21,$09,$4E,$9A
+      .BYTE $21,$17,$01,$5D
+      .BYTE $20,$AB,$0B,$DC,$E8,$E7,$ED,$EB,$E2,$DB,$EE,$ED,$E8,$EB
+      .BYTE $20,$E3,$04,$40,$42,$44,$46
+      .BYTE $20,$F9,$04,$40,$42,$44,$46
       .BYTE $21,$23,$C9,$48
       .BYTE $21,$24,$C9,$49
       .BYTE $21,$25,$C9,$4A
       .BYTE $21,$26,$C9,$4B
-      .BYTE $22,$43,4,$4C,$4D,$4E,$4F
-      .BYTE $21,3,4,$41,$43,$45,$47
-      .BYTE $21,$19,4,$41,$43,$45,$47
+      .BYTE $22,$43,$04,$4C,$4D,$4E,$4F
+      .BYTE $21,$03,$04,$41,$43,$45,$47
+      .BYTE $21,$19,$04,$41,$43,$45,$47
       .BYTE $21,$39,$C9,$48
       .BYTE $21,$3A,$C9,$49
       .BYTE $21,$3B,$C9,$4A
       .BYTE $21,$3C,$C9,$4B
-      .BYTE $22,$59,4,$4C,$4D,$4E,$4F
+      .BYTE $22,$59,$04,$4C,$4D,$4E,$4F
       .BYTE $21,$CA,$4C,$54
       .BYTE $21,$EA,$4C,$55
-      .BYTE $22,$B,$A,$50,$52,$50,$52,$50,$52,$50,$52,$50,$52
-      .BYTE $22,$2B,$A,$51,$53,$51,$53,$51,$53,$51,$53,$51,$53
-      .BYTE $22,$4C,2,$3A,$3B
+      .BYTE $22,$0B,$A,$50,$52,$50,$52,$50,$52,$50,$52,$50,$52
+      .BYTE $22,$2B,$0A,$51,$53,$51,$53,$51,$53,$51,$53,$51,$53
+      .BYTE $22,$4C,$02,$3A,$3B
       .BYTE $22,$6C,$C5,$3C
       .BYTE $22,$6D,$C5,$3D
-      .BYTE $22,$52,2,$3A,$3B
+      .BYTE $22,$52,$02,$3A,$3B
       .BYTE $22,$72,$C5,$3C
       .BYTE $22,$73,$C5,$3D
-      .BYTE 0
+      .BYTE $00
 EndingCelebrationFloorAndSubconParade:
-      .BYTE $23,0,$20,0,2,8,$A,$C,$E,4,6,8,$A,4,6,$C,$E,4,6,8,$A,0,2,$C
-      .BYTE $E,$C,$E,0,2,4,6,4,6,8,$A ; $18
-      .BYTE $23,$20,$20,1,3,9,$B,$D,$F,5,7,9,$B,5,7,$D,$F,5,7,9,$B,1,3
-      .BYTE $D,$F,$D,$F,1,3,5,7,5,7,9,$B ; $17
-      .BYTE $27,0,$20,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76
+      .BYTE $23,$00,$20,$00,$02,$08,$0A,$C,$0E,$04,$06,$08,$0A,$04,$06,$0C,$E,$04,$06,$08,$0A,$00,$02,$C
+      .BYTE $0E,$0C,$E,$00,$02,$04,$06,$04,$06,$08,$0A ; $18
+      .BYTE $23,$20,$20,$01,$03,$09,$0B,$D,$0F,$05,$07,$09,$0B,$05,$07,$0D,$F,$05,$07,$09,$0B,$01,3
+      .BYTE $0D,$0F,$D,$0F,$01,$03,$05,$07,$05,$07,$09,$0B ; $17
+      .BYTE $27,$00,$20,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76
       .BYTE $74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74 ; $F
       .BYTE $76,$74,$76,$74,$76 ; $1E
       .BYTE $27,$20,$20,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77
@@ -5642,55 +5642,55 @@ EndingCelebrationFloorAndSubconParade:
       .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
       .BYTE $80,$81,$80,$81,$80 ; $1E
       .BYTE $23,$C0,$48,$AA
-      .BYTE $23,$C8,8,$15,5,$FF,$FF,$FF,$FF,$15,$45
-      .BYTE $23,$D0,$20,$31,0,$FF,$FF,$FF,$FF,0,$44,$33,0,$A6,$A5,$A5
-      .BYTE $A6,0,$44,$F3,$F0,$59,$AA,$AA,$96,$F0,$74,$DD,$FF,$55,$AA ; $10
+      .BYTE $23,$C8,$08,$15,$05,$FF,$FF,$FF,$FF,$15,$45
+      .BYTE $23,$D0,$20,$31,$00,$FF,$FF,$FF,$FF,$00,$44,$33,$00,$A6,$A5,$A5
+      .BYTE $A6,$00,$44,$F3,$F0,$59,$AA,$AA,$96,$F0,$74,$DD,$FF,$55,$AA ; $10
       .BYTE $AA,$95,$55,$55 ; $1F
       .BYTE $23,$F0,$48,$A5
       .BYTE $23,$F8,$48,$A
       .BYTE $27,$F0,$48,$A5
       .BYTE $27,$F8,$48,$A
-      .BYTE 0
+      .BYTE $00
 EndingCelebrationSubconStandStill:
-      .BYTE $23,0,$20,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72
+      .BYTE $23,$00,$20,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72
       .BYTE $70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70 ; $F
       .BYTE $72,$70,$72,$70,$72 ; $1E
       .BYTE $23,$20,$20,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73
       .BYTE $71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71 ; $F
       .BYTE $73,$71,$73,$71,$73 ; $1E
-      .BYTE 0
+      .BYTE $00
 EndingCelebrationUnusedText_THE_END:
-      .BYTE $21,$AC,7,$ED,$E1,$DE,$FB,$DE,$E7,$DD,0
+      .BYTE $21,$AC,$07,$ED,$E1,$DE,$FB,$DE,$E7,$DD,0
 EndingCelebrationPaletteFade1:
-      .BYTE $3F,0,$20,1
-      .BYTE $30,$21,$F,1 ; 4
-      .BYTE $30,$16,$F,1 ; 8
-      .BYTE $28,$18,$F,1 ; $C
-      .BYTE $30,$30,1,1 ; $10
-      .BYTE $27,$16,$F,1 ; $14
-      .BYTE $37,$2A,$F,1 ; $18
-      .BYTE $27,$30,$F,1 ; $1C
-      .BYTE $36,$25,$F,0 ; $20
+      .BYTE $3F,$00,$20,1
+      .BYTE $30,$21,$0F,$01 ; 4
+      .BYTE $30,$16,$0F,$01 ; 8
+      .BYTE $28,$18,$0F,$01 ; $C
+      .BYTE $30,$30,$01,$01 ; $10
+      .BYTE $27,$16,$0F,$01 ; $14
+      .BYTE $37,$2A,$0F,$01 ; $18
+      .BYTE $27,$30,$0F,$01 ; $1C
+      .BYTE $36,$25,$0F,$00 ; $20
 EndingCelebrationPaletteFade2:
-      .BYTE $3F,0,$20,$F
-      .BYTE $10,0,$F,$F ; 4
-      .BYTE $10,0,$F,$F ; 8
-      .BYTE $10,0,$F,$F ; $C
-      .BYTE $10,0,$F,$F ; $10
-      .BYTE $10,0,$F,$F ; $14
-      .BYTE $10,0,$F,$F ; $18
-      .BYTE $10,0,$F,$F ; $1C
-      .BYTE $10,0,$F,0 ; $20
+      .BYTE $3F,$00,$20,$F
+      .BYTE $10,$00,$0F,$F ; 4
+      .BYTE $10,$00,$0F,$F ; 8
+      .BYTE $10,$00,$0F,$F ; $C
+      .BYTE $10,$00,$0F,$F ; $10
+      .BYTE $10,$00,$0F,$F ; $14
+      .BYTE $10,$00,$0F,$F ; $18
+      .BYTE $10,$00,$0F,$F ; $1C
+      .BYTE $10,$00,$0F,$00 ; $20
 EndingCelebrationPaletteFade3:
-      .BYTE $3F,0,$20,$F
-      .BYTE 0,$F,$F,$F ; 4
-      .BYTE 0,$F,$F,$F ; 8
-      .BYTE 0,$F,$F,$F ; $C
-      .BYTE 0,$F,$F,$F ; $10
-      .BYTE 0,$F,$F,$F ; $14
-      .BYTE 0,$F,$F,$F ; $18
-      .BYTE 0,$F,$F,$F ; $1C
-      .BYTE 0,$F,$F,0 ; $20
+      .BYTE $3F,$00,$20,$F
+      .BYTE $00,$0F,$F,$0F ; 4
+      .BYTE $00,$0F,$F,$0F ; 8
+      .BYTE $00,$0F,$F,$0F ; $C
+      .BYTE $00,$0F,$F,$0F ; $10
+      .BYTE $00,$0F,$F,$0F ; $14
+      .BYTE $00,$0F,$F,$0F ; $18
+      .BYTE $00,$0F,$F,$0F ; $1C
+      .BYTE $00,$0F,$F,$00 ; $20
 byte_BANK1_AA32:
       .BYTE EndingUpdateBuffer_PaletteFade1
       .BYTE EndingUpdateBuffer_PaletteFade2 ; 1 ; @TODO This seems wrong, somehow
@@ -5998,7 +5998,7 @@ byte_BANK1_ABDA:
 byte_BANK1_ABE0:
       .BYTE $C0
 
-      .BYTE 8
+      .BYTE $08
       .BYTE $E0
       .BYTE $F0
       .BYTE $D0
@@ -6018,27 +6018,27 @@ byte_BANK1_ABE6:
       .BYTE $25
       .BYTE $27
 byte_BANK1_ABF2:
-      .BYTE 0
+      .BYTE $00
 
-      .BYTE 8
+      .BYTE $08
       .BYTE $10
       .BYTE $18
       .BYTE $20
       .BYTE $28
-      .BYTE 0
-      .BYTE 8
+      .BYTE $00
+      .BYTE $08
       .BYTE $10
       .BYTE $18
       .BYTE $20
       .BYTE $28
 byte_BANK1_ABFE:
-      .BYTE 0
+      .BYTE $00
 
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
-      .BYTE 0
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
       .BYTE $10
       .BYTE $10
       .BYTE $10
@@ -6145,13 +6145,13 @@ byte_BANK1_AC7B:
       .BYTE $37
       .BYTE $39
 byte_BANK1_AC81:
-      .BYTE 0
+      .BYTE $00
 
-      .BYTE 6
-      .BYTE 3
-      .BYTE 9
-      .BYTE $F
-      .BYTE $C
+      .BYTE $06
+      .BYTE $03
+      .BYTE $09
+      .BYTE $0F
+      .BYTE $0C
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_AC87:
@@ -6265,9 +6265,9 @@ byte_BANK1_ACE8:
       .BYTE $91
       .BYTE $91
 byte_BANK1_AD08:
-      .BYTE 6
+      .BYTE $06
 
-      .BYTE $E
+      .BYTE $0E
       .BYTE $16
       .BYTE $1E
 
@@ -6456,17 +6456,17 @@ locret_BANK1_AE12:
 
 ; ---------------------------------------------------------------------------
 EndingCelebrationText_MARIO:
-      .BYTE $20,$ED,8,$E6,$DA,$EB,$E2,$E8,$FB,$FB,$FB
-      .BYTE   0
+      .BYTE $20,$ED,$08,$E6,$DA,$EB,$E2,$E8,$FB,$FB,$FB
+      .BYTE $00
 EndingCelebrationText_PRINCESS:
-      .BYTE $20,$ED,8,$E9,$EB,$E2,$E7,$DC,$DE,$EC,$EC
-      .BYTE   0
+      .BYTE $20,$ED,$08,$E9,$EB,$E2,$E7,$DC,$DE,$EC,$EC
+      .BYTE $00
 EndingCelebrationText_TOAD:
-      .BYTE $20,$ED,8,$ED,$E8,$DA,$DD,$FB,$FB,$FB,$FB
-      .BYTE   0
+      .BYTE $20,$ED,$08,$ED,$E8,$DA,$DD,$FB,$FB,$FB,$FB
+      .BYTE $00
 EndingCelebrationText_LUIGI:
-      .BYTE $20,$ED,8,$E5,$EE,$E2,$E0,$E2,$FB,$FB,$FB
-      .BYTE   0
+      .BYTE $20,$ED,$08,$E5,$EE,$E2,$E0,$E2,$FB,$FB,$FB
+      .BYTE $00
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -6509,9 +6509,9 @@ ENDIF
 MysteryCharacterData3900:
       .BYTE $FB ; � ; @TODO ??? Not sure what this is
       .BYTE $FF
-      .BYTE   0
-      .BYTE   8
-      .BYTE  $C
+      .BYTE $00
+      .BYTE $08
+      .BYTE $0C
       .BYTE $18
       .BYTE $1A
 
@@ -6780,7 +6780,7 @@ sub_BANK1_BA4E:
 
 ; ---------------------------------------------------------------------------
 byte_BANK1_BA5B:
-      .BYTE 0
+      .BYTE $00
 
       .BYTE $F0
       .BYTE $E0
@@ -6791,7 +6791,7 @@ byte_BANK1_BA5B:
       .BYTE $90
       .BYTE $80
       .BYTE $70
-      .BYTE 0
+      .BYTE $00
 byte_BANK1_BA66:
       .BYTE $60
 
@@ -6804,7 +6804,7 @@ byte_BANK1_BA66:
       .BYTE $66
       .BYTE $67
       .BYTE $68
-      .BYTE 7
+      .BYTE $07
 
 ; =============== S U B R O U T I N E =======================================
 

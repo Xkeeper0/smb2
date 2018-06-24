@@ -34,22 +34,22 @@ Debug_InitMenu:
       JSR WaitForNMI_TurnOnPPU
 
 			; Draw debug menu text
-      LDA #0 ; DEBUG MENU
+      LDA #$00 ; DEBUG MENU
       JSR Debug_BufferText
       JSR WaitForNMI
-      LDA #1 ; WORLD ?
+      LDA #$01 ; WORLD ?
       JSR Debug_BufferText
       JSR WaitForNMI
-      LDA #2 ; LEVEL ?
+      LDA #$02 ; LEVEL ?
       JSR Debug_BufferText
       JSR WaitForNMI
-      LDA #3 ; AREA ?
+      LDA #$03 ; AREA ?
       JSR Debug_BufferText
       JSR WaitForNMI
-      LDA #4 ; CHARACTER ?
+      LDA #$04 ; CHARACTER ?
       JSR Debug_BufferText
       JSR WaitForNMI
-      LDA #5 ; B BUTTON ... ABORT
+      LDA #$05 ; B BUTTON ... ABORT
       JSR Debug_BufferText
       JSR WaitForNMI
 
@@ -157,7 +157,7 @@ DebugMenu_World:
       DEC CurrentWorld ; Decrease
       JMP +s ; Skip ahead
 +r		LDA CurrentWorld
-      CMP #6 ; bug: lets you go one too high lol oops
+      CMP #$06 ; bug: lets you go one too high lol oops
       BEQ -f ; Already at world 7, go away
       INC CurrentWorld ; Otherwise increase
 +s		LDA #SoundEffect2_CoinGet
@@ -255,17 +255,17 @@ Debug_UpdateWorld:
       INX
       TXA
       PHA ; Push onto stack
-      LDA #6 ; Load text to update
+      LDA #$06 ; Load text to update
       BNE - ; Go do that.
 
 Debug_UpdateArea:
       LDA CurrentLevelArea ; Load current world
       PHA ; Push onto stack
-      LDA #8 ; Load text to update
+      LDA #$08 ; Load text to update
       BNE - ; Go do that.
 
 Debug_UpdateCharacter:
-      LDA #9 ; Load text offset of Mario (0)
+      LDA #$09 ; Load text offset of Mario (0)
       CLC
       ADC CurrentCharacter ; Add the character index ...
       JSR Debug_BufferText ; ...and draw it.
@@ -273,7 +273,7 @@ Debug_UpdateCharacter:
 
 
 Debug_UpdateLevel:
-      LDX #0 ; Set X to 0
+      LDX #$00 ; Set X to 0
 -
 			LDA CurrentLevel ; Get the starting level index
       CMP WorldStartingLevel, X ; Is it higher than our current level?
@@ -290,7 +290,7 @@ Debug_UpdateLevel:
       SBC WorldStartingLevel, X ; Get the starting level index
       PHA
 
-      LDA #7 ; Load text offset of Mario (0)
+      LDA #$07 ; Load text offset of Mario (0)
       JSR Debug_BufferText ; ...and draw it.
       PLA ; Then draw the level number...
       CLC
@@ -361,13 +361,13 @@ DebugPPU_DebugText: ; DEBUG
       .db #10+4, #$20, #$CB, #$A, #$DD, #$DE, #$DB, #$EE, #$E0, #$FB, #$E6, #$DE, #$E7, #$EE, #0
 
 DebugPPU_WorldText: ; WORLD ?
-      .db #8+4, #$21, #$46, #$8, #$F0, #$E8, #$EB, #$E5, #$DD, #$FB, #$FB, #$F5, #0
+      .db #$08+4, #$21, #$46, #$8, #$F0, #$E8, #$EB, #$E5, #$DD, #$FB, #$FB, #$F5, #0
 
 DebugPPU_LevelText: ; LEVEL ?
-      .db #8+4, #$21, #$86, #$8, #$E5, #$DE, #$EF, #$DE, #$E5, #$FB, #$FB, #$F5, #0
+      .db #$08+4, #$21, #$86, #$8, #$E5, #$DE, #$EF, #$DE, #$E5, #$FB, #$FB, #$F5, #0
 
 DebugPPU_AreaText: ; AREA  ?
-      .db #8+4, #$21, #$C6, #$8, #$DA, #$EB, #$DE, #$DA, #$FB, #$FB, #$FB, #$F5, #0
+      .db #$08+4, #$21, #$C6, #$8, #$DA, #$EB, #$DE, #$DA, #$FB, #$FB, #$FB, #$F5, #0
 
 DebugPPU_CharacterText: ; CHARACTER ?
       .db #13+4, #$22, #$06, #$C, #$DC, #$E1, #$DA, #$EB, #$DA, #$DC, #$ED, #$DE, #$EB, #$FB, #$FB, #$F5, #0
@@ -376,11 +376,11 @@ DebugPPU_AbortText: ; B BUTTON...ABORT
       .db #$12+4, #$23, #$27, #$12, #$DB, #$FB, #$DB, #$EE, #$ED, #$ED, #$E8, #$E7, #$FB, #$CF, #$CF, #$CF, #$FB,#$DA, #$DB, #$E8, #$EB, #$ED, #$00
 
 DebugPPU_UpdateWorld: ; ?
-      .db	#1+4, #$21, #$4D, #1, #$FB, #0
+      .db	#$01+4, #$21, #$4D, #$01, #$FB, #0
 DebugPPU_UpdateLevel: ; ?
-      .db	#6+7, #$21, #$8C, #7, #$F5, #$F5, #$FB, #$FB, #$F5, #$F4, #$F5, #0
+      .db	#$06+7, #$21, #$8C, #$07, #$F5, #$F5, #$FB, #$FB, #$F5, #$F4, #$F5, #0
 DebugPPU_UpdateArea: ; ?
-      .db	#1+4, #$21, #$CD, #1, #$FB, #0
+      .db	#$01+4, #$21, #$CD, #$01, #$FB, #0
 DebugPPU_UpdateCharacter0: ; 0 MARIO
       .db	#$A+4, #$22, #$11, #$A, #$D0, #$FB, #$E6, #$DA, #$EB, #$E2, #$E8, #$FB, #$FB, #$FB, #0
 DebugPPU_UpdateCharacter1: ; 1 PRINCESS

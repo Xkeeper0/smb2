@@ -112,17 +112,17 @@ ObjectYAccel:
       .dsb 1 ; 8                ; $004f
 PlayerState:
       .dsb 1 ; $0050
-; For player:
-; 00 Normal
-; 01 ?
-; 02 Lifting up object
-; 03 ?
-; 04 Going down vase (causes warp if poked)
-; 05 Exiting vase
-; 06 ?
-; 07 Dying (falls off screen)
-; 08 Shrinking
-; 09+ Crash?
+       ; For player:
+       ; $00 Normal
+       ; $01 ?
+       ; $02 Lifting up object
+       ; $03 ?
+       ; $04 Going down vase (causes warp if poked)
+       ; $05 Exiting vase
+       ; $06 ?
+       ; $07 Dying (falls off screen)
+       ; $08 Shrinking
+       ; $09+ Crash?
 EnemyState:
       .dsb 1 ; $0051
       .dsb 1 ; 1                ; $0052
@@ -159,7 +159,7 @@ ObjectAttributes:
       .dsb 1 ; 8                ; $006d
 PlayerMovementDirection:
       .dsb 1 ; $006e
-; 02 if moving left, 01 otherwise?
+      ; $02 if moving left, $01 otherwise?
 EnemyMovementDirection:
       .dsb 1 ; $006f
       .dsb 1 ; 1                ; $0070
@@ -181,8 +181,8 @@ EnemyVariable:
       .dsb 1 ; 6 ; This also seems to determine a few other things: ; $007f
       .dsb 1 ; 7 ; - Tweeter jumps ; $0080
       .dsb 1 ; 8 ; - Falling log height ; $0081
-; - Birdo subtype
-; etc.
+      ; - Birdo subtype
+      ; etc.
 PlayerStateTimer:
       .dsb 1 ; $0082
 byte_RAM_83:
@@ -204,10 +204,10 @@ byte_RAM_8E:
       .dsb 1 ; $008e
 CurrentCharacter:
       .dsb 1 ; $008f
-; 00 Mario
-; 01 Princess
-; 02 Toad
-; 03 Luigi
+      ; $00 Mario
+      ; $01 Princess
+      ; $02 Toad
+      ; $03 Luigi
 ObjectType:
       .dsb 1 ; $0090
       .dsb 1 ; 1                ; $0091
@@ -229,7 +229,7 @@ HoldingItem:
       .dsb 1 ; $009c
 byte_RAM_9D: ; direction
       .dsb 1 ; $009d
-; 00 = left, 01 = right
+      ; $00 = left, $01 = right
 byte_RAM_9E:
       .dsb 1 ; $009e
 EnemyArray_9F:
@@ -291,10 +291,10 @@ byte_RAM_C9:
       .dsb 1 ; $00c9
 ScreenYHi:
       .dsb 1 ; $00ca
-; Not sure about this, but seems to be that way
+      ; Not sure about this, but seems to be that way
 ScreenYLo:
       .dsb 1 ; $00cb
-; Not sure about this either
+      ; Not sure about this either
 byte_RAM_CC:
       .dsb 1 ; $00cc
 byte_RAM_CD:
@@ -321,9 +321,9 @@ byte_RAM_D7:
       .dsb 1 ; $00d7
 NeedVerticalScroll:
       .dsb 1 ; $00d8
-; @TODO understand better
-; 01 = scroll up, 02 = scroll down
-; (vertical areas only..?)
+      ; @TODO understand better
+      ; $01 = scroll up, $02 = scroll down
+      ; (vertical areas only..?)
 EnemyArray_D9:
       .dsb 1 ; $00d9
       .dsb 1 ; 1                ; $00da
@@ -365,11 +365,11 @@ byte_RAM_EF:
       .dsb 1 ; $00ef
 RAM_PPUDataBufferPointer:
       .dsb 2 ; $00f0
-; Set this to the location of PPU data to be drawn
-; to the screen (somehow).
-;
-; Common value of $0301, which is where minor
-; PPU updates are stored in memory.
+      ; Set this to the location of PPU data to be drawn
+      ; to the screen (somehow).
+      ;
+      ; Common value of $0301, which is where minor
+      ; PPU updates are stored in memory.
 byte_RAM_F2:
       .dsb 1 ; $00f2
 byte_RAM_F3:
@@ -1424,13 +1424,13 @@ byte_RAM_4B3:
       .dsb 1 ; $04b3
 HawkmouthClosing:
       .dsb 1 ; $04b4
-; Probably set to 1 when Hawkmouth eats the player and starts closing
+      ; Probably set to 1 when Hawkmouth eats the player and starts closing
 CrystalAndHawkmouthOpenSize:
       .dsb 1 ; $04b5
-; Set to 01 on crystal get, Hawkmouth opens to 30
+      ; Set to 01 on crystal get, Hawkmouth opens to 30
 HawkmouthOpenTimer:
       .dsb 1 ; $04b6
-; Hawkmouth won't start opening until this hits 0
+      ; Hawkmouth won't start opening until this hits 0
 SubspaceTimer:
       .dsb 1 ; $04b7
 byte_RAM_4B8:
@@ -1453,12 +1453,12 @@ ScreenBoundaryRightLo:
       .dsb 1 ; $04c1
 PlayerHealth:
       .dsb 1 ; $04c2
-; xF: Hearts - 1 (0F=1HP, 1F=2HP, etc)
+      ; xF: Hearts - 1 ($0F=1HP, $1F=2HP, etc)
 PlayerMaxHealth:
       .dsb 1 ; $04c3
-; 00: Max 2
-; 01: Max 3
-; 02: Max 4
+      ; $00: Max 2
+      ; $01: Max 3
+      ; $02: Max 4
 POWQuakeTimer:
       .dsb 1 ; $04c4
 byte_RAM_4C5:
@@ -1524,11 +1524,11 @@ byte_RAM_4EB:
       .dsb 1 ; $04eb
 GameMode:
       .dsb 1 ; $04ec
-; 00: In game
-; 01: Level title card
-; 02: Game over
-; 03: Bonus chance
-; 04+: Warp
+      ; $00: In game
+      ; $01: Level title card
+      ; $02: Game over
+      ; $03: Bonus chance
+      ; $04+: Warp
 ExtraLives:
       .dsb 1 ; $04ed
 byte_RAM_4EE:
@@ -1638,12 +1638,11 @@ CurrentLevelPage:
       .dsb 1 ; $0533
 TransitionType:
       .dsb 1 ; $0534
-; Seems to be set depending on how you
-; transitioned areas last.
-; 0 = ? (Start of level?)
-; 1 = Door
-; 2 = Jar
-; 3 = Vine
+      ; Seems to be set depending on how you transitioned areas last.
+      ; $00 = ? (Start of level?)
+      ; $01 = Door
+      ; $02 = Jar
+      ; $03 = Vine
 byte_RAM_535:
       .dsb 1 ; $0535
 byte_RAM_536:
@@ -1909,64 +1908,64 @@ byte_RAM_5FF:
       .dsb 1 ; $05ff
 Music1Queue:
       .dsb 1 ; $0600
-; 01 Overworld
-; 02 Character Select
-; 04 Inside
-; 08 Boss
-; 10 Invincible
-; 20 Subspace
-; 40 Wart
-; 80 Title
+       ; #01 Overworld
+       ; #02 Character Select
+       ; #04 Inside
+       ; #08 Boss
+       ; #10 Invincible
+       ; #20 Subspace
+       ; #40 Wart
+       ; #80 Title
 DPCMQueue:
       .dsb 1 ; $0601
-; 01 Item pull A
-; 02 Drum sample A
-; 04 Player hurt (>1 HP left)
-; 08 Item pull B
-; 10 Enemy scream A
-; 20 Drum sample B
-; 40 Enemy scream B
-; 80 Enemy scream C
+      ; $01 Item pull A
+      ; $02 Drum sample A
+      ; $04 Player hurt (>1 HP left)
+      ; $08 Item pull B
+      ; $10 Enemy scream A
+      ; $20 Drum sample B
+      ; $40 Enemy scream B
+      ; $80 Enemy scream C
 SoundEffectQueue1:
       .dsb 1 ; $0602
-; 01 Birdo/etc shoot noise
-; 02 Potion door creation
-; 04 Cherry collect
-; 08 Throw item
-; 10 1-up
-; 20 Enemy hit/killed
-; 40 Stopwatch tick
-; 80 Wart spit
+      ; $01 Birdo/etc shoot noise
+      ; $02 Potion door creation
+      ; $04 Cherry collect
+      ; $08 Throw item
+      ; $10 1-up
+      ; $20 Enemy hit/killed
+      ; $40 Stopwatch tick
+      ; $80 Wart spit
 MusicQueue2:
       .dsb 1 ; $0603
-; 01 Warp fanfare, slot entry jingle
-; 02 Boss clear fanfare
-; 04 Celebration
-; 08 Death jingle
-; 10 Game over
-; 20 Mini-fanfare (slot win, crystal get)
-; 40 Same as $01
-; 80 Silence (stops music)
+      ; $01 Warp fanfare, slot entry jingle
+      ; $02 Boss clear fanfare
+      ; $04 Celebration
+      ; $08 Death jingle
+      ; $10 Game over
+      ; $20 Mini-fanfare (slot win, crystal get)
+      ; $40 Same as $01
+      ; $80 Silence (stops music)
 SoundEffectQueue2:
       .dsb 1 ; $0604
-; 01 Jump
-; 02 Climbing
-; 04 Coin collected
-; 08 Shrinking
-; 10 Intro "falling" sound
-; 20 Growing
-; 40 -N/A-
-; 80 -N/A-
+      ; $01 Jump
+      ; $02 Climbing
+      ; $04 Coin collected
+      ; $08 Shrinking
+      ; $10 Intro "falling" sound
+      ; $20 Growing
+      ; $40 -N/A-
+      ; $80 -N/A-
 SoundEffectQueue3:
       .dsb 1 ; $0605
-; 01 Short noise
-; 02 Rumbling sound
-; 04 Rumbling sound
-; 08 -N/A-
-; 10 -N/A-
-; 20 -N/A-
-; 40 -N/A-
-; 80 -N/A-
+      ; $01 Short noise
+      ; $02 Rumbling sound
+      ; $04 Rumbling sound
+      ; $08 -N/A-
+      ; $10 -N/A-
+      ; $20 -N/A-
+      ; $40 -N/A-
+      ; $80 -N/A-
 byte_RAM_606:
       .dsb 1 ; $0606
 byte_RAM_607:
@@ -1990,8 +1989,8 @@ byte_RAM_611:
       .dsb 1 ; $0611
 MusicTempoSetting:
       .dsb 1 ; $0612
-; Music tempo control?
-; Locking this changes the speed of music
+      ; Music tempo control?
+      ; Locking this changes the speed of music
 byte_RAM_613:
       .dsb 1 ; $0613
 byte_RAM_614:
@@ -2291,21 +2290,21 @@ BackgroundCHR2Timer:
       .dsb 1 ; $06ff
 SubAreaTileLayout:
       .dsb 1 ; $0700
-      .dsb 1 ; 1 ; When moving into subspace, ; $0701
-      .dsb 1 ; 2 ; this area is turned into a tile represenation ; $0702
-      .dsb 1 ; 3 ; of the current screen as it will be shown ; $0703
-      .dsb 1 ; 4 ; (e.g. reversed, like in-game) ; $0704
-      .dsb 1 ; 5 ; Not sure if anything else uses this area yet ; $0705
-      .dsb 1 ; 6                ; $0706
-      .dsb 1 ; 7                ; $0707
-      .dsb 1 ; 8                ; $0708
-      .dsb 1 ; 9                ; $0709
-      .dsb 1 ; $A               ; $070a
-      .dsb 1 ; $B               ; $070b
-      .dsb 1 ; $C               ; $070c
-      .dsb 1 ; $D               ; $070d
-      .dsb 1 ; $E               ; $070e
-      .dsb 1 ; $F               ; $070f
+      .dsb 1 ; $01 ; When moving into subspace, ; $0701
+      .dsb 1 ; $02 ; this area is turned into a tile represenation ; $0702
+      .dsb 1 ; $03 ; of the current screen as it will be shown ; $0703
+      .dsb 1 ; $04 ; (e.g. reversed, like in-game) ; $0704
+      .dsb 1 ; $05 ; Not sure if anything else uses this area yet ; $0705
+      .dsb 1 ; $06              ; $0706
+      .dsb 1 ; $07              ; $0707
+      .dsb 1 ; $08              ; $0708
+      .dsb 1 ; $09              ; $0709
+      .dsb 1 ; $0A              ; $070a
+      .dsb 1 ; $0B              ; $070b
+      .dsb 1 ; $0C              ; $070c
+      .dsb 1 ; $0D              ; $070d
+      .dsb 1 ; $0E              ; $070e
+      .dsb 1 ; $0F              ; $070f
       .dsb 1 ; $10              ; $0710
       .dsb 1 ; $11              ; $0711
       .dsb 1 ; $12              ; $0712

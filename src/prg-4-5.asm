@@ -317,7 +317,7 @@ locret_BANK4_818E:
 
 ; ---------------------------------------------------------------------------
 SoundEffectPointers:
-      .BYTE $4E, 8, $6D, $27, $D7, $74, $8B, $A5
+      .BYTE $4E, $08, $6D, $27, $D7, $74, $8B, $A5
 ; Relative pointers to the below sound effect data.
 ; If you want to edit this easier, or once the main
 ; part of disassembling is done, replace this with:
@@ -334,8 +334,8 @@ SoundEffectPointers:
 ; .BYTE <(SoundEffect1Data_StopwatchTick - tmp)
 ; .BYTE <(SoundEffect1Data_HawkOpen_WartBarf - tmp)
 SoundEffect1Data_PotionDoorBong:
-      .BYTE $9F, $10,	$E, $C,	$7E, $7E, $7E, $10, $E,	$C, $7E, $7E, $7E
-      .BYTE $86, $10, $E, $C, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $9F, $10,	$E, $0C,	$7E, $7E, $7E, $10, $0E,	$C, $7E, $7E, $7E
+      .BYTE $86, $10, $0E, $C, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E
       .BYTE $7E, $7E, $7E, $7E,	0
 SoundEffect1Data_ThrowItem:
       .BYTE $9F, $64, $7E,	$7E, $9E, $68, $7E, $7E, $9D, $6A, $7E,	$7E
@@ -359,7 +359,7 @@ SoundEffect1Data_HawkOpen_WartBarf:
       .BYTE $80, $1E, $1C,	$1E, $1A, $18, $16, $1C, $18, $1A, $1E,	$18
       .BYTE $16, $14, $12, $14,	$16, $14, $12, $2C, $2C, $2A, $2E, $2C
       .BYTE $2A, $28, $26, $28,	$24, $22, $20, $1E, $1C, $1A, $18, $16
-      .BYTE $14, $14, $12, $10,	$E, $C,	$A, 8, 8, 6, 4,	2, 2, 0
+      .BYTE $14, $14, $12, $10,	$E, $0C,	$A, $08, $08, $06, $04,	2, $02, 0
 SoundEffect1Data_HawkOpen_1UP:
       .BYTE $81, $5E, $7E, $7E,	$7E, $7E, $7E, $7E, $64, $7E, $7E, $7E
       .BYTE $7E, $7E, $7E, $76,	$7E, $7E, $7E, $7E, $7E, $7E, $6E, $7E
@@ -506,10 +506,10 @@ DMCStartTable:
 ; Need to fix this in the final disassembly
       .BYTE $60
       .BYTE $4B
-      .BYTE 0
+      .BYTE $00
       .BYTE $31
       .BYTE $60
-      .BYTE $E
+      .BYTE $0E
       .BYTE $1D
 DMCLengthTable:
       .BYTE $43
@@ -522,15 +522,15 @@ DMCLengthTable:
       .BYTE $3C
       .BYTE $50
 DMCFreqTable:
-      .BYTE $E
+      .BYTE $0E
 
-      .BYTE $E
-      .BYTE $F
-      .BYTE $F
-      .BYTE $F
-      .BYTE $F
-      .BYTE $F
-      .BYTE  $F
+      .BYTE $0E
+      .BYTE $0F
+      .BYTE $0F
+      .BYTE $0F
+      .BYTE $0F
+      .BYTE $0F
+      .BYTE $0F
       .BYTE $60
 ; ---------------------------------------------------------------------------
 
@@ -683,7 +683,7 @@ loc_BANK4_8441:
       BNE     loc_BANK4_8465
 
 StopMusic:
-      LDA     #0 ; Pretty sure this stops the music
+      LDA     #$00 ; Pretty sure this stops the music
       STA     byte_RAM_606
       STA     byte_RAM_609
       STA     SND_CHN
@@ -1006,9 +1006,9 @@ loc_BANK4_8614:
 NoiseVolTable:
       .BYTE $10,$1E,$1F,$16
 NoiseLoTable:
-      .BYTE 0,3,$A,2
+      .BYTE $00,$03,$0A,2
 NoiseHiTable:
-      .BYTE 0,$18,$18,$58 ; =============== S U B R O U T I N E =======================================
+      .BYTE $00,$18,$18,$58 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_8629:
       AND     #$F
@@ -1320,17 +1320,17 @@ ENDIF
 
 ; [000007A1 BYTES: END OF AREA UNUSED-BANK4:875F. PRESS KEYPAD "-" TO COLLAPSE]
 NoteLengthTable:
-      .BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5
-      .BYTE 4, 7, $A, 9, $A, $E, $15, $1C, $2A,	$38, $B, 4, 4, 5, 6, 8 ; $10
-      .BYTE $C,	$B, $A,	$10, $18, $20, $30, $40, 4, 5, 6, 6, 9,	$D, $C,	$C ; $20
-      .BYTE $12, $1B, $24, $36,	$48, $E, 3, 5, 5, 7, 6,	$A, $F,	$D, $E,	$14 ; $30
-      .BYTE $1E, $28, $3C, $50,	5, 6, 7, 8, $B,	$10, $F, $E, $16, $21, $2C, $42 ; $40
-      .BYTE $58, $11, 6, 6, 8, 8, $C, $12, $10,	$10, $18, $24, $30, $48, $60, 2 ; $50
-      .BYTE 6, 7, 9, 8,	$D, $13, $11, $12, $1A,	$27, $34, $4E, $68, $14, 7, 7 ; $60
-      .BYTE 9, $A, $E, $15, $13, $12, $1C, $2A,	$38, $54, $70, 3, 4, 7,	8, $A ; $70
-      .BYTE $A,	$F, $16, $14, $14, $1E,	$2D, $3C, $5A, $78, $17, 8, 8, $B, $A, $10 ; $80
-      .BYTE $18, $15, $16, $20,	$30, $40, $60, $80, 8, 9, $B, $C, $11, $19, $15, $16 ; $90
-      .BYTE $22, $33, $44, $60,	$88, $1A, 9, 9,	$C, $C,	$12, $1B, $18, $18, $24, $36 ; $A0
+      .BYTE $03, $03, $04, $04, $06, $09,	8, $08, $0C, $12, $18, $24, $30, $03, $04, 5
+      .BYTE $04, $07, $0A, $09, $0A, $E, $15, $1C, $2A,	$38, $0B, $04, $04, $05, $06, $08 ; $10
+      .BYTE $0C,	$B, $0A,	$10, $18, $20, $30, $40, $04, $05, $06, $06, $09,	$D, $0C,	$C ; $20
+      .BYTE $12, $1B, $24, $36,	$48, $0E, $03, $05, $05, $07, $06,	$A, $0F,	$D, $0E,	$14 ; $30
+      .BYTE $1E, $28, $3C, $50,	5, $06, $07, $08, $0B,	$10, $0F, $E, $16, $21, $2C, $42 ; $40
+      .BYTE $58, $11, $06, $06, $08, $08, $0C, $12, $10,	$10, $18, $24, $30, $48, $60, $02 ; $50
+      .BYTE $06, $07, $09, $08,	$D, $13, $11, $12, $1A,	$27, $34, $4E, $68, $14, $07, $07 ; $60
+      .BYTE $09, $0A, $E, $15, $13, $12, $1C, $2A,	$38, $54, $70, $03, $04, $07,	8, $0A ; $70
+      .BYTE $0A,	$F, $16, $14, $14, $1E,	$2D, $3C, $5A, $78, $17, $08, $08, $0B, $A, $10 ; $80
+      .BYTE $18, $15, $16, $20,	$30, $40, $60, $80, $08, $09, $0B, $C, $11, $19, $15, $16 ; $90
+      .BYTE $22, $33, $44, $60,	$88, $1A, $09, $09,	$C, $0C,	$12, $1B, $18, $18, $24, $36 ; $A0
       .BYTE $48, $6C, $90 ; $B0
 IFDEF PRESERVE_UNUSED_SPACE
 ; Unused space in the original
@@ -1349,19 +1349,19 @@ MusicPartPointers:
       .BYTE $60,$66,$72,$78,$7E,$B5,$AF
       .BYTE $BB,$C1,$C7,$CD,$D3,$CD,$D9
       .BYTE $DF,$EB,$E5,$F7,$F1,$FD,$6C
-      .BYTE 0,$AD,$98,$6B,$36,$A0,0
-      .BYTE $5C,$99,$8E,$48,$B0,0,$9A
+      .BYTE $00,$AD,$98,$6B,$36,$A0,0
+      .BYTE $5C,$99,$8E,$48,$B0,$00,$9A
       .BYTE $99
       .BYTE $6F
       .BYTE $48
       .BYTE $76
-      .BYTE 0
+      .BYTE $00
       .BYTE $9E
       .BYTE $99
       .BYTE $6B
       .BYTE $47
       .BYTE $72
-      .BYTE 0
+      .BYTE $00
       .BYTE $26
       .BYTE $9A
       .BYTE $8A
@@ -1392,7 +1392,7 @@ MusicPartPointers:
       .BYTE $73
       .BYTE $26
       .BYTE $28
-      .BYTE 0
+      .BYTE $00
       .BYTE $9E
       .BYTE $38
       .BYTE $1D
@@ -1414,8 +1414,8 @@ MusicPartPointers:
       .BYTE $9F
       .BYTE $83
       .BYTE $42
-      .BYTE 0
-      .BYTE 0
+      .BYTE $00
+      .BYTE $00
       .BYTE $69
       .BYTE $94
       .BYTE $37
@@ -1426,23 +1426,23 @@ MusicPartPointers:
       .BYTE $9F
       .BYTE $96
       .BYTE $4B
-      .BYTE 0
-      .BYTE 0
+      .BYTE $00
+      .BYTE $00
       .BYTE $48
       .BYTE $A1
       .BYTE $1B
-      .BYTE $D
-      .BYTE 0
+      .BYTE $0D
+      .BYTE $00
       .BYTE $CE
       .BYTE $A0
       .BYTE $1B
-      .BYTE  $E
-      .BYTE 0
+      .BYTE $0E
+      .BYTE $00
       .BYTE $F2
       .BYTE $A0
       .BYTE $41
       .BYTE $27
-      .BYTE 0
+      .BYTE $00
       .BYTE $93
       .BYTE $9B
       .BYTE $2F
@@ -1451,9 +1451,9 @@ MusicPartPointers:
       .BYTE $52
       .BYTE $BB
       .BYTE $A0
-      .BYTE 0
-      .BYTE $A
-      .BYTE 0
+      .BYTE $00
+      .BYTE $0A
+      .BYTE $00
       .BYTE $DF
       .BYTE $9A
       .BYTE $97
@@ -1463,8 +1463,8 @@ MusicPartPointers:
       .BYTE $6F
       .BYTE $A1
       .BYTE $17
-      .BYTE $C
-      .BYTE 0
+      .BYTE $0C
+      .BYTE $00
       .BYTE $5D
       .BYTE $9A
       .BYTE $6C
@@ -1513,10 +1513,10 @@ MusicPartPointers:
       .BYTE $10
       .BYTE $51
       .BYTE $28
-      .BYTE  $F
+      .BYTE $0F
       .BYTE $96
       .BYTE $17
-      .BYTE  $A
+      .BYTE $0A
       .BYTE $22
       .BYTE $6E
       .BYTE $1E
@@ -1543,7 +1543,7 @@ MusicPartPointers:
       .BYTE $14
       .BYTE $68
       .BYTE $6E
-      .BYTE $D
+      .BYTE $0D
       .BYTE $92
       .BYTE $43
       .BYTE $29
@@ -1551,13 +1551,13 @@ MusicPartPointers:
       .BYTE $6E
       .BYTE $76
       .BYTE $93
-      .BYTE 0
+      .BYTE $00
       .BYTE $72
-      .BYTE 0
+      .BYTE $00
 MusicPointersFirstPart:
       .BYTE $10
 
-      .BYTE 7
+      .BYTE $07
       .BYTE $29
       .BYTE $17
       .BYTE $18
@@ -1568,7 +1568,7 @@ MusicPointersFirstPart:
 MusicPointersEndPart:
       .BYTE $16
 
-      .BYTE $F
+      .BYTE $0F
       .BYTE $29
       .BYTE $17
       .BYTE $18
@@ -1579,13 +1579,13 @@ MusicPointersEndPart:
 MusicPointersLoopPart:
       .BYTE $11
 
-      .BYTE 8
+      .BYTE $08
       .BYTE $29
       .BYTE $17
       .BYTE $18
       .BYTE $1E
       .BYTE $19
-      .BYTE 0
+      .BYTE $00
       .BYTE $28
 MusicData:
       .BYTE $8A
@@ -1618,7 +1618,7 @@ MusicData:
       .BYTE $50
       .BYTE $88
       .BYTE $4C
-      .BYTE 0
+      .BYTE $00
       .BYTE $8A
       .BYTE $3E
       .BYTE $84
@@ -1713,7 +1713,7 @@ MusicData:
       .BYTE $10
       .BYTE $84
       .BYTE $10
-      .BYTE 0
+      .BYTE $00
       .BYTE $8A
       .BYTE $50
       .BYTE $84
@@ -1746,7 +1746,7 @@ MusicData:
       .BYTE $52
       .BYTE $88
       .BYTE $3A
-      .BYTE 0
+      .BYTE $00
       .BYTE $8A
       .BYTE $48
       .BYTE $84
@@ -1853,7 +1853,7 @@ MusicData:
       .BYTE $42
       .BYTE $46
       .BYTE $50
-      .BYTE 0
+      .BYTE $00
       .BYTE $88
       .BYTE $10
       .BYTE $82
@@ -1867,7 +1867,7 @@ MusicData:
       .BYTE $10
       .BYTE $10
       .BYTE $10
-      .BYTE 0
+      .BYTE $00
       .BYTE $8A
       .BYTE $40
       .BYTE $84
@@ -1966,7 +1966,7 @@ MusicData:
       .BYTE $8A
       .BYTE $56
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $88
       .BYTE $10
       .BYTE $82
@@ -1983,7 +1983,7 @@ MusicData:
       .BYTE $10
       .BYTE $84
       .BYTE $10
-      .BYTE 0
+      .BYTE $00
       .BYTE $88
       .BYTE $2A
       .BYTE $82
@@ -2075,7 +2075,7 @@ MusicData:
       .BYTE $FC
       .BYTE $7E
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $88
       .BYTE $40
       .BYTE $82
@@ -2182,12 +2182,12 @@ MusicData:
       .BYTE $10
       .BYTE $8A
       .BYTE $10
-      .BYTE 1
+      .BYTE $01
       .BYTE $8C
-      .BYTE 1
-      .BYTE 1
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
+      .BYTE $01
+      .BYTE $01
       .BYTE $F4
       .BYTE $68
       .BYTE $6A
@@ -2301,7 +2301,7 @@ MusicData:
       .BYTE $7E
       .BYTE $8B
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $F4
       .BYTE $48
       .BYTE $56
@@ -2456,7 +2456,7 @@ MusicData:
       .BYTE $98
       .BYTE $46
       .BYTE $46
-      .BYTE 0
+      .BYTE $00
       .BYTE $98
       .BYTE $3A
       .BYTE $3A
@@ -2505,18 +2505,18 @@ MusicData:
       .BYTE $3E
       .BYTE $48
       .BYTE $94
-      .BYTE 1
+      .BYTE $01
       .BYTE $98
       .BYTE $10
       .BYTE $94
       .BYTE $10
       .BYTE $10
       .BYTE $10
-      .BYTE 1
-      .BYTE 1
-      .BYTE 0
+      .BYTE $01
+      .BYTE $01
+      .BYTE $00
       .BYTE $A4
-      .BYTE $A
+      .BYTE $0A
       .BYTE $18
       .BYTE $22
       .BYTE $84
@@ -2525,7 +2525,7 @@ MusicData:
       .BYTE $89
       .BYTE $42
       .BYTE $A4
-      .BYTE $A
+      .BYTE $0A
       .BYTE $18
       .BYTE $22
       .BYTE $84
@@ -2556,9 +2556,9 @@ MusicData:
       .BYTE $36
       .BYTE $B8
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $B4
-      .BYTE $A
+      .BYTE $0A
       .BYTE $18
       .BYTE $22
       .BYTE $84
@@ -2567,7 +2567,7 @@ MusicData:
       .BYTE $89
       .BYTE $38
       .BYTE $B4
-      .BYTE $A
+      .BYTE $0A
       .BYTE $18
       .BYTE $22
       .BYTE $84
@@ -2648,7 +2648,7 @@ MusicData:
       .BYTE $3A
       .BYTE $30
       .BYTE $85
-      .BYTE 1
+      .BYTE $01
       .BYTE $8D
       .BYTE $10
       .BYTE $8E
@@ -2658,10 +2658,10 @@ MusicData:
       .BYTE $88
       .BYTE $10
       .BYTE $84
-      .BYTE 1
-      .BYTE 1
-      .BYTE 1
-      .BYTE 0
+      .BYTE $01
+      .BYTE $01
+      .BYTE $01
+      .BYTE $00
       .BYTE $99
       .BYTE $48
       .BYTE $3E
@@ -2689,7 +2689,7 @@ MusicData:
       .BYTE $4C
       .BYTE $99
       .BYTE $46
-      .BYTE   0
+      .BYTE $00
       .BYTE $99
       .BYTE $38
       .BYTE $30
@@ -2762,7 +2762,7 @@ MusicData:
       .BYTE $42
       .BYTE $48
       .BYTE $4C
-      .BYTE   0
+      .BYTE $00
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2794,18 +2794,18 @@ MusicData:
       .BYTE $48
       .BYTE $3A
       .BYTE $98
-      .BYTE 4
+      .BYTE $04
       .BYTE $92
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
       .BYTE $98
-      .BYTE 6
+      .BYTE $06
       .BYTE $92
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
-      .BYTE   0
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2821,7 +2821,7 @@ MusicData:
       .BYTE $60
       .BYTE $9A
       .BYTE $60
-      .BYTE   0
+      .BYTE $00
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2862,7 +2862,7 @@ MusicData:
       .BYTE $9A
       .BYTE $48
       .BYTE $7E
-      .BYTE   0
+      .BYTE $00
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2888,18 +2888,18 @@ MusicData:
       .BYTE $3E
       .BYTE $30
       .BYTE $98
-      .BYTE   4
+      .BYTE $04
       .BYTE $92
-      .BYTE   2
-      .BYTE   1
-      .BYTE   2
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
       .BYTE $98
-      .BYTE   6
+      .BYTE $06
       .BYTE $92
-      .BYTE   2
-      .BYTE   1
-      .BYTE   2
-      .BYTE   0
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
       .BYTE $E4
       .BYTE $6E
       .BYTE $E8
@@ -2933,7 +2933,7 @@ MusicData:
       .BYTE $7E
       .BYTE $E9
       .BYTE $3E
-      .BYTE 0
+      .BYTE $00
       .BYTE $E4
       .BYTE $56
       .BYTE $E8
@@ -2959,7 +2959,7 @@ MusicData:
       .BYTE $1C
       .BYTE $16
       .BYTE $E8
-      .BYTE $E
+      .BYTE $0E
       .BYTE $7E
       .BYTE $26
       .BYTE $E8
@@ -2989,22 +2989,22 @@ MusicData:
       .BYTE $7E
       .BYTE $E8
       .BYTE $10
-      .BYTE 2
-      .BYTE 6
+      .BYTE $02
+      .BYTE $06
       .BYTE $10
-      .BYTE 2
-      .BYTE 6
+      .BYTE $02
+      .BYTE $06
       .BYTE $10
-      .BYTE 2
-      .BYTE 6
+      .BYTE $02
+      .BYTE $06
       .BYTE $10
-      .BYTE 1
+      .BYTE $01
       .BYTE $10
       .BYTE $10
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
       .BYTE $EA
-      .BYTE 1
+      .BYTE $01
       .BYTE $E4
       .BYTE $50
       .BYTE $3E
@@ -3093,18 +3093,18 @@ MusicData:
       .BYTE $2E
       .BYTE $30
       .BYTE $34
-      .BYTE 0
+      .BYTE $00
       .BYTE $B8
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $B4
       .BYTE $10
       .BYTE $10
       .BYTE $B8
       .BYTE $10
-      .BYTE 0
+      .BYTE $00
       .BYTE $E4
       .BYTE $38
       .BYTE $3E
@@ -3312,7 +3312,7 @@ MusicData:
       .BYTE $50
       .BYTE $E4
       .BYTE $46
-      .BYTE 0
+      .BYTE $00
       .BYTE $E4
       .BYTE $50
       .BYTE $48
@@ -3429,45 +3429,45 @@ MusicData:
       .BYTE $84
       .BYTE $46
       .BYTE $B8
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
-      .BYTE $10
-      .BYTE $86
-      .BYTE 1
-      .BYTE $84
-      .BYTE 1
-      .BYTE $88
-      .BYTE 2
-      .BYTE $10
-      .BYTE $10
-      .BYTE 2
-      .BYTE $10
-      .BYTE $10
-      .BYTE 2
-      .BYTE $10
-      .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $86
-      .BYTE 1
+      .BYTE $01
       .BYTE $84
-      .BYTE 1
+      .BYTE $01
       .BYTE $88
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
+      .BYTE $02
+      .BYTE $10
+      .BYTE $10
+      .BYTE $02
+      .BYTE $10
+      .BYTE $86
+      .BYTE $01
+      .BYTE $84
+      .BYTE $01
+      .BYTE $88
+      .BYTE $02
+      .BYTE $10
+      .BYTE $10
+      .BYTE $02
+      .BYTE $10
+      .BYTE $10
+      .BYTE $02
       .BYTE $10
       .BYTE $10
       .BYTE $48
@@ -3487,7 +3487,7 @@ MusicData:
       .BYTE $7E
       .BYTE $3E
       .BYTE $48
-      .BYTE 0
+      .BYTE $00
       .BYTE $30
       .BYTE $7E
       .BYTE $7E
@@ -3497,13 +3497,13 @@ MusicData:
       .BYTE $18
       .BYTE $7E
       .BYTE $7E
-      .BYTE $E
-      .BYTE 8
-      .BYTE 4
+      .BYTE $0E
+      .BYTE $08
+      .BYTE $04
       .BYTE $E8
       .BYTE $18
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $2E
       .BYTE $38
       .BYTE $EB
@@ -3512,17 +3512,17 @@ MusicData:
       .BYTE $7E
       .BYTE $30
       .BYTE $10
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
       .BYTE $10
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
       .BYTE $10
-      .BYTE 1
+      .BYTE $01
       .BYTE $10
       .BYTE $10
-      .BYTE   1
-      .BYTE   1
+      .BYTE $01
+      .BYTE $01
       .BYTE $96
       .BYTE $48
       .BYTE $92
@@ -3576,7 +3576,7 @@ MusicData:
       .BYTE $7E
       .BYTE $4C
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $96
       .BYTE $3E
       .BYTE $92
@@ -3684,9 +3684,9 @@ MusicData:
       .BYTE $46
       .BYTE $7E
       .BYTE $8A
-      .BYTE 4
-      .BYTE 1
-      .BYTE 0
+      .BYTE $04
+      .BYTE $01
+      .BYTE $00
       .BYTE $A6
       .BYTE $7E
       .BYTE $A2
@@ -3759,17 +3759,17 @@ MusicData:
       .BYTE $7E
       .BYTE $AA
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $AA
       .BYTE $7E
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $C8
       .BYTE $7E
       .BYTE $48
       .BYTE $4C
       .BYTE $4E
-      .BYTE 0
+      .BYTE $00
       .BYTE $A8
       .BYTE $3E
       .BYTE $7E
@@ -3875,31 +3875,31 @@ MusicData:
       .BYTE $7E
       .BYTE $7E
       .BYTE $88
-      .BYTE 2
-      .BYTE 4
-      .BYTE 0
+      .BYTE $02
+      .BYTE $04
+      .BYTE $00
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $86
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 1
+      .BYTE $01
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 1
+      .BYTE $01
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $C8
       .BYTE $50
       .BYTE $7E
@@ -3954,7 +3954,7 @@ MusicData:
       .BYTE $C4
       .BYTE $42
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $C8
       .BYTE $7E
       .BYTE $46
@@ -3969,7 +3969,7 @@ MusicData:
       .BYTE $3E
       .BYTE $C2
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $C8
       .BYTE $40
       .BYTE $7E
@@ -4073,18 +4073,18 @@ MusicData:
       .BYTE $8A
       .BYTE $7E
       .BYTE $88
-      .BYTE 2
-      .BYTE 4
-      .BYTE 0
+      .BYTE $02
+      .BYTE $04
+      .BYTE $00
       .BYTE $88
-      .BYTE 2
-      .BYTE 4
-      .BYTE 4
-      .BYTE 4
-      .BYTE 2
-      .BYTE 2
+      .BYTE $02
+      .BYTE $04
+      .BYTE $04
+      .BYTE $04
+      .BYTE $02
+      .BYTE $02
       .BYTE $7E
-      .BYTE 6
+      .BYTE $06
       .BYTE $96
       .BYTE $50
       .BYTE $92
@@ -4181,7 +4181,7 @@ MusicData:
       .BYTE $5A
       .BYTE $92
       .BYTE $5C
-      .BYTE 0
+      .BYTE $00
       .BYTE $C8
       .BYTE $50
       .BYTE $7E
@@ -4262,9 +4262,9 @@ MusicData:
       .BYTE $3C
       .BYTE $42
       .BYTE $88
-      .BYTE 2
-      .BYTE 4
-      .BYTE 0
+      .BYTE $02
+      .BYTE $04
+      .BYTE $00
       .BYTE $96
       .BYTE $5E
       .BYTE $92
@@ -4297,7 +4297,7 @@ MusicData:
       .BYTE $42
       .BYTE $92
       .BYTE $3E
-      .BYTE 0
+      .BYTE $00
       .BYTE $C8
       .BYTE $7E
       .BYTE $46
@@ -4322,14 +4322,14 @@ MusicData:
       .BYTE $8A
       .BYTE $7E
       .BYTE $88
-      .BYTE 2
-      .BYTE 4
-      .BYTE 4
-      .BYTE 4
-      .BYTE 2
-      .BYTE 2
+      .BYTE $02
+      .BYTE $04
+      .BYTE $04
+      .BYTE $04
+      .BYTE $02
+      .BYTE $02
       .BYTE $7E
-      .BYTE 6
+      .BYTE $06
       .BYTE $A2
       .BYTE $7E
       .BYTE $7E
@@ -4351,7 +4351,7 @@ MusicData:
       .BYTE $A8
       .BYTE $3E
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $A2
       .BYTE $7E
       .BYTE $7E
@@ -4392,20 +4392,20 @@ MusicData:
       .BYTE $34
       .BYTE $3E
       .BYTE $8A
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
       .BYTE $88
-      .BYTE 2
+      .BYTE $02
       .BYTE $82
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
       .BYTE $82
       .BYTE $56
       .BYTE $7E
@@ -4489,7 +4489,7 @@ MusicData:
       .BYTE $7E
       .BYTE $82
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $82
       .BYTE $48
       .BYTE $7E
@@ -4608,21 +4608,21 @@ MusicData:
       .BYTE $30
       .BYTE $7E
       .BYTE $88
-      .BYTE 1
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
+      .BYTE $01
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
       .BYTE $88
-      .BYTE 1
-      .BYTE 2
+      .BYTE $01
+      .BYTE $02
       .BYTE $82
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
-      .BYTE 0
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
       .BYTE $92
       .BYTE $7E
       .BYTE $7E
@@ -4692,7 +4692,7 @@ MusicData:
       .BYTE $5A
       .BYTE $7E
       .BYTE $56
-      .BYTE 0
+      .BYTE $00
       .BYTE $92
       .BYTE $50
       .BYTE $7E
@@ -4730,14 +4730,14 @@ MusicData:
       .BYTE $7E
       .BYTE $3E
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $88
-      .BYTE 6
+      .BYTE $06
       .BYTE $82
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
-      .BYTE 0
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
       .BYTE $92
       .BYTE $7E
       .BYTE $7E
@@ -4914,7 +4914,7 @@ MusicData:
       .BYTE $7E
       .BYTE $7E
       .BYTE $50
-      .BYTE 0
+      .BYTE $00
       .BYTE $92
       .BYTE $48
       .BYTE $7E
@@ -4957,12 +4957,12 @@ MusicData:
       .BYTE $7E
       .BYTE $7E
       .BYTE $88
-      .BYTE 6
+      .BYTE $06
       .BYTE $82
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
-      .BYTE 0
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
       .BYTE $E2
       .BYTE $7E
       .BYTE $7E
@@ -5041,7 +5041,7 @@ MusicData:
       .BYTE $46
       .BYTE $7E
       .BYTE $3E
-      .BYTE 0
+      .BYTE $00
       .BYTE $E2
       .BYTE $7E
       .BYTE $7E
@@ -5164,12 +5164,12 @@ MusicData:
       .BYTE $2A
       .BYTE $26
       .BYTE $88
-      .BYTE 6
+      .BYTE $06
       .BYTE $82
       .BYTE $10
-      .BYTE 1
+      .BYTE $01
       .BYTE $10
-      .BYTE 0
+      .BYTE $00
       .BYTE $94
       .BYTE $34
       .BYTE $36
@@ -5235,7 +5235,7 @@ MusicData:
       .BYTE $3A
       .BYTE $38
       .BYTE $3A
-      .BYTE 0
+      .BYTE $00
       .BYTE $94
       .BYTE $7E
       .BYTE $42
@@ -5426,7 +5426,7 @@ MusicData:
       .BYTE $52
       .BYTE $54
       .BYTE $52
-      .BYTE 0
+      .BYTE $00
       .BYTE $A9
       .BYTE $44
       .BYTE $42
@@ -5605,7 +5605,7 @@ MusicData:
       .BYTE $56
       .BYTE $88
       .BYTE $52
-      .BYTE 0
+      .BYTE $00
       .BYTE $82
       .BYTE $3E
       .BYTE $42
@@ -5628,7 +5628,7 @@ MusicData:
       .BYTE $30
       .BYTE $26
       .BYTE $30
-      .BYTE   0
+      .BYTE $00
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -5689,7 +5689,7 @@ MusicData:
       .BYTE $26
       .BYTE $30
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $88
       .BYTE $7E
       .BYTE $30
@@ -5749,7 +5749,7 @@ MusicData:
       .BYTE $52
       .BYTE $8B
       .BYTE $50
-      .BYTE 0
+      .BYTE $00
       .BYTE $89
       .BYTE $36
       .BYTE $84
@@ -5787,7 +5787,7 @@ MusicData:
       .BYTE $3A
       .BYTE $8A
       .BYTE $38
-      .BYTE 0
+      .BYTE $00
       .BYTE $84
       .BYTE $7E
       .BYTE $82
