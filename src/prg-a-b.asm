@@ -1,3 +1,16 @@
+;
+; Bank A & Bank B
+; ===============
+;
+; What's inside:
+;
+;   - Level title card background data and palettes
+;   - Bonus chance background data and palettes
+;   - Character select palettes
+;   - Character data (physics, palettes, etc.)
+;   - Character stats bootstrapping
+;
+
 ;.segment BANKA
 ;       * =  $8000
 World1thru6TitleCard:
@@ -23,6 +36,7 @@ World7TitleCard:
       .BYTE $A9, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AF ; $70
       .BYTE $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; $80
       .BYTE $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; $90
+
 BonusChanceLayout:
       .BYTE $20,$00,$60,$FD
       .BYTE $20,$20,$60,$FD
@@ -71,8 +85,8 @@ BonusChanceLayout:
 BonusChanceLayout_:
       .BYTE $23,$43,$1B,$47,$94,$96,$74,$74,$74,$74,$A3,$A5,$74,$66,$68
       .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F ; $F ; This is still part of the original, but used
-; to copy data $100 bytes in in this disassembly
-; @TODO Fix later
+                                                                        ; to copy data $100 bytes in in this disassembly
+                                                                        ; @TODO Fix later
       .BYTE $23,$64,$05,$95,$97,$FD,$AA,$AB
       .BYTE $23,$77,$05,$9C,$9D,$AA,$AB,$AB
       .BYTE $23,$89,$02,$AA,$AB
@@ -98,13 +112,14 @@ BonusChanceLayout_:
 
 ; =============== S U B R O U T I N E =======================================
 
-CopyBonusChanceLayoutToRAM:
-      LDY     #$00 ; This copies the bonus chance layout from
+; This copies the bonus chance layout from
 ; ROM into some area of save RAM...
 ; including some extra data (like this code)
 ; This section of RAM is never used for anything else,
 ; so in theory you could free that by just...
 ; not doing this.
+CopyBonusChanceLayoutToRAM:
+      LDY     #$00
 
 loc_BANKA_8312:
       LDA     BonusChanceLayout,Y ; Blindly copy $100 bytes from $8140 to $7400
@@ -391,12 +406,13 @@ MysteryData14439:
 
 ; =============== S U B R O U T I N E =======================================
 
-CopyCharacterStatsAndStuff:
-      LDX     CurrentCharacter ; This copies the selected character's stats
+; This copies the selected character's stats
 ; into memory for use later, but also a bunch
 ; of other unrelated crap like the
 ; Bonus Chance slot reels (???) and
 ; god knows what else.
+CopyCharacterStatsAndStuff:
+      LDX     CurrentCharacter
       LDY     StatOffsets,X
       LDX     #0
 
@@ -523,10 +539,10 @@ byte_BANKA_84E5:
       .BYTE $E0
       .BYTE $FF
 PlayerSelectPalettes:
-      .BYTE $3F,$00,$20,$F
-      .BYTE $28,$16,$06,$0F ; 4
-      .BYTE $30,$12,$16,$0F ; 8
-      .BYTE $30,$16,$12,$0F ; $C
+      .BYTE $3F,$00,$20,$0F ; $00
+      .BYTE $28,$16,$06,$0F ; $04
+      .BYTE $30,$12,$16,$0F ; $08
+      .BYTE $30,$16,$12,$0F ; $0C
       .BYTE $30,$12,$16,$0F ; $10
       .BYTE $22,$12,$01,$0F ; $14
       .BYTE $22,$12,$01,$0F ; $18
@@ -536,39 +552,39 @@ BonusChanceText_X_1:
       .BYTE $22,$30,$03,$EA,$FB,$D1
 BonusChanceText_EXTRA_LIFE_1:
       .BYTE $22,$C9,$0F,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
-      .BYTE $F9,$FB,$D1,$00 ; $F
+      .BYTE $F9,$FB,$D1,$00 ; $0F
 BonusChanceBackgroundPalettes:
-      .BYTE $0F,$27,$17,7
-      .BYTE $0F,$37,$16,$12 ; 4
-      .BYTE $0F,$30,$10,$00 ; 8
-      .BYTE $0F,$21,$12,$01 ; $C
+      .BYTE $0F,$27,$17,$07 ; $00
+      .BYTE $0F,$37,$16,$12 ; $04
+      .BYTE $0F,$30,$10,$00 ; $08
+      .BYTE $0F,$21,$12,$01 ; $0C
 BonusChanceReel1Order:
-      .BYTE Slot_Snifit
-      .BYTE Slot_Turnip ; 1 ; Graphics exist for a mushroom (not used)
-      .BYTE Slot_Star ; 2
-      .BYTE Slot_Turnip ; 3
-      .BYTE Slot_Snifit ; 4
-      .BYTE Slot_Star ; 5
-      .BYTE Slot_Cherry ; 6
-      .BYTE Slot_Turnip ; 7
+      .BYTE Slot_Snifit ; $00
+      .BYTE Slot_Turnip ; $01 ; Graphics exist for a mushroom (not used)
+      .BYTE Slot_Star   ; $02
+      .BYTE Slot_Turnip ; $03
+      .BYTE Slot_Snifit ; $04
+      .BYTE Slot_Star   ; $05
+      .BYTE Slot_Cherry ; $06
+      .BYTE Slot_Turnip ; $07
 BonusChanceReel2Order:
-      .BYTE Slot_Star
-      .BYTE Slot_Snifit ; 1
-      .BYTE Slot_Cherry ; 2
-      .BYTE Slot_Snifit ; 3
-      .BYTE Slot_Turnip ; 4
-      .BYTE Slot_Star ; 5
-      .BYTE Slot_Snifit ; 6
-      .BYTE Slot_Turnip ; 7
+      .BYTE Slot_Star   ; $00
+      .BYTE Slot_Snifit ; $01
+      .BYTE Slot_Cherry ; $02
+      .BYTE Slot_Snifit ; $03
+      .BYTE Slot_Turnip ; $04
+      .BYTE Slot_Star   ; $05
+      .BYTE Slot_Snifit ; $06
+      .BYTE Slot_Turnip ; $07
 BonusChanceReel3Order:
-      .BYTE Slot_Star
-      .BYTE Slot_Snifit ; 1
-      .BYTE Slot_Star ; 2
-      .BYTE Slot_Turnip ; 3
-      .BYTE Slot_Star ; 4
-      .BYTE Slot_Cherry ; 5
-      .BYTE Slot_Turnip ; 6
-      .BYTE Slot_Snifit ; 7
+      .BYTE Slot_Star   ; $00
+      .BYTE Slot_Snifit ; $01
+      .BYTE Slot_Star   ; $02
+      .BYTE Slot_Turnip ; $03
+      .BYTE Slot_Star   ; $04
+      .BYTE Slot_Cherry ; $05
+      .BYTE Slot_Turnip ; $06
+      .BYTE Slot_Snifit ; $07
 BonusChanceUnusedCoinSprite:
       .BYTE $F8,$19,$01,$60,$F8,$1B,$01,$68
 BonusChanceUnusedImajinHead:
@@ -581,59 +597,52 @@ BonusChanceUnusedPapaHead:
       .BYTE $CB,$B4,$00,$A0,$CB,$B4,$40,$A8
 BonusChanceUnused_Blank20C6:
       .BYTE $20,$C6,$14,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB
-      .BYTE $FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$00 ; $F
+      .BYTE $FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$00 ; $0F
 BonusChanceText_NO_BONUS:
       .BYTE $22,$86,$14,$FB,$FB,$FB,$FB,$FB,$FB,$E7,$E8,$FB,$DB,$E8,$E7
-      .BYTE $EE,$EC,$FB,$FB,$FB,$FB,$FB,$FB,$00 ; $F
+      .BYTE $EE,$EC,$FB,$FB,$FB,$FB,$FB,$FB,$00 ; $0F
 BonusChanceText_PUSH_A_BUTTON:
       .BYTE $22,$89,$0E,$E9,$EE,$EC,$E1,$FB,$0E,$F,$FB,$DB,$EE,$ED,$ED,$E8
       .BYTE $E7,$00 ; $10
 BonusChanceText_PLAYER_1UP:
-      .BYTE $22,$8B,$0B,$E9,$E5,$DA,$F2,$DE,$EB,$FB,$FB,$D1,$EE,$E9,0
+      .BYTE $22,$8B,$0B,$E9,$E5,$DA,$F2,$DE,$EB,$FB,$FB,$D1,$EE,$E9,$00
 Text_PAUSE:
       .BYTE $25,$ED,$05,$E9,$DA,$EE,$EC,$DE
 Text_Unknown:
-      .BYTE $27,$DB,$02,$AA,$AA,0
+      .BYTE $27,$DB,$02,$AA,$AA,$00
 Text_Unknown2:
-      .BYTE $22,$86,$54,$FB,0
+      .BYTE $22,$86,$54,$FB,$00
 Text_Unknown3:
-      .BYTE $22,$AA,$4D,$FB,0
+      .BYTE $22,$AA,$4D,$FB,$00
 Text_Unknown4:
-      .BYTE $22,$EB,$4B,$FB,0
+      .BYTE $22,$EB,$4B,$FB,$00
 Text_PAUSE_Erase:
-      .BYTE $25,$ED,$05,$FB,$FB,$FB,$FB,$FB,0
+      .BYTE $25,$ED,$05,$FB,$FB,$FB,$FB,$FB,$00
 Text_Unknown5:
       .BYTE $25,$0E,$07,$FB,$FB,$FB,$FB,$FB,$FB,$FB ; This one is actually used, just not sure what for
 Text_WORLD_1_1:
       .BYTE $24,$CA,$0B,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$F3,$D1
 Text_EXTRA_LIFE_0:
       .BYTE $23,$48,$10,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
-      .BYTE $F9,$FB,$FB,$D0,$00 ; $F
+      .BYTE $F9,$FB,$FB,$D0,$00 ; $0F
 Text_WARP:
       .BYTE $21,$8E,$04,$F0,$DA,$EB,$E9
-Text_WORLD_1:
-      .BYTE $22,$0C,$09,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$00 ; Doki Doki Panic pseudo-leftover
+
+; Doki Doki Panic pseudo-leftover
 ; This actually has extra spaces on either end:
 ; "-WORLD-" ... It originally said "CHAPTER"
+Text_WORLD_1:
+      .BYTE $22,$0C,$09,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$00
 Text_Unknown6:
       .BYTE $21,$6A,$01,$FB
 Text_Unknown7:
-      .BYTE $21,$AA,$01,$FB,0
+      .BYTE $21,$AA,$01,$FB,$00
 Text_Unknown8:
-      .BYTE $21,$97,$C6,$FB,0
+      .BYTE $21,$97,$C6,$FB,$00
 UnusedText_THANK_YOU:
       .BYTE $21,$0C,$09,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE
 UnusedText_Blank214D:
-      .BYTE $21,$4D,$06,$FB,$FB,$FB,$FB,$FB,$FB,0
+      .BYTE $21,$4D,$06,$FB,$FB,$FB,$FB,$FB,$FB,$00
 IFDEF DEBUG
       .include "src/debug-a.asm"
 ENDIF
-; The rest of this bank pair is empty
-
-
-; -------------------------------------------
-
-
-; [00002000 BYTES: END OF AREA UNUSED-BANKB:A000. PRESS KEYPAD "-" TO COLLAPSE]
-; ===========================================================================
-

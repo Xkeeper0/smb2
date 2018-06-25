@@ -1,3 +1,11 @@
+;
+; Bank C & Bank D
+; ===============
+;
+; What's inside:
+;
+;   - The ending sequence with Mario sleeping and the cast roll
+;
 
 ; .segment BANKC
 ; * =  $8000
@@ -2560,12 +2568,3 @@ byte_BANKC_93A6:
       .BYTE $7A
       .BYTE $C8
       .BYTE $60
-;The rest of this bank pair is empty
-
-
-; -------------------------------------------
-
-
-; [00002000 BYTES: END OF AREA UNUSED-BANKC. PRESS KEYPAD "-" TO COLLAPSE]
-; ===========================================================================
-

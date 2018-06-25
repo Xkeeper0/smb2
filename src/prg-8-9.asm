@@ -1,3 +1,9 @@
+;
+; Bank 8 & Bank 9
+; ===============
+;
+; What's inside:
+;
 
 ; .segment BANK8
 ; * =  $8000

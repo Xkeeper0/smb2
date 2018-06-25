@@ -1,3 +1,9 @@
+;
+; Bank 0 & Bank 1
+; ===============
+;
+; What's inside:
+;
 
 ; .segment BANK0
 ; * =  $8000
@@ -632,8 +638,6 @@ loc_BANK0_832E:
 
 sub_BANK0_833E:
       LDX     byte_RAM_300
-
-loc_BANK0_8341:
       LDA     byte_RAM_D1
       STA     PPUBuffer_301,X
       INX
@@ -785,6 +789,7 @@ loc_BANK0_840B:
 
 ; =============== S U B R O U T I N E =======================================
 
+; something to do with background tile palettes in vertical levels?
 sub_BANK0_8412:
       LDY     byte_RAM_300
       LDA     byte_RAM_D1
@@ -843,8 +848,6 @@ loc_BANK0_8452:
       BPL     loc_BANK0_842B
 
       LDA     #1
-
-loc_BANK0_845D:
       STA     byte_RAM_E4
       LSR     A
       STA     byte_RAM_539
@@ -896,12 +899,8 @@ sub_BANK0_8488:
       LSR     A
       TAY
       LDA     EnemyArray_D9,Y
-
-loc_BANK0_848F:
       LSR     A
       LSR     A
-
-loc_BANK0_8491:
       STA     EnemyArray_D9,Y
       LDA     byte_RAM_51B
       AND     #$C0

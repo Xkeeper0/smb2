@@ -1,3 +1,24 @@
+;
+; Bank E & Bank F
+; ===============
+;
+; What's inside:
+;
+;   - PCM data
+;   - Character select sprite data and palettes
+;   - Bonus chance sprite data and palettes
+;   - Level initialization
+;   - PPU updating instructions
+;   - Routine to display title card
+;   - Character select menu logic
+;   - Game initialization sequence
+;   - Continue screen
+;   - Area initialization sequence
+;   - Joypad input reading
+;   - Music cue changes
+;   - Handle pause input
+;   - to be continued...
+;
 
 ; .segment BANKE
 ; * =  $C000
@@ -605,67 +626,67 @@ WorldStartingLevel:
       .BYTE $00
 
 WorldPlus1StartingLevel:
-      .BYTE $03
-      .BYTE $06 ; 1
-      .BYTE $09 ; 2
-      .BYTE $0C ; 3
-      .BYTE $0F ; 4
-      .BYTE $12 ; 5
-      .BYTE $14 ; 6
+      .BYTE $03 ; $00
+      .BYTE $06 ; $01
+      .BYTE $09 ; $02
+      .BYTE $0C ; $03
+      .BYTE $0F ; $04
+      .BYTE $12 ; $05
+      .BYTE $14 ; $06
 PlayerSelectMarioSprites1:
-      .BYTE $8F,$00,$00,$48
-      .BYTE $8F,$00,$40,$50 ; 4
-      .BYTE $9F,$02,$00,$48 ; 8
-      .BYTE $9F,$02,$40,$50 ; $C
+      .BYTE $8F,$00,$00,$48 ; $00
+      .BYTE $8F,$00,$40,$50 ; $04
+      .BYTE $9F,$02,$00,$48 ; $08
+      .BYTE $9F,$02,$40,$50 ; $0C
 PlayerSelectLuigiSprites1:
-      .BYTE $8F,$04,$01,$68
-      .BYTE $8F,$04,$41,$70 ; 4
-      .BYTE $9F,$06,$01,$68 ; 8
-      .BYTE $9F,$06,$41,$70 ; $C
+      .BYTE $8F,$04,$01,$68 ; $00
+      .BYTE $8F,$04,$41,$70 ; $04
+      .BYTE $9F,$06,$01,$68 ; $08
+      .BYTE $9F,$06,$41,$70 ; $0C
 PlayerSelectToadSprites1:
-      .BYTE $8F,$08,$02,$88
-      .BYTE $8F,$08,$42,$90 ; 4
-      .BYTE $9F,$0A,$02,$88 ; 8
-      .BYTE $9F,$0A,$42,$90 ; $C
+      .BYTE $8F,$08,$02,$88 ; $00
+      .BYTE $8F,$08,$42,$90 ; $04
+      .BYTE $9F,$0A,$02,$88 ; $08
+      .BYTE $9F,$0A,$42,$90 ; $0C
 PlayerSelectPrincessSprites1:
-      .BYTE $8F,$0C,$03,$A8
-      .BYTE $8F,$0C,$43,$B0 ; 4
-      .BYTE $9F,$0E,$03,$A8 ; 8
-      .BYTE $9F,$0E,$43,$B0 ; $C
+      .BYTE $8F,$0C,$03,$A8 ; $00
+      .BYTE $8F,$0C,$43,$B0 ; $04
+      .BYTE $9F,$0E,$03,$A8 ; $08
+      .BYTE $9F,$0E,$43,$B0 ; $0C
 PlayerSelectMarioSprites2:
-      .BYTE $8F,$10,$00,$48
-      .BYTE $8F,$12,$00,$50 ; 4
-      .BYTE $9F,$14,$00,$48 ; 8
-      .BYTE $9F,$16,$00,$50 ; $C
+      .BYTE $8F,$10,$00,$48 ; $00
+      .BYTE $8F,$12,$00,$50 ; $04
+      .BYTE $9F,$14,$00,$48 ; $08
+      .BYTE $9F,$16,$00,$50 ; $0C
 PlayerSelectLuigiSprites2:
-      .BYTE $8F,$18,$01,$68
-      .BYTE $8F,$1A,$01,$70 ; 4
-      .BYTE $9F,$1C,$01,$68 ; 8
-      .BYTE $9F,$1E,$01,$70 ; $C
+      .BYTE $8F,$18,$01,$68 ; $00
+      .BYTE $8F,$1A,$01,$70 ; $04
+      .BYTE $9F,$1C,$01,$68 ; $08
+      .BYTE $9F,$1E,$01,$70 ; $0C
 PlayerSelectToadSprites2:
-      .BYTE $8F,$20,$02,$88
-      .BYTE $8F,$22,$02,$90 ; 4
-      .BYTE $9F,$24,$02,$88 ; 8
-      .BYTE $9F,$26,$02,$90 ; $C
+      .BYTE $8F,$20,$02,$88 ; $00
+      .BYTE $8F,$22,$02,$90 ; $04
+      .BYTE $9F,$24,$02,$88 ; $08
+      .BYTE $9F,$26,$02,$90 ; $0C
 PlayerSelectPrincessSprites2:
-      .BYTE $8F,$28,$03,$A8
-      .BYTE $8F,$2A,$03,$B0 ; 4
-      .BYTE $9F,$2C,$03,$A8 ; 8
-      .BYTE $9F,$2E,$03,$B0 ; $C
+      .BYTE $8F,$28,$03,$A8 ; $00
+      .BYTE $8F,$2A,$03,$B0 ; $04
+      .BYTE $9F,$2C,$03,$A8 ; $08
+      .BYTE $9F,$2E,$03,$B0 ; $0C
 PlayerSelectSpriteIndexes:
       .BYTE $00, $30, $20, $10
 BonusChanceCherrySprite:
-      .BYTE $5F,$05,$01,$58
-      .BYTE $5F,$07,$01,$60 ; 4
+      .BYTE $5F,$05,$01,$58 ; $00
+      .BYTE $5F,$07,$01,$60 ; $04
 BonusChanceStarSprite:
-      .BYTE $5F,$09,$01,$58
-      .BYTE $5F,$09,$41,$60
+      .BYTE $5F,$09,$01,$58 ; $00
+      .BYTE $5F,$09,$41,$60 ; $04
 BonusChanceVeggieSprite:
-      .BYTE $5F,$0B,$01,$58
-      .BYTE $5F,$0B,$41,$60
+      .BYTE $5F,$0B,$01,$58 ; $00
+      .BYTE $5F,$0B,$41,$60 ; $04
 BonusChanceSnifitSprite:
-      .BYTE $5F,$01,$01,$58
-      .BYTE $5F,$03,$01,$60
+      .BYTE $5F,$01,$01,$58 ; $00
+      .BYTE $5F,$03,$01,$60 ; $04
 PlayerSelectSpritePalettesDark:
       .BYTE $3F,$10,$10,$0F,$22,$12,$01,$0F,$22,$12,$01,$0F,$22,$12,$01,$0F,$22
       .BYTE $12,$01 ; This is actually PPU data, not a straight-up palette
@@ -675,8 +696,7 @@ PlayerSelectPaletteOffsets:
       .BYTE $0E ; (Mario, Princess, Toad, Luigi)
       .BYTE $07 ; @TODO Use relative pointers
 PlayerSelectSpritePalettes:
-      .BYTE $3F,$10,$04,$0F,$27,$16,1
-; Mario
+      .BYTE $3F,$10,$04,$0F,$27,$16,$01 ; Mario
       .BYTE $3F,$14,$04,$0F,$36,$2A,$01 ; Luigi
       .BYTE $3F,$18,$04,$0F,$27,$30,$01 ; Toad
       .BYTE $3F,$1C,$04,$0F,$36,$25,$07 ; Princess
@@ -716,7 +736,9 @@ JumpToTableAfterJump:
 
 ; ---------------------------------------------------------------------------
 BlackAndWhitePalette:
-      .BYTE $0F,$30,$30,$0F ; =============== S U B R O U T I N E =======================================
+      .BYTE $0F,$30,$30,$0F
+
+; =============== S U B R O U T I N E =======================================
 
 SetBlackAndWhitePalette:
       LDA     PPUSTATUS
@@ -904,10 +926,11 @@ DisplayLevelTitleCardAndMore:
 
       JSR     DisableNMI
 
-      LDA     #$FF ; Set the scrolling mirror over to the right side...
-; This Isn't quiiite correct, and causes a bunch of
-; crud to show on the very left pixel -- residue
-; from the character select screen
+      ; Set the scrolling mirror over to the right side...
+      ; This Isn't quiiite correct, and causes a bunch of
+      ; crud to show on the very left pixel -- residue
+      ; from the character select screen
+      LDA     #$FF
       STA     PPUScrollXMirror
       JSR     ChangeTitleCardCHR
 
@@ -1199,10 +1222,10 @@ loc_BANKF_E3EC:
 
 ; ---------------------------------------------------------------------------
 
+; This starts the game once RESET has done its thing.
+; We also come here after choosing "RETRY" from the game over menu.
 StartGame:
-      LDA     #$00 ; This starts the game once RESET has done its thing.
-; We also come here after choosing "RETRY"
-; from the game over menu
+      LDA     #$00
       STA     PPUMASK
       JSR     DisableNMI
 
@@ -1213,13 +1236,13 @@ StartGame:
       JSR     TitleScreen ; The whole title screen is a subroutine, lol
 
       INC     byte_RAM_6F3
-      LDA     #$02 ; Give the player 2 continues once they start
+      LDA     #$02 ; Number of continues on start
       STA     Continues
 
+; We return here after picking "CONTINUE" from the game over menu.
 ContinueGame:
-      LDA     #$03 ; We return here after picking "CONTINUE"
-; from the game over menu
-      STA     ExtraLives ; You get 3 extra lives to start. Generous as always
+      LDA     #$03 ; Number of lives to start
+      STA     ExtraLives
 
 StartCharacterSelectMenu:
       LDX     CurrentWorld
@@ -1230,9 +1253,9 @@ StartCharacterSelectMenu:
 
       JSR     InitializeSomeLevelStuff ; Initializes some level stuff
 
-      JSR     DisplayLevelTitleCardAndMore ; Displays title card for the stage,
-; and seems to load the proper graphics
-; and reset some variables
+      ; Displays title card for the stage
+      ; Also loads the proper graphics and reset some variables.
+      JSR     DisplayLevelTitleCardAndMore
 
       LDA     #$FF
       STA     byte_RAM_545
@@ -1283,15 +1306,16 @@ loc_BANKF_E44A:
       LDA     IsHorizontalLevel
       BEQ     loc_BANKF_E4CC
 
+; horizontal area
 loc_BANKF_E478:
       JSR     WaitForNMI
 
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK0_8500
+      JSR     sub_BANK0_8500 ; game loop?
 
-      JSR     sub_BANKF_F6C0
+      JSR     sub_BANKF_F6C0 ; music
 
       LDA     byte_RAM_13
       BEQ     loc_BANKF_E478
@@ -1350,15 +1374,16 @@ loc_BANKF_E4B9:
 
 ; ---------------------------------------------------------------------------
 
+; vertical area
 loc_BANKF_E4CC:
       JSR     WaitForNMI
 
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK0_8000
+      JSR     sub_BANK0_8000 ; game loop?
 
-      JSR     sub_BANKF_F6C0
+      JSR     sub_BANKF_F6C0 ; music
 
       LDA     byte_RAM_13
       BEQ     loc_BANKF_E4CC
@@ -1439,9 +1464,9 @@ loc_BANKF_E533:
 
       INC     byte_RAM_7
       LDA     byte_RAM_7
-      AND     #1
+      AND     #$01
       CLC
-      ADC     #$D ; Will use either $D or $E from the update index pointers
+      ADC     #$0D ; Will use either $0D or $0E from the update index pointers
       STA     ScreenUpdateIndex ; @TODO I assume this is what blinks "PAUSE"
       JMP     loc_BANKF_E51D
 
@@ -2937,15 +2962,17 @@ UpdatePPUFromBufferNMI_CopyLoop:
 ;
 
 UpdatePPUFromBufferWithOptions:
-      LDY     #$00 ; First, check if we have anything
-; to send to the PPU
+      ; First, check if we have anything to send to the PPU
+      LDY     #$00
       LDA     (RAM_PPUDataBufferPointer),Y
-      BEQ     PPUBufferUpdatesComplete ; If the first byte at the buffer address
-; is #$00, we have nothing. We're done here
+      ; If the first byte at the buffer address is #$00, we have nothing. We're done here!
+      BEQ     PPUBufferUpdatesComplete
 
-      LDX     PPUSTATUS ; Clear address latch
-      STA     PPUADDR ; Set the PPU address to the
-; address from the PPU buffer
+      ; Clear address latch
+      LDX     PPUSTATUS
+      ; Set the PPU address to the
+      ; address from the PPU buffer
+      STA     PPUADDR
       INY
       LDA     (RAM_PPUDataBufferPointer),Y
       STA     PPUADDR
@@ -2953,39 +2980,42 @@ UpdatePPUFromBufferWithOptions:
       LDA     (RAM_PPUDataBufferPointer),Y ; Data segment length byte...
       ASL     A
       PHA
-      LDA     PPUCtrlMirror ; Enable NMI + Vertical increment
-; + whatever else was already set...
+      ; Enable NMI + Vertical increment + whatever else was already set...
+      LDA     PPUCtrlMirror
       ORA     #PPUCtrl_Base2000|PPUCtrl_WriteVertical|PPUCtrl_Sprite0000|PPUCtrl_Background0000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIEnabled
-      BCS     UpdatePPUFBWO_EnableVerticalIncrement ; ...but only if $80 was set in the length byte.
-; Otherwise, turn vertical incrementing back off
+      ; ...but only if $80 was set in the length byte. Otherwise, turn vertical incrementing back off.
+      BCS     UpdatePPUFBWO_EnableVerticalIncrement
 
       AND     #PPUCtrl_Base2C00|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite1000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled|$40
 
 UpdatePPUFBWO_EnableVerticalIncrement:
       STA     PPUCTRL
       PLA
-      ASL     A ; Check if the second bit ($40) in the length
-; has been set
-      BCC     UpdatePPUFBWO_CopyStringOfTiles ; If not, we are copying a string of data
+      ; Check if the second bit ($40) in the length has been set
+      ASL     A
+      ; If not, we are copying a string of data
+      BCC     UpdatePPUFBWO_CopyStringOfTiles
 
-      ORA     #$02 ; Length (A) is now (A << 2).
-; OR in #$02 now if we are copying a single tile;
-; This will be rotated out into register C momentarily
+      ; Length (A) is now (A << 2).
+      ; OR in #$02 now if we are copying a single tile;
+      ; This will be rotated out into register C momentarily
+      ORA     #$02
       INY
 
 UpdatePPUFBWO_CopyStringOfTiles:
-      LSR     A ; Restore the data length.
-; A = (Length & #$3F)
-;
-; This moves the second bit (used above to signal
-; "one tile mode") into the Carry register
+      ; Restore the data length.
+      ; A = (Length & #$3F)
+      LSR     A
+
+      ; This moves the second bit (used above to signal
+      ; "one tile mode") into the Carry register
       LSR     A
       TAX ; Copy the length into register X
 
 UpdatePPUFBWO_CopyLoop:
-      BCS     UpdatePPUFBWO_CopySingleTileSkip ; If Carry is set (from above),
-; we're only copying one tile.
-; Do not increment Y to advance copying index
+      ; If Carry is set (from above), we're only copying one tile.
+      ; Do not increment Y to advance copying index
+      BCS     UpdatePPUFBWO_CopySingleTileSkip
 
       INY
 
@@ -3001,12 +3031,13 @@ UpdatePPUFBWO_CopySingleTileSkip:
       ADC     RAM_PPUDataBufferPointer ; Add the length to the PPU data buffer
       STA     RAM_PPUDataBufferPointer
       LDA     RAM_PPUDataBufferPointer+1
-      ADC     #$00 ; If the length overflowed (carry set),
-; add that to the hi byte of the pointer
+      ; If the length overflowed (carry set),
+      ; add that to the hi byte of the pointer
+      ADC     #$00
       STA     RAM_PPUDataBufferPointer+1
-      JMP     UpdatePPUFromBufferWithOptions ; Start the cycle over again.
-; (If the PPU buffer points to a 0,
-; it will terminate after this jump)
+      ; Start the cycle over again.
+      ; (If the PPU buffer points to a 0, it will terminate after this jump)
+      JMP     UpdatePPUFromBufferWithOptions
 
 ; End of function UpdatePPUFromBufferWithOptions
 
@@ -3015,8 +3046,8 @@ IFDEF DEBUG
 ENDIF
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $ED4D - $EFFF
+      ; Unused space in the original
+      ; $ED4D - $EFFF
       .pad $F000, $FF
 ENDIF
 
@@ -3720,7 +3751,9 @@ byte_BANKF_F2E7:
       .BYTE $B4
       .BYTE $B6
 DamageInvulnBlinkFrames:
-      .BYTE $01, $01, $01, $02, $02, $04, 4, $04 ; =============== S U B R O U T I N E =======================================
+      .BYTE $01, $01, $01, $02, $02, $04, $04, $04
+
+; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F31A:
 IFDEF COMPATIBILITY
@@ -4457,14 +4490,17 @@ byte_BANKF_F64E:
       .BYTE $98
       .BYTE $D5
 WarpDestinations:
-      .BYTE $03, $01, $04, 5, $06, $05, $06 ; =============== S U B R O U T I N E =======================================
+      .BYTE $03, $01, $04, 5, $06, $05, $06
+
+; =============== S U B R O U T I N E =======================================
 
 UpdateJoypads:
       JSR     ReadJoypads
 
 loc_BANKF_F664:
-      LDY     Player1JoypadPress ; Work around DPCM sample bug,
-; where some spurious inputs are read
+      ; Work around DPCM sample bug,
+      ; where some spurious inputs are read
+      LDY     Player1JoypadPress
       JSR     ReadJoypads
 
       CPY     Player1JoypadPress
@@ -5221,7 +5257,9 @@ LoadCharacterSelectCHRBanks:
 
 ; ---------------------------------------------------------------------------
 TitleCardCHRBanks:
-      .BYTE $40, $42, $40, $44, $40, $42, $46 ; =============== S U B R O U T I N E =======================================
+      .BYTE $40, $42, $40, $44, $40, $42, $46
+
+; =============== S U B R O U T I N E =======================================
 
 ChangeTitleCardCHR:
       LDY     CurrentWorld
