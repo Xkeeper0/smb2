@@ -2,22 +2,22 @@
 ; Bank E & Bank F
 ; ===============
 ;
-; What's inside:
+; What's inside: Lots of game logic.
 ;
 ;   - PCM data
-;   - Character select sprite data and palettes
-;   - Bonus chance sprite data and palettes
-;   - Level initialization
-;   - PPU updating instructions
-;   - Routine to display title card
-;   - Character select menu logic
-;   - Game initialization sequence
-;   - Continue screen
-;   - Area initialization sequence
 ;   - Joypad input reading
-;   - Music cue changes
-;   - Handle pause input
-;   - to be continued...
+;   - PPU update routines
+;   - Game initialization routines
+;   - Title card display routines
+;   - Area initialization routines
+;   - Music cue routines
+;   - Character select (sprite data, palettes, logic)
+;   - Bonus chance (sprite data, palettes, logic)
+;   - Game Over / Continue screen
+;   - Pause screen
+;   - Health logic
+;   - Bottomless pit death logic
+;   - and more!
 ;
 
 ; .segment BANKE
@@ -2171,15 +2171,16 @@ EndingSceneRoutine:
       JSR     SetScrollXYTo0
 
       LDA     #$80
-      STA     byte_RAM_4080 ; FDS leftover; $4080 is an old sound register
-; The prototype had two writes to this address!
-; It looks like they missed this one, though.
+      ; FDS leftover; $4080 is an old sound register
+      ; The prototype had two writes to this address!
+      ; It looks like they missed this one, though.
+      STA     byte_RAM_4080
       ASL     A
       STA     byte_RAM_607
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK1_A43B
+      JSR     FreeSubconsScene
 
       JSR     WaitForNMI_TurnOffPPU
 
@@ -2201,6 +2202,7 @@ EndingSceneRoutine:
 
       JSR     DisableNMI
 
+SetupMarioSleepingScene:
       JSR     LoadMarioSleepingCHRBanks
 
       JSR     EnableNMI
@@ -3551,6 +3553,7 @@ byte_BANKF_F227:
 
 ; =============== S U B R O U T I N E =======================================
 
+; Bottomless pit check
 sub_BANKF_F228:
       LDA     PlayerXLo
       SEC
@@ -3651,7 +3654,7 @@ loc_BANKF_F298:
 
 loc_BANKF_F2BB:
       STA     PlayerYAccel
-      LDA     #3
+      LDA     #PlayerState_ClimbingAreaTransition
       STA     PlayerState
       RTS
 
@@ -4664,8 +4667,9 @@ KillPlayer:
       LDA     HoldingItem
       BEQ     loc_BANKF_F749
 
-      DEC     HoldingItem ; Probably something to throw away
-; a held item on death
+      ; Probably something to throw away
+      ; a held item on death
+      DEC     HoldingItem
       LDY     byte_RAM_42D
       STA     EnemyArray_42F,Y
       LSR     A

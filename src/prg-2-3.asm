@@ -4,6 +4,8 @@
 ;
 ; What's inside:
 ;
+;   - Enemy initialization and logic
+;
 
 ; .segment BANK2
 ; * =  $8000
@@ -293,9 +295,9 @@ loc_BANK2_81A0:
       LDY     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_81B1
 
-      LDA     #$10
+      LDA     #Enemy_BeezoStraight
       LDY     ObjectType,X
-      CMP     #$38
+      CMP     #Enemy_Rocket
       BNE     loc_BANK2_81B1
 
       LDA     #0
@@ -1070,8 +1072,7 @@ HandleObjectGravity:
 
 loc_BANK2_858A:
       INC     ObjectYAccel,X ; Makes objects slowly fall down
-      INC     ObjectYAccel,X ; Turning these into DECs causes...
-;       problems.
+      INC     ObjectYAccel,X ; Turning these into DECs causes...problems.
 
 locret_BANK2_858E:
       RTS
@@ -1686,13 +1687,13 @@ sub_BANK2_8894:
       CMP     #Enemy_Pokey
       BEQ     loc_BANK2_88B9
 
-      CMP     #8
+      CMP     #Enemy_Birdo
       BEQ     loc_BANK2_88B9
 
-      CMP     #$2D
+      CMP     #Enemy_HawkmouthBoss
       BEQ     loc_BANK2_88B9
 
-      CMP     #$21
+      CMP     #Enemy_Clawgrip
       BEQ     loc_BANK2_88B9
 
       LDA     EnemyArray_46E,X
@@ -2221,7 +2222,7 @@ loc_BANK2_8B64:
       ADC     byte_BANK2_8B62,Y
       STA     ObjectXHi,X
       STY     byte_RAM_1
-      LDA     #$A
+      LDA     #Enemy_AlbatossCarryingBobOmb
       STA     ObjectType,X
       JSR     SetEnemyAttributes
 
@@ -2419,7 +2420,7 @@ loc_BANK2_8C65:
       LDA     ObjectXHi,X
       SBC     #0
       STA     ObjectXHi,X
-      LDA     #$20
+      LDA     #Enemy_Fireball
       STA     ObjectType,X
       JSR     SetEnemyAttributes
 
@@ -2715,7 +2716,7 @@ loc_BANK2_8DDB:
       LDA     HoldingItem
       BNE     loc_BANK2_8E05
 
-      LDA     #6
+      LDA     #PlayerState_HawkmouthEating
       STA     PlayerState
       LDA     #$30
       STA     PlayerStateTimer
@@ -3001,19 +3002,14 @@ Enemy_Birdo_Attributes:
 EnemyInit_Birdo:
       JSR     EnemyInit_Basic
 
-      LDY     #$00 ; Default to the Gray Birdo
-; (fires only fireballs)
+      LDY     #$00 ; Default to the Gray Birdo (fires only fireballs)
       LDA     ObjectXLo,X ; Check if this is a special Birdo.
-      CMP     #$A0
-; means this is a Pink Birdo
-; (fires only eggs, slowly)
+      CMP     #$A0 ; means this is a Pink Birdo (fires only eggs, slowly)
       BEQ     loc_BANK2_8F63
 
       INY
-      CMP     #$B0
-; X position on page = B
-      BEQ     loc_BANK2_8F63 ; If yes, this is a Red Birdo
-; (fires eggs and fireballs)
+      CMP     #$B0 ; X position on page = B
+      BEQ     loc_BANK2_8F63 ; If yes, this is a Red Birdo (fires eggs and fireballs)
 
       INY
 
@@ -3239,6 +3235,7 @@ loc_BANK2_9066:
 
 ; ---------------------------------------------------------------------------
 
+; picking up the crystal
 loc_BANK2_9069:
       JSR     CarryObject
 
@@ -3248,7 +3245,7 @@ loc_BANK2_9069:
       JSR     TurnIntoPuffOfSmoke
 
       LDA     ObjectType,X
-      CMP     #$44
+      CMP     #Enemy_CrystalBall
       BNE     SomethingAboutPickingShitUp
 
       LDA     CrystalAndHawkmouthOpenSize
@@ -3266,13 +3263,13 @@ locret_BANK2_908D:
 ; ---------------------------------------------------------------------------
 
 SomethingAboutPickingShitUp:
-      CMP     #$40
+      CMP     #Enemy_Mushroom1up
       BEQ     loc_BANK2_90AD
 
-      CMP     #$46
+      CMP     #Enemy_Stopwatch
       BEQ     loc_BANK2_90BA
 
-      CMP     #$3F
+      CMP     #Enemy_Mushroom
       BNE     loc_BANK2_90B1
 
       LDX     EnemyVariable
@@ -3385,7 +3382,7 @@ loc_BANK2_910D:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9122:
-      CMP     #$40
+      CMP     #Enemy_Mushroom1up
       BCS     EnemyBehavior_Vegetable
 
       LSR     A
@@ -3523,7 +3520,7 @@ loc_BANK2_91CD:
       BNE     loc_BANK2_91DB
 
       LDA     ObjectType,Y
-      CMP     #Enemy_Birdo
+      CMP     #Enemy_Ostro
       BEQ     loc_BANK2_91E5
 
 loc_BANK2_91DB:
@@ -4316,7 +4313,7 @@ loc_BANK2_9574:
       BNE     loc_BANK2_9597
 
       LDA     ObjectType,X
-      CMP     #6
+      CMP     #Enemy_SnifitGray
       BNE     loc_BANK2_9589
 
       JSR     CreateBullet
@@ -4383,7 +4380,7 @@ loc_BANK2_95B8:
 
 loc_BANK2_95BB:
       LDA     ObjectType,X
-      CMP     #1
+      CMP     #Enemy_ShyguyRed
       BNE     loc_BANK2_95CA
 
       LDA     ObjectYAccel,X
@@ -4551,7 +4548,7 @@ loc_BANK2_965D:
       BCS     loc_BANK2_9686
 
       LDA     ObjectType,X
-      CMP     #$32
+      CMP     #Enemy_VegetableSmall
       BCS     loc_BANK2_9686
 
       LDA     EnemyArray_438,X
@@ -4660,7 +4657,7 @@ loc_BANK2_96D4:
 
 loc_BANK2_96EC:
       LDA     ObjectType,X
-      CMP     #$3A
+      CMP     #Enemy_POWBlock
       BNE     loc_BANK2_96FF
 
       LDA     #$20
@@ -4964,7 +4961,7 @@ loc_BANK2_985C:
       LDX     byte_RAM_0
       PLA
       STA     EnemyArray_477,X
-      LDA     #$3C
+      LDA     #Enemy_SubspaceDoor
       STA     ObjectType,X
       JSR     SetEnemyAttributes
 
@@ -5639,7 +5636,7 @@ loc_BANK2_9B80:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B87:
-      CPY     #Enemy_Ostro
+      CPY     #Enemy_Birdo
       BNE     loc_BANK2_9B8E
 
       JMP     loc_BANK3_A654
@@ -5655,7 +5652,7 @@ loc_BANK2_9B8E:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B95:
-      CPY     #Enemy_Birdo
+      CPY     #Enemy_Ostro
       BNE     loc_BANK2_9B9C
 
       JMP     loc_BANK2_9AD7
@@ -6483,7 +6480,7 @@ loc_BANK3_A17D:
       ADC     #0
       STA     ObjectXHi,Y
       LDX     byte_RAM_0
-      LDA     #$22
+      LDA     #Enemy_ClawgripRock
       STA     ObjectType,X
       LDA     PseudoRNGValues+2
       AND     #7
@@ -7023,7 +7020,7 @@ sub_BANK3_A440:
       LDA     #0
       STA     ObjectXAccel,X
       STA     ObjectYAccel,X
-      LDA     #$41
+      LDA     #Enemy_FlyingCarpet
       STA     ObjectType,X
       LDA     ObjectXLo,Y
       SEC
@@ -7333,7 +7330,7 @@ loc_BANK3_A5CE:
       BMI     locret_BANK3_A5F4
 
       LDX     byte_RAM_0
-      LDA     #$37
+      LDA     #Enemy_Bomb
       STA     ObjectType,X
       LDA     ObjectYLo,X
       ADC     #3
@@ -7479,7 +7476,7 @@ EnemyBehavior_Ostro:
       BMI     locret_BANK3_A6BC
 
       LDY     byte_RAM_0
-      LDA     #Enemy_Ostro
+      LDA     #Enemy_Birdo
       STA     ObjectType,Y
       STA     EnemyArray_B1,Y
       LDA     ObjectXLo,X
@@ -8195,7 +8192,7 @@ sub_BANK3_AA3E:
       BMI     loc_BANK3_AA99
 
       LDY     byte_RAM_0
-      LDA     #$1A
+      LDA     #Enemy_Pokey
       STA     ObjectType,Y
       JSR     sub_BANK3_A8EA
 
@@ -8378,7 +8375,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STA     PlayerState ; Absolute address for zero-page
-   NOP ; Alignment fix
+      NOP ; Alignment fix
 ENDIF
 
       RTS
@@ -8668,7 +8665,7 @@ loc_BANK3_ACE7:
       JSR     CreateEnemy
 
       LDX     byte_RAM_0
-      LDA     #$20
+      LDA     #Enemy_Fireball
       STA     ObjectType,X
       LDA     ObjectXLo,X
       SBC     #8
@@ -8735,7 +8732,7 @@ EnemyBehavior_FryguySplit:
       AND     #$10
       BEQ     loc_BANK3_AD59
 
-      JSR     sub_BANK3_BA7D
+      JSR     PlayBossHurtSound
 
       LDA     #0
       STA     EnemyArray_46E,X
@@ -9571,7 +9568,7 @@ loc_BANK3_B180:
       STA     EnemyArray_B1,X
 
 loc_BANK3_B1C1:
-      LDY     #$33
+      LDY     #Enemy_VegetableLarge
       STY     ObjectType,X
       JSR     SetEnemyAttributes
 
@@ -9996,8 +9993,8 @@ loc_BANK3_B519:
       INC     byte_RAM_8
       JSR     sub_BANK3_B58C
 
-      LDA     CurrentCharacter,X
-      CMP     #$18
+      LDA     CurrentCharacter,X ; actually an ObjectType
+      CMP     #Enemy_CobratJar
       BEQ     loc_BANK3_B540
 
       CMP     #$19
@@ -10012,8 +10009,8 @@ loc_BANK3_B519:
       ASL     A
       ADC     #1
       STA     PlayerYAccel,X
-      LDA     #7
-      STA     PlayerState,X
+      LDA     #EnemyState_7
+      STA     PlayerState,X ; actually an EnemyState
       LDA     #$FF
       STA     DamageInvulnTime,X
 
@@ -10029,7 +10026,7 @@ loc_BANK3_B540:
       BNE     loc_BANK3_B57B
 
       LDY     CurrentCharacter,X
-      CPY     #$32
+      CPY     #Enemy_VegetableSmall
       BCC     loc_BANK3_B56C
 
       TAY
@@ -10093,8 +10090,8 @@ sub_BANK3_B58C:
 
       LDY     byte_RAM_7
       LDA     byte_BANK3_B5C4,Y
-      ORA     PlayerCollision,X
-      STA     PlayerCollision,X
+      ORA     PlayerCollision,X ; actually an EnemyCollision
+      STA     PlayerCollision,X ; actually an EnemyCollision
 
 loc_BANK3_B5A7:
       INC     byte_RAM_7
@@ -10107,10 +10104,10 @@ loc_BANK3_B5A7:
 
 sub_BANK3_B5AC:
       INX
-      LDA     PlayerCollision,X
+      LDA     PlayerCollision,X ; actually an EnemyCollision
       STA     word_RAM_C+1
       AND     #$F0
-      STA     PlayerCollision,X
+      STA     PlayerCollision,X ; actually an EnemyCollision
       LDY     unk_RAM_491,X
       LDA     byte_BANKF_F000,Y
 
@@ -10229,9 +10226,9 @@ loc_BANK3_B63B:
       ORA     byte_RAM_41B
       BNE     loc_BANK3_B64E
 
-      LDA     PlayerState,X
-      CMP     #2
-      BCC     loc_BANK3_B651
+      LDA     PlayerState,X ; actually an EnemyState
+      CMP     #$02
+      BCC     loc_BANK3_B651 ; branch if A < $02
 
 loc_BANK3_B64E:
       JMP     loc_BANK3_B6F0
@@ -10263,8 +10260,8 @@ loc_BANK3_B661:
       BNE     loc_BANK3_B690
 
 loc_BANK3_B671:
-      LDA     PlayerState,X
-      CMP     #4
+      LDA     PlayerState,X ; actually an EnemyState
+      CMP     #EnemyState_BombExploding ; what does this mean for an enemy?
       BNE     loc_BANK3_B67B
 
       LDY     #6
@@ -10275,7 +10272,7 @@ loc_BANK3_B67B:
       BEQ     loc_BANK3_B692
 
       LDY     CurrentCharacter,X
-      CPY     #$1E
+      CPY     #Enemy_Egg
       BEQ     loc_BANK3_B68E
 
       CPY     #$1A
@@ -10294,7 +10291,7 @@ loc_BANK3_B692:
       LDA     EnemyArray_9F+8,X
       BNE     loc_BANK3_B6F0
 
-      LDA     PlayerCollision,X
+      LDA     PlayerCollision,X ; actually an EnemyCollision
       AND     #$10
       BNE     loc_BANK3_B6F0
 
@@ -10425,7 +10422,7 @@ loc_BANK3_B71D:
 
       LDY     byte_RAM_42D
       LDA     ObjectType,Y
-      CMP     #$3D
+      CMP     #Enemy_Key
       BNE     locret_BANK3_B760
 
 loc_BANK3_B749:
@@ -10477,7 +10474,7 @@ loc_BANK3_B761:
       LDA     EnemyArray_42F,Y
       BEQ     loc_BANK3_B7E0
 
-      LDA     PlayerCollision,X
+      LDA     PlayerCollision,X ; actually an EnemyCollision
       AND     #$10
       BNE     loc_BANK3_B7E0
 
@@ -10490,7 +10487,7 @@ loc_BANK3_B792:
       AND     #8
       BEQ     loc_BANK3_B7A4
 
-      JSR     sub_BANK3_BA7D
+      JSR     PlayBossHurtSound
 
 loc_BANK3_B7A4:
       LDA     EnemyHP,Y
@@ -10499,7 +10496,7 @@ loc_BANK3_B7A4:
       STA     EnemyHP,Y
       BMI     loc_BANK3_B7BD
 
-      JSR     sub_BANK3_BA7D
+      JSR     PlayBossHurtSound
 
       LDA     #$21
       STA     EnemyArray_45C,Y
@@ -10522,7 +10519,7 @@ loc_BANK3_B7BD:
 
 loc_BANK3_B7D7:
       LDA     CurrentCharacter,X
-      CMP     #$32
+      CMP     #Enemy_VegetableSmall
       BCS     loc_BANK3_B7E0
 
       JSR     sub_BANK3_BA5D
@@ -10697,7 +10694,7 @@ sub_BANK3_B899:
       JSR     sub_BANK3_BC1F
 
       LDA     ObjectType,X
-      CMP     #$12
+      CMP     #Enemy_Pidgit
       BNE     loc_BANK3_B8CE
 
       JSR     sub_BANK3_A440
@@ -10716,7 +10713,7 @@ loc_BANK3_B8D1:
       BEQ     loc_BANK3_B905
 
       LDA     ObjectType,Y
-      CMP     #$3D
+      CMP     #Enemy_Key
       BNE     loc_BANK3_B8E4
 
       LDA     EnemyCollision,Y
@@ -10874,7 +10871,7 @@ loc_BANK3_B990:
 
 loc_BANK3_B993:
       LDA     CurrentCharacter,X
-      CMP     #$2C
+      CMP     #Enemy_Wart
       BNE     loc_BANK3_B9B7
 
       LDA     DamageInvulnTime,X
@@ -10919,7 +10916,7 @@ loc_BANK3_B9CA:
       BEQ     loc_BANK3_B9EC
 
       LDA     ObjectType,Y
-      CMP     #$35
+      CMP     #Enemy_Shell
       BEQ     loc_BANK3_B9EA
 
       LDA     #$E8
@@ -11034,22 +11031,23 @@ loc_BANK3_BA5A:
 
 ; =============== S U B R O U T I N E =======================================
 
+; Damage enemy
 sub_BANK3_BA5D:
       LDA     unk_RAM_452,X
       ORA     unk_RAM_45B,X
       BNE     locret_BANK3_BA94
 
       LDA     unk_RAM_46D,X
-      AND     #8
-      BEQ     loc_BANK3_BA6F
+      AND     #Enemy_Birdo
+      BEQ     EnemyTakeDamage
 
-      JSR     sub_BANK3_BA7D
+      JSR     PlayBossHurtSound
 
-loc_BANK3_BA6F:
-      DEC     unk_RAM_464,X
-      BMI     loc_BANK3_BA83
+EnemyTakeDamage:
+      DEC     unk_RAM_464,X ; Subtract hit point
+      BMI     EnemyKnockout
 
-      LDA     #$21
+      LDA     #$21 ; Flash
       STA     unk_RAM_45B,X
       LSR     A
 
@@ -11060,19 +11058,19 @@ loc_BANK3_BA7A:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_BA7D:
-      LDA     #$40
+PlayBossHurtSound:
+      LDA     #DPCM_BossHurt
       STA     DPCMQueue
       RTS
 
-; End of function sub_BANK3_BA7D
+; End of function PlayBossHurtSound
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_BA83:
+EnemyKnockout:
       LDA     PlayerCollision,X ; Seems to be if the player is standing on something
       ORA     #CollisionFlags_10
-      STA     PlayerCollision,X
+      STA     PlayerCollision,X ; actually an EnemyCollision
       LDA     #$E0
       STA     PlayerYAccel,X
       LDA     ObjectXAccel,Y
@@ -11171,7 +11169,7 @@ loc_BANK3_BB02:
 
       LDY     byte_RAM_12
       LDA     ObjectType,Y
-      CMP     #$36
+      CMP     #Enemy_Coin
       BEQ     locret_BANK3_BB2E
 
 loc_BANK3_BB11:
@@ -11441,7 +11439,7 @@ locret_BANK3_BC1E:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BC1F:
-      LDA     #2
+      LDA     #PlayerState_Lifting
       STA     PlayerState
       LDA     #6
       STA     PlayerStateTimer

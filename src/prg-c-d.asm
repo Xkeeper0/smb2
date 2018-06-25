@@ -661,8 +661,8 @@ loc_BANKC_855C:
       LDY     #$40
 
 loc_BANKC_858A:
-      LDA     #$27
-      STA     PlayerState,Y
+      LDA     #EnemyState_27 ; @TODO what is this
+      STA     PlayerState,Y ; actually an EnemyState
       DEY
       BPL     loc_BANKC_858A
 

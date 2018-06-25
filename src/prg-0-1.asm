@@ -4,6 +4,11 @@
 ;
 ; What's inside:
 ;
+;   - Title screen
+;   - Player controls
+;   - Player state handling
+;   - Enemy handling
+;
 
 ; .segment BANK0
 ; * =  $8000
@@ -2186,7 +2191,7 @@ loc_BANK0_8BC3:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8BC6:
-      LDA     #1
+      LDA     #PlayerState_Climbing
       STA     PlayerState
       RTS
 
@@ -2268,10 +2273,10 @@ loc_BANK0_8C09:
 
 loc_BANK0_8C0D:
       LDY     PlayerAnimationFrame
-      CPY     #$A
+      CPY     #$0A
       BNE     loc_BANK0_8C15
 
-      LDA     #1
+      LDA     #PlayerState_Climbing
 
 loc_BANK0_8C15:
       STA     PlayerState
@@ -2665,7 +2670,7 @@ sub_BANK0_8DC0:
 
       LDX     byte_RAM_42D
       LDA     ObjectType,X
-      CMP     #$32
+      CMP     #Enemy_VegetableSmall
       BCC     loc_BANK0_8DE0
 
       CMP     #$39
@@ -3373,7 +3378,7 @@ loc_BANK0_9130:
 
       LDA     #0
       STA     PlayerXAccel
-      LDA     #4
+      LDA     #PlayerState_GoingDownJar
       STA     PlayerState
 
 loc_BANK0_9140:
@@ -4031,7 +4036,7 @@ sub_BANK0_9428:
       SBC     #4
       BNE     locret_BANK0_9427
 
-; resetting these to zero
+      ; resetting these to zero (A=$00, otherwise we would have branched)
       STA     PlayerState
       STA     byte_RAM_41B
       STA     SubspaceTimer
@@ -5132,10 +5137,8 @@ byte_BANK1_A432:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_A43B:
+FreeSubconsScene:
       JSR     WaitForNMI_Ending_TurnOffPPU
-
-loc_BANK1_A43E:
       JSR     ClearNametablesAndSprites
 
       LDA     #$40
@@ -5154,7 +5157,7 @@ loc_BANK1_A43E:
       LDA     #1
       STA     byte_RAM_9D
       LSR     A
-      STA     PlayerState
+      STA     PlayerState ; A=$00
       STA     byte_RAM_8E
       STA     CrouchJumpTimer
       STA     byte_RAM_E6
@@ -5174,8 +5177,6 @@ loc_BANK1_A470:
       LDA     byte_BANK1_A427,X
       STA     DamageInvulnTime,X
       LDA     byte_BANK1_A431,X
-
-loc_BANK1_A48C:
       STA     PlayerAttributesMaybe,X
       DEX
       BPL     loc_BANK1_A470
@@ -5214,7 +5215,7 @@ loc_BANK1_A4B8:
 
       RTS
 
-; End of function sub_BANK1_A43B
+; End of function FreeSubconsScene
 
 ; ---------------------------------------------------------------------------
 
@@ -6722,6 +6723,7 @@ loc_BANK1_B9EB:
       STA     ObjectYAccel,X
       STA     ObjectXAccel,X
 
+; look up object attributes
 loc_BANK1_BA17:
       LDY     ObjectType,X
       LDA     ObjectAttributeTable,Y

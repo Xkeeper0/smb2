@@ -110,19 +110,27 @@ ObjectYAccel:
       .dsb 1 ; 6                ; $004d
       .dsb 1 ; 7                ; $004e
       .dsb 1 ; 8                ; $004f
+;
+; Player and Object States
+; ========================
+;
+; Some of these are for players, some of these are for objects/enemies
+;
+; $00 Normal
+; $01 ?
+; $02 Lifting up object
+; $03 ?
+; $04 Going down vase (causes warp if poked)
+; $05 Exiting vase
+; $06 ?
+; $07 Dying (falls off screen)
+; $08 Shrinking
+; $09+ Crash?
+; $27 @TODO object-related?
+;
+
 PlayerState:
       .dsb 1 ; $0050
-       ; For player:
-       ; $00 Normal
-       ; $01 ?
-       ; $02 Lifting up object
-       ; $03 ?
-       ; $04 Going down vase (causes warp if poked)
-       ; $05 Exiting vase
-       ; $06 ?
-       ; $07 Dying (falls off screen)
-       ; $08 Shrinking
-       ; $09+ Crash?
 EnemyState:
       .dsb 1 ; $0051
       .dsb 1 ; 1                ; $0052
@@ -1315,7 +1323,7 @@ EnemyArray_453:
       .dsb 1 ; $045a
 unk_RAM_45B:
       .dsb 1 ; $045b
-EnemyArray_45C:
+EnemyArray_45C: ; used for flashing?
       .dsb 1 ; $045c
       .dsb 1 ; $045d
       .dsb 1 ; $045e
@@ -1327,11 +1335,11 @@ EnemyArray_45C:
 unk_RAM_464:
       .dsb 1 ; $0464
 EnemyHP:
-      .dsb 1 ; $0465
-      .dsb 1 ; 1                ; $0466
-      .dsb 1 ; 2                ; $0467
-      .dsb 1 ; 3                ; $0468
-      .dsb 1 ; 4                ; $0469
+      .dsb 1 ; $00 ; $0465
+      .dsb 1 ; $01 ; $0466
+      .dsb 1 ; $02 ; $0467
+      .dsb 1 ; $03 ; $0468
+      .dsb 1 ; $04 ; $0469
       .dsb 1 ; $046a
       .dsb 1 ; $046b
       .dsb 1 ; $046c
