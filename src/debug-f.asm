@@ -21,7 +21,7 @@ Debug_Init:
       LDA $4c5
       STA $7FE4
       LDX #6
--	LDA BackgroundCHR1-1, X
+-     LDA BackgroundCHR1-1, X
       STA $7FE5-1, X
       DEX
       BNE -
@@ -42,7 +42,7 @@ Debug_Abort:
       LDA $7FE4
       STA $4C5
       LDX #6
--	LDA $7FE5-1, X
+-     LDA $7FE5-1, X
       STA BackgroundCHR1-1, X
       DEX
       BNE -

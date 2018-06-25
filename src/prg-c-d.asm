@@ -1646,7 +1646,7 @@ locret_BANKC_8B07:
 
 ; ---------------------------------------------------------------------------
 CastRoll_SpritePointersHi:
-      .BYTE	>CastRoll_Mario ; DATA XREF: sub_BANKC_84EC+7r
+      .BYTE >CastRoll_Mario ; DATA XREF: sub_BANKC_84EC+7r
 
       .BYTE >CastRoll_Luigi
       .BYTE >CastRoll_Princess
@@ -1677,7 +1677,7 @@ CastRoll_SpritePointersHi:
       .BYTE >CastRoll_Clawglip
       .BYTE >CastRoll_Triclyde
 CastRoll_SpritePointersLo:
-      .BYTE	<CastRoll_Mario
+      .BYTE <CastRoll_Mario
 
       .BYTE <CastRoll_Luigi
       .BYTE <CastRoll_Princess
@@ -1727,11 +1727,11 @@ CastRoll_Mario:
 CastRoll_Luigi:
       .BYTE $D0, $3E, $00, $30
       .BYTE $D0, $08, $00, $38 ; 4
-      .BYTE $D0, $0A, $00,	$40 ; 8
+      .BYTE $D0, $0A, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
       .BYTE $F9, $3E, $00, $30 ; $10
-      .BYTE $F9, $0C, $00,	$38 ; $14
-      .BYTE $F9, $0E, $00,	$40 ; $18
+      .BYTE $F9, $0C, $00, $38 ; $14
+      .BYTE $F9, $0E, $00, $40 ; $18
       .BYTE $F9, $3E, $00, $48 ; $1C
       .BYTE $F9, $3E, $00, $24 ; $20
       .BYTE $F9, $E6, $00, $2C ; $24
@@ -1776,7 +1776,7 @@ CastRoll_Toad:
       .BYTE $F9, $3E, $00, $50 ; $38
       .BYTE $F9, $3E, $00, $58 ; $3C
 CastRoll_Shyguy:
-      .BYTE $D0, $3E,	0, $30
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, $00, $38 ; 4
       .BYTE $D0, $3E, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
@@ -1793,7 +1793,7 @@ CastRoll_Shyguy:
       .BYTE $F9, $CC, $00, $50 ; $38
       .BYTE $F9, $3E, $00, $58 ; $3C
 CastRoll_Snifit:
-      .BYTE $D0, $3E,	0, $30
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, $00, $38 ; 4
       .BYTE $D0, $3E, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
@@ -1880,7 +1880,7 @@ CastRoll_Tweeter:
       .BYTE $F9, $F2, $00, $54 ; $38
       .BYTE $F9, $3E, $00, $5C ; $3C
 CastRoll_BobOmb:
-      .BYTE $D0, $3E,	0, $30
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, $00, $38 ; 4
       .BYTE $D0, $3E, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
@@ -1931,7 +1931,7 @@ CastRoll_Trouter:
       .BYTE $F9, $F2, $00, $54 ; $38
       .BYTE $F9, $3E, $00, $5C ; $3C
 CastRoll_Pidgit:
-      .BYTE $D0, $3E,	0, $30
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, $00, $38 ; 4
       .BYTE $D0, $3E, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
@@ -1948,7 +1948,7 @@ CastRoll_Pidgit:
       .BYTE $F9, $F6, $00, $50 ; $38
       .BYTE $F9, $3E, $00, $58 ; $3C
 CastRoll_Panser:
-      .BYTE $D0, $3E,	0, $30
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, $00, $38 ; 4
       .BYTE $D0, $3E, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
@@ -1965,7 +1965,7 @@ CastRoll_Panser:
       .BYTE $F9, $F2, $00, $50 ; $38
       .BYTE $F9, $3E, $00, $58 ; $3C
 CastRoll_Flurry:
-      .BYTE $D0, $3E,	0, $30
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, $00, $38 ; 4
       .BYTE $D0, $3E, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
@@ -1999,7 +1999,7 @@ CastRoll_Albatoss:
       .BYTE $F9, $F4, $00, $50 ; $38
       .BYTE $F9, $F4, $00, $58 ; $3C
 CastRoll_Phanto:
-      .BYTE $D0, $3E,	0, $30
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, $00, $38 ; 4
       .BYTE $D0, $3E, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
@@ -2033,7 +2033,7 @@ CastRoll_Spark:
       .BYTE $F9, $3E, $00, $54 ; $38
       .BYTE $F9, $3E, $00, $5C ; $3C
 CastRoll_Subcon:
-      .BYTE $D0, $3E,	0, $30
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $3E, $00, $38 ; 4
       .BYTE $D0, $3E, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
@@ -2118,7 +2118,7 @@ CastRoll_Autobomb:
       .BYTE $F9, $E8, $00, $50 ; $38
       .BYTE $F9, $D2, $00, $58 ; $3C
 CastRoll_Cobrat:
-      .BYTE $D0, $3E,	0, $30
+      .BYTE $D0, $3E, 0, $30
       .BYTE $D0, $58, $00, $38 ; 4
       .BYTE $D0, $5A, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
@@ -2135,7 +2135,7 @@ CastRoll_Cobrat:
       .BYTE $F9, $F6, $00, $50 ; $38
       .BYTE $F9, $3E, $00, $58 ; $3C
 CastRoll_Mouser:
-      .BYTE $D0, $88,	0, $30
+      .BYTE $D0, $88, 0, $30
       .BYTE $D0, $8A, $00, $38 ; 4
       .BYTE $D0, $8C, $00, $40 ; 8
       .BYTE $D0, $3E, $00, $48 ; $C
@@ -2152,7 +2152,7 @@ CastRoll_Mouser:
       .BYTE $F9, $F2, $00, $4C ; $38
       .BYTE $F9, $3E, $00, $54 ; $3C
 CastRoll_Fryguy:
-      .BYTE $D0, $AA,	0, $30
+      .BYTE $D0, $AA, 0, $30
       .BYTE $D0, $AC, $00, $38 ; 4
       .BYTE $D0, $AE, $00, $40 ; 8
       .BYTE $D0, $B0, $00, $48 ; $C

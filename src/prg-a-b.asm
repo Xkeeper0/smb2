@@ -99,7 +99,7 @@ BonusChanceLayout_:
 ; =============== S U B R O U T I N E =======================================
 
 CopyBonusChanceLayoutToRAM:
-      LDY     #$00				  ; This copies the bonus chance layout from
+      LDY     #$00 ; This copies the bonus chance layout from
 ; ROM into some area of save RAM...
 ; including some extra data (like this code)
 ; This section of RAM is never used for anything else,
@@ -603,7 +603,7 @@ Text_Unknown4:
 Text_PAUSE_Erase:
       .BYTE $25,$ED,$05,$FB,$FB,$FB,$FB,$FB,0
 Text_Unknown5:
-      .BYTE $25,$0E,$07,$FB,$FB,$FB,$FB,$FB,$FB,$FB  ; This one is actually used, just not sure what for
+      .BYTE $25,$0E,$07,$FB,$FB,$FB,$FB,$FB,$FB,$FB ; This one is actually used, just not sure what for
 Text_WORLD_1_1:
       .BYTE $24,$CA,$0B,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$F3,$D1
 Text_EXTRA_LIFE_0:

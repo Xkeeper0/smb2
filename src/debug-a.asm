@@ -7,9 +7,9 @@
 ; The ability to "abort" is a huuuuge gamble since the game will
 ; most likely take it *extremely* poorly.
 
-Debug_CurrentMenuOption	= $7FE0
-Debug_InMenu			= $7FEF
-Debug_MenuOptionCount	= #$4
+Debug_CurrentMenuOption = $7FE0
+Debug_InMenu = $7FEF
+Debug_MenuOptionCount = #$4
 
 Debug_InitMenu:
       LDA #0
@@ -33,7 +33,7 @@ Debug_InitMenu:
       JSR EnableNMI
       JSR WaitForNMI_TurnOnPPU
 
-			; Draw debug menu text
+      ; Draw debug menu text
       LDA #$00 ; DEBUG MENU
       JSR Debug_BufferText
       JSR WaitForNMI
@@ -62,7 +62,7 @@ Debug_InitMenu:
       JSR Debug_UpdateCharacter
       JSR WaitForNMI
 
-			; Add the goofy smiley cursor
+      ; Add the goofy smiley cursor
       LDA #$4a ; Y
       STA SpriteDMAArea
       LDA #$38 ; Tile
@@ -134,16 +134,16 @@ Debug_MenuDown:
       BEQ Debug_MenuLoop
       INC Debug_CurrentMenuOption
 
-+	LDA #SoundEffect1_CherryGet
++  LDA #SoundEffect1_CherryGet
       STA SoundEffectQueue1
       JMP Debug_MenuLoop
 
 
 
 DebugMenu_DoNothing:
--f		LDA #SoundEffect1_HawkOpen_WartBarf
+-f    LDA #SoundEffect1_HawkOpen_WartBarf
       STA SoundEffectQueue1
--q	JMP Debug_MenuLoop
+-q  JMP Debug_MenuLoop
 
 DebugMenu_World:
       LDA Player1JoypadPress
@@ -152,15 +152,15 @@ DebugMenu_World:
       CMP #ControllerInput_Right ; If right, increase
       BEQ +r
       BNE -q
-+l		LDA CurrentWorld ; Check current world...
++l    LDA CurrentWorld ; Check current world...
       BEQ -f ; World is already 1, go away
       DEC CurrentWorld ; Decrease
       JMP +s ; Skip ahead
-+r		LDA CurrentWorld
++r    LDA CurrentWorld
       CMP #$06 ; bug: lets you go one too high lol oops
       BEQ -f ; Already at world 7, go away
       INC CurrentWorld ; Otherwise increase
-+s		LDA #SoundEffect2_CoinGet
++s    LDA #SoundEffect2_CoinGet
       STA SoundEffectQueue2
       JSR Debug_UpdateWorld
       JMP Debug_MenuLoop
@@ -173,15 +173,15 @@ DebugMenu_Level:
       CMP #ControllerInput_Right ; If right, increase
       BEQ +r
       BNE -q
-+l		LDA CurrentLevel ; Check current world...
++l    LDA CurrentLevel ; Check current world...
       BEQ -f ; Level is already 0, go away
       DEC CurrentLevel ; Decrease
       JMP +s ; Skip ahead
-+r		LDA CurrentLevel
++r    LDA CurrentLevel
       CMP #WorldStartingLevel+7
       BEQ -f ; Already at last level, go away
       INC CurrentLevel ; Otherwise increase
-+s		LDA #SoundEffect2_CoinGet
++s    LDA #SoundEffect2_CoinGet
       STA SoundEffectQueue2
       JSR Debug_UpdateLevel
       JMP Debug_MenuLoop
@@ -194,15 +194,15 @@ DebugMenu_Area:
       CMP #ControllerInput_Right ; If right, increase
       BEQ +r
       BNE +q
-+l		LDA CurrentLevelArea ; Check current area...
++l    LDA CurrentLevelArea ; Check current area...
       BEQ +f ; Area is already 0, go away
       DEC CurrentLevelArea ; Decrease
       JMP +s ; Skip ahead
-+r		LDA CurrentLevelArea
++r    LDA CurrentLevelArea
       CMP #$9
       BEQ +f ; Already at area 9, go away
       INC CurrentLevelArea ; Otherwise increase
-+s		LDA #SoundEffect2_CoinGet
++s    LDA #SoundEffect2_CoinGet
       STA SoundEffectQueue2
       JSR Debug_UpdateArea
       JMP Debug_MenuLoop
@@ -223,15 +223,15 @@ DebugMenu_Character:
       CMP #ControllerInput_Right ; If right, increase
       BEQ +r
       BNE -q
-+l		LDA CurrentCharacter ; Check current character...
++l    LDA CurrentCharacter ; Check current character...
       BEQ -f ; Character is already 0, go away
       DEC CurrentCharacter ; Decrease
       JMP +s ; Skip ahead
-+r		LDA CurrentCharacter
++r    LDA CurrentCharacter
       CMP #3
       BEQ -f ; Already at character 3, go away
       INC CurrentCharacter ; Otherwise increase
-+s		LDA #SoundEffect2_CoinGet
++s    LDA #SoundEffect2_CoinGet
       STA SoundEffectQueue2
       JSR Debug_UpdateCharacter
       JMP Debug_MenuLoop
@@ -275,7 +275,7 @@ Debug_UpdateCharacter:
 Debug_UpdateLevel:
       LDX #$00 ; Set X to 0
 -
-			LDA CurrentLevel ; Get the starting level index
+      LDA CurrentLevel ; Get the starting level index
       CMP WorldStartingLevel, X ; Is it higher than our current level?
       BCC + ; Yep, jump outta here
       INX ; No, try next index
@@ -376,16 +376,16 @@ DebugPPU_AbortText: ; B BUTTON...ABORT
       .db #$12+4, #$23, #$27, #$12, #$DB, #$FB, #$DB, #$EE, #$ED, #$ED, #$E8, #$E7, #$FB, #$CF, #$CF, #$CF, #$FB,#$DA, #$DB, #$E8, #$EB, #$ED, #$00
 
 DebugPPU_UpdateWorld: ; ?
-      .db	#$01+4, #$21, #$4D, #$01, #$FB, #0
+      .db  #$01+4, #$21, #$4D, #$01, #$FB, #0
 DebugPPU_UpdateLevel: ; ?
-      .db	#$06+7, #$21, #$8C, #$07, #$F5, #$F5, #$FB, #$FB, #$F5, #$F4, #$F5, #0
+      .db  #$06+7, #$21, #$8C, #$07, #$F5, #$F5, #$FB, #$FB, #$F5, #$F4, #$F5, #0
 DebugPPU_UpdateArea: ; ?
-      .db	#$01+4, #$21, #$CD, #$01, #$FB, #0
+      .db  #$01+4, #$21, #$CD, #$01, #$FB, #0
 DebugPPU_UpdateCharacter0: ; 0 MARIO
-      .db	#$A+4, #$22, #$11, #$A, #$D0, #$FB, #$E6, #$DA, #$EB, #$E2, #$E8, #$FB, #$FB, #$FB, #0
+      .db  #$A+4, #$22, #$11, #$A, #$D0, #$FB, #$E6, #$DA, #$EB, #$E2, #$E8, #$FB, #$FB, #$FB, #0
 DebugPPU_UpdateCharacter1: ; 1 PRINCESS
-      .db	#$A+4, #$22, #$11, #$A, #$D1, #$FB, #$E9, #$EB, #$E2, #$E7, #$DC, #$DE, #$EC, #$EC, #0
+      .db  #$A+4, #$22, #$11, #$A, #$D1, #$FB, #$E9, #$EB, #$E2, #$E7, #$DC, #$DE, #$EC, #$EC, #0
 DebugPPU_UpdateCharacter2: ; 2 TOAD
-      .db	#$A+4, #$22, #$11, #$A, #$D2, #$FB, #$ED, #$E8, #$DA, #$DD, #$FB, #$FB, #$FB, #$FB, #0
+      .db  #$A+4, #$22, #$11, #$A, #$D2, #$FB, #$ED, #$E8, #$DA, #$DD, #$FB, #$FB, #$FB, #$FB, #0
 DebugPPU_UpdateCharacter3: ; 3 LUIGI
-      .db	#$A+4, #$22, #$11, #$A, #$D3, #$FB, #$E5, #$EE, #$E2, #$E0, #$E2, #$FB, #$FB, #$FB, #0
+      .db  #$A+4, #$22, #$11, #$A, #$D3, #$FB, #$E5, #$EE, #$E2, #$E0, #$E2, #$FB, #$FB, #$FB, #0

@@ -653,7 +653,7 @@ PlayerSelectPrincessSprites2:
       .BYTE $9F,$2C,$03,$A8 ; 8
       .BYTE $9F,$2E,$03,$B0 ; $C
 PlayerSelectSpriteIndexes:
-      .BYTE $00, $30,	$20, $10
+      .BYTE $00, $30, $20, $10
 BonusChanceCherrySprite:
       .BYTE $5F,$05,$01,$58
       .BYTE $5F,$07,$01,$60 ; 4
@@ -1200,7 +1200,7 @@ loc_BANKF_E3EC:
 ; ---------------------------------------------------------------------------
 
 StartGame:
-      LDA     #$00				  ; This starts the game once RESET has done its thing.
+      LDA     #$00 ; This starts the game once RESET has done its thing.
 ; We also come here after choosing "RETRY"
 ; from the game over menu
       STA     PPUMASK
@@ -1210,7 +1210,7 @@ StartGame:
       STA     byte_RAM_6F3
       JSR     ChangeMappedPRGBank
 
-      JSR     TitleScreen			  ; The whole title screen is a subroutine, lol
+      JSR     TitleScreen ; The whole title screen is a subroutine, lol
 
       INC     byte_RAM_6F3
       LDA     #$02 ; Give the player 2 continues once they start
@@ -1219,7 +1219,7 @@ StartGame:
 ContinueGame:
       LDA     #$03 ; We return here after picking "CONTINUE"
 ; from the game over menu
-      STA     ExtraLives			  ; You get 3 extra lives to start. Generous as always
+      STA     ExtraLives ; You get 3 extra lives to start. Generous as always
 
 StartCharacterSelectMenu:
       LDX     CurrentWorld
@@ -1230,7 +1230,7 @@ StartCharacterSelectMenu:
 
       JSR     InitializeSomeLevelStuff ; Initializes some level stuff
 
-      JSR     DisplayLevelTitleCardAndMore	  ; Displays title card for the stage,
+      JSR     DisplayLevelTitleCardAndMore ; Displays title card for the stage,
 ; and seems to load the proper graphics
 ; and reset some variables
 
@@ -1442,7 +1442,7 @@ loc_BANKF_E533:
       AND     #1
       CLC
       ADC     #$D ; Will use either $D or $E from the update index pointers
-      STA     ScreenUpdateIndex			  ; @TODO I assume this is what blinks "PAUSE"
+      STA     ScreenUpdateIndex ; @TODO I assume this is what blinks "PAUSE"
       JMP     loc_BANKF_E51D
 
 ; ---------------------------------------------------------------------------
@@ -1925,7 +1925,7 @@ loc_BANKF_E826:
       BCS     loc_BANKF_E826
 
       DEY
-      STY     CurrentWorld			  ; I am sure this is important somehow, but... why
+      STY     CurrentWorld ; I am sure this is important somehow, but... why
       LDY     CurrentWorld
       LDA     CurrentLevel
       SEC
@@ -1984,7 +1984,7 @@ DoSlotMachineSpinnyShit:
       LDA     ObjectXLo ; Reel 1 still active?
       ORA     ObjectXLo+1 ; Reel 2 still active?
       ORA     ObjectXLo+2 ; Reel 3 still active?
-      BNE     DoSlotMachineSpinnyShit		  ; If any are still active, go back to waiting
+      BNE     DoSlotMachineSpinnyShit ; If any are still active, go back to waiting
 
       LDA     #ScreenUpdateBuffer_RAM_6df
       STA     ScreenUpdateIndex
@@ -2005,7 +2005,7 @@ CheckReel2Symbol:
       CMP     #$00 ; Yes; are they both cherries?
       BNE     CheckReel3Symbol ; If no, skip to third reel
 
-      INY					  ; They are both cherries, add another life or something
+      INY ; They are both cherries, add another life or something
 
 CheckReel3Symbol:
       LDX     ObjectXLo+8 ; Load reel 3
@@ -2023,15 +2023,15 @@ CheckReel3Symbol:
 AddSlotMachineExtraLives:
       TYA ; Y contains extra lives to add
       CLC
-      ADC     ExtraLives			  ; Add won extra lives to current lives
-      BCC     loc_BANKF_E8D3			  ; Check if adding extra lives has wrapped the counter
+      ADC     ExtraLives ; Add won extra lives to current lives
+      BCC     loc_BANKF_E8D3 ; Check if adding extra lives has wrapped the counter
 
       LDA     #$FF ; If so, set extra lives to 255 (#$FF)
 
 loc_BANKF_E8D3:
       STA     ExtraLives
-      TYA					  ; Did we actually win any lives?
-      BEQ     SlotMachineLoseFanfare		  ; No, play lose sound effect
+      TYA ; Did we actually win any lives?
+      BEQ     SlotMachineLoseFanfare ; No, play lose sound effect
 
       ORA     #$D0
       STA     byte_RAM_6C8
@@ -2146,7 +2146,7 @@ EndingSceneRoutine:
       JSR     SetScrollXYTo0
 
       LDA     #$80
-      STA     byte_RAM_4080			  ; FDS leftover; $4080 is an old sound register
+      STA     byte_RAM_4080 ; FDS leftover; $4080 is an old sound register
 ; The prototype had two writes to this address!
 ; It looks like they missed this one, though.
       ASL     A
@@ -2200,18 +2200,18 @@ DisableNMI:
 
 ; ---------------------------------------------------------------------------
 PPUBuffer_Text_Game_Over:
-      .BYTE $21, $CB, $0A, $E0, $DA, $E6, $DE, $FB, $FB, $E8,	$EF, $DE
+      .BYTE $21, $CB, $0A, $E0, $DA, $E6, $DE, $FB, $FB, $E8, $EF, $DE
       .BYTE $EB, $00 ; $C ; "GAME OVER"
 Text_Continue:
       .BYTE $21, $75, $01, $00 ; (Placeholder for continue count)
 ; This is loaded manually and drawn so the count
 ; can be patched in
 ; * CONTINUE
-      .BYTE $21, $6A, $0A, $F6, $FB, $DC, $E8, $E7, $ED,	$E2, $E7, $EE
+      .BYTE $21, $6A, $0A, $F6, $FB, $DC, $E8, $E7, $ED, $E2, $E7, $EE
       .BYTE $DE ; $C
 PPUBuffer_Text_Retry:
-      .BYTE $21,	$AA, $07,	$F6, $FB, $EB, $DE, $ED, $EB, $F2 ; * RETRY
-      .BYTE $21, $CB, $0A, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB ; Blank, erases "GAME OVER"
+      .BYTE $21, $AA, $07, $F6, $FB, $EB, $DE, $ED, $EB, $F2 ; * RETRY
+      .BYTE $21, $CB, $0A, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; Blank, erases "GAME OVER"
       .BYTE $FB, $00 ; $C
       .BYTE $09
       .BYTE $0F
@@ -2403,7 +2403,7 @@ WaitForNMI:
       STA     NMIWaitFlag ; Start waiting for NMI to finish
 
 WaitForNMILoop:
-      LDA     NMIWaitFlag			  ; Has the NMI routine set the flag yet?
+      LDA     NMIWaitFlag ; Has the NMI routine set the flag yet?
       BPL     WaitForNMILoop ; If no, wait some more
 
       RTS ; If yes, go back to what we were doing
@@ -2521,13 +2521,13 @@ loc_BANKF_EB1F:
 ; =============== S U B R O U T I N E =======================================
 
 CopyUnusedCoinSpriteToSpriteArea:
-      LDY     #$00				  ; This copies the unused coin sprite from memory
+      LDY     #$00 ; This copies the unused coin sprite from memory
 ; into the sprite DMA area at $200
 
 loc_BANKF_EB33:
       LDA     unk_RAM_653,Y ; Copy two sprites from memory to memory.
       STA     SpriteDMAArea+$28,Y ; This is definitely efficient.
-      INY					  ; Two sprites for each half of the coin.
+      INY ; Two sprites for each half of the coin.
       CPY     #$08 ; Four bytes per sprite * 2 sprites = 8 bytes
       BCC     loc_BANKF_EB33
 
@@ -2584,7 +2584,7 @@ loc_BANKF_EB86:
 
 ; =============== S U B R O U T I N E =======================================
 
-;	public NMI
+; public NMI
 NMI:
       PHP
       PHA
@@ -2840,7 +2840,7 @@ ClearNametableChunk:
 ClearNametableChunk_Loop:
       STA     PPUDATA ; Store the blank tile $300 times
       INY
-      BNE     ClearNametableChunk_Loop		  ; (Loop falls through every $100 bytes)
+      BNE     ClearNametableChunk_Loop ; (Loop falls through every $100 bytes)
 
       DEX
       BNE     ClearNametableChunk_Loop ; Loop falls through after $300 bytes
@@ -2852,7 +2852,7 @@ ClearNametableChunk_Loop2:
       CPY     #$C0
       BNE     ClearNametableChunk_Loop2
 
-      LDA     #$00				  ; Load A with $00 for clearing the attribute tables
+      LDA     #$00 ; Load A with $00 for clearing the attribute tables
 
 ClearNametableChunk_AttributeTableLoop:
       STA     PPUDATA ; Clear attribute table...
@@ -2860,7 +2860,7 @@ ClearNametableChunk_AttributeTableLoop:
       BNE     ClearNametableChunk_AttributeTableLoop
 
 PPUBufferUpdatesComplete:
-      RTS					  ; Woo fucking hoo
+      RTS ; Woo fucking hoo
 
 ; End of function ClearNametableChunk
 
@@ -2944,7 +2944,7 @@ UpdatePPUFromBufferWithOptions:
 ; is #$00, we have nothing. We're done here
 
       LDX     PPUSTATUS ; Clear address latch
-      STA     PPUADDR				  ; Set the PPU address to the
+      STA     PPUADDR ; Set the PPU address to the
 ; address from the PPU buffer
       INY
       LDA     (RAM_PPUDataBufferPointer),Y
@@ -2993,7 +2993,7 @@ UpdatePPUFBWO_CopySingleTileSkip:
       LDA     (RAM_PPUDataBufferPointer),Y ; Load data from buffer...
       STA     PPUDATA ; ...store it to the PPU.
       DEX ; Decrease remaining length.
-      BNE     UpdatePPUFBWO_CopyLoop		  ; Are we done? If no, copy more stuff
+      BNE     UpdatePPUFBWO_CopyLoop ; Are we done? If no, copy more stuff
 
       INY ; Y contains the amount of copied data now
       TYA ; ...and now A does
@@ -3285,7 +3285,7 @@ locret_BANKF_F0F3:
 
 ; ---------------------------------------------------------------------------
 LevelMusicIndexes:
-      .BYTE	Music1_Overworld
+      .BYTE Music1_Overworld
       .BYTE Music1_Inside ; 1 ; Music1 indexes.
       .BYTE Music1_Boss ; 2
       .BYTE Music1_Wart ; 3
@@ -3720,7 +3720,7 @@ byte_BANKF_F2E7:
       .BYTE $B4
       .BYTE $B6
 DamageInvulnBlinkFrames:
-      .BYTE $01, $01, $01, $02, $02, $04,	4, $04 ; =============== S U B R O U T I N E =======================================
+      .BYTE $01, $01, $01, $02, $02, $04, 4, $04 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F31A:
 IFDEF COMPATIBILITY
@@ -4457,7 +4457,7 @@ byte_BANKF_F64E:
       .BYTE $98
       .BYTE $D5
 WarpDestinations:
-      .BYTE $03, $01, $04,	5, $06, $05, $06 ; =============== S U B R O U T I N E =======================================
+      .BYTE $03, $01, $04, 5, $06, $05, $06 ; =============== S U B R O U T I N E =======================================
 
 UpdateJoypads:
       JSR     ReadJoypads
@@ -4500,7 +4500,7 @@ ReadJoypadLoop:
       LSR     A
       ROL     Player1JoypadPress
       LSR     A
-      ROL     Player1JoypadUnk			  ; @TODO These seem to never be read, and even then are using a
+      ROL     Player1JoypadUnk ; @TODO These seem to never be read, and even then are using a
 ; second bit from JOY1/JOY2 ... Was this reading from
 ; the expansion port???
       LDA     JOY2
@@ -4667,10 +4667,10 @@ GetLevelPointers:
       ADC     CurrentLevelArea
       TAY ; Y now contains the current area or something
       LDA     LevelDataPointersLo,Y
-      STA     byte_RAM_5			  ; $0005/$0006 are pointers to the level data
+      STA     byte_RAM_5 ; $0005/$0006 are pointers to the level data
       LDA     LevelDataPointersHi,Y
       STA     byte_RAM_6
-      LDX     #$FF				  ; Set to load level data into $7800 in RAM
+      LDX     #$FF ; Set to load level data into $7800 in RAM
       LDA     #$78
       STA     byte_RAM_2
       LDY     #0
@@ -4699,7 +4699,7 @@ GetEnemyPointers:
       STA     byte_RAM_3
       LDA     EnemyPointersByLevel_LoLo,Y
       STA     byte_RAM_2
-      LDA     InSubspaceOrJar			  ; Are we in a jar?
+      LDA     InSubspaceOrJar ; Are we in a jar?
       CMP     #1
       BNE     loc_BANKF_F7A0 ; No, load the area as usual
 
@@ -4736,10 +4736,10 @@ CopyEnemyDataToMemory:
 ; =============== S U B R O U T I N E =======================================
 
 GetJarPointers:
-      LDY     CurrentLevel			  ; Get the area starting index for the current level
+      LDY     CurrentLevel ; Get the area starting index for the current level
       LDA     LevelAreaStartIndexes,Y
       CLC
-      ADC     #$04				  ; 4 is always the jar sub area
+      ADC     #$04 ; 4 is always the jar sub area
       TAY
       LDA     LevelDataPointersLo,Y
       STA     byte_RAM_5
@@ -5025,7 +5025,7 @@ byte_BANKF_FAB2:
       .BYTE $03
       .BYTE $00
 BackgroundCHRAnimationSpeedByWorld:
-      .BYTE $07, $07, $07, $07, $09,	7, 5
+      .BYTE $07, $07, $07, $07, $09, 7, 5
       .BYTE $0B
 
 ; =============== S U B R O U T I N E =======================================
@@ -5268,9 +5268,9 @@ ENDIF
 
 ; =============== S U B R O U T I N E =======================================
 
-;	public RESET
+; public RESET
 RESET:
-      SEI					  ; This code is called when the NES is reset.
+      SEI ; This code is called when the NES is reset.
       CLD
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background0000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIDisabled
       STA     PPUCTRL
@@ -5328,7 +5328,7 @@ ChangeMappedPRGBank:
 ; =============== S U B R O U T I N E =======================================
 
 ChangeMappedPRGBankWithoutSaving:
-      ASL     A					  ; Any call to this sub switches the lower
+      ASL     A ; Any call to this sub switches the lower
 ; two banks together. e.g.:
 ; LDA 0 JSR Change... = Bank 0/1
 ; LDA 1 JSR Change... = Bank 2/3
@@ -5392,10 +5392,10 @@ IRQ:
       .BYTE $04
       .BYTE $01
       .BYTE $BE
-;	Ensure our vectors are always here
+; Ensure our vectors are always here
       .pad $FFFA, $FF
 NESVectorTables:
-      .WORD NMI			  ; Vectors for the NES CPU. These should ALWAYS be at $FFFA!
+      .WORD NMI ; Vectors for the NES CPU. These should ALWAYS be at $FFFA!
 ; Add a .pad or .base before here if you change code above.
 ; NMI = VBlank, RESET = ...well, reset.
 ; IRQ is not used, but you could if you wanted.

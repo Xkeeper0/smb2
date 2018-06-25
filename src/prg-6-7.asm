@@ -39,7 +39,7 @@ WorldSpritePalettePointersHi:
       .BYTE >World7SpritePalettes
 World1BackgroundPalettes:
       .BYTE $21,$30,$12,$F
-      .BYTE $21,$30,$16,$F			  ; 4 ; Some of these palettes, across all of these entries,
+      .BYTE $21,$30,$16,$F ; 4 ; Some of these palettes, across all of these entries,
       .BYTE $21,$27,$17,$0F ; 8 ; may be unused; my initial logging suggests that a handful
       .BYTE $21,$29,$1A,$0F ; $C ; of them were not used as data anywhere
       .BYTE $0F,$30,$12,$01 ; $10
@@ -348,46 +348,46 @@ off_BANK6_843D:
       .BYTE >World7GroundTilesVertical
 World1GroundTilesHorizontal:
       .BYTE $00, $99, $D5, $00, $00, $99, $99, $99, $00, $A0, $A0, $A0, $00, $A2, $A2, $A2
-      .BYTE $00, $D6, $9B, $18, $00, $A0, $A0, $99,	0, $00, $00, $00, $00, $00, $00, $00 ; $10
+      .BYTE $00, $D6, $9B, $18, $00, $A0, $A0, $99, 0, $00, $00, $00, $00, $00, $00, $00 ; $10
 World1GroundTilesVertical:
-      .BYTE $00, $9D,	$9E, $C6, $00, $05,	$A0, $00,	0, $00, $00, $00, $00, $00, $A2, 0
-      .BYTE $00, $00, $C2, $00, $00, $00,	$A0, $00,	0, $93,	$9E, $C6, $00, $40, $9E, $C6 ; $10
+      .BYTE $00, $9D, $9E, $C6, $00, $05, $A0, $00, 0, $00, $00, $00, $00, $00, $A2, 0
+      .BYTE $00, $00, $C2, $00, $00, $00, $A0, $00, 0, $93, $9E, $C6, $00, $40, $9E, $C6 ; $10
 World2GroundTilesHorizontal:
-      .BYTE $00, $99, $99, $99, $00, $8A, $8A, $8A, $00, $8B, $8B, $8B,	0, $A0,	$A0, $A0
-      .BYTE $00, $A2, $A2, $A2, $00, $D6, $9B, $18,	0, $00, $00, $00, $00, $00, $00, $00 ; $10
+      .BYTE $00, $99, $99, $99, $00, $8A, $8A, $8A, $00, $8B, $8B, $8B, 0, $A0, $A0, $A0
+      .BYTE $00, $A2, $A2, $A2, $00, $D6, $9B, $18, 0, $00, $00, $00, $00, $00, $00, $00 ; $10
 World2GroundTilesVertical:
-      .BYTE $00, $9D,	$9E, $C6, $00, $93, $A0, $00, $00, $40, $9B, $40, $00, $93, $9E, $C6
-      .BYTE $00, $40, $9E, $C6, $00, $00, $00, $00, $00, $00,	0, $00, $00, $00, $00, $00 ; $10
+      .BYTE $00, $9D, $9E, $C6, $00, $93, $A0, $00, $00, $40, $9B, $40, $00, $93, $9E, $C6
+      .BYTE $00, $40, $9E, $C6, $00, $00, $00, $00, $00, $00, 0, $00, $00, $00, $00, $00 ; $10
 World3GroundTilesHorizontal:
       .BYTE $00, $99, $D5, $00, $00, $99, $99, $99, $00, $A0, $A0, $A0, $00, $A2, $A2, $A2
-      .BYTE $00, $D6, $9B, $18, $00, $A0, $A0, $99,	0, $00, $00, $00, $00, $00, $00, $00 ; $10
+      .BYTE $00, $D6, $9B, $18, $00, $A0, $A0, $99, 0, $00, $00, $00, $00, $00, $00, $00 ; $10
 World3GroundTilesVertical:
-      .BYTE $00, $C6,	$9E, $9D, $00, $05,	$A0, $00,	0, $93,	$9E, $C6, $00, $00,	$A2, 0
-      .BYTE $00, $00, $C2, $00, $00, $00,	$A0, $00,	0, $40,	$9E, $C6, $00, $06,	$A0, $00 ; $10
+      .BYTE $00, $C6, $9E, $9D, $00, $05, $A0, $00, 0, $93, $9E, $C6, $00, $00, $A2, 0
+      .BYTE $00, $00, $C2, $00, $00, $00, $A0, $00, 0, $40, $9E, $C6, $00, $06, $A0, $00 ; $10
 World4GroundTilesHorizontal:
       .BYTE $00, $99, $D5, $00, $00, $99, $16, $00, $00, $A0, $A0, $A0, $00, $A2, $A2, $A2
       .BYTE $00, $D6, $9B, $18, $00, $0A, $A, $08, $00, $1F, $1F, $1F, $00, $00, $00, $00 ; $10
 World4GroundTilesVertical:
-      .BYTE $00, $C6,	$99, $9D, $00, $A2, $A2, $A2, $00, $9B, $9B, $9B, $00, $A0, $A0, $A0
-      .BYTE $00, $D6, $D6, $D6, $00, $18, $18, $18,	0, $00, $00, $00, $00, $00, $00, $00 ; $10
+      .BYTE $00, $C6, $99, $9D, $00, $A2, $A2, $A2, $00, $9B, $9B, $9B, $00, $A0, $A0, $A0
+      .BYTE $00, $D6, $D6, $D6, $00, $18, $18, $18, 0, $00, $00, $00, $00, $00, $00, $00 ; $10
 World5GroundTilesHorizontal:
-      .BYTE $00, $99, $D5, $40, $00, $99, $99, $99, $00, $A0, $A0, $A0,	0, $A2,	$A2, $A2
-      .BYTE $00, $D6, $9B, $18, $00, $A0, $A0, $99,	0, $00, $00, $00, $00, $00, $00, $00 ; $10
+      .BYTE $00, $99, $D5, $40, $00, $99, $99, $99, $00, $A0, $A0, $A0, 0, $A2, $A2, $A2
+      .BYTE $00, $D6, $9B, $18, $00, $A0, $A0, $99, 0, $00, $00, $00, $00, $00, $00, $00 ; $10
 World5GroundTilesVertical:
-      .BYTE $00, $9D,	$9E, $C6, $00, $05,	$A0, $00,	0, $40,	$A4, $00,	0, $00, $A2, 0
-      .BYTE $00, $00, $C2, $00, $00, $00,	$A0, $00,	0, $93,	$9E, $C6, $00, $40, $9E, $C6 ; $10
+      .BYTE $00, $9D, $9E, $C6, $00, $05, $A0, $00, 0, $40, $A4, $00, 0, $00, $A2, 0
+      .BYTE $00, $00, $C2, $00, $00, $00, $A0, $00, 0, $93, $9E, $C6, $00, $40, $9E, $C6 ; $10
 World6GroundTilesHorizontal:
-      .BYTE $00, $99, $99, $99, $00, $8A, $8A, $8A, $00, $8B, $8B, $8B,	0, $A0,	$A0, $A0
-      .BYTE $00, $A2, $A2, $A2, $00, $D6, $9B, $18,	0, $00, $00, $00, $00, $00, $00, $00 ; $10
+      .BYTE $00, $99, $99, $99, $00, $8A, $8A, $8A, $00, $8B, $8B, $8B, 0, $A0, $A0, $A0
+      .BYTE $00, $A2, $A2, $A2, $00, $D6, $9B, $18, 0, $00, $00, $00, $00, $00, $00, $00 ; $10
 World6GroundTilesVertical:
-      .BYTE $00, $9D,	$9E, $C6, $00, $93, $A0, $00, $00, $40, $18, $40, $00, $93, $9E, $C6
-      .BYTE $00, $40, $9E, $C6, $00, $00, $00, $00, $00, $00,	0, $00, $00, $00, $00, $00 ; $10
+      .BYTE $00, $9D, $9E, $C6, $00, $93, $A0, $00, $00, $40, $18, $40, $00, $93, $9E, $C6
+      .BYTE $00, $40, $9E, $C6, $00, $00, $00, $00, $00, $00, 0, $00, $00, $00, $00, $00 ; $10
 World7GroundTilesHorizontal:
-      .BYTE $00, $9C, $9C, $9C, $00, $D7, $9C, $19, $00, $00, $00, $00, $00, $00,	0, 0
-      .BYTE $00, $00, $00, $00,	0, $00, $00, $00, $00, $00, $00, $00,	0, $00, $00, $00 ; $10
+      .BYTE $00, $9C, $9C, $9C, $00, $D7, $9C, $19, $00, $00, $00, $00, $00, $00, 0, 0
+      .BYTE $00, $00, $00, $00, 0, $00, $00, $00, $00, $00, $00, $00, 0, $00, $00, $00 ; $10
 World7GroundTilesVertical:
-      .BYTE $00, $9C,	$9C, $9C, $00, $05,	$A0, $00,	0, $00, $00, $00, $00, $00, $9C, 0
-      .BYTE $00, $00, $C2, $00, $00, $00,	$A0, $00,	0, $00, $00, $00, $00, $00, $00, $00 ; $10
+      .BYTE $00, $9C, $9C, $9C, $00, $05, $A0, $00, 0, $00, $00, $00, $00, $00, $9C, 0
+      .BYTE $00, $00, $C2, $00, $00, $00, $A0, $00, 0, $00, $00, $00, $00, $00, $00, $00 ; $10
 UnusedTileQuadPointersLo:
       .BYTE <UnusedTileQuads1 ; @TODO Check this
 ; Not actually sure what these are used for at all.
@@ -639,7 +639,7 @@ loc_BANK6_88FE:
 
 ; ---------------------------------------------------------------------------
 WorldObjectTilePointersLo:
-      .BYTE	<World1ObjectTiles
+      .BYTE <World1ObjectTiles
 
       .BYTE <World2ObjectTiles
       .BYTE <World3ObjectTiles
@@ -648,7 +648,7 @@ WorldObjectTilePointersLo:
       .BYTE <World6ObjectTiles
       .BYTE <World7ObjectTiles
 WorldObjectTilePointersHi:
-      .BYTE	>World1ObjectTiles
+      .BYTE >World1ObjectTiles
 
       .BYTE >World2ObjectTiles
       .BYTE >World3ObjectTiles
@@ -1980,7 +1980,7 @@ sub_BANK6_8FC2:
 ; End of function sub_BANK6_8FC2
 
 ; ---------------------------------------------------------------------------
-      .BYTE $52	; R ; Unreferenced?
+      .BYTE $52 ; R ; Unreferenced?
       .BYTE $1D
       .BYTE $C0
       .BYTE $52
@@ -2274,20 +2274,20 @@ loc_BANK6_9117:
 ; ---------------------------------------------------------------------------
 ; [000000DA BYTES: BEGIN OF AREA UNUSED-BANK6:9126. PRESS KEYPAD "-" TO COLLAPSE]
 _unused_BANK6_9126:
-      .BYTE $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $10
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $20
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $30
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $40
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $50
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $60
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $70
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $80
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $90
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $A0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $B0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF ; $C0
-      .BYTE $FF, $FF, $FF, $FF,	$FF, $FF, $FF, $FF, $FF, $FF ; $D0
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $10
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $20
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $30
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $40
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $50
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $60
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $70
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $80
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $90
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $A0
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $B0
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $C0
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $D0
 ; [000000DA BYTES: END OF AREA UNUSED-BANK6:9126. PRESS KEYPAD "-" TO COLLAPSE]
 MysteryDataD200:
       .BYTE $00,$00,$00,$24

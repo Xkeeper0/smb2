@@ -91,7 +91,7 @@ loc_BANK2_8083:
       BNE     loc_BANK2_808D
 
       LDA     #SoundEffect2_IntroFallSlide ; This is what plays the slide-whistle when
-      STA     SoundEffectQueue2			  ; you start the game and drop into 1-1
+      STA     SoundEffectQueue2 ; you start the game and drop into 1-1
 
 loc_BANK2_808D:
       LDA     byte_RAM_4AF
@@ -878,7 +878,7 @@ loc_BANK2_8495:
       AND     #$40
       BEQ     locret_BANK2_84A6
 
-      ASL     ObjectXAccel,X			  ; Change the speed of certain objects?
+      ASL     ObjectXAccel,X ; Change the speed of certain objects?
 
 locret_BANK2_84A6:
       RTS
@@ -1065,7 +1065,7 @@ HandleObjectGravity:
 loc_BANK2_858A:
       INC     ObjectYAccel,X ; Makes objects slowly fall down
       INC     ObjectYAccel,X ; Turning these into DECs causes...
-;			    problems.
+;       problems.
 
 locret_BANK2_858E:
       RTS
@@ -2012,7 +2012,7 @@ loc_BANK2_8A53:
 
 ; ---------------------------------------------------------------------------
 EnemyBehaviorPointerTable:
-      .WORD	EnemyBehavior_00
+      .WORD EnemyBehavior_00
       .WORD EnemyBehavior_BasicWalker
       .WORD EnemyBehavior_BasicWalker
       .WORD EnemyBehavior_BasicWalker
@@ -2967,7 +2967,7 @@ loc_BANK2_8F27:
       ORA     byte_RAM_EF
       BNE     locret_BANK2_8F4E
 
-      LDY     byte_RAM_F4			  ; This part of the code seems to only run
+      LDY     byte_RAM_F4 ; This part of the code seems to only run
       LDA     SpriteTempScreenY ; if the graph we're trying to draw is
       STA     SpriteDMAArea,Y ; a heart sprite ...
       LDA     SpriteTempScreenX
@@ -3134,7 +3134,7 @@ BirdoBehavior_SpitProjectile:
       LDA     PseudoRNGValues+2 ; Otherwise, randomly determine what to fire
       AND     #$1F ; If PRNG & $1F >= our health-probability number,
       CMP     BirdoHealthEggProbabilities,Y ; fire an egg out
-      BCS     _Birdo_SpitEgg			  ; Otherwise just fall through to barfing fire
+      BCS     _Birdo_SpitEgg ; Otherwise just fall through to barfing fire
 
 _Birdo_SpitFire:
       INC     EnemyVariable,X ; Shoot a fireball
@@ -3480,7 +3480,7 @@ loc_BANK2_9198:
 ; X = Enemy index of object to poof
 
 TurnIntoPuffOfSmoke:
-      LDA     ObjectAttributes,X		  ; Get current object sprite attributes...
+      LDA     ObjectAttributes,X ; Get current object sprite attributes...
       AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32|ObjAttrib_UpsideDown
       ORA     #$01 ; Clear current palette, then set to $01
       STA     ObjectAttributes,X
@@ -4238,7 +4238,7 @@ loc_BANK2_9503:
       LDY     #$E0
 
 loc_BANK2_9523:
-      STY     ObjectYAccel,X			  ; Set Y accelleration for bouncing
+      STY     ObjectYAccel,X ; Set Y accelleration for bouncing
       JMP     sub_BANK2_9E4B
 
 ; ---------------------------------------------------------------------------
@@ -5344,7 +5344,7 @@ EnemyTilemap1:
 EnemyAnimationTable:
       .BYTE $00
       .BYTE $00 ; 1 ; Not sure what this does, but it's some sort of
-      .BYTE $08					  ; 2 ; pointer that determines where an enemy's animation
+      .BYTE $08 ; 2 ; pointer that determines where an enemy's animation
       .BYTE $00 ; 3 ; frames are hiding.
       .BYTE $0C ; 4 ;
       .BYTE $10 ; 5 ; $FF means "none", used for the enemy-generating jars.
@@ -5623,7 +5623,7 @@ loc_BANK2_9B79:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9B80:
-      CPY     #Enemy_Heart			  ; ??? Compare against a Heart
+      CPY     #Enemy_Heart ; ??? Compare against a Heart
       BNE     loc_BANK2_9B87
 
       JMP     loc_BANK2_8F27 ; This jump appears to never be taken;
@@ -6525,7 +6525,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       LDA     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       STA     EnemyArray_B1,X
@@ -6672,7 +6672,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STY     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       LDA     ObjectAttributes,X
@@ -6708,7 +6708,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       LDX     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       DEC     SpriteDMAArea+$C,X
@@ -6773,7 +6773,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       LDA     ObjectBeingCarriedTimer,X ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       ORA     EnemyArray_438,X
@@ -7179,7 +7179,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STY     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       LDA     #$45
@@ -7407,7 +7407,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STY     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       LDA     #$38
@@ -7682,7 +7682,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STY     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       JSR     sub_BANK2_9BB3
@@ -8372,7 +8372,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STA     PlayerState ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       RTS
@@ -8537,7 +8537,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STY     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       PLA
@@ -8925,7 +8925,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       LDA     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       PHA
@@ -8940,7 +8940,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STY     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       LDA     #$7C
@@ -8952,7 +8952,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STA     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
 
@@ -8971,7 +8971,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STA     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       LDA     byte_RAM_0
@@ -9108,7 +9108,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       LDX     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       LDA     SpriteDMAArea+2,X
@@ -9479,7 +9479,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       LDX     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       LDA     SpriteDMAArea,X
@@ -9750,7 +9750,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       LDA     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       STA     byte_RAM_7267
@@ -9765,7 +9765,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STA     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       LDA     byte_RAM_EF
@@ -9819,7 +9819,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STA     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       LDY     #$A6
@@ -9859,7 +9859,7 @@ IFDEF COMPATIBILITY
 ENDIF
 IFNDEF COMPATIBILITY
       STA     byte_RAM_F4 ; Absolute address for zero-page
-	  NOP ; Alignment fix
+   NOP ; Alignment fix
 ENDIF
 
       LDY     #$BA

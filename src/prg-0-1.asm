@@ -1786,7 +1786,7 @@ HandlePlayerState:
       CMP     #PlayerState_Lifting
       BCS     loc_BANK0_8A26 ; If the player is changing size, just handle that
 
-      LDA     #$00				  ; Check if the player needs to change size
+      LDA     #$00 ; Check if the player needs to change size
       LDY     #$10
       CPY     PlayerHealth
       ROL     A
@@ -3264,7 +3264,7 @@ loc_BANK0_9080:
 
 loc_BANK0_90AE:
       STA     EnemyState,X
-      LDA     PickUpToEnemyTypeTable,Y		  ; What sprite is spawned for you when lifting a bg object
+      LDA     PickUpToEnemyTypeTable,Y ; What sprite is spawned for you when lifting a bg object
       STA     ObjectType,X
       LDY     #$FF
       CMP     #$37
@@ -3522,7 +3522,7 @@ loc_BANK0_91E3:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_91EB:
-      LDA     Player1JoypadPress		  ; @TODO Seems to be code for handling doors
+      LDA     Player1JoypadPress ; @TODO Seems to be code for handling doors
       AND     #ControllerInput_Up
       BEQ     locret_BANK0_91CE
 
@@ -3857,7 +3857,7 @@ locret_BANK0_934E:
 
 ; replace tile when something is picked up
 sub_BANK0_934F:
-      PHA					  ; Something to update the PPU for some tile change
+      PHA ; Something to update the PPU for some tile change
       LDA     ObjectXLo,X
       CLC
       ADC     #8
@@ -4469,7 +4469,7 @@ TitleSpritePalettes:
       .BYTE $22,$30,$12,$0F ; so these are totally unused
       .BYTE $22,$30,$23,$F
 TitleStoryText_STORY:
-      .BYTE $EC,	$ED, $E8, $EB, $F2 ; STORY
+      .BYTE $EC, $ED, $E8, $EB, $F2 ; STORY
 TitleStoryTextPointersHi:
       .BYTE >TitleStoryText_Line01
 
@@ -4509,52 +4509,52 @@ TitleStoryTextPointersLo:
       .BYTE <TitleStoryText_Line15
       .BYTE <TitleStoryText_Line16
 TitleStoryText_Line01:
-      .BYTE $F0, $E1, $DE, $E7,	$FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB,	$E8, $E9, $DE, $E7
+      .BYTE $F0, $E1, $DE, $E7, $FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB, $E8, $E9, $DE, $E7
       .BYTE $DE, $DD, $FB, $DA ; WHEN MARIO OPENED A
 TitleStoryText_Line02:
-      .BYTE $DD, $E8, $E8, $EB,	$FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB,	$DC, $E5, $E2, $E6
+      .BYTE $DD, $E8, $E8, $EB, $FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB, $DC, $E5, $E2, $E6
       .BYTE $DB, $E2, $E7, $E0 ; DOOR AFTER CLIMBING
 TitleStoryText_Line03:
-      .BYTE $DA, $FB, $E5, $E8,	$E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB,	$FB, $E2, $E7, $FB
+      .BYTE $DA, $FB, $E5, $E8, $E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB, $FB, $E2, $E7, $FB
       .BYTE $FB, $E1, $E2, $EC ; A LONG STAIR IN HIS
 TitleStoryText_Line04:
-      .BYTE $DD, $EB, $DE, $DA,	$E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1,	$DE, $EB, $FB, $F0
+      .BYTE $DD, $EB, $DE, $DA, $E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1, $DE, $EB, $FB, $F0
       .BYTE $E8, $EB, $E5, $DD ; DREAM, ANOTHER WORLD
 TitleStoryText_Line05:
-      .BYTE $EC, $E9, $EB, $DE,	$DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF,	$E8, $EB, $DE, $FB
+      .BYTE $EC, $E9, $EB, $DE, $DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF, $E8, $EB, $DE, $FB
       .BYTE $FB, $E1, $E2, $E6 ; SPREAD BEFORE HIM
 TitleStoryText_Line06:
-      .BYTE $DA, $E7, $DD, $FB,	$E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD,	$FB, $DA, $FB, $EF
+      .BYTE $DA, $E7, $DD, $FB, $E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD, $FB, $DA, $FB, $EF
       .BYTE $E8, $E2, $DC, $DE ; AND HE HEARD A VOICE
 TitleStoryText_Line07:
-      .BYTE $DC, $DA, $E5, $E5,	$FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5,	$E9, $FB, $ED, $E8
+      .BYTE $DC, $DA, $E5, $E5, $FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5, $E9, $FB, $ED, $E8
       .BYTE $FB, $FB, $DB, $DE ; CALL FOR HELP TO BE
 TitleStoryText_Line08:
-      .BYTE $FB, $DF, $EB, $DE,	$DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6,	$FB, $DA, $FB, $EC
+      .BYTE $FB, $DF, $EB, $DE, $DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6, $FB, $DA, $FB, $EC
       .BYTE $E9, $DE, $E5, $E5 ; FREED FROM A SPELL
 TitleStoryText_Line09:
-      .BYTE $DA, $DF, $ED, $DE,	$EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE,	$E7, $E2, $E7, $E0
+      .BYTE $DA, $DF, $ED, $DE, $EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE, $E7, $E2, $E7, $E0
       .BYTE $F7, $FB, $FB, $FB ; AFTER AWAKENING,
 TitleStoryText_Line10:
-      .BYTE $E6, $DA, $EB, $E2,	$E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB,	$ED, $E8, $FB, $FB
+      .BYTE $E6, $DA, $EB, $E2, $E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB, $ED, $E8, $FB, $FB
       .BYTE $DA, $FB, $FB, $FB ; MARIO WENT TO A
 TitleStoryText_Line11:
-      .BYTE $DC, $DA, $EF, $DE,	$FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2,	$FB, $DA, $E7, $DD
+      .BYTE $DC, $DA, $EF, $DE, $FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2, $FB, $DA, $E7, $DD
       .BYTE $FB, $FB, $ED, $E8 ; CAVE NEARBY AND TO
 TitleStoryText_Line12:
-      .BYTE $E1, $E2, $EC, $FB,	$FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC,	$DE, $FB, $E1, $DE
+      .BYTE $E1, $E2, $EC, $FB, $FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC, $DE, $FB, $E1, $DE
       .BYTE $FB, $EC, $DA, $F0 ; HIS SURPRISE HE SAW
 TitleStoryText_Line13:
-      .BYTE $DE, $F1, $DA, $DC,	$ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA,	$ED, $FB, $E1, $DE
+      .BYTE $DE, $F1, $DA, $DC, $ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA, $ED, $FB, $E1, $DE
       .BYTE $FB, $EC, $DA, $F0 ; EXACTLY WHAT HE SAW
 TitleStoryText_Line14:
-      .BYTE $E2, $E7, $FB, $E1,	$E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6,	$CF, $CF, $CF, $CF
+      .BYTE $E2, $E7, $FB, $E1, $E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6, $CF, $CF, $CF, $CF
       .BYTE $FB, $FB, $FB, $FB ; IN HIS DREAM....
 TitleStoryText_Line15:
-      .BYTE $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB,	$FB, $FB, $FB, $FB
+      .BYTE $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
       .BYTE $FB, $FB, $FB, $FB ; (blank)
 TitleStoryText_Line16:
-      .BYTE $FB, $FB, $E9, $EE,	$EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED,	$FB, $DB, $EE, $ED
+      .BYTE $FB, $FB, $E9, $EE, $EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED, $FB, $DB, $EE, $ED
       .BYTE $ED, $E8, $E7, $FB ; PUSH START BUTTON
 TitleAttributeData1:
       .BYTE $23, $CB, $42, $FF
@@ -4578,7 +4578,7 @@ TitleAttributeData2:
 
 TitleScreen:
       LDY     #$07 ; Does initialization of RAM.
-      STY     byte_RAM_1			  ; This clears $200 to $7FF.
+      STY     byte_RAM_1 ; This clears $200 to $7FF.
       LDY     #0
       STY     byte_RAM_0
       TYA
