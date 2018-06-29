@@ -2710,6 +2710,8 @@ BonusChanceLayoutRAM2 = $7500
 
 RawLevelData = $7800
 
+RawJarData = $7a00
+
 RawEnemyData = $7b00
 
 unk_RAM_7DF1 = $7df1

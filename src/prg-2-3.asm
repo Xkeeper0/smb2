@@ -895,8 +895,7 @@ locret_BANK2_84A6:
 
 ; ---------------------------------------------------------------------------
 BeezoXOffsetTable:
-      .BYTE $FE
-; If player moving right
+      .BYTE $FE ; If player moving right
       .BYTE $00 ; If moving left
 BeezoDiveSpeedTable:
       .BYTE $12,$16,$1A,$1E,$22,$26,$2A,$2D

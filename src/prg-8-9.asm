@@ -4,6 +4,10 @@
 ;
 ; What's inside:
 ;
+;   - Level and enemy data pointer tables
+;   - Level data
+;   - Enemy data
+;
 
 ; .segment BANK8
 ; * =  $8000
@@ -458,6 +462,22 @@ LevelDataPointersHi:
       .BYTE >LevelData_7_3_Area0
       .BYTE >LevelData_7_3_Area0
       .BYTE >LevelData_7_3_Area0
+
+;
+; Level Data
+; ==========
+;
+; Levels are broken down by area. The first four bytes are a level header,
+; specifying things like palettes, music, size, scrolling, and ground type.
+; The rest is level objects. Levels are ended by the $FF special object.
+;
+; Regular object (2 bytes):
+;   $YX - position
+;   $TT - type
+;
+; Special objects (1-3 bytes):
+;   @TODO
+;
 LevelData_1_1_Area0:
       .BYTE $09, $F3, $30, $00, $B7, $0A, $00, $00, $56, $10, $1A, $10, $D6, $C2, $29, $10
       .BYTE $75, $C4, $5A, $21, $12, $C9, $75, $C7, $1E, $C1, $3E, $0A, $00, $20, $20, $CF ; $10

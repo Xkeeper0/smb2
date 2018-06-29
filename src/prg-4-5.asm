@@ -4,6 +4,9 @@
 ;
 ; What's inside:
 ;
+;   - Music engine
+;   - Song data
+;
 
 ; .segment BANK4
 ; * =  $8000

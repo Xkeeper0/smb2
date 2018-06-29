@@ -4,7 +4,7 @@
 ;
 ; What's inside: Lots of game logic.
 ;
-;   - PCM data
+;   - PCM data for drum samples
 ;   - Joypad input reading
 ;   - PPU update routines
 ;   - Game initialization routines
@@ -701,12 +701,18 @@ PlayerSelectSpritePalettes:
       .BYTE $3F,$18,$04,$0F,$27,$30,$01 ; Toad
       .BYTE $3F,$1C,$04,$0F,$36,$25,$07 ; Princess
 TitleCardPalettes:
-      .BYTE $3F,$00,$20,$38,$30,$1A,$0F,$38,$38,$0F,$F,$38,$17,$17,$38,$38
-      .BYTE $28,$18,$08,$38,$30,$27,$01,$38,$37,$27,$06,$38,$25,$36,$06,$38,$12 ; PPU data for storing the palettes
-      .BYTE $36,1
+      .BYTE $3F,$00,$20 ; PPU data
+      .BYTE $38,$30,$1A,$0F
+      .BYTE $38,$38,$0F,$0F
+      .BYTE $38,$17,$17,$38
+      .BYTE $38,$28,$18,$08
+      .BYTE $38,$30,$27,$01
+      .BYTE $38,$37,$27,$06
+      .BYTE $38,$25,$36,$06
+      .BYTE $38,$12,$36,$01
       .BYTE $00
 BonusChanceSpritePalettes:
-      .BYTE $0F,$37,$16,$F
+      .BYTE $0F,$37,$16,$0F
       .BYTE $0F,$37,$16,$0F ; 4
       .BYTE $0F,$37,$16,$0F ; 8
       .BYTE $0F,$37,$16,$0F ; $C
@@ -1291,9 +1297,11 @@ loc_BANKF_E44A:
       LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
+      ; load level data
       JSR     sub_BANK6_9567
 
-      JSR     sub_BANK6_93A4
+      ; load palette data
+      JSR     LoadCurrentPalette
 
       JSR     HideAllSprites
 
@@ -1480,7 +1488,7 @@ loc_BANKF_E54B:
       LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK6_93A4
+      JSR     LoadCurrentPalette
 
       JSR     WaitForNMI
 
@@ -1541,10 +1549,10 @@ loc_BANKF_E5A0:
       LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
-      LDA     #0
+      LDA     #$00
       STA     SubspaceCoins
       LDA     InSubspaceOrJar
-      CMP     #2
+      CMP     #$02
       BEQ     loc_BANKF_E5D4
 
       LDA     #PRGBank_8_9
@@ -1568,11 +1576,11 @@ loc_BANKF_E5A0:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_E5D4:
-      JSR     sub_BANK6_941D
+      JSR     GenerateSubspaceArea
 
       LDA     #Music1_Subspace
       STA     Music1Queue
-      LDA     #4
+      LDA     #$04
       STA     byte_RAM_545
 
 loc_BANKF_E5E1:
@@ -1598,7 +1606,7 @@ loc_BANKF_E5EC:
       LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK6_93A4
+      JSR     LoadCurrentPalette
 
 loc_BANKF_E606:
       JSR     WaitForNMI_TurnOnPPU
@@ -1633,7 +1641,7 @@ loc_BANKF_E627:
       LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK6_93A4
+      JSR     LoadCurrentPalette
 
       JSR     WaitForNMI_TurnOffPPU
 
@@ -1991,7 +1999,7 @@ StartSlotMachine:
 
 DoSlotMachineSpinnyShit:
       JSR     WaitForNMI ; $2C-$2E: Reel change timer
-; $2F-$31: Current reel icon
+      ; $2F-$31: Current reel icon
 
       LDA     #SoundEffect2_Climbing ; Play "reel sound" sound effect
       STA     SoundEffectQueue2

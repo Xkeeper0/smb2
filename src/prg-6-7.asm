@@ -4,6 +4,8 @@
 ;
 ; What's inside:
 ;
+;   - Level handling code
+;
 
 ; .segment BANK6
 ; * =  $8000
@@ -17,7 +19,7 @@ WorldBackgroundPalettePointersLo:
       .BYTE <World6BackgroundPalettes
       .BYTE <World7BackgroundPalettes
 WorldSpritePalettePointersLo:
-      .BYTE <World1SpritePalettes ; DATA XREF: sub_BANK6_938A+7r
+      .BYTE <World1SpritePalettes
 
       .BYTE <World2SpritePalettes
       .BYTE <World3SpritePalettes
@@ -44,8 +46,8 @@ WorldSpritePalettePointersHi:
       .BYTE >World6SpritePalettes
       .BYTE >World7SpritePalettes
 World1BackgroundPalettes:
-      .BYTE $21,$30,$12,$F
-      .BYTE $21,$30,$16,$F ; 4 ; Some of these palettes, across all of these entries,
+      .BYTE $21,$30,$12,$0F
+      .BYTE $21,$30,$16,$0F ; 4 ; Some of these palettes, across all of these entries,
       .BYTE $21,$27,$17,$0F ; 8 ; may be unused; my initial logging suggests that a handful
       .BYTE $21,$29,$1A,$0F ; $C ; of them were not used as data anywhere
       .BYTE $0F,$30,$12,$01 ; $10
@@ -68,12 +70,12 @@ World1BackgroundPalettes:
       .BYTE $0C,$30,$16,$0F ; $54
       .BYTE $0C,$30,$16,$0F ; $58
       .BYTE $0C,$30,$26,$0F ; $5C
-      .BYTE $01,$0F,$F,$0F ; $60
-      .BYTE $01,$0F,$F,$0F ; $64
-      .BYTE $01,$0F,$F,$0F ; $68
-      .BYTE $01,$0F,$F,$0F ; $6C
+      .BYTE $01,$0F,$0F,$0F ; $60
+      .BYTE $01,$0F,$0F,$0F ; $64
+      .BYTE $01,$0F,$0F,$0F ; $68
+      .BYTE $01,$0F,$0F,$0F ; $6C
 World1SpritePalettes:
-      .BYTE $FF,$30,$16,$F
+      .BYTE $FF,$30,$16,$0F
       .BYTE $FF,$38,$10,$0F ; 4
       .BYTE $FF,$30,$25,$0F ; 8
       .BYTE $FF,$30,$16,$02 ; $C
@@ -83,7 +85,7 @@ World1SpritePalettes:
       .BYTE $FF,$30,$10,$0F ; $1C
       .BYTE $FF,$25,$10,$0F ; $20
 World2BackgroundPalettes:
-      .BYTE $11,$30,$2A,$F
+      .BYTE $11,$30,$2A,$0F
       .BYTE $11,$30,$16,$0F ; 4
       .BYTE $11,$28,$18,$0F ; 8
       .BYTE $11,$17,$07,$0F ; $C
@@ -107,12 +109,12 @@ World2BackgroundPalettes:
       .BYTE $0C,$30,$16,$0F ; $54
       .BYTE $0C,$30,$2A,$0F ; $58
       .BYTE $0C,$30,$3A,$0F ; $5C
-      .BYTE $01,$0F,$F,$0F ; $60
-      .BYTE $01,$0F,$F,$0F ; $64
-      .BYTE $01,$0F,$F,$0F ; $68
-      .BYTE $01,$0F,$F,$0F ; $6C
+      .BYTE $01,$0F,$0F,$0F ; $60
+      .BYTE $01,$0F,$0F,$0F ; $64
+      .BYTE $01,$0F,$0F,$0F ; $68
+      .BYTE $01,$0F,$0F,$0F ; $6C
 World2SpritePalettes:
-      .BYTE $FF,$30,$16,$F
+      .BYTE $FF,$30,$16,$0F
       .BYTE $FF,$38,$2A,$0F ; 4
       .BYTE $FF,$30,$25,$0F ; 8
       .BYTE $FF,$30,$16,$02 ; $C
@@ -122,7 +124,7 @@ World2SpritePalettes:
       .BYTE $FF,$30,$10,$0F ; $1C
       .BYTE $FF,$30,$23,$0F ; $20
 World3BackgroundPalettes:
-      .BYTE $22,$30,$12,$F
+      .BYTE $22,$30,$12,$0F
       .BYTE $22,$30,$16,$0F ; 4
       .BYTE $22,$27,$17,$0F ; 8
       .BYTE $22,$29,$1A,$0F ; $C
@@ -146,12 +148,12 @@ World3BackgroundPalettes:
       .BYTE $0C,$30,$16,$0F ; $54
       .BYTE $0C,$30,$21,$0F ; $58
       .BYTE $0C,$30,$31,$0F ; $5C
-      .BYTE $01,$0F,$F,$0F ; $60
-      .BYTE $01,$0F,$F,$0F ; $64
-      .BYTE $01,$0F,$F,$0F ; $68
-      .BYTE $01,$0F,$F,$0F ; $6C
+      .BYTE $01,$0F,$0F,$0F ; $60
+      .BYTE $01,$0F,$0F,$0F ; $64
+      .BYTE $01,$0F,$0F,$0F ; $68
+      .BYTE $01,$0F,$0F,$0F ; $6C
 World3SpritePalettes:
-      .BYTE $FF,$30,$16,$F
+      .BYTE $FF,$30,$16,$0F
       .BYTE $FF,$38,$10,$0F ; 4
       .BYTE $FF,$30,$25,$0F ; 8
       .BYTE $FF,$30,$16,$02 ; $C
@@ -161,7 +163,7 @@ World3SpritePalettes:
       .BYTE $FF,$30,$10,$0F ; $1C
       .BYTE $FF,$2B,$10,$0F ; $20
 World4BackgroundPalettes:
-      .BYTE $23,$30,$12,$F
+      .BYTE $23,$30,$12,$0F
       .BYTE $23,$30,$16,$0F ; 4
       .BYTE $23,$2B,$1B,$0F ; 8
       .BYTE $23,$30,$32,$0F ; $C
@@ -185,12 +187,12 @@ World4BackgroundPalettes:
       .BYTE $0C,$30,$16,$0F ; $54
       .BYTE $0C,$30,$10,$0F ; $58
       .BYTE $0C,$30,$30,$0F ; $5C
-      .BYTE $01,$0F,$F,$0F ; $60
-      .BYTE $01,$0F,$F,$0F ; $64
-      .BYTE $01,$0F,$F,$0F ; $68
-      .BYTE $01,$0F,$F,$0F ; $6C
+      .BYTE $01,$0F,$0F,$0F ; $60
+      .BYTE $01,$0F,$0F,$0F ; $64
+      .BYTE $01,$0F,$0F,$0F ; $68
+      .BYTE $01,$0F,$0F,$0F ; $6C
 World4SpritePalettes:
-      .BYTE $FF,$30,$16,$F
+      .BYTE $FF,$30,$16,$0F
       .BYTE $FF,$38,$10,$0F ; 4
       .BYTE $FF,$30,$25,$0F ; 8
       .BYTE $FF,$30,$16,$02 ; $C
@@ -224,12 +226,12 @@ World5BackgroundPalettes:
       .BYTE $0C,$30,$16,$0F ; $54
       .BYTE $0C,$30,$24,$0F ; $58
       .BYTE $0C,$30,$34,$0F ; $5C
-      .BYTE $01,$0F,$F,$0F ; $60
-      .BYTE $01,$0F,$F,$0F ; $64
-      .BYTE $01,$0F,$F,$0F ; $68
-      .BYTE $01,$0F,$F,$0F ; $6C
+      .BYTE $01,$0F,$0F,$0F ; $60
+      .BYTE $01,$0F,$0F,$0F ; $64
+      .BYTE $01,$0F,$0F,$0F ; $68
+      .BYTE $01,$0F,$0F,$0F ; $6C
 World5SpritePalettes:
-      .BYTE $FF,$30,$16,$F
+      .BYTE $FF,$30,$16,$0F
       .BYTE $FF,$38,$10,$0F ; 4
       .BYTE $FF,$30,$25,$0F ; 8
       .BYTE $FF,$30,$16,$02 ; $C
@@ -239,7 +241,7 @@ World5SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $1C
       .BYTE $FF,$16,$30,$0F ; $20
 World6BackgroundPalettes:
-      .BYTE $21,$30,$2A,$F
+      .BYTE $21,$30,$2A,$0F
       .BYTE $21,$30,$16,$0F ; 4
       .BYTE $21,$28,$18,$0F ; 8
       .BYTE $21,$17,$07,$0F ; $C
@@ -263,12 +265,12 @@ World6BackgroundPalettes:
       .BYTE $0C,$30,$16,$0F ; $54
       .BYTE $0C,$30,$2B,$0F ; $58
       .BYTE $0C,$30,$3B,$0F ; $5C
-      .BYTE $01,$0F,$F,$0F ; $60
-      .BYTE $01,$0F,$F,$0F ; $64
-      .BYTE $01,$0F,$F,$0F ; $68
-      .BYTE $01,$0F,$F,$0F ; $6C
+      .BYTE $01,$0F,$0F,$0F ; $60
+      .BYTE $01,$0F,$0F,$0F ; $64
+      .BYTE $01,$0F,$0F,$0F ; $68
+      .BYTE $01,$0F,$0F,$0F ; $6C
 World6SpritePalettes:
-      .BYTE $FF,$30,$16,$F
+      .BYTE $FF,$30,$16,$0F
       .BYTE $FF,$38,$2A,$0F ; 4
       .BYTE $FF,$30,$25,$0F ; 8
       .BYTE $FF,$30,$16,$02 ; $C
@@ -278,7 +280,7 @@ World6SpritePalettes:
       .BYTE $FF,$30,$10,$0F ; $1C
       .BYTE $FF,$30,$23,$0F ; $20
 World7BackgroundPalettes:
-      .BYTE $21,$30,$12,$F
+      .BYTE $21,$30,$12,$0F
       .BYTE $21,$30,$16,$0F ; 4
       .BYTE $21,$27,$17,$0F ; 8
       .BYTE $21,$29,$1A,$0F ; $C
@@ -302,12 +304,12 @@ World7BackgroundPalettes:
       .BYTE $0C,$30,$16,$0F ; $54
       .BYTE $0C,$38,$18,$0F ; $58
       .BYTE $0C,$28,$08,$0F ; $5C
-      .BYTE $01,$0F,$F,$0F ; $60
-      .BYTE $01,$0F,$F,$0F ; $64
-      .BYTE $01,$0F,$F,$0F ; $68
-      .BYTE $01,$0F,$F,$0F ; $6C
+      .BYTE $01,$0F,$0F,$0F ; $60
+      .BYTE $01,$0F,$0F,$0F ; $64
+      .BYTE $01,$0F,$0F,$0F ; $68
+      .BYTE $01,$0F,$0F,$0F ; $6C
 World7SpritePalettes:
-      .BYTE $FF,$30,$16,$F
+      .BYTE $FF,$30,$16,$0F
       .BYTE $FF,$38,$10,$0F ; 4
       .BYTE $FF,$30,$25,$0F ; 8
       .BYTE $FF,$30,$16,$02 ; $C
@@ -2572,127 +2574,143 @@ ENDIF
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_9370:
+; Puts color X from the current world's background palette into A
+ReadWorldBackgroundColor:
+      ; stash X and Y registers
       STY     byte_RAM_E
       STX     word_RAM_C+1
+      ; look up the address of the current world's palette
       LDY     CurrentWorld
       LDA     WorldBackgroundPalettePointersLo,Y
       STA     byte_RAM_7
       LDA     WorldBackgroundPalettePointersHi,Y
       STA     byte_RAM_8
+      ; load the color
       LDY     word_RAM_C+1
       LDA     (byte_RAM_7),Y
+      ; restore prior X and Y registers
       LDY     byte_RAM_E
       LDX     word_RAM_C+1
       RTS
 
-; End of function sub_BANK6_9370
+; End of function ReadWorldBackgroundColor
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_938A:
+; Puts color X from the current world's sprite palette into A
+ReadWorldSpriteColor:
+      ; stash X and Y registers
       STY     byte_RAM_E
       STX     word_RAM_C+1
+      ; look up the address of the current world's palette
       LDY     CurrentWorld
       LDA     WorldSpritePalettePointersLo,Y
       STA     byte_RAM_7
       LDA     WorldSpritePalettePointersHi,Y
       STA     byte_RAM_8
+      ; load the color
       LDY     word_RAM_C+1
       LDA     (byte_RAM_7),Y
+      ; restore prior X and Y registers
       LDY     byte_RAM_E
       LDX     word_RAM_C+1
       RTS
 
-; End of function sub_BANK6_938A
+; End of function ReadWorldSpriteColor
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_93A4:
+;
+; Loads the current area or jar palette
+;
+LoadCurrentPalette:
       LDA     InSubspaceOrJar
-      CMP     #1
-      BNE     loc_BANK6_93B1
+      CMP     #$01
+      BNE     LoadCurrentPalette_NotJar
 
-      JSR     HijackLevelDataCopyAddressWithJar ; This function call will overwrite the
-; normal level loading area with $7A00
+      ; This function call will overwrite the
+      ; normal level loading area with $7A00
+      JSR     HijackLevelDataCopyAddressWithJar
 
-      JMP     loc_BANK6_93B4
+      JMP     LoadCurrentPalette_AreaOffset
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_93B1:
+LoadCurrentPalette_NotJar:
       JSR     RestoreLevelDataCopyAddress
 
-loc_BANK6_93B4:
-      LDY     #0
+; Read the palette offset from the area header
+LoadCurrentPalette_AreaOffset:
+      LDY     #$00
       LDA     (byte_RAM_5),Y
 
-; End of function sub_BANK6_93A4
+; End of function LoadCurrentPalette
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_93B8:
+;
+; Loads a world palette to RAM
+;
+; The current accumulator value is used doubled and used as the palette offset
+;
+ApplyPalette:
+      ; Read background palette index from area header byte
       STA     byte_RAM_F
-
-loc_BANK6_93BA:
       AND     #$38
       ASL     A
       TAX
-      JSR     sub_BANK6_9370
+      JSR     ReadWorldBackgroundColor
 
+      ; Something PPU-related. If it's not right, the colors are very wrong.
       STA     byte_RAM_4BC
       LDA     #$3F
       STA     PPUBuffer_301
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_302
       LDA     #$20
       STA     byte_RAM_303
-      LDY     #0
 
-loc_BANK6_93D5:
-      JSR     sub_BANK6_9370
-
+      LDY     #$00
+ApplyPalette_BackgroundLoop:
+      JSR     ReadWorldBackgroundColor
       STA     byte_RAM_304,Y
       INX
       INY
       CPY     #$10
+      BCC     ApplyPalette_BackgroundLoop
 
-loc_BANK6_93DF:
-      BCC     loc_BANK6_93D5
-
+      ; Read sprite palette index from area header byte
       LDA     byte_RAM_F
-      AND     #3
+      AND     #$03
       ASL     A
       STA     byte_RAM_F
       ASL     A
       ADC     byte_RAM_F
       ASL     A
       TAX
-      LDY     #0
 
-loc_BANK6_93EF:
-      JSR     sub_BANK6_938A
-
+      LDY     #$00
+ApplyPalette_SpriteLoop:
+      JSR     ReadWorldSpriteColor
       STA     unk_RAM_318,Y
       INX
       INY
-      CPY     #$C
-      BCC     loc_BANK6_93EF
+      CPY     #$0C
+      BCC     ApplyPalette_SpriteLoop
 
-      LDA     #0
+      LDA     #$00
       STA     unk_RAM_318,Y
-      LDY     #3
+      LDY     #$03
 
-loc_BANK6_9402:
+ApplyPalette_PlayerLoop:
       LDA     RestorePlayerPalette0,Y
       STA     unk_RAM_314,Y
       DEY
-      BPL     loc_BANK6_9402
+      BPL     ApplyPalette_PlayerLoop
 
-      LDX     #3
+      LDX     #$03
       LDY     #$10
-
-loc_BANK6_940F:
+ApplyPalette_SkyLoop:
       LDA     byte_RAM_4BC
       STA     byte_RAM_304,Y
       INY
@@ -2700,28 +2718,27 @@ loc_BANK6_940F:
       INY
       INY
       DEX
-      BPL     loc_BANK6_940F
+      BPL     ApplyPalette_SkyLoop
 
       RTS
 
-; End of function sub_BANK6_93B8
+; End of function ApplyPalette
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_941D:
+GenerateSubspaceArea:
       LDA     CurrentLevelArea
       STA     CurrentLevelAreaCopy
-      LDA     #$30
-      STA     byte_RAM_F
-      JSR     sub_BANK6_93B8
+      LDA     #$30 ; subspace palette (works like area header byte)
+      STA     byte_RAM_F ; why...?
+      JSR     ApplyPalette
 
       LDA     ScreenBoundaryLeftHi
       STA     byte_RAM_E8
 
-loc_BANK6_942F:
       LDA     ScreenBoundaryLeftLo
       CLC
-      ADC     #8
+      ADC     #$08
       BCC     loc_BANK6_9439
 
       INC     byte_RAM_E8
@@ -2731,7 +2748,6 @@ loc_BANK6_9439:
       PHA
       SEC
 
-loc_BANK6_943D:
       SBC     ScreenBoundaryLeftLo
       STA     byte_RAM_BA
       PLA
@@ -2740,7 +2756,7 @@ loc_BANK6_943D:
       LSR     A
       LSR     A
       STA     byte_RAM_E5
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_E6
       LDA     byte_RAM_E8
       STA     word_RAM_C+1
@@ -2763,13 +2779,9 @@ loc_BANK6_9458:
       ADC     #$10
       TAX
       AND     #$F0
-
-loc_BANK6_946C:
       BNE     loc_BANK6_9458
 
       TYA
-
-loc_BANK6_946F:
       AND     #$F
       TAY
       JSR     sub_BANK6_9890
@@ -2779,7 +2791,7 @@ loc_BANK6_946F:
 
       RTS
 
-; End of function sub_BANK6_941D
+; End of function GenerateSubspaceArea
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2955,6 +2967,7 @@ locret_BANK6_9547:
 
 ; =============== S U B R O U T I N E =======================================
 
+; level loading?
 sub_BANK6_9567:
       JSR     sub_BANK6_933A
 
@@ -3030,9 +3043,9 @@ loc_BANK6_95CE:
 ; =============== S U B R O U T I N E =======================================
 
 RestoreLevelDataCopyAddress:
-      LDA     #$78
+      LDA     #>RawLevelData
       STA     byte_RAM_6
-      LDA     #0
+      LDA     #<RawLevelData
       STA     byte_RAM_5
       RTS
 
@@ -3041,9 +3054,9 @@ RestoreLevelDataCopyAddress:
 ; =============== S U B R O U T I N E =======================================
 
 HijackLevelDataCopyAddressWithJar:
-      LDA     #$7A
+      LDA     #>RawJarData
       STA     byte_RAM_6
-      LDA     #0
+      LDA     #<RawJarData
       STA     byte_RAM_5
       RTS
 
