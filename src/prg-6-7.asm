@@ -2968,8 +2968,7 @@ locret_BANK6_9547:
 
 ; =============== S U B R O U T I N E =======================================
 
-; level loading?
-sub_BANK6_9567:
+LoadCurrentArea:
       JSR     sub_BANK6_933A
 
       JSR     sub_BANK6_98DC
@@ -2978,40 +2977,52 @@ sub_BANK6_9567:
 
       JSR     sub_BANK6_950E
 
-      LDY     #3
+      ; read the level header
+
+      ; ground type
+      LDY     #$03
       LDA     (byte_RAM_5),Y
       LSR     A
-      AND     #$1C
+      AND     #%00011100
       STA     byte_RAM_55E
       JSR     RestoreLevelDataCopyAddress
 
-      LDY     #0
+      ; horizontal or vertical level
+      LDY     #$00
       LDA     (byte_RAM_5),Y
       ASL     A
-      LDA     #0
+      LDA     #$00
       ROL     A
       STA     IsHorizontalLevel
-      LDA     #0
+
+      ; ???
+      LDA     #$00
       STA     byte_RAM_E8
-      LDY     #2
+
+      ; level length (pages)
+      LDY     #$02
       LDA     (byte_RAM_5),Y
       LSR     A
       LSR     A
       LSR     A
       LSR     A
       STA     byte_RAM_53F
+
+      ; object type
       LDA     (byte_RAM_5),Y
-      AND     #3
+      AND     #%00000011
       STA     byte_RAM_542
       LDA     (byte_RAM_5),Y
       LSR     A
       LSR     A
-      AND     #3
+      AND     #%00000011
       STA     byte_RAM_543
       DEY
+
+      ; ground type
       LDA     (byte_RAM_5),Y
-      AND     #$1F
-      CMP     #$1F
+      AND     #%00011111
+      CMP     #%00011111
 
 loc_BANK6_95B0:
       BEQ     loc_BANK6_95C1
@@ -3039,7 +3050,7 @@ loc_BANK6_95CE:
       STA     PseudoRNGValues
       RTS
 
-; End of function sub_BANK6_9567
+; End of function LoadCurrentArea
 
 ; =============== S U B R O U T I N E =======================================
 

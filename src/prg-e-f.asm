@@ -1298,7 +1298,7 @@ loc_BANKF_E44A:
       JSR     ChangeMappedPRGBank
 
       ; load level data
-      JSR     sub_BANK6_9567
+      JSR     LoadCurrentArea
 
       ; load palette data
       JSR     LoadCurrentPalette
