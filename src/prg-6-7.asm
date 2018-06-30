@@ -736,6 +736,7 @@ World7ObjectTiles:
       .BYTE $81, $81, $81, $81 ; $20
 ; ---------------------------------------------------------------------------
 
+; Load world tile definitions
 loc_BANK6_8A0B:
       LDA     byte_RAM_50E
       ASL     A

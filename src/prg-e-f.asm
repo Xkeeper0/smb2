@@ -986,7 +986,7 @@ loc_BANKF_E269:
 
       JSR     DisableNMI
 
-      JSR     sub_BANKF_FE16
+      JSR     LoadWorldCHRBanks
 
       LDA     #PRGBank_A_B
       JSR     ChangeMappedPRGBank
@@ -1483,7 +1483,7 @@ loc_BANKF_E533:
 loc_BANKF_E54B:
       JSR     WaitForNMI_TurnOffPPU
 
-      JSR     sub_BANKF_FE16
+      JSR     LoadWorldCHRBanks
 
       LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
@@ -4501,7 +4501,7 @@ byte_BANKF_F64E:
       .BYTE $98
       .BYTE $D5
 WarpDestinations:
-      .BYTE $03, $01, $04, 5, $06, $05, $06
+      .BYTE $03, $01, $04, $05, $06, $05, $06
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5207,7 +5207,8 @@ byte_BANKF_FE0E:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_FE16:
+; Load CHR for current world
+LoadWorldCHRBanks:
       LDY     #8
       STY     SpriteCHR2
       INY
@@ -5220,8 +5221,7 @@ sub_BANKF_FE16:
       LDA     #$18
       STA     BackgroundCHR2
 
-; load current player sprites
-loc_BANKF_FE33:
+LoadCharacterCHRBanks:
       LDA     CurrentCharacter
       ASL     A
       ORA     PlayerCurrentSize
@@ -5230,7 +5230,7 @@ loc_BANKF_FE33:
       STA     SpriteCHR1
       RTS
 
-; End of function sub_BANKF_FE16
+; End of function LoadWorldCHRBanks
 
 ; =============== S U B R O U T I N E =======================================
 

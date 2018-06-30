@@ -2259,7 +2259,7 @@ loc_BANK0_8BF9:
 
 loc_BANK0_8C03:
       STA     PlayerCurrentSize
-      JMP     loc_BANKF_FE33
+      JMP     LoadCharacterCHRBanks
 
 ; ---------------------------------------------------------------------------
 

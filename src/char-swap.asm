@@ -24,7 +24,7 @@ LoadCharacterData:
       ; janky way to force palette update
       LDA     #$01
       STA     SkyFlashTimer
-      JSR     loc_BANKF_FE33 ; update chr
+      JSR     LoadCharacterCHRBanks ; update chr
 ExitChangeCharacter:
       RTS
 
