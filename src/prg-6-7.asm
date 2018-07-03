@@ -840,7 +840,7 @@ loc_BANK6_8A6B:
       CMP     #6
       BEQ     locret_BANK6_8A9B
 
-      JSR     sub_BANK6_98BC
+      JSR     LevelParser_EatDoorPointer
 
 locret_BANK6_8A9B:
       RTS
@@ -922,7 +922,7 @@ loc_BANK6_8AD0:
       CMP     #6
       BEQ     locret_BANK6_8B01
 
-      JSR     sub_BANK6_98BC
+      JSR     LevelParser_EatDoorPointer
 
 locret_BANK6_8B01:
       RTS
@@ -2107,7 +2107,7 @@ loc_BANK6_9034:
       BEQ     locret_BANK6_9059
 
 loc_BANK6_9056:
-      JSR     sub_BANK6_98BC
+      JSR     LevelParser_EatDoorPointer
 
 locret_BANK6_9059:
       RTS
@@ -2995,7 +2995,7 @@ LoadCurrentArea:
       ROL     A
       STA     IsHorizontalLevel
 
-      ; ???
+      ; reset the screen position?
       LDA     #$00
       STA     byte_RAM_E8
 
@@ -3023,8 +3023,6 @@ LoadCurrentArea:
       LDA     (byte_RAM_5),Y
       AND     #%00011111
       CMP     #%00011111
-
-loc_BANK6_95B0:
       BEQ     loc_BANK6_95C1
 
       STA     byte_RAM_541
@@ -3771,7 +3769,7 @@ locret_BANK6_98BB:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_98BC:
+LevelParser_EatDoorPointer:
       LDY     byte_RAM_4
       INY
       LDA     (byte_RAM_5),Y
@@ -3794,7 +3792,7 @@ loc_BANK6_98D6:
       STA     unk_RAM_51D,Y
       RTS
 
-; End of function sub_BANK6_98BC
+; End of function LevelParser_EatDoorPointer
 
 ; ---------------------------------------------------------------------------
 unk_BANK6_98DA:
