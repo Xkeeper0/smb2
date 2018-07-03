@@ -1132,30 +1132,138 @@ LevelData_1_3_Area3:
       .BYTE $FF
 LevelData_2_1_Area0:
       .BYTE $80, $EC, $90, $00
-      .BYTE $00, $0E, $14, $11, $12, $10, $1C, $10, $4A, $17, $12, $17
-      .BYTE $8A, $10, $27, $17, $E2, $10, $14, $11, $4A, $07, $0F, $D3, $11, $D5, $0E, $D1 ; $10
-      .BYTE $10, $D1, $06, $D1, $0D, $D1, $77, $10, $19, $11, $48, $29, $1C, $D3, $12, $D1 ; $20
-      .BYTE $0B, $D1, $0F, $D1, $13, $D1, $0A, $D1, $B8, $26, $0A, $22, $0B, $2B, $0C, $22 ; $30
-      .BYTE $0D, $22, $17, $36, $14, $07, $08, $34, $17, $36, $10, $D1, $08, $34, $8E, $10 ; $40
-      .BYTE $39, $29, $37, $0F, $0A, $0F, $1D, $D2, $F0, $0C, $F6, $01, $93, $11, $47, $0F ; $50
-      .BYTE $0F, $37, $1E, $39, $1D, $3B, $F1, $8C, $F6, $00, $89, $10, $10, $29, $05, $29 ; $60
-      .BYTE $1F, $29, $11, $33, $10, $35, $1C, $0F, $F2, $7D, $0F, $F0, $0C, $F6, $01, $F1 ; $70
-      .BYTE $8C, $F6, $00, $A3, $10, $11, $11, $07, $17, $59, $0B, $03, $10, $FF ; $80
+      .BYTE $00, $0E
+      .BYTE $14, $11
+      .BYTE $12, $10
+      .BYTE $1C, $10
+      .BYTE $4A, $17
+      .BYTE $12, $17
+      .BYTE $8A, $10
+      .BYTE $27, $17
+      .BYTE $E2, $10
+      .BYTE $14, $11
+      .BYTE $4A, $07
+      .BYTE $0F, $D3
+      .BYTE $11, $D5
+      .BYTE $0E, $D1
+      .BYTE $10, $D1
+      .BYTE $06, $D1
+      .BYTE $0D, $D1
+      .BYTE $77, $10
+      .BYTE $19, $11
+      .BYTE $48, $29
+      .BYTE $1C, $D3
+      .BYTE $12, $D1
+      .BYTE $0B, $D1
+      .BYTE $0F, $D1
+      .BYTE $13, $D1
+      .BYTE $0A, $D1
+      .BYTE $B8, $26
+      .BYTE $0A, $22
+      .BYTE $0B, $2B
+      .BYTE $0C, $22
+      .BYTE $0D, $22
+      .BYTE $17, $36
+      .BYTE $14, $07
+      .BYTE $08, $34
+      .BYTE $17, $36
+      .BYTE $10, $D1
+      .BYTE $08, $34
+      .BYTE $8E, $10
+      .BYTE $39, $29
+      .BYTE $37, $0F
+      .BYTE $0A, $0F
+      .BYTE $1D, $D2
+      .BYTE $F0, $0C
+      .BYTE $F6, $01
+      .BYTE $93, $11
+      .BYTE $47, $0F
+      .BYTE $0F, $37
+      .BYTE $1E, $39
+      .BYTE $1D, $3B
+      .BYTE $F1, $8C
+      .BYTE $F6, $00
+      .BYTE $89, $10
+      .BYTE $10, $29
+      .BYTE $05, $29
+      .BYTE $1F, $29
+      .BYTE $11, $33
+      .BYTE $10, $35
+      .BYTE $1C, $0F
+      .BYTE $F2
+      .BYTE $7D, $0F
+      .BYTE $F0, $0C
+      .BYTE $F6, $01
+      .BYTE $F1, $8C
+      .BYTE $F6, $00
+      .BYTE $A3, $10
+      .BYTE $11, $11
+      .BYTE $07, $17
+      .BYTE $59, $0B
+      .BYTE $03, $10
+      .BYTE $FF
 LevelData_2_1_Area1:
       .BYTE $09, $F6, $31, $09
-      .BYTE $66, $13, $03, $09, $7D, $29, $F0, $55, $F1, $1C, $F1, $4D
-      .BYTE $83, $29, $F2, $72, $29, $1D, $29, $32, $A3, $32, $05, $F1, $C0, $12, $AA, $AC ; $10
-      .BYTE $0A, $03, $20, $F0, $F4, $F1, $98, $F1, $A0, $FF ; $20
+      .BYTE $66, $13
+      .BYTE $03, $09
+      .BYTE $7D, $29
+      .BYTE $F0, $55
+      .BYTE $F1, $1C
+      .BYTE $F1, $4D
+      .BYTE $83, $29
+      .BYTE $F2
+      .BYTE $72, $29
+      .BYTE $1D, $29
+      .BYTE $32, $A3
+      .BYTE $32, $05
+      .BYTE $F1, $C0
+      .BYTE $12, $AA
+      .BYTE $AC, $0A
+      .BYTE $03, $20
+      .BYTE $F0, $F4
+      .BYTE $F1, $98
+      .BYTE $F1, $A0
+      .BYTE $FF
 LevelData_2_1_Area4:
       .BYTE $91, $EA, $20, $1A
-      .BYTE $97, $80, $23, $0A, $03, $13, $F0, $4D, $F0, $CC, $F1, $02
-      .BYTE $F2, $F0, $48, $F0, $8C, $F2, $84, $86, $05, $86, $F0, $48, $F1, $0B, $F1, $CA ; $10
-      .BYTE $F5, $04, $00, $FF ; $20
+      .BYTE $97, $80
+      .BYTE $23, $0A
+      .BYTE $03, $13
+      .BYTE $F0, $4D
+      .BYTE $F0, $CC
+      .BYTE $F1, $02
+      .BYTE $F2
+      .BYTE $F0, $48
+      .BYTE $F0, $8C
+      .BYTE $F2
+      .BYTE $84, $86
+      .BYTE $05, $86
+      .BYTE $F0, $48
+      .BYTE $F1, $0B
+      .BYTE $F1, $CA
+      .BYTE $F5, $04, $00
+      .BYTE $FF
 LevelData_2_1_Area3:
       .BYTE $18, $E3, $01, $01
-      .BYTE $54, $32, $09, $32, $15, $30, $0A, $30, $27, $31, $24, $31
-      .BYTE $0A, $31, $15, $31, $09, $31, $16, $33, $1B, $24, $F0, $44, $F0, $65, $F0, $86 ; $10
-      .BYTE $F0, $A7, $F1, $86, $F1, $A3, $F1, $C8, $FF ; $20
+      .BYTE $54, $32
+      .BYTE $09, $32
+      .BYTE $15, $30
+      .BYTE $0A, $30
+      .BYTE $27, $31
+      .BYTE $24, $31
+      .BYTE $0A, $31
+      .BYTE $15, $31
+      .BYTE $09, $31
+      .BYTE $16, $33
+      .BYTE $1B, $24
+      .BYTE $F0, $44
+      .BYTE $F0, $65
+      .BYTE $F0, $86
+      .BYTE $F0, $A7
+      .BYTE $F1, $86
+      .BYTE $F1, $A3
+      .BYTE $F1, $C8
+      .BYTE $FF
 LevelData_2_2_Area0:
       .BYTE $89, $EA, $10, $19
       .BYTE $8E, $81
