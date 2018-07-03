@@ -476,8 +476,20 @@ LevelDataPointersHi:
 ;   $TT - type
 ;
 ; Special objects (1-3 bytes):
-;   @TODO
+;   $F0 - ground setting; one parameter for the ground setting
+;   $F1 - ground setting; one parameter for the ground setting
+;   $F2 - skip forward one page; no parameters
+;   $F3 - skip forward two pages; no parameters
+;   $F4 - new object layer; next object will be positioned relative to (0, 0) of the first page; no parameters
+;   $F5 - area pointer; byte 1: world/level offset, byte 2: $AP, where A is the area and P is the page offset within the area
+;   $F6 - ground appearance; one parameter for ground tile
+;   $F7-$FE - seemingly unused
+;   $FF - end of the data for the current level; no parameters
 ;
+; Door pointer (2 bytes):
+;   In worlds 1-5, the object immediately following a door acts as an area pointer
+;
+
 LevelData_1_1_Area0:
       .BYTE $09, $F3, $30, $00
       .BYTE $B7, $0A
