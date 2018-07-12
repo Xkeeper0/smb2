@@ -17,22 +17,21 @@ StartProcessingSoundQueue:
       LDA     #$FF
       STA     JOY2
       LDA     StackArea
-      CMP     #$41
-; various values otherwise
+      CMP     #$41 ; various values otherwise
       BNE     ProcessMusicAndSfxQueues
 
-      LDA     #$C ; Mute the two square channels
-; (TODO: Bitmask pls)
+      LDA     #%00001100 ; Mute the two square channels
       STA     SND_CHN
-      JMP     ProcessOnlyMusicQueue2 ; You would think you could skip processing,
-; since if the game is paused, nothing should
-; be setting new music or whatever.
-;
-; You would be correct, except for the suicide code!
-; That sets MusicQueue2.
-;
-; If not for processing it, the music would not
-; change (or stop) when you used the code. Welp!
+      ; You would think you could skip processing,
+      ; since if the game is paused, nothing should
+      ; be setting new music or whatever.
+      ;
+      ; You would be correct, except for the suicide code!
+      ; That sets MusicQueue2.
+      ;
+      ; If not for processing it, the music would not
+      ; change (or stop) when you used the code. Welp!
+      JMP     ProcessOnlyMusicQueue2
 
 ; ---------------------------------------------------------------------------
 
@@ -1329,243 +1328,166 @@ ENDIF
 
 ; [000007A1 BYTES: END OF AREA UNUSED-BANK4:875F. PRESS KEYPAD "-" TO COLLAPSE]
 NoteLengthTable:
-      .BYTE $03, $03, $04, $04, $06, $09, 8, $08, $0C, $12, $18, $24, $30, $03, $04, 5
-      .BYTE $04, $07, $0A, $09, $0A, $E, $15, $1C, $2A, $38, $0B, $04, $04, $05, $06, $08 ; $10
-      .BYTE $0C, $B, $0A, $10, $18, $20, $30, $40, $04, $05, $06, $06, $09, $D, $0C, $C ; $20
-      .BYTE $12, $1B, $24, $36, $48, $0E, $03, $05, $05, $07, $06, $A, $0F, $D, $0E, $14 ; $30
-      .BYTE $1E, $28, $3C, $50, 5, $06, $07, $08, $0B, $10, $0F, $E, $16, $21, $2C, $42 ; $40
+      .BYTE $03, $03, $04, $04, $06, $09, $08, $08, $0C, $12, $18, $24, $30, $03, $04, $05
+      .BYTE $04, $07, $0A, $09, $0A, $0E, $15, $1C, $2A, $38, $0B, $04, $04, $05, $06, $08 ; $10
+      .BYTE $0C, $0B, $0A, $10, $18, $20, $30, $40, $04, $05, $06, $06, $09, $0D, $0C, $0C ; $20
+      .BYTE $12, $1B, $24, $36, $48, $0E, $03, $05, $05, $07, $06, $0A, $0F, $0D, $0E, $14 ; $30
+      .BYTE $1E, $28, $3C, $50, $05, $06, $07, $08, $0B, $10, $0F, $0E, $16, $21, $2C, $42 ; $40
       .BYTE $58, $11, $06, $06, $08, $08, $0C, $12, $10, $10, $18, $24, $30, $48, $60, $02 ; $50
-      .BYTE $06, $07, $09, $08, $D, $13, $11, $12, $1A, $27, $34, $4E, $68, $14, $07, $07 ; $60
-      .BYTE $09, $0A, $E, $15, $13, $12, $1C, $2A, $38, $54, $70, $03, $04, $07, 8, $0A ; $70
-      .BYTE $0A, $F, $16, $14, $14, $1E, $2D, $3C, $5A, $78, $17, $08, $08, $0B, $A, $10 ; $80
-      .BYTE $18, $15, $16, $20, $30, $40, $60, $80, $08, $09, $0B, $C, $11, $19, $15, $16 ; $90
-      .BYTE $22, $33, $44, $60, $88, $1A, $09, $09, $C, $0C, $12, $1B, $18, $18, $24, $36 ; $A0
+      .BYTE $06, $07, $09, $08, $0D, $13, $11, $12, $1A, $27, $34, $4E, $68, $14, $07, $07 ; $60
+      .BYTE $09, $0A, $0E, $15, $13, $12, $1C, $2A, $38, $54, $70, $03, $04, $07, $08, $0A ; $70
+      .BYTE $0A, $0F, $16, $14, $14, $1E, $2D, $3C, $5A, $78, $17, $08, $08, $0B, $0A, $10 ; $80
+      .BYTE $18, $15, $16, $20, $30, $40, $60, $80, $08, $09, $0B, $0C, $11, $19, $15, $16 ; $90
+      .BYTE $22, $33, $44, $60, $88, $1A, $09, $09, $0C, $0C, $12, $1B, $18, $18, $24, $36 ; $A0
       .BYTE $48, $6C, $90 ; $B0
 IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $8FB3 - $8FFF
+      ; Unused space in the original
+      ; $8FB3 - $8FFF
 ENDIF
-; @TODO
-; Music pointers are not currently defined and labeled yet,
-; so we have to keep proper alignment
+      ; @TODO
+      ; Music pointers are not currently defined and labeled yet,
+      ; so we have to keep proper alignment
       .pad $9000, $FF
 
 
 MusicPartPointers:
-      .BYTE $99,$8E,$84,$A4,$89,$84,$99
-      .BYTE $2A,$30,$36,$30,$3C,$42,$A9
-      .BYTE $9E,$93,$48,$4E,$54,$5A,$54
-      .BYTE $60,$66,$72,$78,$7E,$B5,$AF
-      .BYTE $BB,$C1,$C7,$CD,$D3,$CD,$D9
-      .BYTE $DF,$EB,$E5,$F7,$F1,$FD,$6C
-      .BYTE $00,$AD,$98,$6B,$36,$A0,0
-      .BYTE $5C,$99,$8E,$48,$B0,$00,$9A
-      .BYTE $99
-      .BYTE $6F
-      .BYTE $48
-      .BYTE $76
-      .BYTE $00
-      .BYTE $9E
-      .BYTE $99
-      .BYTE $6B
-      .BYTE $47
-      .BYTE $72
-      .BYTE $00
-      .BYTE $26
-      .BYTE $9A
-      .BYTE $8A
-      .BYTE $46
-      .BYTE $AC
-      .BYTE $28
-      .BYTE $D4
-      .BYTE $9B
-      .BYTE $2B
-      .BYTE $16
-      .BYTE $3D
-      .BYTE $28
-      .BYTE $20
-      .BYTE $9C
-      .BYTE $A8
-      .BYTE $54
-      .BYTE $C9
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $9C
-      .BYTE $DD
-      .BYTE $73
-      .BYTE $6C
-      .BYTE $28
-      .BYTE $3F
-      .BYTE $9D
-      .BYTE $B2
-      .BYTE $73
-      .BYTE $26
-      .BYTE $28
-      .BYTE $00
-      .BYTE $9E
-      .BYTE $38
-      .BYTE $1D
-      .BYTE $46
-      .BYTE $28
-      .BYTE $4D
-      .BYTE $9E
-      .BYTE $A7
-      .BYTE $4F
-      .BYTE $C8
-      .BYTE $6E
-      .BYTE $BD
-      .BYTE $94
-      .BYTE $53
+      ; Mushroom
+      .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
+      ; Boss beaten
+      .BYTE MusicHeaderBossBeaten - MusicPartPointers
+      ; Crystal fanfare (not sure where this one is used)
+      .BYTE MusicHeaderCrystal - MusicPartPointers
+      ; Death / Lose
+      .BYTE MusicHeaderDeath - MusicPartPointers
+      ; Game Over
+      .BYTE MusicHeaderGameOver - MusicPartPointers
+      ; Crystal fanfare
+      .BYTE MusicHeaderCrystal - MusicPartPointers
+      ; Bonus chance
+      .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
+      ; Character select
       .BYTE $2A
-      .BYTE $84
-      .BYTE $28
-      .BYTE $1C
-      .BYTE $9F
-      .BYTE $83
-      .BYTE $42
-      .BYTE $00
-      .BYTE $00
-      .BYTE $69
-      .BYTE $94
-      .BYTE $37
-      .BYTE $1A
-      .BYTE $49
-      .BYTE $28
-      .BYTE $C7
-      .BYTE $9F
-      .BYTE $96
-      .BYTE $4B
-      .BYTE $00
-      .BYTE $00
-      .BYTE $48
-      .BYTE $A1
-      .BYTE $1B
-      .BYTE $0D
-      .BYTE $00
-      .BYTE $CE
-      .BYTE $A0
-      .BYTE $1B
-      .BYTE $0E
-      .BYTE $00
-      .BYTE $F2
-      .BYTE $A0
-      .BYTE $41
-      .BYTE $27
-      .BYTE $00
-      .BYTE $93
-      .BYTE $9B
-      .BYTE $2F
-      .BYTE $21
-      .BYTE $38
-      .BYTE $52
-      .BYTE $BB
-      .BYTE $A0
-      .BYTE $00
-      .BYTE $0A
-      .BYTE $00
-      .BYTE $DF
-      .BYTE $9A
-      .BYTE $97
-      .BYTE $61
-      .BYTE $B0
-      .BYTE $28
-      .BYTE $6F
-      .BYTE $A1
-      .BYTE $17
-      .BYTE $0C
-      .BYTE $00
-      .BYTE $5D
-      .BYTE $9A
-      .BYTE $6C
-      .BYTE $45
-      .BYTE $79
-      .BYTE $1B
-      .BYTE $A7
-      .BYTE $96
-      .BYTE $BC
-      .BYTE $64
-      .BYTE $59
-      .BYTE $1B
-      .BYTE $3E
-      .BYTE $96
-      .BYTE $43
-      .BYTE $22
-      .BYTE $57
-      .BYTE $1B
-      .BYTE $94
-      .BYTE $97
-      .BYTE $8D
-      .BYTE $47
-      .BYTE $BA
-      .BYTE $1B
-      .BYTE $78
-      .BYTE $98
-      .BYTE $24
-      .BYTE $12
-      .BYTE $29
-      .BYTE $28
-      .BYTE $50
-      .BYTE $95
-      .BYTE $38
-      .BYTE $1C
-      .BYTE $83
-      .BYTE $28
-      .BYTE $A3
-      .BYTE $95
-      .BYTE $24
-      .BYTE $12
       .BYTE $30
-      .BYTE $28
-      .BYTE $E0
-      .BYTE $95
-      .BYTE $22
-      .BYTE $10
-      .BYTE $51
-      .BYTE $28
-      .BYTE $0F
-      .BYTE $96
-      .BYTE $17
-      .BYTE $0A
-      .BYTE $22
-      .BYTE $6E
-      .BYTE $1E
-      .BYTE $91
-      .BYTE $3D
-      .BYTE $1F
-      .BYTE $6D
-      .BYTE $6E
-      .BYTE $9C
-      .BYTE $91
-      .BYTE $41
-      .BYTE $21
-      .BYTE $8C
-      .BYTE $6E
-      .BYTE $80
-      .BYTE $92
-      .BYTE $2A
-      .BYTE $5A
-      .BYTE $19
-      .BYTE $6E
-      .BYTE $F2
-      .BYTE $92
-      .BYTE $4C
-      .BYTE $14
-      .BYTE $68
-      .BYTE $6E
-      .BYTE $0D
-      .BYTE $92
-      .BYTE $43
-      .BYTE $29
-      .BYTE $1B
-      .BYTE $6E
-      .BYTE $76
+      .BYTE $36
+      .BYTE $30
+      .BYTE $3C
+      .BYTE $42
+      .BYTE $A9
+      .BYTE $9E
       .BYTE $93
-      .BYTE $00
-      .BYTE $72
-      .BYTE $00
+      ; Overworld
+      .BYTE $48
+      .BYTE $4E
+      .BYTE $54
+      .BYTE $5A
+      .BYTE $54
+      .BYTE $60
+      .BYTE $66
+      ; Boss
+      .BYTE MusicHeaderBoss - MusicPartPointers
+      ; Star
+      .BYTE MusicHeaderStar - MusicPartPointers
+      ; Wart
+      .BYTE MusicHeaderWart - MusicPartPointers
+      ; Title screen
+      .BYTE MusicHeaderTitleScreen1 - MusicPartPointers
+      .BYTE MusicHeaderTitleScreen2 - MusicPartPointers
+      .BYTE MusicHeaderTitleScreen3 - MusicPartPointers
+      .BYTE MusicHeaderTitleScreen4 - MusicPartPointers
+      ; Subspace
+      .BYTE MusicHeaderSubspace1 - MusicPartPointers
+      .BYTE MusicHeaderSubspace2 - MusicPartPointers
+      .BYTE MusicHeaderSubspace3 - MusicPartPointers
+      .BYTE MusicHeaderSubspace2 - MusicPartPointers
+      .BYTE MusicHeaderSubspace4 - MusicPartPointers
+      ; Ending
+      .BYTE MusicHeaderEnding1 - MusicPartPointers
+      .BYTE MusicHeaderEnding2 - MusicPartPointers
+      .BYTE MusicHeaderEnding3 - MusicPartPointers
+      .BYTE MusicHeaderEnding4 - MusicPartPointers
+      .BYTE MusicHeaderEnding5 - MusicPartPointers
+      .BYTE MusicHeaderEnding6 - MusicPartPointers
+      ; Underground
+      .BYTE MusicHeaderUnderground - MusicPartPointers
+
+MusicPartHeaders:
+MusicHeaderCharacterSelect1:
+      .BYTE $00, $AD, $98, $6B, $36, $A0
+MusicHeaderCharacterSelect2:
+      .BYTE $00, $5C, $99, $8E, $48, $B0
+MusicHeaderCharacterSelect3:
+      .BYTE $00, $9A, $99, $6F, $48, $76
+MusicHeaderCharacterSelect4:
+      .BYTE $00, $9E, $99, $6B, $47, $72
+MusicHeaderCharacterSelect5:
+      .BYTE $00, $26, $9A, $8A, $46, $AC
+MusicHeaderOverworld1:
+      .BYTE $28, $D4, $9B, $2B, $16, $3D
+MusicHeaderOverworld2:
+      .BYTE $28, $20, $9C, $A8, $54, $C9
+MusicHeaderOverworld3:
+      .BYTE $28, $F9, $9C, $DD, $73, $6C
+MusicHeaderOverworld4:
+      .BYTE $28, $3F, $9D, $B2, $73, $26
+MusicHeaderOverworld5:
+      .BYTE $28, $00, $9E, $38, $1D, $46
+MusicHeaderOverworld6:
+      .BYTE $28, $4D, $9E, $A7, $4F, $C8
+MusicHeaderUnderground:
+      .BYTE $6E, $BD, $94, $53, $2A, $84
+MusicHeaderBoss:
+      .BYTE $28, $1C, $9F, $83, $42, $00
+MusicHeaderStar:
+      .BYTE $00, $69, $94, $37, $1A, $49
+MusicHeaderWart:
+      .BYTE $28, $C7, $9F, $96, $4B, $00
+MusicHeaderCrystal:
+      .BYTE $00, $48, $A1, $1B, $0D
+MusicHeaderGameOver:
+      .BYTE $00, $CE, $A0, $1B, $0E
+MusicHeaderBossBeaten:
+      .BYTE $00, $F2, $A0, $41, $27
+MusicHeaderCharacterSelect8:
+      .BYTE $00, $93, $9B, $2F, $21, $38
+MusicHeaderMushroomBonusChance:
+      .BYTE $52, $BB, $A0, $00, $0A
+MusicHeaderCharacterSelect7:
+      .BYTE $00, $DF, $9A, $97, $61, $B0
+MusicHeaderDeath:
+      .BYTE $28, $6F, $A1, $17, $0C
+MusicHeaderCharacterSelect6:
+      .BYTE $00, $5D, $9A, $6C, $45, $79
+MusicHeaderTitleScreen2:
+      .BYTE $1B, $A7, $96, $BC, $64, $59
+MusicHeaderTitleScreen1:
+      .BYTE $1B, $3E, $96, $43, $22, $57
+MusicHeaderTitleScreen3:
+      .BYTE $1B, $94, $97, $8D, $47, $BA
+MusicHeaderTitleScreen4:
+      .BYTE $1B, $78, $98, $24, $12, $29
+MusicHeaderSubspace1:
+      .BYTE $28, $50, $95, $38, $1C, $83
+MusicHeaderSubspace2:
+      .BYTE $28, $A3, $95, $24, $12, $30
+MusicHeaderSubspace3:
+      .BYTE $28, $E0, $95, $22, $10, $51
+MusicHeaderSubspace4:
+      .BYTE $28, $0F, $96, $17, $0A, $22
+MusicHeaderEnding1:
+      .BYTE $6E, $1E, $91, $3D, $1F, $6D
+MusicHeaderEnding3:
+      .BYTE $6E, $9C, $91, $41, $21, $8C
+MusicHeaderEnding2:
+      .BYTE $6E, $80, $92, $2A, $5A, $19
+MusicHeaderEnding5:
+      .BYTE $6E, $F2, $92, $4C, $14, $68
+MusicHeaderEnding4:
+      .BYTE $6E, $0D, $92, $43, $29, $1B
+MusicHeaderEnding6:
+      .BYTE $6E, $76, $93, $00, $72, $00
+
 MusicPointersFirstPart:
       .BYTE $10
-
       .BYTE $07
       .BYTE $29
       .BYTE $17
@@ -1574,9 +1496,9 @@ MusicPointersFirstPart:
       .BYTE $19
       .BYTE $1A
       .BYTE $23
+
 MusicPointersEndPart:
       .BYTE $16
-
       .BYTE $0F
       .BYTE $29
       .BYTE $17
@@ -1585,9 +1507,9 @@ MusicPointersEndPart:
       .BYTE $19
       .BYTE $1D
       .BYTE $28
+
 MusicPointersLoopPart:
       .BYTE $11
-
       .BYTE $08
       .BYTE $29
       .BYTE $17
@@ -1596,6 +1518,7 @@ MusicPointersLoopPart:
       .BYTE $19
       .BYTE $00
       .BYTE $28
+
 MusicData:
       .BYTE $8A
       .BYTE $50

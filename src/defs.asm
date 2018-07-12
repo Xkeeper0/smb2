@@ -195,13 +195,13 @@ PlayerHealth_4_HP = $3F
 ; ---------------------------------------------------------------------------
 
 ; enum PPUMaskBitmask (bitfield) (width 1 byte)
-PPUMask_Grayscale = $01
-PPUMask_ShowLeft8Pixels_BG = %10
-PPUMask_ShowLeft8Pixels_SPR = %100
-PPUMask_ShowBackground = %1000
-PPUMask_ShowSprites = %10000
-PPUMask_RedEmphasis = %100000
-PPUMask_GreenEmphasis = %1000000
+PPUMask_Grayscale = %00000001
+PPUMask_ShowLeft8Pixels_BG = %00000010
+PPUMask_ShowLeft8Pixels_SPR = %00000100
+PPUMask_ShowBackground = %00001000
+PPUMask_ShowSprites = %00010000
+PPUMask_RedEmphasis = %00100000
+PPUMask_GreenEmphasis = %01000000
 PPUMask_BlueEmphasis = %10000000
 
 ; ---------------------------------------------------------------------------
