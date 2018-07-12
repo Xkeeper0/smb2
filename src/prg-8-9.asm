@@ -11,13 +11,14 @@
 
 ; .segment BANK8
 ; * =  $8000
-LevelAreaStartIndexes:
-      .BYTE $00
+
+;
 ; Table to determine what "total" index a given
 ; level + area is. Get the starting area from this
 ; table (based on CurrentLevel) and add the area to it
 ;
-; Level 1-1
+LevelAreaStartIndexes:
+      .BYTE $00 ; Level 1-1
       .BYTE $0A ; Level 1-2
       .BYTE $14 ; Level 1-3
       .BYTE $1E ; Level 2-1
@@ -39,8 +40,8 @@ LevelAreaStartIndexes:
       .BYTE $BE ; Level 7-2
       .BYTE $C8 ; Level 7-3 (unused)
 LevelDataPointersLo:
+      ; Level 1-1
       .BYTE <LevelData_1_1_Area0
-; Stuff below here ------
       .BYTE <LevelData_1_1_Area1
       .BYTE <LevelData_1_1_Area2
       .BYTE <LevelData_1_1_Area3
@@ -50,26 +51,29 @@ LevelDataPointersLo:
       .BYTE <LevelData_1_1_Area5
       .BYTE <LevelData_1_1_Area5
       .BYTE <LevelData_1_1_Area5
+      ; Level 1-2
       .BYTE <LevelData_1_2_Area0
       .BYTE <LevelData_1_2_Area1
       .BYTE <LevelData_1_2_Area2
       .BYTE <LevelData_1_2_Area3
       .BYTE <LevelData_1_2_Area4
-      .BYTE <LevelData_1_2_Area5
-      .BYTE <LevelData_1_2_Area5
-      .BYTE <LevelData_1_2_Area5
-      .BYTE <LevelData_1_2_Area5
-      .BYTE <LevelData_1_2_Area5
-      .BYTE <LevelData_1_2_Area5
+      .BYTE <LevelData_1_3_Area0
+      .BYTE <LevelData_1_3_Area0
+      .BYTE <LevelData_1_3_Area0
+      .BYTE <LevelData_1_3_Area0
+      .BYTE <LevelData_1_3_Area0
+      ; Level 1-3
       .BYTE <LevelData_1_3_Area0
       .BYTE <LevelData_1_3_Area1
       .BYTE <LevelData_1_3_Area2
       .BYTE <LevelData_1_3_Area3
-      .BYTE <LevelData_1_3_Area3
-      .BYTE <LevelData_1_3_Area3
-      .BYTE <LevelData_1_3_Area3
-      .BYTE <LevelData_1_3_Area3
-      .BYTE <LevelData_1_3_Area3
+      .BYTE <LevelData_1_3_Area4
+      .BYTE <LevelData_1_3_Area4
+      .BYTE <LevelData_1_3_Area4
+      .BYTE <LevelData_1_3_Area4
+      .BYTE <LevelData_1_3_Area4
+      .BYTE <LevelData_1_3_Area4
+      ; Level 2-1
       .BYTE <LevelData_2_1_Area0
       .BYTE <LevelData_2_1_Area1
       .BYTE <LevelData_2_1_Area4
@@ -80,6 +84,7 @@ LevelDataPointersLo:
       .BYTE <LevelData_2_1_Area4
       .BYTE <LevelData_2_1_Area4
       .BYTE <LevelData_2_1_Area4
+      ; Level 2-2
       .BYTE <LevelData_2_2_Area0
       .BYTE <LevelData_2_2_Area1
       .BYTE <LevelData_2_2_Area2
@@ -90,6 +95,7 @@ LevelDataPointersLo:
       .BYTE <LevelData_2_2_Area5
       .BYTE <LevelData_2_2_Area5
       .BYTE <LevelData_2_2_Area5
+      ; Level 2-3
       .BYTE <LevelData_2_3_Area0
       .BYTE <LevelData_2_3_Area1
       .BYTE <LevelData_2_3_Area2
@@ -100,27 +106,29 @@ LevelDataPointersLo:
       .BYTE <LevelData_2_3_Area7
       .BYTE <LevelData_2_3_Area7
       .BYTE <LevelData_2_3_Area7
+      ; Level 3-1
       .BYTE <LevelData_3_1_Area0
       .BYTE <LevelData_3_1_Area1
       .BYTE <LevelData_3_1_Area2
       .BYTE <LevelData_3_1_Area3
       .BYTE <LevelData_3_1_Area4
-      .BYTE <LevelData_3_1_Area5
-      .BYTE <LevelData_3_1_Area5
-      .BYTE <LevelData_3_1_Area5
-      .BYTE <LevelData_3_1_Area5
-      .BYTE <LevelData_3_1_Area5
-      .BYTE <LevelData_3_1_Area5
+      .BYTE <LevelData_3_2_Area0
+      .BYTE <LevelData_3_2_Area0
+      .BYTE <LevelData_3_2_Area0
+      .BYTE <LevelData_3_2_Area0
+      .BYTE <LevelData_3_2_Area0
+      ; Level 3-2
       .BYTE <LevelData_3_2_Area0
       .BYTE <LevelData_3_2_Area1
       .BYTE <LevelData_3_2_Area2
-      .BYTE <LevelData_3_2_Area2
-      .BYTE <LevelData_3_2_Area2
-      .BYTE <LevelData_3_2_Area2
-      .BYTE <LevelData_3_2_Area2
-      .BYTE <LevelData_3_2_Area2
-      .BYTE <LevelData_3_2_Area2
-      .BYTE <LevelData_3_2_Area2
+      .BYTE <LevelData_3_3_Area0
+      .BYTE <LevelData_3_3_Area0
+      .BYTE <LevelData_3_3_Area0
+      .BYTE <LevelData_3_3_Area0
+      .BYTE <LevelData_3_3_Area0
+      .BYTE <LevelData_3_3_Area0
+      .BYTE <LevelData_3_3_Area0
+      ; Level 3-3
       .BYTE <LevelData_3_3_Area0
       .BYTE <LevelData_3_3_Area1
       .BYTE <LevelData_3_3_Area2
@@ -129,27 +137,31 @@ LevelDataPointersLo:
       .BYTE <LevelData_3_3_Area5
       .BYTE <LevelData_3_3_Area6
       .BYTE <LevelData_3_3_Area7
-      .BYTE <LevelData_3_3_Area7
+      .BYTE <LevelData_3_3_Area8
+      .BYTE <LevelData_3_3_Area8
+      ; Level 4-1
       .BYTE <LevelData_4_1_Area0
       .BYTE <LevelData_4_1_Area1
-      .BYTE <LevelData_4_1_Area2
-      .BYTE <LevelData_4_1_Area2
-      .BYTE <LevelData_4_1_Area2
-      .BYTE <LevelData_4_1_Area2
-      .BYTE <LevelData_4_1_Area2
-      .BYTE <LevelData_4_1_Area2
-      .BYTE <LevelData_4_1_Area2
-      .BYTE <LevelData_4_1_Area2
-      .BYTE <LevelData_4_1_Area2
+      .BYTE <LevelData_4_2_Area0
+      .BYTE <LevelData_4_2_Area0
+      .BYTE <LevelData_4_2_Area0
+      .BYTE <LevelData_4_2_Area0
+      .BYTE <LevelData_4_2_Area0
+      .BYTE <LevelData_4_2_Area0
+      .BYTE <LevelData_4_2_Area0
+      .BYTE <LevelData_4_2_Area0
+      ; Level 4-2
       .BYTE <LevelData_4_2_Area0
       .BYTE <LevelData_4_2_Area1
       .BYTE <LevelData_4_2_Area2
       .BYTE <LevelData_4_2_Area3
-      .BYTE <LevelData_4_2_Area3
-      .BYTE <LevelData_4_2_Area3
-      .BYTE <LevelData_4_2_Area3
-      .BYTE <LevelData_4_2_Area3
-      .BYTE <LevelData_4_2_Area3
+      .BYTE <LevelData_4_2_Area4
+      .BYTE <LevelData_4_2_Area4
+      .BYTE <LevelData_4_2_Area4
+      .BYTE <LevelData_4_2_Area4
+      .BYTE <LevelData_4_2_Area4
+      .BYTE <LevelData_4_2_Area4
+      ; Level 4-3
       .BYTE <LevelData_4_3_Area0
       .BYTE <LevelData_4_3_Area1
       .BYTE <LevelData_4_3_Area2
@@ -158,38 +170,42 @@ LevelDataPointersLo:
       .BYTE <LevelData_4_3_Area5
       .BYTE <LevelData_4_3_Area6
       .BYTE <LevelData_4_3_Area7
-      .BYTE <LevelData_4_3_Area8
-      .BYTE <LevelData_4_3_Area8
-      .BYTE <LevelData_4_3_Area8
+      .BYTE <LevelData_5_1_Area0
+      .BYTE <LevelData_5_1_Area0
+      ; Level 5-1
       .BYTE <LevelData_5_1_Area0
       .BYTE <LevelData_5_1_Area1
       .BYTE <LevelData_5_1_Area2
-      .BYTE <LevelData_5_1_Area2
-      .BYTE <LevelData_5_1_Area2
-      .BYTE <LevelData_5_1_Area2
-      .BYTE <LevelData_5_1_Area2
-      .BYTE <LevelData_5_1_Area2
-      .BYTE <LevelData_5_1_Area2
-      .BYTE <LevelData_5_1_Area2
+      .BYTE <LevelData_5_2_Area0
+      .BYTE <LevelData_5_2_Area0
+      .BYTE <LevelData_5_2_Area0
+      .BYTE <LevelData_5_2_Area0
+      .BYTE <LevelData_5_2_Area0
+      .BYTE <LevelData_5_2_Area0
+      .BYTE <LevelData_5_2_Area0
+      ; Level 5-2
       .BYTE <LevelData_5_2_Area0
       .BYTE <LevelData_5_2_Area1
       .BYTE <LevelData_5_2_Area2
       .BYTE <LevelData_5_2_Area3
       .BYTE <LevelData_5_2_Area4
       .BYTE <LevelData_5_2_Area5
-      .BYTE <LevelData_5_2_Area5
-      .BYTE <LevelData_5_2_Area5
-      .BYTE <LevelData_5_2_Area5
-      .BYTE <LevelData_5_2_Area5
+      .BYTE <LevelData_5_3_Area0
+      .BYTE <LevelData_5_3_Area0
+      .BYTE <LevelData_5_3_Area0
+      .BYTE <LevelData_5_3_Area0
+      ; Level 5-3
       .BYTE <LevelData_5_3_Area0
       .BYTE <LevelData_5_3_Area1
       .BYTE <LevelData_5_3_Area2
       .BYTE <LevelData_5_3_Area3
       .BYTE <LevelData_5_3_Area4
-      .BYTE <LevelData_5_3_Area4
-      .BYTE <LevelData_5_3_Area4
-      .BYTE <LevelData_5_3_Area4
-      .BYTE <LevelData_5_3_Area4
+      .BYTE <LevelData_5_3_Area5
+      .BYTE <LevelData_5_3_Area5
+      .BYTE <LevelData_5_3_Area5
+      .BYTE <LevelData_5_3_Area5
+      .BYTE <LevelData_5_3_Area5
+      ; Level 6-1
       .BYTE <LevelData_6_1_Area0
       .BYTE <LevelData_6_1_Area1
       .BYTE <LevelData_6_1_Area2
@@ -200,6 +216,7 @@ LevelDataPointersLo:
       .BYTE <LevelData_6_1_Area6
       .BYTE <LevelData_6_1_Area6
       .BYTE <LevelData_6_1_Area6
+      ; Level 6-2
       .BYTE <LevelData_6_2_Area0
       .BYTE <LevelData_6_2_Area1
       .BYTE <LevelData_6_2_Area2
@@ -210,6 +227,7 @@ LevelDataPointersLo:
       .BYTE <LevelData_6_2_Area2
       .BYTE <LevelData_6_2_Area2
       .BYTE <LevelData_6_2_Area2
+      ; Level 6-3
       .BYTE <LevelData_6_3_Area0
       .BYTE <LevelData_6_3_Area1
       .BYTE <LevelData_6_3_Area2
@@ -220,6 +238,7 @@ LevelDataPointersLo:
       .BYTE <LevelData_6_3_Area6
       .BYTE <LevelData_6_3_Area6
       .BYTE <LevelData_6_3_Area6
+      ; Level 7-1
       .BYTE <LevelData_7_1_Area0
       .BYTE <LevelData_7_1_Area1
       .BYTE <LevelData_7_1_Area2
@@ -230,6 +249,7 @@ LevelDataPointersLo:
       .BYTE <LevelData_7_1_Area5
       .BYTE <LevelData_7_1_Area5
       .BYTE <LevelData_7_1_Area5
+      ; Level 7-2
       .BYTE <LevelData_7_2_Area0
       .BYTE <LevelData_7_2_Area1
       .BYTE <LevelData_7_2_Area2
@@ -240,6 +260,7 @@ LevelDataPointersLo:
       .BYTE <LevelData_7_2_Area7
       .BYTE <LevelData_7_2_Area8
       .BYTE <LevelData_7_2_Area9
+      ; Level 7-3
       .BYTE <LevelData_7_3_Area0
       .BYTE <LevelData_7_3_Area0
       .BYTE <LevelData_7_3_Area0
@@ -250,9 +271,9 @@ LevelDataPointersLo:
       .BYTE <LevelData_7_3_Area0
       .BYTE <LevelData_7_3_Area0
       .BYTE <LevelData_7_3_Area0
+
 LevelDataPointersHi:
       .BYTE >LevelData_1_1_Area0
-
       .BYTE >LevelData_1_1_Area1
       .BYTE >LevelData_1_1_Area2
       .BYTE >LevelData_1_1_Area3
@@ -267,21 +288,21 @@ LevelDataPointersHi:
       .BYTE >LevelData_1_2_Area2
       .BYTE >LevelData_1_2_Area3
       .BYTE >LevelData_1_2_Area4
-      .BYTE >LevelData_1_2_Area5
-      .BYTE >LevelData_1_2_Area5
-      .BYTE >LevelData_1_2_Area5
-      .BYTE >LevelData_1_2_Area5
-      .BYTE >LevelData_1_2_Area5
-      .BYTE >LevelData_1_2_Area5
+      .BYTE >LevelData_1_3_Area0
+      .BYTE >LevelData_1_3_Area0
+      .BYTE >LevelData_1_3_Area0
+      .BYTE >LevelData_1_3_Area0
+      .BYTE >LevelData_1_3_Area0
       .BYTE >LevelData_1_3_Area0
       .BYTE >LevelData_1_3_Area1
       .BYTE >LevelData_1_3_Area2
       .BYTE >LevelData_1_3_Area3
-      .BYTE >LevelData_1_3_Area3
-      .BYTE >LevelData_1_3_Area3
-      .BYTE >LevelData_1_3_Area3
-      .BYTE >LevelData_1_3_Area3
-      .BYTE >LevelData_1_3_Area3
+      .BYTE >LevelData_1_3_Area4
+      .BYTE >LevelData_1_3_Area4
+      .BYTE >LevelData_1_3_Area4
+      .BYTE >LevelData_1_3_Area4
+      .BYTE >LevelData_1_3_Area4
+      .BYTE >LevelData_1_3_Area4
       .BYTE >LevelData_2_1_Area0
       .BYTE >LevelData_2_1_Area1
       .BYTE >LevelData_2_1_Area4
@@ -317,22 +338,21 @@ LevelDataPointersHi:
       .BYTE >LevelData_3_1_Area2
       .BYTE >LevelData_3_1_Area3
       .BYTE >LevelData_3_1_Area4
-      .BYTE >LevelData_3_1_Area5
-      .BYTE >LevelData_3_1_Area5
-      .BYTE >LevelData_3_1_Area5
-      .BYTE >LevelData_3_1_Area5
-      .BYTE >LevelData_3_1_Area5
-      .BYTE >LevelData_3_1_Area5
+      .BYTE >LevelData_3_2_Area0
+      .BYTE >LevelData_3_2_Area0
+      .BYTE >LevelData_3_2_Area0
+      .BYTE >LevelData_3_2_Area0
+      .BYTE >LevelData_3_2_Area0
       .BYTE >LevelData_3_2_Area0
       .BYTE >LevelData_3_2_Area1
       .BYTE >LevelData_3_2_Area2
-      .BYTE >LevelData_3_2_Area2
-      .BYTE >LevelData_3_2_Area2
-      .BYTE >LevelData_3_2_Area2
-      .BYTE >LevelData_3_2_Area2
-      .BYTE >LevelData_3_2_Area2
-      .BYTE >LevelData_3_2_Area2
-      .BYTE >LevelData_3_2_Area2
+      .BYTE >LevelData_3_3_Area0
+      .BYTE >LevelData_3_3_Area0
+      .BYTE >LevelData_3_3_Area0
+      .BYTE >LevelData_3_3_Area0
+      .BYTE >LevelData_3_3_Area0
+      .BYTE >LevelData_3_3_Area0
+      .BYTE >LevelData_3_3_Area0
       .BYTE >LevelData_3_3_Area0
       .BYTE >LevelData_3_3_Area1
       .BYTE >LevelData_3_3_Area2
@@ -341,27 +361,28 @@ LevelDataPointersHi:
       .BYTE >LevelData_3_3_Area5
       .BYTE >LevelData_3_3_Area6
       .BYTE >LevelData_3_3_Area7
-      .BYTE >LevelData_3_3_Area7
+      .BYTE >LevelData_3_3_Area8
+      .BYTE >LevelData_3_3_Area8
       .BYTE >LevelData_4_1_Area0
       .BYTE >LevelData_4_1_Area1
-      .BYTE >LevelData_4_1_Area2
-      .BYTE >LevelData_4_1_Area2
-      .BYTE >LevelData_4_1_Area2
-      .BYTE >LevelData_4_1_Area2
-      .BYTE >LevelData_4_1_Area2
-      .BYTE >LevelData_4_1_Area2
-      .BYTE >LevelData_4_1_Area2
-      .BYTE >LevelData_4_1_Area2
-      .BYTE >LevelData_4_1_Area2
+      .BYTE >LevelData_4_2_Area0
+      .BYTE >LevelData_4_2_Area0
+      .BYTE >LevelData_4_2_Area0
+      .BYTE >LevelData_4_2_Area0
+      .BYTE >LevelData_4_2_Area0
+      .BYTE >LevelData_4_2_Area0
+      .BYTE >LevelData_4_2_Area0
+      .BYTE >LevelData_4_2_Area0
       .BYTE >LevelData_4_2_Area0
       .BYTE >LevelData_4_2_Area1
       .BYTE >LevelData_4_2_Area2
       .BYTE >LevelData_4_2_Area3
-      .BYTE >LevelData_4_2_Area3
-      .BYTE >LevelData_4_2_Area3
-      .BYTE >LevelData_4_2_Area3
-      .BYTE >LevelData_4_2_Area3
-      .BYTE >LevelData_4_2_Area3
+      .BYTE >LevelData_4_2_Area4
+      .BYTE >LevelData_4_2_Area4
+      .BYTE >LevelData_4_2_Area4
+      .BYTE >LevelData_4_2_Area4
+      .BYTE >LevelData_4_2_Area4
+      .BYTE >LevelData_4_2_Area4
       .BYTE >LevelData_4_3_Area0
       .BYTE >LevelData_4_3_Area1
       .BYTE >LevelData_4_3_Area2
@@ -370,38 +391,38 @@ LevelDataPointersHi:
       .BYTE >LevelData_4_3_Area5
       .BYTE >LevelData_4_3_Area6
       .BYTE >LevelData_4_3_Area7
-      .BYTE >LevelData_4_3_Area8
-      .BYTE >LevelData_4_3_Area8
-      .BYTE >LevelData_4_3_Area8
+      .BYTE >LevelData_5_1_Area0
+      .BYTE >LevelData_5_1_Area0
       .BYTE >LevelData_5_1_Area0
       .BYTE >LevelData_5_1_Area1
       .BYTE >LevelData_5_1_Area2
-      .BYTE >LevelData_5_1_Area2
-      .BYTE >LevelData_5_1_Area2
-      .BYTE >LevelData_5_1_Area2
-      .BYTE >LevelData_5_1_Area2
-      .BYTE >LevelData_5_1_Area2
-      .BYTE >LevelData_5_1_Area2
-      .BYTE >LevelData_5_1_Area2
+      .BYTE >LevelData_5_2_Area0
+      .BYTE >LevelData_5_2_Area0
+      .BYTE >LevelData_5_2_Area0
+      .BYTE >LevelData_5_2_Area0
+      .BYTE >LevelData_5_2_Area0
+      .BYTE >LevelData_5_2_Area0
+      .BYTE >LevelData_5_2_Area0
       .BYTE >LevelData_5_2_Area0
       .BYTE >LevelData_5_2_Area1
       .BYTE >LevelData_5_2_Area2
       .BYTE >LevelData_5_2_Area3
       .BYTE >LevelData_5_2_Area4
       .BYTE >LevelData_5_2_Area5
-      .BYTE >LevelData_5_2_Area5
-      .BYTE >LevelData_5_2_Area5
-      .BYTE >LevelData_5_2_Area5
-      .BYTE >LevelData_5_2_Area5
+      .BYTE >LevelData_5_3_Area0
+      .BYTE >LevelData_5_3_Area0
+      .BYTE >LevelData_5_3_Area0
+      .BYTE >LevelData_5_3_Area0
       .BYTE >LevelData_5_3_Area0
       .BYTE >LevelData_5_3_Area1
       .BYTE >LevelData_5_3_Area2
       .BYTE >LevelData_5_3_Area3
       .BYTE >LevelData_5_3_Area4
-      .BYTE >LevelData_5_3_Area4
-      .BYTE >LevelData_5_3_Area4
-      .BYTE >LevelData_5_3_Area4
-      .BYTE >LevelData_5_3_Area4
+      .BYTE >LevelData_5_3_Area5
+      .BYTE >LevelData_5_3_Area5
+      .BYTE >LevelData_5_3_Area5
+      .BYTE >LevelData_5_3_Area5
+      .BYTE >LevelData_5_3_Area5
       .BYTE >LevelData_6_1_Area0
       .BYTE >LevelData_6_1_Area1
       .BYTE >LevelData_6_1_Area2
@@ -883,7 +904,7 @@ LevelData_1_2_Area4:
       .BYTE $F1, $A8
       .BYTE $F1, $C4
       .BYTE $FF
-LevelData_1_2_Area5:
+LevelData_1_3_Area0:
       .BYTE $80, $E1, $90, $00
       .BYTE $00, $8A
       .BYTE $01, $8A
@@ -972,7 +993,7 @@ LevelData_1_2_Area5:
       .BYTE $10, $51
       .BYTE $F0, $E8
       .BYTE $FF
-LevelData_1_3_Area0:
+LevelData_1_3_Area1:
       .BYTE $20, $E0, $03, $19
       .BYTE $55, $2C
       .BYTE $0B, $2C
@@ -984,7 +1005,7 @@ LevelData_1_3_Area0:
       .BYTE $F0, $54
       .BYTE $F1, $A0
       .BYTE $FF
-LevelData_1_3_Area1:
+LevelData_1_3_Area2:
       .BYTE $20, $E0, $67, $19
       .BYTE $58, $0A
       .BYTE $02, $10
@@ -1051,7 +1072,7 @@ LevelData_1_3_Area1:
       .BYTE $F1, $18
       .BYTE $F1, $C0
       .BYTE $FF
-LevelData_1_3_Area2:
+LevelData_1_3_Area3:
       .BYTE $A0, $EA, $57, $19
       .BYTE $39, $29
       .BYTE $13, $13
@@ -1110,7 +1131,7 @@ LevelData_1_3_Area2:
       .BYTE $F1, $CA
       .BYTE $F5, $02, $40
       .BYTE $FF
-LevelData_1_3_Area3:
+LevelData_1_3_Area4:
       .BYTE $AA, $F8, $16, $22
       .BYTE $6E, $25
       .BYTE $0F, $25
@@ -1895,7 +1916,7 @@ LevelData_3_1_Area4:
       .BYTE $F0, $4E
       .BYTE $F1, $EA
       .BYTE $FF
-LevelData_3_1_Area5:
+LevelData_3_2_Area0:
       .BYTE $80, $EA, $98, $10
       .BYTE $2F, $16
       .BYTE $9C, $0A
@@ -1976,7 +1997,7 @@ LevelData_3_1_Area5:
       .BYTE $F1, $AA
       .BYTE $F6, $02
       .BYTE $FF
-LevelData_3_2_Area0:
+LevelData_3_2_Area1:
       .BYTE $91, $EA, $72, $11
       .BYTE $97, $25
       .BYTE $09, $21
@@ -2059,7 +2080,7 @@ LevelData_3_2_Area0:
       .BYTE $F1, $0E
       .BYTE $F1, $CA
       .BYTE $FF
-LevelData_3_2_Area1:
+LevelData_3_2_Area2:
       .BYTE $91, $EA, $30, $12
       .BYTE $83, $00
       .BYTE $04, $00
@@ -2079,7 +2100,7 @@ LevelData_3_2_Area1:
       .BYTE $07, $00
       .BYTE $F0, $CA
       .BYTE $FF
-LevelData_3_2_Area2:
+LevelData_3_3_Area0:
       .BYTE $91, $EA, $10, $11
       .BYTE $F0, $94
       .BYTE $F2
@@ -2091,7 +2112,7 @@ LevelData_3_2_Area2:
       .BYTE $F0, $AE
       .BYTE $F1, $8A
       .BYTE $FF
-LevelData_3_3_Area0:
+LevelData_3_3_Area1:
       .BYTE $80, $E1, $30, $00
       .BYTE $35, $10
       .BYTE $29, $11
@@ -2115,7 +2136,7 @@ LevelData_3_3_Area0:
       .BYTE $96, $0A
       .BYTE $08, $23
       .BYTE $FF
-LevelData_3_3_Area1:
+LevelData_3_3_Area2:
       .BYTE $A0, $EA, $33, $19
       .BYTE $55, $01
       .BYTE $0B, $2D
@@ -2151,7 +2172,7 @@ LevelData_3_3_Area1:
       .BYTE $F0, $14
       .BYTE $F1, $CA
       .BYTE $FF
-LevelData_3_3_Area2:
+LevelData_3_3_Area3:
       .BYTE $20, $E0, $93, $19
       .BYTE $15, $AB
       .BYTE $18, $0A
@@ -2254,7 +2275,7 @@ LevelData_3_3_Area2:
       .BYTE $F1, $74
       .BYTE $F1, $A0
       .BYTE $FF
-LevelData_3_3_Area3:
+LevelData_3_3_Area4:
       .BYTE $20, $E0, $67, $19
       .BYTE $AE, $30
       .BYTE $12, $0A
@@ -2301,7 +2322,7 @@ LevelData_3_3_Area3:
       .BYTE $F0, $9B
       .BYTE $F1, $A0
       .BYTE $FF
-LevelData_3_3_Area4:
+LevelData_3_3_Area5:
       .BYTE $20, $E0, $37, $19
       .BYTE $A0, $37
       .BYTE $1B, $0A
@@ -2349,7 +2370,7 @@ LevelData_3_3_Area4:
       .BYTE $F1, $59
       .BYTE $F1, $A0
       .BYTE $FF
-LevelData_3_3_Area5:
+LevelData_3_3_Area6:
       .BYTE $20, $E0, $07, $19
       .BYTE $54, $2C
       .BYTE $0C, $2C
@@ -2359,7 +2380,7 @@ LevelData_3_3_Area5:
       .BYTE $F0, $41
       .BYTE $F1, $A0
       .BYTE $FF
-LevelData_3_3_Area6:
+LevelData_3_3_Area7:
       .BYTE $80, $FD, $40, $1A
       .BYTE $3A, $10
       .BYTE $27, $11
@@ -2393,7 +2414,7 @@ LevelData_3_3_Area6:
       .BYTE $F1, $E8
       .BYTE $F5, $08, $80
       .BYTE $FF
-LevelData_3_3_Area7:
+LevelData_3_3_Area8:
       .BYTE $AA, $F8, $17, $22
       .BYTE $6E, $A4
       .BYTE $F0, $5C
@@ -2525,7 +2546,7 @@ LevelData_4_1_Area1:
       .BYTE $F1, $CA
       .BYTE $F5, $0A, $00
       .BYTE $FF
-LevelData_4_1_Area2:
+LevelData_4_2_Area0:
       .BYTE $80, $EA, $10, $10
       .BYTE $AC, $3C
       .BYTE $F0, $8C
@@ -2534,7 +2555,7 @@ LevelData_4_1_Area2:
       .BYTE $F5, $0A, $10
       .BYTE $F1, $2A
       .BYTE $FF
-LevelData_4_2_Area0:
+LevelData_4_2_Area1:
       .BYTE $80, $E8, $90, $10
       .BYTE $32, $10
       .BYTE $14, $11
@@ -2582,7 +2603,7 @@ LevelData_4_2_Area0:
       .BYTE $26, $E2
       .BYTE $33, $37
       .BYTE $FF
-LevelData_4_2_Area1:
+LevelData_4_2_Area2:
       .BYTE $80, $F6, $90, $28
       .BYTE $4C, $10
       .BYTE $1E, $11
@@ -2654,7 +2675,7 @@ LevelData_4_2_Area1:
       .BYTE $15, $46
       .BYTE $15, $F6
       .BYTE $FF
-LevelData_4_2_Area2:
+LevelData_4_2_Area3:
       .BYTE $80, $E8, $30, $30
       .BYTE $28, $10
       .BYTE $1C, $11
@@ -2680,7 +2701,7 @@ LevelData_4_2_Area2:
       .BYTE $F0, $D1
       .BYTE $F1, $CA
       .BYTE $FF
-LevelData_4_2_Area3:
+LevelData_4_2_Area4:
       .BYTE $91, $EA, $20, $32
       .BYTE $81, $13
       .BYTE $0A, $33
@@ -2958,7 +2979,7 @@ LevelData_4_3_Area7:
       .BYTE $F1, $C0
       .BYTE $F6, $04
       .BYTE $FF
-LevelData_4_3_Area8:
+LevelData_5_1_Area0:
       .BYTE $81, $E2, $20, $00
       .BYTE $00, $86
       .BYTE $01, $86
@@ -2995,7 +3016,7 @@ LevelData_4_3_Area8:
       .BYTE $16, $F2
       .BYTE $37, $16
       .BYTE $FF
-LevelData_5_1_Area0:
+LevelData_5_1_Area1:
       .BYTE $91, $EA, $80, $11
       .BYTE $83, $13
       .BYTE $0C, $01
@@ -3074,7 +3095,7 @@ LevelData_5_1_Area0:
       .BYTE $F1, $74
       .BYTE $F1, $92
       .BYTE $FF
-LevelData_5_1_Area1:
+LevelData_5_1_Area2:
       .BYTE $91, $F0, $13, $12
       .BYTE $6B, $32
       .BYTE $51, $0B
@@ -3085,7 +3106,7 @@ LevelData_5_1_Area1:
       .BYTE $F1, $AA
       .BYTE $F5, $0D, $00
       .BYTE $FF
-LevelData_5_1_Area2:
+LevelData_5_2_Area0:
       .BYTE $91, $EA, $10, $11
       .BYTE $F0, $5B
       .BYTE $F2
@@ -3094,7 +3115,7 @@ LevelData_5_1_Area2:
       .BYTE $0C, $A9
       .BYTE $F5, $0D, $10
       .BYTE $FF
-LevelData_5_2_Area0:
+LevelData_5_2_Area1:
       .BYTE $81, $E0, $90, $00
       .BYTE $24, $10
       .BYTE $17, $11
@@ -3177,7 +3198,7 @@ LevelData_5_2_Area0:
       .BYTE $F5, $0D, $23
       .BYTE $F0, $01
       .BYTE $FF
-LevelData_5_2_Area1:
+LevelData_5_2_Area2:
       .BYTE $01, $F3, $30, $28
       .BYTE $0F, $85
       .BYTE $48, $0C
@@ -3214,7 +3235,7 @@ LevelData_5_2_Area1:
       .BYTE $F3
       .BYTE $06, $0D
       .BYTE $FF
-LevelData_5_2_Area2:
+LevelData_5_2_Area3:
       .BYTE $01, $F5, $60, $29
       .BYTE $14, $10
       .BYTE $2C, $11
@@ -3270,7 +3291,7 @@ LevelData_5_2_Area2:
       .BYTE $24, $F7
       .BYTE $F1, $56
       .BYTE $FF
-LevelData_5_2_Area3:
+LevelData_5_2_Area4:
       .BYTE $18, $E3, $11, $01
       .BYTE $F5, $0D, $13
       .BYTE $64, $31
@@ -3297,7 +3318,7 @@ LevelData_5_2_Area3:
       .BYTE $F0, $21
       .BYTE $F0, $C0
       .BYTE $FF
-LevelData_5_2_Area4:
+LevelData_5_2_Area5:
       .BYTE $81, $EA, $20, $12
       .BYTE $82, $0B
       .BYTE $0D, $36
@@ -3318,7 +3339,7 @@ LevelData_5_2_Area4:
       .BYTE $F1, $8A
       .BYTE $F5, $0E, $00
       .BYTE $FF
-LevelData_5_2_Area5:
+LevelData_5_3_Area0:
       .BYTE $91, $EA, $10, $11
       .BYTE $F0, $70
       .BYTE $F2
@@ -3327,7 +3348,7 @@ LevelData_5_2_Area5:
       .BYTE $F0, $0F
       .BYTE $F1, $8A
       .BYTE $FF
-LevelData_5_3_Area0:
+LevelData_5_3_Area1:
       .BYTE $81, $E8, $92, $00
       .BYTE $22, $10
       .BYTE $16, $11
@@ -3412,7 +3433,7 @@ LevelData_5_3_Area0:
       .BYTE $5A, $16
       .BYTE $F1, $88
       .BYTE $FF
-LevelData_5_3_Area1:
+LevelData_5_3_Area2:
       .BYTE $91, $EA, $42, $11
       .BYTE $04, $1F
       .BYTE $7E, $D7
@@ -3451,7 +3472,7 @@ LevelData_5_3_Area1:
       .BYTE $F0, $EE
       .BYTE $F1, $CA
       .BYTE $FF
-LevelData_5_3_Area2:
+LevelData_5_3_Area3:
       .BYTE $18, $E0, $61, $11
       .BYTE $68, $13
       .BYTE $0E, $40
@@ -3533,7 +3554,7 @@ LevelData_5_3_Area2:
       .BYTE $F0, $36
       .BYTE $F0, $80
       .BYTE $FF
-LevelData_5_3_Area3:
+LevelData_5_3_Area4:
       .BYTE $81, $E8, $90, $12
       .BYTE $02, $1F
       .BYTE $67, $0B
@@ -3583,7 +3604,7 @@ LevelData_5_3_Area3:
       .BYTE $F1, $0C
       .BYTE $F5, $0E, $50
       .BYTE $FF
-LevelData_5_3_Area4:
+LevelData_5_3_Area5:
       .BYTE $AA, $EA, $12, $22
       .BYTE $F0, $4F
       .BYTE $F0, $CC
