@@ -274,9 +274,9 @@ byte_RAM_BA:
       .dsb 1 ; $00ba
 CurrentMusicPointer:
       .dsb 2 ; $00bb
-byte_RAM_BD:
+NextFrequencyLo:
       .dsb 1 ; $00bd
-byte_RAM_BE:
+NextFrequencyHi:
       .dsb 1 ; $00be
 byte_RAM_BF:
       .dsb 1 ; $00bf
@@ -1895,7 +1895,7 @@ byte_RAM_5F2:
       .dsb 1 ; $05f2
 byte_RAM_5F3:
       .dsb 1 ; $05f3
-byte_RAM_5F4:
+NextOctave:
       .dsb 1 ; $05f4
 byte_RAM_5F5:
       .dsb 1 ; $05f5

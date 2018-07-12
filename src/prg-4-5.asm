@@ -325,64 +325,78 @@ locret_BANK4_818E:
 
 ; ---------------------------------------------------------------------------
 SoundEffectPointers:
-      .BYTE $4E, $08, $6D, $27, $D7, $74, $8B, $A5
-; Relative pointers to the below sound effect data.
-; If you want to edit this easier, or once the main
-; part of disassembling is done, replace this with:
-;
-; @TODO asm.php should have a "replace this" directive
-;
-; tmp = $ ; For relative offset calculations
-; .BYTE <(SoundEffect1Data_BirdoShot - tmp)
-; .BYTE <(SoundEffect1Data_PotionDoorBong - tmp)
-; .BYTE <(SoundEffect1Data_CherryGet - tmp)
-; .BYTE <(SoundEffect1Data_ThrowItem - tmp)
-; .BYTE <(SoundEffect1Data_1UP - tmp)
-; .BYTE <(SoundEffect1Data_EnemyHit - tmp)
-; .BYTE <(SoundEffect1Data_StopwatchTick - tmp)
-; .BYTE <(SoundEffect1Data_HawkOpen_WartBarf - tmp)
+      .BYTE SoundEffect1Data_BirdoShot - SoundEffectPointers
+      .BYTE SoundEffect1Data_PotionDoorBong - SoundEffectPointers
+      .BYTE SoundEffect1Data_CherryGet - SoundEffectPointers
+      .BYTE SoundEffect1Data_ThrowItem - SoundEffectPointers
+      .BYTE SoundEffect1Data_1UP - SoundEffectPointers
+      .BYTE SoundEffect1Data_EnemyHit - SoundEffectPointers
+      .BYTE SoundEffect1Data_StopwatchTick - SoundEffectPointers
+      .BYTE SoundEffect1Data_HawkOpen_WartBarf - SoundEffectPointers
 SoundEffect1Data_PotionDoorBong:
-      .BYTE $9F, $10, $E, $0C, $7E, $7E, $7E, $10, $0E, $C, $7E, $7E, $7E
-      .BYTE $86, $10, $0E, $C, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $7E, $7E, $7E, $7E, 0
+      .BYTE $9F
+      .BYTE $10, $0E, $0C, $7E, $7E, $7E
+      .BYTE $10, $0E, $0C, $7E, $7E, $7E
+      .BYTE $86
+      .BYTE $10, $0E, $0C, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $00
 SoundEffect1Data_ThrowItem:
-      .BYTE $9F, $64, $7E, $7E, $9E, $68, $7E, $7E, $9D, $6A, $7E, $7E
-      .BYTE $9C, $6E, $7E, $7E, $9B, $72, $7E, $7E, $9A, $76, $7E, $7E
-      .BYTE $84, $78, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $7E, $7E, 0
+      .BYTE $9F, $64, $7E, $7E
+      .BYTE $9E, $68, $7E, $7E
+      .BYTE $9D, $6A, $7E, $7E
+      .BYTE $9C, $6E, $7E, $7E
+      .BYTE $9B, $72, $7E, $7E
+      .BYTE $9A, $76, $7E, $7E
+      .BYTE $84, $78, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $00
 SoundEffect1Data_BirdoShot:
-      .BYTE $9F, $30, $34, $36, $38, $9F, $3C, $3E, $40, $42, $9A, $3A
-      .BYTE $3C, $3E, $40, $9C, $38, $3A, $3C, $3E, $96, $36, $38, $3A
-      .BYTE $3C, $98, $34, $36, $38, $36, 0
+      .BYTE $9F, $30, $34, $36, $38
+      .BYTE $9F, $3C, $3E, $40, $42
+      .BYTE $9A, $3A, $3C, $3E, $40
+      .BYTE $9C, $38, $3A, $3C, $3E
+      .BYTE $96, $36, $38, $3A, $3C
+      .BYTE $98, $34, $36, $38, $36
+      .BYTE $00
 SoundEffect1Data_CherryGet:
-      .BYTE $81, $56, $7E, $64, $7E, $68, 0
+      .BYTE $81, $56, $7E, $64, $7E, $68
+      .BYTE $00
 SoundEffect1Data_EnemyHit:
-      .BYTE $99, $18, $1A, $18, $1C, $18, $1A, $9B, $18, $1C, $18, $20
-      .BYTE $18, $22, $9F, $18, $3C, $24, $30, $3C, $18, $30, 0
+      .BYTE $99, $18, $1A, $18, $1C, $18, $1A
+      .BYTE $9B, $18, $1C, $18, $20, $18, $22
+      .BYTE $9F, $18, $3C, $24, $30, $3C, $18, $30
+      .BYTE $00
 SoundEffect1Data_StopwatchTick:
-      .BYTE $80, $68, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $60, $7E
-      .BYTE $7E, $64, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $56, $7E
-      .BYTE $7E, 0
+      .BYTE $80
+      .BYTE $68, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $60, $7E, $7E
+      .BYTE $64, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $56, $7E, $7E
+      .BYTE $00
 SoundEffect1Data_HawkOpen_WartBarf:
       .BYTE $80, $1E, $1C, $1E, $1A, $18, $16, $1C, $18, $1A, $1E, $18
       .BYTE $16, $14, $12, $14, $16, $14, $12, $2C, $2C, $2A, $2E, $2C
       .BYTE $2A, $28, $26, $28, $24, $22, $20, $1E, $1C, $1A, $18, $16
-      .BYTE $14, $14, $12, $10, $E, $0C, $A, $08, $08, $06, $04, 2, $02, 0
-SoundEffect1Data_HawkOpen_1UP:
-      .BYTE $81, $5E, $7E, $7E, $7E, $7E, $7E, $7E, $64, $7E, $7E, $7E
-      .BYTE $7E, $7E, $7E, $76, $7E, $7E, $7E, $7E, $7E, $7E, $6E, $7E
-      .BYTE $7E, $7E, $7E, $7E, $7E, $72, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $7C, $7E, $7E, 0
+      .BYTE $14, $14, $12, $10, $0E, $0C, $0A, $08, $08, $06, $04, $02, $02
+      .BYTE $00
+SoundEffect1Data_1UP:
+      .BYTE $81
+      .BYTE $5E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $64, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $76, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $6E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $72, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $7C, $7E, $7E
+      .BYTE $00
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_828E:
-      LDA     #2
+      LDA     #$02
       STA     byte_RAM_611
 
 loc_BANK4_8293:
       LDA     #$1A
       STA     NOISE_VOL
-      LDA     #4
+      LDA     #$04
       STA     NOISE_LO
       STA     NOISE_HI
       BNE     loc_BANK4_82E8
@@ -442,11 +456,11 @@ loc_BANK4_82E8:
       DEC     byte_RAM_611
       BNE     locret_BANK4_82FC
 
-      LDX     #7
+      LDX     #$07
       STX     SND_CHN
-      LDX     #$F
+      LDX     #$0F
       STX     SND_CHN
-      LDX     #0
+      LDX     #$00
       STX     byte_RAM_60E
 
 locret_BANK4_82FC:
@@ -467,9 +481,7 @@ ProcessDPCMQueue:
       BNE     locret_BANK4_8316
 
 loc_BANK4_830C:
-      LDA     #0
-
-loc_BANK4_830E:
+      LDA     #$00
       STA     byte_RAM_608
       LDA     #$F
       STA     SND_CHN
@@ -1204,7 +1216,7 @@ sub_BANK4_86C8:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK4_86CE:
-      LDX     #0
+      LDX     #$00
 
 loc_BANK4_86D0:
       CMP     #$7E
@@ -1212,20 +1224,20 @@ loc_BANK4_86D0:
 
       LDA     #$10
       STA     SQ1_VOL,X
-      LDA     #0
+      LDA     #$00
       RTS
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_86DC:
-      LDY     #1
-      STY     byte_RAM_5F4
+      LDY     #$01
+      STY     NextOctave
       PHA
       TAY
       BMI     loc_BANK4_86ED
 
 loc_BANK4_86E5:
-      INC     byte_RAM_5F4
+      INC     NextOctave
       SEC
       SBC     #$18
       BPL     loc_BANK4_86E5
@@ -1235,21 +1247,21 @@ loc_BANK4_86ED:
       ADC     #$18
       TAY
       LDA     NoteFrequencyData,Y
-      STA     byte_RAM_BD
+      STA     NextFrequencyLo
       LDA     NoteFrequencyData+1,Y
-      STA     byte_RAM_BE
+      STA     NextFrequencyHi
 
 loc_BANK4_86FB:
-      LSR     byte_RAM_BE
-      ROR     byte_RAM_BD
-      DEC     byte_RAM_5F4
+      LSR     NextFrequencyHi
+      ROR     NextFrequencyLo
+      DEC     NextOctave
       BNE     loc_BANK4_86FB
 
       PLA
       CMP     #$38
       BCC     loc_BANK4_870B
 
-      DEC     byte_RAM_BD
+      DEC     NextFrequencyLo
 
 loc_BANK4_870B:
       TXA
@@ -1263,10 +1275,10 @@ loc_BANK4_870C:
       BEQ     loc_BANK4_8727
 
 loc_BANK4_8717:
-      LDA     byte_RAM_BD
+      LDA     NextFrequencyLo
       STA     SQ1_LO,X
       STA     unk_RAM_5F9,X
-      LDA     byte_RAM_BE
+      LDA     NextFrequencyHi
       ORA     #8
       STA     SQ1_HI,X
       RTS
@@ -1274,12 +1286,12 @@ loc_BANK4_8717:
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_8727:
-      LDA     byte_RAM_BD
+      LDA     NextFrequencyLo
       SEC
       SBC     #2
       STA     SQ2_LO
       STA     byte_RAM_C2
-      LDA     byte_RAM_BE
+      LDA     NextFrequencyHi
       ORA     #8
       STA     SQ2_HI
       RTS
@@ -1313,9 +1325,10 @@ NoteFrequencyData:
       .WORD $12E4 ; F# / Gb
       .WORD $11D4 ; G
       .WORD $10D4 ; G# / Ab
-      .WORD $FE0 ; A
-      .WORD $EFC ; A# / Bb
-      .WORD $E24 ; B
+      .WORD $0FE0 ; A
+      .WORD $0EFC ; A# / Bb
+      .WORD $0E24 ; B
+
 IFDEF PRESERVE_UNUSED_SPACE
 ; Unused space in the original
 ; $875F - $8EFF
