@@ -1379,23 +1379,23 @@ MusicPartPointers:
       ; Bonus chance
       .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
       ; Character select
-      .BYTE $2A
-      .BYTE $30
-      .BYTE $36
-      .BYTE $30
-      .BYTE $3C
-      .BYTE $42
-      .BYTE $A9
-      .BYTE $9E
-      .BYTE $93
+      .BYTE MusicHeaderCharacterSelect1 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect2 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect3 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect2 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect4 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect5 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect6 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect7 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect8 - MusicPartPointers
       ; Overworld
-      .BYTE $48
-      .BYTE $4E
-      .BYTE $54
-      .BYTE $5A
-      .BYTE $54
-      .BYTE $60
-      .BYTE $66
+      .BYTE MusicHeaderOverworld1 - MusicPartPointers
+      .BYTE MusicHeaderOverworld2 - MusicPartPointers
+      .BYTE MusicHeaderOverworld3 - MusicPartPointers
+      .BYTE MusicHeaderOverworld4 - MusicPartPointers
+      .BYTE MusicHeaderOverworld3 - MusicPartPointers
+      .BYTE MusicHeaderOverworld5 - MusicPartPointers
+      .BYTE MusicHeaderOverworld6 - MusicPartPointers
       ; Boss
       .BYTE MusicHeaderBoss - MusicPartPointers
       ; Star
@@ -1423,116 +1423,313 @@ MusicPartPointers:
       ; Underground
       .BYTE MusicHeaderUnderground - MusicPartPointers
 
+;
+; Music Headers
+; =============
+;
+; These are broken down by song segment and point to the note length table and
+; and individual channel data. Square 1 is the main pointer, and triangle,
+; square 2, and noise are stored as offets relative to the main pointer.
+;
+; Bytes:
+;   00: Note length table (from $8F00)
+;   01: Main address / Square 1 (lo)
+;   02: Main address / Square 1 (hi)
+;   03: Triangle offset from main
+;   04: Square 2 offset from main
+;   05: Noise offset from main
+;
 MusicPartHeaders:
 MusicHeaderCharacterSelect1:
-      .BYTE $00, $AD, $98, $6B, $36, $A0
+      .BYTE $00
+      ; .BYTE $AD, $98
+      .WORD MusicDataCharacterSelect1
+      .BYTE $6B
+      .BYTE $36
+      .BYTE $A0
 MusicHeaderCharacterSelect2:
-      .BYTE $00, $5C, $99, $8E, $48, $B0
+      .BYTE $00
+      ; .BYTE $5C, $99
+      .WORD MusicDataCharacterSelect2
+      .BYTE $8E
+      .BYTE $48
+      .BYTE $B0
 MusicHeaderCharacterSelect3:
-      .BYTE $00, $9A, $99, $6F, $48, $76
+      .BYTE $00
+      ; .BYTE $9A, $99
+      .WORD MusicDataCharacterSelect3
+      .BYTE $6F
+      .BYTE $48
+      .BYTE $76
 MusicHeaderCharacterSelect4:
-      .BYTE $00, $9E, $99, $6B, $47, $72
+      .BYTE $00
+      ; .BYTE $9E, $99
+      .WORD MusicDataCharacterSelect4
+      .BYTE $6B
+      .BYTE $47
+      .BYTE $72
 MusicHeaderCharacterSelect5:
-      .BYTE $00, $26, $9A, $8A, $46, $AC
+      .BYTE $00
+      ; .BYTE $26, $9A
+      .WORD MusicDataCharacterSelect5
+      .BYTE $8A
+      .BYTE $46
+      .BYTE $AC
 MusicHeaderOverworld1:
-      .BYTE $28, $D4, $9B, $2B, $16, $3D
+      .BYTE $28
+      ; .BYTE $D4, $9B
+      .WORD MusicDataOverworld1
+      .BYTE $2B
+      .BYTE $16
+      .BYTE $3D
 MusicHeaderOverworld2:
-      .BYTE $28, $20, $9C, $A8, $54, $C9
+      .BYTE $28
+      ; .BYTE $20, $9C
+      .WORD MusicDataOverworld2
+      .BYTE $A8
+      .BYTE $54
+      .BYTE $C9
 MusicHeaderOverworld3:
-      .BYTE $28, $F9, $9C, $DD, $73, $6C
+      .BYTE $28
+      ; .BYTE $F9, $9C
+      .WORD MusicDataOverworld3
+      .BYTE $DD
+      .BYTE $73
+      .BYTE $6C
 MusicHeaderOverworld4:
-      .BYTE $28, $3F, $9D, $B2, $73, $26
+      .BYTE $28
+      ; .BYTE $3F, $9D
+      .WORD MusicDataOverworld4
+      .BYTE $B2
+      .BYTE $73
+      .BYTE $26
 MusicHeaderOverworld5:
-      .BYTE $28, $00, $9E, $38, $1D, $46
+      .BYTE $28
+      ; .BYTE $00, $9E
+      .WORD MusicDataOverworld5
+      .BYTE $38
+      .BYTE $1D
+      .BYTE $46
 MusicHeaderOverworld6:
-      .BYTE $28, $4D, $9E, $A7, $4F, $C8
+      .BYTE $28
+      ; .BYTE $4D, $9E
+      .WORD MusicDataOverworld6
+      .BYTE $A7
+      .BYTE $4F
+      .BYTE $C8
 MusicHeaderUnderground:
-      .BYTE $6E, $BD, $94, $53, $2A, $84
+      .BYTE $6E
+      ; .BYTE $BD, $94
+      .WORD MusicDataUnderground
+      .BYTE $53
+      .BYTE $2A
+      .BYTE $84
 MusicHeaderBoss:
-      .BYTE $28, $1C, $9F, $83, $42, $00
+      .BYTE $28
+      ; .BYTE $1C, $9F
+      .WORD MusicDataBoss
+      .BYTE $83
+      .BYTE $42
+      .BYTE $00
 MusicHeaderStar:
-      .BYTE $00, $69, $94, $37, $1A, $49
+      .BYTE $00
+      ; .BYTE $69, $94
+      .WORD MusicDataStar
+      .BYTE $37
+      .BYTE $1A
+      .BYTE $49
 MusicHeaderWart:
-      .BYTE $28, $C7, $9F, $96, $4B, $00
+      .BYTE $28
+      ; .BYTE $C7, $9F
+      .WORD MusicDataWart
+      .BYTE $96
+      .BYTE $4B
+      .BYTE $00
 MusicHeaderCrystal:
-      .BYTE $00, $48, $A1, $1B, $0D
+      .BYTE $00
+      ; .BYTE $48, $A1
+      .WORD MusicDataCrystal
+      .BYTE $1B
+      .BYTE $0D
 MusicHeaderGameOver:
-      .BYTE $00, $CE, $A0, $1B, $0E
+      .BYTE $00
+      ; .BYTE $CE, $A0
+      .WORD MusicDataGameOver
+      .BYTE $1B
+      .BYTE $0E
 MusicHeaderBossBeaten:
-      .BYTE $00, $F2, $A0, $41, $27
+      .BYTE $00
+      ; .BYTE $F2, $A0
+      .WORD MusicDataBossBeaten
+      .BYTE $41
+      .BYTE $27
 MusicHeaderCharacterSelect8:
-      .BYTE $00, $93, $9B, $2F, $21, $38
+      .BYTE $00
+      ; .BYTE $93, $9B
+      .WORD MusicDataCharacterSelect8
+      .BYTE $2F
+      .BYTE $21
+      .BYTE $38
 MusicHeaderMushroomBonusChance:
-      .BYTE $52, $BB, $A0, $00, $0A
+      .BYTE $52
+      ; .BYTE $BB, $A0
+      .WORD MusicDataMushroomBonusChance
+      .BYTE $00
+      .BYTE $0A
 MusicHeaderCharacterSelect7:
-      .BYTE $00, $DF, $9A, $97, $61, $B0
+      .BYTE $00
+      ; .BYTE $DF, $9A
+      .WORD MusicDataCharacterSelect7
+      .BYTE $97
+      .BYTE $61
+      .BYTE $B0
 MusicHeaderDeath:
-      .BYTE $28, $6F, $A1, $17, $0C
+      .BYTE $28
+      ; .BYTE $6F, $A1
+      .WORD MusicDataDeath
+      .BYTE $17
+      .BYTE $0C
 MusicHeaderCharacterSelect6:
-      .BYTE $00, $5D, $9A, $6C, $45, $79
+      .BYTE $00
+      ; .BYTE $5D, $9A
+      .WORD MusicDataCharacterSelect6
+      .BYTE $6C
+      .BYTE $45
+      .BYTE $79
 MusicHeaderTitleScreen2:
-      .BYTE $1B, $A7, $96, $BC, $64, $59
+      .BYTE $1B
+      ; .BYTE $A7, $96
+      .WORD MusicDataTitleScreen2
+      .BYTE $BC
+      .BYTE $64
+      .BYTE $59
 MusicHeaderTitleScreen1:
-      .BYTE $1B, $3E, $96, $43, $22, $57
+      .BYTE $1B
+      ; .BYTE $3E, $96
+      .WORD MusicDataTitleScreen1
+      .BYTE $43
+      .BYTE $22
+      .BYTE $57
 MusicHeaderTitleScreen3:
-      .BYTE $1B, $94, $97, $8D, $47, $BA
+      .BYTE $1B
+      ; .BYTE $94, $97
+      .WORD MusicDataTitleScreen3
+      .BYTE $8D
+      .BYTE $47
+      .BYTE $BA
 MusicHeaderTitleScreen4:
-      .BYTE $1B, $78, $98, $24, $12, $29
+      .BYTE $1B
+      ; .BYTE $78, $98
+      .WORD MusicDataTitleScreen4
+      .BYTE $24
+      .BYTE $12
+      .BYTE $29
 MusicHeaderSubspace1:
-      .BYTE $28, $50, $95, $38, $1C, $83
+      .BYTE $28
+      ; .BYTE $50, $95
+      .WORD MusicDataSubspace1
+      .BYTE $38
+      .BYTE $1C
+      .BYTE $83
 MusicHeaderSubspace2:
-      .BYTE $28, $A3, $95, $24, $12, $30
+      .BYTE $28
+      ; .BYTE $A3, $95
+      .WORD MusicDataSubspace2
+      .BYTE $24
+      .BYTE $12
+      .BYTE $30
 MusicHeaderSubspace3:
-      .BYTE $28, $E0, $95, $22, $10, $51
+      .BYTE $28
+      ; .BYTE $E0, $95
+      .WORD MusicDataSubspace3
+      .BYTE $22
+      .BYTE $10
+      .BYTE $51
 MusicHeaderSubspace4:
-      .BYTE $28, $0F, $96, $17, $0A, $22
+      .BYTE $28
+      ; .BYTE $0F, $96
+      .WORD MusicDataSubspace4
+      .BYTE $17
+      .BYTE $0A
+      .BYTE $22
 MusicHeaderEnding1:
-      .BYTE $6E, $1E, $91, $3D, $1F, $6D
+      .BYTE $6E
+      ; .BYTE $1E, $91
+      .WORD MusicDataEnding1
+      .BYTE $3D
+      .BYTE $1F
+      .BYTE $6D
 MusicHeaderEnding3:
-      .BYTE $6E, $9C, $91, $41, $21, $8C
+      .BYTE $6E
+      ; .BYTE $9C, $91
+      .WORD MusicDataEnding3
+      .BYTE $41
+      .BYTE $21
+      .BYTE $8C
 MusicHeaderEnding2:
-      .BYTE $6E, $80, $92, $2A, $5A, $19
+      .BYTE $6E
+      ; .BYTE $80, $92
+      .WORD MusicDataEnding2
+      .BYTE $2A
+      .BYTE $5A
+      .BYTE $19
 MusicHeaderEnding5:
-      .BYTE $6E, $F2, $92, $4C, $14, $68
+      .BYTE $6E
+      ; .BYTE $F2, $92
+      .WORD MusicDataEnding5
+      .BYTE $4C
+      .BYTE $14
+      .BYTE $68
 MusicHeaderEnding4:
-      .BYTE $6E, $0D, $92, $43, $29, $1B
+      .BYTE $6E
+      ; .BYTE $0D, $92
+      .WORD MusicDataEnding4
+      .BYTE $43
+      .BYTE $29
+      .BYTE $1B
 MusicHeaderEnding6:
-      .BYTE $6E, $76, $93, $00, $72, $00
+      .BYTE $6E
+      ; .BYTE $76, $93
+      .WORD MusicDataEnding6
+      .BYTE $00
+      .BYTE $72
+      .BYTE $00
 
 MusicPointersFirstPart:
-      .BYTE $10
-      .BYTE $07
-      .BYTE $29
-      .BYTE $17
-      .BYTE $18
-      .BYTE $1E
-      .BYTE $19
-      .BYTE $1A
-      .BYTE $23
+      .BYTE $10 ; Overworld
+      .BYTE $07 ; Character Select
+      .BYTE $29 ; Underground
+      .BYTE $17 ; Boss
+      .BYTE $18 ; Star
+      .BYTE $1E ; Subspace
+      .BYTE $19 ; Wart
+      .BYTE $1A ; Title Screen
+      .BYTE $23 ; Ending
 
 MusicPointersEndPart:
-      .BYTE $16
-      .BYTE $0F
-      .BYTE $29
-      .BYTE $17
-      .BYTE $18
-      .BYTE $22
-      .BYTE $19
-      .BYTE $1D
-      .BYTE $28
+      .BYTE $16 ; Overworld
+      .BYTE $0F ; Character Select
+      .BYTE $29 ; Underground
+      .BYTE $17 ; Boss
+      .BYTE $18 ; Star
+      .BYTE $22 ; Subspace
+      .BYTE $19 ; Wart
+      .BYTE $1D ; Title Screen
+      .BYTE $28 ; Ending
 
 MusicPointersLoopPart:
-      .BYTE $11
-      .BYTE $08
-      .BYTE $29
-      .BYTE $17
-      .BYTE $18
-      .BYTE $1E
-      .BYTE $19
-      .BYTE $00
-      .BYTE $28
+      .BYTE $11 ; Overworld
+      .BYTE $08 ; Character Select
+      .BYTE $29 ; Underground
+      .BYTE $17 ; Boss
+      .BYTE $18 ; Star
+      .BYTE $1E ; Subspace
+      .BYTE $19 ; Wart
+      .BYTE $00 ; Title Screen
+      .BYTE $28 ; Ending
 
 MusicData:
+MusicDataEnding1:
       .BYTE $8A
       .BYTE $50
       .BYTE $84
@@ -1659,6 +1856,7 @@ MusicData:
       .BYTE $84
       .BYTE $10
       .BYTE $00
+MusicDataEnding3:
       .BYTE $8A
       .BYTE $50
       .BYTE $84
@@ -1772,6 +1970,7 @@ MusicData:
       .BYTE $2A
       .BYTE $2A
       .BYTE $2A
+MusicDataEnding4:
       .BYTE $8A
       .BYTE $48
       .BYTE $84
@@ -1887,6 +2086,7 @@ MusicData:
       .BYTE $26
       .BYTE $26
       .BYTE $26
+MusicDataEnding2:
       .BYTE $8A
       .BYTE $48
       .BYTE $84
@@ -2001,6 +2201,7 @@ MusicData:
       .BYTE $8A
       .BYTE $48
       .BYTE $46
+MusicDataEnding5:
       .BYTE $8A
       .BYTE $48
       .BYTE $48
@@ -2133,6 +2334,7 @@ MusicData:
       .BYTE $01
       .BYTE $01
       .BYTE $01
+MusicDataEnding6:
       .BYTE $F4
       .BYTE $68
       .BYTE $6A
@@ -2376,6 +2578,7 @@ MusicData:
       .BYTE $52
       .BYTE $4C
       .BYTE $5E
+MusicDataStar:
       .BYTE $98
       .BYTE $48
       .BYTE $48
@@ -2460,6 +2663,7 @@ MusicData:
       .BYTE $01
       .BYTE $01
       .BYTE $00
+MusicDataUnderground:
       .BYTE $A4
       .BYTE $0A
       .BYTE $18
@@ -2607,6 +2811,7 @@ MusicData:
       .BYTE $01
       .BYTE $01
       .BYTE $00
+MusicDataSubspace1:
       .BYTE $99
       .BYTE $48
       .BYTE $3E
@@ -2641,9 +2846,9 @@ MusicData:
       .BYTE $26
       .BYTE $98
       .BYTE $30
-      .BYTE $34 ; 4
+      .BYTE $34
       .BYTE $94
-      .BYTE $32 ; 2
+      .BYTE $32
       .BYTE $98
       .BYTE $30
       .BYTE $96
@@ -2659,10 +2864,10 @@ MusicData:
       .BYTE $98
       .BYTE $42
       .BYTE $94
-      .BYTE $38 ; 8
+      .BYTE $38
       .BYTE $3A
       .BYTE $99
-      .BYTE $34 ; 4
+      .BYTE $34
       .BYTE $99
       .BYTE $3E
       .BYTE $38
@@ -2675,7 +2880,7 @@ MusicData:
       .BYTE $3A
       .BYTE $7E
       .BYTE $96
-      .BYTE $38 ; 8
+      .BYTE $38
       .BYTE $48
       .BYTE $50
       .BYTE $94
@@ -2690,6 +2895,7 @@ MusicData:
       .BYTE $46
       .BYTE $99
       .BYTE $3E
+MusicDataSubspace2:
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2719,12 +2925,12 @@ MusicData:
       .BYTE $94
       .BYTE $48
       .BYTE $7E
-      .BYTE $38 ; 8
+      .BYTE $38
       .BYTE $3A
       .BYTE $3E
       .BYTE $7E
       .BYTE $30
-      .BYTE $38 ; 8
+      .BYTE $38
       .BYTE $3A
       .BYTE $99
       .BYTE $30
@@ -2751,6 +2957,7 @@ MusicData:
       .BYTE $01
       .BYTE $02
       .BYTE $00
+MusicDataSubspace3:
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2787,7 +2994,7 @@ MusicData:
       .BYTE $7E
       .BYTE $99
       .BYTE $30
-      .BYTE $38 ; 8
+      .BYTE $38
       .BYTE $94
       .BYTE $3E
       .BYTE $98
@@ -2798,6 +3005,7 @@ MusicData:
       .BYTE $98
       .BYTE $6E
       .BYTE $3E
+MusicDataSubspace4:
       .BYTE $98
       .BYTE $7E
       .BYTE $99
@@ -2819,7 +3027,7 @@ MusicData:
       .BYTE $98
       .BYTE $7E
       .BYTE $9A
-      .BYTE $38 ; 8
+      .BYTE $38
       .BYTE $7E
       .BYTE $98
       .BYTE $30
@@ -2845,6 +3053,7 @@ MusicData:
       .BYTE $01
       .BYTE $02
       .BYTE $00
+MusicDataTitleScreen1:
       .BYTE $E4
       .BYTE $6E
       .BYTE $E8
@@ -2950,6 +3159,7 @@ MusicData:
       .BYTE $01
       .BYTE $EA
       .BYTE $01
+MusicDataTitleScreen2:
       .BYTE $E4
       .BYTE $50
       .BYTE $3E
@@ -3187,6 +3397,7 @@ MusicData:
       .BYTE $3E
       .BYTE $56
       .BYTE $56
+MusicDataTitleScreen3:
       .BYTE $E4
       .BYTE $56
       .BYTE $48
@@ -3415,6 +3626,7 @@ MusicData:
       .BYTE $02
       .BYTE $10
       .BYTE $10
+MusicDataTitleScreen4:
       .BYTE $48
       .BYTE $7E
       .BYTE $7E
@@ -3468,6 +3680,7 @@ MusicData:
       .BYTE $10
       .BYTE $01
       .BYTE $01
+MusicDataCharacterSelect1:
       .BYTE $96
       .BYTE $48
       .BYTE $92
@@ -3643,6 +3856,7 @@ MusicData:
       .BYTE $A8
       .BYTE $50
       .BYTE $50
+MusicDataCharacterSelect2:
       .BYTE $A8
       .BYTE $50
       .BYTE $7E
@@ -3705,10 +3919,12 @@ MusicData:
       .BYTE $AA
       .BYTE $7E
       .BYTE $00
+MusicDataCharacterSelect3:
       .BYTE $AA
       .BYTE $7E
       .BYTE $7E
       .BYTE $00
+MusicDataCharacterSelect4:
       .BYTE $C8
       .BYTE $7E
       .BYTE $48
@@ -3845,6 +4061,7 @@ MusicData:
       .BYTE $01
       .BYTE $82
       .BYTE $04
+MusicDataCharacterSelect5:
       .BYTE $C8
       .BYTE $50
       .BYTE $7E
@@ -3900,6 +4117,7 @@ MusicData:
       .BYTE $42
       .BYTE $7E
       .BYTE $00
+MusicDataCharacterSelect6:
       .BYTE $C8
       .BYTE $7E
       .BYTE $46
@@ -4030,6 +4248,7 @@ MusicData:
       .BYTE $02
       .BYTE $7E
       .BYTE $06
+MusicDataCharacterSelect7:
       .BYTE $96
       .BYTE $50
       .BYTE $92
@@ -4210,6 +4429,7 @@ MusicData:
       .BYTE $02
       .BYTE $04
       .BYTE $00
+MusicDataCharacterSelect8:
       .BYTE $96
       .BYTE $5E
       .BYTE $92
@@ -4275,6 +4495,7 @@ MusicData:
       .BYTE $02
       .BYTE $7E
       .BYTE $06
+MusicDataOverworld1:
       .BYTE $A2
       .BYTE $7E
       .BYTE $7E
@@ -4351,6 +4572,7 @@ MusicData:
       .BYTE $02
       .BYTE $02
       .BYTE $02
+MusicDataOverworld2:
       .BYTE $82
       .BYTE $56
       .BYTE $7E
@@ -4568,6 +4790,7 @@ MusicData:
       .BYTE $01
       .BYTE $02
       .BYTE $00
+MusicDataOverworld3:
       .BYTE $92
       .BYTE $7E
       .BYTE $7E
@@ -4638,6 +4861,7 @@ MusicData:
       .BYTE $7E
       .BYTE $56
       .BYTE $00
+MusicDataOverworld4:
       .BYTE $92
       .BYTE $50
       .BYTE $7E
@@ -4831,6 +5055,7 @@ MusicData:
       .BYTE $2A
       .BYTE $26
       .BYTE $2E
+MusicDataOverworld5:
       .BYTE $92
       .BYTE $5A
       .BYTE $7E
@@ -4908,6 +5133,7 @@ MusicData:
       .BYTE $01
       .BYTE $02
       .BYTE $00
+MusicDataOverworld6:
       .BYTE $E2
       .BYTE $7E
       .BYTE $7E
@@ -5115,6 +5341,7 @@ MusicData:
       .BYTE $01
       .BYTE $10
       .BYTE $00
+MusicDataBoss:
       .BYTE $94
       .BYTE $34
       .BYTE $36
@@ -5286,6 +5513,7 @@ MusicData:
       .BYTE $3E
       .BYTE $88
       .BYTE $3E
+MusicDataWart:
       .BYTE $A9
       .BYTE $56
       .BYTE $54
@@ -5541,6 +5769,7 @@ MusicData:
       .BYTE $40
       .BYTE $84
       .BYTE $40
+MusicDataMushroomBonusChance:
       .BYTE $82
       .BYTE $46
       .BYTE $48
@@ -5560,6 +5789,7 @@ MusicData:
       .BYTE $50
       .BYTE $88
       .BYTE $4C
+MusicDataGameOver:
       .BYTE $94
       .BYTE $56
       .BYTE $5A
@@ -5596,6 +5826,7 @@ MusicData:
       .BYTE $30
       .BYTE $3E
       .BYTE $30
+MusicDataBossBeaten:
       .BYTE $94
       .BYTE $42
       .BYTE $48
@@ -5682,6 +5913,7 @@ MusicData:
       .BYTE $3E
       .BYTE $30
       .BYTE $7E
+MusicDataCrystal:
       .BYTE $89
       .BYTE $40
       .BYTE $84
@@ -5721,6 +5953,7 @@ MusicData:
       .BYTE $4A
       .BYTE $8B
       .BYTE $48
+MusicDataDeath:
       .BYTE $84
       .BYTE $7E
       .BYTE $82
