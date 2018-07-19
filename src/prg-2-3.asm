@@ -95,13 +95,14 @@ loc_BANK2_8058:
       LDA     TransitionType
 
 loc_BANK2_8083:
+      ; Play the slide-whistle when you start the game and drop into 1-1
       ORA     CurrentLevel
-      BNE     loc_BANK2_808D
+      BNE     NoIntroFallSlide
 
       LDA     #SoundEffect2_IntroFallSlide ; This is what plays the slide-whistle when
       STA     SoundEffectQueue2 ; you start the game and drop into 1-1
 
-loc_BANK2_808D:
+NoIntroFallSlide:
       LDA     byte_RAM_4AF
       BEQ     loc_BANK2_8106
 
@@ -157,8 +158,8 @@ loc_BANK2_80C7:
       STA     ObjectType,X
       JSR     EnemyInit_Basic
 
-      LDA     #0
-      STA     byte_RAM_5BC
+      LDA     #$00
+      STA     PhantoActivateTimer
       LDA     ScreenYLo
       STA     ObjectYLo,X
       LDA     ScreenYHi
@@ -945,10 +946,10 @@ loc_BANK2_84DF:
 EnemyInit_Phanto:
       JSR     EnemyInit_Basic
 
-      LDA     #$C
+      LDA     #$0C
       STA     ObjectXAccel,X
       LDA     #$A0
-      STA     byte_RAM_5BC
+      STA     PhantoActivateTimer
       RTS
 
 ; =============== S U B R O U T I N E =======================================
@@ -1966,11 +1967,11 @@ loc_BANK2_8A13:
 loc_BANK2_8A15:
       LDY     ObjectType,X
       LDA     ObjectAttributeTable,Y
-      AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_20
+      AND     #ObjAttrib_Palette0|ObjAttrib_BehindBackground
       BNE     loc_BANK2_8A41
 
       LDA     ObjectAttributes,X
-      AND     #ObjAttrib_Palette3|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_16x32|ObjAttrib_UpsideDown
+      AND     #ObjAttrib_Palette3|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_Mirrored|ObjAttrib_16x32|ObjAttrib_UpsideDown
       STA     ObjectAttributes,X
       LDA     ObjectBeingCarriedTimer,X
       CMP     #2
@@ -3483,7 +3484,7 @@ loc_BANK2_9198:
 
 TurnIntoPuffOfSmoke:
       LDA     ObjectAttributes,X ; Get current object sprite attributes...
-      AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32|ObjAttrib_UpsideDown
+      AND     #ObjAttrib_Palette0|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_Mirrored|ObjAttrib_BehindBackground|ObjAttrib_16x32|ObjAttrib_UpsideDown
       ORA     #$01 ; Clear current palette, then set to $01
       STA     ObjectAttributes,X
       LDA     #EnemyState_PuffOfSmoke
@@ -3783,64 +3784,68 @@ loc_BANK2_92D3:
 ; End of function CreateEnemy
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_9306:
-      .BYTE $01
 
+Phanto_AccelX:
+      .BYTE $01
       .BYTE $FF
-byte_BANK2_9308:
+Phanto_MaxVelX:
       .BYTE $30
-
       .BYTE $D0
-byte_BANK2_930A:
+Phanto_AccelY:
       .BYTE $01
-
-      .BYTE $FF
-      .BYTE $01
-byte_BANK2_930D:
+      .BYTE $FF ; Exit up
+      .BYTE $01 ; Exit down
+Phanto_MaxVelY:
       .BYTE $18
-
       .BYTE $E8
       .BYTE $18
-; ---------------------------------------------------------------------------
 
 EnemyBehavior_Phanto:
       LDA     EnemyArray_44A,X
-      BEQ     loc_BANK2_9318
+      BEQ     Phanto_AfterDecrementShakeTimer
 
+      ; Shake timer
       DEC     EnemyArray_44A,X
 
-loc_BANK2_9318:
+Phanto_AfterDecrementShakeTimer:
       JSR     RenderSprite
 
-      LDY     #1
+      LDY     #$01 ; Move away from player
       LDA     HoldingItem
-      BEQ     loc_BANK2_933B
+      BEQ     Phanto_Movement
 
       LDX     byte_RAM_42D
       LDA     ObjectType,X
       LDX     byte_RAM_12
-      CMP     #Enemy_Key ; Strange code. Phanto only chases you if you have the key.
-      BCC     loc_BANK2_933B ; So you should just be able to use BEQ/BNE.
-; This way seems to imply that Phanto would
-; chase you if you were carrying a range of items,
-; but...  what could those items have been?
 
-      CMP     #Enemy_SubspacePotion ; BuT Instead we do it like this for... reasons.
-      BCS     loc_BANK2_933B ; Nintendo.
+      ; Strange code. Phanto only chases you if you have the key.
+      ; So you should just be able to use BEQ/BNE.
+      ; This way seems to imply that Phanto would
+      ; chase you if you were carrying a range of items,
+      ; but...  what could those items have been?
+      ; But instead we do it like this for... reasons.
+      ; Nintendo.
+      CMP     #Enemy_Key
+      BCC     Phanto_Movement
 
-      LDA     byte_RAM_5BC
+      ; Subspace Potion is >= Enemy_Key, so ignore it
+      CMP     #Enemy_SubspacePotion
+      BCS     Phanto_Movement
+
+      LDA     PhantoActivateTimer
       CMP     #$A0
-      BNE     loc_BANK2_933A
+      BNE     Phanto_AfterStartTimer
 
-      DEC     byte_RAM_5BC
+      ; Kick off Phanto activation timer
+      DEC     PhantoActivateTimer
 
-loc_BANK2_933A:
-      DEY
+Phanto_AfterStartTimer:
+      DEY ; Move toward player
 
-loc_BANK2_933B:
+Phanto_Movement:
       LDA     ObjectYHi,X
       CLC
-      ADC     #1
+      ADC     #$01
       STA     byte_RAM_5
       LDA     PlayerYLo
       CMP     ObjectYLo,X
@@ -3851,15 +3856,15 @@ loc_BANK2_933B:
       SBC     byte_RAM_5
       BPL     loc_BANK2_9351
 
-      INY
+      INY ; Other side of player vertically
 
 loc_BANK2_9351:
       LDA     ObjectYAccel,X
-      CMP     byte_BANK2_930D,Y
+      CMP     Phanto_MaxVelY,Y
       BEQ     loc_BANK2_935E
 
       CLC
-      ADC     byte_BANK2_930A,Y
+      ADC     Phanto_AccelY,Y
       STA     ObjectYAccel,X
 
 loc_BANK2_935E:
@@ -3870,13 +3875,13 @@ loc_BANK2_935E:
       BCC     loc_BANK2_937F
 
       LDA     EnemyArray_477,X
-      AND     #1
+      AND     #$01
       TAY
       LDA     ObjectXAccel,X
       CLC
-      ADC     byte_BANK2_9306,Y
+      ADC     Phanto_AccelX,Y
       STA     ObjectXAccel,X
-      CMP     byte_BANK2_9308,Y
+      CMP     Phanto_MaxVelX,Y
       BNE     loc_BANK2_937F
 
       INC     EnemyArray_477,X
@@ -3889,45 +3894,47 @@ loc_BANK2_937F:
       STA     EnemyArray_4CC,X
 
 loc_BANK2_9388:
-      LDY     byte_RAM_5BC
-      BEQ     loc_BANK2_93B4
+      LDY     PhantoActivateTimer
+      BEQ     Phanto_Activated
 
+      ; Hold the timer at $A0
       CPY     #$A0
-      BEQ     loc_BANK2_93AB
+      BEQ     Phanto_AfterDecrementActivateTimer
 
       CPY     #$80
-      BNE     loc_BANK2_939A
+      BNE     Phanto_AfterFlashing
 
+      ; Start flashing
       LDA     #$40
       STA     EnemyArray_45C,X
 
-loc_BANK2_939A:
+Phanto_AfterFlashing:
       CPY     #$40
-      BNE     loc_BANK2_93A8
+      BNE     Phanto_AfterSound
 
+      ; Start vibrating
       LDA     #$40
       STA     EnemyArray_44A,X
 
-loc_BANK2_93A3:
+      ; Play Phanto activation sound effect
       LDA     #SoundEffect3_Rumble_B
       STA     SoundEffectQueue3
 
-loc_BANK2_93A8:
-      DEC     byte_RAM_5BC
+Phanto_AfterSound:
+      DEC     PhantoActivateTimer
 
-loc_BANK2_93AB:
-      LDA     #0
+Phanto_AfterDecrementActivateTimer:
+      LDA     #$00
       STA     EnemyArray_4CC,X
       STA     ObjectXAccel,X
       STA     ObjectYAccel,X
 
-loc_BANK2_93B4:
+Phanto_Activated:
       JMP     sub_BANK2_9430
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_93B7:
       .BYTE $E8
-
       .BYTE $D0
       .BYTE $D8
       .BYTE $D0
@@ -5697,7 +5704,7 @@ sub_BANK2_9BB3:
       STA     byte_RAM_B
       LDY     EnemyMovementDirection,X
       LDA     ObjectAttributes,X
-      AND     #ObjAttrib_Palette0|ObjAttrib_Unknown_08|ObjAttrib_Mirrored
+      AND     #ObjAttrib_Palette0|ObjAttrib_FrontFacing|ObjAttrib_Mirrored
       BEQ     loc_BANK2_9BD2
 
       LDY     #2
@@ -7689,7 +7696,7 @@ ENDIF
 
       JSR     sub_BANK2_9BB3
 
-      LDA     #ObjAttrib_Palette1|ObjAttrib_Unknown_08
+      LDA     #ObjAttrib_Palette1|ObjAttrib_FrontFacing
       STA     ObjectAttributes,X
       LDA     #$33
       STA     EnemyArray_46E,X
@@ -10561,7 +10568,7 @@ loc_BANK3_B80C:
       CMP     #Enemy_Phanto
       BNE     loc_BANK3_B815
 
-      LDY     byte_RAM_5BC
+      LDY     PhantoActivateTimer
       BNE     locret_BANK3_B828
 
 loc_BANK3_B815:

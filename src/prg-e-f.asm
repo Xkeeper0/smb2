@@ -4107,7 +4107,6 @@ locret_BANKF_F4D9:
 ; ---------------------------------------------------------------------------
 byte_BANKF_F4DA:
       .BYTE $C0
-
       .BYTE $70
       .BYTE $80
       .BYTE $50
@@ -4124,39 +4123,41 @@ byte_BANKF_F4DA:
       .BYTE $40
       .BYTE $B0
       .BYTE $60
+
+; Sprite display configuration
 ObjectAttributeTable:
-      .BYTE ObjAttrib_Palette1
-      .BYTE ObjAttrib_Palette1 ; 1
-      .BYTE ObjAttrib_Palette1 ; 2
-      .BYTE ObjAttrib_Palette3 ; 3
-      .BYTE ObjAttrib_Palette2 ; 4
-      .BYTE ObjAttrib_Palette1 ; 5
-      .BYTE ObjAttrib_Palette2 ; 6
-      .BYTE ObjAttrib_Palette3 ; 7
-      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; 8
-      .BYTE ObjAttrib_Palette1 ; 9
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_16x32 ; $A
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_16x32 ; $B
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_16x32 ; $C
-      .BYTE ObjAttrib_Palette1 ; $D
-      .BYTE ObjAttrib_Palette1 ; $E
-      .BYTE ObjAttrib_Palette1 ; $F
+      .BYTE ObjAttrib_Palette1 ; $00
+      .BYTE ObjAttrib_Palette1 ; $01
+      .BYTE ObjAttrib_Palette1 ; $02
+      .BYTE ObjAttrib_Palette3 ; $03
+      .BYTE ObjAttrib_Palette2 ; $04
+      .BYTE ObjAttrib_Palette1 ; $05
+      .BYTE ObjAttrib_Palette2 ; $06
+      .BYTE ObjAttrib_Palette3 ; $07
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $08
+      .BYTE ObjAttrib_Palette1 ; $09
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0A
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0B
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0C
+      .BYTE ObjAttrib_Palette1 ; $0D
+      .BYTE ObjAttrib_Palette1 ; $0E
+      .BYTE ObjAttrib_Palette1 ; $0F
       .BYTE ObjAttrib_Palette2 ; $10
       .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $11
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08 ; $12
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08 ; $13
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_FrontFacing ; $12
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $13
       .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $14
       .BYTE ObjAttrib_Palette0 ; $15
       .BYTE ObjAttrib_Palette0 ; $16
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08 ; $17
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $17
       .BYTE ObjAttrib_Palette1|ObjAttrib_16x32|ObjAttrib_UpsideDown ; $18
       .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $19
-      .BYTE ObjAttrib_Palette2|ObjAttrib_Unknown_08 ; $1A
-      .BYTE ObjAttrib_Palette2|ObjAttrib_Unknown_08 ; $1B
+      .BYTE ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1A
+      .BYTE ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1B
       .BYTE ObjAttrib_Palette2|ObjAttrib_16x32 ; $1C
       .BYTE ObjAttrib_Palette3|ObjAttrib_16x32 ; $1D
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08 ; $1E
-      .BYTE ObjAttrib_Palette2|ObjAttrib_Unknown_08 ; $1F
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $1E
+      .BYTE ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1F
       .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $20
       .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $21
       .BYTE ObjAttrib_Palette2 ; $22
@@ -4165,11 +4166,11 @@ ObjectAttributeTable:
       .BYTE ObjAttrib_Palette2 ; $25
       .BYTE ObjAttrib_Palette1 ; $26
       .BYTE ObjAttrib_Palette1 ; $27
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08 ; $28
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $28
       .BYTE ObjAttrib_Palette1 ; $29
       .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $2A
       .BYTE ObjAttrib_Palette1 ; $2B
-      .BYTE ObjAttrib_Palette3|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_16x32 ; $2C
+      .BYTE ObjAttrib_Palette3|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_16x32 ; $2C
       .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $2D
       .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $2E
       .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $2F
@@ -4182,313 +4183,319 @@ ObjectAttributeTable:
       .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $36
       .BYTE ObjAttrib_Palette1|ObjAttrib_UpsideDown ; $37
       .BYTE ObjAttrib_Palette1|ObjAttrib_UpsideDown ; $38
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08 ; $39
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08|ObjAttrib_UpsideDown ; $3A
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_16x32 ; $3B
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08 ; $3C
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08 ; $3D
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08|ObjAttrib_UpsideDown ; $3E
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $39
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $3A
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_16x32 ; $3B
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $3C
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $3D
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $3E
       .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $3F
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_08|ObjAttrib_UpsideDown ; $40
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Unknown_04|ObjAttrib_16x32 ; $41
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $40
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $41
       .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $42
       .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $43
       .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $44
       .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored ; $45
       .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $46
+
+; Collision behavior
 EnemyArray_46E_Data:
-      .BYTE $04
+      .BYTE $04 ; $00
+      .BYTE $00 ; $01
+      .BYTE $00 ; $02
+      .BYTE $00 ; $03
+      .BYTE $03 ; $04
+      .BYTE $00 ; $05
+      .BYTE $00 ; $06
+      .BYTE $00 ; $07
+      .BYTE $50 ; $08
+      .BYTE $40 ; $09
+      .BYTE $42 ; $0A
+      .BYTE $42 ; $0B
+      .BYTE $42 ; $0C
+      .BYTE $40 ; $0D
+      .BYTE $40 ; $0E
+      .BYTE $40 ; $0F
+      .BYTE $40 ; $10
+      .BYTE $13 ; $11
+      .BYTE $D0 ; $12
+      .BYTE $80 ; $13
+      .BYTE $00 ; $14
+      .BYTE $06 ; $15
+      .BYTE $06 ; $16
+      .BYTE $07 ; $17
+      .BYTE $10 ; $18
+      .BYTE $50 ; $19
+      .BYTE $90 ; $1A
+      .BYTE $07 ; $1B
+      .BYTE $0A ; $1C
+      .BYTE $3B ; $1D
+      .BYTE $40 ; $1E
+      .BYTE $18 ; $1F
+      .BYTE $07 ; $20
+      .BYTE $1B ; $21
+      .BYTE $10 ; $22
+      .BYTE $07 ; $23
+      .BYTE $07 ; $24
+      .BYTE $07 ; $25
+      .BYTE $50 ; $26
+      .BYTE $53 ; $27
+      .BYTE $96 ; $28
+      .BYTE $50 ; $29
+      .BYTE $9B ; $2A
+      .BYTE $D3 ; $2B
+      .BYTE $1B ; $2C
+      .BYTE $0B ; $2D
+      .BYTE $03 ; $2E
+      .BYTE $03 ; $2F
+      .BYTE $03 ; $30
+      .BYTE $03 ; $31
+      .BYTE $00 ; $32
+      .BYTE $00 ; $33
+      .BYTE $00 ; $34
+      .BYTE $00 ; $35
+      .BYTE $04 ; $36
+      .BYTE $04 ; $37
+      .BYTE $04 ; $38
+      .BYTE $00 ; $39
+      .BYTE $00 ; $3A
+      .BYTE $06 ; $3B
+      .BYTE $04 ; $3C
+      .BYTE $00 ; $3D
+      .BYTE $04 ; $3E
+      .BYTE $04 ; $3F
+      .BYTE $04 ; $40
+      .BYTE $16 ; $41
+      .BYTE $06 ; $42
+      .BYTE $06 ; $43
+      .BYTE $0C ; $44
+      .BYTE $04 ; $45
+      .BYTE $04 ; $46
 
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $03
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $50
-      .BYTE $40
-      .BYTE $42
-      .BYTE $42
-      .BYTE $42
-      .BYTE $40
-      .BYTE $40
-      .BYTE $40
-      .BYTE $40
-      .BYTE $13
-      .BYTE $D0
-      .BYTE $80
-      .BYTE $00
-      .BYTE $06
-      .BYTE $06
-      .BYTE $07
-      .BYTE $10
-      .BYTE $50
-      .BYTE $90
-      .BYTE $07
-      .BYTE $0A
-      .BYTE $3B
-      .BYTE $40
-      .BYTE $18
-      .BYTE $07
-      .BYTE $1B
-      .BYTE $10
-      .BYTE $07
-      .BYTE $07
-      .BYTE $07
-      .BYTE $50
-      .BYTE $53
-      .BYTE $96
-      .BYTE $50
-      .BYTE $9B
-      .BYTE $D3
-      .BYTE $1B
-      .BYTE $0B
-      .BYTE $03
-      .BYTE $03
-      .BYTE $03
-      .BYTE $03
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $00
-      .BYTE $00
-      .BYTE $06
-      .BYTE $04
-      .BYTE $00
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $16
-      .BYTE $06
-      .BYTE $06
-      .BYTE $0C
-      .BYTE $04
-      .BYTE $04
+; Height and collision detection
 EnemyArray_492_Data:
-      .BYTE $00
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $0C
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $0D
-      .BYTE $0D
-      .BYTE $05
-      .BYTE $0C
-      .BYTE $0C
-      .BYTE $05
-      .BYTE $0D
-      .BYTE $0C
-      .BYTE $0C
-      .BYTE $05
-      .BYTE $0E
-      .BYTE $0D
-      .BYTE $0C
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $0C
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $00
-      .BYTE $0F
-      .BYTE $0F
-      .BYTE $0F
-      .BYTE $0F
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $10
-      .BYTE $00
-      .BYTE $00
-      .BYTE $05
-      .BYTE $05
-      .BYTE $05
-EnemyArray_489_Data:
-      .BYTE $08
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $04
-      .BYTE $02
-      .BYTE $09
-      .BYTE $09
-      .BYTE $09
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $08
-      .BYTE $08
-      .BYTE $02
-      .BYTE $04
-      .BYTE $04
-      .BYTE $0E
-      .BYTE $08
-      .BYTE $04
-      .BYTE $04
-      .BYTE $02
-      .BYTE $0F
-      .BYTE $02
-      .BYTE $13
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $10
-      .BYTE $02
-      .BYTE $12
-      .BYTE $02
-      .BYTE $0F
-      .BYTE $02
-      .BYTE $11
-      .BYTE $0B
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $04
-      .BYTE $03
-      .BYTE $03
-      .BYTE $07
-      .BYTE $04
-      .BYTE $03
-      .BYTE $03
-      .BYTE $03
-      .BYTE $03
-      .BYTE $09
-      .BYTE $0B
-      .BYTE $0B
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-byte_BANKF_F607:
-      .BYTE $00
+      .BYTE $00 ; $00
+      .BYTE $05 ; $01
+      .BYTE $05 ; $02
+      .BYTE $05 ; $03
+      .BYTE $05 ; $04
+      .BYTE $05 ; $05
+      .BYTE $05 ; $06
+      .BYTE $05 ; $07
+      .BYTE $0C ; $08
+      .BYTE $05 ; $09
+      .BYTE $05 ; $0A
+      .BYTE $05 ; $0B
+      .BYTE $05 ; $0C
+      .BYTE $05 ; $0D
+      .BYTE $05 ; $0E
+      .BYTE $05 ; $0F
+      .BYTE $05 ; $10
+      .BYTE $05 ; $11
+      .BYTE $05 ; $12
+      .BYTE $05 ; $13
+      .BYTE $05 ; $14
+      .BYTE $0D ; $15
+      .BYTE $0D ; $16
+      .BYTE $05 ; $17
+      .BYTE $0C ; $18
+      .BYTE $0C ; $19
+      .BYTE $05 ; $1A
+      .BYTE $0D ; $1B
+      .BYTE $0C ; $1C
+      .BYTE $0C ; $1D
+      .BYTE $05 ; $1E
+      .BYTE $0E ; $1F
+      .BYTE $0D ; $20
+      .BYTE $0C ; $21
+      .BYTE $05 ; $22
+      .BYTE $05 ; $23
+      .BYTE $05 ; $24
+      .BYTE $05 ; $25
+      .BYTE $0C ; $26
+      .BYTE $05 ; $27
+      .BYTE $05 ; $28
+      .BYTE $05 ; $29
+      .BYTE $05 ; $2A
+      .BYTE $05 ; $2B
+      .BYTE $05 ; $2C
+      .BYTE $00 ; $2D
+      .BYTE $0F ; $2E
+      .BYTE $0F ; $2F
+      .BYTE $0F ; $30
+      .BYTE $0F ; $31
+      .BYTE $05 ; $32
+      .BYTE $05 ; $33
+      .BYTE $05 ; $34
+      .BYTE $05 ; $35
+      .BYTE $05 ; $36
+      .BYTE $05 ; $37
+      .BYTE $05 ; $38
+      .BYTE $04 ; $39
+      .BYTE $04 ; $3A
+      .BYTE $04 ; $3B
+      .BYTE $04 ; $3C
+      .BYTE $04 ; $3D
+      .BYTE $04 ; $3E
+      .BYTE $04 ; $3F
+      .BYTE $04 ; $40
+      .BYTE $10 ; $41
+      .BYTE $00 ; $42
+      .BYTE $00 ; $43
+      .BYTE $05 ; $44
+      .BYTE $05 ; $45
+      .BYTE $05 ; $46
 
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
-      .BYTE $02
-      .BYTE $01
-      .BYTE $00
-      .BYTE $02
-      .BYTE $03
-      .BYTE $02
-      .BYTE $04
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $00
-      .BYTE $02
+; Horizontal hitbox and collision detection
+EnemyArray_489_Data:
+      .BYTE $08 ; $00
+      .BYTE $02 ; $01
+      .BYTE $02 ; $02
+      .BYTE $02 ; $03
+      .BYTE $02 ; $04
+      .BYTE $02 ; $05
+      .BYTE $02 ; $06
+      .BYTE $02 ; $07
+      .BYTE $04 ; $08
+      .BYTE $02 ; $09
+      .BYTE $09 ; $0A
+      .BYTE $09 ; $0B
+      .BYTE $09 ; $0C
+      .BYTE $02 ; $0D
+      .BYTE $02 ; $0E
+      .BYTE $02 ; $0F
+      .BYTE $02 ; $10
+      .BYTE $02 ; $11
+      .BYTE $02 ; $12
+      .BYTE $02 ; $13
+      .BYTE $02 ; $14
+      .BYTE $08 ; $15
+      .BYTE $08 ; $16
+      .BYTE $02 ; $17
+      .BYTE $04 ; $18
+      .BYTE $04 ; $19
+      .BYTE $0E ; $1A
+      .BYTE $08 ; $1B
+      .BYTE $04 ; $1C
+      .BYTE $04 ; $1D
+      .BYTE $02 ; $1E
+      .BYTE $0F ; $1F
+      .BYTE $02 ; $20
+      .BYTE $13 ; $21
+      .BYTE $02 ; $22
+      .BYTE $02 ; $23
+      .BYTE $02 ; $24
+      .BYTE $02 ; $25
+      .BYTE $10 ; $26
+      .BYTE $02 ; $27
+      .BYTE $12 ; $28
+      .BYTE $02 ; $29
+      .BYTE $0F ; $2A
+      .BYTE $02 ; $2B
+      .BYTE $11 ; $2C
+      .BYTE $0B ; $2D
+      .BYTE $02 ; $2E
+      .BYTE $02 ; $2F
+      .BYTE $02 ; $30
+      .BYTE $02 ; $31
+      .BYTE $02 ; $32
+      .BYTE $02 ; $33
+      .BYTE $02 ; $34
+      .BYTE $02 ; $35
+      .BYTE $02 ; $36
+      .BYTE $02 ; $37
+      .BYTE $04 ; $38
+      .BYTE $03 ; $39
+      .BYTE $03 ; $3A
+      .BYTE $07 ; $3B
+      .BYTE $04 ; $3C
+      .BYTE $03 ; $3D
+      .BYTE $03 ; $3E
+      .BYTE $03 ; $3F
+      .BYTE $03 ; $40
+      .BYTE $09 ; $41
+      .BYTE $0B ; $42
+      .BYTE $0B ; $43
+      .BYTE $02 ; $44
+      .BYTE $02 ; $45
+      .BYTE $02 ; $46
+
+; More collision (post-throw)
+byte_BANKF_F607:
+      .BYTE $00 ; $00
+      .BYTE $00 ; $01
+      .BYTE $00 ; $02
+      .BYTE $00 ; $03
+      .BYTE $00 ; $04
+      .BYTE $00 ; $05
+      .BYTE $00 ; $06
+      .BYTE $00 ; $07
+      .BYTE $00 ; $08
+      .BYTE $00 ; $09
+      .BYTE $00 ; $0A
+      .BYTE $00 ; $0B
+      .BYTE $00 ; $0C
+      .BYTE $00 ; $0D
+      .BYTE $00 ; $0E
+      .BYTE $00 ; $0F
+      .BYTE $00 ; $10
+      .BYTE $00 ; $11
+      .BYTE $00 ; $12
+      .BYTE $00 ; $13
+      .BYTE $00 ; $14
+      .BYTE $00 ; $15
+      .BYTE $00 ; $16
+      .BYTE $00 ; $17
+      .BYTE $00 ; $18
+      .BYTE $00 ; $19
+      .BYTE $00 ; $1A
+      .BYTE $00 ; $1B
+      .BYTE $00 ; $1C
+      .BYTE $00 ; $1D
+      .BYTE $00 ; $1E
+      .BYTE $00 ; $1F
+      .BYTE $00 ; $20
+      .BYTE $00 ; $21
+      .BYTE $00 ; $22
+      .BYTE $00 ; $23
+      .BYTE $00 ; $24
+      .BYTE $00 ; $25
+      .BYTE $00 ; $26
+      .BYTE $00 ; $27
+      .BYTE $00 ; $28
+      .BYTE $00 ; $29
+      .BYTE $00 ; $2A
+      .BYTE $00 ; $2B
+      .BYTE $00 ; $2C
+      .BYTE $00 ; $2D
+      .BYTE $00 ; $2E
+      .BYTE $00 ; $2F
+      .BYTE $00 ; $30
+      .BYTE $00 ; $31
+      .BYTE $01 ; $32
+      .BYTE $01 ; $33
+      .BYTE $01 ; $34
+      .BYTE $01 ; $35
+      .BYTE $02 ; $36
+      .BYTE $01 ; $37
+      .BYTE $00 ; $38
+      .BYTE $02 ; $39
+      .BYTE $03 ; $3A
+      .BYTE $02 ; $3B
+      .BYTE $04 ; $3C
+      .BYTE $02 ; $3D
+      .BYTE $02 ; $3E
+      .BYTE $02 ; $3F
+      .BYTE $02 ; $40
+      .BYTE $02 ; $41
+      .BYTE $02 ; $42
+      .BYTE $02 ; $43
+      .BYTE $02 ; $44
+      .BYTE $00 ; $45
+      .BYTE $02 ; $46
+
 byte_BANKF_F64E:
       .BYTE $01
-
       .BYTE $43
       .BYTE $80
       .BYTE $C0
@@ -4500,6 +4507,7 @@ byte_BANKF_F64E:
       .BYTE $69
       .BYTE $98
       .BYTE $D5
+
 WarpDestinations:
       .BYTE $03, $01, $04, $05, $06, $05, $06
 

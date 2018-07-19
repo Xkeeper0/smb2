@@ -145,9 +145,9 @@ PPUStatus_VBlankHit = %10000000
 ; ---------------------------------------------------------------------------
 
 ; enum SoundEffect3
-SoundEffect3_ShortNoise = $01
-SoundEffect3_Rumble_A = $02
-SoundEffect3_Rumble_B = $04
+SoundEffect3_ShortNoise = $01 ; Whale spout
+SoundEffect3_Rumble_A = $02 ; Rocket
+SoundEffect3_Rumble_B = $04 ; POW rumble
 
 ; ---------------------------------------------------------------------------
 
@@ -261,12 +261,12 @@ ObjAttrib_Palette0 = $00
 ObjAttrib_Palette1 = $01
 ObjAttrib_Palette2 = $02
 ObjAttrib_Palette3 = $03
-ObjAttrib_Unknown_04 = $04
-ObjAttrib_Unknown_08 = $08
+ObjAttrib_Horizontal = $04 ; use with ObjAttrib_16x32 for 32x16
+ObjAttrib_FrontFacing = $08 ; no direction-based mirroring
 ObjAttrib_Mirrored = $10
-ObjAttrib_Unknown_20 = $20
+ObjAttrib_BehindBackground = $20
 ObjAttrib_16x32 = $40
-ObjAttrib_UpsideDown = $80
+ObjAttrib_UpsideDown = $80 ; appears behind background when pulling
 
 ; ---------------------------------------------------------------------------
 
@@ -348,21 +348,21 @@ Enemy_StopAttack = $49
 Enemy_VegetableThrower = $4A ; Used in Wart's room
 Enemy_4B = $4B ; crash
 Enemy_4C = $4C ; weird! makes game think you can always jump and pick up an enemy
-Enemy_4D = $4D ; unused
-Enemy_4E = $4E ; unused
-Enemy_4F = $4F ; unused
+Enemy_4D = $4D ; crash
+Enemy_4E = $4E ; hangs, forces background scroll?
+Enemy_4F = $4F ; hangs, forces background scroll?
 Enemy_50 = $50 ; crash, b+w palette?
 Enemy_51 = $51 ; crash
-Enemy_52 = $52 ; unused
-Enemy_53 = $53 ; unused
-Enemy_54 = $54 ; unused
-Enemy_55 = $55 ; unused
-Enemy_56 = $56 ; unused
-Enemy_57 = $57 ; unused
-Enemy_58 = $58 ; unused
-Enemy_59 = $59 ; unused
-Enemy_5A = $5A ; unused
-Enemy_5B = $5B ; unused
+Enemy_52 = $52 ; hangs, forces background scroll?
+Enemy_53 = $53 ; hangs, forces background scroll?
+Enemy_54 = $54 ; weird invisible thing that doesn't quite crash
+Enemy_55 = $55 ; seems to mess up player physics
+Enemy_56 = $56 ; crash
+Enemy_57 = $57 ; seems to mess up player physics
+Enemy_58 = $58 ; seems to mess up player physics
+Enemy_59 = $59 ; crash
+Enemy_5A = $5A ; crash
+Enemy_5B = $5B ; hangs, forces background scroll?
 Enemy_BossBirdo = $5C
 Enemy_BossMouser = $5D
 Enemy_BossEgg = $5E

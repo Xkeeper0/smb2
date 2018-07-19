@@ -47,7 +47,8 @@ ProcessMusicAndSfxQueues:
 ProcessOnlyMusicQueue2:
       JSR     ProcessMusicQueue2
 
-      LDA     #0
+      ; Reset queues
+      LDA     #$00
       STA     SoundEffectQueue2
       STA     MusicQueue2
       STA     SoundEffectQueue1
@@ -273,7 +274,7 @@ loc_BANK4_8146:
 
 loc_BANK4_814C:
       STA     byte_RAM_607
-      LDY     #0
+      LDY     #$00
 
 loc_BANK4_8151:
       INY
@@ -295,7 +296,7 @@ loc_BANK4_815A:
       STX     SQ2_VOL
       LDX     #$18
       STX     SQ2_HI
-      LDX     #0
+      LDX     #$00
       STX     SQ2_LO
       STX     byte_RAM_607
       RTS
@@ -440,7 +441,7 @@ loc_BANK4_82C6:
 loc_BANK4_82CB:
       LDY     byte_RAM_611
       LDA     ProcessMusicQueue2,Y ; @TODO ??? Uhhhhhhhhhhhhhhhhh????????
-      ORA     #$C
+      ORA     #$0C
       STA     NOISE_LO
       LDA     byte_RAM_611
       LSR     A

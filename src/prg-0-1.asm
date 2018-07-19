@@ -3204,9 +3204,9 @@ sub_BANK0_9053:
 ; ---------------------------------------------------------------------------
 byte_BANK0_9062:
       .BYTE $00
-
       .BYTE $04
       .BYTE $08
+
 PickUpToEnemyTypeTable:
       .BYTE Enemy_MushroomBlock
       .BYTE Enemy_MushroomBlock ; 1
@@ -6727,7 +6727,7 @@ loc_BANK1_B9EB:
 loc_BANK1_BA17:
       LDY     ObjectType,X
       LDA     ObjectAttributeTable,Y
-      AND     #ObjAttrib_Palette3|ObjAttrib_Unknown_04|ObjAttrib_Unknown_08|ObjAttrib_Mirrored|ObjAttrib_Unknown_20|ObjAttrib_16x32
+      AND     #ObjAttrib_Palette3|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_Mirrored|ObjAttrib_BehindBackground|ObjAttrib_16x32
       STA     ObjectAttributes,X
       LDA     EnemyArray_46E_Data,Y
       STA     EnemyArray_46E,X

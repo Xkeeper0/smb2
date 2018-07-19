@@ -1301,6 +1301,7 @@ byte_RAM_446:
       .dsb 1 ; $0447
       .dsb 1 ; $0448
       .dsb 1 ; $0449
+; Shake timer
 EnemyArray_44A:
       .dsb 1 ; $044a
       .dsb 1 ; $044b
@@ -1323,7 +1324,8 @@ EnemyArray_453:
       .dsb 1 ; $045a
 unk_RAM_45B:
       .dsb 1 ; $045b
-EnemyArray_45C: ; used for flashing?
+; Flashing timer
+EnemyArray_45C:
       .dsb 1 ; $045c
       .dsb 1 ; $045d
       .dsb 1 ; $045e
@@ -1824,7 +1826,7 @@ byte_RAM_5BA:
       .dsb 1 ; $05ba
 byte_RAM_5BB:
       .dsb 1 ; $05bb
-byte_RAM_5BC:
+PhantoActivateTimer:
       .dsb 1 ; $05bc
 byte_RAM_5BD:
       .dsb 1 ; $05bd
