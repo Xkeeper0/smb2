@@ -2298,167 +2298,99 @@ _unused_BANK6_9126:
       .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $C0
       .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $D0
 ; [000000DA BYTES: END OF AREA UNUSED-BANK6:9126. PRESS KEYPAD "-" TO COLLAPSE]
+
+;
+; Horizontal ground set data
+; ==========================
+;
+; Two bits per tile
+;
+; It seems to go top-to-bottom except for the last tile, which is actually the top?
+;
+;   00 - empty
+;   01 - sand
+;   10 - grass
+;   11 - black
+;
 MysteryDataD200:
       .BYTE $00,$00,$00,$24
-      .BYTE $00,$00,$02,$54 ; 4 ; @TODO ???
-      .BYTE $00,$02,$55,$54 ; 8
-      .BYTE $00,$02,$7F,$54 ; $C
-      .BYTE $00,$02,$7F,$D4 ; $10
-      .BYTE $00,$03,$FF,$54 ; $14
-      .BYTE $00,$02,$5F,$FC ; $18
-      .BYTE $00,$03,$FF,$FC ; $1C
-      .BYTE $00,$00,$00,$00 ; $20
-      .BYTE $55,$55,$55,$7C ; $24
-      .BYTE $E7,$9E,$79,$E4 ; $28
-      .BYTE $00,$0E,$79,$E4 ; $2C
-      .BYTE $00,$00,$09,$E4 ; $30
-      .BYTE $00,$00,$00,$24 ; $34
-      .BYTE $E0,$0E,$79,$E4 ; $38
-      .BYTE $E4,$00,$09,$E4 ; $3C
-      .BYTE $E4,$00,$00,$24 ; $40
-      .BYTE $E7,$90,$09,$E4 ; $44
-      .BYTE $E7,$9E,$70,$24 ; $48
-      .BYTE $E7,$9E,$40,$24 ; $4C
-      .BYTE $E7,$9C,$00,$24 ; $50
-      .BYTE $E0,$0E,$40,$24 ; $54
-      .BYTE $00,$00,$00,$E4 ; $58
-      .BYTE $E4,$00,$00,$00 ; $5C
-      .BYTE $E7,$9E,$79,$E4 ; $60
-      .BYTE $E7,$90,$01,$E4 ; $64
-      .BYTE $E0,$00,$01,$E4 ; $68
-      .BYTE $E7,$90,$00,$24 ; $6C
-      .BYTE $E0,$00,$00,$24 ; $70
-      .BYTE $00,$00,$00,$24 ; $74
-      .BYTE $00,$00,$00,$24 ; $78
-byte_BANK6_927C:
-      .BYTE $AA
+      .BYTE $00,$00,$02,$54
+      .BYTE $00,$02,$55,$54
+      .BYTE $00,$02,$7F,$54
+      .BYTE $00,$02,$7F,$D4
+      .BYTE $00,$03,$FF,$54
+      .BYTE $00,$02,$5F,$FC
+      .BYTE $00,$03,$FF,$FC
+      .BYTE $00,$00,$00,$00
+      .BYTE $55,$55,$55,$7C
+      .BYTE $E7,$9E,$79,$E4
+      .BYTE $00,$0E,$79,$E4
+      .BYTE $00,$00,$09,$E4
+      .BYTE $00,$00,$00,$24
+      .BYTE $E0,$0E,$79,$E4
+      .BYTE $E4,$00,$09,$E4
+      .BYTE $E4,$00,$00,$24
+      .BYTE $E7,$90,$09,$E4
+      .BYTE $E7,$9E,$70,$24
+      .BYTE $E7,$9E,$40,$24
+      .BYTE $E7,$9C,$00,$24
+      .BYTE $E0,$0E,$40,$24
+      .BYTE $00,$00,$00,$E4
+      .BYTE $E4,$00,$00,$00
+      .BYTE $E7,$9E,$79,$E4
+      .BYTE $E7,$90,$01,$E4
+      .BYTE $E0,$00,$01,$E4
+      .BYTE $E7,$90,$00,$24
+      .BYTE $E0,$00,$00,$24
+      .BYTE $00,$00,$00,$24
+      .BYTE $00,$00,$00,$24
 
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $80
-      .BYTE $00
-      .BYTE $00
-      .BYTE $02
-      .BYTE $AA
-      .BYTE $00
-      .BYTE $00
-      .BYTE $AA
-      .BYTE $FA
-      .BYTE $00
-      .BYTE $00
-      .BYTE $AF
-      .BYTE $FE
-      .BYTE $00
-      .BYTE $00
-      .BYTE $BF
-      .BYTE $FA
-      .BYTE $80
-      .BYTE $02
-      .BYTE $AF
-      .BYTE $E8
-      .BYTE $00
-      .BYTE $00
-      .BYTE $2B
-      .BYTE $E0
-      .BYTE $00
-      .BYTE $00
-      .BYTE $0B
-      .BYTE $FA
-      .BYTE $95
-      .BYTE $56
-      .BYTE $AF
-      .BYTE $95
-      .BYTE $00
-      .BYTE $00
-      .BYTE $56
-      .BYTE $A5
-      .BYTE $55
-      .BYTE $55
-      .BYTE $5A
-      .BYTE $A5
-      .BYTE $5A
-      .BYTE $A5
-      .BYTE $5A
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $95
-      .BYTE $55
-      .BYTE $55
-      .BYTE $56
-      .BYTE $95
-      .BYTE $5A
-      .BYTE $A5
-      .BYTE $56
-      .BYTE $A9
-      .BYTE $55
-      .BYTE $55
-      .BYTE $6A
-      .BYTE $81
-      .BYTE $55
-      .BYTE $55
-      .BYTE $42
-      .BYTE $AA
-      .BYTE $A5
-      .BYTE $55
-      .BYTE $5A
-      .BYTE $A5
-      .BYTE $55
-      .BYTE $5A
-      .BYTE $AA
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $80
-      .BYTE $00
-      .BYTE $00
-      .BYTE $02
-      .BYTE $A0
-      .BYTE $00
-      .BYTE $00
-      .BYTE $0A
-      .BYTE $AA
-      .BYTE $00
-      .BYTE $00
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $A0
-      .BYTE $0A
-      .BYTE $AA
-      .BYTE $80
-      .BYTE $00
-      .BYTE $0A
-      .BYTE $AA
-      .BYTE $80
-      .BYTE $0A
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $AA
-      .BYTE $A0
-      .BYTE $02
-      .BYTE $AA
-      .BYTE $A0
-      .BYTE $00
-      .BYTE $02
-      .BYTE $A0
-      .BYTE $0A
-      .BYTE $A0
-      .BYTE $0A
-      .BYTE $A0
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $0A
+;
+; Vertical ground set data
+; ========================
+;
+; Two bits per tile, left-to-right
+;
+;   00 - empty
+;   01 - bombable wall
+;   10 - background
+;   11 - solid block
+;
+byte_BANK6_927C:
+      .BYTE $AA,$AA,$AA,$AA
+      .BYTE $80,$00,$00,$02
+      .BYTE $AA,$00,$00,$AA
+      .BYTE $FA,$00,$00,$AF
+      .BYTE $FE,$00,$00,$BF
+      .BYTE $FA,$80,$02,$AF
+      .BYTE $E8,$00,$00,$2B
+      .BYTE $E0,$00,$00,$0B
+      .BYTE $FA,$95,$56,$AF
+      .BYTE $95,$00,$00,$56
+      .BYTE $A5,$55,$55,$5A
+      .BYTE $A5,$5A,$A5,$5A
+      .BYTE $55,$55,$55,$55
+      .BYTE $95,$55,$55,$56
+      .BYTE $95,$5A,$A5,$56
+      .BYTE $A9,$55,$55,$6A
+      .BYTE $81,$55,$55,$42
+      .BYTE $AA,$A5,$55,$5A
+      .BYTE $A5,$55,$5A,$AA
+      .BYTE $00,$00,$00,$00
+      .BYTE $80,$00,$00,$02
+      .BYTE $A0,$00,$00,$0A
+      .BYTE $AA,$00,$00,$AA
+      .BYTE $AA,$A0,$0A,$AA
+      .BYTE $80,$00,$0A,$AA
+      .BYTE $80,$0A,$AA,$AA
+      .BYTE $AA,$AA,$A0,$02
+      .BYTE $AA,$A0,$00,$02
+      .BYTE $A0,$0A,$A0,$0A
+      .BYTE $A0,$00,$00,$00
+      .BYTE $00,$00,$00,$0A
+
 byte_BANK6_92F8:
       .BYTE $00
-
       .BYTE $F0
       .BYTE $E0
       .BYTE $D0
@@ -2469,9 +2401,9 @@ byte_BANK6_92F8:
       .BYTE $80
       .BYTE $70
       .BYTE $00
+
 byte_BANK6_9303:
       .BYTE $60
-
       .BYTE $60
       .BYTE $61
       .BYTE $62
@@ -2482,9 +2414,9 @@ byte_BANK6_9303:
       .BYTE $67
       .BYTE $68
       .BYTE $07
+
 byte_BANK6_930E:
       .BYTE $75
-
       .BYTE $77
       .BYTE $CA
       .BYTE $CE
@@ -2506,6 +2438,7 @@ byte_BANK6_930E:
       .BYTE $CF
       .BYTE $09
       .BYTE $0D
+
 unk_BANK6_9324:
       .BYTE $77
       .BYTE $75

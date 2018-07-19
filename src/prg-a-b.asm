@@ -525,19 +525,19 @@ loc_BANKA_84D7:
 ; ---------------------------------------------------------------------------
 byte_BANKA_84E1:
       .BYTE $00
-
       .BYTE $01
       .BYTE $FF
       .BYTE $00
+
 byte_BANKA_84E5:
       .BYTE $00
-
       .BYTE $E0
       .BYTE $FF
       .BYTE $D0
       .BYTE $00
       .BYTE $E0
       .BYTE $FF
+
 PlayerSelectPalettes:
       .BYTE $3F,$00,$20,$0F ; $00
       .BYTE $28,$16,$06,$0F ; $04

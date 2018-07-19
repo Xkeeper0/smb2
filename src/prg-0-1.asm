@@ -1910,7 +1910,7 @@ HandlePlayerState_Lifting:
 
 loc_BANK0_8A9D:
       DEC     ObjectBeingCarriedTimer,X
-      LDA     byte_BANK0_8AC6,Y
+      LDA     PlayerLiftFrames,Y
       STA     PlayerAnimationFrame
       LDA     EnemyState,X
       CMP     #6
@@ -1948,9 +1948,9 @@ locret_BANK0_8AC1:
       .BYTE $01
       .BYTE $01
       .BYTE $01
-byte_BANK0_8AC6:
-      .BYTE $01
 
+PlayerLiftFrames:
+      .BYTE $01
       .BYTE $02
       .BYTE $04
       .BYTE $04
@@ -1958,9 +1958,9 @@ byte_BANK0_8AC6:
       .BYTE $04
       .BYTE $08
       .BYTE $08
+
 byte_BANK0_8ACE:
       .BYTE $00
-
       .BYTE $10
       .BYTE $F0
 ; ---------------------------------------------------------------------------

@@ -1155,22 +1155,18 @@ loc_BANK2_85E1:
 ; ---------------------------------------------------------------------------
 byte_BANK2_85E7:
       .BYTE $F8
-
       .BYTE $00
       .BYTE $F8
       .BYTE $00
       .BYTE $08
-byte_BANK2_85EC:
       .BYTE $10
       .BYTE $08
       .BYTE $10
 byte_BANK2_85EF:
       .BYTE $F8
-
       .BYTE $F8
 EnemyInitialAccelerationTable:
       .BYTE $08
-
       .BYTE $08
       .BYTE $F8
       .BYTE $F8
@@ -1238,7 +1234,6 @@ locret_BANK2_8649:
 ; ---------------------------------------------------------------------------
 byte_BANK2_864A:
       .BYTE $FB
-
       .BYTE $08
       .BYTE $15
       .BYTE $FB
@@ -1249,7 +1244,6 @@ byte_BANK2_864A:
       .BYTE $15
 byte_BANK2_8653:
       .BYTE $FF
-
       .BYTE $00
       .BYTE $00
       .BYTE $FF
@@ -1260,7 +1254,6 @@ byte_BANK2_8653:
       .BYTE $00
 byte_BANK2_865C:
       .BYTE $FC
-
       .BYTE $FC
       .BYTE $FC
       .BYTE $08
@@ -1271,7 +1264,6 @@ byte_BANK2_865C:
       .BYTE $14
 byte_BANK2_8665:
       .BYTE $FF
-
       .BYTE $FF
       .BYTE $FF
       .BYTE $00
@@ -1282,7 +1274,6 @@ byte_BANK2_8665:
       .BYTE $00
 byte_BANK2_866E:
       .BYTE $5F
-
       .BYTE $06
 
 ; =============== S U B R O U T I N E =======================================
@@ -4462,9 +4453,9 @@ locret_BANK2_9606:
 ; End of function CreateBullet
 
 ; ---------------------------------------------------------------------------
+; Carried object heights?
 byte_BANK2_9607:
       .BYTE $0A
-
       .BYTE $0E
       .BYTE $0A
       .BYTE $0D
