@@ -4040,7 +4040,7 @@ ObjectAttributeTable:
 ;   bit 7 ($80) - uses mirrored sprite for animation
 ;   bit 6 ($40) - double speed
 ;   bit 5 ($20) - wider sprite? used for mouser
-;   bit 4 ($10) - some kind of alternate sprite switch?
+;   bit 4 ($10) - use tilemap 2
 ;   bit 3 ($08) - squawk on death
 ;   bit 2 ($04) - disable collision with other enemies
 ;   bit 1 ($02) - unliftable

@@ -1698,6 +1698,7 @@ sub_BANK2_8894:
       BEQ     loc_BANK2_88BB
 
 loc_BANK2_88B9:
+      ; something for double-wide sprites
       LDY     #$03
 
 loc_BANK2_88BB:
@@ -5260,116 +5261,125 @@ locret_BANK2_99B3:
 
 ; ---------------------------------------------------------------------------
 EnemyTilemap1:
-      .BYTE $D0,$D2
-      .BYTE $D4,$D6 ; @TODO Figure out what the difference is
-      .BYTE $F8,$F8 ; between this and EnemyTilemap2
-      .BYTE $FA,$FA
-      .BYTE $CC,$CE
-      .BYTE $CC,$CE
-      .BYTE $C8,$CA
-      .BYTE $C8,$CA
-      .BYTE $70,$72
-      .BYTE $74,$76
-      .BYTE $C0,$C2
-      .BYTE $C4,$C6
-      .BYTE $E1,$E3
-      .BYTE $E5,$E7
-      .BYTE $E1,$E3
-      .BYTE $E5,$E7
-      .BYTE $78,$7A
-      .BYTE $7C,$7E
-      .BYTE $DC,$DA
-      .BYTE $DC,$DE
-      .BYTE $FE,$FE
-      .BYTE $FC,$FC
-      .BYTE $94,$94
-      .BYTE $96,$96
-      .BYTE $98,$98
-      .BYTE $9A,$9A
-      .BYTE $DB,$DD
-      .BYTE $DB,$DD
-      .BYTE $7D,$7F
-      .BYTE $C1,$C3
-      .BYTE $8C,$8C
-      .BYTE $8E,$8E
-      .BYTE $E0,$E2
-      .BYTE $6B,$6D
-      .BYTE $6D,$6F
-      .BYTE $3A,$3A
-      .BYTE $3A,$3A
-      .BYTE $38,$38
-      .BYTE $38,$38
-      .BYTE $36,$36
-      .BYTE $36,$36
-      .BYTE $34,$34
-      .BYTE $34,$34
-      .BYTE $AE,$FB
-      .BYTE $AE,$FB
-      .BYTE $80,$82
-      .BYTE $84,$86
-      .BYTE $80,$82
-      .BYTE $AA,$AC
-      .BYTE $88,$8A
-      .BYTE $84,$86
-      .BYTE $88,$8A
-      .BYTE $AA,$AC
-      .BYTE $BC,$BE
-      .BYTE $AA,$AC
-      .BYTE $BC,$BE
-      .BYTE $AA,$AC
-      .BYTE $B5,$B9
-      .BYTE $B5,$B9
-      .BYTE $81,$83
-      .BYTE $85,$87
-      .BYTE $FF,$FF
-      .BYTE $FF,$FF
-      .BYTE $81,$83
-      .BYTE $F5,$87
-      .BYTE $C5,$C7
-      .BYTE $C9,$CB
-      .BYTE $92,$94
-      .BYTE $29,$29
-      .BYTE $2B,$2B
-      .BYTE $3D,$3F
-      .BYTE $4C,$4E
-      .BYTE $50,$52
-      .BYTE $4C,$4E
-      .BYTE $56,$58
-      .BYTE $FB,$5C
-      .BYTE $FB,$5A
-      .BYTE $FB,$FB
-      .BYTE $FB,$54
-      .BYTE $CF,$CF
-      .BYTE $A5,$A5
-      .BYTE $B0,$B2
-      .BYTE $90,$90
-      .BYTE $CD,$CD
-      .BYTE $A8,$A8
-      .BYTE $A8,$A8
-      .BYTE $A0,$A2
-      .BYTE $A4,$A4
-      .BYTE $A4,$A4
-      .BYTE $4D,$4D
-      .BYTE $8C,$8C
-      .BYTE $A6,$A6
-      .BYTE $AB,$AB
+      .BYTE $D0,$D2 ; $00
+      .BYTE $D4,$D6 ; $02
+      .BYTE $F8,$F8 ; $04
+      .BYTE $FA,$FA ; $06
+      .BYTE $CC,$CE ; $08
+      .BYTE $CC,$CE ; $0A
+      .BYTE $C8,$CA ; $0C
+      .BYTE $C8,$CA ; $0E
+      .BYTE $70,$72 ; $10
+      .BYTE $74,$76 ; $12
+      .BYTE $C0,$C2 ; $14
+      .BYTE $C4,$C6 ; $16
+      .BYTE $E1,$E3 ; $18
+      .BYTE $E5,$E7 ; $1A
+      .BYTE $E1,$E3 ; $1C
+      .BYTE $E5,$E7 ; $1E
+      .BYTE $78,$7A ; $20
+      .BYTE $7C,$7E ; $22
+      .BYTE $DC,$DA ; $24
+      .BYTE $DC,$DE ; $26
+      .BYTE $FE,$FE ; $28
+      .BYTE $FC,$FC ; $2A
+      .BYTE $94,$94 ; $2C
+      .BYTE $96,$96 ; $2E
+      .BYTE $98,$98 ; $30
+      .BYTE $9A,$9A ; $32
+      .BYTE $DB,$DD ; $34
+      .BYTE $DB,$DD ; $36
+      .BYTE $7D,$7F ; $38
+      .BYTE $C1,$C3 ; $3A
+      .BYTE $8C,$8C ; $3C
+      .BYTE $8E,$8E ; $3E
+      .BYTE $E0,$E2 ; $40
+      .BYTE $6B,$6D ; $42
+      .BYTE $6D,$6F ; $44
+      .BYTE $3A,$3A ; $46
+      .BYTE $3A,$3A ; $48
+      .BYTE $38,$38 ; $4A
+      .BYTE $38,$38 ; $4C
+      .BYTE $36,$36 ; $4E
+      .BYTE $36,$36 ; $50
+      .BYTE $34,$34 ; $52
+      .BYTE $34,$34 ; $54
+      .BYTE $AE,$FB ; $56
+      .BYTE $AE,$FB ; $58
+      .BYTE $80,$82 ; $5A
+      .BYTE $84,$86 ; $5C
+      .BYTE $80,$82 ; $5E
+      .BYTE $AA,$AC ; $60
+      .BYTE $88,$8A ; $62
+      .BYTE $84,$86 ; $64
+      .BYTE $88,$8A ; $66
+      .BYTE $AA,$AC ; $68
+      .BYTE $BC,$BE ; $6A
+      .BYTE $AA,$AC ; $6C
+      .BYTE $BC,$BE ; $6E
+      .BYTE $AA,$AC ; $70
+      .BYTE $B5,$B9 ; $72
+      .BYTE $B5,$B9 ; $74
+      .BYTE $81,$83 ; $76
+      .BYTE $85,$87 ; $78
+      .BYTE $FF,$FF ; $7A
+      .BYTE $FF,$FF ; $7C
+      .BYTE $81,$83 ; $7E
+      .BYTE $F5,$87 ; $80
+      .BYTE $C5,$C7 ; $82
+      .BYTE $C9,$CB ; $84
+      .BYTE $92,$94 ; $86
+      .BYTE $29,$29 ; $88
+      .BYTE $2B,$2B ; $8A
+      .BYTE $3D,$3F ; $8C
+      .BYTE $4C,$4E ; $8E
+      .BYTE $50,$52 ; $90
+      .BYTE $4C,$4E ; $92
+      .BYTE $56,$58 ; $94
+      .BYTE $FB,$5C ; $96
+      .BYTE $FB,$5A ; $98
+      .BYTE $FB,$FB ; $9A
+      .BYTE $FB,$54 ; $9C
+      .BYTE $CF,$CF ; $9E
+      .BYTE $A5,$A5 ; $A0
+      .BYTE $B0,$B2 ; $A2
+      .BYTE $90,$90 ; $A4
+      .BYTE $CD,$CD ; $A6
+      .BYTE $A8,$A8 ; $A8
+      .BYTE $A8,$A8 ; $AA
+      .BYTE $A0,$A2 ; $AC
+      .BYTE $A4,$A4 ; $AE
+      .BYTE $A4,$A4 ; $B0
+      .BYTE $4D,$4D ; $B2
+      .BYTE $8C,$8C ; $B4
+      .BYTE $A6,$A6 ; $B6
+      .BYTE $AB,$AB ; $B8
+
+;
+; Enemy Animation table
+; =====================
+;
+; These point to the tilemaps offset for an object's animation frames.
+;
+; $FF is used to make an enemy invisible
+;
 EnemyAnimationTable:
-      .BYTE $00
-      .BYTE $00 ; 1 ; Not sure what this does, but it's some sort of
-      .BYTE $08 ; 2 ; pointer that determines where an enemy's animation
-      .BYTE $00 ; 3 ; frames are hiding.
-      .BYTE $0C ; 4 ;
-      .BYTE $10 ; 5 ; $FF means "none", used for the enemy-generating jars.
-      .BYTE $10 ; 6 ; You could theoretically make them visible that way...
-      .BYTE $10 ; 7 ;
-      .BYTE $40 ; 8 ; These go in order of enemy indexes.
-      .BYTE $14 ; 9
-      .BYTE $18 ; $A
-      .BYTE $18 ; $B
-      .BYTE $18 ; $C
-      .BYTE $20 ; $D
-      .BYTE $20 ; $E
-      .BYTE $24 ; $F
+      .BYTE $00 ; $00
+      .BYTE $00 ; $01
+      .BYTE $08 ; $02
+      .BYTE $00 ; $03
+      .BYTE $0C ; $04
+      .BYTE $10 ; $05
+      .BYTE $10 ; $06
+      .BYTE $10 ; $07
+      .BYTE $40 ; $08
+      .BYTE $14 ; $09
+      .BYTE $18 ; $0A
+      .BYTE $18 ; $0B
+      .BYTE $18 ; $0C
+      .BYTE $20 ; $0D
+      .BYTE $20 ; $0E
+      .BYTE $24 ; $0F
       .BYTE $24 ; $10
       .BYTE $BE ; $11
       .BYTE $00 ; $12
@@ -5702,6 +5712,7 @@ sub_BANK2_9BB3:
       LDA     byte_RAM_EF
       BNE     locret_BANK2_9B40
 
+      ; tilemap switcher
       LDA     EnemyArray_46E,X
       AND     #%00010000
       STA     byte_RAM_B
@@ -6255,14 +6266,14 @@ ENDIF
 
 
 EnemyTilemap2:
-      .BYTE $2D,$2F
-      .BYTE $2D,$2F ; 2 ; @TODO Figure out how this differs from
-      .BYTE $E0,$E2 ; 4 ; EnemyTilemap1 and why
-      .BYTE $E4,$E6 ; 6
-      .BYTE $E0,$E2 ; 8
-      .BYTE $E4,$E6 ; $A
-      .BYTE $E8,$EA ; $C
-      .BYTE $EC,$EE ; $E
+      .BYTE $2D,$2F ; $00
+      .BYTE $2D,$2F ; $02
+      .BYTE $E0,$E2 ; $04
+      .BYTE $E4,$E6 ; $06
+      .BYTE $E0,$E2 ; $08
+      .BYTE $E4,$E6 ; $0A
+      .BYTE $E8,$EA ; $0C
+      .BYTE $EC,$EE ; $0E
       .BYTE $E8,$EA ; $10
       .BYTE $EC,$EE ; $12
       .BYTE $01,$03 ; $14
