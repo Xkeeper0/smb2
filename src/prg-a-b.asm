@@ -379,7 +379,6 @@ LuigiPalette:
 
 MysteryData14439:
       .BYTE $DF
-
       .BYTE $EF
       .BYTE $F7
       .BYTE $FB
@@ -486,7 +485,7 @@ loc_BANKA_84AB:
       DEY
       BPL     loc_BANKA_84AB
 
-      LDY     #3
+      LDY     #$03
 
 loc_BANKA_84B6:
       LDA     byte_BANKA_84E1,Y

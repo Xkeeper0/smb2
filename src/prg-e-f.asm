@@ -17,6 +17,7 @@
 ;   - Pause screen
 ;   - Health logic
 ;   - Bottomless pit death logic
+;   - Bounding box data for collisions
 ;   - and more!
 ;
 
@@ -3062,253 +3063,88 @@ IFDEF PRESERVE_UNUSED_SPACE
 ENDIF
 
 ; [000002B3 BYTES: END OF AREA UNUSED-BANKF:ED4D. PRESS KEYPAD "-" TO COLLAPSE]
+; these seem like they might be pointers, not actual values?
 byte_BANKF_F000:
-      .BYTE $00
-
-      .BYTE $08
-      .BYTE $10
-      .BYTE $18
-      .BYTE $20
-      .BYTE $24
+      .BYTE $00 ; 0x0
+      .BYTE $08 ; ??
+      .BYTE $10 ; ??
+      .BYTE $18 ; ??
+      .BYTE $20 ; most 16x16 items, clips in 1px
+      .BYTE $24 ; most 16x16 enemies, clips in 4px
 byte_BANKF_F006:
       .BYTE $28
-
       .BYTE $2A
       .BYTE $29
       .BYTE $2B
 byte_BANKF_F00A:
       .BYTE $2C
-
 byte_BANKF_F00B:
       .BYTE $2E
-
-      .BYTE $30
-      .BYTE $34
-      .BYTE $38 ; 8
-      .BYTE $3C
-      .BYTE $40
+      .BYTE $30 ; 16x32 enemies, clips in 4px (birdo, mouser)
+      .BYTE $34 ; bullet, clips in 8px
+      .BYTE $38 ; 16x48 enemies, clips in 4px (tryclde)
+      .BYTE $3C ; spark, clips in 0px
+      .BYTE $40 ; flying carpet
+; collision x bounding box
 byte_BANKF_F011:
-      .BYTE $06
-
-      .BYTE $09
-      .BYTE $06
-      .BYTE $09
-      .BYTE $01
-      .BYTE $01
-      .BYTE $0E
-      .BYTE $0E
-      .BYTE $06
-      .BYTE $09
-      .BYTE $06
-      .BYTE $09
-      .BYTE $01
-      .BYTE $01
-      .BYTE $0E
-      .BYTE $0E
-      .BYTE $06
-      .BYTE $09
-      .BYTE $06
-      .BYTE $09
-      .BYTE $01
-      .BYTE $01
-      .BYTE $0E
-      .BYTE $0E
-      .BYTE $06
-      .BYTE $09
-      .BYTE $06
-      .BYTE $09
-      .BYTE $01
-      .BYTE $01
-      .BYTE $0E
-      .BYTE $0E
-      .BYTE $08
-      .BYTE $08
-      .BYTE $00
-      .BYTE $0F
-      .BYTE $08
-      .BYTE $08
-      .BYTE $03
-      .BYTE $0C
-      .BYTE $F8
-      .BYTE $18
-      .BYTE $F8
-      .BYTE $18
-      .BYTE $08
-      .BYTE $08
-      .BYTE $08
-      .BYTE $08
-      .BYTE $08
-      .BYTE $08
-      .BYTE $03
-      .BYTE $0C
-      .BYTE $03
-      .BYTE $03
-      .BYTE $02
-      .BYTE $05
-      .BYTE $08
-      .BYTE $08
-      .BYTE $03
-      .BYTE $0C
-      .BYTE $08
-      .BYTE $08
-      .BYTE $FF
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $02
-      .BYTE $1E
+      .BYTE $06,$09,$06,$09 ; $00
+      .BYTE $01,$01,$0E,$0E ; $04
+      .BYTE $06,$09,$06,$09 ; $08
+      .BYTE $01,$01,$0E,$0E ; $0C
+      .BYTE $06,$09,$06,$09 ; $10
+      .BYTE $01,$01,$0E,$0E ; $14
+      .BYTE $06,$09,$06,$09 ; $18
+      .BYTE $01,$01,$0E,$0E ; $1C
+      .BYTE $08,$08,$00,$0F ; $20
+      .BYTE $08,$08,$03,$0C ; $24
+      .BYTE $F8,$18,$F8,$18 ; $28
+      .BYTE $08,$08,$08,$08 ; $2C
+      .BYTE $08,$08,$03,$0C ; $30
+      .BYTE $03,$03,$02,$05 ; $34
+      .BYTE $08,$08,$03,$0C ; $38
+      .BYTE $08,$08,$FF,$10 ; $3C
+      .BYTE $10,$10,$02,$1E ; $40
+; collision y bounding box
 byte_BANKF_F055:
-      .BYTE $07
-
-      .BYTE $07
-      .BYTE $20
-      .BYTE $20
-      .BYTE $0D
-      .BYTE $1C
-      .BYTE $0D
-      .BYTE $1C
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $20
-      .BYTE $20
-      .BYTE $04
-      .BYTE $1C
-      .BYTE $04
-      .BYTE $1C
-      .BYTE $0F
-      .BYTE $0F
-      .BYTE $20
-      .BYTE $20
-      .BYTE $1C
-      .BYTE $1C
-      .BYTE $1C
-      .BYTE $1C
-      .BYTE $07
-      .BYTE $07
-      .BYTE $20
-      .BYTE $20
-      .BYTE $0D
-      .BYTE $1C
-      .BYTE $0D
-      .BYTE $1C
-      .BYTE $00
-      .BYTE $10
-      .BYTE $09
-      .BYTE $09
-      .BYTE $03
-      .BYTE $10
-      .BYTE $09
-      .BYTE $09
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $0F
-      .BYTE $0F
-      .BYTE $0C
-      .BYTE $14
-      .BYTE $07
-      .BYTE $20
-      .BYTE $FE
-      .BYTE $20
-      .BYTE $10
-      .BYTE $10
-      .BYTE $09
-      .BYTE $0A
-      .BYTE $08
-      .BYTE $08
-      .BYTE $03
-      .BYTE $30
-      .BYTE $18
-      .BYTE $18
-      .BYTE $FF
-      .BYTE $10
-      .BYTE $08
-      .BYTE $08
-      .BYTE $09
-      .BYTE $0A
-      .BYTE $08
-      .BYTE $08
+      .BYTE $07,$07,$20,$20 ; $00
+      .BYTE $0D,$1C,$0D,$1C ; $04
+      .BYTE $FF,$FF,$20,$20 ; $08
+      .BYTE $04,$1C,$04,$1C ; $0C
+      .BYTE $0F,$0F,$20,$20 ; $10
+      .BYTE $1C,$1C,$1C,$1C ; $14
+      .BYTE $07,$07,$20,$20 ; $18
+      .BYTE $0D,$1C,$0D,$1C ; $1C
+      .BYTE $00,$10,$09,$09 ; $20
+      .BYTE $03,$10,$09,$09 ; $24
+      .BYTE $FF,$FF,$0F,$0F ; $28
+      .BYTE $0C,$14,$07,$20 ; $2C
+      .BYTE $FE,$20,$10,$10 ; $30
+      .BYTE $09,$0A,$08,$08 ; $34
+      .BYTE $03,$30,$18,$18 ; $38
+      .BYTE $FF,$10,$08,$08 ; $3C
+      .BYTE $09,$0A,$08,$08 ; $40
+; object collision bounding box
 byte_BANKF_F099:
-      .BYTE $02
-
-      .BYTE $02
-      .BYTE $03
-      .BYTE $00
-      .BYTE $03
-      .BYTE $03
-      .BYTE $F8
-      .BYTE $00
-      .BYTE $03
-      .BYTE $01
-      .BYTE $F3
-      .BYTE $04
-      .BYTE $03
-      .BYTE $03
-      .BYTE $03
-      .BYTE $F2
-      .BYTE $03
-      .BYTE $03
-      .BYTE $05
-      .BYTE $03
-      .BYTE $0B
-      .BYTE $10
-      .BYTE $03
-      .BYTE $00
-      .BYTE $03
-      .BYTE $03
-      .BYTE $F8
-      .BYTE $00
-      .BYTE $09
-      .BYTE $04
-      .BYTE $03
-      .BYTE $03
-      .BYTE $0E
-      .BYTE $03
-      .BYTE $03
-      .BYTE $03
-      .BYTE $F6
-      .BYTE $0C
-      .BYTE $02
-      .BYTE $03
-      .BYTE $0B
-      .BYTE $0B
-      .BYTE $09
-      .BYTE $10
-      .BYTE $09
-      .BYTE $19
-      .BYTE $20
-      .BYTE $20
-      .BYTE $03
-      .BYTE $1E
-      .BYTE $19
-      .BYTE $08
-      .BYTE $09
-      .BYTE $09
-      .BYTE $09
-      .BYTE $18
-      .BYTE $09
-      .BYTE $1A
-      .BYTE $06
-      .BYTE $15
-      .BYTE $16
-      .BYTE $11
-      .BYTE $0D
-      .BYTE $10
-      .BYTE $1A
-      .BYTE $19
-      .BYTE $24
-      .BYTE $10
-      .BYTE $03
-      .BYTE $04
-      .BYTE $2D
-      .BYTE $30
-      .BYTE $0F
-      .BYTE $2E
-      .BYTE $3E
-      .BYTE $1E
-      .BYTE $28
-      .BYTE $13
-      .BYTE $48
-      .BYTE $26
+      .BYTE $02,$02,$03,$00 ; $00
+      .BYTE $03,$03,$F8,$00 ; $04
+      .BYTE $03,$01,$F3,$04 ; $08
+      .BYTE $03,$03,$03,$F2 ; $0C
+      .BYTE $03,$03,$05,$03 ; $10
+      .BYTE $0B,$10,$03,$00 ; $14, shy guy y?
+      .BYTE $03,$03,$F8,$00 ; $18
+      .BYTE $09,$04,$03,$03 ; $1C
+      .BYTE $0E,$03,$03,$03 ; $20
+      .BYTE $F6,$0C,$02,$03 ; $24
+      .BYTE $0B,$0B,$09,$10 ; $28, shy guy x?
+      .BYTE $09,$19,$20,$20 ; $2C
+      .BYTE $03,$1E,$19,$08 ; $30
+      .BYTE $09,$09,$09,$18 ; $34
+      .BYTE $09,$1A,$06,$15 ; $38
+      .BYTE $16,$11,$0D,$10 ; $3C
+      .BYTE $1A,$19,$24,$10 ; $40
+      .BYTE $03,$04,$2D,$30 ; $44
+      .BYTE $0F,$2E,$3E,$1E ; $48
+      .BYTE $28,$13,$48,$26 ; $4C
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -4198,81 +4034,93 @@ ObjectAttributeTable:
       .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored ; $45
       .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $46
 
-; Collision behavior
+;
+; Enemy Behavior 46E
+;
+;   bit 7 ($80) - uses mirrored sprite for animation
+;   bit 6 ($40) - double speed
+;   bit 5 ($20) - wider sprite? used for mouser
+;   bit 4 ($10) - some kind of alternate sprite switch?
+;   bit 3 ($08) - squawk on death
+;   bit 2 ($04) - disable collision with other enemies
+;   bit 1 ($02) - unliftable
+;   bit 0 ($01) - hurts when touched
 EnemyArray_46E_Data:
-      .BYTE $04 ; $00
-      .BYTE $00 ; $01
-      .BYTE $00 ; $02
-      .BYTE $00 ; $03
-      .BYTE $03 ; $04
-      .BYTE $00 ; $05
-      .BYTE $00 ; $06
-      .BYTE $00 ; $07
-      .BYTE $50 ; $08
-      .BYTE $40 ; $09
-      .BYTE $42 ; $0A
-      .BYTE $42 ; $0B
-      .BYTE $42 ; $0C
-      .BYTE $40 ; $0D
-      .BYTE $40 ; $0E
-      .BYTE $40 ; $0F
-      .BYTE $40 ; $10
-      .BYTE $13 ; $11
-      .BYTE $D0 ; $12
-      .BYTE $80 ; $13
-      .BYTE $00 ; $14
-      .BYTE $06 ; $15
-      .BYTE $06 ; $16
-      .BYTE $07 ; $17
-      .BYTE $10 ; $18
-      .BYTE $50 ; $19
-      .BYTE $90 ; $1A
-      .BYTE $07 ; $1B
-      .BYTE $0A ; $1C
-      .BYTE $3B ; $1D
-      .BYTE $40 ; $1E
-      .BYTE $18 ; $1F
-      .BYTE $07 ; $20
-      .BYTE $1B ; $21
-      .BYTE $10 ; $22
-      .BYTE $07 ; $23
-      .BYTE $07 ; $24
-      .BYTE $07 ; $25
-      .BYTE $50 ; $26
-      .BYTE $53 ; $27
-      .BYTE $96 ; $28
-      .BYTE $50 ; $29
-      .BYTE $9B ; $2A
-      .BYTE $D3 ; $2B
-      .BYTE $1B ; $2C
-      .BYTE $0B ; $2D
-      .BYTE $03 ; $2E
-      .BYTE $03 ; $2F
-      .BYTE $03 ; $30
-      .BYTE $03 ; $31
-      .BYTE $00 ; $32
-      .BYTE $00 ; $33
-      .BYTE $00 ; $34
-      .BYTE $00 ; $35
-      .BYTE $04 ; $36
-      .BYTE $04 ; $37
-      .BYTE $04 ; $38
-      .BYTE $00 ; $39
-      .BYTE $00 ; $3A
-      .BYTE $06 ; $3B
-      .BYTE $04 ; $3C
-      .BYTE $00 ; $3D
-      .BYTE $04 ; $3E
-      .BYTE $04 ; $3F
-      .BYTE $04 ; $40
-      .BYTE $16 ; $41
-      .BYTE $06 ; $42
-      .BYTE $06 ; $43
-      .BYTE $0C ; $44
-      .BYTE $04 ; $45
-      .BYTE $04 ; $46
+      .BYTE %00000100 ; $00
+      .BYTE %00000000 ; $01
+      .BYTE %00000000 ; $02
+      .BYTE %00000000 ; $03
+      .BYTE %00000011 ; $04
+      .BYTE %00000000 ; $05
+      .BYTE %00000000 ; $06
+      .BYTE %00000000 ; $07
+      .BYTE %01010000 ; $08
+      .BYTE %01000000 ; $09
+      .BYTE %01000010 ; $0A
+      .BYTE %01000010 ; $0B
+      .BYTE %01000010 ; $0C
+      .BYTE %01000000 ; $0D
+      .BYTE %01000000 ; $0E
+      .BYTE %01000000 ; $0F
+      .BYTE %01000000 ; $10
+      .BYTE %00010011 ; $11
+      .BYTE %11010000 ; $12
+      .BYTE %10000000 ; $13
+      .BYTE %00000000 ; $14
+      .BYTE %00000110 ; $15
+      .BYTE %00000110 ; $16
+      .BYTE %00000111 ; $17
+      .BYTE %00010000 ; $18
+      .BYTE %01010000 ; $19
+      .BYTE %10010000 ; $1A
+      .BYTE %00000111 ; $1B
+      .BYTE %00001010 ; $1C
+      .BYTE %00111011 ; $1D
+      .BYTE %01000000 ; $1E
+      .BYTE %00011000 ; $1F
+      .BYTE %00000111 ; $20
+      .BYTE %00011011 ; $21
+      .BYTE %00010000 ; $22
+      .BYTE %00000111 ; $23
+      .BYTE %00000111 ; $24
+      .BYTE %00000111 ; $25
+      .BYTE %01010000 ; $26
+      .BYTE %01010011 ; $27
+      .BYTE %10010110 ; $28
+      .BYTE %01010000 ; $29
+      .BYTE %10011011 ; $2A
+      .BYTE %11010011 ; $2B
+      .BYTE %00011011 ; $2C
+      .BYTE %00001011 ; $2D
+      .BYTE %00000011 ; $2E
+      .BYTE %00000011 ; $2F
+      .BYTE %00000011 ; $30
+      .BYTE %00000011 ; $31
+      .BYTE %00000000 ; $32
+      .BYTE %00000000 ; $33
+      .BYTE %00000000 ; $34
+      .BYTE %00000000 ; $35
+      .BYTE %00000100 ; $36
+      .BYTE %00000100 ; $37
+      .BYTE %00000100 ; $38
+      .BYTE %00000000 ; $39
+      .BYTE %00000000 ; $3A
+      .BYTE %00000110 ; $3B
+      .BYTE %00000100 ; $3C
+      .BYTE %00000000 ; $3D
+      .BYTE %00000100 ; $3E
+      .BYTE %00000100 ; $3F
+      .BYTE %00000100 ; $40
+      .BYTE %00010110 ; $41
+      .BYTE %00000110 ; $42
+      .BYTE %00000110 ; $43
+      .BYTE %00001100 ; $44
+      .BYTE %00000100 ; $45
+      .BYTE %00000100 ; $46
 
-; Height and collision detection
+;
+; Height and horizontal collision detection
+;
 EnemyArray_492_Data:
       .BYTE $00 ; $00
       .BYTE $05 ; $01
@@ -4619,13 +4467,14 @@ locret_BANKF_F6D9:
 
 ; =============== S U B R O U T I N E =======================================
 
+; between-area transition reset
 sub_BANKF_F6DA:
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_4AE
       STA     byte_RAM_4AF
       STA     SubspaceTimer
-      STA     byte_RAM_4B3
-      LDX     #8
+      STA     SubspaceDoorTimer
+      LDX     #$08
 
 loc_BANKF_F6EA:
       LDA     EnemyState,X
@@ -4655,15 +4504,18 @@ loc_BANKF_F6FE:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F704:
+      ; load raw enemy data offset so we can allow the level object to respawn
       LDY     unk_RAM_441,X
+      ; nothing to reset if offset is invalid
       BMI     loc_BANKF_F70F
 
-      LDA     (byte_RAM_CC),Y
+      ; disabling bit 7 allows the object to respawn
+      LDA     (RawEnemyData),Y
       AND     #$7F
-      STA     (byte_RAM_CC),Y
+      STA     (RawEnemyData),Y
 
 loc_BANKF_F70F:
-      LDA     #EnemyState_0
+      LDA     #EnemyState_Inactive
       STA     EnemyState,X
       RTS
 

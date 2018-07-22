@@ -2725,7 +2725,7 @@ loc_BANK0_8E05:
 
 loc_BANK0_8E12:
       LDA     EnemyState,X
-      CMP     #EnemyState_6
+      CMP     #EnemyState_Sand
       BEQ     locret_BANK0_8E41
 
       LDA     ObjectType,X
@@ -3264,7 +3264,7 @@ loc_BANK0_9080:
 
       LDA     #$20
       STA     EnemyTimer,X
-      LDA     #EnemyState_6
+      LDA     #EnemyState_Sand
 
 loc_BANK0_90AE:
       STA     EnemyState,X
@@ -4042,8 +4042,8 @@ sub_BANK0_9428:
       STA     SubspaceTimer
       JSR     loc_BANK1_B964
 
-      LDA     #$A
-      STA     byte_RAM_4B3
+      LDA     #$0A
+      STA     SubspaceDoorTimer
       RTS
 
 ; End of function sub_BANK0_9428
@@ -5167,17 +5167,17 @@ FreeSubconsScene:
 
 loc_BANK1_A470:
       LDA     unk_BANK1_A3FF,X
-      STA     PlayerXLo,X
+      STA     ObjectXLo-1,X
       LDA     byte_BANK1_A409,X
-      STA     PlayerYLo,X
+      STA     ObjectYLo-1,X
       LDA     byte_BANK1_A413,X
-      STA     PlayerXAccel,X
+      STA     ObjectXAccel-1,X
       LDA     byte_BANK1_A41D,X
-      STA     PlayerYAccel,X
+      STA     ObjectYAccel-1,X
       LDA     byte_BANK1_A427,X
-      STA     DamageInvulnTime,X
+      STA     EnemyTimer-1,X
       LDA     byte_BANK1_A431,X
-      STA     PlayerAttributesMaybe,X
+      STA     ObjectAttributes-1,X
       DEX
       BPL     loc_BANK1_A470
 
@@ -6635,7 +6635,7 @@ loc_BANK1_B97F:
 
       LDA     #0
       STA     byte_RAM_4BD
-      STA     byte_RAM_4B3
+      STA     SubspaceDoorTimer
       LDX     byte_RAM_0
       PLA
       STA     EnemyArray_477,X
@@ -6936,9 +6936,9 @@ _code_3B00:
       LDY     unk_RAM_441,X
       BMI     loc_BANK1_BB0B
 
-      LDA     (byte_RAM_CC),Y
+      LDA     (RawEnemyData),Y
       AND     #$7F
-      STA     (byte_RAM_CC),Y
+      STA     (RawEnemyData),Y
 
 loc_BANK1_BB0B:
       LDA     #0

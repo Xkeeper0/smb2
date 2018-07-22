@@ -303,9 +303,8 @@ ScreenYHi:
 ScreenYLo:
       .dsb 1 ; $00cb
       ; Not sure about this either
-byte_RAM_CC:
+RawEnemyData:
       .dsb 1 ; $00cc
-byte_RAM_CD:
       .dsb 1 ; $00cd
 byte_RAM_CE:
       .dsb 1 ; $00ce
@@ -1290,6 +1289,7 @@ EnemyArray_438:
       .dsb 1 ; $043e
       .dsb 1 ; $043f
       .dsb 1 ; $0440
+; Despawn offset
 unk_RAM_441:
       .dsb 1 ; $0441
       .dsb 1 ; $0442
@@ -1375,8 +1375,9 @@ EnemyArray_480:
       .dsb 1 ; $0484
       .dsb 1 ; $0485
       .dsb 1 ; $0486
+unk_RAM_487: ; unused?
       .dsb 1 ; $0487
-unk_RAM_488:
+unk_RAM_488: ; unused?
       .dsb 1 ; $0488
 EnemyArray_489:
       .dsb 1 ; $0489
@@ -1430,7 +1431,7 @@ KeyUsed:
       .dsb 1 ; $04b1
 byte_RAM_4B2:
       .dsb 1 ; $04b2
-byte_RAM_4B3:
+SubspaceDoorTimer:
       .dsb 1 ; $04b3
 HawkmouthClosing:
       .dsb 1 ; $04b4
@@ -2642,6 +2643,7 @@ unk_RAM_4E8B = $4e8b
 ; [00001FE8 BYTES: END OF AREA Various mirrors. PRESS KEYPAD "-" TO COLLAPSE]
 DecodedLevelData = $6000
 
+; collision y data?
 unk_RAM_7100 = $7100
 
 byte_RAM_710B = $710b
@@ -2650,6 +2652,7 @@ unk_RAM_7114 = $7114
 
 byte_RAM_711F = $711f
 
+; collision x data?
 unk_RAM_7128 = $7128
 
 unk_RAM_713C = $713c
@@ -2714,7 +2717,7 @@ RawLevelData = $7800
 
 RawJarData = $7a00
 
-RawEnemyData = $7b00
+RawEnemyDataAddr = $7b00
 
 unk_RAM_7DF1 = $7df1
 

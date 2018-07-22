@@ -243,13 +243,13 @@ PPUCtrl_NMIEnabled = $80
 ; ---------------------------------------------------------------------------
 
 ; enum EnemyStates
-EnemyState_0 = $00
+EnemyState_Inactive = $00
 EnemyState_Alive = $01
 EnemyState_Dead = $02
 EnemyState_BlockFizzle = $03
 EnemyState_BombExploding = $04
 EnemyState_PuffOfSmoke = $05
-EnemyState_6 = $06
+EnemyState_Sand = $06
 EnemyState_7 = $07
 EnemyState_27 = $27
 
@@ -279,7 +279,7 @@ Enemy_Porcupo = $04
 Enemy_SnifitRed = $05
 Enemy_SnifitGray = $06
 Enemy_SnifitPink = $07
-Enemy_Birdo = $08
+Enemy_Ostro = $08
 Enemy_BobOmb = $09
 Enemy_AlbatossCarryingBobOmb = $0A
 Enemy_AlbatossStartRight = $0B
@@ -299,7 +299,7 @@ Enemy_CobratJar = $18
 Enemy_CobratSand = $19
 Enemy_Pokey = $1A
 Enemy_Bullet = $1B
-Enemy_Ostro = $1C
+Enemy_Birdo = $1C
 Enemy_Mouser = $1D
 Enemy_Egg = $1E
 Enemy_Tryclyde = $1F

@@ -662,7 +662,7 @@ loc_BANKC_855C:
 
 loc_BANKC_858A:
       LDA     #EnemyState_27 ; @TODO what is this
-      STA     PlayerState,Y ; actually an EnemyState
+      STA     EnemyState-1,Y
       DEY
       BPL     loc_BANKC_858A
 
@@ -927,7 +927,7 @@ loc_BANKC_86F2:
       BNE     loc_BANKC_873A
 
       LDY     ObjectXLo+2
-      LDA     PlayerState,Y
+      LDA     EnemyState-1,Y
       STA     ObjectYLo+7
 
 loc_BANKC_870C:
@@ -1030,7 +1030,7 @@ loc_BANKC_878A:
       BNE     loc_BANKC_87D2
 
       LDY     ObjectXLo+2
-      LDA     PlayerState,Y
+      LDA     EnemyState-1,Y
       STA     ObjectYLo+8
 
 loc_BANKC_87A4:
@@ -1130,7 +1130,7 @@ loc_BANKC_8822:
       BNE     locret_BANKC_8897
 
       LDY     ObjectXLo+2
-      LDA     PlayerState,Y
+      LDA     EnemyState-1,Y
       STA     ObjectYLo+6
 
 loc_BANKC_883C:
