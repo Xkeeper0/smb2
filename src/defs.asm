@@ -479,7 +479,13 @@ CHRBank_EndingCast2 = $4D
 CHRBank_EndingCast3 = $4E
 CHRBank_EndingCast4 = $4F
 CHRBank_EndingBackground1 = $50
-CHRBank_EndingBackground2 = $52
+CHRBank_EndingBackground2 = $54
+CHRBank_EndingBackground3 = $58
+CHRBank_EndingBackground4 = $5C
+CHRBank_EndingBackground5 = $60
+CHRBank_EndingBackground6 = $64
+CHRBank_EndingBackground7 = $68
+CHRBank_EndingBackground8 = $6C
 
 ;
 ; +-------------------------------------------------------------------------+

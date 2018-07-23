@@ -3239,7 +3239,7 @@ loc_BANKF_F146:
 
       JSR     sub_BANKF_F47C
 
-      LDX     #3
+      LDX     #$03
 
 loc_BANKF_F159:
       LDA     PlayerStateTimer,X
@@ -5188,7 +5188,7 @@ LoadMarioSleepingCHRBanks:
       STY     SpriteCHR2
       LDA     #CHRBank_EndingBackground1
       STA     BackgroundCHR1
-      LDA     #CHRBank_EndingBackground2
+      LDA     #CHRBank_EndingBackground1+2
       STA     BackgroundCHR2
       RTS
 

@@ -222,7 +222,6 @@ byte_BANKC_8310:
       .BYTE $28,$0E,$03,$B8 ; 4
 MarioDream_SnoringFrameCounts:
       .BYTE $20
-
       .BYTE $0A
       .BYTE $0A
       .BYTE $0A
@@ -238,7 +237,6 @@ MarioDream_SnoringFrameCounts:
       .BYTE $0A
 MarioDream_WakingFrameCounts:
       .BYTE $08
-
       .BYTE $08
       .BYTE $50
       .BYTE $40
@@ -246,24 +244,22 @@ MarioDream_WakingFrameCounts:
       .BYTE $10
       .BYTE $10
 MarioDream_SnoringFrames:
-      .BYTE $50
-
-      .BYTE $54
-      .BYTE $58
-      .BYTE $5C
-      .BYTE $60
-      .BYTE $64
-      .BYTE $68
-      .BYTE $6C
-      .BYTE $68
-      .BYTE $64
-      .BYTE $60
-      .BYTE $5C
-      .BYTE $58
-      .BYTE $54
+      .BYTE CHRBank_EndingBackground1
+      .BYTE CHRBank_EndingBackground2
+      .BYTE CHRBank_EndingBackground3
+      .BYTE CHRBank_EndingBackground4
+      .BYTE CHRBank_EndingBackground5
+      .BYTE CHRBank_EndingBackground6
+      .BYTE CHRBank_EndingBackground7
+      .BYTE CHRBank_EndingBackground8
+      .BYTE CHRBank_EndingBackground7
+      .BYTE CHRBank_EndingBackground6
+      .BYTE CHRBank_EndingBackground5
+      .BYTE CHRBank_EndingBackground4
+      .BYTE CHRBank_EndingBackground3
+      .BYTE CHRBank_EndingBackground2
 MarioDream_WakingFrames:
       .BYTE $78
-
       .BYTE $74
       .BYTE $70
       .BYTE $7C
@@ -319,7 +315,7 @@ loc_BANKC_8387:
       LDA     MarioDream_SnoringFrames,Y
       STA     BackgroundCHR1
       CLC
-      ADC     #2
+      ADC     #$02
       STA     BackgroundCHR2
       LDA     MarioDream_SnoringFrameCounts,Y
       STA     byte_RAM_10
