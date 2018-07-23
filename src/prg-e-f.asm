@@ -4464,7 +4464,7 @@ sub_BANKF_F6C0:
       TAX
       STX     CurrentMusicIndex
       LDA     StarInvincibilityTimer
-      CMP     #8
+      CMP     #$08
       BCS     locret_BANKF_F6D9
 
       LDA     LevelMusicIndexes,X
@@ -4958,6 +4958,7 @@ AnimateCHRRoutine:
       LDX     #$07 ; default index for animation speed table
       LDY     #$0F ; end of that other table
 
+; this loop does not appear to do anything of consequence...?
 loc_BANKF_FAD3:
       LDA     CurrentLevel_Init
       CMP     byte_BANKF_FAA2,Y
@@ -5057,50 +5058,48 @@ IFDEF PRESERVE_UNUSED_SPACE
       .pad $FE00, $FF
 ENDIF
 
-; [000002CA BYTES: END OF AREA BANKF:FB36. PRESS KEYPAD "-" TO COLLAPSE]
-byte_BANKF_FE00:
-      .BYTE $0C
-; @TODO Sprite CHR banks?
-      .BYTE $0D
-      .BYTE $0C
-      .BYTE $0E
-      .BYTE $0C
-      .BYTE $0D
-      .BYTE $0F
-byte_BANKF_FE07:
-      .BYTE $10
-; @TODO Sprite CHR banks?
-      .BYTE $12
-      .BYTE $10
-      .BYTE $14
-      .BYTE $0A
-      .BYTE $12
-      .BYTE $16
-byte_BANKF_FE0E:
-      .BYTE $00
-; @TODO Player size CHR bank?
-      .BYTE $04
-      .BYTE $02
-      .BYTE $06
-      .BYTE $03
-      .BYTE $07
-      .BYTE $01
-      .BYTE $05
+
+CHRBank_WorldEnemies:
+      .BYTE CHRBank_EnemiesGrass
+      .BYTE CHRBank_EnemiesDesert
+      .BYTE CHRBank_EnemiesGrass
+      .BYTE CHRBank_EnemiesIce
+      .BYTE CHRBank_EnemiesGrass
+      .BYTE CHRBank_EnemiesDesert
+      .BYTE CHRBank_EnemiesSky
+
+CHRBank_WorldBossBackground:
+      .BYTE CHRBank_BackgroundGrass
+      .BYTE CHRBank_BackgroundDesert
+      .BYTE CHRBank_BackgroundGrass
+      .BYTE CHRBank_BackgroundIce
+      .BYTE CHRBank_BackgroundGrassClawgrip
+      .BYTE CHRBank_BackgroundDesert
+      .BYTE CHRBank_BackgroundSky
+
+CHRBank_CharacterSize:
+      .BYTE CHRBank_Mario
+      .BYTE CHRBank_MarioSmall
+      .BYTE CHRBank_Princess
+      .BYTE CHRBank_PrincessSmall
+      .BYTE CHRBank_Toad
+      .BYTE CHRBank_ToadSmall
+      .BYTE CHRBank_Luigi
+      .BYTE CHRBank_LuigiSmall
 
 ; =============== S U B R O U T I N E =======================================
 
-; Load CHR for current world
 LoadWorldCHRBanks:
-      LDY     #8
+      LDY     #CHRBank_CommonEnemies1
       STY     SpriteCHR2
       INY
       STY     SpriteCHR3
       LDY     CurrentWorld
-      LDA     byte_BANKF_FE00,Y
+      LDA     CHRBank_WorldEnemies,Y
       STA     SpriteCHR4
-      LDA     byte_BANKF_FE07,Y
+      LDA     CHRBank_WorldBossBackground,Y
       STA     BackgroundCHR1
-      LDA     #$18
+      LDA     #CHRBank_Animated1
       STA     BackgroundCHR2
 
 LoadCharacterCHRBanks:
@@ -5108,7 +5107,7 @@ LoadCharacterCHRBanks:
       ASL     A
       ORA     PlayerCurrentSize
       TAY
-      LDA     byte_BANKF_FE0E,Y
+      LDA     CHRBank_CharacterSize,Y
       STA     SpriteCHR1
       RTS
 
@@ -5117,9 +5116,9 @@ LoadCharacterCHRBanks:
 ; =============== S U B R O U T I N E =======================================
 
 LoadTitleScreenCHRBanks:
-      LDA     #$28
+      LDA     #CHRBank_TitleScreenBG1
       STA     BackgroundCHR1
-      LDA     #$2A
+      LDA     #CHRBank_TitleScreenBG2
       STA     BackgroundCHR2
       RTS
 
@@ -5128,9 +5127,9 @@ LoadTitleScreenCHRBanks:
 ; =============== S U B R O U T I N E =======================================
 
 LoadCelebrationSceneBackgroundCHR:
-      LDA     #$38
+      LDA     #CHRBank_CelebrationBG1
       STA     BackgroundCHR1
-      LDA     #$3A
+      LDA     #CHRBank_CelebrationBG2
       STA     BackgroundCHR2
       RTS
 
@@ -5139,11 +5138,11 @@ LoadCelebrationSceneBackgroundCHR:
 ; =============== S U B R O U T I N E =======================================
 
 LoadCharacterSelectCHRBanks:
-      LDA     #$30
+      LDA     #CHRBank_CharacterSelectSprites
       STA     SpriteCHR1
-      LDA     #$2C
+      LDA     #CHRBank_CharacterSelectBG1
       STA     BackgroundCHR1
-      LDA     #$2E
+      LDA     #CHRBank_CharacterSelectBG2
       STA     BackgroundCHR2
       RTS
 
@@ -5151,7 +5150,13 @@ LoadCharacterSelectCHRBanks:
 
 ; ---------------------------------------------------------------------------
 TitleCardCHRBanks:
-      .BYTE $40, $42, $40, $44, $40, $42, $46
+      .BYTE CHRBank_TitleCardGrass
+      .BYTE CHRBank_TitleCardDesert
+      .BYTE CHRBank_TitleCardGrass
+      .BYTE CHRBank_TitleCardIce
+      .BYTE CHRBank_TitleCardGrass
+      .BYTE CHRBank_TitleCardDesert
+      .BYTE CHRBank_TitleCardSky
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5166,9 +5171,9 @@ ChangeTitleCardCHR:
 ; =============== S U B R O U T I N E =======================================
 
 LoadBonusChanceCHRBanks:
-      LDA     #$34
+      LDA     #CHRBank_ChanceBG1
       STA     BackgroundCHR1
-      LDA     #$36
+      LDA     #CHRBank_ChanceBG2
       STA     BackgroundCHR2
       RTS
 
@@ -5177,13 +5182,13 @@ LoadBonusChanceCHRBanks:
 ; =============== S U B R O U T I N E =======================================
 
 LoadMarioSleepingCHRBanks:
-      LDY     #$48
+      LDY     #CHRBank_EndingSprites
       STY     SpriteCHR1
       INY
       STY     SpriteCHR2
-      LDA     #$50
+      LDA     #CHRBank_EndingBackground1
       STA     BackgroundCHR1
-      LDA     #$52
+      LDA     #CHRBank_EndingBackground2
       STA     BackgroundCHR2
       RTS
 

@@ -431,6 +431,21 @@ CHRBank_LuigiSmall = $05
 CHRBank_PrincessSmall = $06
 CHRBank_ToadSmall = $07
 
+CHRBank_CommonEnemies1 = $08
+CHRBank_CommonEnemies2 = $09
+
+CHRBank_BackgroundGrassClawgrip = $0A
+
+CHRBank_EnemiesGrass = $0C
+CHRBank_EnemiesDesert = $0D
+CHRBank_EnemiesIce = $0E
+CHRBank_EnemiesSky = $0F
+
+CHRBank_BackgroundGrass = $10
+CHRBank_BackgroundDesert = $12
+CHRBank_BackgroundIce = $14
+CHRBank_BackgroundSky = $16
+
 CHRBank_Animated1 = $18
 CHRBank_Animated2 = $1A
 CHRBank_Animated3 = $1C
@@ -439,6 +454,32 @@ CHRBank_Animated5 = $20
 CHRBank_Animated6 = $22
 CHRBank_Animated7 = $24
 CHRBank_Animated8 = $26
+
+CHRBank_TitleScreenBG1 = $28
+CHRBank_TitleScreenBG2 = $2A
+
+CHRBank_CharacterSelectBG1 = $2C
+CHRBank_CharacterSelectBG2 = $2E
+CHRBank_CharacterSelectSprites = $30
+
+CHRBank_ChanceBG1 = $34
+CHRBank_ChanceBG2 = $36
+
+CHRBank_CelebrationBG1 = $38
+CHRBank_CelebrationBG2 = $3A
+
+CHRBank_TitleCardGrass = $40
+CHRBank_TitleCardDesert = $42
+CHRBank_TitleCardIce = $44
+CHRBank_TitleCardSky = $46
+
+CHRBank_EndingSprites = $48
+CHRBank_EndingCast1 = $4C
+CHRBank_EndingCast2 = $4D
+CHRBank_EndingCast3 = $4E
+CHRBank_EndingCast4 = $4F
+CHRBank_EndingBackground1 = $50
+CHRBank_EndingBackground2 = $52
 
 ;
 ; +-------------------------------------------------------------------------+

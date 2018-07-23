@@ -23,11 +23,11 @@ Debug_InitMenu:
       JSR ClearNametablesAndSprites
       JSR DisableNMI
 
-      LDA     #$28
+      LDA     #CHRBank_TitleScreenBG1
       STA     BackgroundCHR1
-      LDA     #$2A
+      LDA     #CHRBank_TitleScreenBG2
       STA     BackgroundCHR2
-      LDA     #$0D
+      LDA     #CHRBank_EnemiesDesert
       STA     SpriteCHR1
 
       JSR EnableNMI

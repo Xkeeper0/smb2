@@ -578,7 +578,7 @@ sub_BANKC_84EC:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKC_84FB:
-      LDY     #$4C
+      LDY     #CHRBank_EndingCast1
       STY     SpriteCHR1
 
 loc_BANKC_8500:
@@ -588,31 +588,31 @@ loc_BANKC_8500:
       STY     SpriteCHR3
       INY
       STY     SpriteCHR4
-      LDX     #7
+      LDX     #$07
       LDA     #$20
       STA     PlayerYHi
-      LDY     #0
+      LDY     #$00
 
 loc_BANKC_8514:
-      LDA     #$F
+      LDA     #$0F
       STA     SpriteDMAArea,Y
       INY
       LDA     #$3E
       STA     SpriteDMAArea,Y
       INY
-      LDA     #0
+      LDA     #$00
       STA     SpriteDMAArea,Y
       INY
       LDA     PlayerYHi
       STA     SpriteDMAArea,Y
       INY
       CLC
-      ADC     #8
+      ADC     #$08
       STA     PlayerYHi
       DEX
       BPL     loc_BANKC_8514
 
-      LDX     #7
+      LDX     #$07
       LDA     #$20
       STA     PlayerYHi
 
@@ -623,19 +623,19 @@ loc_BANKC_853A:
       LDA     #$3E
       STA     SpriteDMAArea,Y
       INY
-      LDA     #0
+      LDA     #$00
       STA     SpriteDMAArea,Y
       INY
       LDA     PlayerYHi
       STA     SpriteDMAArea,Y
       INY
       CLC
-      ADC     #8
+      ADC     #$08
       STA     PlayerYHi
       DEX
       BPL     loc_BANKC_853A
 
-      LDX     #$F
+      LDX     #$0F
 
 loc_BANKC_855C:
       LDA     CastRoll_CASTText,X
@@ -647,15 +647,15 @@ loc_BANKC_855C:
       STA     PPUBuffer_301
       LDA     #$11
       STA     byte_RAM_302
-      LDA     #1
+      LDA     #$01
       STA     byte_RAM_303
       LDA     #$12
       STA     byte_RAM_304
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_305
       LDA     #$10
       STA     PlayerXLo
-      LDA     #0
+      LDA     #$00
       STA     ObjectXLo
       STA     ObjectXLo+1
       LDY     #$40
