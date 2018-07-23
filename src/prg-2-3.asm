@@ -103,7 +103,7 @@ loc_BANK2_8083:
       STA     SoundEffectQueue2 ; you start the game and drop into 1-1
 
 NoIntroFallSlide:
-      LDA     byte_RAM_4AF
+      LDA     ObjectCarriedOver
       BEQ     loc_BANK2_8106
 
       LDX     #5
@@ -2652,7 +2652,7 @@ loc_BANK2_8D8A:
       STA     HawkmouthClosing
       LDA     #TransitionType_Door
       STA     TransitionType
-      JSR     sub_BANKF_F6DA
+      JSR     DoAreaReset
 
       LDY     byte_RAM_629
       LDA     CurrentWorld
@@ -4727,7 +4727,7 @@ EnemyBehavior_SubspaceDoor:
       BNE     loc_BANK2_9741
 
       STA     InSubspaceOrJar
-      JSR     sub_BANKF_F6DA
+      JSR     DoAreaReset
 
       JMP     loc_BANK2_97FF
 
@@ -4851,7 +4851,7 @@ loc_BANK2_97C3:
 
       LDA     #0
       STA     byte_RAM_4BD
-      JSR     sub_BANKF_F6DA
+      JSR     DoAreaReset
 
       LDA     TransitionType
       CMP     #TransitionType_Door
@@ -8385,10 +8385,10 @@ loc_BANK3_AB42:
       LDY     ObjectYHi,X
       BPL     loc_BANK3_AB88
 
-      JSR     sub_BANKF_F6DA
+      JSR     DoAreaReset
 
-      LDA     #$38
-      STA     byte_RAM_4AF
+      LDA     #Enemy_Rocket
+      STA     ObjectCarriedOver
       INC     DoAreaTransition
       LDA     #TransitionType_Rocket
       STA     TransitionType
@@ -9325,7 +9325,7 @@ loc_BANK3_B03B:
 
       LDA     #TransitionType_Door
       STA     TransitionType
-      JSR     sub_BANKF_F6DA
+      JSR     DoAreaReset
 
       LDA     #$09
       STA     PlayerXHi

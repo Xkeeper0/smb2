@@ -2086,7 +2086,7 @@ HandlePlayerState_GoingDownJar:
       BNE     locret_BANK0_8B77
 
       STA     PlayerState
-      JSR     sub_BANKF_F6DA
+      JSR     DoAreaReset
 
       PLA
       PLA
@@ -2162,7 +2162,7 @@ HandlePlayerState_ClimbingAreaTransition:
       CMP     byte_BANK0_8B89,Y
       BNE     loc_BANK0_8BB0
 
-      JSR     sub_BANKF_F6DA
+      JSR     DoAreaReset
 
       INC     DoAreaTransition
       LDA     #TransitionType_Vine
@@ -3601,7 +3601,7 @@ loc_BANK0_9244:
       INC     DoAreaTransition
 
 loc_BANK0_9247:
-      JMP     sub_BANKF_F6DA
+      JMP     DoAreaReset
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_924A:

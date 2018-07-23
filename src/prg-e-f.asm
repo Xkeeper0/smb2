@@ -1677,7 +1677,7 @@ loc_BANKF_E654:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_E665:
-      JSR     sub_BANKF_F6DA
+      JSR     DoAreaReset
 
       LDY     GameMode
       LDA     #GameMode_InGame
@@ -3448,7 +3448,7 @@ loc_BANKF_F254:
       CMP     #$F0
       BCS     locret_BANKF_F297
 
-      JSR     sub_BANKF_F6DA
+      JSR     DoAreaReset
 
       PLA
       PLA
@@ -4482,59 +4482,58 @@ locret_BANKF_F6D9:
 
 ; =============== S U B R O U T I N E =======================================
 
-; between-area transition reset
-sub_BANKF_F6DA:
+DoAreaReset:
       LDA     #$00
       STA     AreaInitialized
-      STA     byte_RAM_4AF
+      STA     ObjectCarriedOver
       STA     SubspaceTimer
       STA     SubspaceDoorTimer
       LDX     #$08
 
-loc_BANKF_F6EA:
+DoAreaReset_EnemyLoop:
       LDA     EnemyState,X
-      BEQ     loc_BANKF_F6FE
+      BEQ     DoAreaReset_EnemyLoopEnd
 
       LDA     ObjectBeingCarriedTimer,X
-      BEQ     loc_BANKF_F6FB
+      BEQ     DoAreaReset_AfterCarryOver
 
       LDA     ObjectType,X
       CMP     #Enemy_MushroomBlock
-      BEQ     loc_BANKF_F6FB
+      BEQ     DoAreaReset_AfterCarryOver
 
-      STA     byte_RAM_4AF
+      STA     ObjectCarriedOver
 
-loc_BANKF_F6FB:
-      JSR     sub_BANKF_F704
+DoAreaReset_AfterCarryOver:
+      JSR     AreaResetEnemyDestroy
 
-loc_BANKF_F6FE:
+DoAreaReset_EnemyLoopEnd:
       DEX
-      BPL     loc_BANKF_F6EA
+      BPL     DoAreaReset_EnemyLoop
 
       LDX     byte_RAM_12
       RTS
 
-; End of function sub_BANKF_F6DA
+; End of function DoAreaReset
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_F704:
+AreaResetEnemyDestroy:
       ; load raw enemy data offset so we can allow the level object to respawn
       LDY     unk_RAM_441,X
       ; nothing to reset if offset is invalid
-      BMI     loc_BANKF_F70F
+      BMI     AreaResetEnemyDestroy_AfterAllowRespawn
 
       ; disabling bit 7 allows the object to respawn
       LDA     (RawEnemyData),Y
       AND     #$7F
       STA     (RawEnemyData),Y
 
-loc_BANKF_F70F:
+AreaResetEnemyDestroy_AfterAllowRespawn:
       LDA     #EnemyState_Inactive
       STA     EnemyState,X
       RTS
 
-; End of function sub_BANKF_F704
+; End of function AreaResetEnemyDestroy
 
 ; =============== S U B R O U T I N E =======================================
 

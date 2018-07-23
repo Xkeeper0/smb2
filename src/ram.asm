@@ -1424,7 +1424,7 @@ EnemiesKilledForHeart:
       .dsb 1 ; $04ad
 AreaInitialized:
       .dsb 1 ; $04ae
-byte_RAM_4AF:
+ObjectCarriedOver:
       .dsb 1 ; $04af
 KeyUsed:
       .dsb 1 ; $04b0
