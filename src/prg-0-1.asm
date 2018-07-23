@@ -1925,7 +1925,7 @@ loc_BANK0_8AB0:
       BPL     loc_BANK0_8AB8
 
 loc_BANK0_8AB5:
-      LDA     byte_RAM_544,Y
+      LDA     PickupSpeedAnimation-2,Y
 
 loc_BANK0_8AB8:
       STA     PlayerStateTimer
@@ -2092,7 +2092,7 @@ HandlePlayerState_GoingDownJar:
       PLA
       JSR     sub_BANK0_940E
 
-      LDA     #$02
+      LDA     #TransitionType_Jar
       STA     TransitionType
       LDA     byte_RAM_4EE
       BNE     loc_BANK0_8B6C
@@ -2107,7 +2107,7 @@ loc_BANK0_8B6C:
       CMP     #1
       BEQ     loc_BANK0_8B74
 
-      STA     byte_RAM_627
+      STA     DoAreaTransition
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -2164,8 +2164,8 @@ HandlePlayerState_ClimbingAreaTransition:
 
       JSR     sub_BANKF_F6DA
 
-      INC     byte_RAM_627
-      LDA     #3
+      INC     DoAreaTransition
+      LDA     #TransitionType_Vine
       STA     TransitionType
       RTS
 
@@ -3547,7 +3547,7 @@ loc_BANK0_91EB:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9205:
-      LDA     #1
+      LDA     #TransitionType_Door
       STA     TransitionType
       TYA
       JSR     JumpToTableAfterJump
@@ -3598,7 +3598,7 @@ loc_BANK0_923B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9244:
-      INC     byte_RAM_627
+      INC     DoAreaTransition
 
 loc_BANK0_9247:
       JMP     sub_BANKF_F6DA
@@ -4033,7 +4033,7 @@ sub_BANK0_9428:
       STA     PlayerScreenYHi
       LDA     TransitionType
       SEC
-      SBC     #4
+      SBC     #TransitionType_SubSpace
       BNE     locret_BANK0_9427
 
       ; resetting these to zero (A=$00, otherwise we would have branched)
@@ -4054,7 +4054,7 @@ sub_BANK0_946D:
       LDA     TransitionType
 
 loc_BANK0_9470:
-      CMP     #2
+      CMP     #TransitionType_Jar
       BNE     loc_BANK0_947F
 
       LDA     byte_RAM_4EE
@@ -4103,7 +4103,7 @@ loc_BANK0_94AC:
       SBC     ScreenYHi
       STA     PlayerScreenYHi
       LDA     TransitionType
-      CMP     #4
+      CMP     #TransitionType_SubSpace
       BNE     loc_BANK0_94C2
 
       JSR     loc_BANK1_B964
@@ -6848,28 +6848,28 @@ loc_BANK1_BA8D:
 
 loc_BANK1_BA9B:
       LDA     PlayerYLo
-      AND     #$F
+      AND     #$0F
       TAY
       LDA     byte_RAM_4EB
       EOR     PlayerYLo
       AND     #$10
       BEQ     loc_BANK1_BAB6
 
-      CPY     #$C
+      CPY     #$0C
       BCC     loc_BANK1_BAB4
 
-      LDA     #0
+      LDA     #$00
       STA     PlayerStateTimer
       JSR     KillPlayer
 
 loc_BANK1_BAB4:
-      LDY     #4
+      LDY     #$04
 
 loc_BANK1_BAB6:
-      CPY     #4
+      CPY     #$04
       BCS     loc_BANK1_BABC
 
-      LDY     #1
+      LDY     #$01
 
 loc_BANK1_BABC:
       TYA
@@ -6902,11 +6902,11 @@ sub_BANK1_BABF:
       LDY     PlayerYAccel
       BPL     loc_BANK1_BAE5
 
-      LDA     #0
+      LDA     ##00
 
 loc_BANK1_BAE5:
       STA     PlayerYAccel
-      LDA     #4
+      LDA     #DPCM_PlayerHurt
       STA     DPCMQueue
 
 locret_BANK1_BAEC:

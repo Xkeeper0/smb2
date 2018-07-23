@@ -36,8 +36,8 @@ CarryYOffsetSmallHi:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_8010:
-      LDA     byte_RAM_627
+AreaMainRoutine:
+      LDA     DoAreaTransition
       BEQ     loc_BANK2_8016
 
       RTS
@@ -45,15 +45,15 @@ sub_BANK2_8010:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8016:
-      LDA     byte_RAM_4AE
-      BEQ     loc_BANK2_801E
+      LDA     AreaInitialized
+      BEQ     AreaInitialization
 
       JMP     loc_BANK2_816C
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_801E:
-      INC     byte_RAM_4AE
+AreaInitialization:
+      INC     AreaInitialized
       STA     byte_RAM_5BA
       STA     POWQuakeTimer
       STA     SkyFlashTimer
@@ -205,7 +205,7 @@ loc_BANK2_8130:
 
       RTS
 
-; End of function sub_BANK2_8010
+; End of function AreaMainRoutine
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2650,7 +2650,7 @@ loc_BANK2_8D8A:
 
       LDA     #0
       STA     HawkmouthClosing
-      LDA     #1
+      LDA     #TransitionType_Door
       STA     TransitionType
       JSR     sub_BANKF_F6DA
 
@@ -2665,7 +2665,7 @@ loc_BANK2_8DAC:
       CPY     #2
       BCC     loc_BANK2_8DB4
 
-      INC     byte_RAM_627
+      INC     DoAreaTransition
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -4854,10 +4854,10 @@ loc_BANK2_97C3:
       JSR     sub_BANKF_F6DA
 
       LDA     TransitionType
-      CMP     #1
+      CMP     #TransitionType_Door
       BNE     loc_BANK2_97F7
 
-      INC     byte_RAM_627
+      INC     DoAreaTransition
       BNE     loc_BANK2_97FF
 
 loc_BANK2_97F7:
@@ -8109,11 +8109,11 @@ loc_BANK3_A9C9:
       CMP     #6
       BCC     loc_BANK3_A9E9
 
-      LDA     #2
+      LDA     #EnemyState_Dead
       STA     EnemyState,X
       LDA     #$E0
       STA     ObjectYAccel,X
-      LDA     #$40
+      LDA     #DPCM_BossHurt
       STA     DPCMQueue
 
 loc_BANK3_A9E9:
@@ -8389,10 +8389,10 @@ loc_BANK3_AB42:
 
       LDA     #$38
       STA     byte_RAM_4AF
-      INC     byte_RAM_627
-      LDA     #5
+      INC     DoAreaTransition
+      LDA     #TransitionType_Rocket
       STA     TransitionType
-      LDA     #0
+      LDA     #$00
 IFDEF COMPATIBILITY
       .db $8d, $50, $00 ; STA $0000 + PlayerState
 ENDIF
@@ -9323,13 +9323,13 @@ loc_BANK3_B03B:
       CMP     #PlayerState_HawkmouthEating
       BNE     HawkmouthEat
 
-      LDA     #1
+      LDA     #TransitionType_Door
       STA     TransitionType
       JSR     sub_BANKF_F6DA
 
-      LDA     #9
+      LDA     #$09
       STA     PlayerXHi
-      INC     byte_RAM_627
+      INC     DoAreaTransition
       PLA
       PLA
       PLA
@@ -9727,7 +9727,7 @@ loc_BANK3_B269:
       AND     #$1F
       BNE     loc_BANK3_B295
 
-      LDA     #$10
+      LDA     #DPCM_BossDeath
       STA     DPCMQueue
       JSR     CreateEnemy
 
@@ -10451,7 +10451,7 @@ loc_BANK3_B749:
       STA     PlayerXHi
       JSR     sub_BANK3_BD0F
 
-      LDA     #4
+      LDA     #TransitionType_SubSpace
       STA     TransitionType
       JMP     loc_BANK3_BBF4
 
@@ -11439,7 +11439,7 @@ loc_BANK3_BBF4:
       INC     byte_RAM_41B
       JSR     sub_BANK3_BD59
 
-      LDA     #1
+      LDA     #DPCM_DoorOpenBombBom
       STA     DPCMQueue
       RTS
 
@@ -11910,10 +11910,11 @@ byte_BANK3_BE07:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_BE0B:
+AreaSecondaryRoutine:
       LDA     SkyFlashTimer
       BEQ     loc_BANK3_BE55
 
+      ; sky flash timer (ie. explosions)
       DEC     SkyFlashTimer
       LDX     byte_RAM_300
       LDA     #$3F
@@ -11947,6 +11948,7 @@ loc_BANK3_BE34:
       ADC     #7
       STA     byte_RAM_300
 
+; draw health bar
 loc_BANK3_BE55:
       LDA     #$30
       STA     byte_RAM_0
@@ -11958,7 +11960,7 @@ loc_BANK3_BE55:
       AND     #$F0
       LSR     A
       LSR     A
-      ADC     #4
+      ADC     #$04
 
 loc_BANK3_BE67:
       TAX
@@ -11987,8 +11989,9 @@ loc_BANK3_BE6C:
       CMP     PlayerMaxHealth
       BNE     loc_BANK3_BE6C
 
+      ; pow quake timer (shake screen)
       LDA     POWQuakeTimer
-      BEQ     locret_BANK3_BEAF
+      BEQ     AreaSecondaryRoutine_Exit
 
       DEC     POWQuakeTimer
       LSR     A
@@ -12007,10 +12010,10 @@ loc_BANK3_BEA6:
 
 ; ---------------------------------------------------------------------------
 
-locret_BANK3_BEAF:
+AreaSecondaryRoutine_Exit:
       RTS
 
-; End of function sub_BANK3_BE0B
+; End of function AreaSecondaryRoutine
 
 ; ---------------------------------------------------------------------------
 ; The rest of this bank is empty

@@ -20,3 +20,6 @@ PRESERVE_UNUSED_SPACE = 1
 
 ; Include debugging tools
 ; DEBUG = 1
+
+; Show all 8 frames of CHR cycling animation
+; FIX_CHR_CYCLE = 1

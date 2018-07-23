@@ -2841,8 +2841,8 @@ sub_BANK6_950E:
       LDY     #3
       LDA     (byte_RAM_5),Y
       AND     #3
-      STA     byte_RAM_544
-      CMP     byte_RAM_545
+      STA     CompareMusicIndex
+      CMP     CurrentMusicIndex
       BEQ     locret_BANK6_9528
 
       LDA     StarInvincibilityTimer
@@ -2865,14 +2865,14 @@ LevelMusicTable:
       .BYTE Music1_Wart
       .BYTE Music1_Subspace
 ; ---------------------------------------------------------------------------
-      LDA     byte_RAM_544
-      CMP     byte_RAM_545
+      LDA     CompareMusicIndex
+      CMP     CurrentMusicIndex
       BEQ     locret_BANK6_9547
 
       TAX
-      STX     byte_RAM_545
+      STX     CurrentMusicIndex
       LDA     StarInvincibilityTimer
-      CMP     #8
+      CMP     #$08
       BCS     locret_BANK6_9528
 
       LDA     LevelMusicTable,X

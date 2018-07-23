@@ -1422,7 +1422,7 @@ unk_RAM_4A4:
       .dsb 1 ; $04ac
 EnemiesKilledForHeart:
       .dsb 1 ; $04ad
-byte_RAM_4AE:
+AreaInitialized:
       .dsb 1 ; $04ae
 byte_RAM_4AF:
       .dsb 1 ; $04af
@@ -1511,23 +1511,23 @@ byte_RAM_4DF:
       .dsb 1 ; $04df
 StarInvincibilityTimer:
       .dsb 1 ; $04e0
-byte_RAM_4E1:
+PlayerXLo_Init:
       .dsb 1 ; $04e1
-byte_RAM_4E2:
+PlayerYLo_Init:
       .dsb 1 ; $04e2
-byte_RAM_4E3:
+PlayerScreenX_Init:
       .dsb 1 ; $04e3
-byte_RAM_4E4:
+PlayerScreenYLo_Init:
       .dsb 1 ; $04e4
-byte_RAM_4E5:
+PlayerYAccel_Init:
       .dsb 1 ; $04e5
-byte_RAM_4E6:
+PlayerState_Init:
       .dsb 1 ; $04e6
-byte_RAM_4E7:
+CurrentLevel_Init:
       .dsb 1 ; $04e7
-byte_RAM_4E8:
+CurrentLevelArea_Init:
       .dsb 1 ; $04e8
-byte_RAM_4E9:
+CurrentLevelPage_Init:
       .dsb 1 ; $04e9
 byte_RAM_4EA:
       .dsb 1 ; $04ea
@@ -1682,9 +1682,9 @@ byte_RAM_542:
       .dsb 1 ; $0542
 byte_RAM_543:
       .dsb 1 ; $0543
-byte_RAM_544:
+CompareMusicIndex:
       .dsb 1 ; $0544
-byte_RAM_545:
+CurrentMusicIndex:
       .dsb 1 ; $0545
 PickupSpeedAnimation:
       .dsb 1 ; $0546
@@ -2041,7 +2041,7 @@ byte_RAM_624:
       .dsb 1 ; $0624
       .dsb 1 ; $0625
       .dsb 1 ; $0626
-byte_RAM_627:
+DoAreaTransition:
       .dsb 1 ; $0627
 InSubspaceOrJar:
       .dsb 1 ; $0628

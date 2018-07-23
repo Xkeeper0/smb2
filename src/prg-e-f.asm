@@ -897,13 +897,13 @@ sub_BANKF_E1F4:
 InitializeSomeLevelStuff:
       LDA     #$00
       STA     CurrentLevelArea
-      STA     byte_RAM_4E8
+      STA     CurrentLevelArea_Init
       STA     CurrentLevelPage
-      STA     byte_RAM_4E9
+      STA     CurrentLevelPage_Init
       STA     TransitionType
       STA     byte_RAM_4EA
       STA     PlayerState
-      STA     byte_RAM_4E6
+      STA     PlayerState_Init
       STA     InSubspaceOrJar
       STA     byte_RAM_4EE
       STA     StopwatchTimer
@@ -1255,7 +1255,7 @@ StartCharacterSelectMenu:
       LDX     CurrentWorld
       LDY     WorldStartingLevel,X
       STY     CurrentLevel
-      STY     byte_RAM_4E7
+      STY     CurrentLevel_Init
       JSR     DoCharacterSelectMenu ; Does Character Select menu stuff
 
       JSR     InitializeSomeLevelStuff ; Initializes some level stuff
@@ -1265,7 +1265,7 @@ StartCharacterSelectMenu:
       JSR     DisplayLevelTitleCardAndMore
 
       LDA     #$FF
-      STA     byte_RAM_545
+      STA     CurrentMusicIndex
       BNE     loc_BANKF_E43B ; Branch always?
 
 loc_BANKF_E435:
@@ -1370,7 +1370,7 @@ loc_BANKF_E4AB:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_E4B9:
-      LDA     byte_RAM_627
+      LDA     DoAreaTransition
       BEQ     loc_BANKF_E491
 
       JSR     sub_BANKF_F6A1
@@ -1378,7 +1378,7 @@ loc_BANKF_E4B9:
       JSR     sub_BANKF_F1AE
 
       LDA     #0
-      STA     byte_RAM_627
+      STA     DoAreaTransition
       JMP     loc_BANKF_E43B
 
 ; ---------------------------------------------------------------------------
@@ -1426,7 +1426,7 @@ loc_BANKF_E4F4:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_E502:
-      LDA     byte_RAM_627
+      LDA     DoAreaTransition
       BEQ     loc_BANKF_E4E5
 
       JSR     sub_BANKF_F6A1
@@ -1434,7 +1434,7 @@ loc_BANKF_E502:
       JSR     sub_BANKF_F1AE
 
       LDA     #0
-      STA     byte_RAM_627
+      STA     DoAreaTransition
       JMP     loc_BANKF_E43B
 
 ; ---------------------------------------------------------------------------
@@ -1570,8 +1570,8 @@ loc_BANKF_E5A0:
 
       LDA     #Music1_Inside
       STA     Music1Queue
-      LDA     #1
-      STA     byte_RAM_545
+      LDA     #$01
+      STA     CurrentMusicIndex
       JMP     loc_BANKF_E5E1
 
 ; ---------------------------------------------------------------------------
@@ -1582,7 +1582,7 @@ loc_BANKF_E5D4:
       LDA     #Music1_Subspace
       STA     Music1Queue
       LDA     #$04
-      STA     byte_RAM_545
+      STA     CurrentMusicIndex
 
 loc_BANKF_E5E1:
       LDA     #PRGBank_0_1
@@ -1648,8 +1648,8 @@ loc_BANKF_E627:
 
       JSR     HideAllSprites
 
-      LDY     byte_RAM_544
-      STY     byte_RAM_545
+      LDY     CompareMusicIndex
+      STY     CurrentMusicIndex
       LDA     StarInvincibilityTimer
       BNE     loc_BANKF_E64C
 
@@ -1690,10 +1690,10 @@ loc_BANKF_E665:
       BNE     loc_BANKF_E69F
 
       STY     PlayerCurrentSize
-      JSR     sub_BANKF_F1E1
+      JSR     LevelInitialization
 
       LDA     #$FF
-      STA     byte_RAM_545
+      STA     CurrentMusicIndex
       LDA     #$25
       STA     byte_RAM_7180
       LDA     #$48
@@ -1839,7 +1839,7 @@ loc_BANKF_E75A:
       LDX     CurrentCharacter
       LDA     WorldStartingLevel,Y
       STA     CurrentLevel
-      STA     byte_RAM_4E7
+      STA     CurrentLevel_Init
       INY
       TYA
       ORA     #$D0
@@ -1941,7 +1941,7 @@ loc_BANKF_E802:
       JSR     sub_BANKF_E1F4
 
       LDA     #$FF
-      STA     byte_RAM_545
+      STA     CurrentMusicIndex
       INC     CurrentWorld
       JMP     StartCharacterSelectMenu
 
@@ -1966,17 +1966,17 @@ loc_BANKF_E826:
       SBC     WorldStartingLevel,Y
       STA     byte_RAM_629
       LDA     CurrentLevel
-      STA     byte_RAM_4E7
+      STA     CurrentLevel_Init
       LDA     CurrentLevelArea
-      STA     byte_RAM_4E8
+      STA     CurrentLevelArea_Init
       LDA     CurrentLevelPage
-      STA     byte_RAM_4E9
-      LDY     #0
-      STY     byte_RAM_4E6
+      STA     CurrentLevelPage_Init
+      LDY     #$00
+      STY     PlayerState_Init
       STY     TransitionType
       STY     byte_RAM_4EA
       DEY
-      STY     byte_RAM_545
+      STY     CurrentMusicIndex
       JSR     sub_BANKF_E1F4
 
       JMP     loc_BANKF_E435
@@ -3231,11 +3231,11 @@ loc_BANKF_F146:
       LDA     #PRGBank_2_3
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK2_8010
+      JSR     AreaMainRoutine
 
-      JSR     sub_BANK3_BE0B
+      JSR     AreaSecondaryRoutine
 
-      JSR     sub_BANKF_FACA
+      JSR     AnimateCHRRoutine
 
       JSR     sub_BANKF_F47C
 
@@ -3262,7 +3262,7 @@ loc_BANKF_F15F:
       CPY     #8
       BNE     locret_BANKF_F17D
 
-      LDY     byte_RAM_545
+      LDY     CurrentMusicIndex
       LDA     LevelMusicIndexes,Y
       STA     Music1Queue
 
@@ -3311,7 +3311,7 @@ loc_BANKF_F1AB:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F1AE:
-      LDA     byte_RAM_627
+      LDA     DoAreaTransition
       CMP     #2
       BEQ     locret_BANKF_F1E0
 
@@ -3319,22 +3319,22 @@ sub_BANKF_F1AE:
 
 loc_BANKF_F1B7:
       LDA     CurrentLevel,Y
-      STA     byte_RAM_4E7,Y
+      STA     CurrentLevel_Init,Y
       DEY
       BPL     loc_BANKF_F1B7
 
       LDA     PlayerXLo
-      STA     byte_RAM_4E1
+      STA     PlayerXLo_Init
       LDA     PlayerYLo
-      STA     byte_RAM_4E2
+      STA     PlayerYLo_Init
       LDA     PlayerScreenX
-      STA     byte_RAM_4E3
+      STA     PlayerScreenX_Init
       LDA     PlayerScreenYLo
-      STA     byte_RAM_4E4
+      STA     PlayerScreenYLo_Init
       LDA     PlayerYAccel
-      STA     byte_RAM_4E5
+      STA     PlayerYAccel_Init
       LDA     PlayerState
-      STA     byte_RAM_4E6
+      STA     PlayerState_Init
 
 locret_BANKF_F1E0:
       RTS
@@ -3343,34 +3343,42 @@ locret_BANKF_F1E0:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_F1E1:
-      LDY     #3
+;
+; Level Initialization
+; ====================
+;
+; Sets up in-level gameplay (eg. after level card)
+;
+LevelInitialization:
+      LDY     #$03
 
-loc_BANKF_F1E3:
-      LDA     byte_RAM_4E7,Y
+; Loop through and set level, area, page, and transition from RAM
+LevelInitialization_AreaSetupLoop:
+      LDA     CurrentLevel_Init,Y
       STA     CurrentLevel,Y
       DEY
-      BPL     loc_BANKF_F1E3
+      BPL     LevelInitialization_AreaSetupLoop
 
-      LDA     byte_RAM_4E1
+      ; position the player
+      LDA     PlayerXLo_Init
       STA     PlayerXLo
-      LDA     byte_RAM_4E2
+      LDA     PlayerYLo_Init
       STA     PlayerYLo
-      LDA     byte_RAM_4E3
+      LDA     PlayerScreenX_Init
       STA     PlayerScreenX
-      LDA     byte_RAM_4E4
+      LDA     PlayerScreenYLo_Init
       STA     PlayerScreenYLo
-      LDA     byte_RAM_4E5
+      LDA     PlayerYAccel_Init
       STA     PlayerYAccel
-      LDA     byte_RAM_4E6
+      LDA     PlayerState_Init
       STA     PlayerState
-      LDA     #0
+      LDA     #$00
       STA     InSubspaceOrJar
       STA     byte_RAM_4EE
       STA     PlayerInAir
       STA     DamageInvulnTime
 
-; End of function sub_BANKF_F1E1
+; End of function LevelInitialization
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3453,7 +3461,7 @@ loc_BANKF_F254:
       CMP     #2
       BNE     loc_BANKF_F286
 
-      STA     byte_RAM_627
+      STA     DoAreaTransition
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -4449,12 +4457,12 @@ sub_BANKF_F6A1:
 ; and check if a Starman is still active ...
 
 sub_BANKF_F6C0:
-      LDA     byte_RAM_544
-      CMP     byte_RAM_545
+      LDA     CompareMusicIndex
+      CMP     CurrentMusicIndex
       BEQ     locret_BANKF_F6D9
 
       TAX
-      STX     byte_RAM_545
+      STX     CurrentMusicIndex
       LDA     StarInvincibilityTimer
       CMP     #8
       BCS     locret_BANKF_F6D9
@@ -4472,7 +4480,7 @@ locret_BANKF_F6D9:
 ; between-area transition reset
 sub_BANKF_F6DA:
       LDA     #$00
-      STA     byte_RAM_4AE
+      STA     AreaInitialized
       STA     byte_RAM_4AF
       STA     SubspaceTimer
       STA     SubspaceDoorTimer
@@ -4860,7 +4868,6 @@ TileQuads4:
       .BYTE $44,$45,$45,$44 ; $60
 byte_BANKF_FA7D:
       .BYTE $22
-
       .BYTE $D0
       .BYTE $04
       .BYTE $FC
@@ -4895,13 +4902,11 @@ byte_BANKF_FA7D:
       .BYTE $00
 byte_BANKF_FA9E:
       .BYTE $00
-
       .BYTE $07
       .BYTE $0E
       .BYTE $17
 byte_BANKF_FAA2:
       .BYTE $00
-
       .BYTE $00
       .BYTE $06
       .BYTE $06
@@ -4919,7 +4924,6 @@ byte_BANKF_FAA2:
       .BYTE $13
 byte_BANKF_FAB2:
       .BYTE $01
-
       .BYTE $05
       .BYTE $01
       .BYTE $03
@@ -4936,24 +4940,30 @@ byte_BANKF_FAB2:
       .BYTE $03
       .BYTE $00
 BackgroundCHRAnimationSpeedByWorld:
-      .BYTE $07, $07, $07, $07, $09, 7, 5
-      .BYTE $0B
+      .BYTE $07 ; World 1
+      .BYTE $07 ; World 2
+      .BYTE $07 ; World 3
+      .BYTE $07 ; World 4
+      .BYTE $09 ; World 5
+      .BYTE $07 ; World 6
+      .BYTE $05 ; World 7
+      .BYTE $0B ; Default
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_FACA:
+AnimateCHRRoutine:
       DEC     BackgroundCHR2Timer
-      BPL     locret_BANKF_FAFD
+      BPL     AnimateCHRRoutine_Exit
 
-      LDX     #7
-      LDY     #$F
+      LDX     #$07 ; default index for animation speed table
+      LDY     #$0F ; end of that other table
 
 loc_BANKF_FAD3:
-      LDA     byte_RAM_4E7
+      LDA     CurrentLevel_Init
       CMP     byte_BANKF_FAA2,Y
       BNE     loc_BANKF_FAE3
 
-      LDA     byte_RAM_4E8
+      LDA     CurrentLevelArea_Init
       CMP     byte_BANKF_FAB2,Y
       BEQ     loc_BANKF_FAE9
 
@@ -4969,19 +4979,28 @@ loc_BANKF_FAE9:
       LDY     BackgroundCHR2
       INY
       INY
-      CPY     #$26
-; This is present in the original game.
+
+IFDEF FIX_CHR_CYCLE
+      CPY     #CHRBank_Animated8+1
+ENDIF
+IFNDEF FIX_CHR_CYCLE
+      ; Bug: This is in the original game
+      ; The last frame of the animation is effectively skipped because
+      ; we immediately reset to the first frame when we hit it.
+      CPY     #CHRBank_Animated8
+ENDIF
+
       BCC     loc_BANKF_FAFA
 
-      LDY     #$18
+      LDY     #CHRBank_Animated1
 
 loc_BANKF_FAFA:
       STY     BackgroundCHR2
 
-locret_BANKF_FAFD:
+AnimateCHRRoutine_Exit:
       RTS
 
-; End of function sub_BANKF_FACA
+; End of function AnimateCHRRoutine
 
 ; ---------------------------------------------------------------------------
 

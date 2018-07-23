@@ -13,6 +13,14 @@ PlayerState_HawkmouthEating = $06
 PlayerState_Dying = $07
 PlayerState_ChangingSize = $08
 
+; enum TransitionTypes (width 1 byte)
+TransitionType_Init = $00
+TransitionType_Door = $01
+TransitionType_Jar = $02
+TransitionType_Vine = $03
+TransitionType_SubSpace = $04
+TransitionType_Rocket = $05
+
 ; ---------------------------------------------------------------------------
 
 ; enum Characters
@@ -411,6 +419,26 @@ CollisionFlags_Disabled = %00010000
 CollisionFlags_PlayerOnTop = %00100000
 CollisionFlags_PlayerInsideMaybe = %01000000
 CollisionFlags_80 = %10000000
+
+; enum CHRBank (width 1 byte)
+
+CHRBank_Mario = $00
+CHRBank_Luigi = $01
+CHRBank_Princess = $02
+CHRBank_Toad = $03
+CHRBank_MarioSmall = $04
+CHRBank_LuigiSmall = $05
+CHRBank_PrincessSmall = $06
+CHRBank_ToadSmall = $07
+
+CHRBank_Animated1 = $18
+CHRBank_Animated2 = $1A
+CHRBank_Animated3 = $1C
+CHRBank_Animated4 = $1E
+CHRBank_Animated5 = $20
+CHRBank_Animated6 = $22
+CHRBank_Animated7 = $24
+CHRBank_Animated8 = $26
 
 ;
 ; +-------------------------------------------------------------------------+
