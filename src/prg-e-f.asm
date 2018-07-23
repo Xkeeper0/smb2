@@ -4194,7 +4194,9 @@ EnemyArray_492_Data:
       .BYTE $05 ; $45
       .BYTE $05 ; $46
 
-; Horizontal hitbox and collision detection
+;
+; Horizontal hitbox, collision detection, and carried height
+;
 EnemyArray_489_Data:
       .BYTE $08 ; $00
       .BYTE $02 ; $01
@@ -4555,10 +4557,11 @@ loc_BANKF_F747:
       LDX     word_RAM_C+1
 
 loc_BANKF_F749:
-      LDA     #Music2_DeathJingle ; Set music to death jingle
+      ; Set music to death jingle
+      LDA     #Music2_DeathJingle
       STA     MusicQueue2
-      LDA     #DPCM_PlayerDeath ; BUG: Setting DPCM at the same time as music
-; causes DPCM to not play
+      ; BUG: Setting DPCM at the same time as music
+      LDA     #DPCM_PlayerDeath
       STA     DPCMQueue
       RTS
 

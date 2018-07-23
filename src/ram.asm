@@ -1693,12 +1693,13 @@ PickupSpeedAnimation:
       .dsb 1 ; 3                ; $0549
       .dsb 1 ; 4                ; $054a
       .dsb 1 ; 5                ; $054b
-unk_RAM_54C:
-      .dsb 1 ; $054c
 JumpHeightStanding:
+      .dsb 1 ; $054c
+JumpHeightStandingCarrying:
       .dsb 1 ; $054d
 JumpHeightCrouching:
       .dsb 1 ; $054e
+JumpHeightCrouchingCarrying:
       .dsb 1 ; $054f
 JumpHeightRunning:
       .dsb 1 ; $0550

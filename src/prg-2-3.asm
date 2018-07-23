@@ -1698,9 +1698,10 @@ sub_BANK2_8894:
       BEQ     loc_BANK2_88BB
 
 loc_BANK2_88B9:
-      ; something for double-wide sprites
+      ; something for double-wide sprites?
       LDY     #$03
 
+; seems to be logic for positioning sprites onscreen
 loc_BANK2_88BB:
       LDA     ObjectXLo,X
       CLC
@@ -1729,15 +1730,14 @@ locret_BANK2_88DF:
 ; End of function sub_BANK2_8894
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_88E0:
+; threshold for x-wrapping sprites near the edge of the screen
+byte_BANK2_88E0: ; hi
       .BYTE $08
-
       .BYTE $04
       .BYTE $02
       .BYTE $01
-byte_BANK2_88E4:
+byte_BANK2_88E4: ; lo
       .BYTE $00
-
       .BYTE $08
       .BYTE $10
       .BYTE $18
@@ -3609,7 +3609,7 @@ EnemyBehavior_Albatoss:
       BNE     loc_BANK2_9271
 
       LDA     EnemyCollision,X
-      AND     #CollisionFlags_10
+      AND     #CollisionFlags_Disabled
       BNE     loc_BANK2_9256
 
       JSR     EnemyFindWhichSidePlayerIsOn
@@ -5197,7 +5197,7 @@ loc_BANK2_9966:
       LDA     #$D8
       STA     ObjectYAccel,X
       LDA     EnemyCollision,X
-      ORA     #CollisionFlags_10
+      ORA     #CollisionFlags_Disabled
       STA     EnemyCollision,X
 
 loc_BANK2_9974:
@@ -5213,7 +5213,7 @@ loc_BANK2_9974:
 
 sub_BANK2_997A:
       LDA     EnemyCollision,X
-      AND     #CollisionFlags_10
+      AND     #CollisionFlags_Disabled
       BEQ     locret_BANK2_99B3
 
       LDA     ObjectBeingCarriedTimer,X
@@ -5224,11 +5224,13 @@ sub_BANK2_997A:
 
 loc_BANK2_9988:
       LDY     ObjectType,X
+      ; is this enemy a squawker?
       LDA     EnemyArray_46E_Data,Y
-      AND     #8
+      AND     #%00001000
       ASL     A
       BNE     loc_BANK2_999E
 
+      ; normal enemy hit sound
       LDA     DPCMQueue
       BNE     loc_BANK2_99A1
 
@@ -5240,13 +5242,14 @@ loc_BANK2_999E:
       STA     DPCMQueue
 
 loc_BANK2_99A1:
+      ; killing pidgit leaves a flying carpet behind
       CPY     #Enemy_Pidgit
       BNE     loc_BANK2_99AD
 
       LDA     EnemyArray_42F,X
       BNE     loc_BANK2_99AD
 
-      JSR     sub_BANK3_A440
+      JSR     CreateFlyingCarpet
 
 loc_BANK2_99AD:
       LDA     #EnemyState_Dead
@@ -7030,7 +7033,7 @@ loc_BANK3_A43D:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_A440:
+CreateFlyingCarpet:
       JSR     CreateEnemy_TryAllSlots
 
       BMI     loc_BANK3_A478
@@ -7065,7 +7068,7 @@ loc_BANK3_A478:
       LDX     byte_RAM_12
       RTS
 
-; End of function sub_BANK3_A440
+; End of function CreateFlyingCarpet
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_A47B:
@@ -9977,7 +9980,7 @@ loc_BANK3_B4F7:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B4F9:
-      LDA     #4
+      LDA     #$04
       BNE     loc_BANK3_B4FF
 
 ; End of function sub_BANK3_B4F9
@@ -9985,11 +9988,11 @@ sub_BANK3_B4F9:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B4FD:
-      LDA     #0
+      LDA     #$00
 
 loc_BANK3_B4FF:
       STA     byte_RAM_7
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_B
       STA     byte_RAM_E
       JSR     sub_BANK3_B5AC
@@ -10118,11 +10121,12 @@ loc_BANK3_B5A7:
 
 ; =============== S U B R O U T I N E =======================================
 
+; resets up/down/left/right collision flags and loads collision data pointer
 sub_BANK3_B5AC:
       INX
       LDA     EnemyCollision-1,X
       STA     word_RAM_C+1
-      AND     #$F0
+      AND     #CollisionFlags_Disabled|CollisionFlags_PlayerOnTop|CollisionFlags_PlayerInsideMaybe|CollisionFlags_80
       STA     EnemyCollision-1,X
       LDY     EnemyArray_492-1,X
       LDA     byte_BANKF_F000,Y
@@ -10308,7 +10312,7 @@ loc_BANK3_B692:
       BNE     loc_BANK3_B6F0
 
       LDA     EnemyCollision-1,X
-      AND     #$10
+      AND     #CollisionFlags_Disabled
       BNE     loc_BANK3_B6F0
 
       LDA     unk_RAM_46D,X
@@ -10341,8 +10345,6 @@ loc_BANK3_B6B6:
 
 loc_BANK3_B6C7:
       LDA     unk_RAM_713C,Y
-
-loc_BANK3_B6CA:
       STA     word_RAM_C
       LDA     #0
       STA     byte_RAM_0
@@ -10465,10 +10467,10 @@ locret_BANK3_B760:
 loc_BANK3_B761:
       LDY     byte_RAM_12
       TXA
-      BEQ     loc_BANK3_B7E5
+      BEQ     CheckCollisionWithPlayer
 
       LDA     EnemyArray_45C,Y
-      ORA     unk_RAM_45B,X
+      ORA     EnemyArray_45C-1,X
       BNE     locret_BANK3_B760
 
       LDA     EnemyArray_42F,Y
@@ -10491,7 +10493,7 @@ loc_BANK3_B761:
       BEQ     loc_BANK3_B7E0
 
       LDA     EnemyCollision-1,X
-      AND     #$10
+      AND     #CollisionFlags_Disabled
       BNE     loc_BANK3_B7E0
 
 loc_BANK3_B792:
@@ -10522,7 +10524,7 @@ loc_BANK3_B7A4:
 
 loc_BANK3_B7BD:
       LDA     EnemyCollision,Y
-      ORA     #CollisionFlags_10
+      ORA     #CollisionFlags_Disabled
       STA     EnemyCollision,Y
       LDA     #$E0
       STA     ObjectYAccel,Y
@@ -10545,22 +10547,23 @@ loc_BANK3_B7E0:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_B7E3:
-      .BYTE $F8
-
-      .BYTE $08
+InvincibilityKill_VelocityX:
+      .BYTE $F8 ; to the left
+      .BYTE $08 ; to the right
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_B7E5:
+CheckCollisionWithPlayer:
       LDA     byte_RAM_EE
-      AND     #8
-      BNE     locret_BANK3_B828
+      AND     #CollisionFlags_Up
+      BNE     CheckCollisionWithPlayer_Exit
 
+      ; check if it's a heart
       LDA     ObjectType,Y
-      BNE     loc_BANK3_B80C
+      BNE     CheckCollisionWithPlayer_NotHeart
 
+      ; accept the heart into your life
       STA     EnemyState,Y
-      LDA     #4
+      LDA     #SoundEffect1_CherryGet
       STA     SoundEffectQueue1
       LDY     PlayerMaxHealth
       LDA     PlayerHealth
@@ -10568,75 +10571,77 @@ loc_BANK3_B7E5:
       ADC     #$10
       STA     PlayerHealth
       CMP     PlayerHealthValueByHeartCount,Y
-      BCC     locret_BANK3_B828
+      BCC     CheckCollisionWithPlayer_Exit
 
       JMP     RestorePlayerToFullHealth
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_B80C:
+CheckCollisionWithPlayer_NotHeart:
       CMP     #Enemy_Phanto
-      BNE     loc_BANK3_B815
+      BNE     CheckCollisionWithPlayer_NotPhanto
 
       LDY     PhantoActivateTimer
-      BNE     locret_BANK3_B828
+      BNE     CheckCollisionWithPlayer_Exit
 
-loc_BANK3_B815:
+CheckCollisionWithPlayer_NotPhanto:
       CMP     #Enemy_Starman
-      BNE     loc_BANK3_B829
+      BNE     CheckCollisionWithPlayer_NotStarman
 
       LDA     #$3F
       STA     StarInvincibilityTimer
       LDA     #Music1_Invincible
       STA     Music1Queue
-      LDA     #0
+      LDA     #EnemyState_Inactive
       STA     EnemyState,Y
 
-locret_BANK3_B828:
+CheckCollisionWithPlayer_Exit:
       RTS
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_B829:
+CheckCollisionWithPlayer_NotStarman:
       CMP     #Enemy_WhaleSpout
-      BNE     loc_BANK3_B844
+      BNE     CheckCollisionWithPlayer_NotWhaleSpout
 
       LDA     EnemyVariable,Y
       CMP     #$DC
-      BCS     locret_BANK3_B843
+      BCS     CheckCollisionWithPlayer_Exit2
 
       LDA     StarInvincibilityTimer
-      BEQ     loc_BANK3_B87D
+      BEQ     CheckCollisionWithPlayer_NotInvincible
 
       LDA     #$DC
       STA     EnemyVariable,Y
-      LDA     #0
+      LDA     #$00
       STA     ObjectYAccel,Y
 
-locret_BANK3_B843:
+CheckCollisionWithPlayer_Exit2:
       RTS
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_B844:
+CheckCollisionWithPlayer_NotWhaleSpout:
       CMP     #Enemy_Wart
-      BNE     loc_BANK3_B84C
+      BNE     CheckCollisionWithPlayer_NotWart
 
       LDA     EnemyArray_B1,X
-      BNE     locret_BANK3_B843
+      BNE     CheckCollisionWithPlayer_Exit2
 
-loc_BANK3_B84C:
+CheckCollisionWithPlayer_NotWart:
       LDY     StarInvincibilityTimer
-      BEQ     loc_BANK3_B87D
+      BEQ     CheckCollisionWithPlayer_NotInvincible
 
+      ; player is invincible
       LDX     byte_RAM_12
-      CMP     #$27
-      BEQ     loc_BANK3_B85B
+      CMP     #Enemy_AutobombFire
+      BEQ     CheckCollisionWithPlayer_Poof
 
-      CMP     #$20
-      BNE     loc_BANK3_B866
+      CMP     #Enemy_Fireball
+      BNE     CheckCollisionWithPlayer_KillEnemy
 
-loc_BANK3_B85B:
+; turn into a puff of smoke
+CheckCollisionWithPlayer_Poof:
       LDA     #%00000000
       STA     EnemyArray_46E,X
       JSR     sub_BANK2_98A6
@@ -10645,15 +10650,16 @@ loc_BANK3_B85B:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_B866:
+; die and fall off
+CheckCollisionWithPlayer_KillEnemy:
       JSR     EnemyFindWhichSidePlayerIsOn
 
-      LDA     byte_BANK3_B7E3,Y
+      LDA     InvincibilityKill_VelocityX,Y
       STA     ObjectXAccel,X
       LDA     #$E0
       STA     ObjectYAccel,X
       LDA     EnemyCollision,X
-      ORA     #CollisionFlags_10
+      ORA     #CollisionFlags_Disabled
       STA     EnemyCollision,X
 
 loc_BANK3_B878:
@@ -10663,63 +10669,70 @@ loc_BANK3_B878:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_B87D:
+CheckCollisionWithPlayer_NotInvincible:
       LDY     byte_RAM_12
       LDA     EnemyState,Y
-      CMP     #4
-      BEQ     loc_BANK3_B896
+      CMP     #EnemyState_BombExploding
+      BEQ     CheckCollisionWithPlayer_HurtPlayer
 
+      ; should we damage the player for jumping on top?
       LDA     EnemyArray_46E,Y
       AND     #%00000001
-      BNE     loc_BANK3_B896
+      BNE     CheckCollisionWithPlayer_HurtPlayer
 
+      ; let player land on top
       JSR     sub_BANK3_BA95
 
       LDA     byte_RAM_F
-      AND     #$B
-      BEQ     sub_BANK3_B899
+      AND     #$0B
+      BEQ     CheckCollisionWithPlayer_StandingOnHead
 
-loc_BANK3_B896:
+CheckCollisionWithPlayer_HurtPlayer:
       JMP     DamagePlayer
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_B899:
-      LDA     #0
+CheckCollisionWithPlayer_StandingOnHead:
+      LDA     #$00
       STA     PlayerInAir
       LDX     byte_RAM_12
       LDA     EnemyCollision,X
       ORA     #CollisionFlags_PlayerOnTop
       STA     EnemyCollision,X
+
+      ; can you even lift
       LDA     EnemyArray_46E,X
       AND     #%00000010
-      BNE     loc_BANK3_B8CE
+      BNE     CheckCollisionWithPlayer_NoLift
 
+      ; check B button
       BIT     Player1JoypadPress
-      BVC     loc_BANK3_B8CE
+      BVC     CheckCollisionWithPlayer_NoLift
 
+      ; bail if we already have an item or are ducking
       LDA     HoldingItem
       ORA     PlayerDucking
-      BNE     loc_BANK3_B8CE
+      BNE     CheckCollisionWithPlayer_NoLift
 
       STA     EnemyCollision,X
       STX     byte_RAM_42D
       STA     EnemyArray_44A,X
-      LDA     #7
+      LDA     #$07
       STA     ObjectBeingCarriedTimer,X
       JSR     sub_BANK3_BC1F
 
+      ; leave a flying carpet behind if we're picking up pidgit
       LDA     ObjectType,X
       CMP     #Enemy_Pidgit
-      BNE     loc_BANK3_B8CE
+      BNE     CheckCollisionWithPlayer_NoLift
 
-      JSR     sub_BANK3_A440
+      JSR     CreateFlyingCarpet
 
-loc_BANK3_B8CE:
+CheckCollisionWithPlayer_NoLift:
       LDX     byte_RAM_ED
       RTS
 
-; End of function sub_BANK3_B899
+; End of function CheckCollisionWithPlayer_StandingOnHead
 
 ; ---------------------------------------------------------------------------
 
@@ -10733,7 +10746,7 @@ loc_BANK3_B8D1:
       BNE     loc_BANK3_B8E4
 
       LDA     EnemyCollision,Y
-      AND     #4
+      AND     #CollisionFlags_Down
       BNE     locret_BANK3_B902
 
 loc_BANK3_B8E4:
@@ -10771,6 +10784,7 @@ unk_BANK3_B903:
       .BYTE $04
 ; ---------------------------------------------------------------------------
 
+; collision with items that the player can stand on
 loc_BANK3_B905:
       LDA     EnemyCollision,Y
       ORA     #CollisionFlags_PlayerInsideMaybe
@@ -10788,7 +10802,7 @@ loc_BANK3_B919:
       AND     #4
       BEQ     loc_BANK3_B922
 
-      JSR     sub_BANK3_B899
+      JSR     CheckCollisionWithPlayer_StandingOnHead
 
 loc_BANK3_B922:
       JSR     sub_BANK3_BB31
@@ -10876,7 +10890,7 @@ loc_BANK3_B987:
       AND     #4
       BEQ     locret_BANK3_B96D
 
-      JMP     sub_BANK3_B899
+      JMP     CheckCollisionWithPlayer_StandingOnHead
 
 ; ---------------------------------------------------------------------------
 
@@ -10898,7 +10912,7 @@ loc_BANK3_B993:
       JSR     sub_BANK3_BA5D
 
       LDA     #$60
-      STA     unk_RAM_45B,X
+      STA     EnemyArray_45C-1,X
       LSR     A
       STA     unk_RAM_437,X
       LDA     unk_RAM_464,X
@@ -11049,8 +11063,8 @@ loc_BANK3_BA5A:
 
 ; Damage enemy
 sub_BANK3_BA5D:
-      LDA     unk_RAM_452,X
-      ORA     unk_RAM_45B,X
+      LDA     EnemyArray_453-1,X
+      ORA     EnemyArray_45C-1,X
       BNE     locret_BANK3_BA94
 
       LDA     unk_RAM_46D,X
@@ -11064,7 +11078,7 @@ EnemyTakeDamage:
       BMI     EnemyKnockout
 
       LDA     #$21 ; Flash
-      STA     unk_RAM_45B,X
+      STA     EnemyArray_45C-1,X
       LSR     A
 
 loc_BANK3_BA7A:
@@ -11084,8 +11098,8 @@ PlayBossHurtSound:
 ; ---------------------------------------------------------------------------
 
 EnemyKnockout:
-      LDA     EnemyCollision-1,X ; Seems to be if the player is standing on something
-      ORA     #CollisionFlags_10
+      LDA     EnemyCollision-1,X
+      ORA     #CollisionFlags_Disabled
       STA     EnemyCollision-1,X
       LDA     #$E0
       STA     ObjectYAccel-1,X
@@ -11098,20 +11112,25 @@ locret_BANK3_BA94:
 
 ; =============== S U B R O U T I N E =======================================
 
+; Input:
+;   RAM_12 = main object
+;   X = collision object (usually player?)
+; Output:
+;   byte_RAM_F = collision flags
 sub_BANK3_BA95:
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_F
-      LDY     byte_RAM_12
+      LDY     byte_RAM_12 ; stash Y
       LDA     byte_RAM_427
       CMP     #$F6
       BCS     loc_BANK3_BAC2
 
       LDA     ObjectXLo,Y
-      LDY     #2
+      LDY     #$02
       CMP     ObjectXLo-1,X
       BMI     loc_BANK3_BAAD
 
-      LDY     #1
+      LDY     #$01
 
 loc_BANK3_BAAD:
       STY     byte_RAM_F
@@ -11119,13 +11138,11 @@ loc_BANK3_BAAD:
       AND     EnemyMovementDirection-1,X
       BEQ     locret_BANK3_BAC1
 
-      LDY     byte_RAM_12
+      LDY     byte_RAM_12 ; restore Y
       LDA     unk_RAM_4A4,Y
       BNE     locret_BANK3_BAC1
 
       LDA     ObjectXAccel,Y
-
-loc_BANK3_BABE:
       STA     EnemyArray_4CC-1,X
 
 locret_BANK3_BAC1:
@@ -11230,8 +11247,8 @@ sub_BANK3_BB31:
 
       LDA     EnemyCollision-1,X
       ORA     byte_RAM_F
-      AND     #3
-      CMP     #3
+      AND     #CollisionFlags_Right|CollisionFlags_Left
+      CMP     #CollisionFlags_Right|CollisionFlags_Left
       BNE     locret_BANK3_BB49
 
       INY

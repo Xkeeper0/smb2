@@ -2421,7 +2421,7 @@ loc_BANK0_8CC3:
       ASL     A
       ORA     HoldingItem
       TAY
-      LDA     unk_RAM_54C,Y
+      LDA     JumpHeightStanding,Y
       STA     PlayerYAccel
       LDA     JumpFloatLength
       STA     byte_RAM_4C9
