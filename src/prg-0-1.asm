@@ -143,8 +143,8 @@ loc_BANK0_809D:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_80B1:
-      LDA     #1
-      JSR     sub_BANK0_895D
+      LDA     #$01
+      JSR     SetObjectLocks
 
       LDA     PPUScrollYMirror
       SEC
@@ -231,8 +231,8 @@ loc_BANK0_8116:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8121:
-      LDA     #1
-      JSR     sub_BANK0_895D
+      LDA     #$01
+      JSR     SetObjectLocks
 
       LDA     PPUScrollYMirror
       CLC
@@ -318,11 +318,11 @@ loc_BANK0_818F:
       DEC     byte_RAM_504
       BNE     locret_BANK0_81A0
 
-      LDA     #0
-      JSR     sub_BANK0_895D
+      LDA     #$00
+      JSR     SetObjectLocks
 
 loc_BANK0_819C:
-      LDA     #0
+      LDA     #$00
       STA     NeedVerticalScroll
 
 locret_BANK0_81A0:
@@ -1101,7 +1101,7 @@ loc_BANK0_85C4:
       STA     PPUScrollXMirror
       STA     ScreenBoundaryLeftLo
       AND     #$F0
-      STA     byte_RAM_536
+      STA     CurrentLevelPageX
       LDA     byte_RAM_BA
       BPL     loc_BANK0_85E7
 
@@ -1215,10 +1215,10 @@ loc_BANK0_8669:
 
       LDA     PPUScrollXMirror
       AND     #$F0
-      CMP     byte_RAM_536
+      CMP     CurrentLevelPageX
       BEQ     loc_BANK0_8682
 
-      STA     byte_RAM_536
+      STA     CurrentLevelPageX
       LDA     #1
       STA     byte_RAM_51C
 
@@ -1277,10 +1277,10 @@ loc_BANK0_86A8:
 loc_BANK0_86C0:
       LDA     PPUScrollXMirror
       AND     #$F0
-      CMP     byte_RAM_536
+      CMP     CurrentLevelPageX
       BEQ     loc_BANK0_86D1
 
-      STA     byte_RAM_536
+      STA     CurrentLevelPageX
       LDA     #1
       STA     byte_RAM_51C
 
@@ -1763,17 +1763,17 @@ loc_BANK0_892F:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_895D:
-      LDX     #7
+SetObjectLocks:
+      LDX     #$07
 
-loc_BANK0_895F:
-      STA     byte_RAM_41B,X
+SetObjectLocks_Loop:
+      STA     PlayerLock,X
       DEX
-      BPL     loc_BANK0_895F
+      BPL     SetObjectLocks_Loop
 
       RTS
 
-; End of function sub_BANK0_895D
+; End of function SetObjectLocks
 
 ; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
@@ -1806,8 +1806,8 @@ HandlePlayerState:
       STA     PlayerState
 
 loc_BANK0_8A26:
-      LDA     #0
-      STA     PlayerAttributesMaybe
+      LDA     #ObjAttrib_Palette0
+      STA     PlayerAttributes
       LDA     PlayerState
       JSR     JumpToTableAfterJump ; Player state handling?
 
@@ -2078,8 +2078,8 @@ locret_BANK0_8B45:
 ; ---------------------------------------------------------------------------
 
 HandlePlayerState_GoingDownJar:
-      LDA     #$20
-      STA     PlayerAttributesMaybe
+      LDA     #ObjAttrib_BehindBackground
+      STA     PlayerAttributes
       INC     PlayerYLo
       LDA     PlayerYLo
       AND     #$F
@@ -2121,8 +2121,8 @@ locret_BANK0_8B77:
 ; ---------------------------------------------------------------------------
 
 HandlePlayerState_ExitingJar:
-      LDA     #$20
-      STA     PlayerAttributesMaybe
+      LDA     #ObjAttrib_BehindBackground
+      STA     PlayerAttributes
       DEC     PlayerYLo
       LDA     PlayerYLo
       AND     #$F
@@ -2213,11 +2213,11 @@ ENDIF
 
       BEQ     locret_BANK0_8BEB
 
-      LDA     #$20
-      STA     PlayerAttributesMaybe
-      LDA     #4
+      LDA     #ObjAttrib_BehindBackground
+      STA     PlayerAttributes
+      LDA     #$04
       STA     PlayerXAccel
-      LDA     #1
+      LDA     #$01
       STA     byte_RAM_9D
 
 loc_BANK0_8BE3:
@@ -3564,7 +3564,7 @@ loc_BANK0_9216:
 
 loc_BANK0_9219:
       INC     byte_RAM_4BD
-      INC     byte_RAM_41B
+      INC     PlayerLock
       JSR     sub_BANK0_9143
 
       LDA     #DPCM_DoorOpenBombBom
@@ -4038,7 +4038,7 @@ sub_BANK0_9428:
 
       ; resetting these to zero (A=$00, otherwise we would have branched)
       STA     PlayerState
-      STA     byte_RAM_41B
+      STA     PlayerLock
       STA     SubspaceTimer
       JSR     loc_BANK1_B964
 
@@ -4229,8 +4229,8 @@ loc_BANK0_9551:
 loc_BANK0_9554:
       JSR     sub_BANK0_950C
 
-      LDA     #0
-      STA     byte_RAM_41B
+      LDA     #$00
+      STA     PlayerLock
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -4289,7 +4289,7 @@ loc_BANK0_958C:
       STA     PlayerXLo
       LDA     PlayerScreenYLo
       STA     PlayerYLo
-      DEC     byte_RAM_41B
+      DEC     PlayerLock
       LDA     #$60
       STA     SubspaceTimer
       RTS
@@ -5162,7 +5162,7 @@ FreeSubconsScene:
       STA     CrouchJumpTimer
       STA     byte_RAM_E6
       STA     byte_RAM_E5
-      STA     byte_RAM_400
+      STA     SpriteFlickerSlot
       LDX     #9
 
 loc_BANK1_A470:

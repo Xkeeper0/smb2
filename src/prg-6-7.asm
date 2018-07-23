@@ -2487,7 +2487,7 @@ loc_BANK6_9346:
       LDA     #0
       STA     PPUScrollXMirror
       STA     PPUScrollYMirror
-      STA     byte_RAM_536
+      STA     CurrentLevelPageX
       STA     byte_RAM_D5
       STA     byte_RAM_E6
       STA     ScreenYHi
@@ -2792,7 +2792,7 @@ ClearSubAreaTileLayout:
 
       LDA     CurrentLevelArea
       STA     CurrentLevelAreaCopy
-      LDA     #4
+      LDA     #$04 ; jar is always area 4
       STA     CurrentLevelArea
       LDA     #$A
       JSR     HijackLevelDataCopyAddressWithJar

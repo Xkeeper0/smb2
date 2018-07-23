@@ -3148,17 +3148,17 @@ byte_BANKF_F099:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_F0E9:
-      DEC     byte_RAM_400
-      BPL     locret_BANKF_F0F3
+NextSpriteFlickerSlot:
+      DEC     SpriteFlickerSlot
+      BPL     NextSpriteFlickerSlot_Exit
 
-      LDA     #8
-      STA     byte_RAM_400
+      LDA     #$08
+      STA     SpriteFlickerSlot
 
-locret_BANKF_F0F3:
+NextSpriteFlickerSlot_Exit:
       RTS
 
-; End of function sub_BANKF_F0E9
+; End of function NextSpriteFlickerSlot
 
 ; ---------------------------------------------------------------------------
 LevelMusicIndexes:
@@ -3171,7 +3171,7 @@ LevelMusicIndexes:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F0F9:
-      JSR     sub_BANKF_F0E9
+      JSR     NextSpriteFlickerSlot
 
       LDA     byte_RAM_4C7
       BNE     loc_BANKF_F11B
@@ -3180,7 +3180,7 @@ sub_BANKF_F0F9:
       CMP     #2
       BEQ     loc_BANKF_F115
 
-      LDA     byte_RAM_41B
+      LDA     PlayerLock
       BNE     loc_BANKF_F115
 
       LDA     #PRGBank_0_1
@@ -3201,7 +3201,7 @@ loc_BANKF_F11B:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F11E:
-      JSR     sub_BANKF_F0E9
+      JSR     NextSpriteFlickerSlot
 
       LDA     byte_RAM_4C7
       BNE     loc_BANKF_F146
@@ -3213,18 +3213,22 @@ sub_BANKF_F11E:
       CMP     #2
       BEQ     loc_BANKF_F13A
 
-      LDA     byte_RAM_41B
+      LDA     PlayerLock
       BNE     loc_BANKF_F13A
 
       JSR     HandlePlayerState
 
 loc_BANKF_F13A:
+      ; horizonal scrolling?
       JSR     sub_BANKF_F2C2
 
+      ; horizonal scrolling?
       JSR     sub_BANK0_85EC
 
+      ; screen boundary triggers
       JSR     sub_BANKF_F228
 
+      ; render player
       JSR     sub_BANKF_F31A
 
 loc_BANKF_F146:
@@ -3237,7 +3241,7 @@ loc_BANKF_F146:
 
       JSR     AnimateCHRRoutine
 
-      JSR     sub_BANKF_F47C
+      JSR     SetAreaStartPage
 
       LDX     #$03
 
@@ -3274,7 +3278,7 @@ locret_BANKF_F17D:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F17E:
-      JSR     sub_BANKF_F0E9
+      JSR     NextSpriteFlickerSlot
 
       JSR     sub_BANKF_F494
 
@@ -3285,7 +3289,7 @@ sub_BANKF_F17E:
       CMP     #2
       BEQ     loc_BANKF_F19D
 
-      LDA     byte_RAM_41B
+      LDA     PlayerLock
       BNE     loc_BANKF_F19D
 
       LDA     #PRGBank_0_1
@@ -3470,7 +3474,7 @@ loc_BANKF_F286:
       STY     InSubspaceOrJar
       LDA     CurrentLevelAreaCopy
       STA     CurrentLevelArea
-      LDA     #4
+      LDA     #PRGBank_8_9
       JSR     ChangeMappedPRGBank
 
       JMP     GetEnemyPointers
@@ -3610,6 +3614,7 @@ DamageInvulnBlinkFrames:
 
 ; =============== S U B R O U T I N E =======================================
 
+; render player subroutine
 sub_BANKF_F31A:
 IFDEF COMPATIBILITY
       .db $ac, $50, $00 ; LDA $0000 + PlayerState
@@ -3651,17 +3656,17 @@ loc_BANKF_F337:
       LSR     A
 
 loc_BANKF_F33F:
-      AND     #3
-      ORA     PlayerAttributesMaybe
-      STA     PlayerAttributesMaybe
+      AND     #ObjAttrib_Palette3
+      ORA     PlayerAttributes
+      STA     PlayerAttributes
 
 loc_BANKF_F345:
       LDA     byte_RAM_4DF
       BEQ     loc_BANKF_F350
 
-      LDA     #$20
-      ORA     PlayerAttributesMaybe
-      STA     PlayerAttributesMaybe
+      LDA     #ObjAttrib_BehindBackground
+      ORA     PlayerAttributes
+      STA     PlayerAttributes
 
 loc_BANKF_F350:
       LDA     PlayerScreenX
@@ -3736,28 +3741,28 @@ loc_BANKF_F3BB:
       BCC     loc_BANKF_F3CA
 
       LDA     byte_RAM_10
-      AND     #1
-      ORA     PlayerAttributesMaybe
-      STA     PlayerAttributesMaybe
+      AND     #ObjAttrib_Palette1
+      ORA     PlayerAttributes
+      STA     PlayerAttributes
 
 loc_BANKF_F3CA:
       LDA     byte_RAM_9D
       LSR     A
       ROR     A
       ROR     A
-      ORA     PlayerAttributesMaybe
-      AND     #$FC
-      ORA     #1
+      ORA     PlayerAttributes
+      AND     #%11111100
+      ORA     #ObjAttrib_Palette1
       STA     SpriteDMAArea+2,Y
       LDX     PlayerAnimationFrame
-      CPX     #7
+      CPX     #$07
       BEQ     loc_BANKF_F3E2
 
-      CPX     #4
+      CPX     #$04
       BNE     loc_BANKF_F3EE
 
 loc_BANKF_F3E2:
-      LDA     PlayerAttributesMaybe
+      LDA     PlayerAttributes
       STA     SpriteDMAArea+$22
       STA     SpriteDMAArea+$2A
       ORA     #$40
@@ -3765,7 +3770,7 @@ loc_BANKF_F3E2:
 
 loc_BANKF_F3EE:
       AND     #$FC
-      ORA     PlayerAttributesMaybe
+      ORA     PlayerAttributes
       STA     SpriteDMAArea+$22
       STA     SpriteDMAArea+$2A
 
@@ -3851,28 +3856,27 @@ loc_BANKF_F478:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_F47C:
+SetAreaStartPage:
       LDA     IsHorizontalLevel
-      BNE     loc_BANKF_F48E
+      BNE     SetAreaStartPage_HorizontalLevel
 
       LDY     PlayerYHi
       LDA     PlayerYLo
-      JSR     sub_BANKF_F4C3
+      JSR     GetVerticalAreaStartPage
 
       TYA
-      BPL     loc_BANKF_F490
-
+      BPL     SetAreaStartPage_SetAndExit
       LDA     #$00
-      BEQ     loc_BANKF_F490
+      BEQ     SetAreaStartPage_SetAndExit
 
-loc_BANKF_F48E:
+SetAreaStartPage_HorizontalLevel:
       LDA     PlayerXHi
 
-loc_BANKF_F490:
+SetAreaStartPage_SetAndExit:
       STA     CurrentLevelPage
       RTS
 
-; End of function sub_BANKF_F47C
+; End of function SetAreaStartPage
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3922,7 +3926,8 @@ locret_BANKF_F4C2:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_F4C3:
+; Determines start page for vertical area
+GetVerticalAreaStartPage:
       STA     byte_RAM_F
       TYA
       BMI     locret_BANKF_F4D9
@@ -3946,7 +3951,7 @@ loc_BANKF_F4D5:
 locret_BANKF_F4D9:
       RTS
 
-; End of function sub_BANKF_F4C3
+; End of function GetVerticalAreaStartPage
 
 ; ---------------------------------------------------------------------------
 byte_BANKF_F4DA:
@@ -5037,7 +5042,7 @@ loc_BANKF_FB19:
 loc_BANKF_FB1C:
       TXA
       CLC
-      ADC     byte_RAM_400
+      ADC     SpriteFlickerSlot
       TAY
       LDA     byte_BANKF_F4DA,Y
       TAY

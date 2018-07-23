@@ -288,7 +288,7 @@ loc_BANK2_8198:
       STX     byte_RAM_12
       TXA
       CLC
-      ADC     byte_RAM_400
+      ADC     SpriteFlickerSlot
       TAY
 
 loc_BANK2_81A0:
@@ -10243,7 +10243,7 @@ loc_BANK3_B63B:
       BNE     loc_BANK3_B661
 
       LDA     byte_RAM_4C7
-      ORA     byte_RAM_41B
+      ORA     PlayerLock
       BNE     loc_BANK3_B64E
 
       LDA     EnemyState-1,X
@@ -11436,7 +11436,7 @@ byte_BANK3_BBF1:
 
 loc_BANK3_BBF4:
       INC     byte_RAM_4BD
-      INC     byte_RAM_41B
+      INC     PlayerLock
       JSR     sub_BANK3_BD59
 
       LDA     #DPCM_DoorOpenBombBom

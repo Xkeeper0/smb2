@@ -153,7 +153,7 @@ EnemyCollision:
       .dsb 1 ; 6                ; $0061
       .dsb 1 ; 7                ; $0062
       .dsb 1 ; 8                ; $0063
-PlayerAttributesMaybe:
+PlayerAttributes:
       .dsb 1 ; $0064
 ObjectAttributes:
       .dsb 1 ; $0065
@@ -1201,7 +1201,7 @@ unk_RAM_3BE:
       .dsb 1 ; $03fd
       .dsb 1 ; $03fe
       .dsb 1 ; $03ff
-byte_RAM_400:
+SpriteFlickerSlot:
       .dsb 1 ; $0400
       .dsb 1 ; $0401
       .dsb 1 ; $0402
@@ -1237,7 +1237,7 @@ byte_RAM_418:
       .dsb 1 ; $0418
       .dsb 1 ; $0419
       .dsb 1 ; $041a
-byte_RAM_41B:
+PlayerLock:
       .dsb 1 ; $041b
       .dsb 1 ; $041c
       .dsb 1 ; $041d
@@ -1656,7 +1656,7 @@ TransitionType:
       ; $03 = Vine
 CurrentLevelPage:
       .dsb 1 ; $0535
-byte_RAM_536:
+CurrentLevelPageX:
       .dsb 1 ; $0536
 byte_RAM_537:
       .dsb 1 ; $0537
