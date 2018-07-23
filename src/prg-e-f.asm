@@ -898,8 +898,8 @@ InitializeSomeLevelStuff:
       LDA     #$00
       STA     CurrentLevelArea
       STA     CurrentLevelArea_Init
-      STA     CurrentLevelPage
-      STA     CurrentLevelPage_Init
+      STA     CurrentLevelEntryPage
+      STA     CurrentLevelEntryPage_Init
       STA     TransitionType
       STA     byte_RAM_4EA
       STA     PlayerState
@@ -1969,8 +1969,8 @@ loc_BANKF_E826:
       STA     CurrentLevel_Init
       LDA     CurrentLevelArea
       STA     CurrentLevelArea_Init
-      LDA     CurrentLevelPage
-      STA     CurrentLevelPage_Init
+      LDA     CurrentLevelEntryPage
+      STA     CurrentLevelEntryPage_Init
       LDY     #$00
       STY     PlayerState_Init
       STY     TransitionType
@@ -3862,14 +3862,14 @@ sub_BANKF_F47C:
       TYA
       BPL     loc_BANKF_F490
 
-      LDA     #0
+      LDA     #$00
       BEQ     loc_BANKF_F490
 
 loc_BANKF_F48E:
       LDA     PlayerXHi
 
 loc_BANKF_F490:
-      STA     byte_RAM_535
+      STA     CurrentLevelPage
       RTS
 
 ; End of function sub_BANKF_F47C
@@ -4431,21 +4431,21 @@ ReadJoypadLoop:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F6A1:
-      LDA     byte_RAM_535
+      LDA     CurrentLevelPage
       ASL     A
       TAY
-      LDA     unk_RAM_51D,Y
+      LDA     AreaPointersByPage,Y
       STA     CurrentLevel
       INY
-      LDA     unk_RAM_51D,Y
+      LDA     AreaPointersByPage,Y
       LSR     A
       LSR     A
       LSR     A
       LSR     A
       STA     CurrentLevelArea
-      LDA     unk_RAM_51D,Y
+      LDA     AreaPointersByPage,Y
       AND     #$F
-      STA     CurrentLevelPage
+      STA     CurrentLevelEntryPage
       RTS
 
 ; End of function sub_BANKF_F6A1

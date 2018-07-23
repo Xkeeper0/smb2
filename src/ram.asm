@@ -1527,7 +1527,7 @@ CurrentLevel_Init:
       .dsb 1 ; $04e7
 CurrentLevelArea_Init:
       .dsb 1 ; $04e8
-CurrentLevelPage_Init:
+CurrentLevelEntryPage_Init:
       .dsb 1 ; $04e9
 byte_RAM_4EA:
       .dsb 1 ; $04ea
@@ -1620,7 +1620,7 @@ byte_RAM_51B:
       .dsb 1 ; $051b
 byte_RAM_51C:
       .dsb 1 ; $051c
-unk_RAM_51D:
+AreaPointersByPage:
       .dsb 1 ; $051d
       .dsb 1 ; $051e
       .dsb 1 ; $051f
@@ -1645,7 +1645,7 @@ CurrentLevel:
       .dsb 1 ; $0531
 CurrentLevelArea:
       .dsb 1 ; $0532
-CurrentLevelPage:
+CurrentLevelEntryPage:
       .dsb 1 ; $0533
 TransitionType:
       .dsb 1 ; $0534
@@ -1654,7 +1654,7 @@ TransitionType:
       ; $01 = Door
       ; $02 = Jar
       ; $03 = Vine
-byte_RAM_535:
+CurrentLevelPage:
       .dsb 1 ; $0535
 byte_RAM_536:
       .dsb 1 ; $0536

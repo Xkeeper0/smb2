@@ -23,7 +23,7 @@ sub_BANK0_8000:
       JSR     ChangeNametableMirroring
 
 _code_000A:
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
       BNE     loc_BANK0_8013
 
 loc_BANK0_800F:
@@ -40,7 +40,7 @@ loc_BANK0_8016:
       SEC
       SBC     #$40
       STA     byte_RAM_CE
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
 
 loc_BANK0_8022:
       CLC
@@ -53,7 +53,7 @@ loc_BANK0_8022:
 loc_BANK0_802B:
       ORA     #$10
       STA     byte_RAM_D0
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
       LDY     #0
       JSR     sub_BANK0_86EE
 
@@ -69,7 +69,7 @@ loc_BANK0_802B:
       STA     byte_RAM_53A
       LSR     A
       STA     byte_RAM_D2
-      LDY     CurrentLevelPage
+      LDY     CurrentLevelEntryPage
       JSR     sub_BANK0_95AF
 
       STA     ScreenYLo
@@ -961,7 +961,7 @@ sub_BANK0_8500:
 
       LDA     #0
       STA     PPUScrollYMirror
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
       BNE     loc_BANK0_851A
 
       LDA     #9
@@ -977,7 +977,7 @@ loc_BANK0_851D:
       SEC
       SBC     #$20
       STA     byte_RAM_CE
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
       CLC
       ADC     #1
       CMP     #$A
@@ -988,12 +988,12 @@ loc_BANK0_851D:
 loc_BANK0_8532:
       ORA     #$10
       STA     byte_RAM_D0
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
       LDY     #1
       JSR     sub_BANK0_86EE
 
       INC     byte_RAM_502
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
       STA     ScreenBoundaryLeftHi
       LDA     #1
       STA     byte_RAM_53A
@@ -1022,13 +1022,13 @@ locret_BANK0_8569:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_856A:
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
       BNE     loc_BANK0_8576
 
       LDA     byte_RAM_BA
       BMI     loc_BANK0_85E7
 
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
 
 loc_BANK0_8576:
       CMP     byte_RAM_53F
@@ -1355,7 +1355,7 @@ sub_BANK0_870C:
       STA     byte_RAM_514
       INC     byte_RAM_53D
       LDA     byte_BANK0_870B
-      STA     CurrentLevelPage
+      STA     CurrentLevelEntryPage
       JSR     sub_BANK0_86EE
 
       LDA     #0
@@ -4067,7 +4067,7 @@ loc_BANK0_9470:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_947F:
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
       LDY     #0
       LDX     IsHorizontalLevel
       BNE     loc_BANK0_948E
@@ -4145,7 +4145,7 @@ loc_BANK0_94DC:
       LDA     #$D0
       STA     PlayerYLo
       STA     byte_RAM_E6
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
       STA     byte_RAM_E8
       LDA     #$C
       STA     byte_RAM_3
@@ -4194,7 +4194,7 @@ loc_BANK0_9514:
       LDA     #$E0
       STA     PlayerYLo
       STA     byte_RAM_E6
-      LDA     CurrentLevelPage
+      LDA     CurrentLevelEntryPage
       STA     byte_RAM_E8
       LDA     #$D
       STA     byte_RAM_3

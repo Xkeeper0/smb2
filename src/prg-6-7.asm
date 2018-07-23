@@ -2882,21 +2882,21 @@ locret_BANK6_9547:
       RTS
 
 ; ---------------------------------------------------------------------------
-      LDA     byte_RAM_535
+      LDA     CurrentLevelPage
       ASL     A
       TAY
-      LDA     unk_RAM_51D,Y
+      LDA     AreaPointersByPage,Y
       STA     CurrentLevel
       INY
-      LDA     unk_RAM_51D,Y
+      LDA     AreaPointersByPage,Y
       LSR     A
       LSR     A
       LSR     A
       LSR     A
       STA     CurrentLevelArea
-      LDA     unk_RAM_51D,Y
+      LDA     AreaPointersByPage,Y
       AND     #$F
-      STA     CurrentLevelPage
+      STA     CurrentLevelEntryPage
       RTS
 
 ; =============== S U B R O U T I N E =======================================
@@ -3222,11 +3222,11 @@ loc_BANK6_96CD:
       ASL     A
       TAX
       LDA     (byte_RAM_5),Y
-      STA     unk_RAM_51D,X
+      STA     AreaPointersByPage,X
       INY
       INX
       LDA     (byte_RAM_5),Y
-      STA     unk_RAM_51D,X
+      STA     AreaPointersByPage,X
       STY     byte_RAM_F
       RTS
 
@@ -3717,12 +3717,12 @@ LevelParser_EatDoorPointer:
 loc_BANK6_98CD:
       TAY
       LDA     byte_RAM_7
-      STA     unk_RAM_51D,Y
+      STA     AreaPointersByPage,Y
       INY
       LDA     byte_RAM_8
 
 loc_BANK6_98D6:
-      STA     unk_RAM_51D,Y
+      STA     AreaPointersByPage,Y
       RTS
 
 ; End of function LevelParser_EatDoorPointer
