@@ -2321,7 +2321,7 @@ loc_BANK0_8C3D:
       LDA     byte_RAM_4B2
       BNE     loc_BANK0_8C92
 
-      LDA     byte_RAM_4DF
+      LDA     QuicksandDepth
       BNE     ResetPartialCrouchJumpTimer
 
       LDA     Player1JoypadHeld ; skip if down button is not pressed
@@ -2386,8 +2386,8 @@ loc_BANK0_8C95:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8C99:
-      LDA     byte_RAM_4DF
-      CMP     #2
+      LDA     QuicksandDepth
+      CMP     #$02
       BCC     loc_BANK0_8CA7
 
       LDA     byte_RAM_552
@@ -2436,8 +2436,8 @@ loc_BANK0_8CD3:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8CD9:
-      LDA     byte_RAM_4DF
-      CMP     #2
+      LDA     QuicksandDepth
+      CMP     #$02
       BCC     loc_BANK0_8CE5
 
       LDA     byte_RAM_556
@@ -2659,9 +2659,9 @@ byte_BANK0_8DBE:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8DC0:
-      LDY     #2
-      LDA     byte_RAM_4DF
-      CMP     #2
+      LDY     #$02
+      LDA     QuicksandDepth
+      CMP     #$02
       BCS     loc_BANK0_8DE0
 
       DEY
@@ -2957,32 +2957,32 @@ loc_BANK0_8F2B:
       LDA     PlayerCollision
       BNE     loc_BANK0_8F4F
 
-      LDA     #0
-      LDX     #1
+      LDA     #$00
+      LDX     #$01
       LDY     CurrentWorld
-      CPY     #1
+      CPY     #$01
       BEQ     loc_BANK0_8F44
 
-      CPY     #5
+      CPY     #$05
+      ; just treat it as thin air
       BNE     loc_BANK0_8F47
 
 loc_BANK0_8F44:
+      ; treat it as quicksand
       JSR     sub_BANK1_BA7C
 
 loc_BANK0_8F47:
-      STA     byte_RAM_4DF
+      STA     QuicksandDepth
       STX     PlayerInAir
       JMP     loc_BANK0_8F95
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8F4F:
-      LDA     #0
-
-loc_BANK0_8F51:
-      STA     byte_RAM_4DF
+      LDA     #$00
+      STA     QuicksandDepth
       LDA     PlayerYLo
-      AND     #$C
+      AND     #$0C
       BNE     loc_BANK0_8F95
 
       STA     PlayerInAir
@@ -3132,12 +3132,12 @@ loc_BANK0_9006:
       BCS     loc_BANK0_902D
 
       LDA     byte_RAM_0
-      CMP     #$4E
+      CMP     #BackgroundTile_Cherry
       BNE     locret_BANK0_9052
 
       INC     CherryCount
       LDA     CherryCount
-      SBC     #5
+      SBC     #$05
       BNE     loc_BANK0_9023
 
       STA     CherryCount
@@ -3147,7 +3147,7 @@ loc_BANK0_9006:
 loc_BANK0_9023:
       LDA     #SoundEffect1_CherryGet
       STA     SoundEffectQueue1
-      LDA     #$40 ; blank tile to replace cherry tile
+      LDA     #BackgroundTile_Sky
       JMP     loc_BANK0_937C
 
 ; ---------------------------------------------------------------------------
@@ -3274,7 +3274,7 @@ loc_BANK0_90AE:
       CMP     #$37
       BEQ     loc_BANK0_90C1
 
-      CMP     #9
+      CMP     #$09
       BNE     loc_BANK0_90C5
 
 loc_BANK0_90BF:
@@ -3287,7 +3287,7 @@ loc_BANK0_90C3:
       BNE     loc_BANK0_90EA
 
 loc_BANK0_90C5:
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     loc_BANK0_90D5
 
       LDA     Mushroom1upPulled
@@ -3322,7 +3322,7 @@ loc_BANK0_90EA:
 
       LDA     #CollisionFlags_Down
       STA     EnemyCollision,X
-      LDA     #$40 ; blank tile to replace lifted tile
+      LDA     #BackgroundTile_Sky
       JSR     sub_BANK0_934F
 
       LDA     #7
@@ -6820,8 +6820,15 @@ sub_BANK1_BA71:
 
 ; =============== S U B R O U T I N E =======================================
 
+;
+; sinking in quicksand
+;
+; Output
+;   A = Whether the player is sinking in quicksand
+;   X = PlayerInAir flag
+;
 sub_BANK1_BA7C:
-      LDA     #1
+      LDA     #$01
       LDY     byte_RAM_0
       CPY     #$8A
       BEQ     loc_BANK1_BA8D
@@ -6829,17 +6836,17 @@ sub_BANK1_BA7C:
       CPY     #$8B
       BEQ     loc_BANK1_BA8B
 
-      LDA     #0
+      LDA     #$00
       RTS
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_BA8B:
-      LDA     #8
+      LDA     #$08
 
 loc_BANK1_BA8D:
       STA     PlayerYAccel
-      LDA     byte_RAM_4DF
+      LDA     QuicksandDepth
       BNE     loc_BANK1_BA9B
 
       LDA     PlayerYLo
@@ -6847,6 +6854,7 @@ loc_BANK1_BA8D:
       STA     byte_RAM_4EB
 
 loc_BANK1_BA9B:
+      ; check if player is too far under
       LDA     PlayerYLo
       AND     #$0F
       TAY
@@ -6855,6 +6863,7 @@ loc_BANK1_BA9B:
       AND     #$10
       BEQ     loc_BANK1_BAB6
 
+      ; kill if >= this check
       CPY     #$0C
       BCC     loc_BANK1_BAB4
 

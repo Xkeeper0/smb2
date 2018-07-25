@@ -71,7 +71,7 @@ AreaInitialization:
       STA     byte_RAM_4FD
       STA     CrouchJumpTimer
       STA     byte_RAM_4C9
-      STA     byte_RAM_4DF
+      STA     QuicksandDepth
       STA     byte_RAM_4B8
       LDY     #$1B
 

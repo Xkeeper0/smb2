@@ -1507,7 +1507,7 @@ EnemyArray_4D6:
       .dsb 1 ; $04dc
       .dsb 1 ; $04dd
       .dsb 1 ; $04de
-byte_RAM_4DF:
+QuicksandDepth:
       .dsb 1 ; $04df
 StarInvincibilityTimer:
       .dsb 1 ; $04e0
@@ -1529,7 +1529,7 @@ CurrentLevelArea_Init:
       .dsb 1 ; $04e8
 CurrentLevelEntryPage_Init:
       .dsb 1 ; $04e9
-byte_RAM_4EA:
+TransitionType_Init:
       .dsb 1 ; $04ea
 byte_RAM_4EB:
       .dsb 1 ; $04eb

@@ -901,7 +901,7 @@ InitializeSomeLevelStuff:
       STA     CurrentLevelEntryPage
       STA     CurrentLevelEntryPage_Init
       STA     TransitionType
-      STA     byte_RAM_4EA
+      STA     TransitionType_Init
       STA     PlayerState
       STA     PlayerState_Init
       STA     InSubspaceOrJar
@@ -1974,7 +1974,7 @@ loc_BANKF_E826:
       LDY     #$00
       STY     PlayerState_Init
       STY     TransitionType
-      STY     byte_RAM_4EA
+      STY     TransitionType_Init
       DEY
       STY     CurrentMusicIndex
       JSR     sub_BANKF_E1F4
@@ -3661,7 +3661,7 @@ loc_BANKF_F33F:
       STA     PlayerAttributes
 
 loc_BANKF_F345:
-      LDA     byte_RAM_4DF
+      LDA     QuicksandDepth
       BEQ     loc_BANKF_F350
 
       LDA     #ObjAttrib_BehindBackground
