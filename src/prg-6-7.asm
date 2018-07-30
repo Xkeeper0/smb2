@@ -1177,7 +1177,7 @@ loc_BANK6_8BBD:
 loc_BANK6_8BBF:
       STX     byte_RAM_B
       LDX     byte_RAM_E8
-      JSR     sub_BANK6_9885
+      JSR     SetAreaPageAddr
 
       LDX     #5
       LDY     byte_RAM_E7
@@ -1220,15 +1220,15 @@ locret_BANK6_8BFA:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8BFB:
+GreenPlatformOverlapCompareTiles:
       .BYTE BackgroundTile_GreenPlatformLeft
       .BYTE BackgroundTile_GreenPlatformMiddle
       .BYTE BackgroundTile_GreenPlatformRight
-byte_BANK6_8BFE:
+GreenPlatformOverlapLeftTiles:
       .BYTE BackgroundTile_GreenPlatformTopLeftOverlapEdge
       .BYTE BackgroundTile_GreenPlatformTopLeftOverlap
       .BYTE BackgroundTile_GreenPlatformTopLeftOverlap
-byte_BANK6_8C01:
+GreenPlatformOverlapRightTiles:
       .BYTE BackgroundTile_GreenPlatformTopRightOverlap
       .BYTE BackgroundTile_GreenPlatformTopRightOverlap
       .BYTE BackgroundTile_GreenPlatformTopRightOverlapEdge
@@ -1242,7 +1242,7 @@ loc_BANK6_8C04:
       LDA     (byte_RAM_1),Y
 
 loc_BANK6_8C0D:
-      CMP     byte_BANK6_8BFB,X
+      CMP     GreenPlatformOverlapCompareTiles,X
       BEQ     loc_BANK6_8C17
 
       DEX
@@ -1251,7 +1251,7 @@ loc_BANK6_8C0D:
       BMI     loc_BANK6_8C35
 
 loc_BANK6_8C17:
-      LDA     byte_BANK6_8BFE,X
+      LDA     GreenPlatformOverlapLeftTiles,X
       BNE     loc_BANK6_8C4B
 
 loc_BANK6_8C1C:
@@ -1263,7 +1263,7 @@ loc_BANK6_8C1C:
       LDA     (byte_RAM_1),Y
 
 loc_BANK6_8C26:
-      CMP     byte_BANK6_8BFB,X
+      CMP     GreenPlatformOverlapCompareTiles,X
       BEQ     loc_BANK6_8C30
 
       DEX
@@ -1272,7 +1272,7 @@ loc_BANK6_8C26:
       BMI     loc_BANK6_8C35
 
 loc_BANK6_8C30:
-      LDA     byte_BANK6_8C01,X
+      LDA     GreenPlatformOverlapRightTiles,X
       BNE     loc_BANK6_8C4B
 
 loc_BANK6_8C35:
@@ -1533,7 +1533,7 @@ CreateObject_Wall:
       STA     byte_RAM_8
       LDY     byte_RAM_E7
       LDX     byte_RAM_E8
-      JSR     sub_BANK6_9885
+      JSR     SetAreaPageAddr
 
       LDY     byte_RAM_E7
       LDA     #5
@@ -1597,7 +1597,7 @@ CreateObject_Waterfall:
 loc_BANK6_8DA3:
       LDY     byte_RAM_E7
       LDX     byte_RAM_E8
-      JSR     sub_BANK6_9885
+      JSR     SetAreaPageAddr
 
       LDY     byte_RAM_E7
       LDA     byte_RAM_50D
@@ -1859,7 +1859,7 @@ loc_BANK6_8ED2:
 
 loc_BANK6_8EE2:
       LDX     byte_RAM_E8
-      JSR     sub_BANK6_9885
+      JSR     SetAreaPageAddr
 
       JSR     sub_BANK6_8E8F
 
@@ -1904,7 +1904,7 @@ CreateObject_FrozenRocks:
 loc_BANK6_8F19:
       LDY     byte_RAM_E7
       LDX     byte_RAM_E8
-      JSR     sub_BANK6_9885
+      JSR     SetAreaPageAddr
 
       LDY     byte_RAM_E7
       LDA     byte_RAM_50D
@@ -1940,20 +1940,17 @@ loc_BANK6_8F45:
       JMP     loc_BANK6_8F19
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8F4A:
-      .BYTE $75
-
-      .BYTE $13
-      .BYTE $76
-byte_BANK6_8F4D:
-      .BYTE $76
-
-      .BYTE $14
-byte_BANK6_8F4F:
-      .BYTE $77
-
-      .BYTE $15
-      .BYTE $78
+HorizontalPlatformLeftTiles:
+      .BYTE BackgroundTile_LogLeft
+      .BYTE BackgroundTile_CloudLeft
+      .BYTE BackgroundTile_LogMiddle
+HorizontalPlatformMiddleTiles:
+      .BYTE BackgroundTile_LogMiddle
+      .BYTE BackgroundTile_CloudMiddle
+HorizontalPlatformRightTiles:
+      .BYTE BackgroundTile_LogRight
+      .BYTE BackgroundTile_CloudRight
+      .BYTE BackgroundTile_LogRightTree
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8F52:
@@ -1964,7 +1961,7 @@ loc_BANK6_8F52:
       TAX
       JSR     sub_BANK6_8F83
 
-      LDA     byte_BANK6_8F4A,X
+      LDA     HorizontalPlatformLeftTiles,X
       STA     (byte_RAM_1),Y
       LDX     byte_RAM_7
       DEC     byte_RAM_50D
@@ -1974,7 +1971,7 @@ loc_BANK6_8F6A:
       JSR     sub_BANK6_9890
 
 loc_BANK6_8F6D:
-      LDA     byte_BANK6_8F4D,X
+      LDA     HorizontalPlatformMiddleTiles,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
       BNE     loc_BANK6_8F6A
@@ -1984,7 +1981,7 @@ loc_BANK6_8F77:
 
       JSR     sub_BANK6_8F83
 
-      LDA     byte_BANK6_8F4F,X
+      LDA     HorizontalPlatformRightTiles,X
       STA     (byte_RAM_1),Y
       RTS
 
@@ -1996,6 +1993,7 @@ sub_BANK6_8F83:
       CMP     #BackgroundTile_Sky
       BEQ     locret_BANK6_8F8D
 
+      ; otherwise, the platform is overlapping the background, so we need a special tile
       LDX     #2
 
 locret_BANK6_8F8D:
@@ -2013,7 +2011,7 @@ loc_BANK6_8F91:
       STA     byte_RAM_7
       LDY     byte_RAM_E7
       LDX     byte_RAM_E8
-      JSR     sub_BANK6_9885
+      JSR     SetAreaPageAddr
 
       LDX     #2
       LDA     (byte_RAM_1),Y
@@ -2025,7 +2023,7 @@ loc_BANK6_8FA4:
       STA     (byte_RAM_1),Y
       JSR     sub_BANK6_9890
 
-      ; using two alternating tiles for the midlde of the tree
+      ; using two alternating tiles for the middle of the tree
       DEX
       CPX     #1
       BNE     loc_BANK6_8FB4
@@ -2273,7 +2271,7 @@ ENDIF
 
       STA     byte_RAM_50D
       LDX     byte_RAM_E8
-      JSR     sub_BANK6_9885
+      JSR     SetAreaPageAddr
 
       LDY     byte_RAM_E7
       LDA     (byte_RAM_1),Y
@@ -2510,54 +2508,53 @@ DecodedLevelPageStartHi:
       .BYTE >(DecodedLevelData+$0870)
       .BYTE $07 ; ???
 
-; this might remap subspace tiles?
-byte_BANK6_930E:
-      .BYTE $75
-      .BYTE $77
-      .BYTE $CA
-      .BYTE $CE
-      .BYTE $C7
-      .BYTE $C8
-      .BYTE $D0
-      .BYTE $D1
-      .BYTE $01
-      .BYTE $02
-      .BYTE $84
-      .BYTE $87
-      .BYTE $60
-      .BYTE $62
-      .BYTE $13
-      .BYTE $15
-      .BYTE $53
-      .BYTE $55
-      .BYTE $CB
-      .BYTE $CF
-      .BYTE $09
-      .BYTE $0D
+SubspaceTilesSearch:
+      .BYTE $75 ; $00
+      .BYTE $77 ; $01
+      .BYTE $CA ; $02
+      .BYTE $CE ; $03
+      .BYTE $C7 ; $04
+      .BYTE $C8 ; $05 ; BUG: This should be $C9
+      .BYTE $D0 ; $06
+      .BYTE $D1 ; $07
+      .BYTE $01 ; $08
+      .BYTE $02 ; $09
+      .BYTE $84 ; $0A
+      .BYTE $87 ; $0B
+      .BYTE $60 ; $0C
+      .BYTE $62 ; $0D
+      .BYTE $13 ; $0E
+      .BYTE $15 ; $0F
+      .BYTE $53 ; $10
+      .BYTE $55 ; $11
+      .BYTE $CB ; $12
+      .BYTE $CF ; $13
+      .BYTE $09 ; $14
+      .BYTE $0D ; $15
 
-unk_BANK6_9324:
-      .BYTE $77
-      .BYTE $75
-      .BYTE $CE
-      .BYTE $CA
-      .BYTE $C8
-      .BYTE $C7
-      .BYTE $D1
-      .BYTE $D0
-      .BYTE $02
-      .BYTE $01
-      .BYTE $87
-      .BYTE $84
-      .BYTE $62
-      .BYTE $60
-      .BYTE $15
-      .BYTE $13
-      .BYTE $55
-      .BYTE $53
-      .BYTE $CF
-      .BYTE $CB
-      .BYTE $0D
-      .BYTE $09
+SubspaceTilesReplace:
+      .BYTE $77 ; $00
+      .BYTE $75 ; $01
+      .BYTE $CE ; $02
+      .BYTE $CA ; $03
+      .BYTE $C8 ; $04 ; BUG: This should be $C9
+      .BYTE $C7 ; $05
+      .BYTE $D1 ; $06
+      .BYTE $D0 ; $07
+      .BYTE $02 ; $08
+      .BYTE $01 ; $09
+      .BYTE $87 ; $0A
+      .BYTE $84 ; $0B
+      .BYTE $62 ; $0C
+      .BYTE $60 ; $0D
+      .BYTE $15 ; $0E
+      .BYTE $13 ; $0F
+      .BYTE $55 ; $10
+      .BYTE $53 ; $11
+      .BYTE $CF ; $12
+      .BYTE $CB ; $13
+      .BYTE $0D ; $14
+      .BYTE $09 ; $15
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2797,7 +2794,7 @@ loc_BANK6_9439:
 
 loc_BANK6_9458:
       LDA     (byte_RAM_1),Y
-      JSR     sub_BANK6_9479
+      JSR     DoSubspaceTileRemap
 
       STA     SubAreaTileLayout,X
       TYA
@@ -2825,13 +2822,13 @@ loc_BANK6_9458:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_9479:
+DoSubspaceTileRemap:
       STY     byte_RAM_8
       STX     byte_RAM_7
-      LDX     #$15
+      LDX     #(SubspaceTilesReplace-SubspaceTilesSearch-1)
 
 loc_BANK6_947F:
-      CMP     byte_BANK6_930E,X
+      CMP     SubspaceTilesSearch,X
       BEQ     loc_BANK6_94A5
 
       DEX
@@ -2850,7 +2847,7 @@ loc_BANK6_947F:
 loc_BANK6_9492:
       SEC ; Some code involving Subspace mushrooms
 ; Checking if it should create a Subspace object?
-      SBC     #$41
+      SBC     #BackgroundTile_SubspaceMushroom1
       TAY
       LDA     Mushroom1Pulled,Y
       BNE     loc_BANK6_94A0
@@ -2859,20 +2856,20 @@ loc_BANK6_9492:
       JSR     sub_BANK6_98F7
 
 loc_BANK6_94A0:
-      LDA     #$41
+      LDA     #BackgroundTile_SubspaceMushroom1
       JMP     loc_BANK6_94A8
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_94A5:
-      LDA     unk_BANK6_9324,X
+      LDA     SubspaceTilesReplace,X
 
 loc_BANK6_94A8:
       LDX     byte_RAM_7
       LDY     byte_RAM_8
       RTS
 
-; End of function sub_BANK6_9479
+; End of function DoSubspaceTileRemap
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3724,7 +3721,7 @@ sub_BANK6_985E:
 
 sub_BANK6_9878:
       LDX     byte_RAM_E8
-      JSR     sub_BANK6_9885
+      JSR     SetAreaPageAddr
 
       LDA     byte_RAM_E6
       CLC
@@ -3736,15 +3733,19 @@ sub_BANK6_9878:
 
 ; =============== S U B R O U T I N E =======================================
 
-; Load a tile from the decoded level data
-sub_BANK6_9885:
+; Input
+;   X = area page
+; Output
+;   RAM_1 = low byte of decoded level data RAM
+;   RAM_2 = low byte of decoded level data RAM
+SetAreaPageAddr:
       LDA     DecodedLevelPageStartLo,X
       STA     byte_RAM_1
       LDA     DecodedLevelPageStartHi,X
       STA     byte_RAM_2
       RTS
 
-; End of function sub_BANK6_9885
+; End of function SetAreaPageAddr
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3764,7 +3765,7 @@ loc_BANK6_989A:
       LDX     byte_RAM_E8
       INX
       STX     word_RAM_C+1
-      JSR     sub_BANK6_9885
+      JSR     SetAreaPageAddr
 
 loc_BANK6_98A5:
       LDX     byte_RAM_B
@@ -3786,7 +3787,7 @@ sub_BANK6_98A8:
 
       LDX     byte_RAM_E8
       INX
-      JSR     sub_BANK6_9885
+      JSR     SetAreaPageAddr
 
       TYA
       AND     #$0F
