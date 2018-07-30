@@ -347,47 +347,131 @@ GroundTilesVerticalHi:
       .BYTE >World6GroundTilesVertical
       .BYTE >World7GroundTilesVertical
 World1GroundTilesHorizontal:
-      .BYTE $00, $99, $D5, $00, $00, $99, $99, $99, $00, $A0, $A0, $A0, $00, $A2, $A2, $A2
-      .BYTE $00, $D6, $9B, $18, $00, $A0, $A0, $99, $00, $00, $00, $00, $00, $00, $00, $00
+      .BYTE $00, $99, $D5, $00 ; $00
+      .BYTE $00, $99, $99, $99 ; $01
+      .BYTE $00, $A0, $A0, $A0 ; $02
+      .BYTE $00, $A2, $A2, $A2 ; $03
+      .BYTE $00, $D6, $9B, $18 ; $04
+      .BYTE $00, $A0, $A0, $99 ; $05
+      .BYTE $00, $00, $00, $00 ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 World1GroundTilesVertical:
-      .BYTE $00, $9D, $9E, $C6, $00, $05, $A0, $00, $00, $00, $00, $00, $00, $00, $A2, $00
-      .BYTE $00, $00, $C2, $00, $00, $00, $A0, $00, $00, $93, $9E, $C6, $00, $40, $9E, $C6
+      .BYTE $00, $9D, $9E, $C6 ; $00
+      .BYTE $00, $05, $A0, $00 ; $01
+      .BYTE $00, $00, $00, $00 ; $02
+      .BYTE $00, $00, $A2, $00 ; $03
+      .BYTE $00, $00, $C2, $00 ; $04
+      .BYTE $00, $00, $A0, $00 ; $05
+      .BYTE $00, $93, $9E, $C6 ; $06
+      .BYTE $00, $40, $9E, $C6 ; $07
 World2GroundTilesHorizontal:
-      .BYTE $00, $99, $99, $99, $00, $8A, $8A, $8A, $00, $8B, $8B, $8B, $00, $A0, $A0, $A0
-      .BYTE $00, $A2, $A2, $A2, $00, $D6, $9B, $18, $00, $00, $00, $00, $00, $00, $00, $00
+      .BYTE $00, $99, $99, $99 ; $00
+      .BYTE $00, $8A, $8A, $8A ; $01
+      .BYTE $00, $8B, $8B, $8B ; $02
+      .BYTE $00, $A0, $A0, $A0 ; $03
+      .BYTE $00, $A2, $A2, $A2 ; $04
+      .BYTE $00, $D6, $9B, $18 ; $05
+      .BYTE $00, $00, $00, $00 ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 World2GroundTilesVertical:
-      .BYTE $00, $9D, $9E, $C6, $00, $93, $A0, $00, $00, $40, $9B, $40, $00, $93, $9E, $C6
-      .BYTE $00, $40, $9E, $C6, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+      .BYTE $00, $9D, $9E, $C6 ; $00
+      .BYTE $00, $93, $A0, $00 ; $01
+      .BYTE $00, $40, $9B, $40 ; $02
+      .BYTE $00, $93, $9E, $C6 ; $03
+      .BYTE $00, $40, $9E, $C6 ; $04
+      .BYTE $00, $00, $00, $00 ; $05
+      .BYTE $00, $00, $00, $00 ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 World3GroundTilesHorizontal:
-      .BYTE $00, $99, $D5, $00, $00, $99, $99, $99, $00, $A0, $A0, $A0, $00, $A2, $A2, $A2
-      .BYTE $00, $D6, $9B, $18, $00, $A0, $A0, $99, $00, $00, $00, $00, $00, $00, $00, $00
+      .BYTE $00, $99, $D5, $00 ; $00
+      .BYTE $00, $99, $99, $99 ; $01
+      .BYTE $00, $A0, $A0, $A0 ; $02
+      .BYTE $00, $A2, $A2, $A2 ; $03
+      .BYTE $00, $D6, $9B, $18 ; $04
+      .BYTE $00, $A0, $A0, $99 ; $05
+      .BYTE $00, $00, $00, $00 ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 World3GroundTilesVertical:
-      .BYTE $00, $C6, $9E, $9D, $00, $05, $A0, $00, $00, $93, $9E, $C6, $00, $00, $A2, $00
-      .BYTE $00, $00, $C2, $00, $00, $00, $A0, $00, $00, $40, $9E, $C6, $00, $06, $A0, $00
+      .BYTE $00, $C6, $9E, $9D ; $00
+      .BYTE $00, $05, $A0, $00 ; $01
+      .BYTE $00, $93, $9E, $C6 ; $02
+      .BYTE $00, $00, $A2, $00 ; $03
+      .BYTE $00, $00, $C2, $00 ; $04
+      .BYTE $00, $00, $A0, $00 ; $05
+      .BYTE $00, $40, $9E, $C6 ; $06
+      .BYTE $00, $06, $A0, $00 ; $07
 World4GroundTilesHorizontal:
-      .BYTE $00, $99, $D5, $00, $00, $99, $16, $00, $00, $A0, $A0, $A0, $00, $A2, $A2, $A2
-      .BYTE $00, $D6, $9B, $18, $00, $0A, $0A, $08, $00, $1F, $1F, $1F, $00, $00, $00, $00
+      .BYTE $00, $99, $D5, $00 ; $00
+      .BYTE $00, $99, $16, $00 ; $01
+      .BYTE $00, $A0, $A0, $A0 ; $02
+      .BYTE $00, $A2, $A2, $A2 ; $03
+      .BYTE $00, $D6, $9B, $18 ; $04
+      .BYTE $00, $0A, $0A, $08 ; $05
+      .BYTE $00, $1F, $1F, $1F ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 World4GroundTilesVertical:
-      .BYTE $00, $C6, $99, $9D, $00, $A2, $A2, $A2, $00, $9B, $9B, $9B, $00, $A0, $A0, $A0
-      .BYTE $00, $D6, $D6, $D6, $00, $18, $18, $18, $00, $00, $00, $00, $00, $00, $00, $00
+      .BYTE $00, $C6, $99, $9D ; $00
+      .BYTE $00, $A2, $A2, $A2 ; $01
+      .BYTE $00, $9B, $9B, $9B ; $02
+      .BYTE $00, $A0, $A0, $A0 ; $03
+      .BYTE $00, $D6, $D6, $D6 ; $04
+      .BYTE $00, $18, $18, $18 ; $05
+      .BYTE $00, $00, $00, $00 ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 World5GroundTilesHorizontal:
-      .BYTE $00, $99, $D5, $40, $00, $99, $99, $99, $00, $A0, $A0, $A0, $00, $A2, $A2, $A2
-      .BYTE $00, $D6, $9B, $18, $00, $A0, $A0, $99, $00, $00, $00, $00, $00, $00, $00, $00
+      .BYTE $00, $99, $D5, $40 ; $00
+      .BYTE $00, $99, $99, $99 ; $01
+      .BYTE $00, $A0, $A0, $A0 ; $02
+      .BYTE $00, $A2, $A2, $A2 ; $03
+      .BYTE $00, $D6, $9B, $18 ; $04
+      .BYTE $00, $A0, $A0, $99 ; $05
+      .BYTE $00, $00, $00, $00 ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 World5GroundTilesVertical:
-      .BYTE $00, $9D, $9E, $C6, $00, $05, $A0, $00, $00, $40, $A4, $00, $00, $00, $A2, $00
-      .BYTE $00, $00, $C2, $00, $00, $00, $A0, $00, $00, $93, $9E, $C6, $00, $40, $9E, $C6
+      .BYTE $00, $9D, $9E, $C6 ; $00
+      .BYTE $00, $05, $A0, $00 ; $01
+      .BYTE $00, $40, $A4, $00 ; $02
+      .BYTE $00, $00, $A2, $00 ; $03
+      .BYTE $00, $00, $C2, $00 ; $04
+      .BYTE $00, $00, $A0, $00 ; $05
+      .BYTE $00, $93, $9E, $C6 ; $06
+      .BYTE $00, $40, $9E, $C6 ; $07
 World6GroundTilesHorizontal:
-      .BYTE $00, $99, $99, $99, $00, $8A, $8A, $8A, $00, $8B, $8B, $8B, $00, $A0, $A0, $A0
-      .BYTE $00, $A2, $A2, $A2, $00, $D6, $9B, $18, $00, $00, $00, $00, $00, $00, $00, $00
+      .BYTE $00, $99, $99, $99 ; $00
+      .BYTE $00, $8A, $8A, $8A ; $01
+      .BYTE $00, $8B, $8B, $8B ; $02
+      .BYTE $00, $A0, $A0, $A0 ; $03
+      .BYTE $00, $A2, $A2, $A2 ; $04
+      .BYTE $00, $D6, $9B, $18 ; $05
+      .BYTE $00, $00, $00, $00 ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 World6GroundTilesVertical:
-      .BYTE $00, $9D, $9E, $C6, $00, $93, $A0, $00, $00, $40, $18, $40, $00, $93, $9E, $C6
-      .BYTE $00, $40, $9E, $C6, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+      .BYTE $00, $9D, $9E, $C6 ; $00
+      .BYTE $00, $93, $A0, $00 ; $01
+      .BYTE $00, $40, $18, $40 ; $02
+      .BYTE $00, $93, $9E, $C6 ; $03
+      .BYTE $00, $40, $9E, $C6 ; $04
+      .BYTE $00, $00, $00, $00 ; $05
+      .BYTE $00, $00, $00, $00 ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 World7GroundTilesHorizontal:
-      .BYTE $00, $9C, $9C, $9C, $00, $D7, $9C, $19, $00, $00, $00, $00, $00, $00, $00, $00
-      .BYTE $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+      .BYTE $00, $9C, $9C, $9C ; $00
+      .BYTE $00, $D7, $9C, $19 ; $01
+      .BYTE $00, $00, $00, $00 ; $02
+      .BYTE $00, $00, $00, $00 ; $03
+      .BYTE $00, $00, $00, $00 ; $04
+      .BYTE $00, $00, $00, $00 ; $05
+      .BYTE $00, $00, $00, $00 ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 World7GroundTilesVertical:
-      .BYTE $00, $9C, $9C, $9C, $00, $05, $A0, $00, $00, $00, $00, $00, $00, $00, $9C, $00
-      .BYTE $00, $00, $C2, $00, $00, $00, $A0, $00, $00, $00, $00, $00, $00, $00, $00, $00
+      .BYTE $00, $9C, $9C, $9C ; $00
+      .BYTE $00, $05, $A0, $00 ; $01
+      .BYTE $00, $00, $00, $00 ; $02
+      .BYTE $00, $00, $9C, $00 ; $03
+      .BYTE $00, $00, $C2, $00 ; $04
+      .BYTE $00, $00, $A0, $00 ; $05
+      .BYTE $00, $00, $00, $00 ; $06
+      .BYTE $00, $00, $00, $00 ; $07
 ; @TODO Check this
 ; Not actually sure what these are used for at all.
 ; My notes say they aren't, and they don't seem to be referenced anywhere...
@@ -571,157 +655,156 @@ UnusedTileQuads4:
       .BYTE $44,$45,$45,$44 ; $60
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8898:
+CreateObjects_30thruF0:
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
-      .WORD loc_BANK6_8A53
-      .WORD loc_BANK6_8A53
-      .WORD loc_BANK6_8A53
-      .WORD loc_BANK6_8A53
-      .WORD loc_BANK6_8A53
-      .WORD loc_BANK6_8B02
-      .WORD loc_BANK6_8B02
-      .WORD loc_BANK6_8B02
-      .WORD loc_BANK6_8EB8
-      .WORD loc_BANK6_8BB3
-      .WORD loc_BANK6_8B77
-      .WORD loc_BANK6_8B77
-      .WORD loc_BANK6_8D95
-; ---------------------------------------------------------------------------
+      .WORD CreateObject_HorizontalBlocks ; $3X
+      .WORD CreateObject_HorizontalBlocks ; $4X
+      .WORD CreateObject_HorizontalBlocks ; $5X
+      .WORD CreateObject_HorizontalBlocks ; $6X
+      .WORD CreateObject_HorizontalBlocks ; $7X
+      .WORD CreateObject_VerticalBlocks ; $8X
+      .WORD CreateObject_VerticalBlocks ; $9X
+      .WORD CreateObject_VerticalBlocks ; $AX
+      .WORD CreateObject_WhaleOrDrawBridgeChain ; $BX
+      .WORD CreateObject_JumpthroughPlatform ; $CX
+      .WORD CreateObject_HorizontalPlatform ; $DX
+      .WORD CreateObject_HorizontalPlatform ; $EX
+      .WORD CreateObject_WaterfallOrFrozenRocks ; $FX
 
-loc_BANK6_88B5:
+CreateObjects_00:
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
-      .WORD loc_BANK6_8B4E
-      .WORD loc_BANK6_8B4E
-      .WORD loc_BANK6_8B4E
-      .WORD loc_BANK6_8B4E
-      .WORD loc_BANK6_8B4E
-      .WORD loc_BANK6_8B4E
-      .WORD loc_BANK6_8CC5
-      .WORD loc_BANK6_8CC5
-      .WORD loc_BANK6_8CC5
-      .WORD loc_BANK6_9020
-      .WORD loc_BANK6_9020
-      .WORD loc_BANK6_9020
-      .WORD loc_BANK6_8CED
-      .WORD loc_BANK6_8CED
-      .WORD loc_BANK6_8E4A
-      .WORD loc_BANK6_90D3
-; ---------------------------------------------------------------------------
+      .WORD CreateObject_SingleBlock ; $00
+      .WORD CreateObject_SingleBlock ; $01
+      .WORD CreateObject_SingleBlock ; $02
+      .WORD CreateObject_SingleBlock ; $03
+      .WORD CreateObject_SingleBlock ; $04
+      .WORD CreateObject_SingleBlock ; $05
+      .WORD CreateObject_Vase ; $06
+      .WORD CreateObject_Vase ; $07
+      .WORD CreateObject_Vase ; $08
+      .WORD CreateObject_Door ; $09
+      .WORD CreateObject_Door ; $0A
+      .WORD CreateObject_Door ; $0B
+      .WORD CreateObject_Vine ; $0C
+      .WORD CreateObject_Vine ; $0D
+      .WORD CreateObject_StarBackground ; $0E
+      .WORD CreateObject_Pillar ; $0F
 
-loc_BANK6_88D8:
+CreateObjects_10:
       LDA     byte_RAM_50E
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
-      .WORD loc_BANK6_8CAF
-      .WORD loc_BANK6_8CBB
-      .WORD loc_BANK6_8D13
-      .WORD loc_BANK6_8A61
-      .WORD loc_BANK6_8AD0
-      .WORD loc_BANK6_8C56
-      .WORD loc_BANK6_8C56
-      .WORD loc_BANK6_8DD2
-      .WORD loc_BANK6_8D4E
-      .WORD loc_BANK6_8D4E
-      .WORD loc_BANK6_90FA
-      .WORD loc_BANK6_9115
-      .WORD loc_BANK6_9020
-      .WORD loc_BANK6_9020
-      .WORD loc_BANK6_8FF6
-      .WORD loc_BANK6_8F91
-; ---------------------------------------------------------------------------
+      .WORD CreateObject_BigCloud ; $10
+      .WORD CreateObject_SmallCloud ; $11
+      .WORD CreateObject_VineBottom ; $12
+      .WORD CreateObject_LightEntranceRight ; $13
+      .WORD CreateObject_LightEntranceLeft ; $14
+      .WORD CreateObject_Tall ; $15
+      .WORD CreateObject_Tall ; $16
+      .WORD CreateObject_Pyramid ; $17
+      .WORD CreateObject_Wall ; $18
+      .WORD CreateObject_Wall ; $19
+      .WORD CreateObject_Horn ; $1A
+      .WORD CreateObject_DrawBridgeChain ; $1B
+      .WORD CreateObject_Door ; $1C
+      .WORD CreateObject_Door ; $1D
+      .WORD CreateObject_RockWallEntrance ; $1E
+      .WORD loc_BANK6_8F91 ; $1F
 
-loc_BANK6_88FE:
-      JMP     loc_BANK6_8D3F
+CreateObjects_20:
+      JMP     CreateObject_SingleObject
 
-; ---------------------------------------------------------------------------
 WorldObjectTilePointersLo:
       .BYTE <World1ObjectTiles
-
       .BYTE <World2ObjectTiles
       .BYTE <World3ObjectTiles
       .BYTE <World4ObjectTiles
       .BYTE <World5ObjectTiles
       .BYTE <World6ObjectTiles
       .BYTE <World7ObjectTiles
+
 WorldObjectTilePointersHi:
       .BYTE >World1ObjectTiles
-
       .BYTE >World2ObjectTiles
       .BYTE >World3ObjectTiles
       .BYTE >World4ObjectTiles
       .BYTE >World5ObjectTiles
       .BYTE >World6ObjectTiles
       .BYTE >World7ObjectTiles
+
 World1ObjectTiles:
-      .BYTE $97, $92, $12, $12
-      .BYTE $1C, $99, $1C, $1C ; 4
-      .BYTE $45, $45, $45, $45 ; 8
-      .BYTE $65, $65, $65, $65 ; $C
+      .BYTE $97, $92, $12, $12 ; $00
+      .BYTE $1C, $99, $1C, $1C ; $04
+      .BYTE $45, $45, $45, $45 ; $08
+      .BYTE $65, $65, $65, $65 ; $0C
       .BYTE $1A, $1A, $1A, $1A ; $10
       .BYTE $A0, $00, $9D, $A2 ; $14
       .BYTE $A0, $A0, $A0, $A0 ; $18
       .BYTE $80, $07, $81, $80 ; $1C
       .BYTE $81, $81, $81, $81 ; $20
+
 World2ObjectTiles:
-      .BYTE $96, $92, $93, $12
-      .BYTE $1C, $1C, $1C, $1C ; 4
-      .BYTE $45, $45, $45, $45 ; 8
-      .BYTE $65, $65, $65, $65 ; $C
+      .BYTE $96, $92, $93, $12 ; $00
+      .BYTE $1C, $1C, $1C, $1C ; $04
+      .BYTE $45, $45, $45, $45 ; $08
+      .BYTE $65, $65, $65, $65 ; $0C
       .BYTE $1A, $1A, $1A, $1A ; $10
       .BYTE $A0, $40, $9D, $18 ; $14
       .BYTE $A0, $A0, $A0, $A0 ; $18
       .BYTE $80, $07, $81, $80 ; $1C
       .BYTE $81, $81, $81, $81 ; $20
+
 World3ObjectTiles:
-      .BYTE $97, $92, $12, $12
-      .BYTE $1C, $99, $A0, $1C ; 4
-      .BYTE $45, $45, $45, $45 ; 8
-      .BYTE $65, $65, $65, $65 ; $C
+      .BYTE $97, $92, $12, $12 ; $00
+      .BYTE $1C, $99, $A0, $1C ; $04
+      .BYTE $45, $45, $45, $45 ; $08
+      .BYTE $65, $65, $65, $65 ; $0C
       .BYTE $1A, $1A, $1A, $1A ; $10
       .BYTE $A0, $00, $9D, $A2 ; $14
       .BYTE $A0, $A0, $A0, $A0 ; $18
       .BYTE $80, $07, $81, $80 ; $1C
       .BYTE $81, $81, $81, $81 ; $20
+
 World4ObjectTiles:
-      .BYTE $16, $92, $16, $12
-      .BYTE $1C, $99, $A2, $18 ; 4
-      .BYTE $45, $45, $45, $45 ; 8
-      .BYTE $65, $65, $65, $65 ; $C
+      .BYTE $16, $92, $16, $12 ; $00
+      .BYTE $1C, $99, $A2, $18 ; $04
+      .BYTE $45, $45, $45, $45 ; $08
+      .BYTE $65, $65, $65, $65 ; $0C
       .BYTE $1A, $1A, $1A, $1A ; $10
       .BYTE $A0, $1F, $9D, $18 ; $14
       .BYTE $A0, $A0, $A0, $A0 ; $18
       .BYTE $80, $07, $81, $80 ; $1C
       .BYTE $81, $81, $81, $81 ; $20
+
 World5ObjectTiles:
-      .BYTE $97, $92, $12, $12
-      .BYTE $1C, $99, $1C, $1C ; 4
-      .BYTE $45, $45, $45, $45 ; 8
-      .BYTE $65, $65, $65, $65 ; $C
+      .BYTE $97, $92, $12, $12 ; $00
+      .BYTE $1C, $99, $1C, $1C ; $04
+      .BYTE $45, $45, $45, $45 ; $08
+      .BYTE $65, $65, $65, $65 ; $0C
       .BYTE $1A, $1A, $1A, $1A ; $10
       .BYTE $A0, $A4, $9D, $18 ; $14
       .BYTE $A0, $A0, $A0, $A0 ; $18
       .BYTE $80, $07, $81, $80 ; $1C
       .BYTE $81, $81, $81, $81 ; $20
+
 World6ObjectTiles:
-      .BYTE $96, $92, $93, $12
-      .BYTE $1C, $1C, $1C, $1C ; 4
-      .BYTE $45, $45, $45, $45 ; 8
-      .BYTE $65, $65, $65, $65 ; $C
+      .BYTE $96, $92, $93, $12 ; $00
+      .BYTE $1C, $1C, $1C, $1C ; $04
+      .BYTE $45, $45, $45, $45 ; $08
+      .BYTE $65, $65, $65, $65 ; $0C
       .BYTE $1A, $1A, $1A, $1A ; $10
       .BYTE $A0, $40, $9D, $18 ; $14
       .BYTE $A0, $A0, $A0, $A0 ; $18
       .BYTE $80, $07, $81, $80 ; $1C
       .BYTE $81, $81, $81, $81 ; $20
+
 World7ObjectTiles:
-      .BYTE $12, $68, $12, $9D
-      .BYTE $9C, $67, $64, $69 ; 4
-      .BYTE $45, $45, $45, $45 ; 8
-      .BYTE $65, $65, $65, $65 ; $C
+      .BYTE $12, $68, $12, $9D ; $00
+      .BYTE $9C, $67, $64, $69 ; $04
+      .BYTE $45, $45, $45, $45 ; $08
+      .BYTE $65, $65, $65, $65 ; $0C
       .BYTE $1A, $1A, $1A, $1A ; $10
       .BYTE $9C, $9C, $9C, $9C ; $14
       .BYTE $A0, $A0, $A0, $A0 ; $18
@@ -756,10 +839,10 @@ loc_BANK6_8A22:
       BNE     loc_BANK6_8A37
 
       LDA     (byte_RAM_1),Y
-      CMP     #$90
+      CMP     #BackgroundTile_BackgroundBrick
       BNE     loc_BANK6_8A37
 
-      LDA     #$66
+      LDA     #BackgroundTile_BridgeShadow
       BNE     loc_BANK6_8A50
 
 loc_BANK6_8A37:
@@ -781,7 +864,7 @@ loc_BANK6_8A50:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8A53:
+CreateObject_HorizontalBlocks:
       LDY     byte_RAM_E7
 
 loc_BANK6_8A55:
@@ -797,33 +880,31 @@ loc_BANK6_8A5B:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8A61:
+CreateObject_LightEntranceRight:
       LDA     CurrentWorld
       CMP     #5
       BNE     loc_BANK6_8A6B
 
       JMP     loc_BANK6_8A9C
 
-; ---------------------------------------------------------------------------
-
 loc_BANK6_8A6B:
       LDY     byte_RAM_E7
-      LDA     #$52
+      LDA     #BackgroundTile_LightDoor
       STA     (byte_RAM_1),Y
       INY
-      LDA     #$53
+      LDA     #BackgroundTile_LightTrailRight
       STA     (byte_RAM_1),Y
       LDA     byte_RAM_E7
       CLC
       ADC     #$10
       TAY
-      LDA     #$52
+      LDA     #BackgroundTile_LightDoor
       STA     (byte_RAM_1),Y
       INY
-      LDA     #$54
+      LDA     #BackgroundTile_LightTrail
       STA     (byte_RAM_1),Y
       INY
-      LDA     #$53
+      LDA     #BackgroundTile_LightTrailRight
       STA     (byte_RAM_1),Y
       LDA     CurrentWorld
       CMP     #5
@@ -847,10 +928,10 @@ loc_BANK6_8A9C:
 
 loc_BANK6_8AA2:
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     locret_BANK6_8ACF
 
-      LDA     #$52
+      LDA     #BackgroundTile_LightDoor
       STA     (byte_RAM_1),Y
       LDA     byte_RAM_8
       TAX
@@ -860,7 +941,7 @@ loc_BANK6_8AAF:
       BEQ     loc_BANK6_8ABC
 
       INY
-      LDA     #$54
+      LDA     #BackgroundTile_LightTrail
       STA     (byte_RAM_1),Y
       DEX
       JMP     loc_BANK6_8AAF
@@ -869,7 +950,7 @@ loc_BANK6_8AAF:
 
 loc_BANK6_8ABC:
       INY
-      LDA     #$53
+      LDA     #BackgroundTile_LightTrailRight
       STA     (byte_RAM_1),Y
       INC     byte_RAM_8
       LDY     byte_RAM_E7
@@ -887,25 +968,25 @@ locret_BANK6_8ACF:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8AD0:
+CreateObject_LightEntranceLeft:
       LDY     byte_RAM_E7
-      LDA     #$52
+      LDA     #BackgroundTile_LightDoor
       STA     (byte_RAM_1),Y
       DEY
-      LDA     #$55
+      LDA     #BackgroundTile_LightTrailLeft
       STA     (byte_RAM_1),Y
       LDY     byte_RAM_E7
       TYA
       CLC
       ADC     #$10
       TAY
-      LDA     #$52
+      LDA     #BackgroundTile_LightDoor
       STA     (byte_RAM_1),Y
       DEY
-      LDA     #$54
+      LDA     #BackgroundTile_LightTrail
       STA     (byte_RAM_1),Y
       DEY
-      LDA     #$55
+      LDA     #BackgroundTile_LightTrailLeft
       STA     (byte_RAM_1),Y
       LDA     CurrentWorld
       CMP     #5
@@ -922,7 +1003,7 @@ locret_BANK6_8B01:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8B02:
+CreateObject_VerticalBlocks:
       LDY     byte_RAM_E7
       LDA     byte_RAM_50E
 
@@ -939,7 +1020,7 @@ loc_BANK6_8B07:
       BNE     loc_BANK6_8B26
 
 loc_BANK6_8B19:
-      LDA     #$22
+      LDA     #BackgroundTile_ClawGripRock
       STA     (byte_RAM_1),Y
       JSR     sub_BANK6_98A8
 
@@ -955,7 +1036,7 @@ loc_BANK6_8B26:
       CMP     #6
       BNE     loc_BANK6_8B34
 
-      LDA     #$9F
+      LDA     #BackgroundTile_RockWallAngle
       STA     (byte_RAM_1),Y
       JMP     loc_BANK6_8B37
 
@@ -972,13 +1053,25 @@ loc_BANK6_8B37:
 
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK6_8B40:
-      .BYTE $69,$6C,$9D,$D4,$72,$94,$95
-byte_BANK6_8B47:
-      .BYTE $69,$6C,$9D,$17,$72,$94,$95 ; ---------------------------------------------------------------------------
+World1thru6SingleBlocks:
+      .BYTE BackgroundTile_MushroomBlock
+      .BYTE BackgroundTile_POWBlock
+      .BYTE BackgroundTile_BombableBrick
+      .BYTE BackgroundTile_VineStandable
+      .BYTE BackgroundTile_JarSmall
+      .BYTE BackgroundTile_LadderStandable
+      .BYTE BackgroundTile_LadderStandableShadow
 
-loc_BANK6_8B4E:
+World7SingleBlocks:
+      .BYTE BackgroundTile_MushroomBlock
+      .BYTE BackgroundTile_POWBlock
+      .BYTE BackgroundTile_BombableBrick
+      .BYTE BackgroundTile_ChainStandable
+      .BYTE BackgroundTile_JarSmall
+      .BYTE BackgroundTile_LadderStandable
+      .BYTE BackgroundTile_LadderStandableShadow
+
+CreateObject_SingleBlock:
       LDA     byte_RAM_50E
       TAX
       CMP     #5
@@ -995,27 +1088,30 @@ loc_BANK6_8B5C:
       CMP     #6
       BNE     loc_BANK6_8B6B
 
-      LDA     byte_BANK6_8B47,X
+      LDA     World7SingleBlocks,X
       JMP     loc_BANK6_8B6E
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8B6B:
-      LDA     byte_BANK6_8B40,X
+      LDA     World1thru6SingleBlocks,X
 
 loc_BANK6_8B6E:
       STA     (byte_RAM_1),Y
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8B71:
-      .BYTE $75,$13
-byte_BANK6_8B73:
-      .BYTE $76,$14
-byte_BANK6_8B75:
-      .BYTE $77,$15 ; ---------------------------------------------------------------------------
+StretchPlatformLeftTiles:
+      .BYTE BackgroundTile_LogLeft
+      .BYTE BackgroundTile_CloudLeft
+StretchPlatformMiddleTiles:
+      .BYTE BackgroundTile_LogMiddle
+      .BYTE BackgroundTile_CloudMiddle
+StretchPlatformRightTiles:
+      .BYTE BackgroundTile_LogRight
+      .BYTE BackgroundTile_CloudRight
 
-loc_BANK6_8B77:
+CreateObject_HorizontalPlatform:
       LDA     CurrentWorld
       CMP     #4
       BNE     loc_BANK6_8B81
@@ -1030,7 +1126,7 @@ loc_BANK6_8B81:
       SEC
       SBC     #$A
       TAX
-      LDA     byte_BANK6_8B71,X
+      LDA     StretchPlatformLeftTiles,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
       BEQ     loc_BANK6_8BA1
@@ -1038,7 +1134,7 @@ loc_BANK6_8B81:
 loc_BANK6_8B94:
       JSR     sub_BANK6_9890
 
-      LDA     byte_BANK6_8B73,X
+      LDA     StretchPlatformMiddleTiles,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
       BNE     loc_BANK6_8B94
@@ -1046,25 +1142,26 @@ loc_BANK6_8B94:
 loc_BANK6_8BA1:
       JSR     sub_BANK6_9890
 
-      LDA     byte_BANK6_8B75,X
+      LDA     StretchPlatformRightTiles,X
       STA     (byte_RAM_1),Y
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8BAA:
-      .BYTE $CA
-
-      .BYTE $CC
-      .BYTE $CE
-      .BYTE $C7
-      .BYTE $C8
-      .BYTE $C9
+GreenPlatformTiles:
+      .BYTE BackgroundTile_GreenPlatformTopLeft
+      .BYTE BackgroundTile_GreenPlatformTop
+      .BYTE BackgroundTile_GreenPlatformTopRight
+      .BYTE BackgroundTile_GreenPlatformLeft
+      .BYTE BackgroundTile_GreenPlatformMiddle
+      .BYTE BackgroundTile_GreenPlatformRight
+      ; Not sure what these is, but changing the next byte makes green platforms disappear
       .BYTE $40
       .BYTE $04
       .BYTE $05
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8BB3:
+; Draw green platforms or mushroom house depending on world
+CreateObject_JumpthroughPlatform:
       LDA     CurrentWorld
       CMP     #6
       BNE     loc_BANK6_8BBD
@@ -1073,6 +1170,7 @@ loc_BANK6_8BB3:
 
 ; ---------------------------------------------------------------------------
 
+; Draw green platform
 loc_BANK6_8BBD:
       LDX     #0
 
@@ -1123,11 +1221,17 @@ locret_BANK6_8BFA:
 
 ; ---------------------------------------------------------------------------
 byte_BANK6_8BFB:
-      .BYTE $C7,$C8,$C9
+      .BYTE BackgroundTile_GreenPlatformLeft
+      .BYTE BackgroundTile_GreenPlatformMiddle
+      .BYTE BackgroundTile_GreenPlatformRight
 byte_BANK6_8BFE:
-      .BYTE $D2,$D0,$D0
+      .BYTE BackgroundTile_GreenPlatformTopLeftOverlapEdge
+      .BYTE BackgroundTile_GreenPlatformTopLeftOverlap
+      .BYTE BackgroundTile_GreenPlatformTopLeftOverlap
 byte_BANK6_8C01:
-      .BYTE $D1,$D1,$D3 ; ---------------------------------------------------------------------------
+      .BYTE BackgroundTile_GreenPlatformTopRightOverlap
+      .BYTE BackgroundTile_GreenPlatformTopRightOverlap
+      .BYTE BackgroundTile_GreenPlatformTopRightOverlapEdge
 
 loc_BANK6_8C04:
       STX     byte_RAM_8
@@ -1176,7 +1280,7 @@ loc_BANK6_8C35:
 
 loc_BANK6_8C37:
       LDA     (byte_RAM_1),Y
-      CMP     byte_BANK6_8BAA,X
+      CMP     GreenPlatformTiles,X
       BEQ     loc_BANK6_8C46
 
       DEX
@@ -1189,7 +1293,7 @@ loc_BANK6_8C37:
 
 loc_BANK6_8C46:
       LDX     byte_RAM_8
-      LDA     byte_BANK6_8BAA,X
+      LDA     GreenPlatformTiles,X
 
 loc_BANK6_8C4B:
       STA     (byte_RAM_1),Y
@@ -1199,53 +1303,52 @@ loc_BANK6_8C4D:
       DEC     byte_RAM_7
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK6_8C52:
-      .BYTE $52,$C0
-byte_BANK6_8C54:
-      .BYTE $52,$82 ; ---------------------------------------------------------------------------
+TallObjectTopTiles:
+      .BYTE BackgroundTile_LightDoor
+      .BYTE BackgroundTile_PalmTreeTop
+TallObjectBottomTiles:
+      .BYTE BackgroundTile_LightDoor
+      .BYTE BackgroundTile_PalmTreeTrunk
 
-loc_BANK6_8C56:
+CreateObject_Tall:
       LDA     CurrentWorld
       CMP     #4
-      BNE     loc_BANK6_8C60
+      BNE     CreateObject_Tall_NotWorld5
+      JMP     CreateObject_Tall_World5
 
-      JMP     loc_BANK6_8C87
-
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8C60:
+CreateObject_Tall_NotWorld5:
       LDA     byte_RAM_50E
       SEC
       SBC     #5
       STA     byte_RAM_7
       TAX
       LDY     byte_RAM_E7
-      LDA     byte_BANK6_8C52,X
+      LDA     TallObjectTopTiles,X
       STA     (byte_RAM_1),Y
 
 loc_BANK6_8C70:
       JSR     sub_BANK6_98A8
 
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     locret_BANK6_8C82
 
       LDX     byte_RAM_7
-      LDA     byte_BANK6_8C54,X
+      LDA     TallObjectBottomTiles,X
       STA     (byte_RAM_1),Y
       BNE     loc_BANK6_8C70
 
 locret_BANK6_8C82:
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK6_8C83:
-      .BYTE $C0,$C0
-byte_BANK6_8C85:
-      .BYTE $82,$82 ; ---------------------------------------------------------------------------
+World5TallObjectTopTiles:
+      .BYTE BackgroundTile_PalmTreeTop
+      .BYTE BackgroundTile_PalmTreeTop
+World5TallObjectBottomTiles:
+      .BYTE BackgroundTile_PalmTreeTrunk
+      .BYTE BackgroundTile_PalmTreeTrunk
 
-loc_BANK6_8C87:
+CreateObject_Tall_World5:
       LDX     #0
       LDA     byte_RAM_50E
       CMP     #5
@@ -1256,20 +1359,18 @@ loc_BANK6_8C87:
 loc_BANK6_8C91:
       STX     byte_RAM_7
       LDY     byte_RAM_E7
-      LDA     byte_BANK6_8C83,X
-
-loc_BANK6_8C98:
+      LDA     World5TallObjectTopTiles,X
       STA     (byte_RAM_1),Y
 
 loc_BANK6_8C9A:
       JSR     sub_BANK6_98A8
 
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     locret_BANK6_8CAE
 
       LDX     byte_RAM_7
-      LDA     byte_BANK6_8C85,X
+      LDA     World5TallObjectBottomTiles,X
       STA     (byte_RAM_1),Y
       CPY     #$E0
       BCC     loc_BANK6_8C9A
@@ -1279,73 +1380,64 @@ locret_BANK6_8CAE:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8CAF:
+CreateObject_BigCloud:
       LDY     byte_RAM_E7
-      LDA     #1
+      LDA     #BackgroundTile_BgCloudLeft
       STA     (byte_RAM_1),Y
       INY
-      LDA     #2
+      LDA     #BackgroundTile_BgCloudRight
       STA     (byte_RAM_1),Y
       RTS
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8CBB:
+CreateObject_SmallCloud:
       LDY     byte_RAM_E7
-      LDA     #3
+      LDA     #BackgroundTile_BgCloudSmall
       STA     (byte_RAM_1),Y
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK6_8CC2:
-      .BYTE $6F
+JarTopTiles:
+      .BYTE BackgroundTile_JarTopPointer
+      .BYTE BackgroundTile_JarTopGeneric
+      .BYTE BackgroundTile_JarTopNonEnterable
 
-      .BYTE $73
-      .BYTE $74
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8CC5:
+CreateObject_Vase:
       LDY     byte_RAM_E7
       LDA     byte_RAM_50E
       SEC
       SBC     #6
       TAX
-      LDA     byte_BANK6_8CC2,X
+      LDA     JarTopTiles,X
       STA     (byte_RAM_1),Y
 
 loc_BANK6_8CD3:
       JSR     sub_BANK6_98A8
 
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     loc_BANK6_8CE3
 
-      LDA     #$70
+      LDA     #BackgroundTile_JarMiddle
       STA     (byte_RAM_1),Y
       JMP     loc_BANK6_8CD3
-
-; ---------------------------------------------------------------------------
 
 loc_BANK6_8CE3:
       TYA
       SEC
       SBC     #$10
       TAY
-      LDA     #$71
+      LDA     #BackgroundTile_JarBottom
       STA     (byte_RAM_1),Y
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8CED:
+CreateObject_Vine:
       LDY     byte_RAM_E7
       LDA     byte_RAM_50E
-      CMP     #$D
+      CMP     #$0D
       BEQ     loc_BANK6_8CFD
 
-      LDA     #$C1
-
-loc_BANK6_8CF8:
+      LDA     #BackgroundTile_VineTop
       STA     (byte_RAM_1),Y
 
 loc_BANK6_8CFA:
@@ -1353,10 +1445,10 @@ loc_BANK6_8CFA:
 
 loc_BANK6_8CFD:
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     locret_BANK6_8D12
 
-      LDA     #$C2
+      LDA     #BackgroundTile_Vine
       STA     (byte_RAM_1),Y
       LDA     IsHorizontalLevel
       BEQ     loc_BANK6_8D0F
@@ -1375,9 +1467,9 @@ locret_BANK6_8D12:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8D13:
+CreateObject_VineBottom:
       LDY     byte_RAM_E7
-      LDA     #$C3
+      LDA     #BackgroundTile_VineBottom
       STA     (byte_RAM_1),Y
 
 loc_BANK6_8D19:
@@ -1389,56 +1481,52 @@ loc_BANK6_8D19:
       BCS     locret_BANK6_8D2F
 
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     locret_BANK6_8D2F
 
-      LDA     #$C2
+      LDA     #BackgroundTile_Vine
       STA     (byte_RAM_1),Y
       JMP     loc_BANK6_8D19
-
-; ---------------------------------------------------------------------------
 
 locret_BANK6_8D2F:
       RTS
 
-; ---------------------------------------------------------------------------
-unk_BANK6_8D30:
-      .BYTE $43
-      .BYTE $44
-      .BYTE $45
-      .BYTE $46
-      .BYTE $47
-      .BYTE $48
-      .BYTE $49
-      .BYTE $4A
-      .BYTE $4B
-      .BYTE $4E
-      .BYTE $4C
-      .BYTE $41
-      .BYTE $5B
-      .BYTE $42
-      .BYTE $5A
-; ---------------------------------------------------------------------------
+SingleObjects:
+      .BYTE BackgroundTile_GrassCoin ; $20
+      .BYTE BackgroundTile_GrassLargeVeggie ; $21
+      .BYTE BackgroundTile_GrassSmallVeggie ; $22
+      .BYTE BackgroundTile_GrassRocket ; $23
+      .BYTE BackgroundTile_GrassShell ; $24
+      .BYTE BackgroundTile_GrassBomb ; $25
+      .BYTE BackgroundTile_GrassPotion ; $26
+      .BYTE BackgroundTile_Grass1UP ; $27
+      .BYTE BackgroundTile_GrassPow ; $28
+      .BYTE BackgroundTile_Cherry ; $29
+      .BYTE BackgroundTile_GrassBobOmb ; $2A
+      .BYTE BackgroundTile_SubspaceMushroom1 ; $2B
+      .BYTE BackgroundTile_Phanto ; $2C
+      .BYTE BackgroundTile_SubspaceMushroom2 ; $2D
+      .BYTE BackgroundTile_WhaleEye ; $2E
+      ; No entry for $2F in this table, so it uses tile $A4 due to the LDY below
 
-loc_BANK6_8D3F:
+CreateObject_SingleObject:
       LDY     byte_RAM_E7
       LDX     byte_RAM_50E
-      LDA     unk_BANK6_8D30,X
+      LDA     SingleObjects,X
       STA     (byte_RAM_1),Y
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8D4A:
-      .BYTE $90
+World1thru6BrickWallTiles:
+      .BYTE BackgroundTile_BackgroundBrick
+      .BYTE BackgroundTile_SolidBrick2Wall
 
-      .BYTE $A3
-byte_BANK6_8D4C:
-      .BYTE $9C
-; ??? Both of these are the same
-      .BYTE $9C
+World7BrickWallTiles:
+      .BYTE BackgroundTile_GroundBrick2
+      .BYTE BackgroundTile_GroundBrick2
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8D4E:
+CreateObject_Wall:
       LDA     byte_RAM_50E
       SEC
       SBC     #8
@@ -1448,30 +1536,23 @@ loc_BANK6_8D4E:
       JSR     sub_BANK6_9885
 
       LDY     byte_RAM_E7
-
-loc_BANK6_8D5F:
       LDA     #5
       STA     byte_RAM_7
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     locret_BANK6_8D92
 
 loc_BANK6_8D69:
       LDX     byte_RAM_8
       LDA     CurrentWorld
-
-loc_BANK6_8D6E:
       CMP     #6
       BNE     loc_BANK6_8D78
 
-loc_BANK6_8D72:
-      LDA     byte_BANK6_8D4C,X
+      LDA     World7BrickWallTiles,X
       JMP     loc_BANK6_8D7B
 
-; ---------------------------------------------------------------------------
-
 loc_BANK6_8D78:
-      LDA     byte_BANK6_8D4A,X
+      LDA     World1thru6BrickWallTiles,X
 
 loc_BANK6_8D7B:
       STA     (byte_RAM_1),Y
@@ -1487,7 +1568,7 @@ loc_BANK6_8D7B:
       BCS     locret_BANK6_8D92
 
       STA     byte_RAM_E7
-      JMP     loc_BANK6_8D4E
+      JMP     CreateObject_Wall
 
 ; ---------------------------------------------------------------------------
 
@@ -1495,22 +1576,21 @@ locret_BANK6_8D92:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_8D93:
-      .BYTE $04
-
-      .BYTE $05
+WaterfallTiles:
+      .BYTE BackgroundTile_WaterfallTop
+      .BYTE BackgroundTile_Waterfall
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8D95:
+CreateObject_WaterfallOrFrozenRocks:
       LDA     CurrentWorld
       CMP     #3
-      BNE     loc_BANK6_8D9F
+      BNE     CreateObject_Waterfall
 
-      JMP     loc_BANK6_8F15
+      JMP     CreateObject_FrozenRocks
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8D9F:
+CreateObject_Waterfall:
       LDA     #0
       STA     byte_RAM_8
 
@@ -1525,7 +1605,7 @@ loc_BANK6_8DA3:
       LDX     byte_RAM_8
 
 loc_BANK6_8DB3:
-      LDA     byte_BANK6_8D93,X
+      LDA     WaterfallTiles,X
       STA     (byte_RAM_1),Y
       JSR     sub_BANK6_9890
 
@@ -1550,14 +1630,14 @@ locret_BANK6_8DD1:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8DD2:
+CreateObject_Pyramid:
       LDY     byte_RAM_E7
       LDA     #0
       STA     byte_RAM_8
 
 loc_BANK6_8DD8:
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BEQ     loc_BANK6_8DDF
 
       RTS
@@ -1565,14 +1645,14 @@ loc_BANK6_8DD8:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8DDF:
-      LDA     #$84
+      LDA     #BackgroundTile_PyramidLeftAngle
       STA     (byte_RAM_1),Y
       LDX     byte_RAM_8
       BEQ     loc_BANK6_8DF9
 
 loc_BANK6_8DE7:
       INY
-      LDA     #$85
+      LDA     #BackgroundTile_PyramidLeft
       STA     (byte_RAM_1),Y
       DEX
       BNE     loc_BANK6_8DE7
@@ -1581,14 +1661,14 @@ loc_BANK6_8DE7:
 
 loc_BANK6_8DF1:
       INY
-      LDA     #$86
+      LDA     #BackgroundTile_PyramidRight
       STA     (byte_RAM_1),Y
       DEX
       BNE     loc_BANK6_8DF1
 
 loc_BANK6_8DF9:
       INY
-      LDA     #$87
+      LDA     #BackgroundTile_PyramidRightAngle
       STA     (byte_RAM_1),Y
       INC     byte_RAM_8
       LDA     byte_RAM_E7
@@ -1600,18 +1680,16 @@ loc_BANK6_8DF9:
       TAY
       JMP     loc_BANK6_8DD8
 
-; ---------------------------------------------------------------------------
+; Not referenced, maybe unused...?
       LDY     byte_RAM_E7
-      LDA     #$1D
-
-loc_BANK6_8E12:
+      LDA     #BackgroundTile_CactusTop
       STA     (byte_RAM_1),Y
 
 loc_BANK6_8E14:
       JSR     sub_BANK6_98A8
 
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BEQ     loc_BANK6_8E1E
 
       RTS
@@ -1619,7 +1697,7 @@ loc_BANK6_8E14:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_8E1E:
-      LDA     #$1E
+      LDA     #BackgroundTile_CactusMiddle
       STA     (byte_RAM_1),Y
       BNE     loc_BANK6_8E14
 
@@ -1654,19 +1732,17 @@ loc_BANK6_8E3D:
 
 ; End of function sub_BANK6_8E24
 
-; ---------------------------------------------------------------------------
-byte_BANK6_8E42:
-      .BYTE $40
-      .BYTE $88 ; 1
-      .BYTE $40 ; 2
-      .BYTE $40 ; 3
-      .BYTE $40 ; 4
-      .BYTE $40 ; 5
-      .BYTE $89 ; 6
-      .BYTE $40 ; 7
-; ---------------------------------------------------------------------------
+StarBackgroundTiles:
+      .BYTE BackgroundTile_Sky
+      .BYTE BackgroundTile_StarBg1
+      .BYTE BackgroundTile_Sky
+      .BYTE BackgroundTile_Sky
+      .BYTE BackgroundTile_Sky
+      .BYTE BackgroundTile_Sky
+      .BYTE BackgroundTile_StarBg2
+      .BYTE BackgroundTile_Sky
 
-loc_BANK6_8E4A:
+CreateObject_StarBackground:
       LDA     byte_RAM_E8
       STA     word_RAM_C+1
       LDA     #$80
@@ -1679,7 +1755,7 @@ loc_BANK6_8E56:
 
       AND     #7
       TAX
-      LDA     byte_BANK6_8E42,X
+      LDA     StarBackgroundTiles,X
       STA     (byte_RAM_1),Y
       JSR     sub_BANK6_98A8
 
@@ -1702,13 +1778,26 @@ loc_BANK6_8E56:
       STA     byte_RAM_E5
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK6_8E80:
-      .BYTE $00,$13,$60,$59,$C
-byte_BANK6_8E85:
-      .BYTE $00,$14,$61,$59,$C
-byte_BANK6_8E8A:
-      .BYTE $00,$15,$62,$59,$0C ; =============== S U B R O U T I N E =======================================
+WhaleLeftTiles:
+      .BYTE BackgroundTile_Black
+      .BYTE BackgroundTile_CloudLeft
+      .BYTE BackgroundTile_WhaleTopLeft
+      .BYTE BackgroundTile_Whale
+      .BYTE BackgroundTile_WaterWhale
+WhaleMiddleTiles:
+      .BYTE BackgroundTile_Black
+      .BYTE BackgroundTile_CloudMiddle
+      .BYTE BackgroundTile_WhaleTop
+      .BYTE BackgroundTile_Whale
+      .BYTE BackgroundTile_WaterWhale
+WhaleRightTiles:
+      .BYTE BackgroundTile_Black
+      .BYTE BackgroundTile_CloudRight
+      .BYTE BackgroundTile_WhaleTopRight
+      .BYTE BackgroundTile_Whale
+      .BYTE BackgroundTile_WaterWhale
+
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_8E8F:
       LDY     byte_RAM_E7
@@ -1716,7 +1805,7 @@ sub_BANK6_8E8F:
       SEC
       SBC     #$A
       TAX
-      LDA     byte_BANK6_8E80,X
+      LDA     WhaleLeftTiles,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
       BEQ     loc_BANK6_8EAF
@@ -1724,7 +1813,7 @@ sub_BANK6_8E8F:
 loc_BANK6_8EA2:
       JSR     sub_BANK6_9890
 
-      LDA     byte_BANK6_8E85,X
+      LDA     WhaleMiddleTiles,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
       BNE     loc_BANK6_8EA2
@@ -1732,7 +1821,7 @@ loc_BANK6_8EA2:
 loc_BANK6_8EAF:
       JSR     sub_BANK6_9890
 
-      LDA     byte_BANK6_8E8A,X
+      LDA     WhaleRightTiles,X
       STA     (byte_RAM_1),Y
       RTS
 
@@ -1740,19 +1829,19 @@ loc_BANK6_8EAF:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8EB8:
+CreateObject_WhaleOrDrawBridgeChain:
       LDA     CurrentWorld
       CMP     #6
-      BNE     loc_BANK6_8EC2
+      BNE     CreateObject_Whale
 
-      JMP     loc_BANK6_9115
+      JMP     CreateObject_DrawBridgeChain
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8EC2:
+CreateObject_Whale:
       LDA     byte_RAM_50D
       STA     byte_RAM_7
-      LDA     #$C
+      LDA     #$0C
       STA     byte_RAM_50E
       JSR     sub_BANK6_8E8F
 
@@ -1783,7 +1872,7 @@ loc_BANK6_8EE2:
 
       JSR     sub_BANK6_9890
 
-      LDA     #$63
+      LDA     #BackgroundTile_WhaleTail
       STA     (byte_RAM_1),Y
       INC     byte_RAM_50E
       JMP     loc_BANK6_8ED2
@@ -1800,18 +1889,15 @@ loc_BANK6_8F01:
 loc_BANK6_8F0B:
       JSR     sub_BANK6_9890
 
-      LDA     #$11
+      LDA     #BackgroundTile_WaterWhaleTail
       STA     (byte_RAM_1),Y
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK6_8F13:
-      .BYTE $0C
+FrozenRockTiles:
+      .BYTE BackgroundTile_WaterWhale
+      .BYTE BackgroundTile_FrozenRock
 
-      .BYTE $1F
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8F15:
+CreateObject_FrozenRocks:
       LDA     #1
       STA     byte_RAM_8
 
@@ -1826,7 +1912,7 @@ loc_BANK6_8F19:
       LDX     byte_RAM_8
 
 loc_BANK6_8F29:
-      LDA     byte_BANK6_8F13,X
+      LDA     FrozenRockTiles,X
       STA     (byte_RAM_1),Y
       JSR     sub_BANK6_9890
 
@@ -1907,7 +1993,7 @@ loc_BANK6_8F77:
 sub_BANK6_8F83:
       STX     byte_RAM_7
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BEQ     locret_BANK6_8F8D
 
       LDX     #2
@@ -1917,13 +2003,10 @@ locret_BANK6_8F8D:
 
 ; End of function sub_BANK6_8F83
 
-; ---------------------------------------------------------------------------
-byte_BANK6_8F8E:
-      .BYTE $5E
-
-      .BYTE $5D
-      .BYTE $5C
-; ---------------------------------------------------------------------------
+TreeBackgroundTiles:
+      .BYTE BackgroundTile_TreeBackgroundRight
+      .BYTE BackgroundTile_TreeBackgroundMiddleLeft
+      .BYTE BackgroundTile_TreeBackgroundLeft
 
 loc_BANK6_8F91:
       LDA     #4
@@ -1934,14 +2017,15 @@ loc_BANK6_8F91:
 
       LDX     #2
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     locret_BANK6_8FC1
 
 loc_BANK6_8FA4:
-      LDA     byte_BANK6_8F8E,X
+      LDA     TreeBackgroundTiles,X
       STA     (byte_RAM_1),Y
       JSR     sub_BANK6_9890
 
+      ; using two alternating tiles for the midlde of the tree
       DEX
       CPX     #1
       BNE     loc_BANK6_8FB4
@@ -1966,11 +2050,11 @@ locret_BANK6_8FC1:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_8FC2:
-      LDA     #$5D
+      LDA     #BackgroundTile_TreeBackgroundMiddleLeft
       STA     (byte_RAM_1),Y
       JSR     sub_BANK6_9890
 
-      LDA     #$5F
+      LDA     #BackgroundTile_TreeBackgroundMiddleRight
       STA     (byte_RAM_1),Y
       JSR     sub_BANK6_9890
 
@@ -1982,44 +2066,57 @@ sub_BANK6_8FC2:
 ; End of function sub_BANK6_8FC2
 
 ; ---------------------------------------------------------------------------
-      .BYTE $52 ; R ; Unreferenced?
-      .BYTE $1D
-      .BYTE $C0
-      .BYTE $52
-      .BYTE $1E
-      .BYTE $82
-byte_BANK6_8FDB:
-      .BYTE $9F
-; @TODO Check
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A5
-      .BYTE $A6
-      .BYTE $A0
-      .BYTE $A7
-      .BYTE $A7
-      .BYTE $A0
-      .BYTE $83
-      .BYTE $83
-      .BYTE $A0
-      .BYTE $83
-      .BYTE $83
-      .BYTE $A0
-      .BYTE $83
-      .BYTE $83
-      .BYTE $A0
-      .BYTE $83
-      .BYTE $83
-      .BYTE $A0
+
+; Unreferenced?
+SomeUnusedTilesTop:
+      .BYTE BackgroundTile_LightDoor
+      .BYTE BackgroundTile_Grass
+      .BYTE BackgroundTile_PalmTreeTop
+SomeUnusedTilesBottom:
+      .BYTE BackgroundTile_LightDoor
+      .BYTE BackgroundTile_CactusMiddle
+      .BYTE BackgroundTile_PalmTreeTrunk
+
+; This 3x9 tile entrance is used in 6-3
+RockWallEntranceTiles:
+      .BYTE BackgroundTile_RockWallAngle
+      .BYTE BackgroundTile_RockWall
+      .BYTE BackgroundTile_RockWall
+
+      .BYTE BackgroundTile_RockWall
+      .BYTE BackgroundTile_RockWall
+      .BYTE BackgroundTile_RockWall
+
+      .BYTE BackgroundTile_RockWall
+      .BYTE BackgroundTile_RockWall
+      .BYTE BackgroundTile_RockWall
+
+      .BYTE BackgroundTile_RockWallEyeLeft
+      .BYTE BackgroundTile_RockWallEyeRight
+      .BYTE BackgroundTile_RockWall
+
+      .BYTE BackgroundTile_RockWallMouth
+      .BYTE BackgroundTile_RockWallMouth
+      .BYTE BackgroundTile_RockWall
+
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_RockWall
+
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_RockWall
+
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_RockWall
+
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_RockWall
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_8FF6:
+CreateObject_RockWallEntrance:
       LDX     #0
 
 loc_BANK6_8FF8:
@@ -2028,7 +2125,7 @@ loc_BANK6_8FF8:
       STA     byte_RAM_9
 
 loc_BANK6_8FFE:
-      LDA     byte_BANK6_8FDB,X
+      LDA     RockWallEntranceTiles,X
       STA     (byte_RAM_1),Y
       INX
 
@@ -2048,26 +2145,22 @@ loc_BANK6_9004:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_9016:
-      .BYTE $4F
-
-      .BYTE $4F
-      .BYTE $83
-      .BYTE $A9
-      .BYTE $A8
-byte_BANK6_901B:
-      .BYTE $50
-
-      .BYTE $51
-      .BYTE $83
-      .BYTE $83
-      .BYTE $83
+DoorTopTiles:
+      .BYTE BackgroundTile_DoorTop
+      .BYTE BackgroundTile_DoorTop
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_DoorwayTop
+      .BYTE BackgroundTile_WindowTop
+DoorBottomTiles:
+      .BYTE BackgroundTile_DoorBottomLock
+      .BYTE BackgroundTile_DoorBottom
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_DarkDoor
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_9020:
+CreateObject_Door:
       LDY     byte_RAM_E7
-
-loc_BANK6_9022:
       LDA     byte_RAM_50E
       CMP     #9
       BNE     loc_BANK6_9034
@@ -2085,11 +2178,11 @@ loc_BANK6_9034:
       SEC
       SBC     #9
       TAX
-      LDA     byte_BANK6_9016,X
+      LDA     DoorTopTiles,X
       STA     (byte_RAM_1),Y
       JSR     sub_BANK6_98A8
 
-      LDA     byte_BANK6_901B,X
+      LDA     DoorBottomTiles,X
       STA     (byte_RAM_1),Y
       LDA     CurrentWorld
       CMP     #5
@@ -2106,12 +2199,23 @@ locret_BANK6_9059:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK6_905A:
-      .BYTE $00,$13,$CB,9
-byte_BANK6_905E:
-      .BYTE $00,$14,$CD,$B
-byte_BANK6_9062:
-      .BYTE $00,$15,$CF,$0D ; =============== S U B R O U T I N E =======================================
+MushroomHouseLeftTiles:
+      .BYTE BackgroundTile_Black
+      .BYTE BackgroundTile_CloudLeft
+      .BYTE BackgroundTile_MushroomTopLeft
+      .BYTE BackgroundTile_HouseLeft
+MushroomHouseMiddleTiles:
+      .BYTE BackgroundTile_Black
+      .BYTE BackgroundTile_CloudMiddle
+      .BYTE BackgroundTile_MushroomTopMiddle
+      .BYTE BackgroundTile_HouseMiddle
+MushroomHouseRightTiles:
+      .BYTE BackgroundTile_Black
+      .BYTE BackgroundTile_CloudRight
+      .BYTE BackgroundTile_MushroomTopRight
+      .BYTE BackgroundTile_HouseRight
+
+; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_9066:
       LDY     byte_RAM_E7
@@ -2119,7 +2223,7 @@ sub_BANK6_9066:
       SEC
       SBC     #$A
       TAX
-      LDA     byte_BANK6_905A,X
+      LDA     MushroomHouseLeftTiles,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
       BEQ     loc_BANK6_9086
@@ -2127,7 +2231,7 @@ sub_BANK6_9066:
 loc_BANK6_9079:
       JSR     sub_BANK6_9890
 
-      LDA     byte_BANK6_905E,X
+      LDA     MushroomHouseMiddleTiles,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
       BNE     loc_BANK6_9079
@@ -2135,7 +2239,7 @@ loc_BANK6_9079:
 loc_BANK6_9086:
       JSR     sub_BANK6_9890
 
-      LDA     byte_BANK6_9062,X
+      LDA     MushroomHouseRightTiles,X
       STA     (byte_RAM_1),Y
       RTS
 
@@ -2143,11 +2247,13 @@ loc_BANK6_9086:
 
 ; ---------------------------------------------------------------------------
 
+; Draw mushroom houses for World 7
 loc_BANK6_908F:
       LDA     byte_RAM_50D
       STA     byte_RAM_7
       LDA     #$C
       STA     byte_RAM_50E
+      ; Draw roof of mushroom house
       JSR     sub_BANK6_9066
 
 loc_BANK6_909C:
@@ -2171,9 +2277,10 @@ ENDIF
 
       LDY     byte_RAM_E7
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     locret_BANK6_90C4
 
+      ; Draw body of mushroom house
       JSR     sub_BANK6_9066
 
       LDA     byte_RAM_E7
@@ -2187,42 +2294,39 @@ loc_BANK6_90C2:
 locret_BANK6_90C4:
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK6_90C5:
-      .BYTE $79
+; Pillar tiles, arranged by world
+PillarTopTiles:
+      .BYTE BackgroundTile_LogPillarTop1
+      .BYTE BackgroundTile_CactusTop
+      .BYTE BackgroundTile_LogPillarTop1
+      .BYTE BackgroundTile_LogPillarTop0
+      .BYTE BackgroundTile_LogPillarTop1
+      .BYTE BackgroundTile_CactusTop
+      .BYTE BackgroundTile_ColumnPillarTop2
+PillarBottomTiles:
+      .BYTE BackgroundTile_LogPillarMiddle1
+      .BYTE BackgroundTile_CactusMiddle
+      .BYTE BackgroundTile_LogPillarMiddle1
+      .BYTE BackgroundTile_LogPillarMiddle0
+      .BYTE BackgroundTile_LogPillarMiddle1
+      .BYTE BackgroundTile_CactusMiddle
+      .BYTE BackgroundTile_ColumnPillarMiddle2
 
-      .BYTE $1D
-      .BYTE $79
-      .BYTE $20
-      .BYTE $79
-      .BYTE $1D
-      .BYTE $AA
-byte_BANK6_90CC:
-      .BYTE $7A
-
-      .BYTE $1E
-      .BYTE $7A
-      .BYTE $21
-      .BYTE $7A
-      .BYTE $1E
-      .BYTE $AB
-; ---------------------------------------------------------------------------
-
-loc_BANK6_90D3:
+CreateObject_Pillar:
       LDX     CurrentWorld
       LDY     byte_RAM_E7
-      LDA     byte_BANK6_90C5,X
+      LDA     PillarTopTiles,X
       STA     (byte_RAM_1),Y
 
 loc_BANK6_90DD:
       JSR     sub_BANK6_98A8
 
       LDA     (byte_RAM_1),Y
-      CMP     #$40
+      CMP     #BackgroundTile_Sky
       BNE     locret_BANK6_90F9
 
       LDX     CurrentWorld
-      LDA     byte_BANK6_90CC,X
+      LDA     PillarBottomTiles,X
       STA     (byte_RAM_1),Y
       LDA     CurrentWorld
       CMP     #4
@@ -2236,33 +2340,31 @@ locret_BANK6_90F9:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_90FA:
+CreateObject_Horn:
       LDY     byte_RAM_E7
-      LDA     #$8C
+      LDA     #BackgroundTile_HornTopLeft
       STA     (byte_RAM_1),Y
       INY
-      LDA     #$8D
+      LDA     #BackgroundTile_HornTopRight
       STA     (byte_RAM_1),Y
       LDA     byte_RAM_E7
       CLC
       ADC     #$10
       TAY
-      LDA     #$8E
-
-loc_BANK6_910D:
+      LDA     #BackgroundTile_HornBottomLeft
       STA     (byte_RAM_1),Y
       INY
-      LDA     #$8F
+      LDA     #BackgroundTile_HornBottomRight
       STA     (byte_RAM_1),Y
       RTS
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_9115:
+CreateObject_DrawBridgeChain:
       LDY     byte_RAM_E7
 
 loc_BANK6_9117:
-      LDA     #$58
+      LDA     #BackgroundTile_DrawBridgeChain
       STA     (byte_RAM_1),Y
       TYA
       CLC
@@ -2778,7 +2880,7 @@ sub_BANK6_94AD:
       STX     IsHorizontalLevel
 
 ClearSubAreaTileLayout:
-      LDA     #$40
+      LDA     #BackgroundTile_Sky
       STA     SubAreaTileLayout,X
       INX
       BNE     ClearSubAreaTileLayout
@@ -3072,7 +3174,7 @@ loc_BANK6_961D:
       CMP     #1
       BNE     loc_BANK6_9644
 
-      JSR     loc_BANK6_88D8
+      JSR     CreateObjects_10
 
       JMP     loc_BANK6_9669
 
@@ -3082,7 +3184,7 @@ loc_BANK6_9644:
       CMP     #2
       BNE     loc_BANK6_964E
 
-      JSR     loc_BANK6_88FE
+      JSR     CreateObjects_20
 
       JMP     loc_BANK6_9669
 
@@ -3104,7 +3206,7 @@ loc_BANK6_9651:
       SEC
       SBC     #3
       STA     byte_RAM_50E
-      JSR     loc_BANK6_8898
+      JSR     CreateObjects_30thruF0
 
 loc_BANK6_9669:
       JMP     loc_BANK6_95EF
@@ -3117,7 +3219,7 @@ loc_BANK6_966C:
       LDA     (byte_RAM_5),Y
       AND     #$F
       STY     byte_RAM_4
-      JSR     loc_BANK6_88B5
+      JSR     CreateObjects_00
 
       JMP     loc_BANK6_9669
 
@@ -3685,7 +3787,7 @@ sub_BANK6_98A8:
       JSR     sub_BANK6_9885
 
       TYA
-      AND     #$F
+      AND     #$0F
       TAY
 
 locret_BANK6_98BB:
