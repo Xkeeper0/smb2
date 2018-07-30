@@ -2641,8 +2641,8 @@ unk_RAM_4500 = $4500
 
 unk_RAM_4E8B = $4e8b
 
-; [00001FE8 BYTES: END OF AREA Various mirrors. PRESS KEYPAD "-" TO COLLAPSE]
 DecodedLevelData = $6000
+DecodedLevelPageSize = $F0
 
 ; collision y data?
 unk_RAM_7100 = $7100

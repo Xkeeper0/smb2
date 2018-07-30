@@ -2407,7 +2407,7 @@ _unused_BANK6_9126:
 ;   10 - grass
 ;   11 - black
 ;
-MysteryDataD200:
+HoriziontalGroundSetData:
       .BYTE $00,$00,$00,$24
       .BYTE $00,$00,$02,$54
       .BYTE $00,$02,$55,$54
@@ -2451,7 +2451,7 @@ MysteryDataD200:
 ;   10 - background
 ;   11 - solid block
 ;
-byte_BANK6_927C:
+VerticalGroundSetData:
       .BYTE $AA,$AA,$AA,$AA
       .BYTE $80,$00,$00,$02
       .BYTE $AA,$00,$00,$AA
@@ -2484,32 +2484,33 @@ byte_BANK6_927C:
       .BYTE $A0,$00,$00,$00
       .BYTE $00,$00,$00,$0A
 
-byte_BANK6_92F8:
-      .BYTE $00
-      .BYTE $F0
-      .BYTE $E0
-      .BYTE $D0
-      .BYTE $C0
-      .BYTE $B0
-      .BYTE $A0
-      .BYTE $90
-      .BYTE $80
-      .BYTE $70
-      .BYTE $00
+DecodedLevelPageStartLo:
+      .BYTE <DecodedLevelData
+      .BYTE <(DecodedLevelData+$00F0)
+      .BYTE <(DecodedLevelData+$01E0)
+      .BYTE <(DecodedLevelData+$02D0)
+      .BYTE <(DecodedLevelData+$03C0)
+      .BYTE <(DecodedLevelData+$04B0)
+      .BYTE <(DecodedLevelData+$05A0)
+      .BYTE <(DecodedLevelData+$0690)
+      .BYTE <(DecodedLevelData+$0780)
+      .BYTE <(DecodedLevelData+$0870)
+      .BYTE $00 ; ???
 
-byte_BANK6_9303:
-      .BYTE $60
-      .BYTE $60
-      .BYTE $61
-      .BYTE $62
-      .BYTE $63
-      .BYTE $64
-      .BYTE $65
-      .BYTE $66
-      .BYTE $67
-      .BYTE $68
-      .BYTE $07
+DecodedLevelPageStartHi:
+      .BYTE >DecodedLevelData
+      .BYTE >(DecodedLevelData+$00F0)
+      .BYTE >(DecodedLevelData+$01E0)
+      .BYTE >(DecodedLevelData+$02D0)
+      .BYTE >(DecodedLevelData+$03C0)
+      .BYTE >(DecodedLevelData+$04B0)
+      .BYTE >(DecodedLevelData+$05A0)
+      .BYTE >(DecodedLevelData+$0690)
+      .BYTE >(DecodedLevelData+$0780)
+      .BYTE >(DecodedLevelData+$0870)
+      .BYTE $07 ; ???
 
+; this might remap subspace tiles?
 byte_BANK6_930E:
       .BYTE $75
       .BYTE $77
@@ -3555,13 +3556,13 @@ sub_BANK6_97D6:
       LDA     IsHorizontalLevel
       BNE     loc_BANK6_97DE
 
-      LDA     byte_BANK6_927C,X
+      LDA     VerticalGroundSetData,X
       RTS
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_97DE:
-      LDA     MysteryDataD200,X
+      LDA     HoriziontalGroundSetData,X
 
 locret_BANK6_97E1:
       RTS
@@ -3735,10 +3736,11 @@ sub_BANK6_9878:
 
 ; =============== S U B R O U T I N E =======================================
 
+; Load a tile from the decoded level data
 sub_BANK6_9885:
-      LDA     byte_BANK6_92F8,X
+      LDA     DecodedLevelPageStartLo,X
       STA     byte_RAM_1
-      LDA     byte_BANK6_9303,X
+      LDA     DecodedLevelPageStartHi,X
       STA     byte_RAM_2
       RTS
 
