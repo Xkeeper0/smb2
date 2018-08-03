@@ -3937,8 +3937,6 @@ CreateMushroomObject:
       STA     EnemyArray_45C,X
       STA     ObjectYAccel,X
       STA     ObjectXAccel,X
-
-loc_BANK6_9934:
       LDY     ObjectType,X
       LDA     ObjectAttributeTable,Y
       AND     #$7F
@@ -3954,16 +3952,3 @@ loc_BANK6_9934:
       PLA
       TAX
       RTS
-
-; End of function CreateMushroomObject
-
-; ---------------------------------------------------------------------------
-; The rest of this bank pair is empty
-
-
-; -------------------------------------------
-
-
-; [00002000 BYTES: END OF AREA BANK7:A000. PRESS KEYPAD "-" TO COLLAPSE]
-; ===========================================================================
-
