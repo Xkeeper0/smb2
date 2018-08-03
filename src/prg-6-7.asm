@@ -3327,6 +3327,18 @@ loc_BANK6_96CD:
       RTS
 
 IFDEF LEVEL_ENGINE_UPGRADES
+;
+; Special Object $F7
+; ==================
+;
+; Creates a run of 1-16 arbitrary tiles
+;
+; Usage: $F7 $YX $WL ...
+;    Y - relative Y offset on page
+;    X - X position on page
+;    W - wrap width (eg. 0 for no wrap, 2 for 2-tiles wide, etc.)
+;    L - run length, L+1 subsequent bytes are the raw tiles
+;
 CreateRawTiles:
       LDY     byte_RAM_F
 
@@ -3334,51 +3346,86 @@ CreateRawTiles:
       LDX     byte_RAM_E8
       JSR     SetAreaPageAddr
 
-      ; read tile placement offset
       INY
+      ; read tile placement offset
       LDA     (byte_RAM_5),Y
-      TAX
       CLC
-      ADC     byte_RAM_E6
-      STA     byte_RAM_E7
+      ADC     byte_RAM_E6 ; add current offset
+      STA     byte_RAM_E7 ; target tile placement offset
 
       ; apply page Y offset
       LDA     (byte_RAM_5),Y
       AND     #$F0
       JSR     UpdateAreaYOffset
 
-      ; apply run-length Y offset
-      LDA     (byte_RAM_5),Y
       INY
+      ; read run length
+      LDA     (byte_RAM_5),Y
       AND     #$0F
-      CLC
-      ADC     (byte_RAM_5),Y
-      LDA     (byte_RAM_5),Y
-      AND     #$F0
-      JSR     UpdateAreaYOffset
+      STA     byte_RAM_50D
 
-      ; read run length for counter
+      ; read wrap length
       LDA     (byte_RAM_5),Y
-      TAX
+      LSR     A
+      LSR     A
+      LSR     A
+      LSR     A
+      STA     byte_RAM_50E
+
+      ; start counting from 0
+      LDX     #$00
 
       ; everything afterwards is raw data
 CreateRawTiles_Loop:
-      ; increment and stashstash Y
+      ; increment and stash Y
       INY
-      STY     byte_RAM_E5
+      TYA
+      PHA
 
-      ; read next tile
-      LDA     (byte_RAM_5),Y
       ; write the next tile
+      LDA     (byte_RAM_5),Y
       LDY     byte_RAM_E7
       STA     (byte_RAM_1),Y
-      INC     byte_RAM_E7
 
+      ; increment x-position (crossing page as necessary)
+      JSR     IncrementAreaXOffset
+      STY     byte_RAM_E7
+
+      ; are we wrapping this run of tiles?
+      LDA     byte_RAM_50E
+      BEQ     CreateRawTiles_NoWrap
+
+      ; increment y-position if we hit the wrap point
+      TXA
+      CLC
+      ADC     #$01
+CreateRawTiles_CheckWrap:
+      SEC
+      SBC     byte_RAM_50E
+      BMI     CreateRawTiles_NoWrap
+      BNE     CreateRawTiles_CheckWrap
+
+CreateRawTiles_Wrap:
+      TXA
+      PHA
+      JSR     IncrementAreaYOffset
+      SEC
+      SBC     byte_RAM_50E
+      TAY
+      STY     byte_RAM_E7
+      PLA
+      TAX
+
+CreateRawTiles_NoWrap:
       ; restore Y and iterate
-      LDY     byte_RAM_E5
-      DEX
-      BNE     CreateRawTiles_Loop
+      PLA
+      TAY
 
+      CPX     byte_RAM_50D
+      INX
+      BCC     CreateRawTiles_Loop
+
+      ; update level data offset
       STY     byte_RAM_F
 
 CreateRawTilesNoOp:
@@ -3799,24 +3846,20 @@ IncrementAreaXOffset:
       INY
       TYA
       AND     #$0F
-      BNE     locret_BANK6_98A7
+      BNE     IncrementAreaXOffset_Exit
 
       TYA
       SEC
       SBC     #$10
-
-loc_BANK6_989A:
       TAY
       STX     byte_RAM_B
       LDX     byte_RAM_E8
       INX
       STX     word_RAM_C+1
       JSR     SetAreaPageAddr
-
-loc_BANK6_98A5:
       LDX     byte_RAM_B
 
-locret_BANK6_98A7:
+IncrementAreaXOffset_Exit:
       RTS
 
 ; End of function IncrementAreaXOffset
