@@ -1566,7 +1566,7 @@ loc_BANKF_E5A0:
       LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK6_94AD
+      JSR     ClearSubAreaTileLayout
 
       LDA     #Music1_Inside
       STA     Music1Queue

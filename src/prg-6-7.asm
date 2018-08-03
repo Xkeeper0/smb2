@@ -867,7 +867,7 @@ CreateObject_HorizontalBlocks:
 loc_BANK6_8A55:
       JSR     CreateWorldSpecificTile
 
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       DEC     byte_RAM_50D
       BPL     loc_BANK6_8A55
@@ -1126,7 +1126,7 @@ loc_BANK6_8B81:
       BEQ     loc_BANK6_8BA1
 
 loc_BANK6_8B94:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       LDA     HorizontalPlatformMiddleTiles,X
       STA     (byte_RAM_1),Y
@@ -1134,7 +1134,7 @@ loc_BANK6_8B94:
       BNE     loc_BANK6_8B94
 
 loc_BANK6_8BA1:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       LDA     HorizontalPlatformRightTiles,X
       STA     (byte_RAM_1),Y
@@ -1186,14 +1186,14 @@ loc_BANK6_8BBF:
       BEQ     loc_BANK6_8BE3
 
 loc_BANK6_8BDB:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       JSR     loc_BANK6_8C04
 
       BNE     loc_BANK6_8BDB
 
 loc_BANK6_8BE3:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       INX
       JSR     loc_BANK6_8C04
@@ -1550,7 +1550,7 @@ loc_BANK6_8D78:
 
 loc_BANK6_8D7B:
       STA     (byte_RAM_1),Y
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       DEC     byte_RAM_7
       BPL     loc_BANK6_8D69
@@ -1601,7 +1601,7 @@ loc_BANK6_8DA3:
 loc_BANK6_8DB3:
       LDA     WaterfallTiles,X
       STA     (byte_RAM_1),Y
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       DEC     byte_RAM_7
       BPL     loc_BANK6_8DB3
@@ -1759,7 +1759,7 @@ loc_BANK6_8E56:
       TYA
       AND     #$0F
       TAY
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       LDA     word_RAM_C+1
       STA     byte_RAM_E8
@@ -1805,7 +1805,7 @@ sub_BANK6_8E8F:
       BEQ     loc_BANK6_8EAF
 
 loc_BANK6_8EA2:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       LDA     WhaleMiddleTiles,X
       STA     (byte_RAM_1),Y
@@ -1813,7 +1813,7 @@ loc_BANK6_8EA2:
       BNE     loc_BANK6_8EA2
 
 loc_BANK6_8EAF:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       LDA     WhaleRightTiles,X
       STA     (byte_RAM_1),Y
@@ -1862,9 +1862,9 @@ loc_BANK6_8EE2:
       CMP     #$B0
       BNE     loc_BANK6_8F01
 
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       LDA     #BackgroundTile_WhaleTail
       STA     (byte_RAM_1),Y
@@ -1878,10 +1878,10 @@ loc_BANK6_8F01:
       CMP     #$E
       BNE     loc_BANK6_8ED2
 
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
 loc_BANK6_8F0B:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       LDA     #BackgroundTile_WaterWhaleTail
       STA     (byte_RAM_1),Y
@@ -1908,7 +1908,7 @@ loc_BANK6_8F19:
 loc_BANK6_8F29:
       LDA     FrozenRockTiles,X
       STA     (byte_RAM_1),Y
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       DEC     byte_RAM_7
       BPL     loc_BANK6_8F29
@@ -1964,7 +1964,7 @@ loc_BANK6_8F52:
       BEQ     loc_BANK6_8F77
 
 loc_BANK6_8F6A:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
 loc_BANK6_8F6D:
       LDA     HorizontalPlatformWithOverlapMiddleTiles,X
@@ -1973,7 +1973,7 @@ loc_BANK6_8F6D:
       BNE     loc_BANK6_8F6A
 
 loc_BANK6_8F77:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       JSR     sub_BANK6_8F83
 
@@ -2017,7 +2017,7 @@ CreateObject_TreeBackground:
 loc_BANK6_8FA4:
       LDA     TreeBackgroundTiles,X
       STA     (byte_RAM_1),Y
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       ; using two alternating tiles for the middle of the tree
       DEX
@@ -2046,11 +2046,11 @@ locret_BANK6_8FC1:
 sub_BANK6_8FC2:
       LDA     #BackgroundTile_TreeBackgroundMiddleLeft
       STA     (byte_RAM_1),Y
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       LDA     #BackgroundTile_TreeBackgroundMiddleRight
       STA     (byte_RAM_1),Y
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       DEC     byte_RAM_7
       BPL     sub_BANK6_8FC2
@@ -2223,7 +2223,7 @@ sub_BANK6_9066:
       BEQ     loc_BANK6_9086
 
 loc_BANK6_9079:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       LDA     MushroomHouseMiddleTiles,X
       STA     (byte_RAM_1),Y
@@ -2231,7 +2231,7 @@ loc_BANK6_9079:
       BNE     loc_BANK6_9079
 
 loc_BANK6_9086:
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       LDA     MushroomHouseRightTiles,X
       STA     (byte_RAM_1),Y
@@ -2807,7 +2807,7 @@ loc_BANK6_9458:
       TYA
       AND     #$0F
       TAY
-      JSR     sub_BANK6_9890
+      JSR     IncrementAreaXOffset
 
       DEX
       BPL     loc_BANK6_9458
@@ -2823,44 +2823,43 @@ DoSubspaceTileRemap:
       STX     byte_RAM_7
       LDX     #(SubspaceTilesReplace-SubspaceTilesSearch-1)
 
-loc_BANK6_947F:
+DoSubspaceTileRemap_Loop:
       CMP     SubspaceTilesSearch,X
-      BEQ     loc_BANK6_94A5
+      BEQ     DoSubspaceTileRemap_ReplaceTile
 
       DEX
-      BPL     loc_BANK6_947F
+      BPL     DoSubspaceTileRemap_Loop
 
-      CMP     #$41
-      BEQ     loc_BANK6_9492
+      CMP     #BackgroundTile_SubspaceMushroom1
+      BEQ     CheckCreateMushroomObject
 
-      CMP     #$42
-      BEQ     loc_BANK6_9492
+      CMP     #BackgroundTile_SubspaceMushroom2
+      BEQ     CheckCreateMushroomObject
 
-      JMP     loc_BANK6_94A8
+      JMP     DoSubspaceTileRemap_Exit
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_9492:
-      SEC ; Some code involving Subspace mushrooms
-; Checking if it should create a Subspace object?
+CheckCreateMushroomObject:
+      SEC
       SBC     #BackgroundTile_SubspaceMushroom1
       TAY
       LDA     Mushroom1Pulled,Y
       BNE     loc_BANK6_94A0
 
       LDX     byte_RAM_7
-      JSR     sub_BANK6_98F7
+      JSR     CreateMushroomObject
 
 loc_BANK6_94A0:
       LDA     #BackgroundTile_SubspaceMushroom1
-      JMP     loc_BANK6_94A8
+      JMP     DoSubspaceTileRemap_Exit
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_94A5:
+DoSubspaceTileRemap_ReplaceTile:
       LDA     SubspaceTilesReplace,X
 
-loc_BANK6_94A8:
+DoSubspaceTileRemap_Exit:
       LDX     byte_RAM_7
       LDY     byte_RAM_8
       RTS
@@ -2869,15 +2868,15 @@ loc_BANK6_94A8:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_94AD:
+ClearSubAreaTileLayout:
       LDX     #$00
       STX     IsHorizontalLevel
 
-ClearSubAreaTileLayout:
+ClearSubAreaTileLayout_Loop:
       LDA     #BackgroundTile_Sky
       STA     SubAreaTileLayout,X
       INX
-      BNE     ClearSubAreaTileLayout
+      BNE     ClearSubAreaTileLayout_Loop
 
       LDA     CurrentLevelArea
       STA     CurrentLevelAreaCopy
@@ -2922,11 +2921,11 @@ ClearSubAreaTileLayout:
       STA     IsHorizontalLevel
       RTS
 
-; End of function sub_BANK6_94AD
+; End of function ClearSubAreaTileLayout
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_950E:
+LoadAreaMusic:
       LDY     #$03
       LDA     (byte_RAM_5),Y
       AND     #$03
@@ -2944,9 +2943,10 @@ sub_BANK6_950E:
 locret_BANK6_9528:
       RTS
 
-; End of function sub_BANK6_950E
+; End of function LoadAreaMusic
 
 ; ---------------------------------------------------------------------------
+; this looks like it might not be used?
 LevelMusicTable:
       .BYTE Music1_Overworld
       .BYTE Music1_Inside
@@ -2984,7 +2984,7 @@ locret_BANK6_9547:
       LSR     A
       STA     CurrentLevelArea
       LDA     AreaPointersByPage,Y
-      AND     #$F
+      AND     #$0F
       STA     CurrentLevelEntryPage
       RTS
 
@@ -2997,7 +2997,7 @@ LoadCurrentArea:
 
       JSR     RestoreLevelDataCopyAddress
 
-      JSR     sub_BANK6_950E
+      JSR     LoadAreaMusic
 
       ; read the level header
 
@@ -3254,8 +3254,8 @@ loc_BANK6_9690:
 ; ---------------------------------------------------------------------------
       .WORD loc_BANK6_96CA ; Ground setting 0-8
       .WORD loc_BANK6_96CA ; Ground setting 9-15
-      .WORD loc_BANK6_96B4 ; Skip forward 1 page
-      .WORD loc_BANK6_96B2 ; Skip forward 2 pages
+      .WORD SkipForwardPage1 ; Skip forward 1 page
+      .WORD SkipForwardPage2 ; Skip forward 2 pages
       .WORD loc_BANK6_970B ; New object layer
       .WORD loc_BANK6_96CD ; Area pointer
       .WORD loc_BANK6_96CA ; Ground appearance
@@ -3280,10 +3280,10 @@ IFDEF LEVEL_ENGINE_UPGRADES
 ENDIF
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_96B2:
+SkipForwardPage2:
       INC     byte_RAM_E8
 
-loc_BANK6_96B4:
+SkipForwardPage1:
       INC     byte_RAM_E8
       LDA     #$00
       STA     byte_RAM_E6
@@ -3620,8 +3620,6 @@ ReadGroundSetByte:
       LDA     VerticalGroundSetData,X
       RTS
 
-; ---------------------------------------------------------------------------
-
 ReadGroundSetByte_Vertical:
       LDA     HorizontalGroundSetData,X
 
@@ -3640,110 +3638,94 @@ LoadGroundSetData:
       TAX
       LDY     byte_RAM_E7
 
-loc_BANK6_97EC:
+LoadGroundSetData_Loop:
       JSR     ReadGroundSetByte
 
-      JSR     sub_BANK6_9816
-
-      JSR     ReadGroundSetByte
-
-      JSR     sub_BANK6_9818
+      JSR     WriteGroundSetTiles1
 
       JSR     ReadGroundSetByte
 
-      JSR     sub_BANK6_981A
+      JSR     WriteGroundSetTiles2
 
       JSR     ReadGroundSetByte
 
-      JSR     sub_BANK6_981C
+      JSR     WriteGroundSetTiles3
+
+      JSR     ReadGroundSetByte
+
+      JSR     WriteGroundSetTiles4
 
       LDA     IsHorizontalLevel
-      BEQ     loc_BANK6_980D
+      BEQ     LoadGroundSetData_Horizontal
 
       INX
-      BCS     loc_BANK6_9813
+      BCS     LoadGroundSetData_Exit
 
-      BCC     loc_BANK6_97EC
+      BCC     LoadGroundSetData_Loop
 
-loc_BANK6_980D:
+LoadGroundSetData_Horizontal:
       INX
       TYA
       AND     #$0F
-      BNE     loc_BANK6_97EC
+      BNE     LoadGroundSetData_Loop
 
-loc_BANK6_9813:
+LoadGroundSetData_Exit:
       LDY     byte_RAM_4
       RTS
 
-; End of function LoadGroundSetData
-
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_9816:
+WriteGroundSetTiles1:
       LSR     A
       LSR     A
 
-; End of function sub_BANK6_9816
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK6_9818:
+WriteGroundSetTiles2:
       LSR     A
       LSR     A
 
-; End of function sub_BANK6_9818
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK6_981A:
+WriteGroundSetTiles3:
       LSR     A
       LSR     A
 
-; End of function sub_BANK6_981A
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK6_981C:
+WriteGroundSetTiles4:
       AND     #$03
       STX     byte_RAM_3
-      BEQ     loc_BANK6_9836
+      BEQ     WriteGroundSetTiles_AfterWriteTile
 
       CLC
       ADC     byte_RAM_55E
       TAX
       LDA     IsHorizontalLevel
-      BNE     loc_BANK6_9831
+      BNE     WriteGroundSetTiles_Horizontal
 
       JSR     ReadGroundTileVertical
 
-      JMP     loc_BANK6_9834
+      JMP     WriteGroundSetTiles_WriteTile
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_9831:
+WriteGroundSetTiles_Horizontal:
       JSR     ReadGroundTileHorizontal
 
-loc_BANK6_9834:
+WriteGroundSetTiles_WriteTile:
       STA     (byte_RAM_1),Y
 
-loc_BANK6_9836:
+WriteGroundSetTiles_AfterWriteTile:
       LDX     byte_RAM_3
       LDA     IsHorizontalLevel
-      BNE     loc_BANK6_983E
+      BNE     WriteGroundSetTiles_IncrementYOffset
 
       INY
       RTS
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK6_983E:
+WriteGroundSetTiles_IncrementYOffset:
       TYA
       CLC
       ADC     #$10
       TAY
       RTS
 
-; End of function sub_BANK6_981C
+; End of function WriteGroundSetTiles4
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3813,7 +3795,7 @@ SetAreaPageAddr:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_9890:
+IncrementAreaXOffset:
       INY
       TYA
       AND     #$0F
@@ -3837,7 +3819,7 @@ loc_BANK6_98A5:
 locret_BANK6_98A7:
       RTS
 
-; End of function sub_BANK6_9890
+; End of function IncrementAreaXOffset
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3922,7 +3904,7 @@ loc_BANK6_98F3:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_98F7:
+CreateMushroomObject:
       TXA
       PHA
       AND     #$F0
@@ -3973,7 +3955,7 @@ loc_BANK6_9934:
       TAX
       RTS
 
-; End of function sub_BANK6_98F7
+; End of function CreateMushroomObject
 
 ; ---------------------------------------------------------------------------
 ; The rest of this bank pair is empty
