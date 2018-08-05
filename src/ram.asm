@@ -1472,7 +1472,7 @@ PlayerMaxHealth:
       ; $02: Max 4
 POWQuakeTimer:
       .dsb 1 ; $04c4
-byte_RAM_4C5:
+BackgroundYOffset:
       .dsb 1 ; $04c5
 SkyFlashTimer:
       .dsb 1 ; $04c6

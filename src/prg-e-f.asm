@@ -2749,7 +2749,7 @@ loc_BANKF_EC31:
       STA     PPUSCROLL
       LDA     PPUScrollYMirror
       CLC
-      ADC     byte_RAM_4C5
+      ADC     BackgroundYOffset
       STA     PPUSCROLL
       LDA     PPUMaskMirror
       STA     PPUMASK

@@ -67,7 +67,7 @@ AreaInitialization:
       STA     DamageInvulnTime
       STA     HoldingItem
       STA     PlayerStateTimer
-      STA     byte_RAM_4C5
+      STA     BackgroundYOffset
       STA     byte_RAM_4FD
       STA     CrouchJumpTimer
       STA     byte_RAM_4C9
@@ -108,7 +108,7 @@ NoIntroFallSlide:
 
       LDX     #5
       STX     byte_RAM_12
-      CMP     #$3F
+      CMP     #Enemy_Mushroom
       BEQ     loc_BANK2_8106
 
       STA     ObjectType,X
@@ -116,7 +116,7 @@ NoIntroFallSlide:
       STY     EnemyState+5
       LDY     #$FF
       STY     byte_RAM_446
-      CMP     #$38
+      CMP     #Enemy_Rocket
       BNE     loc_BANK2_80C7
 
       STA     EnemyArray_B1,X
@@ -440,16 +440,11 @@ HandleEnemyState:
       .WORD HandleEnemyState_BombExploding ; Bomb exploding
       .WORD HandleEnemyState_PuffOfSmoke ; Puff of smoke
       .WORD HandleEnemyState_Sand ; Sand after digging
-off_BANK2_8250:
-      .WORD loc_BANK2_85B2
-; Don't think this is part of state handling (?)
-; but not sure at all
-;
-; Is this for being carried/thrown??
+      .WORD loc_BANK2_85B2 ; Object carried/thrown?
+byte_BANK2_8252:
       .BYTE $18
 byte_BANK2_8253:
       .BYTE $E0
-
       .BYTE $01
       .BYTE $FF
 ; ---------------------------------------------------------------------------
@@ -470,7 +465,7 @@ loc_BANK2_8264:
       LDY     PlayerMovementDirection
       LDA     ScreenBoundaryLeftLo
       CLC
-      ADC     off_BANK2_8250+1,Y
+      ADC     byte_BANK2_8252-1,Y
       AND     #$F0
       STA     byte_RAM_5
       LDA     ScreenBoundaryLeftHi
@@ -601,7 +596,7 @@ loc_BANK2_82ED:
 loc_BANK2_82FC:
       LDA     ScreenYLo
       CLC
-      ADC     off_BANK2_8250+1,Y
+      ADC     byte_BANK2_8252-1,Y
       AND     #$F0
       STA     byte_RAM_5
       LDA     ScreenYHi
@@ -1125,7 +1120,7 @@ loc_BANK2_85B2:
       LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_85C1
 
-      LDA     #1
+      LDA     #EnemyState_Alive
       STA     EnemyState,X
       RTS
 
@@ -1768,16 +1763,17 @@ loc_BANK2_88F9:
       LDA     byte_RAM_1
       SBC     ScreenYHi
       STA     byte_RAM_EF
-      CPY     #$17
+
+      CPY     #Enemy_Phanto
       BEQ     locret_BANK2_88DF
 
-      CPY     #$41
+      CPY     #Enemy_FlyingCarpet
       BEQ     locret_BANK2_88DF
 
-      CPY     #$43
+      CPY     #Enemy_HawkmouthLeft
       BEQ     locret_BANK2_88DF
 
-      CPY     #$2D
+      CPY     #Enemy_HawkmouthBoss
       BEQ     locret_BANK2_88DF
 
       TXA
@@ -10016,7 +10012,7 @@ loc_BANK3_B519:
       CMP     #Enemy_CobratJar
       BEQ     loc_BANK3_B540
 
-      CMP     #$19
+      CMP     #Enemy_CobratSand
       BEQ     loc_BANK3_B540
 
       LDA     byte_RAM_0
@@ -11873,37 +11869,36 @@ loc_BANK3_BDEC:
 ; End of function sub_BANK3_BDC5
 
 ; ---------------------------------------------------------------------------
-byte_BANK3_BDEF:
+HealthBarTiles:
+      .BYTE $BA ; 0
       .BYTE $BA
+      .BYTE $BA
+      .BYTE $BA
+      .BYTE $B8 ; 1
+      .BYTE $BA
+      .BYTE $BA
+      .BYTE $BA
+      .BYTE $B8 ; 2
+      .BYTE $B8
+      .BYTE $BA
+      .BYTE $BA
+      .BYTE $B8 ; 3
+      .BYTE $B8
+      .BYTE $B8
+      .BYTE $BA
+      .BYTE $B8 ; 4
+      .BYTE $B8
+      .BYTE $B8
+      .BYTE $B8
 
-      .BYTE $BA
-      .BYTE $BA
-      .BYTE $BA
-      .BYTE $B8
-      .BYTE $BA
-      .BYTE $BA
-      .BYTE $BA
-      .BYTE $B8
-      .BYTE $B8
-      .BYTE $BA
-      .BYTE $BA
-      .BYTE $B8
-      .BYTE $B8
-      .BYTE $B8
-      .BYTE $BA
-      .BYTE $B8
-      .BYTE $B8
-      .BYTE $B8
-      .BYTE $B8
-byte_BANK3_BE03:
+POWQuakeOffsets:
       .BYTE $00
-
       .BYTE $03
       .BYTE $00
       .BYTE $FD
-byte_BANK3_BE07:
-      .BYTE $26
 
+SkyFlashColors:
+      .BYTE $26
       .BYTE $2A
       .BYTE $22
       .BYTE $26
@@ -11921,16 +11916,16 @@ AreaSecondaryRoutine:
       STA     PPUBuffer_301,X
       LDA     #$10
       STA     byte_RAM_302,X
-      LDA     #4
+      LDA     #$04
       STA     byte_RAM_303,X
       LDA     byte_RAM_4BC
       LDY     SkyFlashTimer
       BEQ     loc_BANK3_BE34
 
       TYA
-      AND     #3
+      AND     #$03
       TAY
-      LDA     byte_BANK3_BE07,Y
+      LDA     SkyFlashColors,Y
 
 ; some kind of palette copying routine
 loc_BANK3_BE34:
@@ -11960,7 +11955,7 @@ loc_BANK3_BE55:
       AND     #$F0
       LSR     A
       LSR     A
-      ADC     #$04
+      ADC     #$04 ; max health
 
 loc_BANK3_BE67:
       TAX
@@ -11968,11 +11963,11 @@ loc_BANK3_BE67:
       STA     byte_RAM_3
 
 loc_BANK3_BE6C:
-      LDA     byte_BANK3_BDEF,X
+      LDA     HealthBarTiles,X
       STA     SpriteDMAArea+1,Y
       LDA     #$10
       STA     SpriteDMAArea+3,Y
-      LDA     #1
+      LDA     #$01
       STA     SpriteDMAArea+2,Y
       LDA     byte_RAM_0
       STA     SpriteDMAArea,Y
@@ -12004,8 +11999,8 @@ loc_BANK3_BE6C:
       INY
 
 loc_BANK3_BEA6:
-      LDA     byte_BANK3_BE03,Y
-      STA     byte_RAM_4C5
+      LDA     POWQuakeOffsets,Y
+      STA     BackgroundYOffset
       JMP     loc_BANK2_9935
 
 ; ---------------------------------------------------------------------------
