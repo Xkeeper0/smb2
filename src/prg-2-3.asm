@@ -1154,7 +1154,7 @@ loc_BANK2_85E1:
       JMP     sub_BANK3_B5CC
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_85E7:
+ExplosionTileXOffsets:
       .BYTE $F8
       .BYTE $00
       .BYTE $F8
@@ -1163,10 +1163,12 @@ byte_BANK2_85E7:
       .BYTE $10
       .BYTE $08
       .BYTE $10
-byte_BANK2_85EF:
+
+ExplosionTileYOffsets:
       .BYTE $F8
       .BYTE $F8
 EnemyInitialAccelerationTable:
+      ; these values are shared with ExplosionTileYOffsets!
       .BYTE $08
       .BYTE $08
       .BYTE $F8
@@ -1203,11 +1205,11 @@ loc_BANK2_8610:
 loc_BANK2_8618:
       LDA     SpriteTempScreenY
       CLC
-      ADC     byte_BANK2_85EF,X
+      ADC     ExplosionTileYOffsets,X
       STA     SpriteDMAArea,Y
       LDA     SpriteTempScreenX
       CLC
-      ADC     byte_BANK2_85E7,X
+      ADC     ExplosionTileXOffsets,X
       STA     SpriteDMAArea+3,Y
       LDA     #1
       STA     SpriteDMAArea+2,Y
@@ -1243,6 +1245,7 @@ byte_BANK2_864A:
       .BYTE $FB
       .BYTE $08
       .BYTE $15
+
 byte_BANK2_8653:
       .BYTE $FF
       .BYTE $00
@@ -1253,6 +1256,7 @@ byte_BANK2_8653:
       .BYTE $FF
       .BYTE $00
       .BYTE $00
+
 byte_BANK2_865C:
       .BYTE $FC
       .BYTE $FC
@@ -1263,6 +1267,7 @@ byte_BANK2_865C:
       .BYTE $14
       .BYTE $14
       .BYTE $14
+
 byte_BANK2_8665:
       .BYTE $FF
       .BYTE $FF
@@ -1273,6 +1278,7 @@ byte_BANK2_8665:
       .BYTE $00
       .BYTE $00
       .BYTE $00
+
 byte_BANK2_866E:
       .BYTE $5F
       .BYTE $06
@@ -1483,7 +1489,6 @@ locret_BANK2_8797:
 ; ---------------------------------------------------------------------------
 byte_BANK2_8798:
       .BYTE $46
-
       .BYTE $4A
       .BYTE $4E
       .BYTE $52
@@ -2099,7 +2104,6 @@ EnemyInit_JarGenerators:
 ; ---------------------------------------------------------------------------
 SparkAccelerationTable:
       .BYTE $F0
-
       .BYTE $E0
       .BYTE $F0
       .BYTE $E0
@@ -2123,7 +2127,6 @@ SparkCollision: ; spark movement based on collision
       .BYTE %00000011 ; left/right (vertical)
 byte_BANK2_8B06:
       .BYTE $00
-
       .BYTE $0A
 ; ---------------------------------------------------------------------------
 
@@ -2200,13 +2203,12 @@ sub_BANK2_8B5B:
 ; End of function sub_BANK2_8B5B
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8B60:
+; albatoss swarm start x offsets?
+byte_BANK2_8B60: ; lo?
       .BYTE $F0
-
       .BYTE $00
-byte_BANK2_8B62:
+byte_BANK2_8B62: ; hi?
       .BYTE $FF
-
       .BYTE $01
 ; ---------------------------------------------------------------------------
 
@@ -2234,9 +2236,9 @@ Swarm_AlbatossCarryingBobOmb:
       RTS
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8B8E:
+; beezo start x offsets?
+byte_BANK2_8B8E: ; lo?
       .BYTE $00
-
       .BYTE $FF
 ; ---------------------------------------------------------------------------
 
@@ -2249,7 +2251,7 @@ Swarm_BeezoDiving:
       BEQ     loc_BANK2_8BA1
 
       LDA     ScreenBoundaryLeftHi
-      ADC     #0
+      ADC     #$00
 
 loc_BANK2_8BA1:
       STA     ObjectXHi,X
@@ -2337,7 +2339,6 @@ loc_BANK2_8C00:
 ; ---------------------------------------------------------------------------
 byte_BANK2_8C03:
       .BYTE $10
-
       .BYTE $F0
 ; ---------------------------------------------------------------------------
 
@@ -2403,7 +2404,7 @@ loc_BANK2_8C3D:
       JSR     EnemyFindWhichSidePlayerIsOn
 
       PLA
-      CMP     #$25
+      CMP     #Enemy_PanserStationaryFiresUp
       LDA     byte_BANK2_8C03,Y
       BCC     loc_BANK2_8C65
 
@@ -2832,9 +2833,9 @@ byte_BANK2_8E79:
       .BYTE $CC
       .BYTE $D2
       .BYTE $D8
+
 byte_BANK2_8E85:
       .BYTE $92
-
       .BYTE $EA
 ; ---------------------------------------------------------------------------
 
@@ -2878,14 +2879,13 @@ loc_BANK2_8EB6:
       JMP     RenderSprite
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8EBE:
-      .BYTE $FA
+Enemy_Hoopstar_YVelocity:
+      .BYTE $FA ; up
+      .BYTE $0C ; down
 
-      .BYTE $0C
-byte_BANK2_8EC0:
-      .BYTE $91
-
-      .BYTE $11
+Enemy_Hoopstar_Attributes:
+      .BYTE $91 ; up
+      .BYTE $11 ; down
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Hoopstar:
@@ -2925,9 +2925,9 @@ loc_BANK2_8EEF:
       TAY
 
 loc_BANK2_8EF3:
-      LDA     byte_BANK2_8EBE,Y
+      LDA     Enemy_Hoopstar_YVelocity,Y
       STA     ObjectYAccel,X
-      LDA     byte_BANK2_8EC0,Y
+      LDA     Enemy_Hoopstar_Attributes,Y
       STA     ObjectAttributes,X
       JSR     EnemyFindWhichSidePlayerIsOn
 
@@ -3027,7 +3027,6 @@ loc_BANK2_8F6F:
 ; ---------------------------------------------------------------------------
 ProjectileLaunchXOffsets:
       .BYTE $FE
-
       .BYTE $F8
 ; ---------------------------------------------------------------------------
 
@@ -3058,21 +3057,24 @@ EnemyBehavior_Birdo:
       BNE     loc_BANK2_8FD2
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_8F9D:
+BirdoSpitDelay:
       .BYTE $7F
+      .BYTE $3F
+      .BYTE $3F
 
-      .BYTE $3F
-      .BYTE $3F
+; Health-based Birdo egg/fire chances.
+; If PRNG & $1F >= this, shoot an egg
+; Otherwise, shoot a fireball
 BirdoHealthEggProbabilities:
       .BYTE $08
-      .BYTE $06 ; Health-based Birdo egg/fire chances.
-      .BYTE $04 ; If PRNG & $1F >= this, shoot an egg
-; Otherwise, shoot a fireball
+      .BYTE $06
+      .BYTE $04
+
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8FA3:
       LDY     EnemyVariable,X
-      LDA     byte_BANK2_8F9D,Y
+      LDA     BirdoSpitDelay,Y
       AND     byte_RAM_10
       BNE     loc_BANK2_8FB6
 
@@ -3167,9 +3169,9 @@ loc_BANK2_901B:
 ; ---------------------------------------------------------------------------
       .BYTE $18
       .BYTE $E8
+
 byte_BANK2_9020:
       .BYTE $FE
-
       .BYTE $F8
       .BYTE $F0
       .BYTE $E8
@@ -3500,7 +3502,6 @@ locret_BANK2_91C4:
 ; ---------------------------------------------------------------------------
 byte_BANK2_91C5:
       .BYTE $F8
-
       .BYTE $08
 
 ; =============== S U B R O U T I N E =======================================
@@ -3563,7 +3564,6 @@ byte_BANK2_9212:
 
 byte_BANK2_9213:
       .BYTE $FF
-
       .BYTE $00
 ; ---------------------------------------------------------------------------
 
@@ -3930,7 +3930,7 @@ Phanto_Activated:
       JMP     sub_BANK2_9430
 
 ; ---------------------------------------------------------------------------
-byte_BANK2_93B7:
+Enemy_Ninji_JumpVelocity:
       .BYTE $E8
       .BYTE $D0
       .BYTE $D8
@@ -3962,7 +3962,7 @@ loc_BANK2_93C8:
       ROL     A
       ROL     A
       TAY
-      LDA     byte_BANK2_93B7,Y
+      LDA     Enemy_Ninji_JumpVelocity,Y
       BNE     loc_BANK2_9401
 
 EnemyBehavior_NinjiRunning:
@@ -4049,7 +4049,6 @@ loc_BANK2_9439:
 ; ---------------------------------------------------------------------------
 BulletProjectileXSpeeds:
       .BYTE $20
-
       .BYTE $E0
 ; ---------------------------------------------------------------------------
 
@@ -4876,10 +4875,10 @@ loc_BANK2_9805:
 ; ---------------------------------------------------------------------------
 byte_BANK2_9808:
       .BYTE $00
-
       .BYTE $01
       .BYTE $01
       .BYTE $02
+
 DoorSpriteAnimation:
       .BYTE $02
       .BYTE $03
@@ -6078,9 +6077,9 @@ locret_BANK2_9DF3:
       .BYTE $FF
       .BYTE $00
       .BYTE $00
+
 byte_BANK2_9DFA:
       .BYTE $01
-
       .BYTE $01
       .BYTE $00
       .BYTE $00
@@ -10135,7 +10134,6 @@ locret_BANK3_B5BB:
 ; ---------------------------------------------------------------------------
 byte_BANK3_B5BC:
       .BYTE $02
-
       .BYTE $01
       .BYTE $02
       .BYTE $02
@@ -10143,9 +10141,9 @@ byte_BANK3_B5BC:
       .BYTE $00
       .BYTE $00
       .BYTE $00
+
 byte_BANK3_B5C4:
       .BYTE $08
-
       .BYTE $04
       .BYTE $02
       .BYTE $01
