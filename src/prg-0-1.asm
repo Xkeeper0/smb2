@@ -22,7 +22,6 @@ sub_BANK0_8000:
       LDA     #1
       JSR     ChangeNametableMirroring
 
-_code_000A:
       LDA     CurrentLevelEntryPage
       BNE     loc_BANK0_8013
 
@@ -3251,15 +3250,15 @@ loc_BANK0_9080:
       STA     ObjectXLo,X
       LDA     byte_RAM_6
       STA     ObjectYLo,X
-      LDA     #0
+      LDA     #$00
       STA     EnemyArray_42F,X
       STA     EnemyArray_9F,X
       STA     EnemyArray_B1,X
       JSR     sub_BANK1_BA48
 
-      LDA     #1
+      LDA     #$01
       LDY     byte_RAM_9
-      CPY     #$E
+      CPY     #$0E
       BNE     loc_BANK0_90AE
 
       LDA     #$20
@@ -3270,20 +3269,18 @@ loc_BANK0_90AE:
       STA     EnemyState,X
       LDA     PickUpToEnemyTypeTable,Y ; What sprite is spawned for you when lifting a bg object
       STA     ObjectType,X
-      LDY     #$FF
-      CMP     #$37
+
+      LDY     #$FF ; regular bomb fuse
+      CMP     #Enemy_Bomb
       BEQ     loc_BANK0_90C1
 
-      CMP     #$09
+      CMP     #Enemy_BobOmb
       BNE     loc_BANK0_90C5
 
-loc_BANK0_90BF:
-      LDY     #$50
+      LDY     #$50 ; BobOmb fuse
 
 loc_BANK0_90C1:
       STY     EnemyTimer,X
-
-loc_BANK0_90C3:
       BNE     loc_BANK0_90EA
 
 loc_BANK0_90C5:
@@ -3296,7 +3293,6 @@ loc_BANK0_90C5:
       LDA     #Enemy_VegetableSmall
       STA     ObjectType,X
 
-loc_BANK0_90D2:
       JMP     loc_BANK0_90EA
 
 ; ---------------------------------------------------------------------------
@@ -4050,10 +4046,9 @@ sub_BANK0_9428:
 
 ; =============== S U B R O U T I N E =======================================
 
+; area transition
 sub_BANK0_946D:
       LDA     TransitionType
-
-loc_BANK0_9470:
       CMP     #TransitionType_Jar
       BNE     loc_BANK0_947F
 
@@ -4630,7 +4625,7 @@ loc_BANK0_9A6F:
       STA     RAM_PPUDataBufferPointer
       LDA     #3
       STA     RAM_PPUDataBufferPointer+1
-      LDA     #$40
+      LDA     #Stack100_Menu
       STA     StackArea
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
@@ -4960,7 +4955,6 @@ ENDIF
 ; [00000200 BYTES: END OF AREA UNUSED-BANK1_A000. PRESS KEYPAD "-" TO COLLAPSE]
 EndingPPUDataPointers:
       .WORD PPUBuffer_301
-
       .WORD EndingCorkJarRoom
       .WORD EndingCelebrationCeilingTextAndPodium
       .WORD EndingCelebrationFloorAndSubconParade
@@ -5061,79 +5055,79 @@ EndingCorkJarRoom:
 EndingCelebrationUnusedText_THANK_YOU:
       .BYTE $21,$0C,$09,$ED,$E1,$DA,$E7,$E4,$FB,$F2,$E8,$EE
       .BYTE $00
+; initial x positions
 unk_BANK1_A3FF:
-      .BYTE $30
-      .BYTE $80
-      .BYTE $80
-      .BYTE $80
-      .BYTE $80
-      .BYTE $80
-      .BYTE $80
-      .BYTE $80
-      .BYTE $80
-      .BYTE $80
+      .BYTE $30 ; player
+      .BYTE $80 ; subcon 8
+      .BYTE $80 ; subcon 7
+      .BYTE $80 ; subcon 6
+      .BYTE $80 ; subcon 5
+      .BYTE $80 ; subcon 4
+      .BYTE $80 ; subcon 3
+      .BYTE $80 ; subcon 2
+      .BYTE $80 ; subcon 1
+      .BYTE $80 ; cork
+; initial y positions
 byte_BANK1_A409:
-      .BYTE $B0
-
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $95
+      .BYTE $B0 ; player
+      .BYTE $A0 ; subcon 8
+      .BYTE $A0 ; subcon 7
+      .BYTE $A0 ; subcon 6
+      .BYTE $A0 ; subcon 5
+      .BYTE $A0 ; subcon 4
+      .BYTE $A0 ; subcon 3
+      .BYTE $A0 ; subcon 2
+      .BYTE $A0 ; subcon 1
+      .BYTE $95 ; cork
+; target x positions
 byte_BANK1_A413:
-      .BYTE $10
-
-      .BYTE $F4
-      .BYTE $0C
-      .BYTE $E8
-      .BYTE $18
-      .BYTE $EC
-      .BYTE $14
-      .BYTE $F8
-      .BYTE $08
-      .BYTE $00
+      .BYTE $10 ; player
+      .BYTE $F4 ; subcon 8
+      .BYTE $0C ; subcon 7
+      .BYTE $E8 ; subcon 6
+      .BYTE $18 ; subcon 5
+      .BYTE $EC ; subcon 4
+      .BYTE $14 ; subcon 3
+      .BYTE $F8 ; subcon 2
+      .BYTE $08 ; subcon 1
+      .BYTE $00 ; cork
+; target y positions
 byte_BANK1_A41D:
-      .BYTE $00
-
-      .BYTE $C4
-      .BYTE $C4
-      .BYTE $B8
-      .BYTE $B8
-      .BYTE $A8
-      .BYTE $A8
-      .BYTE $A0
-      .BYTE $A0
-      .BYTE $00
+      .BYTE $00 ; player
+      .BYTE $C4 ; subcon 8
+      .BYTE $C4 ; subcon 7
+      .BYTE $B8 ; subcon 6
+      .BYTE $B8 ; subcon 5
+      .BYTE $A8 ; subcon 4
+      .BYTE $A8 ; subcon 3
+      .BYTE $A0 ; subcon 2
+      .BYTE $A0 ; subcon 1
+      .BYTE $00 ; cork
+; delays
 byte_BANK1_A427:
-      .BYTE $00
-
-      .BYTE $F0
-      .BYTE $E0
-      .BYTE $C0
-      .BYTE $A0
-      .BYTE $80
-      .BYTE $60
-      .BYTE $40
-      .BYTE $20
-      .BYTE $00
+      .BYTE $00 ; player
+      .BYTE $F0 ; subcon 8
+      .BYTE $E0 ; subcon 7
+      .BYTE $C0 ; subcon 6
+      .BYTE $A0 ; subcon 5
+      .BYTE $80 ; subcon 4
+      .BYTE $60 ; subcon 3
+      .BYTE $40 ; subcon 2
+      .BYTE $20 ; subcon 1
+      .BYTE $00 ; cork
+; attributes
 byte_BANK1_A431:
-      .BYTE $00
-
+      .BYTE $00 ; player
 byte_BANK1_A432:
-      .BYTE $21
-
-      .BYTE $61
-      .BYTE $21
-      .BYTE $61
-      .BYTE $21
-      .BYTE $61
-      .BYTE $21
-      .BYTE $61
-      .BYTE $22
+      .BYTE $21 ; subcon 8
+      .BYTE $61 ; subcon 7
+      .BYTE $21 ; subcon 6
+      .BYTE $61 ; subcon 5
+      .BYTE $21 ; subcon 4
+      .BYTE $61 ; subcon 3
+      .BYTE $21 ; subcon 2
+      .BYTE $61 ; subcon 1
+      .BYTE $22 ; cork
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5141,7 +5135,7 @@ FreeSubconsScene:
       JSR     WaitForNMI_Ending_TurnOffPPU
       JSR     ClearNametablesAndSprites
 
-      LDA     #$40
+      LDA     #Stack100_Menu
       STA     StackArea
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
@@ -5400,6 +5394,7 @@ locret_BANK1_A591:
       RTS
 
 ; ---------------------------------------------------------------------------
+; character gravity in ending jar room
 unk_BANK1_A592:
       .BYTE $04
       .BYTE $04
@@ -5725,7 +5720,7 @@ sub_BANK1_AA79:
 
       JSR     ClearNametablesAndSprites
 
-      LDA     #$40
+      LDA     #Stack100_Menu
       STA     StackArea
       JSR     sub_BANK1_ABBC
 

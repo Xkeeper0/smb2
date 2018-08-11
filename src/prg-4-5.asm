@@ -17,7 +17,7 @@ StartProcessingSoundQueue:
       LDA     #$FF
       STA     JOY2
       LDA     StackArea
-      CMP     #$41 ; various values otherwise
+      CMP     #Stack100_Pause
       BNE     ProcessMusicAndSfxQueues
 
       LDA     #%00001100 ; Mute the two square channels
@@ -61,11 +61,11 @@ ProcessOnlyMusicQueue2:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK4_8038:
+ProcessSoundEffectQueue2_Jump:
       LDA     #$42
       LDX     #$82
       LDY     #$A8
-      JSR     sub_BANK4_86C8
+      JSR     PlaySquare1Sweep
 
       LDA     #$22
       STA     byte_RAM_C4
@@ -87,11 +87,11 @@ loc_BANK4_8051:
       LDY     #$BC
 
 loc_BANK4_8059:
-      JSR     sub_BANK4_86BA
+      JSR     SetSquare1VolumeAndSweep
 
       BNE     loc_BANK4_8076
 
-loc_BANK4_805E:
+ProcessSoundEffectQueue2_CoinGet:
       LDA     #$35
       LDX     #$8D
       STA     byte_RAM_C4
@@ -99,7 +99,7 @@ loc_BANK4_805E:
 
 loc_BANK4_8066:
       LDA     #$5E
-      JSR     sub_BANK4_86C8
+      JSR     PlaySquare1Sweep
 
 loc_BANK4_806B:
       LDA     byte_RAM_C4
@@ -120,81 +120,85 @@ ProcessSoundEffectQueue2:
       BEQ     loc_BANK4_80D3
 
       LDY     SoundEffectQueue2
-
-loc_BANK4_8082:
-      BEQ     loc_BANK4_80A5
+      BEQ     ProcessSoundEffectQueue2_None
 
       STY     byte_RAM_60D
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_8038
+      BCS     ProcessSoundEffectQueue2_Jump
 
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_80C3
+      BCS     ProcessSoundEffectQueue2_Climbing
 
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_805E
+      BCS     ProcessSoundEffectQueue2_CoinGet
 
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_80E7
+      BCS     ProcessSoundEffectQueue2_Shrinking
 
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_80BD
+      BCS     ProcessSoundEffectQueue2_IntroFallSlide
 
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_8103
+      BCS     ProcessSoundEffectQueue2_Growing
 
-loc_BANK4_80A5:
+ProcessSoundEffectQueue2_None:
       LDA     byte_RAM_60D
-      BEQ     locret_BANK4_80BC
+      BEQ     ProcessSoundEffectQueue2_Exit
 
+      ; Jumping
       LSR     A
       BCS     loc_BANK4_8045
 
+      ; Climbing
       LSR     A
       BCS     loc_BANK4_80D3
 
+      ; CoinGet
       LSR     A
       BCS     loc_BANK4_806B
 
+      ; Shrinking
       LSR     A
       BCS     loc_BANK4_80EB
 
+      ; IntroFallSlide
       LSR     A
       BCS     loc_BANK4_80D3
 
+      ; Growing
       LSR     A
       BCS     loc_BANK4_8107
 
-locret_BANK4_80BC:
+ProcessSoundEffectQueue2_Exit:
       RTS
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK4_80BD:
+ProcessSoundEffectQueue2_IntroFallSlide:
       LDA     #$60
       LDY     #$A5
       BNE     loc_BANK4_80CA
 
-loc_BANK4_80C3:
+ProcessSoundEffectQueue2_Climbing:
       STY     byte_RAM_60D
-      LDA     #5
+      LDA     #$05
       LDY     #$9C
 
 loc_BANK4_80CA:
       LDX     #$9E
       STA     byte_RAM_C4
       LDA     #$60
-      JSR     sub_BANK4_86C8
+      JSR     PlaySquare1Sweep
 
 loc_BANK4_80D3:
       DEC     byte_RAM_C4
       BNE     locret_BANK4_80E6
 
-      LDX     #$E
+      LDX     #$0E
       STX     SND_CHN
-      LDX     #$F
+      LDX     #$0F
       STX     SND_CHN
-      LDX     #0
+      LDX     #$00
       STX     byte_RAM_60D
 
 locret_BANK4_80E6:
@@ -202,7 +206,7 @@ locret_BANK4_80E6:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK4_80E7:
+ProcessSoundEffectQueue2_Shrinking:
       LDA     #$2F
       STA     byte_RAM_C4
 
@@ -220,14 +224,14 @@ loc_BANK4_80EB:
       LDY     #$91
       LDX     #$9A
       LDA     #$68
-      JSR     sub_BANK4_86C8
+      JSR     PlaySquare1Sweep
 
 loc_BANK4_8100:
       JMP     loc_BANK4_80D3
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK4_8103:
+ProcessSoundEffectQueue2_Growing:
       LDA     #$36
       STA     byte_RAM_C4
 
@@ -240,7 +244,7 @@ loc_BANK4_8107:
       LDA     MushroomSoundData-1,Y
       LDX     #$5D
       LDY     #$7F
-      JSR     sub_BANK4_86C8
+      JSR     PlaySquare1Sweep
 
 loc_BANK4_8117:
       JMP     loc_BANK4_80D3
@@ -313,7 +317,7 @@ loc_BANK4_8182:
       CMP     #$7E
       BEQ     loc_BANK4_8189
 
-      JSR     sub_BANK4_873F
+      JSR     PlaySquare2Note
 
 loc_BANK4_8189:
       LDA     #$7F
@@ -586,19 +590,22 @@ ProcessMusicQueue2:
 
 ; ---------------------------------------------------------------------------
 
+; cue ending music
 loc_BANK4_837D:
       STA     byte_RAM_606
-      LDY     #0
+      LDY     #$00
       STY     byte_RAM_609
-      LDY     #8
+      LDY     #$08
       BNE     loc_BANK4_8397
 
+; cue music queue 1
 loc_BANK4_8389:
       STA     byte_RAM_609
-      LDY     #0
+      LDY     #$00
       STY     byte_RAM_606
       LDY     #$FF
 
+; counting up Y to get the offset in the music pointer table
 loc_BANK4_8393:
       INY
       LSR     A
@@ -609,7 +616,7 @@ loc_BANK4_8397:
       STA     byte_RAM_5EE
       LDA     MusicPointersEndPart,Y
       CLC
-      ADC     #2
+      ADC     #$02
       STA     byte_RAM_5EF
       LDA     MusicPointersLoopPart,Y
       STA     byte_RAM_5F0
@@ -635,7 +642,7 @@ loc_BANK4_83C5:
       STA     byte_RAM_606
       LDY     byte_RAM_609
       STY     byte_RAM_5F3
-      LDY     #0
+      LDY     #$00
       STY     byte_RAM_609
 
 loc_BANK4_83D3:
@@ -694,7 +701,7 @@ loc_BANK4_843C:
 
 loc_BANK4_8441:
       LDA     byte_RAM_606
-      CMP     #4
+      CMP     #Music2_EndingAndCast
       BEQ     loc_BANK4_8462
 
       AND     #$25
@@ -742,7 +749,7 @@ loc_BANK4_847D:
       LDX     byte_RAM_607
       BNE     loc_BANK4_849B
 
-      JSR     sub_BANK4_873F
+      JSR     PlaySquare2Note
 
       TAY
       BNE     loc_BANK4_848D
@@ -761,7 +768,7 @@ loc_BANK4_8492:
 
 loc_BANK4_8495:
       STA     byte_RAM_619
-      JSR     sub_BANK4_86C1
+      JSR     SetSquare2VolumeAndSweep
 
 loc_BANK4_849B:
       LDA     byte_RAM_617
@@ -821,7 +828,7 @@ loc_BANK4_84F5:
       LDY     byte_RAM_60D
       BNE     loc_BANK4_8512
 
-      JSR     sub_BANK4_86CE
+      JSR     PlaySquare1Note
 
       BNE     loc_BANK4_8504
 
@@ -838,7 +845,7 @@ loc_BANK4_8504:
 
 loc_BANK4_850C:
       STA     byte_RAM_61B
-      JSR     sub_BANK4_86BA
+      JSR     SetSquare1VolumeAndSweep
 
 loc_BANK4_8512:
       LDA     byte_RAM_5ED
@@ -892,7 +899,7 @@ loc_BANK4_853B:
       BEQ     loc_BANK4_8582
 
 loc_BANK4_8566:
-      JSR     loc_BANK4_8743
+      JSR     PlayTriangleNote
 
       LDX     byte_RAM_61C
       STX     byte_RAM_61D
@@ -922,7 +929,7 @@ loc_BANK4_8582:
 
 loc_BANK4_8585:
       LDA     byte_RAM_609
-      AND     #$14
+      AND     #Music1_Inside|Music1_Invincible
       BNE     loc_BANK4_85E0
 
       LDA     byte_RAM_616
@@ -973,7 +980,7 @@ loc_BANK4_85CF:
 
 loc_BANK4_85D8:
       LDA     byte_RAM_609
-      AND     #$14
+      AND     #Music1_Inside|Music1_Invincible
       BNE     loc_BANK4_85E0
 
       RTS
@@ -1188,40 +1195,56 @@ locret_BANK4_86B9:
 
 ; End of function sub_BANK4_8643
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK4_86BA:
+; Sets volume/sweep on Square 1 channel
+;
+; Input
+;   X = volume
+;   Y = sweep
+SetSquare1VolumeAndSweep:
       STY     SQ1_SWEEP
       STX     SQ1_VOL
       RTS
 
-; End of function sub_BANK4_86BA
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK4_86C1:
+; Sets volume/sweep on Square 2 channel
+;
+; Input
+;   X = volume
+;   Y = sweep
+SetSquare2VolumeAndSweep:
       STX     SQ2_VOL
       STY     SQ2_SWEEP
       RTS
 
-; End of function sub_BANK4_86C1
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK4_86C8:
+; Sets volume/sweep on Square 1 channel and plays a note
+;
+; Input
+;   A = note
+;   X = volume
+;   Y = sweep
+PlaySquare1Sweep:
       STX     SQ1_VOL
       STY     SQ1_SWEEP
 
-; End of function sub_BANK4_86C8
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK4_86CE:
+; Play a note on the Square 1 channel
+;
+; Input
+;   A = note
+PlaySquare1Note:
       LDX     #$00
 
-loc_BANK4_86D0:
+; Plays a note
+;
+; Input
+;   A = note
+;   X = channel
+;       $00: square 1
+;       $04: square 2
+;       $08: triangle
+;       $0C: noise
+PlayNote:
       CMP     #$7E
-      BNE     loc_BANK4_86DC
+      BNE     PlayNote_NotRest
 
       LDA     #$10
       STA     SQ1_VOL,X
@@ -1230,20 +1253,20 @@ loc_BANK4_86D0:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK4_86DC:
+PlayNote_NotRest:
       LDY     #$01
       STY     NextOctave
       PHA
       TAY
-      BMI     loc_BANK4_86ED
+      BMI     PlayNote_LoadFrequencyData
 
-loc_BANK4_86E5:
+PlayNote_IncrementOctave:
       INC     NextOctave
       SEC
       SBC     #$18
-      BPL     loc_BANK4_86E5
+      BPL     PlayNote_IncrementOctave
 
-loc_BANK4_86ED:
+PlayNote_LoadFrequencyData:
       CLC
       ADC     #$18
       TAY
@@ -1252,12 +1275,13 @@ loc_BANK4_86ED:
       LDA     NoteFrequencyData+1,Y
       STA     NextFrequencyHi
 
-loc_BANK4_86FB:
+PlayNote_FrequencyOctaveLoop:
       LSR     NextFrequencyHi
       ROR     NextFrequencyLo
       DEC     NextOctave
-      BNE     loc_BANK4_86FB
+      BNE     PlayNote_FrequencyOctaveLoop
 
+      ; tweak the frequency for notes < $38
       PLA
       CMP     #$38
       BCC     loc_BANK4_870B
@@ -1266,9 +1290,7 @@ loc_BANK4_86FB:
 
 loc_BANK4_870B:
       TXA
-
-loc_BANK4_870C:
-      CMP     #4
+      CMP     #APUOffset_Square2
       BNE     loc_BANK4_8717
 
       LDA     byte_RAM_5F2
@@ -1284,38 +1306,46 @@ loc_BANK4_8717:
       STA     SQ1_HI,X
       RTS
 
-; ---------------------------------------------------------------------------
-
 loc_BANK4_8727:
       LDA     NextFrequencyLo
       SEC
-      SBC     #2
+      SBC     #$02
       STA     SQ2_LO
       STA     byte_RAM_C2
       LDA     NextFrequencyHi
-      ORA     #8
+      ORA     #$08
       STA     SQ2_HI
       RTS
 
-; End of function sub_BANK4_86CE
-
-; ---------------------------------------------------------------------------
+; (not referenced)
+; Sets volume/sweep on Square 2 channel and plays a note
+;
+; Input
+;   A = note
+;   X = volume
+;   Y = sweep
+PlaySquare2Sweep:
       STX     SQ2_VOL
       STY     SQ2_SWEEP
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK4_873F:
-      LDX     #4
-      BNE     loc_BANK4_86D0
+; Play a note on the Square 2 channel
+;
+; Input
+;   A = note
+PlaySquare2Note:
+      LDX     #APUOffset_Square2
+      BNE     PlayNote
 
-; End of function sub_BANK4_873F
+; Play a note on the Triangle channel
+;
+; Input
+;   A = note
+PlayTriangleNote:
+      LDX     #APUOffset_Triangle
+      BNE     PlayNote
 
-loc_BANK4_8743:
-      LDX     #8
-      BNE     loc_BANK4_86D0
-
-; ---------------------------------------------------------------------------
 NoteFrequencyData:
       .WORD $1AB8 ; C
       .WORD $1938 ; C# / Db

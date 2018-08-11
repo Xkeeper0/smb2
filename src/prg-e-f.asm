@@ -809,7 +809,7 @@ sub_BANKF_E17F:
 
       JSR     WaitForNMI_TurnOffPPU
 
-      LDA     #$40
+      LDA     #Stack100_Menu
       STA     StackArea
       LDA     #ScreenUpdateBuffer_CharacterSelect
       STA     ScreenUpdateIndex
@@ -885,12 +885,12 @@ loc_BANKF_E1E5:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_E1F4:
-      LDA     #$C0
+SetStack100Gameplay:
+      LDA     #Stack100_Gameplay
       STA     StackArea
       RTS
 
-; End of function sub_BANKF_E1F4
+; End of function SetStack100Gameplay
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -913,15 +913,13 @@ InitializeSomeLevelStuff:
 ; End of function InitializeSomeLevelStuff
 
 ; ---------------------------------------------------------------------------
-byte_BANKF_E220:
+PlayerSelectArrowTop:
       .BYTE $C9
-
       .BYTE $D5
       .BYTE $D1
       .BYTE $CD
-byte_BANKF_E224:
+PlayerSelectArrowBottom:
       .BYTE $E9
-
       .BYTE $F5
       .BYTE $F1
       .BYTE $ED
@@ -981,7 +979,7 @@ loc_BANKF_E269:
       DEC     byte_RAM_2
       BPL     loc_BANKF_E269
 
-      JSR     sub_BANKF_E1F4
+      JSR     SetStack100Gameplay
 
       JSR     WaitForNMI_TurnOffPPU
 
@@ -1114,7 +1112,7 @@ loc_BANKF_E311:
       LDY     CurrentCharacter
       LDA     #$21
       STA     byte_RAM_309
-      LDA     byte_BANKF_E220,Y
+      LDA     PlayerSelectArrowTop,Y
       STA     byte_RAM_30A
       LDA     #2
       STA     byte_RAM_30B
@@ -1124,7 +1122,7 @@ loc_BANKF_E311:
       STA     byte_RAM_30D
       LDA     #$21
       STA     byte_RAM_30E
-      LDA     byte_BANKF_E224,Y
+      LDA     PlayerSelectArrowBottom,Y
       STA     byte_RAM_30F
       LDA     #2
       STA     byte_RAM_310
@@ -1288,7 +1286,7 @@ loc_BANKF_E43B:
 loc_BANKF_E44A:
       STA     PPUCtrlMirror
       STA     PPUCTRL
-      LDA     #$80
+      LDA     #Stack100_Transition
       STA     StackArea
       LDA     #PRGBank_8_9
       JSR     ChangeMappedPRGBank
@@ -1308,7 +1306,7 @@ loc_BANKF_E44A:
 
       JSR     WaitForNMI
 
-      JSR     sub_BANKF_E1F4
+      JSR     SetStack100Gameplay
 
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
@@ -1344,7 +1342,7 @@ loc_BANKF_E491:
       AND     #ControllerInput_Start
       BEQ     loc_BANKF_E4A3
 
-      JMP     loc_BANKF_E515
+      JMP     ShowPauseScreen
 
 ; ---------------------------------------------------------------------------
 
@@ -1410,7 +1408,7 @@ loc_BANKF_E4E5:
 
       LDA     Player1JoypadPress
       AND     #ControllerInput_Start
-      BNE     loc_BANKF_E515
+      BNE     ShowPauseScreen
 
 ; vertical level
 loc_BANKF_E4F4:
@@ -1439,15 +1437,15 @@ loc_BANKF_E502:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKF_E515:
+ShowPauseScreen:
       JSR     sub_BANKF_E9E5
 
-      LDA     #$41
-; used when running sound queues
+      ; used when running sound queues
+      LDA     #Stack100_Pause
       STA     StackArea
 
 loc_BANKF_E51D:
-      LDA     #$E
+      LDA     #$0E
       STA     byte_RAM_6
 
 DoSuicideCheatCheck:
@@ -1493,7 +1491,7 @@ loc_BANKF_E54B:
 
       JSR     WaitForNMI
 
-      JSR     sub_BANKF_E1F4
+      JSR     SetStack100Gameplay
 
       JSR     HideAllSprites
 
@@ -1898,13 +1896,13 @@ EndOfLevelSlotMachine:
 
       LDA     #ScreenUpdateBuffer_RAM_BonusChanceLayout
       STA     ScreenUpdateIndex
-      LDA     #$40
+      LDA     #Stack100_Menu
       STA     StackArea
       JSR     EnableNMI
 
       JSR     WaitForNMI
 
-      LDA     #$C0
+      LDA     #Stack100_Gameplay
       STA     StackArea
       JSR     DisableNMI
 
@@ -1938,7 +1936,7 @@ loc_BANKF_E802:
       CMP     CurrentLevel
       BNE     loc_BANKF_E81E
 
-      JSR     sub_BANKF_E1F4
+      JSR     SetStack100Gameplay
 
       LDA     #$FF
       STA     CurrentMusicIndex
@@ -1977,7 +1975,7 @@ loc_BANKF_E826:
       STY     TransitionType_Init
       DEY
       STY     CurrentMusicIndex
-      JSR     sub_BANKF_E1F4
+      JSR     SetStack100Gameplay
 
       JMP     loc_BANKF_E435
 
@@ -2372,7 +2370,7 @@ sub_BANKF_EA68:
       STA     byte_RAM_588
       LDA     #ScreenUpdateBuffer_RAM_583
       STA     ScreenUpdateIndex
-      LDA     #$40
+      LDA     #Stack100_Menu
       STA     StackArea
       JSR     EnableNMI
 
@@ -2629,9 +2627,9 @@ NMI:
       TYA
       PHA
       BIT     StackArea
-      BPL     loc_BANKF_EB5E
+      BPL     loc_BANKF_EB5E ; branch if bit 7 was 0
 
-      BVC     loc_BANKF_EB3F
+      BVC     loc_BANKF_EB3F ; branch if bit 6 was 0
 
       LDA     #0
       STA     PPUMASK
@@ -3176,8 +3174,9 @@ sub_BANKF_F0F9:
       LDA     byte_RAM_4C7
       BNE     loc_BANKF_F11B
 
+      ; boss clear fanfare locks player moement
       LDA     byte_RAM_606
-      CMP     #2
+      CMP     #Music2_BossClearFanfare
       BEQ     loc_BANKF_F115
 
       LDA     PlayerLock
@@ -3209,8 +3208,9 @@ sub_BANKF_F11E:
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
+      ; boss clear fanfare locks player moement
       LDA     byte_RAM_606
-      CMP     #2
+      CMP     #Music2_BossClearFanfare
       BEQ     loc_BANKF_F13A
 
       LDA     PlayerLock
@@ -3285,8 +3285,9 @@ sub_BANKF_F17E:
       LDA     byte_RAM_4C7
       BNE     loc_BANKF_F1AB
 
+      ; boss clear fanfare locks player moement
       LDA     byte_RAM_606
-      CMP     #2
+      CMP     #Music2_BossClearFanfare
       BEQ     loc_BANKF_F19D
 
       LDA     PlayerLock
@@ -5296,10 +5297,11 @@ ChangeMappedPRGBankWithoutSaving:
 
 ; =============== S U B R O U T I N E =======================================
 
+; Writing to $A000 sets mirroring.
+;   A = $00 for vertical
+;   A = $01 for horizontal
 ChangeNametableMirroring:
-      STA     $A000 ; Writing to $A000 sets mirroring.
-; 0 Vertical
-; 1 Horizontal
+      STA     $A000
       RTS
 
 ; End of function ChangeNametableMirroring

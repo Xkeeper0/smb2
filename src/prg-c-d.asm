@@ -276,7 +276,7 @@ MarioSleepingScene:
 
       JSR     ClearNametablesAndSprites
 
-      LDA     #$40
+      LDA     #Stack100_Menu
       STA     StackArea
       JSR     sub_BANKC_8033
 

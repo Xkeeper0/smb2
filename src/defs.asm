@@ -31,6 +31,12 @@ Character_Luigi = $03
 
 ; ---------------------------------------------------------------------------
 
+; enum APUOffset
+APUOffset_Square1 = $00
+APUOffset_Square2 = $04
+APUOffset_Triangle = $08
+APUOffset_Noise = $0C
+
 ; enum Music1
 Music1_Overworld = $01
 Music1_CharacterSelect = $02
@@ -228,6 +234,12 @@ GameMode_TitleCard = $01
 GameMode_GameOver = $02
 GameMode_BonusChance = $03
 GameMode_Warp = $04
+
+; enum Stack100
+Stack100_Menu = %01000000 ; static screens (eg. character select)
+Stack100_Pause = %01000001 ; static screen with muted square channels (pause)
+Stack100_Transition = %10000000 ; used for transitions, disable input and mirroring
+Stack100_Gameplay = %11000000 ; normal gameplay
 
 ; ---------------------------------------------------------------------------
 

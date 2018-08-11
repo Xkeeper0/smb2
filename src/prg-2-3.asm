@@ -9520,15 +9520,14 @@ loc_BANK3_B16D:
 ; End of function sub_BANK3_B0E8
 
 ; ---------------------------------------------------------------------------
+; used by vegetable thrower
 byte_BANK3_B170:
       .BYTE $08
-
       .BYTE $28
       .BYTE $48
       .BYTE $28
 byte_BANK3_B174:
       .BYTE $94
-
       .BYTE $84
       .BYTE $94
       .BYTE $84
@@ -10405,7 +10404,7 @@ loc_BANK3_B707:
       .WORD loc_BANK3_B761
       .WORD loc_BANK3_B95C
       .WORD loc_BANK3_B8D1
-      .WORD unk_BANK3_B956
+      .WORD loc_BANK3_B956
       .WORD loc_BANK3_B71D
 ; ---------------------------------------------------------------------------
 
@@ -10832,15 +10831,10 @@ loc_BANK3_B922:
 locret_BANK3_B955:
       RTS
 
-; ---------------------------------------------------------------------------
-unk_BANK3_B956:
-      .BYTE $8A
-      .BYTE $F0
-      .BYTE $FC
-      .BYTE $4C
-      .BYTE $EA
-      .BYTE $B9
-; ---------------------------------------------------------------------------
+loc_BANK3_B956:
+      TXA
+      BEQ     locret_BANK3_B955
+      JMP     loc_BANK3_B9EA
 
 loc_BANK3_B95C:
       LDY     byte_RAM_12
