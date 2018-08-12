@@ -641,8 +641,8 @@ ProcessMusicQueue2_ReadHeader:
       STA     MusicNoiseNoteLength
       STA     MusicDPCMNoteLength
       LDA     #$00
-      STA     byte_RAM_613
-      STA     byte_RAM_60C
+      STA     MusicSquare1NoteOffset
+      STA     MusicSquare1NoteSweep
 
       LDA     #%00001011
       STA     SND_CHN
@@ -651,10 +651,10 @@ ProcessMusicQueue2_ReadHeader:
 
 ProcessMusicQueue2_ReadNoteData:
       DEC     MusicSquare2NoteLength
-      BNE     loc_BANK4_84A1
+      BNE     ProcessMusicQueue2_SustainNote
 
-      LDY     byte_RAM_613
-      INC     byte_RAM_613
+      LDY     MusicSquare1NoteOffset
+      INC     MusicSquare1NoteOffset
       LDA     (CurrentMusicPointer),Y
       BEQ     ProcessMusicQueue2_EndOfSegment
 
@@ -691,8 +691,6 @@ ProcessMusicQueue2_ThenSetNextPart:
 ProcessMusicQueue2_ResumeMusicQueue1:
       JMP     ProcessMusicQueue2_MusicQueue1
 
-; ---------------------------------------------------------------------------
-
 ProcessMusicQueue2_Patch:
       TAX
       AND     #$F0
@@ -701,8 +699,8 @@ ProcessMusicQueue2_Patch:
       JSR     ProcessMusicQueue2_PatchNoteLength
 
       STA     MusicSquare2NoteStartLength
-      LDY     byte_RAM_613
-      INC     byte_RAM_613
+      LDY     MusicSquare1NoteOffset
+      INC     MusicSquare1NoteOffset
       LDA     (CurrentMusicPointer),Y
 
 ProcessMusicQueue2_Note:
@@ -722,8 +720,6 @@ ProcessMusicQueue2_Note:
 loc_BANK4_848D:
       LDA     MusicSquare2NoteStartLength
       LDX     byte_RAM_BF
-
-loc_BANK4_8492:
       JSR     sub_BANK4_8634
 
 loc_BANK4_8495:
@@ -734,7 +730,7 @@ loc_BANK4_849B:
       LDA     MusicSquare2NoteStartLength
       STA     MusicSquare2NoteLength
 
-loc_BANK4_84A1:
+ProcessMusicQueue2_SustainNote:
       LDX     SoundEffectPlaying1
       BNE     loc_BANK4_84BF
 
@@ -754,7 +750,7 @@ loc_BANK4_84AE:
 
 loc_BANK4_84BF:
       DEC     MusicSquare1NoteLength
-      BNE     loc_BANK4_8518
+      BNE     ProcessMusicQueue2_Square1SustainNote
 
 loc_BANK4_84C4:
       LDY     CurrentMusicSquare1Offset
@@ -764,7 +760,7 @@ loc_BANK4_84C4:
 
       TAX
       AND     #$F0
-      STA     byte_RAM_5F2
+      STA     MusicSquare1Patch
       TXA
       JSR     ProcessMusicQueue2_PatchNoteLength
 
@@ -775,16 +771,16 @@ loc_BANK4_84C4:
 
 loc_BANK4_84E3:
       TAY
-      BNE     loc_BANK4_84F5
+      BNE     ProcessMusicQueue2_Square1Note
 
       LDA     #$83
       STA     SQ1_VOL
       LDA     #$94
       STA     SQ1_SWEEP
-      STA     byte_RAM_60C
+      STA     MusicSquare1NoteSweep
       BNE     loc_BANK4_84C4
 
-loc_BANK4_84F5:
+ProcessMusicQueue2_Square1Note:
       LDY     SoundEffectPlaying2
       BNE     loc_BANK4_8512
 
@@ -792,7 +788,6 @@ loc_BANK4_84F5:
 
       BNE     loc_BANK4_8504
 
-loc_BANK4_84FF:
       LDA     byte_RAM_BF
       JMP     loc_BANK4_850C
 
@@ -811,7 +806,7 @@ loc_BANK4_8512:
       LDA     MusicSquare1NoteStartLength
       STA     MusicSquare1NoteLength
 
-loc_BANK4_8518:
+ProcessMusicQueue2_Square1SustainNote:
       LDA     SoundEffectPlaying2
       BNE     loc_BANK4_853B
 
@@ -822,11 +817,11 @@ loc_BANK4_8518:
 
 loc_BANK4_8525:
       LDA     MusicSquare1NoteStartLength
-      LDX     byte_RAM_5F2
+      LDX     MusicSquare1Patch
       JSR     sub_BANK4_8643
 
       STA     SQ1_VOL
-      LDA     byte_RAM_60C
+      LDA     MusicSquare1NoteSweep
       BNE     loc_BANK4_8538
 
       LDA     #$7F
@@ -1260,7 +1255,7 @@ loc_BANK4_870B:
       CMP     #APUOffset_Square2
       BNE     loc_BANK4_8717
 
-      LDA     byte_RAM_5F2
+      LDA     MusicSquare1Patch
       CMP     #$E0
       BEQ     loc_BANK4_8727
 

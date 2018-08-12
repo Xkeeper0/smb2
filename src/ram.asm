@@ -1895,7 +1895,7 @@ MusicPointerLoopPart:
       .dsb 1 ; $05f0
 MusicSquare2Patch:
       .dsb 1 ; $05f1
-byte_RAM_5F2:
+MusicSquare1Patch:
       .dsb 1 ; $05f2
 MusicResume1:
       .dsb 1 ; $05f3
@@ -1989,7 +1989,7 @@ MusicPlaying1:
 DPCMTimer:
       .dsb 1 ; $060a
       .dsb 1 ; $060b
-byte_RAM_60C:
+MusicSquare1NoteSweep:
       .dsb 1 ; $060c
 SoundEffectPlaying2:
       .dsb 1 ; $060d
@@ -2003,7 +2003,7 @@ MusicTempoSetting:
       .dsb 1 ; $0612
       ; Music tempo control?
       ; Locking this changes the speed of music
-byte_RAM_613:
+MusicSquare1NoteOffset:
       .dsb 1 ; $0613
 CurrentMusicSquare1Offset:
       .dsb 1 ; $0614
