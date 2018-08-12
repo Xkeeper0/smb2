@@ -49,6 +49,18 @@ Music1_Title = $80
 
 ; ---------------------------------------------------------------------------
 
+; enum Music2
+Music2_MushroomGetJingle = $01
+Music2_BossClearFanfare = $02
+Music2_EndingAndCast = $04
+Music2_DeathJingle = $08
+Music2_GameOver = $10
+Music2_CrystalGetFanfare = $20
+Music2_SlotWarpFanfare = $40
+Music2_StopMusic = $80
+
+; ---------------------------------------------------------------------------
+
 ; enum ControllerInput (bitfield) (width 1 byte)
 ControllerInput_Right = $01
 ControllerInput_Left = $02
@@ -162,18 +174,6 @@ PPUStatus_VBlankHit = %10000000
 SoundEffect3_ShortNoise = $01 ; Whale spout
 SoundEffect3_Rumble_A = $02 ; Rocket
 SoundEffect3_Rumble_B = $04 ; POW rumble
-
-; ---------------------------------------------------------------------------
-
-; enum Music2
-Music2_MushroomGetJingle = $01
-Music2_BossClearFanfare = $02
-Music2_EndingAndCast = $04
-Music2_DeathJingle = $08
-Music2_GameOver = $10
-Music2_CrystalGetFanfare = $20
-Music2_SlotWarpFanfare = $40
-Music2_StopMusic = $80
 
 ; ---------------------------------------------------------------------------
 

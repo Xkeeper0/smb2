@@ -2965,7 +2965,7 @@ LevelMusicTable:
       BCS     locret_BANK6_9528
 
       LDA     LevelMusicTable,X
-      STA     Music1Queue
+      STA     MusicQueue1
 
 locret_BANK6_9547:
       RTS

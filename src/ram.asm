@@ -1883,42 +1883,42 @@ Continues:
       .dsb 1 ; $05e9
       .dsb 1 ; $05ea
       .dsb 1 ; $05eb
-byte_RAM_5EC:
+MusicPointerCurrentPart:
       .dsb 1 ; $05ec
-byte_RAM_5ED:
+MusicSquare1NoteStartLength:
       .dsb 1 ; $05ed
-byte_RAM_5EE:
+MusicPointerFirstPart:
       .dsb 1 ; $05ee
-byte_RAM_5EF:
+MusicPointerEndPart:
       .dsb 1 ; $05ef
-byte_RAM_5F0:
+MusicPointerLoopPart:
       .dsb 1 ; $05f0
-byte_RAM_5F1:
+MusicSquare2Patch:
       .dsb 1 ; $05f1
 byte_RAM_5F2:
       .dsb 1 ; $05f2
-byte_RAM_5F3:
+MusicResume1:
       .dsb 1 ; $05f3
 NextOctave:
       .dsb 1 ; $05f4
-byte_RAM_5F5:
+CurrentMusicNoiseStartOffset:
       .dsb 1 ; $05f5
       .dsb 1 ; $05f6
       .dsb 1 ; $05f7
       .dsb 1 ; $05f8
 unk_RAM_5F9:
       .dsb 1 ; $05f9
-byte_RAM_5FA:
+MusicDPCMNoteLength:
       .dsb 1 ; $05fa
-byte_RAM_5FB:
+MusicDPCMNoteStartLength:
       .dsb 1 ; $05fb
-byte_RAM_5FC:
+CurrentMusicDPCMStartOffset:
       .dsb 1 ; $05fc
       .dsb 1 ; $05fd
       .dsb 1 ; $05fe
-byte_RAM_5FF:
+CurrentMusicDPCMOffset:
       .dsb 1 ; $05ff
-Music1Queue:
+MusicQueue1:
       .dsb 1 ; $0600
        ; #01 Overworld
        ; #02 Character Select
@@ -1978,13 +1978,13 @@ SoundEffectQueue3:
       ; $20 -N/A-
       ; $40 -N/A-
       ; $80 -N/A-
-byte_RAM_606:
+MusicPlaying2:
       .dsb 1 ; $0606
 SoundEffectPlaying1:
       .dsb 1 ; $0607
 DPCMPlaying:
       .dsb 1 ; $0608
-byte_RAM_609:
+MusicPlaying1:
       .dsb 1 ; $0609
 DPCMTimer:
       .dsb 1 ; $060a
@@ -2005,29 +2005,29 @@ MusicTempoSetting:
       ; Locking this changes the speed of music
 byte_RAM_613:
       .dsb 1 ; $0613
-byte_RAM_614:
+CurrentMusicSquare1Offset:
       .dsb 1 ; $0614
-byte_RAM_615:
+CurrentMusicTriangleOffset:
       .dsb 1 ; $0615
-byte_RAM_616:
+CurrentMusicNoiseOffset:
       .dsb 1 ; $0616
-byte_RAM_617:
+MusicSquare2NoteStartLength:
       .dsb 1 ; $0617
-byte_RAM_618:
+MusicSquare2NoteLength:
       .dsb 1 ; $0618
 byte_RAM_619:
       .dsb 1 ; $0619
-byte_RAM_61A:
+MusicSquare1NoteLength:
       .dsb 1 ; $061a
 byte_RAM_61B:
       .dsb 1 ; $061b
-byte_RAM_61C:
+MusicTriangleNoteStartLength:
       .dsb 1 ; $061c
-byte_RAM_61D:
+MusicTriangleNoteLength:
       .dsb 1 ; $061d
-byte_RAM_61E:
+MusicNoiseNoteLength:
       .dsb 1 ; $061e
-byte_RAM_61F:
+MusicNoiseNoteStartLength:
       .dsb 1 ; $061f
 Mushroom1upPulled:
       .dsb 1 ; $0620

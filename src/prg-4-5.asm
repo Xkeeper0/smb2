@@ -51,7 +51,7 @@ ProcessOnlyMusicQueue2:
       STA     MusicQueue2
       STA     SoundEffectQueue1
       STA     DPCMQueue
-      STA     Music1Queue
+      STA     MusicQueue1
       STA     SoundEffectQueue3
       RTS
 
@@ -536,8 +536,8 @@ DMCFreqTable:
       .BYTE $60
 
 
-loc_BANK4_835B:
-      JMP     loc_BANK4_8429
+ProcessMusicQueue2_ThenReadNoteData:
+      JMP     ProcessMusicQueue2_ReadNoteData
 
 ProcessMusicQueue2_StopMusic:
       JMP     StopMusic
@@ -547,83 +547,76 @@ ProcessMusicQueue2:
       BMI     ProcessMusicQueue2_StopMusic
 
       CMP     #Music2_EndingAndCast
-      BEQ     loc_BANK4_837D
+      BEQ     ProcessMusicQueue2_EndingAndCast
 
       LDA     MusicQueue2
-      BNE     loc_BANK4_83C5
+      BNE     ProcessMusicQueue2_Part2
 
-      LDA     Music1Queue
-      BNE     loc_BANK4_8389
+      LDA     MusicQueue1
+      BNE     ProcessMusicQueue2_MusicQueue1
 
-      LDA     byte_RAM_606
-      ORA     byte_RAM_609
-      BNE     loc_BANK4_835B
+      LDA     MusicPlaying2
+      ORA     MusicPlaying1
+      BNE     ProcessMusicQueue2_ThenReadNoteData
 
       RTS
 
-; ---------------------------------------------------------------------------
-
-; cue ending music
-loc_BANK4_837D:
-      STA     byte_RAM_606
+ProcessMusicQueue2_EndingAndCast:
+      STA     MusicPlaying2
       LDY     #$00
-      STY     byte_RAM_609
-      LDY     #$08
-      BNE     loc_BANK4_8397
+      STY     MusicPlaying1
+      LDY     #$08 ; index of ending music pointer
+      BNE     ProcessMusicQueue2_ReadFirstPointer
 
-; cue music queue 1
-loc_BANK4_8389:
-      STA     byte_RAM_609
+ProcessMusicQueue2_MusicQueue1:
+      STA     MusicPlaying1
       LDY     #$00
-      STY     byte_RAM_606
+      STY     MusicPlaying2
       LDY     #$FF
 
-; counting up Y to get the offset in the music pointer table
-loc_BANK4_8393:
+ProcessMusicQueue2_FirstPointerLoop:
       INY
       LSR     A
-      BCC     loc_BANK4_8393
+      BCC     ProcessMusicQueue2_FirstPointerLoop
 
-loc_BANK4_8397:
+ProcessMusicQueue2_ReadFirstPointer:
       LDA     MusicPointersFirstPart,Y
-      STA     byte_RAM_5EE
+      STA     MusicPointerFirstPart
       LDA     MusicPointersEndPart,Y
       CLC
       ADC     #$02
-      STA     byte_RAM_5EF
+      STA     MusicPointerEndPart
       LDA     MusicPointersLoopPart,Y
-      STA     byte_RAM_5F0
-      LDA     byte_RAM_5EE
+      STA     MusicPointerLoopPart
+      LDA     MusicPointerFirstPart
 
-loc_BANK4_83AF:
-      STA     byte_RAM_5EC
+ProcessMusicQueue2_SetCurrentPart:
+      STA     MusicPointerCurrentPart
 
-loc_BANK4_83B2:
-      INC     byte_RAM_5EC
-      LDY     byte_RAM_5EC
-      CPY     byte_RAM_5EF
-      BNE     loc_BANK4_83D7
+ProcessMusicQueue2_SetNextPart:
+      INC     MusicPointerCurrentPart
+      LDY     MusicPointerCurrentPart
+      CPY     MusicPointerEndPart
+      BNE     ProcessMusicQueue2_ReadHeader
 
-      LDA     byte_RAM_5F0
-      BNE     loc_BANK4_83AF
+      LDA     MusicPointerLoopPart
+      BNE     ProcessMusicQueue2_SetCurrentPart
 
       JMP     StopMusic
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_83C5:
-      STA     byte_RAM_606
-      LDY     byte_RAM_609
-      STY     byte_RAM_5F3
+ProcessMusicQueue2_Part2:
+      STA     MusicPlaying2
+      LDY     MusicPlaying1
+      STY     MusicResume1
       LDY     #$00
-      STY     byte_RAM_609
+      STY     MusicPlaying1
 
-loc_BANK4_83D3:
+ProcessMusicQueue2_PointerLoop:
       INY
       LSR     A
-      BCC     loc_BANK4_83D3
+      BCC     ProcessMusicQueue2_PointerLoop
 
-loc_BANK4_83D7:
+ProcessMusicQueue2_ReadHeader:
       LDA     MusicPartPointers-1,Y
       TAY
       LDA     MusicPartPointers,Y
@@ -633,92 +626,86 @@ loc_BANK4_83D7:
       LDA     MusicPartPointers+2,Y
       STA     CurrentMusicPointer+1
       LDA     MusicPartPointers+3,Y
-      STA     byte_RAM_615
+      STA     CurrentMusicTriangleOffset
       LDA     MusicPartPointers+4,Y
-      STA     byte_RAM_614
+      STA     CurrentMusicSquare1Offset
       LDA     MusicPartPointers+5,Y
-      STA     byte_RAM_616
-      STA     byte_RAM_5F5
-      STA     byte_RAM_5FF
-      STA     byte_RAM_5FC
-      LDA     #1
-      STA     byte_RAM_618
-      STA     byte_RAM_61A
-      STA     byte_RAM_61D
-      STA     byte_RAM_61E
-      STA     byte_RAM_5FA
-      LDA     #0
+      STA     CurrentMusicNoiseOffset
+      STA     CurrentMusicNoiseStartOffset
+      STA     CurrentMusicDPCMOffset
+      STA     CurrentMusicDPCMStartOffset
+      LDA     #$01
+      STA     MusicSquare2NoteLength
+      STA     MusicSquare1NoteLength
+      STA     MusicTriangleNoteLength
+      STA     MusicNoiseNoteLength
+      STA     MusicDPCMNoteLength
+      LDA     #$00
       STA     byte_RAM_613
       STA     byte_RAM_60C
+
       LDA     #%00001011
       STA     SND_CHN
       LDA     #%00001111
       STA     SND_CHN
 
-loc_BANK4_8429:
-      DEC     byte_RAM_618
+ProcessMusicQueue2_ReadNoteData:
+      DEC     MusicSquare2NoteLength
       BNE     loc_BANK4_84A1
 
       LDY     byte_RAM_613
       INC     byte_RAM_613
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_843C
+      BEQ     ProcessMusicQueue2_EndOfSegment
 
-      BPL     loc_BANK4_847D
+      BPL     ProcessMusicQueue2_Note
 
-      BNE     loc_BANK4_8468
+      BNE     ProcessMusicQueue2_Patch
 
-loc_BANK4_843C:
-      LDA     byte_RAM_609
-      BNE     loc_BANK4_8462
+ProcessMusicQueue2_EndOfSegment:
+      LDA     MusicPlaying1
+      BNE     ProcessMusicQueue2_ThenSetNextPart
 
-loc_BANK4_8441:
-      LDA     byte_RAM_606
+      LDA     MusicPlaying2
       CMP     #Music2_EndingAndCast
-      BEQ     loc_BANK4_8462
+      BEQ     ProcessMusicQueue2_ThenSetNextPart
 
-      AND     #$25
+      AND     #Music1_Overworld|Music1_Inside|Music1_Subspace
       BEQ     StopMusic
 
-      LDA     byte_RAM_5F3
-      BNE     loc_BANK4_8465
+      LDA     MusicResume1
+      BNE     ProcessMusicQueue2_ResumeMusicQueue1
 
 StopMusic:
-      LDA     #$00 ; Pretty sure this stops the music
-      STA     byte_RAM_606
-      STA     byte_RAM_609
+      LDA     #$00
+      STA     MusicPlaying2
+      STA     MusicPlaying1
       STA     SND_CHN
-
-loc_BANK4_845C:
       LDX     #%00001111
       STX     SND_CHN
       RTS
 
-; ---------------------------------------------------------------------------
+ProcessMusicQueue2_ThenSetNextPart:
+      JMP     ProcessMusicQueue2_SetNextPart
 
-loc_BANK4_8462:
-      JMP     loc_BANK4_83B2
-
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8465:
-      JMP     loc_BANK4_8389
+ProcessMusicQueue2_ResumeMusicQueue1:
+      JMP     ProcessMusicQueue2_MusicQueue1
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK4_8468:
+ProcessMusicQueue2_Patch:
       TAX
       AND     #$F0
-      STA     byte_RAM_5F1
+      STA     MusicSquare2Patch
       TXA
-      JSR     sub_BANK4_8629
+      JSR     ProcessMusicQueue2_PatchNoteLength
 
-      STA     byte_RAM_617
+      STA     MusicSquare2NoteStartLength
       LDY     byte_RAM_613
       INC     byte_RAM_613
       LDA     (CurrentMusicPointer),Y
 
-loc_BANK4_847D:
+ProcessMusicQueue2_Note:
       LDX     SoundEffectPlaying1
       BNE     loc_BANK4_849B
 
@@ -733,7 +720,7 @@ loc_BANK4_847D:
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_848D:
-      LDA     byte_RAM_617
+      LDA     MusicSquare2NoteStartLength
       LDX     byte_RAM_BF
 
 loc_BANK4_8492:
@@ -744,8 +731,8 @@ loc_BANK4_8495:
       JSR     SetSquare2VolumeAndSweep
 
 loc_BANK4_849B:
-      LDA     byte_RAM_617
-      STA     byte_RAM_618
+      LDA     MusicSquare2NoteStartLength
+      STA     MusicSquare2NoteLength
 
 loc_BANK4_84A1:
       LDX     SoundEffectPlaying1
@@ -757,8 +744,8 @@ loc_BANK4_84A1:
       DEC     byte_RAM_619
 
 loc_BANK4_84AE:
-      LDA     byte_RAM_617
-      LDX     byte_RAM_5F1
+      LDA     MusicSquare2NoteStartLength
+      LDX     MusicSquare2Patch
       JSR     sub_BANK4_8643
 
       STA     SQ2_VOL
@@ -766,12 +753,12 @@ loc_BANK4_84AE:
       STX     SQ2_SWEEP
 
 loc_BANK4_84BF:
-      DEC     byte_RAM_61A
+      DEC     MusicSquare1NoteLength
       BNE     loc_BANK4_8518
 
 loc_BANK4_84C4:
-      LDY     byte_RAM_614
-      INC     byte_RAM_614
+      LDY     CurrentMusicSquare1Offset
+      INC     CurrentMusicSquare1Offset
       LDA     (CurrentMusicPointer),Y
       BPL     loc_BANK4_84E3
 
@@ -779,11 +766,11 @@ loc_BANK4_84C4:
       AND     #$F0
       STA     byte_RAM_5F2
       TXA
-      JSR     sub_BANK4_8629
+      JSR     ProcessMusicQueue2_PatchNoteLength
 
-      STA     byte_RAM_5ED
-      LDY     byte_RAM_614
-      INC     byte_RAM_614
+      STA     MusicSquare1NoteStartLength
+      LDY     CurrentMusicSquare1Offset
+      INC     CurrentMusicSquare1Offset
       LDA     (CurrentMusicPointer),Y
 
 loc_BANK4_84E3:
@@ -812,7 +799,7 @@ loc_BANK4_84FF:
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_8504:
-      LDA     byte_RAM_5ED
+      LDA     MusicSquare1NoteStartLength
       LDX     byte_RAM_C0
       JSR     sub_BANK4_8634
 
@@ -821,8 +808,8 @@ loc_BANK4_850C:
       JSR     SetSquare1VolumeAndSweep
 
 loc_BANK4_8512:
-      LDA     byte_RAM_5ED
-      STA     byte_RAM_61A
+      LDA     MusicSquare1NoteStartLength
+      STA     MusicSquare1NoteLength
 
 loc_BANK4_8518:
       LDA     SoundEffectPlaying2
@@ -834,7 +821,7 @@ loc_BANK4_8518:
       DEC     byte_RAM_61B
 
 loc_BANK4_8525:
-      LDA     byte_RAM_5ED
+      LDA     MusicSquare1NoteStartLength
       LDX     byte_RAM_5F2
       JSR     sub_BANK4_8643
 
@@ -848,34 +835,34 @@ loc_BANK4_8538:
       STA     SQ1_SWEEP
 
 loc_BANK4_853B:
-      LDA     byte_RAM_615
+      LDA     CurrentMusicTriangleOffset
       BEQ     loc_BANK4_8585
 
-      DEC     byte_RAM_61D
+      DEC     MusicTriangleNoteLength
       BNE     loc_BANK4_8585
 
-      LDY     byte_RAM_615
-      INC     byte_RAM_615
+      LDY     CurrentMusicTriangleOffset
+      INC     CurrentMusicTriangleOffset
       LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_8582
 
       BPL     loc_BANK4_8566
 
-      JSR     sub_BANK4_8629
+      JSR     ProcessMusicQueue2_PatchNoteLength
 
-      STA     byte_RAM_61C
+      STA     MusicTriangleNoteStartLength
       LDA     #$1F
       STA     TRI_LINEAR
-      LDY     byte_RAM_615
-      INC     byte_RAM_615
+      LDY     CurrentMusicTriangleOffset
+      INC     CurrentMusicTriangleOffset
       LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_8582
 
 loc_BANK4_8566:
       JSR     PlayTriangleNote
 
-      LDX     byte_RAM_61C
-      STX     byte_RAM_61D
+      LDX     MusicTriangleNoteStartLength
+      STX     MusicTriangleNoteLength
       TXA
       CMP     #$A
       BCC     loc_BANK4_857C
@@ -901,29 +888,29 @@ loc_BANK4_8582:
       STA     TRI_LINEAR
 
 loc_BANK4_8585:
-      LDA     byte_RAM_609
+      LDA     MusicPlaying1
       AND     #Music1_Inside|Music1_Invincible
       BNE     loc_BANK4_85E0
 
-      LDA     byte_RAM_616
+      LDA     CurrentMusicNoiseOffset
       BEQ     loc_BANK4_85CC
 
-      DEC     byte_RAM_61E
+      DEC     MusicNoiseNoteLength
       BNE     loc_BANK4_85CC
 
 loc_BANK4_8596:
-      LDY     byte_RAM_616
-      INC     byte_RAM_616
+      LDY     CurrentMusicNoiseOffset
+      INC     CurrentMusicNoiseOffset
       LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_85CF
 
       BPL     loc_BANK4_85B2
 
-      JSR     sub_BANK4_8629
+      JSR     ProcessMusicQueue2_PatchNoteLength
 
-      STA     byte_RAM_61F
-      LDY     byte_RAM_616
-      INC     byte_RAM_616
+      STA     MusicNoiseNoteStartLength
+      LDY     CurrentMusicNoiseOffset
+      INC     CurrentMusicNoiseOffset
       LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_85CF
 
@@ -936,8 +923,8 @@ loc_BANK4_85B2:
       STA     NOISE_LO
       LDA     NoiseHiTable,Y
       STA     NOISE_HI
-      LDA     byte_RAM_61F
-      STA     byte_RAM_61E
+      LDA     MusicNoiseNoteStartLength
+      STA     MusicNoiseNoteLength
 
 loc_BANK4_85CC:
       JMP     loc_BANK4_85D8
@@ -945,14 +932,14 @@ loc_BANK4_85CC:
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_85CF:
-      LDA     byte_RAM_5F5
-      STA     byte_RAM_616
+      LDA     CurrentMusicNoiseStartOffset
+      STA     CurrentMusicNoiseOffset
       JMP     loc_BANK4_8596
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_85D8:
-      LDA     byte_RAM_609
+      LDA     MusicPlaying1
       AND     #Music1_Inside|Music1_Invincible
       BNE     loc_BANK4_85E0
 
@@ -960,26 +947,27 @@ loc_BANK4_85D8:
 
 ; ---------------------------------------------------------------------------
 
+; use DPCM instead of noise for percussion channel
 loc_BANK4_85E0:
-      LDA     byte_RAM_5FF
+      LDA     CurrentMusicDPCMOffset
       BEQ     locret_BANK4_8613
 
-      DEC     byte_RAM_5FA
+      DEC     MusicDPCMNoteLength
       BNE     locret_BANK4_8613
 
 loc_BANK4_85EA:
-      LDY     byte_RAM_5FF
-      INC     byte_RAM_5FF
+      LDY     CurrentMusicDPCMOffset
+      INC     CurrentMusicDPCMOffset
       LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_8614
 
       BPL     loc_BANK4_8606
 
-      JSR     sub_BANK4_8629
+      JSR     ProcessMusicQueue2_PatchNoteLength
 
-      STA     byte_RAM_5FB
-      LDY     byte_RAM_5FF
-      INC     byte_RAM_5FF
+      STA     MusicDPCMNoteStartLength
+      LDY     CurrentMusicDPCMOffset
+      INC     CurrentMusicDPCMOffset
       LDA     (CurrentMusicPointer),Y
       BEQ     loc_BANK4_8614
 
@@ -988,8 +976,8 @@ loc_BANK4_8606:
       STA     DPCMQueue
       JSR     ProcessDPCMQueue
 
-      LDA     byte_RAM_5FB
-      STA     byte_RAM_5FA
+      LDA     MusicDPCMNoteStartLength
+      STA     MusicDPCMNoteLength
 
 locret_BANK4_8613:
       RTS
@@ -997,8 +985,8 @@ locret_BANK4_8613:
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_8614:
-      LDA     byte_RAM_5FC
-      STA     byte_RAM_5FF
+      LDA     CurrentMusicDPCMStartOffset
+      STA     CurrentMusicDPCMOffset
       JMP     loc_BANK4_85EA
 
 ; End of function ProcessMusicQueue2
@@ -1009,17 +997,19 @@ NoiseVolTable:
 NoiseLoTable:
       .BYTE $00,$03,$0A,2
 NoiseHiTable:
-      .BYTE $00,$18,$18,$58 ; =============== S U B R O U T I N E =======================================
+      .BYTE $00,$18,$18,$58
 
-sub_BANK4_8629:
+; Input
+;   A = full patch byte
+; Output
+;   A = new note length
+ProcessMusicQueue2_PatchNoteLength:
       AND     #$F
       CLC
       ADC     MusicTempoSetting
       TAY
       LDA     NoteLengthTable,Y
       RTS
-
-; End of function sub_BANK4_8629
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1042,6 +1032,10 @@ loc_BANK4_863E:
 
 ; =============== S U B R O U T I N E =======================================
 
+; apply the current square patch
+; Input
+;   X = patch
+;   A = ??? @TODO
 sub_BANK4_8643:
       CPX     #$90
       BEQ     loc_BANK4_866C
@@ -1432,15 +1426,15 @@ MusicPartPointers:
 ; =============
 ;
 ; These are broken down by song segment and point to the note length table and
-; and individual channel data. Square 1 is the main pointer, and triangle,
-; square 2, and noise are stored as offets relative to the main pointer.
+; and individual channel data. Square 2 is the main pointer, and triangle,
+; square 1, and noise are stored as offets relative to the main pointer.
 ;
 ; Bytes:
 ;   00: Note length table (from $8F00)
-;   01: Main address / Square 1 (lo)
-;   02: Main address / Square 1 (hi)
+;   01: Main address / Square 2 (lo)
+;   02: Main address / Square 2 (hi)
 ;   03: Triangle offset from main
-;   04: Square 2 offset from main
+;   04: Square 1 offset from main
 ;   05: Noise offset from main
 ;
 MusicPartHeaders:
@@ -1555,18 +1549,21 @@ MusicHeaderCrystal:
       .WORD MusicDataCrystal
       .BYTE $1B
       .BYTE $0D
+      ; no noise channel, using $00 from below
 MusicHeaderGameOver:
       .BYTE $00
       ; .BYTE $CE, $A0
       .WORD MusicDataGameOver
       .BYTE $1B
       .BYTE $0E
+      ; no noise channel, using $00 from below
 MusicHeaderBossBeaten:
       .BYTE $00
       ; .BYTE $F2, $A0
       .WORD MusicDataBossBeaten
       .BYTE $41
       .BYTE $27
+      ; no noise channel, using $00 from below
 MusicHeaderCharacterSelect8:
       .BYTE $00
       ; .BYTE $93, $9B
@@ -1580,6 +1577,7 @@ MusicHeaderMushroomBonusChance:
       .WORD MusicDataMushroomBonusChance
       .BYTE $00
       .BYTE $0A
+      ; no noise channel, using $00 from below
 MusicHeaderCharacterSelect7:
       .BYTE $00
       ; .BYTE $DF, $9A
@@ -1593,6 +1591,7 @@ MusicHeaderDeath:
       .WORD MusicDataDeath
       .BYTE $17
       .BYTE $0C
+      ; no noise channel, using $00 from below
 MusicHeaderCharacterSelect6:
       .BYTE $00
       ; .BYTE $5D, $9A

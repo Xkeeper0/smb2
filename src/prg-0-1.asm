@@ -4637,7 +4637,7 @@ loc_BANK0_9A6F:
       JSR     WaitForNMI_TitleScreen
 
       LDA     #Music1_Title
-      STA     Music1Queue
+      STA     MusicQueue1
       JSR     WaitForNMI_TitleScreen_TurnOnPPU
 
       LDA     #3

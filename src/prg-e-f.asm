@@ -1032,7 +1032,7 @@ loc_BANKF_E2B2:
       JSR     DisableNMI
 
       LDA     #Music1_CharacterSelect
-      STA     Music1Queue
+      STA     MusicQueue1
       LDA     CurrentCharacter
       STA     byte_RAM_404
       LDA     CurrentWorld
@@ -1567,7 +1567,7 @@ loc_BANKF_E5A0:
       JSR     ClearSubAreaTileLayout
 
       LDA     #Music1_Inside
-      STA     Music1Queue
+      STA     MusicQueue1
       LDA     #$01
       STA     CurrentMusicIndex
       JMP     loc_BANKF_E5E1
@@ -1578,7 +1578,7 @@ loc_BANKF_E5D4:
       JSR     GenerateSubspaceArea
 
       LDA     #Music1_Subspace
-      STA     Music1Queue
+      STA     MusicQueue1
       LDA     #$04
       STA     CurrentMusicIndex
 
@@ -1652,7 +1652,7 @@ loc_BANKF_E627:
       BNE     loc_BANKF_E64C
 
       LDA     LevelMusicIndexes,Y
-      STA     Music1Queue
+      STA     MusicQueue1
 
 loc_BANKF_E64C:
       LDA     #PRGBank_0_1
@@ -3174,8 +3174,8 @@ sub_BANKF_F0F9:
       LDA     byte_RAM_4C7
       BNE     loc_BANKF_F11B
 
-      ; boss clear fanfare locks player moement
-      LDA     byte_RAM_606
+      ; boss clear fanfare locks player movement
+      LDA     MusicPlaying2
       CMP     #Music2_BossClearFanfare
       BEQ     loc_BANKF_F115
 
@@ -3208,8 +3208,8 @@ sub_BANKF_F11E:
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      ; boss clear fanfare locks player moement
-      LDA     byte_RAM_606
+      ; boss clear fanfare locks player movement
+      LDA     MusicPlaying2
       CMP     #Music2_BossClearFanfare
       BEQ     loc_BANKF_F13A
 
@@ -3268,7 +3268,7 @@ loc_BANKF_F15F:
 
       LDY     CurrentMusicIndex
       LDA     LevelMusicIndexes,Y
-      STA     Music1Queue
+      STA     MusicQueue1
 
 locret_BANKF_F17D:
       RTS
@@ -3286,7 +3286,7 @@ sub_BANKF_F17E:
       BNE     loc_BANKF_F1AB
 
       ; boss clear fanfare locks player moement
-      LDA     byte_RAM_606
+      LDA     MusicPlaying2
       CMP     #Music2_BossClearFanfare
       BEQ     loc_BANKF_F19D
 
@@ -4474,7 +4474,7 @@ sub_BANKF_F6C0:
       BCS     locret_BANKF_F6D9
 
       LDA     LevelMusicIndexes,X
-      STA     Music1Queue
+      STA     MusicQueue1
 
 locret_BANKF_F6D9:
       RTS

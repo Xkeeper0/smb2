@@ -10584,7 +10584,7 @@ CheckCollisionWithPlayer_NotPhanto:
       LDA     #$3F
       STA     StarInvincibilityTimer
       LDA     #Music1_Invincible
-      STA     Music1Queue
+      STA     MusicQueue1
       LDA     #EnemyState_Inactive
       STA     EnemyState,Y
 
