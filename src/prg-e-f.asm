@@ -2183,7 +2183,7 @@ EndingSceneRoutine:
       ; It looks like they missed this one, though.
       STA     byte_RAM_4080
       ASL     A
-      STA     byte_RAM_607
+      STA     SoundEffectPlaying1
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 

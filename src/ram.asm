@@ -282,12 +282,12 @@ byte_RAM_BF:
       .dsb 1 ; $00bf
 byte_RAM_C0:
       .dsb 1 ; $00c0
-byte_RAM_C1:
+SoundEffect1DataOffset:
       .dsb 1 ; $00c1
 byte_RAM_C2:
       .dsb 1 ; $00c2
       .dsb 1 ; $00c3
-byte_RAM_C4:
+SoundEffectTimer2:
       .dsb 1 ; $00c4
       .dsb 1 ; $00c5
       .dsb 1 ; $00c6
@@ -1980,24 +1980,24 @@ SoundEffectQueue3:
       ; $80 -N/A-
 byte_RAM_606:
       .dsb 1 ; $0606
-byte_RAM_607:
+SoundEffectPlaying1:
       .dsb 1 ; $0607
-byte_RAM_608:
+DPCMPlaying:
       .dsb 1 ; $0608
 byte_RAM_609:
       .dsb 1 ; $0609
-byte_RAM_60A:
+DPCMTimer:
       .dsb 1 ; $060a
       .dsb 1 ; $060b
 byte_RAM_60C:
       .dsb 1 ; $060c
-byte_RAM_60D:
+SoundEffectPlaying2:
       .dsb 1 ; $060d
-byte_RAM_60E:
+SoundEffectPlaying3:
       .dsb 1 ; $060e
       .dsb 1 ; $060f
       .dsb 1 ; $0610
-byte_RAM_611:
+SoundEffectTimer3:
       .dsb 1 ; $0611
 MusicTempoSetting:
       .dsb 1 ; $0612

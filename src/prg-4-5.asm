@@ -11,7 +11,6 @@
 ; .segment BANK4
 ; * =  $8000
 
-; =============== S U B R O U T I N E =======================================
 
 StartProcessingSoundQueue:
       LDA     #$FF
@@ -33,7 +32,6 @@ StartProcessingSoundQueue:
       ; change (or stop) when you used the code. Welp!
       JMP     ProcessOnlyMusicQueue2
 
-; ---------------------------------------------------------------------------
 
 ProcessMusicAndSfxQueues:
       JSR     ProcessSoundEffectQueue2
@@ -59,8 +57,6 @@ ProcessOnlyMusicQueue2:
 
 ; End of function StartProcessingSoundQueue
 
-; ---------------------------------------------------------------------------
-
 ProcessSoundEffectQueue2_Jump:
       LDA     #$42
       LDX     #$82
@@ -68,61 +64,58 @@ ProcessSoundEffectQueue2_Jump:
       JSR     PlaySquare1Sweep
 
       LDA     #$22
-      STA     byte_RAM_C4
+      STA     SoundEffectTimer2
 
-loc_BANK4_8045:
-      LDA     byte_RAM_C4
+ProcessSoundEffectQueue2_JumpPart2:
+      LDA     SoundEffectTimer2
       CMP     #$20
-      BNE     loc_BANK4_8051
+      BNE     ProcessSoundEffectQueue2_JumpPart3
 
       LDX     #$DF
       LDY     #$F6
-      BNE     loc_BANK4_8059
+      BNE     ProcessSoundEffectQueue2_SetSquare1ThenDecrementTimer
 
-loc_BANK4_8051:
+ProcessSoundEffectQueue2_JumpPart3:
       CMP     #$1A
-      BNE     loc_BANK4_8076
+      BNE     ProcessSoundEffectQueue2_ThenDecrementTimer
 
       LDX     #$C1
       LDY     #$BC
 
-loc_BANK4_8059:
+ProcessSoundEffectQueue2_SetSquare1ThenDecrementTimer:
       JSR     SetSquare1VolumeAndSweep
 
-      BNE     loc_BANK4_8076
+      BNE     ProcessSoundEffectQueue2_ThenDecrementTimer
 
 ProcessSoundEffectQueue2_CoinGet:
       LDA     #$35
       LDX     #$8D
-      STA     byte_RAM_C4
-      LDY     #$7F
+      STA     SoundEffectTimer2
 
-loc_BANK4_8066:
+      LDY     #$7F
       LDA     #$5E
       JSR     PlaySquare1Sweep
 
-loc_BANK4_806B:
-      LDA     byte_RAM_C4
+ProcessSoundEffectQueue2_CoinGetPart2:
+      LDA     SoundEffectTimer2
       CMP     #$30
-      BNE     loc_BANK4_8076
+      BNE     ProcessSoundEffectQueue2_ThenDecrementTimer
 
       LDA     #$54
       STA     SQ1_LO
 
-loc_BANK4_8076:
-      BNE     loc_BANK4_80D3
-
-; =============== S U B R O U T I N E =======================================
+ProcessSoundEffectQueue2_ThenDecrementTimer:
+      BNE     ProcessSoundEffectQueue2_DecrementTimer
 
 ProcessSoundEffectQueue2:
-      LDA     byte_RAM_60D
-      CMP     #2
-      BEQ     loc_BANK4_80D3
+      LDA     SoundEffectPlaying2
+      CMP     #SoundEffect2_Climbing
+      BEQ     ProcessSoundEffectQueue2_DecrementTimer
 
       LDY     SoundEffectQueue2
       BEQ     ProcessSoundEffectQueue2_None
 
-      STY     byte_RAM_60D
+      STY     SoundEffectPlaying2
       LSR     SoundEffectQueue2
       BCS     ProcessSoundEffectQueue2_Jump
 
@@ -142,103 +135,103 @@ ProcessSoundEffectQueue2:
       BCS     ProcessSoundEffectQueue2_Growing
 
 ProcessSoundEffectQueue2_None:
-      LDA     byte_RAM_60D
-      BEQ     ProcessSoundEffectQueue2_Exit
+      LDA     SoundEffectPlaying2
+      BEQ     ProcessSoundEffectQueue2_NoneExit
 
       ; Jumping
       LSR     A
-      BCS     loc_BANK4_8045
+      BCS     ProcessSoundEffectQueue2_JumpPart2
 
       ; Climbing
       LSR     A
-      BCS     loc_BANK4_80D3
+      BCS     ProcessSoundEffectQueue2_DecrementTimer
 
       ; CoinGet
       LSR     A
-      BCS     loc_BANK4_806B
+      BCS     ProcessSoundEffectQueue2_CoinGetPart2
 
       ; Shrinking
       LSR     A
-      BCS     loc_BANK4_80EB
+      BCS     ProcessSoundEffectQueue2_ShrinkingPart2
 
       ; IntroFallSlide
       LSR     A
-      BCS     loc_BANK4_80D3
+      BCS     ProcessSoundEffectQueue2_DecrementTimer
 
       ; Growing
       LSR     A
-      BCS     loc_BANK4_8107
+      BCS     ProcessSoundEffectQueue2_GrowingPart2
+
+ProcessSoundEffectQueue2_NoneExit:
+      RTS
+
+ProcessSoundEffectQueue2_IntroFallSlide:
+      LDA     #$60
+      LDY     #$A5
+      BNE     ProcessSoundEffectQueue2_SingleSweep
+
+ProcessSoundEffectQueue2_Climbing:
+      STY     SoundEffectPlaying2
+      LDA     #$05
+      LDY     #$9C
+
+; A = timer
+; Y = sweep
+ProcessSoundEffectQueue2_SingleSweep:
+      LDX     #$9E
+      STA     SoundEffectTimer2
+      LDA     #$60
+      JSR     PlaySquare1Sweep
+
+ProcessSoundEffectQueue2_DecrementTimer:
+      DEC     SoundEffectTimer2
+      BNE     ProcessSoundEffectQueue2_Exit
+
+      LDX     #%00001110
+      STX     SND_CHN
+      LDX     #%00001111
+      STX     SND_CHN
+      LDX     #$00
+      STX     SoundEffectPlaying2
 
 ProcessSoundEffectQueue2_Exit:
       RTS
 
 ; ---------------------------------------------------------------------------
 
-ProcessSoundEffectQueue2_IntroFallSlide:
-      LDA     #$60
-      LDY     #$A5
-      BNE     loc_BANK4_80CA
-
-ProcessSoundEffectQueue2_Climbing:
-      STY     byte_RAM_60D
-      LDA     #$05
-      LDY     #$9C
-
-loc_BANK4_80CA:
-      LDX     #$9E
-      STA     byte_RAM_C4
-      LDA     #$60
-      JSR     PlaySquare1Sweep
-
-loc_BANK4_80D3:
-      DEC     byte_RAM_C4
-      BNE     locret_BANK4_80E6
-
-      LDX     #$0E
-      STX     SND_CHN
-      LDX     #$0F
-      STX     SND_CHN
-      LDX     #$00
-      STX     byte_RAM_60D
-
-locret_BANK4_80E6:
-      RTS
-
-; ---------------------------------------------------------------------------
-
 ProcessSoundEffectQueue2_Shrinking:
       LDA     #$2F
-      STA     byte_RAM_C4
+      STA     SoundEffectTimer2
 
-loc_BANK4_80EB:
-      LDA     byte_RAM_C4
+ProcessSoundEffectQueue2_ShrinkingPart2:
+      LDA     SoundEffectTimer2
       LSR     A
-      BCS     loc_BANK4_8100
+      BCS     ProcessSoundEffectQueue2_ShrinkingPart3
 
       LSR     A
-      BCS     loc_BANK4_8100
+      BCS     ProcessSoundEffectQueue2_ShrinkingPart3
 
-      AND     #2
-      BEQ     loc_BANK4_8100
+      AND     #$02
+      BEQ     ProcessSoundEffectQueue2_ShrinkingPart3
 
       LDY     #$91
       LDX     #$9A
       LDA     #$68
       JSR     PlaySquare1Sweep
 
-loc_BANK4_8100:
-      JMP     loc_BANK4_80D3
+ProcessSoundEffectQueue2_ShrinkingPart3:
+      JMP     ProcessSoundEffectQueue2_DecrementTimer
 
 ; ---------------------------------------------------------------------------
 
 ProcessSoundEffectQueue2_Growing:
       LDA     #$36
-      STA     byte_RAM_C4
+      STA     SoundEffectTimer2
 
-loc_BANK4_8107:
-      LDA     byte_RAM_C4
+ProcessSoundEffectQueue2_GrowingPart2:
+      LDA     SoundEffectTimer2
       LSR     A
-      BCS     loc_BANK4_80D3
+      BCS     ProcessSoundEffectQueue2_DecrementTimer
 
       TAY
       LDA     MushroomSoundData-1,Y
@@ -246,89 +239,78 @@ loc_BANK4_8107:
       LDY     #$7F
       JSR     PlaySquare1Sweep
 
-loc_BANK4_8117:
-      JMP     loc_BANK4_80D3
+      JMP     ProcessSoundEffectQueue2_DecrementTimer
 
-; End of function ProcessSoundEffectQueue2
-
-; ---------------------------------------------------------------------------
 MushroomSoundData:
       .BYTE $6A, $74, $6A, $64, $5C, $52, $5C, $52, $4C, $44, $66, $70, $66, $60, $58, $4E
       .BYTE $58, $4E, $48, $40, $56, $60, $56, $50, $48, $3E, $48, $3E, $38, $30 ; $10
 
-; =============== S U B R O U T I N E =======================================
 
 ProcessSoundEffectQueue1:
       LDA     SoundEffectQueue1
-      BEQ     loc_BANK4_8146
+      BEQ     ProcessSoundEffectQueue1_None
 
       CMP     #SoundEffect1_StopwatchTick
-      BNE     loc_BANK4_814C
+      BNE     ProcessSoundEffectQueue1_Part2
 
-      LDX     byte_RAM_607
-      BEQ     loc_BANK4_814C
+      LDX     SoundEffectPlaying1
+      BEQ     ProcessSoundEffectQueue1_Part2
 
-loc_BANK4_8146:
-      LDA     byte_RAM_607
-      BNE     loc_BANK4_815A
+ProcessSoundEffectQueue1_None:
+      LDA     SoundEffectPlaying1
+      BNE     ProcessSoundEffectQueue1_Part3
 
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_814C:
-      STA     byte_RAM_607
+ProcessSoundEffectQueue1_Part2:
+      STA     SoundEffectPlaying1
       LDY     #$00
 
-loc_BANK4_8151:
+ProcessSoundEffectQueue1_PointerLoop:
       INY
       LSR     A
-      BCC     loc_BANK4_8151
+      BCC     ProcessSoundEffectQueue1_PointerLoop
 
-      LDA     locret_BANK4_818E,Y
-      STA     byte_RAM_C1
+      LDA     SoundEffectPointers-1,Y
+      STA     SoundEffect1DataOffset
 
-loc_BANK4_815A:
-      LDY     byte_RAM_C1
-      INC     byte_RAM_C1
+ProcessSoundEffectQueue1_Part3:
+      LDY     SoundEffect1DataOffset
+      INC     SoundEffect1DataOffset
       LDA     SoundEffectPointers,Y
-      BMI     loc_BANK4_8178
+      BMI     ProcessSoundEffectQueue1_Patch
 
-      BNE     loc_BANK4_8182
+      BNE     ProcessSoundEffectQueue1_Note
 
+      ; if it was $00, we're at the end of the data for this sound effect
       LDX     #$90
       STX     SQ2_VOL
       LDX     #$18
       STX     SQ2_HI
       LDX     #$00
       STX     SQ2_LO
-      STX     byte_RAM_607
+      STX     SoundEffectPlaying1
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8178:
+ProcessSoundEffectQueue1_Patch:
       STA     SQ2_VOL
-      LDY     byte_RAM_C1
-      INC     byte_RAM_C1
+      LDY     SoundEffect1DataOffset
+      INC     SoundEffect1DataOffset
       LDA     SoundEffectPointers,Y
 
-loc_BANK4_8182:
+ProcessSoundEffectQueue1_Note:
       CMP     #$7E
-      BEQ     loc_BANK4_8189
+      BEQ     ProcessSoundEffectQueue1_Exit
 
       JSR     PlaySquare2Note
 
-loc_BANK4_8189:
+ProcessSoundEffectQueue1_Exit:
       LDA     #$7F
       STA     SQ2_SWEEP
 
-locret_BANK4_818E:
       RTS
 
-; End of function ProcessSoundEffectQueue1
 
-; ---------------------------------------------------------------------------
 SoundEffectPointers:
       .BYTE SoundEffect1Data_BirdoShot - SoundEffectPointers
       .BYTE SoundEffect1Data_PotionDoorBong - SoundEffectPointers
@@ -338,6 +320,7 @@ SoundEffectPointers:
       .BYTE SoundEffect1Data_EnemyHit - SoundEffectPointers
       .BYTE SoundEffect1Data_StopwatchTick - SoundEffectPointers
       .BYTE SoundEffect1Data_HawkOpen_WartBarf - SoundEffectPointers
+
 SoundEffect1Data_PotionDoorBong:
       .BYTE $9F
       .BYTE $10, $0E, $0C, $7E, $7E, $7E
@@ -345,6 +328,7 @@ SoundEffect1Data_PotionDoorBong:
       .BYTE $86
       .BYTE $10, $0E, $0C, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
       .BYTE $00
+
 SoundEffect1Data_ThrowItem:
       .BYTE $9F, $64, $7E, $7E
       .BYTE $9E, $68, $7E, $7E
@@ -354,6 +338,7 @@ SoundEffect1Data_ThrowItem:
       .BYTE $9A, $76, $7E, $7E
       .BYTE $84, $78, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
       .BYTE $00
+
 SoundEffect1Data_BirdoShot:
       .BYTE $9F, $30, $34, $36, $38
       .BYTE $9F, $3C, $3E, $40, $42
@@ -362,14 +347,17 @@ SoundEffect1Data_BirdoShot:
       .BYTE $96, $36, $38, $3A, $3C
       .BYTE $98, $34, $36, $38, $36
       .BYTE $00
+
 SoundEffect1Data_CherryGet:
       .BYTE $81, $56, $7E, $64, $7E, $68
       .BYTE $00
+
 SoundEffect1Data_EnemyHit:
       .BYTE $99, $18, $1A, $18, $1C, $18, $1A
       .BYTE $9B, $18, $1C, $18, $20, $18, $22
       .BYTE $9F, $18, $3C, $24, $30, $3C, $18, $30
       .BYTE $00
+
 SoundEffect1Data_StopwatchTick:
       .BYTE $80
       .BYTE $68, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
@@ -377,12 +365,14 @@ SoundEffect1Data_StopwatchTick:
       .BYTE $64, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
       .BYTE $56, $7E, $7E
       .BYTE $00
+
 SoundEffect1Data_HawkOpen_WartBarf:
       .BYTE $80, $1E, $1C, $1E, $1A, $18, $16, $1C, $18, $1A, $1E, $18
       .BYTE $16, $14, $12, $14, $16, $14, $12, $2C, $2C, $2A, $2E, $2C
       .BYTE $2A, $28, $26, $28, $24, $22, $20, $1E, $1C, $1A, $18, $16
       .BYTE $14, $14, $12, $10, $0E, $0C, $0A, $08, $08, $06, $04, $02, $02
       .BYTE $00
+
 SoundEffect1Data_1UP:
       .BYTE $81
       .BYTE $5E, $7E, $7E, $7E, $7E, $7E, $7E
@@ -392,62 +382,57 @@ SoundEffect1Data_1UP:
       .BYTE $72, $7E, $7E, $7E, $7E, $7E, $7E
       .BYTE $7C, $7E, $7E
       .BYTE $00
-; ---------------------------------------------------------------------------
 
-loc_BANK4_828E:
+
+ProcessSoundEffectQueue3_ShortNoise:
       LDA     #$02
-      STA     byte_RAM_611
+      STA     SoundEffectTimer3
 
-loc_BANK4_8293:
+ProcessSoundEffectQueue3_ShortNoisePart2:
       LDA     #$1A
       STA     NOISE_VOL
       LDA     #$04
       STA     NOISE_LO
       STA     NOISE_HI
-      BNE     loc_BANK4_82E8
-
-; =============== S U B R O U T I N E =======================================
+      BNE     ProcessSoundEffectQueue3_DecrementTimer
 
 ProcessSoundEffectQueue3:
       LDY     SoundEffectQueue3
-      BEQ     loc_BANK4_82B9
+      BEQ     ProcessSoundEffectQueue3_Part2
 
-      STY     byte_RAM_60E
+      STY     SoundEffectPlaying3
       LSR     SoundEffectQueue3
-      BCS     loc_BANK4_828E
+      BCS     ProcessSoundEffectQueue3_ShortNoise
 
       LSR     SoundEffectQueue3
-      BCS     loc_BANK4_82C6
+      BCS     ProcessSoundEffectQueue3_Rumble
 
-loc_BANK4_82B4:
       LSR     SoundEffectQueue3
-      BCS     loc_BANK4_82C6
+      BCS     ProcessSoundEffectQueue3_Rumble
 
-loc_BANK4_82B9:
-      LDA     byte_RAM_60E
+ProcessSoundEffectQueue3_Part2:
+      LDA     SoundEffectPlaying3
       LSR     A
-      BCS     loc_BANK4_8293
-
-      LSR     A
-      BCS     loc_BANK4_82CB
+      BCS     ProcessSoundEffectQueue3_ShortNoisePart2
 
       LSR     A
-      BCS     loc_BANK4_82CB
+      BCS     ProcessSoundEffectQueue3_RumblePart2
+
+      LSR     A
+      BCS     ProcessSoundEffectQueue3_RumblePart2
 
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_82C6:
+ProcessSoundEffectQueue3_Rumble:
       LDA     #$7F
-      STA     byte_RAM_611
+      STA     SoundEffectTimer3
 
-loc_BANK4_82CB:
-      LDY     byte_RAM_611
-      LDA     ProcessMusicQueue2,Y ; @TODO ??? Uhhhhhhhhhhhhhhhhh????????
+ProcessSoundEffectQueue3_RumblePart2:
+      LDY     SoundEffectTimer3
+      LDA     ProcessMusicQueue2,Y ; weird, but i guess that's one way to get "random" noise
       ORA     #$0C
       STA     NOISE_LO
-      LDA     byte_RAM_611
+      LDA     SoundEffectTimer3
       LSR     A
       LSR     A
       LSR     A
@@ -457,78 +442,70 @@ loc_BANK4_82CB:
       LDA     #$18
       STA     NOISE_HI
 
-loc_BANK4_82E8:
-      DEC     byte_RAM_611
-      BNE     locret_BANK4_82FC
+ProcessSoundEffectQueue3_DecrementTimer:
+      DEC     SoundEffectTimer3
+      BNE     ProcessSoundEffectQueue3_Exit
 
       LDX     #$07
       STX     SND_CHN
       LDX     #$0F
       STX     SND_CHN
       LDX     #$00
-      STX     byte_RAM_60E
+      STX     SoundEffectPlaying3
 
-locret_BANK4_82FC:
+ProcessSoundEffectQueue3_Exit:
       RTS
 
-; End of function ProcessSoundEffectQueue3
-
-; =============== S U B R O U T I N E =======================================
 
 ProcessDPCMQueue:
       LDA     DPCMQueue
-      BNE     loc_BANK4_8317
+      BNE     ProcessDPCMQueue_Part2
 
-      LDA     byte_RAM_608
-      BEQ     loc_BANK4_830C
+      LDA     DPCMPlaying
+      BEQ     ProcessDPCMQueue_None
 
-      DEC     byte_RAM_60A
-      BNE     locret_BANK4_8316
+      DEC     DPCMTimer
+      BNE     ProcessDPCMQueue_Exit
 
-loc_BANK4_830C:
+ProcessDPCMQueue_None:
       LDA     #$00
-      STA     byte_RAM_608
-      LDA     #$F
+      STA     DPCMPlaying
+      LDA     #%00001111
       STA     SND_CHN
 
-locret_BANK4_8316:
+ProcessDPCMQueue_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
+ProcessDPCMQueue_Part2:
+      STA     DPCMPlaying
+      LDY     #$00
 
-loc_BANK4_8317:
-      STA     byte_RAM_608
-      LDY     #0
-
-loc_BANK4_831C:
+ProcessDPCMQueue_PointerLoop:
       INY
       LSR     A
-      BCC     loc_BANK4_831C
+      BCC     ProcessDPCMQueue_PointerLoop
 
       LDA     DMCFreqTable-1,Y
       STA     DMC_FREQ
 
-loc_BANK4_8326:
       LDA     DMCStartTable-1,Y
       STA     DMC_START
       LDA     DMCLengthTable-1,Y
       STA     DMC_LEN
       LDA     #$A0
-      STA     byte_RAM_60A
-      LDA     #$F
+      STA     DPCMTimer
+      LDA     #%00001111
       STA     SND_CHN
-      LDA     #$1F
+      LDA     #%00011111
       STA     SND_CHN
       RTS
 
-; End of function ProcessDPCMQueue
 
-; ---------------------------------------------------------------------------
 DMCStartTable:
       .BYTE $4F
-; @TODO
-; It seems that the references to these tables are off by one byte, maybe intentionally?
-; Need to fix this in the final disassembly
+      ; @TODO
+      ; It seems that the references to these tables are off by one byte, maybe intentionally?
+      ; Need to fix this in the final disassembly
       .BYTE $60
       .BYTE $4B
       .BYTE $00
@@ -536,9 +513,9 @@ DMCStartTable:
       .BYTE $60
       .BYTE $0E
       .BYTE $1D
+
 DMCLengthTable:
       .BYTE $43
-
       .BYTE $14
       .BYTE $10
       .BYTE $38
@@ -546,9 +523,9 @@ DMCLengthTable:
       .BYTE $28
       .BYTE $3C
       .BYTE $50
+
 DMCFreqTable:
       .BYTE $0E
-
       .BYTE $0E
       .BYTE $0F
       .BYTE $0F
@@ -557,21 +534,17 @@ DMCFreqTable:
       .BYTE $0F
       .BYTE $0F
       .BYTE $60
-; ---------------------------------------------------------------------------
+
 
 loc_BANK4_835B:
       JMP     loc_BANK4_8429
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_835E:
+ProcessMusicQueue2_StopMusic:
       JMP     StopMusic
-
-; =============== S U B R O U T I N E =======================================
 
 ProcessMusicQueue2:
       LDA     MusicQueue2
-      BMI     loc_BANK4_835E
+      BMI     ProcessMusicQueue2_StopMusic
 
       CMP     #Music2_EndingAndCast
       BEQ     loc_BANK4_837D
@@ -677,9 +650,9 @@ loc_BANK4_83D7:
       LDA     #0
       STA     byte_RAM_613
       STA     byte_RAM_60C
-      LDA     #$B
+      LDA     #%00001011
       STA     SND_CHN
-      LDA     #$F
+      LDA     #%00001111
       STA     SND_CHN
 
 loc_BANK4_8429:
@@ -717,7 +690,7 @@ StopMusic:
       STA     SND_CHN
 
 loc_BANK4_845C:
-      LDX     #$F
+      LDX     #%00001111
       STX     SND_CHN
       RTS
 
@@ -746,7 +719,7 @@ loc_BANK4_8468:
       LDA     (CurrentMusicPointer),Y
 
 loc_BANK4_847D:
-      LDX     byte_RAM_607
+      LDX     SoundEffectPlaying1
       BNE     loc_BANK4_849B
 
       JSR     PlaySquare2Note
@@ -775,7 +748,7 @@ loc_BANK4_849B:
       STA     byte_RAM_618
 
 loc_BANK4_84A1:
-      LDX     byte_RAM_607
+      LDX     SoundEffectPlaying1
       BNE     loc_BANK4_84BF
 
       LDY     byte_RAM_619
@@ -825,7 +798,7 @@ loc_BANK4_84E3:
       BNE     loc_BANK4_84C4
 
 loc_BANK4_84F5:
-      LDY     byte_RAM_60D
+      LDY     SoundEffectPlaying2
       BNE     loc_BANK4_8512
 
       JSR     PlaySquare1Note
@@ -852,7 +825,7 @@ loc_BANK4_8512:
       STA     byte_RAM_61A
 
 loc_BANK4_8518:
-      LDA     byte_RAM_60D
+      LDA     SoundEffectPlaying2
       BNE     loc_BANK4_853B
 
       LDY     byte_RAM_61B
@@ -1199,7 +1172,7 @@ locret_BANK4_86B9:
 ; Sets volume/sweep on Square 1 channel
 ;
 ; Input
-;   X = volume
+;   X = duty/volume/envelope
 ;   Y = sweep
 SetSquare1VolumeAndSweep:
       STY     SQ1_SWEEP
@@ -1209,7 +1182,7 @@ SetSquare1VolumeAndSweep:
 ; Sets volume/sweep on Square 2 channel
 ;
 ; Input
-;   X = volume
+;   X = duty/volume/envelope
 ;   Y = sweep
 SetSquare2VolumeAndSweep:
       STX     SQ2_VOL
@@ -1220,7 +1193,7 @@ SetSquare2VolumeAndSweep:
 ;
 ; Input
 ;   A = note
-;   X = volume
+;   X = duty/volume/envelope
 ;   Y = sweep
 PlaySquare1Sweep:
       STX     SQ1_VOL
@@ -1322,7 +1295,7 @@ loc_BANK4_8727:
 ;
 ; Input
 ;   A = note
-;   X = volume
+;   X = duty/volume/envelope
 ;   Y = sweep
 PlaySquare2Sweep:
       STX     SQ2_VOL
