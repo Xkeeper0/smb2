@@ -278,9 +278,13 @@ NextFrequencyLo:
       .dsb 1 ; $00bd
 NextFrequencyHi:
       .dsb 1 ; $00be
-byte_RAM_BF:
+; $00BF and $00C0 are never written, but referenced by the music engine.
+; Seems like they were intended to be either instrument start offets or
+; duty/volume/envelope for the square channels, but it's not totally clear
+; from the code, and doesn't actually function as written?
+UNINITIALIZED_MusicSquare2Volume: ; ???
       .dsb 1 ; $00bf
-byte_RAM_C0:
+UNINITIALIZED_MusicSquare1Volume: ; ???
       .dsb 1 ; $00c0
 SoundEffect1DataOffset:
       .dsb 1 ; $00c1
@@ -2015,11 +2019,11 @@ MusicSquare2NoteStartLength:
       .dsb 1 ; $0617
 MusicSquare2NoteLength:
       .dsb 1 ; $0618
-byte_RAM_619:
+MusicSquare2InstrumentOffset:
       .dsb 1 ; $0619
 MusicSquare1NoteLength:
       .dsb 1 ; $061a
-byte_RAM_61B:
+MusicSquare1InstrumentOffset:
       .dsb 1 ; $061b
 MusicTriangleNoteStartLength:
       .dsb 1 ; $061c

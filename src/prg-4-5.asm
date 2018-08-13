@@ -712,18 +712,18 @@ ProcessMusicQueue2_Note:
       TAY
       BNE     loc_BANK4_848D
 
-      LDA     byte_RAM_BF
+      LDA     UNINITIALIZED_MusicSquare2Volume
       JMP     loc_BANK4_8495
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_848D:
       LDA     MusicSquare2NoteStartLength
-      LDX     byte_RAM_BF
+      LDX     UNINITIALIZED_MusicSquare2Volume ; always overridden in the following subroutine...?
       JSR     sub_BANK4_8634
 
 loc_BANK4_8495:
-      STA     byte_RAM_619
+      STA     MusicSquare2InstrumentOffset
       JSR     SetSquare2VolumeAndSweep
 
 loc_BANK4_849B:
@@ -734,10 +734,10 @@ ProcessMusicQueue2_SustainNote:
       LDX     SoundEffectPlaying1
       BNE     loc_BANK4_84BF
 
-      LDY     byte_RAM_619
+      LDY     MusicSquare2InstrumentOffset
       BEQ     loc_BANK4_84AE
 
-      DEC     byte_RAM_619
+      DEC     MusicSquare2InstrumentOffset
 
 loc_BANK4_84AE:
       LDA     MusicSquare2NoteStartLength
@@ -788,18 +788,18 @@ ProcessMusicQueue2_Square1Note:
 
       BNE     loc_BANK4_8504
 
-      LDA     byte_RAM_BF
+      LDA     UNINITIALIZED_MusicSquare2Volume
       JMP     loc_BANK4_850C
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK4_8504:
       LDA     MusicSquare1NoteStartLength
-      LDX     byte_RAM_C0
+      LDX     UNINITIALIZED_MusicSquare1Volume ; always overridden in the following subroutine...?
       JSR     sub_BANK4_8634
 
 loc_BANK4_850C:
-      STA     byte_RAM_61B
+      STA     MusicSquare1InstrumentOffset
       JSR     SetSquare1VolumeAndSweep
 
 loc_BANK4_8512:
@@ -810,10 +810,10 @@ ProcessMusicQueue2_Square1SustainNote:
       LDA     SoundEffectPlaying2
       BNE     loc_BANK4_853B
 
-      LDY     byte_RAM_61B
+      LDY     MusicSquare1InstrumentOffset
       BEQ     loc_BANK4_8525
 
-      DEC     byte_RAM_61B
+      DEC     MusicSquare1InstrumentOffset
 
 loc_BANK4_8525:
       LDA     MusicSquare1NoteStartLength
@@ -1030,7 +1030,7 @@ loc_BANK4_863E:
 ; apply the current square patch
 ; Input
 ;   X = patch
-;   A = ??? @TODO
+;   A = duty/volume/envelope
 sub_BANK4_8643:
       CPX     #$90
       BEQ     loc_BANK4_866C
