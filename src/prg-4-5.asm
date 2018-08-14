@@ -720,7 +720,7 @@ ProcessMusicQueue2_Note:
 loc_BANK4_848D:
       LDA     MusicSquare2NoteStartLength
       LDX     UNINITIALIZED_MusicSquare2Volume ; always overridden in the following subroutine...?
-      JSR     sub_BANK4_8634
+      JSR     SetInstrumentStartOffset
 
 loc_BANK4_8495:
       STA     MusicSquare2InstrumentOffset
@@ -742,7 +742,7 @@ ProcessMusicQueue2_SustainNote:
 loc_BANK4_84AE:
       LDA     MusicSquare2NoteStartLength
       LDX     MusicSquare2Patch
-      JSR     sub_BANK4_8643
+      JSR     LoadSquareInstrumentDVE
 
       STA     SQ2_VOL
       LDX     #$7F
@@ -796,7 +796,7 @@ ProcessMusicQueue2_Square1Note:
 loc_BANK4_8504:
       LDA     MusicSquare1NoteStartLength
       LDX     UNINITIALIZED_MusicSquare1Volume ; always overridden in the following subroutine...?
-      JSR     sub_BANK4_8634
+      JSR     SetInstrumentStartOffset
 
 loc_BANK4_850C:
       STA     MusicSquare1InstrumentOffset
@@ -818,7 +818,7 @@ ProcessMusicQueue2_Square1SustainNote:
 loc_BANK4_8525:
       LDA     MusicSquare1NoteStartLength
       LDX     MusicSquare1Patch
-      JSR     sub_BANK4_8643
+      JSR     LoadSquareInstrumentDVE
 
       STA     SQ1_VOL
       LDA     MusicSquare1NoteSweep
@@ -1008,154 +1008,128 @@ ProcessMusicQueue2_PatchNoteLength:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK4_8634:
+; Input
+;   A = note start length, >= $13 for table A, < $13 for instrument table B
+; Ouput
+;   A = starting instrument offset ($16 for short, $3F for long)
+;   X = duty/volume/envelope ($82)
+;   Y = sweep ($7F)
+;
+SetInstrumentStartOffset:
       CMP     #$13
-      BCC     loc_BANK4_863C
-
+      BCC     SetInstrumentStartOffset_Short
       LDA     #$3F
-      BNE     loc_BANK4_863E
-
-loc_BANK4_863C:
+      BNE     SetInstrumentStartOffset_Exit
+SetInstrumentStartOffset_Short:
       LDA     #$16
-
-loc_BANK4_863E:
+SetInstrumentStartOffset_Exit:
       LDX     #$82
       LDY     #$7F
       RTS
 
-; End of function sub_BANK4_8634
-
-; =============== S U B R O U T I N E =======================================
-
-; apply the current square patch
+;
+; Loads instrument data for a square channel
+;
+; Each instrument has two lookup tables based on the note length.
+;
 ; Input
-;   X = patch
+;   A = note length, >= $13 for table A, < $13 for instrument table B
+;   X = instrument patch
+;   Y = instrument offset
+; Output
 ;   A = duty/volume/envelope
-sub_BANK4_8643:
+;
+LoadSquareInstrumentDVE:
       CPX     #$90
-      BEQ     loc_BANK4_866C
+      BEQ     LoadSquareInstrumentDVE_90_E0
 
       CPX     #$E0
-      BEQ     loc_BANK4_866C
+      BEQ     LoadSquareInstrumentDVE_90_E0
 
       CPX     #$A0
-      BEQ     loc_BANK4_8679
+      BEQ     LoadSquareInstrumentDVE_A0
 
       CPX     #$B0
-      BEQ     loc_BANK4_8686
+      BEQ     LoadSquareInstrumentDVE_B0
 
       CPX     #$C0
-      BEQ     loc_BANK4_8693
+      BEQ     LoadSquareInstrumentDVE_C0
 
       CPX     #$D0
-      BEQ     loc_BANK4_86AD
+      BEQ     LoadSquareInstrumentDVE_D0
 
       CPX     #$F0
-      BEQ     loc_BANK4_86A0
+      BEQ     LoadSquareInstrumentDVE_F0
 
+LoadSquareInstrumentDVE_80:
       CMP     #$13
-      BCC     loc_BANK4_8668
-
-      LDA     byte_BANK5_A18D,Y
-      BNE     locret_BANK4_866B
-
-loc_BANK4_8668:
-      LDA     byte_BANK5_A1CD,Y
-
-locret_BANK4_866B:
+      BCC     LoadSquareInstrumentDVE_80_Short
+      LDA     InstrumentDVE_80,Y
+      BNE     LoadSquareInstrumentDVE_80_Exit
+LoadSquareInstrumentDVE_80_Short:
+      LDA     InstrumentDVE_80_Short,Y
+LoadSquareInstrumentDVE_80_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_866C:
+LoadSquareInstrumentDVE_90_E0:
       CMP     #$13
-      BCC     loc_BANK4_8675
-
-      LDA     byte_BANK5_A1E4,Y
-      BNE     locret_BANK4_8678
-
-loc_BANK4_8675:
-      LDA     byte_BANK5_A224,Y
-
-locret_BANK4_8678:
+      BCC     LoadSquareInstrumentDVE_90_E0_Short
+      LDA     InstrumentDVE_90_E0,Y
+      BNE     LoadSquareInstrumentDVE_90_E0_Exit
+LoadSquareInstrumentDVE_90_E0_Short:
+      LDA     InstrumentDVE_90_E0_Short,Y
+LoadSquareInstrumentDVE_90_E0_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8679:
+LoadSquareInstrumentDVE_A0:
       CMP     #$13
-      BCC     loc_BANK4_8682
-
-      LDA     byte_BANK5_A23B,Y
-      BNE     locret_BANK4_8685
-
-loc_BANK4_8682:
-      LDA     byte_BANK5_A27B,Y
-
-locret_BANK4_8685:
+      BCC     LoadSquareInstrumentDVE_A0_Short
+      LDA     InstrumentDVE_A0,Y
+      BNE     LoadSquareInstrumentDVE_A0_Exit
+LoadSquareInstrumentDVE_A0_Short:
+      LDA     InstrumentDVE_A0_Short,Y
+LoadSquareInstrumentDVE_A0_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8686:
+LoadSquareInstrumentDVE_B0:
       CMP     #$13
-      BCC     loc_BANK4_868F
-
-      LDA     byte_BANK5_A293,Y
-      BNE     locret_BANK4_8692
-
-loc_BANK4_868F:
-      LDA     byte_BANK5_A2D3,Y
-
-locret_BANK4_8692:
+      BCC     LoadSquareInstrumentDVE_B0_Short
+      LDA     InstrumentDVE_B0,Y
+      BNE     LoadSquareInstrumentDVE_B0_Exit
+LoadSquareInstrumentDVE_B0_Short:
+      LDA     InstrumentDVE_B0_Short,Y
+LoadSquareInstrumentDVE_B0_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8693:
+LoadSquareInstrumentDVE_C0:
       CMP     #$13
-      BCC     loc_BANK4_869C
-
-      LDA     byte_BANK5_A301,Y
-      BNE     locret_BANK4_869F
-
-loc_BANK4_869C:
-      LDA     byte_BANK5_A2EA,Y
-
-locret_BANK4_869F:
+      BCC     LoadSquareInstrumentDVE_C0_Short
+      LDA     InstrumentDVE_C0,Y
+      BNE     LoadSquareInstrumentDVE_C0_Exit
+LoadSquareInstrumentDVE_C0_Short:
+      LDA     InstrumentDVE_C0_Short,Y
+LoadSquareInstrumentDVE_C0_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_86A0:
+LoadSquareInstrumentDVE_F0:
       CMP     #$13
-      BCC     loc_BANK4_86A9
-
-      LDA     byte_BANK5_A3AF,Y
-      BNE     locret_BANK4_86AC
-
-loc_BANK4_86A9:
-      LDA     byte_BANK5_A398,Y
-
-locret_BANK4_86AC:
+      BCC     LoadSquareInstrumentDVE_F0_Short
+      LDA     InstrumentDVE_F0,Y
+      BNE     LoadSquareInstrumentDVE_F0_Exit
+LoadSquareInstrumentDVE_F0_Short:
+      LDA     InstrumentDVE_F0_Short,Y
+LoadSquareInstrumentDVE_F0_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_86AD:
+LoadSquareInstrumentDVE_D0:
       CMP     #$13
-      BCC     loc_BANK4_86B6
-
-      LDA     unk_BANK5_A341,Y
-      BNE     locret_BANK4_86B9
-
-loc_BANK4_86B6:
-      LDA     unk_BANK5_A381,Y
-
-locret_BANK4_86B9:
+      BCC     LoadSquareInstrumentDVE_D0_Short
+      LDA     InstrumentDVE_D0,Y
+      BNE     LoadSquareInstrumentDVE_D0_Exit
+LoadSquareInstrumentDVE_D0_Short:
+      LDA     InstrumentDVE_D0_Short,Y
+LoadSquareInstrumentDVE_D0_Exit:
       RTS
-
-; End of function sub_BANK4_8643
 
 
 ; Sets volume/sweep on Square 1 channel
@@ -5982,76 +5956,91 @@ MusicDataDeath:
       .BYTE $3E
       .BYTE $8A
       .BYTE $30
-byte_BANK5_A18D:
-      .BYTE $90
 
+;
+; Instrument Sound Data
+; =====================
+;
+; Each "instrument" is a lookup table of duty/volume/envelope values that are
+; read backwards from the end
+;
+; The normal version of an instrument is 64 bytes
+; The shorter version of an instrument is 23 bytes
+;
 InstrumentSoundData:
-      .BYTE $95 ; @TODO Should this label be moved up? oops
-      .BYTE $95
-      .BYTE $95
-      .BYTE $95
-      .BYTE $95
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $97
-      .BYTE $97
-      .BYTE $97
-      .BYTE $97
-      .BYTE $98
-      .BYTE $98
-byte_BANK5_A1CD:
-      .BYTE $90
 
+; Long square
+; 50% duty cycle (square) with slight decay
+InstrumentDVE_80: ; $A18D
+      .BYTE $90
+      .BYTE $95
+      .BYTE $95
+      .BYTE $95
+      .BYTE $95
+      .BYTE $95
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $97
+      .BYTE $97
+      .BYTE $97
+      .BYTE $97
+      .BYTE $98
+      .BYTE $98
+
+; Long square
+; 50% duty cycle (square) with slight decay
+InstrumentDVE_80_Short: ; $A1CD
+      .BYTE $90
       .BYTE $92
       .BYTE $94
       .BYTE $96
@@ -6074,9 +6063,11 @@ byte_BANK5_A1CD:
       .BYTE $97
       .BYTE $98
       .BYTE $98
-byte_BANK5_A1E4:
-      .BYTE $51
 
+; Short square
+; 25% duty cycle with pronounced decay
+InstrumentDVE_90_E0: ; $A1E4
+      .BYTE $51
       .BYTE $51
       .BYTE $51
       .BYTE $51
@@ -6140,9 +6131,11 @@ byte_BANK5_A1E4:
       .BYTE $59
       .BYTE $5A
       .BYTE $5B
-byte_BANK5_A224:
-      .BYTE $51
 
+; Short square
+; 25% duty cycle with pronounced decay
+InstrumentDVE_90_E0_Short: ; $A224
+      .BYTE $51
       .BYTE $51
       .BYTE $51
       .BYTE $51
@@ -6165,9 +6158,11 @@ byte_BANK5_A224:
       .BYTE $59
       .BYTE $5A
       .BYTE $5B
-byte_BANK5_A23B:
+
+; Electric Piano
+; 12.5% duty cycle with pronounced decay
+InstrumentDVE_A0: ; $A23B
       .BYTE $10
-
       .BYTE $11
       .BYTE $11
       .BYTE $11
@@ -6231,9 +6226,11 @@ byte_BANK5_A23B:
       .BYTE $1B
       .BYTE $1B
       .BYTE $1C
-byte_BANK5_A27B:
-      .BYTE $10
 
+; Electric Piano
+; 12.5% duty cycle with pronounced decay
+InstrumentDVE_A0_Short: ; $A27B
+      .BYTE $10
       .BYTE $11
       .BYTE $12
       .BYTE $13
@@ -6257,100 +6254,106 @@ byte_BANK5_A27B:
       .BYTE $1B
       .BYTE $1B
       .BYTE $1C
-byte_BANK5_A293:
-      .BYTE $51
 
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $55
-      .BYTE $55
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-byte_BANK5_A2D3:
+; Organ
+; 25% duty cycle with slight decay
+InstrumentDVE_B0: ; $A293
       .BYTE $51
+      .BYTE $52
+      .BYTE $52
+      .BYTE $52
+      .BYTE $52
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $55
+      .BYTE $55
+      .BYTE $55
+      .BYTE $55
+      .BYTE $55
+      .BYTE $55
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $55
+      .BYTE $55
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
 
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $55
-      .BYTE $55
-      .BYTE $56
-      .BYTE $56
-byte_BANK5_A2EA:
+; Organ
+; 25% duty cycle with slight decay
+InstrumentDVE_B0_Short: ; $A2D3
       .BYTE $51
+      .BYTE $52
+      .BYTE $52
+      .BYTE $52
+      .BYTE $52
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $55
+      .BYTE $55
+      .BYTE $56
+      .BYTE $56
 
+; Strings
+; 25% duty cycle with slow attack
+InstrumentDVE_C0_Short: ; $A2EA
+      .BYTE $51
       .BYTE $52
       .BYTE $53
       .BYTE $54
@@ -6373,9 +6376,11 @@ byte_BANK5_A2EA:
       .BYTE $56
       .BYTE $55
       .BYTE $55
-byte_BANK5_A301:
-      .BYTE $51
 
+; Strings
+; 25% duty cycle with slow attack
+InstrumentDVE_C0: ; $A301
+      .BYTE $51
       .BYTE $52
       .BYTE $52
       .BYTE $51
@@ -6439,7 +6444,10 @@ byte_BANK5_A301:
       .BYTE $56
       .BYTE $55
       .BYTE $55
-unk_BANK5_A341:
+
+; Pluck
+; 50% to -25% to 12.5% to 12.5% duty cycle with pronounced decay
+InstrumentDVE_D0: ; $A341
       .BYTE $50
       .BYTE $50
       .BYTE $50
@@ -6504,7 +6512,10 @@ unk_BANK5_A341:
       .BYTE $19
       .BYTE $DA
       .BYTE $9B
-unk_BANK5_A381:
+
+; Pluck
+; 50% to -25% to 12.5% to 12.5% duty cycle with pronounced decay
+InstrumentDVE_D0_Short: ; $A381
       .BYTE $50
       .BYTE $51
       .BYTE $51
@@ -6528,74 +6539,10 @@ unk_BANK5_A381:
       .BYTE $19
       .BYTE $DA
       .BYTE $9B
-byte_BANK5_A398:
-      .BYTE $50
 
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $53
-      .BYTE $53
-      .BYTE $54
-      .BYTE $55
-byte_BANK5_A3AF:
-      .BYTE $50
-
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
+; Soft pluck
+; 25% duty cycle with pronounced decay
+InstrumentDVE_F0_Short: ; $A398
       .BYTE $50
       .BYTE $50
       .BYTE $50
@@ -6619,4 +6566,71 @@ byte_BANK5_A3AF:
       .BYTE $53
       .BYTE $54
       .BYTE $55
-; The rest of this bank is empty
+
+; Soft pluck
+; 25% duty cycle with pronounced decay
+InstrumentDVE_F0: ; $A3AF
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $51
+      .BYTE $51
+      .BYTE $51
+      .BYTE $51
+      .BYTE $52
+      .BYTE $52
+      .BYTE $52
+      .BYTE $53
+      .BYTE $53
+      .BYTE $54
+      .BYTE $55
