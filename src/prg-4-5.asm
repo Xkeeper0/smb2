@@ -197,8 +197,6 @@ ProcessSoundEffectQueue2_DecrementTimer:
 ProcessSoundEffectQueue2_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
 ProcessSoundEffectQueue2_Shrinking:
       LDA     #$2F
       STA     SoundEffectTimer2
@@ -221,8 +219,6 @@ ProcessSoundEffectQueue2_ShrinkingPart2:
 
 ProcessSoundEffectQueue2_ShrinkingPart3:
       JMP     ProcessSoundEffectQueue2_DecrementTimer
-
-; ---------------------------------------------------------------------------
 
 ProcessSoundEffectQueue2_Growing:
       LDA     #$36
@@ -502,27 +498,24 @@ ProcessDPCMQueue_PointerLoop:
 
 
 DMCStartTable:
-      .BYTE $4F
-      ; @TODO
-      ; It seems that the references to these tables are off by one byte, maybe intentionally?
-      ; Need to fix this in the final disassembly
-      .BYTE $60
-      .BYTE $4B
-      .BYTE $00
-      .BYTE $31
-      .BYTE $60
-      .BYTE $0E
-      .BYTE $1D
+      .BYTE (DPCMSampleData_DoorOpenBombBom-DPCMSampleData)/64 ; $4F
+      .BYTE (DPCMSampleData_DrumSample-DPCMSampleData)/64 ; $60
+      .BYTE (DPCMSampleData_PlayerHurt-DPCMSampleData)/64 ; $4B
+      .BYTE (DPCMSampleData_ItemPull-DPCMSampleData)/64 ; $00
+      .BYTE (DPCMSampleData_BossDeath-DPCMSampleData)/64 ; $31
+      .BYTE (DPCMSampleData_DrumSample-DPCMSampleData)/64 ; $60
+      .BYTE (DPCMSampleData_BossHurt-DPCMSampleData)/64 ; $0E
+      .BYTE (DPCMSampleData_PlayerDeath-DPCMSampleData)/64 ; $1D
 
 DMCLengthTable:
-      .BYTE $43
-      .BYTE $14
-      .BYTE $10
-      .BYTE $38
-      .BYTE $48
-      .BYTE $28
-      .BYTE $3C
-      .BYTE $50
+      .BYTE (DPCMSampleDataEnd_DoorOpenBombBom-DPCMSampleData_DoorOpenBombBom)/16 ; $43
+      .BYTE (DPCMSampleDataEnd_DrumSample_A-DPCMSampleData_DrumSample)/16 ; $14
+      .BYTE (DPCMSampleDataEnd_PlayerHurt-DPCMSampleData_PlayerHurt)/16 ; $10
+      .BYTE (DPCMSampleDataEnd_ItemPull-DPCMSampleData_ItemPull)/16 ; $38
+      .BYTE (DPCMSampleDataEnd_BossDeath-DPCMSampleData_BossDeath)/16 ; $48
+      .BYTE (DPCMSampleDataEnd_DrumSample_B-DPCMSampleData_DrumSample)/16 ; $28
+      .BYTE (DPCMSampleDataEnd_BossHurt-DPCMSampleData_BossHurt)/16 ; $3C
+      .BYTE (DPCMSampleDataEnd_PlayerDeath-DPCMSampleData_PlayerDeath)/16 ; $50
 
 DMCFreqTable:
       .BYTE $0E
@@ -533,7 +526,7 @@ DMCFreqTable:
       .BYTE $0F
       .BYTE $0F
       .BYTE $0F
-      .BYTE $60
+      .BYTE $60 ; ???
 
 
 ProcessMusicQueue2_ThenReadNoteData:
@@ -651,16 +644,16 @@ ProcessMusicQueue2_ReadHeader:
 
 ProcessMusicQueue2_ReadNoteData:
       DEC     MusicSquare2NoteLength
-      BNE     ProcessMusicQueue2_SustainNote
+      BNE     ProcessMusicQueue2_Square2SustainNote
 
       LDY     MusicSquare1NoteOffset
       INC     MusicSquare1NoteOffset
       LDA     (CurrentMusicPointer),Y
       BEQ     ProcessMusicQueue2_EndOfSegment
 
-      BPL     ProcessMusicQueue2_Note
+      BPL     ProcessMusicQueue2_Square2Note
 
-      BNE     ProcessMusicQueue2_Patch
+      BNE     ProcessMusicQueue2_Square2Patch
 
 ProcessMusicQueue2_EndOfSegment:
       LDA     MusicPlaying1
@@ -691,7 +684,7 @@ ProcessMusicQueue2_ThenSetNextPart:
 ProcessMusicQueue2_ResumeMusicQueue1:
       JMP     ProcessMusicQueue2_MusicQueue1
 
-ProcessMusicQueue2_Patch:
+ProcessMusicQueue2_Square2Patch:
       TAX
       AND     #$F0
       STA     MusicSquare2Patch
@@ -703,43 +696,41 @@ ProcessMusicQueue2_Patch:
       INC     MusicSquare1NoteOffset
       LDA     (CurrentMusicPointer),Y
 
-ProcessMusicQueue2_Note:
+ProcessMusicQueue2_Square2Note:
       LDX     SoundEffectPlaying1
-      BNE     loc_BANK4_849B
+      BNE     ProcessMusicQueue2_Square2ContinueNote
 
       JSR     PlaySquare2Note
 
       TAY
-      BNE     loc_BANK4_848D
+      BNE     ProcessMusicQueue2_Square2StartNote
 
       LDA     UNINITIALIZED_MusicSquare2Volume
-      JMP     loc_BANK4_8495
+      JMP     ProcessMusicQueue2_Square2UpdateNoteOffset
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_848D:
+ProcessMusicQueue2_Square2StartNote:
       LDA     MusicSquare2NoteStartLength
       LDX     UNINITIALIZED_MusicSquare2Volume ; always overridden in the following subroutine...?
       JSR     SetInstrumentStartOffset
 
-loc_BANK4_8495:
+ProcessMusicQueue2_Square2UpdateNoteOffset:
       STA     MusicSquare2InstrumentOffset
       JSR     SetSquare2VolumeAndSweep
 
-loc_BANK4_849B:
+ProcessMusicQueue2_Square2ContinueNote:
       LDA     MusicSquare2NoteStartLength
       STA     MusicSquare2NoteLength
 
-ProcessMusicQueue2_SustainNote:
+ProcessMusicQueue2_Square2SustainNote:
       LDX     SoundEffectPlaying1
       BNE     loc_BANK4_84BF
 
       LDY     MusicSquare2InstrumentOffset
-      BEQ     loc_BANK4_84AE
+      BEQ     ProcessMusicQueue2_LoadSquare2Instrument
 
       DEC     MusicSquare2InstrumentOffset
 
-loc_BANK4_84AE:
+ProcessMusicQueue2_LoadSquare2Instrument:
       LDA     MusicSquare2NoteStartLength
       LDX     MusicSquare2Patch
       JSR     LoadSquareInstrumentDVE
@@ -782,27 +773,25 @@ loc_BANK4_84E3:
 
 ProcessMusicQueue2_Square1Note:
       LDY     SoundEffectPlaying2
-      BNE     loc_BANK4_8512
+      BNE     ProcessMusicQueue2_Square1ContinueNote
 
       JSR     PlaySquare1Note
 
-      BNE     loc_BANK4_8504
+      BNE     ProcessMusicQueue2_Square1StartNote
 
       LDA     UNINITIALIZED_MusicSquare2Volume
-      JMP     loc_BANK4_850C
+      JMP     ProcessMusicQueue2_Square1UpdateNoteOffset
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8504:
+ProcessMusicQueue2_Square1StartNote:
       LDA     MusicSquare1NoteStartLength
       LDX     UNINITIALIZED_MusicSquare1Volume ; always overridden in the following subroutine...?
       JSR     SetInstrumentStartOffset
 
-loc_BANK4_850C:
+ProcessMusicQueue2_Square1UpdateNoteOffset:
       STA     MusicSquare1InstrumentOffset
       JSR     SetSquare1VolumeAndSweep
 
-loc_BANK4_8512:
+ProcessMusicQueue2_Square1ContinueNote:
       LDA     MusicSquare1NoteStartLength
       STA     MusicSquare1NoteLength
 
@@ -863,8 +852,6 @@ loc_BANK4_8566:
       BCC     loc_BANK4_857C
 
       CMP     #$1E
-
-loc_BANK4_8576:
       BCS     loc_BANK4_8580
 
       LDA     #$24
@@ -872,8 +859,6 @@ loc_BANK4_8576:
 
 loc_BANK4_857C:
       LDA     #$18
-
-loc_BANK4_857E:
       BNE     loc_BANK4_8582
 
 loc_BANK4_8580:
@@ -924,14 +909,10 @@ loc_BANK4_85B2:
 loc_BANK4_85CC:
       JMP     loc_BANK4_85D8
 
-; ---------------------------------------------------------------------------
-
 loc_BANK4_85CF:
       LDA     CurrentMusicNoiseStartOffset
       STA     CurrentMusicNoiseOffset
       JMP     loc_BANK4_8596
-
-; ---------------------------------------------------------------------------
 
 loc_BANK4_85D8:
       LDA     MusicPlaying1
@@ -939,8 +920,6 @@ loc_BANK4_85D8:
       BNE     loc_BANK4_85E0
 
       RTS
-
-; ---------------------------------------------------------------------------
 
 ; use DPCM instead of noise for percussion channel
 loc_BANK4_85E0:
@@ -977,16 +956,11 @@ loc_BANK4_8606:
 locret_BANK4_8613:
       RTS
 
-; ---------------------------------------------------------------------------
-
 loc_BANK4_8614:
       LDA     CurrentMusicDPCMStartOffset
       STA     CurrentMusicDPCMOffset
       JMP     loc_BANK4_85EA
 
-; End of function ProcessMusicQueue2
-
-; ---------------------------------------------------------------------------
 NoiseVolTable:
       .BYTE $10,$1E,$1F,$16
 NoiseLoTable:
@@ -1005,8 +979,6 @@ ProcessMusicQueue2_PatchNoteLength:
       TAY
       LDA     NoteLengthTable,Y
       RTS
-
-; =============== S U B R O U T I N E =======================================
 
 ; Input
 ;   A = note start length, >= $13 for table A, < $13 for instrument table B
@@ -1178,6 +1150,8 @@ PlaySquare1Note:
 ;       $04: square 2
 ;       $08: triangle
 ;       $0C: noise
+; Output
+;   A = $00
 PlayNote:
       CMP     #$7E
       BNE     PlayNote_NotRest
@@ -1186,8 +1160,6 @@ PlayNote:
       STA     SQ1_VOL,X
       LDA     #$00
       RTS
-
-; ---------------------------------------------------------------------------
 
 PlayNote_NotRest:
       LDY     #$01
@@ -1238,7 +1210,7 @@ loc_BANK4_8717:
       STA     SQ1_LO,X
       STA     unk_RAM_5F9,X
       LDA     NextFrequencyHi
-      ORA     #8
+      ORA     #$08
       STA     SQ1_HI,X
       RTS
 
@@ -1247,7 +1219,7 @@ loc_BANK4_8727:
       SEC
       SBC     #$02
       STA     SQ2_LO
-      STA     byte_RAM_C2
+      STA     UNINITIALIZED_MusicSquare2Lo ; unused?
       LDA     NextFrequencyHi
       ORA     #$08
       STA     SQ2_HI
@@ -1263,8 +1235,6 @@ loc_BANK4_8727:
 PlaySquare2Sweep:
       STX     SQ2_VOL
       STY     SQ2_SWEEP
-
-; =============== S U B R O U T I N E =======================================
 
 ; Play a note on the Square 2 channel
 ;

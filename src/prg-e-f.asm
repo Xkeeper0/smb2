@@ -4,7 +4,7 @@
 ;
 ; What's inside: Lots of game logic.
 ;
-;   - PCM data for drum samples
+;   - DPCM data
 ;   - Joypad input reading
 ;   - PPU update routines
 ;   - Game initialization routines
@@ -23,8 +23,14 @@
 
 ; .segment BANKE
 ; * =  $C000
-      .BYTE $55,$2D,$55,$55,$D5,$54,$55,$55,$55,$55,$AB,$54,$55,$AD,$B6 ; Logged as PCM data
-      .BYTE $FF,$3F,$00,$00,$80,$FE,$FF,$03,$78,$00,$00,$00,$FC,$FF,$FF,$1F,$F8,$0F ; $F
+
+;
+; PCM Data
+;
+DPCMSampleData:
+DPCMSampleData_ItemPull:
+      .BYTE $55,$2D,$55,$55,$D5,$54,$55,$55,$55,$55,$AB,$54,$55,$AD,$B6
+      .BYTE $FF,$3F,$00,$00,$80,$FE,$FF,$03,$78,$00,$00,$00,$FC,$FF,$FF,$1F,$F8,$0F ; $0F
       .BYTE $00,$00,$80,$FF,$FF,$FF,$03,$FF,$09,$00,$00,$A0,$FF,$FF,$FF,$FF,$00,$F6 ; $21
       .BYTE $03,$00,$00,$00,$FF,$FF,$FF,$FF,$01,$00,$FF,$09,$00,$00,$00,$EC,$FF,$FF,$FF,$FF ; $33
       .BYTE $0F,$00,$E8,$2E,$02,$00,$80,$02,$D8,$FF,$FF,$FF,$FB,$FF,$07,$00,$00,$DA,$5E ; $47
@@ -74,7 +80,11 @@
       .BYTE $00,$04,$D0,$FF,$BB,$24,$40,$04,$8A,$BD,$E8,$B6,$EE,$D7,$7F,$BC ; $348
       .BYTE $F8,$C7,$13,$04,$00,$00,$D0,$BB,$B7,$DB,$DA,$AA,$AB,$5A,$6A,$55 ; $358
       .BYTE $A5,$A9,$A5,$2A,$55,$55,$55,$AA,$AA,$4A,$55,$55,$55,$AA,$AA ; $368
-      .BYTE $AA,$52,$53,$55,$55,$55,$55,$55,$55,$95,$55,$55,$A9,$55,$55 ; $377
+      .BYTE $AA,$52,$53,$55,$55,$55,$55,$55,$55 ; $377
+DPCMSampleDataEnd_ItemPull:
+
+DPCMSampleData_BossHurt:
+      .BYTE $95,$55,$55,$A9,$55,$55 ; $380
       .BYTE $69,$55,$55,$55,$FB,$7F,$02,$00,$F0,$EF,$17,$F0,$02,$00,$B0,$FF,$FF ; $386
       .BYTE $81,$0F,$00,$C0,$FD,$FF,$0F,$7E,$00,$00,$BE,$FF,$7F,$E0,$23,$00,$60 ; $397
       .BYTE $FF,$FF,$03,$3F,$00,$00,$FB,$FF,$1F,$D8,$01,$00,$D8,$FE,$FF,$C2,$0E,$00 ; $3A8
@@ -130,6 +140,9 @@
       .BYTE $55,$55,$AB,$B4,$B2,$AA,$AA,$52,$AB,$34,$55,$53,$55,$55,$2D ; $718
       .BYTE $AB,$52,$AB,$CA,$52,$2B,$55,$55,$55,$55,$55,$55,$55,$55,$2B ; $727
       .BYTE $D5,$52,$55,$55,$55,$55,$55,$55,$55,$55,$55 ; $736
+DPCMSampleDataEnd_BossHurt:
+
+DPCMSampleData_PlayerDeath:
       .BYTE $53,$55,$55,$55,$55,$55,$55,$55,$B5,$FA,$FE,$FF,$3F,$00,$00,$00 ; NOT logged as PCM data!
       .BYTE $80,$FE,$FF,$0B,$00,$00,$80,$FF,$FF,$FF,$01,$00,$00,$FC,$FF,$FF,$1F,$00 ; $10
       .BYTE $00,$E0,$FF,$FF,$FF,$00,$00,$00,$FF,$FF,$FF,$07,$00,$00,$E8,$FF,$FF,$1F ; $22
@@ -200,7 +213,10 @@
       .BYTE $FF,$1F,$00,$00,$E8,$FF,$FF,$17,$00,$00,$74,$FF,$FF,$4B,$00,$00,$74,$FF ; $4DB
       .BYTE $FF,$15,$04,$00,$69,$7B,$AB,$B5,$AD,$5A,$55,$AB,$AA,$AA,$AA,$2A ; $4ED
       .BYTE $55,$55 ; $4FD
-      .BYTE $6B,$FF,$1F,$00,$00,$E8,$FF,$0F,$68,$05,$00,$A0,$FF,$FF,$0F,$DC,$00,$00 ; Logged as PCM data
+DPCMSampleData_BossDeath: ; is this too early...
+      .BYTE $6B
+DPCMSampleDataEnd_PlayerDeath: ; ...or is this too late?
+      .BYTE $FF,$1F,$00,$00,$E8,$FF,$0F,$68,$05,$00,$A0,$FF,$FF,$0F,$DC,$00,$00 ; Logged as PCM data
       .BYTE $DC,$FE,$FF,$07,$7E,$00,$00,$F6,$FF,$FF,$81,$0F,$00,$00,$FE,$FF,$7F,$E0 ; $12
       .BYTE $05,$00,$60,$FB,$FF,$0B,$3F,$00,$00,$FC,$FF,$FF,$C0,$0E,$00,$00,$FE,$FF ; $24
       .BYTE $3F,$B0,$03,$00,$B0,$FF,$FF,$89,$1D,$00,$00,$EE,$FF,$7F,$68,$05,$00,$60 ; $36
@@ -265,7 +281,12 @@
       .BYTE $FF,$FF,$09,$40,$FF,$0B,$A0,$FF,$00,$EC,$3F,$00,$FD,$1F,$00,$FC,$DF ; $443
       .BYTE $09,$00,$F8,$FF,$1F,$D8,$0B,$00,$00,$FE,$FF,$FF,$D0,$01,$00,$FE,$7F,$02,$B0 ; $454
       .BYTE $FF,$02,$F0,$5F,$00,$FE,$0F,$00,$FF,$8F,$00,$F8,$FF,$D8,$05,$00,$C0,$FF ; $467
-      .BYTE $FF,$3F,$80,$0F,$00,$80,$FE,$FF ; $479
+      .BYTE $FF,$3F,$80,$0F,$00,$80,$FE ; $479
+DPCMSampleDataEnd_BossDeath:
+
+; sort of a zapping sound
+DPCMSampleData_Unused:
+      .BYTE $FF
       .BYTE $5B,$02,$C0,$FF,$03,$D0,$FF,$02,$F8,$57,$00,$FB,$2F,$00,$FA,$BF,$01,$00 ; NOT logged as PCM data!
       .BYTE $FE,$FF,$07,$7E,$02,$00,$C0,$FE,$FF,$7F,$E0,$04,$00,$F4,$FF,$AB,$01,$00 ; $12
       .BYTE $FF,$BF,$02,$80,$FF,$2F,$00,$FE,$2F,$00,$FC,$3F,$80,$FE,$23,$80 ; $24
@@ -296,6 +317,9 @@
       .BYTE $02,$00,$BA,$FF,$FF,$80,$56,$00,$04,$75,$FB,$FF,$1F,$C0,$56,$00,$84 ; $1D5
       .BYTE $DA,$7F,$FF,$09,$5C,$04,$40,$ED,$FF,$87,$16,$00,$DA,$FF,$65,$01,$E0 ; $1E6
       .BYTE $FF,$31,$02,$FA,$CF,$0A,$E0,$7F ; $1F7
+DPCMSampleDataEnd_Unused:
+
+DPCMSampleData_PlayerHurt:
       .BYTE $55,$95,$55,$55,$55,$55,$55,$55,$D5,$AA,$FF,$3F,$00,$48,$25 ; Logged as PCM data
       .BYTE $B0,$8B,$80,$AE,$0B,$F8,$4F,$80,$7F,$0B,$EC,$2F,$A0,$7F,$23 ; $F
       .BYTE $F0,$4F,$C4,$DF,$09,$F8,$27,$A2,$DF,$0B,$E8,$95,$D0,$6F,$03,$F4 ; $1E
@@ -311,7 +335,11 @@
       .BYTE $FB,$7F,$80,$7F,$37,$01,$F8,$0F,$02,$F8,$DF,$12,$00,$C0,$EB,$7F,$B7 ; $C5
       .BYTE $AD,$AD,$56,$B5,$AA,$2A,$55,$55,$A5,$4A,$2D,$55,$A9,$52,$55 ; $D6
       .BYTE $A9,$2A,$55,$A9,$AA,$4A,$55,$55,$A5,$A9,$AA,$5A,$AA,$AA,$AA ; $E5
-      .BYTE $AA,$AA,$AA,$AA,$6A,$A5,$69,$55,$55,$55,$2D,$35,$00,$B0,$82 ; $F4
+      .BYTE $AA,$AA,$AA,$AA,$6A,$A5,$69,$55,$55,$55,$2D,$35,$00 ; $F4
+DPCMSampleDataEnd_PlayerHurt:
+
+DPCMSampleData_DoorOpenBombBom:
+      .BYTE $B0,$82
       .BYTE $20,$59,$52,$04,$00,$FD,$FF,$07,$00,$F8,$FF,$FF,$17,$C0,$F6,$FF,$7F ; $103
       .BYTE $00,$80,$D4,$7D,$FF,$57,$95,$A0,$A6,$B5,$9A,$2A,$4D,$DD,$4B ; $114
       .BYTE $92,$20,$A4,$96,$DB,$F6,$75,$FF,$01,$00,$00,$F0,$AF,$25,$01,$40,$D5 ; $123
@@ -381,6 +409,9 @@
       .BYTE $C3,$4E,$80,$80,$00,$F0,$FF,$37,$95,$80,$0A,$E8,$E8,$0F,$EC,$DA ; $51A
       .BYTE $DB,$AB,$FB,$C9,$43,$7F,$B1 ; $52A
       .BYTE $89,$00,$0A,$00,$FF,$DF,$49,$02,$0A,$70,$EA,$07,$EE,$EA,$F6 ; NOT logged as PCM data
+DPCMSampleDataEnd_DoorOpenBombBom:
+
+DPCMSampleData_DrumSample:
       .BYTE $6A,$55,$55,$D5,$54,$AA,$5A,$55,$55,$85,$D8,$EA,$D7,$FF,$02 ; Logged as PCM data
       .BYTE $00,$00,$FE,$FF,$5F,$62,$00,$00,$00,$FF,$FF,$FF,$27,$00,$00,$E8,$FF,$FF ; $F
       .BYTE $07,$00,$FC,$FF,$FF,$FF,$00,$00,$00,$F8,$FF,$03,$00,$80,$FD,$FF,$7F,$00,$00 ; $21
@@ -401,6 +432,7 @@
       .BYTE $75,$AB,$24,$91,$6A,$BB,$5D,$25,$41,$94,$6D,$D7,$AA,$52,$29 ; $113
       .BYTE $55,$6D,$B5,$A9,$52,$49,$B5,$6D,$4B,$A2,$54,$D5,$B6,$5A,$29 ; $122
       .BYTE $92,$54,$DB,$6D,$2D,$29,$52,$A5,$B6,$6D,$93,$4A,$52,$6B,$D5 ; $131
+DPCMSampleDataEnd_DrumSample_A:
       .BYTE $92,$AA,$AA,$55,$5B,$55,$91,$54,$59,$B5,$55,$55,$49,$A5,$DA ; $140
       .BYTE $B6,$AB,$8A,$42,$A5,$F6,$B2,$25,$49,$56,$6D,$B5,$A9,$94,$CA ; $14F
       .BYTE $AA,$6A,$AB,$4A,$A5,$54,$69,$DB,$2B,$A9,$A4,$AA,$6A,$6D,$25 ; $15E
@@ -422,7 +454,10 @@
       .BYTE $42,$6A,$DB,$4A,$95,$AA,$92,$AD,$B6,$6A,$53,$A1,$AA,$AA,$B6 ; $24E
       .BYTE $52,$25,$49,$ED,$AD,$AA,$A2,$AA,$AA,$56,$5B,$A5,$92,$25,$A5 ; $25D
       .BYTE $A9,$6D,$AB,$4A,$95,$56,$A9,$95,$AA,$52,$AB,$D6,$52,$AD,$AA ; $26C
-      .BYTE $52,$95,$2A,$B5,$D5,$4A ; $27B
+      .BYTE $52,$95,$2A,$B5,$D5
+      .BYTE $4A ; $27B
+DPCMSampleDataEnd_DrumSample_B:
+      ; the rest of the drum sample is unused
       .BYTE $A9,$2A,$55,$6D,$6B,$A5,$AA,$24,$55,$55,$DB,$4A,$95,$2A,$B5 ; NOT logged as PCM data
       .BYTE $AD,$AA,$AA,$49,$52,$B5,$A9,$AA,$CA,$52,$6B,$DB,$AA,$92,$44 ; $F
       .BYTE $92,$D5,$B7,$55,$45,$89,$B2,$DD,$5A,$95,$92,$54,$4A,$DF,$DA ; $1E
@@ -449,9 +484,10 @@
       .BYTE $55,$55,$55,$6B,$55,$95,$92,$2A,$A9,$55,$AB,$52,$AD,$AA,$E9 ; $15A
       .BYTE $5A,$55,$42,$AB,$56,$55,$53,$29,$B1,$7A,$59,$B5,$54,$55,$52 ; $169
       .BYTE $6B,$AB,$56,$25,$49,$56,$6D ; $178
+DPCMSampleDataEnd_DrumSample:
+
 ScreenUpdateBufferPointers:
       .WORD PPUBuffer_301
-
       .WORD PPUBuffer_583
       .WORD PPUBuffer_55F
       .WORD PPUBuffer_CharacterSelect
@@ -625,8 +661,6 @@ PPUBuffer_BANKE_DFAF:
       .BYTE $00
 WorldStartingLevel:
       .BYTE $00
-
-WorldPlus1StartingLevel:
       .BYTE $03 ; $00
       .BYTE $06 ; $01
       .BYTE $09 ; $02
@@ -688,19 +722,26 @@ BonusChanceVeggieSprite:
 BonusChanceSnifitSprite:
       .BYTE $5F,$01,$01,$58 ; $00
       .BYTE $5F,$03,$01,$60 ; $04
+
 PlayerSelectSpritePalettesDark:
       .BYTE $3F,$10,$10,$0F,$22,$12,$01,$0F,$22,$12,$01,$0F,$22,$12,$01,$0F,$22
       .BYTE $12,$01 ; This is actually PPU data, not a straight-up palette
+
 PlayerSelectPaletteOffsets:
-      .BYTE $00
-      .BYTE $15 ; These use the internal ordering
-      .BYTE $0E ; (Mario, Princess, Toad, Luigi)
-      .BYTE $07 ; @TODO Use relative pointers
+      .BYTE (PlayerSelectSpritePalettes_Mario-PlayerSelectSpritePalettes)
+      .BYTE (PlayerSelectSpritePalettes_Princess-PlayerSelectSpritePalettes)
+      .BYTE (PlayerSelectSpritePalettes_Toad-PlayerSelectSpritePalettes)
+      .BYTE (PlayerSelectSpritePalettes_Luigi-PlayerSelectSpritePalettes)
 PlayerSelectSpritePalettes:
-      .BYTE $3F,$10,$04,$0F,$27,$16,$01 ; Mario
-      .BYTE $3F,$14,$04,$0F,$36,$2A,$01 ; Luigi
-      .BYTE $3F,$18,$04,$0F,$27,$30,$01 ; Toad
-      .BYTE $3F,$1C,$04,$0F,$36,$25,$07 ; Princess
+PlayerSelectSpritePalettes_Mario:
+      .BYTE $3F,$10,$04,$0F,$27,$16,$01
+PlayerSelectSpritePalettes_Luigi:
+      .BYTE $3F,$14,$04,$0F,$36,$2A,$01
+PlayerSelectSpritePalettes_Toad:
+      .BYTE $3F,$18,$04,$0F,$27,$30,$01
+PlayerSelectSpritePalettes_Princess:
+      .BYTE $3F,$1C,$04,$0F,$36,$25,$07
+
 TitleCardPalettes:
       .BYTE $3F,$00,$20 ; PPU data
       .BYTE $38,$30,$1A,$0F
@@ -712,6 +753,7 @@ TitleCardPalettes:
       .BYTE $38,$25,$36,$06
       .BYTE $38,$12,$36,$01
       .BYTE $00
+
 BonusChanceSpritePalettes:
       .BYTE $0F,$37,$16,$0F
       .BYTE $0F,$37,$16,$0F ; 4
@@ -754,7 +796,7 @@ SetBlackAndWhitePalette:
       STA     PPUADDR
       STY     PPUADDR
 
-loc_BANKF_E14B:
+SetBlackAndWhitePalette_Loop:
       TYA
       AND     #3
       TAX
@@ -762,7 +804,7 @@ loc_BANKF_E14B:
       STA     PPUDATA
       INY
       CPY     #$14
-      BCC     loc_BANKF_E14B
+      BCC     SetBlackAndWhitePalette_Loop
 
       RTS
 
@@ -855,7 +897,7 @@ loc_BANKF_E1B6:
       CLC
       ADC     #$D1
       STA     byte_RAM_717F
-      LDA     WorldPlus1StartingLevel,Y
+      LDA     WorldStartingLevel+1,Y
       SEC
       SBC     WorldStartingLevel,Y
       STA     byte_RAM_3
@@ -1930,7 +1972,7 @@ loc_BANKF_E7FD:
 
 loc_BANKF_E802:
       LDY     CurrentWorld
-      LDA     WorldPlus1StartingLevel,Y
+      LDA     WorldStartingLevel+1,Y
       SEC
       SBC     #1
       CMP     CurrentLevel

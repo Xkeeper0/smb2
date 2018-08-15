@@ -288,7 +288,7 @@ UNINITIALIZED_MusicSquare1Volume: ; ???
       .dsb 1 ; $00c0
 SoundEffect1DataOffset:
       .dsb 1 ; $00c1
-byte_RAM_C2:
+UNINITIALIZED_MusicSquare2Lo: ; ???
       .dsb 1 ; $00c2
       .dsb 1 ; $00c3
 SoundEffectTimer2:
