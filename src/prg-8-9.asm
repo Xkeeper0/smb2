@@ -492,6 +492,26 @@ LevelDataPointersHi:
 ; specifying things like palettes, music, size, scrolling, and ground type.
 ; The rest is level objects. Levels are ended by the $FF special object.
 ;
+; Each "page" of level data is 16x15 tiles.
+;
+; Level header (4 bytes):
+;
+;   Byte 1: HxBBBxSS
+;   H: horizontal level flag (0 = vertical, 1 = horizontal)
+;   B: background palette (0-7)
+;   S: sprite palette (0-3)
+;
+;   Byte 2: xxxGGGGG
+;   G: ground setting
+;
+;   Byte 3: PPPPOOOO
+;   P: number of pages minus 1 (0 = 1 page, 1 = 2 pages, etc.)
+;   O: object type
+;
+;   Byte 4: xxTTTxMM
+;   T: ground type
+;   M: music (0 = overworld, 1 = underground, 2 = boss, 3 = Wart)
+;
 ; Regular object (2 bytes):
 ;   $YX - position
 ;   $TT - type
@@ -503,7 +523,7 @@ LevelDataPointersHi:
 ;   $F3 - skip forward two pages; no parameters
 ;   $F4 - new object layer; next object will be positioned relative to (0, 0) of the first page; no parameters
 ;   $F5 - area pointer; byte 1: world/level offset, byte 2: $AP, where A is the area and P is the page offset within the area
-;   $F6 - ground appearance; one parameter for ground tile
+;   $F6 - ground type; one parameter for ground type
 ;   $F7-$FE - seemingly unused
 ;   $FF - end of the data for the current level; no parameters
 ;
@@ -5558,11 +5578,16 @@ EnemyPointers_Level_7_3_Lo:
 ;
 ; This data is broken down by page (ie. screen), where the first byte indicates
 ; the number of bytes for this page. Each enemy is two bytes, where the first
-; byte is the enemy, and the second byte is YX position.
+; byte is the enemy, and the second byte is XY position.
+;
+; Each "page" of enemy data is 16x16 tiles.
+;
+; Note that this is one tile GREATER than level data. Consequently, level and
+; enemy data becomes increasingly misaligned in vertical areas.
 ;
 ; Examples:
 ;   $01 - an empty page
-;   $03,$01,$47 - a page with a single pink shyguy ($01) at Y=4, X=7
+;   $03,$01,$47 - a page with a single pink shyguy ($01) at X=4, Y=7
 ;
 EnemyPointers_Level_1_1_Area0:
       .BYTE $01
