@@ -3301,11 +3301,11 @@ loc_BANKF_F15F:
       BEQ     locret_BANKF_F17D
 
       LDA     byte_RAM_10
-      AND     #7
+      AND     #$07
       BNE     locret_BANKF_F17D
 
       DEC     StarInvincibilityTimer
-      CPY     #8
+      CPY     #$08
       BNE     locret_BANKF_F17D
 
       LDY     CurrentMusicIndex

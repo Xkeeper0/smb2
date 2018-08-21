@@ -9,6 +9,7 @@
 
 ; .segment BANK6
 ; * =  $8000
+
 WorldBackgroundPalettePointersLo:
       .BYTE <World1BackgroundPalettes
       .BYTE <World2BackgroundPalettes
@@ -17,6 +18,7 @@ WorldBackgroundPalettePointersLo:
       .BYTE <World5BackgroundPalettes
       .BYTE <World6BackgroundPalettes
       .BYTE <World7BackgroundPalettes
+
 WorldSpritePalettePointersLo:
       .BYTE <World1SpritePalettes
       .BYTE <World2SpritePalettes
@@ -25,6 +27,7 @@ WorldSpritePalettePointersLo:
       .BYTE <World5SpritePalettes
       .BYTE <World6SpritePalettes
       .BYTE <World7SpritePalettes
+
 WorldBackgroundPalettePointersHi:
       .BYTE >World1BackgroundPalettes
       .BYTE >World2BackgroundPalettes
@@ -33,6 +36,7 @@ WorldBackgroundPalettePointersHi:
       .BYTE >World5BackgroundPalettes
       .BYTE >World6BackgroundPalettes
       .BYTE >World7BackgroundPalettes
+
 WorldSpritePalettePointersHi:
       .BYTE >World1SpritePalettes
       .BYTE >World2SpritePalettes
@@ -41,6 +45,7 @@ WorldSpritePalettePointersHi:
       .BYTE >World5SpritePalettes
       .BYTE >World6SpritePalettes
       .BYTE >World7SpritePalettes
+
 World1BackgroundPalettes:
       .BYTE $21,$30,$12,$0F ; $00
       .BYTE $21,$30,$16,$0F ; $04 ; Some of these palettes, across all of these entries,
@@ -70,6 +75,7 @@ World1BackgroundPalettes:
       .BYTE $01,$0F,$0F,$0F ; $64
       .BYTE $01,$0F,$0F,$0F ; $68
       .BYTE $01,$0F,$0F,$0F ; $6C
+
 World1SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $00
       .BYTE $FF,$38,$10,$0F ; $04
@@ -80,6 +86,7 @@ World1SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $18
       .BYTE $FF,$30,$10,$0F ; $1C
       .BYTE $FF,$25,$10,$0F ; $20
+
 World2BackgroundPalettes:
       .BYTE $11,$30,$2A,$0F ; $00
       .BYTE $11,$30,$16,$0F ; $04
@@ -109,6 +116,7 @@ World2BackgroundPalettes:
       .BYTE $01,$0F,$0F,$0F ; $64
       .BYTE $01,$0F,$0F,$0F ; $68
       .BYTE $01,$0F,$0F,$0F ; $6C
+
 World2SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $00
       .BYTE $FF,$38,$2A,$0F ; $04
@@ -119,6 +127,7 @@ World2SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $18
       .BYTE $FF,$30,$10,$0F ; $1C
       .BYTE $FF,$30,$23,$0F ; $20
+
 World3BackgroundPalettes:
       .BYTE $22,$30,$12,$0F ; $00
       .BYTE $22,$30,$16,$0F ; $04
@@ -148,6 +157,7 @@ World3BackgroundPalettes:
       .BYTE $01,$0F,$0F,$0F ; $64
       .BYTE $01,$0F,$0F,$0F ; $68
       .BYTE $01,$0F,$0F,$0F ; $6C
+
 World3SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $00
       .BYTE $FF,$38,$10,$0F ; $04
@@ -158,6 +168,7 @@ World3SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $18
       .BYTE $FF,$30,$10,$0F ; $1C
       .BYTE $FF,$2B,$10,$0F ; $20
+
 World4BackgroundPalettes:
       .BYTE $23,$30,$12,$0F ; $00
       .BYTE $23,$30,$16,$0F ; $04
@@ -187,6 +198,7 @@ World4BackgroundPalettes:
       .BYTE $01,$0F,$0F,$0F ; $64
       .BYTE $01,$0F,$0F,$0F ; $68
       .BYTE $01,$0F,$0F,$0F ; $6C
+
 World4SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $00
       .BYTE $FF,$38,$10,$0F ; $04
@@ -197,6 +209,7 @@ World4SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $18
       .BYTE $FF,$30,$10,$0F ; $1C
       .BYTE $FF,$27,$16,$0F ; $20
+
 World5BackgroundPalettes:
       .BYTE $0F,$30,$12,$01 ; $00
       .BYTE $0F,$30,$16,$01 ; $04
@@ -226,6 +239,7 @@ World5BackgroundPalettes:
       .BYTE $01,$0F,$0F,$0F ; $64
       .BYTE $01,$0F,$0F,$0F ; $68
       .BYTE $01,$0F,$0F,$0F ; $6C
+
 World5SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $00
       .BYTE $FF,$38,$10,$0F ; $04
@@ -236,6 +250,7 @@ World5SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $18
       .BYTE $FF,$30,$16,$0F ; $1C
       .BYTE $FF,$16,$30,$0F ; $20
+
 World6BackgroundPalettes:
       .BYTE $21,$30,$2A,$0F ; $00
       .BYTE $21,$30,$16,$0F ; $04
@@ -265,6 +280,7 @@ World6BackgroundPalettes:
       .BYTE $01,$0F,$0F,$0F ; $64
       .BYTE $01,$0F,$0F,$0F ; $68
       .BYTE $01,$0F,$0F,$0F ; $6C
+
 World6SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $00
       .BYTE $FF,$38,$2A,$0F ; $04
@@ -275,6 +291,7 @@ World6SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $18
       .BYTE $FF,$30,$10,$0F ; $1C
       .BYTE $FF,$30,$23,$0F ; $20
+
 World7BackgroundPalettes:
       .BYTE $21,$30,$12,$0F ; $00
       .BYTE $21,$30,$16,$0F ; $04
@@ -304,6 +321,7 @@ World7BackgroundPalettes:
       .BYTE $01,$0F,$0F,$0F ; $64
       .BYTE $01,$0F,$0F,$0F ; $68
       .BYTE $01,$0F,$0F,$0F ; $6C
+
 World7SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $00
       .BYTE $FF,$38,$10,$0F ; $04
@@ -314,6 +332,7 @@ World7SpritePalettes:
       .BYTE $FF,$30,$16,$0F ; $18
       .BYTE $FF,$30,$10,$0F ; $1C
       .BYTE $FF,$30,$2A,$0F ; $20
+
 GroundTilesHorizontalLo:
       .BYTE <World1GroundTilesHorizontal
       .BYTE <World2GroundTilesHorizontal
@@ -322,6 +341,7 @@ GroundTilesHorizontalLo:
       .BYTE <World5GroundTilesHorizontal
       .BYTE <World6GroundTilesHorizontal
       .BYTE <World7GroundTilesHorizontal
+
 GroundTilesVerticalLo:
       .BYTE <World1GroundTilesVertical
       .BYTE <World2GroundTilesVertical
@@ -330,6 +350,7 @@ GroundTilesVerticalLo:
       .BYTE <World5GroundTilesVertical
       .BYTE <World6GroundTilesVertical
       .BYTE <World7GroundTilesVertical
+
 GroundTilesHorizontalHi:
       .BYTE >World1GroundTilesHorizontal
       .BYTE >World2GroundTilesHorizontal
@@ -338,6 +359,7 @@ GroundTilesHorizontalHi:
       .BYTE >World5GroundTilesHorizontal
       .BYTE >World6GroundTilesHorizontal
       .BYTE >World7GroundTilesHorizontal
+
 GroundTilesVerticalHi:
       .BYTE >World1GroundTilesVertical
       .BYTE >World2GroundTilesVertical
@@ -346,6 +368,7 @@ GroundTilesVerticalHi:
       .BYTE >World5GroundTilesVertical
       .BYTE >World6GroundTilesVertical
       .BYTE >World7GroundTilesVertical
+
 World1GroundTilesHorizontal:
       .BYTE $00, $99, $D5, $00 ; $00
       .BYTE $00, $99, $99, $99 ; $01
@@ -355,6 +378,7 @@ World1GroundTilesHorizontal:
       .BYTE $00, $A0, $A0, $99 ; $05
       .BYTE $00, $00, $00, $00 ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 World1GroundTilesVertical:
       .BYTE $00, $9D, $9E, $C6 ; $00
       .BYTE $00, $05, $A0, $00 ; $01
@@ -364,6 +388,7 @@ World1GroundTilesVertical:
       .BYTE $00, $00, $A0, $00 ; $05
       .BYTE $00, $93, $9E, $C6 ; $06
       .BYTE $00, $40, $9E, $C6 ; $07
+
 World2GroundTilesHorizontal:
       .BYTE $00, $99, $99, $99 ; $00
       .BYTE $00, $8A, $8A, $8A ; $01
@@ -373,6 +398,7 @@ World2GroundTilesHorizontal:
       .BYTE $00, $D6, $9B, $18 ; $05
       .BYTE $00, $00, $00, $00 ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 World2GroundTilesVertical:
       .BYTE $00, $9D, $9E, $C6 ; $00
       .BYTE $00, $93, $A0, $00 ; $01
@@ -382,6 +408,7 @@ World2GroundTilesVertical:
       .BYTE $00, $00, $00, $00 ; $05
       .BYTE $00, $00, $00, $00 ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 World3GroundTilesHorizontal:
       .BYTE $00, $99, $D5, $00 ; $00
       .BYTE $00, $99, $99, $99 ; $01
@@ -391,6 +418,7 @@ World3GroundTilesHorizontal:
       .BYTE $00, $A0, $A0, $99 ; $05
       .BYTE $00, $00, $00, $00 ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 World3GroundTilesVertical:
       .BYTE $00, $C6, $9E, $9D ; $00
       .BYTE $00, $05, $A0, $00 ; $01
@@ -400,6 +428,7 @@ World3GroundTilesVertical:
       .BYTE $00, $00, $A0, $00 ; $05
       .BYTE $00, $40, $9E, $C6 ; $06
       .BYTE $00, $06, $A0, $00 ; $07
+
 World4GroundTilesHorizontal:
       .BYTE $00, $99, $D5, $00 ; $00
       .BYTE $00, $99, $16, $00 ; $01
@@ -409,6 +438,7 @@ World4GroundTilesHorizontal:
       .BYTE $00, $0A, $0A, $08 ; $05
       .BYTE $00, $1F, $1F, $1F ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 World4GroundTilesVertical:
       .BYTE $00, $C6, $99, $9D ; $00
       .BYTE $00, $A2, $A2, $A2 ; $01
@@ -418,6 +448,7 @@ World4GroundTilesVertical:
       .BYTE $00, $18, $18, $18 ; $05
       .BYTE $00, $00, $00, $00 ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 World5GroundTilesHorizontal:
       .BYTE $00, $99, $D5, $40 ; $00
       .BYTE $00, $99, $99, $99 ; $01
@@ -427,6 +458,7 @@ World5GroundTilesHorizontal:
       .BYTE $00, $A0, $A0, $99 ; $05
       .BYTE $00, $00, $00, $00 ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 World5GroundTilesVertical:
       .BYTE $00, $9D, $9E, $C6 ; $00
       .BYTE $00, $05, $A0, $00 ; $01
@@ -436,6 +468,7 @@ World5GroundTilesVertical:
       .BYTE $00, $00, $A0, $00 ; $05
       .BYTE $00, $93, $9E, $C6 ; $06
       .BYTE $00, $40, $9E, $C6 ; $07
+
 World6GroundTilesHorizontal:
       .BYTE $00, $99, $99, $99 ; $00
       .BYTE $00, $8A, $8A, $8A ; $01
@@ -445,6 +478,7 @@ World6GroundTilesHorizontal:
       .BYTE $00, $D6, $9B, $18 ; $05
       .BYTE $00, $00, $00, $00 ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 World6GroundTilesVertical:
       .BYTE $00, $9D, $9E, $C6 ; $00
       .BYTE $00, $93, $A0, $00 ; $01
@@ -454,6 +488,7 @@ World6GroundTilesVertical:
       .BYTE $00, $00, $00, $00 ; $05
       .BYTE $00, $00, $00, $00 ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 World7GroundTilesHorizontal:
       .BYTE $00, $9C, $9C, $9C ; $00
       .BYTE $00, $D7, $9C, $19 ; $01
@@ -463,6 +498,7 @@ World7GroundTilesHorizontal:
       .BYTE $00, $00, $00, $00 ; $05
       .BYTE $00, $00, $00, $00 ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 World7GroundTilesVertical:
       .BYTE $00, $9C, $9C, $9C ; $00
       .BYTE $00, $05, $A0, $00 ; $01
@@ -472,6 +508,7 @@ World7GroundTilesVertical:
       .BYTE $00, $00, $A0, $00 ; $05
       .BYTE $00, $00, $00, $00 ; $06
       .BYTE $00, $00, $00, $00 ; $07
+
 ; @TODO Check this
 ; Not actually sure what these are used for at all.
 ; My notes say they aren't, and they don't seem to be referenced anywhere...
@@ -735,83 +772,103 @@ WorldObjectTilePointersHi:
       .BYTE >World7ObjectTiles
 
 World1ObjectTiles:
-      .BYTE $97, $92, $12, $12 ; $00
-      .BYTE $1C, $99, $1C, $1C ; $04
-      .BYTE $45, $45, $45, $45 ; $08
-      .BYTE $65, $65, $65, $65 ; $0C
-      .BYTE $1A, $1A, $1A, $1A ; $10
-      .BYTE $A0, $00, $9D, $A2 ; $14
-      .BYTE $A0, $A0, $A0, $A0 ; $18
-      .BYTE $80, $07, $81, $80 ; $1C
-      .BYTE $81, $81, $81, $81 ; $20
+      .BYTE $97, $92, $12, $12 ; 3X (horizontal jump-through block)
+      .BYTE $1C, $99, $1C, $1C ; 4X (horizontal solid block)
+      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
+      .BYTE $65, $65, $65, $65 ; 6X (bridge)
+      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
+      .BYTE $A0, $00, $9D, $A2 ; 8X (vertical wall, eg. rock, bombable)
+      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
+      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World2ObjectTiles:
-      .BYTE $96, $92, $93, $12 ; $00
-      .BYTE $1C, $1C, $1C, $1C ; $04
-      .BYTE $45, $45, $45, $45 ; $08
-      .BYTE $65, $65, $65, $65 ; $0C
-      .BYTE $1A, $1A, $1A, $1A ; $10
-      .BYTE $A0, $40, $9D, $18 ; $14
-      .BYTE $A0, $A0, $A0, $A0 ; $18
-      .BYTE $80, $07, $81, $80 ; $1C
-      .BYTE $81, $81, $81, $81 ; $20
+      .BYTE $96, $92, $93, $12 ; 3X (horizontal jump-through block)
+      .BYTE $1C, $1C, $1C, $1C ; 4X (horizontal solid block)
+      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
+      .BYTE $65, $65, $65, $65 ; 6X (bridge)
+      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
+      .BYTE $A0, $40, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
+      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
+      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World3ObjectTiles:
-      .BYTE $97, $92, $12, $12 ; $00
-      .BYTE $1C, $99, $A0, $1C ; $04
-      .BYTE $45, $45, $45, $45 ; $08
-      .BYTE $65, $65, $65, $65 ; $0C
-      .BYTE $1A, $1A, $1A, $1A ; $10
-      .BYTE $A0, $00, $9D, $A2 ; $14
-      .BYTE $A0, $A0, $A0, $A0 ; $18
-      .BYTE $80, $07, $81, $80 ; $1C
-      .BYTE $81, $81, $81, $81 ; $20
+      .BYTE $97, $92, $12, $12 ; 3X (horizontal jump-through block)
+      .BYTE $1C, $99, $A0, $1C ; 4X (horizontal solid block)
+      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
+      .BYTE $65, $65, $65, $65 ; 6X (bridge)
+      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
+      .BYTE $A0, $00, $9D, $A2 ; 8X (vertical wall, eg. rock, bombable)
+      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
+      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World4ObjectTiles:
-      .BYTE $16, $92, $16, $12 ; $00
-      .BYTE $1C, $99, $A2, $18 ; $04
-      .BYTE $45, $45, $45, $45 ; $08
-      .BYTE $65, $65, $65, $65 ; $0C
-      .BYTE $1A, $1A, $1A, $1A ; $10
-      .BYTE $A0, $1F, $9D, $18 ; $14
-      .BYTE $A0, $A0, $A0, $A0 ; $18
-      .BYTE $80, $07, $81, $80 ; $1C
-      .BYTE $81, $81, $81, $81 ; $20
+      .BYTE $16, $92, $16, $12 ; 3X (horizontal jump-through block)
+      .BYTE $1C, $99, $A2, $18 ; 4X (horizontal solid block)
+      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
+      .BYTE $65, $65, $65, $65 ; 6X (bridge)
+      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
+      .BYTE $A0, $1F, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
+      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
+      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World5ObjectTiles:
-      .BYTE $97, $92, $12, $12 ; $00
-      .BYTE $1C, $99, $1C, $1C ; $04
-      .BYTE $45, $45, $45, $45 ; $08
-      .BYTE $65, $65, $65, $65 ; $0C
-      .BYTE $1A, $1A, $1A, $1A ; $10
-      .BYTE $A0, $A4, $9D, $18 ; $14
-      .BYTE $A0, $A0, $A0, $A0 ; $18
-      .BYTE $80, $07, $81, $80 ; $1C
-      .BYTE $81, $81, $81, $81 ; $20
+      .BYTE $97, $92, $12, $12 ; 3X (horizontal jump-through block)
+      .BYTE $1C, $99, $1C, $1C ; 4X (horizontal solid block)
+      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
+      .BYTE $65, $65, $65, $65 ; 6X (bridge)
+      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
+      .BYTE $A0, $A4, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
+      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
+      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World6ObjectTiles:
-      .BYTE $96, $92, $93, $12 ; $00
-      .BYTE $1C, $1C, $1C, $1C ; $04
-      .BYTE $45, $45, $45, $45 ; $08
-      .BYTE $65, $65, $65, $65 ; $0C
-      .BYTE $1A, $1A, $1A, $1A ; $10
-      .BYTE $A0, $40, $9D, $18 ; $14
-      .BYTE $A0, $A0, $A0, $A0 ; $18
-      .BYTE $80, $07, $81, $80 ; $1C
-      .BYTE $81, $81, $81, $81 ; $20
+      .BYTE $96, $92, $93, $12 ; 3X (horizontal jump-through block)
+      .BYTE $1C, $1C, $1C, $1C ; 4X (horizontal solid block)
+      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
+      .BYTE $65, $65, $65, $65 ; 6X (bridge)
+      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
+      .BYTE $A0, $40, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
+      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
+      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World7ObjectTiles:
-      .BYTE $12, $68, $12, $9D ; $00
-      .BYTE $9C, $67, $64, $69 ; $04
-      .BYTE $45, $45, $45, $45 ; $08
-      .BYTE $65, $65, $65, $65 ; $0C
-      .BYTE $1A, $1A, $1A, $1A ; $10
-      .BYTE $9C, $9C, $9C, $9C ; $14
-      .BYTE $A0, $A0, $A0, $A0 ; $18
-      .BYTE $80, $07, $81, $80 ; $1C
-      .BYTE $81, $81, $81, $81 ; $20
-; ---------------------------------------------------------------------------
+      .BYTE $12, $68, $12, $9D ; 3X (horizontal jump-through block)
+      .BYTE $9C, $67, $64, $69 ; 4X (horizontal solid block)
+      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
+      .BYTE $65, $65, $65, $65 ; 6X (bridge)
+      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
+      .BYTE $9C, $9C, $9C, $9C ; 8X (vertical wall, eg. rock, bombable)
+      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
+      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
+;
+; Places a tile using the world-specific tile lookup table
+;
+; Input
+;   Y = destination tile
+;   byte_RAM_50E = type of object to create (upper nybble of level object minus 3)
+;     $00 = jumpthrough block
+;     $01 = solid block
+;     $02 = grass
+;     $03 = bridge
+;     $04 = spikes
+;     $05 = vertical rock
+;     $06 = vertical rock with angle
+;     $07 = ladder
+;     $08 = whale
+;     $09 = jumpthrough platform
+;     $0A = log platform
+;     $0B = cloud platform
+;     $0C = waterfall
+; Output
+;   A = tile that was written
 CreateWorldSpecificTile:
       LDA     byte_RAM_50E
       ASL     A
@@ -819,30 +876,32 @@ CreateWorldSpecificTile:
       STA     byte_RAM_F
       LDA     byte_RAM_50E
       CMP     #$07
-      BCC     loc_BANK6_8A1F
+      BCC     CreateWorldSpecificTile_3Xthru9X
 
+CreateWorldSpecificTile_AXthruFX:
       LDA     byte_RAM_543
-      JMP     loc_BANK6_8A22
+      JMP     CreateWorldSpecificTile_ApplyObjectType
 
-loc_BANK6_8A1F:
+CreateWorldSpecificTile_3Xthru9X:
       LDA     byte_RAM_542
 
-loc_BANK6_8A22:
+CreateWorldSpecificTile_ApplyObjectType:
       CLC
       ADC     byte_RAM_F
       TAX
       LDA     byte_RAM_50E
       CMP     #$03
-      BNE     loc_BANK6_8A37
+      BNE     CreateWorldSpecificTile_LookUpTile
 
+      ; bridge casts a shadow on background bricks
       LDA     (byte_RAM_1),Y
       CMP     #BackgroundTile_BackgroundBrick
-      BNE     loc_BANK6_8A37
+      BNE     CreateWorldSpecificTile_LookUpTile
 
       LDA     #BackgroundTile_BridgeShadow
-      BNE     loc_BANK6_8A50
+      BNE     CreateWorldSpecificTile_Exit
 
-loc_BANK6_8A37:
+CreateWorldSpecificTile_LookUpTile:
       STX     byte_RAM_7
       STY     byte_RAM_8
       LDX     CurrentWorld
@@ -855,35 +914,33 @@ loc_BANK6_8A37:
       LDY     byte_RAM_8
       LDX     byte_RAM_7
 
-loc_BANK6_8A50:
+CreateWorldSpecificTile_Exit:
       STA     (byte_RAM_1),Y
       RTS
 
-; ---------------------------------------------------------------------------
 
 CreateObject_HorizontalBlocks:
       LDY     byte_RAM_E7
 
-loc_BANK6_8A55:
+CreateObject_HorizontalBlocks_Loop:
       JSR     CreateWorldSpecificTile
 
       JSR     IncrementAreaXOffset
 
       DEC     byte_RAM_50D
-      BPL     loc_BANK6_8A55
+      BPL     CreateObject_HorizontalBlocks_Loop
 
       RTS
 
-; ---------------------------------------------------------------------------
 
 CreateObject_LightEntranceRight:
       LDA     CurrentWorld
       CMP     #$05
-      BNE     loc_BANK6_8A6B
+      BNE     CreateObject_LightEntranceRight_NotWorld6
 
-      JMP     loc_BANK6_8A9C
+      JMP     CreateObject_LightEntranceRight_World6
 
-loc_BANK6_8A6B:
+CreateObject_LightEntranceRight_NotWorld6:
       LDY     byte_RAM_E7
       LDA     #BackgroundTile_LightDoor
       STA     (byte_RAM_1),Y
@@ -902,49 +959,46 @@ loc_BANK6_8A6B:
       INY
       LDA     #BackgroundTile_LightTrailRight
       STA     (byte_RAM_1),Y
+
       LDA     CurrentWorld
       CMP     #$05
-      BEQ     locret_BANK6_8A9B
+      BEQ     CreateObject_LightEntranceRight_World6or7Exit
 
       LDA     CurrentWorld
       CMP     #$06
-      BEQ     locret_BANK6_8A9B
+      BEQ     CreateObject_LightEntranceRight_World6or7Exit
 
       JSR     LevelParser_EatDoorPointer
 
-locret_BANK6_8A9B:
+CreateObject_LightEntranceRight_World6or7Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8A9C:
+CreateObject_LightEntranceRight_World6:
       LDY     byte_RAM_E7
       LDA     #$00
       STA     byte_RAM_8
 
-loc_BANK6_8AA2:
+CreateObject_LightEntranceRight_World6Loop:
       LDA     (byte_RAM_1),Y
       CMP     #BackgroundTile_Sky
-      BNE     locret_BANK6_8ACF
+      BNE     CreateObject_LightEntranceRight_World6_Exit
 
       LDA     #BackgroundTile_LightDoor
       STA     (byte_RAM_1),Y
       LDA     byte_RAM_8
       TAX
 
-loc_BANK6_8AAF:
+CreateObject_LightEntranceRight_World6InnerLoop:
       CPX     #$00
-      BEQ     loc_BANK6_8ABC
+      BEQ     CreateObject_LightEntranceRight_World6_TrailRight
 
       INY
       LDA     #BackgroundTile_LightTrail
       STA     (byte_RAM_1),Y
       DEX
-      JMP     loc_BANK6_8AAF
+      JMP     CreateObject_LightEntranceRight_World6InnerLoop
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8ABC:
+CreateObject_LightEntranceRight_World6_TrailRight:
       INY
       LDA     #BackgroundTile_LightTrailRight
       STA     (byte_RAM_1),Y
@@ -955,14 +1009,11 @@ loc_BANK6_8ABC:
       ADC     #$10
       TAY
       STA     byte_RAM_E7
-      JMP     loc_BANK6_8AA2
+      JMP     CreateObject_LightEntranceRight_World6Loop
 
-; ---------------------------------------------------------------------------
-
-locret_BANK6_8ACF:
+CreateObject_LightEntranceRight_World6_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
 
 CreateObject_LightEntranceLeft:
       LDY     byte_RAM_E7
@@ -984,68 +1035,65 @@ CreateObject_LightEntranceLeft:
       DEY
       LDA     #BackgroundTile_LightTrailLeft
       STA     (byte_RAM_1),Y
+
       LDA     CurrentWorld
       CMP     #$05
-      BEQ     locret_BANK6_8B01
+      BEQ     CreateObject_LightEntranceLeft_World6or7Exit
 
       LDA     CurrentWorld
       CMP     #$06
-      BEQ     locret_BANK6_8B01
+      BEQ     CreateObject_LightEntranceLeft_World6or7Exit
 
       JSR     LevelParser_EatDoorPointer
 
-locret_BANK6_8B01:
+CreateObject_LightEntranceLeft_World6or7Exit:
       RTS
 
-; ---------------------------------------------------------------------------
 
 CreateObject_VerticalBlocks:
       LDY     byte_RAM_E7
       LDA     byte_RAM_50E
       CMP     #$06
-      BNE     loc_BANK6_8B26
+      BNE     CreateObject_VerticalBlocks_NotClawGrip
 
       LDA     CurrentLevel
       CMP     #$0E
-      BNE     loc_BANK6_8B26
+      BNE     CreateObject_VerticalBlocks_NotClawGrip
 
       LDA     CurrentLevelArea
       CMP     #$05
-      BNE     loc_BANK6_8B26
+      BNE     CreateObject_VerticalBlocks_NotClawGrip
 
-loc_BANK6_8B19:
+CreateObject_VerticalBlocks_ClawGripRockLoop:
       LDA     #BackgroundTile_ClawGripRock
       STA     (byte_RAM_1),Y
       JSR     IncrementAreaYOffset
 
       DEC     byte_RAM_50D
-      BPL     loc_BANK6_8B19
+      BPL     CreateObject_VerticalBlocks_ClawGripRockLoop
 
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8B26:
+CreateObject_VerticalBlocks_NotClawGrip:
       LDA     byte_RAM_50E
       CMP     #$06
-      BNE     loc_BANK6_8B34
+      BNE     CreateObject_VerticalBlocks_Normal
 
       LDA     #BackgroundTile_RockWallAngle
       STA     (byte_RAM_1),Y
-      JMP     loc_BANK6_8B37
+      JMP     CreateObject_VerticalBlocks_NextRow
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8B34:
+CreateObject_VerticalBlocks_Normal:
       JSR     CreateWorldSpecificTile
 
-loc_BANK6_8B37:
+CreateObject_VerticalBlocks_NextRow:
       JSR     IncrementAreaYOffset
 
       DEC     byte_RAM_50D
-      BPL     loc_BANK6_8B34
+      BPL     CreateObject_VerticalBlocks_Normal
 
       RTS
+
 
 World1thru6SingleBlocks:
       .BYTE BackgroundTile_MushroomBlock
@@ -1069,32 +1117,32 @@ CreateObject_SingleBlock:
       LDA     byte_RAM_50E
       TAX
       CMP     #$05
-      BNE     loc_BANK6_8B5C
+      BNE     CreateObject_SingleBlock_NotWorld6Custom
 
+      ; world 6 + custom object type?
       LDA     byte_RAM_543
-      BEQ     loc_BANK6_8B5C
+      BEQ     CreateObject_SingleBlock_NotWorld6Custom
 
       INX
 
-loc_BANK6_8B5C:
+CreateObject_SingleBlock_NotWorld6Custom:
       LDY     byte_RAM_E7
       LDA     CurrentWorld
       CMP     #$06
-      BNE     loc_BANK6_8B6B
+      BNE     CreateObject_SingleBlock_NotWorld7
 
+CreateObject_SingleBlock_World7:
       LDA     World7SingleBlocks,X
-      JMP     loc_BANK6_8B6E
+      JMP     CreateObject_SingleBlock_Exit
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8B6B:
+CreateObject_SingleBlock_NotWorld7:
       LDA     World1thru6SingleBlocks,X
 
-loc_BANK6_8B6E:
+CreateObject_SingleBlock_Exit:
       STA     (byte_RAM_1),Y
       RTS
 
-; ---------------------------------------------------------------------------
+
 HorizontalPlatformLeftTiles:
       .BYTE BackgroundTile_LogLeft
       .BYTE BackgroundTile_CloudLeft
@@ -1108,13 +1156,11 @@ HorizontalPlatformRightTiles:
 CreateObject_HorizontalPlatform:
       LDA     CurrentWorld
       CMP     #$04
-      BNE     loc_BANK6_8B81
+      BNE     CreateObject_HorizontalPlatform_NotWorld5
 
-      JMP     loc_BANK6_8F52
+      JMP     CreateObject_HorizontalPlatform_World5
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8B81:
+CreateObject_HorizontalPlatform_NotWorld5:
       LDY     byte_RAM_E7
       LDA     byte_RAM_50E
       SEC
@@ -1123,24 +1169,24 @@ loc_BANK6_8B81:
       LDA     HorizontalPlatformLeftTiles,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
-      BEQ     loc_BANK6_8BA1
+      BEQ     CreateObject_HorizontalPlatform_Exit
 
-loc_BANK6_8B94:
+CreateObject_HorizontalPlatform_Loop:
       JSR     IncrementAreaXOffset
 
       LDA     HorizontalPlatformMiddleTiles,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
-      BNE     loc_BANK6_8B94
+      BNE     CreateObject_HorizontalPlatform_Loop
 
-loc_BANK6_8BA1:
+CreateObject_HorizontalPlatform_Exit:
       JSR     IncrementAreaXOffset
 
       LDA     HorizontalPlatformRightTiles,X
       STA     (byte_RAM_1),Y
       RTS
 
-; ---------------------------------------------------------------------------
+
 GreenPlatformTiles:
       .BYTE BackgroundTile_GreenPlatformTopLeft
       .BYTE BackgroundTile_GreenPlatformTop
@@ -1148,7 +1194,7 @@ GreenPlatformTiles:
       .BYTE BackgroundTile_GreenPlatformLeft
       .BYTE BackgroundTile_GreenPlatformMiddle
       .BYTE BackgroundTile_GreenPlatformRight
-      ; Not sure what these is, but changing the next byte makes green platforms disappear
+      ; Not sure what these are, but changing the next byte makes green platforms disappear
       .BYTE $40
       .BYTE $04
       .BYTE $05
@@ -1933,7 +1979,6 @@ loc_BANK6_8F45:
       STA     byte_RAM_E7
       JMP     loc_BANK6_8F19
 
-; ---------------------------------------------------------------------------
 ; Unlike HorizontalPlatform(Left/Middle/Right)Tiles, these support overlap with
 ; the red tree background
 HorizontalPlatformWithOverlapLeftTiles:
@@ -1947,55 +1992,56 @@ HorizontalPlatformWithOverlapRightTiles:
       .BYTE BackgroundTile_LogRight
       .BYTE BackgroundTile_CloudRight
       .BYTE BackgroundTile_LogRightTree
-; ---------------------------------------------------------------------------
 
-loc_BANK6_8F52:
+CreateObject_HorizontalPlatform_World5:
       LDY     byte_RAM_E7
       LDA     byte_RAM_50E
       SEC
       SBC     #$0A
       TAX
-      JSR     sub_BANK6_8F83
+      JSR     CreateObject_HorizontalPlatform_World5CheckOverlap
 
       LDA     HorizontalPlatformWithOverlapLeftTiles,X
       STA     (byte_RAM_1),Y
       LDX     byte_RAM_7
       DEC     byte_RAM_50D
-      BEQ     loc_BANK6_8F77
+      BEQ     CreateObject_HorizontalPlatform_World5_Exit
 
-loc_BANK6_8F6A:
+CreateObject_HorizontalPlatform_World5_Loop:
       JSR     IncrementAreaXOffset
 
-loc_BANK6_8F6D:
       LDA     HorizontalPlatformWithOverlapMiddleTiles,X
       STA     (byte_RAM_1),Y
       DEC     byte_RAM_50D
-      BNE     loc_BANK6_8F6A
+      BNE     CreateObject_HorizontalPlatform_World5_Loop
 
-loc_BANK6_8F77:
+CreateObject_HorizontalPlatform_World5_Exit:
       JSR     IncrementAreaXOffset
 
-      JSR     sub_BANK6_8F83
+      JSR     CreateObject_HorizontalPlatform_World5CheckOverlap
 
       LDA     HorizontalPlatformWithOverlapRightTiles,X
       STA     (byte_RAM_1),Y
       RTS
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK6_8F83:
+;
+; Check if the next platform tile overlaps the background
+;
+; Output
+;   X = table offset for (2 if there is an overlap)
+;
+CreateObject_HorizontalPlatform_World5CheckOverlap:
       STX     byte_RAM_7
       LDA     (byte_RAM_1),Y
       CMP     #BackgroundTile_Sky
-      BEQ     locret_BANK6_8F8D
+      BEQ     CreateObject_HorizontalPlatform_World5CheckOverlap_Exit
 
       ; otherwise, the platform is overlapping the background, so we need a special tile
       LDX     #$02
 
-locret_BANK6_8F8D:
+CreateObject_HorizontalPlatform_World5CheckOverlap_Exit:
       RTS
 
-; End of function sub_BANK6_8F83
 
 TreeBackgroundTiles:
       .BYTE BackgroundTile_TreeBackgroundRight
@@ -2108,25 +2154,22 @@ RockWallEntranceTiles:
       .BYTE BackgroundTile_DarkDoor
       .BYTE BackgroundTile_DarkDoor
       .BYTE BackgroundTile_RockWall
-; ---------------------------------------------------------------------------
 
 CreateObject_RockWallEntrance:
       LDX     #$00
 
-loc_BANK6_8FF8:
+CreateObject_RockWallEntrance_Loop:
       LDY     byte_RAM_E7
       LDA     #$02
       STA     byte_RAM_9
 
-loc_BANK6_8FFE:
+CreateObject_RockWallEntrance_InnerLoop:
       LDA     RockWallEntranceTiles,X
       STA     (byte_RAM_1),Y
       INX
-
-loc_BANK6_9004:
       INY
       DEC     byte_RAM_9
-      BPL     loc_BANK6_8FFE
+      BPL     CreateObject_RockWallEntrance_InnerLoop
 
       LDY     byte_RAM_E7
       TYA
@@ -2134,24 +2177,24 @@ loc_BANK6_9004:
       ADC     #$10
       STA     byte_RAM_E7
       CPX     #$1B
-      BNE     loc_BANK6_8FF8
+      BNE     CreateObject_RockWallEntrance_Loop
 
       RTS
 
-; ---------------------------------------------------------------------------
+
 DoorTopTiles:
       .BYTE BackgroundTile_DoorTop
       .BYTE BackgroundTile_DoorTop
       .BYTE BackgroundTile_DarkDoor
       .BYTE BackgroundTile_DoorwayTop
       .BYTE BackgroundTile_WindowTop
+
 DoorBottomTiles:
       .BYTE BackgroundTile_DoorBottomLock
       .BYTE BackgroundTile_DoorBottom
       .BYTE BackgroundTile_DarkDoor
       .BYTE BackgroundTile_DarkDoor
       .BYTE BackgroundTile_DarkDoor
-; ---------------------------------------------------------------------------
 
 CreateObject_Door:
       LDY     byte_RAM_E7
@@ -2163,8 +2206,6 @@ CreateObject_Door:
       BEQ     loc_BANK6_9034
 
       INC     byte_RAM_50E
-
-loc_BANK6_9031:
       INC     byte_RAM_50E
 
 loc_BANK6_9034:
@@ -2180,29 +2221,31 @@ loc_BANK6_9034:
       STA     (byte_RAM_1),Y
       LDA     CurrentWorld
       CMP     #$05
-      BEQ     locret_BANK6_9059
+      BEQ     CreateObject_Door_Exit
 
       LDA     CurrentWorld
       CMP     #$06
-      BEQ     locret_BANK6_9059
+      BEQ     CreateObject_Door_Exit
 
 loc_BANK6_9056:
       JSR     LevelParser_EatDoorPointer
 
-locret_BANK6_9059:
+CreateObject_Door_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
+
 MushroomHouseLeftTiles:
       .BYTE BackgroundTile_Black
       .BYTE BackgroundTile_CloudLeft
       .BYTE BackgroundTile_MushroomTopLeft
       .BYTE BackgroundTile_HouseLeft
+
 MushroomHouseMiddleTiles:
       .BYTE BackgroundTile_Black
       .BYTE BackgroundTile_CloudMiddle
       .BYTE BackgroundTile_MushroomTopMiddle
       .BYTE BackgroundTile_HouseMiddle
+
 MushroomHouseRightTiles:
       .BYTE BackgroundTile_Black
       .BYTE BackgroundTile_CloudRight
@@ -2288,6 +2331,7 @@ loc_BANK6_90C2:
 locret_BANK6_90C4:
       RTS
 
+
 ; Pillar tiles, arranged by world
 PillarTopTiles:
       .BYTE BackgroundTile_LogPillarTop1
@@ -2297,6 +2341,7 @@ PillarTopTiles:
       .BYTE BackgroundTile_LogPillarTop1
       .BYTE BackgroundTile_CactusTop
       .BYTE BackgroundTile_ColumnPillarTop2
+
 PillarBottomTiles:
       .BYTE BackgroundTile_LogPillarMiddle1
       .BYTE BackgroundTile_CactusMiddle
@@ -2312,27 +2357,27 @@ CreateObject_Pillar:
       LDA     PillarTopTiles,X
       STA     (byte_RAM_1),Y
 
-loc_BANK6_90DD:
+CreateObject_Pillar_Loop:
       JSR     IncrementAreaYOffset
 
       LDA     (byte_RAM_1),Y
       CMP     #BackgroundTile_Sky
-      BNE     locret_BANK6_90F9
+      BNE     CreateObject_Pillar_Exit
 
       LDX     CurrentWorld
       LDA     PillarBottomTiles,X
       STA     (byte_RAM_1),Y
+
       LDA     CurrentWorld
       CMP     #$04
-      BNE     loc_BANK6_90DD
+      BNE     CreateObject_Pillar_Loop
 
       CPY     #$E0
-      BCC     loc_BANK6_90DD
+      BCC     CreateObject_Pillar_Loop
 
-locret_BANK6_90F9:
+CreateObject_Pillar_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
 
 CreateObject_Horn:
       LDY     byte_RAM_E7
@@ -2352,12 +2397,11 @@ CreateObject_Horn:
       STA     (byte_RAM_1),Y
       RTS
 
-; ---------------------------------------------------------------------------
 
 CreateObject_DrawBridgeChain:
       LDY     byte_RAM_E7
 
-loc_BANK6_9117:
+CreateObject_DrawBridgeChain_Loop:
       LDA     #BackgroundTile_DrawBridgeChain
       STA     (byte_RAM_1),Y
       TYA
@@ -2365,28 +2409,16 @@ loc_BANK6_9117:
       ADC     #$F
       TAY
       DEC     byte_RAM_50D
-      BNE     loc_BANK6_9117
+      BNE     CreateObject_DrawBridgeChain_Loop
 
       RTS
 
-; ---------------------------------------------------------------------------
-; [000000DA BYTES: BEGIN OF AREA UNUSED-BANK6:9126. PRESS KEYPAD "-" TO COLLAPSE]
-_unused_BANK6_9126:
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $10
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $20
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $30
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $40
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $50
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $60
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $70
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $80
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $90
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $A0
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $B0
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $C0
-      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF ; $D0
-; [000000DA BYTES: END OF AREA UNUSED-BANK6:9126. PRESS KEYPAD "-" TO COLLAPSE]
+
+IFDEF PRESERVE_UNUSED_SPACE
+      ; Unused space in the original
+      ; $9126 - $91FF
+      .pad $9200, $FF
+ENDIF
 
 ;
 ; Horizontal ground set data
@@ -2552,26 +2584,28 @@ SubspaceTilesReplace:
       .BYTE $0D ; $14
       .BYTE $09 ; $15
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_933A:
-      LDA     #$00
+;
+; Resets level data and PPU scrolling
+;
+ResetLevelData:
+      LDA     #<DecodedLevelData
       STA     byte_RAM_A
-      LDY     #$69
+      LDY     #>(DecodedLevelData+$0900)
       STY     byte_RAM_B
-      LDY     #$5F
-      LDA     #$40
+      LDY     #>(DecodedLevelData-$0100)
+      LDA     #BackgroundTile_Sky
 
-loc_BANK6_9346:
+ResetLevelData_Loop:
       STA     (byte_RAM_A),Y
       DEY
       CPY     #$FF
-      BNE     loc_BANK6_9346
+      BNE     ResetLevelData_Loop
 
       DEC     byte_RAM_B
       LDX     byte_RAM_B
-      CPX     #$60
-      BCS     loc_BANK6_9346
+      CPX     #>DecodedLevelData
+      BCS     ResetLevelData_Loop
 
       LDA     #$00
       STA     PPUScrollXMirror
@@ -2593,11 +2627,15 @@ ENDIF
 
       RTS
 
-; End of function sub_BANK6_933A
 
-; =============== S U B R O U T I N E =======================================
-
-; Puts color X from the current world's background palette into A
+;
+; Reads a color from the world's background palette
+;
+; Input
+;   X = color index
+; Output
+;   A = background palette color
+;
 ReadWorldBackgroundColor:
       ; stash X and Y registers
       STY     byte_RAM_E
@@ -2616,11 +2654,14 @@ ReadWorldBackgroundColor:
       LDX     word_RAM_C+1
       RTS
 
-; End of function ReadWorldBackgroundColor
-
-; =============== S U B R O U T I N E =======================================
-
-; Puts color X from the current world's sprite palette into A
+;
+; Reads a color from the world's sprite palette
+;
+; Input
+;   X = color index
+; Output
+;   A = background palette color
+;
 ReadWorldSpriteColor:
       ; stash X and Y registers
       STY     byte_RAM_E
@@ -2638,10 +2679,6 @@ ReadWorldSpriteColor:
       LDY     byte_RAM_E
       LDX     word_RAM_C+1
       RTS
-
-; End of function ReadWorldSpriteColor
-
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Loads the current area or jar palette
@@ -2669,17 +2706,16 @@ LoadCurrentPalette_AreaOffset:
 
 ; End of function LoadCurrentPalette
 
-; =============== S U B R O U T I N E =======================================
-
 ;
 ; Loads a world palette to RAM
 ;
-; The current accumulator value is used doubled and used as the palette offset
+; Input
+;   A = background palette header byte
 ;
 ApplyPalette:
       ; Read background palette index from area header byte
       STA     byte_RAM_F
-      AND     #$38
+      AND     #%00111000
       ASL     A
       TAX
       JSR     ReadWorldBackgroundColor
@@ -2745,9 +2781,6 @@ ApplyPalette_SkyLoop:
 
       RTS
 
-; End of function ApplyPalette
-
-; =============== S U B R O U T I N E =======================================
 
 GenerateSubspaceArea:
       LDA     CurrentLevelArea
@@ -2783,12 +2816,12 @@ loc_BANK6_9439:
       STA     byte_RAM_E6
       LDA     byte_RAM_E8
       STA     word_RAM_C+1
-      JSR     sub_BANK6_9878
+      JSR     SetTileOffsetAndAreaPageAddr
 
       LDY     byte_RAM_E7
       LDX     #$0F
 
-loc_BANK6_9458:
+GenerateSubspaceArea_TileRemapLoop:
       LDA     (byte_RAM_1),Y
       JSR     DoSubspaceTileRemap
 
@@ -2802,7 +2835,7 @@ loc_BANK6_9458:
       ADC     #$10
       TAX
       AND     #$F0
-      BNE     loc_BANK6_9458
+      BNE     GenerateSubspaceArea_TileRemapLoop
 
       TYA
       AND     #$0F
@@ -2810,14 +2843,21 @@ loc_BANK6_9458:
       JSR     IncrementAreaXOffset
 
       DEX
-      BPL     loc_BANK6_9458
+      BPL     GenerateSubspaceArea_TileRemapLoop
 
       RTS
 
-; End of function GenerateSubspaceArea
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Remaps a single subspace tile
+;
+; This also handles creating the mushroom sprites
+;
+; Input
+;   A = input tile
+; Output
+;   A = output tile
+;
 DoSubspaceTileRemap:
       STY     byte_RAM_8
       STX     byte_RAM_7
@@ -2831,30 +2871,26 @@ DoSubspaceTileRemap_Loop:
       BPL     DoSubspaceTileRemap_Loop
 
       CMP     #BackgroundTile_SubspaceMushroom1
-      BEQ     CheckCreateMushroomObject
+      BEQ     DoSubspaceTileRemap_CheckCreateMushroom
 
       CMP     #BackgroundTile_SubspaceMushroom2
-      BEQ     CheckCreateMushroomObject
+      BEQ     DoSubspaceTileRemap_CheckCreateMushroom
 
       JMP     DoSubspaceTileRemap_Exit
 
-; ---------------------------------------------------------------------------
-
-CheckCreateMushroomObject:
+DoSubspaceTileRemap_CheckCreateMushroom:
       SEC
       SBC     #BackgroundTile_SubspaceMushroom1
       TAY
       LDA     Mushroom1Pulled,Y
-      BNE     loc_BANK6_94A0
+      BNE     DoSubspaceTileRemap_AfterCreateMushroom
 
       LDX     byte_RAM_7
       JSR     CreateMushroomObject
 
-loc_BANK6_94A0:
+DoSubspaceTileRemap_AfterCreateMushroom:
       LDA     #BackgroundTile_SubspaceMushroom1
       JMP     DoSubspaceTileRemap_Exit
-
-; ---------------------------------------------------------------------------
 
 DoSubspaceTileRemap_ReplaceTile:
       LDA     SubspaceTilesReplace,X
@@ -2864,10 +2900,10 @@ DoSubspaceTileRemap_Exit:
       LDY     byte_RAM_8
       RTS
 
-; End of function DoSubspaceTileRemap
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Clears the sub-area tile layout when the player goes into a jar
+;
 ClearSubAreaTileLayout:
       LDX     #$00
       STX     IsHorizontalLevel
@@ -2897,14 +2933,15 @@ ClearSubAreaTileLayout_Loop:
       LDY     #$04
       JSR     loc_BANK6_972D
 
+      ; object type
       LDY     #$02
       LDA     (byte_RAM_5),Y
-      AND     #$03
+      AND     #%00000011
       STA     byte_RAM_542
       LDA     (byte_RAM_5),Y
       LSR     A
       LSR     A
-      AND     #$03
+      AND     #%00000011
       STA     byte_RAM_543
       JSR     HijackLevelDataCopyAddressWithJar
 
@@ -2915,62 +2952,65 @@ ClearSubAreaTileLayout_Loop:
       STA     byte_RAM_E5
       LDA     #$03
       STA     byte_RAM_4
-      JSR     loc_BANK6_95EF
+      JSR     ReadLevelData_NextByteObject
 
       LDA     #$01
       STA     IsHorizontalLevel
       RTS
 
-; End of function ClearSubAreaTileLayout
-
-; =============== S U B R O U T I N E =======================================
-
+;
+; Set the current background music to the current area's music as defined in the header
+;
+; This stops the current music unless the player is currently invincible
+;
 LoadAreaMusic:
       LDY     #$03
       LDA     (byte_RAM_5),Y
-      AND     #$03
+      AND     #%00000011
       STA     CompareMusicIndex
       CMP     CurrentMusicIndex
-      BEQ     locret_BANK6_9528
+      BEQ     LoadAreaMusic_Exit
 
       LDA     StarInvincibilityTimer
       CMP     #$08
-      BCS     locret_BANK6_9528
+      BCS     LoadAreaMusic_Exit
 
       LDA     #Music2_StopMusic
       STA     MusicQueue2
 
-locret_BANK6_9528:
+LoadAreaMusic_Exit:
       RTS
 
-; End of function LoadAreaMusic
 
-; ---------------------------------------------------------------------------
-; this looks like it might not be used?
-LevelMusicTable:
+;
+; Unreferenced? A similar routine exists in Bank F, so it seems like this may
+; be leftover code from a previous version.
+;
+Unused_LevelMusicIndexes:
       .BYTE Music1_Overworld
       .BYTE Music1_Inside
       .BYTE Music1_Boss
       .BYTE Music1_Wart
       .BYTE Music1_Subspace
-; ---------------------------------------------------------------------------
+
+Unused_ChangeAreaMusic:
       LDA     CompareMusicIndex
       CMP     CurrentMusicIndex
-      BEQ     locret_BANK6_9547
+      BEQ     Unused_ChangeAreaMusic_Exit
 
       TAX
       STX     CurrentMusicIndex
       LDA     StarInvincibilityTimer
       CMP     #$08
-      BCS     locret_BANK6_9528
+      BCS     LoadAreaMusic_Exit
 
-      LDA     LevelMusicTable,X
+      LDA     Unused_LevelMusicIndexes,X
       STA     MusicQueue1
 
-locret_BANK6_9547:
+Unused_ChangeAreaMusic_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
+; Unreferenced?
       LDA     CurrentLevelPage
       ASL     A
       TAY
@@ -2988,10 +3028,12 @@ locret_BANK6_9547:
       STA     CurrentLevelEntryPage
       RTS
 
-; =============== S U B R O U T I N E =======================================
 
+;
+; Resets the level data, loads the current area's level data, and queues any music changes
+;
 LoadCurrentArea:
-      JSR     sub_BANK6_933A
+      JSR     ResetLevelData
 
       JSR     sub_BANK6_98DC
 
@@ -3044,10 +3086,14 @@ LoadCurrentArea:
       ; ground type
       LDA     (byte_RAM_5),Y
       AND     #%00011111
+      ; ground type of $1F would skip the next part, but no areas do this...?
       CMP     #%00011111
-      BEQ     loc_BANK6_95C1
+      BEQ     LoadCurrentArea_StartLevelData
 
+      ; store ground type
       STA     byte_RAM_541
+
+      ; read first object
       INY
       INY
       INY
@@ -3056,24 +3102,23 @@ LoadCurrentArea:
       STA     byte_RAM_E6
       JSR     sub_BANK6_9728
 
-loc_BANK6_95C1:
+LoadCurrentArea_StartLevelData:
       LDA     #$00
       STA     byte_RAM_E6
+      ; byte_RAM_4 is the offset of the byte before the next level data byte
       LDA     #$03
       STA     byte_RAM_4
-      JSR     sub_BANK6_95E6
+      JSR     ReadLevelData
 
       LDA     #$22
-
-loc_BANK6_95CE:
       ORA     byte_RAM_10
       STA     PseudoRNGValues
       RTS
 
-; End of function LoadCurrentArea
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Use level data
+;
 RestoreLevelDataCopyAddress:
       LDA     #>RawLevelData
       STA     byte_RAM_6
@@ -3081,10 +3126,10 @@ RestoreLevelDataCopyAddress:
       STA     byte_RAM_5
       RTS
 
-; End of function RestoreLevelDataCopyAddress
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Use jar data
+;
 HijackLevelDataCopyAddressWithJar:
       LDA     #>RawJarData
       STA     byte_RAM_6
@@ -3092,54 +3137,52 @@ HijackLevelDataCopyAddressWithJar:
       STA     byte_RAM_5
       RTS
 
-; End of function HijackLevelDataCopyAddressWithJar
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK6_95E6:
+;
+; Reads level data from the beginning
+;
+ReadLevelData:
       LDA     #$00
       STA     byte_RAM_E8
 
-loc_BANK6_95EA:
+      ; weird? the next lines do nothing
       LDY     #$00
-      JMP     loc_BANK6_95EF
+      JMP     ReadLevelData_NextByteObject
 
-loc_BANK6_95EF:
+ReadLevelData_NextByteObject:
       LDY     byte_RAM_4
 
-loc_BANK6_95F1:
+ReadLevelData_NextByte:
       INY
       LDA     (byte_RAM_5),Y
       CMP     #$FF
-      BNE     loc_BANK6_95F9
-
+      BNE     ReadLevelData_ProcessObject
+      ; encountering $FF indicates the end of the level data
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_95F9:
+ReadLevelData_ProcessObject:
       LDA     (byte_RAM_5),Y
       AND     #$0F
       STA     byte_RAM_E5
       LDA     (byte_RAM_5),Y
       AND     #$F0
       CMP     #$F0
-      BNE     loc_BANK6_9613
+      BNE     ReadLevelData_RegularObject
 
+ReadLevelData_SpecialObject:
       LDA     byte_RAM_E5
       STY     byte_RAM_F
-      JSR     loc_BANK6_9690
+      JSR     ProcessSpecialObjectA
 
-loc_BANK6_960E:
       LDY     byte_RAM_F
-      JMP     loc_BANK6_95F1
+      JMP     ReadLevelData_NextByte
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_9613:
+ReadLevelData_RegularObject:
       JSR     UpdateAreaYOffset
 
+      ; check object type
       INY
+      ; upper nybble
       LDA     (byte_RAM_5),Y
       LSR     A
       LSR     A
@@ -3147,52 +3190,47 @@ loc_BANK6_9613:
       LSR     A
       STA     byte_RAM_50E
       CMP     #$03
-      BCS     loc_BANK6_9651
+      BCS     ReadLevelData_RegularObjectWithSize
 
+ReadLevelData_RegularObjectNoSize:
       PHA
       LDA     (byte_RAM_5),Y
       AND     #$0F
       STA     byte_RAM_50E
       PLA
-      BEQ     loc_BANK6_966C
+      BEQ     ReadLevelData_RegularObjectNoSize_00
 
       PHA
-      JSR     sub_BANK6_9878
+      JSR     SetTileOffsetAndAreaPageAddr
 
       LDA     (byte_RAM_5),Y
-      AND     #$F
+      AND     #$0F
       STY     byte_RAM_4
       PLA
       CMP     #$01
-      BNE     loc_BANK6_9644
+      BNE     ReadLevelData_RegularObjectNoSize_Not10
 
+ReadLevelData_RegularObjectNoSize_10:
       JSR     CreateObjects_10
+      JMP     ReadLevelData_RegularObject_Exit
 
-      JMP     loc_BANK6_9669
-
-; ---------------------------------------------------------------------------
-
-loc_BANK6_9644:
+ReadLevelData_RegularObjectNoSize_Not10:
       CMP     #$02
-      BNE     loc_BANK6_964E
+      BNE     ReadLevelData_RegularObjectNoSize_Not20
 
+ReadLevelData_RegularObjectNoSize_20:
       JSR     CreateObjects_20
+      JMP     ReadLevelData_RegularObject_Exit
 
-      JMP     loc_BANK6_9669
+ReadLevelData_RegularObjectNoSize_Not20:
+      JMP     ReadLevelData_RegularObject_Exit
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_964E:
-      JMP     loc_BANK6_9669
-
-; ---------------------------------------------------------------------------
-
-loc_BANK6_9651:
+ReadLevelData_RegularObjectWithSize:
       LDA     (byte_RAM_5),Y
-      AND     #$F
+      AND     #$0F
       STA     byte_RAM_50D
       STY     byte_RAM_4
-      JSR     sub_BANK6_9878
+      JSR     SetTileOffsetAndAreaPageAddr
 
       LDA     byte_RAM_50E
       SEC
@@ -3200,85 +3238,77 @@ loc_BANK6_9651:
       STA     byte_RAM_50E
       JSR     CreateObjects_30thruF0
 
-loc_BANK6_9669:
-      JMP     loc_BANK6_95EF
+ReadLevelData_RegularObject_Exit:
+      JMP     ReadLevelData_NextByteObject
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_966C:
-      JSR     sub_BANK6_9878
+ReadLevelData_RegularObjectNoSize_00:
+      JSR     SetTileOffsetAndAreaPageAddr
 
       LDA     (byte_RAM_5),Y
       AND     #$0F
       STY     byte_RAM_4
       JSR     CreateObjects_00
 
-      JMP     loc_BANK6_9669
+      JMP     ReadLevelData_RegularObject_Exit
 
-; End of function sub_BANK6_95E6
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Updates the area Y offset for object placement
+;
 ; Input
 ;   A = vertical offset
+;
 UpdateAreaYOffset:
       CLC
       ADC     byte_RAM_E6
-      BCC     loc_BANK6_9685
+      BCC     UpdateAreaYOffset_SamePage
 
       ADC     #$0F
-      JMP     loc_BANK6_968B
+      JMP     UpdateAreaYOffset_NextPage
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_9685:
+UpdateAreaYOffset_SamePage:
       CMP     #$F0
-      BNE     loc_BANK6_968D
+      BNE     UpdateAreaYOffset_Exit
 
       LDA     #$00
 
-loc_BANK6_968B:
+UpdateAreaYOffset_NextPage:
       INC     byte_RAM_E8
 
-loc_BANK6_968D:
+UpdateAreaYOffset_Exit:
       STA     byte_RAM_E6
       RTS
 
-; End of function UpdateAreaYOffset
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_9690:
+ProcessSpecialObjectA:
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
-      .WORD loc_BANK6_96CA ; Ground setting 0-8
-      .WORD loc_BANK6_96CA ; Ground setting 9-15
+      .WORD EatLevelObject1Byte ; Ground setting 0-8
+      .WORD EatLevelObject1Byte ; Ground setting 9-15
       .WORD SkipForwardPage1 ; Skip forward 1 page
       .WORD SkipForwardPage2 ; Skip forward 2 pages
-      .WORD loc_BANK6_970B ; New object layer
-      .WORD loc_BANK6_96CD ; Area pointer
-      .WORD loc_BANK6_96CA ; Ground appearance
+      .WORD ResetPageAndOffset ; New object layer
+      .WORD SetAreaPointer ; Area pointer
+      .WORD EatLevelObject1Byte ; Ground appearance
 IFDEF LEVEL_ENGINE_UPGRADES
       .WORD CreateRawTiles
 ENDIF
-; ---------------------------------------------------------------------------
 
-loc_BANK6_96A1:
+
+ProcessSpecialObjectB:
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
-      .WORD loc_BANK6_96F0 ; Ground setting 0-8
-      .WORD loc_BANK6_96F6 ; Ground setting 9-15
+      .WORD SetGroundSettingA ; Ground setting 0-7
+      .WORD SetGroundSettingB ; Ground setting 8-15
       .WORD loc_BANK6_96BE ; Skip forward 1 page
       .WORD loc_BANK6_96BB ; Skip forward 2 pages
       .WORD loc_BANK6_9712 ; New object layer
-      .WORD locret_BANK6_971A ; Area pointer
+      .WORD SetAreaPointerNoOp ; Area pointer
       .WORD loc_BANK6_971B ; Ground appearance
 IFDEF LEVEL_ENGINE_UPGRADES
       .WORD CreateRawTilesNoOp
 ENDIF
-; ---------------------------------------------------------------------------
+
 
 SkipForwardPage2:
       INC     byte_RAM_E8
@@ -3289,7 +3319,6 @@ SkipForwardPage1:
       STA     byte_RAM_E6
       RTS
 
-; ---------------------------------------------------------------------------
 
 loc_BANK6_96BB:
       INC     byte_RAM_540
@@ -3301,17 +3330,17 @@ loc_BANK6_96BE:
       STA     byte_RAM_9
       RTS
 
-; ---------------------------------------------------------------------------
-; Not referenced, maybe unused...?
+
+; Unreferenced?
+EatLevelObject2Bytes:
       INC     byte_RAM_F
 
-loc_BANK6_96CA:
+EatLevelObject1Byte:
       INC     byte_RAM_F
       RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK6_96CD:
+SetAreaPointer:
       LDY     byte_RAM_F
       INY
       LDA     byte_RAM_E8
@@ -3432,9 +3461,14 @@ CreateRawTilesNoOp:
       RTS
 ENDIF
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_96E3:
+;
+; Use top 3 bits for the X offset of a ground setting object
+;
+; Output
+;   A = 0-7
+;
+ReadGroundSettingOffset:
       LDY     byte_RAM_F
       INY
       LDA     (byte_RAM_5),Y
@@ -3446,27 +3480,21 @@ sub_BANK6_96E3:
       LSR     A
       RTS
 
-; End of function sub_BANK6_96E3
+; Ground setting for X=0 through X=7
+SetGroundSettingA:
+      JSR     ReadGroundSettingOffset
+      JMP     SetGroundSetting
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_96F0:
-      JSR     sub_BANK6_96E3
-
-      JMP     loc_BANK6_96FC
-
-; ---------------------------------------------------------------------------
-
-loc_BANK6_96F6:
-      JSR     sub_BANK6_96E3
-
+; Ground setting for X=8 through X=15
+SetGroundSettingB:
+      JSR     ReadGroundSettingOffset
       CLC
       ADC     #$08
 
-loc_BANK6_96FC:
+SetGroundSetting:
       STA     byte_RAM_E
       LDA     IsHorizontalLevel
-      BNE     locret_BANK6_970A
+      BNE     SetGroundSetting_Exit
 
       LDA     byte_RAM_E
       ASL     A
@@ -3475,18 +3503,16 @@ loc_BANK6_96FC:
       ASL     A
       STA     byte_RAM_E
 
-locret_BANK6_970A:
+SetGroundSetting_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK6_970B:
+ResetPageAndOffset:
       LDA     #$00
       STA     byte_RAM_E8
       STA     byte_RAM_E6
       RTS
 
-; ---------------------------------------------------------------------------
 
 loc_BANK6_9712:
       LDA     #$00
@@ -3494,12 +3520,10 @@ loc_BANK6_9712:
       STA     byte_RAM_E
       RTS
 
-; ---------------------------------------------------------------------------
 
-locret_BANK6_971A:
+SetAreaPointerNoOp:
       RTS
 
-; ---------------------------------------------------------------------------
 
 loc_BANK6_971B:
       LDY     byte_RAM_F
@@ -3513,6 +3537,7 @@ loc_BANK6_971B:
 
 ; =============== S U B R O U T I N E =======================================
 
+; used for the first object of a level?
 sub_BANK6_9728:
       LDA     #$00
       STA     byte_RAM_540
@@ -3526,7 +3551,8 @@ loc_BANK6_9731:
       CMP     #$FF
       BNE     loc_BANK6_9746
 
-      LDA     #$A
+      ; end of level data
+      LDA     #$0A
       STA     byte_RAM_540
       INC     byte_RAM_540
       LDA     #$00
@@ -3543,10 +3569,11 @@ loc_BANK6_9746:
       CMP     #$F0
       BNE     loc_BANK6_9774
 
+      ; a special object
       LDA     (byte_RAM_5),Y
       AND     #$0F
       STY     byte_RAM_F
-      JSR     loc_BANK6_96A1
+      JSR     ProcessSpecialObjectB
 
       LDY     byte_RAM_F
       LDA     (byte_RAM_5),Y
@@ -3575,12 +3602,13 @@ loc_BANK6_9770:
 
 ; ---------------------------------------------------------------------------
 
+; not a special object
 loc_BANK6_9774:
       CLC
       ADC     byte_RAM_9
       BCC     loc_BANK6_977E
 
-      ADC     #$F
+      ADC     #$0F
       JMP     loc_BANK6_9784
 
 ; ---------------------------------------------------------------------------
@@ -3601,7 +3629,7 @@ loc_BANK6_9787:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_978C:
-      JSR     sub_BANK6_9878
+      JSR     SetTileOffsetAndAreaPageAddr
 
       JSR     LoadGroundSetData
 
@@ -3688,7 +3716,7 @@ LoadGroundSetData:
 LoadGroundSetData_Loop:
       JSR     ReadGroundSetByte
 
-      JSR     WriteGroundSetTiles1
+      JSR     WriteGroundSetTiles
 
       JSR     ReadGroundSetByte
 
@@ -3720,8 +3748,10 @@ LoadGroundSetData_Exit:
       LDY     byte_RAM_4
       RTS
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Draws current ground set tiles
+;
+WriteGroundSetTiles:
 WriteGroundSetTiles1:
       LSR     A
       LSR     A
@@ -3763,8 +3793,6 @@ WriteGroundSetTiles_AfterWriteTile:
       INY
       RTS
 
-; ---------------------------------------------------------------------------
-
 WriteGroundSetTiles_IncrementYOffset:
       TYA
       CLC
@@ -3772,9 +3800,6 @@ WriteGroundSetTiles_IncrementYOffset:
       TAY
       RTS
 
-; End of function WriteGroundSetTiles4
-
-; =============== S U B R O U T I N E =======================================
 
 ReadGroundTileHorizontal:
       STX     word_RAM_C
@@ -3790,9 +3815,6 @@ ReadGroundTileHorizontal:
       LDY     word_RAM_C+1
       RTS
 
-; End of function ReadGroundTileHorizontal
-
-; =============== S U B R O U T I N E =======================================
 
 ReadGroundTileVertical:
       STX     word_RAM_C
@@ -3808,11 +3830,20 @@ ReadGroundTileVertical:
       LDY     word_RAM_C+1
       RTS
 
-; End of function ReadGroundTileVertical
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK6_9878:
+;
+; Updates the area page and tile placement offset
+;
+; Input
+;   byte_RAM_E8 = area page
+;   byte_RAM_E5 = tile placement offset shift
+;   byte_RAM_E6 = previous tile placement offset
+; Output
+;   RAM_1 = low byte of decoded level data RAM
+;   RAM_2 = low byte of decoded level data RAM
+;   byte_RAM_E7 = target tile placement offset
+;
+SetTileOffsetAndAreaPageAddr:
       LDX     byte_RAM_E8
       JSR     SetAreaPageAddr
 
@@ -3822,15 +3853,15 @@ sub_BANK6_9878:
       STA     byte_RAM_E7
       RTS
 
-; End of function sub_BANK6_9878
-
-; =============== S U B R O U T I N E =======================================
-
+;
+; Updates the area page that we're drawing tiles to
+;
 ; Input
 ;   X = area page
 ; Output
 ;   RAM_1 = low byte of decoded level data RAM
 ;   RAM_2 = low byte of decoded level data RAM
+;
 SetAreaPageAddr:
       LDA     DecodedLevelPageStartLo,X
       STA     byte_RAM_1
@@ -3838,9 +3869,6 @@ SetAreaPageAddr:
       STA     byte_RAM_2
       RTS
 
-; End of function SetAreaPageAddr
-
-; =============== S U B R O U T I N E =======================================
 
 IncrementAreaXOffset:
       INY
@@ -3862,9 +3890,6 @@ IncrementAreaXOffset:
 IncrementAreaXOffset_Exit:
       RTS
 
-; End of function IncrementAreaXOffset
-
-; =============== S U B R O U T I N E =======================================
 
 ; Moves one row down and increments the page, if necessary
 IncrementAreaYOffset:
@@ -3887,9 +3912,6 @@ IncrementAreaYOffset:
 IncrementAreaYOffset_Exit:
       RTS
 
-; End of function IncrementAreaYOffset
-
-; =============== S U B R O U T I N E =======================================
 
 LevelParser_EatDoorPointer:
       LDY     byte_RAM_4
@@ -3914,7 +3936,6 @@ loc_BANK6_98D6:
       STA     AreaPointersByPage,Y
       RTS
 
-; End of function LevelParser_EatDoorPointer
 
 ; ---------------------------------------------------------------------------
 unk_BANK6_98DA:

@@ -1682,9 +1682,11 @@ byte_RAM_540:
       .dsb 1 ; $0540
 byte_RAM_541:
       .dsb 1 ; $0541
-byte_RAM_542:
+ObjectType3Xthru9X:
+byte_RAM_542: ; area object type xxOO
       .dsb 1 ; $0542
-byte_RAM_543:
+ObjectTypeAXthruFX:
+byte_RAM_543: ; area object type OOxx
       .dsb 1 ; $0543
 CompareMusicIndex:
       .dsb 1 ; $0544

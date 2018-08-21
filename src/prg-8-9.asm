@@ -506,7 +506,7 @@ LevelDataPointersHi:
 ;
 ;   Byte 3: PPPPOOOO
 ;   P: number of pages minus 1 (0 = 1 page, 1 = 2 pages, etc.)
-;   O: object type
+;   O: object type (xxOO for 3X-9X, OOxx for AX-FX)
 ;
 ;   Byte 4: xxTTTxMM
 ;   T: ground type
