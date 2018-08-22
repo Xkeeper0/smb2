@@ -3254,7 +3254,7 @@ loc_BANK0_9080:
       STA     EnemyArray_42F,X
       STA     EnemyArray_9F,X
       STA     EnemyArray_B1,X
-      JSR     sub_BANK1_BA48
+      JSR     UnlinkEnemyFromRawData_Bank1
 
       LDA     #$01
       LDY     byte_RAM_9
@@ -3474,8 +3474,9 @@ loc_BANK0_91AE:
 
       LDY     #4
 
+; check to see if the tile matches one of the door tiles
 loc_BANK0_91B7:
-      CMP     byte_BANK0_924A,Y
+      CMP     DoorTiles,Y
       BEQ     loc_BANK0_91EB
 
       DEY
@@ -3521,21 +3522,28 @@ loc_BANK0_91E3:
 
 ; ---------------------------------------------------------------------------
 
+;
+; Checks to see if we're trying to go through the door
+;
+; Input
+;   Y = tile index in DoorTiles
 loc_BANK0_91EB:
-      LDA     Player1JoypadPress ; @TODO Seems to be code for handling doors
+      LDA     Player1JoypadPress
       AND     #ControllerInput_Up
       BEQ     locret_BANK0_91CE
 
+      ; player is holding up and is trying to go through this door
       LDA     PlayerXLo
       CLC
-      ADC     #5
-      AND     #$F
-      CMP     #$A
+      ADC     #$05
+      AND     #$0F
+      CMP     #$0A
       BCS     locret_BANK0_91CE
 
-      CPY     #4
+      CPY     #$04 ; index of BackgroundTile_LightDoorEndLevel
       BNE     loc_BANK0_9205
 
+      ; setting GameMode to $03 to go to Bonus Chance
       DEY
       STY     GameMode
       RTS
@@ -3548,17 +3556,17 @@ loc_BANK0_9205:
       TYA
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
-      .WORD loc_BANK0_9216
-      .WORD loc_BANK0_9228
-      .WORD loc_BANK0_9244
-      .WORD loc_BANK0_9244
-; ---------------------------------------------------------------------------
+DoorHandlingPointers:
+      .WORD DoorHandling_UnlockedDoor ; unlocked door
+      .WORD DoorHandling_LockedDoor ; locked door
+      .WORD DoorHandling_Entrance ; dark door
+      .WORD DoorHandling_Entrance ; light door
 
-loc_BANK0_9216:
-      JSR     loc_BANK1_B964
 
-loc_BANK0_9219:
+DoorHandling_UnlockedDoor:
+      JSR     DoorAnimation_Unlocked
+
+DoorHandling_GoThroughDoor:
       INC     byte_RAM_4BD
       INC     PlayerLock
       JSR     sub_BANK0_9143
@@ -3566,47 +3574,42 @@ loc_BANK0_9219:
       LDA     #DPCM_DoorOpenBombBom
       STA     DPCMQueue
 
-locret_BANK0_9227:
+DoorHandling_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK0_9228:
+DoorHandling_LockedDoor:
       LDA     HoldingItem
-      BEQ     locret_BANK0_9227
+      ; don't come to a locked door empty-handed
+      BEQ     DoorHandling_Exit
 
+      ; and make sure you have a key
       LDY     byte_RAM_42D
       LDA     ObjectType,Y
       CMP     #Enemy_Key
-      BNE     locret_BANK0_9227
+      BNE     DoorHandling_Exit
 
+      ; the key has been used
       INC     KeyUsed
       TYA
       TAX
 
-loc_BANK0_923B:
-      JSR     sub_BANK1_BA33
+      JSR     TurnKeyIntoPuffOfSmoke
+      JSR     DoorAnimation_Locked
+      JMP     DoorHandling_GoThroughDoor
 
-      JSR     sub_BANK1_B960
 
-      JMP     loc_BANK0_9219
-
-; ---------------------------------------------------------------------------
-
-loc_BANK0_9244:
+DoorHandling_Entrance:
       INC     DoAreaTransition
-
-loc_BANK0_9247:
       JMP     DoAreaReset
 
-; ---------------------------------------------------------------------------
-byte_BANK0_924A:
-      .BYTE $51
 
-      .BYTE $50
-      .BYTE $83
-      .BYTE $52
-      .BYTE $56
+DoorTiles:
+      .BYTE BackgroundTile_DoorBottom
+      .BYTE BackgroundTile_DoorBottomLock
+      .BYTE BackgroundTile_DarkDoor
+      .BYTE BackgroundTile_LightDoor
+      .BYTE BackgroundTile_LightDoorEndLevel
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -4036,7 +4039,7 @@ sub_BANK0_9428:
       STA     PlayerState
       STA     PlayerLock
       STA     SubspaceTimer
-      JSR     loc_BANK1_B964
+      JSR     DoorAnimation_Unlocked
 
       LDA     #$0A
       STA     SubspaceDoorTimer
@@ -4101,7 +4104,7 @@ loc_BANK0_94AC:
       CMP     #TransitionType_SubSpace
       BNE     loc_BANK0_94C2
 
-      JSR     loc_BANK1_B964
+      JSR     DoorAnimation_Unlocked
 
 loc_BANK0_94C2:
       LDA     PlayerXLo
@@ -4202,7 +4205,7 @@ loc_BANK0_9534:
       LDY     #5
 
 loc_BANK0_953D:
-      CMP     loc_BANK0_9247+2,Y
+      CMP     DoorTiles-1,Y
       BEQ     loc_BANK0_9554
 
       DEY
@@ -4332,7 +4335,6 @@ ENDIF
 
 TitleScreenPPUDataPointers:
       .WORD PPUBuffer_301
-
       .WORD TitleLayout1
 
 ; =============== S U B R O U T I N E =======================================
@@ -4632,7 +4634,7 @@ loc_BANK0_9A6F:
       STA     PPUCTRL
       JSR     WaitForNMI_TitleScreen
 
-      LDA     #1
+      LDA     #1 ; @TODO
       STA     ScreenUpdateIndex
       JSR     WaitForNMI_TitleScreen
 
@@ -5142,7 +5144,7 @@ FreeSubconsScene:
       STA     PPUCTRL
       JSR     WaitForNMI_Ending
 
-      LDA     #1
+      LDA     #EndingUpdateBuffer_JarRoom
       STA     ScreenUpdateIndex
       JSR     WaitForNMI_Ending
 
@@ -6594,41 +6596,42 @@ locret_BANK1_B95F:
 
 ; End of function sub_BANK1_B948
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_B960:
-      LDA     #1
-      BNE     loc_BANK1_B966
+DoorAnimation_Locked:
+      LDA     #$01
+      BNE     DoorAnimation
 
-loc_BANK1_B964:
-      LDA     #0
+DoorAnimation_Unlocked:
+      LDA     #$00
 
-loc_BANK1_B966:
+DoorAnimation:
       PHA
-      LDY     #8
+      LDY     #$08
 
-loc_BANK1_B969:
+DoorAnimation_Loop:
+      ; skip if inactive
       LDA     EnemyState,Y
-      BEQ     loc_BANK1_B97F
+      BEQ     DoorAnimation_LoopNext
 
+      ; skip enemies that aren't the door
       LDA     ObjectType,Y
       CMP     #Enemy_SubspaceDoor
-      BNE     loc_BANK1_B97F
+      BNE     DoorAnimation_LoopNext
 
       LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,Y
       LDA     #$20
       STA     EnemyTimer,Y
 
-loc_BANK1_B97F:
+DoorAnimation_LoopNext:
       DEY
-      BPL     loc_BANK1_B969
+      BPL     DoorAnimation_Loop
 
       JSR     CreateEnemy_TryAllSlots_Bank1
 
-      BMI     loc_BANK1_B9B6
+      BMI     DoorAnimation_Exit
 
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_4BD
       STA     SubspaceDoorTimer
       LDX     byte_RAM_0
@@ -6637,11 +6640,11 @@ loc_BANK1_B97F:
       LDA     #Enemy_SubspaceDoor
       STA     ObjectType,X
       LDA     PlayerXLo
-      ADC     #8
+      ADC     #$08
       AND     #$F0
       STA     ObjectXLo,X
       LDA     PlayerXHi
-      ADC     #0
+      ADC     #$00
       STA     ObjectXHi,X
       LDA     PlayerYLo
       STA     ObjectYLo,X
@@ -6652,20 +6655,15 @@ loc_BANK1_B97F:
       LDX     byte_RAM_12
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK1_B9B6:
+DoorAnimation_Exit:
       PLA
       RTS
 
-; End of function sub_BANK1_B960
-
-; =============== S U B R O U T I N E =======================================
 
 CreateStarman:
       JSR     CreateEnemy_Bank1
 
-      BMI     locret_BANK1_B9E2
+      BMI     CreateStarman_Exit
 
       LDX     byte_RAM_0
       LDA     #Enemy_Starman
@@ -6674,22 +6672,21 @@ CreateStarman:
       ADC     #$D0
       STA     ObjectXLo,X
       LDA     ScreenBoundaryLeftHi
-      ADC     #0
+      ADC     #$00
       STA     ObjectXHi,X
       LDA     ScreenYLo
       ADC     #$E0
       STA     ObjectYLo,X
       LDA     ScreenYHi
-      ADC     #0
+      ADC     #$00
       STA     ObjectYHi,X
       JSR     loc_BANK1_BA17
 
       LDX     byte_RAM_12
 
-locret_BANK1_B9E2:
+CreateStarman_Exit:
       RTS
 
-; End of function CreateStarman
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -6734,12 +6731,19 @@ loc_BANK1_BA17:
 
 ; End of function EnemyInit_Basic_Bank1
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_BA33:
+;
+; Turns the key into a puff of smoke
+;
+; Input
+;   X = enemy slot
+; Output
+;   X = value of byte_RAM_12
+;
+TurnKeyIntoPuffOfSmoke:
       LDA     ObjectAttributes,X
-      AND     #$FC
-      ORA     #1
+      AND     #%11111100
+      ORA     #ObjAttrib_Palette1
       STA     ObjectAttributes,X
       LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,X
@@ -6749,16 +6753,25 @@ sub_BANK1_BA33:
       LDX     byte_RAM_12
       RTS
 
-; End of function sub_BANK1_BA33
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK1_BA48:
+;
+; NOTE: This is a copy of the "CreateEnemy" routine in Bank 2, but it is used
+; here for spawning the door animation and Starman objects.
+;
+; Spawned enemies are linked to an offset in the raw enemy data, which prevents
+; from being respawned until they are killed or moved offscreen.
+;
+; This subroutine ensures that the enemy in a particular slot is not linked to
+; the raw enemy data
+;
+; Input
+;   X = enemy slot
+;
+UnlinkEnemyFromRawData_Bank1:
       LDA     #$FF
       STA     unk_RAM_441,X
       RTS
 
-; End of function sub_BANK1_BA48
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -6949,33 +6962,38 @@ loc_BANK1_BB0B:
       STA     EnemyState,X
       RTS
 
-; =============== S U B R O U T I N E =======================================
 
+;
+; NOTE: This is a copy of the "CreateEnemy" routine in Bank 2, but it is used
+; here for spawning the door animation and Starman objects.
+;
 ; Creates a generic red Shyguy enemy and
 ; does some basic initialization for it.
 ;
-; This is a copy of the "CreateEnemy" routine
-; in bank 2, but it's here instead for... reasons.
-
+; CreateEnemy_TryAllSlots checks all 9 object slots
+; CreateEnemy only checks the first 6 object slots
+;
+; Output
+;   Y = $FF if there no empty slot was found
+;   byte_RAM_0 = slot used
+;
 CreateEnemy_TryAllSlots_Bank1:
-      LDY     #8
-      BNE     loc_BANK1_BB16
+      LDY     #$08
+      BNE     CreateEnemy_Bank1_FindSlot
 
 CreateEnemy_Bank1:
-      LDY     #5
+      LDY     #$05
 
-loc_BANK1_BB16:
+CreateEnemy_Bank1_FindSlot:
       LDA     EnemyState,Y
-      BEQ     loc_BANK1_BB1F
+      BEQ     CreateEnemy_Bank1_FoundSlot
 
       DEY
-      BPL     loc_BANK1_BB16
+      BPL     CreateEnemy_Bank1_FindSlot
 
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK1_BB1F:
+CreateEnemy_Bank1_FoundSlot:
       LDA     #EnemyState_Alive
       STA     EnemyState,Y
       LSR     A
@@ -6983,10 +7001,10 @@ loc_BANK1_BB1F:
       LDA     #Enemy_ShyguyRed
       STA     ObjectType,Y
       LDA     ObjectXLo,X
-      ADC     #5
+      ADC     #$05
       STA     ObjectXLo,Y
       LDA     ObjectXHi,X
-      ADC     #0
+      ADC     #$00
       STA     ObjectXHi,Y
       LDA     ObjectYLo,X
       STA     ObjectYLo,Y
@@ -6995,18 +7013,9 @@ loc_BANK1_BB1F:
       STY     byte_RAM_0
       TYA
       TAX
-      JSR     EnemyInit_Basic_Bank1
 
-      JSR     sub_BANK1_BA48
+      JSR     EnemyInit_Basic_Bank1
+      JSR     UnlinkEnemyFromRawData_Bank1
 
       LDX     byte_RAM_12
       RTS
-
-; End of function CreateEnemy_TryAllSlots_Bank1
-
-; ---------------------------------------------------------------------------
-; The rest of this bank is empty
-
-; [000004AE BYTES: END OF AREA UNUSED_empty_3B52. PRESS KEYPAD "-" TO COLLAPSE]
-; ===========================================================================
-

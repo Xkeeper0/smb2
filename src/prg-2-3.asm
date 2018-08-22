@@ -168,7 +168,7 @@ loc_BANK2_80C7:
       STA     ObjectXLo,X
       LDA     ScreenBoundaryLeftHi
       STA     ObjectXHi,X
-      JSR     sub_BANK2_8569
+      JSR     UnlinkEnemyFromRawData
 
 loc_BANK2_8106:
       LDA     #<RawEnemyDataAddr
@@ -1035,16 +1035,22 @@ EnemyDeathMaybe:
       SBC     #0
       STA     ObjectYHi,X
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_8569:
+;
+; Spawned enemies are linked to an offset in the raw enemy data, which prevents
+; from being respawned until they are killed or moved offscreen.
+;
+; This subroutine ensures that the enemy in a particular slot is not linked to
+; the raw enemy data
+;
+; Input
+;   X = enemy slot
+;
+UnlinkEnemyFromRawData:
       LDA     #$FF
       STA     unk_RAM_441,X
       RTS
 
-; End of function sub_BANK2_8569
-
-; ---------------------------------------------------------------------------
 
 MakeEnemyFlipUpsideDown:
       ASL     ObjectAttributes,X ; Shift left...
@@ -3718,40 +3724,35 @@ loc_BANK2_92BE:
 
 ; End of function sub_BANK2_9289
 
-; =============== S U B R O U T I N E =======================================
 
-; See CreateEnemy, but this tests all 6 slots instead of just the first 6.
-
-CreateEnemy_TryAllSlots:
-      LDY     #8
-      BNE     loc_BANK2_92CA
-
-; End of function CreateEnemy_TryAllSlots
-
-; =============== S U B R O U T I N E =======================================
-
+;
 ; Creates a generic red Shyguy enemy and
 ; does some basic initialization for it.
 ;
-; Checks the first 6 object slots.
+; CreateEnemy_TryAllSlots checks all 9 object slots
+; CreateEnemy only checks the first 6 object slots
 ;
-; Returns Y=FF if couldn't create one.
+; Output
+;   Y = $FF if there no empty slot was found
+;   byte_RAM_0 = slot used
+;
+CreateEnemy_TryAllSlots:
+      LDY     #$08
+      BNE     CreateEnemy_FindSlot
 
 CreateEnemy:
-      LDY     #5
+      LDY     #$05
 
-loc_BANK2_92CA:
+CreateEnemy_FindSlot:
       LDA     EnemyState,Y
-      BEQ     loc_BANK2_92D3
+      BEQ     CreateEnemy_FoundSlot
 
       DEY
-      BPL     loc_BANK2_92CA
+      BPL     CreateEnemy_FindSlot
 
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_92D3:
+CreateEnemy_FoundSlot:
       LDA     #EnemyState_Alive
       STA     EnemyState,Y
       LSR     A
@@ -3759,10 +3760,10 @@ loc_BANK2_92D3:
       LDA     #Enemy_ShyguyRed
       STA     ObjectType,Y
       LDA     ObjectXLo,X
-      ADC     #5
+      ADC     #$05
       STA     ObjectXLo,Y
       LDA     ObjectXHi,X
-      ADC     #0
+      ADC     #$00
       STA     ObjectXHi,Y
       LDA     ObjectYLo,X
       STA     ObjectYLo,Y
@@ -3771,16 +3772,13 @@ loc_BANK2_92D3:
       STY     byte_RAM_0
       TYA
       TAX
-      JSR     EnemyInit_Basic
 
-      JSR     sub_BANK2_8569
+      JSR     EnemyInit_Basic
+      JSR     UnlinkEnemyFromRawData
 
       LDX     byte_RAM_12
       RTS
 
-; End of function CreateEnemy
-
-; ---------------------------------------------------------------------------
 
 Phanto_AccelX:
       .BYTE $01

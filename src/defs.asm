@@ -277,17 +277,17 @@ EnemyState_27 = $27
 ; ---------------------------------------------------------------------------
 
 ; enum ObjectAttribute (bitfield)
-ObjAttrib_Palette = $03
+ObjAttrib_Palette = %00000011
 ObjAttrib_Palette0 = $00
 ObjAttrib_Palette1 = $01
 ObjAttrib_Palette2 = $02
 ObjAttrib_Palette3 = $03
-ObjAttrib_Horizontal = $04 ; use with ObjAttrib_16x32 for 32x16
-ObjAttrib_FrontFacing = $08 ; no direction-based mirroring
-ObjAttrib_Mirrored = $10
-ObjAttrib_BehindBackground = $20
-ObjAttrib_16x32 = $40
-ObjAttrib_UpsideDown = $80 ; appears behind background when pulling
+ObjAttrib_Horizontal = %00000100 ; use with ObjAttrib_16x32 for 32x16
+ObjAttrib_FrontFacing = %00001000 ; no direction-based mirroring
+ObjAttrib_Mirrored = %00010000
+ObjAttrib_BehindBackground = %00100000
+ObjAttrib_16x32 = %01000000
+ObjAttrib_UpsideDown = %10000000 ; appears behind background when pulling
 
 ; ---------------------------------------------------------------------------
 

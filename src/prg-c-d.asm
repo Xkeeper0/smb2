@@ -10,11 +10,7 @@
 ; .segment BANKC
 ; * =  $8000
 MarioDream_Pointers:
-      .BYTE $01
-
-byte_BANKC_8001:
-      .BYTE $03
-
+      .WORD PPUBuffer_301
       .WORD MarioDream_Bed
       .WORD MarioDream_Bubble
       .WORD MarioDream_DoNothing
@@ -51,7 +47,7 @@ sub_BANKC_801C:
       TAX
       LDA     MarioDream_Pointers,X
       STA     RAM_PPUDataBufferPointer
-      LDA     byte_BANKC_8001,X
+      LDA     MarioDream_Pointers+1,X
       STA     RAM_PPUDataBufferPointer+1
       LDA     #0
       STA     NMIWaitFlag
