@@ -369,6 +369,17 @@ GroundTilesVerticalHi:
       .BYTE >World6GroundTilesVertical
       .BYTE >World7GroundTilesVertical
 
+;
+; Ground Appearance Tiles
+; =======================
+;
+; These are the tiles used to render the ground setting of an area.
+; Each row in a world's table corresponds to the ground appearance setting.
+;
+; You'll notice that the first entry, which correponds to the sky/background is
+; $00 instead of $40. This is skipped with a BEQ in WriteGroundSetTiles,
+; presumably as an optimization, so the value doesn't matter!
+;
 World1GroundTilesHorizontal:
       .BYTE $00, $99, $D5, $00 ; $00
       .BYTE $00, $99, $99, $99 ; $01
@@ -1194,11 +1205,13 @@ GreenPlatformTiles:
       .BYTE BackgroundTile_GreenPlatformLeft
       .BYTE BackgroundTile_GreenPlatformMiddle
       .BYTE BackgroundTile_GreenPlatformRight
-      ; Not sure what these are, but changing the next byte makes green platforms disappear
-      .BYTE $40
-      .BYTE $04
-      .BYTE $05
-; ---------------------------------------------------------------------------
+; These are the background tiles that the green platforms are allowed to overwrite.
+; Any other tiles will stop the green platform from extending to the bottom of the page.
+GreenPlatformOverwriteTiles:
+      .BYTE BackgroundTile_Sky
+      .BYTE BackgroundTile_WaterfallTop
+      .BYTE BackgroundTile_Waterfall
+
 
 ; Draw green platforms or mushroom house depending on world
 CreateObject_JumpthroughPlatform:
@@ -1556,7 +1569,7 @@ CreateObject_SingleObject:
       STA     (byte_RAM_1),Y
       RTS
 
-; ---------------------------------------------------------------------------
+
 World1thru6BrickWallTiles:
       .BYTE BackgroundTile_BackgroundBrick
       .BYTE BackgroundTile_SolidBrick2Wall
@@ -1564,7 +1577,7 @@ World1thru6BrickWallTiles:
 World7BrickWallTiles:
       .BYTE BackgroundTile_GroundBrick2
       .BYTE BackgroundTile_GroundBrick2
-; ---------------------------------------------------------------------------
+
 
 CreateObject_Wall:
       LDA     byte_RAM_50E
@@ -1580,7 +1593,7 @@ CreateObject_Wall:
       STA     byte_RAM_7
       LDA     (byte_RAM_1),Y
       CMP     #BackgroundTile_Sky
-      BNE     locret_BANK6_8D92
+      BNE     CreateObject_Wall_Exit
 
 loc_BANK6_8D69:
       LDX     byte_RAM_8
@@ -1605,21 +1618,19 @@ loc_BANK6_8D7B:
       CLC
       ADC     #$10
       CMP     #$F0
-      BCS     locret_BANK6_8D92
+      BCS     CreateObject_Wall_Exit
 
       STA     byte_RAM_E7
       JMP     CreateObject_Wall
 
-; ---------------------------------------------------------------------------
-
-locret_BANK6_8D92:
+CreateObject_Wall_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
+
 WaterfallTiles:
       .BYTE BackgroundTile_WaterfallTop
       .BYTE BackgroundTile_Waterfall
-; ---------------------------------------------------------------------------
+
 
 CreateObject_WaterfallOrFrozenRocks:
       LDA     CurrentWorld
@@ -1627,8 +1638,6 @@ CreateObject_WaterfallOrFrozenRocks:
       BNE     CreateObject_Waterfall
 
       JMP     CreateObject_FrozenRocks
-
-; ---------------------------------------------------------------------------
 
 CreateObject_Waterfall:
       LDA     #$00
@@ -1662,8 +1671,6 @@ loc_BANK6_8DB3:
 
       STA     byte_RAM_E7
       JMP     loc_BANK6_8DA3
-
-; ---------------------------------------------------------------------------
 
 locret_BANK6_8DD1:
       RTS
@@ -3716,7 +3723,7 @@ LoadGroundSetData:
 LoadGroundSetData_Loop:
       JSR     ReadGroundSetByte
 
-      JSR     WriteGroundSetTiles
+      JSR     WriteGroundSetTiles1
 
       JSR     ReadGroundSetByte
 
@@ -3767,6 +3774,7 @@ WriteGroundSetTiles3:
 WriteGroundSetTiles4:
       AND     #$03
       STX     byte_RAM_3
+      ; This BEQ is what effectively ignores the first index of the groundset tiles lookup tables.
       BEQ     WriteGroundSetTiles_AfterWriteTile
 
       CLC
