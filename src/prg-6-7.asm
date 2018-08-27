@@ -370,7 +370,7 @@ GroundTilesVerticalHi:
       .BYTE >World7GroundTilesVertical
 
 ;
-; Ground Appearance Tiles
+; Ground appearance tiles
 ; =======================
 ;
 ; These are the tiles used to render the ground setting of an area.
@@ -2435,10 +2435,13 @@ ENDIF
 ;
 ; It seems to go top-to-bottom except for the last tile, which is actually the top?
 ;
-;   00 - empty
-;   01 - sand
-;   10 - grass
-;   11 - black
+; The tiles are defined in the WorldXGroundTilesHorizontal lookup tables, but
+; here's an example of how they apply:
+;
+;   00 - default background (ie. sky)
+;   01 - secondary platform (eg. sand)
+;   10 - primary platform (eg. grass)
+;   11 - secondary background (eg. black background in 3-2)
 ;
 HorizontalGroundSetData:
       .BYTE $00,$00,$00,$24
@@ -2479,10 +2482,13 @@ HorizontalGroundSetData:
 ;
 ; Two bits per tile, left-to-right
 ;
-;   00 - empty
-;   01 - bombable wall
-;   10 - background
-;   11 - solid block
+; The tiles are defined in the WorldXGroundTilesVertical lookup tables, but
+; here's an example of how they apply:
+;
+;   00 - default background (ie. sky)
+;   01 - secondary platform (eg. bombable wall, sand)
+;   10 - primary platform
+;   11 - secondary background
 ;
 VerticalGroundSetData:
       .BYTE $AA,$AA,$AA,$AA
