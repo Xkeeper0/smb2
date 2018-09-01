@@ -1279,7 +1279,8 @@ ENDIF
 ;
 ; These are lookup tables used to determine note lengths (in ticks).
 ;
-; It's not totally consistent, but here's a rough estimate of the time scale:
+; There are a few weird values floating around, but it's generally broken into
+; groups of 13 note lengths that correspond to a tempo as follows:
 ;
 ; $x0 - 1/16 note (rounding down)
 ; $x1 - 1/16 note (rounding up)
@@ -1298,43 +1299,78 @@ ENDIF
 ; $xE - double note (usually note defined)
 ; $xF - usually not defined
 ;
+; 14400 is the number of ticks in a minute (4 ticks * 60 fps * 60 seconds), and
+; you can work out the tempo by dividing 14400 by the length of a whole note.
+;
 NoteLengthTable:
+
 ; Character Select
 ; Star
 ; Crystal
 ; Game Over
 ; Boss Beaten
-NoteLengthTable1: ; $00
+NoteLengthTable_300bpm:
       .BYTE $03, $03, $04, $04, $06, $09, $08, $08, $0C, $12, $18, $24, $30
-; Unused?
-      .BYTE $03, $04, $05, $04, $07, $0A, $09, $0A, $0E, $15, $1C, $2A, $38, $0B
+
+NoteLengthTable_257bpm: ; rounded
+      .BYTE $03, $04, $05, $04, $07, $0A, $09, $0A, $0E, $15, $1C, $2A, $38
+
+      .BYTE $0B ; junk?
+
 ; Title Screen
-NoteLengthTable2: ; $1B
+NoteLengthTable_225bpm:
       .BYTE $04, $04, $05, $06, $08, $0C, $0B, $0A, $10, $18, $20, $30, $40
+
 ; Overworld
 ; Boss
 ; Wart
 ; Death
 ; Subspace
-NoteLengthTable3: ; $28
-      ;     $x0, $x1, $x2, $x3, $x4, $x5, $x6, $x7, $x8, $x9, $xA, $xB, $xC, $xD, $xE, $xF
-      .BYTE $04, $05, $06, $06, $09, $0D, $0C, $0C, $12, $1B, $24, $36, $48, $0E
-; Unused?
-      .BYTE $03, $05, $05, $07, $06, $0A, $0F, $0D, $0E, $14, $1E, $28, $3C, $50
-      .BYTE $05, $06, $07, $08, $0B, $10, $0F, $0E, $16, $21, $2C, $42, $58, $11
+NoteLengthTable_200bpm:
+      .BYTE $04, $05, $06, $06, $09, $0D, $0C, $0C, $12, $1B, $24, $36, $48
+
+      .BYTE $0E, $03 ; junk?
+
+NoteLengthTable_180bpm:
+      .BYTE $05, $05, $07, $06, $0A, $0F, $0D, $0E, $14, $1E, $28, $3C, $50
+
+NoteLengthTable_164bpm: ; rounded, 163.64 bpm
+      .BYTE $05, $06, $07, $08, $0B, $10, $0F, $0E, $16, $21, $2C, $42, $58
+
+      .BYTE $11 ; junk?
+
 ; Bonus Chance
-NoteLengthTable4: ; $52
+NoteLengthTable_150bpm:
       .BYTE $06, $06, $08, $08, $0C, $12, $10, $10, $18, $24, $30, $48, $60
-; Unused?
-      .BYTE $02, $06, $07, $09, $08, $0D, $13, $11, $12, $1A, $27, $34, $4E, $68, $14
+
+      .BYTE $02 ; junk?
+
+NoteLengthTable_138bpm: ; rounded, 138.46 bpm
+      .BYTE $06, $07, $09, $08, $0D, $13, $11, $12, $1A, $27, $34, $4E, $68
+
+      .BYTE $14 ; junk?
+
 ; Underground
 ; Ending
-NoteLengthTable5: ; $6E
+NoteLengthTable_129bpm: ; rounded, 128.57
       .BYTE $07, $07, $09, $0A, $0E, $15, $13, $12, $1C, $2A, $38, $54, $70
-; Unused?
-      .BYTE $03, $04, $07, $08, $0A, $0A, $0F, $16, $14, $14, $1E, $2D, $3C, $5A, $78, $17
+
+      .BYTE $03, $04 ; junk?
+
+NoteLengthTable_120bpm:
+      .BYTE $07, $08, $0A, $0A, $0F, $16, $14, $14, $1E, $2D, $3C, $5A, $78
+
+      .BYTE $17 ; junk?
+
+NoteLengthTable_112bpm: ; rounded, 112.5 bpm
       .BYTE $08, $08, $0B, $0A, $10, $18, $15, $16, $20, $30, $40, $60, $80
-      .BYTE $08, $09, $0B, $0C, $11, $19, $15, $16, $22, $33, $44, $60, $88, $1A
+
+NoteLengthTable_106bpm: ; rounded, 105.88 bpm
+      .BYTE $08, $09, $0B, $0C, $11, $19, $15, $16, $22, $33, $44, $60, $88
+
+      .BYTE $1A ; junk?
+
+NoteLengthTable_100bpm:
       .BYTE $09, $09, $0C, $0C, $12, $1B, $18, $18, $24, $36, $48, $6C, $90
 
 
@@ -1423,7 +1459,7 @@ MusicPartPointers:
 ;
 MusicPartHeaders:
 MusicHeaderCharacterSelect1:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $AD, $98
       .WORD MusicDataCharacterSelect1
       .BYTE MusicDataCharacterSelect1_Triangle - MusicDataCharacterSelect1 ; $6B
@@ -1431,7 +1467,7 @@ MusicHeaderCharacterSelect1:
       .BYTE MusicDataCharacterSelect1_Noise - MusicDataCharacterSelect1 ; $A0
 
 MusicHeaderCharacterSelect2:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $5C, $99
       .WORD MusicDataCharacterSelect2
       .BYTE MusicDataCharacterSelect2_Triangle - MusicDataCharacterSelect2 ; $8E
@@ -1439,7 +1475,7 @@ MusicHeaderCharacterSelect2:
       .BYTE MusicDataCharacterSelect2_Noise - MusicDataCharacterSelect2 ; $B0
 
 MusicHeaderCharacterSelect3:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $9A, $99
       .WORD MusicDataCharacterSelect3
       .BYTE MusicDataCharacterSelect3_Triangle - MusicDataCharacterSelect3 ; $6F
@@ -1447,7 +1483,7 @@ MusicHeaderCharacterSelect3:
       .BYTE MusicDataCharacterSelect3_Noise - MusicDataCharacterSelect3 ; $76
 
 MusicHeaderCharacterSelect4:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $9E, $99
       .WORD MusicDataCharacterSelect4
       .BYTE MusicDataCharacterSelect4_Triangle - MusicDataCharacterSelect4 ; $6B
@@ -1455,7 +1491,7 @@ MusicHeaderCharacterSelect4:
       .BYTE MusicDataCharacterSelect4_Noise - MusicDataCharacterSelect4 ; $72
 
 MusicHeaderCharacterSelect5:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $26, $9A
       .WORD MusicDataCharacterSelect5
       .BYTE MusicDataCharacterSelect5_Triangle - MusicDataCharacterSelect5 ; $8A
@@ -1463,7 +1499,7 @@ MusicHeaderCharacterSelect5:
       .BYTE MusicDataCharacterSelect5_Noise - MusicDataCharacterSelect5 ; $AC
 
 MusicHeaderOverworld1:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $D4, $9B
       .WORD MusicDataOverworld1
       .BYTE MusicDataOverworld1_Triangle - MusicDataOverworld1 ; $2B
@@ -1471,7 +1507,7 @@ MusicHeaderOverworld1:
       .BYTE MusicDataOverworld1_Noise - MusicDataOverworld1 ; $3D
 
 MusicHeaderOverworld2:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $20, $9C
       .WORD MusicDataOverworld2
       .BYTE MusicDataOverworld2_Triangle - MusicDataOverworld2 ; $A8
@@ -1479,7 +1515,7 @@ MusicHeaderOverworld2:
       .BYTE MusicDataOverworld2_Noise - MusicDataOverworld2 ; $C9
 
 MusicHeaderOverworld3:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $F9, $9C
       .WORD MusicDataOverworld3
       .BYTE MusicDataOverworld3_Triangle - MusicDataOverworld3 ; $DD
@@ -1487,7 +1523,7 @@ MusicHeaderOverworld3:
       .BYTE MusicDataOverworld3_Noise - MusicDataOverworld3 ; $6C
 
 MusicHeaderOverworld4:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $3F, $9D
       .WORD MusicDataOverworld4
       .BYTE MusicDataOverworld4_Triangle - MusicDataOverworld4 ; $B2
@@ -1495,7 +1531,7 @@ MusicHeaderOverworld4:
       .BYTE MusicDataOverworld4_Noise - MusicDataOverworld4 ; $26
 
 MusicHeaderOverworld5:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $00, $9E
       .WORD MusicDataOverworld5
       .BYTE MusicDataOverworld5_Triangle - MusicDataOverworld5 ; $38
@@ -1503,7 +1539,7 @@ MusicHeaderOverworld5:
       .BYTE MusicDataOverworld5_Noise - MusicDataOverworld5 ; $46
 
 MusicHeaderOverworld6:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $4D, $9E
       .WORD MusicDataOverworld6
       .BYTE MusicDataOverworld6_Triangle - MusicDataOverworld6 ; $A7
@@ -1511,7 +1547,7 @@ MusicHeaderOverworld6:
       .BYTE MusicDataOverworld6_Noise - MusicDataOverworld6 ; $C8
 
 MusicHeaderUnderground:
-      .BYTE NoteLengthTable5 - NoteLengthTable
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
       ; .BYTE $BD, $94
       .WORD MusicDataUnderground
       .BYTE MusicDataUnderground_Triangle - MusicDataUnderground ; $53
@@ -1519,7 +1555,7 @@ MusicHeaderUnderground:
       .BYTE MusicDataUnderground_DPCM - MusicDataUnderground ; $84
 
 MusicHeaderBoss:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $1C, $9F
       .WORD MusicDataBoss
       .BYTE MusicDataBoss_Triangle - MusicDataBoss ; $83
@@ -1527,7 +1563,7 @@ MusicHeaderBoss:
       .BYTE $00 ; no noise channel
 
 MusicHeaderStar:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $69, $94
       .WORD MusicDataStar
       .BYTE MusicDataStar_Triangle - MusicDataStar ; $37
@@ -1535,7 +1571,7 @@ MusicHeaderStar:
       .BYTE MusicDataStar_DPCM - MusicDataStar ; $49
 
 MusicHeaderWart:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $C7, $9F
       .WORD MusicDataWart
       .BYTE MusicDataWart_Triangle - MusicDataWart ; $96
@@ -1543,7 +1579,7 @@ MusicHeaderWart:
       .BYTE $00 ; no noise channel
 
 MusicHeaderCrystal:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $48, $A1
       .WORD MusicDataCrystal
       .BYTE MusicDataCrystal_Triangle - MusicDataCrystal ; $1B
@@ -1551,7 +1587,7 @@ MusicHeaderCrystal:
       ; no noise channel, using $00 from below
 
 MusicHeaderGameOver:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $CE, $A0
       .WORD MusicDataGameOver
       .BYTE MusicDataGameOver_Triangle - MusicDataGameOver ; $1B
@@ -1559,7 +1595,7 @@ MusicHeaderGameOver:
       ; no noise channel, using $00 from below
 
 MusicHeaderBossBeaten:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $F2, $A0
       .WORD MusicDataBossBeaten
       .BYTE MusicDataBossBeaten_Triangle - MusicDataBossBeaten ; $41
@@ -1567,7 +1603,7 @@ MusicHeaderBossBeaten:
       ; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect8:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $93, $9B
       .WORD MusicDataCharacterSelect8
       .BYTE MusicDataCharacterSelect8_Triangle - MusicDataCharacterSelect8 ; $2F
@@ -1575,7 +1611,7 @@ MusicHeaderCharacterSelect8:
       .BYTE MusicDataCharacterSelect8_Noise - MusicDataCharacterSelect8 ; $38
 
 MusicHeaderMushroomBonusChance:
-      .BYTE NoteLengthTable4 - NoteLengthTable
+      .BYTE NoteLengthTable_150bpm - NoteLengthTable
       ; .BYTE $BB, $A0
       .WORD MusicDataMushroomBonusChance
       .BYTE $00 ; no triangle channel
@@ -1583,7 +1619,7 @@ MusicHeaderMushroomBonusChance:
       ; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect7:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $DF, $9A
       .WORD MusicDataCharacterSelect7
       .BYTE MusicDataCharacterSelect7_Triangle - MusicDataCharacterSelect7 ; $97
@@ -1591,7 +1627,7 @@ MusicHeaderCharacterSelect7:
       .BYTE MusicDataCharacterSelect7_Noise - MusicDataCharacterSelect7 ; $B0
 
 MusicHeaderDeath:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $6F, $A1
       .WORD MusicDataDeath
       .BYTE MusicDataDeath_Triangle - MusicDataDeath ; $17
@@ -1599,7 +1635,7 @@ MusicHeaderDeath:
       ; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect6:
-      .BYTE NoteLengthTable1 - NoteLengthTable
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
       ; .BYTE $5D, $9A
       .WORD MusicDataCharacterSelect6
       .BYTE MusicDataCharacterSelect6_Triangle - MusicDataCharacterSelect6 ; $6C
@@ -1607,7 +1643,7 @@ MusicHeaderCharacterSelect6:
       .BYTE MusicDataCharacterSelect6_Noise - MusicDataCharacterSelect6 ; $79
 
 MusicHeaderTitleScreen2:
-      .BYTE NoteLengthTable2 - NoteLengthTable
+      .BYTE NoteLengthTable_225bpm - NoteLengthTable
       ; .BYTE $A7, $96
       .WORD MusicDataTitleScreen2
       .BYTE MusicDataTitleScreen2_Triangle - MusicDataTitleScreen2 ; $BC
@@ -1615,7 +1651,7 @@ MusicHeaderTitleScreen2:
       .BYTE MusicDataTitleScreen2_Noise - MusicDataTitleScreen2 ; $59
 
 MusicHeaderTitleScreen1:
-      .BYTE NoteLengthTable2 - NoteLengthTable
+      .BYTE NoteLengthTable_225bpm - NoteLengthTable
       ; .BYTE $3E, $96
       .WORD MusicDataTitleScreen1
       .BYTE MusicDataTitleScreen1_Triangle - MusicDataTitleScreen1 ; $43
@@ -1623,7 +1659,7 @@ MusicHeaderTitleScreen1:
       .BYTE MusicDataTitleScreen1_Noise - MusicDataTitleScreen1 ; $57
 
 MusicHeaderTitleScreen3:
-      .BYTE NoteLengthTable2 - NoteLengthTable
+      .BYTE NoteLengthTable_225bpm - NoteLengthTable
       ; .BYTE $94, $97
       .WORD MusicDataTitleScreen3
       .BYTE MusicDataTitleScreen3_Triangle - MusicDataTitleScreen3 ; $8D
@@ -1631,7 +1667,7 @@ MusicHeaderTitleScreen3:
       .BYTE MusicDataTitleScreen3_Noise - MusicDataTitleScreen3 ; $BA
 
 MusicHeaderTitleScreen4:
-      .BYTE NoteLengthTable2 - NoteLengthTable
+      .BYTE NoteLengthTable_225bpm - NoteLengthTable
       ; .BYTE $78, $98
       .WORD MusicDataTitleScreen4
       .BYTE MusicDataTitleScreen4_Triangle - MusicDataTitleScreen4 ; $24
@@ -1639,7 +1675,7 @@ MusicHeaderTitleScreen4:
       .BYTE MusicDataTitleScreen4_Noise - MusicDataTitleScreen4 ; $29
 
 MusicHeaderSubspace1:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $50, $95
       .WORD MusicDataSubspace1
       .BYTE MusicDataSubspace1_Triangle - MusicDataSubspace1 ; $38
@@ -1647,7 +1683,7 @@ MusicHeaderSubspace1:
       .BYTE MusicDataSubspace1_Noise - MusicDataSubspace1 ; $83
 
 MusicHeaderSubspace2:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $A3, $95
       .WORD MusicDataSubspace2
       .BYTE MusicDataSubspace2_Triangle - MusicDataSubspace2 ; $24
@@ -1655,7 +1691,7 @@ MusicHeaderSubspace2:
       .BYTE MusicDataSubspace2_Noise - MusicDataSubspace2 ; $30
 
 MusicHeaderSubspace3:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $E0, $95
       .WORD MusicDataSubspace3
       .BYTE MusicDataSubspace3_Triangle - MusicDataSubspace3 ; $22
@@ -1663,7 +1699,7 @@ MusicHeaderSubspace3:
       .BYTE MusicDataSubspace3_Noise - MusicDataSubspace3 ; $51
 
 MusicHeaderSubspace4:
-      .BYTE NoteLengthTable3 - NoteLengthTable
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
       ; .BYTE $0F, $96
       .WORD MusicDataSubspace4
       .BYTE MusicDataSubspace4_Triangle - MusicDataSubspace4 ; $17
@@ -1671,7 +1707,7 @@ MusicHeaderSubspace4:
       .BYTE MusicDataSubspace4_Noise - MusicDataSubspace4 ; $22
 
 MusicHeaderEnding1:
-      .BYTE NoteLengthTable5 - NoteLengthTable
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
       ; .BYTE $1E, $91
       .WORD MusicDataEnding1
       .BYTE MusicDataEnding1_Triangle - MusicDataEnding1 ; $3D
@@ -1679,7 +1715,7 @@ MusicHeaderEnding1:
       .BYTE MusicDataEnding1_Noise - MusicDataEnding1 ; $6D
 
 MusicHeaderEnding3:
-      .BYTE NoteLengthTable5 - NoteLengthTable
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
       ; .BYTE $9C, $91
       .WORD MusicDataEnding3
       .BYTE MusicDataEnding3_Triangle - MusicDataEnding3 ; $41
@@ -1687,7 +1723,7 @@ MusicHeaderEnding3:
       .BYTE MusicDataEnding3_Noise - MusicDataEnding3 ; $8C
 
 MusicHeaderEnding2:
-      .BYTE NoteLengthTable5 - NoteLengthTable
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
       ; .BYTE $80, $92
       .WORD MusicDataEnding2
       .BYTE MusicDataEnding2_Triangle - MusicDataEnding2 ; $2A
@@ -1695,7 +1731,7 @@ MusicHeaderEnding2:
       .BYTE MusicDataEnding2_Noise - MusicDataEnding2 ; $19
 
 MusicHeaderEnding5:
-      .BYTE NoteLengthTable5 - NoteLengthTable
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
       ; .BYTE $F2, $92
       .WORD MusicDataEnding5
       .BYTE MusicDataEnding5_Triangle - MusicDataEnding5 ; $4C
@@ -1703,7 +1739,7 @@ MusicHeaderEnding5:
       .BYTE MusicDataEnding5_Noise - MusicDataEnding5 ; $68
 
 MusicHeaderEnding4:
-      .BYTE NoteLengthTable5 - NoteLengthTable
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
       ; .BYTE $0D, $92
       .WORD MusicDataEnding4
       .BYTE MusicDataEnding4_Triangle - MusicDataEnding4 ; $43
@@ -1711,7 +1747,7 @@ MusicHeaderEnding4:
       .BYTE MusicDataEnding4_Noise - MusicDataEnding4 ; $1B
 
 MusicHeaderEnding6:
-      .BYTE NoteLengthTable5 - NoteLengthTable
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
       ; .BYTE $76, $93
       .WORD MusicDataEnding6
       .BYTE $00 ; no triangle channel
