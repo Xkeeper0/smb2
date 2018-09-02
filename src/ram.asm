@@ -1912,7 +1912,7 @@ CurrentMusicNoiseStartOffset:
       .dsb 1 ; $05f6
       .dsb 1 ; $05f7
       .dsb 1 ; $05f8
-unk_RAM_5F9:
+UNUSED_MusicSquare1Lo:
       .dsb 1 ; $05f9
 MusicDPCMNoteLength:
       .dsb 1 ; $05fa
@@ -1920,6 +1920,7 @@ MusicDPCMNoteStartLength:
       .dsb 1 ; $05fb
 CurrentMusicDPCMStartOffset:
       .dsb 1 ; $05fc
+UNUSED_MusicSquare2Lo:
       .dsb 1 ; $05fd
       .dsb 1 ; $05fe
 CurrentMusicDPCMOffset:

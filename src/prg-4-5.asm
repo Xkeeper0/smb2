@@ -5,7 +5,11 @@
 ; What's inside:
 ;
 ;   - Music engine
-;   - Song data
+;   - Sound effects engine
+;   - Sound effect pointers and data
+;   - Song pointers and data
+;   - Note length tables (tempos)
+;   - Instrument tables and data
 ;
 
 ; .segment BANK4
@@ -55,7 +59,6 @@ ProcessOnlyMusicQueue2:
       STA     SoundEffectQueue3
       RTS
 
-; End of function StartProcessingSoundQueue
 
 ProcessSoundEffectQueue2_Jump:
       LDA     #$42
@@ -498,24 +501,24 @@ ProcessDPCMQueue_PointerLoop:
 
 
 DMCStartTable:
-      .BYTE (DPCMSampleData_DoorOpenBombBom-DPCMSampleData)/64 ; $4F
-      .BYTE (DPCMSampleData_DrumSample-DPCMSampleData)/64 ; $60
-      .BYTE (DPCMSampleData_PlayerHurt-DPCMSampleData)/64 ; $4B
-      .BYTE (DPCMSampleData_ItemPull-DPCMSampleData)/64 ; $00
-      .BYTE (DPCMSampleData_BossDeath-DPCMSampleData)/64 ; $31
-      .BYTE (DPCMSampleData_DrumSample-DPCMSampleData)/64 ; $60
-      .BYTE (DPCMSampleData_BossHurt-DPCMSampleData)/64 ; $0E
-      .BYTE (DPCMSampleData_PlayerDeath-DPCMSampleData)/64 ; $1D
+      .BYTE (DPCMSampleData_DoorOpenBombBom - DPCMSampleData)/64 ; $4F
+      .BYTE (DPCMSampleData_DrumSample - DPCMSampleData)/64 ; $60
+      .BYTE (DPCMSampleData_PlayerHurt - DPCMSampleData)/64 ; $4B
+      .BYTE (DPCMSampleData_ItemPull - DPCMSampleData)/64 ; $00
+      .BYTE (DPCMSampleData_BossDeath - DPCMSampleData)/64 ; $31
+      .BYTE (DPCMSampleData_DrumSample - DPCMSampleData)/64 ; $60
+      .BYTE (DPCMSampleData_BossHurt - DPCMSampleData)/64 ; $0E
+      .BYTE (DPCMSampleData_PlayerDeath - DPCMSampleData)/64 ; $1D
 
 DMCLengthTable:
-      .BYTE (DPCMSampleDataEnd_DoorOpenBombBom-DPCMSampleData_DoorOpenBombBom)/16 ; $43
-      .BYTE (DPCMSampleDataEnd_DrumSample_A-DPCMSampleData_DrumSample)/16 ; $14
-      .BYTE (DPCMSampleDataEnd_PlayerHurt-DPCMSampleData_PlayerHurt)/16 ; $10
-      .BYTE (DPCMSampleDataEnd_ItemPull-DPCMSampleData_ItemPull)/16 ; $38
-      .BYTE (DPCMSampleDataEnd_BossDeath-DPCMSampleData_BossDeath)/16 ; $48
-      .BYTE (DPCMSampleDataEnd_DrumSample_B-DPCMSampleData_DrumSample)/16 ; $28
-      .BYTE (DPCMSampleDataEnd_BossHurt-DPCMSampleData_BossHurt)/16 ; $3C
-      .BYTE (DPCMSampleDataEnd_PlayerDeath-DPCMSampleData_PlayerDeath)/16 ; $50
+      .BYTE (DPCMSampleDataEnd_DoorOpenBombBom - DPCMSampleData_DoorOpenBombBom)/16 ; $43
+      .BYTE (DPCMSampleDataEnd_DrumSample_A - DPCMSampleData_DrumSample)/16 ; $14
+      .BYTE (DPCMSampleDataEnd_PlayerHurt - DPCMSampleData_PlayerHurt)/16 ; $10
+      .BYTE (DPCMSampleDataEnd_ItemPull - DPCMSampleData_ItemPull)/16 ; $38
+      .BYTE (DPCMSampleDataEnd_BossDeath - DPCMSampleData_BossDeath)/16 ; $48
+      .BYTE (DPCMSampleDataEnd_DrumSample_B - DPCMSampleData_DrumSample)/16 ; $28
+      .BYTE (DPCMSampleDataEnd_BossHurt - DPCMSampleData_BossHurt)/16 ; $3C
+      .BYTE (DPCMSampleDataEnd_PlayerDeath - DPCMSampleData_PlayerDeath)/16 ; $50
 
 DMCFreqTable:
       .BYTE $0E
@@ -723,7 +726,7 @@ ProcessMusicQueue2_Square2ContinueNote:
 
 ProcessMusicQueue2_Square2SustainNote:
       LDX     SoundEffectPlaying1
-      BNE     loc_BANK4_84BF
+      BNE     ProcessMusicQueue2_Square1
 
       LDY     MusicSquare2InstrumentOffset
       BEQ     ProcessMusicQueue2_LoadSquare2Instrument
@@ -739,15 +742,15 @@ ProcessMusicQueue2_LoadSquare2Instrument:
       LDX     #$7F
       STX     SQ2_SWEEP
 
-loc_BANK4_84BF:
+ProcessMusicQueue2_Square1:
       DEC     MusicSquare1NoteLength
       BNE     ProcessMusicQueue2_Square1SustainNote
 
-loc_BANK4_84C4:
+ProcessMusicQueue2_Square1Patch:
       LDY     CurrentMusicSquare1Offset
       INC     CurrentMusicSquare1Offset
       LDA     (CurrentMusicPointer),Y
-      BPL     loc_BANK4_84E3
+      BPL     ProcessMusicQueue2_Square1AfterPatch
 
       TAX
       AND     #$F0
@@ -760,7 +763,7 @@ loc_BANK4_84C4:
       INC     CurrentMusicSquare1Offset
       LDA     (CurrentMusicPointer),Y
 
-loc_BANK4_84E3:
+ProcessMusicQueue2_Square1AfterPatch:
       TAY
       BNE     ProcessMusicQueue2_Square1Note
 
@@ -769,7 +772,7 @@ loc_BANK4_84E3:
       LDA     #$94
       STA     SQ1_SWEEP
       STA     MusicSquare1NoteSweep
-      BNE     loc_BANK4_84C4
+      BNE     ProcessMusicQueue2_Square1Patch
 
 ProcessMusicQueue2_Square1Note:
       LDY     SoundEffectPlaying2
@@ -797,40 +800,40 @@ ProcessMusicQueue2_Square1ContinueNote:
 
 ProcessMusicQueue2_Square1SustainNote:
       LDA     SoundEffectPlaying2
-      BNE     loc_BANK4_853B
+      BNE     ProcessMusicQueue2_Triangle
 
       LDY     MusicSquare1InstrumentOffset
-      BEQ     loc_BANK4_8525
+      BEQ     ProcessMusicQueue2_Square1AfterDecrementInstrumentOffset
 
       DEC     MusicSquare1InstrumentOffset
 
-loc_BANK4_8525:
+ProcessMusicQueue2_Square1AfterDecrementInstrumentOffset:
       LDA     MusicSquare1NoteStartLength
       LDX     MusicSquare1Patch
       JSR     LoadSquareInstrumentDVE
 
       STA     SQ1_VOL
       LDA     MusicSquare1NoteSweep
-      BNE     loc_BANK4_8538
+      BNE     ProcessMusicQueue2_Square1Sweep
 
       LDA     #$7F
 
-loc_BANK4_8538:
+ProcessMusicQueue2_Square1Sweep:
       STA     SQ1_SWEEP
 
-loc_BANK4_853B:
+ProcessMusicQueue2_Triangle:
       LDA     CurrentMusicTriangleOffset
-      BEQ     loc_BANK4_8585
+      BEQ     ProcessMusicQueue2_NoiseDPCM
 
       DEC     MusicTriangleNoteLength
-      BNE     loc_BANK4_8585
+      BNE     ProcessMusicQueue2_NoiseDPCM
 
       LDY     CurrentMusicTriangleOffset
       INC     CurrentMusicTriangleOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_8582
+      BEQ     ProcessMusicQueue2_TriangleSetLength
 
-      BPL     loc_BANK4_8566
+      BPL     ProcessMusicQueue2_TriangleNote
 
       JSR     ProcessMusicQueue2_PatchNoteLength
 
@@ -840,51 +843,53 @@ loc_BANK4_853B:
       LDY     CurrentMusicTriangleOffset
       INC     CurrentMusicTriangleOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_8582
+      BEQ     ProcessMusicQueue2_TriangleSetLength
 
-loc_BANK4_8566:
+ProcessMusicQueue2_TriangleNote:
       JSR     PlayTriangleNote
 
       LDX     MusicTriangleNoteStartLength
       STX     MusicTriangleNoteLength
       TXA
-      CMP     #$A
-      BCC     loc_BANK4_857C
+      CMP     #$0A
+      BCC     ProcessMusicQueue2_TriangleNoteShort
 
       CMP     #$1E
-      BCS     loc_BANK4_8580
+      BCS     ProcessMusicQueue2_TriangleNoteLong
 
+ProcessMusicQueue2_TriangleNoteMedium:
       LDA     #$24
-      BNE     loc_BANK4_8582
+      BNE     ProcessMusicQueue2_TriangleSetLength
 
-loc_BANK4_857C:
+ProcessMusicQueue2_TriangleNoteShort:
       LDA     #$18
-      BNE     loc_BANK4_8582
+      BNE     ProcessMusicQueue2_TriangleSetLength
 
-loc_BANK4_8580:
+ProcessMusicQueue2_TriangleNoteLong:
       LDA     #$6F
 
-loc_BANK4_8582:
+ProcessMusicQueue2_TriangleSetLength:
       STA     TRI_LINEAR
 
-loc_BANK4_8585:
+ProcessMusicQueue2_NoiseDPCM:
       LDA     MusicPlaying1
       AND     #Music1_Inside|Music1_Invincible
-      BNE     loc_BANK4_85E0
+      BNE     ProcessMusicQueue2_DPCM
 
+ProcessMusicQueue2_Noise:
       LDA     CurrentMusicNoiseOffset
-      BEQ     loc_BANK4_85CC
+      BEQ     ProcessMusicQueue2_ThenNoiseEnd
 
       DEC     MusicNoiseNoteLength
-      BNE     loc_BANK4_85CC
+      BNE     ProcessMusicQueue2_ThenNoiseEnd
 
-loc_BANK4_8596:
+ProcessMusicQueue2_NoiseByte:
       LDY     CurrentMusicNoiseOffset
       INC     CurrentMusicNoiseOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_85CF
+      BEQ     ProcessMusicQueue2_NoiseLoopSegment
 
-      BPL     loc_BANK4_85B2
+      BPL     ProcessMusicQueue2_NoiseNote
 
       JSR     ProcessMusicQueue2_PatchNoteLength
 
@@ -892,9 +897,9 @@ loc_BANK4_8596:
       LDY     CurrentMusicNoiseOffset
       INC     CurrentMusicNoiseOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_85CF
+      BEQ     ProcessMusicQueue2_NoiseLoopSegment
 
-loc_BANK4_85B2:
+ProcessMusicQueue2_NoiseNote:
       LSR     A
       TAY
       LDA     NoiseVolTable,Y
@@ -906,36 +911,35 @@ loc_BANK4_85B2:
       LDA     MusicNoiseNoteStartLength
       STA     MusicNoiseNoteLength
 
-loc_BANK4_85CC:
-      JMP     loc_BANK4_85D8
+ProcessMusicQueue2_ThenNoiseEnd:
+      JMP     ProcessMusicQueue2_NoiseEnd
 
-loc_BANK4_85CF:
+ProcessMusicQueue2_NoiseLoopSegment:
       LDA     CurrentMusicNoiseStartOffset
       STA     CurrentMusicNoiseOffset
-      JMP     loc_BANK4_8596
+      JMP     ProcessMusicQueue2_NoiseByte
 
-loc_BANK4_85D8:
+ProcessMusicQueue2_NoiseEnd:
       LDA     MusicPlaying1
       AND     #Music1_Inside|Music1_Invincible
-      BNE     loc_BANK4_85E0
+      BNE     ProcessMusicQueue2_DPCM
 
       RTS
 
-; use DPCM instead of noise for percussion channel
-loc_BANK4_85E0:
+ProcessMusicQueue2_DPCM:
       LDA     CurrentMusicDPCMOffset
-      BEQ     locret_BANK4_8613
+      BEQ     ProcessMusicQueue2_DPCMEnd
 
       DEC     MusicDPCMNoteLength
-      BNE     locret_BANK4_8613
+      BNE     ProcessMusicQueue2_DPCMEnd
 
-loc_BANK4_85EA:
+ProcessMusicQueue2_DPCMByte:
       LDY     CurrentMusicDPCMOffset
       INC     CurrentMusicDPCMOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_8614
+      BEQ     ProcessMusicQueue2_DPCMLoopSegment
 
-      BPL     loc_BANK4_8606
+      BPL     ProcessMusicQueue2_DPCMNote
 
       JSR     ProcessMusicQueue2_PatchNoteLength
 
@@ -943,9 +947,9 @@ loc_BANK4_85EA:
       LDY     CurrentMusicDPCMOffset
       INC     CurrentMusicDPCMOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_8614
+      BEQ     ProcessMusicQueue2_DPCMLoopSegment
 
-loc_BANK4_8606:
+ProcessMusicQueue2_DPCMNote:
       ASL     A
       STA     DPCMQueue
       JSR     ProcessDPCMQueue
@@ -953,20 +957,33 @@ loc_BANK4_8606:
       LDA     MusicDPCMNoteStartLength
       STA     MusicDPCMNoteLength
 
-locret_BANK4_8613:
+ProcessMusicQueue2_DPCMEnd:
       RTS
 
-loc_BANK4_8614:
+ProcessMusicQueue2_DPCMLoopSegment:
       LDA     CurrentMusicDPCMStartOffset
       STA     CurrentMusicDPCMOffset
-      JMP     loc_BANK4_85EA
+      JMP     ProcessMusicQueue2_DPCMByte
+
 
 NoiseVolTable:
-      .BYTE $10,$1E,$1F,$16
+      .BYTE $10
+      .BYTE $1E
+      .BYTE $1F
+      .BYTE $16
+
 NoiseLoTable:
-      .BYTE $00,$03,$0A,2
+      .BYTE $00
+      .BYTE $03
+      .BYTE $0A
+      .BYTE $02
+
 NoiseHiTable:
-      .BYTE $00,$18,$18,$58
+      .BYTE $00
+      .BYTE $18
+      .BYTE $18
+      .BYTE $58
+
 
 ; Input
 ;   A = full patch byte
@@ -1189,32 +1206,38 @@ PlayNote_FrequencyOctaveLoop:
       DEC     NextOctave
       BNE     PlayNote_FrequencyOctaveLoop
 
-      ; tweak the frequency for notes < $38
       PLA
       CMP     #$38
-      BCC     loc_BANK4_870B
+      BCC     PlayNote_CheckSquareChorus
 
+      ; tweak the frequency for notes >= $38
       DEC     NextFrequencyLo
 
-loc_BANK4_870B:
+;
+; Square 2 plays slightly detuned when Square 1 is using instrument E0
+;
+; This can be used to achieve a honky tonk piano effect, which is used for the
+; title screen as well as the bridge of the overworld theme.
+;
+PlayNote_CheckSquareChorus:
       TXA
       CMP     #APUOffset_Square2
-      BNE     loc_BANK4_8717
+      BNE     PlayNote_SetFrequency
 
       LDA     MusicSquare1Patch
       CMP     #$E0
-      BEQ     loc_BANK4_8727
+      BEQ     PlayNote_SetFrequency_Square2Detuned
 
-loc_BANK4_8717:
+PlayNote_SetFrequency:
       LDA     NextFrequencyLo
       STA     SQ1_LO,X
-      STA     unk_RAM_5F9,X
+      STA     UNUSED_MusicSquare1Lo,X ; unused?
       LDA     NextFrequencyHi
       ORA     #$08
       STA     SQ1_HI,X
       RTS
 
-loc_BANK4_8727:
+PlayNote_SetFrequency_Square2Detuned:
       LDA     NextFrequencyLo
       SEC
       SBC     #$02
@@ -1282,22 +1305,22 @@ ENDIF
 ; There are a few weird values floating around, but it's generally broken into
 ; groups of 13 note lengths that correspond to a tempo as follows:
 ;
-; $x0 - 1/16 note (rounding down)
-; $x1 - 1/16 note (rounding up)
-; $x2 - 1/4 note triplet (rounding down)
-; $x3 - 1/4 note triplet (rounding up)
-; $x4 - 1/8 note
-; $x5 - dotted 1/8 note
-; $x6 - 1/2 note triplet (rounding down)
-; $x7 - 1/2 not triplet (rounding up)
-; $x8 - 1/4 note
-; $x9 - dotted 1/4 note
-; $xA - 1/2 note
-; $xB - dotted 1/2 note
-; $xC - whole note
-; $xD - dotted whole note (usually not defined)
-; $xE - double note (usually note defined)
-; $xF - usually not defined
+; $x0: 1/16 note (rounding down)
+; $x1: 1/16 note (rounding up)
+; $x2: 1/4 note triplet (rounding down)
+; $x3: 1/4 note triplet (rounding up)
+; $x4: 1/8 note
+; $x5: dotted 1/8 note
+; $x6: 1/2 note triplet (rounding down)
+; $x7: 1/2 not triplet (rounding up)
+; $x8: 1/4 note
+; $x9: dotted 1/4 note
+; $xA: 1/2 note
+; $xB: dotted 1/2 note
+; $xC: whole note
+; $xD: dotted whole note (usually not defined)
+; $xE: double note (usually note defined)
+; $xF: usually not defined
 ;
 ; 14400 is the number of ticks in a minute (4 ticks * 60 fps * 60 seconds), and
 ; you can work out the tempo by dividing 14400 by the length of a whole note.
@@ -1381,23 +1404,40 @@ IFDEF PRESERVE_UNUSED_SPACE
 ENDIF
 
 
+;
+; Music Part Pointers
+; ===================
+;
+; These are the pointers to various music segments used to cue those themes in
+; the game as well as handle relative offsets for looping segments
+;
 MusicPartPointers:
-      ; Mushroom
+
+MusicPartPointers_Mushroom:
       .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
-      ; Boss beaten
+
+MusicPartPointers_BossBeaten:
       .BYTE MusicHeaderBossBeaten - MusicPartPointers
-      ; Crystal fanfare (not sure where this one is used)
+
+; Crystal fanfare, but not clear where this one is actually used
+MusicPartPointers_CrystalMaybeUnused:
       .BYTE MusicHeaderCrystal - MusicPartPointers
-      ; Death / Lose
+
+MusicPartPointers_Death:
       .BYTE MusicHeaderDeath - MusicPartPointers
-      ; Game Over
+
+MusicPartPointers_GameOver:
       .BYTE MusicHeaderGameOver - MusicPartPointers
-      ; Crystal fanfare
+
+MusicPartPointers_Crystal:
       .BYTE MusicHeaderCrystal - MusicPartPointers
-      ; Bonus chance
+
+MusicPartPointers_BonusChance:
       .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
-      ; Character select
+
+MusicPartPointers_CharacterSelect:
       .BYTE MusicHeaderCharacterSelect1 - MusicPartPointers
+MusicPartPointers_CharacterSelectLoop:
       .BYTE MusicHeaderCharacterSelect2 - MusicPartPointers
       .BYTE MusicHeaderCharacterSelect3 - MusicPartPointers
       .BYTE MusicHeaderCharacterSelect2 - MusicPartPointers
@@ -1405,40 +1445,64 @@ MusicPartPointers:
       .BYTE MusicHeaderCharacterSelect5 - MusicPartPointers
       .BYTE MusicHeaderCharacterSelect6 - MusicPartPointers
       .BYTE MusicHeaderCharacterSelect7 - MusicPartPointers
+MusicPartPointers_CharacterSelectEnd:
       .BYTE MusicHeaderCharacterSelect8 - MusicPartPointers
-      ; Overworld
+
+MusicPartPointers_Overworld:
       .BYTE MusicHeaderOverworld1 - MusicPartPointers
+MusicPartPointers_OverworldLoop:
       .BYTE MusicHeaderOverworld2 - MusicPartPointers
       .BYTE MusicHeaderOverworld3 - MusicPartPointers
       .BYTE MusicHeaderOverworld4 - MusicPartPointers
       .BYTE MusicHeaderOverworld3 - MusicPartPointers
       .BYTE MusicHeaderOverworld5 - MusicPartPointers
+MusicPartPointers_OverworldEnd:
       .BYTE MusicHeaderOverworld6 - MusicPartPointers
-      ; Boss
+
+MusicPartPointers_Boss:
+MusicPartPointers_BossLoop:
+MusicPartPointers_BossEnd:
       .BYTE MusicHeaderBoss - MusicPartPointers
-      ; Star
+
+MusicPartPointers_Star:
+MusicPartPointers_StarLoop:
+MusicPartPointers_StarEnd:
       .BYTE MusicHeaderStar - MusicPartPointers
-      ; Wart
+
+MusicPartPointers_Wart:
+MusicPartPointers_WartLoop:
+MusicPartPointers_WartEnd:
       .BYTE MusicHeaderWart - MusicPartPointers
-      ; Title screen
+
+MusicPartPointers_TitleScreen:
       .BYTE MusicHeaderTitleScreen1 - MusicPartPointers
       .BYTE MusicHeaderTitleScreen2 - MusicPartPointers
       .BYTE MusicHeaderTitleScreen3 - MusicPartPointers
+MusicPartPointers_TitleScreenEnd:
       .BYTE MusicHeaderTitleScreen4 - MusicPartPointers
-      ; Subspace
+
+MusicPartPointers_SubSpace:
+MusicPartPointers_SubSpaceLoop:
       .BYTE MusicHeaderSubspace1 - MusicPartPointers
       .BYTE MusicHeaderSubspace2 - MusicPartPointers
       .BYTE MusicHeaderSubspace3 - MusicPartPointers
       .BYTE MusicHeaderSubspace2 - MusicPartPointers
+MusicPartPointers_SubSpaceEnd:
       .BYTE MusicHeaderSubspace4 - MusicPartPointers
-      ; Ending
+
+MusicPartPointers_Ending:
       .BYTE MusicHeaderEnding1 - MusicPartPointers
       .BYTE MusicHeaderEnding2 - MusicPartPointers
       .BYTE MusicHeaderEnding3 - MusicPartPointers
       .BYTE MusicHeaderEnding4 - MusicPartPointers
       .BYTE MusicHeaderEnding5 - MusicPartPointers
+MusicPartPointers_EndingLoop:
+MusicPartPointers_EndingEnd:
       .BYTE MusicHeaderEnding6 - MusicPartPointers
-      ; Underground
+
+MusicPartPointers_Underground:
+MusicPartPointers_UndergroundLoop:
+MusicPartPointers_UndergroundEnd:
       .BYTE MusicHeaderUnderground - MusicPartPointers
 
 ;
@@ -1756,40 +1820,88 @@ MusicHeaderEnding6:
 
 
 MusicPointersFirstPart:
-      .BYTE $10 ; Overworld
-      .BYTE $07 ; Character Select
-      .BYTE $29 ; Underground
-      .BYTE $17 ; Boss
-      .BYTE $18 ; Star
-      .BYTE $1E ; Subspace
-      .BYTE $19 ; Wart
-      .BYTE $1A ; Title Screen
-      .BYTE $23 ; Ending
+      .BYTE MusicPartPointers_Overworld - MusicPartPointers
+      .BYTE MusicPartPointers_CharacterSelect - MusicPartPointers
+      .BYTE MusicPartPointers_Underground - MusicPartPointers
+      .BYTE MusicPartPointers_Boss - MusicPartPointers
+      .BYTE MusicPartPointers_Star - MusicPartPointers
+      .BYTE MusicPartPointers_SubSpace - MusicPartPointers
+      .BYTE MusicPartPointers_Wart - MusicPartPointers
+      .BYTE MusicPartPointers_TitleScreen - MusicPartPointers
+      .BYTE MusicPartPointers_Ending - MusicPartPointers
 
 MusicPointersEndPart:
-      .BYTE $16 ; Overworld
-      .BYTE $0F ; Character Select
-      .BYTE $29 ; Underground
-      .BYTE $17 ; Boss
-      .BYTE $18 ; Star
-      .BYTE $22 ; Subspace
-      .BYTE $19 ; Wart
-      .BYTE $1D ; Title Screen
-      .BYTE $28 ; Ending
+      .BYTE MusicPartPointers_OverworldEnd - MusicPartPointers
+      .BYTE MusicPartPointers_CharacterSelectEnd - MusicPartPointers
+      .BYTE MusicPartPointers_UndergroundEnd - MusicPartPointers
+      .BYTE MusicPartPointers_BossEnd - MusicPartPointers
+      .BYTE MusicPartPointers_StarEnd - MusicPartPointers
+      .BYTE MusicPartPointers_SubSpaceEnd - MusicPartPointers
+      .BYTE MusicPartPointers_WartEnd - MusicPartPointers
+      .BYTE MusicPartPointers_TitleScreenEnd - MusicPartPointers
+      .BYTE MusicPartPointers_EndingEnd - MusicPartPointers
 
 MusicPointersLoopPart:
-      .BYTE $11 ; Overworld
-      .BYTE $08 ; Character Select
-      .BYTE $29 ; Underground
-      .BYTE $17 ; Boss
-      .BYTE $18 ; Star
-      .BYTE $1E ; Subspace
-      .BYTE $19 ; Wart
-      .BYTE $00 ; Title Screen
-      .BYTE $28 ; Ending
+      .BYTE MusicPartPointers_OverworldLoop - MusicPartPointers
+      .BYTE MusicPartPointers_CharacterSelectLoop - MusicPartPointers
+      .BYTE MusicPartPointers_UndergroundLoop - MusicPartPointers
+      .BYTE MusicPartPointers_BossLoop - MusicPartPointers
+      .BYTE MusicPartPointers_StarLoop - MusicPartPointers
+      .BYTE MusicPartPointers_SubSpaceLoop - MusicPartPointers
+      .BYTE MusicPartPointers_WartEnd - MusicPartPointers
+      .BYTE $00 ; no loop
+      .BYTE MusicPartPointers_EndingLoop - MusicPartPointers
 
-
+;
+; Music Data
+; ==========
+;
+; Each segment of music is broken down into tracks for individual instruments.
+;
+; Square 2:
+;   $00: End of segment
+;   $01-$7D: Note On
+;   $7E: Rest
+;   $80-$FE: first nybble is the instrument, second nybble is the note length
+;            as determined by the note length lookup table. The next byte is
+;            expected to be a Note On.
+;   $FF: activate bend if used after a Note On
+;
+; Square 1 is the same as Square 2, except for the following:
+;   $00: Activate a ramp effect
+;
+; Triangle is the same as Square 2, except for the following:
+;   $00: Mute output (triangle channel is constant volume otherwise)
+;   $80-$FF: second nybble is the note length from the note length lookup table
+;
+; Noise/DPCM:
+;   $00: Restart (used for looping percussion within a segment)
+;   $01: Rest
+;   $02-$7F: Various note-on values, low bit is ignored
+;   $02: Closed Hi-Hat
+;   $04: Kick
+;   $06: Open Hi-Hat
+;   $08: Quiet Hi-Hat
+;   $0A: Crash Cymbal
+;   $0C: Brushed Snare
+;   $0E: Muted Crash
+;   $10: Snare
+;   $12: Deep Kick
+;   $14: High Static
+;   $16: Low Static
+;   $18: Ride
+;   $1A: Closed Hi-Hat
+;   $1C: Medium Static
+;   $1E: Obnoxious Crash
+;   $80-$FF: second nybble is the note length from the note length lookup table
+;
+; DPCM is the same as Noise, except for the following:
+;
+; The SMB3 disassembly is a good reference, since the format is the same:
+; http://sonicepoch.com/sm3mix/disassembly.html#TRACK
+;
 MusicData:
+
 MusicDataEnding1:
 MusicDataEnding1_Square2:
       .BYTE $8A
@@ -3988,6 +4100,9 @@ MusicDataCharacterSelect1_Noise:
       .BYTE $04
       .BYTE $01
       .BYTE $00
+
+; Seems to be a little duplicated chunk of MusicDataCharacterSelect2_Square2
+MusicDataCharacterSelect_Square_UNUSED:
       .BYTE $A6
       .BYTE $7E
       .BYTE $A2
