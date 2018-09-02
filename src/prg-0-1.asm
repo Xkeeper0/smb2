@@ -1823,12 +1823,15 @@ loc_BANK0_8A26:
 ; ---------------------------------------------------------------------------
 
 HandlePlayerState_Normal:
-      JSR     sub_BANK0_8CD9
+      JSR     PlayerGravity
 
+      ; player animation frame, crouch jump charging
       JSR     sub_BANK0_8C1A
 
-      JSR     sub_BANK0_8EFA
+      ; maybe only y-collision?
+      JSR     PlayerTileCollision
 
+      ; x-collision in vertical levels?
       JSR     sub_BANK0_9316
 
       JSR     sub_BANK0_8EA4
@@ -1836,7 +1839,7 @@ HandlePlayerState_Normal:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8A50:
-      LDX     #0
+      LDX     #$00
       JSR     sub_BANK0_8EA6
 
       LDA     IsHorizontalLevel
@@ -1997,8 +2000,8 @@ loc_BANK0_8ADF:
       INY
 
 loc_BANK0_8B01:
-      LDX     #0
-      JSR     sub_BANK0_8B35
+      LDX     #$00
+      JSR     PlayerTileCollision_CheckClimbable
 
       BCS     loc_BANK0_8B0E
 
@@ -2038,43 +2041,46 @@ locret_BANK0_8B2A:
 
 ; End of function sub_BANK0_8B19
 
-; ---------------------------------------------------------------------------
-byte_BANK0_8B2B:
-      .BYTE $C2
 
-      .BYTE $D4
-      .BYTE $C3
-      .BYTE $C4
-      .BYTE $07
-      .BYTE $80
-      .BYTE $81
-      .BYTE $94
-      .BYTE $95
-      .BYTE $17
+ClimbableTiles:
+      .BYTE BackgroundTile_Vine
+      .BYTE BackgroundTile_VineStandable
+      .BYTE BackgroundTile_VineBottom
+      .BYTE BackgroundTile_UnusedC4
+      .BYTE BackgroundTile_Chain
+      .BYTE BackgroundTile_Ladder
+      .BYTE BackgroundTile_LadderShadow
+      .BYTE BackgroundTile_LadderStandable
+      .BYTE BackgroundTile_LadderStandableShadow
+      .BYTE BackgroundTile_ChainStandable
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_8B35:
+;
+; Checks whether the player is on a climbable tile
+;
+; Input
+;   byte_RAM_0 = tile ID
+; Output
+;   C = set if the player is on a climbable tile
+;
+PlayerTileCollision_CheckClimbable:
       JSR     sub_BANK0_924F
 
       LDA     byte_RAM_0
-      LDY     #9
+      LDY     #$09
 
-loc_BANK0_8B3C:
-      CMP     byte_BANK0_8B2B,Y
-      BEQ     locret_BANK0_8B45
+PlayerTileCollision_CheckClimbable_Loop:
+      CMP     ClimbableTiles,Y
+      BEQ     PlayerTileCollision_CheckClimbable_Exit
 
       DEY
-      BPL     loc_BANK0_8B3C
+      BPL     PlayerTileCollision_CheckClimbable_Loop
 
       CLC
 
-locret_BANK0_8B45:
+PlayerTileCollision_CheckClimbable_Exit:
       RTS
 
-; End of function sub_BANK0_8B35
-
-; ---------------------------------------------------------------------------
 
 HandlePlayerState_GoingDownJar:
       LDA     #ObjAttrib_BehindBackground
@@ -2311,7 +2317,7 @@ loc_BANK0_8C2B:
       INC     PlayerInAir
       LDA     #SpriteAnimation_Jumping
       STA     PlayerAnimationFrame
-      JSR     sub_BANK0_8C99
+      JSR     PlayerStartJump
 
       LDA     #SoundEffect2_Jump
       STA     SoundEffectQueue2
@@ -2353,7 +2359,7 @@ loc_BANK0_8C6F:
       AND     #ControllerInput_Right|ControllerInput_Left
       BEQ     loc_BANK0_8C92
 
-      AND     #1
+      AND     #$01
       STA     byte_RAM_9D
       TAY
       LDA     byte_RAM_624
@@ -2368,7 +2374,7 @@ loc_BANK0_8C6F:
       STA     PlayerXAccel
 
 ResetCrouchJumpTimer:
-      LDA     #0
+      LDA     #$00
       STA     CrouchJumpTimer
       BEQ     loc_BANK0_8C95 ; unconditional branch?
 
@@ -2382,59 +2388,82 @@ loc_BANK0_8C95:
 
 ; End of function sub_BANK0_8C1A
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_8C99:
+;
+; Starts a jump
+;
+; The jump height is based on a lookup table using the following bitfield:
+;
+; %xxxxxRCI
+;   R = whether the player is running
+;   C = whether the crouch timer is charged
+;   I = whether the player is holding an item
+;
+PlayerStartJump:
       LDA     QuicksandDepth
       CMP     #$02
-      BCC     loc_BANK0_8CA7
+      BCC     PlayerStartJump_LoadXVelocity
 
+      ; Quicksand
       LDA     byte_RAM_552
       STA     PlayerYAccel
-      BNE     loc_BANK0_8CD3
+      BNE     PlayerStartJump_Exit
 
-loc_BANK0_8CA7:
+PlayerStartJump_LoadXVelocity:
+      ; The x-velocity may affect the jump
       LDA     PlayerXAccel
-      BPL     loc_BANK0_8CB0
+      BPL     PlayerStartJump_CheckXSpeed
 
+      ; Absolute value of x-velocity
       EOR     #$FF
       CLC
+      ADC     #$01
 
-loc_BANK0_8CAE:
-      ADC     #1
-
-loc_BANK0_8CB0:
-      CMP     #8
-      LDA     #0
+PlayerStartJump_CheckXSpeed:
+      ; Set carry flag if the x-speed is fast enough
+      CMP     #$08
+      ; Clear y subpixel
+      LDA     #$00
       STA     ObjectYSubpixel
+      ; Set bit for x-speed using carry flag
       ROL     A
+
+      ; Check crouch jump timer
       LDY     CrouchJumpTimer
       CPY     #$3C
-      BCC     loc_BANK0_8CC3
+      BCC     PlayerStartJump_SetYVelocity
 
-      LDA     #0
+      ; Clear Player1JoypadHeld for a crouch jump
+      LDA     #$00
       STA     Player1JoypadHeld
 
-loc_BANK0_8CC3:
+PlayerStartJump_SetYVelocity:
+      ; Set bit for charged jump using carry flag
       ROL     A
+      ; Set bit for whether player is holding an item
       ASL     A
       ORA     HoldingItem
       TAY
       LDA     JumpHeightStanding,Y
       STA     PlayerYAccel
+
       LDA     JumpFloatLength
       STA     byte_RAM_4C9
 
-loc_BANK0_8CD3:
-      LDA     #0
+PlayerStartJump_Exit:
+      LDA     #$00
       STA     CrouchJumpTimer
       RTS
 
-; End of function sub_BANK0_8C99
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_8CD9:
+;
+; Apply gravity to the player's y-velocity
+;
+; This also handles floating
+;
+PlayerGravity:
       LDA     QuicksandDepth
       CMP     #$02
       BCC     loc_BANK0_8CE5
@@ -2445,32 +2474,28 @@ sub_BANK0_8CD9:
 loc_BANK0_8CE5:
       LDA     byte_RAM_554
       LDY     Player1JoypadHeld ; holding jump button to fight physics
-      BPL     loc_BANK0_8D0B
+      BPL     PlayerGravity_Falling
 
       LDA     JumpPhysicsShit
       LDY     PlayerYAccel
       CPY     #$FC
-      BMI     loc_BANK0_8D0B
+      BMI     PlayerGravity_Falling
 
       LDY     byte_RAM_4C9
-
-loc_BANK0_8CF8:
-      BEQ     loc_BANK0_8D0B
+      BEQ     PlayerGravity_Falling
 
       DEC     byte_RAM_4C9
       LDA     byte_RAM_10
       LSR     A
       LSR     A
       LSR     A
-      AND     #3
+      AND     #$03
       TAY
-      LDA     byte_BANK0_8D26,Y
+      LDA     FloatingYVelocity,Y
       STA     PlayerYAccel
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK0_8D0B:
+PlayerGravity_Falling:
       LDY     PlayerYAccel
       BMI     loc_BANK0_8D13
 
@@ -2485,27 +2510,28 @@ loc_BANK0_8D13:
 loc_BANK0_8D18:
       LDA     byte_RAM_4C9
       CMP     JumpFloatLength
-      BEQ     locret_BANK0_8D25
+      BEQ     PlayerGravity_Exit
 
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_4C9
 
-locret_BANK0_8D25:
+PlayerGravity_Exit:
       RTS
 
-; End of function sub_BANK0_8CD9
 
 ; ---------------------------------------------------------------------------
-byte_BANK0_8D26:
-      .BYTE $FC
 
+
+FloatingYVelocity:
+      .BYTE $FC
       .BYTE $00
       .BYTE $04
       .BYTE $00
+
 byte_BANK0_8D2A:
       .BYTE $FD
-
       .BYTE $03
+
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2528,7 +2554,7 @@ sub_BANK0_8D2C:
       EOR     byte_BANK0_8C18,Y
       BMI     loc_BANK0_8D4B
 
-      LDX     #0
+      LDX     #$00
 
 loc_BANK0_8D4B:
       STX     PlayerXAccel
@@ -2672,10 +2698,10 @@ sub_BANK0_8DC0:
       CMP     #Enemy_VegetableSmall
       BCC     loc_BANK0_8DE0
 
-      CMP     #$39
+      CMP     #Enemy_MushroomBlock
       BCC     loc_BANK0_8DDF
 
-      CMP     #$3B
+      CMP     #Enemy_FallingLogs
       BCC     loc_BANK0_8DE0
 
 loc_BANK0_8DDF:
@@ -2827,7 +2853,7 @@ loc_BANK0_8E89:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8EA4:
-      LDX     #$A
+      LDX     #$0A
 
 ; End of function sub_BANK0_8EA4
 
@@ -2842,7 +2868,7 @@ sub_BANK0_8EA6:
 
       EOR     #$FF
       CLC
-      ADC     #1
+      ADC     #$01
 
 loc_BANK0_8EB4:
       PHA
@@ -2862,17 +2888,17 @@ loc_BANK0_8EC0:
       ADC     ObjectXSubpixel,X
       STA     ObjectXSubpixel,X
       TYA
-      ADC     #0
+      ADC     #$00
       PLP
       BPL     loc_BANK0_8ED1
 
       EOR     #$FF
       CLC
-      ADC     #1
+      ADC     #$01
 
 loc_BANK0_8ED1:
-      LDY     #0
-      CMP     #0
+      LDY     #$00
+      CMP     #$00
       BPL     loc_BANK0_8ED8
 
       DEY
@@ -2891,16 +2917,18 @@ loc_BANK0_8ED8:
 ; End of function sub_BANK0_8EA6
 
 ; ---------------------------------------------------------------------------
+
+
 byte_BANK0_8EE8:
       .BYTE $02
+      .BYTE $02
+      .BYTE $01
+      .BYTE $01
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
 
-      .BYTE $02
-      .BYTE $01
-      .BYTE $01
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
 CollisionFlagTableThing:
       .BYTE CollisionFlags_Up
       .BYTE CollisionFlags_Up
@@ -2910,14 +2938,19 @@ CollisionFlagTableThing:
       .BYTE CollisionFlags_Left
       .BYTE CollisionFlags_Right
       .BYTE CollisionFlags_Right
+
 byte_BANK0_8EF8:
       .BYTE $F0
-
       .BYTE $10
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_8EFA:
+;
+; Player Tile Collision
+; =====================
+;
+; Handles player collision with background tiles
+;
+PlayerTileCollision:
       LDA     #$00
       STA     PlayerCollision
       STA     byte_RAM_624
@@ -2925,9 +2958,9 @@ sub_BANK0_8EFA:
       STA     byte_RAM_A
       STA     byte_RAM_E
       STA     word_RAM_C
-      JSR     sub_BANK0_8FFD
 
-loc_BANK0_8F0C:
+      JSR     PlayerTileCollision_CheckCherryAndClimbable
+
       LDA     PlayerDucking
       ASL     A
       ORA     HoldingItem
@@ -2939,16 +2972,17 @@ loc_BANK0_8F0C:
       ADC     byte_RAM_4D5
       BPL     loc_BANK0_8F2B
 
+      ; upwards
       JSR     sub_BANK0_8FB2
 
       JSR     sub_BANK0_8FF5
 
       LDA     PlayerCollision
       BNE     loc_BANK0_8F7A
-
       BEQ     loc_BANK0_8F95
 
 loc_BANK0_8F2B:
+      ; downwards
       JSR     sub_BANK0_8FF5
 
       JSR     sub_BANK0_8FB2
@@ -2963,12 +2997,11 @@ loc_BANK0_8F2B:
       BEQ     loc_BANK0_8F44
 
       CPY     #$05
-      ; just treat it as thin air
+      ; skip the quicksand check
       BNE     loc_BANK0_8F47
 
 loc_BANK0_8F44:
-      ; treat it as quicksand
-      JSR     sub_BANK1_BA7C
+      JSR     PlayerTileCollision_CheckQuicksand
 
 loc_BANK0_8F47:
       STA     QuicksandDepth
@@ -3006,7 +3039,7 @@ loc_BANK0_8F77:
       JSR     sub_BANK0_910C
 
 loc_BANK0_8F7A:
-      LDA     #0
+      LDA     #$00
       STA     PlayerYAccel
       STA     byte_RAM_4D5
       LDA     StarInvincibilityTimer
@@ -3021,7 +3054,7 @@ loc_BANK0_8F7A:
       JSR     sub_BANK1_BABF
 
 loc_BANK0_8F95:
-      LDY     #2
+      LDY     #$02
       LDA     PlayerXAccel
       CLC
       ADC     byte_RAM_4CB
@@ -3036,16 +3069,13 @@ loc_BANK0_8FA3:
 
       LDA     PlayerCollision
       AND     #CollisionFlags_Right|CollisionFlags_Left
-      BEQ     locret_BANK0_8FB1
+      BEQ     PlayerTileCollision_Exit
 
       JMP     loc_BANK0_9333
 
-; ---------------------------------------------------------------------------
-
-locret_BANK0_8FB1:
+PlayerTileCollision_Exit:
       RTS
 
-; End of function sub_BANK0_8EFA
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3053,7 +3083,7 @@ sub_BANK0_8FB2:
       JSR     loc_BANK0_8FB5
 
 loc_BANK0_8FB5:
-      LDX     #0
+      LDX     #$00
       LDY     byte_RAM_8
       JSR     sub_BANK0_924F
 
@@ -3064,7 +3094,7 @@ loc_BANK0_8FB5:
 
       BCC     loc_BANK0_8FF2
 
-      CMP     #$1A
+      CMP     #BackgroundTile_Spikes
       BNE     loc_BANK0_8FD3
 
       LDA     byte_BANK0_8EE8,X
@@ -3072,7 +3102,7 @@ loc_BANK0_8FB5:
       BNE     loc_BANK0_8FEB
 
 loc_BANK0_8FD3:
-      CMP     #$16
+      CMP     #BackgroundTile_JumpThroughIce
       BNE     loc_BANK0_8FDE
 
       LDA     byte_BANK0_8EE8,X
@@ -3081,8 +3111,8 @@ loc_BANK0_8FD3:
 
 loc_BANK0_8FDE:
       SEC
-      SBC     #$67
-      CMP     #2
+      SBC     #BackgroundTile_ConveyorLeft
+      CMP     #$02
       BCS     loc_BANK0_8FEB
 
       ASL     A
@@ -3111,62 +3141,55 @@ loc_BANK0_8FF8:
 
 ; End of function sub_BANK0_8FF5
 
-; =============== S U B R O U T I N E =======================================
 
-; collision detection for vines (and cherries?)
-sub_BANK0_8FFD:
+PlayerTileCollision_CheckCherryAndClimbable:
       LDY     byte_BANKF_F00A
 
-; byte_RAM_10 seems to be a global counter
-; this code increments y every other frame
+      ; byte_RAM_10 seems to be a global counter
+      ; this code increments Y every other frame, but why?
       LDA     byte_RAM_10
       LSR     A
-      BCS     loc_BANK0_9006
+      BCS     PlayerTileCollision_CheckCherryAndClimbable_AfterTick
       INY
 
-loc_BANK0_9006:
-      LDX     #0
-      JSR     sub_BANK0_8B35
+PlayerTileCollision_CheckCherryAndClimbable_AfterTick:
+      LDX     #$00
+      JSR     PlayerTileCollision_CheckClimbable
 
-      BCS     loc_BANK0_902D
+      BCS     PlayerTileCollision_Climbable
 
       LDA     byte_RAM_0
       CMP     #BackgroundTile_Cherry
-      BNE     locret_BANK0_9052
+      BNE     PlayerTileCollision_Climbable_Exit
 
       INC     CherryCount
       LDA     CherryCount
       SBC     #$05
-      BNE     loc_BANK0_9023
+      BNE     PlayerTileCollision_Cherry
 
       STA     CherryCount
       JSR     CreateStarman
 
-; play sound and clear cherry
-loc_BANK0_9023:
+PlayerTileCollision_Cherry:
       LDA     #SoundEffect1_CherryGet
       STA     SoundEffectQueue1
       LDA     #BackgroundTile_Sky
       JMP     loc_BANK0_937C
 
-; ---------------------------------------------------------------------------
-
-loc_BANK0_902D:
+PlayerTileCollision_Climbable:
       LDA     Player1JoypadHeld
       AND     #ControllerInput_Down|ControllerInput_Up
-
-loc_BANK0_9031:
-      BEQ     locret_BANK0_9052
+      BEQ     PlayerTileCollision_Climbable_Exit
 
       LDY     HoldingItem
-      BNE     locret_BANK0_9052
+      BNE     PlayerTileCollision_Climbable_Exit
 
       LDA     PlayerXLo
       CLC
-      ADC     #4
-      AND     #$F
-      CMP     #8
-      BCS     locret_BANK0_9052
+      ADC     #$04
+      AND     #$0F
+      CMP     #$08
+      BCS     PlayerTileCollision_Climbable_Exit
 
       LDA     #PlayerState_Climbing
       STA     PlayerState
@@ -3174,15 +3197,17 @@ loc_BANK0_9031:
       STY     PlayerDucking
       LDA     #SpriteAnimation_Climbing
       STA     PlayerAnimationFrame
+
+      ; Break JSR PlayerTileCollision_CheckCherryAndClimbable
       PLA
       PLA
+      ; Break JSR PlayerTileCollision
       PLA
       PLA
 
-locret_BANK0_9052:
+PlayerTileCollision_Climbable_Exit:
       RTS
 
-; End of function sub_BANK0_8FFD
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3206,39 +3231,40 @@ byte_BANK0_9062:
       .BYTE $04
       .BYTE $08
 
-PickUpToEnemyTypeTable:
-      .BYTE Enemy_MushroomBlock
-      .BYTE Enemy_MushroomBlock ; 1
-      .BYTE Enemy_MushroomBlock ; 2
-      .BYTE Enemy_POWBlock ; 3
-      .BYTE Enemy_Coin ; 4
-      .BYTE Enemy_VegetableLarge ; 5
-      .BYTE Enemy_VegetableSmall ; 6
-      .BYTE Enemy_Rocket ; 7
-      .BYTE Enemy_Shell ; 8
-      .BYTE Enemy_Bomb ; 9
-      .BYTE Enemy_SubspacePotion ; $A
-      .BYTE Enemy_Mushroom1up ; $B
-      .BYTE Enemy_POWBlock ; $C
-      .BYTE Enemy_BobOmb ; $D
-      .BYTE Enemy_MushroomBlock ; $E
-; ---------------------------------------------------------------------------
 
+PickUpToEnemyTypeTable:
+      .BYTE Enemy_MushroomBlock ; $00
+      .BYTE Enemy_MushroomBlock ; $01
+      .BYTE Enemy_MushroomBlock ; $02
+      .BYTE Enemy_POWBlock ; $03
+      .BYTE Enemy_Coin ; $04
+      .BYTE Enemy_VegetableLarge ; $05
+      .BYTE Enemy_VegetableSmall ; $06
+      .BYTE Enemy_Rocket ; $07
+      .BYTE Enemy_Shell ; $08
+      .BYTE Enemy_Bomb ; $09
+      .BYTE Enemy_SubspacePotion ; $0A
+      .BYTE Enemy_Mushroom1up ; $0B
+      .BYTE Enemy_POWBlock ; $0C
+      .BYTE Enemy_BobOmb ; $0D
+      .BYTE Enemy_MushroomBlock ; $0E ; this one seems to be overridden for digging in sand
+
+
+; find a slot for the item being lifted
 loc_BANK0_9074:
-      LDX     #6
+      LDX     #$06
 
 loc_BANK0_9076:
       LDA     EnemyState,X
       BEQ     loc_BANK0_9080
 
       INX
-      CPX     #9
+      CPX     #$09
       BCC     loc_BANK0_9076
 
       RTS
 
-; ---------------------------------------------------------------------------
-
+; create the sprite for the item being picked up
 loc_BANK0_9080:
       LDA     byte_RAM_0
       STA     EnemyVariable,X
@@ -3256,7 +3282,7 @@ loc_BANK0_9080:
       STA     EnemyArray_B1,X
       JSR     UnlinkEnemyFromRawData_Bank1
 
-      LDA     #$01
+      LDA     #EnemyState_Alive
       LDY     byte_RAM_9
       CPY     #$0E
       BNE     loc_BANK0_90AE
@@ -3284,7 +3310,7 @@ loc_BANK0_90C1:
       BNE     loc_BANK0_90EA
 
 loc_BANK0_90C5:
-      CMP     #BackgroundTile_Sky
+      CMP     #Enemy_Mushroom1up
       BNE     loc_BANK0_90D5
 
       LDA     Mushroom1upPulled
@@ -3295,20 +3321,18 @@ loc_BANK0_90C5:
 
       JMP     loc_BANK0_90EA
 
-; ---------------------------------------------------------------------------
-
 loc_BANK0_90D5:
       CMP     #Enemy_VegetableLarge
       BNE     loc_BANK0_90EA
 
       LDY     BigVeggiesPulled
       INY
-      CPY     #5
+      CPY     #$05
       BCC     loc_BANK0_90E7
 
       LDA     #Enemy_Stopwatch
       STA     ObjectType,X
-      LDY     #0
+      LDY     #$00
 
 loc_BANK0_90E7:
       STY     BigVeggiesPulled
@@ -3321,12 +3345,12 @@ loc_BANK0_90EA:
       LDA     #BackgroundTile_Sky
       JSR     sub_BANK0_934F
 
-      LDA     #7
+      LDA     #$07
       STA     ObjectBeingCarriedTimer,X
       STX     byte_RAM_42D
       LDA     #PlayerState_Lifting
       STA     PlayerState
-      LDA     #6
+      LDA     #$06
       STA     PlayerStateTimer
       LDA     #SpriteAnimation_Pulling
       STA     PlayerAnimationFrame
@@ -3344,20 +3368,20 @@ sub_BANK0_910C:
 
       LDA     byte_RAM_0
       LDX     InSubspaceOrJar
-      CPX     #2
+      CPX     #$02
       BNE     loc_BANK0_9123
 
-      CMP     #$74
+      CMP     #BackgroundTile_JarTopNonEnterable
       BEQ     loc_BANK0_912D
 
       BNE     loc_BANK0_917C
 
 loc_BANK0_9123:
       INY
-      CMP     #$73
+      CMP     #BackgroundTile_JarTopGeneric
       BEQ     loc_BANK0_912D
 
-      CMP     #$6F
+      CMP     #BackgroundTile_JarTopPointer
       BNE     loc_BANK0_917C
 
       INY
@@ -3410,24 +3434,26 @@ loc_BANK0_9155:
 
       LDA     PlayerXLo
       CLC
-      ADC     #6
-      AND     #$F
-      CMP     #$C
+      ADC     #$06
+      AND     #$0F
+      CMP     #$0C
       BCS     loc_BANK0_917C
 
       LDA     byte_RAM_0
-      CMP     #$93
+      CMP     #BackgroundTile_DiggableSand
       BNE     loc_BANK0_916E
 
-      LDA     #$E
+      LDA     #$0E
       BNE     loc_BANK0_9177
 
+; blocks that can be picked up
 loc_BANK0_916E:
-      CMP     #$6D
+      CMP     #BackgroundTile_Unused6D
       BCS     loc_BANK0_917C
 
+      ; convert to an index in PickUpToEnemyTypeTable
       SEC
-      SBC     #$69
+      SBC     #BackgroundTile_MushroomBlock
       BCC     loc_BANK0_917C
 
 loc_BANK0_9177:
@@ -3446,7 +3472,7 @@ loc_BANK0_917C:
       STA     byte_RAM_6
       STA     byte_RAM_E6
       LDA     byte_RAM_4
-      SBC     #0
+      SBC     #$00
       STA     byte_RAM_4
       STA     byte_RAM_1
       LDA     byte_RAM_3
@@ -3487,11 +3513,11 @@ loc_BANK0_91BF:
       BVC     locret_BANK0_91CE
 
       STA     byte_RAM_0
-      CMP     #$4D
+      CMP     #BackgroundTile_GrassInactive
       BCS     locret_BANK0_91CE
 
       SEC
-      SBC     #$43
+      SBC     #BackgroundTile_GrassCoin
       BCS     loc_BANK0_91CF
 
 locret_BANK0_91CE:
@@ -3516,7 +3542,7 @@ loc_BANK0_91E2:
 
 loc_BANK0_91E3:
       CLC
-      ADC     #4
+      ADC     #$04
       STA     byte_RAM_9
       JMP     loc_BANK0_9074
 
@@ -3613,10 +3639,18 @@ DoorTiles:
 
 ; =============== S U B R O U T I N E =======================================
 
+;
+; Seems to determine what kind of tile the player has collided with?
+;
+; Input
+;   Y = bounding box offset?
+; Output
+;   byte_RAM_0 = tile ID
+;
 sub_BANK0_924F:
       TXA
       PHA
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_0
       STA     byte_RAM_1
       LDA     byte_BANKF_F011,Y
@@ -3799,9 +3833,7 @@ locret_BANK0_9311:
 CollisionResultTable:
       .BYTE CollisionFlags_Right
       .BYTE CollisionFlags_Left
-TableUsedAt_BANK0_9333:
-      .BYTE $80
-
+      .BYTE CollisionFlags_80
       .BYTE $00
 
 ; =============== S U B R O U T I N E =======================================
@@ -3812,10 +3844,10 @@ sub_BANK0_9316:
 
       LDA     PlayerScreenX
       LDY     PlayerMovementDirection
-      CPY     #1
+      CPY     #$01
       BEQ     loc_BANK0_9328
 
-      CMP     #8
+      CMP     #$08
       BCC     loc_BANK0_932C
 
 locret_BANK0_9327:
@@ -3823,6 +3855,7 @@ locret_BANK0_9327:
 
 ; ---------------------------------------------------------------------------
 
+; stop player x movement on collision
 loc_BANK0_9328:
       CMP     #$E8
       BCC     locret_BANK0_9327
@@ -3833,10 +3866,10 @@ loc_BANK0_932C:
       STA     PlayerCollision
 
 loc_BANK0_9333:
-      LDX     #0
+      LDX     #$00
       LDY     PlayerMovementDirection
       LDA     PlayerXAccel
-      EOR     TableUsedAt_BANK0_9333-1,Y
+      EOR     CollisionResultTable+1,Y
       BPL     loc_BANK0_9340
 
       STX     PlayerXAccel
@@ -3863,7 +3896,7 @@ sub_BANK0_934F:
       PHA ; Something to update the PPU for some tile change
       LDA     ObjectXLo,X
       CLC
-      ADC     #8
+      ADC     #$08
       PHP
       LSR     A
       LSR     A
@@ -3875,24 +3908,23 @@ sub_BANK0_934F:
       LDY     IsHorizontalLevel
       BEQ     loc_BANK0_9365
 
-      ADC     #0
+      ADC     #$00
 
 loc_BANK0_9365:
       STA     byte_RAM_2
       LDA     ObjectYLo,X
       CLC
-      ADC     #8
+      ADC     #$08
       AND     #$F0
       STA     byte_RAM_E6
       LDA     ObjectYHi,X
-      ADC     #0
+      ADC     #$00
       STA     byte_RAM_1
       JSR     sub_BANK0_92C1
 
       PLA
       BCS     locret_BANK0_934E
 
-; replace tile for cherry
 loc_BANK0_937C:
       STX     byte_RAM_3
       PHA
@@ -3903,7 +3935,7 @@ loc_BANK0_937C:
       STA     (byte_RAM_1),Y
       PHA
       LDX     byte_RAM_300
-      LDA     #0
+      LDA     #$00
       STA     PPUBuffer_301,X
       TYA
       AND     #$F0
@@ -3913,10 +3945,9 @@ loc_BANK0_937C:
       ROL     PPUBuffer_301,X
       STA     byte_RAM_302,X
       TYA
-      AND     #$F
+      AND     #$0F
       ASL     A
 
-loc_BANK0_93A2:
       ADC     byte_RAM_302,X
       STA     byte_RAM_302,X
       CLC
@@ -3937,7 +3968,7 @@ loc_BANK0_93B9:
       ADC     PPUBuffer_301,X
       STA     PPUBuffer_301,X
       STA     byte_RAM_306,X
-      LDA     #2
+      LDA     #$02
       STA     byte_RAM_303,X
       STA     byte_RAM_308,X
       PLA
@@ -3950,8 +3981,6 @@ loc_BANK0_93B9:
       LDA     TileQuadPointersLo,Y
       STA     byte_RAM_0
       LDA     TileQuadPointersHi,Y
-
-loc_BANK0_93DE:
       STA     byte_RAM_1
       PLA
       ASL     A
@@ -3980,9 +4009,9 @@ loc_BANK0_93DE:
 ; End of function sub_BANK0_934F
 
 ; ---------------------------------------------------------------------------
+; Another byte of PPU high addresses for horiz/vert levels
 byte_BANK0_940A:
       .BYTE $20
-; Another byte of PPU high addresses for horiz/vert levels
       .BYTE $28
       .BYTE $20
       .BYTE $24
@@ -5262,7 +5291,7 @@ loc_BANK1_A4E8:
 loc_BANK1_A4FC:
       LDA     #SoundEffect2_Jump
       STA     SoundEffectQueue2
-      JMP     sub_BANK0_8C99
+      JMP     PlayerStartJump
 
 ; ---------------------------------------------------------------------------
 
@@ -5388,7 +5417,7 @@ loc_BANK1_A57B:
       CMP     #$80
       BCC     locret_BANK1_A591
 
-      JMP     sub_BANK0_8C99
+      JMP     PlayerStartJump
 
 ; ---------------------------------------------------------------------------
 
@@ -6788,9 +6817,9 @@ sub_BANK1_BA4E:
 ; End of function sub_BANK1_BA4E
 
 ; ---------------------------------------------------------------------------
+
 byte_BANK1_BA5B:
       .BYTE $00
-
       .BYTE $F0
       .BYTE $E0
       .BYTE $D0
@@ -6803,7 +6832,6 @@ byte_BANK1_BA5B:
       .BYTE $00
 byte_BANK1_BA66:
       .BYTE $60
-
       .BYTE $60
       .BYTE $61
       .BYTE $62
@@ -6826,33 +6854,32 @@ sub_BANK1_BA71:
 
 ; End of function sub_BANK1_BA71
 
-; =============== S U B R O U T I N E =======================================
 
 ;
-; sinking in quicksand
+; Checks whether the player is on a quicksand tile
 ;
+; Input
+;   byte_RAM_0 = tile ID
 ; Output
 ;   A = Whether the player is sinking in quicksand
 ;   X = PlayerInAir flag
 ;
-sub_BANK1_BA7C:
+PlayerTileCollision_CheckQuicksand:
       LDA     #$01
       LDY     byte_RAM_0
-      CPY     #$8A
-      BEQ     loc_BANK1_BA8D
+      CPY     #BackgroundTile_QuicksandSlow
+      BEQ     PlayerTileCollision_QuicksandSlow
 
-      CPY     #$8B
-      BEQ     loc_BANK1_BA8B
+      CPY     #BackgroundTile_QuicksandFast
+      BEQ     PlayerTileCollision_QuicksandFast
 
       LDA     #$00
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK1_BA8B:
+PlayerTileCollision_QuicksandFast:
       LDA     #$08
 
-loc_BANK1_BA8D:
+PlayerTileCollision_QuicksandSlow:
       STA     PlayerYAccel
       LDA     QuicksandDepth
       BNE     loc_BANK1_BA9B
@@ -6893,10 +6920,10 @@ loc_BANK1_BABC:
       DEX
       RTS
 
-; End of function sub_BANK1_BA7C
 
 ; =============== S U B R O U T I N E =======================================
 
+; take damage from background
 sub_BANK1_BABF:
       LDA     DamageInvulnTime
       BNE     locret_BANK1_BAEC
@@ -6919,7 +6946,7 @@ sub_BANK1_BABF:
       LDY     PlayerYAccel
       BPL     loc_BANK1_BAE5
 
-      LDA     ##00
+      LDA     #$00
 
 loc_BANK1_BAE5:
       STA     PlayerYAccel
