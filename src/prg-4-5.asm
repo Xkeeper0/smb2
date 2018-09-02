@@ -47,7 +47,7 @@ ProcessMusicAndSfxQueues:
       JSR     ProcessDPCMQueue
 
 ProcessOnlyMusicQueue2:
-      JSR     ProcessMusicQueue2
+      JSR     ProcessMusicQueue
 
       ; Reset queues
       LDA     #$00
@@ -428,7 +428,7 @@ ProcessSoundEffectQueue3_Rumble:
 
 ProcessSoundEffectQueue3_RumblePart2:
       LDY     SoundEffectTimer3
-      LDA     ProcessMusicQueue2,Y ; weird, but i guess that's one way to get "random" noise
+      LDA     ProcessMusicQueue,Y ; weird, but i guess that's one way to get "random" noise
       ORA     #$0C
       STA     NOISE_LO
       LDA     SoundEffectTimer3
@@ -532,50 +532,50 @@ DMCFreqTable:
       .BYTE $60 ; ???
 
 
-ProcessMusicQueue2_ThenReadNoteData:
-      JMP     ProcessMusicQueue2_ReadNoteData
+ProcessMusicQueue_ThenReadNoteData:
+      JMP     ProcessMusicQueue_ReadNoteData
 
-ProcessMusicQueue2_StopMusic:
+ProcessMusicQueue_StopMusic:
       JMP     StopMusic
 
-ProcessMusicQueue2:
+ProcessMusicQueue:
       LDA     MusicQueue2
-      BMI     ProcessMusicQueue2_StopMusic
+      BMI     ProcessMusicQueue_StopMusic
 
       CMP     #Music2_EndingAndCast
-      BEQ     ProcessMusicQueue2_EndingAndCast
+      BEQ     ProcessMusicQueue_EndingAndCast
 
       LDA     MusicQueue2
-      BNE     ProcessMusicQueue2_Part2
+      BNE     ProcessMusicQueue_Part2
 
       LDA     MusicQueue1
-      BNE     ProcessMusicQueue2_MusicQueue1
+      BNE     ProcessMusicQueue_MusicQueue1
 
       LDA     MusicPlaying2
       ORA     MusicPlaying1
-      BNE     ProcessMusicQueue2_ThenReadNoteData
+      BNE     ProcessMusicQueue_ThenReadNoteData
 
       RTS
 
-ProcessMusicQueue2_EndingAndCast:
+ProcessMusicQueue_EndingAndCast:
       STA     MusicPlaying2
       LDY     #$00
       STY     MusicPlaying1
       LDY     #$08 ; index of ending music pointer
-      BNE     ProcessMusicQueue2_ReadFirstPointer
+      BNE     ProcessMusicQueue_ReadFirstPointer
 
-ProcessMusicQueue2_MusicQueue1:
+ProcessMusicQueue_MusicQueue1:
       STA     MusicPlaying1
       LDY     #$00
       STY     MusicPlaying2
       LDY     #$FF
 
-ProcessMusicQueue2_FirstPointerLoop:
+ProcessMusicQueue_FirstPointerLoop:
       INY
       LSR     A
-      BCC     ProcessMusicQueue2_FirstPointerLoop
+      BCC     ProcessMusicQueue_FirstPointerLoop
 
-ProcessMusicQueue2_ReadFirstPointer:
+ProcessMusicQueue_ReadFirstPointer:
       LDA     MusicPointersFirstPart,Y
       STA     MusicPointerFirstPart
       LDA     MusicPointersEndPart,Y
@@ -586,33 +586,33 @@ ProcessMusicQueue2_ReadFirstPointer:
       STA     MusicPointerLoopPart
       LDA     MusicPointerFirstPart
 
-ProcessMusicQueue2_SetCurrentPart:
+ProcessMusicQueue_SetCurrentPart:
       STA     MusicPointerCurrentPart
 
-ProcessMusicQueue2_SetNextPart:
+ProcessMusicQueue_SetNextPart:
       INC     MusicPointerCurrentPart
       LDY     MusicPointerCurrentPart
       CPY     MusicPointerEndPart
-      BNE     ProcessMusicQueue2_ReadHeader
+      BNE     ProcessMusicQueue_ReadHeader
 
       LDA     MusicPointerLoopPart
-      BNE     ProcessMusicQueue2_SetCurrentPart
+      BNE     ProcessMusicQueue_SetCurrentPart
 
       JMP     StopMusic
 
-ProcessMusicQueue2_Part2:
+ProcessMusicQueue_Part2:
       STA     MusicPlaying2
       LDY     MusicPlaying1
       STY     MusicResume1
       LDY     #$00
       STY     MusicPlaying1
 
-ProcessMusicQueue2_PointerLoop:
+ProcessMusicQueue_PointerLoop:
       INY
       LSR     A
-      BCC     ProcessMusicQueue2_PointerLoop
+      BCC     ProcessMusicQueue_PointerLoop
 
-ProcessMusicQueue2_ReadHeader:
+ProcessMusicQueue_ReadHeader:
       LDA     MusicPartPointers-1,Y
       TAY
       LDA     MusicPartPointers,Y
@@ -645,32 +645,32 @@ ProcessMusicQueue2_ReadHeader:
       LDA     #%00001111
       STA     SND_CHN
 
-ProcessMusicQueue2_ReadNoteData:
+ProcessMusicQueue_ReadNoteData:
       DEC     MusicSquare2NoteLength
-      BNE     ProcessMusicQueue2_Square2SustainNote
+      BNE     ProcessMusicQueue_Square2SustainNote
 
       LDY     MusicSquare1NoteOffset
       INC     MusicSquare1NoteOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     ProcessMusicQueue2_EndOfSegment
+      BEQ     ProcessMusicQueue_EndOfSegment
 
-      BPL     ProcessMusicQueue2_Square2Note
+      BPL     ProcessMusicQueue_Square2Note
 
-      BNE     ProcessMusicQueue2_Square2Patch
+      BNE     ProcessMusicQueue_Square2Patch
 
-ProcessMusicQueue2_EndOfSegment:
+ProcessMusicQueue_EndOfSegment:
       LDA     MusicPlaying1
-      BNE     ProcessMusicQueue2_ThenSetNextPart
+      BNE     ProcessMusicQueue_ThenSetNextPart
 
       LDA     MusicPlaying2
       CMP     #Music2_EndingAndCast
-      BEQ     ProcessMusicQueue2_ThenSetNextPart
+      BEQ     ProcessMusicQueue_ThenSetNextPart
 
       AND     #Music1_Overworld|Music1_Inside|Music1_Subspace
       BEQ     StopMusic
 
       LDA     MusicResume1
-      BNE     ProcessMusicQueue2_ResumeMusicQueue1
+      BNE     ProcessMusicQueue_ResumeMusicQueue1
 
 StopMusic:
       LDA     #$00
@@ -681,59 +681,59 @@ StopMusic:
       STX     SND_CHN
       RTS
 
-ProcessMusicQueue2_ThenSetNextPart:
-      JMP     ProcessMusicQueue2_SetNextPart
+ProcessMusicQueue_ThenSetNextPart:
+      JMP     ProcessMusicQueue_SetNextPart
 
-ProcessMusicQueue2_ResumeMusicQueue1:
-      JMP     ProcessMusicQueue2_MusicQueue1
+ProcessMusicQueue_ResumeMusicQueue1:
+      JMP     ProcessMusicQueue_MusicQueue1
 
-ProcessMusicQueue2_Square2Patch:
+ProcessMusicQueue_Square2Patch:
       TAX
       AND     #$F0
       STA     MusicSquare2Patch
       TXA
-      JSR     ProcessMusicQueue2_PatchNoteLength
+      JSR     ProcessMusicQueue_PatchNoteLength
 
       STA     MusicSquare2NoteStartLength
       LDY     MusicSquare1NoteOffset
       INC     MusicSquare1NoteOffset
       LDA     (CurrentMusicPointer),Y
 
-ProcessMusicQueue2_Square2Note:
+ProcessMusicQueue_Square2Note:
       LDX     SoundEffectPlaying1
-      BNE     ProcessMusicQueue2_Square2ContinueNote
+      BNE     ProcessMusicQueue_Square2ContinueNote
 
       JSR     PlaySquare2Note
 
       TAY
-      BNE     ProcessMusicQueue2_Square2StartNote
+      BNE     ProcessMusicQueue_Square2StartNote
 
       LDA     UNINITIALIZED_MusicSquare2Volume
-      JMP     ProcessMusicQueue2_Square2UpdateNoteOffset
+      JMP     ProcessMusicQueue_Square2UpdateNoteOffset
 
-ProcessMusicQueue2_Square2StartNote:
+ProcessMusicQueue_Square2StartNote:
       LDA     MusicSquare2NoteStartLength
       LDX     UNINITIALIZED_MusicSquare2Volume ; always overridden in the following subroutine...?
       JSR     SetInstrumentStartOffset
 
-ProcessMusicQueue2_Square2UpdateNoteOffset:
+ProcessMusicQueue_Square2UpdateNoteOffset:
       STA     MusicSquare2InstrumentOffset
       JSR     SetSquare2VolumeAndSweep
 
-ProcessMusicQueue2_Square2ContinueNote:
+ProcessMusicQueue_Square2ContinueNote:
       LDA     MusicSquare2NoteStartLength
       STA     MusicSquare2NoteLength
 
-ProcessMusicQueue2_Square2SustainNote:
+ProcessMusicQueue_Square2SustainNote:
       LDX     SoundEffectPlaying1
-      BNE     ProcessMusicQueue2_Square1
+      BNE     ProcessMusicQueue_Square1
 
       LDY     MusicSquare2InstrumentOffset
-      BEQ     ProcessMusicQueue2_LoadSquare2Instrument
+      BEQ     ProcessMusicQueue_LoadSquare2Instrument
 
       DEC     MusicSquare2InstrumentOffset
 
-ProcessMusicQueue2_LoadSquare2Instrument:
+ProcessMusicQueue_LoadSquare2Instrument:
       LDA     MusicSquare2NoteStartLength
       LDX     MusicSquare2Patch
       JSR     LoadSquareInstrumentDVE
@@ -742,100 +742,100 @@ ProcessMusicQueue2_LoadSquare2Instrument:
       LDX     #$7F
       STX     SQ2_SWEEP
 
-ProcessMusicQueue2_Square1:
+ProcessMusicQueue_Square1:
       DEC     MusicSquare1NoteLength
-      BNE     ProcessMusicQueue2_Square1SustainNote
+      BNE     ProcessMusicQueue_Square1SustainNote
 
-ProcessMusicQueue2_Square1Patch:
+ProcessMusicQueue_Square1Patch:
       LDY     CurrentMusicSquare1Offset
       INC     CurrentMusicSquare1Offset
       LDA     (CurrentMusicPointer),Y
-      BPL     ProcessMusicQueue2_Square1AfterPatch
+      BPL     ProcessMusicQueue_Square1AfterPatch
 
       TAX
       AND     #$F0
       STA     MusicSquare1Patch
       TXA
-      JSR     ProcessMusicQueue2_PatchNoteLength
+      JSR     ProcessMusicQueue_PatchNoteLength
 
       STA     MusicSquare1NoteStartLength
       LDY     CurrentMusicSquare1Offset
       INC     CurrentMusicSquare1Offset
       LDA     (CurrentMusicPointer),Y
 
-ProcessMusicQueue2_Square1AfterPatch:
+ProcessMusicQueue_Square1AfterPatch:
       TAY
-      BNE     ProcessMusicQueue2_Square1Note
+      BNE     ProcessMusicQueue_Square1Note
 
       LDA     #$83
       STA     SQ1_VOL
       LDA     #$94
       STA     SQ1_SWEEP
       STA     MusicSquare1NoteSweep
-      BNE     ProcessMusicQueue2_Square1Patch
+      BNE     ProcessMusicQueue_Square1Patch
 
-ProcessMusicQueue2_Square1Note:
+ProcessMusicQueue_Square1Note:
       LDY     SoundEffectPlaying2
-      BNE     ProcessMusicQueue2_Square1ContinueNote
+      BNE     ProcessMusicQueue_Square1ContinueNote
 
       JSR     PlaySquare1Note
 
-      BNE     ProcessMusicQueue2_Square1StartNote
+      BNE     ProcessMusicQueue_Square1StartNote
 
       LDA     UNINITIALIZED_MusicSquare2Volume
-      JMP     ProcessMusicQueue2_Square1UpdateNoteOffset
+      JMP     ProcessMusicQueue_Square1UpdateNoteOffset
 
-ProcessMusicQueue2_Square1StartNote:
+ProcessMusicQueue_Square1StartNote:
       LDA     MusicSquare1NoteStartLength
       LDX     UNINITIALIZED_MusicSquare1Volume ; always overridden in the following subroutine...?
       JSR     SetInstrumentStartOffset
 
-ProcessMusicQueue2_Square1UpdateNoteOffset:
+ProcessMusicQueue_Square1UpdateNoteOffset:
       STA     MusicSquare1InstrumentOffset
       JSR     SetSquare1VolumeAndSweep
 
-ProcessMusicQueue2_Square1ContinueNote:
+ProcessMusicQueue_Square1ContinueNote:
       LDA     MusicSquare1NoteStartLength
       STA     MusicSquare1NoteLength
 
-ProcessMusicQueue2_Square1SustainNote:
+ProcessMusicQueue_Square1SustainNote:
       LDA     SoundEffectPlaying2
-      BNE     ProcessMusicQueue2_Triangle
+      BNE     ProcessMusicQueue_Triangle
 
       LDY     MusicSquare1InstrumentOffset
-      BEQ     ProcessMusicQueue2_Square1AfterDecrementInstrumentOffset
+      BEQ     ProcessMusicQueue_Square1AfterDecrementInstrumentOffset
 
       DEC     MusicSquare1InstrumentOffset
 
-ProcessMusicQueue2_Square1AfterDecrementInstrumentOffset:
+ProcessMusicQueue_Square1AfterDecrementInstrumentOffset:
       LDA     MusicSquare1NoteStartLength
       LDX     MusicSquare1Patch
       JSR     LoadSquareInstrumentDVE
 
       STA     SQ1_VOL
       LDA     MusicSquare1NoteSweep
-      BNE     ProcessMusicQueue2_Square1Sweep
+      BNE     ProcessMusicQueue_Square1Sweep
 
       LDA     #$7F
 
-ProcessMusicQueue2_Square1Sweep:
+ProcessMusicQueue_Square1Sweep:
       STA     SQ1_SWEEP
 
-ProcessMusicQueue2_Triangle:
+ProcessMusicQueue_Triangle:
       LDA     CurrentMusicTriangleOffset
-      BEQ     ProcessMusicQueue2_NoiseDPCM
+      BEQ     ProcessMusicQueue_NoiseDPCM
 
       DEC     MusicTriangleNoteLength
-      BNE     ProcessMusicQueue2_NoiseDPCM
+      BNE     ProcessMusicQueue_NoiseDPCM
 
       LDY     CurrentMusicTriangleOffset
       INC     CurrentMusicTriangleOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     ProcessMusicQueue2_TriangleSetLength
+      BEQ     ProcessMusicQueue_TriangleSetLength
 
-      BPL     ProcessMusicQueue2_TriangleNote
+      BPL     ProcessMusicQueue_TriangleNote
 
-      JSR     ProcessMusicQueue2_PatchNoteLength
+      JSR     ProcessMusicQueue_PatchNoteLength
 
       STA     MusicTriangleNoteStartLength
       LDA     #$1F
@@ -843,63 +843,63 @@ ProcessMusicQueue2_Triangle:
       LDY     CurrentMusicTriangleOffset
       INC     CurrentMusicTriangleOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     ProcessMusicQueue2_TriangleSetLength
+      BEQ     ProcessMusicQueue_TriangleSetLength
 
-ProcessMusicQueue2_TriangleNote:
+ProcessMusicQueue_TriangleNote:
       JSR     PlayTriangleNote
 
       LDX     MusicTriangleNoteStartLength
       STX     MusicTriangleNoteLength
       TXA
       CMP     #$0A
-      BCC     ProcessMusicQueue2_TriangleNoteShort
+      BCC     ProcessMusicQueue_TriangleNoteShort
 
       CMP     #$1E
-      BCS     ProcessMusicQueue2_TriangleNoteLong
+      BCS     ProcessMusicQueue_TriangleNoteLong
 
-ProcessMusicQueue2_TriangleNoteMedium:
+ProcessMusicQueue_TriangleNoteMedium:
       LDA     #$24
-      BNE     ProcessMusicQueue2_TriangleSetLength
+      BNE     ProcessMusicQueue_TriangleSetLength
 
-ProcessMusicQueue2_TriangleNoteShort:
+ProcessMusicQueue_TriangleNoteShort:
       LDA     #$18
-      BNE     ProcessMusicQueue2_TriangleSetLength
+      BNE     ProcessMusicQueue_TriangleSetLength
 
-ProcessMusicQueue2_TriangleNoteLong:
+ProcessMusicQueue_TriangleNoteLong:
       LDA     #$6F
 
-ProcessMusicQueue2_TriangleSetLength:
+ProcessMusicQueue_TriangleSetLength:
       STA     TRI_LINEAR
 
-ProcessMusicQueue2_NoiseDPCM:
+ProcessMusicQueue_NoiseDPCM:
       LDA     MusicPlaying1
       AND     #Music1_Inside|Music1_Invincible
-      BNE     ProcessMusicQueue2_DPCM
+      BNE     ProcessMusicQueue_DPCM
 
-ProcessMusicQueue2_Noise:
+ProcessMusicQueue_Noise:
       LDA     CurrentMusicNoiseOffset
-      BEQ     ProcessMusicQueue2_ThenNoiseEnd
+      BEQ     ProcessMusicQueue_ThenNoiseEnd
 
       DEC     MusicNoiseNoteLength
-      BNE     ProcessMusicQueue2_ThenNoiseEnd
+      BNE     ProcessMusicQueue_ThenNoiseEnd
 
-ProcessMusicQueue2_NoiseByte:
+ProcessMusicQueue_NoiseByte:
       LDY     CurrentMusicNoiseOffset
       INC     CurrentMusicNoiseOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     ProcessMusicQueue2_NoiseLoopSegment
+      BEQ     ProcessMusicQueue_NoiseLoopSegment
 
-      BPL     ProcessMusicQueue2_NoiseNote
+      BPL     ProcessMusicQueue_NoiseNote
 
-      JSR     ProcessMusicQueue2_PatchNoteLength
+      JSR     ProcessMusicQueue_PatchNoteLength
 
       STA     MusicNoiseNoteStartLength
       LDY     CurrentMusicNoiseOffset
       INC     CurrentMusicNoiseOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     ProcessMusicQueue2_NoiseLoopSegment
+      BEQ     ProcessMusicQueue_NoiseLoopSegment
 
-ProcessMusicQueue2_NoiseNote:
+ProcessMusicQueue_NoiseNote:
       LSR     A
       TAY
       LDA     NoiseVolTable,Y
@@ -911,45 +911,45 @@ ProcessMusicQueue2_NoiseNote:
       LDA     MusicNoiseNoteStartLength
       STA     MusicNoiseNoteLength
 
-ProcessMusicQueue2_ThenNoiseEnd:
-      JMP     ProcessMusicQueue2_NoiseEnd
+ProcessMusicQueue_ThenNoiseEnd:
+      JMP     ProcessMusicQueue_NoiseEnd
 
-ProcessMusicQueue2_NoiseLoopSegment:
+ProcessMusicQueue_NoiseLoopSegment:
       LDA     CurrentMusicNoiseStartOffset
       STA     CurrentMusicNoiseOffset
-      JMP     ProcessMusicQueue2_NoiseByte
+      JMP     ProcessMusicQueue_NoiseByte
 
-ProcessMusicQueue2_NoiseEnd:
+ProcessMusicQueue_NoiseEnd:
       LDA     MusicPlaying1
       AND     #Music1_Inside|Music1_Invincible
-      BNE     ProcessMusicQueue2_DPCM
+      BNE     ProcessMusicQueue_DPCM
 
       RTS
 
-ProcessMusicQueue2_DPCM:
+ProcessMusicQueue_DPCM:
       LDA     CurrentMusicDPCMOffset
-      BEQ     ProcessMusicQueue2_DPCMEnd
+      BEQ     ProcessMusicQueue_DPCMEnd
 
       DEC     MusicDPCMNoteLength
-      BNE     ProcessMusicQueue2_DPCMEnd
+      BNE     ProcessMusicQueue_DPCMEnd
 
-ProcessMusicQueue2_DPCMByte:
+ProcessMusicQueue_DPCMByte:
       LDY     CurrentMusicDPCMOffset
       INC     CurrentMusicDPCMOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     ProcessMusicQueue2_DPCMLoopSegment
+      BEQ     ProcessMusicQueue_DPCMLoopSegment
 
-      BPL     ProcessMusicQueue2_DPCMNote
+      BPL     ProcessMusicQueue_DPCMNote
 
-      JSR     ProcessMusicQueue2_PatchNoteLength
+      JSR     ProcessMusicQueue_PatchNoteLength
 
       STA     MusicDPCMNoteStartLength
       LDY     CurrentMusicDPCMOffset
       INC     CurrentMusicDPCMOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     ProcessMusicQueue2_DPCMLoopSegment
+      BEQ     ProcessMusicQueue_DPCMLoopSegment
 
-ProcessMusicQueue2_DPCMNote:
+ProcessMusicQueue_DPCMNote:
       ASL     A
       STA     DPCMQueue
       JSR     ProcessDPCMQueue
@@ -957,13 +957,13 @@ ProcessMusicQueue2_DPCMNote:
       LDA     MusicDPCMNoteStartLength
       STA     MusicDPCMNoteLength
 
-ProcessMusicQueue2_DPCMEnd:
+ProcessMusicQueue_DPCMEnd:
       RTS
 
-ProcessMusicQueue2_DPCMLoopSegment:
+ProcessMusicQueue_DPCMLoopSegment:
       LDA     CurrentMusicDPCMStartOffset
       STA     CurrentMusicDPCMOffset
-      JMP     ProcessMusicQueue2_DPCMByte
+      JMP     ProcessMusicQueue_DPCMByte
 
 
 NoiseVolTable:
@@ -989,7 +989,7 @@ NoiseHiTable:
 ;   A = full patch byte
 ; Output
 ;   A = new note length
-ProcessMusicQueue2_PatchNoteLength:
+ProcessMusicQueue_PatchNoteLength:
       AND     #$F
       CLC
       ADC     MusicTempoSetting
@@ -1413,14 +1413,17 @@ ENDIF
 ;
 MusicPartPointers:
 
+; These pointers correspond to MusicQueue2 fanfares that temporarily interrupt
+; the current background music
 MusicPartPointers_Mushroom:
       .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
 
 MusicPartPointers_BossBeaten:
       .BYTE MusicHeaderBossBeaten - MusicPartPointers
 
-; Crystal fanfare, but not clear where this one is actually used
-MusicPartPointers_CrystalMaybeUnused:
+; This version of the crystal fanfare is unused, because special logic in
+; ProcessMusicQueue uses this slot for the ending theme instead.
+MusicPartPointers_CrystalUnused:
       .BYTE MusicHeaderCrystal - MusicPartPointers
 
 MusicPartPointers_Death:
@@ -1435,6 +1438,8 @@ MusicPartPointers_Crystal:
 MusicPartPointers_BonusChance:
       .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
 
+; The rest of the pointers correspond to music that uses the pointer tables
+; with support for segment-based looping.
 MusicPartPointers_CharacterSelect:
       .BYTE MusicHeaderCharacterSelect1 - MusicPartPointers
 MusicPartPointers_CharacterSelectLoop:
