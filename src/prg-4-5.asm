@@ -628,6 +628,9 @@ ProcessMusicQueue_ReadHeader:
       LDA     MusicPartPointers+5,Y
       STA     CurrentMusicNoiseOffset
       STA     CurrentMusicNoiseStartOffset
+IFDEF PROTOTYPE_MUSIC
+      LDA     MusicPartPointers+6,Y
+ENDIF
       STA     CurrentMusicDPCMOffset
       STA     CurrentMusicDPCMStartOffset
       LDA     #$01
@@ -872,9 +875,11 @@ ProcessMusicQueue_TriangleSetLength:
       STA     TRI_LINEAR
 
 ProcessMusicQueue_NoiseDPCM:
+IFNDEF PROTOTYPE_MUSIC
       LDA     MusicPlaying1
       AND     #Music1_Inside|Music1_Invincible
       BNE     ProcessMusicQueue_DPCM
+ENDIF
 
 ProcessMusicQueue_Noise:
       LDA     CurrentMusicNoiseOffset
@@ -921,7 +926,12 @@ ProcessMusicQueue_NoiseLoopSegment:
 
 ProcessMusicQueue_NoiseEnd:
       LDA     MusicPlaying1
+IFNDEF PROTOTYPE_MUSIC
       AND     #Music1_Inside|Music1_Invincible
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+      AND     #Music1_Inside
+ENDIF
       BNE     ProcessMusicQueue_DPCM
 
       RTS
@@ -1500,15 +1510,33 @@ MusicPartPointers_Ending:
       .BYTE MusicHeaderEnding2 - MusicPartPointers
       .BYTE MusicHeaderEnding3 - MusicPartPointers
       .BYTE MusicHeaderEnding4 - MusicPartPointers
+IFNDEF PROTOTYPE_MUSIC
       .BYTE MusicHeaderEnding5 - MusicPartPointers
 MusicPartPointers_EndingLoop:
 MusicPartPointers_EndingEnd:
       .BYTE MusicHeaderEnding6 - MusicPartPointers
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+MusicPartPointers_EndingEnd:
+      .BYTE MusicHeaderEnding5 - MusicPartPointers
+ENDIF
 
+IFNDEF PROTOTYPE_MUSIC
 MusicPartPointers_Underground:
 MusicPartPointers_UndergroundLoop:
 MusicPartPointers_UndergroundEnd:
       .BYTE MusicHeaderUnderground - MusicPartPointers
+ENDIF
+
+IFDEF PROTOTYPE_MUSIC
+MusicPartPointers_Underground:
+MusicPartPointers_UndergroundLoop:
+      .BYTE MusicHeaderUndergroundBeta1 - MusicPartPointers
+      .BYTE MusicHeaderUndergroundBeta1 - MusicPartPointers
+      .BYTE MusicHeaderUndergroundBeta2 - MusicPartPointers
+MusicPartPointers_UndergroundEnd:
+      .BYTE MusicHeaderUndergroundBeta2 - MusicPartPointers
+ENDIF
 
 ;
 ; Music Headers
@@ -1615,6 +1643,7 @@ MusicHeaderOverworld6:
       .BYTE MusicDataOverworld6_Square1 - MusicDataOverworld6 ; $4F
       .BYTE MusicDataOverworld6_Noise - MusicDataOverworld6 ; $C8
 
+IFNDEF PROTOTYPE_MUSIC
 MusicHeaderUnderground:
       .BYTE NoteLengthTable_129bpm - NoteLengthTable
       ; .BYTE $BD, $94
@@ -1622,6 +1651,24 @@ MusicHeaderUnderground:
       .BYTE MusicDataUnderground_Triangle - MusicDataUnderground ; $53
       .BYTE MusicDataUnderground_Square1 - MusicDataUnderground ; $2A
       .BYTE MusicDataUnderground_DPCM - MusicDataUnderground ; $84
+ENDIF
+
+IFDEF PROTOTYPE_MUSIC
+MusicHeaderUndergroundBeta1:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      .WORD MusicDataUndergroundBeta1
+      .BYTE MusicDataUndergroundBeta1_Triangle - MusicDataUndergroundBeta1
+      .BYTE MusicDataUndergroundBeta1_Square1 - MusicDataUndergroundBeta1
+      .BYTE MusicDataUndergroundBeta1_Noise - MusicDataUndergroundBeta1
+      .BYTE MusicDataUndergroundBeta1_DPCM - MusicDataUndergroundBeta1
+MusicHeaderUndergroundBeta2:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      .WORD MusicDataUndergroundBeta2
+      .BYTE MusicDataUndergroundBeta2_Triangle - MusicDataUndergroundBeta2
+      .BYTE MusicDataUndergroundBeta2_Square1 - MusicDataUndergroundBeta2
+      .BYTE MusicDataUndergroundBeta2_Noise - MusicDataUndergroundBeta2
+      .BYTE MusicDataUndergroundBeta2_DPCM - MusicDataUndergroundBeta2
+ENDIF
 
 MusicHeaderBoss:
       .BYTE NoteLengthTable_200bpm - NoteLengthTable
@@ -1629,7 +1676,9 @@ MusicHeaderBoss:
       .WORD MusicDataBoss
       .BYTE MusicDataBoss_Triangle - MusicDataBoss ; $83
       .BYTE MusicDataBoss_Square1 - MusicDataBoss ; $42
+IFNDEF PROTOTYPE_MUSIC
       .BYTE $00 ; no noise channel
+ENDIF
 
 MusicHeaderStar:
       .BYTE NoteLengthTable_300bpm - NoteLengthTable
@@ -1637,7 +1686,12 @@ MusicHeaderStar:
       .WORD MusicDataStar
       .BYTE MusicDataStar_Triangle - MusicDataStar ; $37
       .BYTE MusicDataStar_Square1 - MusicDataStar ; $1A
+IFNDEF PROTOTYPE_MUSIC
       .BYTE MusicDataStar_DPCM - MusicDataStar ; $49
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+      .BYTE MusicDataStar_Noise - MusicDataStar
+ENDIF
 
 MusicHeaderWart:
       .BYTE NoteLengthTable_200bpm - NoteLengthTable
@@ -1645,7 +1699,9 @@ MusicHeaderWart:
       .WORD MusicDataWart
       .BYTE MusicDataWart_Triangle - MusicDataWart ; $96
       .BYTE MusicDataWart_Square1 - MusicDataWart ; $4B
+IFNDEF PROTOTYPE_MUSIC
       .BYTE $00 ; no noise channel
+ENDIF
 
 MusicHeaderCrystal:
       .BYTE NoteLengthTable_300bpm - NoteLengthTable
@@ -1815,6 +1871,7 @@ MusicHeaderEnding4:
       .BYTE MusicDataEnding4_Square1 - MusicDataEnding4 ; $29
       .BYTE MusicDataEnding4_Noise - MusicDataEnding4 ; $1B
 
+IFNDEF PROTOTYPE_MUSIC
 MusicHeaderEnding6:
       .BYTE NoteLengthTable_129bpm - NoteLengthTable
       ; .BYTE $76, $93
@@ -1822,6 +1879,7 @@ MusicHeaderEnding6:
       .BYTE $00 ; no triangle channel
       .BYTE MusicDataEnding6_Square1 - MusicDataEnding6 ; $72
       .BYTE $00 ; no square channel
+ENDIF
 
 
 MusicPointersFirstPart:
@@ -1855,7 +1913,12 @@ MusicPointersLoopPart:
       .BYTE MusicPartPointers_SubSpaceLoop - MusicPartPointers
       .BYTE MusicPartPointers_WartEnd - MusicPartPointers
       .BYTE $00 ; no loop
+IFNDEF PROTOTYPE_MUSIC
       .BYTE MusicPartPointers_EndingLoop - MusicPartPointers
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+      .BYTE $00 ; no loop
+ENDIF
 
 ;
 ; Music Data
@@ -2412,6 +2475,7 @@ MusicDataEnding5_Square2:
       .BYTE $26
       .BYTE $8A
       .BYTE $26
+IFNDEF PROTOTYPE_MUSIC
       .BYTE $7E
       .BYTE $8C
       .BYTE $7E
@@ -2420,6 +2484,7 @@ MusicDataEnding5_Square2:
       .BYTE $FC
       .BYTE $7E
       .BYTE $7E
+ENDIF
       .BYTE $00
 MusicDataEnding5_Square1:
       .BYTE $88
@@ -2442,6 +2507,7 @@ MusicDataEnding5_Square1:
       .BYTE $18
       .BYTE $18
       .BYTE $18
+IFNDEF PROTOTYPE_MUSIC
       .BYTE $88
       .BYTE $18
       .BYTE $F4
@@ -2478,6 +2544,11 @@ MusicDataEnding5_Square1:
       .BYTE $56
       .BYTE $4C
       .BYTE $56
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+      .BYTE $8A
+      .BYTE $18
+ENDIF
 MusicDataEnding5_Triangle:
       .BYTE $88
       .BYTE $28
@@ -2501,12 +2572,14 @@ MusicDataEnding5_Triangle:
       .BYTE $30
       .BYTE $8A
       .BYTE $30
+IFNDEF PROTOTYPE_MUSIC
       .BYTE $7E
       .BYTE $8C
       .BYTE $7E
       .BYTE $7E
       .BYTE $7E
       .BYTE $7E
+ENDIF
 MusicDataEnding5_Noise:
       .BYTE $88
       .BYTE $10
@@ -2530,13 +2603,16 @@ MusicDataEnding5_Noise:
       .BYTE $10
       .BYTE $8A
       .BYTE $10
+IFNDEF PROTOTYPE_MUSIC
       .BYTE $01
       .BYTE $8C
       .BYTE $01
       .BYTE $01
       .BYTE $01
       .BYTE $01
+ENDIF
 
+IFNDEF PROTOTYPE_MUSIC
 MusicDataEnding6:
 MusicDataEnding6_Square2:
       .BYTE $F4
@@ -2783,6 +2859,7 @@ MusicDataEnding6_Square1:
       .BYTE $52
       .BYTE $4C
       .BYTE $5E
+ENDIF
 
 MusicDataStar:
 MusicDataStar_Square2:
@@ -2861,6 +2938,7 @@ MusicDataStar_Triangle:
       .BYTE $7E
       .BYTE $3E
       .BYTE $48
+IFNDEF PROTOTYPE_MUSIC
 MusicDataStar_DPCM:
       .BYTE $94
       .BYTE $01
@@ -2873,7 +2951,25 @@ MusicDataStar_DPCM:
       .BYTE $01
       .BYTE $01
       .BYTE $00
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+MusicDataStar_Noise:
+      .BYTE $98
+      .BYTE $04
+      .BYTE $92
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $98
+      .BYTE $06
+      .BYTE $92
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
+ENDIF
 
+IFNDEF PROTOTYPE_MUSIC
 MusicDataUnderground:
 MusicDataUnderground_Square2:
       .BYTE $A4
@@ -3026,6 +3122,235 @@ MusicDataUnderground_DPCM:
       .BYTE $01
       .BYTE $01
       .BYTE $00
+ENDIF
+
+IFDEF PROTOTYPE_MUSIC
+MusicDataUndergroundBeta1:
+MusicDataUndergroundBeta2:
+MusicDataUndergroundBeta1_Square2:
+MusicDataUndergroundBeta2_Square2:
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $D4
+      .BYTE $18
+      .BYTE $30
+      .BYTE $12
+      .BYTE $2A
+      .BYTE $14
+      .BYTE $2C
+      .BYTE $D8
+      .BYTE $7E
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $D4
+      .BYTE $18
+      .BYTE $30
+      .BYTE $12
+      .BYTE $2A
+      .BYTE $14
+      .BYTE $2C
+      .BYTE $D8
+      .BYTE $7E
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $D4
+      .BYTE $0A
+      .BYTE $22
+      .BYTE $04
+      .BYTE $1C
+      .BYTE $06
+      .BYTE $1E
+      .BYTE $D8
+      .BYTE $7E
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $D4
+      .BYTE $0A
+      .BYTE $22
+      .BYTE $04
+      .BYTE $1C
+      .BYTE $06
+      .BYTE $1E
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $D2
+      .BYTE $1E
+      .BYTE $1C
+      .BYTE $1A
+      .BYTE $D8
+      .BYTE $18
+      .BYTE $1E
+      .BYTE $1C
+      .BYTE $10
+      .BYTE $0E
+      .BYTE $1A
+      .BYTE $D2
+      .BYTE $18
+      .BYTE $24
+      .BYTE $22
+      .BYTE $20
+      .BYTE $2C
+      .BYTE $2A
+      .BYTE $D6
+      .BYTE $28
+      .BYTE $1E
+      .BYTE $16
+      .BYTE $14
+      .BYTE $12
+      .BYTE $10
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $00
+MusicDataUndergroundBeta1_Square1:
+MusicDataUndergroundBeta2_Square1:
+MusicDataUndergroundBeta1_Triangle:
+MusicDataUndergroundBeta2_Triangle:
+      .BYTE $8C
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $84
+      .BYTE $30
+      .BYTE $48
+      .BYTE $2A
+      .BYTE $42
+      .BYTE $2C
+      .BYTE $44
+      .BYTE $88
+      .BYTE $7E
+      .BYTE $8C
+      .BYTE $7E
+      .BYTE $84
+      .BYTE $30
+      .BYTE $48
+      .BYTE $2A
+      .BYTE $42
+      .BYTE $2C
+      .BYTE $44
+      .BYTE $88
+      .BYTE $7E
+      .BYTE $8C
+      .BYTE $7E
+      .BYTE $84
+      .BYTE $22
+      .BYTE $3A
+      .BYTE $1C
+      .BYTE $34
+      .BYTE $1E
+      .BYTE $36
+      .BYTE $88
+      .BYTE $7E
+      .BYTE $8C
+      .BYTE $7E
+      .BYTE $84
+      .BYTE $22
+      .BYTE $3A
+      .BYTE $1C
+      .BYTE $34
+      .BYTE $1E
+      .BYTE $36
+      .BYTE $8C
+      .BYTE $7E
+      .BYTE $82
+      .BYTE $36
+      .BYTE $34
+      .BYTE $32
+      .BYTE $88
+      .BYTE $30
+      .BYTE $36
+      .BYTE $34
+      .BYTE $28
+      .BYTE $26
+      .BYTE $32
+      .BYTE $82
+      .BYTE $30
+      .BYTE $3C
+      .BYTE $3A
+      .BYTE $38
+      .BYTE $44
+      .BYTE $42
+      .BYTE $86
+      .BYTE $40
+      .BYTE $36
+      .BYTE $2E
+      .BYTE $2C
+      .BYTE $2A
+      .BYTE $28
+      .BYTE $8C
+      .BYTE $7E
+MusicDataUndergroundBeta1_DPCM:
+      .BYTE $8A
+      .BYTE $01
+      .BYTE $10
+      .BYTE $84
+      .BYTE $01
+      .BYTE $01
+      .BYTE $88
+      .BYTE $01
+      .BYTE $8A
+      .BYTE $10
+      .BYTE $8A
+      .BYTE $01
+      .BYTE $89
+      .BYTE $10
+      .BYTE $88
+      .BYTE $01
+      .BYTE $01
+      .BYTE $84
+      .BYTE $01
+      .BYTE $88
+      .BYTE $10
+      .BYTE $84
+      .BYTE $10
+      .BYTE $10
+      .BYTE $00
+MusicDataUndergroundBeta2_DPCM:
+      .BYTE $88
+      .BYTE $01
+      .BYTE $10
+      .BYTE $84
+      .BYTE $01
+      .BYTE $01
+      .BYTE $88
+      .BYTE $10
+      .BYTE $84
+      .BYTE $01
+      .BYTE $01
+      .BYTE $10
+      .BYTE $88
+      .BYTE $01
+      .BYTE $84
+      .BYTE $01
+      .BYTE $88
+      .BYTE $10
+      .BYTE $00
+MusicDataUndergroundBeta1_Noise:
+      .BYTE $8A
+      .BYTE $01
+      .BYTE $10
+      .BYTE $01
+      .BYTE $10
+      .BYTE $01
+      .BYTE $10
+      .BYTE $01
+      .BYTE $88
+      .BYTE $10
+      .BYTE $84
+      .BYTE $10
+      .BYTE $10
+      .BYTE $00
+MusicDataUndergroundBeta2_Noise:
+      .BYTE $84
+      .BYTE $02
+      .BYTE $02
+      .BYTE $10
+      .BYTE $02
+      .BYTE $00
+ENDIF
 
 MusicDataSubspace1:
 MusicDataSubspace1_Square2:
@@ -6931,6 +7256,7 @@ InstrumentDVE_D0_Short: ; $A381
       .BYTE $DA
       .BYTE $9B
 
+IFNDEF PROTOTYPE_MUSIC
 ; Soft pluck
 ; 25% duty cycle with pronounced decay
 InstrumentDVE_F0_Short: ; $A398
@@ -7025,3 +7351,98 @@ InstrumentDVE_F0: ; $A3AF
       .BYTE $53
       .BYTE $54
       .BYTE $55
+ENDIF
+
+IFDEF PROTOTYPE_MUSIC
+; Soft pluck
+; 25% duty cycle with pronounced decay
+InstrumentDVE_F0_Short:
+      .BYTE $54
+      .BYTE $54
+      .BYTE $55
+      .BYTE $56
+      .BYTE $56
+      .BYTE $57
+      .BYTE $58
+      .BYTE $59
+      .BYTE $5A
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5D
+
+; Soft pluck
+; 25% duty cycle with pronounced decay
+InstrumentDVE_F0:
+      .BYTE $51
+      .BYTE $51
+      .BYTE $51
+      .BYTE $51
+      .BYTE $52
+      .BYTE $52
+      .BYTE $52
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $55
+      .BYTE $55
+      .BYTE $55
+      .BYTE $55
+      .BYTE $55
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $57
+      .BYTE $57
+      .BYTE $57
+      .BYTE $57
+      .BYTE $57
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $59
+      .BYTE $59
+      .BYTE $59
+      .BYTE $59
+      .BYTE $5A
+      .BYTE $5A
+      .BYTE $5A
+      .BYTE $5A
+      .BYTE $5A
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5C
+      .BYTE $5C
+      .BYTE $5C
+      .BYTE $5D
+ENDIF

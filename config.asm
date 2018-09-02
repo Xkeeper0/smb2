@@ -26,3 +26,7 @@ PRESERVE_UNUSED_SPACE = 1
 
 ; Enables additional level engine features
 ; LEVEL_ENGINE_UPGRADES = 1
+
+; Enables prototype samples and/or music
+; PROTOTYPE_DPCM_SAMPLES = 1
+; PROTOTYPE_MUSIC = 1
