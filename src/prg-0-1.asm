@@ -569,9 +569,9 @@ sub_BANK0_82E2:
       LDA     byte_RAM_CE,X
       AND     #$F
       TAY
-      LDA     byte_BANK1_BA5B,Y
+      LDA     DecodedLevelPageStartLo_Bank1,Y
       STA     byte_RAM_E9
-      LDA     byte_BANK1_BA66,Y
+      LDA     DecodedLevelPageStartHi_Bank1,Y
       STA     byte_RAM_EA
       LDA     byte_RAM_CE,X
       AND     #$F0
@@ -1524,9 +1524,9 @@ sub_BANK0_8812:
       LDA     byte_RAM_CE,X
       AND     #$F
       TAY
-      LDA     byte_BANK1_BA5B,Y
+      LDA     DecodedLevelPageStartLo_Bank1,Y
       STA     byte_RAM_E9
-      LDA     byte_BANK1_BA66,Y
+      LDA     DecodedLevelPageStartHi_Bank1,Y
       STA     byte_RAM_EA
       LDA     byte_RAM_CE,X
       LSR     A
@@ -3481,7 +3481,7 @@ loc_BANK0_917C:
 
       BCS     locret_BANK0_91CE
 
-      JSR     sub_BANK1_BA4E
+      JSR     SetTileOffsetAndAreaPageAddr_Bank1
 
       LDY     byte_RAM_E7
       LDA     (byte_RAM_1),Y
@@ -3708,7 +3708,7 @@ loc_BANK0_9285:
       BEQ     loc_BANK0_92A5
 
 loc_BANK0_929E:
-      JSR     sub_BANK1_BA4E
+      JSR     SetTileOffsetAndAreaPageAddr_Bank1
 
       LDY     byte_RAM_E7
       LDA     (byte_RAM_1),Y
@@ -3928,7 +3928,7 @@ loc_BANK0_9365:
 loc_BANK0_937C:
       STX     byte_RAM_3
       PHA
-      JSR     sub_BANK1_BA4E
+      JSR     SetTileOffsetAndAreaPageAddr_Bank1
 
       PLA
       LDY     byte_RAM_E7
@@ -4095,7 +4095,7 @@ sub_BANK0_946D:
 
 loc_BANK0_947F:
       LDA     CurrentLevelEntryPage
-      LDY     #0
+      LDY     #$00
       LDX     IsHorizontalLevel
       BNE     loc_BANK0_948E
 
@@ -4108,7 +4108,7 @@ loc_BANK0_948E:
       STY     PlayerYHi
 
 loc_BANK0_9492:
-      JSR     sub_BANK0_94CA
+      JSR     AreaTransitionPlacement
 
       LDY     PlayerYHi
       LDA     PlayerYLo
@@ -4144,25 +4144,26 @@ loc_BANK0_94C2:
 
 ; End of function sub_BANK0_946D
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_94CA:
+;
+; Do the player placement after an area transition
+;
+AreaTransitionPlacement:
       LDA     TransitionType
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
-      .WORD loc_BANK0_94DC
-      .WORD loc_BANK0_9514
-      .WORD loc_BANK0_955D
-      .WORD loc_BANK0_956A
-      .WORD loc_BANK0_958C
-      .WORD loc_BANK0_95A7
-; ---------------------------------------------------------------------------
+      .WORD AreaTransitionPlacement_Reset
+      .WORD AreaTransitionPlacement_Door
+      .WORD AreaTransitionPlacement_Jar
+      .WORD AreaTransitionPlacement_Climbing
+      .WORD AreaTransitionPlacement_Subspace
+      .WORD AreaTransitionPlacement_Rocket
 
-loc_BANK0_94DC:
-      LDA     #1
+
+AreaTransitionPlacement_Reset:
+      LDA     #$01
       STA     byte_RAM_9D
-      JSR     sub_BANK0_9561
+      JSR     AreaTransitionPlacement_Middle
 
       LSR     A
       LSR     A
@@ -4174,139 +4175,302 @@ loc_BANK0_94DC:
       STA     byte_RAM_E6
       LDA     CurrentLevelEntryPage
       STA     byte_RAM_E8
-      LDA     #$C
+      LDA     #$0C
       STA     byte_RAM_3
 
 loc_BANK0_94F8:
-      JSR     sub_BANK1_BA4E
+      JSR     SetTileOffsetAndAreaPageAddr_Bank1
 
       LDY     byte_RAM_E7
       LDA     (byte_RAM_1),Y
       CMP     #$40
-      BEQ     sub_BANK0_950C
+      BEQ     AreaTransitionPlacement_MovePlayerUp1Tile
 
-      JSR     sub_BANK0_950C
+      JSR     AreaTransitionPlacement_MovePlayerUp1Tile
 
       STA     byte_RAM_E6
       DEC     byte_RAM_3
       BNE     loc_BANK0_94F8
 
-; End of function sub_BANK0_94CA
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK0_950C:
+;
+; Moves the player up by one tile
+;
+AreaTransitionPlacement_MovePlayerUp1Tile:
       LDA     PlayerYLo
       SEC
       SBC     #$10
       STA     PlayerYLo
       RTS
 
-; End of function sub_BANK0_950C
 
-; ---------------------------------------------------------------------------
-
-loc_BANK0_9514:
+;
+; Looks for a door and positions the player at it
+;
+; The implementation of this requires the destination door to be at the
+; OPPOSITE side of the screen from the origin door horizontally, but it can be
+; at any position vertically.
+;
+; If no suitable door is found, the player is positioned to fall from the
+; top-middle of the screen instead
+;
+AreaTransitionPlacement_Door:
       LDA     PlayerXLo
+      ; Switch the x-position to the opposite side of the screen
       CLC
-      ADC     #8
+      ADC     #$08
       AND     #$F0
       EOR     #$F0
       STA     PlayerXLo
+
+      ; Convert to a tile offset
       LSR     A
       LSR     A
       LSR     A
       LSR     A
       STA     byte_RAM_E5
+
+      ; Start at the bottom of the page
       LDA     #$E0
       STA     PlayerYLo
       STA     byte_RAM_E6
       LDA     CurrentLevelEntryPage
       STA     byte_RAM_E8
-      LDA     #$D
+      LDA     #$0D
       STA     byte_RAM_3
 
-loc_BANK0_9534:
-      JSR     sub_BANK1_BA4E
+AreaTransitionPlacement_Door_Loop:
+      JSR     SetTileOffsetAndAreaPageAddr_Bank1
 
+      ; Read the target tile
       LDY     byte_RAM_E7
       LDA     (byte_RAM_1),Y
-      LDY     #5
+      LDY     #$05
 
-loc_BANK0_953D:
+AreaTransitionPlacement_Door_InnerLoop:
+      ; See if it matches any door tile
       CMP     DoorTiles-1,Y
-      BEQ     loc_BANK0_9554
-
+      BEQ     AreaTransitionPlacement_Door_Exit
       DEY
-      BNE     loc_BANK0_953D
+      BNE     AreaTransitionPlacement_Door_InnerLoop
 
+      ; Nothing matched on this row, so check the next row or give up
       DEC     byte_RAM_3
-      BEQ     loc_BANK0_9551
+IFNDEF ROBUST_TRANSITION_SEARCH
+      BEQ     AreaTransitionPlacement_Door_Fallback
+ENDIF
+IFDEF ROBUST_TRANSITION_SEARCH
+      BEQ     AreaTransitionPlacement_DoorCustom
+ENDIF
 
-      JSR     sub_BANK0_950C
+      JSR     AreaTransitionPlacement_MovePlayerUp1Tile
 
       STA     byte_RAM_E6
-      JMP     loc_BANK0_9534
+      JMP     AreaTransitionPlacement_Door_Loop
 
-; ---------------------------------------------------------------------------
+AreaTransitionPlacement_Door_Fallback:
+      ; Place in the middle of the screen if no door is found
+      JSR     AreaTransitionPlacement_Middle
 
-loc_BANK0_9551:
-      JSR     sub_BANK0_9561
-
-loc_BANK0_9554:
-      JSR     sub_BANK0_950C
+AreaTransitionPlacement_Door_Exit:
+      JSR     AreaTransitionPlacement_MovePlayerUp1Tile
 
       LDA     #$00
       STA     PlayerLock
       RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK0_955D:
-      LDA     #0
+IFDEF ROBUST_TRANSITION_SEARCH
+;
+; Looks for a door and positions the player at it
+;
+; In contrast to the normal door placement routine, this will search all
+; x-positions rather than just one opposite the door
+;
+AreaTransitionPlacement_DoorCustom:
+      ; Start on the correct page
+      LDX     CurrentLevelEntryPage
+      JSR     SetAreaPageAddr_Bank1
+
+      ; Start at the bottom right and work backwards
+      LDA     #$EF
+      STA     byte_RAM_E7
+
+AreaTransitionPlacement_DoorCustom_Loop:
+      ; Read the target tile
+      LDY     byte_RAM_E7
+      LDA     (byte_RAM_1),Y
+      LDY     #$05
+
+AreaTransitionPlacement_DoorCustom_InnerLoop:
+      ; See if it matches any door tile
+      CMP     DoorTiles-1,Y
+      BEQ     AreaTransitionPlacement_DoorCustom_Exit
+      DEY
+      BNE     AreaTransitionPlacement_DoorCustom_InnerLoop
+
+      ; No matches on this tile, check the next one or give up
+      DEC     byte_RAM_E7
+      BEQ     AreaTransitionPlacement_DoorCustom_Fallback
+
+      JMP     AreaTransitionPlacement_DoorCustom_Loop
+
+AreaTransitionPlacement_DoorCustom_Fallback:
+      LDA     #$20
+      STA     PlayerYLo
+      JSR     AreaTransitionPlacement_Middle
+      JMP     AreaTransitionPlacement_Door_Exit
+
+AreaTransitionPlacement_DoorCustom_Exit:
+      LDA     byte_RAM_E7
+      ASL     A
+      ASL     A
+      ASL     A
+      ASL     A
+      STA     PlayerXLo
+      LDA     byte_RAM_E7
+      AND     #$F0
+      STA     PlayerYLo
+      JMP     AreaTransitionPlacement_Door_Exit
+ENDIF
+
+
+;
+; Place the player at the top of the screen in the middle horizontally
+;
+AreaTransitionPlacement_Jar:
+      LDA     #$00
       STA     PlayerYLo
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK0_9561:
-      LDA     #1
+;
+; Place the player in the air in the middle of the screen horizontally
+;
+AreaTransitionPlacement_Middle:
+      LDA     #$01
       STA     PlayerInAir
       LDA     #$78
-
-loc_BANK0_9567:
       STA     PlayerXLo
       RTS
 
-; End of function sub_BANK0_9561
-
-; ---------------------------------------------------------------------------
-
-loc_BANK0_956A:
+;
+; Looks for a climbable tile (vine/chain/ladder) and positions the player at it
+;
+; The implementation of this requires the destination to be at the OPPOSITE
+; side of the screen from the origin horizontally, otherwise the player will
+; be climbing on nothing.
+;
+AreaTransitionPlacement_Climbing:
       LDA     PlayerXLo
+      ; Switch the x-position to the opposite side of the screen
       CLC
-      ADC     #8
+      ADC     #$08
       AND     #$F0
       EOR     #$F0
       STA     PlayerXLo
+
+      ; Switch the y-position to the opposite side of the screen
       LDA     PlayerScreenYLo
       CLC
-      ADC     #8
+      ADC     #$08
       AND     #$F0
       EOR     #$10
       STA     PlayerYLo
       CMP     #$F0
-      BEQ     loc_BANK0_9587
+      BEQ     AreaTransitionPlacement_Climbing_Exit
 
       DEC     PlayerYHi
 
-loc_BANK0_9587:
+AreaTransitionPlacement_Climbing_Exit:
+IFDEF ROBUST_TRANSITION_SEARCH
+      JSR     AreaTransitionPlacement_ClimbingCustom
+ENDIF
+
       LDA     #SpriteAnimation_Climbing
       STA     PlayerAnimationFrame
       RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK0_958C:
+IFDEF ROBUST_TRANSITION_SEARCH
+AreaTransitionPlacement_ClimbingCustom:
+      ; Target x-position
+      LDA     PlayerXLo
+      LSR     A
+      LSR     A
+      LSR     A
+      LSR     A
+      STA     byte_RAM_E5
+
+      ; Target y-position
+      LDA     PlayerYLo
+      EOR     #$10
+      CLC
+      ADC     #$10
+      CMP     #$F0
+      BNE     AreaTransitionPlacement_ClimbingCustom_AfterNudge
+      SEC
+      SBC     #$10
+AreaTransitionPlacement_ClimbingCustom_AfterNudge:
+      STA     byte_RAM_E6
+
+      ; Read the target tile
+      LDA     CurrentLevelEntryPage
+      STA     byte_RAM_E8
+      JSR     SetTileOffsetAndAreaPageAddr_Bank1
+      LDY     byte_RAM_E7
+      LDA     (byte_RAM_1),Y
+
+      ; Check if the target tile is climbable
+      LDY     #$09
+AreaTransitionPlacement_ClimbingCustom_CheckLoop:
+      CMP     ClimbableTiles,Y
+      BEQ     AreaTransitionPlacement_ClimbingCustom_Exit
+      DEY
+      BPL     AreaTransitionPlacement_ClimbingCustom_CheckLoop
+
+      ; Target tile is not climbable; start at the right and work backwards
+      LDA     byte_RAM_E7
+      AND     #$F0
+      STA     byte_RAM_E6
+
+      LDA     #$0F
+      STA     byte_RAM_3
+      CLC
+      ADC     byte_RAM_E6
+      STA     byte_RAM_E7
+
+AreaTransitionPlacement_ClimbingCustom_Loop:
+      ; Read the target tile
+      LDY     byte_RAM_E7
+      LDA     (byte_RAM_1),Y
+      LDY     #$09
+
+AreaTransitionPlacement_ClimbingCustom_InnerLoop:
+      CMP     ClimbableTiles,Y
+      BEQ     AreaTransitionPlacement_ClimbingCustom_SetXPosition
+      DEY
+      BPL     AreaTransitionPlacement_ClimbingCustom_InnerLoop
+
+      ; No matches on this tile, check the next one or give up
+      DEC     byte_RAM_E7
+      DEC     byte_RAM_3
+      BMI     AreaTransitionPlacement_ClimbingCustom_Exit
+
+      JMP     AreaTransitionPlacement_ClimbingCustom_Loop
+
+AreaTransitionPlacement_ClimbingCustom_SetXPosition:
+      LDA     byte_RAM_3
+      ASL     A
+      ASL     A
+      ASL     A
+      ASL     A
+      STA     PlayerXLo
+
+AreaTransitionPlacement_ClimbingCustom_Exit:
+      RTS
+ENDIF
+
+
+AreaTransitionPlacement_Subspace:
       LDA     PlayerScreenX
       SEC
       SBC     byte_RAM_BA
@@ -4321,19 +4485,26 @@ loc_BANK0_958C:
       STA     SubspaceTimer
       RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK0_95A7:
-      JSR     sub_BANK0_9561
-
+AreaTransitionPlacement_Rocket:
+      JSR     AreaTransitionPlacement_Middle
       LDA     #$60
       STA     PlayerYLo
       RTS
 
-; =============== S U B R O U T I N E =======================================
 
+;
+; @TODO
+;
+; Input
+;   Y = PlayerYHi
+;   A = PlayerYLo
+; Output
+;   Y = PlayerYHi
+;   A = PlayerYLo
+;
 sub_BANK0_95AF:
-      CPY     #0
+      CPY     #$00
       BMI     locret_BANK0_95C2
 
       PHA
@@ -4353,14 +4524,15 @@ sub_BANK0_95AF:
 locret_BANK0_95C2:
       RTS
 
-; End of function sub_BANK0_95AF
 
-; ---------------------------------------------------------------------------
+IFNDEF ROBUST_TRANSITION_SEARCH
 IFDEF PRESERVE_UNUSED_SPACE
 ; Unused space in the original
 ; $95C3 - $95FF
       .pad $9600, $FF
 ENDIF
+ENDIF
+
 
 TitleScreenPPUDataPointers:
       .WORD PPUBuffer_301
@@ -6804,9 +6976,21 @@ UnlinkEnemyFromRawData_Bank1:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_BA4E:
+;
+; Updates the area page and tile placement offset
+;
+; Input
+;   byte_RAM_E8 = area page
+;   byte_RAM_E5 = tile placement offset shift
+;   byte_RAM_E6 = previous tile placement offset
+; Output
+;   RAM_1 = low byte of decoded level data RAM
+;   RAM_2 = low byte of decoded level data RAM
+;   byte_RAM_E7 = target tile placement offset
+;
+SetTileOffsetAndAreaPageAddr_Bank1:
       LDX     byte_RAM_E8
-      JSR     sub_BANK1_BA71
+      JSR     SetAreaPageAddr_Bank1
 
       LDA     byte_RAM_E6
       CLC
@@ -6814,45 +6998,49 @@ sub_BANK1_BA4E:
       STA     byte_RAM_E7
       RTS
 
-; End of function sub_BANK1_BA4E
 
-; ---------------------------------------------------------------------------
+DecodedLevelPageStartLo_Bank1:
+      .BYTE <DecodedLevelData
+      .BYTE <(DecodedLevelData+$00F0)
+      .BYTE <(DecodedLevelData+$01E0)
+      .BYTE <(DecodedLevelData+$02D0)
+      .BYTE <(DecodedLevelData+$03C0)
+      .BYTE <(DecodedLevelData+$04B0)
+      .BYTE <(DecodedLevelData+$05A0)
+      .BYTE <(DecodedLevelData+$0690)
+      .BYTE <(DecodedLevelData+$0780)
+      .BYTE <(DecodedLevelData+$0870)
+      .BYTE <(SubAreaTileLayout)
 
-byte_BANK1_BA5B:
-      .BYTE $00
-      .BYTE $F0
-      .BYTE $E0
-      .BYTE $D0
-      .BYTE $C0
-      .BYTE $B0
-      .BYTE $A0
-      .BYTE $90
-      .BYTE $80
-      .BYTE $70
-      .BYTE $00
-byte_BANK1_BA66:
-      .BYTE $60
-      .BYTE $60
-      .BYTE $61
-      .BYTE $62
-      .BYTE $63
-      .BYTE $64
-      .BYTE $65
-      .BYTE $66
-      .BYTE $67
-      .BYTE $68
-      .BYTE $07
+DecodedLevelPageStartHi_Bank1:
+      .BYTE >DecodedLevelData
+      .BYTE >(DecodedLevelData+$00F0)
+      .BYTE >(DecodedLevelData+$01E0)
+      .BYTE >(DecodedLevelData+$02D0)
+      .BYTE >(DecodedLevelData+$03C0)
+      .BYTE >(DecodedLevelData+$04B0)
+      .BYTE >(DecodedLevelData+$05A0)
+      .BYTE >(DecodedLevelData+$0690)
+      .BYTE >(DecodedLevelData+$0780)
+      .BYTE >(DecodedLevelData+$0870)
+      .BYTE >(SubAreaTileLayout)
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_BA71:
-      LDA     byte_BANK1_BA5B,X
+;
+; Updates the area page that we're reading tiles from
+;
+; Input
+;   X = area page
+; Output
+;   byte_RAM_1 = low byte of decoded level data RAM
+;   byte_RAM_2 = low byte of decoded level data RAM
+;
+SetAreaPageAddr_Bank1:
+      LDA     DecodedLevelPageStartLo_Bank1,X
       STA     byte_RAM_1
-      LDA     byte_BANK1_BA66,X
+      LDA     DecodedLevelPageStartHi_Bank1,X
       STA     byte_RAM_2
       RTS
-
-; End of function sub_BANK1_BA71
 
 
 ;

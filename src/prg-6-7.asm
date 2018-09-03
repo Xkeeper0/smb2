@@ -2534,7 +2534,7 @@ DecodedLevelPageStartLo:
       .BYTE <(DecodedLevelData+$0690)
       .BYTE <(DecodedLevelData+$0780)
       .BYTE <(DecodedLevelData+$0870)
-      .BYTE $00 ; ???
+      .BYTE <(SubAreaTileLayout)
 
 DecodedLevelPageStartHi:
       .BYTE >DecodedLevelData
@@ -2547,7 +2547,7 @@ DecodedLevelPageStartHi:
       .BYTE >(DecodedLevelData+$0690)
       .BYTE >(DecodedLevelData+$0780)
       .BYTE >(DecodedLevelData+$0870)
-      .BYTE $07 ; ???
+      .BYTE >(SubAreaTileLayout)
 
 SubspaceTilesSearch:
       .BYTE $75 ; $00
@@ -3873,8 +3873,8 @@ SetTileOffsetAndAreaPageAddr:
 ; Input
 ;   X = area page
 ; Output
-;   RAM_1 = low byte of decoded level data RAM
-;   RAM_2 = low byte of decoded level data RAM
+;   byte_RAM_1 = low byte of decoded level data RAM
+;   byte_RAM_2 = low byte of decoded level data RAM
 ;
 SetAreaPageAddr:
       LDA     DecodedLevelPageStartLo,X
