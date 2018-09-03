@@ -27,6 +27,9 @@ PRESERVE_UNUSED_SPACE = 1
 ; Go to the Charater Select screen after death
 ; CHARACTER_SELECT_AFTER_DEATH = 1
 
+; Skips Bonus Chance after the end of a level
+; DISABLE_BONUS_CHANCE = 1
+
 ; Enables additional level engine features
 ; LEVEL_ENGINE_UPGRADES = 1
 

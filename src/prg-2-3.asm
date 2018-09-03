@@ -2666,14 +2666,14 @@ loc_BANK2_8D8A:
 
 loc_BANK2_8DAC:
       CPY     #$02
-      BCC     loc_BANK2_8DB4
+      BCC     SetGameModeBonusChance
 
       INC     DoAreaTransition
       RTS
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_8DB4:
+SetGameModeBonusChance:
       LDA     #GameMode_BonusChance
       STA     GameMode
       RTS
@@ -2688,12 +2688,12 @@ loc_BANK2_8DBA:
       BEQ     loc_BANK2_8DDB
 
       LDA     byte_RAM_EE
-      AND     #4
+      AND     #$04
       BNE     loc_BANK2_8E05
 
       INC     CrystalAndHawkmouthOpenSize
       LDA     byte_RAM_10
-      AND     #3
+      AND     #$03
       BNE     loc_BANK2_8DD8
 
       DEC     byte_RAM_711F

@@ -1845,7 +1845,7 @@ ENDIF
 loc_BANKF_E69F:
       LDA     #PlayerHealth_2_HP
       STA     PlayerHealth
-      LDA     #0
+      LDA     #$00
       STA     PlayerMaxHealth
       STA     KeyUsed
       STA     Mushroom1upPulled
@@ -1996,7 +1996,7 @@ loc_BANKF_E75A:
       STA     ScreenUpdateIndex
       LDA     #Music2_SlotWarpFanfare
       STA     MusicQueue2
-      JSR     sub_BANKF_E94A
+      JSR     Delay160Frames
 
       JSR     InitializeSomeLevelStuff
 
@@ -2005,17 +2005,26 @@ loc_BANKF_E75A:
 ; ---------------------------------------------------------------------------
 
 EndOfLevel:
+      ; Stop the music
       LDA     #Music2_StopMusic ; Stop music
       STA     MusicQueue2
-      LDX     CurrentCharacter ; Increase the current character's
-      INC     CharacterLevelsCompleted,X ; "contribution" counter
-      LDA     CurrentLevel ; Check if we've just completed
-      CMP     #$13 ; the final level
-      BNE     EndOfLevelSlotMachine ; Jump to slots if not final level
 
-      JMP     EndingSceneRoutine ; Otherwise, do ending
+      ; Increase current characters "contribution" counter
+      LDX     CurrentCharacter
+      INC     CharacterLevelsCompleted,X
 
-; ---------------------------------------------------------------------------
+      ; Check if we've completed the final level
+      LDA     CurrentLevel
+      CMP     #$13
+IFNDEF DISABLE_BONUS_CHANCE
+      ; If not, go to bonus chance and proceed to the next level
+      BNE     EndOfLevelSlotMachine
+ENDIF
+IFDEF DISABLE_BONUS_CHANCE
+      BNE     GoToNextLevel
+ENDIF
+      ; Otherwise, display the ending
+      JMP     EndingSceneRoutine
 
 EndOfLevelSlotMachine:
       STY     PlayerCurrentSize
@@ -2056,7 +2065,7 @@ EndOfLevelSlotMachine:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_E7F2:
-      LDA     #3
+      LDA     #$03
       STA     ObjectXLo+3
       STA     ObjectXLo+4
       STA     ObjectXLo+5
@@ -2066,11 +2075,11 @@ loc_BANKF_E7FD:
       LDA     SlotMachineCoins
       BNE     StartSlotMachine
 
-loc_BANKF_E802:
+GoToNextLevel:
       LDY     CurrentWorld
       LDA     WorldStartingLevel+1,Y
       SEC
-      SBC     #1
+      SBC     #$01
       CMP     CurrentLevel
       BNE     loc_BANKF_E81E
 
@@ -2087,7 +2096,7 @@ loc_BANKF_E81E:
       JSR     sub_BANKF_F6A1
 
       LDA     CurrentLevel
-      LDY     #0
+      LDY     #$00
 
 loc_BANKF_E826:
       INY
@@ -2232,7 +2241,7 @@ SlotMachineLoseFanfare:
 
       JSR     sub_BANKF_EA68
 
-      JSR     sub_BANKF_E94A
+      JSR     Delay160Frames
 
 loc_BANKF_E90C:
       LDA     #ScreenUpdateBuffer_RAM_6e4
@@ -2249,7 +2258,7 @@ sub_BANKF_E916:
       LSR     A
       LSR     A
       LSR     A
-      AND     #1
+      AND     #$01
       TAY
       RTS
 
@@ -2258,60 +2267,52 @@ sub_BANKF_E916:
 ; ---------------------------------------------------------------------------
 
 NoCoinsForSlotMachine:
-      JSR     sub_BANKF_E946
+      JSR     Delay80Frames
 
       LDA     #Music2_DeathJingle
       STA     MusicQueue2
-      STA     byte_RAM_6
 
+      STA     byte_RAM_6
 loc_BANKF_E92A:
       LDA     byte_RAM_6
       AND     #$01
       TAY
       LDA     byte_BANKF_E9E1,Y
       STA     ScreenUpdateIndex
-      LDA     #$A
-      STA     byte_RAM_7
 
+      LDA     #$0A
+      STA     byte_RAM_7
 loc_BANKF_E938:
       JSR     WaitForNMI_TurnOnPPU
-
       DEC     byte_RAM_7
       BNE     loc_BANKF_E938
 
       DEC     byte_RAM_6
       BPL     loc_BANKF_E92A
 
-      JMP     loc_BANKF_E802
+      JMP     GoToNextLevel
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_E946:
+Delay80Frames:
       LDA     #$50
-      BNE     loc_BANKF_E94C
+      BNE     DelayFrames
 
-; End of function sub_BANKF_E946
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_E94A:
+Delay160Frames:
       LDA     #$A0
 
-loc_BANKF_E94C:
+DelayFrames:
       STA     byte_RAM_7
-
-loc_BANKF_E94E:
+DelayFrames_Loop:
       JSR     WaitForNMI_TurnOnPPU
-
       DEC     byte_RAM_7
-      BNE     loc_BANKF_E94E
+      BNE     DelayFrames_Loop
 
       RTS
 
-; End of function sub_BANKF_E94A
 
-; ---------------------------------------------------------------------------
-
+;
+; Do the ending!
+;
 EndingSceneRoutine:
       JSR     SetScrollXYTo0
 
@@ -2474,7 +2475,7 @@ loc_BANKF_EA43:
       CPY     #$10
       BCC     loc_BANKF_EA43
 
-      LDY     #0
+      LDY     #$00
       LDA     PPUSTATUS
       LDA     #$3F
       STA     PPUADDR
