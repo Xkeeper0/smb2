@@ -1019,7 +1019,7 @@ InitializeSomeLevelStuff:
       STA     PlayerState
       STA     PlayerState_Init
       STA     InSubspaceOrJar
-      STA     byte_RAM_4EE
+      STA     InJarType
       STA     StopwatchTimer
       STA     PlayerCurrentSize
       RTS
@@ -3493,7 +3493,7 @@ LevelInitialization_AreaSetupLoop:
       STA     PlayerState
       LDA     #$00
       STA     InSubspaceOrJar
-      STA     byte_RAM_4EE
+      STA     InJarType
       STA     PlayerInAir
       STA     DamageInvulnTime
 
@@ -3556,7 +3556,7 @@ loc_BANKF_F254:
       LDA     PlayerYHi
       BPL     locret_BANKF_F297
 
-      LDA     byte_RAM_4EE
+      LDA     InJarType
       BEQ     loc_BANKF_F298
 
       LDA     PlayerYLo
@@ -3567,7 +3567,7 @@ loc_BANKF_F254:
 
       PLA
       PLA
-      LDY     #0
+      LDY     #$00
       STY     PlayerDucking
       STY     PlayerYAccel
       STY     PlayerXAccel
@@ -3575,9 +3575,9 @@ loc_BANKF_F254:
       STA     PlayerState
       LDA     #SpriteAnimation_Ducking
       STA     PlayerAnimationFrame
-      LDA     byte_RAM_4EE
-      STY     byte_RAM_4EE
-      CMP     #2
+      LDA     InJarType
+      STY     InJarType
+      CMP     #$02
       BNE     loc_BANKF_F286
 
       STA     DoAreaTransition

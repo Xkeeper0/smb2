@@ -2651,7 +2651,7 @@ loc_BANK2_8D8A:
       DEC     CrystalAndHawkmouthOpenSize
       BNE     loc_BANK2_8D78
 
-      LDA     #0
+      LDA     #$00
       STA     HawkmouthClosing
       LDA     #TransitionType_Door
       STA     TransitionType
@@ -2659,13 +2659,13 @@ loc_BANK2_8D8A:
 
       LDY     byte_RAM_629
       LDA     CurrentWorld
-      CMP     #6
+      CMP     #$06
       BNE     loc_BANK2_8DAC
 
       INY
 
 loc_BANK2_8DAC:
-      CPY     #2
+      CPY     #$02
       BCC     loc_BANK2_8DB4
 
       INC     DoAreaTransition
@@ -10411,11 +10411,11 @@ loc_BANK3_B71D:
       BNE     locret_BANK3_B760
 
       LDA     Player1JoypadPress
-      AND     #8
+      AND     #ControllerInput_Up
       BEQ     locret_BANK3_B760
 
       LDA     PlayerCollision
-      AND     #4
+      AND     #CollisionFlags_Down
       BEQ     locret_BANK3_B760
 
       LDA     byte_RAM_426

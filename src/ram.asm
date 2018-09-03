@@ -1546,8 +1546,11 @@ GameMode:
       ; $04+: Warp
 ExtraLives:
       .dsb 1 ; $04ed
-byte_RAM_4EE:
+InJarType:
       .dsb 1 ; $04ee
+      ; $00: None
+      ; $01: Default jar
+      ; $02: Pointer jar
 unk_RAM_4EF:
       .dsb 1 ; $04ef
       .dsb 1 ; $04f0

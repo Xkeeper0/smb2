@@ -255,16 +255,13 @@ locret_BANKA_83C8:
 
 ; End of function DrawTitleCardWorldImage
 
-; ---------------------------------------------------------------------------
 StatOffsets:
-; These offets are relative to MarioStats and used
-; to determine where each character's stats begin
-; @TODO Have assembler calculate using $ - MarioStats
-      .BYTE $00 ; Mario stats offset
-      .BYTE $45 ; Princess stats offset
-      .BYTE $17 ; Toad stats offset
-      .BYTE $2E ; Luigi stats offset
+      .BYTE (MarioStats - PlayerStats)
+      .BYTE (PrincessStats - PlayerStats)
+      .BYTE (ToadStats - PlayerStats)
+      .BYTE (LuigiStats - PlayerStats)
 
+PlayerStats:
 MarioStats:
       .BYTE $00 ; Pick-up Speed, frame 1/6 - pulling
       .BYTE $04 ; Pick-up Speed, frame 2/6 - pulling
@@ -413,7 +410,7 @@ MysteryData14439:
 CopyCharacterStatsAndStuff:
       LDX     CurrentCharacter
       LDY     StatOffsets,X
-      LDX     #0
+      LDX     #$00
 
 loc_BANKA_8458:
       LDA     MarioStats,Y

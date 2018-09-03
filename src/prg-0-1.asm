@@ -1901,10 +1901,10 @@ HandlePlayerState_Lifting:
 
       LDX     byte_RAM_42D
       LDY     ObjectBeingCarriedTimer,X
-      CPY     #2
+      CPY     #$02
       BCC     loc_BANK0_8ABB
 
-      CPY     #7
+      CPY     #$07
       BNE     loc_BANK0_8A9D
 
       LDA     #DPCM_ItemPull
@@ -1915,7 +1915,7 @@ loc_BANK0_8A9D:
       LDA     PlayerLiftFrames,Y
       STA     PlayerAnimationFrame
       LDA     EnemyState,X
-      CMP     #6
+      CMP     #$06
       BEQ     loc_BANK0_8AB0
 
       LDA     ObjectType,X
@@ -1923,7 +1923,7 @@ loc_BANK0_8A9D:
       BNE     loc_BANK0_8AB5
 
 loc_BANK0_8AB0:
-      LDA     loc_BANK0_8ABF+1,Y
+      LDA     PlayerLiftTimer-2,Y
       BPL     loc_BANK0_8AB8
 
 loc_BANK0_8AB5:
@@ -1945,7 +1945,8 @@ loc_BANK0_8ABF:
 locret_BANK0_8AC1:
       RTS
 
-; ---------------------------------------------------------------------------
+
+PlayerLiftTimer:
       .BYTE $00
       .BYTE $01
       .BYTE $01
@@ -2087,43 +2088,38 @@ HandlePlayerState_GoingDownJar:
       STA     PlayerAttributes
       INC     PlayerYLo
       LDA     PlayerYLo
-      AND     #$F
-      BNE     locret_BANK0_8B77
+      AND     #$0F
+      BNE     HandlePlayerState_GoingDownJar_Exit
 
       STA     PlayerState
       JSR     DoAreaReset
 
       PLA
       PLA
-      JSR     sub_BANK0_940E
+      JSR     StashPlayerPosition
 
       LDA     #TransitionType_Jar
       STA     TransitionType
-      LDA     byte_RAM_4EE
-      BNE     loc_BANK0_8B6C
+      LDA     InJarType
+      BNE     HandlePlayerState_GoingDownJar_NonWarp
 
       LDA     #GameMode_Warp
       STA     GameMode
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK0_8B6C:
-      CMP     #1
-      BEQ     loc_BANK0_8B74
+HandlePlayerState_GoingDownJar_NonWarp:
+      CMP     #$01
+      BEQ     HandlePlayerState_GoingDownJar_Regular
 
       STA     DoAreaTransition
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK0_8B74:
+HandlePlayerState_GoingDownJar_Regular:
       STA     InSubspaceOrJar
 
-locret_BANK0_8B77:
+HandlePlayerState_GoingDownJar_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
 
 HandlePlayerState_ExitingJar:
       LDA     #ObjAttrib_BehindBackground
@@ -2141,15 +2137,14 @@ locret_BANK0_8B86:
 ; ---------------------------------------------------------------------------
 byte_BANK0_8B87:
       .BYTE $00
-
       .BYTE $FF
+
 byte_BANK0_8B89:
       .BYTE $EE
-
       .BYTE $DE
+
 byte_BANK0_8B8B:
       .BYTE $09
-
       .BYTE $A1
 ; ---------------------------------------------------------------------------
 
@@ -2157,7 +2152,7 @@ HandlePlayerState_ClimbingAreaTransition:
       LDA     PlayerYAccel
       ASL     A
       ROL     A
-      AND     #1
+      AND     #$01
       TAY
       LDA     PlayerScreenYHi
       CMP     byte_BANK0_8B87,Y
@@ -2241,7 +2236,6 @@ locret_BANK0_8BEB:
 ; ---------------------------------------------------------------------------
 byte_BANK0_8BEC:
       .BYTE $05
-
       .BYTE $0A
       .BYTE $0F
       .BYTE $14
@@ -2253,14 +2247,14 @@ HandlePlayerState_ChangingSize:
       BEQ     loc_BANK0_8C0D
 
       INC     DamageInvulnTime
-      LDY     #4
+      LDY     #$04
 
 loc_BANK0_8BF9:
       CMP     byte_BANK0_8BEC,Y
       BNE     loc_BANK0_8C09
 
       LDA     PlayerCurrentSize
-      EOR     #1
+      EOR     #$01
 
 loc_BANK0_8C03:
       STA     PlayerCurrentSize
@@ -2288,9 +2282,9 @@ loc_BANK0_8C15:
       RTS
 
 ; ---------------------------------------------------------------------------
+
 byte_BANK0_8C18:
       .BYTE $FE
-
       .BYTE $02
 
 ; =============== S U B R O U T I N E =======================================
@@ -2519,16 +2513,13 @@ PlayerGravity_Exit:
       RTS
 
 
-; ---------------------------------------------------------------------------
-
-
 FloatingYVelocity:
       .BYTE $FC
       .BYTE $00
       .BYTE $04
       .BYTE $00
 
-byte_BANK0_8D2A:
+PlayerXDeceleration:
       .BYTE $FD
       .BYTE $03
 
@@ -2549,7 +2540,7 @@ sub_BANK0_8D2C:
       ROL     A
       TAY
       LDA     PlayerXAccel
-      ADC     byte_BANK0_8D2A,Y
+      ADC     PlayerXDeceleration,Y
       TAX
       EOR     byte_BANK0_8C18,Y
       BMI     loc_BANK0_8D4B
@@ -3389,20 +3380,16 @@ loc_BANK0_9123:
 loc_BANK0_912D:
       LDA     PlayerXLo
       CLC
-
-loc_BANK0_9130:
-      ADC     #4
-      AND     #$F
-      CMP     #8
+      ADC     #$04
+      AND     #$0F
+      CMP     #$08
       BCS     loc_BANK0_917C
 
-      LDA     #0
+      LDA     #$00
       STA     PlayerXAccel
       LDA     #PlayerState_GoingDownJar
       STA     PlayerState
-
-loc_BANK0_9140:
-      STY     byte_RAM_4EE
+      STY     InJarType
 
 ; End of function sub_BANK0_910C
 
@@ -3495,10 +3482,10 @@ loc_BANK0_917C:
 
 loc_BANK0_91AE:
       LDX     InSubspaceOrJar
-      CPX     #2
+      CPX     #$02
       BEQ     loc_BANK0_91BF
 
-      LDY     #4
+      LDY     #$04
 
 ; check to see if the tile matches one of the door tiles
 loc_BANK0_91B7:
@@ -4016,11 +4003,10 @@ byte_BANK0_940A:
       .BYTE $20
       .BYTE $24
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_940E:
+StashPlayerPosition:
       LDA     InSubspaceOrJar
-      BNE     locret_BANK0_9427
+      BNE     StashPlayerPosition_Exit
 
       LDA     PlayerXHi
       STA     PlayerXHi_Backup
@@ -4031,12 +4017,9 @@ sub_BANK0_940E:
       LDA     PlayerYLo
       STA     PlayerYLo_Backup
 
-locret_BANK0_9427:
+StashPlayerPosition_Exit:
       RTS
 
-; End of function sub_BANK0_940E
-
-; =============== S U B R O U T I N E =======================================
 
 ; player placement after exiting subspace (maybe other times?)
 sub_BANK0_9428:
@@ -4062,7 +4045,7 @@ sub_BANK0_9428:
       LDA     TransitionType
       SEC
       SBC     #TransitionType_SubSpace
-      BNE     locret_BANK0_9427
+      BNE     StashPlayerPosition_Exit
 
       ; resetting these to zero (A=$00, otherwise we would have branched)
       STA     PlayerState
@@ -4084,7 +4067,7 @@ sub_BANK0_946D:
       CMP     #TransitionType_Jar
       BNE     loc_BANK0_947F
 
-      LDA     byte_RAM_4EE
+      LDA     InJarType
       BNE     loc_BANK0_947F
 
       JSR     sub_BANK0_9428
