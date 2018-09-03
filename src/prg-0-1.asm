@@ -332,9 +332,12 @@ locret_BANK0_81A0:
 ; ---------------------------------------------------------------------------
       .BYTE $01
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_81A2:
+;
+; Stashes screen scrolling information so that it can be restored after leaving
+; the pause screen
+;
+StashScreenScrollPosition:
       LDA     PPUScrollYMirror
       STA     byte_RAM_509
       LDA     PPUScrollXMirror
@@ -351,14 +354,13 @@ sub_BANK0_81A2:
       STA     byte_RAM_514
       LDA     byte_RAM_E1
       STA     byte_RAM_517
-      LDA     #0
+      LDA     #$00
       STA     PPUScrollYMirror
       STA     PPUScrollXMirror
       STA     byte_RAM_C8
       STA     byte_RAM_C9
       RTS
 
-; End of function sub_BANK0_81A2
 
 ; =============== S U B R O U T I N E =======================================
 

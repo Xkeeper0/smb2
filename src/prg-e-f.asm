@@ -894,9 +894,14 @@ SetScrollXYTo0:
 
 ; End of function SetScrollXYTo0
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_E166:
+;
+; Clears the screen and resets the scroll position for the title card
+;
+; This is used for the character select screen as well, but that has a few PPU
+; changes of its own.
+;
+ResetScreenForTitleCard:
       JSR     EnableNMI
 
       JSR     WaitForNMI_TurnOffPPU
@@ -907,18 +912,18 @@ sub_BANKF_E166:
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
-      LDA     #0
+      LDA     #$00
       JSR     ChangeNametableMirroring
 
       JSR     ClearNametablesAndSprites
 
       RTS
 
-; End of function sub_BANKF_E166
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_E17F:
+;
+; Enables NMI and draws the background of the pause screen
+;
+EnableNMI_PauseTitleCard:
       JSR     EnableNMI
 
       JSR     WaitForNMI_TurnOffPPU
@@ -933,34 +938,47 @@ sub_BANKF_E17F:
       STA     ScreenUpdateIndex
       JMP     WaitForNMI
 
-; End of function sub_BANKF_E17F
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_E198:
+;
+; Draws world info for the title card and pause screens
+;
+; Input
+;   X = CurrentWorld
+;   Y = CurrentLevel (not actually used)
+;
+DisplayLevelTitleCardText:
+      ; Level number (unused)
+      ; In Doki Doki Panic, this was displayed as a page number, keeping with
+      ; the storybook motif.
       INY
       TYA
-      JSR     sub_BANKF_EA8E
+      JSR     GetTwoDigitNumberTiles
 
+      ; World number
       INX
       TXA
       ORA     #$D0
       STA     byte_RAM_717D
+
+      ; Extra Life number
       LDY     ExtraLives
       DEY
       TYA
-      JSR     sub_BANKF_EA8E
-
+      JSR     GetTwoDigitNumberTiles
       STY     byte_RAM_7191
       STA     byte_RAM_7192
-      LDY     #6
-      LDA     #$FB
 
+      ; Reset level dots
+      LDY     #$06
+      LDA     #$FB
 loc_BANKF_E1B6:
       STA     unk_RAM_716B,Y
       DEY
       BPL     loc_BANKF_E1B6
 
+      ; Level number
       LDY     CurrentWorld
       LDA     CurrentLevel
       SEC
@@ -969,13 +987,15 @@ loc_BANKF_E1B6:
       CLC
       ADC     #$D1
       STA     byte_RAM_717F
+
       LDA     WorldStartingLevel+1,Y
       SEC
       SBC     WorldStartingLevel,Y
       STA     byte_RAM_3
-      LDX     #0
-      LDY     #0
 
+      ; Level dots
+      LDX     #$00
+      LDY     #$00
 loc_BANKF_E1DC:
       LDA     #$FD
       CPX     byte_RAM_629
@@ -991,11 +1011,11 @@ loc_BANKF_E1E5:
       CPX     byte_RAM_3
       BCC     loc_BANKF_E1DC
 
-      LDA     #8
+      ; Draw the card
+      LDA     #ScreenUpdateBuffer_RAM_7168
       STA     ScreenUpdateIndex
       RTS
 
-; End of function sub_BANKF_E198
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1063,12 +1083,11 @@ DisplayLevelTitleCardAndMore:
       JSR     HideAllSprites
 
       LDY     #$23
-
-loc_BANKF_E245:
+DisplayLevelTitleCardAndMore_TitleCardPaletteLoop:
       LDA     TitleCardPalettes,Y
       STA     PPUBuffer_55F,Y
       DEY
-      BPL     loc_BANKF_E245
+      BPL     DisplayLevelTitleCardAndMore_TitleCardPaletteLoop
 
       LDA     #ScreenUpdateBuffer_RAM_55F ; Then tell it to dump that into the PPU
       STA     ScreenUpdateIndex
@@ -1084,15 +1103,15 @@ loc_BANKF_E245:
 
       JSR     RestorePlayerToFullHealth
 
+      ; Pause for the title card
       LDA     #$50
       STA     byte_RAM_2
-
-loc_BANKF_E269:
+PreLevelTitleCard_PauseLoop:
       JSR     WaitForNMI
-
       DEC     byte_RAM_2
-      BPL     loc_BANKF_E269
+      BPL     PreLevelTitleCard_PauseLoop
 
+PreStartLevel:
       JSR     SetStack100Gameplay
 
       JSR     WaitForNMI_TurnOffPPU
@@ -1110,14 +1129,14 @@ loc_BANKF_E269:
 
       RTS
 
-; End of function DisplayLevelTitleCardAndMore
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Runs the Character Select menu
+;
 DoCharacterSelectMenu:
       JSR     WaitForNMI
 
-      LDA     #0
+      LDA     #$00
       STA     PPUMASK
       JSR     DisableNMI
 
@@ -1128,7 +1147,7 @@ DoCharacterSelectMenu:
 
       JSR     CopyCharacterStatsAndStuff
 
-      JSR     sub_BANKF_E166
+      JSR     ResetScreenForTitleCard
 
       LDA     byte_RAM_636
       CMP     #$A5
@@ -1141,7 +1160,7 @@ DoCharacterSelectMenu:
       STA     byte_RAM_636
 
 loc_BANKF_E2B2:
-      JSR     sub_BANKF_E17F
+      JSR     EnableNMI_PauseTitleCard
 
       JSR     DisableNMI
 
@@ -1165,7 +1184,7 @@ loc_BANKF_E2CA:
 
       LDX     CurrentWorld
       LDY     CurrentLevel
-      JSR     sub_BANKF_E198
+      JSR     DisplayLevelTitleCardText
 
       JSR     WaitForNMI
 
@@ -1291,7 +1310,7 @@ loc_BANKF_E3AE:
       STA     SoundEffectQueue1
       LDX     CurrentWorld
       LDY     CurrentLevel
-      JSR     sub_BANKF_E198
+      JSR     DisplayLevelTitleCardText
 
       LDA     #$40
       STA     byte_RAM_10
@@ -1552,7 +1571,7 @@ loc_BANKF_E502:
 ; ---------------------------------------------------------------------------
 
 ShowPauseScreen:
-      JSR     sub_BANKF_E9E5
+      JSR     PauseScreen_ExtraLife
 
       ; used when running sound queues
       LDA     #Stack100_Pause
@@ -1810,9 +1829,9 @@ loc_BANKF_E665:
       STA     byte_RAM_7180
       LDA     #$48
       STA     byte_RAM_7181
-      LDA     #$15
+      LDA     #ScreenUpdateBuffer_BANKE_DFAF
       STA     byte_RAM_5BD
-      JSR     sub_BANKF_E9F4
+      JSR     PauseScreen_Card
 
 IFNDEF CHARACTER_SELECT_AFTER_DEATH
       JMP     StartLevelAfterTitleCard
@@ -1884,13 +1903,13 @@ loc_BANKF_E6EF:
       CLC
       ADC     #$D0
       STA     byte_RAM_67E
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_8
-      LDA     #6
+      LDA     #ScreenUpdateBuffer_RAM_67B
       DEC     Continues
       BPL     loc_BANKF_E717
 
-      LDA     #1
+      LDA     #$01
       STA     byte_RAM_8
       LDA     #ScreenUpdateBuffer_Text_Retry
 
@@ -1905,13 +1924,13 @@ loc_BANKF_E719:
       BEQ     loc_BANKF_E747
 
       LDA     byte_RAM_8
-      EOR     #1
+      EOR     #$01
       STA     byte_RAM_8
       LDY     Continues
       CPY     #$FF
       BNE     loc_BANKF_E733
 
-      LDA     #1
+      LDA     #$01
       STA     byte_RAM_8
 
 loc_BANKF_E733:
@@ -2247,7 +2266,7 @@ NoCoinsForSlotMachine:
 
 loc_BANKF_E92A:
       LDA     byte_RAM_6
-      AND     #1
+      AND     #$01
       TAY
       LDA     byte_BANKF_E9E1,Y
       STA     ScreenUpdateIndex
@@ -2373,7 +2392,6 @@ byte_BANKF_E9DF:
       .BYTE ScreenUpdateBuffer_RAM_6df
 byte_BANKF_E9E1:
       .BYTE ScreenUpdateBuffer_RAM_693
-
       .BYTE ScreenUpdateBuffer_RAM_6da
 byte_BANKF_E9E3:
       .BYTE ScreenUpdateBuffer_RAM_6bd
@@ -2381,19 +2399,21 @@ byte_BANKF_E9E3:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_E9E5:
-      LDA     #$16
+;
+; Displays extra life info on the pause screen
+;
+PauseScreen_ExtraLife:
+      LDA     #ScreenUpdateBuffer_BANKE_DFA7
       STA     byte_RAM_5BD
       LDA     #$26
       STA     byte_RAM_7180
       LDA     #$C8
       STA     byte_RAM_7181
 
-; End of function sub_BANKF_E9E5
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_E9F4:
+;
+; Loads the palette and graphics for the pause screen to display
+;
+PauseScreen_Card:
       JSR     WaitForNMI_TurnOffPPU
 
       JSR     ChangeTitleCardCHR
@@ -2401,23 +2421,24 @@ sub_BANKF_E9F4:
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK0_81A2
+      JSR     StashScreenScrollPosition
 
+      ; Load title card palette
       LDY     #$23
-
-loc_BANKF_EA04:
+PauseScreen_Card_Loop:
       LDA     TitleCardPalettes,Y
       STA     PPUBuffer_55F,Y
       DEY
-      BPL     loc_BANKF_EA04
+      BPL     PauseScreen_Card_Loop
 
-      JSR     sub_BANKF_E166
+PauseScreen_Card_ScreenReset:
+      JSR     ResetScreenForTitleCard
 
-      JSR     sub_BANKF_E17F
+      JSR     EnableNMI_PauseTitleCard
 
       LDX     CurrentWorld
       LDY     CurrentLevel
-      JSR     sub_BANKF_E198
+      JSR     DisplayLevelTitleCardText
 
       LDA     #$FF
       STA     PPUScrollXMirror
@@ -2427,9 +2448,6 @@ loc_BANKF_EA04:
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
-; End of function sub_BANKF_E9F4
-
-; =============== S U B R O U T I N E =======================================
 
 EnableNMI:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
@@ -2437,7 +2455,6 @@ EnableNMI:
       STA     PPUCTRL
       RTS
 
-; End of function EnableNMI
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2445,7 +2462,7 @@ sub_BANKF_EA33:
       JSR     SetScrollXYTo0
 
       LDA     PPUSTATUS
-      LDY     #0
+      LDY     #$00
       LDA     #$3F
       STA     PPUADDR
       STY     PPUADDR
@@ -2479,7 +2496,7 @@ sub_BANKF_EA68:
       LDY     ExtraLives
       DEY
       TYA
-      JSR     sub_BANKF_EA8E
+      JSR     GetTwoDigitNumberTiles
 
       STY     byte_RAM_599
       STA     byte_RAM_59A
@@ -2499,50 +2516,47 @@ sub_BANKF_EA68:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_EA8E:
-      LDY     #$D0
+;
+; Converts a number to numerical tiles with space for 2 digits
+;
+; Input
+;   A = number to display
+; Output
+;   A = second digit of the number (ones)
+;   Y = first digit of the number (tens)
+;
+GetTwoDigitNumberTiles:
+      LDY     #$D0 ; zero
 
-loc_BANKF_EA90:
-      CMP     #$A
-      BCC     loc_BANKF_EA9A
+GetTwoDigitNumberTiles_TensLoop:
+      ; Count up the tens digit until A < 10
+      CMP     #$0A
+      BCC     GetTwoDigitNumberTiles_Ones
 
-      SBC     #$A
+      SBC     #$0A
       INY
-      JMP     loc_BANKF_EA90
+      JMP     GetTwoDigitNumberTiles_TensLoop
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_EA9A:
+GetTwoDigitNumberTiles_Ones:
       ORA     #$D0
       CPY     #$D0
-      BNE     locret_BANKF_EAA2
+      BNE     GetTwoDigitNumberTiles_Exit
 
       LDY     #$FB
 
-locret_BANKF_EAA2:
+GetTwoDigitNumberTiles_Exit:
       RTS
 
-; End of function sub_BANKF_EA8E
-
-; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_TurnOffPPU:
-      LDA     #0
+      LDA     #$00
       BEQ     _WaitForNMI_StuffPPUMask ; Branch always
-
-; End of function WaitForNMI_TurnOffPPU
-
-; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_TurnOnPPU:
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
 
 _WaitForNMI_StuffPPUMask:
       STA     PPUMaskMirror
-
-; End of function WaitForNMI_TurnOnPPU
-
-; =============== S U B R O U T I N E =======================================
 
 WaitForNMI:
       LDA     ScreenUpdateIndex
@@ -2880,7 +2894,7 @@ loc_BANKF_EC4B:
       STA     PPUBuffer_301
 
 loc_BANKF_EC55:
-      LDA     #0
+      LDA     #ScreenUpdateBuffer_RAM_301
       STA     ScreenUpdateIndex
       JSR     UpdateJoypads
 
@@ -3502,9 +3516,6 @@ LevelInitialization_AreaSetupLoop:
       STA     PlayerInAir
       STA     DamageInvulnTime
 
-; End of function LevelInitialization
-
-; =============== S U B R O U T I N E =======================================
 
 RestorePlayerToFullHealth:
       LDY     PlayerMaxHealth ; Get player's current max HP
@@ -3512,12 +3523,14 @@ RestorePlayerToFullHealth:
       STA     PlayerHealth
       RTS
 
-; End of function RestorePlayerToFullHealth
 
-; ---------------------------------------------------------------------------
 PlayerHealthValueByHeartCount:
-      .BYTE PlayerHealth_2_HP, PlayerHealth_3_HP, PlayerHealth_4_HP; Max hearts = (hearts - 2), value is 0,$01,2
+      .BYTE PlayerHealth_2_HP
+      .BYTE PlayerHealth_3_HP
+      .BYTE PlayerHealth_4_HP
+; Max hearts = (hearts - 2), value is 0,$01,2
 ; This table determines what the player's HP is set to
+
 byte_BANKF_F225:
       .BYTE $00
 
