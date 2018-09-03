@@ -3807,7 +3807,7 @@ loc_BANKF_F350:
       STA     SpriteDMAArea+$23
       STA     SpriteDMAArea+$2B
       CLC
-      ADC     #8
+      ADC     #$08
       STA     SpriteDMAArea+$27
       STA     SpriteDMAArea+$2F
       LDA     PlayerScreenYLo
@@ -3815,7 +3815,7 @@ loc_BANKF_F350:
       LDA     PlayerScreenYHi
       STA     byte_RAM_1
       LDY     PlayerAnimationFrame
-      CPY     #4
+      CPY     #$04
       BEQ     loc_BANKF_F382
 
       LDA     PlayerCurrentSize
@@ -3823,7 +3823,7 @@ loc_BANKF_F350:
 
       LDA     byte_RAM_0
       CLC
-      ADC     #8
+      ADC     #$08
       STA     byte_RAM_0
       BCC     loc_BANKF_F382
 
@@ -3834,7 +3834,7 @@ loc_BANKF_F382:
       CMP     #Character_Princess
       BEQ     loc_BANKF_F394
 
-      CPY     #0
+      CPY     #$00
       BNE     loc_BANKF_F394
 
       LDA     byte_RAM_0

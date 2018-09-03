@@ -478,6 +478,7 @@ loc_BANKA_84B6:
       DEY
       BPL     loc_BANKA_84B6
 
+      ; Collision data
       LDY     #$49
 loc_BANKA_84C1:
       LDA     byte_BANKF_F607,Y
