@@ -24,6 +24,9 @@ PRESERVE_UNUSED_SPACE = 1
 ; Show all 8 frames of CHR cycling animation
 ; FIX_CHR_CYCLE = 1
 
+; Go to the Charater Select screen after death
+; CHARACTER_SELECT_AFTER_DEATH = 1
+
 ; Enables additional level engine features
 ; LEVEL_ENGINE_UPGRADES = 1
 

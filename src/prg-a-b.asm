@@ -413,9 +413,7 @@ CopyCharacterStatsAndStuff:
       LDX     #$00
 
 loc_BANKA_8458:
-      LDA     MarioStats,Y
-
-loc_BANKA_845B:
+      LDA     PlayerStats,Y
       STA     PickupSpeedAnimation,X
       INY
       INX
@@ -426,18 +424,16 @@ loc_BANKA_845B:
       ASL     A
       ASL     A
       TAY
-      LDX     #0
-
+      LDX     #$00
 loc_BANKA_846B:
       LDA     MarioPalette,Y
       STA     RestorePlayerPalette0,X
       INY
       INX
-      CPX     #4
+      CPX     #$04
       BCC     loc_BANKA_846B
 
       LDY     #$4C
-
 loc_BANKA_8479:
       LDA     PlayerSelectPalettes,Y
       STA     PPUBuffer_55F,Y
@@ -446,19 +442,14 @@ loc_BANKA_8479:
       BNE     loc_BANKA_8479
 
       LDY     #$B6
-
 loc_BANKA_8486:
       LDA     BonusChanceReel1Order,Y
       STA     SlotMachineReelOrder1RAM,Y
       DEY
       CPY     #$FF
-
-loc_BANKA_848F:
       BNE     loc_BANKA_8486
 
-loc_BANKA_8491:
       LDY     #$63
-
 loc_BANKA_8493:
       LDA     Text_Unknown5,Y
       STA     PPUBuffer_7168,Y
@@ -467,7 +458,6 @@ loc_BANKA_8493:
       BNE     loc_BANKA_8493
 
       LDY     #$17
-
 loc_BANKA_84A0:
       LDA     MysteryData14439,Y
       STA     unk_RAM_7150,Y
@@ -475,7 +465,6 @@ loc_BANKA_84A0:
       BPL     loc_BANKA_84A0
 
       LDY     #$4F
-
 loc_BANKA_84AB:
       LDA     byte_BANKF_F099,Y
       STA     unk_RAM_7100,Y
@@ -483,7 +472,6 @@ loc_BANKA_84AB:
       BPL     loc_BANKA_84AB
 
       LDY     #$03
-
 loc_BANKA_84B6:
       LDA     byte_BANKA_84E1,Y
       STA     byte_RAM_71CC,Y
@@ -491,7 +479,6 @@ loc_BANKA_84B6:
       BPL     loc_BANKA_84B6
 
       LDY     #$49
-
 loc_BANKA_84C1:
       LDA     byte_BANKF_F607,Y
       STA     unk_RAM_71D1,Y
@@ -499,7 +486,6 @@ loc_BANKA_84C1:
       BPL     loc_BANKA_84C1
 
       LDY     #$20
-
 loc_BANKA_84CC:
       LDA     byte_BANKF_FA7D,Y
       STA     PPUBuffer_721B,Y
@@ -507,7 +493,6 @@ loc_BANKA_84CC:
       BPL     loc_BANKA_84CC
 
       LDY     #6
-
 loc_BANKA_84D7:
       LDA     byte_BANKA_84E5,Y
       STA     unk_RAM_7265,Y

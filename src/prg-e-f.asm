@@ -1378,15 +1378,15 @@ StartCharacterSelectMenu:
 
       LDA     #$FF
       STA     CurrentMusicIndex
-      BNE     loc_BANKF_E43B ; Branch always?
+      BNE     StartLevel ; Branch always?
 
-loc_BANKF_E435:
+CharacterSelectMenu:
       JSR     DoCharacterSelectMenu
 
-loc_BANKF_E438:
+StartLevelAfterTitleCard:
       JSR     DisplayLevelTitleCardAndMore
 
-loc_BANKF_E43B:
+StartLevel:
       JSR     WaitForNMI_TurnOffPPU
 
       LDA     #$B0
@@ -1489,9 +1489,9 @@ loc_BANKF_E4B9:
 
       JSR     sub_BANKF_F1AE
 
-      LDA     #0
+      LDA     #$00
       STA     DoAreaTransition
-      JMP     loc_BANKF_E43B
+      JMP     StartLevel
 
 ; ---------------------------------------------------------------------------
 
@@ -1545,9 +1545,9 @@ loc_BANKF_E502:
 
       JSR     sub_BANKF_F1AE
 
-      LDA     #0
+      LDA     #$00
       STA     DoAreaTransition
-      JMP     loc_BANKF_E43B
+      JMP     StartLevel
 
 ; ---------------------------------------------------------------------------
 
@@ -1814,7 +1814,12 @@ loc_BANKF_E665:
       STA     byte_RAM_5BD
       JSR     sub_BANKF_E9F4
 
-      JMP     loc_BANKF_E438
+IFNDEF CHARACTER_SELECT_AFTER_DEATH
+      JMP     StartLevelAfterTitleCard
+ENDIF
+IFDEF CHARACTER_SELECT_AFTER_DEATH
+      JMP     CharacterSelectMenu
+ENDIF
 
 ; ---------------------------------------------------------------------------
 
@@ -1976,7 +1981,7 @@ loc_BANKF_E75A:
 
       JSR     InitializeSomeLevelStuff
 
-      JMP     loc_BANKF_E435
+      JMP     CharacterSelectMenu
 
 ; ---------------------------------------------------------------------------
 
@@ -2091,7 +2096,7 @@ loc_BANKF_E826:
       STY     CurrentMusicIndex
       JSR     SetStack100Gameplay
 
-      JMP     loc_BANKF_E435
+      JMP     CharacterSelectMenu
 
 ; ---------------------------------------------------------------------------
 

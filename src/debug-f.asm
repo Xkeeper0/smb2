@@ -85,4 +85,4 @@ Debug_Activate:
       PLP
       PLA
       PLA
-      JMP loc_BANKF_E438
+      JMP StartLevelWithTitleCard
