@@ -917,11 +917,11 @@ CreateWorldSpecificTile_LookUpTile:
       STY     byte_RAM_8
       LDX     CurrentWorld
       LDA     WorldObjectTilePointersLo,X
-      STA     word_RAM_C
+      STA     byte_RAM_C
       LDA     WorldObjectTilePointersHi,X
-      STA     word_RAM_C+1
+      STA     byte_RAM_D
       LDY     byte_RAM_7
-      LDA     (word_RAM_C),Y
+      LDA     (byte_RAM_C),Y
       LDY     byte_RAM_8
       LDX     byte_RAM_7
 
@@ -1791,7 +1791,7 @@ StarBackgroundTiles:
 
 CreateObject_StarBackground:
       LDA     byte_RAM_E8
-      STA     word_RAM_C+1
+      STA     byte_RAM_D
       LDA     #$80
       STA     byte_RAM_A
       LDA     #$31
@@ -1814,7 +1814,7 @@ loc_BANK6_8E56:
       TAY
       JSR     IncrementAreaXOffset
 
-      LDA     word_RAM_C+1
+      LDA     byte_RAM_D
       STA     byte_RAM_E8
       CMP     #$A
       BNE     loc_BANK6_8E56
@@ -2652,7 +2652,7 @@ ENDIF
 ReadWorldBackgroundColor:
       ; stash X and Y registers
       STY     byte_RAM_E
-      STX     word_RAM_C+1
+      STX     byte_RAM_D
       ; look up the address of the current world's palette
       LDY     CurrentWorld
       LDA     WorldBackgroundPalettePointersLo,Y
@@ -2660,11 +2660,11 @@ ReadWorldBackgroundColor:
       LDA     WorldBackgroundPalettePointersHi,Y
       STA     byte_RAM_8
       ; load the color
-      LDY     word_RAM_C+1
+      LDY     byte_RAM_D
       LDA     (byte_RAM_7),Y
       ; restore prior X and Y registers
       LDY     byte_RAM_E
-      LDX     word_RAM_C+1
+      LDX     byte_RAM_D
       RTS
 
 ;
@@ -2678,7 +2678,7 @@ ReadWorldBackgroundColor:
 ReadWorldSpriteColor:
       ; stash X and Y registers
       STY     byte_RAM_E
-      STX     word_RAM_C+1
+      STX     byte_RAM_D
       ; look up the address of the current world's palette
       LDY     CurrentWorld
       LDA     WorldSpritePalettePointersLo,Y
@@ -2686,11 +2686,11 @@ ReadWorldSpriteColor:
       LDA     WorldSpritePalettePointersHi,Y
       STA     byte_RAM_8
       ; load the color
-      LDY     word_RAM_C+1
+      LDY     byte_RAM_D
       LDA     (byte_RAM_7),Y
       ; restore prior X and Y registers
       LDY     byte_RAM_E
-      LDX     word_RAM_C+1
+      LDX     byte_RAM_D
       RTS
 
 ;
@@ -2828,7 +2828,7 @@ loc_BANK6_9439:
       LDA     #$00
       STA     byte_RAM_E6
       LDA     byte_RAM_E8
-      STA     word_RAM_C+1
+      STA     byte_RAM_D
       JSR     SetTileOffsetAndAreaPageAddr
 
       LDY     byte_RAM_E7
@@ -3816,32 +3816,32 @@ WriteGroundSetTiles_IncrementYOffset:
 
 
 ReadGroundTileHorizontal:
-      STX     word_RAM_C
-      STY     word_RAM_C+1
+      STX     byte_RAM_C
+      STY     byte_RAM_D
       LDX     CurrentWorld
       LDA     GroundTilesHorizontalLo,X
       STA     byte_RAM_7
       LDA     GroundTilesHorizontalHi,X
       STA     byte_RAM_8
-      LDY     word_RAM_C
+      LDY     byte_RAM_C
       LDA     (byte_RAM_7),Y
-      LDX     word_RAM_C
-      LDY     word_RAM_C+1
+      LDX     byte_RAM_C
+      LDY     byte_RAM_D
       RTS
 
 
 ReadGroundTileVertical:
-      STX     word_RAM_C
-      STY     word_RAM_C+1
+      STX     byte_RAM_C
+      STY     byte_RAM_D
       LDX     CurrentWorld
       LDA     GroundTilesVerticalLo,X
       STA     byte_RAM_7
       LDA     GroundTilesVerticalHi,X
       STA     byte_RAM_8
-      LDY     word_RAM_C
+      LDY     byte_RAM_C
       LDA     (byte_RAM_7),Y
-      LDX     word_RAM_C
-      LDY     word_RAM_C+1
+      LDX     byte_RAM_C
+      LDY     byte_RAM_D
       RTS
 
 
@@ -3897,7 +3897,7 @@ IncrementAreaXOffset:
       STX     byte_RAM_B
       LDX     byte_RAM_E8
       INX
-      STX     word_RAM_C+1
+      STX     byte_RAM_D
       JSR     SetAreaPageAddr
       LDX     byte_RAM_B
 

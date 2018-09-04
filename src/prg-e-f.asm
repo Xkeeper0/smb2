@@ -847,11 +847,11 @@ JumpToTableAfterJump:
       STA     byte_RAM_B
       INY
       LDA     (byte_RAM_A),Y
-      STA     word_RAM_C
+      STA     byte_RAM_C
       INY
       LDA     (byte_RAM_A),Y
-      STA     word_RAM_C+1
-      JMP     (word_RAM_C)
+      STA     byte_RAM_D
+      JMP     (byte_RAM_C)
 
 ; End of function JumpToTableAfterJump
 
@@ -3653,8 +3653,8 @@ loc_BANKF_F2BB:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_F2C2:
-      LDA     #0
-      LDY     byte_RAM_4FA
+      LDA     #$00
+      LDY     ScrollXLock
       BNE     loc_BANKF_F2D2
 
       LDA     PlayerXLo
@@ -3672,23 +3672,23 @@ loc_BANKF_F2D2:
 ; ---------------------------------------------------------------------------
 byte_BANKF_F2D5:
       .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $00
+      .BYTE $FB
+      .BYTE $FB
+      .BYTE $00
+      .BYTE $FB
 
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $00
-      .BYTE $FB
-      .BYTE $FB
-      .BYTE $00
-      .BYTE $FB
 byte_BANKF_F2E0:
       .BYTE $D5
-
       .BYTE $D9
       .BYTE $FB
       .BYTE $D7
+
 byte_BANKF_F2E4:
       .BYTE $00
 
@@ -3700,7 +3700,6 @@ byte_BANKF_F2E6:
 
 byte_BANKF_F2E7:
       .BYTE $06
-
       .BYTE $0C
       .BYTE $0E
       .BYTE $10
@@ -3743,6 +3742,7 @@ byte_BANKF_F2E7:
       .BYTE $1E
       .BYTE $B4
       .BYTE $B6
+
 DamageInvulnBlinkFrames:
       .BYTE $01, $01, $01, $02, $02, $04, $04, $04
 
@@ -4692,7 +4692,7 @@ KillPlayer:
       STA     ObjectBeingCarriedTimer,Y
       STA     ObjectXAccel,Y
       LDA     #$E0
-      STX     word_RAM_C+1
+      STX     byte_RAM_D
       LDX     EnemyState,Y
       CPX     #EnemyState_7
       BEQ     loc_BANKF_F747
@@ -4700,7 +4700,7 @@ KillPlayer:
       STA     ObjectYAccel,Y
 
 loc_BANKF_F747:
-      LDX     word_RAM_C+1
+      LDX     byte_RAM_D
 
 loc_BANKF_F749:
       ; Set music to death jingle

@@ -24,8 +24,10 @@ byte_RAM_A:
       .dsb 1 ; $000a
 byte_RAM_B:
       .dsb 1 ; $000b
-word_RAM_C:
-      .dsb 2 ; $000c
+byte_RAM_C:
+      .dsb 1 ; $000c
+byte_RAM_D:
+      .dsb 1 ; $000d
 byte_RAM_E:
       .dsb 1 ; $000e
 byte_RAM_F:
@@ -1450,7 +1452,7 @@ SubspaceTimer:
       .dsb 1 ; $04b7
 byte_RAM_4B8:
       .dsb 1 ; $04b8
-byte_RAM_4B9:
+SwarmType:
       .dsb 1 ; $04b9
       .dsb 1 ; $04ba
       .dsb 1 ; $04bb
@@ -1561,17 +1563,17 @@ unk_RAM_4EF:
       .dsb 1 ; $04f5
       .dsb 1 ; $04f6
       .dsb 1 ; $04f7
-byte_RAM_4F8:
+FryguySplitFlames:
       .dsb 1 ; $04f8
 byte_RAM_4F9:
       .dsb 1 ; $04f9
-byte_RAM_4FA:
+ScrollXLock:
       .dsb 1 ; $04fa
 Mushroom1Pulled:
       .dsb 1 ; $04fb
 Mushroom2Pulled:
       .dsb 1 ; $04fc
-byte_RAM_4FD:
+PokeyTempScreenX:
       .dsb 1 ; $04fd
       .dsb 1 ; $04fe
 StopwatchTimer:
@@ -2045,7 +2047,7 @@ SubspaceVisits:
       .dsb 1 ; $0621
 SubspaceCoins:
       .dsb 1 ; $0622
-byte_RAM_623:
+SwarmCounter:
       .dsb 1 ; $0623
 byte_RAM_624:
       .dsb 1 ; $0624

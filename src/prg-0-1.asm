@@ -1059,7 +1059,7 @@ loc_BANK0_858F:
       PHP
       ADC     byte_RAM_B
       PLP
-      STA     word_RAM_C
+      STA     byte_RAM_C
       LDA     byte_RAM_B
       BNE     loc_BANK0_85B1
 
@@ -1070,7 +1070,7 @@ loc_BANK0_858F:
       CMP     #9
       BNE     loc_BANK0_85C2
 
-      LDA     word_RAM_C
+      LDA     byte_RAM_C
       AND     #$F0
       JMP     loc_BANK0_85C4
 
@@ -1083,7 +1083,7 @@ loc_BANK0_85B1:
       AND     #$F
       BNE     loc_BANK0_85C2
 
-      LDA     word_RAM_C
+      LDA     byte_RAM_C
       AND     #$F0
       ADC     #9
       JMP     loc_BANK0_85C4
@@ -1091,7 +1091,7 @@ loc_BANK0_85B1:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_85C2:
-      LDA     word_RAM_C
+      LDA     byte_RAM_C
 
 loc_BANK0_85C4:
       STA     byte_RAM_CE,X
@@ -2950,7 +2950,7 @@ PlayerTileCollision:
       STA     byte_RAM_7
       STA     byte_RAM_A
       STA     byte_RAM_E
-      STA     word_RAM_C
+      STA     byte_RAM_C
 
       JSR     PlayerTileCollision_CheckCherryAndClimbable
 
@@ -3022,7 +3022,7 @@ loc_BANK0_8F4F:
       STA     byte_RAM_4CB
 
 loc_BANK0_8F6E:
-      LSR     word_RAM_C
+      LSR     byte_RAM_C
       BCC     loc_BANK0_8F77
 
       LDA     #$F
@@ -3099,7 +3099,7 @@ loc_BANK0_8FD3:
       BNE     loc_BANK0_8FDE
 
       LDA     byte_BANK0_8EE8,X
-      STA     word_RAM_C
+      STA     byte_RAM_C
       BNE     loc_BANK0_8FEB
 
 loc_BANK0_8FDE:
