@@ -15,7 +15,7 @@ ENDIF
 ; new subroutine
 IFDEF JUMP_STOMPS
 CheckCollisionWithPlayer_StompEnemy:
-      LDA     PlayerYAccel
+      LDA     PlayerYVelocity
       BMI     CheckCollisionWithPlayer_ExitStompEnemy
 
       LDA     #EnemyState_Dead
@@ -36,7 +36,7 @@ CheckCollisionWithPlayer_StompEnemy:
       AND     #$7F
       ASL     A
       ORA     #$80
-      STA     PlayerYAccel
+      STA     PlayerYVelocity
       LDA     JumpFloatLength
       STA     byte_RAM_4C9
 

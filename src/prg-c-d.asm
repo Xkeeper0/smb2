@@ -712,7 +712,7 @@ loc_BANKC_85D6:
       INC     ObjectXLo
       LDA     #0
       STA     ObjectXLo+2
-      STA     ObjectXAccel+2
+      STA     ObjectXVelocity+2
       LDA     #1
       STA     ObjectYLo+7
 
@@ -1135,7 +1135,7 @@ loc_BANKC_883C:
       BNE     loc_BANKC_884C
 
       LDA     #1
-      STA     ObjectXAccel+2
+      STA     ObjectXVelocity+2
 
 loc_BANKC_884C:
       LDA     ObjectYHi+8
@@ -1163,7 +1163,7 @@ loc_BANKC_8862:
       STA     SpriteDMAArea+$F4
       STA     SpriteDMAArea+$F8
       STA     SpriteDMAArea+$FC
-      LDA     ObjectXAccel+2
+      LDA     ObjectXVelocity+2
       BEQ     locret_BANKC_8897
 
       LDY     #$1F
@@ -1178,7 +1178,7 @@ loc_BANKC_8880:
       STA     ObjectYHi
       STA     ObjectYHi+1
       LDA     #0
-      STA     ObjectXAccel+2
+      STA     ObjectXVelocity+2
 
 loc_BANKC_8893:
       LDA     #$FF
@@ -1351,10 +1351,10 @@ loc_BANKC_8975:
 
 loc_BANKC_898D:
       LDA     #0
-      STA     ObjectXAccel
-      STA     PlayerXAccel
+      STA     ObjectXVelocity
+      STA     PlayerXVelocity
       LDA     #$C
-      STA     ObjectXAccel+1
+      STA     ObjectXVelocity+1
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -1396,12 +1396,12 @@ byte_BANKC_89A9:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_89B6:
-      DEC     PlayerXAccel
+      DEC     PlayerXVelocity
       BPL     locret_BANKC_8A00
 
       LDA     #8
-      STA     PlayerXAccel
-      DEC     ObjectXAccel+1
+      STA     PlayerXVelocity
+      DEC     ObjectXVelocity+1
       BPL     loc_BANKC_89CD
 
       INC     ObjectXLo
@@ -1413,7 +1413,7 @@ loc_BANKC_89B6:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_89CD:
-      LDA     ObjectXAccel
+      LDA     ObjectXVelocity
       AND     #1
       BNE     loc_BANKC_89EB
 
@@ -1421,7 +1421,7 @@ loc_BANKC_89CD:
       LDX     #0
 
 loc_BANKC_89D7:
-      INC     ObjectXAccel
+      INC     ObjectXVelocity
       LDA     byte_BANKC_8998,X
       STA     SpriteDMAArea+$41,Y
       INY
@@ -1437,7 +1437,7 @@ loc_BANKC_89D7:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_89EB:
-      INC     ObjectXAccel
+      INC     ObjectXVelocity
       LDX     #0
       LDY     #0
 

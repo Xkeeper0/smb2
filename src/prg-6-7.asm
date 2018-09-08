@@ -4013,8 +4013,8 @@ CreateMushroomObject:
       STA     EnemyArray_438,X
       STA     EnemyArray_453,X
       STA     EnemyArray_45C,X
-      STA     ObjectYAccel,X
-      STA     ObjectXAccel,X
+      STA     ObjectYVelocity,X
+      STA     ObjectXVelocity,X
       LDY     ObjectType,X
       LDA     ObjectAttributeTable,Y
       AND     #$7F

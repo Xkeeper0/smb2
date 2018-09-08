@@ -1866,15 +1866,15 @@ HandlePlayerState_Dying:
 
       JSR     sub_BANK0_8EA4
 
-      LDA     PlayerYAccel
+      LDA     PlayerYVelocity
       BMI     loc_BANK0_8A72
 
       CMP     #$39
       BCS     locret_BANK0_8A86
 
 loc_BANK0_8A72:
-      INC     PlayerYAccel
-      INC     PlayerYAccel
+      INC     PlayerYVelocity
+      INC     PlayerYVelocity
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -1983,12 +1983,12 @@ HandlePlayerState_Climbing:
 
 loc_BANK0_8ADF:
       LDA     byte_BANKF_F225,Y
-      STA     PlayerYAccel
+      STA     PlayerYVelocity
       LDA     Player1JoypadHeld
       AND     #ControllerInput_Right|ControllerInput_Left
       TAY
       LDA     byte_BANK0_8ACE,Y
-      STA     PlayerXAccel
+      STA     PlayerXVelocity
       LDA     PlayerXLo
       CLC
       ADC     #$04
@@ -1997,7 +1997,7 @@ loc_BANK0_8ADF:
       BCS     loc_BANK0_8B14
 
       LDY     byte_BANKF_F00B
-      LDA     PlayerYAccel
+      LDA     PlayerYVelocity
       BMI     loc_BANK0_8B01
 
       INY
@@ -2009,10 +2009,10 @@ loc_BANK0_8B01:
       BCS     loc_BANK0_8B0E
 
 loc_BANK0_8B08:
-      LDA     PlayerYAccel
+      LDA     PlayerYVelocity
       BPL     loc_BANK0_8B14
 
-      STX     PlayerYAccel
+      STX     PlayerYVelocity
 
 loc_BANK0_8B0E:
       JSR     sub_BANK0_8A50
@@ -2151,7 +2151,7 @@ byte_BANK0_8B8B:
 ; ---------------------------------------------------------------------------
 
 HandlePlayerState_ClimbingAreaTransition:
-      LDA     PlayerYAccel
+      LDA     PlayerYVelocity
       ASL     A
       ROL     A
       AND     #$01
@@ -2218,7 +2218,7 @@ ENDIF
       LDA     #ObjAttrib_BehindBackground
       STA     PlayerAttributes
       LDA     #$04
-      STA     PlayerXAccel
+      STA     PlayerXVelocity
       LDA     #$01
       STA     byte_RAM_9D
 
@@ -2364,10 +2364,10 @@ loc_BANK0_8C6F:
       AND     byte_RAM_10
       BNE     ResetCrouchJumpTimer
 
-      LDA     PlayerXAccel
+      LDA     PlayerXVelocity
       CLC
       ADC     byte_BANK0_8C18,Y
-      STA     PlayerXAccel
+      STA     PlayerXVelocity
 
 ResetCrouchJumpTimer:
       LDA     #$00
@@ -2402,12 +2402,12 @@ PlayerStartJump:
 
       ; Quicksand
       LDA     byte_RAM_552
-      STA     PlayerYAccel
+      STA     PlayerYVelocity
       BNE     PlayerStartJump_Exit
 
 PlayerStartJump_LoadXVelocity:
       ; The x-velocity may affect the jump
-      LDA     PlayerXAccel
+      LDA     PlayerXVelocity
       BPL     PlayerStartJump_CheckXSpeed
 
       ; Absolute value of x-velocity
@@ -2441,7 +2441,7 @@ PlayerStartJump_SetYVelocity:
       ORA     HoldingItem
       TAY
       LDA     JumpHeightStanding,Y
-      STA     PlayerYAccel
+      STA     PlayerYVelocity
 
       LDA     JumpFloatLength
       STA     byte_RAM_4C9
@@ -2473,7 +2473,7 @@ loc_BANK0_8CE5:
       BPL     PlayerGravity_Falling
 
       LDA     JumpPhysicsShit
-      LDY     PlayerYAccel
+      LDY     PlayerYVelocity
       CPY     #$0FC
       BMI     PlayerGravity_Falling
 
@@ -2488,11 +2488,11 @@ loc_BANK0_8CE5:
       AND     #$03
       TAY
       LDA     FloatingYVelocity,Y
-      STA     PlayerYAccel
+      STA     PlayerYVelocity
       RTS
 
 PlayerGravity_Falling:
-      LDY     PlayerYAccel
+      LDY     PlayerYVelocity
       BMI     loc_BANK0_8D13
 
       CPY     #$39
@@ -2500,8 +2500,8 @@ PlayerGravity_Falling:
 
 loc_BANK0_8D13:
       CLC
-      ADC     PlayerYAccel
-      STA     PlayerYAccel
+      ADC     PlayerYVelocity
+      STA     PlayerYVelocity
 
 loc_BANK0_8D18:
       LDA     byte_RAM_4C9
@@ -2536,12 +2536,12 @@ sub_BANK0_8D2C:
       AND     GroundSlipperiness
       BNE     loc_BANK0_8D4D
 
-      LDA     PlayerXAccel
+      LDA     PlayerXVelocity
       AND     #$80
       ASL     A
       ROL     A
       TAY
-      LDA     PlayerXAccel
+      LDA     PlayerXVelocity
       ADC     PlayerXDeceleration,Y
       TAX
       EOR     byte_BANK0_8C18,Y
@@ -2550,7 +2550,7 @@ sub_BANK0_8D2C:
       LDX     #$00
 
 loc_BANK0_8D4B:
-      STX     PlayerXAccel
+      STX     PlayerXVelocity
 
 loc_BANK0_8D4D:
       LDA     PlayerDucking
@@ -2619,10 +2619,10 @@ PlayerWalkAnim:
       LDY     GroundSlipperiness
       BNE     NextPlayerWalkFrame
 
-      LDA     PlayerXAccel
+      LDA     PlayerXVelocity
       BPL     PlayerWalkFrameDuration
 
-; use absolute value of PlayerXAccel
+; use absolute value of PlayerXVelocity
       EOR     #$0FF
       CLC
       ADC     #$01
@@ -2710,10 +2710,10 @@ loc_BANK0_8DE0:
       ADC     unk_RAM_557,Y
 
 loc_BANK0_8DEC:
-      CMP     PlayerXAccel
+      CMP     PlayerXVelocity
       BPL     loc_BANK0_8DF2
 
-      STA     PlayerXAccel
+      STA     PlayerXVelocity
 
 loc_BANK0_8DF2:
       LDA     unk_RAM_55A,Y
@@ -2726,10 +2726,10 @@ loc_BANK0_8DF2:
       ADC     unk_RAM_55A,Y
 
 loc_BANK0_8DFF:
-      CMP     PlayerXAccel
+      CMP     PlayerXVelocity
       BMI     loc_BANK0_8E05
 
-      STA     PlayerXAccel
+      STA     PlayerXVelocity
 
 loc_BANK0_8E05:
       BIT     Player1JoypadPress
@@ -2798,7 +2798,7 @@ loc_BANK0_8E42:
       LDA     #Enemy_Coin
       CMP     ObjectType,X
       ROL     byte_RAM_1
-      LDA     PlayerXAccel
+      LDA     PlayerXVelocity
       BPL     loc_BANK0_8E6F
 
       EOR     #$0FF
@@ -2828,13 +2828,13 @@ loc_BANK0_8E87:
 loc_BANK0_8E89:
       LDY     byte_RAM_1
       LDA     byte_BANK0_8DBA,Y
-      STA     ObjectYAccel,X
+      STA     ObjectYVelocity,X
       LDA     byte_RAM_1
       ASL     A
       ORA     byte_RAM_9D
       TAY
       LDA     byte_BANK0_8DB2,Y
-      STA     ObjectXAccel,X
+      STA     ObjectXVelocity,X
       LDA     #$01
       STA     EnemyArray_42F,X
       LSR     A
@@ -2853,7 +2853,7 @@ sub_BANK0_8EA4:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8EA6:
-      LDA     PlayerXAccel,X
+      LDA     PlayerXVelocity,X
       CLC
       ADC     byte_RAM_4CB,X
       PHP
@@ -2966,7 +2966,7 @@ PlayerTileCollision:
       STA     byte_RAM_8
 
       ; Determine whether the player is going up
-      LDA     PlayerYAccel
+      LDA     PlayerYVelocity
       CLC
       ADC     byte_RAM_4D5
       BPL     PlayerTileCollision_Downward
@@ -3041,7 +3041,7 @@ loc_BANK0_8F77:
 
 PlayerTileCollision_CheckDamageTile:
       LDA     #$00
-      STA     PlayerYAccel
+      STA     PlayerYVelocity
       STA     byte_RAM_4D5
       LDA     StarInvincibilityTimer
       BNE     PlayerTileCollision_Horizontal
@@ -3056,7 +3056,7 @@ PlayerTileCollision_CheckDamageTile:
 
 PlayerTileCollision_Horizontal:
       LDY     #$02
-      LDA     PlayerXAccel
+      LDA     PlayerXVelocity
       CLC
       ADC     byte_RAM_4CB
       BMI     loc_BANK0_8FA3
@@ -3415,7 +3415,7 @@ TileBehavior_GoDownJar:
 
       ; Stop horiziontal movement
       LDA     #$00
-      STA     PlayerXAccel
+      STA     PlayerXVelocity
 
       ; We're going down the jar!
       LDA     #PlayerState_GoingDownJar
@@ -3887,11 +3887,11 @@ loc_BANK0_932C:
 loc_BANK0_9333:
       LDX     #$00
       LDY     PlayerMovementDirection
-      LDA     PlayerXAccel
+      LDA     PlayerXVelocity
       EOR     CollisionResultTable+1,Y
       BPL     loc_BANK0_9340
 
-      STX     PlayerXAccel
+      STX     PlayerXVelocity
 
 loc_BANK0_9340:
       LDA     byte_RAM_4CB
@@ -5383,9 +5383,9 @@ loc_BANK1_A470:
       LDA     byte_BANK1_A409,X
       STA     ObjectYLo-1,X
       LDA     byte_BANK1_A413,X
-      STA     ObjectXAccel-1,X
+      STA     ObjectXVelocity-1,X
       LDA     byte_BANK1_A41D,X
-      STA     ObjectYAccel-1,X
+      STA     ObjectYVelocity-1,X
       LDA     byte_BANK1_A427,X
       STA     EnemyTimer-1,X
       LDA     byte_BANK1_A431,X
@@ -5492,7 +5492,7 @@ loc_BANK1_A507:
 
       JSR     sub_BANK0_8EA4
 
-      LDA     PlayerYAccel
+      LDA     PlayerYVelocity
       BMI     locret_BANK1_A52F
 
       LDA     PlayerYLo
@@ -5500,7 +5500,7 @@ loc_BANK1_A507:
       BCC     loc_BANK1_A521
 
       LDA     #$0C
-      STA     PlayerXAccel
+      STA     PlayerXVelocity
       JMP     loc_BANK1_A4FC
 
 ; ---------------------------------------------------------------------------
@@ -5572,7 +5572,7 @@ loc_BANK1_A556:
 
 loc_BANK1_A56B:
       LDA     #$A0
-      STA     ObjectYAccel+8
+      STA     ObjectYVelocity+8
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -5597,7 +5597,7 @@ loc_BANK1_A57B:
 
       JSR     sub_BANK0_8EA4
 
-      LDA     PlayerYAccel
+      LDA     PlayerYVelocity
       BMI     locret_BANK1_A591
 
       LDA     PlayerYLo
@@ -5625,8 +5625,8 @@ sub_BANK1_A596:
       LDY     CurrentCharacter
       LDA     unk_BANK1_A592,Y
       CLC
-      ADC     PlayerYAccel
-      STA     PlayerYAccel
+      ADC     PlayerYVelocity
+      STA     PlayerYVelocity
       RTS
 
 ; End of function sub_BANK1_A596
@@ -5651,14 +5651,14 @@ loc_BANK1_A5A3:
 loc_BANK1_A5B4:
       JSR     sub_BANK1_B948
 
-      LDA     ObjectYAccel,X
+      LDA     ObjectYVelocity,X
       CMP     #$08
       BMI     loc_BANK1_A5CC
 
       LDA     #$00
-      STA     ObjectXAccel,X
+      STA     ObjectXVelocity,X
       LDA     #$F9
-      STA     ObjectYAccel,X
+      STA     ObjectYVelocity,X
       LDA     byte_BANK1_A432,X
       EOR     #ObjAttrib_Palette0|ObjAttrib_16x32
       STA     ObjectAttributes,X
@@ -5985,7 +5985,7 @@ loc_BANK1_AABB:
       LDA     #$A0
       STA     PlayerXLo
       LDA     #$08
-      STA     PlayerXAccel
+      STA     PlayerXVelocity
       LDA     #$01
       STA     IsHorizontalLevel
 
@@ -6291,9 +6291,9 @@ loc_BANK1_AC22:
 loc_BANK1_AC28:
       STA     ObjectYLo,X
       LDA     byte_BANK1_ABDA,X
-      STA     ObjectXAccel,X
+      STA     ObjectXVelocity,X
       LDA     byte_BANK1_ABE0,X
-      STA     ObjectYAccel,X
+      STA     ObjectYVelocity,X
       DEX
       BPL     loc_BANK1_AC22
 
@@ -6379,9 +6379,9 @@ loc_BANK1_AC8B:
       LDA     #$6F
       STA     ObjectYLo+6
       LDA     #$E6
-      STA     ObjectXAccel+6
+      STA     ObjectXVelocity+6
       LDA     #$0DA
-      STA     ObjectYAccel+6
+      STA     ObjectYVelocity+6
 IFDEF COMPATIBILITY
       .db $ee, $e6, $00 ; INC $00E6
 ENDIF
@@ -6741,7 +6741,7 @@ sub_BANK1_B907:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK1_B90C:
-      LDA     ObjectXAccel,X
+      LDA     ObjectXVelocity,X
       CLC
       ADC     EnemyArray_4CC,X
       PHA
@@ -6797,15 +6797,15 @@ sub_BANK1_B948:
 loc_BANK1_B950:
       JSR     sub_BANK1_B907
 
-      LDA     ObjectYAccel,X
+      LDA     ObjectYVelocity,X
       BMI     loc_BANK1_B95B
 
       CMP     #$3E
       BCS     locret_BANK1_B95F
 
 loc_BANK1_B95B:
-      INC     ObjectYAccel,X
-      INC     ObjectYAccel,X
+      INC     ObjectYVelocity,X
+      INC     ObjectYVelocity,X
 
 locret_BANK1_B95F:
       RTS
@@ -6928,8 +6928,8 @@ loc_BANK1_B9EB:
       STA     EnemyArray_477,X
       STA     EnemyArray_480,X
       STA     EnemyHP,X
-      STA     ObjectYAccel,X
-      STA     ObjectXAccel,X
+      STA     ObjectYVelocity,X
+      STA     ObjectXVelocity,X
 
 ; look up object attributes
 loc_BANK1_BA17:
@@ -7083,7 +7083,7 @@ PlayerTileCollision_QuicksandFast:
       LDA     #$08
 
 PlayerTileCollision_QuicksandSlow:
-      STA     PlayerYAccel
+      STA     PlayerYVelocity
       LDA     QuicksandDepth
       BNE     loc_BANK1_BA9B
 
@@ -7141,15 +7141,15 @@ PlayerTileCollision_HurtPlayer:
       SBC     SpriteTempScreenX
       ASL     A
       ASL     A
-      STA     PlayerXAccel
+      STA     PlayerXVelocity
       LDA     #$C0
-      LDY     PlayerYAccel
+      LDY     PlayerYVelocity
       BPL     loc_BANK1_BAE5
 
       LDA     #$00
 
 loc_BANK1_BAE5:
-      STA     PlayerYAccel
+      STA     PlayerYVelocity
       LDA     #DPCM_PlayerHurt
       STA     DPCMQueue
 
@@ -7160,7 +7160,7 @@ locret_BANK1_BAEC:
 
 loc_BANK1_BAED:
       LDA     #$C0
-      STA     PlayerYAccel
+      STA     PlayerYVelocity
       LDA     #$20
       STA     PlayerStateTimer
       LDY     byte_RAM_12

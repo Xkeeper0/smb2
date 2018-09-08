@@ -88,9 +88,9 @@ ObjectYLo:
       .dsb 1 ; 6                ; $0039
       .dsb 1 ; 7                ; $003a
       .dsb 1 ; 8                ; $003b
-PlayerXAccel:
+PlayerXVelocity:
       .dsb 1 ; $003c
-ObjectXAccel:
+ObjectXVelocity:
       .dsb 1 ; $003d
       .dsb 1 ; 1                ; $003e
       .dsb 1 ; 2                ; $003f
@@ -100,9 +100,9 @@ ObjectXAccel:
       .dsb 1 ; 6                ; $0043
       .dsb 1 ; 7                ; $0044
       .dsb 1 ; 8                ; $0045
-PlayerYAccel:
+PlayerYVelocity:
       .dsb 1 ; $0046
-ObjectYAccel:
+ObjectYVelocity:
       .dsb 1 ; $0047
       .dsb 1 ; 1                ; $0048
       .dsb 1 ; 2                ; $0049
@@ -1525,7 +1525,7 @@ PlayerScreenX_Init:
       .dsb 1 ; $04e3
 PlayerScreenYLo_Init:
       .dsb 1 ; $04e4
-PlayerYAccel_Init:
+PlayerYVelocity_Init:
       .dsb 1 ; $04e5
 PlayerState_Init:
       .dsb 1 ; $04e6

@@ -3470,8 +3470,8 @@ loc_BANKF_F1B7:
       STA     PlayerScreenX_Init
       LDA     PlayerScreenYLo
       STA     PlayerScreenYLo_Init
-      LDA     PlayerYAccel
-      STA     PlayerYAccel_Init
+      LDA     PlayerYVelocity
+      STA     PlayerYVelocity_Init
       LDA     PlayerState
       STA     PlayerState_Init
 
@@ -3507,8 +3507,8 @@ LevelInitialization_AreaSetupLoop:
       STA     PlayerScreenX
       LDA     PlayerScreenYLo_Init
       STA     PlayerScreenYLo
-      LDA     PlayerYAccel_Init
-      STA     PlayerYAccel
+      LDA     PlayerYVelocity_Init
+      STA     PlayerYVelocity
       LDA     PlayerState_Init
       STA     PlayerState
       LDA     #$00
@@ -3588,8 +3588,8 @@ loc_BANKF_F254:
       PLA
       LDY     #$00
       STY     PlayerDucking
-      STY     PlayerYAccel
-      STY     PlayerXAccel
+      STY     PlayerYVelocity
+      STY     PlayerXVelocity
       LDA     #PlayerState_ExitingJar
       STA     PlayerState
       LDA     #SpriteAnimation_Ducking
@@ -3643,7 +3643,7 @@ loc_BANKF_F298:
       LDA     byte_BANKF_F226
 
 loc_BANKF_F2BB:
-      STA     PlayerYAccel
+      STA     PlayerYVelocity
       LDA     #PlayerState_ClimbingAreaTransition
       STA     PlayerState
       RTS
@@ -4690,14 +4690,14 @@ KillPlayer:
       STA     EnemyArray_42F,Y
       LSR     A
       STA     ObjectBeingCarriedTimer,Y
-      STA     ObjectXAccel,Y
+      STA     ObjectXVelocity,Y
       LDA     #$E0
       STX     byte_RAM_D
       LDX     EnemyState,Y
       CPX     #EnemyState_7
       BEQ     loc_BANKF_F747
 
-      STA     ObjectYAccel,Y
+      STA     ObjectYVelocity,Y
 
 loc_BANKF_F747:
       LDX     byte_RAM_D
