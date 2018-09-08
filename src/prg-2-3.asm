@@ -905,12 +905,12 @@ BeezoDiveSpeedTable:
 EnemyInit_BeezoDiving:
       JSR     EnemyInit_Basic
 
-      LDY     PlayerMovementDirection ; 2 if travelling left, $01 otherwise
+      LDY     PlayerMovementDirection ; $02 = left, $01 = right
       LDA     ScreenBoundaryLeftLo
       ADC     BeezoXOffsetTable-1,Y
       STA     ObjectXLo,X ; Spawn in front of the player to dive at them
       LDA     ScreenBoundaryLeftHi
-      ADC     #0
+      ADC     #$00
       STA     ObjectXHi,X
 
 ; =============== S U B R O U T I N E =======================================
@@ -919,9 +919,9 @@ EnemyBeezoDiveSetup:
       LDA     PlayerYHi
       BPL     loc_BANK2_84D5
 
-      LDY     #0
-      BEQ     loc_BANK2_84DF ; If above the screen, just abort
-; and use the least descend-y one
+      ; If above the screen, just abort and use the least descend-y one
+      LDY     #$00
+      BEQ     loc_BANK2_84DF
 
 loc_BANK2_84D5:
       LDA     PlayerYLo ; Check how far down on the screen the player is
@@ -11394,17 +11394,17 @@ loc_BANK3_BBF4:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BC03:
-      LDX     #0
+      LDX     #$00
       LDY     PlayerMovementDirection
       LDA     PlayerXAccel
-      EOR     locret_BANK3_BD56,Y
+      EOR     PlayerCollisionResultTable-1,Y
       BPL     loc_BANK3_BC10
 
       STX     PlayerXAccel
 
 loc_BANK3_BC10:
       LDA     byte_RAM_4CB
-      EOR     locret_BANK3_BD56,Y
+      EOR     PlayerCollisionResultTable-1,Y
       BPL     loc_BANK3_BC1B
 
       STX     byte_RAM_4CB
@@ -11656,13 +11656,11 @@ sub_BANK3_BD4C:
       STA     byte_RAM_1
       LDA     byte_BANK3_BD41,X
       STA     byte_RAM_2
-
-locret_BANK3_BD56:
       RTS
 
 ; End of function sub_BANK3_BD4C
 
-; ---------------------------------------------------------------------------
+PlayerCollisionResultTable:
       .BYTE $80
       .BYTE $00
 
@@ -11671,7 +11669,7 @@ locret_BANK3_BD56:
 sub_BANK3_BD59:
       LDA     PlayerXLo
       CLC
-      ADC     #8
+      ADC     #$08
       AND     #$F0
       STA     PlayerXLo
       BCC     locret_BANK3_BD6A

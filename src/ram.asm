@@ -2049,7 +2049,7 @@ SubspaceCoins:
       .dsb 1 ; $0622
 SwarmCounter:
       .dsb 1 ; $0623
-byte_RAM_624:
+GroundSlipperiness:
       .dsb 1 ; $0624
       .dsb 1 ; $0625
       .dsb 1 ; $0626

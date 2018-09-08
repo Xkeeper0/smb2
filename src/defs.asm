@@ -62,14 +62,14 @@ Music2_StopMusic = $80
 ; ---------------------------------------------------------------------------
 
 ; enum ControllerInput (bitfield) (width 1 byte)
-ControllerInput_Right = $01
-ControllerInput_Left = $02
-ControllerInput_Down = $04
-ControllerInput_Up = $08
-ControllerInput_Start = $10
-ControllerInput_Select = $20
-ControllerInput_B = $40
-ControllerInput_A = $80
+ControllerInput_Right = %00000001
+ControllerInput_Left = %00000010
+ControllerInput_Down = %00000100
+ControllerInput_Up =  %00001000
+ControllerInput_Start = %00010000
+ControllerInput_Select = %00100000
+ControllerInput_B = %01000000
+ControllerInput_A = %10000000
 
 ; ---------------------------------------------------------------------------
 
