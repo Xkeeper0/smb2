@@ -1833,8 +1833,8 @@ HandlePlayerState_Normal:
       ; maybe only y-collision?
       JSR     PlayerTileCollision
 
-      ; x-collision in vertical levels?
-      JSR     sub_BANK0_9316
+      ; screen boundary x-collision
+      JSR     PlayerAreaBoundaryCollision
 
       JSR     sub_BANK0_8EA4
 
@@ -2653,9 +2653,9 @@ ExitPlayerWalkJumpAnim:
 ; End of function PlayerWalkJumpAnim
 
 ; ---------------------------------------------------------------------------
+
 byte_BANK0_8DB2:
       .BYTE $00
-
       .BYTE $00
       .BYTE $D0
       .BYTE $30
@@ -2663,15 +2663,15 @@ byte_BANK0_8DB2:
       .BYTE $30
       .BYTE $D0
       .BYTE $30
+
 byte_BANK0_8DBA:
       .BYTE $18
-
       .BYTE $00
       .BYTE $18
       .BYTE $F8
+
 byte_BANK0_8DBE:
       .BYTE $F0
-
       .BYTE $10
 
 ; =============== S U B R O U T I N E =======================================
@@ -2740,8 +2740,6 @@ loc_BANK0_8E05:
 
       LDY     #$00
       LDX     byte_RAM_42D
-
-loc_BANK0_8E12:
       LDA     EnemyState,X
       CMP     #EnemyState_Sand
       BEQ     locret_BANK0_8E41
@@ -2774,6 +2772,7 @@ loc_BANK0_8E28:
       JSR     sub_BANK0_9053
 
       BCC     loc_BANK0_8E42
+      ; else carried item can't be thrown
 
 locret_BANK0_8E41:
       RTS
@@ -2841,7 +2840,6 @@ loc_BANK0_8E89:
       STA     ObjectBeingCarriedTimer,X
       RTS
 
-; End of function sub_BANK0_8DC0
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2853,9 +2851,9 @@ sub_BANK0_8EA4:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8EA6:
-      LDA     PlayerXVelocity,X
+      LDA     ObjectXVelocity-1,X
       CLC
-      ADC     byte_RAM_4CB,X
+      ADC     EnemyArray_4CC-1,X
       PHP
       BPL     loc_BANK0_8EB4
 
@@ -2904,22 +2902,30 @@ loc_BANK0_8ED8:
       ADC     PlayerXHi,X
       STA     PlayerXHi,X
       LDA     #$00
-      STA     byte_RAM_4CB,X
+      STA     EnemyArray_4CC-1,X
       RTS
 
 ; End of function sub_BANK0_8EA6
 
-; ---------------------------------------------------------------------------
 
-
-byte_BANK0_8EE8:
+;
+; Jumpthrough collision results
+;
+; This table determines per direction whether a tile is solid (for jumpthrough
+; blocks) or interactive (for spikes/ice/conveyors)
+;
+;   $01 = true
+;   $02 = false
+;
+JumpthroughTileCollisionTable:
+InteractiveTileCollisionTable:
+      .BYTE $02 ; jumpthrough bottom (y-velocity < 0)
       .BYTE $02
-      .BYTE $02
+      .BYTE $01 ; jumpthrough top (y-velocity > 0)
       .BYTE $01
-      .BYTE $01
+      .BYTE $02 ; jumpthrough right (x-velocity < 0)
       .BYTE $02
-      .BYTE $02
-      .BYTE $02
+      .BYTE $02 ; jumpthrough left (x-velocity > 0)
       .BYTE $02
 
 CollisionFlagTableThing:
@@ -3005,8 +3011,6 @@ PlayerTileCollision_Downward_AfterCheckQuicksand:
       STX     PlayerInAir
       JMP     PlayerTileCollision_Horizontal
 
-; ---------------------------------------------------------------------------
-
 PlayerTileCollision_CheckInteractiveTiles:
       ; Reset quicksand depth
       LDA     #$00
@@ -3031,12 +3035,12 @@ PlayerTileCollision_CheckConveyorTile:
 
 PlayerTileCollision_CheckSlipperyTile:
       LSR     byte_RAM_C
-      BCC     loc_BANK0_8F77
+      BCC     PlayerTileCollision_CheckJar
 
       LDA     #$0F
       STA     GroundSlipperiness
 
-loc_BANK0_8F77:
+PlayerTileCollision_CheckJar:
       JSR     TileBehavior_CheckJar
 
 PlayerTileCollision_CheckDamageTile:
@@ -3072,7 +3076,7 @@ loc_BANK0_8FA3:
       AND     #CollisionFlags_Right|CollisionFlags_Left
       BEQ     PlayerTileCollision_Exit
 
-      JMP     loc_BANK0_9333
+      JMP     PlayerHorizontalCollision_Bank0
 
 PlayerTileCollision_Exit:
       RTS
@@ -3096,7 +3100,7 @@ loc_BANK0_8FB5:
       JSR     sub_BANK0_924F
 
       LDX     byte_RAM_7
-      LDY     byte_BANK0_8EE8,X
+      LDY     JumpthroughTileCollisionTable,X
       LDA     byte_RAM_0
       JSR     sub_BANK0_9053
 
@@ -3106,7 +3110,7 @@ loc_BANK0_8FB5:
       BNE     loc_BANK0_8FD3
 
       ; Spikes behavior
-      LDA     byte_BANK0_8EE8,X
+      LDA     InteractiveTileCollisionTable,X
       STA     byte_RAM_E
       BNE     loc_BANK0_8FEB
 
@@ -3115,7 +3119,7 @@ loc_BANK0_8FD3:
       BNE     loc_BANK0_8FDE
 
       ; Ice behavior
-      LDA     byte_BANK0_8EE8,X
+      LDA     InteractiveTileCollisionTable,X
       STA     byte_RAM_C
       BNE     loc_BANK0_8FEB
 
@@ -3127,7 +3131,7 @@ loc_BANK0_8FDE:
 
       ; Conveyor behavior
       ASL     A
-      ORA     byte_BANK0_8EE8,X
+      ORA     InteractiveTileCollisionTable,X
       STA     byte_RAM_A
 
 loc_BANK0_8FEB:
@@ -3225,24 +3229,32 @@ PlayerTileCollision_Climbable_Exit:
       RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Check whether a collision has occured
+;
+; Input
+;   A = tile ID ???
+;   Y = collision table offset
+; Output
+;   C = whether or not a collision occurred
+;
 sub_BANK0_9053:
       PHA
       AND     #$C0
       ASL     A
       ROL     A
       ROL     A
-      ADC     byte_BANK0_9062,Y
+      ADC     TileGroupTable,Y
       TAY
       PLA
-      CMP     byte_BANKF_F64E,Y
+      CMP     TileSolidnessTable,Y
       RTS
 
-; End of function sub_BANK0_9053
 
-; ---------------------------------------------------------------------------
-byte_BANK0_9062:
+;
+; These map the two high bits of a tile to offets in TileSolidnessTable
+;
+TileGroupTable:
       .BYTE $00
       .BYTE $04
       .BYTE $08
@@ -3738,7 +3750,6 @@ loc_BANK0_92A5:
       TAX
       RTS
 
-; End of function sub_BANK0_924F
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3796,12 +3807,12 @@ locret_BANK0_92DF:
 ; End of function sub_BANK0_92C1
 
 ; ---------------------------------------------------------------------------
+
 byte_BANK0_92E0:
       .BYTE $0A
 
 byte_BANK0_92E1:
       .BYTE $01
-
       .BYTE $0B
 ; ---------------------------------------------------------------------------
 
@@ -3848,54 +3859,59 @@ loc_BANK0_930F:
 locret_BANK0_9311:
       RTS
 
-; ---------------------------------------------------------------------------
-CollisionResultTable:
+
+PlayerCollisionDirectionTable:
       .BYTE CollisionFlags_Right
       .BYTE CollisionFlags_Left
+
+PlayerCollisionResultTable_Bank0:
       .BYTE CollisionFlags_80
-      .BYTE $00
+      .BYTE CollisionFlags_00
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_9316:
+;
+; Enforces the left/right boundaries of horizontal areas
+;
+PlayerAreaBoundaryCollision:
       LDA     IsHorizontalLevel
-      BEQ     locret_BANK0_9327
+      BEQ     PlayerAreaBoundaryCollision_Exit
 
       LDA     PlayerScreenX
       LDY     PlayerMovementDirection
       CPY     #$01
-      BEQ     loc_BANK0_9328
+      BEQ     PlayerAreaBoundaryCollision_CheckRight
 
+PlayerAreaBoundaryCollision_CheckLeft:
       CMP     #$08
-      BCC     loc_BANK0_932C
+      BCC     PlayerAreaBoundaryCollision_BoundaryHit
 
-locret_BANK0_9327:
+PlayerAreaBoundaryCollision_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-; stop player x movement on collision
-loc_BANK0_9328:
+PlayerAreaBoundaryCollision_CheckRight:
       CMP     #$E8
-      BCC     locret_BANK0_9327
+      BCC     PlayerAreaBoundaryCollision_Exit
 
-loc_BANK0_932C:
+PlayerAreaBoundaryCollision_BoundaryHit:
       LDA     PlayerCollision
-      ORA     CollisionResultTable-1,Y
+      ORA     PlayerCollisionDirectionTable-1,Y
       STA     PlayerCollision
 
-loc_BANK0_9333:
+;
+; NOTE: This is a copy of the "PlayerHorizontalCollision" routine in Bank 3
+;
+PlayerHorizontalCollision_Bank0:
       LDX     #$00
       LDY     PlayerMovementDirection
       LDA     PlayerXVelocity
-      EOR     CollisionResultTable+1,Y
+      EOR     PlayerCollisionResultTable_Bank0-1,Y
       BPL     loc_BANK0_9340
 
       STX     PlayerXVelocity
 
 loc_BANK0_9340:
       LDA     byte_RAM_4CB
-      EOR     CollisionResultTable+1,Y
+      EOR     PlayerCollisionResultTable_Bank0-1,Y
       BPL     loc_BANK0_934B
 
       STX     byte_RAM_4CB
@@ -3906,11 +3922,14 @@ loc_BANK0_934B:
 locret_BANK0_934E:
       RTS
 
-; End of function sub_BANK0_9316
 
 ; =============== S U B R O U T I N E =======================================
 
+;
+; NOTE: This is a copy of the "sub_BANK3_BC50" routine in Bank 3
+;
 ; replace tile when something is picked up
+;
 sub_BANK0_934F:
       PHA ; Something to update the PPU for some tile change
       LDA     ObjectXLo,X
@@ -6971,8 +6990,8 @@ TurnKeyIntoPuffOfSmoke:
 
 
 ;
-; NOTE: This is a copy of the "CreateEnemy" routine in Bank 2, but it is used
-; here for spawning the door animation and Starman objects.
+; NOTE: This is a copy of the "UnlinkEnemyFromRawData" routine in Bank 2, but
+; it is used here for spawning the door animation and Starman objects.
 ;
 ; Spawned enemies are linked to an offset in the raw enemy data, which prevents
 ; from being respawned until they are killed or moved offscreen.

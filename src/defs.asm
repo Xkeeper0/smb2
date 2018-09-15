@@ -683,6 +683,7 @@ Enemy_BossMushroom = $7F
 ; ---------------------------------------------------------------------------
 
 ; enum CollisionFlags (bitfield) (width 1 byte)
+CollisionFlags_00 = %00000000
 CollisionFlags_Right = %00000001
 CollisionFlags_Left = %00000010
 CollisionFlags_Down = %00000100

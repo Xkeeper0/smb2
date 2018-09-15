@@ -4491,15 +4491,31 @@ byte_BANKF_F607:
       .BYTE $00 ; $45
       .BYTE $02 ; $46
 
-byte_BANKF_F64E:
+;
+; This table determines the "solidness" of tiles.
+;
+; Solidness is broken into four tiers:
+;   - background (no collisions)
+;   - background to player/enemies, solid to mushroom blocks
+;   - jumpthrough block (collision on top only)
+;   - solid block (collision on all sides)
+;
+; Tiles are divided into groups of $40. For each category, the corresponding
+; the groups are divided into two groups: tiles that have a collision rule and
+; tiles that don't.
+;
+TileSolidnessTable:
+      ; solid to mushroom blocks unless < these values
       .BYTE $01
       .BYTE $43
       .BYTE $80
       .BYTE $C0
+      ; solid on top unless < these values
       .BYTE $12
       .BYTE $60
       .BYTE $91
       .BYTE $CA
+      ; solid on all sides unless < these values
       .BYTE $18
       .BYTE $69
       .BYTE $98
@@ -4522,7 +4538,7 @@ loc_BANKF_F664:
       CPY     Player1JoypadPress
       BNE     loc_BANKF_F664
 
-      LDX     #1
+      LDX     #$01
 
 loc_BANKF_F66F:
       LDA     Player1JoypadPress,X ; Update the press/held values

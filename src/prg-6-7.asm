@@ -2328,8 +2328,6 @@ ENDIF
       JSR     sub_BANK6_9066
 
       LDA     byte_RAM_E7
-
-loc_BANK6_90C0:
       CMP     #$E0
 
 loc_BANK6_90C2:
