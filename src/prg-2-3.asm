@@ -1040,7 +1040,7 @@ EnemyDeathMaybe:
 ;
 ; This subroutine ensures that the enemy in a particular slot is not linked to
 ; the raw enemy data
-;
+;s
 ; Input
 ;   X = enemy slot
 ;
@@ -1058,33 +1058,36 @@ MakeEnemyFlipUpsideDown:
 loc_BANK2_8574:
       JSR     RenderSprite
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_8577:
+;
+; Applies object physics
+;
+; Input
+;   X = enemy index
+;
+ApplyObjectMovement:
       LDA     EnemyArray_44A,X
-      BNE     HandleObjectGravity
+      BNE     ApplyObjectMovement_Vertical
 
       JSR     ApplyObjectPhysicsX
 
-HandleObjectGravity:
+ApplyObjectMovement_Vertical:
       JSR     ApplyObjectPhysicsY
 
       LDA     ObjectYVelocity,X
-      BMI     loc_BANK2_858A
+      BMI     ApplyObjectMovement_Gravity
 
+      ; Check terminal velocity
       CMP     #$3E
-      BCS     locret_BANK2_858E
+      BCS     ApplyObjectMovement_Exit
 
-loc_BANK2_858A:
-      INC     ObjectYVelocity,X ; Makes objects slowly fall down
-      INC     ObjectYVelocity,X ; Turning these into DECs causes...problems.
+ApplyObjectMovement_Gravity:
+      INC     ObjectYVelocity,X
+      INC     ObjectYVelocity,X
 
-locret_BANK2_858E:
+ApplyObjectMovement_Exit:
       RTS
 
-; End of function sub_BANK2_8577
-
-; ---------------------------------------------------------------------------
 
 HandleEnemyState_BlockFizzle:
       JSR     sub_BANK2_88E8
@@ -1937,7 +1940,7 @@ loc_BANK2_89F0:
       LDA     EnemyArray_42F,X
       BEQ     loc_BANK2_89FB
 
-      JSR     sub_BANK2_8577
+      JSR     ApplyObjectMovement
 
 loc_BANK2_89FB:
       LDA     ObjectBeingCarriedTimer,X
@@ -2333,7 +2336,7 @@ EnemyBehavior_Fireball:
       LDA     EnemyVariable,X
       BNE     EnemyBehavior_Fireball_CheckCollision
 
-      JMP     sub_BANK2_8577
+      JMP     ApplyObjectMovement
 
 
 EnemyBehavior_Fireball_CheckCollision:
@@ -2377,7 +2380,7 @@ loc_BANK2_8C1A:
       JSR     EnemyBehavior_TurnAround
 
 loc_BANK2_8C22:
-      JSR     sub_BANK2_8577
+      JSR     ApplyObjectMovement
 
       LDA     #%10000011
       STA     EnemyArray_46E,X
@@ -3117,7 +3120,7 @@ loc_BANK2_8FCD:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8FD2:
-      JMP     HandleObjectGravity
+      JMP     ApplyObjectMovement_Vertical
 
 ; ---------------------------------------------------------------------------
 
@@ -3399,7 +3402,7 @@ loc_BANK2_9122:
 EnemyBehavior_Vegetable:
       JSR     sub_BANK2_98CD
 
-      JSR     sub_BANK2_8577
+      JSR     ApplyObjectMovement
 
 loc_BANK2_9137:
       LDA     EnemyArray_B1,X
@@ -4151,7 +4154,7 @@ loc_BANK2_94AB:
       STA     ObjectXVelocity,X
 
 loc_BANK2_94BB:
-      JSR     sub_BANK2_8577
+      JSR     ApplyObjectMovement
 
       LDA     EnemyCollision,X
       LDY     ObjectYVelocity,X
@@ -4610,7 +4613,7 @@ loc_BANK2_96AD:
       LDA     EnemyArray_42F,X
       BEQ     locret_BANK2_9691
 
-      JSR     sub_BANK2_8577
+      JSR     ApplyObjectMovement
 
       PLA
       PLA
@@ -5024,7 +5027,7 @@ loc_BANK2_98B7:
       LDY     EnemyMovementDirection,X
       LDA     locret_BANK2_9897,Y
       STA     ObjectXVelocity,X
-      JMP     sub_BANK2_8577
+      JMP     ApplyObjectMovement
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -6212,9 +6215,10 @@ ApplyObjectPhysics_StoreDirection:
       LDA     ObjectXLo,X
       ADC     byte_RAM_0
       STA     ObjectXLo,X
+
       ROL     byte_RAM_1
 
-      ; X < 10 is horizontal physics
+      ; X < 10 is horizontal physics, X >= 10 is vertical physics
       CPX     #$0A
       BCS     ApplyObjectPhysics_PositionHi
 
@@ -6522,7 +6526,7 @@ loc_BANK3_A17D:
 loc_BANK3_A1CD:
       JSR     ApplyObjectPhysicsX
 
-      JSR     HandleObjectGravity
+      JSR     ApplyObjectMovement_Vertical
 
 loc_BANK3_A1D3:
       JMP     RenderSprite
@@ -6764,7 +6768,7 @@ EnemyBehavior_ClawgripRock:
 
       JSR     ApplyObjectPhysicsX
 
-      JSR     HandleObjectGravity
+      JSR     ApplyObjectMovement_Vertical
 
       JSR     sub_BANK3_B4FD
 
@@ -7115,7 +7119,7 @@ EnemyBehavior_Pidgit:
       STA     ObjectAttributes,X
       JSR     sub_BANK3_A508
 
-      JMP     sub_BANK2_8577
+      JMP     ApplyObjectMovement
 
 ; ---------------------------------------------------------------------------
 
@@ -7377,7 +7381,7 @@ locret_BANK3_A5F4:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A5F5:
-      JMP     HandleObjectGravity
+      JMP     ApplyObjectMovement_Vertical
 
 ; ---------------------------------------------------------------------------
 
@@ -7593,7 +7597,7 @@ loc_BANK3_A70D:
       JSR     EnemyInit_BasicMovementTowardPlayer
 
 loc_BANK3_A71E:
-      JSR     sub_BANK2_8577
+      JSR     ApplyObjectMovement
 
       JMP     RenderSprite
 
@@ -8000,7 +8004,7 @@ loc_BANK3_A93E:
       STA     ObjectYVelocity,X
 
 loc_BANK3_A951:
-      JSR     sub_BANK2_8577
+      JSR     ApplyObjectMovement
 
       INC     EnemyArray_9F,X
       LDA     EnemyArray_9F,X
@@ -8132,7 +8136,7 @@ loc_BANK3_A9E9:
       STA     EnemyTimer,X
 
 loc_BANK3_A9F9:
-      JSR     HandleObjectGravity
+      JSR     ApplyObjectMovement_Vertical
 
 loc_BANK3_A9FC:
       LDA     #$61
@@ -8813,7 +8817,7 @@ loc_BANK3_AD85:
 loc_BANK3_ADAB:
       JSR     ApplyObjectPhysicsX
 
-      JMP     HandleObjectGravity
+      JMP     ApplyObjectMovement_Vertical
 
 ; ---------------------------------------------------------------------------
 
@@ -8917,7 +8921,7 @@ loc_BANK3_AE28:
       LDX     byte_RAM_12
 
 loc_BANK3_AE45:
-      JSR     sub_BANK2_8577
+      JSR     ApplyObjectMovement
 
       JMP     RenderSprite
 
@@ -9237,7 +9241,7 @@ loc_BANK3_AFBF:
       INC     EnemyArray_9F,X
 
 loc_BANK3_AFDA:
-      JSR     sub_BANK2_8577
+      JSR     ApplyObjectMovement
 
       INC     unk_RAM_4A4,X
       JMP     RenderSprite

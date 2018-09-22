@@ -1762,7 +1762,6 @@ loc_BANK0_892F:
 
 ; End of function sub_BANK0_8925
 
-; =============== S U B R O U T I N E =======================================
 
 SetObjectLocks:
       LDX     #$07
@@ -1774,17 +1773,18 @@ SetObjectLocks_Loop:
 
       RTS
 
-; End of function SetObjectLocks
 
-; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
 ; Unused space in the original
 ; $8966 - $89FF
       .pad $8A00, $FF
 ENDIF
 
+
 GrowShrinkSFXIndexes:
-      .BYTE SoundEffect2_Shrinking, SoundEffect2_Growing ; ---------------------------------------------------------------------------
+      .BYTE SoundEffect2_Shrinking
+      .BYTE SoundEffect2_Growing
+
 
 HandlePlayerState:
       LDA     PlayerState ; Handles player states?
@@ -1812,7 +1812,6 @@ loc_BANK0_8A26:
       LDA     PlayerState
       JSR     JumpToTableAfterJump ; Player state handling?
 
-; ---------------------------------------------------------------------------
       .WORD HandlePlayerState_Normal ; Normal
       .WORD HandlePlayerState_Climbing ; Climbing
       .WORD HandlePlayerState_Lifting ; Lifting
@@ -1822,7 +1821,7 @@ loc_BANK0_8A26:
       .WORD HandlePlayerState_HawkmouthEating ; Hawkmouth eating
       .WORD HandlePlayerState_Dying ; Dying
       .WORD HandlePlayerState_ChangingSize ; Changing size
-; ---------------------------------------------------------------------------
+
 
 HandlePlayerState_Normal:
       JSR     PlayerGravity
@@ -5673,7 +5672,7 @@ loc_BANK1_A5A3:
       BNE     loc_BANK1_A5D8
 
 loc_BANK1_A5B4:
-      JSR     sub_BANK1_B948
+      JSR     ApplyObjectMovement_Bank1
 
       LDA     ObjectYVelocity,X
       CMP     #$08
@@ -5721,7 +5720,7 @@ sub_BANK1_A5DE:
       CMP     #$F0
       BCS     locret_BANK1_A5FE
 
-      JMP     sub_BANK1_B907
+      JMP     ApplyObjectPhysicsY_Bank1
 
 ; ---------------------------------------------------------------------------
 
@@ -6420,9 +6419,9 @@ loc_BANK1_ACA4:
 
 loc_BANK1_ACA6:
       STX     byte_RAM_12
-      JSR     sub_BANK1_B90C
+      JSR     ApplyObjectPhysicsX_Bank1
 
-      JSR     sub_BANK1_B907
+      JSR     ApplyObjectPhysicsY_Bank1
 
       LDY     #$F0
       LDA     byte_RAM_10
@@ -6752,89 +6751,124 @@ MysteryCharacterData3900:
       .BYTE $18
       .BYTE $1A
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_B907:
+;
+; NOTE: A copy of this subroutine also exists in Bank 2
+;
+; Applies object physics for the y-axis
+;
+; Input
+;   X = enemy index
+;
+ApplyObjectPhysicsY_Bank1:
       TXA
       CLC
       ADC     #$0A
       TAX
 
-; End of function sub_BANK1_B907
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK1_B90C:
+;
+; NOTE: A copy of this subroutine also exists in Bank 2
+;
+; Applies object physics for the x-axis
+;
+; Input
+;   X = enemy index, physics direction
+;       ($00-$09 for horizontal, $0A-$13 for vertical)
+;
+; Output
+;   X = RAM_12
+;
+ApplyObjectPhysicsX_Bank1:
+      ; Add acceleration to velocity
       LDA     ObjectXVelocity,X
       CLC
       ADC     ObjectXAcceleration,X
+
       PHA
+      ; Lower nybble of velocity is for subpixel position
       ASL     A
       ASL     A
       ASL     A
       ASL     A
       STA     byte_RAM_1
+
+      ; Upper nybble of velocity is for lo position
       PLA
       LSR     A
       LSR     A
       LSR     A
       LSR     A
-      CMP     #$08
-      BCC     loc_BANK1_B924
 
+      CMP     #$08
+      BCC     ApplyObjectPhysics_StoreVelocityLo_Bank1
+
+      ; Left/up: Carry negative bits through upper nybble
       ORA     #$F0
 
-loc_BANK1_B924:
+ApplyObjectPhysics_StoreVelocityLo_Bank1:
       STA     byte_RAM_0
+
       LDY     #$00
       ASL     A
-      BCC     loc_BANK1_B92C
+      BCC     ApplyObjectPhysics_StoreDirection_Bank1
 
+      ; Left/up
       DEY
 
-loc_BANK1_B92C:
+ApplyObjectPhysics_StoreDirection_Bank1:
       STY     byte_RAM_2
+
+      ; Add lower nybble of velocity for subpixel position
       LDA     ObjectXSubpixel,X
       CLC
       ADC     byte_RAM_1
       STA     ObjectXSubpixel,X
+
+      ; Add upper nybble of velocity for lo position
       LDA     ObjectXLo,X
       ADC     byte_RAM_0
       STA     ObjectXLo,X
+
+ApplyObjectPhysics_PositionHi_Bank1:
       LSR     byte_RAM_1
       LDA     ObjectXHi,X
       ADC     byte_RAM_2
       STA     ObjectXHi,X
+
+ApplyObjectPhysics_Exit_Bank1:
       LDX     byte_RAM_12
       RTS
 
-; End of function sub_BANK1_B90C
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_B948:
+;
+; Applies object physics
+;
+; Input
+;   X = enemy index
+;
+ApplyObjectMovement_Bank1:
       LDA     EnemyArray_44A,X
-      BNE     loc_BANK1_B950
+      BNE     ApplyObjectMovement_Vertical_Bank1
 
-      JSR     sub_BANK1_B90C
+      JSR     ApplyObjectPhysicsX_Bank1
 
-loc_BANK1_B950:
-      JSR     sub_BANK1_B907
+ApplyObjectMovement_Vertical_Bank1:
+      JSR     ApplyObjectPhysicsY_Bank1
 
       LDA     ObjectYVelocity,X
-      BMI     loc_BANK1_B95B
+      BMI     ApplyObjectMovement_Gravity_Bank1
 
+      ; Check terminal velocity
       CMP     #$3E
-      BCS     locret_BANK1_B95F
+      BCS     ApplyObjectMovement_Exit_Bank1
 
-loc_BANK1_B95B:
+ApplyObjectMovement_Gravity_Bank1:
       INC     ObjectYVelocity,X
       INC     ObjectYVelocity,X
 
-locret_BANK1_B95F:
+ApplyObjectMovement_Exit_Bank1:
       RTS
-
-; End of function sub_BANK1_B948
 
 
 DoorAnimation_Locked:
