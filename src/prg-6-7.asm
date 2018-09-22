@@ -1230,7 +1230,7 @@ loc_BANK6_8BBD:
 loc_BANK6_8BBF:
       STX     byte_RAM_B
       LDX     byte_RAM_E8
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
 
       LDX     #$05
       LDY     byte_RAM_E7
@@ -1586,7 +1586,7 @@ CreateObject_Wall:
       STA     byte_RAM_8
       LDY     byte_RAM_E7
       LDX     byte_RAM_E8
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
 
       LDY     byte_RAM_E7
       LDA     #$05
@@ -1646,7 +1646,7 @@ CreateObject_Waterfall:
 loc_BANK6_8DA3:
       LDY     byte_RAM_E7
       LDX     byte_RAM_E8
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
 
       LDY     byte_RAM_E7
       LDA     byte_RAM_50D
@@ -1906,7 +1906,7 @@ loc_BANK6_8ED2:
 
 loc_BANK6_8EE2:
       LDX     byte_RAM_E8
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
 
       JSR     sub_BANK6_8E8F
 
@@ -1951,7 +1951,7 @@ CreateObject_FrozenRocks:
 loc_BANK6_8F19:
       LDY     byte_RAM_E7
       LDX     byte_RAM_E8
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
 
       LDY     byte_RAM_E7
       LDA     byte_RAM_50D
@@ -2060,7 +2060,7 @@ CreateObject_TreeBackground:
       STA     byte_RAM_7
       LDY     byte_RAM_E7
       LDX     byte_RAM_E8
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
 
       LDX     #$02
       LDA     (byte_RAM_1),Y
@@ -2317,7 +2317,7 @@ ENDIF
 
       STA     byte_RAM_50D
       LDX     byte_RAM_E8
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
 
       LDY     byte_RAM_E7
       LDA     (byte_RAM_1),Y
@@ -2521,7 +2521,7 @@ VerticalGroundSetData:
       .BYTE $A0,$00,$00,$00
       .BYTE $00,$00,$00,$0A
 
-DecodedLevelPageStartLo:
+DecodedLevelPageStartLo_Bank6:
       .BYTE <DecodedLevelData
       .BYTE <(DecodedLevelData+$00F0)
       .BYTE <(DecodedLevelData+$01E0)
@@ -2534,7 +2534,7 @@ DecodedLevelPageStartLo:
       .BYTE <(DecodedLevelData+$0870)
       .BYTE <(SubAreaTileLayout)
 
-DecodedLevelPageStartHi:
+DecodedLevelPageStartHi_Bank6:
       .BYTE >DecodedLevelData
       .BYTE >(DecodedLevelData+$00F0)
       .BYTE >(DecodedLevelData+$01E0)
@@ -2827,7 +2827,7 @@ loc_BANK6_9439:
       STA     byte_RAM_E6
       LDA     byte_RAM_E8
       STA     byte_RAM_D
-      JSR     SetTileOffsetAndAreaPageAddr
+      JSR     SetTileOffsetAndAreaPageAddr_Bank6
 
       LDY     byte_RAM_E7
       LDX     #$0F
@@ -3212,7 +3212,7 @@ ReadLevelData_RegularObjectNoSize:
       BEQ     ReadLevelData_RegularObjectNoSize_00
 
       PHA
-      JSR     SetTileOffsetAndAreaPageAddr
+      JSR     SetTileOffsetAndAreaPageAddr_Bank6
 
       LDA     (byte_RAM_5),Y
       AND     #$0F
@@ -3241,7 +3241,7 @@ ReadLevelData_RegularObjectWithSize:
       AND     #$0F
       STA     byte_RAM_50D
       STY     byte_RAM_4
-      JSR     SetTileOffsetAndAreaPageAddr
+      JSR     SetTileOffsetAndAreaPageAddr_Bank6
 
       LDA     byte_RAM_50E
       SEC
@@ -3253,7 +3253,7 @@ ReadLevelData_RegularObject_Exit:
       JMP     ReadLevelData_NextByteObject
 
 ReadLevelData_RegularObjectNoSize_00:
-      JSR     SetTileOffsetAndAreaPageAddr
+      JSR     SetTileOffsetAndAreaPageAddr_Bank6
 
       LDA     (byte_RAM_5),Y
       AND     #$0F
@@ -3384,7 +3384,7 @@ CreateRawTiles:
 
       ; setting the page address allows this to be the first object of an area
       LDX     byte_RAM_E8
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
 
       INY
       ; read tile placement offset
@@ -3640,7 +3640,7 @@ loc_BANK6_9787:
 ; ---------------------------------------------------------------------------
 
 loc_BANK6_978C:
-      JSR     SetTileOffsetAndAreaPageAddr
+      JSR     SetTileOffsetAndAreaPageAddr_Bank6
 
       JSR     LoadGroundSetData
 
@@ -3855,9 +3855,9 @@ ReadGroundTileVertical:
 ;   RAM_2 = low byte of decoded level data RAM
 ;   byte_RAM_E7 = target tile placement offset
 ;
-SetTileOffsetAndAreaPageAddr:
+SetTileOffsetAndAreaPageAddr_Bank6:
       LDX     byte_RAM_E8
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
 
       LDA     byte_RAM_E6
       CLC
@@ -3874,10 +3874,10 @@ SetTileOffsetAndAreaPageAddr:
 ;   byte_RAM_1 = low byte of decoded level data RAM
 ;   byte_RAM_2 = low byte of decoded level data RAM
 ;
-SetAreaPageAddr:
-      LDA     DecodedLevelPageStartLo,X
+SetAreaPageAddr_Bank6:
+      LDA     DecodedLevelPageStartLo_Bank6,X
       STA     byte_RAM_1
-      LDA     DecodedLevelPageStartHi,X
+      LDA     DecodedLevelPageStartHi_Bank6,X
       STA     byte_RAM_2
       RTS
 
@@ -3896,7 +3896,7 @@ IncrementAreaXOffset:
       LDX     byte_RAM_E8
       INX
       STX     byte_RAM_D
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
       LDX     byte_RAM_B
 
 IncrementAreaXOffset_Exit:
@@ -3915,7 +3915,7 @@ IncrementAreaYOffset:
       ; increment the area page
       LDX     byte_RAM_E8
       INX
-      JSR     SetAreaPageAddr
+      JSR     SetAreaPageAddr_Bank6
 
       TYA
       AND     #$0F

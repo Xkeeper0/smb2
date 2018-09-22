@@ -1768,7 +1768,7 @@ SetObjectLocks:
       LDX     #$07
 
 SetObjectLocks_Loop:
-      STA     PlayerLock,X
+      STA     ObjectLock-1,X
       DEX
       BPL     SetObjectLocks_Loop
 
@@ -2098,7 +2098,7 @@ HandlePlayerState_GoingDownJar:
 
       PLA
       PLA
-      JSR     StashPlayerPosition
+      JSR     StashPlayerPosition_Bank0
 
       LDA     #TransitionType_Jar
       STA     TransitionType
@@ -2420,7 +2420,7 @@ PlayerStartJump_CheckXSpeed:
       CMP     #$08
       ; Clear y subpixel
       LDA     #$00
-      STA     ObjectYSubpixel
+      STA     PlayerYSubpixel
       ; Set bit for x-speed using carry flag
       ROL     A
 
@@ -2853,7 +2853,7 @@ sub_BANK0_8EA4:
 sub_BANK0_8EA6:
       LDA     ObjectXVelocity-1,X
       CLC
-      ADC     EnemyArray_4CC-1,X
+      ADC     ObjectXAcceleration-1,X
       PHP
       BPL     loc_BANK0_8EB4
 
@@ -2876,8 +2876,8 @@ loc_BANK0_8EB4:
       CLC
 
 loc_BANK0_8EC0:
-      ADC     ObjectXSubpixel,X
-      STA     ObjectXSubpixel,X
+      ADC     ObjectXSubpixel-1,X
+      STA     ObjectXSubpixel-1,X
       TYA
       ADC     #$00
       PLP
@@ -2902,7 +2902,7 @@ loc_BANK0_8ED8:
       ADC     PlayerXHi,X
       STA     PlayerXHi,X
       LDA     #$00
-      STA     EnemyArray_4CC-1,X
+      STA     ObjectXAcceleration-1,X
       RTS
 
 ; End of function sub_BANK0_8EA6
@@ -2974,7 +2974,7 @@ PlayerTileCollision:
       ; Determine whether the player is going up
       LDA     PlayerYVelocity
       CLC
-      ADC     byte_RAM_4D5
+      ADC     PlayerYAcceleration
       BPL     PlayerTileCollision_Downward
 
 PlayerTileCollision_Upward:
@@ -3031,7 +3031,7 @@ PlayerTileCollision_CheckConveyorTile:
 
       LDX     byte_RAM_A
       LDA     ConveyorSpeedTable,X
-      STA     byte_RAM_4CB
+      STA     PlayerXAcceleration
 
 PlayerTileCollision_CheckSlipperyTile:
       LSR     byte_RAM_C
@@ -3046,7 +3046,7 @@ PlayerTileCollision_CheckJar:
 PlayerTileCollision_CheckDamageTile:
       LDA     #$00
       STA     PlayerYVelocity
-      STA     byte_RAM_4D5
+      STA     PlayerYAcceleration
       LDA     StarInvincibilityTimer
       BNE     PlayerTileCollision_Horizontal
 
@@ -3062,7 +3062,7 @@ PlayerTileCollision_Horizontal:
       LDY     #$02
       LDA     PlayerXVelocity
       CLC
-      ADC     byte_RAM_4CB
+      ADC     PlayerXAcceleration
       BMI     loc_BANK0_8FA3
 
       DEY
@@ -3371,7 +3371,7 @@ loc_BANK0_90EA:
       LDA     #CollisionFlags_Down
       STA     EnemyCollision,X
       LDA     #BackgroundTile_Sky
-      JSR     sub_BANK0_934F
+      JSR     ReplaceTile_Bank0
 
       LDA     #$07
       STA     ObjectBeingCarriedTimer,X
@@ -3779,23 +3779,23 @@ locret_BANK0_92C0:
 
 ; End of function sub_BANK0_92AA
 
-; =============== S U B R O U T I N E =======================================
 
+;
+; NOTE: This is a copy of the "sub_BANK3_BC2E" routine in Bank 3
+;
+;
 sub_BANK0_92C1:
       LDY     byte_RAM_1
-
-loc_BANK0_92C3:
       LDA     byte_RAM_E6
       JSR     sub_BANK0_92AA
 
-loc_BANK0_92C8:
       STY     byte_RAM_1
       STA     byte_RAM_E6
       LDY     IsHorizontalLevel
       LDA     byte_RAM_1,Y
       STA     byte_RAM_E8
       LDA     byte_RAM_2
-      CMP     byte_BANK0_92E1,Y
+      CMP     byte_BANK0_92E0+1,Y
       BCS     locret_BANK0_92DF
 
       LDA     byte_RAM_1
@@ -3804,18 +3804,14 @@ loc_BANK0_92C8:
 locret_BANK0_92DF:
       RTS
 
-; End of function sub_BANK0_92C1
-
-; ---------------------------------------------------------------------------
 
 byte_BANK0_92E0:
       .BYTE $0A
-
-byte_BANK0_92E1:
       .BYTE $01
       .BYTE $0B
-; ---------------------------------------------------------------------------
 
+
+; Unused?
 _code_12E3:
       LDX     NeedVerticalScroll
       BNE     locret_BANK0_9311
@@ -3910,14 +3906,14 @@ PlayerHorizontalCollision_Bank0:
       STX     PlayerXVelocity
 
 loc_BANK0_9340:
-      LDA     byte_RAM_4CB
+      LDA     PlayerXAcceleration
       EOR     PlayerCollisionResultTable_Bank0-1,Y
       BPL     loc_BANK0_934B
 
-      STX     byte_RAM_4CB
+      STX     PlayerXAcceleration
 
 loc_BANK0_934B:
-      STX     ObjectXSubpixel
+      STX     PlayerXSubpixel
 
 locret_BANK0_934E:
       RTS
@@ -3928,9 +3924,13 @@ locret_BANK0_934E:
 ;
 ; NOTE: This is a copy of the "sub_BANK3_BC50" routine in Bank 3
 ;
-; replace tile when something is picked up
+; Replaces tile when something is picked up
 ;
-sub_BANK0_934F:
+; Input
+;   A = Target tile
+;   X = Enemy index of object being picked up
+;
+ReplaceTile_Bank0:
       PHA ; Something to update the PPU for some tile change
       LDA     ObjectXLo,X
       CLC
@@ -3944,11 +3944,11 @@ sub_BANK0_934F:
       PLP
       LDA     ObjectXHi,X
       LDY     IsHorizontalLevel
-      BEQ     loc_BANK0_9365
+      BEQ     ReplaceTile_StoreXHi_Bank0
 
       ADC     #$00
 
-loc_BANK0_9365:
+ReplaceTile_StoreXHi_Bank0:
       STA     byte_RAM_2
       LDA     ObjectYLo,X
       CLC
@@ -3963,6 +3963,10 @@ loc_BANK0_9365:
       PLA
       BCS     locret_BANK0_934E
 
+;
+; Input
+;   A = Target tile
+;
 loc_BANK0_937C:
       STX     byte_RAM_3
       PHA
@@ -4044,9 +4048,7 @@ loc_BANK0_93B9:
       LDX     byte_RAM_3
       RTS
 
-; End of function sub_BANK0_934F
 
-; ---------------------------------------------------------------------------
 ; Another byte of PPU high addresses for horiz/vert levels
 byte_BANK0_940A:
       .BYTE $20
@@ -4055,9 +4057,12 @@ byte_BANK0_940A:
       .BYTE $24
 
 
-StashPlayerPosition:
+;
+; NOTE: This is a copy of the "StashPlayerPosition" routine in Bank 3
+;
+StashPlayerPosition_Bank0:
       LDA     InSubspaceOrJar
-      BNE     StashPlayerPosition_Exit
+      BNE     StashPlayerPosition_Exit_Bank0
 
       LDA     PlayerXHi
       STA     PlayerXHi_Backup
@@ -4068,7 +4073,7 @@ StashPlayerPosition:
       LDA     PlayerYLo
       STA     PlayerYLo_Backup
 
-StashPlayerPosition_Exit:
+StashPlayerPosition_Exit_Bank0:
       RTS
 
 
@@ -4096,7 +4101,7 @@ sub_BANK0_9428:
       LDA     TransitionType
       SEC
       SBC     #TransitionType_SubSpace
-      BNE     StashPlayerPosition_Exit
+      BNE     StashPlayerPosition_Exit_Bank0
 
       ; resetting these to zero (A=$00, otherwise we would have branched)
       STA     PlayerState
@@ -6391,8 +6396,8 @@ loc_BANK1_AC87:
       BNE     loc_BANK1_ACA4
 
 loc_BANK1_AC8B:
-      STA     byte_RAM_40E
-      STA     byte_RAM_418
+      STA     ObjectXSubpixel+6
+      STA     ObjectYSubpixel+6
       STA     ObjectXLo+6
       STA     byte_RAM_10
       LDA     #$6F
@@ -6762,7 +6767,7 @@ sub_BANK1_B907:
 sub_BANK1_B90C:
       LDA     ObjectXVelocity,X
       CLC
-      ADC     EnemyArray_4CC,X
+      ADC     ObjectXAcceleration,X
       PHA
       ASL     A
       ASL     A
@@ -6789,10 +6794,10 @@ loc_BANK1_B924:
 
 loc_BANK1_B92C:
       STY     byte_RAM_2
-      LDA     unk_RAM_408,X
+      LDA     ObjectXSubpixel,X
       CLC
       ADC     byte_RAM_1
-      STA     unk_RAM_408,X
+      STA     ObjectXSubpixel,X
       LDA     ObjectXLo,X
       ADC     byte_RAM_0
       STA     ObjectXLo,X
@@ -6941,8 +6946,8 @@ loc_BANK1_B9EB:
       STA     EnemyCollision,X
       STA     EnemyArray_438,X
       STA     EnemyArray_453,X
-      STA     EnemyArray_4CC,X
-      STA     EnemyArray_4D6,X
+      STA     ObjectXAcceleration,X
+      STA     ObjectYAcceleration,X
       STA     EnemyArray_45C,X
       STA     EnemyArray_477,X
       STA     EnemyArray_480,X
@@ -7007,8 +7012,6 @@ UnlinkEnemyFromRawData_Bank1:
       STA     unk_RAM_441,X
       RTS
 
-
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Updates the area page and tile placement offset

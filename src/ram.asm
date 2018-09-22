@@ -1217,34 +1217,33 @@ byte_RAM_404:
 byte_RAM_405:
       .dsb 1 ; $0405
       .dsb 1 ; $0406
-ObjectXSubpixel:
+PlayerXSubpixel:
       .dsb 1 ; $0407
-unk_RAM_408:
+ObjectXSubpixel:
       .dsb 1 ; $0408
       .dsb 1 ; $0409
       .dsb 1 ; $040a
       .dsb 1 ; $040b
       .dsb 1 ; $040c
       .dsb 1 ; $040d
-byte_RAM_40E:
       .dsb 1 ; $040e
       .dsb 1 ; $040f
       .dsb 1 ; $0410
-ObjectYSubpixel:
+PlayerYSubpixel:
       .dsb 1 ; $0411
-unk_RAM_412:
+ObjectYSubpixel:
       .dsb 1 ; $0412
       .dsb 1 ; $0413
       .dsb 1 ; $0414
       .dsb 1 ; $0415
       .dsb 1 ; $0416
       .dsb 1 ; $0417
-byte_RAM_418:
       .dsb 1 ; $0418
       .dsb 1 ; $0419
       .dsb 1 ; $041a
 PlayerLock:
       .dsb 1 ; $041b
+ObjectLock:
       .dsb 1 ; $041c
       .dsb 1 ; $041d
       .dsb 1 ; $041e
@@ -1489,9 +1488,9 @@ byte_RAM_4C9:
       .dsb 1 ; $04c9
 CrouchJumpTimer:
       .dsb 1 ; $04ca
-byte_RAM_4CB:
+PlayerXAcceleration:
       .dsb 1 ; $04cb
-EnemyArray_4CC:
+ObjectXAcceleration:
       .dsb 1 ; $04cc
       .dsb 1 ; $04cd
       .dsb 1 ; $04ce
@@ -1501,9 +1500,9 @@ EnemyArray_4CC:
       .dsb 1 ; $04d2
       .dsb 1 ; $04d3
       .dsb 1 ; $04d4
-byte_RAM_4D5:
+PlayerYAcceleration:
       .dsb 1 ; $04d5
-EnemyArray_4D6:
+ObjectYAcceleration:
       .dsb 1 ; $04d6
       .dsb 1 ; $04d7
       .dsb 1 ; $04d8

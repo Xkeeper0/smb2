@@ -858,8 +858,8 @@ EnemyInit_BasicWithoutTimer:
       STA     EnemyCollision,X
       STA     EnemyArray_438,X
       STA     EnemyArray_453,X
-      STA     EnemyArray_4CC,X
-      STA     EnemyArray_4D6,X
+      STA     ObjectXAcceleration,X
+      STA     ObjectYAcceleration,X
       STA     EnemyArray_45C,X
       STA     EnemyArray_477,X
       STA     EnemyArray_480,X
@@ -1064,10 +1064,10 @@ sub_BANK2_8577:
       LDA     EnemyArray_44A,X
       BNE     HandleObjectGravity
 
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
 HandleObjectGravity:
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
       LDA     ObjectYVelocity,X
       BMI     loc_BANK2_858A
@@ -1641,7 +1641,7 @@ HandleEnemyState_Sand:
 
       LDA     #$F8
       STA     ObjectYVelocity,X
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
       LDA     #$B2
       LDY     EnemyTimer,X
@@ -2190,12 +2190,12 @@ loc_BANK2_8B50:
       LDA     EnemyArray_477,X
       BNE     loc_BANK2_8B58
 
-      JMP     sub_BANK2_9E50
+      JMP     ApplyObjectPhysicsX
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8B58:
-      JMP     sub_BANK2_9E4B
+      JMP     ApplyObjectPhysicsY
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2367,7 +2367,7 @@ EnemyBehavior_PanserRedAndGray:
       AND     #CollisionFlags_Down
       BEQ     loc_BANK2_8C1A
 
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
 loc_BANK2_8C1A:
       PLA
@@ -2947,7 +2947,7 @@ loc_BANK2_8EF3:
       ASL     ObjectYVelocity,X
 
 loc_BANK2_8F0A:
-      JMP     sub_BANK2_9E4B
+      JMP     ApplyObjectPhysicsY
 
 ; ---------------------------------------------------------------------------
 
@@ -3055,7 +3055,7 @@ EnemyBehavior_Birdo:
       AND     #CollisionFlags_Down
       BEQ     loc_BANK2_8FD2
 
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
       LDA     byte_RAM_10
       BNE     loc_BANK2_8FA3
@@ -3112,7 +3112,7 @@ loc_BANK2_8FB6:
 
 loc_BANK2_8FCD:
       STA     ObjectXVelocity,X
-      JMP     sub_BANK2_9E50
+      JMP     ApplyObjectPhysicsX
 
 ; ---------------------------------------------------------------------------
 
@@ -3348,7 +3348,7 @@ loc_BANK2_90D9:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_90F2:
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
       LDA     byte_RAM_B
       BNE     loc_BANK2_90FB
@@ -3434,7 +3434,7 @@ EnemyBehavior_SubspacePotion_CheckGroundCollision:
       AND     #CollisionFlags_Down
       BEQ     EnemyBehavior_Vegetable
 
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
       LDA     ObjectYLo,X
       SEC
@@ -3485,7 +3485,7 @@ loc_BANK2_9198:
 ; Turns an object into a puff of smoke
 ;
 ; Input
-;   X = Enemy index of object to poof
+;   X = enemy index of object to poof
 ;
 TurnIntoPuffOfSmoke:
       LDA     ObjectAttributes,X ; Get current object sprite attributes...
@@ -3641,7 +3641,7 @@ loc_BANK2_9271:
       JSR     sub_BANK2_997A
 
 loc_BANK2_9274:
-      JMP     sub_BANK2_9E50
+      JMP     ApplyObjectPhysicsX
 
 ; ---------------------------------------------------------------------------
 
@@ -3713,7 +3713,7 @@ loc_BANK2_92B5:
       JSR     HalfObjectVelocityX
 
 loc_BANK2_92BE:
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
       JMP     RenderSprite
 
@@ -3881,7 +3881,7 @@ loc_BANK2_937F:
       BEQ     loc_BANK2_9388
 
       LDA     PlayerXVelocity
-      STA     EnemyArray_4CC,X
+      STA     ObjectXAcceleration,X
 
 loc_BANK2_9388:
       LDY     PhantoActivateTimer
@@ -3915,7 +3915,7 @@ Phanto_AfterSound:
 
 Phanto_AfterDecrementActivateTimer:
       LDA     #$00
-      STA     EnemyArray_4CC,X
+      STA     ObjectXAcceleration,X
       STA     ObjectXVelocity,X
       STA     ObjectYVelocity,X
 
@@ -3988,7 +3988,7 @@ loc_BANK2_9401:
       LDA     EnemyArray_9F,X
       AND     #$F0
       STA     EnemyArray_9F,X
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
 loc_BANK2_940C:
       JMP     EnemyBehavior_BasicWalker
@@ -4025,16 +4025,16 @@ loc_BANK2_9429:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9430:
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
-      JMP     sub_BANK2_9E4B
+      JMP     ApplyObjectPhysicsY
 
 ; End of function sub_BANK2_9430
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9436:
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
 loc_BANK2_9439:
       JMP     sub_BANK2_9430
@@ -4112,7 +4112,7 @@ sub_BANK2_9486:
       LDA     ObjectAttributes,X
       ORA     #$20
       STA     ObjectAttributes,X
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
       JMP     RenderSprite
 
@@ -4236,8 +4236,8 @@ loc_BANK2_9503:
       LDY     #$E0
 
 loc_BANK2_9523:
-      STY     ObjectYVelocity,X ; Set Y accelleration for bouncing
-      JMP     sub_BANK2_9E4B
+      STY     ObjectYVelocity,X ; Set Y acceleration for bouncing
+      JMP     ApplyObjectPhysicsY
 
 ; ---------------------------------------------------------------------------
 
@@ -4279,7 +4279,7 @@ loc_BANK2_9528:
 
       LDA     #$E8
       STA     ObjectYVelocity,X
-      JMP     sub_BANK2_9E4B
+      JMP     ApplyObjectPhysicsY
 
 ; ---------------------------------------------------------------------------
 
@@ -4351,9 +4351,9 @@ loc_BANK2_959D:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_95AA:
-      JSR     sub_BANK2_95D0
+      JSR     SetObjectYVelocity
 
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
 ; End of function sub_BANK2_95AA
 
@@ -4391,33 +4391,38 @@ loc_BANK2_95CA:
       ASL     ObjectAttributes,X
       LSR     ObjectAttributes,X
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_95CE:
+;
+; Does SetObjectYVelocity with y-velocity of 0
+;
+ResetObjectYVelocity:
       LDA     #$00
 
-; End of function sub_BANK2_95CE
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK2_95D0:
+;
+; Sets the y-velocity of an object and shifts it half a tile down if it's not a
+; a vegetable
+;
+; Input
+;   A = y-velocity
+;   X = enemy index
+;
+SetObjectYVelocity:
       STA     ObjectYVelocity,X
       LDA     ObjectType,X
       CMP     #Enemy_VegetableSmall
       LDA     ObjectYLo,X
-      BCS     loc_BANK2_95E0
+      BCS     SetObjectYVelocity_Exit
 
       ADC     #$08
-      BCC     loc_BANK2_95E0
+      BCC     SetObjectYVelocity_Exit
 
       INC     ObjectYHi,X
 
-loc_BANK2_95E0:
+SetObjectYVelocity_Exit:
       AND     #$F0
       STA     ObjectYLo,X
       RTS
 
-; End of function sub_BANK2_95D0
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -4643,7 +4648,7 @@ loc_BANK2_96D4:
       BEQ     loc_BANK2_96EC
 
       LDA     #$14
-      JMP     sub_BANK2_95D0
+      JMP     SetObjectYVelocity
 
 ; ---------------------------------------------------------------------------
 
@@ -4665,7 +4670,7 @@ loc_BANK2_96FF:
       CMP     #$16
       BCC     loc_BANK2_970D
 
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
       LDA     #$F5
       JMP     sub_BANK2_95AA
@@ -4673,10 +4678,10 @@ loc_BANK2_96FF:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_970D:
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
       LDA     EnemyVariable,X
-      JSR     sub_BANK3_BC50
+      JSR     ReplaceTile
 
       JMP     EnemyDestroy
 
@@ -5011,7 +5016,7 @@ loc_BANK2_98AE:
       AND     #CollisionFlags_Down
       BEQ     loc_BANK2_98B7
 
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
 loc_BANK2_98B7:
       JSR     RenderSprite
@@ -5113,7 +5118,7 @@ loc_BANK2_9919:
       INC     ObjectYVelocity,X
 
 loc_BANK2_9921:
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
       LDA     ObjectYLo,X
       CMP     #$F0
@@ -6113,11 +6118,13 @@ loc_BANK2_9E06:
 locret_BANK2_9E3A:
       RTS
 
-; =============== S U B R O U T I N E =======================================
 
-; Compares our position to the player's, and returns
-; Y = 1 (Player to left)
-; Y = 0 (Player to right)
+;
+; Compares our position to the player's and returns
+;
+; Ouput
+;   Y = 1 when player is to the left, 0 when player is to the right
+;
 EnemyFindWhichSidePlayerIsOn:
       LDA     PlayerXLo
       SBC     ObjectXLo,X
@@ -6125,94 +6132,117 @@ EnemyFindWhichSidePlayerIsOn:
       LDA     PlayerXHi
       LDY     #$00
       SBC     ObjectXHi,X
-      BCS     locret_BANK2_9E4A
+      BCS     EnemyFindWhichSidePlayerIsOn_Exit
 
       INY
 
-locret_BANK2_9E4A:
+EnemyFindWhichSidePlayerIsOn_Exit:
       RTS
 
-; End of function EnemyFindWhichSidePlayerIsOn
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK2_9E4B:
+;
+; Applies object physics for the y-axis
+;
+; Input
+;   X = enemy index
+;
+ApplyObjectPhysicsY:
       TXA
       CLC
-      ADC     #$A
+      ADC     #$0A
       TAX
 
-; End of function sub_BANK2_9E4B
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK2_9E50:
+;
+; Applies object physics for the x-axis
+;
+; Input
+;   X = enemy index, physics direction
+;       ($00-$09 for horizontal, $0A-$13 for vertical)
+;
+; Output
+;   X = RAM_12
+;
+ApplyObjectPhysicsX:
+      ; Add acceleration to velocity
       LDA     ObjectXVelocity,X
       CLC
-      ADC     EnemyArray_4CC,X
+      ADC     ObjectXAcceleration,X
+
       PHA
+      ; Lower nybble of velocity is for subpixel position
       ASL     A
       ASL     A
       ASL     A
       ASL     A
       STA     byte_RAM_1
+
+      ; Upper nybble of velocity is for lo position
       PLA
       LSR     A
       LSR     A
       LSR     A
       LSR     A
-      CMP     #$08
-      BCC     loc_BANK2_9E68
 
+      CMP     #$08
+      BCC     ApplyObjectPhysics_StoreVelocityLo
+
+      ; Left/up: Carry negative bits through upper nybble
       ORA     #$F0
 
-loc_BANK2_9E68:
+ApplyObjectPhysics_StoreVelocityLo:
       STA     byte_RAM_0
+
       LDY     #$00
       ASL     A
-      BCC     loc_BANK2_9E70
+      BCC     ApplyObjectPhysics_StoreDirection
 
+      ; Left/up
       DEY
 
-loc_BANK2_9E70:
+ApplyObjectPhysics_StoreDirection:
       STY     byte_RAM_2
-      LDA     unk_RAM_408,X
+
+      ; Add lower nybble of velocity for subpixel position
+      LDA     ObjectXSubpixel,X
       CLC
       ADC     byte_RAM_1
-      STA     unk_RAM_408,X
+      STA     ObjectXSubpixel,X
+
+      ; Add upper nybble of velocity for lo position
       LDA     ObjectXLo,X
       ADC     byte_RAM_0
       STA     ObjectXLo,X
       ROL     byte_RAM_1
-      CPX     #$0A
-      BCS     loc_BANK2_9E9E
 
+      ; X < 10 is horizontal physics
+      CPX     #$0A
+      BCS     ApplyObjectPhysics_PositionHi
+
+ApplyObjectPhysics_HorizontalSpecialCases:
       LDA     #$00
       STA     unk_RAM_4A4,X
       LDA     ObjectType,X
       CMP     #Enemy_Bullet
-      BEQ     loc_BANK2_9E9E
+      BEQ     ApplyObjectPhysics_PositionHi
 
       CMP     #Enemy_BeezoDiving
-      BEQ     loc_BANK2_9E9E
+      BEQ     ApplyObjectPhysics_PositionHi
 
       CMP     #Enemy_BeezoStraight
-      BEQ     loc_BANK2_9E9E
+      BEQ     ApplyObjectPhysics_PositionHi
 
       LDY     IsHorizontalLevel
-      BEQ     loc_BANK2_9EA6
+      BEQ     ApplyObjectPhysics_Exit
 
-loc_BANK2_9E9E:
+ApplyObjectPhysics_PositionHi:
       LSR     byte_RAM_1
       LDA     ObjectXHi,X
       ADC     byte_RAM_2
       STA     ObjectXHi,X
 
-loc_BANK2_9EA6:
+ApplyObjectPhysics_Exit:
       LDX     byte_RAM_12
       RTS
-
-; End of function sub_BANK2_9E50
 
 
 EnemyBehavior_TurnAround:
@@ -6231,7 +6261,7 @@ EnemyBehavior_TurnAround:
       STA     EnemyMovementDirection,X
 
 EnemyBehavior_TurnAroundExit:
-      JMP     sub_BANK2_9E50
+      JMP     ApplyObjectPhysicsX
 
 
 IFDEF PRESERVE_UNUSED_SPACE
@@ -6403,7 +6433,7 @@ loc_BANK3_A13B:
       CMP     #$70
       BCC     loc_BANK3_A147
 
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
 loc_BANK3_A147:
       LDA     EnemyTimer,X
@@ -6490,7 +6520,7 @@ loc_BANK3_A17D:
       LDX     byte_RAM_12
 
 loc_BANK3_A1CD:
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
       JSR     HandleObjectGravity
 
@@ -6732,7 +6762,7 @@ EnemyBehavior_ClawgripRock:
 
       JSR     sub_BANK2_98CD
 
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
       JSR     HandleObjectGravity
 
@@ -6983,9 +7013,9 @@ loc_BANK3_A428:
       STA     ObjectYVelocity,X
 
 loc_BANK3_A42A:
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
       LDA     EnemyArray_B1,X
       CMP     #$20
@@ -7155,9 +7185,9 @@ loc_BANK3_A4EC:
       INC     EnemyArray_477,X
 
 loc_BANK3_A502:
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -7275,7 +7305,7 @@ loc_BANK3_A586:
       AND     #$04
       BEQ     loc_BANK3_A5F5
 
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
       LDA     byte_RAM_10
       AND     #$FF
@@ -7313,7 +7343,7 @@ loc_BANK3_A5AF:
 
 loc_BANK3_A5C9:
       STY     ObjectXVelocity,X
-      JMP     sub_BANK2_9E50
+      JMP     ApplyObjectPhysicsX
 
 ; ---------------------------------------------------------------------------
 
@@ -7546,7 +7576,7 @@ loc_BANK3_A700:
       LDA     EnemyArray_9F,X
       EOR     #$08
       STA     EnemyArray_9F,X
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
       LDA     #$F0
       STA     ObjectYVelocity,X
@@ -7647,7 +7677,7 @@ EnemyBehavior_Tryclyde:
 
 loc_BANK3_A76F:
       STY     ObjectXVelocity,X
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
       INC     EnemyArray_477,X
       LDA     EnemyArray_B1,X
@@ -7947,7 +7977,7 @@ loc_BANK3_A924:
 
 loc_BANK3_A932:
       STY     ObjectYVelocity,X
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
       LDA     #$61
       STA     ObjectAttributes,X
@@ -8053,7 +8083,7 @@ loc_BANK3_A9AA:
 
 loc_BANK3_A9B4:
       STY     ObjectYVelocity,X
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
       JMP     loc_BANK3_A9FC
 
@@ -8227,7 +8257,7 @@ loc_BANK3_AA99:
       JSR     EnemyInit_BasicMovementTowardPlayer
 
 loc_BANK3_AAA4:
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
       JMP     RenderSprite
 
@@ -8343,7 +8373,7 @@ loc_BANK3_AB3B:
       DEC     ObjectYVelocity,X
 
 loc_BANK3_AB42:
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
       LDA     EnemyArray_477,X
       BNE     loc_BANK3_AB64
@@ -8697,9 +8727,9 @@ loc_BANK3_AD21:
 loc_BANK3_AD37:
       JSR     sub_BANK3_AC28
 
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
-      JMP     sub_BANK2_9E50
+      JMP     ApplyObjectPhysicsX
 
 ; ---------------------------------------------------------------------------
 unk_BANK3_AD40:
@@ -8743,7 +8773,7 @@ loc_BANK3_AD59:
       AND     #CollisionFlags_Down
       BEQ     loc_BANK3_AD7A
 
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
       LDA     #$00
       STA     ObjectXVelocity,X
@@ -8781,7 +8811,7 @@ loc_BANK3_AD85:
       ASL     ObjectXVelocity,X
 
 loc_BANK3_ADAB:
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
       JMP     HandleObjectGravity
 
@@ -8837,7 +8867,7 @@ loc_BANK3_ADF9:
       AND     #CollisionFlags_Down
       BEQ     loc_BANK3_AE09
 
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
 loc_BANK3_AE09:
       PLA
@@ -8846,7 +8876,7 @@ loc_BANK3_AE09:
 
       JSR     EnemyBehavior_TurnAround
 
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
 loc_BANK3_AE14:
       INC     EnemyArray_9F,X
@@ -9037,7 +9067,7 @@ loc_BANK3_AEE4:
 
 loc_BANK3_AEE6:
       INC     ObjectYVelocity,X
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
 loc_BANK3_AEEB:
       LDA     byte_RAM_EE
@@ -9158,7 +9188,7 @@ loc_BANK3_AF8D:
 
       LDA     ObjectYVelocity,X
       PHA
-      JSR     sub_BANK2_95CE
+      JSR     ResetObjectYVelocity
 
       PLA
       LDY     EnemyArray_42F,X
@@ -9619,7 +9649,7 @@ loc_BANK3_B214:
       STA     ObjectXVelocity,X
 
 loc_BANK3_B216:
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
       LDA     EnemyArray_45C,X
       BNE     EnemyBehavior_Wart_Exit
@@ -9673,9 +9703,9 @@ EnemyBehavior_Wart_Death:
 loc_BANK3_B269:
       LDA     #$04
       STA     ObjectXVelocity,X
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
       LDA     byte_RAM_10
       LSR     A
@@ -9712,9 +9742,9 @@ EnemyBehavior_Wart_Death_Exit:
 
 EnemyBehavior_WartBubble:
       INC     EnemyArray_9F,X
-      JSR     sub_BANK2_9E50
+      JSR     ApplyObjectPhysicsX
 
-      JSR     sub_BANK2_9E4B
+      JSR     ApplyObjectPhysicsY
 
       INC     ObjectYVelocity,X
       JMP     RenderSprite
@@ -10040,7 +10070,7 @@ loc_BANK3_B579:
 loc_BANK3_B57B:
       LDA     ObjectXVelocity-1,X
       CLC
-      ADC     EnemyArray_4CC-1,X
+      ADC     ObjectXAcceleration-1,X
       BMI     loc_BANK3_B587
 
       INC     byte_RAM_7
@@ -10129,7 +10159,7 @@ byte_BANK3_B5C4:
 
 sub_BANK3_B5CC:
       LDA     #$00
-      STA     EnemyArray_4CC,X
+      STA     ObjectXAcceleration,X
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Right|CollisionFlags_Left|CollisionFlags_Down|CollisionFlags_Up
       STA     EnemyCollision,X
@@ -10415,7 +10445,7 @@ loc_BANK3_B749:
       STA     PlayerXLo
       LDA     ObjectXHi,Y
       STA     PlayerXHi
-      JSR     sub_BANK3_BD0F
+      JSR     StashPlayerPosition
 
       LDA     #TransitionType_SubSpace
       STA     TransitionType
@@ -10679,7 +10709,7 @@ CheckCollisionWithPlayer_StandingOnHead:
       STA     EnemyArray_44A,X
       LDA     #$07
       STA     ObjectBeingCarriedTimer,X
-      JSR     sub_BANK3_BC1F
+      JSR     SetPlayerStateLifting
 
       ; leave a flying carpet behind if we're picking up pidgit
       LDA     ObjectType,X
@@ -11095,8 +11125,9 @@ DetermineCollisionFlags_SetFlagsX:
       LDA     unk_RAM_4A4,Y
       BNE     DetermineCollisionFlags_ExitX
 
+      ; @TODO: Looks like a way to make objects move together horizontally
       LDA     ObjectXVelocity,Y
-      STA     EnemyArray_4CC-1,X
+      STA     ObjectXAcceleration-1,X
 
 DetermineCollisionFlags_ExitX:
       RTS
@@ -11125,7 +11156,7 @@ loc_BANK3_BAD1:
       BNE     loc_BANK3_BAE6
 
       LDA     ObjectXVelocity,Y
-      STA     EnemyArray_4CC-1,X
+      STA     ObjectXAcceleration-1,X
 
 loc_BANK3_BAE6:
       LDY     #$00
@@ -11166,14 +11197,15 @@ loc_BANK3_BB13:
       LDA     unk_RAM_4A4,Y
       BNE     loc_BANK3_BB22
 
+      ; @TODO: Looks like a way to make objects move together vertically
       LDA     ObjectYVelocity,Y
-      STA     EnemyArray_4D6-1,X
+      STA     ObjectYAcceleration-1,X
 
 loc_BANK3_BB22:
       LDA     #$00
       STA     ObjectYVelocity-1,X
-      LDA     unk_RAM_412,Y
-      STA     ObjectYSubpixel,X
+      LDA     ObjectYSubpixel,Y
+      STA     ObjectYSubpixel-1,X
       INC     EnemyArray_9F-1,X
 
 DetermineCollisionFlags_ExitY:
@@ -11250,12 +11282,9 @@ loc_BANK3_BB61:
 locret_BANK3_BB6A:
       RTS
 
-; End of function sub_BANK3_BB5A
 
-; ---------------------------------------------------------------------------
 ItemCarryYOffsets:
       .BYTE $F9
-
       .BYTE $FF
       .BYTE $00
       .BYTE $08
@@ -11284,14 +11313,14 @@ ItemCarryYOffsets:
       .BYTE $00
       .BYTE $00
 
+
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_BB87:
       TXA
       PHA
-      LDA     #$00
 
-loc_BANK3_BB8B:
+      LDA     #$00
       STA     byte_RAM_0
       STA     byte_RAM_1
       LDA     byte_BANKF_F011,Y
@@ -11345,7 +11374,7 @@ loc_BANK3_BBBC:
       BEQ     loc_BANK3_BBDD
 
 loc_BANK3_BBD6:
-      JSR     sub_BANK3_BD29
+      JSR     SetTileOffsetAndAreaPageAddr
 
       LDY     byte_RAM_E7
       LDA     (byte_RAM_1),Y
@@ -11402,22 +11431,23 @@ PlayerHorizontalCollision:
       STX     PlayerXVelocity
 
 loc_BANK3_BC10:
-      LDA     byte_RAM_4CB
+      LDA     PlayerXAcceleration
       EOR     PlayerCollisionResultTable-1,Y
       BPL     loc_BANK3_BC1B
 
-      STX     byte_RAM_4CB
+      STX     PlayerXAcceleration
 
 loc_BANK3_BC1B:
-      STX     ObjectXSubpixel
+      STX     PlayerXSubpixel
 
 locret_BANK3_BC1E:
       RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK3_BC1F:
+;
+; Set the player state to lifting and Kick off the lifting animation
+;
+SetPlayerStateLifting:
       LDA     #PlayerState_Lifting
       STA     PlayerState
       LDA     #$06
@@ -11427,10 +11457,10 @@ sub_BANK3_BC1F:
       INC     HoldingItem
       RTS
 
-; End of function sub_BANK3_BC1F
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; @TODO: Figure out what this does exactly
+;
 sub_BANK3_BC2E:
       LDY     byte_RAM_1
       LDA     byte_RAM_E6
@@ -11442,7 +11472,7 @@ sub_BANK3_BC2E:
       LDA     byte_RAM_1,Y
       STA     byte_RAM_E8
       LDA     byte_RAM_2
-      CMP     byte_BANK3_BC4E,Y
+      CMP     byte_BANK3_BC4D+1,Y
       BCS     locret_BANK3_BC4C
 
       LDA     byte_RAM_1
@@ -11451,20 +11481,21 @@ sub_BANK3_BC2E:
 locret_BANK3_BC4C:
       RTS
 
-; End of function sub_BANK3_BC2E
 
-; ---------------------------------------------------------------------------
 byte_BANK3_BC4D:
       .BYTE $0A
-
-byte_BANK3_BC4E:
       .BYTE $01
-
       .BYTE $0B
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_BC50:
+;
+; Replaces a tile when something is thrown
+;
+; Input
+;   A = target tile
+;   X = enemy index of object being thrown
+;
+ReplaceTile:
       PHA
       LDA     ObjectXLo,X
       CLC
@@ -11478,11 +11509,11 @@ sub_BANK3_BC50:
       PLP
       LDA     ObjectXHi,X
       LDY     IsHorizontalLevel
-      BEQ     loc_BANK3_BC66
+      BEQ     ReplaceTile_StoreXHi
 
       ADC     #$00
 
-loc_BANK3_BC66:
+ReplaceTile_StoreXHi:
       STA     byte_RAM_2
       LDA     ObjectYLo,X
       CLC
@@ -11499,7 +11530,7 @@ loc_BANK3_BC66:
 
       STX     byte_RAM_3
       PHA
-      JSR     sub_BANK3_BD29
+      JSR     SetTileOffsetAndAreaPageAddr
 
       PLA
       LDY     byte_RAM_E7
@@ -11516,8 +11547,9 @@ loc_BANK3_BC66:
       ROL     PPUBuffer_301,X
       STA     byte_RAM_302,X
       TYA
-      AND     #$F
+      AND     #$0F
       ASL     A
+
       ADC     byte_RAM_302,X
       STA     byte_RAM_302,X
       CLC
@@ -11576,20 +11608,18 @@ loc_BANK3_BCBA:
       LDX     byte_RAM_3
       RTS
 
-; End of function sub_BANK3_BC50
 
-; ---------------------------------------------------------------------------
+; Another byte of PPU high addresses for horiz/vert levels
 unk_BANK3_BD0B:
       .BYTE $20
       .BYTE $28
       .BYTE $20
       .BYTE $24
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_BD0F:
+StashPlayerPosition:
       LDA     InSubspaceOrJar
-      BNE     locret_BANK3_BD28
+      BNE     StashPlayerPosition_Exit
 
       LDA     PlayerXHi
       STA     PlayerXHi_Backup
@@ -11600,16 +11630,25 @@ sub_BANK3_BD0F:
       LDA     PlayerYLo
       STA     PlayerYLo_Backup
 
-locret_BANK3_BD28:
+StashPlayerPosition_Exit:
       RTS
 
-; End of function sub_BANK3_BD0F
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK3_BD29:
+;
+; Updates the area page and tile placement offset @TODO
+;
+; Input
+;   byte_RAM_E8 = area page
+;   byte_RAM_E5 = tile placement offset shift
+;   byte_RAM_E6 = previous tile placement offset
+; Output
+;   RAM_1 = low byte of decoded level data RAM
+;   RAM_2 = low byte of decoded level data RAM
+;   byte_RAM_E7 = target tile placement offset
+;
+SetTileOffsetAndAreaPageAddr:
       LDX     byte_RAM_E8
-      JSR     sub_BANK3_BD4C
+      JSR     SetAreaPageAddr
 
       LDA     byte_RAM_E6
       CLC
@@ -11617,46 +11656,51 @@ sub_BANK3_BD29:
       STA     byte_RAM_E7
       RTS
 
-; End of function sub_BANK3_BD29
 
-; ---------------------------------------------------------------------------
-byte_BANK3_BD36:
-      .BYTE $00
+DecodedLevelPageStartLo:
+      .BYTE <DecodedLevelData
+      .BYTE <(DecodedLevelData+$00F0)
+      .BYTE <(DecodedLevelData+$01E0)
+      .BYTE <(DecodedLevelData+$02D0)
+      .BYTE <(DecodedLevelData+$03C0)
+      .BYTE <(DecodedLevelData+$04B0)
+      .BYTE <(DecodedLevelData+$05A0)
+      .BYTE <(DecodedLevelData+$0690)
+      .BYTE <(DecodedLevelData+$0780)
+      .BYTE <(DecodedLevelData+$0870)
+      .BYTE <(SubAreaTileLayout)
 
-      .BYTE $F0
-      .BYTE $E0
-      .BYTE $D0
-      .BYTE $C0
-      .BYTE $B0
-      .BYTE $A0
-      .BYTE $90
-      .BYTE $80
-      .BYTE $70
-      .BYTE $00
-byte_BANK3_BD41:
-      .BYTE $60
+DecodedLevelPageStartHi:
+      .BYTE >DecodedLevelData
+      .BYTE >(DecodedLevelData+$00F0)
+      .BYTE >(DecodedLevelData+$01E0)
+      .BYTE >(DecodedLevelData+$02D0)
+      .BYTE >(DecodedLevelData+$03C0)
+      .BYTE >(DecodedLevelData+$04B0)
+      .BYTE >(DecodedLevelData+$05A0)
+      .BYTE >(DecodedLevelData+$0690)
+      .BYTE >(DecodedLevelData+$0780)
+      .BYTE >(DecodedLevelData+$0870)
+      .BYTE >(SubAreaTileLayout)
 
-      .BYTE $60
-      .BYTE $61
-      .BYTE $62
-      .BYTE $63
-      .BYTE $64
-      .BYTE $65
-      .BYTE $66
-      .BYTE $67
-      .BYTE $68
-      .BYTE $07
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_BD4C:
-      LDA     byte_BANK3_BD36,X
+;
+; Updates the area page that we're reading tiles from
+;
+; Input
+;   X = area page
+; Output
+;   byte_RAM_1 = low byte of decoded level data RAM
+;   byte_RAM_2 = low byte of decoded level data RAM
+;
+SetAreaPageAddr:
+      LDA     DecodedLevelPageStartLo,X
       STA     byte_RAM_1
-      LDA     byte_BANK3_BD41,X
+      LDA     DecodedLevelPageStartHi,X
       STA     byte_RAM_2
       RTS
 
-; End of function sub_BANK3_BD4C
 
 PlayerCollisionResultTable:
       .BYTE CollisionFlags_80
