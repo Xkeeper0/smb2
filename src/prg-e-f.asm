@@ -5185,10 +5185,9 @@ loc_BANKF_FB1C:
       LDA     SpriteDMAArea+4,Y
       CMP     #$F8
       BNE     loc_BANKF_FB04
-
       BEQ     loc_BANKF_FB19
 
-; ---------------------------------------------------------------------------
+
 IFDEF PRESERVE_UNUSED_SPACE
 ; Unused space in the original
 ; $FB36 - $FDFF
@@ -5224,7 +5223,6 @@ CHRBank_CharacterSize:
       .BYTE CHRBank_Luigi
       .BYTE CHRBank_LuigiSmall
 
-; =============== S U B R O U T I N E =======================================
 
 LoadWorldCHRBanks:
       LDY     #CHRBank_CommonEnemies1
@@ -5248,9 +5246,6 @@ LoadCharacterCHRBanks:
       STA     SpriteCHR1
       RTS
 
-; End of function LoadWorldCHRBanks
-
-; =============== S U B R O U T I N E =======================================
 
 LoadTitleScreenCHRBanks:
       LDA     #CHRBank_TitleScreenBG1
@@ -5259,9 +5254,6 @@ LoadTitleScreenCHRBanks:
       STA     BackgroundCHR2
       RTS
 
-; End of function LoadTitleScreenCHRBanks
-
-; =============== S U B R O U T I N E =======================================
 
 LoadCelebrationSceneBackgroundCHR:
       LDA     #CHRBank_CelebrationBG1
@@ -5270,9 +5262,6 @@ LoadCelebrationSceneBackgroundCHR:
       STA     BackgroundCHR2
       RTS
 
-; End of function LoadCelebrationSceneBackgroundCHR
-
-; =============== S U B R O U T I N E =======================================
 
 LoadCharacterSelectCHRBanks:
       LDA     #CHRBank_CharacterSelectSprites
@@ -5283,9 +5272,7 @@ LoadCharacterSelectCHRBanks:
       STA     BackgroundCHR2
       RTS
 
-; End of function LoadCharacterSelectCHRBanks
 
-; ---------------------------------------------------------------------------
 TitleCardCHRBanks:
       .BYTE CHRBank_TitleCardGrass
       .BYTE CHRBank_TitleCardDesert
@@ -5295,7 +5282,6 @@ TitleCardCHRBanks:
       .BYTE CHRBank_TitleCardDesert
       .BYTE CHRBank_TitleCardSky
 
-; =============== S U B R O U T I N E =======================================
 
 ChangeTitleCardCHR:
       LDY     CurrentWorld
@@ -5303,9 +5289,6 @@ ChangeTitleCardCHR:
       STA     BackgroundCHR2
       RTS
 
-; End of function ChangeTitleCardCHR
-
-; =============== S U B R O U T I N E =======================================
 
 LoadBonusChanceCHRBanks:
       LDA     #CHRBank_ChanceBG1
@@ -5314,9 +5297,6 @@ LoadBonusChanceCHRBanks:
       STA     BackgroundCHR2
       RTS
 
-; End of function LoadBonusChanceCHRBanks
-
-; =============== S U B R O U T I N E =======================================
 
 LoadMarioSleepingCHRBanks:
       LDY     #CHRBank_EndingSprites
@@ -5329,18 +5309,13 @@ LoadMarioSleepingCHRBanks:
       STA     BackgroundCHR2
       RTS
 
-; End of function LoadMarioSleepingCHRBanks
 
-; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
 ; Unused space in the original
 ; $FE97 - $FF4F
       .pad $FF50, $FF
 ENDIF
 
-; [000000B9 BYTES: END OF AREA UNUSED-BANKF:FE97. PRESS KEYPAD "-" TO COLLAPSE]
-
-; =============== S U B R O U T I N E =======================================
 
 ; public RESET
 RESET:
@@ -5351,16 +5326,18 @@ RESET:
       LDX     #$FF ; Reset stack pointer
       TXS
 
-loc_BANKF_FF5A:
-      LDA     PPUSTATUS ; Wait for VBlank
+RESET_VBlankLoop:
+      ; Wait for first VBlank
+      LDA     PPUSTATUS
       AND     #PPUStatus_VBlankHit
-      BEQ     loc_BANKF_FF5A
+      BEQ     RESET_VBlankLoop
 
-loc_BANKF_FF61:
-      LDA     PPUSTATUS ; Wait for a second VBlank
-      BPL     loc_BANKF_FF61
+RESET_VBlank2Loop:
+      ; Wait for second VBlank
+      LDA     PPUSTATUS
+      BPL     RESET_VBlank2Loop
 
-      LDA     #0
+      LDA     #$00
 IFDEF DEBUG
       STA Debug_InMenu
 ENDIF
@@ -5369,7 +5346,6 @@ ENDIF
       STA     $A001
       JMP     StartGame
 
-; End of function RESET
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5391,19 +5367,16 @@ loc_BANKF_FF75:
 
 ; =============== S U B R O U T I N E =======================================
 
-ChangeMappedPRGBank:
-      STA     MMC3PRGBankTemp ; See below comment.
+;
 ; Calling this one will save the changed bank
 ; to RAM, so if something uses the below version
 ; the original bank set with this can be restored.
+;
+ChangeMappedPRGBank:
+      STA     MMC3PRGBankTemp ; See below comment.
 
-; End of function ChangeMappedPRGBank
-
-; =============== S U B R O U T I N E =======================================
-
-ChangeMappedPRGBankWithoutSaving:
-      ASL     A ; Any call to this sub switches the lower
-; two banks together. e.g.:
+;
+; Any call to this sub switches the lower two banks together, eg:
 ; LDA 0 JSR Change... = Bank 0/1
 ; LDA 1 JSR Change... = Bank 2/3
 ; etc.
@@ -5412,6 +5385,9 @@ ChangeMappedPRGBankWithoutSaving:
 ; saving the change to RAM, so the previous bank
 ; can be recalled later (mostly for temporary switches,
 ; like music handling and such)
+;
+ChangeMappedPRGBankWithoutSaving:
+      ASL     A
       PHA
       LDA     #$86
       STA     $8000
@@ -5425,56 +5401,54 @@ ChangeMappedPRGBankWithoutSaving:
       STA     $8001 ; Change second bank
       RTS
 
-; End of function ChangeMappedPRGBankWithoutSaving
 
-; =============== S U B R O U T I N E =======================================
-
+;
 ; Writing to $A000 sets mirroring.
 ;   A = $00 for vertical
 ;   A = $01 for horizontal
+;
 ChangeNametableMirroring:
       STA     $A000
       RTS
 
-; End of function ChangeNametableMirroring
 
-; ---------------------------------------------------------------------------
 IFDEF PRESERVE_UNUSED_SPACE
 ; Unused space in the original
 ; $FFA4 - $FFEA
       .pad $FFEB, $FF
 ENDIF
 
-; [00000047 BYTES: END OF AREA UNUSED-BANKF:FFA4. PRESS KEYPAD "-" TO COLLAPSE]
-; Technically you can delete the stuff from here to the vector table
-; as well, but because it looks slightly less like unused space
-; it isn't being removed now
+; Technically you can delete the stuff from here to the vector table as well,
+; but because it looks slightly less like unused space it isn't being removed.
+
+; Not used; leftover part of FamicomBox cart title?
 UnusedTextZELDA:
-      .BYTE 'ZELDA' ; Not used; leftover part of FamicomBox cart title?
+      .BYTE 'ZELDA'
+
+; Note that this is NOT CODE.
+; If the NES actually hits a BRK, the game will probably just explode.
+; If you wanted, you could write  some sort of crash handler though.
 IRQ:
       .BYTE $DF
-; Note that this is NOT CODE.
-; If the NES actually hits a BRK,
-; the game will probably just explode.
-; If you wanted, you could write
-; some sort of crash handler though.
       .BYTE $E6
       .BYTE $00
       .BYTE $00
-      .BYTE $38 ; 8
+      .BYTE $38
       .BYTE $04
       .BYTE $01
       .BYTE $04
       .BYTE $01
       .BYTE $BE
+
 ; Ensure our vectors are always here
       .pad $FFFA, $FF
-NESVectorTables:
-      .WORD NMI ; Vectors for the NES CPU. These should ALWAYS be at $FFFA!
+
+; Vectors for the NES CPU. These should ALWAYS be at $FFFA!
 ; Add a .pad or .base before here if you change code above.
-; NMI = VBlank, RESET = ...well, reset.
+; NMI = VBlank
+; RESET = ...well, reset.
 ; IRQ is not used, but you could if you wanted.
+NESVectorTables:
+      .WORD NMI
       .WORD RESET
       .WORD IRQ
-; end of 'BANKF'
-; End
