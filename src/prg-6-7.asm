@@ -4005,7 +4005,7 @@ CreateMushroomObject:
       STA     EnemyTimer,X
       STA     EnemyArray_B1,X
       STA     ObjectBeingCarriedTimer,X
-      STA     EnemyArray_9F,X
+      STA     ObjectAnimationTimer,X
       STA     EnemyArray_44A,X
       STA     EnemyCollision,X
       STA     EnemyArray_438,X

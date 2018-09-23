@@ -853,7 +853,7 @@ EnemyInit_BasicWithoutTimer:
       STA     EnemyArray_B1,X
       STA     EnemyArray_42F,X
       STA     ObjectBeingCarriedTimer,X
-      STA     EnemyArray_9F,X
+      STA     ObjectAnimationTimer,X
       STA     EnemyArray_44A,X
       STA     EnemyCollision,X
       STA     EnemyArray_438,X
@@ -1141,7 +1141,7 @@ loc_BANK2_85C1:
       CMP     #Enemy_VegetableSmall
       BCS     loc_BANK2_85E1
 
-      JSR     sub_BANK2_8B5B
+      JSR     IncrementAnimationTimerBy2
 
       LDA     byte_RAM_10
       AND     #$03
@@ -1160,7 +1160,7 @@ loc_BANK2_85E1:
 
       JMP     sub_BANK3_B5CC
 
-; ---------------------------------------------------------------------------
+
 ExplosionTileXOffsets:
       .BYTE $F8
       .BYTE $00
@@ -1174,6 +1174,7 @@ ExplosionTileXOffsets:
 ExplosionTileYOffsets:
       .BYTE $F8
       .BYTE $F8
+
 EnemyInitialAccelerationTable:
       ; these values are shared with ExplosionTileYOffsets!
       .BYTE $08
@@ -1182,7 +1183,7 @@ EnemyInitialAccelerationTable:
       .BYTE $F8
       .BYTE $08
       .BYTE $08
-; ---------------------------------------------------------------------------
+
 
 HandleEnemyState_BombExploding:
       JSR     sub_BANK2_88E8
@@ -1657,8 +1658,8 @@ HandleEnemyState_Sand:
       STA     ObjectAttributes,X
       ASL     A
       STA     EnemyMovementDirection,X
-      INC     EnemyArray_9F,X
-      JSR     sub_BANK2_8B5B
+      INC     ObjectAnimationTimer,X
+      JSR     IncrementAnimationTimerBy2
 
       LDA     #$B4
 
@@ -1946,7 +1947,7 @@ loc_BANK2_89FB:
       LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_8A04
 
-      DEC     EnemyArray_9F,X
+      DEC     ObjectAnimationTimer,X
 
 loc_BANK2_8A01:
       JMP     CarryObject
@@ -2105,7 +2106,7 @@ EnemyInit_JarGenerators:
       JSR     EnemyInit_Basic
 
       LDA     #$50
-      STA     EnemyArray_9F,X
+      STA     ObjectAnimationTimer,X
       RTS
 
 ; ---------------------------------------------------------------------------
@@ -2140,7 +2141,7 @@ byte_BANK2_8B06:
 EnemyBehavior_Spark:
       JSR     sub_BANK2_997A
 
-      JSR     sub_BANK2_8B5B
+      JSR     IncrementAnimationTimerBy2
 
       JSR     RenderSprite
 
@@ -2200,14 +2201,11 @@ loc_BANK2_8B50:
 loc_BANK2_8B58:
       JMP     ApplyObjectPhysicsY
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_8B5B:
-      INC     EnemyArray_9F,X
-      INC     EnemyArray_9F,X
+IncrementAnimationTimerBy2:
+      INC     ObjectAnimationTimer,X
+      INC     ObjectAnimationTimer,X
       RTS
-
-; End of function sub_BANK2_8B5B
 
 
 AlbatossSwarmStartXLo:
@@ -2356,7 +2354,7 @@ PanserFireXVelocity:
 
 
 EnemyBehavior_PanserPink:
-      LDA     EnemyArray_9F,X
+      LDA     ObjectAnimationTimer,X
       ASL     A
       BNE     EnemyBehavior_PanserRedAndGray
 
@@ -2388,8 +2386,8 @@ loc_BANK2_8C22:
       STA     EnemyMovementDirection,X
       JSR     sub_BANK2_997A
 
-      INC     EnemyArray_9F,X
-      LDA     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
+      LDA     ObjectAnimationTimer,X
       AND     #$2F
       BNE     loc_BANK2_8C3D
 
@@ -2566,8 +2564,8 @@ EnemyBehavior_JarGenerators:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8D16:
-      INC     EnemyArray_9F,X
-      LDA     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
+      LDA     ObjectAnimationTimer,X
       ASL     A
       BNE     locret_BANK2_8D5E
 
@@ -2855,10 +2853,10 @@ byte_BANK2_8E85:
 EnemyBehavior_Trouter:
       JSR     sub_BANK2_997A
 
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
       JSR     sub_BANK2_98D6
 
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       LDA     #$09
       LDY     ObjectYVelocity,X
@@ -2902,8 +2900,8 @@ Enemy_Hoopstar_Attributes:
 EnemyBehavior_Hoopstar:
       JSR     sub_BANK2_997A
 
-      INC     EnemyArray_9F,X
-      JSR     sub_BANK2_98CD
+      INC     ObjectAnimationTimer,X
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       JSR     RenderSprite
 
@@ -3105,7 +3103,7 @@ loc_BANK2_8FB6:
       AND     #$40
       BEQ     loc_BANK2_901B
 
-      JSR     sub_BANK2_8B5B
+      JSR     IncrementAnimationTimerBy2
 
       LDA     #$0A
       LDY     EnemyArray_B1,X
@@ -3151,14 +3149,20 @@ BirdoBehavior_SpitProjectile:
 _Birdo_SpitFire:
       INC     EnemyVariable,X ; Shoot a fireball
       LDA     #Enemy_Fireball
-      BNE     sub_BANK2_9004
+      BNE     EnemyBehavior_SpitProjectile
 
 _Birdo_SpitEgg:
       LDA     #Enemy_Egg ; Shoot an egg
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_9004:
+;
+; Spits an object (used by Birdo and Autobomb)
+;
+; Input
+;   A = Object type
+;   X = Enemy index
+;
+EnemyBehavior_SpitProjectile:
       STA     ObjectType,X
       LDA     ObjectYLo,X
       CLC
@@ -3175,7 +3179,6 @@ sub_BANK2_9004:
 loc_BANK2_901B:
       JMP     RenderSprite
 
-; End of function sub_BANK2_9004
 
 ; ---------------------------------------------------------------------------
       .BYTE $18
@@ -3189,7 +3192,7 @@ byte_BANK2_9020:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Coin:
-      JSR     sub_BANK2_8B5B
+      JSR     IncrementAnimationTimerBy2
 
       LDA     ObjectYVelocity,X
       CMP     #$EA
@@ -3367,12 +3370,12 @@ loc_BANK2_90FB:
       BNE     loc_BANK2_9122
 
       LDY     ObjectBeingCarriedTimer,X
-      BEQ     loc_BANK2_910D
+      BEQ     EnemyBehavior_Bomb_Explode
 
       STA     HoldingItem
       STA     ObjectBeingCarriedTimer,X
 
-loc_BANK2_910D:
+EnemyBehavior_Bomb_Explode:
       LDA     #EnemyState_BombExploding
       STA     EnemyState,X
       LDA     #$20
@@ -3400,7 +3403,7 @@ loc_BANK2_9122:
       STA     ObjectAttributes,X
 
 EnemyBehavior_Vegetable:
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       JSR     ApplyObjectMovement
 
@@ -3418,7 +3421,7 @@ loc_BANK2_913E:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_SubspacePotion:
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       JSR     sub_BANK3_B4FD
 
@@ -3497,7 +3500,7 @@ TurnIntoPuffOfSmoke:
       STA     ObjectAttributes,X
       LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,X ; WINNERS DON'T SMOKE SHROOMS
-      STA     EnemyArray_9F,X ; No idea what this address is for
+      STA     ObjectAnimationTimer,X ; No idea what this address is for
       LDA     #$1F
       STA     EnemyTimer,X ; Puff-of-smoke animation timer?
       LDX     byte_RAM_12
@@ -3604,7 +3607,7 @@ loc_BANK2_9228:
 EnemyBehavior_Albatoss:
       JSR     sub_BANK2_9AF2
 
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
       LDA     EnemyArray_B1,X
       BNE     loc_BANK2_9271
 
@@ -3651,8 +3654,6 @@ loc_BANK2_9274:
 EnemyBehavior_AutobombFire:
       JSR     sub_BANK2_9289
 
-; =============== S U B R O U T I N E =======================================
-
 sub_BANK2_927A:
       ASL     ObjectAttributes,X
       LDA     byte_RAM_10
@@ -3662,22 +3663,19 @@ sub_BANK2_927A:
       ROR     ObjectAttributes,X
       RTS
 
-; End of function sub_BANK2_927A
 
-; ---------------------------------------------------------------------------
+; Unused?
       .BYTE $D0
       .BYTE $03
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_BulletAndEgg:
       JSR     sub_BANK3_B4FD
 
-; =============== S U B R O U T I N E =======================================
-
 sub_BANK2_9289:
       JSR     sub_BANK2_997A
 
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       LDA     EnemyArray_B1,X
       ORA     EnemyArray_42F,X
@@ -3952,7 +3950,7 @@ loc_BANK2_93C8:
       AND     #$3F
       BNE     loc_BANK2_940C
 
-      LDA     EnemyArray_9F,X
+      LDA     ObjectAnimationTimer,X
       AND     #$C0
       ASL     A
       ROL     A
@@ -3988,9 +3986,9 @@ EnemyBehavior_NinjiRunning:
 
 loc_BANK2_9401:
       STA     ObjectYVelocity,X
-      LDA     EnemyArray_9F,X
+      LDA     ObjectAnimationTimer,X
       AND     #$F0
-      STA     EnemyArray_9F,X
+      STA     ObjectAnimationTimer,X
       JSR     ApplyObjectPhysicsY
 
 loc_BANK2_940C:
@@ -4003,13 +4001,13 @@ EnemyBehavior_Beezo:
 
       JSR     RenderSprite
 
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
       JSR     sub_BANK2_98D6
 
-      JSR     sub_BANK2_8B5B
+      JSR     IncrementAnimationTimerBy2
 
 loc_BANK2_941D:
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       LDA     ObjectYVelocity,X
       BEQ     loc_BANK2_9436
@@ -4042,51 +4040,54 @@ loc_BANK2_9436:
 loc_BANK2_9439:
       JMP     sub_BANK2_9430
 
-; ---------------------------------------------------------------------------
+
 BulletProjectileXSpeeds:
       .BYTE $20
       .BYTE $E0
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_BobOmb:
       LDY     EnemyTimer,X
-      CPY     #$3A
+      CPY     #$3A ; When to stop walking
       BCS     EnemyBehavior_BasicWalker
 
+      ; Stop walking if the BobOmb is touching the ground
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Down
-      BEQ     loc_BANK2_944E
+      BEQ     EnemyBehavior_BobOmb_CheckFuse
 
       LDA     #$00
       STA     ObjectXVelocity,X
 
-loc_BANK2_944E:
-      DEC     EnemyArray_9F,X
+EnemyBehavior_BobOmb_CheckFuse:
+      DEC     ObjectAnimationTimer,X
       TYA
-      BNE     loc_BANK2_945E
+      BNE     EnemyBehavior_BobOmb_Flash
 
+      ; Unset HoldingItem if this BobOmb is being carried
       LDA     ObjectBeingCarriedTimer,X
-      BEQ     loc_BANK2_945B
+      BEQ     EnemyBehavior_BobOmb_Explode
 
       STY     HoldingItem
       STY     ObjectBeingCarriedTimer,X
 
-loc_BANK2_945B:
-      JMP     loc_BANK2_910D
+EnemyBehavior_BobOmb_Explode:
+      JMP     EnemyBehavior_Bomb_Explode
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_945E:
-      CMP     #$30
+EnemyBehavior_BobOmb_Flash:
+      CMP     #$30 ; When to start flashing
       BCS     EnemyBehavior_BasicWalker
 
+      ; Palette cycle every other frame
       LSR     A
       BCC     EnemyBehavior_BasicWalker
 
       INC     ObjectAttributes,X
       LDA     ObjectAttributes,X
-      AND     #$FB
+      AND     #%11111011
       STA     ObjectAttributes,X
+
 
 EnemyBehavior_BasicWalker:
       JSR     sub_BANK3_B4FD
@@ -4113,7 +4114,7 @@ loc_BANK2_9481:
 
 sub_BANK2_9486:
       LDA     ObjectAttributes,X
-      ORA     #$20
+      ORA     #ObjAttrib_BehindBackground
       STA     ObjectAttributes,X
       JSR     ApplyObjectPhysicsY
 
@@ -4138,8 +4139,8 @@ loc_BANK2_9492:
       JSR     HalfObjectVelocityX
 
 loc_BANK2_94A6:
-      INC     EnemyArray_9F,X
-      JSR     sub_BANK2_98CD
+      INC     ObjectAnimationTimer,X
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
 loc_BANK2_94AB:
       JSR     RenderSprite
@@ -4173,12 +4174,12 @@ loc_BANK2_94CD:
       LDA     EnemyArray_42F,X
       BNE     EnemyBehavior_Walk
 
-; check if this enemy fires bullets when jumping
+      ; check if this enemy fires bullets when jumping
       LDA     ObjectType,X
       CMP     #Enemy_SnifitGray
       BNE     EnemyBehavior_Walk
 
-; bullet generator
+      ; bullet generator
       LDA     ObjectYVelocity,X ; check if enemy is starting to fall
       CMP     #$FE
       BNE     EnemyBehavior_Walk
@@ -4186,10 +4187,11 @@ loc_BANK2_94CD:
       LDA     PseudoRNGValues+2 ; check random number generator
       BPL     EnemyBehavior_Walk
 
+      ; jumper high bullet
       JSR     CreateBullet
 
 EnemyBehavior_Walk:
-      DEC     EnemyArray_9F,X
+      DEC     ObjectAnimationTimer,X
       LDA     ObjectType,X
       CMP     #Enemy_SnifitPink
       BEQ     EnemyBehavior_TurnAtCliff
@@ -4225,10 +4227,11 @@ loc_BANK2_9503:
       CPY     #Enemy_Tweeter ; Check if this enemy is a Tweeter
       BNE     loc_BANK2_9528 ; If not, go handle some other enemies
 
+      ; ...but very, very, very rarely, only
+      ; when their timer (that incremenets once per bounce)
+      ; hits #$3F -- almost unnoticable
       LDA     #$3F
-      JSR     sub_BANK2_9599 ; ...but very, very, very rarely, only
-; when their timer (that incremenets once per bounce)
-; hits #$3F -- almost unnoticable
+      JSR     sub_BANK2_9599
 
       INC     EnemyVariable,X ; Make small jump 3 times, then make big jump
       LDY     #$F0
@@ -4256,7 +4259,9 @@ loc_BANK2_9528:
       CPY     #Enemy_NinjiRunning
       BEQ     sub_BANK2_9599
 
-      LDA     #$7F
+      ; this redundant red snifit check smells funny, almost like there was
+      ; some other follow-the-player enemy
+      LDA     #$7F ; unused
       CPY     #Enemy_SnifitRed
       BEQ     loc_BANK2_9562
 
@@ -4276,7 +4281,7 @@ loc_BANK2_9528:
 
       INY
       STY     EnemyMovementDirection,X
-      LDA     EnemyArray_9F,X
+      LDA     ObjectAnimationTimer,X
       AND     #$3F
       BNE     loc_BANK2_9562
 
@@ -4286,15 +4291,17 @@ loc_BANK2_9528:
 
 ; ---------------------------------------------------------------------------
 
+EnemyBehavior_Snifit:
 loc_BANK2_9562:
       LDA     EnemyArray_44A,X
       BEQ     loc_BANK2_9574
 
 loc_BANK2_9567:
-      DEC     EnemyArray_9F,X
+      DEC     ObjectAnimationTimer,X
       DEC     EnemyArray_44A,X
       BNE     loc_BANK2_9574
 
+      ; telegraphed bullet (walking snifits)
       JSR     CreateBullet
 
       JMP     loc_BANK2_95BB
@@ -4314,9 +4321,10 @@ loc_BANK2_9574:
       CMP     #Enemy_SnifitGray
       BNE     loc_BANK2_9589
 
+      ; jumper low bullet
       JSR     CreateBullet
 
-      JMP     loc_BANK2_95CA
+      JMP     EnemyInit_DisableObjectAttributeBit8
 
 ; ---------------------------------------------------------------------------
 
@@ -4331,12 +4339,16 @@ loc_BANK2_9589:
       STA     EnemyArray_44A,X
 
 loc_BANK2_9597:
-      LDA     #$7F
+      LDA     #%01111111
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Gives em the ol' razzle-dazzle
+;
+; Input
+;   A = timer mask
+;
 sub_BANK2_9599:
-      AND     EnemyArray_9F,X
+      AND     ObjectAnimationTimer,X
       BEQ     loc_BANK2_95B8
 
 loc_BANK2_959D:
@@ -4349,19 +4361,25 @@ loc_BANK2_959D:
 
       LDA     #$F0
 
-; End of function sub_BANK2_9599
-
-; =============== S U B R O U T I N E =======================================
-
+;
+; Sets the y-velocity, applies vertical physics, and cuts x-velocity in half
+;
+; Input
+;   A = y-velocity
+;   X = enemy index
+;
 sub_BANK2_95AA:
       JSR     SetObjectYVelocity
-
       JSR     ApplyObjectPhysicsY
 
-; End of function sub_BANK2_95AA
-
-; =============== S U B R O U T I N E =======================================
-
+;
+; Cuts the x-velocity of the current object in half
+;
+; Input
+;   X = enemy index
+; Output
+;   RAM_0 = previous x-velocity
+;
 HalfObjectVelocityX:
       ; Store the current X-velocity in RAM_0
       LDA     ObjectXVelocity,X
@@ -4372,7 +4390,6 @@ HalfObjectVelocityX:
       ROR     ObjectXVelocity,X
       RTS
 
-; End of function HalfObjectVelocityX
 
 ; ---------------------------------------------------------------------------
 
@@ -4382,18 +4399,21 @@ loc_BANK2_95B8:
 loc_BANK2_95BB:
       LDA     ObjectType,X
       CMP     #Enemy_ShyguyRed
-      BNE     loc_BANK2_95CA
+      BNE     EnemyInit_DisableObjectAttributeBit8
 
       LDA     ObjectYVelocity,X
       CMP     #$04
-      BCC     loc_BANK2_95CA
+      BCC     EnemyInit_DisableObjectAttributeBit8
 
       JSR     EnemyInit_BasicWithoutTimer
 
-loc_BANK2_95CA:
+;
+; Disables bit 8 on the object attribute, which causes the object to appear
+; behind the background while being pulled
+;
+EnemyInit_DisableObjectAttributeBit8:
       ASL     ObjectAttributes,X
       LSR     ObjectAttributes,X
-
 
 ;
 ; Does SetObjectYVelocity with y-velocity of 0
@@ -4556,7 +4576,7 @@ loc_BANK2_965D:
 loc_BANK2_967D:
       BNE     loc_BANK2_9681
 
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
 
 loc_BANK2_9681:
       ASL     ObjectAttributes,X
@@ -4997,7 +5017,7 @@ locret_BANK2_9897:
 EnemyBehavior_Shell:
       JSR     sub_BANK3_B4FD
 
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Right|CollisionFlags_Left
@@ -5042,17 +5062,19 @@ locret_BANK2_98CC:
 
 ; End of function sub_BANK2_98C4
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_98CD:
+;
+; Intercepts the normal enemy behavior when the object is being carried
+;
+EnemyBehavior_CheckBeingCarriedTimer:
       LDA     ObjectBeingCarriedTimer,X
       BEQ     locret_BANK2_98CC
 
+      ; Cancel previous subroutine and go into carry mode
       PLA
       PLA
       JMP     CarryObject
 
-; End of function sub_BANK2_98CD
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5758,7 +5780,7 @@ loc_BANK2_9C07:
       LDA     EnemyArray_46E,X
       STA     byte_RAM_C
       ASL     A
-      LDA     EnemyArray_9F,X
+      LDA     ObjectAnimationTimer,X
       LDX     byte_RAM_F
       AND     #$08 ; maybe a bitfield?
       BEQ     loc_BANK2_9C31
@@ -6092,11 +6114,11 @@ loc_BANK2_9E06:
       JSR     sub_BANK2_9BA7
 
       LDA     byte_RAM_EE
-      AND     #$C
+      AND     #$0C
       BNE     locret_BANK2_9E3A
 
-      LDA     EnemyArray_9F,X
-      AND     #$C
+      LDA     ObjectAnimationTimer,X
+      AND     #$0C
       LSR     A
       LSR     A
       STA     byte_RAM_0
@@ -6764,7 +6786,7 @@ EnemyBehavior_ClawgripRock:
       STA     EnemyArray_45C,X
       JSR     sub_BANK2_997A
 
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       JSR     ApplyObjectPhysicsX
 
@@ -7110,7 +7132,7 @@ unk_BANK3_A48B:
 EnemyBehavior_Pidgit:
       JSR     sub_BANK2_997A
 
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
       LDA     EnemyArray_42F,X
       BEQ     loc_BANK3_A4A3
 
@@ -7124,7 +7146,7 @@ EnemyBehavior_Pidgit:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A4A3:
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       LDA     EnemyArray_B1,X
       BEQ     loc_BANK3_A4C1
@@ -7336,8 +7358,8 @@ loc_BANK3_A5AF:
       AND     #$20
       BEQ     locret_BANK3_A5F4
 
-      INC     EnemyArray_9F,X
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
+      INC     ObjectAnimationTimer,X
       LDY     #$18
       LDA     EnemyArray_B1,X
       AND     #$40
@@ -7393,7 +7415,7 @@ loc_BANK3_A5F8:
       LDA     EnemyArray_45C,X
       BEQ     loc_BANK3_A612
 
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
       LDA     #$4A
       STA     ObjectAttributes,X
 
@@ -7536,7 +7558,7 @@ loc_BANK3_A6BD:
       BEQ     loc_BANK3_A6DB
 
       INC     EnemyArray_B1,X
-      STA     EnemyArray_9F,X
+      STA     ObjectAnimationTimer,X
       JSR     CreateEnemy
 
       BMI     loc_BANK3_A6DB
@@ -7551,7 +7573,7 @@ loc_BANK3_A6BD:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A6DB:
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       JSR     sub_BANK2_997A
 
@@ -7577,9 +7599,9 @@ loc_BANK3_A6ED:
       JSR     EnemyInit_BasicAttributes
 
 loc_BANK3_A700:
-      LDA     EnemyArray_9F,X
+      LDA     ObjectAnimationTimer,X
       EOR     #$08
-      STA     EnemyArray_9F,X
+      STA     ObjectAnimationTimer,X
       JSR     ResetObjectYVelocity
 
       LDA     #$F0
@@ -7950,7 +7972,7 @@ EnemyBehavior_CobratGround:
 
       JSR     sub_BANK2_98D6
 
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       JSR     sub_BANK3_B4FD
 
@@ -8006,8 +8028,8 @@ loc_BANK3_A93E:
 loc_BANK3_A951:
       JSR     ApplyObjectMovement
 
-      INC     EnemyArray_9F,X
-      LDA     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
+      LDA     ObjectAnimationTimer,X
       PHA
       AND     #$3F
       BNE     loc_BANK3_A960
@@ -8045,7 +8067,7 @@ EnemyBehavior_CobratJar:
 
       JSR     sub_BANK2_98D6
 
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       JSR     sub_BANK3_B4FD
 
@@ -8094,7 +8116,7 @@ loc_BANK3_A9B4:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A9BC:
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
       LDA     ObjectYVelocity,X
       BMI     loc_BANK3_A9F9
 
@@ -8183,7 +8205,7 @@ EnemyBehavior_Pokey:
 
       JSR     sub_BANK2_997A
 
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       JSR     sub_BANK2_98D6
 
@@ -8253,8 +8275,8 @@ loc_BANK3_AA78:
       STA     ObjectYHi,Y
 
 loc_BANK3_AA99:
-      INC     EnemyArray_9F,X
-      LDA     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
+      LDA     ObjectAnimationTimer,X
       AND     #$3F
       BNE     loc_BANK3_AAA4
 
@@ -8405,6 +8427,7 @@ ENDIF
 
 ; ---------------------------------------------------------------------------
 
+; rocket explosion
 loc_BANK3_AB64:
       LDA     ObjectYLo,X
       CMP     #$30
@@ -8416,7 +8439,7 @@ loc_BANK3_AB64:
       CMP     #$18
       BCS     loc_BANK3_AB88
 
-      JMP     loc_BANK2_910D
+      JMP     EnemyBehavior_Bomb_Explode
 
 ; ---------------------------------------------------------------------------
 
@@ -8534,7 +8557,7 @@ byte_BANK3_AC26:
 sub_BANK3_AC28:
       LDA     #$00
       STA     byte_RAM_EE
-      LDA     EnemyArray_9F,X
+      LDA     ObjectAnimationTimer,X
       AND     #$08
       LSR     A
       LSR     A
@@ -8631,7 +8654,7 @@ byte_BANK3_AC89:
 EnemyBehavior_Fryguy:
       LDA     #$02
       STA     EnemyMovementDirection,X
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
       LDY     EnemyHP,X
       DEY
       BNE     loc_BANK3_ACE7
@@ -8766,8 +8789,8 @@ loc_BANK3_AD59:
       STA     EnemyMovementDirection,X
       LDA     byte_RAM_10
       STA     EnemyArray_44A,X
-      INC     EnemyArray_9F,X
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
+      INC     ObjectAnimationTimer,X
       JSR     sub_BANK3_B4FD
 
       JSR     RenderSprite
@@ -8883,7 +8906,7 @@ loc_BANK3_AE09:
       JSR     ApplyObjectPhysicsX
 
 loc_BANK3_AE14:
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
       LDA     EnemyArray_B1,X
       BNE     loc_BANK3_AE45
 
@@ -8899,21 +8922,23 @@ loc_BANK3_AE14:
       JSR     EnemyInit_BasicMovementTowardPlayer
 
 loc_BANK3_AE28:
-      LDA     EnemyArray_9F,X
-      AND     #$7F
+      LDA     ObjectAnimationTimer,X
+      AND     #%01111111
       BNE     loc_BANK3_AE45
 
       JSR     EnemyInit_BasicMovementTowardPlayer
 
+      ; which bullet?
       JSR     CreateBullet
 
       BMI     loc_BANK3_AE45
 
       LDX     byte_RAM_0 ; X has the new enemy index
       LDA     #Enemy_AutobombFire
-      JSR     sub_BANK2_9004 ; Set the enemy type and attributes
-; Bug: sets RAM $0!
-; Should have pushed it to stack instead.
+      ; Set the enemy type and attributes
+      ; BUG: The subroutine overwrites RAM_0 (enemy index)
+      ; Should have pushed it to stack instead.
+      JSR     EnemyBehavior_SpitProjectile
 
       LDX     byte_RAM_0
       DEC     ObjectYLo,X
@@ -8934,7 +8959,7 @@ loc_BANK3_AE4B:
 
       LDA     #ObjAttrib_Palette1|ObjAttrib_16x32|ObjAttrib_UpsideDown
       STA     ObjectAttributes,X
-      STA     EnemyArray_9F,X
+      STA     ObjectAnimationTimer,X
       LDA     #$76
       JMP     sub_BANK2_9BB3
 
@@ -9027,8 +9052,8 @@ EnemyInit_WhaleSpout:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_WhaleSpout:
-      INC     EnemyArray_9F,X
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
+      INC     ObjectAnimationTimer,X
       INC     EnemyVariable,X
       LDA     EnemyVariable,X
       CMP     #$40
@@ -9172,10 +9197,10 @@ byte_BANK3_AF76:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Flurry:
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
       JSR     sub_BANK2_997A
 
-      JSR     sub_BANK2_98CD
+      JSR     EnemyBehavior_CheckBeingCarriedTimer
 
       JSR     sub_BANK3_B4FD
 
@@ -9217,7 +9242,7 @@ loc_BANK3_AFB4:
       CMP     #$16
       BEQ     loc_BANK3_AFBF
 
-      DEC     EnemyArray_9F,X
+      DEC     ObjectAnimationTimer,X
       JMP     loc_BANK2_9470
 
 ; ---------------------------------------------------------------------------
@@ -9238,7 +9263,7 @@ loc_BANK3_AFBF:
       CLC
       ADC     byte_BANK3_AF76,Y
       STA     ObjectXVelocity,X
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
 
 loc_BANK3_AFDA:
       JSR     ApplyObjectMovement
@@ -9745,7 +9770,7 @@ EnemyBehavior_Wart_Death_Exit:
 
 
 EnemyBehavior_WartBubble:
-      INC     EnemyArray_9F,X
+      INC     ObjectAnimationTimer,X
       JSR     ApplyObjectPhysicsX
 
       JSR     ApplyObjectPhysicsY
@@ -10065,11 +10090,11 @@ loc_BANK3_B56C:
       LSR     A
       BCS     loc_BANK3_B579
 
-      DEC     EnemyArray_9F-1,X
-      DEC     EnemyArray_9F-1,X
+      DEC     ObjectAnimationTimer-1,X
+      DEC     ObjectAnimationTimer-1,X
 
 loc_BANK3_B579:
-      INC     EnemyArray_9F-1,X
+      INC     ObjectAnimationTimer-1,X
 
 loc_BANK3_B57B:
       LDA     ObjectXVelocity-1,X
@@ -11210,7 +11235,7 @@ loc_BANK3_BB22:
       STA     ObjectYVelocity-1,X
       LDA     ObjectYSubpixel,Y
       STA     ObjectYSubpixel-1,X
-      INC     EnemyArray_9F-1,X
+      INC     ObjectAnimationTimer-1,X
 
 DetermineCollisionFlags_ExitY:
       RTS

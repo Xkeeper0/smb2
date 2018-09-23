@@ -3305,7 +3305,7 @@ loc_BANK0_9080:
       STA     ObjectYLo,X
       LDA     #$00
       STA     EnemyArray_42F,X
-      STA     EnemyArray_9F,X
+      STA     ObjectAnimationTimer,X
       STA     EnemyArray_B1,X
       JSR     UnlinkEnemyFromRawData_Bank1
 
@@ -6975,7 +6975,7 @@ loc_BANK1_B9EB:
       STA     EnemyArray_B1,X
       STA     EnemyArray_42F,X
       STA     ObjectBeingCarriedTimer,X
-      STA     EnemyArray_9F,X
+      STA     ObjectAnimationTimer,X
       STA     EnemyArray_44A,X
       STA     EnemyCollision,X
       STA     EnemyArray_438,X
@@ -7021,7 +7021,7 @@ TurnKeyIntoPuffOfSmoke:
       STA     ObjectAttributes,X
       LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,X
-      STA     EnemyArray_9F,X
+      STA     ObjectAnimationTimer,X
       LDA     #$1F
       STA     EnemyTimer,X
       LDX     byte_RAM_12

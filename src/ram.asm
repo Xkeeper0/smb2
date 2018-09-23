@@ -242,7 +242,7 @@ byte_RAM_9D: ; direction
       ; $00 = left, $01 = right
 byte_RAM_9E:
       .dsb 1 ; $009e
-EnemyArray_9F:
+ObjectAnimationTimer:
       .dsb 1 ; DATA XREF: BANK0:9099w ; $009f
       .dsb 1 ; 1                ; $00a0
       .dsb 1 ; 2                ; $00a1
