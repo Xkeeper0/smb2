@@ -488,12 +488,12 @@ loc_BANKA_84C1:
 
       LDY     #$20
 loc_BANKA_84CC:
-      LDA     byte_BANKF_FA7D,Y
+      LDA     EndOfLevelDoor,Y
       STA     PPUBuffer_721B,Y
       DEY
       BPL     loc_BANKA_84CC
 
-      LDY     #6
+      LDY     #$06
 loc_BANKA_84D7:
       LDA     byte_BANKA_84E5,Y
       STA     unk_RAM_7265,Y

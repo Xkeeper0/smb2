@@ -252,12 +252,16 @@ ObjectAnimationTimer:
       .dsb 1 ; 6                ; $00a5
       .dsb 1 ; 7                ; $00a6
       .dsb 1 ; 8                ; $00a7
+; Set to 7 when lifting, then stays at 1
+; Note that this doesn't seem to actually
+; make you carry an item, it just THINKS
+; it's being carried.
 ObjectBeingCarriedTimer:
       .dsb 1 ; $00a8
-      .dsb 1 ; Set to 7 when lifting, then stays at 1 ; $00a9
-      .dsb 1 ; Note that this doesn't seem to actually ; $00aa
-      .dsb 1 ; make you carry an item, it just THINKS ; $00ab
-      .dsb 1 ; it's being carried. ; $00ac
+      .dsb 1 ; $00a9
+      .dsb 1 ; $00aa
+      .dsb 1 ; $00ab
+      .dsb 1 ; $00ac
       .dsb 1 ; $00ad
       .dsb 1 ; $00ae
       .dsb 1 ; $00af
@@ -1273,6 +1277,7 @@ byte_RAM_42D:
       .dsb 1 ; $042d
 unk_RAM_42E:
       .dsb 1 ; $042e
+; stun timer?
 EnemyArray_42F:
       .dsb 1 ; $042f
       .dsb 1 ; $0430
@@ -1306,8 +1311,7 @@ byte_RAM_446:
       .dsb 1 ; $0447
       .dsb 1 ; $0448
       .dsb 1 ; $0449
-; Shake timer
-EnemyArray_44A:
+ObjectShakeTimer:
       .dsb 1 ; $044a
       .dsb 1 ; $044b
       .dsb 1 ; $044c

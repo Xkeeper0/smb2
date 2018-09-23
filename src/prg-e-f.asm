@@ -4840,24 +4840,24 @@ CopyJarDataToMemoryFinished:
 
 ; End of function GetJarPointers
 
-; ---------------------------------------------------------------------------
+
 TileQuadPointersLo:
       .BYTE <TileQuads1
-
       .BYTE <TileQuads2
       .BYTE <TileQuads3
       .BYTE <TileQuads4
+
 TileQuadPointersHi:
       .BYTE >TileQuads1
-
       .BYTE >TileQuads2
       .BYTE >TileQuads3
       .BYTE >TileQuads4
+
 TileQuads1:
-      .BYTE $FE,$FE,$FE,$FE
-      .BYTE $B4,$B6,$B5,$B7 ; 4
-      .BYTE $B8,$FA,$B9,$FA ; 8
-      .BYTE $FA,$FA,$B2,$B3 ; $C
+      .BYTE $FE,$FE,$FE,$FE ; $00
+      .BYTE $B4,$B6,$B5,$B7 ; $04
+      .BYTE $B8,$FA,$B9,$FA ; $08
+      .BYTE $FA,$FA,$B2,$B3 ; $0C
       .BYTE $BE,$BE,$BF,$BF ; $10
       .BYTE $BF,$BF,$BF,$BF ; $14
       .BYTE $4A,$4A,$4B,$4B ; $18
@@ -4889,11 +4889,12 @@ TileQuads1:
       .BYTE $32,$34,$33,$35 ; $80
       .BYTE $33,$35,$33,$35 ; $84
       .BYTE $24,$26,$25,$27 ; $88
+
 TileQuads2:
-      .BYTE $FA,$FA,$FA,$FA
-      .BYTE $FA,$FA,$FA,$FA ; 4
-      .BYTE $FA,$FA,$FA,$FA ; 8
-      .BYTE $FA,$FA,$B0,$B1 ; $C
+      .BYTE $FA,$FA,$FA,$FA ; $00
+      .BYTE $FA,$FA,$FA,$FA ; $04
+      .BYTE $FA,$FA,$FA,$FA ; $08
+      .BYTE $FA,$FA,$B0,$B1 ; $0C
       .BYTE $FA,$FA,$B0,$B1 ; $10
       .BYTE $FA,$FA,$B0,$B1 ; $14
       .BYTE $FA,$FA,$B0,$B1 ; $18
@@ -4949,11 +4950,12 @@ TileQuads2:
       .BYTE $6C,$54,$6D,$55 ; $E0
       .BYTE $32,$34,$33,$35 ; $E4
       .BYTE $33,$35,$33,$35 ; $E8
+
 TileQuads3:
-      .BYTE $94,$95,$94,$95
-      .BYTE $96,$97,$96,$97 ; 4
-      .BYTE $48,$49,$48,$49 ; 8
-      .BYTE $FE,$FE,$FE,$FE ; $C
+      .BYTE $94,$95,$94,$95 ; $00
+      .BYTE $96,$97,$96,$97 ; $04
+      .BYTE $48,$49,$48,$49 ; $08
+      .BYTE $FE,$FE,$FE,$FE ; $0C
       .BYTE $FB,$32,$32,$33 ; $10
       .BYTE $33,$33,$33,$33 ; $14
       .BYTE $FD,$FD,$FD,$FD ; $18
@@ -4994,11 +4996,12 @@ TileQuads3:
       .BYTE $72,$73,$4A,$4B ; $A4
       .BYTE $40,$42,$41,$43 ; $A8
       .BYTE $41,$43,$41,$43 ; $AC
+
 TileQuads4:
-      .BYTE $40,$42,$41,$43
-      .BYTE $40,$42,$41,$43 ; 4
-      .BYTE $BA,$BC,$BB,$BD ; 8
-      .BYTE $BA,$BC,$90,$91 ; $C
+      .BYTE $40,$42,$41,$43 ; $00
+      .BYTE $40,$42,$41,$43 ; $04
+      .BYTE $BA,$BC,$BB,$BD ; $08
+      .BYTE $BA,$BC,$90,$91 ; $0C
       .BYTE $FA,$FA,$FA,$FA ; $10
       .BYTE $FA,$FA,$FA,$FA ; $14
       .BYTE $FD,$FD,$FD,$FD ; $18
@@ -5020,79 +5023,56 @@ TileQuads4:
       .BYTE $8E,$8F,$8F,$8E ; $58
       .BYTE $72,$73,$73,$72 ; $5C
       .BYTE $44,$45,$45,$44 ; $60
-byte_BANKF_FA7D:
-      .BYTE $22
-      .BYTE $D0
-      .BYTE $04
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $AD
-      .BYTE $FA
-      .BYTE $22
-      .BYTE $F0
-      .BYTE $04
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $AC
-      .BYTE $AD
-      .BYTE $23
-      .BYTE $10
-      .BYTE $06
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $AD
-      .BYTE $FA
-      .BYTE $23
-      .BYTE $30
-      .BYTE $06
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $AC
-      .BYTE $AD
+
+EndOfLevelDoor: ; PPU data
+      .BYTE $22,$D0,$04,$FC,$FC,$AD,$FA
+      .BYTE $22,$F0,$04,$FC,$FC,$AC,$AD
+      .BYTE $23,$10,$06,$FC,$FC,$AC,$AC,$AD,$FA
+      .BYTE $23,$30,$06,$FC,$FC,$AC,$AC,$AC,$AD
       .BYTE $00
-byte_BANKF_FA9E:
+
+EndOfLevelDoorRowOffsets:
       .BYTE $00
       .BYTE $07
       .BYTE $0E
       .BYTE $17
-byte_BANKF_FAA2:
-      .BYTE $00
-      .BYTE $00
-      .BYTE $06
-      .BYTE $06
-      .BYTE $0A
-      .BYTE $0A
-      .BYTE $0B
-      .BYTE $0D
-      .BYTE $0E
-      .BYTE $11
-      .BYTE $11
-      .BYTE $12
-      .BYTE $12
-      .BYTE $12
-      .BYTE $12
-      .BYTE $13
-byte_BANKF_FAB2:
-      .BYTE $01
-      .BYTE $05
-      .BYTE $01
-      .BYTE $03
-      .BYTE $01
-      .BYTE $02
-      .BYTE $04
-      .BYTE $02
-      .BYTE $04
-      .BYTE $03
-      .BYTE $04
-      .BYTE $00
-      .BYTE $01
-      .BYTE $02
-      .BYTE $03
-      .BYTE $00
+
+DefaultCHRAnimationSpeed_Level:
+      .BYTE $00 ; 1-1
+      .BYTE $00 ; 1-1
+      .BYTE $06 ; 3-1
+      .BYTE $06 ; 3-1
+      .BYTE $0A ; 4-2
+      .BYTE $0A ; 4-2
+      .BYTE $0B ; 4-3
+      .BYTE $0D ; 5-2
+      .BYTE $0E ; 5-3
+      .BYTE $11 ; 6-3
+      .BYTE $11 ; 6-3
+      .BYTE $12 ; 7-1
+      .BYTE $12 ; 7-1
+      .BYTE $12 ; 7-1
+      .BYTE $12 ; 7-1
+      .BYTE $13 ; 7-2
+
+DefaultCHRAnimationSpeed_Area:
+      .BYTE $01 ; 1-1 upward climb
+      .BYTE $05 ; 1-1 birdo
+      .BYTE $01 ; 3-1 main part
+      .BYTE $03 ; 3-1 sky part
+      .BYTE $01 ; 4-2 sky ice
+      .BYTE $02 ; 4-2 whales
+      .BYTE $04 ; 4-3 tower tops
+      .BYTE $02 ; 5-2 upward climb
+      .BYTE $04 ; 5-3 miniboss birdo
+      .BYTE $03 ; 6-3 upward climb
+      .BYTE $04 ; 6-3 sky pyramid
+      .BYTE $00 ; 7-1 beginning area
+      .BYTE $01 ; 7-1 albatoss area
+      .BYTE $02 ; 7-1 cloud maze
+      .BYTE $03 ; 7-1 upward climb
+      .BYTE $00 ; 7-2 entrance
+
 BackgroundCHRAnimationSpeedByWorld:
       .BYTE $07 ; World 1
       .BYTE $07 ; World 2
@@ -5103,32 +5083,36 @@ BackgroundCHRAnimationSpeedByWorld:
       .BYTE $05 ; World 7
       .BYTE $0B ; Default
 
-; =============== S U B R O U T I N E =======================================
 
+;
+; Increments the frame of the CHR animation using the world/area speed
+;
 AnimateCHRRoutine:
       DEC     BackgroundCHR2Timer
       BPL     AnimateCHRRoutine_Exit
 
       LDX     #$07 ; default index for animation speed table
-      LDY     #$0F ; end of that other table
 
-; this loop does not appear to do anything of consequence...?
-loc_BANKF_FAD3:
+      ; Certain level/area combinations use a fixed animation speed.
+      ; It seems to be used in areas that prominently feature cloud platforms.
+      ; This loop performs the lookup to see if that should happen.
+      LDY     #(DefaultCHRAnimationSpeed_Area - DefaultCHRAnimationSpeed_Level - 1)
+AnimateCHRRoutine_DefaultSpeedLoop:
       LDA     CurrentLevel_Init
-      CMP     byte_BANKF_FAA2,Y
-      BNE     loc_BANKF_FAE3
+      CMP     DefaultCHRAnimationSpeed_Level,Y
+      BNE     AnimateCHRRoutine_DefaultSpeedNext
 
       LDA     CurrentLevelArea_Init
-      CMP     byte_BANKF_FAB2,Y
-      BEQ     loc_BANKF_FAE9
+      CMP     DefaultCHRAnimationSpeed_Area,Y
+      BEQ     AnimateCHRRoutine_SetSpeed
 
-loc_BANKF_FAE3:
+AnimateCHRRoutine_DefaultSpeedNext:
       DEY
-      BPL     loc_BANKF_FAD3
+      BPL     AnimateCHRRoutine_DefaultSpeedLoop
 
       LDX     CurrentWorld
 
-loc_BANKF_FAE9:
+AnimateCHRRoutine_SetSpeed:
       LDA     BackgroundCHRAnimationSpeedByWorld,X
       STA     BackgroundCHR2Timer
       LDY     BackgroundCHR2
@@ -5145,17 +5129,16 @@ IFNDEF FIX_CHR_CYCLE
       CPY     #CHRBank_Animated8
 ENDIF
 
-      BCC     loc_BANKF_FAFA
+      BCC     AnimateCHRRoutine_SetCHR
 
       LDY     #CHRBank_Animated1
 
-loc_BANKF_FAFA:
+AnimateCHRRoutine_SetCHR:
       STY     BackgroundCHR2
 
 AnimateCHRRoutine_Exit:
       RTS
 
-; End of function AnimateCHRRoutine
 
 ; ---------------------------------------------------------------------------
 

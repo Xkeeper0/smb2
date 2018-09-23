@@ -430,7 +430,6 @@ HandleEnemyState:
       LDA     EnemyState,X
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
       .WORD HandleEnemyState_Inactive ; 0 (not active)
       .WORD HandleEnemyState_Alive ; Alive
       .WORD HandleEnemyState_Dead ; Dead
@@ -439,13 +438,14 @@ HandleEnemyState:
       .WORD HandleEnemyState_PuffOfSmoke ; Puff of smoke
       .WORD HandleEnemyState_Sand ; Sand after digging
       .WORD loc_BANK2_85B2 ; Object carried/thrown?
+
+
 byte_BANK2_8252:
       .BYTE $18
-byte_BANK2_8253:
       .BYTE $E0
       .BYTE $01
       .BYTE $FF
-; ---------------------------------------------------------------------------
+
 
 loc_BANK2_8256:
       LDA     byte_RAM_4B8
@@ -454,10 +454,9 @@ loc_BANK2_8256:
       LDA     IsHorizontalLevel
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
-      .WORD loc_BANK2_82ED
-      .WORD loc_BANK2_8264
-; ---------------------------------------------------------------------------
+      .WORD loc_BANK2_82ED ; vertical
+      .WORD loc_BANK2_8264 ; horizontal
+
 
 loc_BANK2_8264:
       LDY     PlayerMovementDirection
@@ -467,9 +466,9 @@ loc_BANK2_8264:
       AND     #$F0
       STA     byte_RAM_5
       LDA     ScreenBoundaryLeftHi
-      ADC     byte_BANK2_8253,Y
+      ADC     byte_BANK2_8252+1,Y
       STA     byte_RAM_6
-      CMP     #$A
+      CMP     #$0A
       BCS     locret_BANK2_82AB
 
 ; =============== S U B R O U T I N E =======================================
@@ -598,7 +597,7 @@ loc_BANK2_82FC:
       AND     #$F0
       STA     byte_RAM_5
       LDA     ScreenYHi
-      ADC     byte_BANK2_8253,Y
+      ADC     byte_BANK2_8252+1,Y
       STA     byte_RAM_6
       CMP     #$A
 
@@ -854,7 +853,7 @@ EnemyInit_BasicWithoutTimer:
       STA     EnemyArray_42F,X
       STA     ObjectBeingCarriedTimer,X
       STA     ObjectAnimationTimer,X
-      STA     EnemyArray_44A,X
+      STA     ObjectShakeTimer,X
       STA     EnemyCollision,X
       STA     EnemyArray_438,X
       STA     EnemyArray_453,X
@@ -1066,7 +1065,8 @@ loc_BANK2_8574:
 ;   X = enemy index
 ;
 ApplyObjectMovement:
-      LDA     EnemyArray_44A,X
+      ; disable horiziontal physics while shaking
+      LDA     ObjectShakeTimer,X
       BNE     ApplyObjectMovement_Vertical
 
       JSR     ApplyObjectPhysicsX
@@ -1122,7 +1122,7 @@ loc_BANK2_85AF:
 loc_BANK2_85B2:
       JSR     sub_BANK2_88E8
 
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_85C1
@@ -1145,7 +1145,7 @@ loc_BANK2_85C1:
 
       LDA     byte_RAM_10
       AND     #$03
-      STA     EnemyArray_44A,X
+      STA     ObjectShakeTimer,X
       LDA     byte_RAM_10
       AND     #$10
       LSR     A
@@ -1536,9 +1536,10 @@ loc_BANK2_87AC:
       CMP     #Enemy_Clawgrip
       BNE     loc_BANK2_87CA
 
-      DEY ; Clawgrip special hack:
-; Move the "Draw the door" PPU command
-; up 8 tile rows ($100) to be on the platform
+      ; Clawgrip special hack:
+      ; Move the "Draw the door" PPU command
+      ; up 8 tile rows ($100) to be on the platform
+      DEY
 
 loc_BANK2_87CA:
       STY     PPUBuffer_721B
@@ -1560,7 +1561,7 @@ loc_BANK2_87D9:
       ASL     A
 
 loc_BANK2_87E7:
-      LDX     byte_BANKF_FA9E,Y
+      LDX     EndOfLevelDoorRowOffsets,Y
       ORA     PPUBuffer_721B,X
       STA     PPUBuffer_721B,X
       LDX     byte_RAM_12
@@ -1936,7 +1937,7 @@ loc_BANK2_89E2:
       BCS     loc_BANK2_8A0A
 
 loc_BANK2_89F0:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       LDA     EnemyArray_42F,X
       BEQ     loc_BANK2_89FB
@@ -2139,7 +2140,7 @@ byte_BANK2_8B06:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Spark:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     IncrementAnimationTimerBy2
 
@@ -2327,7 +2328,7 @@ EnemyBehavior_Fireball:
 
       JSR     sub_BANK2_927A
 
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     RenderSprite
 
@@ -2384,7 +2385,7 @@ loc_BANK2_8C22:
       STA     EnemyArray_46E,X
       LDA     #$02
       STA     EnemyMovementDirection,X
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       INC     ObjectAnimationTimer,X
       LDA     ObjectAnimationTimer,X
@@ -2851,7 +2852,7 @@ byte_BANK2_8E85:
 
 
 EnemyBehavior_Trouter:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       INC     ObjectAnimationTimer,X
       JSR     sub_BANK2_98D6
@@ -2898,7 +2899,7 @@ Enemy_Hoopstar_Attributes:
 
 
 EnemyBehavior_Hoopstar:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       INC     ObjectAnimationTimer,X
       JSR     EnemyBehavior_CheckBeingCarriedTimer
@@ -2980,9 +2981,12 @@ loc_BANK2_8F27:
       ORA     byte_RAM_EF
       BNE     locret_BANK2_8F4E
 
-      LDY     byte_RAM_F4 ; This part of the code seems to only run
-      LDA     SpriteTempScreenY ; if the graph we're trying to draw is
-      STA     SpriteDMAArea,Y ; a heart sprite ...
+      ; This part of the code seems to only run
+      ; if the graph we're trying to draw is
+      ; a heart sprite ...
+      LDY     byte_RAM_F4
+      LDA     SpriteTempScreenY
+      STA     SpriteDMAArea,Y
       LDA     SpriteTempScreenX
       STA     SpriteDMAArea+3,Y
       LDA     #$D8
@@ -3040,7 +3044,7 @@ ProjectileLaunchXOffsets:
 
 
 EnemyBehavior_Birdo:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     sub_BANK3_B4FD
 
@@ -3644,7 +3648,7 @@ loc_BANK2_926E:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9271:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
 loc_BANK2_9274:
       JMP     ApplyObjectPhysicsX
@@ -3673,7 +3677,7 @@ EnemyBehavior_BulletAndEgg:
       JSR     sub_BANK3_B4FD
 
 sub_BANK2_9289:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     EnemyBehavior_CheckBeingCarriedTimer
 
@@ -3792,11 +3796,10 @@ Phanto_MaxVelY:
       .BYTE $18
 
 EnemyBehavior_Phanto:
-      LDA     EnemyArray_44A,X
+      LDA     ObjectShakeTimer,X
       BEQ     Phanto_AfterDecrementShakeTimer
 
-      ; Shake timer
-      DEC     EnemyArray_44A,X
+      DEC     ObjectShakeTimer,X
 
 Phanto_AfterDecrementShakeTimer:
       JSR     RenderSprite
@@ -3905,7 +3908,7 @@ Phanto_AfterFlashing:
 
       ; Start vibrating
       LDA     #$40
-      STA     EnemyArray_44A,X
+      STA     ObjectShakeTimer,X
 
       ; Play Phanto activation sound effect
       LDA     #SoundEffect3_Rumble_B
@@ -3923,32 +3926,33 @@ Phanto_AfterDecrementActivateTimer:
 Phanto_Activated:
       JMP     sub_BANK2_9430
 
-; ---------------------------------------------------------------------------
+
 Enemy_Ninji_JumpVelocity:
       .BYTE $E8
       .BYTE $D0
       .BYTE $D8
       .BYTE $D0
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_NinjiJumping:
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Down
-      BEQ     loc_BANK2_940C
+      BEQ     EnemyBehavior_Ninji_MidAir
 
       LDA     EnemyArray_42F,X
-      BNE     loc_BANK2_93C8
+      BNE     EnemyBehavior_NinjiJumping_DetermineJump
 
+      ; stop x-velocity
       STA     ObjectXVelocity,X
 
-loc_BANK2_93C8:
+EnemyBehavior_NinjiJumping_DetermineJump:
       TXA
       ASL     A
       ASL     A
       ASL     A
       ADC     byte_RAM_10
       AND     #$3F
-      BNE     loc_BANK2_940C
+      BNE     EnemyBehavior_Ninji_MidAir
 
       LDA     ObjectAnimationTimer,X
       AND     #$C0
@@ -3957,47 +3961,47 @@ loc_BANK2_93C8:
       ROL     A
       TAY
       LDA     Enemy_Ninji_JumpVelocity,Y
-      BNE     loc_BANK2_9401
+      BNE     EnemyBehavior_Ninji_Jump
 
 EnemyBehavior_NinjiRunning:
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Down
-      BEQ     loc_BANK2_940C
+      BEQ     EnemyBehavior_Ninji_MidAir
 
       LDA     PlayerYLo
       CLC
       ADC     #$10
       CMP     ObjectYLo,X
-      BNE     loc_BANK2_940C
+      BNE     EnemyBehavior_Ninji_MidAir
 
       JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
       TYA
       CMP     EnemyMovementDirection,X
-      BNE     loc_BANK2_940C
+      BNE     EnemyBehavior_Ninji_MidAir
 
       LDA     byte_RAM_F
       ADC     #$28
       CMP     #$50
-      BCS     loc_BANK2_940C
+      BCS     EnemyBehavior_Ninji_MidAir
 
       LDA     #$D8
 
-loc_BANK2_9401:
+EnemyBehavior_Ninji_Jump:
       STA     ObjectYVelocity,X
       LDA     ObjectAnimationTimer,X
       AND     #$F0
       STA     ObjectAnimationTimer,X
       JSR     ApplyObjectPhysicsY
 
-loc_BANK2_940C:
+EnemyBehavior_Ninji_MidAir:
       JMP     EnemyBehavior_BasicWalker
 
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Beezo:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     RenderSprite
 
@@ -4093,7 +4097,7 @@ EnemyBehavior_BasicWalker:
       JSR     sub_BANK3_B4FD
 
 loc_BANK2_9470:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       LDA     EnemyArray_480,X
       BEQ     loc_BANK2_9492
@@ -4200,18 +4204,17 @@ EnemyBehavior_Walk:
       BNE     EnemyBehavior_BasicWalkerExit
 
 EnemyBehavior_TurnAtCliff:
+      ; skip if being thrown
       LDA     EnemyArray_42F,X
       BNE     EnemyBehavior_BasicWalkerExit
 
+      ; skip if already turning around
       LDA     EnemyArray_477,X
       BNE     EnemyBehavior_BasicWalkerExit
 
       INC     EnemyArray_477,X
       JMP     EnemyBehavior_TurnAround
 
-; ---------------------------------------------------------------------------
-
-; exit enemy movement
 EnemyBehavior_BasicWalkerExit:
       RTS
 
@@ -4263,13 +4266,13 @@ loc_BANK2_9528:
       ; some other follow-the-player enemy
       LDA     #$7F ; unused
       CPY     #Enemy_SnifitRed
-      BEQ     loc_BANK2_9562
+      BEQ     EnemyBehavior_Snifit
 
       CPY     #Enemy_SnifitRed
-      BEQ     loc_BANK2_9562
+      BEQ     EnemyBehavior_Snifit
 
       CPY     #Enemy_SnifitPink
-      BEQ     loc_BANK2_9562
+      BEQ     EnemyBehavior_Snifit
 
       CPY     #Enemy_SnifitGray
       BNE     loc_BANK2_959D
@@ -4283,31 +4286,27 @@ loc_BANK2_9528:
       STY     EnemyMovementDirection,X
       LDA     ObjectAnimationTimer,X
       AND     #$3F
-      BNE     loc_BANK2_9562
+      BNE     EnemyBehavior_Snifit
 
       LDA     #$E8
       STA     ObjectYVelocity,X
       JMP     ApplyObjectPhysicsY
 
-; ---------------------------------------------------------------------------
 
 EnemyBehavior_Snifit:
-loc_BANK2_9562:
-      LDA     EnemyArray_44A,X
-      BEQ     loc_BANK2_9574
+      LDA     ObjectShakeTimer,X
+      BEQ     EnemyBehavior_Snifit_NoBullet
 
-loc_BANK2_9567:
       DEC     ObjectAnimationTimer,X
-      DEC     EnemyArray_44A,X
-      BNE     loc_BANK2_9574
+      DEC     ObjectShakeTimer,X
+      BNE     EnemyBehavior_Snifit_NoBullet
 
       ; telegraphed bullet (walking snifits)
       JSR     CreateBullet
 
       JMP     loc_BANK2_95BB
 
-; ---------------------------------------------------------------------------
-
+EnemyBehavior_Snifit_NoBullet:
 loc_BANK2_9574:
       TXA
       ASL     A
@@ -4315,31 +4314,30 @@ loc_BANK2_9574:
       ASL     A
       ADC     byte_RAM_10
       ASL     A
-      BNE     loc_BANK2_9597
+      BNE     EnemyBehavior_Snifit_AnimationTimer
 
       LDA     ObjectType,X
       CMP     #Enemy_SnifitGray
-      BNE     loc_BANK2_9589
+      BNE     EnemyBehavior_Snifit_CheckPlayerY
 
       ; jumper low bullet
       JSR     CreateBullet
 
       JMP     EnemyInit_DisableObjectAttributeBit8
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_9589:
+EnemyBehavior_Snifit_CheckPlayerY:
       LDA     ObjectYLo,X
       SEC
       SBC     #$10
       CMP     PlayerYLo
-      BNE     loc_BANK2_9597
+      BNE     EnemyBehavior_Snifit_AnimationTimer
 
-      LDA     #$30
-      STA     EnemyArray_44A,X
+      LDA     #$30 ; shake duration
+      STA     ObjectShakeTimer,X
 
-loc_BANK2_9597:
-      LDA     #%01111111
+EnemyBehavior_Snifit_AnimationTimer:
+      LDA     #$7F
 
 ;
 ; Gives em the ol' razzle-dazzle
@@ -4944,36 +4942,44 @@ DoorSpriteAnimation:
       .BYTE $02
       .BYTE $D0
       .BYTE $06
-; ---------------------------------------------------------------------------
-      LDA     #$01
-      BNE     loc_BANK2_9843
 
+;
+; Note: Door animation code copied from Bank 1
+;
+; It's here, but seems to be unused?
+;
+DoorAnimation_Locked_Bank2:
+      LDA     #$01
+      BNE     DoorAnimation_Bank2
+
+DoorAnimation_Unlocked_Bank2:
       LDA     #$00
 
-loc_BANK2_9843:
+DoorAnimation_Bank2:
       PHA
       LDY     #$08
 
-loc_BANK2_9846:
+DoorAnimation_Loop_Bank2:
+      ; skip if inactive
       LDA     EnemyState,Y
-      BEQ     loc_BANK2_985C
+      BEQ     DoorAnimation_LoopNext_Bank2
 
       LDA     ObjectType,Y
       CMP     #Enemy_SubspaceDoor
-      BNE     loc_BANK2_985C
+      BNE     DoorAnimation_LoopNext_Bank2
 
       LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,Y
       LDA     #$20
       STA     EnemyTimer,Y
 
-loc_BANK2_985C:
+DoorAnimation_LoopNext_Bank2:
       DEY
-      BPL     loc_BANK2_9846
+      BPL     DoorAnimation_Loop_Bank2
 
       JSR     CreateEnemy_TryAllSlots
 
-      BMI     loc_BANK2_9896
+      BMI     DoorAnimation_Exit_Bank2
 
       LDA     #$00
       STA     byte_RAM_4BD
@@ -4996,23 +5002,20 @@ loc_BANK2_985C:
       STA     ObjectYLo,X
       LDA     PlayerYHi
       STA     ObjectYHi,X
-      LDA     #$41
+      LDA     #ObjAttrib_Palette1|ObjAttrib_16x32
       STA     ObjectAttributes,X
       LDX     byte_RAM_12
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9896:
+DoorAnimation_Exit_Bank2:
       PLA
-
-locret_BANK2_9897:
       RTS
 
-; ---------------------------------------------------------------------------
+
+ShellSpeed:
       .BYTE $1C
       .BYTE $E4
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_Shell:
       JSR     sub_BANK3_B4FD
@@ -5021,33 +5024,29 @@ EnemyBehavior_Shell:
 
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Right|CollisionFlags_Left
-      BEQ     loc_BANK2_98AE
+      BEQ     EnemyBehavior_Shell_Slide
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK2_98A6:
+EnemyBehavior_Shell_Destroy:
       LDA     #SoundEffect1_EnemyHit
       STA     SoundEffectQueue1
       JMP     TurnIntoPuffOfSmoke
 
-; End of function sub_BANK2_98A6
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_98AE:
+EnemyBehavior_Shell_Slide:
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Down
-      BEQ     loc_BANK2_98B7
+      BEQ     EnemyBehavior_Shell_Render
 
       JSR     ResetObjectYVelocity
 
-loc_BANK2_98B7:
+EnemyBehavior_Shell_Render:
       JSR     RenderSprite
 
       LDY     EnemyMovementDirection,X
-      LDA     locret_BANK2_9897,Y
+      LDA     ShellSpeed-1,Y
       STA     ObjectXVelocity,X
       JMP     ApplyObjectMovement
+
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5221,60 +5220,68 @@ loc_BANK2_9974:
 
 ; End of function sub_BANK2_9937
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_997A:
+;
+; Checks whether the enemy is taking mortal damage
+;
+; If so, play the sound effect, kill the enemy, and cancel the previous enemy
+; behavior subroutine.
+;
+; Input
+;   X = enemy index
+;
+EnemyBehavior_CheckDamaged:
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Disabled
-      BEQ     locret_BANK2_99B3
+      BEQ     EnemyBehavior_CheckDamaged_Exit
 
       LDA     ObjectBeingCarriedTimer,X
-      BEQ     loc_BANK2_9988
+      BEQ     EnemyBehavior_CheckDamaged_SoundEffect
 
+      ; remove the item from the player's hands
       LDA     #$00
       STA     HoldingItem
 
-loc_BANK2_9988:
+EnemyBehavior_CheckDamaged_SoundEffect:
       LDY     ObjectType,X
       ; is this enemy a squawker?
       LDA     EnemyArray_46E_Data,Y
       AND     #%00001000
-      ASL     A
-      BNE     loc_BANK2_999E
+      ASL     A ; then A = DPCM_BossDeath
+      BNE     EnemyBehavior_CheckDamaged_BossDeathSound
 
       ; normal enemy hit sound
       LDA     DPCMQueue
-      BNE     loc_BANK2_99A1
+      BNE     EnemyBehavior_CheckDamaged_CheckPidgit
 
       LDA     #SoundEffect1_EnemyHit
       STA     SoundEffectQueue1
-      BNE     loc_BANK2_99A1
+      BNE     EnemyBehavior_CheckDamaged_CheckPidgit
 
-loc_BANK2_999E:
+EnemyBehavior_CheckDamaged_BossDeathSound:
       STA     DPCMQueue
 
-loc_BANK2_99A1:
+EnemyBehavior_CheckDamaged_CheckPidgit:
       ; killing pidgit leaves a flying carpet behind
       CPY     #Enemy_Pidgit
-      BNE     loc_BANK2_99AD
+      BNE     EnemyBehavior_CheckDamaged_SetDead
 
       LDA     EnemyArray_42F,X
-      BNE     loc_BANK2_99AD
+      BNE     EnemyBehavior_CheckDamaged_SetDead
 
       JSR     CreateFlyingCarpet
 
-loc_BANK2_99AD:
+EnemyBehavior_CheckDamaged_SetDead:
       LDA     #EnemyState_Dead
       STA     EnemyState,X
+      ; interrupt the previous subroutine
       PLA
       PLA
 
-locret_BANK2_99B3:
+EnemyBehavior_CheckDamaged_Exit:
       RTS
 
-; End of function sub_BANK2_997A
 
-; ---------------------------------------------------------------------------
 EnemyTilemap1:
       .BYTE $D0,$D2 ; $00
       .BYTE $D4,$D6 ; $02
@@ -5369,6 +5376,7 @@ EnemyTilemap1:
       .BYTE $8C,$8C ; $B4
       .BYTE $A6,$A6 ; $B6
       .BYTE $AB,$AB ; $B8
+
 
 ;
 ; Enemy Animation table
@@ -5663,9 +5671,9 @@ loc_BANK2_9B80:
       CPY     #Enemy_Heart ; ??? Compare against a Heart
       BNE     loc_BANK2_9B87
 
-      JMP     loc_BANK2_8F27 ; This jump appears to never be taken;
-; I don't think this code even runs with
-; an enemy ID of 0 (heart)
+      ; This jump appears to never be taken;
+      ; I don't think this code even runs with an enemy ID of 0 (heart)
+      JMP     loc_BANK2_8F27
 
 ; ---------------------------------------------------------------------------
 
@@ -5746,13 +5754,13 @@ sub_BANK2_9BB3:
 loc_BANK2_9BD2:
       STY     byte_RAM_2
       LDA     ObjectAttributes,X
-      AND     #$44
+      AND     #ObjAttrib_16x32|ObjAttrib_Horizontal
       STA     byte_RAM_5
       LDA     SpriteTempScreenY
       STA     byte_RAM_0
       LDA     #$00
       STA     byte_RAM_D
-      LDA     EnemyArray_44A,X
+      LDA     ObjectShakeTimer,X
       AND     #$02
       LSR     A
       LDY     byte_RAM_EE
@@ -6453,7 +6461,7 @@ EnemyBehavior_Clawgrip:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A13B:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       LDA     ObjectYLo,X
       CMP     #$70
@@ -6784,7 +6792,7 @@ loc_BANK3_A2E1:
 EnemyBehavior_ClawgripRock:
       LDA     #$00
       STA     EnemyArray_45C,X
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     EnemyBehavior_CheckBeingCarriedTimer
 
@@ -7130,7 +7138,7 @@ unk_BANK3_A48B:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Pidgit:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       INC     ObjectAnimationTimer,X
       LDA     EnemyArray_42F,X
@@ -7311,7 +7319,7 @@ loc_BANK3_A577:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Mouser:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       LDA     EnemyArray_45C,X
       BEQ     loc_BANK3_A586
@@ -7575,7 +7583,7 @@ loc_BANK3_A6BD:
 loc_BANK3_A6DB:
       JSR     EnemyBehavior_CheckBeingCarriedTimer
 
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
 loc_BANK3_A6E1:
       JSR     sub_BANK3_B4FD
@@ -7688,7 +7696,7 @@ locret_BANK3_A75C:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Tryclyde:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       LDY     #$00
       LDA     EnemyArray_477,X
@@ -7968,7 +7976,7 @@ EnemyInit_Cobrats:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_CobratGround:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     sub_BANK2_98D6
 
@@ -8063,7 +8071,7 @@ loc_BANK3_A979:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_CobratJar:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     sub_BANK2_98D6
 
@@ -8203,7 +8211,7 @@ EnemyBehavior_Pokey:
       LDA     EnemyVariable,X
       BNE     loc_BANK3_AA2D
 
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     EnemyBehavior_CheckBeingCarriedTimer
 
@@ -8788,7 +8796,7 @@ loc_BANK3_AD59:
       LDA     #$02
       STA     EnemyMovementDirection,X
       LDA     byte_RAM_10
-      STA     EnemyArray_44A,X
+      STA     ObjectShakeTimer,X
       INC     ObjectAnimationTimer,X
       INC     ObjectAnimationTimer,X
       JSR     sub_BANK3_B4FD
@@ -8885,7 +8893,7 @@ EnemyBehavior_Autobomb:
       LDX     byte_RAM_12
 
 loc_BANK3_ADF9:
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     sub_BANK3_B4FD
 
@@ -9198,7 +9206,7 @@ byte_BANK3_AF76:
 
 EnemyBehavior_Flurry:
       INC     ObjectAnimationTimer,X
-      JSR     sub_BANK2_997A
+      JSR     EnemyBehavior_CheckDamaged
 
       JSR     EnemyBehavior_CheckBeingCarriedTimer
 
@@ -10664,7 +10672,7 @@ CheckCollisionWithPlayer_NotWart:
 CheckCollisionWithPlayer_Poof:
       LDA     #%00000000
       STA     EnemyArray_46E,X
-      JSR     sub_BANK2_98A6
+      JSR     EnemyBehavior_Shell_Destroy
 
       JMP     loc_BANK3_B878
 
@@ -10735,7 +10743,7 @@ CheckCollisionWithPlayer_StandingOnHead:
 
       STA     EnemyCollision,X
       STX     byte_RAM_42D
-      STA     EnemyArray_44A,X
+      STA     ObjectShakeTimer,X
       LDA     #$07
       STA     ObjectBeingCarriedTimer,X
       JSR     SetPlayerStateLifting
