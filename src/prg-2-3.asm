@@ -2630,7 +2630,7 @@ EnemyBehavior_Hawkmouth:
       BEQ     loc_BANK2_8D7B
 
 loc_BANK2_8D78:
-      JMP     loc_BANK2_8E05
+      JMP     RenderSprite_HawkmouthLeft
 
 ; ---------------------------------------------------------------------------
 
@@ -2682,14 +2682,14 @@ SetGameModeBonusChance:
 
 loc_BANK2_8DBA:
       LDA     CrystalAndHawkmouthOpenSize
-      BEQ     loc_BANK2_8E05
+      BEQ     RenderSprite_HawkmouthLeft
 
       CMP     #$30
       BEQ     loc_BANK2_8DDB
 
       LDA     byte_RAM_EE
       AND     #$04
-      BNE     loc_BANK2_8E05
+      BNE     RenderSprite_HawkmouthLeft
 
       INC     CrystalAndHawkmouthOpenSize
       LDA     byte_RAM_10
@@ -2700,25 +2700,25 @@ loc_BANK2_8DBA:
       INC     byte_RAM_710B
 
 loc_BANK2_8DD8:
-      JMP     loc_BANK2_8E05
+      JMP     RenderSprite_HawkmouthLeft
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8DDB:
       LDA     EnemyCollision,X
       AND     #CollisionFlags_PlayerInsideMaybe
-      BEQ     loc_BANK2_8E05
+      BEQ     RenderSprite_HawkmouthLeft
 
       LDA     ObjectYLo,X
       CMP     PlayerYLo
-      BCS     loc_BANK2_8E05
+      BCS     RenderSprite_HawkmouthLeft
 
       LDA     PlayerCollision
       AND     #CollisionFlags_Down
-      BEQ     loc_BANK2_8E05
+      BEQ     RenderSprite_HawkmouthLeft
 
       LDA     HoldingItem
-      BNE     loc_BANK2_8E05
+      BNE     RenderSprite_HawkmouthLeft
 
       LDA     #PlayerState_HawkmouthEating
       STA     PlayerState
@@ -2730,7 +2730,7 @@ loc_BANK2_8DDB:
       STA     SoundEffectQueue1
       INC     HawkmouthClosing
 
-loc_BANK2_8E05:
+RenderSprite_HawkmouthLeft:
       LDA     byte_RAM_EF
       BNE     loc_BANK2_8E60
 
@@ -2969,7 +2969,7 @@ loc_BANK2_8F1E:
       STA     ObjectYVelocity,X
       JSR     sub_BANK2_9430
 
-loc_BANK2_8F27:
+RenderSprite_Heart:
       LDA     byte_RAM_EE
       AND     #$08
       ORA     byte_RAM_EF
@@ -3405,11 +3405,11 @@ EnemyBehavior_Vegetable:
 
       JSR     ApplyObjectMovement
 
-loc_BANK2_9137:
+RenderSprite_VegetableLarge:
       LDA     EnemyArray_B1,X
       BNE     loc_BANK2_913E
 
-      JMP     sub_BANK2_9BA7
+      JMP     RenderSprite_NotAlbatoss
 
 ; ---------------------------------------------------------------------------
 
@@ -3605,7 +3605,7 @@ loc_BANK2_9228:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Albatoss:
-      JSR     sub_BANK2_9AF2
+      JSR     RenderSprite_Albatoss
 
       INC     ObjectAnimationTimer,X
       LDA     EnemyArray_B1,X
@@ -5498,7 +5498,7 @@ loc_BANK2_9ACA:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9AD7:
+RenderSprite_Birdo:
       LDA     EnemyState,X
       CMP     #EnemyState_Alive
       BNE     loc_BANK2_9AE2
@@ -5522,21 +5522,20 @@ loc_BANK2_9AEC:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9AEF:
-      JMP     sub_BANK2_9BA7
+      JMP     RenderSprite_NotAlbatoss
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_9AF2:
+RenderSprite_Albatoss:
       LDA     byte_RAM_EE
       PHA
-      JSR     sub_BANK2_9BA7
+      JSR     RenderSprite_NotAlbatoss
 
       PLA
       ASL     A
       STA     byte_RAM_EE
       LDA     EnemyArray_B1,X
       ORA     byte_RAM_EF
-      BNE     locret_BANK2_9B40
+      BNE     RenderSprite_Invisible
 
       LDA     SpriteTempScreenX
       ADC     #$08
@@ -5551,7 +5550,6 @@ sub_BANK2_9AF2:
       LDX     #$14
       JMP     loc_BANK2_9C7A
 
-; End of function sub_BANK2_9AF2
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5559,183 +5557,139 @@ RenderSprite:
       LDY     ObjectType,X
       LDA     EnemyAnimationTable,Y
       CMP     #$FF
-      BEQ     locret_BANK2_9B40
+      BEQ     RenderSprite_Invisible
 
       CPY     #Enemy_Mouser
-      BNE     loc_BANK2_9B2B
+      BNE     RenderSprite_NotMouser
 
-      JMP     loc_BANK3_A5F8
+      JMP     RenderSprite_Mouser
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B2B:
+RenderSprite_NotMouser:
       CPY     #Enemy_Clawgrip
-      BNE     loc_BANK2_9B32
+      BNE     RenderSprite_NotClawgrip
 
-      JMP     loc_BANK3_A1E4
+      JMP     RenderSprite_Clawgrip
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B32:
+RenderSprite_NotClawgrip:
       CPY     #Enemy_ClawgripRock
-      BNE     loc_BANK2_9B39
+      BNE     RenderSprite_NotClawgripRock
 
-      JMP     loc_BANK3_A323
+      JMP     RenderSprite_ClawgripRock
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B39:
+RenderSprite_NotClawgripRock:
       CPY     #Enemy_HawkmouthBoss
-      BNE     loc_BANK2_9B41
+      BNE     RenderSprite_NotHawkmouthBoss
 
-      JMP     sub_BANK3_B0E8
+      JMP     RenderSprite_HawkmouthBoss
 
-; ---------------------------------------------------------------------------
-
-locret_BANK2_9B40:
+RenderSprite_Invisible:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B41:
+RenderSprite_NotHawkmouthBoss:
       CPY     #Enemy_Pidgit
-      BNE     loc_BANK2_9B48
+      BNE     RenderSprite_NotPidgit
 
-      JMP     sub_BANK3_A508
+      JMP     RenderSprite_Pidgit
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B48:
+RenderSprite_NotPidgit:
       CPY     #Enemy_Porcupo
-      BNE     loc_BANK2_9B4F
+      BNE     RenderSprite_NotPorcupo
 
-      JMP     loc_BANK2_9E06
+      JMP     RenderSprite_Porcupo
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B4F:
+RenderSprite_NotPorcupo:
       CPY     #Enemy_VegetableLarge
-      BNE     loc_BANK2_9B56
+      BNE     RenderSprite_NotVegetableLarge
 
-      JMP     loc_BANK2_9137
+      JMP     RenderSprite_VegetableLarge
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B56:
+RenderSprite_NotVegetableLarge:
       CPY     #Enemy_Autobomb
-      BNE     loc_BANK2_9B5D
+      BNE     RenderSprite_NotAutobomb
 
-      JMP     loc_BANK3_AE4B
+      JMP     RenderSprite_Autobomb
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B5D:
+RenderSprite_NotAutobomb:
       CPY     #Enemy_Fryguy
-      BNE     loc_BANK2_9B64
+      BNE     RenderSprite_NotFryguy
 
-      JMP     sub_BANK3_AC28
+      JMP     RenderSprite_Fryguy
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B64:
+RenderSprite_NotFryguy:
       CPY     #Enemy_HawkmouthLeft
-      BNE     loc_BANK2_9B6B
+      BNE     RenderSprite_NotHawkmouthLeft
 
-      JMP     loc_BANK2_8E05
+      JMP     RenderSprite_HawkmouthLeft
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B6B:
+RenderSprite_NotHawkmouthLeft:
       CPY     #Enemy_Wart
-      BNE     loc_BANK2_9B72
+      BNE     RenderSprite_NotWart
 
-      JMP     loc_BANK3_B2B0
+      JMP     RenderSprite_Wart
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B72:
+RenderSprite_NotWart:
       CPY     #Enemy_WhaleSpout
-      BNE     loc_BANK2_9B79
+      BNE     RenderSprite_NotWhaleSpout
 
-      JMP     loc_BANK3_AEEB
+      JMP     RenderSprite_WhaleSpout
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B79:
+RenderSprite_NotWhaleSpout:
       CPY     #Enemy_Pokey
-      BNE     loc_BANK2_9B80
+      BNE     RenderSprite_NotPokey
 
-      JMP     DrawPokey
+      JMP     RenderSprite_Pokey
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B80:
-      CPY     #Enemy_Heart ; ??? Compare against a Heart
-      BNE     loc_BANK2_9B87
+RenderSprite_NotPokey:
+      CPY     #Enemy_Heart
+      BNE     RenderSprite_NotHeart
 
       ; This jump appears to never be taken;
       ; I don't think this code even runs with an enemy ID of 0 (heart)
-      JMP     loc_BANK2_8F27
+      JMP     RenderSprite_Heart
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B87:
+RenderSprite_NotHeart:
       CPY     #Enemy_Ostro
-      BNE     loc_BANK2_9B8E
+      BNE     RenderSprite_NotOstro
 
-      JMP     loc_BANK3_A654
+      JMP     RenderSprite_Ostro
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B8E:
+RenderSprite_NotOstro:
       CPY     #Enemy_Tryclyde
-      BNE     loc_BANK2_9B95
+      BNE     RenderSprite_NotTryclyde
 
-      JMP     loc_BANK3_A783
+      JMP     RenderSprite_Tryclyde
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B95:
+RenderSprite_NotTryclyde:
       CPY     #Enemy_Birdo
-      BNE     loc_BANK2_9B9C
+      BNE     RenderSprite_NotBirdo
 
-      JMP     loc_BANK2_9AD7
+      JMP     RenderSprite_Birdo
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9B9C:
+RenderSprite_NotBirdo:
       CPY     #Enemy_AlbatossCarryingBobOmb
-      BCC     sub_BANK2_9BA7
+      BCC     RenderSprite_NotAlbatoss
 
       CPY     #Enemy_NinjiRunning
-      BCS     sub_BANK2_9BA7
+      BCS     RenderSprite_NotAlbatoss
 
-      JMP     sub_BANK2_9AF2
+      JMP     RenderSprite_Albatoss
 
-; End of function RenderSprite
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK2_9BA7:
+RenderSprite_NotAlbatoss:
       LDY     ObjectType,X
       CPY     #Enemy_Rocket
-      BNE     loc_BANK2_9BB0
+      BNE     RenderSprite_NotRocket
 
-      JMP     sub_BANK3_ABEE
+      JMP     RenderSprite_Rocket
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9BB0:
+RenderSprite_NotRocket:
       LDA     EnemyAnimationTable,Y
-
-; End of function sub_BANK2_9BA7
 
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK2_9BB3:
       STA     byte_RAM_F
       LDA     byte_RAM_EF
-      BNE     locret_BANK2_9B40
+      BNE     RenderSprite_Invisible
 
       ; tilemap switcher
       LDA     EnemyArray_46E,X
@@ -6120,8 +6074,8 @@ byte_BANK2_9DFA:
       .BYTE $01
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9E06:
-      JSR     sub_BANK2_9BA7
+RenderSprite_Porcupo:
+      JSR     RenderSprite_NotAlbatoss
 
       LDA     byte_RAM_EE
       AND     #$0C
@@ -6563,7 +6517,7 @@ loc_BANK3_A1CD:
 loc_BANK3_A1D3:
       JMP     RenderSprite
 
-; ---------------------------------------------------------------------------
+
       .BYTE $08
       .BYTE $08
 
@@ -6582,9 +6536,9 @@ byte_BANK3_A1DC:
       .BYTE $08
       .BYTE $06
       .BYTE $04
-; ---------------------------------------------------------------------------
 
-loc_BANK3_A1E4:
+
+RenderSprite_Clawgrip:
 IFDEF COMPATIBILITY
       .db $ad, $f4, $00 ; LDA $00F4
 ENDIF
@@ -6832,7 +6786,7 @@ loc_BANK3_A320:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A323:
+RenderSprite_ClawgripRock:
 IFDEF COMPATIBILITY
       .db $bd, $a8, $00 ; LDA $00A8, X
 ENDIF
@@ -6888,7 +6842,7 @@ loc_BANK3_A354:
       STA     ObjectAttributes,X
 
 loc_BANK3_A362:
-      JMP     sub_BANK2_9BA7
+      JMP     RenderSprite_NotAlbatoss
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_A365:
@@ -7149,7 +7103,7 @@ EnemyBehavior_Pidgit:
       LDA     ObjectAttributes,X
       ORA     #$80
       STA     ObjectAttributes,X
-      JSR     sub_BANK3_A508
+      JSR     RenderSprite_Pidgit
 
       JMP     ApplyObjectMovement
 
@@ -7190,7 +7144,7 @@ loc_BANK3_A4C1:
       LDA     unk_BANK3_A48B,Y
       STA     ObjectXVelocity,X
       INC     EnemyArray_B1,X
-      JMP     sub_BANK3_A508
+      JMP     RenderSprite_Pidgit
 
 ; ---------------------------------------------------------------------------
 
@@ -7227,8 +7181,8 @@ loc_BANK3_A502:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_A508:
-      JSR     sub_BANK2_9BA7
+RenderSprite_Pidgit:
+      JSR     RenderSprite_NotAlbatoss
 
       LDA     EnemyState,X
       SEC
@@ -7279,7 +7233,6 @@ ENDIF
 locret_BANK3_A551:
       RTS
 
-; End of function sub_BANK3_A508
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -7417,7 +7370,7 @@ loc_BANK3_A5F5:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A5F8:
+RenderSprite_Mouser:
       LDA     EnemyState,X
       CMP     #$01
       BNE     loc_BANK3_A609
@@ -7451,7 +7404,7 @@ loc_BANK3_A61B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A621:
-      JSR     sub_BANK2_9BA7
+      JSR     RenderSprite_NotAlbatoss
 
       LDA     EnemyTimer,X
       CMP     #$10
@@ -7492,11 +7445,11 @@ locret_BANK3_A651:
       .BYTE $05
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A654:
-      JSR     loc_BANK2_9BB0
+RenderSprite_Ostro:
+      JSR     RenderSprite_NotRocket
 
       LDA     byte_RAM_EE
-      AND     #$E
+      AND     #$0E
       ORA     byte_RAM_EF
       ORA     EnemyArray_B1,X
       BNE     locret_BANK3_A67C
@@ -7720,11 +7673,11 @@ loc_BANK3_A76F:
       CLC
       ADC     #$D0
       STA     EnemyArray_B1,X
-      BCC     loc_BANK3_A783
+      BCC     RenderSprite_Tryclyde
 
       INC     EnemyArray_480,X
 
-loc_BANK3_A783:
+RenderSprite_Tryclyde:
       LDA     byte_RAM_EF
       BNE     locret_BANK3_A75C
 
@@ -8310,10 +8263,10 @@ PokeyWiggleOffset:
       .BYTE $00
 
 
-DrawPokey:
+RenderSprite_Pokey:
       LDY     #$00
       LDA     byte_RAM_EE
-      BNE     DrawPokey_Segments
+      BNE     RenderSprite_Pokey_Segments
 
       LDA     byte_RAM_10
       AND     #$18
@@ -8322,18 +8275,18 @@ DrawPokey:
       LSR     A
       TAY
 
-DrawPokey_Segments:
+RenderSprite_Pokey_Segments:
       STY     byte_RAM_7
       LDA     SpriteTempScreenX
       STA     PokeyTempScreenX
       CLC
       ADC     PokeyWiggleOffset,Y
       STA     SpriteTempScreenX
-      JSR     sub_BANK2_9BA7
+      JSR     RenderSprite_NotAlbatoss
 
       LDA     EnemyVariable,X
       STA     byte_RAM_9
-      BEQ     DrawPokey_Exit
+      BEQ     RenderSprite_Pokey_Exit
 
       TYA
       CLC
@@ -8347,7 +8300,7 @@ DrawPokey_Segments:
       JSR     sub_BANK2_9CF2
 
       DEC     byte_RAM_9
-      BEQ     DrawPokey_Exit
+      BEQ     RenderSprite_Pokey_Exit
 
       JSR     loc_BANKF_FAFE
 
@@ -8360,7 +8313,7 @@ DrawPokey_Segments:
       JSR     sub_BANK2_9CF2
 
       DEC     byte_RAM_9
-      BEQ     DrawPokey_Exit
+      BEQ     RenderSprite_Pokey_Exit
 
       LDX     byte_RAM_7
       LDA     PokeyTempScreenX
@@ -8370,7 +8323,7 @@ DrawPokey_Segments:
       LDX     #$70
       JSR     sub_BANK2_9CF2
 
-DrawPokey_Exit:
+RenderSprite_Pokey_Exit:
       LDX     byte_RAM_12
       RTS
 
@@ -8464,7 +8417,7 @@ loc_BANK3_AB76:
       STA     PlayerScreenYLo
 
 loc_BANK3_AB88:
-      JSR     sub_BANK3_ABEE
+      JSR     RenderSprite_Rocket
 
       LDA     SpriteTempScreenX
       SEC
@@ -8523,7 +8476,7 @@ loc_BANK3_ABEB:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_ABEE:
+RenderSprite_Rocket:
       LDA     SpriteTempScreenY
       STA     byte_RAM_0
       LDA     SpriteTempScreenX
@@ -8552,7 +8505,6 @@ sub_BANK3_ABEE:
       LDX     #$96
       JMP     loc_BANK2_9C53
 
-; End of function sub_BANK3_ABEE
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_AC25:
@@ -8564,7 +8516,7 @@ byte_BANK3_AC26:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_AC28:
+RenderSprite_Fryguy:
       LDA     #$00
       STA     byte_RAM_EE
       LDA     ObjectAnimationTimer,X
@@ -8612,7 +8564,6 @@ ENDIF
 loc_BANK3_AC67:
       JMP     sub_BANK2_9BB3
 
-; End of function sub_BANK3_AC28
 
 ; ---------------------------------------------------------------------------
 
@@ -8762,7 +8713,7 @@ loc_BANK3_AD21:
       INC     EnemyArray_477,X
 
 loc_BANK3_AD37:
-      JSR     sub_BANK3_AC28
+      JSR     RenderSprite_Fryguy
 
       JSR     ApplyObjectPhysicsY
 
@@ -8962,7 +8913,7 @@ loc_BANK3_AE45:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_AE4B:
+RenderSprite_Autobomb:
       LDA     EnemyState,X
       CMP     #EnemyState_Alive
       BEQ     loc_BANK3_AE5C
@@ -9018,7 +8969,7 @@ ENDIF
 loc_BANK3_AE7C:
       LDA     ObjectYLo,X
       STA     SpriteTempScreenY
-      JSR     sub_BANK2_9BA7
+      JSR     RenderSprite_NotAlbatoss
 
       LDA     #$02
       STA     EnemyMovementDirection,X
@@ -9108,7 +9059,7 @@ loc_BANK3_AEE6:
       INC     ObjectYVelocity,X
       JSR     ApplyObjectPhysicsY
 
-loc_BANK3_AEEB:
+RenderSprite_WhaleSpout:
       LDA     byte_RAM_EE
       AND     #$C
       BNE     locret_BANK3_AEC2
@@ -9306,7 +9257,7 @@ byte_BANK3_AFF2:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_HawkmouthBoss:
-      JSR     sub_BANK3_B0E8
+      JSR     RenderSprite_HawkmouthBoss
 
       LDA     #%00000110
       STA     EnemyArray_46E,X
@@ -9470,7 +9421,7 @@ byte_BANK3_B0E6:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_B0E8:
+RenderSprite_HawkmouthBoss:
       LDA     EnemyArray_480,X
       JSR     sub_BANK2_8E13
 
@@ -9555,7 +9506,6 @@ loc_BANK3_B16D:
       LDX     byte_RAM_12
       RTS
 
-; End of function sub_BANK3_B0E8
 
 ; ---------------------------------------------------------------------------
 ; used by vegetable thrower
@@ -9795,7 +9745,7 @@ locret_BANK3_B2AF:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_B2B0:
+RenderSprite_Wart:
 IFDEF COMPATIBILITY
       .db $ad, $f4, $00 ; LDA $00F4
 ENDIF
