@@ -38,7 +38,7 @@ CheckCollisionWithPlayer_StompEnemy:
       ORA     #$80
       STA     PlayerYVelocity
       LDA     JumpFloatLength
-      STA     byte_RAM_4C9
+      STA     JumpFloatTimer
 
       ; restore Y
       PLA

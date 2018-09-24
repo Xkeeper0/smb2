@@ -2443,7 +2443,7 @@ PlayerStartJump_SetYVelocity:
       STA     PlayerYVelocity
 
       LDA     JumpFloatLength
-      STA     byte_RAM_4C9
+      STA     JumpFloatTimer
 
 PlayerStartJump_Exit:
       LDA     #$00
@@ -2476,10 +2476,10 @@ loc_BANK0_8CE5:
       CPY     #$0FC
       BMI     PlayerGravity_Falling
 
-      LDY     byte_RAM_4C9
+      LDY     JumpFloatTimer
       BEQ     PlayerGravity_Falling
 
-      DEC     byte_RAM_4C9
+      DEC     JumpFloatTimer
       LDA     byte_RAM_10
       LSR     A
       LSR     A
@@ -2503,12 +2503,12 @@ loc_BANK0_8D13:
       STA     PlayerYVelocity
 
 loc_BANK0_8D18:
-      LDA     byte_RAM_4C9
+      LDA     JumpFloatTimer
       CMP     JumpFloatLength
       BEQ     PlayerGravity_Exit
 
       LDA     #$00
-      STA     byte_RAM_4C9
+      STA     JumpFloatTimer
 
 PlayerGravity_Exit:
       RTS
@@ -3254,9 +3254,9 @@ sub_BANK0_9053:
 ; These map the two high bits of a tile to offets in TileSolidnessTable
 ;
 TileGroupTable:
-      .BYTE $00
-      .BYTE $04
-      .BYTE $08
+      .BYTE $00 ; solid to mushroom blocks
+      .BYTE $04 ; solid on top
+      .BYTE $08 ; solid on all sides
 
 
 PickUpToEnemyTypeTable:
@@ -3623,7 +3623,7 @@ DoorHandling_UnlockedDoor:
       JSR     DoorAnimation_Unlocked
 
 DoorHandling_GoThroughDoor:
-      INC     byte_RAM_4BD
+      INC     DoorAnimationTimer
       INC     PlayerLock
       JSR     SnapPlayerToTile
 
@@ -3667,7 +3667,6 @@ DoorTiles:
       .BYTE BackgroundTile_LightDoor
       .BYTE BackgroundTile_LightDoorEndLevel
 
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Seems to determine what kind of tile the player has collided with?
@@ -3811,6 +3810,7 @@ byte_BANK0_92E0:
 
 
 ; Unused?
+; Copy of sub_BANKF_F494
 _code_12E3:
       LDX     NeedVerticalScroll
       BNE     locret_BANK0_9311
@@ -3844,8 +3844,8 @@ loc_BANK0_9306:
       INX
 
 loc_BANK0_9307:
-      LDA     byte_RAM_425
-      STX     byte_RAM_425
+      LDA     VerticalScrollDirection
+      STX     VerticalScrollDirection
       BNE     locret_BANK0_9311
 
 loc_BANK0_930F:
@@ -6906,7 +6906,7 @@ DoorAnimation_LoopNext:
       BMI     DoorAnimation_Exit
 
       LDA     #$00
-      STA     byte_RAM_4BD
+      STA     DoorAnimationTimer
       STA     SubspaceDoorTimer
       LDX     byte_RAM_0
       PLA

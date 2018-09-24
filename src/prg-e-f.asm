@@ -1468,7 +1468,7 @@ loc_BANKF_E491:
       JSR     WaitForNMI
 
       LDA     NeedVerticalScroll
-      AND     #4
+      AND     #$04
       BNE     loc_BANKF_E4A3
 
       LDA     Player1JoypadPress
@@ -3565,7 +3565,7 @@ sub_BANKF_F228:
 
       BMI     loc_BANKF_F254
 
-      LDA     #0
+      LDA     #$00
       STA     PlayerStateTimer
       JMP     KillPlayer
 
@@ -3626,7 +3626,7 @@ loc_BANKF_F298:
       BNE     locret_BANKF_F297
 
       LDA     InSubspaceOrJar
-      CMP     #2
+      CMP     #$02
       BEQ     locret_BANKF_F297
 
       LDA     byte_BANKF_F227
@@ -4047,8 +4047,8 @@ loc_BANKF_F4B7:
       INX
 
 loc_BANKF_F4B8:
-      LDA     byte_RAM_425
-      STX     byte_RAM_425
+      LDA     VerticalScrollDirection
+      STX     VerticalScrollDirection
       BNE     locret_BANKF_F4C2
 
       STX     NeedVerticalScroll
@@ -4773,7 +4773,7 @@ GetEnemyPointers:
       LDA     EnemyPointersByLevel_LoLo,Y
       STA     byte_RAM_2
       LDA     InSubspaceOrJar ; Are we in a jar?
-      CMP     #1
+      CMP     #$01
       BNE     loc_BANKF_F7A0 ; No, load the area as usual
 
       LDY     #$04 ; Yes; jars are always area #$04 for some reason

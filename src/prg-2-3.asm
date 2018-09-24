@@ -58,7 +58,7 @@ AreaInitialization:
       STA     SwarmType
       STA     HawkmouthOpenTimer
       STA     ScrollXLock
-      STA     byte_RAM_425
+      STA     VerticalScrollDirection
       STA     PlayerXVelocity
       STA     DamageInvulnTime
       STA     HoldingItem
@@ -66,9 +66,9 @@ AreaInitialization:
       STA     BackgroundYOffset
       STA     PokeyTempScreenX
       STA     CrouchJumpTimer
-      STA     byte_RAM_4C9
+      STA     JumpFloatTimer
       STA     QuicksandDepth
-      STA     byte_RAM_4B8
+      STA     BossBeaten
 
       LDY     #$1B
 AreaInitialization_CarryYOffsetLoop:
@@ -95,19 +95,19 @@ AreaInitialization_CarryYOffsetLoop:
 
       ; Play the slide-whistle when you start the game and drop into 1-1
       ORA     CurrentLevel
-      BNE     NoIntroFallSlide
+      BNE     AreaInitialization_CheckObjectCarriedOver
 
       LDA     #SoundEffect2_IntroFallSlide
       STA     SoundEffectQueue2
 
-NoIntroFallSlide:
+AreaInitialization_CheckObjectCarriedOver:
       LDA     ObjectCarriedOver
-      BEQ     loc_BANK2_8106
+      BEQ     AreaInitialization_SetEnemyData
 
       LDX     #$05
       STX     byte_RAM_12
       CMP     #Enemy_Mushroom
-      BEQ     loc_BANK2_8106
+      BEQ     AreaInitialization_SetEnemyData
 
       STA     ObjectType,X
       LDY     #EnemyState_Alive
@@ -115,8 +115,9 @@ NoIntroFallSlide:
       LDY     #$FF
       STY     byte_RAM_446
       CMP     #Enemy_Rocket
-      BNE     loc_BANK2_80C7
+      BNE     AreaInitialization_NonRocketCarryOver
 
+AreaInitialization_Rocket:
       STA     EnemyArray_B1,X
       STA     byte_RAM_4C7,X
       STA     EnemyArray_477,X
@@ -131,9 +132,9 @@ NoIntroFallSlide:
       STA     ObjectYLo,X
       LDA     #$78
       STA     ObjectXLo,X
-      BNE     loc_BANK2_8106
+      BNE     AreaInitialization_SetEnemyData
 
-loc_BANK2_80C7:
+AreaInitialization_NonRocketCarryOver:
       PHA
       STX     byte_RAM_42D
       JSR     EnemyInit_Basic
@@ -145,8 +146,9 @@ loc_BANK2_80C7:
 
       PLA
       CMP     #Enemy_Key
-      BNE     loc_BANK2_8106
+      BNE     AreaInitialization_SetEnemyData
 
+AreaInitialization_KeyCarryOver:
       INC     EnemyVariable,X
       DEX
       STX     byte_RAM_12
@@ -168,14 +170,16 @@ loc_BANK2_80C7:
       STA     ObjectXHi,X
       JSR     UnlinkEnemyFromRawData
 
-loc_BANK2_8106:
+AreaInitialization_SetEnemyData:
       LDA     #<RawEnemyDataAddr
       STA     RawEnemyData
       LDA     #>RawEnemyDataAddr
       STA     RawEnemyData+1
       LDA     IsHorizontalLevel
-      BNE     loc_BANK2_8144
+      BNE     AreaInitialization_HorizontalArea
 
+AreaInitialization_VerticalArea:
+      ; Loads area enemies based on the vertical screen scroll
       LDA     #$14
       STA     byte_RAM_9
       LDA     ScreenYLo
@@ -188,11 +192,10 @@ loc_BANK2_8106:
 
 loc_BANK2_8124:
       LDA     byte_RAM_6
-      CMP     #$B
+      CMP     #$0B
       BCS     loc_BANK2_8130
 
       JSR     loc_BANK2_8311
-
       JSR     loc_BANK2_8311
 
 loc_BANK2_8130:
@@ -223,7 +226,8 @@ locret_BANK2_8143:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_8144:
+AreaInitialization_HorizontalArea:
+      ; Loads area enemies based on the horizontal screen scroll
       LDA     ScreenBoundaryLeftLo
       SBC     #$30
       AND     #$F0
@@ -240,7 +244,6 @@ loc_BANK2_8158:
       BCS     loc_BANK2_8164
 
       JSR     sub_BANK2_827D
-
       JSR     sub_BANK2_827D
 
 loc_BANK2_8164:
@@ -448,7 +451,7 @@ byte_BANK2_8252:
 
 
 loc_BANK2_8256:
-      LDA     byte_RAM_4B8
+      LDA     BossBeaten
       BNE     locret_BANK2_82AB
 
       LDA     IsHorizontalLevel
@@ -525,7 +528,6 @@ loc_BANK2_82AC:
       LDA     (RawEnemyData),Y
       DEY
 
-loc_BANK2_82B4:
       AND     #$F0
       CMP     byte_RAM_5
       BNE     loc_BANK2_82A1
@@ -544,7 +546,6 @@ loc_BANK2_82B4:
 
 loc_BANK2_82C8:
       LDX     #$04
-
 loc_BANK2_82CA:
       LDA     EnemyState,X
       BEQ     loc_BANK2_82D2
@@ -654,8 +655,6 @@ loc_BANK2_8339:
       LDA     (RawEnemyData),Y
       DEY
       ASL     A
-
-loc_BANK2_8342:
       ASL     A
       ASL     A
       ASL     A
@@ -676,7 +675,6 @@ loc_BANK2_8342:
 
 loc_BANK2_8357:
       LDX     #$04
-
 loc_BANK2_8359:
       LDA     EnemyState,X
       BEQ     loc_BANK2_8361
@@ -816,7 +814,6 @@ EnemyInitializationTable:
       .WORD EnemyInit_CrystalBallStarmanStopwatch ; Starman
       .WORD EnemyInit_CrystalBallStarmanStopwatch ; Stopwatch
 
-; =============== S U B R O U T I N E =======================================
 
 SetEnemyAttributes:
       LDY     ObjectType,X
@@ -831,20 +828,19 @@ SetEnemyAttributes:
       STA     EnemyArray_492,X
       RTS
 
-; End of function SetEnemyAttributes
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Enemy initialization with a timer reset
+;
 EnemyInit_Basic:
       LDA     #$00
       STA     EnemyTimer,X
 
-; End of function EnemyInit_Basic
-
-; =============== S U B R O U T I N E =======================================
-
-; Enemy initializing (sets most stuff to 0)
-
+;
+; Enemy initialization without an explicit timer reset
+;
+; Most things are set to $00
+;
 EnemyInit_BasicWithoutTimer:
       LDA     #$00
       STA     EnemyVariable,X
@@ -976,7 +972,7 @@ loc_BANK2_8500:
       BEQ     EnemyDeathMaybe
 
 loc_BANK2_8509:
-      STA     byte_RAM_4B8
+      STA     BossBeaten
       JSR     sub_BANK2_9937
 
       JSR     Swarm_Stop
@@ -1327,16 +1323,16 @@ sub_BANK2_8670:
       LSR     A
       ROR     byte_RAM_E
       LDA     byte_RAM_E
-      LDY     #$FF
 
+      LDY     #$FF
 loc_BANK2_86AD:
       SEC
-      SBC     #$F
+      SBC     #$0F
       INY
       BCS     loc_BANK2_86AD
 
       STY     byte_RAM_D
-      ADC     #$F
+      ADC     #$0F
       ASL     A
       ASL     A
       ASL     A
@@ -2028,7 +2024,7 @@ loc_BANK2_8A53:
       LDA     ObjectType,X
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
+
 EnemyBehaviorPointerTable:
       .WORD EnemyBehavior_00
       .WORD EnemyBehavior_BasicWalker
@@ -2101,7 +2097,7 @@ EnemyBehaviorPointerTable:
       .WORD EnemyBehavior_CrystalBall
       .WORD EnemyBehavior_Starman
       .WORD EnemyBehavior_Mushroom ; 70
-; ---------------------------------------------------------------------------
+
 
 EnemyInit_JarGenerators:
       JSR     EnemyInit_Basic
@@ -2110,7 +2106,7 @@ EnemyInit_JarGenerators:
       STA     ObjectAnimationTimer,X
       RTS
 
-; ---------------------------------------------------------------------------
+
 SparkAccelerationTable:
       .BYTE $F0
       .BYTE $E0
@@ -2118,27 +2114,33 @@ SparkAccelerationTable:
       .BYTE $E0
       .BYTE $10
       .BYTE $20
-; ---------------------------------------------------------------------------
+
 
 EnemyInit_Sparks:
       JSR     EnemyInit_Basic
 
       LDY     ObjectType,X
-      LDA     SparkAccelerationTable-$2E,Y
+      LDA     SparkAccelerationTable-Enemy_Spark1,Y
       STA     ObjectXVelocity,X
-      LDA     SparkAccelerationTable-$2C,Y
+      LDA     SparkAccelerationTable-Enemy_Spark1+2,Y
       STA     ObjectYVelocity,X
       RTS
 
-; ---------------------------------------------------------------------------
-SparkCollision: ; spark movement based on collision
-      .BYTE %00001100 ; top/bottom (horizontal)
-      .BYTE %00000011 ; left/right (vertical)
-byte_BANK2_8B06:
-      .BYTE $00
-      .BYTE $0A
-; ---------------------------------------------------------------------------
 
+SparkCollision: ; spark movement based on collision
+      .BYTE CollisionFlags_Up|CollisionFlags_Down ; horizontal
+      .BYTE CollisionFlags_Left|CollisionFlags_Right ; vertical
+
+SparkTurnOffset:
+      .BYTE $00 ; clockwise
+      .BYTE $0A ; counter-clockwise
+
+
+;
+; Spark movement works by traveling along one axis at a time and turning when
+; either colliding along the movement axis or running out of wall along the
+; axis perpendicular to movement.
+;
 EnemyBehavior_Spark:
       JSR     EnemyBehavior_CheckDamaged
 
@@ -2149,31 +2151,36 @@ EnemyBehavior_Spark:
       LDA     ObjectXLo,X
       ORA     ObjectYLo,X
       AND     #$0F
-      BNE     loc_BANK2_8B50
+      BNE     EnemyBehavior_Spark_Move
 
       JSR     sub_BANK3_B4F9
 
       LDY     EnemyArray_477,X
       LDA     EnemyCollision,X
       AND     SparkCollision,Y
-      BEQ     loc_BANK2_8B47
+      BEQ     EnemyBehavior_Spark_Turn
 
       LDA     SparkCollision,Y
       EOR     #$0F
       AND     EnemyCollision,X
-      BEQ     loc_BANK2_8B50
+      BEQ     EnemyBehavior_Spark_Move
 
       TYA
       EOR     #$01
       STA     EnemyArray_477,X
       TAY
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK2_8B36:
+;
+; Reverses the direction of movement for the specified axis
+;
+; Input
+;   X = enemy slot
+;   Y = movement axis
+;
+EnemyBehavior_Spark_FlipAxisVelocity:
       TXA
       CLC
-      ADC     byte_BANK2_8B06,Y
+      ADC     SparkTurnOffset,Y
       TAY
       LDA     ObjectXVelocity,Y
       EOR     #$FF
@@ -2181,25 +2188,21 @@ sub_BANK2_8B36:
       STA     ObjectXVelocity,Y
       RTS
 
-; End of function sub_BANK2_8B36
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_8B47:
+EnemyBehavior_Spark_Turn:
       TYA
       EOR     #$01
       STA     EnemyArray_477,X
-      JSR     sub_BANK2_8B36
+      JSR     EnemyBehavior_Spark_FlipAxisVelocity
 
-loc_BANK2_8B50:
+EnemyBehavior_Spark_Move:
       LDA     EnemyArray_477,X
-      BNE     loc_BANK2_8B58
+      BNE     EnemyBehavior_Spark_MoveVertical
 
+EnemyBehavior_Spark_MoveHorizontal:
       JMP     ApplyObjectPhysicsX
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_8B58:
+EnemyBehavior_Spark_MoveVertical:
       JMP     ApplyObjectPhysicsY
 
 
@@ -2604,7 +2607,6 @@ loc_BANK2_8D16:
 locret_BANK2_8D5E:
       RTS
 
-; =============== S U B R O U T I N E =======================================
 
 EnemyInit_Hawkmouth:
       DEC     ObjectYLo,X
@@ -2614,22 +2616,14 @@ EnemyInit_Hawkmouth:
       INY
       STY     byte_RAM_710B
 
-; End of function EnemyInit_Hawkmouth
-
-; =============== S U B R O U T I N E =======================================
 
 EnemyInit_Stationary:
-; DATA XREF: ...
       JSR     EnemyInit_Basic
 
-loc_BANK2_8D6F:
       LDA     #$00
       STA     ObjectXVelocity,X
       RTS
 
-; End of function EnemyInit_Stationary
-
-; ---------------------------------------------------------------------------
 
 EnemyBehavior_Hawkmouth:
       LDA     byte_RAM_EE
@@ -2756,7 +2750,7 @@ sub_BANK2_8E13:
       SEC
       ADC     SpriteTempScreenY
       STA     SpriteTempScreenY
-      LDY     byte_RAM_4BD
+      LDY     DoorAnimationTimer
       BEQ     loc_BANK2_8E27
 
       LDY     #$10
@@ -3468,6 +3462,8 @@ EnemyBehavior_SubspacePotion_CheckGroundCollision:
 
       LDA     #$10
       STA     byte_RAM_5BB
+
+      ; No Subspace Doors allowed in vertical levels
       LDA     IsHorizontalLevel
       BNE     loc_BANK2_9198
 
@@ -4586,17 +4582,16 @@ loc_BANK2_9686:
 
       JMP     RenderSprite
 
-; End of function CarryObject
 
-; ---------------------------------------------------------------------------
+; Unused?
       .BYTE $10
       .BYTE $F0
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_MushroomBlockAndPOW:
       JSR     sub_BANK2_9692
 
-locret_BANK2_9691:
+EnemyBehavior_MushroomBlockAndPOW_Exit:
       RTS
 
 ; =============== S U B R O U T I N E =======================================
@@ -4629,7 +4624,7 @@ loc_BANK2_96AA:
 
 loc_BANK2_96AD:
       LDA     EnemyArray_42F,X
-      BEQ     locret_BANK2_9691
+      BEQ     EnemyBehavior_MushroomBlockAndPOW_Exit
 
       JSR     ApplyObjectMovement
 
@@ -4759,8 +4754,8 @@ loc_BANK2_9753:
       LDA     ObjectAttributes,X
       ORA     #$40
       STA     ObjectAttributes,X
-      LDY     byte_RAM_4BD
-      LDA     byte_BANK2_9808,Y
+      LDY     DoorAnimationTimer
+      LDA     DoorSpriteAnimation,Y
       LDY     #$00
       ASL     A
       BCC     loc_BANK2_9767
@@ -4769,7 +4764,7 @@ loc_BANK2_9753:
       STY     EnemyMovementDirection,X
 
 loc_BANK2_9767:
-      LDA     byte_RAM_4BD
+      LDA     DoorAnimationTimer
       BEQ     loc_BANK2_979A
 
       LDA     byte_RAM_F4
@@ -4825,7 +4820,7 @@ loc_BANK2_97AA:
       STY     byte_RAM_F4
 
 loc_BANK2_97AF:
-      LDA     byte_RAM_4BD
+      LDA     DoorAnimationTimer
       CMP     #$19
       BCC     loc_BANK2_97BA
 
@@ -4842,23 +4837,23 @@ loc_BANK2_97BA:
 loc_BANK2_97C3:
       JSR     sub_BANK2_9BB3
 
-      LDX     byte_RAM_4BD
+      LDX     DoorAnimationTimer
       BEQ     loc_BANK2_9805
 
-      INC     byte_RAM_4BD
+      INC     DoorAnimationTimer
       LDY     byte_RAM_F4
-      LDA     byte_BANK2_9808,X
+      LDA     DoorSpriteAnimation,X
       BMI     loc_BANK2_9805
 
       CLC
       ADC     SpriteDMAArea+3,Y
       STA     SpriteDMAArea+3,Y
       STA     SpriteDMAArea+$B,Y
-      CPX     #$30
+      CPX     #(DoorSpriteAnimationEnd-DoorSpriteAnimation)
       BNE     loc_BANK2_9805
 
       LDA     #$00
-      STA     byte_RAM_4BD
+      STA     DoorAnimationTimer
       JSR     DoAreaReset
 
       LDA     TransitionType
@@ -4885,14 +4880,12 @@ loc_BANK2_9805:
       LDX     byte_RAM_12
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK2_9808:
-      .BYTE $00
-      .BYTE $01
-      .BYTE $01
-      .BYTE $02
 
 DoorSpriteAnimation:
+      .BYTE $00
+      .BYTE $01
+      .BYTE $01
+      .BYTE $02
       .BYTE $02
       .BYTE $03
       .BYTE $04
@@ -4937,11 +4930,15 @@ DoorSpriteAnimation:
       .BYTE $00
       .BYTE $00
       .BYTE $00
+DoorSpriteAnimationEnd:
       .BYTE $00
+
+; Unused?
       .BYTE $A9
       .BYTE $02
       .BYTE $D0
       .BYTE $06
+
 
 ;
 ; Note: Door animation code copied from Bank 1
@@ -4982,7 +4979,7 @@ DoorAnimation_LoopNext_Bank2:
       BMI     DoorAnimation_Exit_Bank2
 
       LDA     #$00
-      STA     byte_RAM_4BD
+      STA     DoorAnimationTimer
       STA     SubspaceDoorTimer
       LDX     byte_RAM_0
       PLA
@@ -5075,8 +5072,13 @@ EnemyBehavior_CheckBeingCarriedTimer:
       JMP     CarryObject
 
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; If EnemyArray_42F is set, interrupt the EnemyBehavior subroutine and just
+; render the sprite and run physics
+;
+; Input
+;   X = enemy index
+;
 sub_BANK2_98D6:
       LDA     EnemyArray_42F,X
       BEQ     locret_BANK2_98EA
@@ -5112,16 +5114,18 @@ EnemyBehavior_FallingLogs:
       LDY     EnemyArray_B1,X
       BNE     loc_BANK2_9919
 
+      ; behind background
       LDA     ObjectAttributes,X
-      ORA     #$20
+      ORA     #ObjAttrib_BehindBackground
       STA     ObjectAttributes,X
       LDA     EnemyVariable,X
       SEC
-      SBC     #$C
+      SBC     #$0C
       CMP     ObjectYLo,X
       LDA     #$FE
       BCC     loc_BANK2_9914
 
+      ; in front of background
       LDA     ObjectAttributes,X
       AND     #$DF
       STA     ObjectAttributes,X
@@ -5217,8 +5221,6 @@ loc_BANK2_9974:
 
       LDX     byte_RAM_12
       RTS
-
-; End of function sub_BANK2_9937
 
 
 ;
@@ -9505,7 +9507,7 @@ loc_BANK3_B112:
       STA     SpriteDMAArea+7,Y
       STA     SpriteDMAArea+$B,Y
       STA     SpriteDMAArea+$F,Y
-      LDX     byte_RAM_4BD
+      LDX     DoorAnimationTimer
       BEQ     loc_BANK3_B129
 
       LDX     #$10
@@ -9980,7 +9982,7 @@ byte_BANK3_B4E0:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B4E2:
-      JSR     sub_BANK3_B5AC
+      JSR     ClearDirectionalCollisionFlags
 
       TAY
       LDA     ObjectYVelocity-1,X
@@ -10011,8 +10013,6 @@ sub_BANK3_B4F9:
       LDA     #$04
       BNE     loc_BANK3_B4FF
 
-; End of function sub_BANK3_B4F9
-
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK3_B4FD:
@@ -10023,7 +10023,7 @@ loc_BANK3_B4FF:
       LDA     #$00
       STA     byte_RAM_B
       STA     byte_RAM_E
-      JSR     sub_BANK3_B5AC
+      JSR     ClearDirectionalCollisionFlags
 
       STA     byte_RAM_8
       LDA     ObjectYVelocity-1,X
@@ -10145,8 +10145,6 @@ loc_BANK3_B5A7:
       INC     byte_RAM_8
       RTS
 
-; End of function sub_BANK3_B58C
-
 
 ;
 ; Resets directional collision flags and loads collision data pointer
@@ -10159,7 +10157,7 @@ loc_BANK3_B5A7:
 ;   A = collision data pointer
 ;   X = X + 1
 ;
-sub_BANK3_B5AC:
+ClearDirectionalCollisionFlags:
       INX
       LDA     EnemyCollision-1,X
       STA     byte_RAM_D
@@ -10168,7 +10166,7 @@ sub_BANK3_B5AC:
       LDY     EnemyArray_492-1,X
       LDA     byte_BANKF_F000,Y
 
-locret_BANK3_B5BB:
+ClearDirectionalCollisionFlags_Exit:
       RTS
 
 
@@ -10223,11 +10221,11 @@ loc_BANK3_B5E1:
 
 loc_BANK3_B5F4:
       CMP     #$01
-      BNE     locret_BANK3_B5BB
+      BNE     ClearDirectionalCollisionFlags_Exit
 
 loc_BANK3_B5F8:
       LDA     ObjectBeingCarriedTimer,X
-      BNE     locret_BANK3_B5BB
+      BNE     ClearDirectionalCollisionFlags_Exit
 
       LDY     EnemyArray_489,X
 
@@ -10464,7 +10462,7 @@ EnemyCollisionBehavior_Door:
       CMP     #$FA
       BCS     EnemyCollisionBehavior_Exit
 
-      LDA     byte_RAM_4BD
+      LDA     DoorAnimationTimer
       ORA     SubspaceDoorTimer
       BNE     EnemyCollisionBehavior_Exit
 
@@ -10486,7 +10484,7 @@ loc_BANK3_B749:
 
       LDA     #TransitionType_SubSpace
       STA     TransitionType
-      JMP     loc_BANK3_BBF4
+      JMP     DoorHandling_GoThroughDoor_Bank3
 
 EnemyCollisionBehavior_Exit:
       RTS
@@ -11445,10 +11443,10 @@ TileGroupTable_Bank3:
       .BYTE $08 ; solid on all sides
 
 
-loc_BANK3_BBF4:
-      INC     byte_RAM_4BD
+DoorHandling_GoThroughDoor_Bank3:
+      INC     DoorAnimationTimer
       INC     PlayerLock
-      JSR     sub_BANK3_BD59
+      JSR     SnapPlayerToTile_Bank3
 
       LDA     #DPCM_DoorOpenBombBom
       STA     DPCMQueue
@@ -11745,23 +11743,27 @@ PlayerCollisionResultTable:
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_BD59:
+;
+; Note: Door animation code copied from Bank 0
+;
+; Snaps the player to the closest tile (for entering doors and jars)
+;
+SnapPlayerToTile_Bank3:
       LDA     PlayerXLo
       CLC
       ADC     #$08
       AND     #$F0
       STA     PlayerXLo
-      BCC     locret_BANK3_BD6A
+      BCC     SnapPlayerToTile_Exit_Bank3
 
       LDA     IsHorizontalLevel
-      BEQ     locret_BANK3_BD6A
+      BEQ     SnapPlayerToTile_Exit_Bank3
 
       INC     PlayerXHi
 
-locret_BANK3_BD6A:
+SnapPlayerToTile_Exit_Bank3:
       RTS
 
-; End of function sub_BANK3_BD59
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -12032,15 +12034,5 @@ loc_BANK3_BEA6:
       STA     BackgroundYOffset
       JMP     loc_BANK2_9935
 
-; ---------------------------------------------------------------------------
-
 AreaSecondaryRoutine_Exit:
       RTS
-
-; End of function AreaSecondaryRoutine
-
-; ---------------------------------------------------------------------------
-; The rest of this bank is empty
-
-; ===========================================================================
-

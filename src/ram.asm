@@ -1257,7 +1257,8 @@ ObjectLock:
       .dsb 1 ; $0422
       .dsb 1 ; $0423
       .dsb 1 ; $0424
-byte_RAM_425:
+; $00 = none, $01 = up, $02 = down
+VerticalScrollDirection:
       .dsb 1 ; $0425
 byte_RAM_426:
       .dsb 1 ; $0426
@@ -1453,7 +1454,7 @@ HawkmouthOpenTimer:
       ; Hawkmouth won't start opening until this hits 0
 SubspaceTimer:
       .dsb 1 ; $04b7
-byte_RAM_4B8:
+BossBeaten:
       .dsb 1 ; $04b8
 SwarmType:
       .dsb 1 ; $04b9
@@ -1461,7 +1462,7 @@ SwarmType:
       .dsb 1 ; $04bb
 byte_RAM_4BC:
       .dsb 1 ; $04bc
-byte_RAM_4BD:
+DoorAnimationTimer:
       .dsb 1 ; $04bd
 ScreenBoundaryLeftHi:
       .dsb 1 ; $04be
@@ -1488,7 +1489,7 @@ SkyFlashTimer:
 byte_RAM_4C7:
       .dsb 1 ; $04c7
       .dsb 1 ; $04c8
-byte_RAM_4C9:
+JumpFloatTimer:
       .dsb 1 ; $04c9
 CrouchJumpTimer:
       .dsb 1 ; $04ca
