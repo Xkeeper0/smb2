@@ -3305,7 +3305,7 @@ LevelMusicIndexes:
 sub_BANKF_F0F9:
       JSR     NextSpriteFlickerSlot
 
-      LDA     byte_RAM_4C7
+      LDA     PlayerInRocket
       BNE     loc_BANKF_F11B
 
       ; boss clear fanfare locks player movement
@@ -3336,7 +3336,7 @@ loc_BANKF_F11B:
 sub_BANKF_F11E:
       JSR     NextSpriteFlickerSlot
 
-      LDA     byte_RAM_4C7
+      LDA     PlayerInRocket
       BNE     loc_BANKF_F146
 
       LDA     #PRGBank_0_1
@@ -3416,10 +3416,10 @@ sub_BANKF_F17E:
 
       JSR     sub_BANKF_F494
 
-      LDA     byte_RAM_4C7
+      LDA     PlayerInRocket
       BNE     loc_BANKF_F1AB
 
-      ; boss clear fanfare locks player moement
+      ; boss clear fanfare locks player movement
       LDA     MusicPlaying2
       CMP     #Music2_BossClearFanfare
       BEQ     loc_BANKF_F19D
@@ -4702,7 +4702,7 @@ KillPlayer:
       ; Probably something to throw away
       ; a held item on death
       DEC     HoldingItem
-      LDY     byte_RAM_42D
+      LDY     ObjectBeingCarriedIndex
       STA     EnemyArray_42F,Y
       LSR     A
       STA     ObjectBeingCarriedTimer,Y

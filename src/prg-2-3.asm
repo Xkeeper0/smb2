@@ -118,8 +118,10 @@ AreaInitialization_CheckObjectCarriedOver:
       BNE     AreaInitialization_NonRocketCarryOver
 
 AreaInitialization_Rocket:
+      ; A = $38 (Enemy_Rocket)
+      ; X = $05 (from above)
       STA     EnemyArray_B1,X
-      STA     byte_RAM_4C7,X
+      STA     PlayerInRocket,X ; Bug? This sets ObjectXAcceleration for enemy 0
       STA     EnemyArray_477,X
       LDA     #$00
       STA     ObjectXHi,X
@@ -136,7 +138,7 @@ AreaInitialization_Rocket:
 
 AreaInitialization_NonRocketCarryOver:
       PHA
-      STX     byte_RAM_42D
+      STX     ObjectBeingCarriedIndex
       JSR     EnemyInit_Basic
 
       LDA     #$01
@@ -973,7 +975,7 @@ loc_BANK2_8500:
 
 loc_BANK2_8509:
       STA     BossBeaten
-      JSR     sub_BANK2_9937
+      JSR     DestroyOnscreenEnemies
 
       JSR     Swarm_Stop
 
@@ -1666,7 +1668,7 @@ loc_BANK2_8885:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8888:
-      CPX     byte_RAM_42D
+      CPX     ObjectBeingCarriedIndex
       BNE     loc_BANK2_8891
 
       LDA     #$00
@@ -3612,7 +3614,7 @@ EnemyBehavior_Albatoss:
       BNE     loc_BANK2_9271
 
       LDA     EnemyCollision,X
-      AND     #CollisionFlags_Disabled
+      AND     #CollisionFlags_Damage
       BNE     loc_BANK2_9256
 
       JSR     EnemyFindWhichSidePlayerIsOn
@@ -3804,7 +3806,7 @@ Phanto_AfterDecrementShakeTimer:
       LDA     HoldingItem
       BEQ     Phanto_Movement
 
-      LDX     byte_RAM_42D
+      LDX     ObjectBeingCarriedIndex
       LDA     ObjectType,X
       LDX     byte_RAM_12
 
@@ -5162,62 +5164,77 @@ loc_BANK2_9932:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_9935:
+;
+; Kills all enemies on the screen (ie. POW block quake)
+;
+KillOnscreenEnemies:
       LDA     #$00
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK2_9937:
+;
+; Destroys all enemies on the screen
+;
+; Input
+;   A = 0 for POW
+;
+DestroyOnscreenEnemies:
       STA     byte_RAM_0
       LDX     #$08
 
-loc_BANK2_993B:
+DestroyOnscreenEnemies_Loop:
       LDA     EnemyState,X
       CMP     #EnemyState_Alive
-      BNE     loc_BANK2_9974
+      BNE     DestroyOnscreenEnemies_Next
 
       LDA     byte_RAM_0
-      BEQ     loc_BANK2_9966
+      BEQ     KillOnscreenEnemies_CheckCollision
 
       LDA     ObjectType,X
       CMP     #Enemy_Bomb
-      BEQ     loc_BANK2_994F
+      BEQ     DestroyOnscreenEnemies_DestroyItem
 
       CMP     #Enemy_VegetableSmall
-      BCS     loc_BANK2_9974
+      BCS     DestroyOnscreenEnemies_Next
 
-loc_BANK2_994F:
+DestroyOnscreenEnemies_DestroyItem:
       LDA     HoldingItem
-      BEQ     loc_BANK2_995C
+      BEQ     DestroyOnscreenEnemies_Poof
 
-      CPX     byte_RAM_42D
-      BNE     loc_BANK2_995C
+      CPX     ObjectBeingCarriedIndex
+      BNE     DestroyOnscreenEnemies_Poof
 
       LDA     #$00
       STA     HoldingItem
 
-loc_BANK2_995C:
+DestroyOnscreenEnemies_Poof:
       STX     byte_RAM_E
       JSR     TurnIntoPuffOfSmoke
 
       LDX     byte_RAM_E
-      JMP     loc_BANK2_9974
+      JMP     DestroyOnscreenEnemies_Next
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9966:
+KillOnscreenEnemies_CheckCollision:
       LDA     EnemyCollision,X
-      BEQ     loc_BANK2_9974
+      BEQ     DestroyOnscreenEnemies_Next
 
+IFDEF FIX_POW_LOG_GLITCH
+      LDA     ObjectType,X
+      CMP     #Enemy_VegetableSmall
+      BCS     KillOnscreenEnemies_SetCollision
+ENDIF
+
+      ; BUG: For object that don't follow normal gravity rules, this will send
+      ; them flying into the air, ie. throwing a POW block from a falling log
       LDA     #$D8
       STA     ObjectYVelocity,X
+
+KillOnscreenEnemies_SetCollision:
       LDA     EnemyCollision,X
-      ORA     #CollisionFlags_Disabled
+      ORA     #CollisionFlags_Damage
       STA     EnemyCollision,X
 
-loc_BANK2_9974:
+DestroyOnscreenEnemies_Next:
       DEX
-      BPL     loc_BANK2_993B
+      BPL     DestroyOnscreenEnemies_Loop
 
       LDX     byte_RAM_12
       RTS
@@ -5234,7 +5251,7 @@ loc_BANK2_9974:
 ;
 EnemyBehavior_CheckDamaged:
       LDA     EnemyCollision,X
-      AND     #CollisionFlags_Disabled
+      AND     #CollisionFlags_Damage
       BEQ     EnemyBehavior_CheckDamaged_Exit
 
       LDA     ObjectBeingCarriedTimer,X
@@ -8330,45 +8347,42 @@ RenderSprite_Pokey_Exit:
 
 EnemyBehavior_Rocket:
       LDA     EnemyArray_B1,X
-      BNE     loc_BANK3_AB20
+      BNE     EnemyBehavior_Rocket_Flying
+      JMP     EnemyBehavior_Rocket_Launching
 
-      JMP     loc_BANK3_ABD7
-
-; ---------------------------------------------------------------------------
-
-loc_BANK3_AB20:
+EnemyBehavior_Rocket_Flying:
       LDY     #$03
       LDA     ObjectYVelocity,X
-      BEQ     loc_BANK3_AB2A
+      BEQ     EnemyBehavior_Rocket_Slow
 
       CMP     #$FD
-      BCC     loc_BANK3_AB3B
+      BCC     EnemyBehavior_Rocket_Fast
 
-loc_BANK3_AB2A:
+EnemyBehavior_Rocket_Slow:
       LDY     #$3F
       INC     SpriteTempScreenX
       LDA     byte_RAM_10
       AND     #$02
-      BNE     loc_BANK3_AB3B
+      BNE     EnemyBehavior_Rocket_Fast
 
       DEC     SpriteTempScreenX
       DEC     SpriteTempScreenX
 
-loc_BANK3_AB3B:
+EnemyBehavior_Rocket_Fast:
       TYA
       AND     byte_RAM_10
-      BNE     loc_BANK3_AB42
+      BNE     EnemyBehavior_Rocket_ApplyPhysics
 
       DEC     ObjectYVelocity,X
 
-loc_BANK3_AB42:
+EnemyBehavior_Rocket_ApplyPhysics:
       JSR     ApplyObjectPhysicsY
 
       LDA     EnemyArray_477,X
-      BNE     loc_BANK3_AB64
+      BNE     EnemyBehavior_Rocket_DroppingOff
 
       LDY     ObjectYHi,X
-      BPL     loc_BANK3_AB88
+      BPL     EnemyBehavior_Rocket_Render
 
       JSR     DoAreaReset
 
@@ -8388,27 +8402,22 @@ ENDIF
 
       RTS
 
-; ---------------------------------------------------------------------------
-
-; rocket explosion
-loc_BANK3_AB64:
+EnemyBehavior_Rocket_DroppingOff:
       LDA     ObjectYLo,X
       CMP     #$30
-      BCS     loc_BANK3_AB88
+      BCS     EnemyBehavior_Rocket_Render
 
-      LDY     byte_RAM_4C7
-      BNE     loc_BANK3_AB76
+      LDY     PlayerInRocket
+      BNE     EnemyBehavior_Rocket_DropPlayer
 
       CMP     #$18
-      BCS     loc_BANK3_AB88
+      BCS     EnemyBehavior_Rocket_Render
 
       JMP     EnemyBehavior_Bomb_Explode
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_AB76:
+EnemyBehavior_Rocket_DropPlayer:
       LDA     #$00
-      STA     byte_RAM_4C7
+      STA     PlayerInRocket
       STA     HoldingItem
       STA     PlayerXVelocity
       LDA     ObjectYLo,X
@@ -8416,7 +8425,7 @@ loc_BANK3_AB76:
       STA     PlayerYLo
       STA     PlayerScreenYLo
 
-loc_BANK3_AB88:
+EnemyBehavior_Rocket_Render:
       JSR     RenderSprite_Rocket
 
       LDA     SpriteTempScreenX
@@ -8427,14 +8436,15 @@ loc_BANK3_AB88:
       STA     SpriteDMAArea+$97
       ADC     #$08
       STA     SpriteDMAArea+$9B
-      LDA     #$20
+
+      LDA     #$20 ; long trail
       LDY     ObjectYVelocity,X
       CPY     #$FD
-      BMI     loc_BANK3_ABA8
+      BMI     EnemyBehavior_Rocket_RenderTrails
 
-      LDA     #$15
+      LDA     #$15 ; short trail
 
-loc_BANK3_ABA8:
+EnemyBehavior_Rocket_RenderTrails:
       ADC     SpriteTempScreenY
       STA     SpriteDMAArea+$90
       STA     SpriteDMAArea+$94
@@ -8457,24 +8467,22 @@ loc_BANK3_ABA8:
       STA     SpriteDMAArea+$9A
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_ABD7:
+EnemyBehavior_Rocket_Launching:
+      ; Wait until ObjectBeingCarriedTimer reaches 1 to start the boosters
       LDA     ObjectBeingCarriedTimer,X
       CMP     #$01
-      BNE     loc_BANK3_ABEB
+      BNE     EnemyBehavior_Rocket_Carry
 
+      ; Setting EnemyArray_B1 puts the rocket in the area
       STA     EnemyArray_B1,X
-      STA     byte_RAM_4C7
+      STA     PlayerInRocket
       LDA     #SoundEffect3_Rumble_A
       STA     SoundEffectQueue3
       LDA     #$FE
       STA     ObjectYVelocity,X
 
-loc_BANK3_ABEB:
+EnemyBehavior_Rocket_Carry:
       JSR     CarryObject
-
-; =============== S U B R O U T I N E =======================================
 
 RenderSprite_Rocket:
       LDA     SpriteTempScreenY
@@ -8513,6 +8521,7 @@ byte_BANK3_AC25:
 byte_BANK3_AC26:
       .BYTE $00
       .BYTE $F0
+
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -10111,7 +10120,7 @@ ClearDirectionalCollisionFlags:
       INX
       LDA     EnemyCollision-1,X
       STA     byte_RAM_D
-      AND     #CollisionFlags_Disabled|CollisionFlags_PlayerOnTop|CollisionFlags_PlayerInsideMaybe|CollisionFlags_80
+      AND     #CollisionFlags_Damage|CollisionFlags_PlayerOnTop|CollisionFlags_PlayerInsideMaybe|CollisionFlags_80
       STA     EnemyCollision-1,X
       LDY     EnemyArray_492-1,X
       LDA     byte_BANKF_F000,Y
@@ -10224,7 +10233,7 @@ loc_BANK3_B63B:
       TXA
       BNE     loc_BANK3_B661
 
-      LDA     byte_RAM_4C7
+      LDA     PlayerInRocket
       ORA     PlayerLock
       BNE     loc_BANK3_B64E
 
@@ -10280,7 +10289,7 @@ loc_BANK3_B67B:
       CPY     #$1A
       BEQ     loc_BANK3_B68E
 
-      LDY     unk_RAM_42E,X
+      LDY     EnemyArray_42F-1,X
       BNE     loc_BANK3_B692
 
 loc_BANK3_B68E:
@@ -10294,7 +10303,7 @@ loc_BANK3_B692:
       BNE     loc_BANK3_B6F0
 
       LDA     EnemyCollision-1,X
-      AND     #CollisionFlags_Disabled
+      AND     #CollisionFlags_Damage
       BNE     loc_BANK3_B6F0
 
       LDA     unk_RAM_46D,X
@@ -10378,7 +10387,7 @@ EnemyCollisionBehavior:
       LDA     HoldingItem
       BEQ     EnemyCollisionBehavior_ReadCollisionType
 
-      LDA     byte_RAM_42D
+      LDA     ObjectBeingCarriedIndex
       CMP     byte_RAM_12
       BEQ     locret_BANK3_B6F8
 
@@ -10419,7 +10428,7 @@ EnemyCollisionBehavior_Door:
       LDA     HoldingItem
       BEQ     loc_BANK3_B749
 
-      LDY     byte_RAM_42D
+      LDY     ObjectBeingCarriedIndex
       LDA     ObjectType,Y
       CMP     #Enemy_Key
       BNE     EnemyCollisionBehavior_Exit
@@ -10469,7 +10478,7 @@ EnemyCollisionBehavior_Enemy:
       BEQ     loc_BANK3_B7E0
 
       LDA     EnemyCollision-1,X
-      AND     #CollisionFlags_Disabled
+      AND     #CollisionFlags_Damage
       BNE     loc_BANK3_B7E0
 
 loc_BANK3_B792:
@@ -10500,7 +10509,7 @@ loc_BANK3_B7A4:
 
 loc_BANK3_B7BD:
       LDA     EnemyCollision,Y
-      ORA     #CollisionFlags_Disabled
+      ORA     #CollisionFlags_Damage
       STA     EnemyCollision,Y
       LDA     #$E0
       STA     ObjectYVelocity,Y
@@ -10635,7 +10644,7 @@ CheckCollisionWithPlayer_KillEnemy:
       LDA     #$E0
       STA     ObjectYVelocity,X
       LDA     EnemyCollision,X
-      ORA     #CollisionFlags_Disabled
+      ORA     #CollisionFlags_Damage
       STA     EnemyCollision,X
 
 loc_BANK3_B878:
@@ -10690,7 +10699,7 @@ CheckCollisionWithPlayer_StandingOnHead:
       BNE     CheckCollisionWithPlayer_NoLift
 
       STA     EnemyCollision,X
-      STX     byte_RAM_42D
+      STX     ObjectBeingCarriedIndex
       STA     ObjectShakeTimer,X
       LDA     #$07
       STA     ObjectBeingCarriedTimer,X
@@ -10850,7 +10859,7 @@ loc_BANK3_B96E:
       BNE     locret_BANK3_B96D
 
       LDY     byte_RAM_12
-      STY     byte_RAM_42D
+      STY     ObjectBeingCarriedIndex
       LDA     #$01
       STA     ObjectBeingCarriedTimer,Y
       INC     HoldingItem
@@ -11065,7 +11074,7 @@ PlayBossHurtSound:
 
 EnemyKnockout:
       LDA     EnemyCollision-1,X
-      ORA     #CollisionFlags_Disabled
+      ORA     #CollisionFlags_Damage
       STA     EnemyCollision-1,X
       LDA     #$E0
       STA     ObjectYVelocity-1,X
@@ -11982,7 +11991,7 @@ loc_BANK3_BE6C:
 loc_BANK3_BEA6:
       LDA     POWQuakeOffsets,Y
       STA     BackgroundYOffset
-      JMP     loc_BANK2_9935
+      JMP     KillOnscreenEnemies
 
 AreaSecondaryRoutine_Exit:
       RTS

@@ -22,7 +22,7 @@ CheckCollisionWithPlayer_StompEnemy:
       STA     EnemyState,Y
 
       LDA     EnemyCollision,Y
-      ORA     #CollisionFlags_Disabled
+      ORA     #CollisionFlags_Damage
       STA     EnemyCollision,Y
 
       ; stash Y

@@ -1274,7 +1274,7 @@ PlayerScreenYLo:
       .dsb 1 ; $042b
 SpriteTempScreenY:
       .dsb 1 ; $042c
-byte_RAM_42D:
+ObjectBeingCarriedIndex:
       .dsb 1 ; $042d
 unk_RAM_42E:
       .dsb 1 ; $042e
@@ -1486,7 +1486,7 @@ BackgroundYOffset:
       .dsb 1 ; $04c5
 SkyFlashTimer:
       .dsb 1 ; $04c6
-byte_RAM_4C7:
+PlayerInRocket:
       .dsb 1 ; $04c7
       .dsb 1 ; $04c8
 JumpFloatTimer:

@@ -1900,7 +1900,7 @@ HandlePlayerState_Lifting:
       LDA     PlayerStateTimer
       BNE     locret_BANK0_8AC1
 
-      LDX     byte_RAM_42D
+      LDX     ObjectBeingCarriedIndex
       LDY     ObjectBeingCarriedTimer,X
       CPY     #$02
       BCC     loc_BANK0_8ABB
@@ -2685,7 +2685,7 @@ sub_BANK0_8DC0:
       LDA     HoldingItem
       BEQ     loc_BANK0_8DDF
 
-      LDX     byte_RAM_42D
+      LDX     ObjectBeingCarriedIndex
       LDA     ObjectType,X
       CMP     #Enemy_VegetableSmall
       BCC     loc_BANK0_8DE0
@@ -2738,7 +2738,7 @@ loc_BANK0_8E05:
       BEQ     locret_BANK0_8E41
 
       LDY     #$00
-      LDX     byte_RAM_42D
+      LDX     ObjectBeingCarriedIndex
       LDA     EnemyState,X
       CMP     #EnemyState_Sand
       BEQ     locret_BANK0_8E41
@@ -2792,7 +2792,7 @@ loc_BANK0_8E42:
       STA     PlayerDucking
       STA     Player1JoypadPress
       STA     byte_RAM_1
-      LDX     byte_RAM_42D
+      LDX     ObjectBeingCarriedIndex
       LDA     #Enemy_Coin
       CMP     ObjectType,X
       ROL     byte_RAM_1
@@ -3374,7 +3374,7 @@ loc_BANK0_90EA:
 
       LDA     #$07
       STA     ObjectBeingCarriedTimer,X
-      STX     byte_RAM_42D
+      STX     ObjectBeingCarriedIndex
       LDA     #PlayerState_Lifting
       STA     PlayerState
       LDA     #$06
@@ -3518,7 +3518,7 @@ loc_BANK0_917C:
       LDX     HoldingItem
       BEQ     loc_BANK0_91AE
 
-      LDX     byte_RAM_42D
+      LDX     ObjectBeingCarriedIndex
       LDY     ObjectType,X
       CPY     #Enemy_Key
       BNE     locret_BANK0_91CE
@@ -3640,7 +3640,7 @@ DoorHandling_LockedDoor:
       BEQ     DoorHandling_Exit
 
       ; and make sure you have a key
-      LDY     byte_RAM_42D
+      LDY     ObjectBeingCarriedIndex
       LDA     ObjectType,Y
       CMP     #Enemy_Key
       BNE     DoorHandling_Exit

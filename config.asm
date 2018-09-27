@@ -39,3 +39,6 @@ PRESERVE_UNUSED_SPACE = 1
 ; Enables prototype samples and/or music
 ; PROTOTYPE_DPCM_SAMPLES = 1
 ; PROTOTYPE_MUSIC = 1
+
+; Fixes the POW falling log glitch
+; FIX_POW_LOG_GLITCH = 1
