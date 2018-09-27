@@ -1,5 +1,19 @@
 .ignorenl
 
+IFNDEF MMC5
+VMirror = $00
+HMirror = $01
+Mapper = 4
+NametableMapping = $A000
+ENDIF
+
+IFDEF MMC5
+VMirror = $44
+HMirror = $50
+Mapper = 5
+NametableMapping = $5105
+ENDIF
+
 ; ---------------------------------------------------------------------------
 
 ; enum PlayerStates (width 1 byte)

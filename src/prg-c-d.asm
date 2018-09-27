@@ -267,7 +267,7 @@ MarioDream_WakingFrames:
 MarioSleepingScene:
       JSR     sub_BANKC_8014
 
-      LDA     #0
+      LDA     #VMirror ;;;
       JSR     ChangeNametableMirroring
 
       JSR     ClearNametablesAndSprites

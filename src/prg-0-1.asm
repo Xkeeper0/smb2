@@ -19,7 +19,7 @@ sub_BANK0_8000:
       LDA     byte_RAM_502
       BNE     loc_BANK0_805D
 
-      LDA     #$01
+      LDA     #HMirror
       JSR     ChangeNametableMirroring
 
       LDA     CurrentLevelEntryPage
@@ -955,7 +955,7 @@ sub_BANK0_8500:
       LDA     byte_RAM_502
       BNE     loc_BANK0_855C
 
-      LDA     #$00
+      LDA     #VMirror
       JSR     ChangeNametableMirroring
 
       JSR     sub_BANK0_946D
@@ -5956,7 +5956,7 @@ byte_BANK1_AA39:
 sub_BANK1_AA79:
       JSR     WaitForNMI_Ending_TurnOffPPU
 
-      LDA     #$00
+      LDA     #VMirror
       JSR     ChangeNametableMirroring
 
       JSR     ClearNametablesAndSprites
@@ -5979,7 +5979,7 @@ sub_BANK1_AA79:
 
       JSR     WaitForNMI_Ending
 
-      LDA     #$01
+      LDA     #HMirror
       JSR     ChangeNametableMirroring
 
       LDY     #$03
@@ -6071,7 +6071,7 @@ loc_BANK1_AB1D:
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_AB20:
-      LDA     #$00
+      LDA     #VMirror
       JSR     ChangeNametableMirroring
 
       LDA     #$01

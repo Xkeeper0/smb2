@@ -42,3 +42,6 @@ PRESERVE_UNUSED_SPACE = 1
 
 ; Fixes the POW falling log glitch
 ; FIX_POW_LOG_GLITCH = 1
+
+; Use MMC5 (mapper 5) instead of MMC3 (mapper 4)
+; MMC5 = 1

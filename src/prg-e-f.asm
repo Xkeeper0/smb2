@@ -864,13 +864,13 @@ BlackAndWhitePalette:
 SetBlackAndWhitePalette:
       LDA     PPUSTATUS
       LDA     #$3F
-      LDY     #0
+      LDY     #$00
       STA     PPUADDR
       STY     PPUADDR
 
 SetBlackAndWhitePalette_Loop:
       TYA
-      AND     #3
+      AND     #$03
       TAX
       LDA     BlackAndWhitePalette,X
       STA     PPUDATA
@@ -885,7 +885,7 @@ SetBlackAndWhitePalette_Loop:
 ; =============== S U B R O U T I N E =======================================
 
 SetScrollXYTo0:
-      LDA     #0
+      LDA     #$00
       STA     PPUScrollYMirror
       STA     PPUScrollXMirror
       STA     byte_RAM_C8
@@ -912,7 +912,7 @@ ResetScreenForTitleCard:
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
-      LDA     #$00
+      LDA     #VMirror
       JSR     ChangeNametableMirroring
 
       JSR     ClearNametablesAndSprites
@@ -1221,11 +1221,11 @@ loc_BANKF_E2FE:
 
 loc_BANKF_E30B:
       LDA     CurrentCharacter
-      AND     #3
+      AND     #$03
       STA     CurrentCharacter
 
 loc_BANKF_E311:
-      LDY     #0
+      LDY     #$00
       LDA     #$21
       STA     PPUBuffer_301
       LDA     #$C9
@@ -1247,7 +1247,7 @@ loc_BANKF_E311:
       STA     byte_RAM_309
       LDA     PlayerSelectArrowTop,Y
       STA     byte_RAM_30A
-      LDA     #2
+      LDA     #$02
       STA     byte_RAM_30B
       LDA     #$BE
       STA     byte_RAM_30C
@@ -1257,18 +1257,18 @@ loc_BANKF_E311:
       STA     byte_RAM_30E
       LDA     PlayerSelectArrowBottom,Y
       STA     byte_RAM_30F
-      LDA     #2
+      LDA     #$02
       STA     byte_RAM_310
       LDA     #$BF
       STA     byte_RAM_311
       LDA     #$C1
       STA     byte_RAM_312
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_313
       JSR     WaitForNMI_TurnOnPPU
 
       LDX     #$12
-      LDY     #0
+      LDY     #$00
 
 loc_BANKF_E37D:
       LDA     PlayerSelectSpritePalettesDark,Y
@@ -1277,7 +1277,7 @@ loc_BANKF_E37D:
       DEX
       BPL     loc_BANKF_E37D
 
-      LDA     #6
+      LDA     #$06
       STA     byte_RAM_A
       LDX     CurrentCharacter
       LDA     PlayerSelectPaletteOffsets,X
@@ -1291,7 +1291,7 @@ loc_BANKF_E391:
       DEC     byte_RAM_A
       BPL     loc_BANKF_E391
 
-      LDA     #0
+      LDA     #$00
       STA     PPUBuffer_301,Y
 
 CharacterSelectMenuLoop:
@@ -1460,7 +1460,7 @@ loc_BANKF_E478:
       LDA     byte_RAM_13
       BEQ     loc_BANKF_E478
 
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_13
       JSR     WaitForNMI_TurnOnPPU
 
@@ -1528,7 +1528,7 @@ loc_BANKF_E4CC:
       LDA     byte_RAM_13
       BEQ     loc_BANKF_E4CC
 
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_13
       JSR     WaitForNMI_TurnOnPPU
 
@@ -1536,7 +1536,7 @@ loc_BANKF_E4E5:
       JSR     WaitForNMI
 
       LDA     NeedVerticalScroll
-      AND     #4
+      AND     #$04
       BNE     loc_BANKF_E4F4
 
       LDA     Player1JoypadPress
@@ -1636,7 +1636,7 @@ loc_BANKF_E54B:
       LDA     IsHorizontalLevel
       BNE     loc_BANKF_E587
 
-      LDA     #1
+      LDA     #HMirror
       JSR     ChangeNametableMirroring
 
       JSR     sub_BANK0_81FE
@@ -1656,7 +1656,7 @@ loc_BANKF_E576:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_E587:
-      LDA     #0
+      LDA     #VMirror
       JSR     ChangeNametableMirroring
 
       JSR     sub_BANK0_8785
@@ -1732,7 +1732,7 @@ loc_BANKF_E5EC:
       BEQ     loc_BANKF_E5EC
 
       LDA     InSubspaceOrJar
-      CMP     #2
+      CMP     #$02
       BEQ     loc_BANKF_E606
 
       LDA     #PRGBank_6_7
@@ -2169,7 +2169,7 @@ DoSlotMachineSpinnyShit:
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
-      LDY     #0
+      LDY     #$00
       LDX     ObjectXLo+6 ; Load reel 1
       LDA     SlotMachineReelOrder1RAM,X
       BNE     CheckReel2Symbol ; Is this reel a cherry?
@@ -2567,7 +2567,7 @@ WaitForNMI:
       STA     RAM_PPUDataBufferPointer
       LDA     ScreenUpdateBufferPointers+1,X
       STA     RAM_PPUDataBufferPointer+1
-      LDA     #0
+      LDA     #$00
       STA     NMIWaitFlag ; Start waiting for NMI to finish
 
 WaitForNMILoop:
@@ -2584,14 +2584,14 @@ sub_BANKF_EAC2:
       LDA     Player1JoypadPress
       BPL     locret_BANKF_EAD1
 
-      LDX     #0
+      LDX     #$00
 
 loc_BANKF_EAC8:
       LDA     ObjectXLo,X
       BNE     loc_BANKF_EAD2
 
       INX
-      CPX     #3
+      CPX     #$03
       BCC     loc_BANKF_EAC8
 
 locret_BANKF_EAD1:
@@ -2600,7 +2600,7 @@ locret_BANKF_EAD1:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_EAD2:
-      LDA     #0
+      LDA     #$00
       STA     ObjectXLo,X
       LDA     #SoundEffect1_CherryGet
       STA     SoundEffectQueue1
@@ -2611,7 +2611,7 @@ loc_BANKF_EAD2:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EADC:
-      LDX     #2
+      LDX     #$02
 
 loc_BANKF_EADE:
       LDA     ObjectXLo,X
@@ -2620,12 +2620,12 @@ loc_BANKF_EADE:
       DEC     ObjectXLo+3,X
       BNE     loc_BANKF_EAF2
 
-      LDA     #4
+      LDA     #$04
       STA     ObjectXLo+3,X
       DEC     ObjectXLo+6,X
       BPL     loc_BANKF_EAF2
 
-      LDA     #7
+      LDA     #$07
       STA     ObjectXLo+6,X
 
 loc_BANKF_EAF2:
@@ -2639,7 +2639,7 @@ loc_BANKF_EAF2:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EAF6:
-      LDA     #2
+      LDA     #$02
       STA     byte_RAM_0
 
 loc_BANKF_EAFA:
@@ -2653,7 +2653,7 @@ loc_BANKF_EAFA:
       TAY
       LDA     SlotMachineReelOrder1RAM,Y
       TAY
-      LDA     #7
+      LDA     #$07
       STA     byte_RAM_1
 
 loc_BANKF_EB0D:
@@ -2706,11 +2706,11 @@ loc_BANKF_EB33:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_EB3F:
-      LDA     #0
+      LDA     #$00
       STA     OAMADDR
-      LDA     #2
+      LDA     #$02
       STA     OAM_DMA
-      JSR     sub_BANKF_FF73
+      JSR     ChangeCHRBanks
 
       LDA     PPUMaskMirror
       STA     PPUMASK
@@ -2724,12 +2724,12 @@ loc_BANKF_EB3F:
 ; ---------------------------------------------------------------------------
 
 loc_BANKF_EB5E:
-      LDA     #0
+      LDA     #$00
       STA     PPUMASK
       STA     OAMADDR
-      LDA     #2
+      LDA     #$02
       STA     OAM_DMA
-      JSR     sub_BANKF_FF73
+      JSR     ChangeCHRBanks
 
       JSR     UpdatePPUFromBufferWithOptions
 
@@ -2737,7 +2737,7 @@ loc_BANKF_EB5E:
 
       LDA     PPUScrollXMirror
       STA     PPUSCROLL
-      LDA     #0
+      LDA     #$00
       STA     PPUSCROLL
       LDA     PPUMaskMirror
       STA     PPUMASK
@@ -2750,7 +2750,6 @@ loc_BANKF_EB86:
       STA     PPUMASK
       JMP     loc_BANKF_EC5E
 
-; =============== S U B R O U T I N E =======================================
 
 ; public NMI
 NMI:
@@ -2765,12 +2764,12 @@ NMI:
 
       BVC     loc_BANKF_EB3F ; branch if bit 6 was 0
 
-      LDA     #0
+      LDA     #$00
       STA     PPUMASK
       STA     OAMADDR
-      LDA     #2
+      LDA     #$02
       STA     OAM_DMA
-      JSR     sub_BANKF_FF73
+      JSR     ChangeCHRBanks
 
       LDA     NMIWaitFlag
       BNE     loc_BANKF_EB86
@@ -2781,10 +2780,10 @@ NMI:
       LDA     byte_RAM_51C
       BEQ     loc_BANKF_EBE8
 
-      LDA     #0
+      LDA     #$00
       STA     byte_RAM_51C
       LDX     #$1E
-      LDY     #0
+      LDY     #$00
       LDA     PPUSTATUS
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteVertical|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCTRL
@@ -2834,8 +2833,8 @@ loc_BANKF_EBE8:
 
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteVertical|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCTRL
-      LDY     #0
-      LDX     #4
+      LDY     #$00
+      LDX     #$04
 
 loc_BANKF_EBF6:
       LDA     PPUSTATUS
@@ -2854,7 +2853,7 @@ loc_BANKF_EC05:
 
       LDA     byte_RAM_3BD
       CLC
-      ADC     #8
+      ADC     #$08
       STA     byte_RAM_3BD
       DEX
       BNE     loc_BANKF_EBF6
@@ -2935,7 +2934,7 @@ sub_BANKF_EC68:
       LDA     PPUSTATUS
       LDA     #$3F
       STA     PPUADDR
-      LDA     #0
+      LDA     #$00
       STA     PPUADDR
       STA     PPUADDR
       STA     PPUADDR
@@ -2959,7 +2958,7 @@ DoSoundProcessing:
 ; =============== S U B R O U T I N E =======================================
 
 ClearNametablesAndSprites:
-      LDA     #0
+      LDA     #$00
       STA     PPUMaskMirror
       STA     PPUMASK
       LDA     #$20
@@ -2976,7 +2975,7 @@ ClearNametablesAndSprites:
 ; =============== S U B R O U T I N E =======================================
 
 HideAllSprites:
-      LDY     #0
+      LDY     #$00
       LDA     #$F8
 
 HideAllSpritesLoop:
@@ -2998,7 +2997,7 @@ ClearNametableChunk:
       LDY     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
       STY     PPUCTRL ; Turn off NMI
       STY     PPUCtrlMirror
-      LDY     #0
+      LDY     #$00
       STA     PPUADDR ; A will contain the high byte of the PPU address
 ; (generally $20, $24, $28)
       STY     PPUADDR ; And Y has the low byte ($00)
@@ -3051,7 +3050,7 @@ PPUBufferUpdatesComplete:
 UpdatePPUFromBufferNMI:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCTRL
-      LDY     #0
+      LDY     #$00
 
 UpdatePPUFromBufferNMI_CheckForBuffer:
       LDA     (RAM_PPUDataBufferPointer),Y
@@ -3078,7 +3077,7 @@ UpdatePPUFromBufferNMI_CopyLoop:
 
 ; End of function UpdatePPUFromBufferNMI
 
-; =============== S U B R O U T I N E =======================================
+
 
 ; This reads from $F0/$F1 to determine where a "buffer" is.
 ; Basically, a buffer is like this:
@@ -3182,19 +3181,98 @@ UpdatePPUFBWO_CopySingleTileSkip:
       ; (If the PPU buffer points to a 0, it will terminate after this jump)
       JMP     UpdatePPUFromBufferWithOptions
 
-; End of function UpdatePPUFromBufferWithOptions
 
 IFDEF DEBUG
       .include "src/debug-f.asm"
 ENDIF
-; ---------------------------------------------------------------------------
+
+IFDEF MMC5
+RESET_MMC5:
+      ; Set PRG mode 3 and CHR mode 3
+      LDA     #$03
+      STA     $5100 ; PRG mode
+      STA     $5101 ; CHR mode
+
+      ; Enable PRG RAM writing
+
+      LDA     #$02
+      STA     $5102 ; PRG RAM Protect 1
+      LDA     #$01
+      STA     $5103 ; PRG RAM Protect 2
+
+      ; Set nametable mapping
+      LDA     #%01010000
+      STA     $5105
+
+      LDA     #$00
+      STA     $5113 ; PRG RAM bank
+      STA     $5130 ; Upper CHR Bank bits
+
+      LDA     #$0F
+      STA     $5015
+
+      ; PRG bank 0
+      LDA     #$80 ; ROM bank 0
+      STA     $5114
+
+      ; PRG bank 1
+      LDA     #$81 ; ROM bank 1
+      STA     $5115
+
+      ; PRG bank 2
+      LDA     #$8E ; ROM bank E
+      STA     $5116
+
+      ; PRG bank 3
+      LDA     #$8F ; ROM bank F
+      STA     $5117
+
+      JMP     RESET
+
+
+ChangeCHRBanks_MMC5:
+      LDA     SpriteCHR1
+      STA     $5120
+
+      LDA     SpriteCHR2
+      STA     $5121
+
+      LDA     SpriteCHR3
+      STA     $5122
+
+      LDA     SpriteCHR4
+      STA     $5123
+
+      LDA     BackgroundCHR1
+      STA     $5124
+      ADC     #$01
+      STA     $5125
+
+      LDA     BackgroundCHR2
+      STA     $5126
+      ADC     #$01
+      STA     $5127
+
+      LDA     BackgroundCHR1
+      STA     $5128
+      ADC     #$01
+      STA     $5129
+
+      LDA     BackgroundCHR2
+      STA     $512A
+      ADC     #$01
+      STA     $512B
+
+      RTS
+ENDIF
+
 IFDEF PRESERVE_UNUSED_SPACE
       ; Unused space in the original
       ; $ED4D - $EFFF
       .pad $F000, $FF
 ENDIF
 
-; [000002B3 BYTES: END OF AREA UNUSED-BANKF:ED4D. PRESS KEYPAD "-" TO COLLAPSE]
+
 ; these seem like they might be pointers, not actual values?
 byte_BANKF_F000:
       .BYTE $00 ; 0x0
@@ -3217,6 +3295,7 @@ byte_BANKF_F00B:
       .BYTE $38 ; 16x48 enemies, clips in 4px (tryclde)
       .BYTE $3C ; spark, clips in 0px
       .BYTE $40 ; flying carpet
+
 ; collision x bounding box
 byte_BANKF_F011:
       .BYTE $06,$09,$06,$09 ; $00
@@ -3236,6 +3315,7 @@ byte_BANKF_F011:
       .BYTE $08,$08,$03,$0C ; $38
       .BYTE $08,$08,$FF,$10 ; $3C
       .BYTE $10,$10,$02,$1E ; $40
+
 ; collision y bounding box
 byte_BANKF_F055:
       .BYTE $07,$07,$20,$20 ; $00
@@ -3255,6 +3335,7 @@ byte_BANKF_F055:
       .BYTE $03,$30,$18,$18 ; $38
       .BYTE $FF,$10,$08,$08 ; $3C
       .BYTE $09,$0A,$08,$08 ; $40
+
 ; object collision bounding box
 byte_BANKF_F099:
       .BYTE $02,$02,$03,$00 ; $00
@@ -3278,7 +3359,6 @@ byte_BANKF_F099:
       .BYTE $0F,$2E,$3E,$1E ; $48
       .BYTE $28,$13,$48,$26 ; $4C
 
-; =============== S U B R O U T I N E =======================================
 
 NextSpriteFlickerSlot:
       DEC     SpriteFlickerSlot
@@ -3290,15 +3370,14 @@ NextSpriteFlickerSlot:
 NextSpriteFlickerSlot_Exit:
       RTS
 
-; End of function NextSpriteFlickerSlot
 
-; ---------------------------------------------------------------------------
 LevelMusicIndexes:
       .BYTE Music1_Overworld
       .BYTE Music1_Inside ; 1 ; Music1 indexes.
       .BYTE Music1_Boss ; 2
       .BYTE Music1_Wart ; 3
       .BYTE Music1_Subspace ; 4
+
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3451,10 +3530,10 @@ loc_BANKF_F1AB:
 
 sub_BANKF_F1AE:
       LDA     DoAreaTransition
-      CMP     #2
+      CMP     #$02
       BEQ     locret_BANKF_F1E0
 
-      LDY     #3
+      LDY     #$03
 
 loc_BANKF_F1B7:
       LDA     CurrentLevel,Y
@@ -3862,7 +3941,7 @@ loc_BANKF_F3A6:
       ADC     #$10
       STA     byte_RAM_0
       LDA     byte_RAM_1
-      ADC     #0
+      ADC     #$00
       BNE     loc_BANKF_F3BB
 
       LDA     byte_RAM_0
@@ -3920,7 +3999,7 @@ loc_BANKF_F3F8:
 loc_BANKF_F408:
       STA     SpriteDMAArea+1,Y
       LDA     PlayerAnimationFrame
-      CMP     #6
+      CMP     #$06
       BCS     loc_BANKF_F413
 
       ORA     HoldingItem
@@ -4557,11 +4636,11 @@ loc_BANKF_F66F:
 ; =============== S U B R O U T I N E =======================================
 
 ReadJoypads:
-      LDX     #1
+      LDX     #$01
       STX     JOY1
       DEX
       STX     JOY1
-      LDX     #8
+      LDX     #$08
 
 ReadJoypadLoop:
       LDA     JOY1
@@ -4746,7 +4825,7 @@ GetLevelPointers:
       LDX     #$FF ; Set to load level data into $7800 in RAM
       LDA     #$78
       STA     byte_RAM_2
-      LDY     #0
+      LDY     #$00
       STY     byte_RAM_1
 
 CopyLevelDataToMemory:
@@ -4792,7 +4871,7 @@ loc_BANKF_F7A3:
       LDX     #$FF
       LDA     #$7B
       STA     byte_RAM_3
-      LDY     #0
+      LDY     #$00
       STY     byte_RAM_2
 
 CopyEnemyDataToMemory:
@@ -4820,7 +4899,7 @@ GetJarPointers:
       STA     byte_RAM_6
       LDA     #$7A
       STA     byte_RAM_2
-      LDY     #0
+      LDY     #$00
       STY     byte_RAM_1
 
 CopyJarDataToMemory:
@@ -5153,7 +5232,7 @@ loc_BANKF_FB04:
       DEX
       BPL     loc_BANKF_FB00
 
-      LDY     #0
+      LDY     #$00
       LDA     SpriteDMAArea,Y
       CMP     #$F8
       BNE     loc_BANKF_FB17
@@ -5318,8 +5397,9 @@ ENDIF
 
 
 ; public RESET
+; This code is called when the NES is reset
 RESET:
-      SEI ; This code is called when the NES is reset.
+      SEI
       CLD
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background0000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIDisabled
       STA     PPUCTRL
@@ -5337,35 +5417,48 @@ RESET_VBlank2Loop:
       LDA     PPUSTATUS
       BPL     RESET_VBlank2Loop
 
-      LDA     #$00
 IFDEF DEBUG
-      STA Debug_InMenu
+      LDA     #$00
+      STA     Debug_InMenu
 ENDIF
-      STA     $A000
+
+      LDA     #VMirror
+      STA     NametableMapping
       LDA     #$80
       STA     $A001
       JMP     StartGame
 
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_FF73:
-      LDY     #5
-
-loc_BANKF_FF75:
+IFNDEF MMC5
+;
+; Switches the current CHR banks
+;
+ChangeCHRBanks:
+      LDY     #$05
+ChangeCHRBanks_Loop:
       TYA
       ORA     #$80
       STA     $8000
       LDA     BackgroundCHR1,Y
       STA     $8001
       DEY
-      BPL     loc_BANKF_FF75
+      BPL     ChangeCHRBanks_Loop
 
       RTS
+ENDIF
 
-; End of function sub_BANKF_FF73
+IFDEF MMC5
+;
+; Switches the current CHR banks
+;
+ChangeCHRBanks:
+      JMP      ChangeCHRBanks_MMC5
+IFDEF PRESERVE_UNUSED_SPACE
+      ; Maintain location of the next subroutine
+      .pad $FF85, $FF
+ENDIF
+ENDIF
 
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Calling this one will save the changed bank
@@ -5388,6 +5481,7 @@ ChangeMappedPRGBank:
 ;
 ChangeMappedPRGBankWithoutSaving:
       ASL     A
+IFNDEF MMC5
       PHA
       LDA     #$86
       STA     $8000
@@ -5400,6 +5494,20 @@ ChangeMappedPRGBankWithoutSaving:
       PLA
       STA     $8001 ; Change second bank
       RTS
+ENDIF
+IFDEF MMC5
+      ORA     #$80
+      STA     $5114
+      ORA     #$01
+      STA     $5115
+      RTS
+
+IFDEF PRESERVE_UNUSED_SPACE
+      ; Maintain location of the next subroutine
+      .pad $FFA0, $FF
+ENDIF
+
+ENDIF
 
 
 ;
@@ -5408,7 +5516,7 @@ ChangeMappedPRGBankWithoutSaving:
 ;   A = $01 for horizontal
 ;
 ChangeNametableMirroring:
-      STA     $A000
+      STA     NametableMapping
       RTS
 
 
@@ -5450,5 +5558,10 @@ IRQ:
 ; IRQ is not used, but you could if you wanted.
 NESVectorTables:
       .WORD NMI
+IFNDEF MMC5
       .WORD RESET
+ENDIF
+IFDEF MMC5
+      .WORD RESET_MMC5
+ENDIF
       .WORD IRQ
