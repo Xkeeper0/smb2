@@ -3194,7 +3194,6 @@ RESET_MMC5:
       STA     $5101 ; CHR mode
 
       ; Enable PRG RAM writing
-
       LDA     #$02
       STA     $5102 ; PRG RAM Protect 1
       LDA     #$01

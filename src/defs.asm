@@ -1,16 +1,16 @@
 .ignorenl
 
+; MMC3
 IFNDEF MMC5
 VMirror = $00
 HMirror = $01
-Mapper = 4
 NametableMapping = $A000
 ENDIF
 
+; MMC5
 IFDEF MMC5
 VMirror = $44
 HMirror = $50
-Mapper = 5
 NametableMapping = $5105
 ENDIF
 

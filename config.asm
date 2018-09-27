@@ -44,4 +44,5 @@ PRESERVE_UNUSED_SPACE = 1
 ; FIX_POW_LOG_GLITCH = 1
 
 ; Use MMC5 (mapper 5) instead of MMC3 (mapper 4)
+; Based on RetroRain's MMC5 patch (https://www.romhacking.net/hacks/2568)
 ; MMC5 = 1

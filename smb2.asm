@@ -5,16 +5,25 @@
     ; -----------------------------------------
     ; -----------------------------------------
 
+    .include "config.asm"
 
     ; -----------------------------------------
     ; Add NES header
     .db "NES", $1a ; identification of the iNES header
     .db 8 ; number of 16KB PRG-ROM pages
     .db 16 ; number of 8KB CHR-ROM pages
-    .db (Mapper<<4)|0 ; mapper and mirroring
-    .dsb 9, $00 ; clear the remaining bytes
 
-    .include "config.asm"
+IFNDEF MMC5
+    .db $40 ; mapper and mirroring
+    .dsb 9, $00 ; clear the remaining bytes
+ENDIF
+
+IFDEF MMC5
+    .db $52 ; mapper and mirroring
+    .dsb 3, $00
+    .db $70 ; RAM size
+    .dsb 5, $00 ; clear the remaining bytes
+ENDIF
 
     ; -----------------------------------------
     ; Add definitions
