@@ -75,20 +75,20 @@ AreaInitialization_CarryYOffsetLoop:
       ; Copy the global carrying Y offsets to memory
       ; These are used for every character for different frames of the pickup animation
       LDA     ItemCarryYOffsets,Y
-      STA     byte_RAM_7F00,Y
+      STA     ItemCarryYOffsetsRAM,Y
       DEY
       BPL     AreaInitialization_CarryYOffsetLoop
 
       ; Copy the character-specific FINAL carrying heights into memory
       LDY     CurrentCharacter
       LDA     CarryYOffsetBigLo,Y
-      STA     byte_RAM_7F00
+      STA     ItemCarryYOffsetsRAM
       LDA     CarryYOffsetSmallLo,Y
-      STA     byte_RAM_7F00+$07
+      STA     ItemCarryYOffsetsRAM+$07
       LDA     CarryYOffsetBigHi,Y
-      STA     byte_RAM_7F00+$0E
+      STA     ItemCarryYOffsetsRAM+$0E
       LDA     CarryYOffsetSmallHi,Y
-      STA     byte_RAM_7F00+$15
+      STA     ItemCarryYOffsetsRAM+$15
       LDA     #$B6
       STA     PseudoRNGValues
       LDA     TransitionType
@@ -1428,27 +1428,27 @@ loc_BANK2_8712:
       LSR     A
       ORA     byte_RAM_1
       LDX     byte_RAM_300
-      STA     byte_RAM_302,X
+      STA     PPUBuffer_301+1,X
       CLC
       ADC     #$20
-      STA     byte_RAM_307,X
+      STA     PPUBuffer_301+6,X
       PLA
       ORA     byte_RAM_0
       STA     PPUBuffer_301,X
       ADC     #$00
-      STA     byte_RAM_306,X
+      STA     PPUBuffer_301+5,X
 
 loc_BANK2_874B:
       LDA     #$02
-      STA     byte_RAM_303,X
-      STA     byte_RAM_308,X
+      STA     PPUBuffer_301+2,X
+      STA     PPUBuffer_301+7,X
       LDA     #$FA
-      STA     byte_RAM_304,X
-      STA     byte_RAM_305,X
-      STA     byte_RAM_309,X
-      STA     byte_RAM_30A,X
+      STA     PPUBuffer_301+3,X
+      STA     PPUBuffer_301+4,X
+      STA     PPUBuffer_301+8,X
+      STA     PPUBuffer_301+9,X
       LDA     #$00
-      STA     byte_RAM_30B,X
+      STA     PPUBuffer_301+10,X
       TXA
       CLC
       ADC     #$A
@@ -2659,7 +2659,7 @@ loc_BANK2_8D8A:
       STA     TransitionType
       JSR     DoAreaReset
 
-      LDY     byte_RAM_629
+      LDY     CurrentLevelRelative
       LDA     CurrentWorld
       CMP     #$06
       BNE     loc_BANK2_8DAC
@@ -4491,7 +4491,7 @@ CharacterYOffsetCrouch:
 ; something, to update its position to
 ; wherever the player is above their head
 CarryObject:
-      LDA     byte_RAM_9D
+      LDA     PlayerDirection
       EOR     #$01
       TAY
       INY
@@ -4551,11 +4551,11 @@ loc_BANK2_964D:
       INY
 
 loc_BANK2_965D:
-      ADC     unk_RAM_7EFF,Y
+      ADC     ItemCarryYOffsetsRAM-1,Y
       LDX     byte_RAM_12
       STA     ObjectYLo,X
       LDA     byte_RAM_7
-      ADC     byte_RAM_7F00+$D,Y
+      ADC     ItemCarryYOffsetsRAM+$D,Y
       PLP
       ADC     #$00
       STA     ObjectYHi,X
@@ -6915,7 +6915,7 @@ loc_BANK3_A39B:
 
       LDA     EnemyMovementDirection,X
       AND     #$01
-      STA     byte_RAM_9D
+      STA     PlayerDirection
 
 loc_BANK3_A3A5:
       LDA     ObjectYLo,X
@@ -11539,16 +11539,16 @@ ReplaceTile_StoreXHi:
       ROL     PPUBuffer_301,X
       ASL     A
       ROL     PPUBuffer_301,X
-      STA     byte_RAM_302,X
+      STA     PPUBuffer_301+1,X
       TYA
       AND     #$0F
       ASL     A
 
-      ADC     byte_RAM_302,X
-      STA     byte_RAM_302,X
+      ADC     PPUBuffer_301+1,X
+      STA     PPUBuffer_301+1,X
       CLC
       ADC     #$20
-      STA     byte_RAM_307,X
+      STA     PPUBuffer_301+6,X
       LDA     IsHorizontalLevel
       ASL     A
       TAY
@@ -11563,10 +11563,10 @@ loc_BANK3_BCBA:
       CLC
       ADC     PPUBuffer_301,X
       STA     PPUBuffer_301,X
-      STA     byte_RAM_306,X
+      STA     PPUBuffer_301+5,X
       LDA     #$02
-      STA     byte_RAM_303,X
-      STA     byte_RAM_308,X
+      STA     PPUBuffer_301+2,X
+      STA     PPUBuffer_301+7,X
       PLA
       PHA
       AND     #$C0
@@ -11583,18 +11583,18 @@ loc_BANK3_BCBA:
       ASL     A
       TAY
       LDA     (byte_RAM_0),Y
-      STA     byte_RAM_304,X
+      STA     PPUBuffer_301+3,X
       INY
       LDA     (byte_RAM_0),Y
-      STA     byte_RAM_305,X
+      STA     PPUBuffer_301+4,X
       INY
       LDA     (byte_RAM_0),Y
-      STA     byte_RAM_309,X
+      STA     PPUBuffer_301+8,X
       INY
       LDA     (byte_RAM_0),Y
-      STA     byte_RAM_30A,X
+      STA     PPUBuffer_301+9,X
       LDA     #$00
-      STA     byte_RAM_30B,X
+      STA     PPUBuffer_301+10,X
       TXA
       CLC
       ADC     #$A
@@ -11897,7 +11897,7 @@ SkyFlashColors:
 
 AreaSecondaryRoutine:
       LDA     SkyFlashTimer
-      BEQ     loc_BANK3_BE55
+      BEQ     AreaSecondaryRoutine_HealthBar
 
       ; sky flash timer (ie. explosions)
       DEC     SkyFlashTimer
@@ -11905,54 +11905,52 @@ AreaSecondaryRoutine:
       LDA     #$3F
       STA     PPUBuffer_301,X
       LDA     #$10
-      STA     byte_RAM_302,X
+      STA     PPUBuffer_301+1,X
       LDA     #$04
-      STA     byte_RAM_303,X
+      STA     PPUBuffer_301+2,X
       LDA     byte_RAM_4BC
       LDY     SkyFlashTimer
-      BEQ     loc_BANK3_BE34
+      BEQ     AreaSecondaryRoutine_PlayerPalette
 
       TYA
       AND     #$03
       TAY
       LDA     SkyFlashColors,Y
 
-; some kind of palette copying routine
-loc_BANK3_BE34:
-      STA     byte_RAM_304,X
+AreaSecondaryRoutine_PlayerPalette:
+      STA     PPUBuffer_301+3,X
       LDA     RestorePlayerPalette1
-      STA     byte_RAM_305,X
+      STA     PPUBuffer_301+4,X
       LDA     RestorePlayerPalette2
-      STA     byte_RAM_306,X
+      STA     PPUBuffer_301+5,X
       LDA     RestorePlayerPalette3
-      STA     byte_RAM_307,X
+      STA     PPUBuffer_301+6,X
       LDA     #$00
-      STA     byte_RAM_308,X
+      STA     PPUBuffer_301+7,X
       TXA
       CLC
       ADC     #$07
       STA     byte_RAM_300
 
-; draw health bar
-loc_BANK3_BE55:
+AreaSecondaryRoutine_HealthBar:
       LDA     #$30
       STA     byte_RAM_0
       JSR     loc_BANKF_FAFE
 
       LDA     PlayerHealth
-      BEQ     loc_BANK3_BE67
+      BEQ     AreaSecondaryRoutine_HealthBar_Draw
 
       AND     #$F0
       LSR     A
       LSR     A
       ADC     #$04 ; max health
 
-loc_BANK3_BE67:
+AreaSecondaryRoutine_HealthBar_Draw:
       TAX
+
       LDA     #$FE
       STA     byte_RAM_3
-
-loc_BANK3_BE6C:
+AreaSecondaryRoutine_HealthBar_Loop:
       LDA     HealthBarTiles,X
       STA     SpriteDMAArea+1,Y
       LDA     #$10
@@ -11972,9 +11970,9 @@ loc_BANK3_BE6C:
       INC     byte_RAM_3
       LDA     byte_RAM_3
       CMP     PlayerMaxHealth
-      BNE     loc_BANK3_BE6C
+      BNE     AreaSecondaryRoutine_HealthBar_Loop
 
-      ; pow quake timer (shake screen)
+AreaSecondaryRoutine_POW:
       LDA     POWQuakeTimer
       BEQ     AreaSecondaryRoutine_Exit
 
@@ -11983,12 +11981,12 @@ loc_BANK3_BE6C:
       AND     #$01
       TAY
       LDA     PPUScrollYMirror
-      BPL     loc_BANK3_BEA6
+      BPL     AreaSecondaryRoutine_POW_OffsetScreen
 
       INY
       INY
 
-loc_BANK3_BEA6:
+AreaSecondaryRoutine_POW_OffsetScreen:
       LDA     POWQuakeOffsets,Y
       STA     BackgroundYOffset
       JMP     KillOnscreenEnemies

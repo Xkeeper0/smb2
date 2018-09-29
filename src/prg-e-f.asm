@@ -832,12 +832,12 @@ BonusChanceSpritePalettes:
       .BYTE $0F,$37,$16,$0F ; 8
       .BYTE $0F,$37,$16,$0F ; $C
 
-; =============== S U B R O U T I N E =======================================
 
+;
 ; Load A with an index and call this to
 ; jump to a pointer from the table directly
 ; after the call.
-
+;
 JumpToTableAfterJump:
       ASL     A
       TAY
@@ -853,13 +853,10 @@ JumpToTableAfterJump:
       STA     byte_RAM_D
       JMP     (byte_RAM_C)
 
-; End of function JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
 BlackAndWhitePalette:
       .BYTE $0F,$30,$30,$0F
 
-; =============== S U B R O U T I N E =======================================
 
 SetBlackAndWhitePalette:
       LDA     PPUSTATUS
@@ -880,9 +877,6 @@ SetBlackAndWhitePalette_Loop:
 
       RTS
 
-; End of function SetBlackAndWhitePalette
-
-; =============== S U B R O U T I N E =======================================
 
 SetScrollXYTo0:
       LDA     #$00
@@ -891,8 +885,6 @@ SetScrollXYTo0:
       STA     byte_RAM_C8
       STA     byte_RAM_C9
       RTS
-
-; End of function SetScrollXYTo0
 
 
 ;
@@ -939,8 +931,6 @@ EnableNMI_PauseTitleCard:
       JMP     WaitForNMI
 
 
-; =============== S U B R O U T I N E =======================================
-
 ;
 ; Draws world info for the title card and pause screens
 ;
@@ -974,7 +964,7 @@ DisplayLevelTitleCardText:
       LDY     #$06
       LDA     #$FB
 loc_BANKF_E1B6:
-      STA     unk_RAM_716B,Y
+      STA     unk_RAM_716B,Y ; writes to $7171
       DEY
       BPL     loc_BANKF_E1B6
 
@@ -983,7 +973,7 @@ loc_BANKF_E1B6:
       LDA     CurrentLevel
       SEC
       SBC     WorldStartingLevel,Y
-      STA     byte_RAM_629
+      STA     CurrentLevelRelative
       CLC
       ADC     #$D1
       STA     byte_RAM_717F
@@ -998,7 +988,7 @@ loc_BANKF_E1B6:
       LDY     #$00
 loc_BANKF_E1DC:
       LDA     #$FD
-      CPX     byte_RAM_629
+      CPX     CurrentLevelRelative
       BNE     loc_BANKF_E1E5
 
       LDA     #$F6
@@ -1017,17 +1007,20 @@ loc_BANKF_E1E5:
       RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; It's game time, pal
+;
 SetStack100Gameplay:
       LDA     #Stack100_Gameplay
       STA     StackArea
       RTS
 
-; End of function SetStack100Gameplay
 
 ; =============== S U B R O U T I N E =======================================
 
+;
+; Resets various level-related variables to $00
+;
 InitializeSomeLevelStuff:
       LDA     #$00
       STA     CurrentLevelArea
@@ -1044,9 +1037,7 @@ InitializeSomeLevelStuff:
       STA     PlayerCurrentSize
       RTS
 
-; End of function InitializeSomeLevelStuff
 
-; ---------------------------------------------------------------------------
 PlayerSelectArrowTop:
       .BYTE $C9
       .BYTE $D5
@@ -1058,8 +1049,11 @@ PlayerSelectArrowBottom:
       .BYTE $F1
       .BYTE $ED
 
-; =============== S U B R O U T I N E =======================================
 
+;
+; Displays the level title card and prepares the level to start by loading
+; the world tiles, PRG banks A/B, and copying character data
+;
 DisplayLevelTitleCardAndMore:
       JSR     WaitForNMI_TurnOffPPU
 
@@ -1149,7 +1143,7 @@ DoCharacterSelectMenu:
 
       JSR     ResetScreenForTitleCard
 
-      LDA     byte_RAM_636
+      LDA     CharacterSelectBankSwitch
       CMP     #$A5
       BEQ     loc_BANKF_E2B2
 
@@ -1157,7 +1151,7 @@ DoCharacterSelectMenu:
       JSR     ChangeMappedPRGBank
 
       LDA     #$A5
-      STA     byte_RAM_636
+      STA     CharacterSelectBankSwitch
 
 loc_BANKF_E2B2:
       JSR     EnableNMI_PauseTitleCard
@@ -1229,40 +1223,40 @@ loc_BANKF_E311:
       LDA     #$21
       STA     PPUBuffer_301
       LDA     #$C9
-      STA     byte_RAM_302
+      STA     PPUBuffer_301+1
       LDA     #$4F
-      STA     byte_RAM_303
+      STA     PPUBuffer_301+2
       LDA     #$FB
-      STA     byte_RAM_304
+      STA     PPUBuffer_301+3
       LDA     #$21
-      STA     byte_RAM_305
+      STA     PPUBuffer_301+4
       LDA     #$E9
-      STA     byte_RAM_306
+      STA     PPUBuffer_301+5
       LDA     #$4F
-      STA     byte_RAM_307
+      STA     PPUBuffer_301+6
       LDA     #$FB
-      STA     byte_RAM_308
+      STA     PPUBuffer_301+7
       LDY     CurrentCharacter
       LDA     #$21
-      STA     byte_RAM_309
+      STA     PPUBuffer_301+8
       LDA     PlayerSelectArrowTop,Y
-      STA     byte_RAM_30A
+      STA     PPUBuffer_301+9
       LDA     #$02
-      STA     byte_RAM_30B
+      STA     PPUBuffer_301+10
       LDA     #$BE
-      STA     byte_RAM_30C
+      STA     PPUBuffer_301+11
       LDA     #$C0
-      STA     byte_RAM_30D
+      STA     PPUBuffer_301+12
       LDA     #$21
-      STA     byte_RAM_30E
+      STA     PPUBuffer_301+13
       LDA     PlayerSelectArrowBottom,Y
-      STA     byte_RAM_30F
+      STA     PPUBuffer_301+14
       LDA     #$02
-      STA     byte_RAM_310
+      STA     PPUBuffer_301+15
       LDA     #$BF
-      STA     byte_RAM_311
+      STA     PPUBuffer_301+16
       LDA     #$C1
-      STA     byte_RAM_312
+      STA     PPUBuffer_301+17
       LDA     #$00
       STA     byte_RAM_313
       JSR     WaitForNMI_TurnOnPPU
@@ -1356,12 +1350,11 @@ loc_BANKF_E3EC:
       STA     MusicQueue2
       RTS
 
-; End of function DoCharacterSelectMenu
 
-; ---------------------------------------------------------------------------
-
+;
 ; This starts the game once RESET has done its thing.
 ; We also come here after choosing "RETRY" from the game over menu.
+;
 StartGame:
       LDA     #$00
       STA     PPUMASK
@@ -1387,17 +1380,15 @@ StartCharacterSelectMenu:
       LDY     WorldStartingLevel,X
       STY     CurrentLevel
       STY     CurrentLevel_Init
-      JSR     DoCharacterSelectMenu ; Does Character Select menu stuff
+      JSR     DoCharacterSelectMenu
 
-      JSR     InitializeSomeLevelStuff ; Initializes some level stuff
+      JSR     InitializeSomeLevelStuff
 
-      ; Displays title card for the stage
-      ; Also loads the proper graphics and reset some variables.
       JSR     DisplayLevelTitleCardAndMore
 
       LDA     #$FF
       STA     CurrentMusicIndex
-      BNE     StartLevel ; Branch always?
+      BNE     StartLevel ; Branch always
 
 CharacterSelectMenu:
       JSR     DoCharacterSelectMenu
@@ -1568,8 +1559,10 @@ loc_BANKF_E502:
       STA     DoAreaTransition
       JMP     StartLevel
 
-; ---------------------------------------------------------------------------
 
+;
+; Pauses the game
+;
 ShowPauseScreen:
       JSR     PauseScreen_ExtraLife
 
@@ -1577,7 +1570,7 @@ ShowPauseScreen:
       LDA     #Stack100_Pause
       STA     StackArea
 
-loc_BANKF_E51D:
+PauseScreenLoop:
       LDA     #$0E
       STA     byte_RAM_6
 
@@ -1586,18 +1579,18 @@ DoSuicideCheatCheck:
 
       LDA     PlayerState ; Check if the player is already dying
       CMP     #PlayerState_Dying
-      BEQ     loc_BANKF_E533 ; If so, skip the suicide code check
+      BEQ     PauseScreenExitCheck ; If so, skip the suicide code check
 
       LDA     Player2JoypadHeld ; Check for suicide code
       CMP     #ControllerInput_Up|ControllerInput_B|ControllerInput_A ; Up + A + B
-      BNE     loc_BANKF_E533 ; Not being held! Nothing to see here
+      BNE     PauseScreenExitCheck ; Not being held! Nothing to see here
 
       JSR     KillPlayer ; KILL THYSELF
 
-loc_BANKF_E533:
+PauseScreenExitCheck:
       LDA     Player1JoypadPress
       AND     #ControllerInput_Start
-      BNE     loc_BANKF_E54B
+      BNE     HidePauseScreen
 
       DEC     byte_RAM_6
       BPL     DoSuicideCheatCheck
@@ -1608,11 +1601,12 @@ loc_BANKF_E533:
       CLC
       ADC     #$0D ; Will use either $0D or $0E from the update index pointers
       STA     ScreenUpdateIndex ; @TODO I assume this is what blinks "PAUSE"
-      JMP     loc_BANKF_E51D
+      JMP     PauseScreenLoop
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_E54B:
+;
+; Unpauses the game
+;
+HidePauseScreen:
       JSR     WaitForNMI_TurnOffPPU
 
       JSR     LoadWorldCHRBanks
@@ -1631,43 +1625,42 @@ loc_BANKF_E54B:
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK0_81D6
+      JSR     RestoreScreenScrollPosition
 
       LDA     IsHorizontalLevel
-      BNE     loc_BANKF_E587
+      BNE     HidePauseScreen_Horizontal
 
+HidePauseScreen_Vertical:
       LDA     #HMirror
       JSR     ChangeNametableMirroring
 
       JSR     sub_BANK0_81FE
 
-loc_BANKF_E576:
+HidePauseScreen_Vertical_Loop:
       JSR     WaitForNMI
 
       JSR     sub_BANK0_823D
 
       LDA     byte_RAM_537
-      BEQ     loc_BANKF_E576
+      BEQ     HidePauseScreen_Vertical_Loop
 
       JSR     WaitForNMI_TurnOnPPU
 
       JMP     loc_BANKF_E4E5
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_E587:
+HidePauseScreen_Horizontal:
       LDA     #VMirror
       JSR     ChangeNametableMirroring
 
       JSR     sub_BANK0_8785
 
-loc_BANKF_E58F:
+HidePauseScreen_Horizontal_Loop:
       JSR     WaitForNMI
 
       JSR     sub_BANK0_87AA
 
       LDA     byte_RAM_537
-      BEQ     loc_BANKF_E58F
+      BEQ     HidePauseScreen_Horizontal_Loop
 
       JSR     WaitForNMI_TurnOnPPU
 
@@ -1825,6 +1818,7 @@ loc_BANKF_E665:
 
       LDA     #$FF
       STA     CurrentMusicIndex
+      ; this looks like an address
       LDA     #$25
       STA     byte_RAM_7180
       LDA     #$48
@@ -2109,7 +2103,7 @@ loc_BANKF_E826:
       LDA     CurrentLevel
       SEC
       SBC     WorldStartingLevel,Y
-      STA     byte_RAM_629
+      STA     CurrentLevelRelative
       LDA     CurrentLevel
       STA     CurrentLevel_Init
       LDA     CurrentLevelArea
@@ -2942,7 +2936,6 @@ sub_BANKF_EC68:
 
 ; End of function sub_BANKF_EC68
 
-; =============== S U B R O U T I N E =======================================
 
 DoSoundProcessing:
       LDA     #PRGBank_4_5
@@ -2953,9 +2946,6 @@ DoSoundProcessing:
       LDA     MMC3PRGBankTemp
       JMP     ChangeMappedPRGBank
 
-; End of function DoSoundProcessing
-
-; =============== S U B R O U T I N E =======================================
 
 ClearNametablesAndSprites:
       LDA     #$00
@@ -2970,9 +2960,6 @@ ClearNametablesAndSprites:
       LDA     #$28
       JSR     ClearNametableChunk
 
-; End of function ClearNametablesAndSprites
-
-; =============== S U B R O U T I N E =======================================
 
 HideAllSprites:
       LDY     #$00
@@ -2988,9 +2975,6 @@ HideAllSpritesLoop:
 
       RTS
 
-; End of function HideAllSprites
-
-; =============== S U B R O U T I N E =======================================
 
 ClearNametableChunk:
       LDY     PPUSTATUS ; Reset PPU address latch
@@ -2998,8 +2982,8 @@ ClearNametableChunk:
       STY     PPUCTRL ; Turn off NMI
       STY     PPUCtrlMirror
       LDY     #$00
-      STA     PPUADDR ; A will contain the high byte of the PPU address
-; (generally $20, $24, $28)
+      ; A contains the high byte of the PPU address (generally $20, $24, $28)
+      STA     PPUADDR
       STY     PPUADDR ; And Y has the low byte ($00)
       LDX     #$03 ; Do $300 bytes for this loop.
       LDA     #$FB
@@ -3013,8 +2997,9 @@ ClearNametableChunk_Loop:
       BNE     ClearNametableChunk_Loop ; Loop falls through after $300 bytes
 
 ClearNametableChunk_Loop2:
-      STA     PPUDATA ; Do another loop of $C0 bytes to clear the
-; rest of the nametable chunk
+      ; Do another loop of $C0 bytes to clear the
+      ; rest of the nametable chunk
+      STA     PPUDATA
       INY
       CPY     #$C0
       BNE     ClearNametableChunk_Loop2
@@ -3029,10 +3014,8 @@ ClearNametableChunk_AttributeTableLoop:
 PPUBufferUpdatesComplete:
       RTS ; Woo fucking hoo
 
-; End of function ClearNametableChunk
 
-; =============== S U B R O U T I N E =======================================
-
+;
 ; Used to update the PPU nametable / palette data during NMI.
 ;
 ; This function can only handle $100 bytes of data
@@ -3046,7 +3029,7 @@ PPUBufferUpdatesComplete:
 ; If Y overflows, it will resume copying again from the beginning,
 ; and can get into an infinite loop if it doesn't encounter
 ; a terminating $00. Welp!
-
+;
 UpdatePPUFromBufferNMI:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCTRL
@@ -3075,10 +3058,8 @@ UpdatePPUFromBufferNMI_CopyLoop:
       INY
       JMP     UpdatePPUFromBufferNMI_CheckForBuffer
 
-; End of function UpdatePPUFromBufferNMI
 
-
-
+;
 ; This reads from $F0/$F1 to determine where a "buffer" is.
 ; Basically, a buffer is like this:
 ;
@@ -3102,7 +3083,6 @@ UpdatePPUFromBufferNMI_CopyLoop:
 ; that is called during NMI, but unlike this one,
 ; that one does NOT use bitmasks, nor increment the pointer.
 ;
-
 UpdatePPUFromBufferWithOptions:
       ; First, check if we have anything to send to the PPU
       LDY     #$00
@@ -3958,7 +3938,7 @@ loc_BANKF_F3BB:
       STA     PlayerAttributes
 
 loc_BANKF_F3CA:
-      LDA     byte_RAM_9D
+      LDA     PlayerDirection
       LSR     A
       ROR     A
       ROR     A
@@ -4007,7 +3987,7 @@ loc_BANKF_F413:
       ASL     A
       ASL     A
       TAX
-      LDA     byte_RAM_9D
+      LDA     PlayerDirection
       BNE     loc_BANKF_F44A
 
       LDA     SpriteDMAArea+$23

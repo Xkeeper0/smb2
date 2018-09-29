@@ -195,7 +195,7 @@ EnemyVariable:
       ; etc.
 PlayerStateTimer:
       .dsb 1 ; $0082
-byte_RAM_83:
+FreeSubconsTimer:
       .dsb 1 ; $0083
 PlayerWalkFrameCounter: ; used for controlling speed of walk animation
       .dsb 1 ; $0084
@@ -210,7 +210,7 @@ EnemyTimer:
       .dsb 1 ; 5                ; $008b
       .dsb 1 ; 6                ; $008c
       .dsb 1 ; 7                ; $008d
-byte_RAM_8E:
+FreeSubconsCorkCounter:
       .dsb 1 ; $008e
 CurrentCharacter:
       .dsb 1 ; $008f
@@ -228,18 +228,18 @@ ObjectType:
       .dsb 1 ; 6                ; $0096
       .dsb 1 ; 7                ; $0097
       .dsb 1 ; 8                ; $0098
+; $00 = on ground or enemy, $01 = in air
 PlayerInAir:
       .dsb 1 ; $0099
-; 00 = on ground or enemy, 01 = in air
 PlayerDucking:
       .dsb 1 ; $009a
 PlayerWalkFrame:
       .dsb 1 ; $009b
 HoldingItem:
       .dsb 1 ; $009c
-byte_RAM_9D: ; direction
+; $00 = left, $01 = right
+PlayerDirection:
       .dsb 1 ; $009d
-      ; $00 = left, $01 = right
 byte_RAM_9E:
       .dsb 1 ; $009e
 ObjectAnimationTimer:
@@ -276,6 +276,7 @@ EnemyArray_B1:
       .dsb 1 ; $00b7
       .dsb 1 ; $00b8
       .dsb 1 ; $00b9
+; PlayerXCameraOffset?
 byte_RAM_BA:
       .dsb 1 ; $00ba
 CurrentMusicPointer:
@@ -303,8 +304,10 @@ SoundEffectTimer2:
       .dsb 1 ; $00c6
 PlayerAnimationFrame:
       .dsb 1 ; $00c7
+; related to y-mirroring
 byte_RAM_C8:
       .dsb 1 ; $00c8
+; related to x-mirroring
 byte_RAM_C9:
       .dsb 1 ; $00c9
 ScreenYHi:
@@ -984,6 +987,7 @@ unk_RAM_318:
       .dsb 1 ; $0321
       .dsb 1 ; $0322
       .dsb 1 ; $0323
+
       .dsb 1 ; $0324
       .dsb 1 ; $0325
       .dsb 1 ; $0326
@@ -2061,7 +2065,7 @@ DoAreaTransition:
       .dsb 1 ; $0627
 InSubspaceOrJar:
       .dsb 1 ; $0628
-byte_RAM_629:
+CurrentLevelRelative:
       .dsb 1 ; $0629
 CherryCount:
       .dsb 1 ; $062a
@@ -2074,14 +2078,15 @@ CharacterLevelsCompleted:
       .dsb 1 ; $062e
       .dsb 1 ; $062f
       .dsb 1 ; $0630
-byte_RAM_631:
+MaxLevelsCompleted:
       .dsb 1 ; $0631
       .dsb 1 ; $0632
       .dsb 1 ; $0633
       .dsb 1 ; $0634
 CurrentWorld:
       .dsb 1 ; $0635
-byte_RAM_636:
+; set to $A5 in DoCharacterSelectMenu to skip the bank switch
+CharacterSelectBankSwitch:
       .dsb 1 ; $0636
 RestorePlayerPalette0:
       .dsb 1 ; $0637
@@ -2594,10 +2599,6 @@ PPUADDR = $2006
 
 PPUDATA = $2007
 
-; [00001FF8 BYTES: BEGIN OF AREA PPU Mirrors. PRESS KEYPAD "-" TO COLLAPSE]
-
-unk_RAM_2022 = $2022
-
 SQ1_VOL = $4000
 SQ1_SWEEP = $4001
 SQ1_LO = $4002
@@ -2659,6 +2660,7 @@ MMC5_SND_CHN = $5015
 DecodedLevelData = $6000
 
 ; collision y data?
+; byte_BANKF_F099 copied to RAM
 unk_RAM_7100 = $7100
 
 byte_RAM_710B = $710b
@@ -2672,36 +2674,29 @@ unk_RAM_7128 = $7128
 
 unk_RAM_713C = $713c
 
+; MysteryData14439 copied to RAM
 unk_RAM_7150 = $7150
 
 PPUBuffer_7168 = $7168
-
 unk_RAM_716B = $716b
-
 byte_RAM_717D = $717d
-
 byte_RAM_717F = $717f
-
 byte_RAM_7180 = $7180
-
 byte_RAM_7181 = $7181
-
 byte_RAM_7191 = $7191
-
 byte_RAM_7192 = $7192
 
 PPUBuffer_7194 = $7194
-
 byte_RAM_71A6 = $71a6
 
 PPUBuffer_71A8 = $71a8
-
 byte_RAM_71AB = $71ab
-
 byte_RAM_71AF = $71af
 
+; byte_BANKA_84E1 copied to RAM
 byte_RAM_71CC = $71cc
 
+; byte_BANKF_F607 copied to RAM
 unk_RAM_71D1 = $71d1
 
 byte_RAM_71FE = $71fe
@@ -2734,17 +2729,4 @@ RawJarData = $7a00
 
 RawEnemyDataAddr = $7b00
 
-unk_RAM_7DF1 = $7df1
-
-unk_RAM_7EFF = $7eff
-
-byte_RAM_7F00 = $7f00
-
-MMC3PRGBank8000Temp = $7ffe
-
-MMC3PRGBankA000Temp = $7fff
-
-; end of 'RAM'
-
-; ===========================================================================
-
+ItemCarryYOffsetsRAM = $7f00

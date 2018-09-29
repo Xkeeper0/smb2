@@ -362,9 +362,7 @@ StashScreenScrollPosition:
       RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK0_81D6:
+RestoreScreenScrollPosition:
       LDA     byte_RAM_509
       STA     PPUScrollYMirror
       LDA     byte_RAM_50A
@@ -382,7 +380,6 @@ sub_BANK0_81D6:
       STA     ScreenYLo
       RTS
 
-; End of function sub_BANK0_81D6
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2032,9 +2029,9 @@ sub_BANK0_8B19:
       AND     #$07
       BNE     locret_BANK0_8B2A
 
-      LDA     byte_RAM_9D
+      LDA     PlayerDirection
       EOR     #$01
-      STA     byte_RAM_9D
+      STA     PlayerDirection
       LDA     #SoundEffect2_Climbing
       STA     SoundEffectQueue2
 
@@ -2219,7 +2216,7 @@ ENDIF
       LDA     #$04
       STA     PlayerXVelocity
       LDA     #$01
-      STA     byte_RAM_9D
+      STA     PlayerDirection
 
 loc_BANK0_8BE3:
       JSR     sub_BANK0_8A50
@@ -2355,7 +2352,7 @@ loc_BANK0_8C6F:
       BEQ     loc_BANK0_8C92
 
       AND     #$01
-      STA     byte_RAM_9D
+      STA     PlayerDirection
       TAY
       LDA     GroundSlipperiness
       LSR     A
@@ -2758,7 +2755,7 @@ loc_BANK0_8E22:
 
 loc_BANK0_8E28:
       STY     byte_RAM_7
-      LDA     byte_RAM_9D
+      LDA     PlayerDirection
       ASL     A
       ORA     PlayerDucking
       TAX
@@ -2808,7 +2805,7 @@ loc_BANK0_8E6F:
       ROL     byte_RAM_1
       BNE     loc_BANK0_8E89
 
-      LDY     byte_RAM_9D
+      LDY     PlayerDirection
       LDA     byte_BANK0_8DBE,Y
       CLC
       ADC     ObjectXLo,X
@@ -2829,7 +2826,7 @@ loc_BANK0_8E89:
       STA     ObjectYVelocity,X
       LDA     byte_RAM_1
       ASL     A
-      ORA     byte_RAM_9D
+      ORA     PlayerDirection
       TAY
       LDA     byte_BANK0_8DB2,Y
       STA     ObjectXVelocity,X
@@ -3984,16 +3981,16 @@ loc_BANK0_937C:
       ROL     PPUBuffer_301,X
       ASL     A
       ROL     PPUBuffer_301,X
-      STA     byte_RAM_302,X
+      STA     PPUBuffer_301+1,X
       TYA
       AND     #$0F
       ASL     A
 
-      ADC     byte_RAM_302,X
-      STA     byte_RAM_302,X
+      ADC     PPUBuffer_301+1,X
+      STA     PPUBuffer_301+1,X
       CLC
       ADC     #$20
-      STA     byte_RAM_307,X
+      STA     PPUBuffer_301+6,X
       LDA     IsHorizontalLevel
       ASL     A
       TAY
@@ -4008,10 +4005,10 @@ loc_BANK0_93B9:
       CLC
       ADC     PPUBuffer_301,X
       STA     PPUBuffer_301,X
-      STA     byte_RAM_306,X
+      STA     PPUBuffer_301+5,X
       LDA     #$02
-      STA     byte_RAM_303,X
-      STA     byte_RAM_308,X
+      STA     PPUBuffer_301+2,X
+      STA     PPUBuffer_301+7,X
       PLA
       PHA
       AND     #$C0
@@ -4028,18 +4025,18 @@ loc_BANK0_93B9:
       ASL     A
       TAY
       LDA     (byte_RAM_0),Y
-      STA     byte_RAM_304,X
+      STA     PPUBuffer_301+3,X
       INY
       LDA     (byte_RAM_0),Y
-      STA     byte_RAM_305,X
+      STA     PPUBuffer_301+4,X
       INY
       LDA     (byte_RAM_0),Y
-      STA     byte_RAM_309,X
+      STA     PPUBuffer_301+8,X
       INY
       LDA     (byte_RAM_0),Y
-      STA     byte_RAM_30A,X
+      STA     PPUBuffer_301+9,X
       LDA     #$00
-      STA     byte_RAM_30B,X
+      STA     PPUBuffer_301+10,X
       TXA
       CLC
       ADC     #$0A
@@ -4200,7 +4197,7 @@ AreaTransitionPlacement:
 
 AreaTransitionPlacement_Reset:
       LDA     #$01
-      STA     byte_RAM_9D
+      STA     PlayerDirection
       JSR     AreaTransitionPlacement_Middle
 
       LSR     A
@@ -4918,30 +4915,30 @@ loc_BANK0_9AC6:
       LDA     PlayerXHi
       STA     PPUBuffer_301
       LDA     ObjectXHi
-      STA     byte_RAM_302
+      STA     PPUBuffer_301+1
       LDA     ObjectXHi+1
-      STA     byte_RAM_303
+      STA     PPUBuffer_301+2
       LDA     #$E6
       STA     ObjectXHi
       LDA     #$54
       STA     ObjectXHi+1
       LDA     #$0FB
-      STA     byte_RAM_304
+      STA     PPUBuffer_301+3
       LDA     #$00
-      STA     byte_RAM_305
+      STA     PPUBuffer_301+4
       BEQ     loc_BANK0_9B4D
 
 loc_BANK0_9AF3:
       LDA     PlayerXHi
       STA     PPUBuffer_301
       LDA     ObjectXHi
-      STA     byte_RAM_302
+      STA     PPUBuffer_301+1
       LDA     ObjectXHi+1
-      STA     byte_RAM_303
+      STA     PPUBuffer_301+2
       LDA     #$0FB
-      STA     byte_RAM_304
+      STA     PPUBuffer_301+3
       LDA     #$00
-      STA     byte_RAM_305
+      STA     PPUBuffer_301+4
       LDA     ObjectXHi
       CLC
       ADC     #$20
@@ -4961,13 +4958,13 @@ loc_BANK0_9B1B:
 
 loc_BANK0_9B25:
       LDA     TitleAttributeData1,Y
-      STA     byte_RAM_305,Y
+      STA     PPUBuffer_301+4,Y
       INY
       DEX
       BPL     loc_BANK0_9B25
 
       LDA     #$00
-      STA     byte_RAM_305,Y
+      STA     PPUBuffer_301+4,Y
       JSR     WaitForNMI_TitleScreen
 
       LDX     #$1B
@@ -5029,19 +5026,19 @@ TitleScreen_WriteSTORYText:
       LDA     #$20
       STA     PPUBuffer_301
       LDA     #$0AE
-      STA     byte_RAM_302
+      STA     PPUBuffer_301+1
       LDA     #$05 ; Length of STORY text (5 bytes)
-      STA     byte_RAM_303
+      STA     PPUBuffer_301+2
       LDY     #$04 ; Bytes to copy minus one (5-1=4)
 
 TitleScreen_WriteSTORYTextLoop:
       LDA     TitleStoryText_STORY,Y ; Copy STORY text to PPU write buffer
-      STA     byte_RAM_304,Y
+      STA     PPUBuffer_301+3,Y
       DEY
       BPL     TitleScreen_WriteSTORYTextLoop
 
       LDA     #$00 ; Terminate STORY text in buffer
-      STA     byte_RAM_309
+      STA     PPUBuffer_301+8
 
 loc_BANK0_9B93:
       INC     ObjectXHi+3
@@ -5067,9 +5064,9 @@ loc_BANK0_9BB0:
       LDA     ObjectXHi
 
 loc_BANK0_9BB2:
-      STA     byte_RAM_302
+      STA     PPUBuffer_301+1
       LDA     #$14
-      STA     byte_RAM_303
+      STA     PPUBuffer_301+2
       LDX     ObjectXHi+3
       DEX
       LDA     TitleStoryTextPointersHi,X
@@ -5081,13 +5078,13 @@ loc_BANK0_9BB2:
 
 loc_BANK0_9BCB:
       LDA     (byte_RAM_3),Y
-      STA     byte_RAM_304,Y
+      STA     PPUBuffer_301+3,Y
       INY
       DEX
       BPL     loc_BANK0_9BCB
 
       LDA     #$00
-      STA     byte_RAM_304,Y
+      STA     PPUBuffer_301+3,Y
       INC     ObjectXHi+3
       LDA     ObjectXHi
       CLC
@@ -5388,12 +5385,12 @@ FreeSubconsScene:
       JSR     WaitForNMI_Ending
 
       LDA     #$60
-      STA     byte_RAM_83
+      STA     FreeSubconsTimer
       LDA     #$01
-      STA     byte_RAM_9D
+      STA     PlayerDirection
       LSR     A
       STA     PlayerState ; A=$00
-      STA     byte_RAM_8E
+      STA     FreeSubconsCorkCounter
       STA     CrouchJumpTimer
       STA     byte_RAM_E6
       STA     byte_RAM_E5
@@ -5426,15 +5423,15 @@ loc_BANK1_A491:
 
       JSR     sub_BANK1_A5DE
 
-      LDA     byte_RAM_83
+      LDA     FreeSubconsTimer
       BEQ     loc_BANK1_A4B8
 
       LDA     byte_RAM_10
       AND     #$07
       BNE     loc_BANK1_A491
 
-      DEC     byte_RAM_83
-      LDA     byte_RAM_83
+      DEC     FreeSubconsTimer
+      LDA     FreeSubconsTimer
       CMP     #$25
       BNE     loc_BANK1_A491
 
@@ -5558,32 +5555,31 @@ loc_BANK1_A530:
       LDA     #SpriteAnimation_Pulling
       STA     PlayerAnimationFrame
       LDA     #$05
-      STA     byte_RAM_8E
+      STA     FreeSubconsCorkCounter
       LDA     #$28
       STA     PlayerStateTimer
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK1_A54D:
-      .BYTE $14
 
+PullCorkFrameDurations:
+      .BYTE $14
       .BYTE $0A
       .BYTE $14
-byte_BANK1_A550:
       .BYTE $0A
 
+PullCorkOffsets:
       .BYTE $1C
       .BYTE $1B
       .BYTE $1E
       .BYTE $1D
       .BYTE $1F
-; ---------------------------------------------------------------------------
+
 
 loc_BANK1_A556:
       LDA     PlayerStateTimer
       BNE     locret_BANK1_A577
 
-      DEC     byte_RAM_8E
+      DEC     FreeSubconsCorkCounter
       BNE     loc_BANK1_A570
 
       INC     PlayerState
@@ -5601,8 +5597,8 @@ loc_BANK1_A56B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_A570:
-      LDY     byte_RAM_8E
-      LDA     byte_BANK1_A54D-1,Y
+      LDY     FreeSubconsCorkCounter
+      LDA     PullCorkFrameDurations-1,Y
       STA     PlayerStateTimer
 
 locret_BANK1_A577:
@@ -5713,7 +5709,7 @@ sub_BANK1_A5DE:
       STX     byte_RAM_12
       JSR     sub_BANK1_A60E
 
-      LDY     byte_RAM_8E
+      LDY     FreeSubconsCorkCounter
       BNE     loc_BANK1_A5F6
 
       LDA     ObjectYLo+8
@@ -5725,7 +5721,7 @@ sub_BANK1_A5DE:
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_A5F6:
-      LDA     byte_BANK1_A550,Y
+      LDA     PullCorkOffsets-1,Y
       CLC
       ADC     PlayerYLo
       STA     ObjectYLo+8
@@ -6555,36 +6551,35 @@ loc_BANK1_AD2B:
 
 Ending_GetContributor:
       LDA     #$00
-      STA     byte_RAM_631
+      STA     MaxLevelsCompleted
+
       LDY     #$03
-
-loc_BANK1_AD47:
+Ending_GetContributor_Loop:
       LDA     CharacterLevelsCompleted,Y
-      CMP     byte_RAM_631
-      BCC     loc_BANK1_AD55
+      CMP     MaxLevelsCompleted
+      BCC     Ending_GetContributor_Next
 
       LDA     CharacterLevelsCompleted,Y
-      STA     byte_RAM_631
+      STA     MaxLevelsCompleted
 
-loc_BANK1_AD55:
+Ending_GetContributor_Next:
       DEY
-      BPL     loc_BANK1_AD47
+      BPL     Ending_GetContributor_Loop
 
       LDX     #$00
       LDY     #$03
-
-loc_BANK1_AD5C:
+Ending_GetContributor_Loop2:
       LDA     CharacterLevelsCompleted,Y
-      CMP     byte_RAM_631
-      BNE     loc_BANK1_AD69
+      CMP     MaxLevelsCompleted
+      BNE     Ending_GetContributor_Next2
 
       TYA
       STA     unk_RAM_5BE,X
       INX
 
-loc_BANK1_AD69:
+Ending_GetContributor_Next2:
       DEY
-      BPL     loc_BANK1_AD5C
+      BPL     Ending_GetContributor_Loop2
 
       DEX
       STX     byte_RAM_5C2
@@ -6622,7 +6617,6 @@ loc_BANK1_AD69:
       STA     PPUBuffer_301,X
       INX
 
-loc_BANK1_ADB0:
       LDA     #$0FB
       STA     PPUBuffer_301,X
       INX
@@ -6657,7 +6651,6 @@ loc_BANK1_ADB0:
       STA     byte_RAM_5C4
       RTS
 
-; End of function Ending_GetContributor
 
 ; =============== S U B R O U T I N E =======================================
 

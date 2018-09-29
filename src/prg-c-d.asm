@@ -638,13 +638,13 @@ loc_BANKC_855C:
       LDA     #$3F
       STA     PPUBuffer_301
       LDA     #$11
-      STA     byte_RAM_302
+      STA     PPUBuffer_301+1
       LDA     #$01
-      STA     byte_RAM_303
+      STA     PPUBuffer_301+2
       LDA     #$12
-      STA     byte_RAM_304
+      STA     PPUBuffer_301+3
       LDA     #$00
-      STA     byte_RAM_305
+      STA     PPUBuffer_301+4
       LDA     #$10
       STA     PlayerXLo
       LDA     #$00
@@ -673,19 +673,19 @@ loc_BANKC_8593:
       LDA     #$3F
       STA     PPUBuffer_301
       LDA     #$11
-      STA     byte_RAM_302
-      LDA     #1
-      STA     byte_RAM_303
+      STA     PPUBuffer_301+1
+      LDA     #$01
+      STA     PPUBuffer_301+2
       LDY     ObjectXLo+1
       LDA     CastRoll_PaletteFadeIn,Y
-      STA     byte_RAM_304
+      STA     PPUBuffer_301+3
 
 loc_BANKC_85B2:
-      LDA     #0
-      STA     byte_RAM_305
+      LDA     #$00
+      STA     PPUBuffer_301+4
       INC     ObjectXLo+1
       LDA     ObjectXLo+1
-      CMP     #3
+      CMP     #$03
       BNE     locret_BANKC_85D5
 
       INC     ObjectXLo
@@ -693,10 +693,10 @@ loc_BANKC_85B2:
       STA     PlayerXLo
       LDA     #$60
       STA     ObjectYHi
-      LDA     #1
+      LDA     #$01
       STA     ObjectYLo+2
       STA     ObjectYLo+5
-      LDA     #0
+      LDA     #$00
       STA     ObjectYLo+3
       STA     ObjectYLo+4
 
@@ -1473,17 +1473,17 @@ loc_BANKC_8A04:
       LDA     #$3F
       STA     PPUBuffer_301
       LDA     #$11
-      STA     byte_RAM_302
-      LDA     #1
-      STA     byte_RAM_303
+      STA     PPUBuffer_301+1
+      LDA     #$01
+      STA     PPUBuffer_301+2
       LDY     ObjectXLo+1
       LDA     CastRoll_PaletteFadeOut,Y
-      STA     byte_RAM_304
-      LDA     #0
-      STA     byte_RAM_305
+      STA     PPUBuffer_301+3
+      LDA     #$00
+      STA     PPUBuffer_301+4
       INC     ObjectXLo+1
       LDA     ObjectXLo+1
-      CMP     #3
+      CMP     #$03
       BNE     locret_BANKC_8A36
 
       INC     ObjectXLo
@@ -1527,26 +1527,26 @@ loc_BANKC_8A52:
       DEC     PlayerXLo
       BPL     locret_BANKC_8A81
 
-      LDA     #0
+      LDA     #$00
       STA     ObjectXHi+4
       STA     ObjectXHi+5
 
 loc_BANKC_8A5C:
       STA     ObjectXHi+6
-      LDA     #5
+      LDA     #$05
       STA     ObjectXHi+7
       LDA     #$14
       STA     ObjectXHi+8
       LDA     #$3F
       STA     PPUBuffer_301
       LDA     #$11
-      STA     byte_RAM_302
-      LDA     #1
-      STA     byte_RAM_303
+      STA     PPUBuffer_301+1
+      LDA     #$01
+      STA     PPUBuffer_301+2
       LDA     #$30
-      STA     byte_RAM_304
-      LDA     #0
-      STA     byte_RAM_305
+      STA     PPUBuffer_301+3
+      LDA     #$00
+      STA     PPUBuffer_301+4
       INC     ObjectXLo
 
 locret_BANKC_8A81:

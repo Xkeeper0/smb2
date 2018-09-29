@@ -2736,14 +2736,14 @@ ApplyPalette:
       LDA     #$3F
       STA     PPUBuffer_301
       LDA     #$00
-      STA     byte_RAM_302
+      STA     PPUBuffer_301+1
       LDA     #$20
-      STA     byte_RAM_303
+      STA     PPUBuffer_301+2
 
       LDY     #$00
 ApplyPalette_BackgroundLoop:
       JSR     ReadWorldBackgroundColor
-      STA     byte_RAM_304,Y
+      STA     PPUBuffer_301+3,Y
       INX
       INY
       CPY     #$10
@@ -2782,7 +2782,7 @@ ApplyPalette_PlayerLoop:
       LDY     #$10
 ApplyPalette_SkyLoop:
       LDA     byte_RAM_4BC
-      STA     byte_RAM_304,Y
+      STA     PPUBuffer_301+3,Y
       INY
       INY
       INY
