@@ -6553,12 +6553,13 @@ EnemyPointers_Level_7_2_Area4:
       .BYTE $01
       .BYTE $05,$44,$49,$2D,$B7
       .BYTE $01
+
 EnemyPointers_Level_7_2_Area5:
       .BYTE $01
-
       .BYTE $01
       .BYTE $05,$4A,$1A,$6C,$A7
       .BYTE $01
+
 EnemyPointers_Level_7_2_Area6:
       .BYTE $03,$2F,$8A
       .BYTE $07,$2E,$73,$31,$85,$2F,$8C

@@ -1108,7 +1108,7 @@ HandleEnemyState_BlockFizzle:
       LDA     #$3E
 
 loc_BANK2_85AC:
-      JMP     sub_BANK2_9BB3
+      JMP     RenderSprite_DrawObject
 
 ; ---------------------------------------------------------------------------
 
@@ -1520,7 +1520,7 @@ loc_BANK2_87AC:
       LSR     A
       TAY
       LDA     byte_BANK2_8798,Y
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDA     unk_RAM_49B,X
       BEQ     locret_BANK2_8797
@@ -1663,7 +1663,7 @@ HandleEnemyState_Sand:
       LDA     #$B4
 
 loc_BANK2_8885:
-      JMP     sub_BANK2_9BB3
+      JMP     RenderSprite_DrawObject
 
 ; ---------------------------------------------------------------------------
 
@@ -2446,7 +2446,7 @@ loc_BANK2_8C7C:
       ORA     #$10
       STA     ObjectAttributes,X
       LDA     #$AE
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDA     ObjectAttributes,X
       AND     #$EF
@@ -2766,7 +2766,7 @@ loc_BANK2_8E27:
       LDA     #$92
 
 loc_BANK2_8E31:
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDA     byte_RAM_7
       TAY
@@ -3416,7 +3416,7 @@ RenderSprite_VegetableLarge:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_913E:
-      JMP     sub_BANK2_9BB3
+      JMP     RenderSprite_DrawObject
 
 ; ---------------------------------------------------------------------------
 
@@ -4791,7 +4791,7 @@ loc_BANK2_977F:
 
 loc_BANK2_9784:
       LDA     #$7A
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDY     byte_RAM_F4
       LDA     SpriteDMAArea+7,Y
@@ -4837,7 +4837,7 @@ loc_BANK2_97BA:
       LDA     #$7E
 
 loc_BANK2_97C3:
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDX     DoorAnimationTimer
       BEQ     loc_BANK2_9805
@@ -5534,7 +5534,7 @@ loc_BANK2_9AE6:
       LDA     #$62
 
 loc_BANK2_9AEC:
-      JMP     sub_BANK2_9BB3
+      JMP     RenderSprite_DrawObject
 
 ; ---------------------------------------------------------------------------
 
@@ -5701,9 +5701,11 @@ RenderSprite_NotAlbatoss:
 RenderSprite_NotRocket:
       LDA     EnemyAnimationTable,Y
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_9BB3:
+;
+; Draws an object to the screen
+;
+RenderSprite_DrawObject:
       STA     byte_RAM_F
       LDA     byte_RAM_EF
       BNE     RenderSprite_Invisible
@@ -5901,7 +5903,6 @@ loc_BANK2_9CD9:
 locret_BANK2_9CF1:
       RTS
 
-; End of function sub_BANK2_9BB3
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -6606,7 +6607,7 @@ loc_BANK3_A21C:
       LDA     #$02
       STA     EnemyMovementDirection,X
       TYA
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDY     #$C6
       LDA     byte_RAM_10
@@ -6659,7 +6660,7 @@ loc_BANK3_A262:
 
       STY     byte_RAM_F4
       PLA
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDA     EnemyTimer,X
       BEQ     loc_BANK3_A2D2
@@ -6720,7 +6721,7 @@ ENDIF
       LDA     #%00010000
       STA     EnemyArray_46E,X
       LDA     #$D6
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       PLA
       STA     EnemyArray_46E,X
@@ -7269,7 +7270,7 @@ loc_BANK3_A55F:
       LDA     byte_BANK3_A47B,Y
       STA     EnemyMovementDirection,X
       LDA     byte_BANK3_A47F,Y
-      JMP     sub_BANK2_9BB3
+      JMP     RenderSprite_DrawObject
 
 ; End of function sub_BANK3_A552
 
@@ -7414,7 +7415,7 @@ loc_BANK3_A612:
       LDA     #$20
 
 loc_BANK3_A61B:
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       JMP     loc_BANK3_A648
 
@@ -7446,7 +7447,7 @@ IFNDEF COMPATIBILITY
 ENDIF
 
       LDA     #$38
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
 loc_BANK3_A648:
       LDA     #$43
@@ -7721,7 +7722,7 @@ IFNDEF COMPATIBILITY
    NOP ; Alignment fix
 ENDIF
 
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDA     #ObjAttrib_Palette1|ObjAttrib_FrontFacing
       STA     ObjectAttributes,X
@@ -8155,7 +8156,7 @@ loc_BANK3_A9FE:
 
 loc_BANK3_AA0C:
       LDA     #$64
-      JMP     sub_BANK2_9BB3
+      JMP     RenderSprite_DrawObject
 
 ; ---------------------------------------------------------------------------
 
@@ -8547,7 +8548,7 @@ RenderSprite_Fryguy:
       LDA     #$88
 
 loc_BANK3_AC4B:
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       JSR     loc_BANKF_FAFE
 
@@ -8571,7 +8572,7 @@ ENDIF
       LDA     #$8C
 
 loc_BANK3_AC67:
-      JMP     sub_BANK2_9BB3
+      JMP     RenderSprite_DrawObject
 
 
 ; ---------------------------------------------------------------------------
@@ -8931,7 +8932,7 @@ RenderSprite_Autobomb:
       STA     ObjectAttributes,X
       STA     ObjectAnimationTimer,X
       LDA     #$76
-      JMP     sub_BANK2_9BB3
+      JMP     RenderSprite_DrawObject
 
 ; ---------------------------------------------------------------------------
 
@@ -8963,7 +8964,7 @@ IFNDEF COMPATIBILITY
 ENDIF
 
       LDA     #$7C
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       PLA
 IFDEF COMPATIBILITY
@@ -8998,7 +8999,7 @@ ENDIF
       LDA     #%11010000
       STA     EnemyArray_46E,X
       LDA     #$78
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDA     #$50
       LDY     EnemyArray_B1,X
@@ -9085,7 +9086,7 @@ RenderSprite_WhaleSpout:
       LDA     #$94
 
 loc_BANK3_AF03:
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       JSR     loc_BANKF_FAFE
 
@@ -9599,54 +9600,60 @@ EnemyInit_Wart:
       STA     unk_RAM_4EF,X
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK3_B1DB:
+
+WartBubbleYVelocity:
       .BYTE $E0
       .BYTE $F0
       .BYTE $E8
       .BYTE $E4
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_Wart:
       LDA     EnemyArray_B1,X
       BNE     EnemyBehavior_Wart_Death
 
       LDA     EnemyHP,X
-      BNE     loc_BANK3_B1F0
+      BNE     EnemyBehavior_Wart_Alive
 
+      ; start the death sequence
       LDA     #$80
       STA     EnemyTimer,X
       STA     EnemyArray_B1,X
       BNE     EnemyBehavior_Wart_Exit
 
-loc_BANK3_B1F0:
+EnemyBehavior_Wart_Alive:
       INC     EnemyVariable,X
       LDA     byte_RAM_10
-      AND     #$FF
-      BNE     loc_BANK3_B1FF
+      AND     #%11111111
+      BNE     EnemyBehavior_Wart_Movement
 
+      ; spit bubbles
       LDA     #$5F
       STA     EnemyTimer,X
+      ; counter that determines which index of WartBubbleYVelocity to use
       INC     EnemyArray_480,X
 
-loc_BANK3_B1FF:
+EnemyBehavior_Wart_Movement:
       LDA     #$00
       STA     ObjectXVelocity,X
+
+      ; pause at the end of movement
       LDA     EnemyVariable,X
-      AND     #$40
-      BEQ     loc_BANK3_B216
+      AND     #%01000000
+      BEQ     EnemyBehavior_Wart_PhysicsX
 
+      ; increment animation timer
       INC     EnemyArray_477,X
-      LDA     #$F8
+      LDA     #$F8 ; left movement
       LDY     EnemyVariable,X
-      BPL     loc_BANK3_B214
+      BPL     EnemyBehavior_Wart_SetXVelocity
 
-      LDA     #$08
+      LDA     #$08 ; right movement
 
-loc_BANK3_B214:
+EnemyBehavior_Wart_SetXVelocity:
       STA     ObjectXVelocity,X
 
-loc_BANK3_B216:
+EnemyBehavior_Wart_PhysicsX:
       JSR     ApplyObjectPhysicsX
 
       LDA     EnemyArray_45C,X
@@ -9658,21 +9665,26 @@ loc_BANK3_B216:
       AND     #$0F
       BNE     EnemyBehavior_Wart_Exit
 
+      ; try to create a new enemy for the bubble
       JSR     CreateEnemy
 
       BMI     EnemyBehavior_Wart_Exit
 
       LDA     #SoundEffect1_HawkOpen_WartBarf
       STA     SoundEffectQueue1
+      ; determines how high to spit the bubble
       LDA     EnemyArray_480,X
       AND     #$03
       TAY
+      ; determines how far to spit the bubble?
       LDA     EnemyTimer,X
+
+      ; set up the bubble
       LDX     byte_RAM_0
       LSR     A
       EOR     #$FF
       STA     ObjectXVelocity,X
-      LDA     byte_BANK3_B1DB,Y
+      LDA     WartBubbleYVelocity,Y
       STA     ObjectYVelocity,X
       LDA     #Enemy_WartBubble
       STA     ObjectType,X
@@ -9689,8 +9701,9 @@ EnemyBehavior_Wart_Exit:
 
 EnemyBehavior_Wart_Death:
       LDA     EnemyTimer,X
-      BEQ     loc_BANK3_B269
+      BEQ     EnemyBehavior_Wart_DeathFall
 
+      ; going up
       STA     EnemyArray_45C,X
       INC     EnemyArray_477,X
       INC     EnemyArray_477,X
@@ -9698,23 +9711,24 @@ EnemyBehavior_Wart_Death:
       STA     ObjectYVelocity,X
       BNE     EnemyBehavior_Wart_Death_Exit
 
-loc_BANK3_B269:
+EnemyBehavior_Wart_DeathFall:
       LDA     #$04
       STA     ObjectXVelocity,X
       JSR     ApplyObjectPhysicsX
 
       JSR     ApplyObjectPhysicsY
 
+      ; every other frame
       LDA     byte_RAM_10
       LSR     A
-      BCS     loc_BANK3_B295
+      BCS     EnemyBehavior_Wart_CheckDeathComplete
 
       INC     ObjectYVelocity,X
-      BMI     loc_BANK3_B295
+      BMI     EnemyBehavior_Wart_CheckDeathComplete
 
       LDA     byte_RAM_10
       AND     #$1F
-      BNE     loc_BANK3_B295
+      BNE     EnemyBehavior_Wart_CheckDeathComplete
 
       LDA     #DPCM_BossDeath
       STA     DPCMQueue
@@ -9726,7 +9740,7 @@ loc_BANK3_B269:
       STA     ObjectYLo,X
       JSR     TurnIntoPuffOfSmoke
 
-loc_BANK3_B295:
+EnemyBehavior_Wart_CheckDeathComplete:
       LDA     ObjectYLo,X
       CMP     #$D0
       BCC     EnemyBehavior_Wart_Death_Exit
@@ -9747,12 +9761,9 @@ EnemyBehavior_WartBubble:
       INC     ObjectYVelocity,X
       JMP     RenderSprite
 
-; ---------------------------------------------------------------------------
-
-locret_BANK3_B2AF:
+EnemyBehavior_WartBubble_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
 
 RenderSprite_Wart:
 IFDEF COMPATIBILITY
@@ -9779,46 +9790,47 @@ IFNDEF COMPATIBILITY
 ENDIF
 
       LDA     byte_RAM_EF
-      BNE     locret_BANK3_B2AF
+      BNE     EnemyBehavior_WartBubble_Exit
 
       LDY     EnemyHP,X
-      BNE     loc_BANK3_B2D3
+      BNE     RenderSprite_Wart_AfterObjAttrib
 
-      LDA     #$4E
+      ; he dead
+      LDA     #ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_16x32|ObjAttrib_Palette2
       STA     ObjectAttributes,X
 
-loc_BANK3_B2D3:
+RenderSprite_Wart_AfterObjAttrib:
       LDA     byte_RAM_EE
       PHA
       PHA
-      LDY     #$AE
-      LDA     EnemyArray_B1,X
-      BNE     loc_BANK3_B2EC
+      LDY     #$AE ; top row: shocked
+      LDA     EnemyArray_B1,X ; death counter
+      BNE     RenderSprite_Wart_TopHurt
 
-      LDA     EnemyArray_45C,X
-      BEQ     loc_BANK3_B2EF
+      LDA     EnemyArray_45C,X ; enemy timer
+      BEQ     RenderSprite_Wart_TopRegular
 
       CMP     #$30
-      BCS     loc_BANK3_B2EC
+      BCS     RenderSprite_Wart_TopHurt
 
       AND     #$08
-      BNE     loc_BANK3_B2EC
+      BNE     RenderSprite_Wart_TopHurt
 
-      LDY     #$9E
+      LDY     #$9E ; top row: blinking
 
-loc_BANK3_B2EC:
+RenderSprite_Wart_TopHurt:
       TYA
-      BNE     loc_BANK3_B2F7
+      BNE     RenderSprite_Wart_DrawTop
 
-loc_BANK3_B2EF:
-      LDA     #$9E
+RenderSprite_Wart_TopRegular:
+      LDA     #$9E ; top row: regular
       LDY     EnemyTimer,X
-      BEQ     loc_BANK3_B2F7
+      BEQ     RenderSprite_Wart_DrawTop
 
-      LDA     #$A2
+      LDA     #$A2 ; top row: spitting
 
-loc_BANK3_B2F7:
-      JSR     sub_BANK2_9BB3
+RenderSprite_Wart_DrawTop:
+      JSR     RenderSprite_DrawObject
 
       LDA     byte_RAM_0
       STA     SpriteTempScreenY
@@ -9832,33 +9844,33 @@ IFNDEF COMPATIBILITY
    NOP ; Alignment fix
 ENDIF
 
-      LDY     #$A6
+      LDY     #$A6 ; middle row: regular
       LDA     EnemyArray_B1,X
-      BNE     loc_BANK3_B320
+      BNE     RenderSprite_Wart_MiddleHurt
 
       LDA     EnemyArray_45C,X
-      BEQ     loc_BANK3_B31C
+      BEQ     RenderSprite_Wart_MiddleRegular
 
       CMP     #$30
-      BCS     loc_BANK3_B320
+      BCS     RenderSprite_Wart_MiddleHurt
 
       AND     #$08
-      BNE     loc_BANK3_B320
+      BNE     RenderSprite_Wart_MiddleHurt
 
-      BEQ     loc_BANK3_B322
+      BEQ     RenderSprite_Wart_DrawMiddle
 
-loc_BANK3_B31C:
+RenderSprite_Wart_MiddleRegular:
       LDA     EnemyTimer,X
-      BEQ     loc_BANK3_B322
+      BEQ     RenderSprite_Wart_DrawMiddle
 
-loc_BANK3_B320:
-      LDY     #$AA
+RenderSprite_Wart_MiddleHurt:
+      LDY     #$AA ; middle row: spitting
 
-loc_BANK3_B322:
+RenderSprite_Wart_DrawMiddle:
       PLA
       STA     byte_RAM_EE
       TYA
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDA     byte_RAM_0
       STA     SpriteTempScreenY
@@ -9872,26 +9884,27 @@ IFNDEF COMPATIBILITY
    NOP ; Alignment fix
 ENDIF
 
-      LDY     #$BA
+      LDY     #$BA ; bottom row: standing
       LDA     ObjectXVelocity,X
-      BEQ     loc_BANK3_B347
+      BEQ     RenderSprite_Wart_DrawBottom
 
-      LDY     #$B2
+      LDY     #$B2 ; bottom row: left foot up
       LDA     EnemyArray_477,X
       AND     #$10
-      BEQ     loc_BANK3_B347
+      BEQ     RenderSprite_Wart_DrawBottom
 
-      LDY     #$B6
+      LDY     #$B6 ; bottom row: right foot up
 
-loc_BANK3_B347:
+RenderSprite_Wart_DrawBottom:
       PLA
       STA     byte_RAM_EE
       TYA
-      JSR     sub_BANK2_9BB3
+      JSR     RenderSprite_DrawObject
 
       LDA     byte_RAM_EE
-      BNE     loc_BANK3_B398
+      BNE     RenderSprite_Wart_Exit
 
+      ; draw backside
       LDY     byte_RAM_7
       LDX     byte_RAM_7267,Y
       LDA     unk_RAM_7268,Y
@@ -9899,7 +9912,7 @@ loc_BANK3_B347:
       LDA     SpriteTempScreenX
       CLC
       ADC     #$20
-      BCS     loc_BANK3_B398
+      BCS     RenderSprite_Wart_Exit
 
       STA     SpriteDMAArea+3,Y
       STA     SpriteDMAArea+7,Y
@@ -9915,14 +9928,14 @@ loc_BANK3_B347:
       STA     SpriteDMAArea+2,Y
       STA     SpriteDMAArea+6,Y
       STA     SpriteDMAArea+$A,Y
-      LDA     #$19
+      LDA     #$19 ; top
       STA     SpriteDMAArea+1,Y
-      LDA     #$1B
+      LDA     #$1B ; middle
       STA     SpriteDMAArea+5,Y
-      LDA     #$1D
+      LDA     #$1D ; bottom
       STA     SpriteDMAArea+9,Y
 
-loc_BANK3_B398:
+RenderSprite_Wart_Exit:
       LDX     byte_RAM_12
       RTS
 
