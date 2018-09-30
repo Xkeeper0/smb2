@@ -1058,7 +1058,7 @@ MakeEnemyFlipUpsideDown:
       SEC ; Set carry...
       ROR     ObjectAttributes,X ; Shift right. Effectively sets $80 bit
 
-loc_BANK2_8574:
+RenderSpriteAndApplyObjectMovement:
       JSR     RenderSprite
 
 
@@ -1126,7 +1126,7 @@ loc_BANK2_85AF:
 loc_BANK2_85B2:
       JSR     sub_BANK2_88E8
 
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       LDA     ObjectBeingCarriedTimer,X
       BEQ     loc_BANK2_85C1
@@ -1941,7 +1941,7 @@ loc_BANK2_89E2:
       BCS     loc_BANK2_8A0A
 
 loc_BANK2_89F0:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       LDA     EnemyArray_42F,X
       BEQ     loc_BANK2_89FB
@@ -2150,7 +2150,7 @@ SparkTurnOffset:
 ; axis perpendicular to movement.
 ;
 EnemyBehavior_Spark:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       JSR     IncrementAnimationTimerBy2
 
@@ -2339,7 +2339,7 @@ EnemyBehavior_Fireball:
 
       JSR     sub_BANK2_927A
 
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       JSR     RenderSprite
 
@@ -2396,7 +2396,7 @@ loc_BANK2_8C22:
       STA     EnemyArray_46E,X
       LDA     #$02
       STA     EnemyMovementDirection,X
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       INC     ObjectAnimationTimer,X
       LDA     ObjectAnimationTimer,X
@@ -2561,7 +2561,7 @@ EnemyBehavior_Starman:
 
 loc_BANK2_8D07:
       STY     ObjectXVelocity,X
-      JMP     loc_BANK2_8574
+      JMP     RenderSpriteAndApplyObjectMovement
 
 ; ---------------------------------------------------------------------------
 
@@ -2854,12 +2854,12 @@ byte_BANK2_8E85:
 
 
 EnemyBehavior_Trouter:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       INC     ObjectAnimationTimer,X
-      JSR     sub_BANK2_98D6
+      JSR     EnemyBehavior_Check42FPhysicsInterrupt
 
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       LDA     #$09
       LDY     ObjectYVelocity,X
@@ -2901,14 +2901,14 @@ Enemy_Hoopstar_Attributes:
 
 
 EnemyBehavior_Hoopstar:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       INC     ObjectAnimationTimer,X
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       JSR     RenderSprite
 
-      JSR     sub_BANK2_98D6
+      JSR     EnemyBehavior_Check42FPhysicsInterrupt
 
       LDA     #$00
       STA     ObjectXVelocity,X
@@ -3046,7 +3046,7 @@ ProjectileLaunchXOffsets:
 
 
 EnemyBehavior_Birdo:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       JSR     ObjectTileCollision
 
@@ -3409,7 +3409,7 @@ loc_BANK2_9122:
       STA     ObjectAttributes,X
 
 EnemyBehavior_Vegetable:
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       JSR     ApplyObjectMovement
 
@@ -3427,7 +3427,7 @@ loc_BANK2_913E:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_SubspacePotion:
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       JSR     ObjectTileCollision
 
@@ -3652,7 +3652,7 @@ loc_BANK2_926E:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_9271:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
 loc_BANK2_9274:
       JMP     ApplyObjectPhysicsX
@@ -3681,15 +3681,15 @@ EnemyBehavior_BulletAndEgg:
       JSR     ObjectTileCollision
 
 sub_BANK2_9289:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       LDA     EnemyArray_B1,X
       ORA     EnemyArray_42F,X
       BEQ     loc_BANK2_9299
 
-      JMP     loc_BANK2_8574
+      JMP     RenderSpriteAndApplyObjectMovement
 
 ; ---------------------------------------------------------------------------
 
@@ -4006,17 +4006,17 @@ EnemyBehavior_Ninji_MidAir:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Beezo:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       JSR     RenderSprite
 
       INC     ObjectAnimationTimer,X
-      JSR     sub_BANK2_98D6
+      JSR     EnemyBehavior_Check42FPhysicsInterrupt
 
       JSR     IncrementAnimationTimerBy2
 
 loc_BANK2_941D:
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       LDA     ObjectYVelocity,X
       BEQ     loc_BANK2_9436
@@ -4102,7 +4102,7 @@ EnemyBehavior_BasicWalker:
       JSR     ObjectTileCollision
 
 loc_BANK2_9470:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       LDA     EnemyArray_480,X
       BEQ     loc_BANK2_9492
@@ -4149,7 +4149,7 @@ loc_BANK2_9492:
 
 loc_BANK2_94A6:
       INC     ObjectAnimationTimer,X
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
 loc_BANK2_94AB:
       JSR     RenderSprite
@@ -5026,7 +5026,7 @@ ShellSpeed:
 EnemyBehavior_Shell:
       JSR     ObjectTileCollision
 
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Right|CollisionFlags_Left
@@ -5071,7 +5071,7 @@ locret_BANK2_98CC:
 ;
 ; Intercepts the normal enemy behavior when the object is being carried
 ;
-EnemyBehavior_CheckBeingCarriedTimer:
+EnemyBehavior_CheckBeingCarriedTimerInterrupt:
       LDA     ObjectBeingCarriedTimer,X
       BEQ     locret_BANK2_98CC
 
@@ -5088,15 +5088,14 @@ EnemyBehavior_CheckBeingCarriedTimer:
 ; Input
 ;   X = enemy index
 ;
-sub_BANK2_98D6:
+EnemyBehavior_Check42FPhysicsInterrupt:
       LDA     EnemyArray_42F,X
       BEQ     locret_BANK2_98EA
 
       PLA
       PLA
-      JMP     loc_BANK2_8574
+      JMP     RenderSpriteAndApplyObjectMovement
 
-; ---------------------------------------------------------------------------
 
 EnemyInit_FallingLogs:
       JSR     EnemyInit_Stationary
@@ -5108,7 +5107,7 @@ EnemyInit_FallingLogs:
 locret_BANK2_98EA:
       RTS
 
-; End of function sub_BANK2_98D6
+
 
 ; ---------------------------------------------------------------------------
 
@@ -5256,55 +5255,55 @@ DestroyOnscreenEnemies_Next:
 ; Input
 ;   X = enemy index
 ;
-EnemyBehavior_CheckDamaged:
+EnemyBehavior_CheckDamagedInterrupt:
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Damage
-      BEQ     EnemyBehavior_CheckDamaged_Exit
+      BEQ     EnemyBehavior_CheckDamagedInterrupt_Exit
 
       LDA     ObjectBeingCarriedTimer,X
-      BEQ     EnemyBehavior_CheckDamaged_SoundEffect
+      BEQ     EnemyBehavior_CheckDamagedInterrupt_SoundEffect
 
       ; remove the item from the player's hands
       LDA     #$00
       STA     HoldingItem
 
-EnemyBehavior_CheckDamaged_SoundEffect:
+EnemyBehavior_CheckDamagedInterrupt_SoundEffect:
       LDY     ObjectType,X
       ; is this enemy a squawker?
       LDA     EnemyArray_46E_Data,Y
       AND     #%00001000
       ASL     A ; then A = DPCM_BossDeath
-      BNE     EnemyBehavior_CheckDamaged_BossDeathSound
+      BNE     EnemyBehavior_CheckDamagedInterrupt_BossDeathSound
 
       ; normal enemy hit sound
       LDA     DPCMQueue
-      BNE     EnemyBehavior_CheckDamaged_CheckPidgit
+      BNE     EnemyBehavior_CheckDamagedInterrupt_CheckPidgit
 
       LDA     #SoundEffect1_EnemyHit
       STA     SoundEffectQueue1
-      BNE     EnemyBehavior_CheckDamaged_CheckPidgit
+      BNE     EnemyBehavior_CheckDamagedInterrupt_CheckPidgit
 
-EnemyBehavior_CheckDamaged_BossDeathSound:
+EnemyBehavior_CheckDamagedInterrupt_BossDeathSound:
       STA     DPCMQueue
 
-EnemyBehavior_CheckDamaged_CheckPidgit:
+EnemyBehavior_CheckDamagedInterrupt_CheckPidgit:
       ; killing pidgit leaves a flying carpet behind
       CPY     #Enemy_Pidgit
-      BNE     EnemyBehavior_CheckDamaged_SetDead
+      BNE     EnemyBehavior_CheckDamagedInterrupt_SetDead
 
       LDA     EnemyArray_42F,X
-      BNE     EnemyBehavior_CheckDamaged_SetDead
+      BNE     EnemyBehavior_CheckDamagedInterrupt_SetDead
 
       JSR     CreateFlyingCarpet
 
-EnemyBehavior_CheckDamaged_SetDead:
+EnemyBehavior_CheckDamagedInterrupt_SetDead:
       LDA     #EnemyState_Dead
       STA     EnemyState,X
       ; interrupt the previous subroutine
       PLA
       PLA
 
-EnemyBehavior_CheckDamaged_Exit:
+EnemyBehavior_CheckDamagedInterrupt_Exit:
       RTS
 
 
@@ -5577,6 +5576,14 @@ RenderSprite_Albatoss:
 
 ; =============== S U B R O U T I N E =======================================
 
+;
+; Renders a sprite for an object based on the enemy animation table lookup
+;
+; There are a lot of special cases basd on ObjectType
+;
+; Input
+;   X = enemy index
+;
 RenderSprite:
       LDY     ObjectType,X
       LDA     EnemyAnimationTable,Y
@@ -5712,6 +5719,10 @@ RenderSprite_NotRocket:
 ;
 ; Draws an object to the screen
 ;
+; Input
+;   A = tile index
+;   X = enemy index
+;
 RenderSprite_DrawObject:
       STA     byte_RAM_F
       LDA     byte_RAM_EF
@@ -5772,7 +5783,7 @@ loc_BANK2_9C07:
       ASL     A
       LDA     ObjectAnimationTimer,X
       LDX     byte_RAM_F
-      AND     #$08 ; maybe a bitfield?
+      AND     #$08
       BEQ     loc_BANK2_9C31
 
       BCC     loc_BANK2_9C1F
@@ -6457,7 +6468,7 @@ EnemyBehavior_Clawgrip:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A13B:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       LDA     ObjectYLo,X
       CMP     #$70
@@ -6788,9 +6799,9 @@ loc_BANK3_A2E1:
 EnemyBehavior_ClawgripRock:
       LDA     #$00
       STA     EnemyArray_45C,X
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       JSR     ApplyObjectPhysicsX
 
@@ -7134,7 +7145,7 @@ unk_BANK3_A48B:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Pidgit:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       INC     ObjectAnimationTimer,X
       LDA     EnemyArray_42F,X
@@ -7150,7 +7161,7 @@ EnemyBehavior_Pidgit:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A4A3:
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       LDA     EnemyArray_B1,X
       BEQ     loc_BANK3_A4C1
@@ -7322,7 +7333,7 @@ EnemyInit_Mouser_SetHP:
 ; EnemyArray_B1 = counter used for movement direction and non-throw pauses
 ;
 EnemyBehavior_Mouser:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       LDA     EnemyArray_45C,X
       BEQ     EnemyBehavior_Mouser_Active
@@ -7582,9 +7593,9 @@ loc_BANK3_A6BD:
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A6DB:
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
 loc_BANK3_A6E1:
       JSR     ObjectTileCollision
@@ -7707,7 +7718,7 @@ locret_BANK3_A75C:
 ; EnemyArray_480 = counter used to determine bottom head position
 ;
 EnemyBehavior_Tryclyde:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       LDY     #$00
       LDA     EnemyArray_477,X
@@ -7990,19 +8001,30 @@ EnemyInit_Cobrats:
       STA     EnemyVariable,X
       RTS
 
-; ---------------------------------------------------------------------------
 
+;
+; Cobrat (Ground)
+; ===============
+;
+; Bobs up and down until the player gets close, then jumps up, chases, and shoots bullets
+;
+; EnemyVariable = target y-position
+; EnemyArray_480 = flag that gets enabled when the player gets close
+; EnemyArray_477 = counter used to determine bobbing direction
+; ObjectAnimationTimer = counter used to determine how quickly Cobrat turns
+; EnemyArray_453 = counter used to determine when to fire a bullet
+;
 EnemyBehavior_CobratGround:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
-      JSR     sub_BANK2_98D6
+      JSR     EnemyBehavior_Check42FPhysicsInterrupt
 
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       JSR     ObjectTileCollision
 
       LDA     EnemyArray_480,X
-      BNE     loc_BANK3_A93E
+      BNE     EnemyBehavior_CobratGround_Jump
 
       STA     ObjectXVelocity,X
       JSR     EnemyFindWhichSidePlayerIsOn
@@ -8010,160 +8032,165 @@ EnemyBehavior_CobratGround:
       LDA     byte_RAM_F
       ADC     #$40
       CMP     #$80
-      BCS     loc_BANK3_A924
+      BCS     EnemyBehavior_CobratGround_Bob
 
       INC     EnemyArray_480,X
       LDA     #$C0
       STA     ObjectYVelocity,X
-      BNE     loc_BANK3_A93E
+      BNE     EnemyBehavior_CobratGround_Jump
 
-loc_BANK3_A924:
+EnemyBehavior_CobratGround_Bob:
       INC     EnemyArray_477,X
       LDY     #$FC
       LDA     EnemyArray_477,X
       AND     #$20
-      BEQ     loc_BANK3_A932
+      BEQ     EnemyBehavior_CobratGround_BobMovement
 
       LDY     #$04
 
-loc_BANK3_A932:
+EnemyBehavior_CobratGround_BobMovement:
       STY     ObjectYVelocity,X
       JSR     ApplyObjectPhysicsY
 
-      LDA     #$61
+      LDA     #ObjAttrib_16x32|ObjAttrib_BehindBackground|ObjAttrib_Palette1
       STA     ObjectAttributes,X
       JMP     RenderSprite
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_A93E:
+EnemyBehavior_CobratGround_Jump:
       LDA     ObjectYVelocity,X
-      BMI     loc_BANK3_A951
+      BMI     EnemyBehavior_CobratGround_Movement
 
       LDA     EnemyVariable,X
       SEC
       SBC     #$18
       CMP     ObjectYLo,X
-      BCS     loc_BANK3_A951
+      BCS     EnemyBehavior_CobratGround_Movement
 
       STA     ObjectYLo,X
       LDA     #$00
       STA     ObjectYVelocity,X
 
-loc_BANK3_A951:
+EnemyBehavior_CobratGround_Movement:
       JSR     ApplyObjectMovement
 
       INC     ObjectAnimationTimer,X
       LDA     ObjectAnimationTimer,X
       PHA
       AND     #$3F
-      BNE     loc_BANK3_A960
+      BNE     EnemyBehavior_CobratGround_AfterBasicMovement
 
       JSR     EnemyInit_BasicMovementTowardPlayer
 
-loc_BANK3_A960:
+EnemyBehavior_CobratGround_AfterBasicMovement:
       PLA
-      BNE     loc_BANK3_A968
+      BNE     EnemyBehavior_CobratGround_CheckCollision
 
       LDA     #$18
       STA     EnemyArray_453,X
 
-loc_BANK3_A968:
+EnemyBehavior_CobratGround_CheckCollision:
       LDA     EnemyCollision,X
       AND     #$03
-      BEQ     loc_BANK3_A971
+      BEQ     EnemyBehavior_CobratGround_SetAttributes
 
       JSR     EnemyBehavior_TurnAround
 
-loc_BANK3_A971:
-      LDA     #$41
+EnemyBehavior_CobratGround_SetAttributes:
+      LDA     #ObjAttrib_16x32|ObjAttrib_Palette1
       LDY     ObjectYVelocity,X
-      BPL     loc_BANK3_A979
+      BPL     EnemyBehavior_CobratGround_Shoot
 
-      LDA     #$61
+      LDA     #ObjAttrib_16x32|ObjAttrib_BehindBackground|ObjAttrib_Palette1
 
-loc_BANK3_A979:
-      JMP     loc_BANK3_A9FE
+EnemyBehavior_CobratGround_Shoot:
+      JMP     EnemyBehavior_CobratJar_Shoot
 
-; ---------------------------------------------------------------------------
 
+;
+; Cobrat (Jar)
+; ============
+;
+; Bobs up and down, then occasionally jumps up to shoot a bullet at the player
+;
+; EnemyVariable = target y-position
+; EnemyArray_B1 = flag that gets set when the Cobrat jumps
+; byte_RAM_10 = counter used to determine when to jump and fire
+; EnemyArray_453 = counter used to determine when to fire a bullet
+;
 EnemyBehavior_CobratJar:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
-      JSR     sub_BANK2_98D6
+      JSR     EnemyBehavior_Check42FPhysicsInterrupt
 
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       JSR     ObjectTileCollision
 
       LDA     EnemyCollision,X
-      AND     #$08
-      BEQ     loc_BANK3_A993
+      AND     #CollisionFlags_Up
+      BEQ     EnemyBehavior_CobratJar_Uncorked
 
+EnemyBehavior_CobratJar_Corked:
       LDA     EnemyVariable,X
       STA     ObjectYLo,X
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_A993:
+EnemyBehavior_CobratJar_Uncorked:
       JSR     EnemyFindWhichSidePlayerIsOn
 
       INY
       STY     EnemyMovementDirection,X
+
       LDA     EnemyArray_B1,X
-      BNE     loc_BANK3_A9BC
+      BNE     EnemyBehavior_CobratJar_Jump
 
       LDA     EnemyTimer,X
-      BNE     loc_BANK3_A9AA
+      BNE     EnemyBehavior_CobratJar_Bob
 
       LDA     #$D0
       STA     ObjectYVelocity,X
       INC     EnemyArray_B1,X
-      JMP     loc_BANK3_A9F9
+      JMP     EnemyBehavior_CobratJar_Movement
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_A9AA:
+EnemyBehavior_CobratJar_Bob:
       LDY     #$FC
       LDA     byte_RAM_10
       AND     #$20
-      BEQ     loc_BANK3_A9B4
+      BEQ     EnemyBehavior_CobratJar_BobMovement
 
       LDY     #$04
 
-loc_BANK3_A9B4:
+EnemyBehavior_CobratJar_BobMovement:
       STY     ObjectYVelocity,X
       JSR     ApplyObjectPhysicsY
 
-      JMP     loc_BANK3_A9FC
+      JMP     EnemyBehavior_CobratJar_SetAttributes
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_A9BC:
+EnemyBehavior_CobratJar_Jump:
       INC     ObjectAnimationTimer,X
       LDA     ObjectYVelocity,X
-      BMI     loc_BANK3_A9F9
+      BMI     EnemyBehavior_CobratJar_Movement
 
-      BNE     loc_BANK3_A9C9
+      BNE     EnemyBehavior_CobratJar_CheckLanding
 
       LDA     #$10
       STA     EnemyArray_453,X
 
-loc_BANK3_A9C9:
+EnemyBehavior_CobratJar_CheckLanding:
       LDA     ObjectYVelocity,X
-      BMI     loc_BANK3_A9E9
+      BMI     EnemyBehavior_CobratJar_CheckReset
 
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Down
-      BEQ     loc_BANK3_A9E9
+      BEQ     EnemyBehavior_CobratJar_CheckReset
 
       LDA     byte_RAM_E
       SEC
       SBC     #$6F
       CMP     #$06
-      BCC     loc_BANK3_A9E9
+      BCC     EnemyBehavior_CobratJar_CheckReset
 
+EnemyBehavior_CobratJar_Blocked:
       LDA     #EnemyState_Dead
       STA     EnemyState,X
       LDA     #$E0
@@ -8171,10 +8198,10 @@ loc_BANK3_A9C9:
       LDA     #DPCM_BossHurt
       STA     DPCMQueue
 
-loc_BANK3_A9E9:
+EnemyBehavior_CobratJar_CheckReset:
       LDA     EnemyVariable,X
       CMP     ObjectYLo,X
-      BCS     loc_BANK3_A9F9
+      BCS     EnemyBehavior_CobratJar_Movement
 
       STA     ObjectYLo,X
       LDA     #$00
@@ -8182,32 +8209,29 @@ loc_BANK3_A9E9:
       LDA     #$A0
       STA     EnemyTimer,X
 
-loc_BANK3_A9F9:
+EnemyBehavior_CobratJar_Movement:
       JSR     ApplyObjectMovement_Vertical
 
-loc_BANK3_A9FC:
-      LDA     #$61
+EnemyBehavior_CobratJar_SetAttributes:
+      LDA     #ObjAttrib_16x32|ObjAttrib_BehindBackground|ObjAttrib_Palette1
 
-loc_BANK3_A9FE:
+EnemyBehavior_CobratJar_Shoot:
       STA     ObjectAttributes,X
       LDA     EnemyArray_453,X
-      BEQ     loc_BANK3_AA11
+      BEQ     EnemyBehavior_CobratJar_Render
 
       CMP     #$05
-      BNE     loc_BANK3_AA0C
+      BNE     EnemyBehavior_CobratJar_RenderShot
 
       JSR     CreateBullet
 
-loc_BANK3_AA0C:
-      LDA     #$64
+EnemyBehavior_CobratJar_RenderShot:
+      LDA     #$64 ; firing bullet
       JMP     RenderSprite_DrawObject
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_AA11:
+EnemyBehavior_CobratJar_Render:
       JMP     RenderSprite
 
-; ---------------------------------------------------------------------------
 
 EnemyInit_Pokey:
       JSR     EnemyInit_Basic
@@ -8228,11 +8252,11 @@ EnemyBehavior_Pokey:
       LDA     EnemyVariable,X
       BNE     loc_BANK3_AA2D
 
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
-      JSR     sub_BANK2_98D6
+      JSR     EnemyBehavior_Check42FPhysicsInterrupt
 
 loc_BANK3_AA2D:
       LDA     EnemyCollision,X
@@ -8900,7 +8924,7 @@ EnemyBehavior_Autobomb:
       LDX     byte_RAM_12
 
 loc_BANK3_ADF9:
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
       JSR     ObjectTileCollision
 
@@ -9213,9 +9237,9 @@ byte_BANK3_AF76:
 
 EnemyBehavior_Flurry:
       INC     ObjectAnimationTimer,X
-      JSR     EnemyBehavior_CheckDamaged
+      JSR     EnemyBehavior_CheckDamagedInterrupt
 
-      JSR     EnemyBehavior_CheckBeingCarriedTimer
+      JSR     EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
       JSR     ObjectTileCollision
 
@@ -10060,6 +10084,8 @@ ObjectTileCollision:
 ; Input
 ;   A = whether or not to tread walk-through tiles as solid
 ;   X = enemy index
+; Output
+;  EnemyCollision,X = collision flags
 ;
 ObjectTileCollision_Main:
       STA     byte_RAM_7
