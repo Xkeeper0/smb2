@@ -1972,10 +1972,10 @@ HandlePlayerState_Climbing:
       CPY     #$02
       BNE     loc_BANK0_8ADF
 
-      JSR     sub_BANK0_8B19
+      JSR     PlayerClimbAnimation
 
 loc_BANK0_8ADF:
-      LDA     byte_BANKF_F225,Y
+      LDA     ClimbSpeed,Y
       STA     PlayerYVelocity
       LDA     Player1JoypadHeld
       AND     #ControllerInput_Right|ControllerInput_Left
@@ -2019,12 +2019,14 @@ loc_BANK0_8B14:
       STA     PlayerState
       RTS
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_8B19:
+;
+; Does climbing animation and sound
+;
+PlayerClimbAnimation:
       LDA     byte_RAM_10
       AND     #$07
-      BNE     locret_BANK0_8B2A
+      BNE     PlayerClimbAnimation_Exit
 
       LDA     PlayerDirection
       EOR     #$01
@@ -2032,10 +2034,8 @@ sub_BANK0_8B19:
       LDA     #SoundEffect2_Climbing
       STA     SoundEffectQueue2
 
-locret_BANK0_8B2A:
+PlayerClimbAnimation_Exit:
       RTS
-
-; End of function sub_BANK0_8B19
 
 
 ClimbableTiles:
@@ -2178,7 +2178,7 @@ loc_BANK0_8BBD:
       TYA
       BEQ     loc_BANK0_8BC3
 
-      JSR     sub_BANK0_8B19
+      JSR     PlayerClimbAnimation
 
 loc_BANK0_8BC3:
       JMP     sub_BANK0_8EA4

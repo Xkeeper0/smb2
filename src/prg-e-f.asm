@@ -3587,14 +3587,18 @@ PlayerHealthValueByHeartCount:
 ; Max hearts = (hearts - 2), value is 0,$01,2
 ; This table determines what the player's HP is set to
 
-byte_BANKF_F225:
+ClimbSpeed:
       .BYTE $00
-
-byte_BANKF_F226:
+ClimbSpeedDown:
       .BYTE $20
-
-byte_BANKF_F227:
+ClimbSpeedUp:
       .BYTE $F0
+; Bug: The climb speed index is determined by checking the up/down flags in
+; Player1JoypadHeld. If both are enabled, the index it out of bounds and uses
+; the LDA ($A5) below, which zips the player up the vine!
+IFDEF FIX_CLIMB_ZIP
+      .BYTE $00
+ENDIF
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3620,6 +3624,7 @@ sub_BANKF_F228:
 
       BMI     loc_BANKF_F254
 
+      ; bottomless pit
       LDA     #$00
       STA     PlayerStateTimer
       JMP     KillPlayer
@@ -3684,7 +3689,7 @@ loc_BANKF_F298:
       CMP     #$02
       BEQ     locret_BANKF_F297
 
-      LDA     byte_BANKF_F227
+      LDA     ClimbSpeedUp
       LDY     PlayerYHi
       BMI     loc_BANKF_F2BB
 
@@ -3695,7 +3700,7 @@ loc_BANKF_F298:
       LSR     PlayerYLo
       SEC
       ROL     PlayerYLo
-      LDA     byte_BANKF_F226
+      LDA     ClimbSpeedDown
 
 loc_BANKF_F2BB:
       STA     PlayerYVelocity

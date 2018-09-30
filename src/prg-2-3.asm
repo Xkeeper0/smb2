@@ -2797,9 +2797,9 @@ loc_BANK2_8E56:
 
 loc_BANK2_8E58:
       STY     byte_RAM_F4
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
 loc_BANK2_8E60:
       LDX     byte_RAM_12
@@ -2975,7 +2975,7 @@ RenderSprite_Heart:
       LDA     byte_RAM_EE
       AND     #$08
       ORA     byte_RAM_EF
-      BNE     locret_BANK2_8F4E
+      BNE     RenderSprite_Heart_Exit
 
       ; This part of the code seems to only run
       ; if the graph we're trying to draw is
@@ -2994,7 +2994,7 @@ RenderSprite_Heart:
       ORA     #$01
       STA     SpriteDMAArea+2,Y
 
-locret_BANK2_8F4E:
+RenderSprite_Heart_Exit:
       RTS
 
 
@@ -5807,13 +5807,13 @@ loc_BANK2_9C31:
       BNE     loc_BANK2_9C53
 
       LDA     byte_RAM_1
-      ADC     #$F
+      ADC     #$0F
       STA     byte_RAM_1
       ASL     byte_RAM_EE
       ASL     byte_RAM_EE
 
 loc_BANK2_9C53:
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
       LDA     byte_RAM_5
       AND     #$04
@@ -5830,13 +5830,13 @@ loc_BANK2_9C53:
       BEQ     loc_BANK2_9C7A
 
       LDA     byte_RAM_1
-      ADC     #$F
+      ADC     #$0F
       STA     byte_RAM_1
       ASL     byte_RAM_EE
       ASL     byte_RAM_EE
 
 loc_BANK2_9C7A:
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
       LDY     byte_RAM_F4
       LDA     byte_RAM_5
@@ -5904,35 +5904,50 @@ locret_BANK2_9CF1:
       RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Set tiles for an object
-sub_BANK2_9CF2:
+;
+; Sets tiles for an object
+;
+; Input
+;   X = tilemap offset
+;   Y = sprite slot offset
+;   byte_RAM_0 = screen y-offset
+;   byte_RAM_1 = screen x-offset
+;   byte_RAM_2 = sprite direction: $00 for left, $02 for right
+;   byte_RAM_B = use EnemyTilemap2
+;   byte_RAM_C = use 24x16 mode when set to $20
+;   byte_RAM_EE = used for horizontal clipping/wrapping
+; Output
+;   X = next tilemap offset
+;   Y = next sprite slot offset
+;
+SetSpriteTiles:
       LDA     byte_RAM_C
       AND     #$20
-      BNE     loc_BANK2_9D6D
+      BNE     SetSpriteTiles_24x16
 
       LDA     byte_RAM_B
-      BNE     loc_BANK2_9D0A
+      BNE     SetSpriteTiles_Tilemap2
 
+SetSpriteTiles_Tilemap1:
       LDA     EnemyTilemap1,X
       STA     SpriteDMAArea+1,Y
       LDA     EnemyTilemap1+1,X
       STA     SpriteDMAArea+5,Y
-      BNE     loc_BANK2_9D16
+      BNE     SetSpriteTiles_CheckDirection
 
-loc_BANK2_9D0A:
+SetSpriteTiles_Tilemap2:
       LDA     EnemyTilemap2,X
       STA     SpriteDMAArea+1,Y
       LDA     EnemyTilemap2+1,X
       STA     SpriteDMAArea+5,Y
 
-loc_BANK2_9D16:
+SetSpriteTiles_CheckDirection:
       LDA     byte_RAM_2
       LSR     A
       LDA     #$00
-      BCC     loc_BANK2_9D2D
+      BCC     SetSpriteTiles_Left
 
+SetSpriteTiles_Right:
       LDA     SpriteDMAArea+1,Y
       PHA
       LDA     SpriteDMAArea+5,Y
@@ -5941,13 +5956,14 @@ loc_BANK2_9D16:
       STA     SpriteDMAArea+5,Y
       LDA     #$40
 
-loc_BANK2_9D2D:
+SetSpriteTiles_Left:
       ORA     byte_RAM_3
       STA     SpriteDMAArea+2,Y
       STA     SpriteDMAArea+6,Y
       LDA     #$F8
       STA     SpriteDMAArea,Y
       STA     SpriteDMAArea+4,Y
+
       LDA     byte_RAM_EE
       AND     #$08
       BNE     loc_BANK2_9D48
@@ -5981,20 +5997,20 @@ loc_BANK2_9D53:
       INX
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9D6D:
+SetSpriteTiles_24x16:
       LDA     EnemyTilemap2,X
       STA     SpriteDMAArea+1,Y
       LDA     EnemyTilemap2+1,X
       STA     SpriteDMAArea+5,Y
       LDA     EnemyTilemap2+2,X
       STA     SpriteDMAArea+9,Y
+
       LDA     byte_RAM_2
       LSR     A
       LDA     #$00
-      BCC     loc_BANK2_9D96
+      BCC     SetSpriteTiles_24x16_Left
 
+SetSpriteTiles_24x16_Right:
       LDA     SpriteDMAArea+1,Y
       PHA
       LDA     SpriteDMAArea+9,Y
@@ -6003,7 +6019,7 @@ loc_BANK2_9D6D:
       STA     SpriteDMAArea+9,Y
       LDA     #$40
 
-loc_BANK2_9D96:
+SetSpriteTiles_24x16_Left:
       ORA     byte_RAM_3
       STA     SpriteDMAArea+2,Y
       STA     SpriteDMAArea+6,Y
@@ -6012,6 +6028,7 @@ loc_BANK2_9D96:
       STA     SpriteDMAArea,Y
       STA     SpriteDMAArea+4,Y
       STA     SpriteDMAArea+8,Y
+
       LDA     byte_RAM_EE
       AND     #$08
       BNE     loc_BANK2_9DB7
@@ -6060,37 +6077,35 @@ loc_BANK2_9DCD:
 loc_BANK2_9DF0:
       INX
       INX
-
-loc_BANK2_9DF2:
       INX
 
-locret_BANK2_9DF3:
       RTS
 
-; End of function sub_BANK2_9CF2
 
-; ---------------------------------------------------------------------------
+UNUSED_PorcupoOffset:
       .BYTE $04
       .BYTE $00
+PorcupoOffsetXRight:
       .BYTE $FF
       .BYTE $FF
       .BYTE $00
       .BYTE $00
+PorcupoOffsetXLeft:
+      .BYTE $01
+      .BYTE $01
+      .BYTE $00
+      .BYTE $00
+PorcupoOffsetYRight:
+      .BYTE $01
+      .BYTE $00
+      .BYTE $00
+      .BYTE $01
+PorcupoOffsetYLeft:
+      .BYTE $01
+      .BYTE $00
+      .BYTE $00
+      .BYTE $01
 
-byte_BANK2_9DFA:
-      .BYTE $01
-      .BYTE $01
-      .BYTE $00
-      .BYTE $00
-      .BYTE $01
-      .BYTE $00
-      .BYTE $00
-      .BYTE $01
-      .BYTE $01
-      .BYTE $00
-      .BYTE $00
-      .BYTE $01
-; ---------------------------------------------------------------------------
 
 RenderSprite_Porcupo:
       JSR     RenderSprite_NotAlbatoss
@@ -6106,7 +6121,7 @@ RenderSprite_Porcupo:
       STA     byte_RAM_0
       LDA     EnemyMovementDirection,X
       TAX
-      LDA     locret_BANK2_9DF3,X
+      LDA     PorcupoOffsetXRight-3,X
       ADC     byte_RAM_F4
       TAY
       TXA
@@ -6115,10 +6130,10 @@ RenderSprite_Porcupo:
       ADC     byte_RAM_0
       TAX
       LDA     SpriteDMAArea,Y
-      ADC     byte_BANK2_9DFA,X
+      ADC     PorcupoOffsetYRight-4,X
       STA     SpriteDMAArea,Y
       LDA     SpriteDMAArea+3,Y
-      ADC     loc_BANK2_9DF2,X
+      ADC     PorcupoOffsetXRight-4,X
       STA     SpriteDMAArea+3,Y
       LDX     byte_RAM_12
 
@@ -6862,14 +6877,13 @@ loc_BANK3_A354:
 loc_BANK3_A362:
       JMP     RenderSprite_NotAlbatoss
 
-; ---------------------------------------------------------------------------
-byte_BANK3_A365:
-      .BYTE $00
 
+FlyingCarpetSpeed:
+      .BYTE $00
       .BYTE $15
       .BYTE $EB
       .BYTE $00
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_FlyingCarpet:
       JSR     sub_BANK3_B4FD
@@ -6954,7 +6968,7 @@ ENDIF
 
       BNE     loc_BANK3_A3E6
 
-      LDA     byte_BANK3_A365,Y
+      LDA     FlyingCarpetSpeed,Y
       CMP     ObjectXVelocity,X
       BEQ     loc_BANK3_A3E3
 
@@ -7009,7 +7023,7 @@ loc_BANK3_A417:
       BEQ     loc_BANK3_A428
 
 loc_BANK3_A41B:
-      LDA     byte_BANK3_A365,Y
+      LDA     FlyingCarpetSpeed,Y
       CMP     ObjectYVelocity,X
       BEQ     loc_BANK3_A42A
 
@@ -7065,13 +7079,14 @@ CreateFlyingCarpet:
       STA     ObjectXHi,X
       LDA     ObjectYLo,Y
       CLC
-      ADC     #$E
+      ADC     #$0E
       STA     ObjectYLo,X
       LDA     ObjectYHi,Y
       ADC     #$00
       STA     ObjectYHi,X
       JSR     SetEnemyAttributes
 
+      ; life of carpet
       LDA     #$A0
       STA     EnemyArray_B1,X
 
@@ -7455,10 +7470,10 @@ loc_BANK3_A648:
       LDA     #%00110011
       STA     EnemyArray_46E,X
 
-locret_BANK3_A651:
       RTS
 
 ; ---------------------------------------------------------------------------
+byte_BANK3_A652:
       .BYTE $FB
       .BYTE $05
 ; ---------------------------------------------------------------------------
@@ -7479,12 +7494,12 @@ RenderSprite_Ostro:
       LDY     EnemyMovementDirection,X
       LDA     byte_RAM_1
       CLC
-      ADC     locret_BANK3_A651,Y
+      ADC     byte_BANK3_A652-1,Y
       STA     byte_RAM_1
       JSR     loc_BANKF_FAFE
 
       LDX     #$3C
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
       LDX     byte_RAM_12
 
@@ -7754,7 +7769,7 @@ loc_BANK3_A7C8:
       LDA     #$20
       STA     byte_RAM_C
       LDY     #$E0
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
       LDX     byte_RAM_12
       LDA     ObjectXLo,X
@@ -7795,7 +7810,7 @@ loc_BANK3_A7C8:
 
 loc_BANK3_A815:
       LDY     #$00
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
       LDX     byte_RAM_12
       LDA     ObjectYLo,X
@@ -7830,7 +7845,7 @@ loc_BANK3_A815:
 
 loc_BANK3_A84C:
       LDY     #$08
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
       LDX     byte_RAM_12
       LDA     #%00010011
@@ -8315,7 +8330,7 @@ RenderSprite_Pokey_Segments:
       ADC     PokeyWiggleOffset+1,X
       STA     byte_RAM_1
       LDX     #$70
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
       DEC     byte_RAM_9
       BEQ     RenderSprite_Pokey_Exit
@@ -8328,7 +8343,7 @@ RenderSprite_Pokey_Segments:
       ADC     PokeyWiggleOffset+2,X
       STA     byte_RAM_1
       LDX     #$70
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
       DEC     byte_RAM_9
       BEQ     RenderSprite_Pokey_Exit
@@ -8339,7 +8354,7 @@ RenderSprite_Pokey_Segments:
       ADC     PokeyWiggleOffset+3,X
       STA     byte_RAM_1
       LDX     #$70
-      JSR     sub_BANK2_9CF2
+      JSR     SetSpriteTiles
 
 RenderSprite_Pokey_Exit:
       LDX     byte_RAM_12
