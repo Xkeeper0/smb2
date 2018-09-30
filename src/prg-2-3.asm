@@ -817,6 +817,12 @@ EnemyInitializationTable:
       .WORD EnemyInit_CrystalBallStarmanStopwatch ; Stopwatch
 
 
+;
+; Sets enemy attributes to the default for the object type
+;
+; Input
+;   X = enemy index
+;
 SetEnemyAttributes:
       LDY     ObjectType,X
       LDA     ObjectAttributeTable,Y
@@ -5717,7 +5723,7 @@ RenderSprite_DrawObject:
       STA     byte_RAM_B
       LDY     EnemyMovementDirection,X
       LDA     ObjectAttributes,X
-      AND     #ObjAttrib_Palette0|ObjAttrib_FrontFacing|ObjAttrib_Mirrored
+      AND     #ObjAttrib_FrontFacing|ObjAttrib_Mirrored
       BEQ     loc_BANK2_9BD2
 
       LDY     #$02
@@ -5748,7 +5754,7 @@ loc_BANK2_9BEF:
       ADC     SpriteTempScreenX
       STA     byte_RAM_1
       LDA     ObjectAttributes,X
-      AND     #$A3
+      AND     #ObjAttrib_UpsideDown|ObjAttrib_BehindBackground|ObjAttrib_Palette
       LDY     EnemyArray_45C,X
       BEQ     loc_BANK2_9C07
 
@@ -5852,54 +5858,54 @@ loc_BANK2_9C7A:
       BEQ     loc_BANK2_9CBD
 
       LDX     byte_RAM_D
-      LDA     SpriteDMAArea,X
+      LDA     SpriteDMAArea+$00,X
       PHA
-      LDA     SpriteDMAArea,Y
-      STA     SpriteDMAArea,X
+      LDA     SpriteDMAArea+$00,Y
+      STA     SpriteDMAArea+$00,X
       PLA
 
 loc_BANK2_9C9C:
-      STA     SpriteDMAArea,Y
-      LDA     SpriteDMAArea+4,X
+      STA     SpriteDMAArea+$00,Y
+      LDA     SpriteDMAArea+$04,X
       PHA
-      LDA     SpriteDMAArea+4,Y
-      STA     SpriteDMAArea+4,X
+      LDA     SpriteDMAArea+$04,Y
+      STA     SpriteDMAArea+$04,X
       PLA
-      STA     SpriteDMAArea+4,Y
-      LDA     SpriteDMAArea+8,X
+      STA     SpriteDMAArea+$04,Y
+      LDA     SpriteDMAArea+$08,X
       PHA
-      LDA     SpriteDMAArea+8,Y
-      STA     SpriteDMAArea+8,X
+      LDA     SpriteDMAArea+$08,Y
+      STA     SpriteDMAArea+$08,X
       PLA
-      STA     SpriteDMAArea+8,Y
+      STA     SpriteDMAArea+$08,Y
       BCS     loc_BANK2_9CD9
 
 loc_BANK2_9CBD:
       LDA     SpriteDMAArea,Y
       PHA
-      LDA     SpriteDMAArea+8,Y
-      STA     SpriteDMAArea,Y
+      LDA     SpriteDMAArea+$08,Y
+      STA     SpriteDMAArea+$00,Y
       PLA
-      STA     SpriteDMAArea+8,Y
-      LDA     SpriteDMAArea+4,Y
+      STA     SpriteDMAArea+$08,Y
+      LDA     SpriteDMAArea+$04,Y
       PHA
-      LDA     SpriteDMAArea+$C,Y
-      STA     SpriteDMAArea+4,Y
+      LDA     SpriteDMAArea+$0C,Y
+      STA     SpriteDMAArea+$04,Y
       PLA
-      STA     SpriteDMAArea+$C,Y
+      STA     SpriteDMAArea+$0C,Y
 
 loc_BANK2_9CD9:
       LDX     byte_RAM_12
       LDA     ObjectAttributes,X
-      AND     #$10
+      AND     #ObjAttrib_Mirrored
       BEQ     locret_BANK2_9CF1
 
       LDA     byte_RAM_3
-      STA     SpriteDMAArea+2,Y
-      STA     SpriteDMAArea+$A,Y
+      STA     SpriteDMAArea+$02,Y
+      STA     SpriteDMAArea+$0A,Y
       ORA     #$40
-      STA     SpriteDMAArea+6,Y
-      STA     SpriteDMAArea+$E,Y
+      STA     SpriteDMAArea+$06,Y
+      STA     SpriteDMAArea+$0E,Y
 
 locret_BANK2_9CF1:
       RTS
@@ -7638,7 +7644,7 @@ EnemyInit_Tryclyde:
       JMP     EnemyInit_Birdo_Exit
 
 
-byte_BANK3_A734:
+TryclydeHeadPosition:
       .BYTE $00
       .BYTE $FF
       .BYTE $FE
@@ -7656,7 +7662,7 @@ byte_BANK3_A734:
       .BYTE $FE
       .BYTE $FF
 
-unk_BANK3_A744:
+TryclydeFireYVelocity:
       .BYTE $0B
       .BYTE $0C
       .BYTE $0D
@@ -7670,7 +7676,7 @@ unk_BANK3_A744:
       .BYTE $1F
       .BYTE $20
 
-unk_BANK3_A750:
+TryclydeFireXVelocity:
       .BYTE $E2
       .BYTE $E2
       .BYTE $E2
@@ -7688,23 +7694,33 @@ unk_BANK3_A750:
 locret_BANK3_A75C:
       RTS
 
-; ---------------------------------------------------------------------------
 
+;
+; Tryclyde
+; ========
+;
+; Drifts back and forth slightly, spits fire
+;
+; EnemyArray_477 = counter used to determine movement direction and top head position
+; EnemyArray_B1 = counter used to determine whether or not the bottom head should move
+; EnemyArray_45C = used to determine whether Tryclyde is taking damage
+; EnemyArray_480 = counter used to determine bottom head position
+;
 EnemyBehavior_Tryclyde:
       JSR     EnemyBehavior_CheckDamaged
 
       LDY     #$00
       LDA     EnemyArray_477,X
       ASL     A
-      BCC     loc_BANK3_A76F
+      BCC     EnemyBehavior_Tryclyde_PhysicsX
 
       LDY     #$02
       ASL     A
-      BCC     loc_BANK3_A76F
+      BCC     EnemyBehavior_Tryclyde_PhysicsX
 
       LDY     #$FE
 
-loc_BANK3_A76F:
+EnemyBehavior_Tryclyde_PhysicsX:
       STY     ObjectXVelocity,X
       JSR     ApplyObjectPhysicsX
 
@@ -7721,19 +7737,19 @@ RenderSprite_Tryclyde:
       LDA     byte_RAM_EF
       BNE     locret_BANK3_A75C
 
-      LDA     #$49
+      LDA     #ObjAttrib_16x32|ObjAttrib_FrontFacing|ObjAttrib_Palette1
       STA     ObjectAttributes,X
-      LDY     #$48
+      LDY     #$48 ; static head regular
       LDA     EnemyState,X
       SEC
       SBC     #$01
       ORA     EnemyArray_45C,X
       STA     byte_RAM_7
-      BEQ     loc_BANK3_A79B
+      BEQ     RenderSprite_Tryclyde_DrawBody
 
-      LDY     #$4C
+      LDY     #$4C ; static head hurt
 
-loc_BANK3_A79B:
+RenderSprite_Tryclyde_DrawBody:
       TYA
       LDY     #$30
 IFDEF COMPATIBILITY
@@ -7757,18 +7773,19 @@ ENDIF
       STA     ObjectXLo,X
       JSR     sub_BANK2_8894
 
-      LDX     #$50
+      LDX     #$50 ; tail up
       LDA     byte_RAM_10
       AND     #$20
-      BNE     loc_BANK3_A7C8
+      BNE     RenderSprite_Tryclyde_DrawTail
 
       LDA     #$04
       AND     byte_RAM_10
-      BEQ     loc_BANK3_A7C8
+      BEQ     RenderSprite_Tryclyde_DrawTail
 
-      LDX     #$53
+      LDX     #$53 ; tail down
 
-loc_BANK3_A7C8:
+RenderSprite_Tryclyde_DrawTail:
+      ; tail
       LDA     byte_RAM_1
       SEC
       SBC     #$08
@@ -7778,6 +7795,7 @@ loc_BANK3_A7C8:
       LDY     #$E0
       JSR     SetSpriteTiles
 
+      ; top head
       LDX     byte_RAM_12
       LDA     ObjectXLo,X
       SEC
@@ -7797,13 +7815,13 @@ loc_BANK3_A7C8:
       LSR     A
       LSR     A
       TAY
-      LDA     byte_BANK3_A734,Y
+      LDA     TryclydeHeadPosition,Y
       ADC     SpriteTempScreenX
       ADC     #$F0
       STA     byte_RAM_1
       LDX     #$56
       LDA     byte_RAM_7
-      BNE     loc_BANK3_A815
+      BNE     RenderSprite_Tryclyde_DrawTopHead
 
       LDX     #$58
       DEY
@@ -7811,14 +7829,15 @@ loc_BANK3_A7C8:
       DEY
       DEY
       CPY     #$07
-      BCS     loc_BANK3_A815
+      BCS     RenderSprite_Tryclyde_DrawTopHead
 
       LDX     #$5A
 
-loc_BANK3_A815:
+RenderSprite_Tryclyde_DrawTopHead:
       LDY     #$00
       JSR     SetSpriteTiles
 
+      ; bottom head
       LDX     byte_RAM_12
       LDA     ObjectYLo,X
       CLC
@@ -7830,7 +7849,7 @@ loc_BANK3_A815:
       LSR     A
       LSR     A
       TAY
-      LDA     byte_BANK3_A734,Y
+      LDA     TryclydeHeadPosition,Y
       ADC     SpriteTempScreenX
       ADC     #$F0
       STA     byte_RAM_1
@@ -7838,7 +7857,7 @@ loc_BANK3_A815:
       STA     byte_RAM_C
       LDX     #$56
       LDA     byte_RAM_7
-      BNE     loc_BANK3_A84C
+      BNE     RenderSprite_Tryclyde_DrawBottomHead
 
       LDX     #$58
       DEY
@@ -7846,11 +7865,11 @@ loc_BANK3_A815:
       DEY
       DEY
       CPY     #$07
-      BCS     loc_BANK3_A84C
+      BCS     RenderSprite_Tryclyde_DrawBottomHead
 
       LDX     #$5A
 
-loc_BANK3_A84C:
+RenderSprite_Tryclyde_DrawBottomHead:
       LDY     #$08
       JSR     SetSpriteTiles
 
@@ -7858,22 +7877,25 @@ loc_BANK3_A84C:
       LDA     #%00010011
       STA     EnemyArray_46E,X
       LDA     byte_RAM_EE
-      BNE     loc_BANK3_A88B
+      BNE     EnemyBehavior_Tryclyde_SpitFireballs
 
+RenderSprite_Tryclyde_DrawBottomNeck:
       LDA     ObjectYLo,X
       CLC
       ADC     #$10
       STA     SpriteDMAArea+$58
-      LDA     #$D
+      LDA     #$0D ; neck sprite
       STA     SpriteDMAArea+$59
-      STA     SpriteDMAArea+$5D
+      STA     SpriteDMAArea+$5D ; bottom neck
       LDA     SpriteDMAArea+$32
       STA     SpriteDMAArea+$5A
-      STA     SpriteDMAArea+$5E
+      STA     SpriteDMAArea+$5E ; bottom neck
       LDA     byte_RAM_1
       CLC
       ADC     #$10
       STA     SpriteDMAArea+$5B
+
+RenderSprite_Tryclyde_DrawTopNeck:
       LDA     ObjectYLo,X
       STA     SpriteDMAArea+$5C
       LDA     SpriteTempScreenX
@@ -7881,28 +7903,26 @@ loc_BANK3_A84C:
       SBC     #$08
       STA     SpriteDMAArea+$5F
 
-loc_BANK3_A88B:
+EnemyBehavior_Tryclyde_SpitFireballs:
       LDA     #$00
       STA     byte_RAM_5
       LDA     EnemyArray_477,X
-      JSR     sub_BANK3_A89A
+      JSR     EnemyBehavior_Tryclyde_SpitFireball
 
       INC     byte_RAM_5
       LDA     EnemyArray_480,X
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK3_A89A:
+EnemyBehavior_Tryclyde_SpitFireball:
       AND     #$67
       CMP     #$40
-      BNE     locret_BANK3_A8F1
+      BNE     RenderSprite_Tryclyde_Exit
 
       LDA     EnemyArray_45C,X
-      BNE     locret_BANK3_A8F1
+      BNE     RenderSprite_Tryclyde_Exit
 
       JSR     CreateEnemy
 
-      BMI     locret_BANK3_A8F1
+      BMI     RenderSprite_Tryclyde_Exit
 
       LDA     #SoundEffect1_BirdoShot
       STA     SoundEffectQueue1
@@ -7915,49 +7935,51 @@ sub_BANK3_A89A:
       SBC     #$18
       STA     ObjectXLo,Y
       LDA     byte_RAM_5
-      BEQ     loc_BANK3_A8CF
+      BEQ     EnemyBehavior_Tryclyde_GetFireAngle
 
       LDA     ObjectYLo,X
       CLC
       ADC     #$10
       STA     ObjectYLo,Y
 
-loc_BANK3_A8CF:
+EnemyBehavior_Tryclyde_GetFireAngle:
+      ; angle the fireball based on the player's position
       LDA     PlayerXLo
       LSR     A
       LSR     A
       LSR     A
       LSR     A
-      AND     #$F
-      CMP     #$B
-      BCC     loc_BANK3_A8DD
+      AND     #$0F
+      CMP     #$0B
+      BCC     EnemyBehavior_Tryclyde_SetFireVelocity
 
-      LDA     #$B
+      LDA     #$0B
 
-loc_BANK3_A8DD:
+EnemyBehavior_Tryclyde_SetFireVelocity:
       TAX ; These may be fireball speed pointers
-      LDA     unk_BANK3_A744,X
+      LDA     TryclydeFireYVelocity,X
       STA     ObjectYVelocity,Y
-      LDA     unk_BANK3_A750,X
+      LDA     TryclydeFireXVelocity,X
       STA     ObjectXVelocity,Y
 
-; End of function sub_BANK3_A89A
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK3_A8EA:
+;
+; Sets enemy attributes to defaults, restores X, and exits
+;
+; Input
+;   Y = enemy index
+; Output
+;   X = enemy index
+;
+RenderSprite_Tryclyde_ResetAttributes:
       TYA
       TAX
       JSR     SetEnemyAttributes
 
       LDX     byte_RAM_12
 
-locret_BANK3_A8F1:
+RenderSprite_Tryclyde_Exit:
       RTS
 
-; End of function sub_BANK3_A8EA
-
-; ---------------------------------------------------------------------------
 
 EnemyInit_Cobrats:
       JSR     EnemyInit_Basic
@@ -8250,7 +8272,7 @@ sub_BANK3_AA3E:
       LDY     byte_RAM_0
       LDA     #Enemy_Pokey
       STA     ObjectType,Y
-      JSR     sub_BANK3_A8EA
+      JSR     RenderSprite_Tryclyde_ResetAttributes
 
       LDY     byte_RAM_0
       LDA     byte_RAM_6
