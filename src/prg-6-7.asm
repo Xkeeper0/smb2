@@ -890,11 +890,11 @@ CreateWorldSpecificTile:
       BCC     CreateWorldSpecificTile_3Xthru9X
 
 CreateWorldSpecificTile_AXthruFX:
-      LDA     byte_RAM_543
+      LDA     ObjectTypeAXthruFX
       JMP     CreateWorldSpecificTile_ApplyObjectType
 
 CreateWorldSpecificTile_3Xthru9X:
-      LDA     byte_RAM_542
+      LDA     ObjectType3Xthru9X
 
 CreateWorldSpecificTile_ApplyObjectType:
       CLC
@@ -1131,7 +1131,7 @@ CreateObject_SingleBlock:
       BNE     CreateObject_SingleBlock_NotWorld6Custom
 
       ; world 6 + custom object type?
-      LDA     byte_RAM_543
+      LDA     ObjectTypeAXthruFX
       BEQ     CreateObject_SingleBlock_NotWorld6Custom
 
       INX
@@ -2732,7 +2732,7 @@ ApplyPalette:
       JSR     ReadWorldBackgroundColor
 
       ; Something PPU-related. If it's not right, the colors are very wrong.
-      STA     byte_RAM_4BC
+      STA     SkyColor
       LDA     #$3F
       STA     PPUBuffer_301
       LDA     #$00
@@ -2781,7 +2781,7 @@ ApplyPalette_PlayerLoop:
       LDX     #$03
       LDY     #$10
 ApplyPalette_SkyLoop:
-      LDA     byte_RAM_4BC
+      LDA     SkyColor
       STA     PPUBuffer_301+3,Y
       INY
       INY
@@ -2938,9 +2938,9 @@ ClearSubAreaTileLayout_Loop:
       STA     byte_RAM_540
       STY     byte_RAM_E6
       STY     byte_RAM_E5
-      STY     byte_RAM_55E
+      STY     GroundType
       LDY     #$03
-      STY     byte_RAM_541
+      STY     GroundSetting
       LDY     #$04
       JSR     loc_BANK6_972D
 
@@ -2948,12 +2948,12 @@ ClearSubAreaTileLayout_Loop:
       LDY     #$02
       LDA     (byte_RAM_5),Y
       AND     #%00000011
-      STA     byte_RAM_542
+      STA     ObjectType3Xthru9X
       LDA     (byte_RAM_5),Y
       LSR     A
       LSR     A
       AND     #%00000011
-      STA     byte_RAM_543
+      STA     ObjectTypeAXthruFX
       JSR     HijackLevelDataCopyAddressWithJar
 
       LDA     #$A
@@ -3059,7 +3059,7 @@ LoadCurrentArea:
       LDA     (byte_RAM_5),Y
       LSR     A
       AND     #%00011100
-      STA     byte_RAM_55E
+      STA     GroundType
       JSR     RestoreLevelDataCopyAddress
 
       ; horizontal or vertical level
@@ -3081,17 +3081,17 @@ LoadCurrentArea:
       LSR     A
       LSR     A
       LSR     A
-      STA     byte_RAM_53F
+      STA     CurrentLevelPages
 
       ; object type
       LDA     (byte_RAM_5),Y
       AND     #%00000011
-      STA     byte_RAM_542
+      STA     ObjectType3Xthru9X
       LDA     (byte_RAM_5),Y
       LSR     A
       LSR     A
       AND     #%00000011
-      STA     byte_RAM_543
+      STA     ObjectTypeAXthruFX
       DEY
 
       ; ground type
@@ -3102,7 +3102,7 @@ LoadCurrentArea:
       BEQ     LoadCurrentArea_StartLevelData
 
       ; store ground type
-      STA     byte_RAM_541
+      STA     GroundSetting
 
       ; read first object
       INY
@@ -3543,7 +3543,7 @@ loc_BANK6_971B:
       AND     #$F
       ASL     A
       ASL     A
-      STA     byte_RAM_55E
+      STA     GroundType
       RTS
 
 ; =============== S U B R O U T I N E =======================================
@@ -3690,7 +3690,7 @@ loc_BANK6_97C5:
       INY
       LDA     (byte_RAM_5),Y
       AND     #$1F
-      STA     byte_RAM_541
+      STA     GroundSetting
       JMP     loc_BANK6_9770
 
 ; End of function sub_BANK6_9728
@@ -3718,7 +3718,7 @@ ReadGroundSetByte_Exit:
 
 LoadGroundSetData:
       STY     byte_RAM_4
-      LDA     byte_RAM_541
+      LDA     GroundSetting
       ASL     A
       ASL     A
       TAX
@@ -3782,7 +3782,7 @@ WriteGroundSetTiles4:
       BEQ     WriteGroundSetTiles_AfterWriteTile
 
       CLC
-      ADC     byte_RAM_55E
+      ADC     GroundType
       TAX
       LDA     IsHorizontalLevel
       BNE     WriteGroundSetTiles_Horizontal

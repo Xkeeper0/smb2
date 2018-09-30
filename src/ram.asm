@@ -1,5 +1,5 @@
-
 ; .segment RAM
+
 byte_RAM_0:
       .dsb 1 ; $0000
 byte_RAM_1:
@@ -40,6 +40,7 @@ byte_RAM_12:
       .dsb 1 ; $0012
 byte_RAM_13:
       .dsb 1 ; $0013
+
 PlayerXHi:
       .dsb 1 ; $0014
 ObjectXHi:
@@ -52,6 +53,7 @@ ObjectXHi:
       .dsb 1 ; 6                ; $001b
       .dsb 1 ; 7                ; $001c
       .dsb 1 ; 8                ; $001d
+
 PlayerYHi:
       .dsb 1 ; $001e
 ObjectYHi:
@@ -64,6 +66,7 @@ ObjectYHi:
       .dsb 1 ; 6                ; $0025
       .dsb 1 ; 7                ; $0026
       .dsb 1 ; 8                ; $0027
+
 PlayerXLo:
       .dsb 1 ; $0028
 ObjectXLo:
@@ -76,6 +79,7 @@ ObjectXLo:
       .dsb 1 ; 6                ; $002f
       .dsb 1 ; 7                ; $0030
       .dsb 1 ; 8                ; $0031
+
 PlayerYLo:
       .dsb 1 ; $0032
 ObjectYLo:
@@ -88,6 +92,7 @@ ObjectYLo:
       .dsb 1 ; 6                ; $0039
       .dsb 1 ; 7                ; $003a
       .dsb 1 ; 8                ; $003b
+
 PlayerXVelocity:
       .dsb 1 ; $003c
 ObjectXVelocity:
@@ -100,6 +105,7 @@ ObjectXVelocity:
       .dsb 1 ; 6                ; $0043
       .dsb 1 ; 7                ; $0044
       .dsb 1 ; 8                ; $0045
+
 PlayerYVelocity:
       .dsb 1 ; $0046
 ObjectYVelocity:
@@ -112,6 +118,7 @@ ObjectYVelocity:
       .dsb 1 ; 6                ; $004d
       .dsb 1 ; 7                ; $004e
       .dsb 1 ; 8                ; $004f
+
 ;
 ; Player and Object States
 ; ========================
@@ -130,7 +137,6 @@ ObjectYVelocity:
 ; $09+ Crash?
 ; $27 @TODO object-related?
 ;
-
 PlayerState:
       .dsb 1 ; $0050
 EnemyState:
@@ -143,6 +149,7 @@ EnemyState:
       .dsb 1 ; 6                ; $0057
       .dsb 1 ; 7                ; $0058
       .dsb 1 ; 8                ; $0059
+
 PlayerCollision: ; see CollisionFlags enum for bit definitions
       .dsb 1 ; $005a
 EnemyCollision:
@@ -155,6 +162,7 @@ EnemyCollision:
       .dsb 1 ; 6                ; $0061
       .dsb 1 ; 7                ; $0062
       .dsb 1 ; 8                ; $0063
+
 PlayerAttributes:
       .dsb 1 ; $0064
 ObjectAttributes:
@@ -167,9 +175,10 @@ ObjectAttributes:
       .dsb 1 ; 6                ; $006b
       .dsb 1 ; 7                ; $006c
       .dsb 1 ; 8                ; $006d
+
+; $02 if moving left, $01 otherwise?
 PlayerMovementDirection:
       .dsb 1 ; $006e
-      ; $02 if moving left, $01 otherwise?
 EnemyMovementDirection:
       .dsb 1 ; $006f
       .dsb 1 ; 1                ; $0070
@@ -180,19 +189,31 @@ EnemyMovementDirection:
       .dsb 1 ; 6                ; $0075
       .dsb 1 ; 7                ; $0076
       .dsb 1 ; 8                ; $0077
-      .dsb 1 ; Where the player "variable" would be, if used(?) ; $0078
+
+; FOR RENT
+      .dsb 1 ; $0078
+; This is set on entering subspace, depending
+; on which particular mushroom is on the screen
+; (used to determine if it should show up
+; and also which mushroom it marks as collected)
+;
+; This also seems to determine a few other things:
+; - Tweeter jumps
+; - Falling log height
+; - Birdo subtype
+; etc.
+;
 EnemyVariable:
       .dsb 1 ; DATA XREF: BANK0:9082w ; $0079
-      .dsb 1 ; 1 ; This is set on entering subspace, depending ; $007a
-      .dsb 1 ; 2 ; on which particular mushroom is on the screen ; $007b
-      .dsb 1 ; 3 ; (used to determine if it should show up ; $007c
-      .dsb 1 ; 4 ; and also which mushroom it marks as collected) ; $007d
-      .dsb 1 ; 5 ;              ; $007e
-      .dsb 1 ; 6 ; This also seems to determine a few other things: ; $007f
-      .dsb 1 ; 7 ; - Tweeter jumps ; $0080
-      .dsb 1 ; 8 ; - Falling log height ; $0081
-      ; - Birdo subtype
-      ; etc.
+      .dsb 1 ; 1 ; $007a
+      .dsb 1 ; 2 ; $007b
+      .dsb 1 ; 3 ; $007c
+      .dsb 1 ; 4 ; $007d
+      .dsb 1 ; 5 ; $007e
+      .dsb 1 ; 6 ; $007f
+      .dsb 1 ; 7 ; $0080
+      .dsb 1 ; 8 ; $0081
+
 PlayerStateTimer:
       .dsb 1 ; $0082
 FreeSubconsTimer:
@@ -212,12 +233,12 @@ EnemyTimer:
       .dsb 1 ; 7                ; $008d
 FreeSubconsCorkCounter:
       .dsb 1 ; $008e
+; $00 Mario
+; $01 Princess
+; $02 Toad
+; $03 Luigi
 CurrentCharacter:
       .dsb 1 ; $008f
-      ; $00 Mario
-      ; $01 Princess
-      ; $02 Toad
-      ; $03 Luigi
 ObjectType:
       .dsb 1 ; $0090
       .dsb 1 ; 1                ; $0091
@@ -240,6 +261,7 @@ HoldingItem:
 ; $00 = left, $01 = right
 PlayerDirection:
       .dsb 1 ; $009d
+; FOR RENT
 byte_RAM_9E:
       .dsb 1 ; $009e
 ObjectAnimationTimer:
@@ -252,6 +274,7 @@ ObjectAnimationTimer:
       .dsb 1 ; 6                ; $00a5
       .dsb 1 ; 7                ; $00a6
       .dsb 1 ; 8                ; $00a7
+
 ; Set to 7 when lifting, then stays at 1
 ; Note that this doesn't seem to actually
 ; make you carry an item, it just THINKS
@@ -266,6 +289,7 @@ ObjectBeingCarriedTimer:
       .dsb 1 ; $00ae
       .dsb 1 ; $00af
       .dsb 1 ; $00b0
+
 EnemyArray_B1:
       .dsb 1 ; $00b1
       .dsb 1 ; $00b2
@@ -276,6 +300,7 @@ EnemyArray_B1:
       .dsb 1 ; $00b7
       .dsb 1 ; $00b8
       .dsb 1 ; $00b9
+
 ; PlayerXCameraOffset?
 byte_RAM_BA:
       .dsb 1 ; $00ba
@@ -300,7 +325,9 @@ UNINITIALIZED_MusicSquare2Lo: ; ???
       .dsb 1 ; $00c3
 SoundEffectTimer2:
       .dsb 1 ; $00c4
+; FOR RENT
       .dsb 1 ; $00c5
+; FOR RENT
       .dsb 1 ; $00c6
 PlayerAnimationFrame:
       .dsb 1 ; $00c7
@@ -310,12 +337,13 @@ byte_RAM_C8:
 ; related to x-mirroring
 byte_RAM_C9:
       .dsb 1 ; $00c9
+; Not sure about this, but seems to be that way
 ScreenYHi:
       .dsb 1 ; $00ca
-      ; Not sure about this, but seems to be that way
+; Not sure about this either
 ScreenYLo:
       .dsb 1 ; $00cb
-      ; Not sure about this either
+
 RawEnemyData:
       .dsb 1 ; $00cc
       .dsb 1 ; $00cd
@@ -339,11 +367,12 @@ byte_RAM_D6:
       .dsb 1 ; $00d6
 byte_RAM_D7:
       .dsb 1 ; $00d7
+
+; @TODO understand better
+; $01 = scroll up, $02 = scroll down
+; (vertical areas only..?)
 NeedVerticalScroll:
       .dsb 1 ; $00d8
-      ; @TODO understand better
-      ; $01 = scroll up, $02 = scroll down
-      ; (vertical areas only..?)
 EnemyArray_D9:
       .dsb 1 ; $00d9
       .dsb 1 ; 1                ; $00da
@@ -383,13 +412,13 @@ byte_RAM_EE:
       .dsb 1 ; $00ee
 byte_RAM_EF:
       .dsb 1 ; $00ef
+; Set this to the location of PPU data to be drawn
+; to the screen (somehow).
+;
+; Common value of $0301, which is where minor
+; PPU updates are stored in memory.
 RAM_PPUDataBufferPointer:
       .dsb 2 ; $00f0
-      ; Set this to the location of PPU data to be drawn
-      ; to the screen (somehow).
-      ;
-      ; Common value of $0301, which is where minor
-      ; PPU updates are stored in memory.
 byte_RAM_F2:
       .dsb 1 ; $00f2
 byte_RAM_F3:
@@ -933,41 +962,23 @@ byte_RAM_300:
       .dsb 1 ; $0300
 PPUBuffer_301:
       .dsb 1 ; $0301
-byte_RAM_302:
       .dsb 1 ; $0302
-byte_RAM_303:
       .dsb 1 ; $0303
-byte_RAM_304:
       .dsb 1 ; $0304
-byte_RAM_305:
       .dsb 1 ; $0305
-byte_RAM_306:
       .dsb 1 ; $0306
-byte_RAM_307:
       .dsb 1 ; $0307
-byte_RAM_308:
       .dsb 1 ; $0308
-byte_RAM_309:
       .dsb 1 ; $0309
-byte_RAM_30A:
       .dsb 1 ; $030a
-byte_RAM_30B:
       .dsb 1 ; $030b
-byte_RAM_30C:
       .dsb 1 ; $030c
-byte_RAM_30D:
       .dsb 1 ; $030d
-byte_RAM_30E:
       .dsb 1 ; $030e
-byte_RAM_30F:
       .dsb 1 ; $030f
-byte_RAM_310:
       .dsb 1 ; $0310
-byte_RAM_311:
       .dsb 1 ; $0311
-byte_RAM_312:
       .dsb 1 ; $0312
-byte_RAM_313:
       .dsb 1 ; $0313
 unk_RAM_314: ; related to color swapping
       .dsb 1 ; $0314
@@ -1217,14 +1228,22 @@ unk_RAM_3BE:
       .dsb 1 ; $03ff
 SpriteFlickerSlot:
       .dsb 1 ; $0400
+
+; FOR RENT
       .dsb 1 ; $0401
+; FOR RENT
       .dsb 1 ; $0402
+; FOR RENT
       .dsb 1 ; $0403
-byte_RAM_404:
+; unused? written but never read
+PreviousCharacter:
       .dsb 1 ; $0404
-byte_RAM_405:
+; unused? written but never read
+PreviousWorld:
       .dsb 1 ; $0405
+; FOR RENT
       .dsb 1 ; $0406
+
 PlayerXSubpixel:
       .dsb 1 ; $0407
 ObjectXSubpixel:
@@ -1237,6 +1256,7 @@ ObjectXSubpixel:
       .dsb 1 ; $040e
       .dsb 1 ; $040f
       .dsb 1 ; $0410
+
 PlayerYSubpixel:
       .dsb 1 ; $0411
 ObjectYSubpixel:
@@ -1249,6 +1269,7 @@ ObjectYSubpixel:
       .dsb 1 ; $0418
       .dsb 1 ; $0419
       .dsb 1 ; $041a
+
 PlayerLock:
       .dsb 1 ; $041b
 ObjectLock:
@@ -1261,6 +1282,7 @@ ObjectLock:
       .dsb 1 ; $0422
       .dsb 1 ; $0423
       .dsb 1 ; $0424
+
 ; $00 = none, $01 = up, $02 = down
 VerticalScrollDirection:
       .dsb 1 ; $0425
@@ -1280,7 +1302,8 @@ SpriteTempScreenY:
       .dsb 1 ; $042c
 ObjectBeingCarriedIndex:
       .dsb 1 ; $042d
-unk_RAM_42E:
+
+; FOR RENT
       .dsb 1 ; $042e
 ; stun timer?
 EnemyArray_42F:
@@ -1292,7 +1315,8 @@ EnemyArray_42F:
       .dsb 1 ; $0434
       .dsb 1 ; $0435
       .dsb 1 ; $0436
-unk_RAM_437:
+
+; FOR RENT
       .dsb 1 ; $0437
 EnemyArray_438:
       .dsb 1 ; $0438
@@ -1303,6 +1327,8 @@ EnemyArray_438:
       .dsb 1 ; $043d
       .dsb 1 ; $043e
       .dsb 1 ; $043f
+
+; FOR RENT
       .dsb 1 ; $0440
 ; Despawn offset
 unk_RAM_441:
@@ -1311,10 +1337,11 @@ unk_RAM_441:
       .dsb 1 ; $0443
       .dsb 1 ; $0444
       .dsb 1 ; $0445
-byte_RAM_446:
       .dsb 1 ; $0446
       .dsb 1 ; $0447
       .dsb 1 ; $0448
+
+; FOR RENT
       .dsb 1 ; $0449
 ObjectShakeTimer:
       .dsb 1 ; $044a
@@ -1325,7 +1352,8 @@ ObjectShakeTimer:
       .dsb 1 ; $044f
       .dsb 1 ; $0450
       .dsb 1 ; $0451
-unk_RAM_452:
+
+; FOR RENT
       .dsb 1 ; $0452
 EnemyArray_453:
       .dsb 1 ; $0453
@@ -1336,7 +1364,8 @@ EnemyArray_453:
       .dsb 1 ; $0458
       .dsb 1 ; $0459
       .dsb 1 ; $045a
-unk_RAM_45B:
+
+; FOR RENT
       .dsb 1 ; $045b
 ; Flashing timer
 EnemyArray_45C:
@@ -1348,7 +1377,8 @@ EnemyArray_45C:
       .dsb 1 ; $0461
       .dsb 1 ; $0462
       .dsb 1 ; $0463
-unk_RAM_464:
+
+; FOR RENT
       .dsb 1 ; $0464
 EnemyHP:
       .dsb 1 ; $00 ; $0465
@@ -1359,6 +1389,7 @@ EnemyHP:
       .dsb 1 ; $046a
       .dsb 1 ; $046b
       .dsb 1 ; $046c
+
 unk_RAM_46D:
       .dsb 1 ; $046d
 EnemyArray_46E:
@@ -1370,6 +1401,8 @@ EnemyArray_46E:
       .dsb 1 ; $0473
       .dsb 1 ; $0474
       .dsb 1 ; $0475
+
+; FOR RENT
       .dsb 1 ; $0476
 EnemyArray_477:
       .dsb 1 ; $0477
@@ -1380,6 +1413,8 @@ EnemyArray_477:
       .dsb 1 ; $047c
       .dsb 1 ; $047d
       .dsb 1 ; $047e
+
+; FOR RENT
       .dsb 1 ; $047f
 EnemyArray_480:
       .dsb 1 ; $0480
@@ -1389,9 +1424,9 @@ EnemyArray_480:
       .dsb 1 ; $0484
       .dsb 1 ; $0485
       .dsb 1 ; $0486
-unk_RAM_487: ; unused?
       .dsb 1 ; $0487
-unk_RAM_488: ; unused?
+
+; FOR RENT
       .dsb 1 ; $0488
 EnemyArray_489:
       .dsb 1 ; $0489
@@ -1402,6 +1437,7 @@ EnemyArray_489:
       .dsb 1 ; $048e
       .dsb 1 ; $048f
       .dsb 1 ; $0490
+
 unk_RAM_491:
       .dsb 1 ; $0491
 EnemyArray_492:
@@ -1413,6 +1449,8 @@ EnemyArray_492:
       .dsb 1 ; $0497
       .dsb 1 ; $0498
       .dsb 1 ; $0499
+
+; FOR RENT
       .dsb 1 ; $049a
 unk_RAM_49B:
       .dsb 1 ; $049b
@@ -1423,6 +1461,8 @@ unk_RAM_49B:
       .dsb 1 ; $04a0
       .dsb 1 ; $04a1
       .dsb 1 ; $04a2
+
+; FOR RENT
       .dsb 1 ; $04a3
 unk_RAM_4A4:
       .dsb 1 ; $04a4
@@ -1433,6 +1473,8 @@ unk_RAM_4A4:
       .dsb 1 ; $04a9
       .dsb 1 ; $04aa
       .dsb 1 ; $04ab
+
+; FOR RENT
       .dsb 1 ; $04ac
 EnemiesKilledForHeart:
       .dsb 1 ; $04ad
@@ -1442,29 +1484,32 @@ ObjectCarriedOver:
       .dsb 1 ; $04af
 KeyUsed:
       .dsb 1 ; $04b0
+; FOR RENT
       .dsb 1 ; $04b1
-byte_RAM_4B2:
+PlayerRidingCarpet:
       .dsb 1 ; $04b2
 SubspaceDoorTimer:
       .dsb 1 ; $04b3
+; Probably set to 1 when Hawkmouth eats the player and starts closing
 HawkmouthClosing:
       .dsb 1 ; $04b4
-      ; Probably set to 1 when Hawkmouth eats the player and starts closing
+; Set to 01 on crystal get, Hawkmouth opens to 30
 CrystalAndHawkmouthOpenSize:
       .dsb 1 ; $04b5
-      ; Set to 01 on crystal get, Hawkmouth opens to 30
+; Hawkmouth won't start opening until this hits 0
 HawkmouthOpenTimer:
       .dsb 1 ; $04b6
-      ; Hawkmouth won't start opening until this hits 0
 SubspaceTimer:
       .dsb 1 ; $04b7
 BossBeaten:
       .dsb 1 ; $04b8
 SwarmType:
       .dsb 1 ; $04b9
+; FOR RENT
       .dsb 1 ; $04ba
+; FOR RENT
       .dsb 1 ; $04bb
-byte_RAM_4BC:
+SkyColor:
       .dsb 1 ; $04bc
 DoorAnimationTimer:
       .dsb 1 ; $04bd
@@ -1476,14 +1521,14 @@ ScreenBoundaryLeftLo:
       .dsb 1 ; $04c0
 ScreenBoundaryRightLo:
       .dsb 1 ; $04c1
+; xF: Hearts - 1 ($0F=1HP, $1F=2HP, etc)
 PlayerHealth:
       .dsb 1 ; $04c2
-      ; xF: Hearts - 1 ($0F=1HP, $1F=2HP, etc)
+; $00: Max 2
+; $01: Max 3
+; $02: Max 4
 PlayerMaxHealth:
       .dsb 1 ; $04c3
-      ; $00: Max 2
-      ; $01: Max 3
-      ; $02: Max 4
 POWQuakeTimer:
       .dsb 1 ; $04c4
 BackgroundYOffset:
@@ -1497,6 +1542,7 @@ JumpFloatTimer:
       .dsb 1 ; $04c9
 CrouchJumpTimer:
       .dsb 1 ; $04ca
+
 PlayerXAcceleration:
       .dsb 1 ; $04cb
 ObjectXAcceleration:
@@ -1508,6 +1554,8 @@ ObjectXAcceleration:
       .dsb 1 ; $04d1
       .dsb 1 ; $04d2
       .dsb 1 ; $04d3
+
+; FOR RENT
       .dsb 1 ; $04d4
 PlayerYAcceleration:
       .dsb 1 ; $04d5
@@ -1520,6 +1568,8 @@ ObjectYAcceleration:
       .dsb 1 ; $04db
       .dsb 1 ; $04dc
       .dsb 1 ; $04dd
+
+; FOR RENT
       .dsb 1 ; $04de
 QuicksandDepth:
       .dsb 1 ; $04df
@@ -1545,22 +1595,23 @@ CurrentLevelEntryPage_Init:
       .dsb 1 ; $04e9
 TransitionType_Init:
       .dsb 1 ; $04ea
+; something to do with sinking in quicksand
 byte_RAM_4EB:
       .dsb 1 ; $04eb
+; $00: In game
+; $01: Level title card
+; $02: Game over
+; $03: Bonus chance
+; $04+: Warp
 GameMode:
       .dsb 1 ; $04ec
-      ; $00: In game
-      ; $01: Level title card
-      ; $02: Game over
-      ; $03: Bonus chance
-      ; $04+: Warp
 ExtraLives:
       .dsb 1 ; $04ed
+; $00: None
+; $01: Default jar
+; $02: Pointer jar
 InJarType:
       .dsb 1 ; $04ee
-      ; $00: None
-      ; $01: Default jar
-      ; $02: Pointer jar
 unk_RAM_4EF:
       .dsb 1 ; $04ef
       .dsb 1 ; $04f0
@@ -1573,7 +1624,7 @@ unk_RAM_4EF:
       .dsb 1 ; $04f7
 FryguySplitFlames:
       .dsb 1 ; $04f8
-byte_RAM_4F9:
+VegetableThrowerShotCounter:
       .dsb 1 ; $04f9
 ScrollXLock:
       .dsb 1 ; $04fa
@@ -1583,15 +1634,19 @@ Mushroom2Pulled:
       .dsb 1 ; $04fc
 PokeyTempScreenX:
       .dsb 1 ; $04fd
+; FOR RENT
       .dsb 1 ; $04fe
 StopwatchTimer:
       .dsb 1 ; $04ff
+; FOR RENT
       .dsb 1 ; $0500
+; FOR RENT
       .dsb 1 ; $0501
 byte_RAM_502:
       .dsb 1 ; $0502
+; FOR RENT
       .dsb 1 ; $0503
-byte_RAM_504:
+CameraScrollTiles:
       .dsb 1 ; $0504
 byte_RAM_505:
       .dsb 1 ; $0505
@@ -1599,10 +1654,11 @@ byte_RAM_506:
       .dsb 1 ; $0506
 byte_RAM_507:
       .dsb 1 ; $0507
+; FOR RENT
       .dsb 1 ; $0508
-byte_RAM_509:
+PPUScrollYMirror_Backup:
       .dsb 1 ; $0509
-byte_RAM_50A:
+PPUScrollXMirror_Backup:
       .dsb 1 ; $050a
 byte_RAM_50B:
       .dsb 1 ; $050b
@@ -1620,18 +1676,21 @@ PlayerXLo_Backup:
       .dsb 1 ; $0511
 PlayerYLo_Backup:
       .dsb 1 ; $0512
-byte_RAM_513:
+ScreenYHi_Backup:
       .dsb 1 ; $0513
-byte_RAM_514:
+ScreenBoundaryLeftHi_Backup:
       .dsb 1 ; $0514
-byte_RAM_515:
+ScreenYLo_Backup:
       .dsb 1 ; $0515
+; FOR RENT
       .dsb 1 ; $0516
 byte_RAM_517:
       .dsb 1 ; $0517
+; FOR RENT
       .dsb 1 ; $0518
 CurrentLevelAreaCopy:
       .dsb 1 ; $0519
+; FOR RENT
       .dsb 1 ; $051a
 byte_RAM_51B:
       .dsb 1 ; $051b
@@ -1689,22 +1748,23 @@ byte_RAM_53D:
       .dsb 1 ; $053d
 byte_RAM_53E:
       .dsb 1 ; $053e
-byte_RAM_53F:
+CurrentLevelPages:
       .dsb 1 ; $053f
 byte_RAM_540:
       .dsb 1 ; $0540
-byte_RAM_541:
+GroundSetting:
       .dsb 1 ; $0541
+; area object type xxOO
 ObjectType3Xthru9X:
-byte_RAM_542: ; area object type xxOO
       .dsb 1 ; $0542
+; area object type OOxx
 ObjectTypeAXthruFX:
-byte_RAM_543: ; area object type OOxx
       .dsb 1 ; $0543
 CompareMusicIndex:
       .dsb 1 ; $0544
 CurrentMusicIndex:
       .dsb 1 ; $0545
+
 PickupSpeedAnimation:
       .dsb 1 ; $0546
       .dsb 1 ; 1                ; $0547
@@ -1724,26 +1784,31 @@ JumpHeightRunning:
       .dsb 1 ; $0550
 JumpHeightRunningCarrying:
       .dsb 1 ; $0551
-byte_RAM_552:
+JumpHeightQuicksand:
       .dsb 1 ; $0552
 JumpFloatLength:
       .dsb 1 ; $0553
-byte_RAM_554:
+GravityWithoutJumpButton:
       .dsb 1 ; $0554
-JumpPhysicsShit:
+GravityWithJumpButton:
       .dsb 1 ; $0555
-byte_RAM_556:
+GravityQuicksand:
       .dsb 1 ; $0556
-unk_RAM_557:
+RunSpeedRight:
       .dsb 1 ; $0557
+RunSpeedRightCarrying:
       .dsb 1 ; $0558
+RunSpeedRightQuicksand:
       .dsb 1 ; $0559
-unk_RAM_55A:
+RunSpeedLeft:
       .dsb 1 ; $055a
+RunSpeedLeftCarrying:
       .dsb 1 ; $055b
+RunSpeedLeftQuicksand:
       .dsb 1 ; $055c
+; FOR RENT
       .dsb 1 ; $055d
-byte_RAM_55E:
+GroundType:
       .dsb 1 ; $055e
 PPUBuffer_55F:
       .dsb 1 ; $055f
@@ -1843,8 +1908,10 @@ PseudoRNGValues:
       .dsb 1 ; $05b7
       .dsb 1 ; $05b8
       .dsb 1 ; $05b9
+; initialized but never used?
 byte_RAM_5BA:
       .dsb 1 ; $05ba
+; set to $10 if a subspace door is ever created, but never used?
 byte_RAM_5BB:
       .dsb 1 ; $05bb
 PhantoActivateTimer:
@@ -1864,6 +1931,8 @@ byte_RAM_5C4:
       .dsb 1 ; $05c4
 Continues:
       .dsb 1 ; $05c5
+
+; FOR RENT
       .dsb 1 ; $05c6
       .dsb 1 ; $05c7
       .dsb 1 ; $05c8
@@ -1902,6 +1971,7 @@ Continues:
       .dsb 1 ; $05e9
       .dsb 1 ; $05ea
       .dsb 1 ; $05eb
+
 MusicPointerCurrentPart:
       .dsb 1 ; $05ec
 MusicSquare1NoteStartLength:
@@ -1922,6 +1992,7 @@ NextOctave:
       .dsb 1 ; $05f4
 CurrentMusicNoiseStartOffset:
       .dsb 1 ; $05f5
+; FOR RENT
       .dsb 1 ; $05f6
       .dsb 1 ; $05f7
       .dsb 1 ; $05f8
@@ -1938,66 +2009,73 @@ UNUSED_MusicSquare2Lo:
       .dsb 1 ; $05fe
 CurrentMusicDPCMOffset:
       .dsb 1 ; $05ff
+
+; #01 Overworld
+; #02 Character Select
+; #04 Inside
+; #08 Boss
+; #10 Invincible
+; #20 Subspace
+; #40 Wart
+; #80 Title
 MusicQueue1:
       .dsb 1 ; $0600
-       ; #01 Overworld
-       ; #02 Character Select
-       ; #04 Inside
-       ; #08 Boss
-       ; #10 Invincible
-       ; #20 Subspace
-       ; #40 Wart
-       ; #80 Title
+
+; $01 Item pull A
+; $02 Drum sample A
+; $04 Player hurt (>1 HP left)
+; $08 Item pull B
+; $10 Enemy scream A
+; $20 Drum sample B
+; $40 Enemy scream B
+; $80 Enemy scream C
 DPCMQueue:
       .dsb 1 ; $0601
-      ; $01 Item pull A
-      ; $02 Drum sample A
-      ; $04 Player hurt (>1 HP left)
-      ; $08 Item pull B
-      ; $10 Enemy scream A
-      ; $20 Drum sample B
-      ; $40 Enemy scream B
-      ; $80 Enemy scream C
+
+; $01 Birdo/etc shoot noise
+; $02 Potion door creation
+; $04 Cherry collect
+; $08 Throw item
+; $10 1-up
+; $20 Enemy hit/killed
+; $40 Stopwatch tick
+; $80 Wart spit
 SoundEffectQueue1:
       .dsb 1 ; $0602
-      ; $01 Birdo/etc shoot noise
-      ; $02 Potion door creation
-      ; $04 Cherry collect
-      ; $08 Throw item
-      ; $10 1-up
-      ; $20 Enemy hit/killed
-      ; $40 Stopwatch tick
-      ; $80 Wart spit
+
+; $01 Warp fanfare, slot entry jingle
+; $02 Boss clear fanfare
+; $04 Celebration
+; $08 Death jingle
+; $10 Game over
+; $20 Mini-fanfare (slot win, crystal get)
+; $40 Same as $01
+; $80 Silence (stops music)
 MusicQueue2:
       .dsb 1 ; $0603
-      ; $01 Warp fanfare, slot entry jingle
-      ; $02 Boss clear fanfare
-      ; $04 Celebration
-      ; $08 Death jingle
-      ; $10 Game over
-      ; $20 Mini-fanfare (slot win, crystal get)
-      ; $40 Same as $01
-      ; $80 Silence (stops music)
+
+; $01 Jump
+; $02 Climbing
+; $04 Coin collected
+; $08 Shrinking
+; $10 Intro "falling" sound
+; $20 Growing
+; $40 -N/A-
+; $80 -N/A-
 SoundEffectQueue2:
       .dsb 1 ; $0604
-      ; $01 Jump
-      ; $02 Climbing
-      ; $04 Coin collected
-      ; $08 Shrinking
-      ; $10 Intro "falling" sound
-      ; $20 Growing
-      ; $40 -N/A-
-      ; $80 -N/A-
+
+; $01 Short noise
+; $02 Rumbling sound
+; $04 Rumbling sound
+; $08 -N/A-
+; $10 -N/A-
+; $20 -N/A-
+; $40 -N/A-
+; $80 -N/A-
 SoundEffectQueue3:
       .dsb 1 ; $0605
-      ; $01 Short noise
-      ; $02 Rumbling sound
-      ; $04 Rumbling sound
-      ; $08 -N/A-
-      ; $10 -N/A-
-      ; $20 -N/A-
-      ; $40 -N/A-
-      ; $80 -N/A-
+
 MusicPlaying2:
       .dsb 1 ; $0606
 SoundEffectPlaying1:
@@ -2008,6 +2086,7 @@ MusicPlaying1:
       .dsb 1 ; $0609
 DPCMTimer:
       .dsb 1 ; $060a
+; FOR RENT
       .dsb 1 ; $060b
 MusicSquare1NoteSweep:
       .dsb 1 ; $060c
@@ -2015,14 +2094,13 @@ SoundEffectPlaying2:
       .dsb 1 ; $060d
 SoundEffectPlaying3:
       .dsb 1 ; $060e
+; FOR RENT
       .dsb 1 ; $060f
       .dsb 1 ; $0610
 SoundEffectTimer3:
       .dsb 1 ; $0611
 MusicTempoSetting:
       .dsb 1 ; $0612
-      ; Music tempo control?
-      ; Locking this changes the speed of music
 MusicSquare1NoteOffset:
       .dsb 1 ; $0613
 CurrentMusicSquare1Offset:
@@ -2059,7 +2137,9 @@ SwarmCounter:
       .dsb 1 ; $0623
 GroundSlipperiness:
       .dsb 1 ; $0624
+; FOR RENT
       .dsb 1 ; $0625
+; FOR RENT
       .dsb 1 ; $0626
 DoAreaTransition:
       .dsb 1 ; $0627
@@ -2080,12 +2160,15 @@ CharacterLevelsCompleted:
       .dsb 1 ; $0630
 MaxLevelsCompleted:
       .dsb 1 ; $0631
+; FOR RENT
       .dsb 1 ; $0632
+; FOR RENT
       .dsb 1 ; $0633
+; FOR RENT
       .dsb 1 ; $0634
 CurrentWorld:
       .dsb 1 ; $0635
-; set to $A5 in DoCharacterSelectMenu to skip the bank switch
+; gets set to $A5 in DoCharacterSelectMenu to skip the bank switch
 CharacterSelectBankSwitch:
       .dsb 1 ; $0636
 RestorePlayerPalette0:
@@ -2297,8 +2380,15 @@ PPUBuffer_6E9:
       .dsb 1 ; $06f1
 MMC3PRGBankTemp:
       .dsb 1 ; $06f2
-byte_RAM_6F3:
+
+; Game milestone counter, probably used for debugging
+;   $00 = Title screen
+;   $01 = Gameplay
+;   $02 = Contributors
+;   $03 = Mario sleeping
+GameMilestoneCounter:
       .dsb 1 ; $06f3
+
 Player1JoypadUnk:
       .dsb 1 ; $06f4
 Player2JoypadUnk:
@@ -2319,15 +2409,21 @@ SpriteCHR4:
       .dsb 1 ; $06fc
 BackgroundCHR2Timer:
       .dsb 1 ; $06fd
+; FOR RENT
       .dsb 1 ; $06fe
+; FOR RENT
       .dsb 1 ; $06ff
+
+; When moving into subspace,  this area is turned into a tile represenation
+; of the current screen as it will be shown (e.g. reversed, like in-game)
+; Not sure if anything else uses this area yet
 SubAreaTileLayout:
       .dsb 1 ; $0700
-      .dsb 1 ; $01 ; When moving into subspace, ; $0701
-      .dsb 1 ; $02 ; this area is turned into a tile represenation ; $0702
-      .dsb 1 ; $03 ; of the current screen as it will be shown ; $0703
-      .dsb 1 ; $04 ; (e.g. reversed, like in-game) ; $0704
-      .dsb 1 ; $05 ; Not sure if anything else uses this area yet ; $0705
+      .dsb 1 ; $01              ; $0701
+      .dsb 1 ; $02              ; $0702
+      .dsb 1 ; $03              ; $0703
+      .dsb 1 ; $04              ; $0704
+      .dsb 1 ; $05              ; $0705
       .dsb 1 ; $06              ; $0706
       .dsb 1 ; $07              ; $0707
       .dsb 1 ; $08              ; $0708
@@ -2578,11 +2674,8 @@ SubAreaTileLayout:
       .dsb 1 ; $FD              ; $07fd
       .dsb 1 ; $FE              ; $07fe
       .dsb 1 ; $FF              ; $07ff
-; [00001800 BYTES: BEGIN OF AREA NES CPU RAM mirrors. PRESS KEYPAD "-" TO COLLAPSE]
 
-unk_RAM_1AB8 = $1ab8
 
-; [00001800 BYTES: END OF AREA NES CPU RAM mirrors. PRESS KEYPAD "-" TO COLLAPSE]
 PPUCTRL = $2000
 
 PPUMASK = $2001
@@ -2632,11 +2725,9 @@ JOY1 = $4016
 
 JOY2 = $4017
 
-; [00001FE8 BYTES: BEGIN OF AREA Various mirrors. PRESS KEYPAD "-" TO COLLAPSE]
-
 unk_RAM_4022 = $4022
 
-byte_RAM_4080 = $4080
+FDS_WAVETABLE_VOL = $4080
 
 unk_RAM_4500 = $4500
 

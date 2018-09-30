@@ -113,7 +113,7 @@ AreaInitialization_CheckObjectCarriedOver:
       LDY     #EnemyState_Alive
       STY     EnemyState+5
       LDY     #$FF
-      STY     byte_RAM_446
+      STY     unk_RAM_441+5
       CMP     #Enemy_Rocket
       BNE     AreaInitialization_NonRocketCarryOver
 
@@ -6880,13 +6880,13 @@ EnemyBehavior_FlyingCarpet:
       DEC     EnemyArray_B1,X
       BNE     loc_BANK3_A37C
 
-      STA     byte_RAM_4B2
+      STA     PlayerRidingCarpet
       JMP     EnemyDestroy
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK3_A37C:
-      LDA     byte_RAM_4B2
+      LDA     PlayerRidingCarpet
       BEQ     loc_BANK3_A38F
 
       LDA     PlayerYVelocity
@@ -6894,7 +6894,7 @@ loc_BANK3_A37C:
 
       LDA     #$00
       STA     ObjectYVelocity,X
-      STA     byte_RAM_4B2
+      STA     PlayerRidingCarpet
       JMP     sub_BANK3_A552
 
 ; ---------------------------------------------------------------------------
@@ -6902,7 +6902,7 @@ loc_BANK3_A37C:
 loc_BANK3_A38F:
       LDA     EnemyCollision,X
       AND     #$20
-      STA     byte_RAM_4B2
+      STA     PlayerRidingCarpet
       BNE     loc_BANK3_A39B
 
       JMP     loc_BANK3_A42A
@@ -9516,19 +9516,19 @@ loc_BANK3_B16D:
       RTS
 
 
-; ---------------------------------------------------------------------------
-; used by vegetable thrower
-byte_BANK3_B170:
+VegetableThrowerOffsetX:
       .BYTE $08
       .BYTE $28
       .BYTE $48
       .BYTE $28
-byte_BANK3_B174:
+
+VegetableThrowerOffsetY:
       .BYTE $94
       .BYTE $84
       .BYTE $94
       .BYTE $84
-unk_BANK3_B178:
+
+VegetableThrowerVelocity:
       .BYTE $F8
       .BYTE $08
       .BYTE $F8
@@ -9537,7 +9537,7 @@ unk_BANK3_B178:
       .BYTE $F8
       .BYTE $08
       .BYTE $F8
-; ---------------------------------------------------------------------------
+
 
 Generator_VegetableThrower:
       LDA     HoldingItem
@@ -9547,25 +9547,25 @@ Generator_VegetableThrower:
       AND     #$FF
       BNE     locret_BANK3_B1CC
 
-      INC     byte_RAM_4F9
+      INC     VegetableThrowerShotCounter
       JSR     CreateEnemy_TryAllSlots
 
       BMI     locret_BANK3_B1CC
 
       LDX     byte_RAM_0
-      LDA     byte_RAM_4F9
+      LDA     VegetableThrowerShotCounter
       AND     #$07
       TAY
-      LDA     unk_BANK3_B178,Y
+      LDA     VegetableThrowerVelocity,Y
       STA     ObjectXVelocity,X
       TYA
       AND     #$03
       TAY
       LDA     #$02
       STA     ObjectXHi,X
-      LDA     byte_BANK3_B170,Y
+      LDA     VegetableThrowerOffsetX,Y
       STA     ObjectXLo,X
-      LDA     byte_BANK3_B174,Y
+      LDA     VegetableThrowerOffsetY,Y
       STA     ObjectYLo,X
       LDA     #$00
       STA     ObjectYHi,X
@@ -10028,7 +10028,7 @@ loc_BANK3_B540:
       CMP     #$02
       BCS     loc_BANK3_B57B
 
-      LDY     unk_RAM_437,X
+      LDY     EnemyArray_438-1,X
       BNE     loc_BANK3_B57B
 
       LDY     ObjectType-1,X
@@ -10306,7 +10306,7 @@ loc_BANK3_B692:
       AND     #CollisionFlags_Damage
       BNE     loc_BANK3_B6F0
 
-      LDA     unk_RAM_46D,X
+      LDA     EnemyArray_46E-1,X
       AND     #$04
       BNE     loc_BANK3_B6F0
 
@@ -10893,8 +10893,8 @@ loc_BANK3_B993:
       LDA     #$60
       STA     EnemyArray_45C-1,X
       LSR     A
-      STA     unk_RAM_437,X
-      LDA     unk_RAM_464,X
+      STA     EnemyArray_438-1,X
+      LDA     EnemyHP-1,X
       BNE     locret_BANK3_B9B6
 
       INC     ScrollXLock
@@ -11046,14 +11046,14 @@ sub_BANK3_BA5D:
       ORA     EnemyArray_45C-1,X
       BNE     locret_BANK3_BA94
 
-      LDA     unk_RAM_46D,X
+      LDA     EnemyArray_46E-1,X
       AND     #Enemy_Ostro
       BEQ     EnemyTakeDamage
 
       JSR     PlayBossHurtSound
 
 EnemyTakeDamage:
-      DEC     unk_RAM_464,X ; Subtract hit point
+      DEC     EnemyHP-1,X ; Subtract hit point
       BMI     EnemyKnockout
 
       LDA     #$21 ; Flash
@@ -11061,7 +11061,7 @@ EnemyTakeDamage:
       LSR     A
 
 loc_BANK3_BA7A:
-      STA     unk_RAM_437,X
+      STA     EnemyArray_438-1,X
 
 ; End of function sub_BANK3_BA5D
 
@@ -11908,7 +11908,7 @@ AreaSecondaryRoutine:
       STA     PPUBuffer_301+1,X
       LDA     #$04
       STA     PPUBuffer_301+2,X
-      LDA     byte_RAM_4BC
+      LDA     SkyColor
       LDY     SkyFlashTimer
       BEQ     AreaSecondaryRoutine_PlayerPalette
 

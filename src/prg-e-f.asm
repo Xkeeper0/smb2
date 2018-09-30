@@ -1161,9 +1161,9 @@ loc_BANKF_E2B2:
       LDA     #Music1_CharacterSelect
       STA     MusicQueue1
       LDA     CurrentCharacter
-      STA     byte_RAM_404
+      STA     PreviousCharacter
       LDA     CurrentWorld
-      STA     byte_RAM_405
+      STA     PreviousWorld
       LDY     #$3F
 
 loc_BANKF_E2CA:
@@ -1258,7 +1258,7 @@ loc_BANKF_E311:
       LDA     #$C1
       STA     PPUBuffer_301+17
       LDA     #$00
-      STA     byte_RAM_313
+      STA     PPUBuffer_301+18
       JSR     WaitForNMI_TurnOnPPU
 
       LDX     #$12
@@ -1361,12 +1361,12 @@ StartGame:
       JSR     DisableNMI
 
       LDA     #PRGBank_0_1
-      STA     byte_RAM_6F3
+      STA     GameMilestoneCounter
       JSR     ChangeMappedPRGBank
 
       JSR     TitleScreen ; The whole title screen is a subroutine, lol
 
-      INC     byte_RAM_6F3
+      INC     GameMilestoneCounter
       LDA     #$02 ; Number of continues on start
       STA     Continues
 
@@ -1444,9 +1444,9 @@ loc_BANKF_E478:
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK0_8500 ; game loop?
+      JSR     GameLoopHorizontal
 
-      JSR     sub_BANKF_F6C0 ; music
+      JSR     EnsureCorrectMusic
 
       LDA     byte_RAM_13
       BEQ     loc_BANKF_E478
@@ -1512,9 +1512,9 @@ loc_BANKF_E4CC:
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      JSR     sub_BANK0_8000 ; game loop?
+      JSR     GameLoopVertical
 
-      JSR     sub_BANKF_F6C0 ; music
+      JSR     EnsureCorrectMusic
 
       LDA     byte_RAM_13
       BEQ     loc_BANKF_E4CC
@@ -1962,7 +1962,7 @@ loc_BANKF_E75A:
       BEQ     EndOfLevel
 
       LDY     CurrentWorld
-      STY     byte_RAM_405
+      STY     PreviousWorld
       LDA     WarpDestinations,Y
       STA     CurrentWorld
       TAY
@@ -2314,7 +2314,7 @@ EndingSceneRoutine:
       ; FDS leftover; $4080 is an old sound register
       ; The prototype had two writes to this address!
       ; It looks like they missed this one, though.
-      STA     byte_RAM_4080
+      STA     FDS_WAVETABLE_VOL
       ASL     A
       STA     SoundEffectPlaying1
       LDA     #PRGBank_0_1
@@ -2335,7 +2335,7 @@ EndingSceneRoutine:
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      INC     byte_RAM_6F3
+      INC     GameMilestoneCounter
       JSR     sub_BANK1_AA79
 
       JSR     WaitForNMI_TurnOffPPU
@@ -2352,7 +2352,7 @@ SetupMarioSleepingScene:
       LDA     #PRGBank_C_D
       JSR     ChangeMappedPRGBank
 
-      INC     byte_RAM_6F3
+      INC     GameMilestoneCounter
       JMP     MarioSleepingScene
 
 ; =============== S U B R O U T I N E =======================================
@@ -2680,24 +2680,21 @@ loc_BANKF_EB1F:
 
 ; End of function sub_BANKF_EAF6
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Copies the unused coin sprite from memory into the sprite DMA area at $200
+;
 CopyUnusedCoinSpriteToSpriteArea:
-      LDY     #$00 ; This copies the unused coin sprite from memory
-; into the sprite DMA area at $200
+      LDY     #$00
 
-loc_BANKF_EB33:
+CopyUnusedCoinSpriteToSpriteArea_Loop:
       LDA     unk_RAM_653,Y ; Copy two sprites from memory to memory.
       STA     SpriteDMAArea+$28,Y ; This is definitely efficient.
       INY ; Two sprites for each half of the coin.
       CPY     #$08 ; Four bytes per sprite * 2 sprites = 8 bytes
-      BCC     loc_BANKF_EB33
+      BCC     CopyUnusedCoinSpriteToSpriteArea_Loop
 
       RTS
 
-; End of function CopyUnusedCoinSpriteToSpriteArea
-
-; ---------------------------------------------------------------------------
 
 loc_BANKF_EB3F:
       LDA     #$00
@@ -4582,23 +4579,25 @@ TileSolidnessTable:
 WarpDestinations:
       .BYTE $03, $01, $04, $05, $06, $05, $06
 
-; =============== S U B R O U T I N E =======================================
 
+;
+; Updates joypad press/held values
+;
 UpdateJoypads:
       JSR     ReadJoypads
 
-loc_BANKF_F664:
+UpdateJoypads_DoubleCheck:
       ; Work around DPCM sample bug,
       ; where some spurious inputs are read
       LDY     Player1JoypadPress
       JSR     ReadJoypads
 
       CPY     Player1JoypadPress
-      BNE     loc_BANKF_F664
+      BNE     UpdateJoypads_DoubleCheck
 
       LDX     #$01
 
-loc_BANKF_F66F:
+UpdateJoypads_Loop:
       LDA     Player1JoypadPress,X ; Update the press/held values
       TAY
       EOR     Player1JoypadHeld,X
@@ -4606,29 +4605,30 @@ loc_BANKF_F66F:
       STA     Player1JoypadPress,X
       STY     Player1JoypadHeld,X
       DEX
-      BPL     loc_BANKF_F66F
+      BPL     UpdateJoypads_Loop
 
       RTS
 
-; End of function UpdateJoypads
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Reads joypad pressed input
+;
 ReadJoypads:
       LDX     #$01
       STX     JOY1
       DEX
       STX     JOY1
-      LDX     #$08
 
+      LDX     #$08
 ReadJoypadLoop:
       LDA     JOY1
       LSR     A
       ROL     Player1JoypadPress
       LSR     A
-      ROL     Player1JoypadUnk ; @TODO These seem to never be read, and even then are using a
-; second bit from JOY1/JOY2 ... Was this reading from
-; the expansion port???
+      ; @TODO These seem to never be read, and even then are using a
+      ; second bit from JOY1/JOY2 ... Was this reading from
+      ; the expansion port???
+      ROL     Player1JoypadUnk
       LDA     JOY2
       LSR     A
       ROL     Player2JoypadPress
@@ -4639,7 +4639,6 @@ ReadJoypadLoop:
 
       RTS
 
-; End of function ReadJoypads
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -4663,32 +4662,37 @@ sub_BANKF_F6A1:
 
 ; End of function sub_BANKF_F6A1
 
-; =============== S U B R O U T I N E =======================================
 
-; @TODO Handle music changes?
-; Seems to compare against the currently selected music
-; and check if a Starman is still active ...
-
-sub_BANKF_F6C0:
+;
+; Checks that we're playing the correct music and switches if necessary, unless
+; we're playing the invincibility music.
+;
+; Input
+;   CompareMusicIndex = music we should be playing
+;   CurrentMusicIndex = music we're actually playing
+;   StarInvincibilityTimer = whether the player is invincible
+;
+; Output
+;   CurrentMusicIndex = music we should be plathing
+;   MusicQueue1 = song to play if we need to change the music
+;
+EnsureCorrectMusic:
       LDA     CompareMusicIndex
       CMP     CurrentMusicIndex
-      BEQ     locret_BANKF_F6D9
+      BEQ     EnsureCorrectMusic_Exit
 
       TAX
       STX     CurrentMusicIndex
       LDA     StarInvincibilityTimer
       CMP     #$08
-      BCS     locret_BANKF_F6D9
+      BCS     EnsureCorrectMusic_Exit
 
       LDA     LevelMusicIndexes,X
       STA     MusicQueue1
 
-locret_BANKF_F6D9:
+EnsureCorrectMusic_Exit:
       RTS
 
-; End of function sub_BANKF_F6C0
-
-; =============== S U B R O U T I N E =======================================
 
 DoAreaReset:
       LDA     #$00

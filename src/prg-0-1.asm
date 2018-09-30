@@ -13,9 +13,8 @@
 ; .segment BANK0
 ; * =  $8000
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_8000:
+GameLoopVertical:
       LDA     byte_RAM_502
       BNE     loc_BANK0_805D
 
@@ -100,7 +99,6 @@ loc_BANK0_8066:
 locret_BANK0_8082:
       RTS
 
-; End of function sub_BANK0_8000
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -122,7 +120,7 @@ loc_BANK0_8092:
       ORA     #$04
       STA     NeedVerticalScroll
       LDA     #$12
-      STA     byte_RAM_504
+      STA     CameraScrollTiles
 
 loc_BANK0_809D:
       LDA     NeedVerticalScroll
@@ -207,7 +205,7 @@ loc_BANK0_80FB:
 loc_BANK0_8103:
       BNE     loc_BANK0_8121
 
-      LDA     byte_RAM_53F
+      LDA     CurrentLevelPages
       STA     byte_RAM_F
       CMP     #$09
       BNE     loc_BANK0_8114
@@ -289,7 +287,7 @@ loc_BANK0_816B:
       JSR     sub_BANK0_82E2
 
 loc_BANK0_8170:
-      LDA     byte_RAM_504
+      LDA     CameraScrollTiles
       CMP     #$12
       BNE     loc_BANK0_818F
 
@@ -314,7 +312,7 @@ loc_BANK0_818A:
 loc_BANK0_818F:
       JSR     sub_BANK0_833E
 
-      DEC     byte_RAM_504
+      DEC     CameraScrollTiles
       BNE     locret_BANK0_81A0
 
       LDA     #$00
@@ -339,19 +337,19 @@ locret_BANK0_81A0:
 ;
 StashScreenScrollPosition:
       LDA     PPUScrollYMirror
-      STA     byte_RAM_509
+      STA     PPUScrollYMirror_Backup
       LDA     PPUScrollXMirror
-      STA     byte_RAM_50A
+      STA     PPUScrollXMirror_Backup
       LDA     byte_RAM_C8
       STA     byte_RAM_50B
       LDA     byte_RAM_C9
       STA     byte_RAM_50C
       LDA     ScreenYHi
-      STA     byte_RAM_513
+      STA     ScreenYHi_Backup
       LDA     ScreenYLo
-      STA     byte_RAM_515
+      STA     ScreenYLo_Backup
       LDA     ScreenBoundaryLeftHi
-      STA     byte_RAM_514
+      STA     ScreenBoundaryLeftHi_Backup
       LDA     byte_RAM_E1
       STA     byte_RAM_517
       LDA     #$00
@@ -363,20 +361,20 @@ StashScreenScrollPosition:
 
 
 RestoreScreenScrollPosition:
-      LDA     byte_RAM_509
+      LDA     PPUScrollYMirror_Backup
       STA     PPUScrollYMirror
-      LDA     byte_RAM_50A
+      LDA     PPUScrollXMirror_Backup
       STA     PPUScrollXMirror
       STA     ScreenBoundaryLeftLo
       LDA     byte_RAM_50B
       STA     byte_RAM_C8
       LDA     byte_RAM_50C
       STA     byte_RAM_C9
-      LDA     byte_RAM_514
+      LDA     ScreenBoundaryLeftHi_Backup
       STA     ScreenBoundaryLeftHi
-      LDA     byte_RAM_513
+      LDA     ScreenYHi_Backup
       STA     ScreenYHi
-      LDA     byte_RAM_515
+      LDA     ScreenYLo_Backup
       STA     ScreenYLo
       RTS
 
@@ -948,7 +946,7 @@ ENDIF
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_8500:
+GameLoopHorizontal:
       LDA     byte_RAM_502
       BNE     loc_BANK0_855C
 
@@ -1015,7 +1013,6 @@ loc_BANK0_855C:
 locret_BANK0_8569:
       RTS
 
-; End of function sub_BANK0_8500
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1029,7 +1026,7 @@ sub_BANK0_856A:
       LDA     CurrentLevelEntryPage
 
 loc_BANK0_8576:
-      CMP     byte_RAM_53F
+      CMP     CurrentLevelPages
       BNE     loc_BANK0_857F
 
       LDA     byte_RAM_BA
@@ -1184,7 +1181,7 @@ loc_BANK0_8642:
       BNE     loc_BANK0_8651
 
       LDA     ScreenBoundaryLeftHi
-      CMP     byte_RAM_53F
+      CMP     CurrentLevelPages
       BNE     loc_BANK0_8651
 
       JMP     loc_BANK0_86E9
@@ -1208,7 +1205,7 @@ loc_BANK0_8651:
 
 loc_BANK0_8669:
       LDA     ScreenBoundaryLeftHi
-      CMP     byte_RAM_53F
+      CMP     CurrentLevelPages
       BEQ     loc_BANK0_8685
 
       LDA     PPUScrollXMirror
@@ -1346,11 +1343,11 @@ byte_BANK0_870B:
 
 sub_BANK0_870C:
       LDA     PPUScrollXMirror
-      STA     byte_RAM_50A
+      STA     PPUScrollXMirror_Backup
       LDA     byte_RAM_C9
       STA     byte_RAM_50C
       LDA     ScreenBoundaryLeftHi
-      STA     byte_RAM_514
+      STA     ScreenBoundaryLeftHi_Backup
       INC     byte_RAM_53D
       LDA     byte_BANK0_870B
       STA     CurrentLevelEntryPage
@@ -1378,12 +1375,12 @@ sub_BANK0_870C:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_874C:
-      LDA     byte_RAM_50A
+      LDA     PPUScrollXMirror_Backup
       STA     PPUScrollXMirror
       STA     ScreenBoundaryLeftLo
       LDA     byte_RAM_50C
       STA     byte_RAM_C9
-      LDA     byte_RAM_514
+      LDA     ScreenBoundaryLeftHi_Backup
       STA     ScreenBoundaryLeftHi
       LDA     byte_RAM_53D
       BNE     locret_BANK0_8784
@@ -2315,7 +2312,7 @@ loc_BANK0_8C2B:
       STA     SoundEffectQueue2
 
 loc_BANK0_8C3D:
-      LDA     byte_RAM_4B2
+      LDA     PlayerRidingCarpet
       BNE     loc_BANK0_8C92
 
       LDA     QuicksandDepth
@@ -2397,7 +2394,7 @@ PlayerStartJump:
       BCC     PlayerStartJump_LoadXVelocity
 
       ; Quicksand
-      LDA     byte_RAM_552
+      LDA     JumpHeightQuicksand
       STA     PlayerYVelocity
       BNE     PlayerStartJump_Exit
 
@@ -2460,15 +2457,15 @@ PlayerGravity:
       CMP     #$02
       BCC     loc_BANK0_8CE5
 
-      LDA     byte_RAM_556
+      LDA     GravityQuicksand
       BNE     loc_BANK0_8D13
 
 loc_BANK0_8CE5:
-      LDA     byte_RAM_554
+      LDA     GravityWithoutJumpButton
       LDY     Player1JoypadHeld ; holding jump button to fight physics
       BPL     PlayerGravity_Falling
 
-      LDA     JumpPhysicsShit
+      LDA     GravityWithJumpButton
       LDY     PlayerYVelocity
       CPY     #$0FC
       BMI     PlayerGravity_Falling
@@ -2697,13 +2694,13 @@ loc_BANK0_8DDF:
       DEY
 
 loc_BANK0_8DE0:
-      LDA     unk_RAM_557,Y
+      LDA     RunSpeedRight,Y
       BIT     Player1JoypadHeld
       BVC     loc_BANK0_8DEC
 
       LSR     A
       CLC
-      ADC     unk_RAM_557,Y
+      ADC     RunSpeedRight,Y
 
 loc_BANK0_8DEC:
       CMP     PlayerXVelocity
@@ -2712,14 +2709,14 @@ loc_BANK0_8DEC:
       STA     PlayerXVelocity
 
 loc_BANK0_8DF2:
-      LDA     unk_RAM_55A,Y
+      LDA     RunSpeedLeft,Y
       BIT     Player1JoypadHeld
       BVC     loc_BANK0_8DFF
 
       SEC
       ROR     A
       CLC
-      ADC     unk_RAM_55A,Y
+      ADC     RunSpeedLeft,Y
 
 loc_BANK0_8DFF:
       CMP     PlayerXVelocity
