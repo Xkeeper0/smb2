@@ -32,6 +32,7 @@ byte_RAM_E:
       .dsb 1 ; $000e
 byte_RAM_F:
       .dsb 1 ; $000f
+; global counter
 byte_RAM_10:
       .dsb 1 ; $0010
 ScreenUpdateIndex:

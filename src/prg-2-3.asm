@@ -2155,7 +2155,7 @@ EnemyBehavior_Spark:
       AND     #$0F
       BNE     EnemyBehavior_Spark_Move
 
-      JSR     sub_BANK3_B4F9
+      JSR     ObjectTileCollision_SolidBackground
 
       LDY     EnemyArray_477,X
       LDA     EnemyCollision,X
@@ -2329,7 +2329,7 @@ Swarm_CreateEnemy_Fail:
 
 
 EnemyBehavior_Fireball:
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       JSR     sub_BANK2_927A
 
@@ -2367,7 +2367,7 @@ EnemyBehavior_PanserPink:
       JSR     EnemyInit_BasicMovementTowardPlayer
 
 EnemyBehavior_PanserRedAndGray:
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     EnemyCollision,X
       PHA
@@ -2560,7 +2560,7 @@ loc_BANK2_8D07:
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_JarGenerators:
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       AND     #$03
       BNE     loc_BANK2_8D16
@@ -3042,7 +3042,7 @@ ProjectileLaunchXOffsets:
 EnemyBehavior_Birdo:
       JSR     EnemyBehavior_CheckDamaged
 
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     #$00
       STA     ObjectXVelocity,X
@@ -3319,7 +3319,7 @@ EnemyBehavior_Key:
 ; Behavior for objects that have background collision detection
 ;
 EnemyBehavior_Bomb:
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     EnemyCollision,X
       PHA
@@ -3423,7 +3423,7 @@ loc_BANK2_913E:
 EnemyBehavior_SubspacePotion:
       JSR     EnemyBehavior_CheckBeingCarriedTimer
 
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     EnemyCollision,X
       PHA
@@ -3672,7 +3672,7 @@ sub_BANK2_927A:
 
 
 EnemyBehavior_BulletAndEgg:
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
 sub_BANK2_9289:
       JSR     EnemyBehavior_CheckDamaged
@@ -3731,6 +3731,7 @@ loc_BANK2_92BE:
 ; CreateEnemy only checks the first 6 object slots
 ;
 ; Output
+;   N = enabled if no empty slot was found
 ;   Y = $FF if there no empty slot was found
 ;   byte_RAM_0 = slot used
 ;
@@ -4092,7 +4093,7 @@ EnemyBehavior_BobOmb_Flash:
 
 
 EnemyBehavior_BasicWalker:
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
 loc_BANK2_9470:
       JSR     EnemyBehavior_CheckDamaged
@@ -4615,14 +4616,14 @@ loc_BANK2_969B:
       CMP     #Enemy_POWBlock
       BCS     loc_BANK2_96AA
 
-      JSR     sub_BANK3_B4F9
+      JSR     ObjectTileCollision_SolidBackground
 
       JMP     loc_BANK2_96AD
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_96AA:
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
 loc_BANK2_96AD:
       LDA     EnemyArray_42F,X
@@ -5017,7 +5018,7 @@ ShellSpeed:
 
 
 EnemyBehavior_Shell:
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       JSR     EnemyBehavior_CheckBeingCarriedTimer
 
@@ -6789,7 +6790,7 @@ EnemyBehavior_ClawgripRock:
 
       JSR     ApplyObjectMovement_Vertical
 
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Right|CollisionFlags_Left
@@ -6886,7 +6887,7 @@ FlyingCarpetSpeed:
 
 
 EnemyBehavior_FlyingCarpet:
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     byte_RAM_10
       AND     #$03
@@ -7289,93 +7290,101 @@ loc_BANK3_A55F:
 
 ; End of function sub_BANK3_A552
 
-; ---------------------------------------------------------------------------
 
 EnemyInit_Mouser:
       JSR     EnemyInit_Birdo
 
       LDA     #$02
       LDY     CurrentWorld
-      BEQ     loc_BANK3_A577
+      BEQ     EnemyInit_Mouser_SetHP
 
       LDA     #$04
 
-loc_BANK3_A577:
+EnemyInit_Mouser_SetHP:
       STA     EnemyHP,X
       RTS
 
-; ---------------------------------------------------------------------------
-
+;
+; Mouser
+; ======
+;
+; Runs back and forth, throws bombs
+;
+; byte_RAM_10 = timer used for jumping and throwing
+; EnemyArray_45C = pauses Mouser when not $00
+; EnemyTimer = counter used to time throwing (wind up and pitch)
+; EnemyArray_B1 = counter used for movement direction and non-throw pauses
+;
 EnemyBehavior_Mouser:
       JSR     EnemyBehavior_CheckDamaged
 
       LDA     EnemyArray_45C,X
-      BEQ     loc_BANK3_A586
+      BEQ     EnemyBehavior_Mouser_Active
 
       JMP     RenderSprite
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_A586:
-      JSR     sub_BANK3_B4FD
+EnemyBehavior_Mouser_Active:
+      JSR     ObjectTileCollision
 
       LDA     #$02
       STA     EnemyMovementDirection,X
       JSR     RenderSprite
 
       LDA     EnemyCollision,X
-      AND     #$04
-      BEQ     loc_BANK3_A5F5
+      AND     #CollisionFlags_Down
+      BEQ     EnemyBehavior_Mouser_Falling
 
       JSR     ResetObjectYVelocity
 
       LDA     byte_RAM_10
       AND     #$FF
-      BNE     loc_BANK3_A5A5
+      BNE     EnemyBehavior_Mouser_Move
 
+EnemyBehavior_Mouser_Jump:
       LDA     #$D8
       STA     ObjectYVelocity,X
-      BNE     loc_BANK3_A5F5
+      BNE     EnemyBehavior_Mouser_Falling
 
-loc_BANK3_A5A5:
+EnemyBehavior_Mouser_Move:
       LDA     byte_RAM_10
       AND     #$3F
       BNE     loc_BANK3_A5AF
 
+      ; the wind-up
       LDA     #$20
       STA     EnemyTimer,X
 
 loc_BANK3_A5AF:
       LDY     EnemyTimer,X
-      BNE     loc_BANK3_A5CE
+      BNE     EnemyBehavior_Mouser_MaybeThrow
 
       INC     EnemyArray_B1,X
       LDA     EnemyArray_B1,X
       AND     #$20
-      BEQ     locret_BANK3_A5F4
+      BEQ     EnemyBehavior_Mouser_Exit
 
       INC     ObjectAnimationTimer,X
       INC     ObjectAnimationTimer,X
-      LDY     #$18
+      LDY     #$18 ; right
       LDA     EnemyArray_B1,X
       AND     #$40
-      BNE     loc_BANK3_A5C9
+      BNE     EnemyBehavior_Mouser_PhysicsX
 
-      LDY     #$E8
+      LDY     #$E8 ; left
 
-loc_BANK3_A5C9:
+EnemyBehavior_Mouser_PhysicsX:
       STY     ObjectXVelocity,X
       JMP     ApplyObjectPhysicsX
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_A5CE:
+EnemyBehavior_Mouser_MaybeThrow:
+      ; the pitch
       CPY     #$10
-      BNE     locret_BANK3_A5F4
+      BNE     EnemyBehavior_Mouser_Exit
 
+EnemyBehavior_Mouser_Throw:
       JSR     CreateEnemy_TryAllSlots
 
-      BMI     locret_BANK3_A5F4
+      BMI     EnemyBehavior_Mouser_Exit
 
       LDX     byte_RAM_0
       LDA     #Enemy_Bomb
@@ -7383,73 +7392,69 @@ loc_BANK3_A5CE:
       LDA     ObjectYLo,X
       ADC     #$03
       STA     ObjectYLo,X
-      LDA     #$E0
+      LDA     #$E0 ; throw y-velocity
       STA     ObjectYVelocity,X
       JSR     SetEnemyAttributes
 
-      LDA     #$FF
+      LDA     #$FF ; bomb fuse
       STA     EnemyTimer,X
-      LDA     #$E0
+      LDA     #$E0 ; throw x-velocity
       STA     ObjectXVelocity,X
       LDX     byte_RAM_12
 
-locret_BANK3_A5F4:
+EnemyBehavior_Mouser_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_A5F5:
+EnemyBehavior_Mouser_Falling:
       JMP     ApplyObjectMovement_Vertical
 
-; ---------------------------------------------------------------------------
 
 RenderSprite_Mouser:
       LDA     EnemyState,X
-      CMP     #$01
-      BNE     loc_BANK3_A609
+      CMP     #EnemyState_Alive
+      BNE     RenderSprite_Mouser_Hurt
 
       LDA     EnemyArray_45C,X
-      BEQ     loc_BANK3_A612
+      BEQ     RenderSprite_Mouser_Throw
 
       INC     ObjectAnimationTimer,X
-      LDA     #$4A
+      LDA     #ObjAttrib_16x32|ObjAttrib_FrontFacing|ObjAttrib_Palette2
       STA     ObjectAttributes,X
 
-loc_BANK3_A609:
+RenderSprite_Mouser_Hurt:
       LDA     #%10110011
       STA     EnemyArray_46E,X
-      LDA     #$2C
-      BNE     loc_BANK3_A61B
+      LDA     #$2C ; hurt sprite
+      BNE     RenderSprite_Mouser_DrawObject
 
-loc_BANK3_A612:
+RenderSprite_Mouser_Throw:
       LDY     EnemyTimer,X
       DEY
       CPY     #$10
-      BCS     loc_BANK3_A621
+      BCS     RenderSprite_Mouser_Walk
 
-      LDA     #$20
+      LDA     #$20 ; throwing sprite
 
-loc_BANK3_A61B:
+RenderSprite_Mouser_DrawObject:
       JSR     RenderSprite_DrawObject
 
-      JMP     loc_BANK3_A648
+      JMP     RenderSprite_Mouser_Exit
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_A621:
+RenderSprite_Mouser_Walk:
       JSR     RenderSprite_NotAlbatoss
 
       LDA     EnemyTimer,X
       CMP     #$10
-      BCC     loc_BANK3_A648
+      BCC     RenderSprite_Mouser_Exit
 
-      LDA     #$01
+RenderSprite_Mouser_Bomb:
+      LDA     #ObjAttrib_Palette1
       STA     ObjectAttributes,X
-      LDA     #%00010000
+      LDA     #%00010000 ; use tilemap 2
       STA     EnemyArray_46E,X
       LDA     SpriteTempScreenX
       CLC
-      ADC     #$B
+      ADC     #$0B
       STA     SpriteTempScreenX
       ASL     byte_RAM_EE
       LDY     #$00
@@ -7461,16 +7466,18 @@ IFNDEF COMPATIBILITY
    NOP ; Alignment fix
 ENDIF
 
-      LDA     #$38
+      LDA     #$38 ; could have been $34 from tilemap 1 instead
       JSR     RenderSprite_DrawObject
 
-loc_BANK3_A648:
-      LDA     #$43
+RenderSprite_Mouser_Exit:
+      ; restore Mouser attributes after drawing the bomb
+      LDA     #ObjAttrib_16x32|ObjAttrib_Palette3
       STA     ObjectAttributes,X
       LDA     #%00110011
       STA     EnemyArray_46E,X
 
       RTS
+
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_A652:
@@ -7574,7 +7581,7 @@ loc_BANK3_A6DB:
       JSR     EnemyBehavior_CheckDamaged
 
 loc_BANK3_A6E1:
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     EnemyCollision,X
       AND     EnemyMovementDirection,X
@@ -7970,7 +7977,7 @@ EnemyBehavior_CobratGround:
 
       JSR     EnemyBehavior_CheckBeingCarriedTimer
 
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     EnemyArray_480,X
       BNE     loc_BANK3_A93E
@@ -8065,7 +8072,7 @@ EnemyBehavior_CobratJar:
 
       JSR     EnemyBehavior_CheckBeingCarriedTimer
 
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     EnemyCollision,X
       AND     #$08
@@ -8777,7 +8784,7 @@ loc_BANK3_AD59:
       STA     ObjectShakeTimer,X
       INC     ObjectAnimationTimer,X
       INC     ObjectAnimationTimer,X
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       JSR     RenderSprite
 
@@ -8873,7 +8880,7 @@ EnemyBehavior_Autobomb:
 loc_BANK3_ADF9:
       JSR     EnemyBehavior_CheckDamaged
 
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     EnemyCollision,X
       PHA
@@ -9188,7 +9195,7 @@ EnemyBehavior_Flurry:
 
       JSR     EnemyBehavior_CheckBeingCarriedTimer
 
-      JSR     sub_BANK3_B4FD
+      JSR     ObjectTileCollision
 
       LDA     EnemyCollision,X
       AND     #CollisionFlags_Right|CollisionFlags_Left
@@ -9623,6 +9630,19 @@ WartBubbleYVelocity:
       .BYTE $E4
 
 
+;
+; Wart
+; ====
+;
+; Walks back and forth, spits bubbles
+;
+; EnemyTimer = counter used to determing the bubble spit distance
+; EnemyVariable = counter used to pause while walking back and forth
+; EnemyArray_480 = counter used to determine the bubble spit height
+; EnemyArray_B1 = counter for death animation
+; EnemyArray_477 = counter used for alternating steps
+; EnemyArray_45C = counter for blinking while hurt
+;
 EnemyBehavior_Wart:
       LDA     EnemyArray_B1,X
       BNE     EnemyBehavior_Wart_Death
@@ -9691,7 +9711,7 @@ EnemyBehavior_Wart_PhysicsX:
       LDA     EnemyArray_480,X
       AND     #$03
       TAY
-      ; determines how far to spit the bubble?
+      ; determines how far to spit the bubble
       LDA     EnemyTimer,X
 
       ; set up the bubble
@@ -9994,18 +10014,32 @@ loc_BANK3_B4F7:
 
 ; End of function sub_BANK3_B4E2
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_B4F9:
+;
+; Object/background collision that treats non-sky background tiles as solid,
+; such as for Sparks and Mushroom Blocks
+;
+ObjectTileCollision_SolidBackground:
       LDA     #$04
-      BNE     loc_BANK3_B4FF
+      BNE     ObjectTileCollision_Main
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK3_B4FD:
+;
+; Normal object/background collision
+;
+ObjectTileCollision:
       LDA     #$00
 
-loc_BANK3_B4FF:
+;
+; Object Tile Collision
+; =====================
+;
+; Handles object collision with background tiles
+;
+; Input
+;   A = whether or not to tread walk-through tiles as solid
+;   X = enemy index
+;
+ObjectTileCollision_Main:
       STA     byte_RAM_7
       LDA     #$00
       STA     byte_RAM_B
@@ -10106,7 +10140,6 @@ loc_BANK3_B587:
       DEX
       RTS
 
-; End of function sub_BANK3_B4FD
 
 ; =============== S U B R O U T I N E =======================================
 
