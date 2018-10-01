@@ -85,4 +85,4 @@ Debug_Activate:
       PLP
       PLA
       PLA
-      JMP StartLevelWithTitleCard
+      JMP StartLevelAfterTitleCard
