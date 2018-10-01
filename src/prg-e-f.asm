@@ -1402,12 +1402,12 @@ StartLevel:
       LDA     #$B0
       ORA     byte_RAM_C9
       LDY     IsHorizontalLevel
-      BNE     loc_BANKF_E44A
+      BNE     StartLevel_SetPPUCtrlMirror
 
       AND     #$FE
       ORA     byte_RAM_C8
 
-loc_BANKF_E44A:
+StartLevel_SetPPUCtrlMirror:
       STA     PPUCtrlMirror
       STA     PPUCTRL
       LDA     #Stack100_Transition
@@ -1420,10 +1420,8 @@ loc_BANKF_E44A:
       LDA     #PRGBank_6_7
       JSR     ChangeMappedPRGBank
 
-      ; load level data
       JSR     LoadCurrentArea
 
-      ; load palette data
       JSR     LoadCurrentPalette
 
       JSR     HideAllSprites
@@ -1434,25 +1432,25 @@ loc_BANKF_E44A:
 
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
-      LDA     IsHorizontalLevel
-      BEQ     loc_BANKF_E4CC
 
-; horizontal area
-loc_BANKF_E478:
+      LDA     IsHorizontalLevel
+      BEQ     StartLevel_Vertical_Loop
+
+StartLevel_Horizontal_Loop:
       JSR     WaitForNMI
 
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      JSR     GameLoopHorizontal
+      JSR     InitializeAreaHorizontal
 
       JSR     EnsureCorrectMusic
 
-      LDA     byte_RAM_13
-      BEQ     loc_BANKF_E478
+      LDA     BreakStartLevelLoop
+      BEQ     StartLevel_Horizontal_Loop
 
       LDA     #$00
-      STA     byte_RAM_13
+      STA     BreakStartLevelLoop
       JSR     WaitForNMI_TurnOnPPU
 
 loc_BANKF_E491:
@@ -1503,24 +1501,21 @@ loc_BANKF_E4B9:
       STA     DoAreaTransition
       JMP     StartLevel
 
-; ---------------------------------------------------------------------------
-
-; vertical area
-loc_BANKF_E4CC:
+StartLevel_Vertical_Loop:
       JSR     WaitForNMI
 
       LDA     #PRGBank_0_1
       JSR     ChangeMappedPRGBank
 
-      JSR     GameLoopVertical
+      JSR     InitializeAreaVertical
 
       JSR     EnsureCorrectMusic
 
-      LDA     byte_RAM_13
-      BEQ     loc_BANKF_E4CC
+      LDA     BreakStartLevelLoop
+      BEQ     StartLevel_Vertical_Loop
 
       LDA     #$00
-      STA     byte_RAM_13
+      STA     BreakStartLevelLoop
       JSR     WaitForNMI_TurnOnPPU
 
 loc_BANKF_E4E5:

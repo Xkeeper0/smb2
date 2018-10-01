@@ -39,7 +39,7 @@ ScreenUpdateIndex:
       .dsb 1 ; $0011
 byte_RAM_12:
       .dsb 1 ; $0012
-byte_RAM_13:
+BreakStartLevelLoop:
       .dsb 1 ; $0013
 
 PlayerXHi:

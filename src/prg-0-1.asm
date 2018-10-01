@@ -14,7 +14,10 @@
 ; * =  $8000
 
 
-GameLoopVertical:
+;
+; Initializes a vertical area
+;
+InitializeAreaVertical:
       LDA     byte_RAM_502
       BNE     loc_BANK0_805D
 
@@ -88,7 +91,7 @@ loc_BANK0_8066:
       LDA     byte_RAM_53A
       BNE     locret_BANK0_8082
 
-      INC     byte_RAM_13
+      INC     BreakStartLevelLoop
       LDA     #$E8
       STA     byte_RAM_E1
       LDA     #$C8
@@ -944,9 +947,10 @@ IFDEF PRESERVE_UNUSED_SPACE
 ENDIF
 
 
-; =============== S U B R O U T I N E =======================================
-
-GameLoopHorizontal:
+;
+; Initializes a horizontal area
+;
+InitializeAreaHorizontal:
       LDA     byte_RAM_502
       BNE     loc_BANK0_855C
 
@@ -1008,7 +1012,7 @@ loc_BANK0_855C:
       BNE     locret_BANK0_8569
 
       STA     byte_RAM_502
-      INC     byte_RAM_13
+      INC     BreakStartLevelLoop
 
 locret_BANK0_8569:
       RTS
