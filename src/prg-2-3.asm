@@ -10,6 +10,7 @@
 ; .segment BANK2
 ; * =  $8000
 
+CarryYOffsets:
 CarryYOffsetBigLo:
       .BYTE $FA ; Mario
       .BYTE $F6 ; Princess
@@ -79,6 +80,10 @@ AreaInitialization_CarryYOffsetLoop:
       DEY
       BPL     AreaInitialization_CarryYOffsetLoop
 
+IFDEF CONTROLLER_2_DEBUG
+      JSR    CopyCarryYOffsets
+ENDIF
+
       ; Copy the character-specific FINAL carrying heights into memory
       LDY     CurrentCharacter
       LDA     CarryYOffsetBigLo,Y
@@ -89,6 +94,7 @@ AreaInitialization_CarryYOffsetLoop:
       STA     ItemCarryYOffsetsRAM+$0E
       LDA     CarryYOffsetSmallHi,Y
       STA     ItemCarryYOffsetsRAM+$15
+
       LDA     #$B6
       STA     PseudoRNGValues
       LDA     TransitionType
@@ -1510,7 +1516,7 @@ HandleEnemyState_PuffOfSmoke:
       JSR     sub_BANK2_88E8
 
       LDA     ObjectAttributes,X
-      ORA     #ObjAttrib_Palette0|ObjAttrib_Mirrored
+      ORA     #ObjAttrib_Mirrored
       STA     ObjectAttributes,X
       LDA     EnemyTimer,X
       BNE     loc_BANK2_87AC
@@ -1986,7 +1992,7 @@ loc_BANK2_8A15:
       BNE     loc_BANK2_8A41
 
       LDA     ObjectAttributes,X
-      AND     #ObjAttrib_Palette3|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_Mirrored|ObjAttrib_16x32|ObjAttrib_UpsideDown
+      AND     #ObjAttrib_Palette|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_Mirrored|ObjAttrib_16x32|ObjAttrib_UpsideDown
       STA     ObjectAttributes,X
       LDA     ObjectBeingCarriedTimer,X
       CMP     #$02
@@ -3503,8 +3509,8 @@ loc_BANK2_9198:
 ;
 TurnIntoPuffOfSmoke:
       LDA     ObjectAttributes,X ; Get current object sprite attributes...
-      AND     #ObjAttrib_Palette0|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_Mirrored|ObjAttrib_BehindBackground|ObjAttrib_16x32|ObjAttrib_UpsideDown
-      ORA     #$01 ; Clear current palette, then set to $01
+      AND     #ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_Mirrored|ObjAttrib_BehindBackground|ObjAttrib_16x32|ObjAttrib_UpsideDown
+      ORA     #ObjAttrib_Palette1
       STA     ObjectAttributes,X
       LDA     #EnemyState_PuffOfSmoke
       STA     EnemyState,X ; WINNERS DON'T SMOKE SHROOMS
@@ -4761,7 +4767,7 @@ loc_BANK2_9741:
 
 loc_BANK2_9753:
       LDA     ObjectAttributes,X
-      ORA     #$40
+      ORA     #ObjAttrib_16x32
       STA     ObjectAttributes,X
       LDY     DoorAnimationTimer
       LDA     DoorSpriteAnimation,Y
@@ -12102,3 +12108,18 @@ AreaSecondaryRoutine_POW_OffsetScreen:
 
 AreaSecondaryRoutine_Exit:
       RTS
+
+IFDEF CONTROLLER_2_DEBUG
+;
+; Copies all character stats to RAM for hot-swapping the current character
+;
+CopyCarryYOffsets:
+      LDX     #(AreaMainRoutine - CarryYOffsets - 1)
+CopyCarryYOffsets_Loop:
+      LDA     CarryYOffsets,X
+      STA     CarryYOffsetsRAM,X
+      DEX
+      BPL     CopyCarryYOffsets_Loop
+
+      RTS
+ENDIF

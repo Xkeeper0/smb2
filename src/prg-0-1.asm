@@ -1785,6 +1785,10 @@ GrowShrinkSFXIndexes:
 
 
 HandlePlayerState:
+IFDEF CONTROLLER_2_DEBUG
+      JSR     CheckPlayer2Joypad
+ENDIF
+
       LDA     PlayerState ; Handles player states?
       CMP     #PlayerState_Lifting
       BCS     loc_BANK0_8A26 ; If the player is changing size, just handle that
@@ -5469,7 +5473,7 @@ loc_BANK1_A4CC:
       STA     PlayerScreenX
       LDA     PlayerYLo
       STA     PlayerScreenYLo
-      JSR     sub_BANKF_F31A
+      JSR     RenderPlayer
 
       LDA     PlayerState
       JSR     JumpToTableAfterJump
@@ -6987,7 +6991,7 @@ loc_BANK1_B9EB:
 loc_BANK1_BA17:
       LDY     ObjectType,X
       LDA     ObjectAttributeTable,Y
-      AND     #ObjAttrib_Palette3|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_Mirrored|ObjAttrib_BehindBackground|ObjAttrib_16x32
+      AND     #ObjAttrib_Palette|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_Mirrored|ObjAttrib_BehindBackground|ObjAttrib_16x32
       STA     ObjectAttributes,X
       LDA     EnemyArray_46E_Data,Y
       STA     EnemyArray_46E,X
@@ -7250,6 +7254,7 @@ loc_BANK1_BB0B:
 ; CreateEnemy only checks the first 6 object slots
 ;
 ; Output
+;   N = enabled if no empty slot was found
 ;   Y = $FF if there no empty slot was found
 ;   byte_RAM_0 = slot used
 ;
@@ -7295,3 +7300,167 @@ CreateEnemy_Bank1_FoundSlot:
 
       LDX     byte_RAM_12
       RTS
+
+
+IFDEF CONTROLLER_2_DEBUG
+ChangeCharacterOffsets:
+      .BYTE   $00 ; unused
+      .BYTE   $03 ; Mario to right
+      .BYTE   $01 ; Mario to left
+      .BYTE   $00 ; Princess to right
+      .BYTE   $02 ; Princess to left
+      .BYTE   $01 ; Toad to right
+      .BYTE   $03 ; Toad to left
+      .BYTE   $02 ; Luigi to right
+      .BYTE   $00 ; Luigi to left
+
+CheckPlayer2Joypad:
+      LDA     ChangeCharacterTimer
+      BEQ     CheckPlayer2Joypad_Go
+
+      DEC     ChangeCharacterTimer
+
+CheckPlayer2Joypad_Exit:
+      RTS
+
+CheckPlayer2Joypad_Go:
+      LDA     PlayerState
+      CMP     #PlayerState_Dying
+      BEQ     CheckPlayer2Joypad_Exit
+
+CheckPlayer2Joypad_CheckStart:
+      LDA     Player2JoypadPress
+      AND     #ControllerInput_Start
+      BEQ     CheckPlayer2Joypad_CheckLeftRight
+
+      LDX     #$FF
+      LDA     StopwatchTimer
+      BEQ     CheckPlayer2Joypad_SetStopwatchTimer
+
+      INX
+
+CheckPlayer2Joypad_SetStopwatchTimer:
+      STX     StopwatchTimer
+
+CheckPlayer2Joypad_CheckLeftRight:
+      LDA     Player2JoypadPress
+      AND     #ControllerInput_Right|ControllerInput_Left
+      BEQ     CheckPlayer2Joypad_Exit
+      CMP     #ControllerInput_Right|ControllerInput_Left
+      BEQ     CheckPlayer2Joypad_Exit
+
+      CLC
+      ADC     CurrentCharacter
+      ADC     CurrentCharacter
+
+      TAY
+      LDA     ChangeCharacterOffsets,Y
+
+      LDX     #$18
+      STX     ChangeCharacterTimer
+
+;
+; Changes the current character
+;
+; Input
+;   A = target character
+;
+SetCurrentCharacter:
+      CMP     CurrentCharacter
+      BEQ     SetCurrentCharacter_Exit
+
+      STA     CurrentCharacter
+
+      LDX     CurrentCharacter
+      LDY     StatOffsetsRAM,X
+      LDX     #$00
+SetCurrentCharacter_StatsLoop:
+      LDA     StatOffsetsRAM+CharacterStats-StatOffsets,Y
+      STA     CharacterStatsRAM,X
+      INY
+      INX
+      CPX     #$17
+      BCC     SetCurrentCharacter_StatsLoop
+
+      LDA     CurrentCharacter
+      ASL     A
+      ASL     A
+      TAY
+      LDX     #$00
+SetCurrentCharacter_PaletteLoop:
+      LDA     StatOffsetsRAM+CharacterPalette-StatOffsets,Y
+      STA     RestorePlayerPalette0,X
+      INY
+      INX
+      CPX     #$04
+      BCC     SetCurrentCharacter_PaletteLoop
+
+      ; load carry offsets
+      LDY     CurrentCharacter
+      LDA     CarryYOffsetsRAM+CarryYOffsetBigLo-CarryYOffsets,Y
+      STA     ItemCarryYOffsetsRAM
+      LDA     CarryYOffsetsRAM+CarryYOffsetSmallLo-CarryYOffsets,Y
+      STA     ItemCarryYOffsetsRAM+$07
+      LDA     CarryYOffsetsRAM+CarryYOffsetBigHi-CarryYOffsets,Y
+      STA     ItemCarryYOffsetsRAM+$0E
+      LDA     CarryYOffsetsRAM+CarryYOffsetSmallHi-CarryYOffsets,Y
+      STA     ItemCarryYOffsetsRAM+$15
+
+      ; interrupt floating if this character can't do it
+      LDA     JumpFloatLength
+      BEQ     SetCurrentCharacter_SetJumpFloatTimer
+
+      ; if already floating, keep going
+      CMP     JumpFloatTimer
+      BCC     SetCurrentCharacter_Update
+
+SetCurrentCharacter_SetJumpFloatTimer:
+      STA     JumpFloatTimer
+
+SetCurrentCharacter_Update:
+      INC     SkyFlashTimer
+
+      JSR     LoadCharacterCHRBanks ; update chr
+
+      LDA     #DPCM_PlayerDeath
+      STA     DPCMQueue
+
+      LDA     #$00
+      JSR     SetCurrentCharacter_CreatePoof
+      LDA     #$10
+      JSR     SetCurrentCharacter_CreatePoof
+
+SetCurrentCharacter_Exit:
+      RTS
+
+SetCurrentCharacter_CreatePoof:
+      PHA
+      JSR     CreateEnemy_TryAllSlots_Bank1
+      BMI     SetCurrentCharacter_Exit
+
+      LDX     byte_RAM_0
+
+      PLA
+      STA     byte_RAM_0
+
+      LDA     #Enemy_SubspaceDoor
+      STA     ObjectType,X
+      LDA     #EnemyState_PuffOfSmoke
+      STA     EnemyState,X
+      STA     ObjectAnimationTimer,X
+      LDA     #$10
+      STA     EnemyTimer,X
+
+      LDA     PlayerXLo
+      STA     ObjectXLo,X
+      LDA     PlayerXHi
+      STA     ObjectXHi,X
+      LDA     PlayerYLo
+      CLC
+      ADC     byte_RAM_0
+      STA     ObjectYLo,X
+      LDA     PlayerYHi
+      ADC     #$00
+      STA     ObjectYHi,X
+      RTS
+ENDIF

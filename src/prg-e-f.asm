@@ -3374,7 +3374,7 @@ sub_BANKF_F0F9:
 loc_BANKF_F115:
       JSR     sub_BANKF_F228
 
-      JSR     sub_BANKF_F31A
+      JSR     RenderPlayer
 
 loc_BANKF_F11B:
       JMP     loc_BANKF_F146
@@ -3412,8 +3412,7 @@ loc_BANKF_F13A:
       ; screen boundary triggers
       JSR     sub_BANKF_F228
 
-      ; render player
-      JSR     sub_BANKF_F31A
+      JSR     RenderPlayer
 
 loc_BANKF_F146:
       LDA     #PRGBank_2_3
@@ -3490,7 +3489,7 @@ loc_BANKF_F19D:
 
       JSR     sub_BANKF_F228
 
-      JSR     sub_BANKF_F31A
+      JSR     RenderPlayer
 
 loc_BANKF_F1AB:
       JMP     loc_BANKF_F146
@@ -3801,10 +3800,11 @@ byte_BANKF_F2E7:
 DamageInvulnBlinkFrames:
       .BYTE $01, $01, $01, $02, $02, $04, $04, $04
 
-; =============== S U B R O U T I N E =======================================
 
-; render player subroutine
-sub_BANKF_F31A:
+;
+; Renders the player sprite
+;
+RenderPlayer:
 IFDEF COMPATIBILITY
       .db $ac, $50, $00 ; LDA $0000 + PlayerState
 ENDIF
@@ -3845,7 +3845,7 @@ loc_BANKF_F337:
       LSR     A
 
 loc_BANKF_F33F:
-      AND     #ObjAttrib_Palette3
+      AND     #ObjAttrib_Palette
       ORA     PlayerAttributes
       STA     PlayerAttributes
 
@@ -4041,7 +4041,6 @@ loc_BANKF_F478:
       STA     SpriteDMAArea+$2D
       RTS
 
-; End of function sub_BANKF_F31A
 
 ; =============== S U B R O U T I N E =======================================
 

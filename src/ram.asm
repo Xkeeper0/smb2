@@ -1766,6 +1766,7 @@ CompareMusicIndex:
 CurrentMusicIndex:
       .dsb 1 ; $0545
 
+CharacterStatsRAM:
 PickupSpeedAnimation:
       .dsb 1 ; $0546
       .dsb 1 ; 1                ; $0547
@@ -2820,5 +2821,9 @@ RawLevelData = $7800
 RawJarData = $7a00
 
 RawEnemyDataAddr = $7b00
+
+CarryYOffsetsRAM = $7e00
+StatOffsetsRAM = $7e10
+ChangeCharacterTimer = $7e80
 
 ItemCarryYOffsetsRAM = $7f00

@@ -256,12 +256,12 @@ locret_BANKA_83C8:
 ; End of function DrawTitleCardWorldImage
 
 StatOffsets:
-      .BYTE (MarioStats - PlayerStats)
-      .BYTE (PrincessStats - PlayerStats)
-      .BYTE (ToadStats - PlayerStats)
-      .BYTE (LuigiStats - PlayerStats)
+      .BYTE (MarioStats - CharacterStats)
+      .BYTE (PrincessStats - CharacterStats)
+      .BYTE (ToadStats - CharacterStats)
+      .BYTE (LuigiStats - CharacterStats)
 
-PlayerStats:
+CharacterStats:
 MarioStats:
       .BYTE $00 ; Pick-up Speed, frame 1/6 - pulling
       .BYTE $04 ; Pick-up Speed, frame 2/6 - pulling
@@ -362,15 +362,13 @@ PrincessStats:
       .BYTE $EB ; Running Speed, left - with object
       .BYTE $FC ; Running Speed, left - in quicksand
 
+CharacterPalette:
 MarioPalette:
       .BYTE $0F,$01,$16,$27
-
 PrincessPalette:
       .BYTE $0F,$06,$25,$36
-
 ToadPalette:
       .BYTE $0F,$01,$30,$27
-
 LuigiPalette:
       .BYTE $0F,$01,$2A,$36
 
@@ -400,21 +398,25 @@ MysteryData14439:
       .BYTE $D7
       .BYTE $AF
 
-; =============== S U B R O U T I N E =======================================
 
+;
 ; This copies the selected character's stats
 ; into memory for use later, but also a bunch
 ; of other unrelated crap like the
 ; Bonus Chance slot reels (???) and
 ; god knows what else.
+;
 CopyCharacterStatsAndStuff:
+IFDEF CONTROLLER_2_DEBUG
+      JSR     CopyCharacterStats
+ENDIF
+
       LDX     CurrentCharacter
       LDY     StatOffsets,X
       LDX     #$00
-
 loc_BANKA_8458:
-      LDA     PlayerStats,Y
-      STA     PickupSpeedAnimation,X
+      LDA     CharacterStats,Y
+      STA     CharacterStatsRAM,X
       INY
       INX
       CPX     #$17
@@ -426,7 +428,7 @@ loc_BANKA_8458:
       TAY
       LDX     #$00
 loc_BANKA_846B:
-      LDA     MarioPalette,Y
+      LDA     CharacterPalette,Y
       STA     RestorePlayerPalette0,X
       INY
       INX
@@ -625,6 +627,23 @@ UnusedText_THANK_YOU:
       .BYTE $21,$0C,$09,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE
 UnusedText_Blank214D:
       .BYTE $21,$4D,$06,$FB,$FB,$FB,$FB,$FB,$FB,$00
+
+IFDEF CONTROLLER_2_DEBUG
+;
+; Copies all character stats to RAM for hot-swapping the current character
+;
+CopyCharacterStats:
+      LDX     #(MysteryData14439 - StatOffsets - 1)
+CopyCharacterStats_Loop:
+      LDA     StatOffsets,X
+      STA     StatOffsetsRAM,X
+      DEX
+      BPL     CopyCharacterStats_Loop
+
+      RTS
+ENDIF
+
+
 IFDEF DEBUG
       .include "src/debug-a.asm"
 ENDIF

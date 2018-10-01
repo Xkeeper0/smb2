@@ -49,3 +49,6 @@ PRESERVE_UNUSED_SPACE = 1
 ; Use MMC5 (mapper 5) instead of MMC3 (mapper 4)
 ; Based on RetroRain's MMC5 patch (https://www.romhacking.net/hacks/2568)
 ; MMC5 = 1
+
+; Includes controller 2 debug features
+; CONTROLLER_2_DEBUG = 1
