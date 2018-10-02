@@ -2166,10 +2166,22 @@ MaxLevelsCompleted:
       .dsb 1 ; $0632
 ; FOR RENT
       .dsb 1 ; $0633
-; FOR RENT
+
+IFDEF AREA_HEADER_TILESET
+CurrentWorldTileset:
       .dsb 1 ; $0634
 CurrentWorld:
       .dsb 1 ; $0635
+ENDIF
+
+IFNDEF AREA_HEADER_TILESET
+; FOR RENT
+      .dsb 1 ; $0634
+CurrentWorld:
+CurrentWorldTileset:
+      .dsb 1 ; $0635
+ENDIF
+
 ; gets set to $A5 in DoCharacterSelectMenu to skip the bank switch
 CharacterSelectBankSwitch:
       .dsb 1 ; $0636

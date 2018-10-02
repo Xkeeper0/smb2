@@ -110,6 +110,7 @@ BonusChanceLayout_:
       .BYTE $23,$EA,$05,$A0,$A0,$A0,$A0,$20
       .BYTE $00
 
+IFNDEF BONUS_CHANCE_RAM_OPTIMIZATION
 ; =============== S U B R O U T I N E =======================================
 
 ; This copies the bonus chance layout from
@@ -139,6 +140,7 @@ loc_BANKA_831D:
       RTS
 
 ; End of function CopyBonusChanceLayoutToRAM
+ENDIF
 
 ; =============== S U B R O U T I N E =======================================
 

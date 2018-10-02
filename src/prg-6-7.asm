@@ -915,7 +915,7 @@ CreateWorldSpecificTile_ApplyObjectType:
 CreateWorldSpecificTile_LookUpTile:
       STX     byte_RAM_7
       STY     byte_RAM_8
-      LDX     CurrentWorld
+      LDX     CurrentWorldTileset
       LDA     WorldObjectTilePointersLo,X
       STA     byte_RAM_C
       LDA     WorldObjectTilePointersHi,X
@@ -945,7 +945,7 @@ CreateObject_HorizontalBlocks_Loop:
 
 
 CreateObject_LightEntranceRight:
-      LDA     CurrentWorld
+      LDA     CurrentWorldTileset
       CMP     #$05
       BNE     CreateObject_LightEntranceRight_NotWorld6
 
@@ -971,6 +971,7 @@ CreateObject_LightEntranceRight_NotWorld6:
       LDA     #BackgroundTile_LightTrailRight
       STA     (byte_RAM_1),Y
 
+IFNDEF DISABLE_DOOR_POINTERS
       LDA     CurrentWorld
       CMP     #$05
       BEQ     CreateObject_LightEntranceRight_World6or7Exit
@@ -980,6 +981,7 @@ CreateObject_LightEntranceRight_NotWorld6:
       BEQ     CreateObject_LightEntranceRight_World6or7Exit
 
       JSR     LevelParser_EatDoorPointer
+ENDIF
 
 CreateObject_LightEntranceRight_World6or7Exit:
       RTS
@@ -1047,6 +1049,7 @@ CreateObject_LightEntranceLeft:
       LDA     #BackgroundTile_LightTrailLeft
       STA     (byte_RAM_1),Y
 
+IFNDEF DISABLE_DOOR_POINTERS
       LDA     CurrentWorld
       CMP     #$05
       BEQ     CreateObject_LightEntranceLeft_World6or7Exit
@@ -1056,6 +1059,7 @@ CreateObject_LightEntranceLeft:
       BEQ     CreateObject_LightEntranceLeft_World6or7Exit
 
       JSR     LevelParser_EatDoorPointer
+ENDIF
 
 CreateObject_LightEntranceLeft_World6or7Exit:
       RTS
@@ -1138,7 +1142,7 @@ CreateObject_SingleBlock:
 
 CreateObject_SingleBlock_NotWorld6Custom:
       LDY     byte_RAM_E7
-      LDA     CurrentWorld
+      LDA     CurrentWorldTileset
       CMP     #$06
       BNE     CreateObject_SingleBlock_NotWorld7
 
@@ -1165,7 +1169,7 @@ HorizontalPlatformRightTiles:
       .BYTE BackgroundTile_CloudRight
 
 CreateObject_HorizontalPlatform:
-      LDA     CurrentWorld
+      LDA     CurrentWorldTileset
       CMP     #$04
       BNE     CreateObject_HorizontalPlatform_NotWorld5
 
@@ -1215,7 +1219,7 @@ GreenPlatformOverwriteTiles:
 
 ; Draw green platforms or mushroom house depending on world
 CreateObject_JumpthroughPlatform:
-      LDA     CurrentWorld
+      LDA     CurrentWorldTileset
       CMP     #$06
       BNE     loc_BANK6_8BBD
 
@@ -1364,7 +1368,7 @@ TallObjectBottomTiles:
       .BYTE BackgroundTile_PalmTreeTrunk
 
 CreateObject_Tall:
-      LDA     CurrentWorld
+      LDA     CurrentWorldTileset
       CMP     #$04
       BNE     CreateObject_Tall_NotWorld5
       JMP     CreateObject_Tall_World5
@@ -1597,7 +1601,7 @@ CreateObject_Wall:
 
 loc_BANK6_8D69:
       LDX     byte_RAM_8
-      LDA     CurrentWorld
+      LDA     CurrentWorldTileset
       CMP     #$06
       BNE     loc_BANK6_8D78
 
@@ -1633,7 +1637,7 @@ WaterfallTiles:
 
 
 CreateObject_WaterfallOrFrozenRocks:
-      LDA     CurrentWorld
+      LDA     CurrentWorldTileset
       CMP     #$03
       BNE     CreateObject_Waterfall
 
@@ -1877,7 +1881,7 @@ loc_BANK6_8EAF:
 ; ---------------------------------------------------------------------------
 
 CreateObject_WhaleOrDrawBridgeChain:
-      LDA     CurrentWorld
+      LDA     CurrentWorldTileset
       CMP     #$06
       BNE     CreateObject_Whale
 
@@ -2226,6 +2230,7 @@ loc_BANK6_9034:
 
       LDA     DoorBottomTiles,X
       STA     (byte_RAM_1),Y
+IFNDEF DISABLE_DOOR_POINTERS
       LDA     CurrentWorld
       CMP     #$05
       BEQ     CreateObject_Door_Exit
@@ -2236,6 +2241,7 @@ loc_BANK6_9034:
 
 loc_BANK6_9056:
       JSR     LevelParser_EatDoorPointer
+ENDIF
 
 CreateObject_Door_Exit:
       RTS
@@ -2357,7 +2363,7 @@ PillarBottomTiles:
       .BYTE BackgroundTile_ColumnPillarMiddle2
 
 CreateObject_Pillar:
-      LDX     CurrentWorld
+      LDX     CurrentWorldTileset
       LDY     byte_RAM_E7
       LDA     PillarTopTiles,X
       STA     (byte_RAM_1),Y
@@ -2369,14 +2375,15 @@ CreateObject_Pillar_Loop:
       CMP     #BackgroundTile_Sky
       BNE     CreateObject_Pillar_Exit
 
-      LDX     CurrentWorld
+      LDX     CurrentWorldTileset
       LDA     PillarBottomTiles,X
       STA     (byte_RAM_1),Y
 
-      LDA     CurrentWorld
+      LDA     CurrentWorldTileset
       CMP     #$04
       BNE     CreateObject_Pillar_Loop
 
+      ; some kind of special behavior for world 5?
       CPY     #$E0
       BCC     CreateObject_Pillar_Loop
 
@@ -2652,7 +2659,7 @@ ReadWorldBackgroundColor:
       STY     byte_RAM_E
       STX     byte_RAM_D
       ; look up the address of the current world's palette
-      LDY     CurrentWorld
+      LDY     CurrentWorldTileset
       LDA     WorldBackgroundPalettePointersLo,Y
       STA     byte_RAM_7
       LDA     WorldBackgroundPalettePointersHi,Y
@@ -2678,7 +2685,7 @@ ReadWorldSpriteColor:
       STY     byte_RAM_E
       STX     byte_RAM_D
       ; look up the address of the current world's palette
-      LDY     CurrentWorld
+      LDY     CurrentWorldTileset
       LDA     WorldSpritePalettePointersLo,Y
       STA     byte_RAM_7
       LDA     WorldSpritePalettePointersHi,Y
@@ -3093,6 +3100,21 @@ LoadCurrentArea:
       AND     #%00000011
       STA     ObjectTypeAXthruFX
       DEY
+
+IFDEF AREA_HEADER_TILESET
+      ; tileset
+      LDA     (byte_RAM_5),Y
+      ROL     A
+      ROL     A
+      ROL     A
+      ROL     A
+      AND     #%00000111
+      CMP     #$07 ; only $00-06 are valid, force $07 to CurrentWorld
+      BCC     LoadCurrentArea_IsValid
+      LDA     CurrentWorld
+LoadCurrentArea_IsValid:
+      STA     CurrentWorldTileset
+ENDIF
 
       ; ground type
       LDA     (byte_RAM_5),Y
@@ -3816,7 +3838,7 @@ WriteGroundSetTiles_IncrementYOffset:
 ReadGroundTileHorizontal:
       STX     byte_RAM_C
       STY     byte_RAM_D
-      LDX     CurrentWorld
+      LDX     CurrentWorldTileset
       LDA     GroundTilesHorizontalLo,X
       STA     byte_RAM_7
       LDA     GroundTilesHorizontalHi,X
@@ -3831,7 +3853,7 @@ ReadGroundTileHorizontal:
 ReadGroundTileVertical:
       STX     byte_RAM_C
       STY     byte_RAM_D
-      LDX     CurrentWorld
+      LDX     CurrentWorldTileset
       LDA     GroundTilesVerticalLo,X
       STA     byte_RAM_7
       LDA     GroundTilesVerticalHi,X
@@ -3924,7 +3946,7 @@ IncrementAreaYOffset:
 IncrementAreaYOffset_Exit:
       RTS
 
-
+IFNDEF DISABLE_DOOR_POINTERS
 LevelParser_EatDoorPointer:
       LDY     byte_RAM_4
       INY
@@ -3936,18 +3958,14 @@ LevelParser_EatDoorPointer:
       STY     byte_RAM_4
       LDA     byte_RAM_E8
       ASL     A
-
-loc_BANK6_98CD:
       TAY
       LDA     byte_RAM_7
       STA     AreaPointersByPage,Y
       INY
       LDA     byte_RAM_8
-
-loc_BANK6_98D6:
       STA     AreaPointersByPage,Y
       RTS
-
+ENDIF
 
 ; ---------------------------------------------------------------------------
 unk_BANK6_98DA:

@@ -2672,7 +2672,7 @@ loc_BANK2_8D8A:
       JSR     DoAreaReset
 
       LDY     CurrentLevelRelative
-      LDA     CurrentWorld
+      LDA     CurrentWorldTileset
       CMP     #$06
       BNE     loc_BANK2_8DAC
 
@@ -7318,7 +7318,7 @@ EnemyInit_Mouser:
       JSR     EnemyInit_Birdo
 
       LDA     #$02
-      LDY     CurrentWorld
+      LDY     CurrentWorldTileset
       BEQ     EnemyInit_Mouser_SetHP
 
       LDA     #$04

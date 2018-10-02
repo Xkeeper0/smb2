@@ -2997,7 +2997,7 @@ PlayerTileCollision_Downward:
       LDX     #$01
 
       ; Do the quicksand check in worlds 2 and 6
-      LDY     CurrentWorld
+      LDY     CurrentWorldTileset
       CPY     #$01
       BEQ     PlayerTileCollision_Downward_CheckQuicksand
 

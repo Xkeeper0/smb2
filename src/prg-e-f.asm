@@ -1424,6 +1424,10 @@ StartLevel_SetPPUCtrlMirror:
 
       JSR     LoadCurrentPalette
 
+IFDEF AREA_HEADER_TILESET
+      JSR     LoadWorldCHRBanks
+ENDIF
+
       JSR     HideAllSprites
 
       JSR     WaitForNMI
@@ -2023,12 +2027,16 @@ EndOfLevelSlotMachine:
 
       JSR     LoadBonusChanceCHRBanks
 
+IFNDEF BONUS_CHANCE_RAM_OPTIMIZATION
       JSR     CopyUnusedCoinSpriteToSpriteArea
+ENDIF
 
       LDA     #PRGBank_A_B
       JSR     ChangeMappedPRGBank
 
+IFNDEF BONUS_CHANCE_RAM_OPTIMIZATION
       JSR     CopyBonusChanceLayoutToRAM
+ENDIF
 
       LDA     #ScreenUpdateBuffer_RAM_BonusChanceLayout
       STA     ScreenUpdateIndex
@@ -2675,6 +2683,7 @@ loc_BANKF_EB1F:
 
 ; End of function sub_BANKF_EAF6
 
+IFNDEF BONUS_CHANCE_RAM_OPTIMIZATION
 ;
 ; Copies the unused coin sprite from memory into the sprite DMA area at $200
 ;
@@ -2689,7 +2698,7 @@ CopyUnusedCoinSpriteToSpriteArea_Loop:
       BCC     CopyUnusedCoinSpriteToSpriteArea_Loop
 
       RTS
-
+ENDIF
 
 loc_BANKF_EB3F:
       LDA     #$00
@@ -5181,7 +5190,7 @@ AnimateCHRRoutine_DefaultSpeedNext:
       DEY
       BPL     AnimateCHRRoutine_DefaultSpeedLoop
 
-      LDX     CurrentWorld
+      LDX     CurrentWorldTileset
 
 AnimateCHRRoutine_SetSpeed:
       LDA     BackgroundCHRAnimationSpeedByWorld,X
@@ -5300,7 +5309,7 @@ LoadWorldCHRBanks:
       STY     SpriteCHR2
       INY
       STY     SpriteCHR3
-      LDY     CurrentWorld
+      LDY     CurrentWorldTileset
       LDA     CHRBank_WorldEnemies,Y
       STA     SpriteCHR4
       LDA     CHRBank_WorldBossBackground,Y
