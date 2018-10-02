@@ -4588,11 +4588,21 @@ UpdateJoypads:
 UpdateJoypads_DoubleCheck:
       ; Work around DPCM sample bug,
       ; where some spurious inputs are read
+IFDEF CONTROLLER_2_DEBUG
+      LDY     Player2JoypadPress
+      STY     UpdateJoypadsTemp
+ENDIF
       LDY     Player1JoypadPress
       JSR     ReadJoypads
 
       CPY     Player1JoypadPress
       BNE     UpdateJoypads_DoubleCheck
+
+IFDEF CONTROLLER_2_DEBUG
+      LDY     UpdateJoypadsTemp
+      CPY     Player2JoypadPress
+      BNE     UpdateJoypads_DoubleCheck
+ENDIF
 
       LDX     #$01
 

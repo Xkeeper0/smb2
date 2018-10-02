@@ -2822,8 +2822,11 @@ RawJarData = $7a00
 
 RawEnemyDataAddr = $7b00
 
-CarryYOffsetsRAM = $7e00
-StatOffsetsRAM = $7e10
-ChangeCharacterTimer = $7e80
+IFDEF CONTROLLER_2_DEBUG
+      UpdateJoypadsTemp = $00c6
+      CarryYOffsetsRAM = $7e00
+      StatOffsetsRAM = $7e10
+      ChangeCharacterTimer = $7e80
+ENDIF
 
 ItemCarryYOffsetsRAM = $7f00
