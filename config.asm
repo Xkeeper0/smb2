@@ -28,6 +28,9 @@ PRESERVE_UNUSED_SPACE = 1
 ; Based on RetroRain's MMC5 patch (https://www.romhacking.net/hacks/2568)
 ; MMC5 = 1
 
+; Builds a "Revision A" ROM, which fixes the FryGuy softlock bug.
+REV_A = 1
+
 ; Show all 8 frames of CHR cycling animation
 ; FIX_CHR_CYCLE = 1
 

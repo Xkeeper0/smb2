@@ -35,7 +35,10 @@ The build process will generate a few files:
 
 By default, the build script will create a byte-for-byte copy of the game.
 
-(If you want to make sure, check the SHA-256. It should be `47ba60fad332fdea5ae44b7979fe1ee78de1d316ee027fea2ad5fe3c0d86f25a`!)
+If you want to make sure, check the SHA-256:
+
+* PRG0: `47ba60fad332fdea5ae44b7979fe1ee78de1d316ee027fea2ad5fe3c0d86f25a`
+* PRG1: `6ca47e9da206914730895e45fef4f7393e59772c1c80e9b9befc1a01d7ecf724`
 
 You can edit `config.asm` to change some build options; see that file for details.
 

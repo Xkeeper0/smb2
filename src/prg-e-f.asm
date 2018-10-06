@@ -2025,6 +2025,11 @@ EndOfLevelSlotMachine:
 
       JSR     ClearNametablesAndSprites
 
+IFDEF REV_A
+      JSR     EnableNMI
+      JSR     WaitForNMI
+ENDIF
+
       JSR     LoadBonusChanceCHRBanks
 
 IFNDEF BONUS_CHANCE_RAM_OPTIMIZATION
