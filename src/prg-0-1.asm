@@ -4578,6 +4578,7 @@ TitleScreenPPUDataPointers:
       .WORD PPUBuffer_301
       .WORD TitleLayout1
 
+
 ; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_TitleScreen_TurnOnPPU:
@@ -4593,8 +4594,6 @@ WaitForNMI_TitleScreen:
       ASL     A
       TAX
       LDA     TitleScreenPPUDataPointers,X
-
-loc_BANK0_960F:
       STA     RAM_PPUDataBufferPointer
       LDA     TitleScreenPPUDataPointers+1,X
       STA     RAM_PPUDataBufferPointer+1
@@ -4609,112 +4608,141 @@ WaitForNMI_TitleScreenLoop:
 
 ; End of function WaitForNMI_TitleScreen
 
-; ---------------------------------------------------------------------------
+
 TitleLayout1:
-      .BYTE $20,$00,$DE,$FD
-      .BYTE $20,$01,$DE,$FD
-      .BYTE $20,$02,$DE,$FD
-      .BYTE $20,$03,$DE,$FD
-      .BYTE $20,$1C,$DE,$FD
-      .BYTE $20,$1D,$DE,$FD
-      .BYTE $20,$1E,$DE,$FD
-      .BYTE $20,$1F,$DE,$FD
-      .BYTE $20,$03,$5D,$FD
-      .BYTE $20,$23,$5D,$FD
-      .BYTE $20,$43,$5D,$FD
-      .BYTE $20,$63,$5D,$FD
-      .BYTE $23,$63,$5D,$FD
-      .BYTE $23,$83,$5D,$FD
-      .BYTE $23,$A3,$5D,$FD
-      .BYTE $20,$68,$10,$48,$4A,$4C,$4E,$50,$51,$52,$53,$54,$55,$56,$57
-      .BYTE $58,$5A,$5C,$5E ; $F
-      .BYTE $20,$84,$08,$FD,$22,$23,$24,$49,$4B,$4D,$4F
-      .BYTE $20,$94,$08,$59,$5B,$5D,$5F,$2E,$2F,$30,$FD
-      .BYTE $20,$A4,$03,$25,$26,$27
-      .BYTE $20,$B9,$03,$31,$32,$33
-      .BYTE $20,$C4,$03,$28,$29,$2A
-      .BYTE $20,$D9,$03,$34,$35,$36
-      .BYTE $20,$E3,$03,$2B,$2C,$2D
-      .BYTE $20,$FA,$03,$37,$38,$39
-      .BYTE $21,$03,$02,$3A,$3B
-      .BYTE $21,$1B,$02,$40,$41
-      .BYTE $21,$23,$C6,$3C
-      .BYTE $21,$3C,$C6,$42
-      .BYTE $21,$E3,$01,$3D
-      .BYTE $21,$FC,$01,$60
-      .BYTE $22,$02,$02,$3E,$3F
-      .BYTE $22,$1C,$02,$61,$62
-      .BYTE $22,$22,$02,$43,$44
-      .BYTE $22,$3C,$02,$63,$64
-      .BYTE $22,$43,$01,$45
-      .BYTE $22,$5C,$01,$65
-      .BYTE $22,$63,$C6,$3C
-      .BYTE $22,$7C,$C4,$42
-      .BYTE $22,$C4,$02,$A6,$A8
-      .BYTE $22,$E4,$02,$A7,$A9
-      .BYTE $22,$FA,$04,$80,$82,$88,$8A
-      .BYTE $23,$04,$02,$90,$92
-      .BYTE $23,$14,$02,$9E,$A0
-      .BYTE $23,$1A,$04,$81,$83,$89,$8B
-      .BYTE $23,$23,$03,$46,$91,$93
-      .BYTE $23,$2A,$02,$A2,$A4
-      .BYTE $23,$2E,$0B,$67,$6C,$6E,$70,$72,$69,$9F,$A1,$75,$98,$9A
-      .BYTE $23,$3A,$04,$84,$86,$8C,$8E
-      .BYTE $23,$43,$1B,$47,$94,$96,$74,$74,$74,$74,$A3,$A5,$74,$66,$68
-      .BYTE $6D,$6F,$71,$73,$6A,$6B,$74,$74,$99,$9B,$74,$85,$87,$8D,$8F ; $F
-      .BYTE $23,$64,$05,$95,$97,$FD,$AA,$AB
-      .BYTE $23,$77,$04,$9C,$9D,$AA,$AB
-      .BYTE $23,$89,$02,$AA,$AB
-      .BYTE $20,$CB,$0A,$00,$01,$08,$08,$FC,$01,$FC,$08,$FC,$01 ; "SUPER" logo
-      .BYTE $20,$EB,$0A,$02,$03,$08,$08,$0A,$05,$0B,$C,$0A,$D
-      .BYTE $21,$0B,$A,$04,$05,$04,$05,$0E,$07,$FC,$08,$0E,8
-      .BYTE $21,$2B,$05,$06,$07,$06,$07,9
-      .BYTE $21,$31,$04,$76,$09,$09,9
-      .BYTE $21,$38,$02,$F9,$FA ; TM
-      .BYTE $21,$46,$0A,$00,$0F,$01,$00,$01,$FC,$01,$08,$00,1
-      .BYTE $21,$66,$0A,$10,$10,$08,$10,$08,$10,$08,$08,$10,8
-      .BYTE $21,$86,$0A,$08,$08,$08,$08,$08,$13,$0D,$08,$08,8
-      .BYTE $21,$A6,$0A,$08,$08,$08,$FC,$08,$0E,$08,$08,$08,8
-      .BYTE $21,$C6,$0A,$08,$08,$08,$10,$08,$08,$08,$08,$04,5
-      .BYTE $21,$E6,$0A,$09,$09,$09,$09,$09,$09,$09,$09,$06,7
-      .BYTE $21,$51,$08,$FC,$01,$FC,$01,$00,$01,$00,1
-      .BYTE $21,$71,$08,$10,$08,$10,$08,$10,$08,$10,8
-      .BYTE $21,$91,$08,$13,$0D,$13,$0D,$08,$08,$77,3
-      .BYTE $21,$B1,$08,$0E,$08,$0E,$08,$08,$08,$12,8
-      .BYTE $21,$D1,$09,$13,$05,$08,$08,$04,$05,$04,$05,8
-      .BYTE $21,$F1,$09,$11,$07,$09,$09,$06,$07,$06,$07,9
-      .BYTE $22,$0E,$04,$14,$15,$16,$17
-      .BYTE $22,$2E,$04,$18,$19,$1A,$1B
-      .BYTE $22,$4E,$04,$1C,$1D,$1E,$1F
-      .BYTE $22,$6E,$04,$FC,$FC,$FC,$20
-      .BYTE $22,$8E,$04,$76,$76,$76,$21
-      .BYTE $22,$E9,$05,$F8,$D1,$D9,$D8,$D8 ; (C) 1988
-      .BYTE $22,$EF,$08,$E7,$E2,$E7,$ED,$DE,$E7,$DD,$E8 ; NINTENDO
-; (these could have been combined, but... Nintendo)
-      .BYTE $23,$CA,$04,$80,$A0,$A0,$20
-      .BYTE $23,$D1,$0E,$80,$A8,$AA,$AA,$A2,$22,$00,$00,$88,$AA,$AA,$AA,$AA
-      .BYTE $22 ; $10
-      .BYTE $23,$E3,$02,$88,$22
-      .BYTE $23,$EA,$04,$F0,$F8,$F2,$F0
+      ; red lines, vertical, left
+      .BYTE $20, $00, $DE, $FD
+      .BYTE $20, $01, $DE, $FD
+      .BYTE $20, $02, $DE, $FD
+      .BYTE $20, $03, $DE, $FD
+      ; red lines, vertical, right
+      .BYTE $20, $1C, $DE, $FD
+      .BYTE $20, $1D, $DE, $FD
+      .BYTE $20, $1E, $DE, $FD
+      .BYTE $20, $1F, $DE, $FD
+      ; red lines, horizontal, top
+      .BYTE $20, $03, $5D, $FD
+      .BYTE $20, $23, $5D, $FD
+      .BYTE $20, $43, $5D, $FD
+      .BYTE $20, $63, $5D, $FD
+      ; red lines, vertical, bottom
+      .BYTE $23, $63, $5D, $FD
+      .BYTE $23, $83, $5D, $FD
+      .BYTE $23, $A3, $5D, $FD
+
+      ; ornate frame, top
+      .BYTE $20, $68, $10, $48, $4A, $4C, $4E, $50, $51, $52, $53, $54, $55, $56, $57, $58, $5A, $5C, $5E
+      .BYTE $20, $84, $08, $FD, $22, $23, $24, $49, $4B, $4D, $4F
+      .BYTE $20, $94, $08, $59, $5B, $5D, $5F, $2E, $2F, $30, $FD
+      .BYTE $20, $A4, $03, $25, $26, $27
+      .BYTE $20, $B9, $03, $31, $32, $33
+      .BYTE $20, $C4, $03, $28, $29, $2A
+      .BYTE $20, $D9, $03, $34, $35, $36
+      .BYTE $20, $E3, $03, $2B, $2C, $2D
+      .BYTE $20, $FA, $03, $37, $38, $39
+      .BYTE $21, $03, $02, $3A, $3B
+      .BYTE $21, $1B, $02, $40, $41
+      ; ornate frame, lines down, top
+      .BYTE $21, $23, $C6, $3C
+      .BYTE $21, $3C, $C6, $42
+      ; ornate frame, middle
+      .BYTE $21, $E3, $01, $3D
+      .BYTE $21, $FC, $01, $60
+      .BYTE $22, $02, $02, $3E, $3F
+      .BYTE $22, $1C, $02, $61, $62
+      .BYTE $22, $22, $02, $43, $44
+      .BYTE $22, $3C, $02, $63, $64
+      .BYTE $22, $43, $01, $45
+      .BYTE $22, $5C, $01, $65
+      ; ornate frame, lines down, bottom
+      .BYTE $22, $63, $C6, $3C
+      .BYTE $22, $7C, $C4, $42
+      ; ornate frame, bottom, characters
+      .BYTE $22, $C4, $02, $A6, $A8
+      .BYTE $22, $E4, $02, $A7, $A9
+      .BYTE $22, $FA, $04, $80, $82, $88, $8A
+      .BYTE $23, $04, $02, $90, $92
+      .BYTE $23, $14, $02, $9E, $A0
+      .BYTE $23, $1A, $04, $81, $83, $89, $8B
+      .BYTE $23, $23, $03, $46, $91, $93
+      .BYTE $23, $2A, $02, $A2, $A4
+      .BYTE $23, $2E, $0B, $67, $6C, $6E, $70, $72, $69, $9F, $A1, $75, $98, $9A
+      .BYTE $23, $3A, $04, $84, $86, $8C, $8E
+      .BYTE $23, $43, $1B, $47, $94, $96, $74, $74, $74, $74, $A3, $A5, $74, $66, $68
+      .BYTE $6D, $6F, $71, $73, $6A, $6B, $74, $74, $99, $9B, $74, $85, $87, $8D, $8F
+      .BYTE $23, $64, $05, $95, $97, $FD, $AA ,$AB
+      .BYTE $23, $77, $04, $9C, $9D, $AA, $AB
+      .BYTE $23, $89, $02, $AA, $AB
+
+      ; SUPER
+      ;                    SSSSSSSS  UUUUUUUU  PPPPPPPP  EEEEEEEE  RRRRRRRR
+      .BYTE $20, $CB, $0A, $00, $01, $08, $08, $FC, $01, $FC, $08, $FC, $01
+      .BYTE $20, $EB, $0A, $02, $03, $08, $08, $0A, $05, $0B, $0C, $0A, $0D
+      .BYTE $21, $0B, $0A, $04, $05, $04, $05, $0E, $07, $FC, $08, $0E, $08
+      .BYTE $21, $2B, $05, $06, $07, $06, $07, $09
+      .BYTE $21, $31, $04, $76, $09, $09, $09
+
+      ; TM
+      ;                    TTT  MMM
+      .BYTE $21, $38, $02, $F9, $FA
+
+      ; MARIO
+      ;                    MMMMMMMMMMMMM  AAAAAAAA  RRRRRRRR  III  OOOOOOOO
+      .BYTE $21, $46, $0A, $00, $0F, $01, $00, $01, $FC, $01, $08, $00, $01
+      .BYTE $21, $66, $0A, $10, $10, $08, $10, $08, $10, $08, $08, $10, $08
+      .BYTE $21, $86, $0A, $08, $08, $08, $08, $08, $13, $0D, $08, $08, $08
+      .BYTE $21, $A6, $0A, $08, $08, $08, $FC, $08, $0E, $08, $08, $08, $08
+      .BYTE $21, $C6, $0A, $08, $08, $08, $10, $08, $08, $08, $08, $04, $05
+      .BYTE $21, $E6, $0A, $09, $09, $09, $09, $09, $09, $09, $09, $06, $07
+
+      ; BROS
+      ;                    BBBBBBBB  RRRRRRRR  OOOOOOOO  SSSSSSSS
+      .BYTE $21, $51, $08, $FC, $01, $FC, $01, $00, $01, $00, $01 ; BROS
+      .BYTE $21, $71, $08, $10, $08, $10, $08, $10, $08, $10, $08
+      .BYTE $21, $91, $08, $13, $0D, $13, $0D, $08, $08, $77, $03
+      .BYTE $21, $B1, $08, $0E, $08, $0E, $08, $08, $08, $12, $08
+      .BYTE $21, $D1, $09, $13, $05, $08, $08, $04, $05, $04, $05, $08
+      .BYTE $21, $F1, $09, $11, $07, $09, $09, $06, $07, $06, $07, $09
+
+      ; 2
+      ;               22222222222222222222222
+      .BYTE $22, $0E, $04, $14, $15, $16, $17
+      .BYTE $22, $2E, $04, $18, $19, $1A, $1B
+      .BYTE $22, $4E, $04, $1C, $1D, $1E, $1F
+      .BYTE $22, $6E, $04, $FC, $FC, $FC, $20
+      .BYTE $22, $8E, $04, $76, $76, $76, $21
+
+      ; (C) 1988
+      ;                    (C)  111  999  888  888
+      .BYTE $22, $E9, $05, $F8, $D1, $D9, $D8, $D8  ; (C) 1988
+
+      ; NINTENDO
+      ;                    NNN  III  NNN  TTT  EEE  NNN  DDD  OOO
+      .BYTE $22, $EF, $08, $E7, $E2, $E7, $ED, $DE, $E7, $DD, $E8
+
+      .BYTE $23, $CA, $04, $80, $A0, $A0, $20
+      .BYTE $23, $D1, $0E, $80, $A8, $AA, $AA, $A2, $22, $00, $00, $88, $AA, $AA, $AA, $AA, $22
+      .BYTE $23, $E3, $02, $88, $22
+      .BYTE $23, $EA, $04, $F0, $F8, $F2, $F0
       .BYTE $00
+
 TitleBackgroundPalettes:
-      .BYTE $22,$37,$16,7
-      .BYTE $22,$30,$31,$0F ; 1: Most of screen, outline, etc.
-      .BYTE $22,$30,$0F,$F ; 2: Not used (?)
-      .BYTE $22,$30,$0F,$F ; 3: SUPER MARIO BROS. 2 logo
-; 4: (C) 1988 NINTENDO
-; (this is the same palette
-;    as the logo, though...)
+      .BYTE $22, $37, $16, $07 ; Most of screen, outline, etc.
+      .BYTE $22, $30, $31, $0F ; Unused
+      .BYTE $22, $30, $0F, $0F ; Logo
+      .BYTE $22, $30, $0F, $0F ; Copyright, Story
+
 TitleSpritePalettes:
-      .BYTE $22,$30,$28,$0F ; Unused DDP character palettes
-      .BYTE $22,$30,$25,$0F ; There are no sprites on the title screen,
-      .BYTE $22,$30,$12,$0F ; so these are totally unused
-      .BYTE $22,$30,$23,$F
+      .BYTE $22, $30, $28, $0F ; Unused DDP character palettes
+      .BYTE $22, $30, $25, $0F ; There are no sprites on the title screen,
+      .BYTE $22, $30, $12, $0F ; so these are totally unused
+      .BYTE $22, $30, $23, $0F
+
 TitleStoryText_STORY:
       .BYTE $EC, $ED, $E8, $EB, $F2 ; STORY
+
 TitleStoryTextPointersHi:
       .BYTE >TitleStoryText_Line01
-
       .BYTE >TitleStoryText_Line02
       .BYTE >TitleStoryText_Line03
       .BYTE >TitleStoryText_Line04
@@ -4731,9 +4759,9 @@ TitleStoryTextPointersHi:
       .BYTE >TitleStoryText_Line14
       .BYTE >TitleStoryText_Line15
       .BYTE >TitleStoryText_Line16
+
 TitleStoryTextPointersLo:
       .BYTE <TitleStoryText_Line01
-
       .BYTE <TitleStoryText_Line02
       .BYTE <TitleStoryText_Line03
       .BYTE <TitleStoryText_Line04
@@ -4750,71 +4778,88 @@ TitleStoryTextPointersLo:
       .BYTE <TitleStoryText_Line14
       .BYTE <TitleStoryText_Line15
       .BYTE <TitleStoryText_Line16
+
 TitleStoryText_Line01:
       .BYTE $F0, $E1, $DE, $E7, $FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB, $E8, $E9, $DE, $E7
       .BYTE $DE, $DD, $FB, $DA ; WHEN MARIO OPENED A
+
 TitleStoryText_Line02:
       .BYTE $DD, $E8, $E8, $EB, $FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB, $DC, $E5, $E2, $E6
       .BYTE $DB, $E2, $E7, $E0 ; DOOR AFTER CLIMBING
+
 TitleStoryText_Line03:
       .BYTE $DA, $FB, $E5, $E8, $E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB, $FB, $E2, $E7, $FB
       .BYTE $FB, $E1, $E2, $EC ; A LONG STAIR IN HIS
+
 TitleStoryText_Line04:
       .BYTE $DD, $EB, $DE, $DA, $E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1, $DE, $EB, $FB, $F0
       .BYTE $E8, $EB, $E5, $DD ; DREAM, ANOTHER WORLD
+
 TitleStoryText_Line05:
       .BYTE $EC, $E9, $EB, $DE, $DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF, $E8, $EB, $DE, $FB
       .BYTE $FB, $E1, $E2, $E6 ; SPREAD BEFORE HIM
+
 TitleStoryText_Line06:
       .BYTE $DA, $E7, $DD, $FB, $E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD, $FB, $DA, $FB, $EF
       .BYTE $E8, $E2, $DC, $DE ; AND HE HEARD A VOICE
+
 TitleStoryText_Line07:
       .BYTE $DC, $DA, $E5, $E5, $FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5, $E9, $FB, $ED, $E8
       .BYTE $FB, $FB, $DB, $DE ; CALL FOR HELP TO BE
+
 TitleStoryText_Line08:
       .BYTE $FB, $DF, $EB, $DE, $DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6, $FB, $DA, $FB, $EC
       .BYTE $E9, $DE, $E5, $E5 ; FREED FROM A SPELL
+
 TitleStoryText_Line09:
       .BYTE $DA, $DF, $ED, $DE, $EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE, $E7, $E2, $E7, $E0
       .BYTE $F7, $FB, $FB, $FB ; AFTER AWAKENING,
+
 TitleStoryText_Line10:
       .BYTE $E6, $DA, $EB, $E2, $E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB, $ED, $E8, $FB, $FB
       .BYTE $DA, $FB, $FB, $FB ; MARIO WENT TO A
+
 TitleStoryText_Line11:
       .BYTE $DC, $DA, $EF, $DE, $FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2, $FB, $DA, $E7, $DD
       .BYTE $FB, $FB, $ED, $E8 ; CAVE NEARBY AND TO
+
 TitleStoryText_Line12:
       .BYTE $E1, $E2, $EC, $FB, $FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC, $DE, $FB, $E1, $DE
       .BYTE $FB, $EC, $DA, $F0 ; HIS SURPRISE HE SAW
+
 TitleStoryText_Line13:
       .BYTE $DE, $F1, $DA, $DC, $ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA, $ED, $FB, $E1, $DE
       .BYTE $FB, $EC, $DA, $F0 ; EXACTLY WHAT HE SAW
+
 TitleStoryText_Line14:
       .BYTE $E2, $E7, $FB, $E1, $E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6, $CF, $CF, $CF, $CF
       .BYTE $FB, $FB, $FB, $FB ; IN HIS DREAM....
+
 TitleStoryText_Line15:
       .BYTE $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
       .BYTE $FB, $FB, $FB, $FB ; (blank)
+
 TitleStoryText_Line16:
       .BYTE $FB, $FB, $E9, $EE, $EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED, $FB, $DB, $EE, $ED
       .BYTE $ED, $E8, $E7, $FB ; PUSH START BUTTON
+
 TitleAttributeData1:
       .BYTE $23, $CB, $42, $FF
-
       .BYTE $23, $D1, $01, $CC
       .BYTE $23, $D2, $44, $FF
       .BYTE $23, $D6, $01, $33
       .BYTE $23, $D9, $01, $CC
       .BYTE $23, $DA, $44, $FF
+
 TitleAttributeData2:
       .BYTE $23, $DE, $01, $33
-
       .BYTE $23, $E1, $01, $CC
       .BYTE $23, $E2, $44, $FF
       .BYTE $23, $E6, $01, $33
       .BYTE $23, $EA, $44, $FF
       .BYTE $23, $E9, $01, $CC
       .BYTE $23, $EE, $01, $33
+
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -4841,11 +4886,13 @@ loc_BANK0_9A53:
       TAY
 
 InitMemoryLoop2:
-      STA     byte_RAM_0,Y ; Now we clear $00-$FF.
-      INY ; Notably, this leaves the stack area,
-; $100-$1FF, uninitialized.
-      BNE     InitMemoryLoop2 ; This is not super important, but you might want to
-; do this yourself to track stack corruption or whatever.
+      ; Clear $0000-$00FF.
+      ; Notably, this leaves the stack area $0100-$01FF uninitialized.
+      ; This is not super important, but you might want to do it yourself to
+      ; track stack corruption or whatever.
+      STA     byte_RAM_0,Y
+      INY
+      BNE     InitMemoryLoop2
 
       JSR     LoadTitleScreenCHRBanks
 
