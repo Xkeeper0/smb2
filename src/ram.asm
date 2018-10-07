@@ -1918,18 +1918,18 @@ byte_RAM_5BB:
       .dsb 1 ; $05bb
 PhantoActivateTimer:
       .dsb 1 ; $05bc
-byte_RAM_5BD:
+CardScreenUpdateIndex:
       .dsb 1 ; $05bd
-unk_RAM_5BE:
+Contributors:
       .dsb 1 ; $05be
       .dsb 1 ; $05bf
       .dsb 1 ; $05c0
       .dsb 1 ; $05c1
-byte_RAM_5C2:
+NumContributors:
       .dsb 1 ; $05c2
-byte_RAM_5C3:
+ContributorIndex:
       .dsb 1 ; $05c3
-byte_RAM_5C4:
+ContributorTimer:
       .dsb 1 ; $05c4
 Continues:
       .dsb 1 ; $05c5

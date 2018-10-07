@@ -1837,26 +1837,28 @@ HandlePlayerState_Normal:
       ; screen boundary x-collision
       JSR     PlayerAreaBoundaryCollision
 
-      JSR     sub_BANK0_8EA4
+      JSR     ApplyPlayerPhysicsY
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_8A50:
+;
+; Applies player physics on the x-axis
+;
+ApplyPlayerPhysicsX:
       LDX     #$00
-      JSR     sub_BANK0_8EA6
+      JSR     ApplyPlayerPhysics
 
       LDA     IsHorizontalLevel
-      BNE     locret_BANK0_8A5B
+      BNE     ApplyPlayerPhysicsX_Exit
 
       STA     PlayerXHi
 
-locret_BANK0_8A5B:
+ApplyPlayerPhysicsX_Exit:
       RTS
 
-; End of function sub_BANK0_8A50
 
-; ---------------------------------------------------------------------------
-
+;
+; What goes up must come down
+;
 HandlePlayerState_Dying:
       LDA     PlayerStateTimer
       BNE     locret_BANK0_8A86
@@ -1865,7 +1867,7 @@ HandlePlayerState_Dying:
       CMP     #02
       BEQ     LoseALife
 
-      JSR     sub_BANK0_8EA4
+      JSR     ApplyPlayerPhysicsY
 
       LDA     PlayerYVelocity
       BMI     loc_BANK0_8A72
@@ -2016,9 +2018,9 @@ loc_BANK0_8B08:
       STX     PlayerYVelocity
 
 loc_BANK0_8B0E:
-      JSR     sub_BANK0_8A50
+      JSR     ApplyPlayerPhysicsX
 
-      JMP     sub_BANK0_8EA4
+      JMP     ApplyPlayerPhysicsY
 
 ; ---------------------------------------------------------------------------
 
@@ -2189,7 +2191,7 @@ loc_BANK0_8BBD:
       JSR     PlayerClimbAnimation
 
 loc_BANK0_8BC3:
-      JMP     sub_BANK0_8EA4
+      JMP     ApplyPlayerPhysicsY
 
 ; ---------------------------------------------------------------------------
 
@@ -2204,7 +2206,7 @@ HandlePlayerState_HawkmouthEating:
       LDA     PlayerStateTimer
       BEQ     loc_BANK0_8BE9
 
-      JSR     sub_BANK0_8EA4
+      JSR     ApplyPlayerPhysicsY
 
 IFDEF COMPATIBILITY
       .db $ad, $5a, $00 ; LDA $0000 + PlayerCollision
@@ -2224,7 +2226,7 @@ ENDIF
       STA     PlayerDirection
 
 loc_BANK0_8BE3:
-      JSR     sub_BANK0_8A50
+      JSR     ApplyPlayerPhysicsX
 
       JMP     PlayerWalkJumpAnim
 
@@ -2236,38 +2238,35 @@ loc_BANK0_8BE9:
 locret_BANK0_8BEB:
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK0_8BEC:
+
+; Alternate between large and small graphics on these frames when changing size
+ChangingSizeKeyframes:
       .BYTE $05
       .BYTE $0A
       .BYTE $0F
       .BYTE $14
       .BYTE $19
-; ---------------------------------------------------------------------------
+
 
 HandlePlayerState_ChangingSize:
       LDA     PlayerStateTimer
       BEQ     loc_BANK0_8C0D
 
       INC     DamageInvulnTime
-      LDY     #$04
 
-loc_BANK0_8BF9:
-      CMP     byte_BANK0_8BEC,Y
-      BNE     loc_BANK0_8C09
+      LDY     #$04
+HandlePlayerState_ChangingSize_Loop:
+      CMP     ChangingSizeKeyframes,Y
+      BNE     HandlePlayerState_ChangingSize_Next
 
       LDA     PlayerCurrentSize
       EOR     #$01
-
-loc_BANK0_8C03:
       STA     PlayerCurrentSize
       JMP     LoadCharacterCHRBanks
 
-; ---------------------------------------------------------------------------
-
-loc_BANK0_8C09:
+HandlePlayerState_ChangingSize_Next:
       DEY
-      BPL     loc_BANK0_8BF9
+      BPL     HandlePlayerState_ChangingSize_Loop
 
       RTS
 
@@ -2286,7 +2285,7 @@ loc_BANK0_8C15:
 
 ; ---------------------------------------------------------------------------
 
-byte_BANK0_8C18:
+PlayerControlAcceleration:
       .BYTE $FE
       .BYTE $02
 
@@ -2367,7 +2366,7 @@ loc_BANK0_8C6F:
 
       LDA     PlayerXVelocity
       CLC
-      ADC     byte_BANK0_8C18,Y
+      ADC     PlayerControlAcceleration,Y
       STA     PlayerXVelocity
 
 ResetCrouchJumpTimer:
@@ -2545,7 +2544,7 @@ sub_BANK0_8D2C:
       LDA     PlayerXVelocity
       ADC     PlayerXDeceleration,Y
       TAX
-      EOR     byte_BANK0_8C18,Y
+      EOR     PlayerControlAcceleration,Y
       BMI     loc_BANK0_8D4B
 
       LDX     #$00
@@ -2575,6 +2574,7 @@ locret_BANK0_8D61:
 ; End of function sub_BANK0_8D2C
 
 ; ---------------------------------------------------------------------------
+
 PlayerWalkFrameDurations:
       .BYTE $0C
       .BYTE $0A
@@ -2586,6 +2586,7 @@ PlayerWalkFrameDurations:
       .BYTE $02
       .BYTE $02
       .BYTE $02
+
 PlayerWalkFrames:
       .BYTE SpriteAnimation_Standing ; $00
       .BYTE SpriteAnimation_Walking ; $01
@@ -2598,7 +2599,7 @@ PlayerWalkJumpAnim:
       LDA     PlayerDucking ; exit if we're ducking, since the player will be ducking
       BNE     ExitPlayerWalkJumpAnim
 
-; if we're not in the air, skip ahead
+      ; if we're not in the air, skip ahead
       LDA     PlayerInAir
       BEQ     PlayerWalkAnim
 
@@ -2623,7 +2624,7 @@ PlayerWalkAnim:
       LDA     PlayerXVelocity
       BPL     PlayerWalkFrameDuration
 
-; use absolute value of PlayerXVelocity
+      ; use absolute value of PlayerXVelocity
       EOR     #$0FF
       CLC
       ADC     #$01
@@ -2651,29 +2652,28 @@ UpdatePlayerAnimationFrame:
 ExitPlayerWalkJumpAnim:
       RTS
 
-; End of function PlayerWalkJumpAnim
 
-; ---------------------------------------------------------------------------
+ThrowXVelocity:
+      .BYTE $00 ; standing, left (blocks)
+      .BYTE $00 ; standing, right (blocks)
+      .BYTE $D0 ; moving, left (blocks)
+      .BYTE $30 ; moving, right (blocks)
+      .BYTE $D0 ; standing, left (projectiles)
+      .BYTE $30 ; standing, right (projectiles)
+      .BYTE $D0 ; moving, left (projectiles)
+      .BYTE $30 ; moving, right (projectiles)
 
-byte_BANK0_8DB2:
-      .BYTE $00
-      .BYTE $00
-      .BYTE $D0
-      .BYTE $30
-      .BYTE $D0
-      .BYTE $30
-      .BYTE $D0
-      .BYTE $30
+ThrowYVelocity:
+      .BYTE $18 ; standing (blocks)
+      .BYTE $00 ; moving (blocks)
+      .BYTE $18 ; standing (projectiles)
+      .BYTE $F8 ; moving (projectiles)
 
-byte_BANK0_8DBA:
-      .BYTE $18
-      .BYTE $00
-      .BYTE $18
-      .BYTE $F8
-
-byte_BANK0_8DBE:
+; used for objects that can be thrown next to the player
+SoftThrowOffset:
       .BYTE $F0
       .BYTE $10
+
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2811,7 +2811,7 @@ loc_BANK0_8E6F:
       BNE     loc_BANK0_8E89
 
       LDY     PlayerDirection
-      LDA     byte_BANK0_8DBE,Y
+      LDA     SoftThrowOffset,Y
       CLC
       ADC     ObjectXLo,X
       STA     ObjectXLo,X
@@ -2827,13 +2827,13 @@ loc_BANK0_8E87:
 
 loc_BANK0_8E89:
       LDY     byte_RAM_1
-      LDA     byte_BANK0_8DBA,Y
+      LDA     ThrowYVelocity,Y
       STA     ObjectYVelocity,X
       LDA     byte_RAM_1
       ASL     A
       ORA     PlayerDirection
       TAY
-      LDA     byte_BANK0_8DB2,Y
+      LDA     ThrowXVelocity,Y
       STA     ObjectXVelocity,X
       LDA     #$01
       STA     EnemyArray_42F,X
@@ -2842,33 +2842,40 @@ loc_BANK0_8E89:
       RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK0_8EA4:
+;
+; Applies player physics on the y-axis
+;
+ApplyPlayerPhysicsY:
       LDX     #$0A
 
-; End of function sub_BANK0_8EA4
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK0_8EA6:
-      LDA     ObjectXVelocity-1,X
+;
+; Applies player physics, although could theoretically be used for objects too
+;
+; Input
+;   X = direction ($00 for horizontal, $0A for vertical)
+;
+ApplyPlayerPhysics:
+      ; Add acceleration to velocity
+      LDA     PlayerXVelocity,X
       CLC
-      ADC     ObjectXAcceleration-1,X
+      ADC     PlayerXAcceleration,X
       PHP
       BPL     loc_BANK0_8EB4
 
-      EOR     #$0FF
+      EOR     #$FF
       CLC
       ADC     #$01
 
 loc_BANK0_8EB4:
       PHA
+      ; Upper nybble of velocity is for lo position
       LSR     A
       LSR     A
       LSR     A
       LSR     A
       TAY
+
+      ; Lower nybble of velocity is for subpixel position
       PLA
       ASL     A
       ASL     A
@@ -2876,9 +2883,9 @@ loc_BANK0_8EB4:
       ASL     A
       CLC
 
-loc_BANK0_8EC0:
-      ADC     ObjectXSubpixel-1,X
-      STA     ObjectXSubpixel-1,X
+      ADC     PlayerXSubpixel,X
+      STA     PlayerXSubpixel,X
+
       TYA
       ADC     #$00
       PLP
@@ -2903,10 +2910,8 @@ loc_BANK0_8ED8:
       ADC     PlayerXHi,X
       STA     PlayerXHi,X
       LDA     #$00
-      STA     ObjectXAcceleration-1,X
+      STA     PlayerXAcceleration,X
       RTS
-
-; End of function sub_BANK0_8EA6
 
 
 ;
@@ -5231,7 +5236,7 @@ loc_BANK0_9C52:
 
 ; End of function TitleScreen
 
-; ---------------------------------------------------------------------------
+
 IFDEF PRESERVE_UNUSED_SPACE
 ; Unused space in the original
 ; $9C58 - $A1FF
@@ -5239,10 +5244,6 @@ IFDEF PRESERVE_UNUSED_SPACE
 ENDIF
 
 
-; -------------------------------------------
-
-
-; [00000200 BYTES: END OF AREA UNUSED-BANK1_A000. PRESS KEYPAD "-" TO COLLAPSE]
 EndingPPUDataPointers:
       .WORD PPUBuffer_301
       .WORD EndingCorkJarRoom
@@ -5258,25 +5259,16 @@ EndingPPUDataPointers:
       .WORD EndingCelebrationText_TOAD
       .WORD EndingCelebrationText_LUIGI
 
-; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_Ending_TurnOffPPU:
       LDA     #$00
-      BEQ     loc_BANK1_A220
-
-; End of function WaitForNMI_Ending_TurnOffPPU
-
-; =============== S U B R O U T I N E =======================================
+      BEQ     WaitForNMI_Ending_SetPPUMaskMirror
 
 WaitForNMI_Ending_TurnOnPPU:
       LDA     #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
 
-loc_BANK1_A220:
+WaitForNMI_Ending_SetPPUMaskMirror:
       STA     PPUMaskMirror
-
-; End of function WaitForNMI_Ending_TurnOnPPU
-
-; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_Ending:
       LDA     ScreenUpdateIndex
@@ -5286,67 +5278,66 @@ WaitForNMI_Ending:
       STA     RAM_PPUDataBufferPointer
       LDA     EndingPPUDataPointers+1,X
       STA     RAM_PPUDataBufferPointer+1
+
       LDA     #$00
       STA     NMIWaitFlag
-
 WaitForNMI_EndingLoop:
       LDA     NMIWaitFlag
       BPL     WaitForNMI_EndingLoop
 
       RTS
 
-; End of function WaitForNMI_Ending
 
-; ---------------------------------------------------------------------------
 EndingCorkJarRoom:
-      .BYTE $20,$00,$9E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
-      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
-      .BYTE $73,$72,$73
-      .BYTE $20,$01,$9E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
-      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
-      .BYTE $72,$73,$72
-      .BYTE $22,$02,$8E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
-      .BYTE $72,$73
-      .BYTE $22,$03,$8E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
-      .BYTE $73,$72
-      .BYTE $23,$44,$18,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
-      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
-      .BYTE $23,$64,$18,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
-      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
-      .BYTE $23,$84,$18,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
-      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
-      .BYTE $23,$A4,$18,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
-      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
-      .BYTE $22,$1C,$8E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
-      .BYTE $72,$73
-      .BYTE $22,$1D,$8E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
-      .BYTE $73,$72
-      .BYTE $20,$1E,$9E,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
-      .BYTE $72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
-      .BYTE $73,$72,$73
-      .BYTE $20,$1F,$9E,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72
-      .BYTE $73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73,$72,$73
-      .BYTE $72,$73,$72
-      .BYTE $22,$C6,$C4,$FC
-      .BYTE $22,$C7,$C4,$FC
-      .BYTE $22,$C8,$84,$AD,$AC,$AC,$AC
-      .BYTE $22,$E9,$83,$AD,$AC,$AC
-      .BYTE $23,$0A,$82,$AD,$AC
-      .BYTE $23,$2B,$01,$AD
-      .BYTE $22,$90,$84,$88,$89,$89,$8C
-      .BYTE $22,$91,$84,$8A,$8B,$8B,$8D
-      .BYTE $23,$0E,$06,$74,$76,$74,$76,$74,$76
-      .BYTE $23,$2E,$06,$75,$77,$75,$77,$75,$77
-      .BYTE $23,$C0,$20,$22,$00,$00,$00,$00,$00,$00,$88,$22,$00,$00,$00,$00,$00,$00,$88,$22,0
-      .BYTE $00,$00,$00,$00,$00,$88,$22,$00,$00,$00,$00,$00,$00,$88
-      .BYTE $23,$E0,$20,$AA,$00,$00,$00,$00,$00,$00,$AA,$AA,$00,$00,$00,$11,$00,$00,$AA,$AA
-      .BYTE $A0,$A0,$A4,$A5,$A0,$A0,$AA,$0A,$A,$0A,$A,$0A,$A,$0A,$A
+      .BYTE $20, $00, $9E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .BYTE $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .BYTE $73, $72, $73
+      .BYTE $20, $01, $9E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .BYTE $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .BYTE $72, $73, $72
+      .BYTE $22, $02, $8E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .BYTE $72, $73
+      .BYTE $22, $03, $8E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .BYTE $73, $72
+      .BYTE $23, $44, $18, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .BYTE $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .BYTE $23, $64, $18, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .BYTE $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .BYTE $23, $84, $18, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .BYTE $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .BYTE $23, $A4, $18, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .BYTE $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .BYTE $22, $1C, $8E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .BYTE $72, $73
+      .BYTE $22, $1D, $8E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .BYTE $73, $72
+      .BYTE $20, $1E, $9E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .BYTE $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .BYTE $73, $72, $73
+      .BYTE $20, $1F, $9E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .BYTE $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .BYTE $72, $73, $72
+      .BYTE $22, $C6, $C4, $FC
+      .BYTE $22, $C7, $C4, $FC
+      .BYTE $22, $C8, $84, $AD, $AC, $AC, $AC
+      .BYTE $22, $E9, $83, $AD, $AC, $AC
+      .BYTE $23, $0A, $82, $AD, $AC
+      .BYTE $23, $2B, $01, $AD
+      .BYTE $22, $90, $84, $88, $89, $89, $8C
+      .BYTE $22, $91, $84, $8A, $8B, $8B, $8D
+      .BYTE $23, $0E, $06, $74, $76, $74, $76, $74, $76
+      .BYTE $23, $2E, $06, $75, $77, $75, $77, $75, $77
+      .BYTE $23, $C0, $20, $22, $00, $00, $00, $00, $00, $00, $88, $22, $00, $00, $00, $00, $00, $00, $88, $22, $00
+      .BYTE $00, $00, $00, $00, $00, $88, $22, $00, $00, $00, $00, $00, $00, $88
+      .BYTE $23, $E0, $20, $AA, $00, $00, $00, $00, $00, $00, $AA, $AA, $00, $00, $00, $11, $00, $00, $AA, $AA
+      .BYTE $A0, $A0, $A4, $A5, $A0, $A0, $AA, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
       .BYTE $00
+
 EndingCelebrationUnusedText_THANK_YOU:
-      .BYTE $21,$0C,$09,$ED,$E1,$DA,$E7,$E4,$FB,$F2,$E8,$EE
+      .BYTE $21, $0C, $09, $ED, $E1, $DA, $E7, $E4, $FB, $F2, $E8, $EE
       .BYTE $00
-; initial x positions
-unk_BANK1_A3FF:
+
+CorkRoomSpriteStartX:
       .BYTE $30 ; player
       .BYTE $80 ; subcon 8
       .BYTE $80 ; subcon 7
@@ -5357,8 +5348,8 @@ unk_BANK1_A3FF:
       .BYTE $80 ; subcon 2
       .BYTE $80 ; subcon 1
       .BYTE $80 ; cork
-; initial y positions
-byte_BANK1_A409:
+
+CorkRoomSpriteStartY:
       .BYTE $B0 ; player
       .BYTE $A0 ; subcon 8
       .BYTE $A0 ; subcon 7
@@ -5369,8 +5360,8 @@ byte_BANK1_A409:
       .BYTE $A0 ; subcon 2
       .BYTE $A0 ; subcon 1
       .BYTE $95 ; cork
-; target x positions
-byte_BANK1_A413:
+
+CorkRoomSpriteTargetX:
       .BYTE $10 ; player
       .BYTE $F4 ; subcon 8
       .BYTE $0C ; subcon 7
@@ -5381,8 +5372,8 @@ byte_BANK1_A413:
       .BYTE $F8 ; subcon 2
       .BYTE $08 ; subcon 1
       .BYTE $00 ; cork
-; target y positions
-byte_BANK1_A41D:
+
+CorkRoomSpriteTargetY:
       .BYTE $00 ; player
       .BYTE $C4 ; subcon 8
       .BYTE $C4 ; subcon 7
@@ -5393,8 +5384,8 @@ byte_BANK1_A41D:
       .BYTE $A0 ; subcon 2
       .BYTE $A0 ; subcon 1
       .BYTE $00 ; cork
-; delays
-byte_BANK1_A427:
+
+CorkRoomSpriteDelay:
       .BYTE $00 ; player
       .BYTE $F0 ; subcon 8
       .BYTE $E0 ; subcon 7
@@ -5405,10 +5396,9 @@ byte_BANK1_A427:
       .BYTE $40 ; subcon 2
       .BYTE $20 ; subcon 1
       .BYTE $00 ; cork
-; attributes
-byte_BANK1_A431:
+
+CorkRoomSpriteAttributes:
       .BYTE $00 ; player
-byte_BANK1_A432:
       .BYTE $21 ; subcon 8
       .BYTE $61 ; subcon 7
       .BYTE $21 ; subcon 6
@@ -5419,7 +5409,6 @@ byte_BANK1_A432:
       .BYTE $61 ; subcon 1
       .BYTE $22 ; cork
 
-; =============== S U B R O U T I N E =======================================
 
 FreeSubconsScene:
       JSR     WaitForNMI_Ending_TurnOffPPU
@@ -5447,75 +5436,75 @@ FreeSubconsScene:
       STA     byte_RAM_E6
       STA     byte_RAM_E5
       STA     SpriteFlickerSlot
-      LDX     #$09
 
-loc_BANK1_A470:
-      LDA     unk_BANK1_A3FF,X
+      LDX     #$09
+FreeSubconsScene_SpriteLoop:
+      LDA     CorkRoomSpriteStartX,X
       STA     ObjectXLo-1,X
-      LDA     byte_BANK1_A409,X
+      LDA     CorkRoomSpriteStartY,X
       STA     ObjectYLo-1,X
-      LDA     byte_BANK1_A413,X
+      LDA     CorkRoomSpriteTargetX,X
       STA     ObjectXVelocity-1,X
-      LDA     byte_BANK1_A41D,X
+      LDA     CorkRoomSpriteTargetY,X
       STA     ObjectYVelocity-1,X
-      LDA     byte_BANK1_A427,X
+      LDA     CorkRoomSpriteDelay,X
       STA     EnemyTimer-1,X
-      LDA     byte_BANK1_A431,X
+      LDA     CorkRoomSpriteAttributes,X
       STA     ObjectAttributes-1,X
       DEX
-      BPL     loc_BANK1_A470
+      BPL     FreeSubconsScene_SpriteLoop
 
-loc_BANK1_A491:
+FreeSubconsScene_JumpingLoop:
       JSR     WaitForNMI_Ending_TurnOnPPU
 
       INC     byte_RAM_10
       JSR     HideAllSprites
 
-      JSR     loc_BANK1_A4C0
+      JSR     FreeSubconsScene_Player
 
-      JSR     sub_BANK1_A5DE
+      JSR     FreeSubconsScene_Cork
 
       LDA     FreeSubconsTimer
-      BEQ     loc_BANK1_A4B8
+      BEQ     FreeSubconsScene_Exit
 
       LDA     byte_RAM_10
       AND     #$07
-      BNE     loc_BANK1_A491
+      BNE     FreeSubconsScene_JumpingLoop
 
       DEC     FreeSubconsTimer
       LDA     FreeSubconsTimer
       CMP     #$25
-      BNE     loc_BANK1_A491
+      BNE     FreeSubconsScene_JumpingLoop
 
       LDY     #Music2_EndingAndCast
       STY     MusicQueue2
-      BNE     loc_BANK1_A491
+      BNE     FreeSubconsScene_JumpingLoop
 
-loc_BANK1_A4B8:
-      JSR     sub_BANK1_AB90
+FreeSubconsScene_Exit:
+      JSR     EndingSceneTransition
 
       LDA     byte_RAM_E6
-      BEQ     loc_BANK1_A491
+      BEQ     FreeSubconsScene_JumpingLoop
 
       RTS
 
-; End of function FreeSubconsScene
 
-; ---------------------------------------------------------------------------
-
-loc_BANK1_A4C0:
+;
+; Moves the player, driving the main action in the scene
+;
+FreeSubconsScene_Player:
       LDA     PlayerWalkFrameCounter
-      BEQ     loc_BANK1_A4C6
+      BEQ     FreeSubconsScene_Player_AfterWalkFrameCounter
 
       DEC     PlayerWalkFrameCounter
 
-loc_BANK1_A4C6:
+FreeSubconsScene_Player_AfterWalkFrameCounter:
       LDA     PlayerStateTimer
-      BEQ     loc_BANK1_A4CC
+      BEQ     FreeSubconsScene_Player_AfterStateTimer
 
       DEC     PlayerStateTimer
 
-loc_BANK1_A4CC:
+FreeSubconsScene_Player_AfterStateTimer:
       LDA     PlayerXLo
       STA     PlayerScreenX
       LDA     PlayerYLo
@@ -5525,83 +5514,88 @@ loc_BANK1_A4CC:
       LDA     PlayerState
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
-      .WORD loc_BANK1_A4E8
-      .WORD loc_BANK1_A504
-      .WORD loc_BANK1_A530
-      .WORD loc_BANK1_A556
-      .WORD loc_BANK1_A578
-; ---------------------------------------------------------------------------
 
-loc_BANK1_A4E8:
+      .WORD FreeSubconsScene_Phase1
+      .WORD FreeSubconsScene_Phase2
+      .WORD FreeSubconsScene_Phase3
+      .WORD FreeSubconsScene_Phase4
+      .WORD FreeSubconsScene_Phase5
+
+
+; Walking in and first jump
+FreeSubconsScene_Phase1:
       JSR     PlayerWalkJumpAnim
 
-      JSR     sub_BANK0_8A50
+      JSR     ApplyPlayerPhysicsX
 
+      ; check x-position to trigger first jump
       LDA     PlayerXLo
       CMP     #$3E
-      BCC     locret_BANK1_A52F
+      BCC     FreeSubconsScene_PhaseExit
 
       INC     PlayerState
       INC     PlayerInAir
       LDA     #SpriteAnimation_Jumping
       STA     PlayerAnimationFrame
 
-loc_BANK1_A4FC:
+FreeSubconsScene_Jump:
       LDA     #SoundEffect2_Jump
       STA     SoundEffectQueue2
       JMP     PlayerStartJump
 
-; ---------------------------------------------------------------------------
 
-loc_BANK1_A504:
+; Physics and second jump
+FreeSubconsScene_Phase2:
       JSR     PlayerWalkJumpAnim
 
-loc_BANK1_A507:
-      JSR     sub_BANK0_8A50
+      JSR     ApplyPlayerPhysicsX
 
-      JSR     sub_BANK1_A596
+      JSR     ApplyCorkRoomGravity
 
-      JSR     sub_BANK0_8EA4
+      JSR     ApplyPlayerPhysicsY
 
       LDA     PlayerYVelocity
-      BMI     locret_BANK1_A52F
+      BMI     FreeSubconsScene_PhaseExit
 
+      ; check y-position to trigger second jump
       LDA     PlayerYLo
       CMP     #$A0
-      BCC     loc_BANK1_A521
+      BCC     FreeSubconsScene_Phase2_NoJump
 
+      ; set x-velocity to land second jump on the jar
       LDA     #$0C
       STA     PlayerXVelocity
-      JMP     loc_BANK1_A4FC
+      JMP     FreeSubconsScene_Jump
 
-; ---------------------------------------------------------------------------
-
-loc_BANK1_A521:
+FreeSubconsScene_Phase2_NoJump:
+      ; check the top of the jar
       CMP     #$75
-      BCC     locret_BANK1_A52F
+      BCC     FreeSubconsScene_PhaseExit
 
+      ; check x-position for jar
       LDA     PlayerXLo
       CMP     #$70
-      BCC     locret_BANK1_A52F
+      BCC     FreeSubconsScene_PhaseExit
 
       INC     PlayerState
       DEC     PlayerInAir
 
-locret_BANK1_A52F:
+FreeSubconsScene_PhaseExit:
       RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK1_A530:
+; Start pulling the cork
+FreeSubconsScene_Phase3:
       JSR     PlayerWalkJumpAnim
 
-      JSR     sub_BANK0_8A50
+      JSR     ApplyPlayerPhysicsX
 
+      ; check x-position for jar
       LDA     PlayerXLo
       CMP     #$80
-      BCC     locret_BANK1_A52F
+      BCC     FreeSubconsScene_PhaseExit
 
+      ; pull the cork
       INC     PlayerState
       INC     HoldingItem
       LDA     #SpriteAnimation_Pulling
@@ -5627,189 +5621,178 @@ PullCorkOffsets:
       .BYTE $1F
 
 
-loc_BANK1_A556:
+; Pull the cork out
+FreeSubconsScene_Phase4:
+      ; use PlayerStateTimer to hold this frame
       LDA     PlayerStateTimer
-      BNE     locret_BANK1_A577
+      BNE     FreeSubconsScene_Phase4_Exit
 
+      ; next FreeSubconsCorkCounter to move cork
       DEC     FreeSubconsCorkCounter
-      BNE     loc_BANK1_A570
+      BNE     FreeSubconsScene_Phase4_NextCorkFrame
 
+      ; uncorked! start jumping
       INC     PlayerState
       INC     PlayerInAir
+
       LDA     #SpriteAnimation_Jumping
       STA     PlayerAnimationFrame
+
       LDA     #DPCM_ItemPull
       STA     DPCMQueue
 
-loc_BANK1_A56B:
       LDA     #$A0
       STA     ObjectYVelocity+8
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK1_A570:
+FreeSubconsScene_Phase4_NextCorkFrame:
       LDY     FreeSubconsCorkCounter
       LDA     PullCorkFrameDurations-1,Y
       STA     PlayerStateTimer
 
-locret_BANK1_A577:
+FreeSubconsScene_Phase4_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK1_A578:
-      JSR     sub_BANK1_A5A1
+; Free Subcons and jump repeatedly
+FreeSubconsScene_Phase5:
+      JSR     FreeSubconsScene_Subcons
 
-loc_BANK1_A57B:
-      JSR     sub_BANK1_A596
+      JSR     ApplyCorkRoomGravity
 
       JSR     PlayerWalkJumpAnim
 
-      JSR     sub_BANK0_8EA4
+      JSR     ApplyPlayerPhysicsY
 
       LDA     PlayerYVelocity
-      BMI     locret_BANK1_A591
+      BMI     FreeSubconsScene_Phase5_Exit
 
+      ; jump when we're on the jar
       LDA     PlayerYLo
       CMP     #$80
-      BCC     locret_BANK1_A591
+      BCC     FreeSubconsScene_Phase5_Exit
 
       JMP     PlayerStartJump
 
-; ---------------------------------------------------------------------------
-
-locret_BANK1_A591:
+FreeSubconsScene_Phase5_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-; character gravity in ending jar room
-unk_BANK1_A592:
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $01
 
-; =============== S U B R O U T I N E =======================================
+CorkRoomCharacterGravity:
+      .BYTE $04 ; Mario
+      .BYTE $04 ; Princess
+      .BYTE $04 ; Toad
+      .BYTE $01 ; Luigi
 
-sub_BANK1_A596:
+
+ApplyCorkRoomGravity:
       LDY     CurrentCharacter
-      LDA     unk_BANK1_A592,Y
+      LDA     CorkRoomCharacterGravity,Y
       CLC
       ADC     PlayerYVelocity
       STA     PlayerYVelocity
       RTS
 
-; End of function sub_BANK1_A596
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK1_A5A1:
+;
+; Spits out Subcons and makes them flap their little wings
+;
+FreeSubconsScene_Subcons:
       LDX     #$07
 
-loc_BANK1_A5A3:
+FreeSubconsScene_Subcons_Loop:
       STX     byte_RAM_12
       LDA     EnemyTimer,X
-      BEQ     loc_BANK1_A5B4
+      BEQ     FreeSubconsScene_Subcons_Movement
 
       CMP     #$01
-      BNE     loc_BANK1_A5D8
+      BNE     FreeSubconsScene_Subcons_Next
 
       LDA     #SoundEffect1_ThrowItem
       STA     SoundEffectQueue1
-      BNE     loc_BANK1_A5D8
+      BNE     FreeSubconsScene_Subcons_Next
 
-loc_BANK1_A5B4:
+FreeSubconsScene_Subcons_Movement:
       JSR     ApplyObjectMovement_Bank1
 
       LDA     ObjectYVelocity,X
       CMP     #$08
-      BMI     loc_BANK1_A5CC
+      BMI     FreeSubconsScene_Subcons_Render
 
       LDA     #$00
       STA     ObjectXVelocity,X
       LDA     #$F9
       STA     ObjectYVelocity,X
-      LDA     byte_BANK1_A432,X
+      LDA     CorkRoomSpriteAttributes+1,X
       EOR     #ObjAttrib_Palette0|ObjAttrib_16x32
       STA     ObjectAttributes,X
 
-loc_BANK1_A5CC:
+FreeSubconsScene_Subcons_Render:
       LDA     byte_RAM_10
       ASL     A
       AND     #$02
       STA     byte_RAM_F
-      JSR     sub_BANK1_A60E
+      JSR     FreeSubconsScene_Render
 
       INC     EnemyTimer,X
 
-loc_BANK1_A5D8:
+FreeSubconsScene_Subcons_Next:
       DEC     EnemyTimer,X
       DEX
-      BPL     loc_BANK1_A5A3
+      BPL     FreeSubconsScene_Subcons_Loop
 
       RTS
 
-; End of function sub_BANK1_A5A1
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_A5DE:
+FreeSubconsScene_Cork:
       LDA     #$04
       STA     byte_RAM_F
       LDX     #$08
       STX     byte_RAM_12
-      JSR     sub_BANK1_A60E
+      JSR     FreeSubconsScene_Render
 
       LDY     FreeSubconsCorkCounter
-      BNE     loc_BANK1_A5F6
+      BNE     FreeSubconsScene_Cork_Pull
 
       LDA     ObjectYLo+8
       CMP     #$F0
-      BCS     locret_BANK1_A5FE
+      BCS     FreeSubconsScene_Cork_Exit
 
       JMP     ApplyObjectPhysicsY_Bank1
 
-; ---------------------------------------------------------------------------
-
-loc_BANK1_A5F6:
+FreeSubconsScene_Cork_Pull:
       LDA     PullCorkOffsets-1,Y
       CLC
       ADC     PlayerYLo
       STA     ObjectYLo+8
 
-locret_BANK1_A5FE:
+FreeSubconsScene_Cork_Exit:
       RTS
 
-; End of function sub_BANK1_A5DE
 
-; ---------------------------------------------------------------------------
-byte_BANK1_A5FF:
-      .BYTE $E8
+CorkRoomSpriteTiles:
+      .BYTE $E8 ; subcon left, wings up
+      .BYTE $EA ; subcon right, wings up
+      .BYTE $EC ; subcon left, wings down
+      .BYTE $EE ; subcon right, wings down
+      .BYTE $61 ; cork left
+      .BYTE $63 ; cork right
 
-byte_BANK1_A600:
-      .BYTE $EA
+CorkRoomSpriteOAMAddress:
+      .BYTE $30 ; subcon 8
+      .BYTE $38 ; subcon 7
+      .BYTE $40 ; subcon 6
+      .BYTE $48 ; subcon 5
+      .BYTE $50 ; subcon 4
+      .BYTE $58 ; subcon 3
+      .BYTE $60 ; subcon 2
+      .BYTE $68 ; subcon 1
+      .BYTE $00 ; cork
 
-      .BYTE $EC
-      .BYTE $EE
-      .BYTE $61
-      .BYTE $63
-byte_BANK1_A605:
-      .BYTE $30
 
-      .BYTE $38
-      .BYTE $40
-      .BYTE $48
-      .BYTE $50
-      .BYTE $58
-      .BYTE $60
-      .BYTE $68
-      .BYTE $00
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK1_A60E:
-      LDY     byte_BANK1_A605,X
+FreeSubconsScene_Render:
+      LDY     CorkRoomSpriteOAMAddress,X
       LDA     ObjectYLo,X
       STA     SpriteDMAArea,Y
       STA     SpriteDMAArea+4,Y
@@ -5822,186 +5805,225 @@ sub_BANK1_A60E:
       STA     SpriteDMAArea+2,Y
       STA     SpriteDMAArea+6,Y
       LDX     byte_RAM_F
-      AND     #$40
-      BNE     loc_BANK1_A63D
+      AND     #ObjAttrib_16x32
+      BNE     FreeSubconsScene_Render_Flipped
 
-      LDA     byte_BANK1_A5FF,X
+      LDA     CorkRoomSpriteTiles,X
       STA     SpriteDMAArea+1,Y
-      LDA     byte_BANK1_A600,X
-      BNE     loc_BANK1_A646
+      LDA     CorkRoomSpriteTiles+1,X
+      BNE     FreeSubconsScene_Render_Exit
 
-loc_BANK1_A63D:
-      LDA     byte_BANK1_A600,X
+FreeSubconsScene_Render_Flipped:
+      LDA     CorkRoomSpriteTiles+1,X
       STA     SpriteDMAArea+1,Y
-      LDA     byte_BANK1_A5FF,X
+      LDA     CorkRoomSpriteTiles,X
 
-loc_BANK1_A646:
+FreeSubconsScene_Render_Exit:
       STA     SpriteDMAArea+5,Y
       LDX     byte_RAM_12
       RTS
 
-; End of function sub_BANK1_A60E
 
-; ---------------------------------------------------------------------------
 EndingCelebrationCeilingTextAndPodium:
-      .BYTE $20,$00,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
-      .BYTE $81,$80,$81,$80,$81 ; $1E
-      .BYTE $20,$20,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
-      .BYTE $80,$81,$80,$81,$80 ; $1E
-      .BYTE $20,$40,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
-      .BYTE $81,$80,$81,$80,$81 ; $1E
-      .BYTE $20,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
-      .BYTE $80,$81,$80,$81,$80 ; $1E
-      .BYTE $20,$88,$01,$5A
-      .BYTE $20,$89,$4E,$9A
-      .BYTE $20,$97,$01,$5C
-      .BYTE $20,$A8,$C3,$9B
-      .BYTE $20,$B7,$C3,$9B
-      .BYTE $21,$08,$01,$5B
-      .BYTE $21,$09,$4E,$9A
-      .BYTE $21,$17,$01,$5D
-      .BYTE $20,$AB,$0B,$DC,$E8,$E7,$ED,$EB,$E2,$DB,$EE,$ED,$E8,$EB
-      .BYTE $20,$E3,$04,$40,$42,$44,$46
-      .BYTE $20,$F9,$04,$40,$42,$44,$46
-      .BYTE $21,$23,$C9,$48
-      .BYTE $21,$24,$C9,$49
-      .BYTE $21,$25,$C9,$4A
-      .BYTE $21,$26,$C9,$4B
-      .BYTE $22,$43,$04,$4C,$4D,$4E,$4F
-      .BYTE $21,$03,$04,$41,$43,$45,$47
-      .BYTE $21,$19,$04,$41,$43,$45,$47
-      .BYTE $21,$39,$C9,$48
-      .BYTE $21,$3A,$C9,$49
-      .BYTE $21,$3B,$C9,$4A
-      .BYTE $21,$3C,$C9,$4B
-      .BYTE $22,$59,$04,$4C,$4D,$4E,$4F
-      .BYTE $21,$CA,$4C,$54
-      .BYTE $21,$EA,$4C,$55
-      .BYTE $22,$0B,$A,$50,$52,$50,$52,$50,$52,$50,$52,$50,$52
-      .BYTE $22,$2B,$0A,$51,$53,$51,$53,$51,$53,$51,$53,$51,$53
-      .BYTE $22,$4C,$02,$3A,$3B
-      .BYTE $22,$6C,$C5,$3C
-      .BYTE $22,$6D,$C5,$3D
-      .BYTE $22,$52,$02,$3A,$3B
-      .BYTE $22,$72,$C5,$3C
-      .BYTE $22,$73,$C5,$3D
+      .BYTE $20, $00, $20
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+
+      .BYTE $20, $20, $20
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+
+      .BYTE $20, $40, $20
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+
+      .BYTE $20, $60, $20
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+
+      .BYTE $20, $88, $01, $5A
+      .BYTE $20, $89, $4E, $9A
+      .BYTE $20, $97, $01, $5C
+      .BYTE $20, $A8, $C3, $9B
+      .BYTE $20, $B7, $C3, $9B
+      .BYTE $21, $08, $01, $5B
+      .BYTE $21, $09, $4E, $9A
+      .BYTE $21, $17, $01, $5D
+      .BYTE $20, $AB, $0B, $DC, $E8, $E7, $ED, $EB, $E2, $DB, $EE, $ED, $E8, $EB
+      .BYTE $20, $E3, $04, $40, $42, $44, $46
+      .BYTE $20, $F9, $04, $40, $42, $44, $46
+      .BYTE $21, $23, $C9, $48
+      .BYTE $21, $24, $C9, $49
+      .BYTE $21, $25, $C9, $4A
+      .BYTE $21, $26, $C9, $4B
+      .BYTE $22, $43, $04, $4C, $4D, $4E, $4F
+      .BYTE $21, $03, $04, $41, $43, $45, $47
+      .BYTE $21, $19, $04, $41, $43, $45, $47
+      .BYTE $21, $39, $C9, $48
+      .BYTE $21, $3A, $C9, $49
+      .BYTE $21, $3B, $C9, $4A
+      .BYTE $21, $3C, $C9, $4B
+      .BYTE $22, $59, $04, $4C, $4D, $4E, $4F
+      .BYTE $21, $CA, $4C, $54
+      .BYTE $21, $EA, $4C, $55
+      .BYTE $22, $0B, $0A, $50, $52, $50, $52, $50, $52, $50, $52, $50, $52
+      .BYTE $22, $2B, $0A, $51, $53, $51, $53, $51, $53, $51, $53, $51, $53
+      .BYTE $22, $4C, $02, $3A, $3B
+      .BYTE $22, $6C, $C5, $3C
+      .BYTE $22, $6D, $C5, $3D
+      .BYTE $22, $52, $02, $3A, $3B
+      .BYTE $22, $72, $C5, $3C
+      .BYTE $22, $73, $C5, $3D
       .BYTE $00
+
 EndingCelebrationFloorAndSubconParade:
-      .BYTE $23,$00,$20,$00,$02,$08,$0A,$C,$0E,$04,$06,$08,$0A,$04,$06,$0C,$E,$04,$06,$08,$0A,$00,$02,$C
-      .BYTE $0E,$0C,$E,$00,$02,$04,$06,$04,$06,$08,$0A ; $18
-      .BYTE $23,$20,$20,$01,$03,$09,$0B,$D,$0F,$05,$07,$09,$0B,$05,$07,$0D,$F,$05,$07,$09,$0B,$01,3
-      .BYTE $0D,$0F,$D,$0F,$01,$03,$05,$07,$05,$07,$09,$0B ; $17
-      .BYTE $27,$00,$20,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76
-      .BYTE $74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74,$76,$74 ; $F
-      .BYTE $76,$74,$76,$74,$76 ; $1E
-      .BYTE $27,$20,$20,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77
-      .BYTE $75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75,$77,$75 ; $F
-      .BYTE $77,$75,$77,$75,$77 ; $1E
-      .BYTE $23,$40,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
-      .BYTE $81,$80,$81,$80,$81 ; $1E
-      .BYTE $23,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
-      .BYTE $80,$81,$80,$81,$80 ; $1E
-      .BYTE $23,$80,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
-      .BYTE $81,$80,$81,$80,$81 ; $1E
-      .BYTE $23,$A0,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
-      .BYTE $80,$81,$80,$81,$80 ; $1E
-      .BYTE $27,$40,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
-      .BYTE $81,$80,$81,$80,$81 ; $1E
-      .BYTE $27,$60,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
-      .BYTE $80,$81,$80,$81,$80 ; $1E
-      .BYTE $27,$80,$20,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81
-      .BYTE $80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80 ; $F
-      .BYTE $81,$80,$81,$80,$81 ; $1E
-      .BYTE $27,$A0,$20,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80
-      .BYTE $81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81,$80,$81 ; $F
-      .BYTE $80,$81,$80,$81,$80 ; $1E
-      .BYTE $23,$C0,$48,$AA
-      .BYTE $23,$C8,$08,$15,$05,$FF,$FF,$FF,$FF,$15,$45
-      .BYTE $23,$D0,$20,$31,$00,$FF,$FF,$FF,$FF,$00,$44,$33,$00,$A6,$A5,$A5
-      .BYTE $A6,$00,$44,$F3,$F0,$59,$AA,$AA,$96,$F0,$74,$DD,$FF,$55,$AA ; $10
-      .BYTE $AA,$95,$55,$55 ; $1F
-      .BYTE $23,$F0,$48,$A5
-      .BYTE $23,$F8,$48,$A
-      .BYTE $27,$F0,$48,$A5
-      .BYTE $27,$F8,$48,$A
+      .BYTE $23, $00, $20
+      .BYTE $00, $02, $08, $0A, $0C, $0E, $04, $06, $08, $0A, $04, $06, $0C, $0E, $04, $06
+      .BYTE $08, $0A, $00, $02, $0C, $0E, $0C, $0E, $00, $02, $04, $06, $04, $06, $08, $0A
+
+      .BYTE $23, $20, $20
+      .BYTE $01, $03, $09, $0B, $0D, $0F, $05, $07, $09, $0B, $05, $07, $0D, $0F, $05, $07
+      .BYTE $09, $0B, $01, $03, $0D, $0F, $0D, $0F, $01, $03, $05, $07, $05, $07, $09, $0B
+
+      .BYTE $27, $00, $20
+      .BYTE $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76
+      .BYTE $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76
+
+      .BYTE $27, $20, $20
+      .BYTE $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77
+      .BYTE $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77
+
+      .BYTE $23, $40, $20
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+
+      .BYTE $23, $60, $20
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+
+      .BYTE $23, $80, $20
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+
+      .BYTE $23, $A0, $20
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+
+      .BYTE $27, $40, $20
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+
+      .BYTE $27, $60, $20
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+
+      .BYTE $27, $80, $20
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+
+      .BYTE $27, $A0, $20
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+
+      .BYTE $23, $C0, $48, $AA
+      .BYTE $23, $C8, $08, $15, $05, $FF, $FF, $FF, $FF, $15, $45
+
+      .BYTE $23, $D0, $20
+      .BYTE $31, $00, $FF, $FF, $FF, $FF, $00, $44, $33, $00, $A6, $A5, $A5, $A6, $00, $44
+      .BYTE $F3, $F0, $59, $AA, $AA, $96, $F0, $74, $DD, $FF, $55, $AA, $AA, $95, $55, $55
+
+      .BYTE $23, $F0, $48, $A5
+      .BYTE $23, $F8, $48, $0A
+      .BYTE $27, $F0, $48, $A5
+      .BYTE $27, $F8, $48, $0A
       .BYTE $00
+
 EndingCelebrationSubconStandStill:
-      .BYTE $23,$00,$20,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72
-      .BYTE $70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70,$72,$70 ; $F
-      .BYTE $72,$70,$72,$70,$72 ; $1E
-      .BYTE $23,$20,$20,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73
-      .BYTE $71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71,$73,$71 ; $F
-      .BYTE $73,$71,$73,$71,$73 ; $1E
+      .BYTE $23, $00, $20
+      .BYTE $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72
+      .BYTE $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72
+      .BYTE $23, $20, $20
+      .BYTE $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73
+      .BYTE $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73
       .BYTE $00
+
 EndingCelebrationUnusedText_THE_END:
-      .BYTE $21,$AC,$07,$ED,$E1,$DE,$FB,$DE,$E7,$DD,0
+      .BYTE $21, $AC, $07
+      .BYTE $ED, $E1, $DE, $FB, $DE, $E7, $DD
+      .BYTE $00
+
 EndingCelebrationPaletteFade1:
-      .BYTE $3F,$00,$20,1
-      .BYTE $30,$21,$0F,$01 ; 4
-      .BYTE $30,$16,$0F,$01 ; 8
-      .BYTE $28,$18,$0F,$01 ; $C
-      .BYTE $30,$30,$01,$01 ; $10
-      .BYTE $27,$16,$0F,$01 ; $14
-      .BYTE $37,$2A,$0F,$01 ; $18
-      .BYTE $27,$30,$0F,$01 ; $1C
-      .BYTE $36,$25,$0F,$00 ; $20
+      .BYTE $3F, $00, $20
+      .BYTE $01, $30, $21, $0F
+      .BYTE $01, $30, $16, $0F
+      .BYTE $01, $28, $18, $0F
+      .BYTE $01, $30, $30, $01
+      .BYTE $01, $27, $16, $0F
+      .BYTE $01, $37, $2A, $0F
+      .BYTE $01, $27, $30, $0F
+      .BYTE $01, $36, $25, $0F
+      .BYTE $00
+
 EndingCelebrationPaletteFade2:
-      .BYTE $3F,$00,$20,$F
-      .BYTE $10,$00,$0F,$F ; 4
-      .BYTE $10,$00,$0F,$F ; 8
-      .BYTE $10,$00,$0F,$F ; $C
-      .BYTE $10,$00,$0F,$F ; $10
-      .BYTE $10,$00,$0F,$F ; $14
-      .BYTE $10,$00,$0F,$F ; $18
-      .BYTE $10,$00,$0F,$F ; $1C
-      .BYTE $10,$00,$0F,$00 ; $20
+      .BYTE $3F, $00, $20
+      .BYTE $0F, $10, $00, $0F
+      .BYTE $0F, $10, $00, $0F
+      .BYTE $0F, $10, $00, $0F
+      .BYTE $0F, $10, $00, $0F
+      .BYTE $0F, $10, $00, $0F
+      .BYTE $0F, $10, $00, $0F
+      .BYTE $0F, $10, $00, $0F
+      .BYTE $0F, $10, $00, $0F
+      .BYTE $00
+
 EndingCelebrationPaletteFade3:
-      .BYTE $3F,$00,$20,$F
-      .BYTE $00,$0F,$F,$0F ; 4
-      .BYTE $00,$0F,$F,$0F ; 8
-      .BYTE $00,$0F,$F,$0F ; $C
-      .BYTE $00,$0F,$F,$0F ; $10
-      .BYTE $00,$0F,$F,$0F ; $14
-      .BYTE $00,$0F,$F,$0F ; $18
-      .BYTE $00,$0F,$F,$0F ; $1C
-      .BYTE $00,$0F,$F,$00 ; $20
-byte_BANK1_AA32:
+      .BYTE $3F, $00, $20
+      .BYTE $0F, $00, $0F, $0F
+      .BYTE $0F, $00, $0F, $0F
+      .BYTE $0F, $00, $0F, $0F
+      .BYTE $0F, $00, $0F, $0F
+      .BYTE $0F, $00, $0F, $0F
+      .BYTE $0F, $00, $0F, $0F
+      .BYTE $0F, $00, $0F, $0F
+      .BYTE $0F, $00, $0F, $0F
+      .BYTE $00
+
+EndingScreenUpdateIndex:
       .BYTE EndingUpdateBuffer_PaletteFade1
       .BYTE EndingUpdateBuffer_PaletteFade2 ; 1 ; @TODO This seems wrong, somehow
       .BYTE EndingUpdateBuffer_PaletteFade3 ; 2
-byte_BANK1_AA35:
-      .BYTE $8C,$FC,$20,$94
-byte_BANK1_AA39:
-      .BYTE $4F,$61,$20,$50
-      .BYTE $4F,$63,$20,$58 ; 4
-      .BYTE $5F,$65,$20,$50 ; 8
-      .BYTE $5F,$67,$20,$58 ; $C
-      .BYTE $4F,$69,$21,$68 ; $10
-      .BYTE $4F,$6B,$21,$70 ; $14
-      .BYTE $5F,$6D,$21,$68 ; $18
-      .BYTE $5F,$6F,$21,$70 ; $1C
-      .BYTE $4F,$83,$22,$88 ; $20
-      .BYTE $4F,$83,$62,$90 ; $24
-      .BYTE $5F,$87,$22,$88 ; $28
-      .BYTE $5F,$87,$62,$90 ; $2C
-      .BYTE $4F,$8B,$23,$A0 ; $30
-      .BYTE $4F,$8D,$23,$A8 ; $34
-      .BYTE $5F,$8F,$23,$A0 ; $38
-      .BYTE $5F,$91,$23,$A8 ; $3C
 
-; =============== S U B R O U T I N E =======================================
+ContributorSpriteZeroOAMData:
+      .BYTE $8C, $FC, $20, $94
 
-sub_BANK1_AA79:
+ContributorCharacterOAMData:
+      ; Mario
+      .BYTE $4F, $61, $20, $50
+      .BYTE $4F, $63, $20, $58
+      .BYTE $5F, $65, $20, $50
+      .BYTE $5F, $67, $20, $58
+      ; Luigi
+      .BYTE $4F, $69, $21, $68
+      .BYTE $4F, $6B, $21, $70
+      .BYTE $5F, $6D, $21, $68
+      .BYTE $5F, $6F, $21, $70
+      ; Toad
+      .BYTE $4F, $83, $22, $88
+      .BYTE $4F, $83, $62, $90
+      .BYTE $5F, $87, $22, $88
+      .BYTE $5F, $87, $62, $90
+      ; Princess
+      .BYTE $4F, $8B, $23, $A0
+      .BYTE $4F, $8D, $23, $A8
+      .BYTE $5F, $8F, $23, $A0
+      .BYTE $5F, $91, $23, $A8
+
+
+;
+; Shows the part of the ending where the Subcons carry Wart to an uncertain
+; fate while the characters stand and wave
+;
+ContributorScene:
       JSR     WaitForNMI_Ending_TurnOffPPU
 
       LDA     #VMirror
@@ -6011,7 +6033,7 @@ sub_BANK1_AA79:
 
       LDA     #Stack100_Menu
       STA     StackArea
-      JSR     sub_BANK1_ABBC
+      JSR     EnableNMI_Bank1
 
       JSR     WaitForNMI_Ending
 
@@ -6031,25 +6053,22 @@ sub_BANK1_AA79:
       JSR     ChangeNametableMirroring
 
       LDY     #$03
-
-loc_BANK1_AAAA:
-      LDA     byte_BANK1_AA35,Y
+ContributorScene_SpriteZeroLoop:
+      LDA     ContributorSpriteZeroOAMData,Y
       STA     SpriteDMAArea,Y
       DEY
-
-loc_BANK1_AAB1:
-      BPL     loc_BANK1_AAAA
+      BPL     ContributorScene_SpriteZeroLoop
 
       LDA     #$00
       STA     byte_RAM_F3
       STA     byte_RAM_E6
-      LDY     #$3F
 
-loc_BANK1_AABB:
-      LDA     byte_BANK1_AA39,Y
+      LDY     #$3F
+ContributorScene_CharacterLoop:
+      LDA     ContributorCharacterOAMData,Y
       STA     SpriteDMAArea+$10,Y
       DEY
-      BPL     loc_BANK1_AABB
+      BPL     ContributorScene_CharacterLoop
 
       LDA     #$0FF
       STA     PlayerXHi
@@ -6065,7 +6084,7 @@ loc_BANK1_AAD4:
 
       INC     byte_RAM_F3
       INC     byte_RAM_10
-      JSR     sub_BANK1_ADF1
+      JSR     ContributorTicker
 
       JSR     loc_BANK1_ABCC
 
@@ -6108,8 +6127,6 @@ loc_BANK1_AAF5:
       STA     byte_RAM_F3
       LDA     byte_RAM_F2
       SEC
-
-loc_BANK1_AB19:
       SBC     #$30
       STA     byte_RAM_F2
 
@@ -6133,12 +6150,12 @@ loc_BANK1_AB20:
 loc_BANK1_AB32:
       JSR     WaitForNMI_Ending
 
-      JSR     sub_BANK1_ABBC
+      JSR     EnableNMI_Bank1
 
       INC     byte_RAM_F3
-      JSR     sub_BANK1_ADF1
+      JSR     ContributorTicker
 
-      JSR     sub_BANK1_AD0C
+      JSR     ContributorCharacterAnimation
 
 loc_BANK1_AB40:
       BIT     PPUSTATUS
@@ -6187,7 +6204,7 @@ loc_BANK1_AB80:
       CMP     #$29
       BCC     loc_BANK1_AB32
 
-      JSR     sub_BANK1_AB90
+      JSR     EndingSceneTransition
 
       LDA     byte_RAM_E6
       CMP     #$04
@@ -6195,101 +6212,93 @@ loc_BANK1_AB80:
 
       RTS
 
-; End of function sub_BANK1_AA79
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK1_AB90:
+;
+; Advances to the next scene and does the palette transition
+;
+EndingSceneTransition:
       LDA     byte_RAM_10
       AND     #$03
-      BNE     locret_BANK1_ABA6
+      BNE     EndingSceneTransition_Exit
 
       INC     byte_RAM_E5
       LDY     byte_RAM_E5
       CPY     #$03
-      BCS     loc_BANK1_ABA4
+      BCS     EndingSceneTransition_Next
 
-      LDA     byte_BANK1_AA32,Y
+      LDA     EndingScreenUpdateIndex,Y
       STA     ScreenUpdateIndex
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK1_ABA4:
+EndingSceneTransition_Next:
       INC     byte_RAM_E6
 
-locret_BANK1_ABA6:
+EndingSceneTransition_Exit:
       RTS
 
-; End of function sub_BANK1_AB90
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_ABA7:
       LDA     byte_RAM_10
       AND     #$03
-      BNE     locret_BANK1_ABA6
+      BNE     EndingSceneTransition_Exit
 
       DEC     byte_RAM_E5
       LDY     byte_RAM_E5
-      LDA     byte_BANK1_AA32,Y
+      LDA     EndingScreenUpdateIndex,Y
       STA     ScreenUpdateIndex
       TYA
-      BNE     locret_BANK1_ABA6
+      BNE     EndingSceneTransition_Exit
 
       INC     byte_RAM_E6
       RTS
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_ABBC:
+EnableNMI_Bank1:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
       STA     PPUCtrlMirror
       STA     PPUCTRL
       RTS
 
-; End of function sub_BANK1_ABBC
 
-; ---------------------------------------------------------------------------
-
-loc_BANK1_ABC4:
-; ? Not marked as used
+DisableNMI_Bank1:
       LDA     #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
       STA     PPUCTRL
       STA     PPUCtrlMirror
       RTS
 
-; ---------------------------------------------------------------------------
+
 
 loc_BANK1_ABCC:
-      JSR     sub_BANK1_AD0C
+      JSR     ContributorCharacterAnimation
 
       LDA     byte_RAM_E6
       JSR     JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
       .WORD loc_BANK1_ABA7
       .WORD loc_BANK1_AC0A
       .WORD loc_BANK1_AC87
+
+
 byte_BANK1_ABDA:
       .BYTE $C0
-
       .BYTE $C8
       .BYTE $B8
       .BYTE $B8
       .BYTE $C8
       .BYTE $C0
+
 byte_BANK1_ABE0:
       .BYTE $C0
-
       .BYTE $08
       .BYTE $E0
       .BYTE $F0
       .BYTE $D0
       .BYTE $E8
-byte_BANK1_ABE6:
-      .BYTE $11
 
+EndingWartTiles:
+      .BYTE $11
       .BYTE $13
       .BYTE $19
       .BYTE $1B
@@ -6301,9 +6310,9 @@ byte_BANK1_ABE6:
       .BYTE $1F
       .BYTE $25
       .BYTE $27
+
 byte_BANK1_ABF2:
       .BYTE $00
-
       .BYTE $08
       .BYTE $10
       .BYTE $18
@@ -6315,24 +6324,26 @@ byte_BANK1_ABF2:
       .BYTE $18
       .BYTE $20
       .BYTE $28
+
 byte_BANK1_ABFE:
       .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $00
+      .BYTE $10
+      .BYTE $10
+      .BYTE $10
+      .BYTE $10
+      .BYTE $10
+      .BYTE $10
 
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
+
 ; ---------------------------------------------------------------------------
 
 loc_BANK1_AC0A:
-      JSR     sub_BANK0_8A50
+      JSR     ApplyPlayerPhysicsX
 
       LDA     PlayerXHi
       CMP     #$01
@@ -6392,7 +6403,7 @@ loc_BANK1_AC4B:
       CLC
       ADC     byte_BANK1_ABFE,X
       STA     SpriteDMAArea,Y
-      LDA     byte_BANK1_ABE6,X
+      LDA     EndingWartTiles,X
       STA     SpriteDMAArea+1,Y
       LDA     #$01
       STA     SpriteDMAArea+2,Y
@@ -6419,24 +6430,23 @@ loc_BANK1_AC73:
 
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK1_AC7B:
+
+ZonkTiles:
+      .BYTE $39
+      .BYTE $35
+      .BYTE $37
+      .BYTE $35
+      .BYTE $37
       .BYTE $39
 
-      .BYTE $35
-      .BYTE $37
-      .BYTE $35
-      .BYTE $37
-      .BYTE $39
 byte_BANK1_AC81:
       .BYTE $00
-
       .BYTE $06
       .BYTE $03
       .BYTE $09
       .BYTE $0F
       .BYTE $0C
-; ---------------------------------------------------------------------------
+
 
 loc_BANK1_AC87:
       LDA     byte_RAM_10
@@ -6504,7 +6514,7 @@ loc_BANK1_ACD1:
 
 loc_BANK1_ACD6:
       STA     SpriteDMAArea+$70,Y
-      LDA     byte_BANK1_AC7B,X
+      LDA     ZonkTiles,X
       STA     SpriteDMAArea+$71,Y
       LDA     #$00
       STA     SpriteDMAArea+$72,Y
@@ -6513,10 +6523,10 @@ loc_BANK1_ACD6:
 
       RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK1_ACE8:
-      .BYTE $61
 
+ContributorAnimationTiles:
+ContributorAnimationTiles_Mario:
+      .BYTE $61
       .BYTE $61
       .BYTE $63
       .BYTE $93
@@ -6524,6 +6534,7 @@ byte_BANK1_ACE8:
       .BYTE $65
       .BYTE $67
       .BYTE $67
+ContributorAnimationTiles_Luigi:
       .BYTE $69
       .BYTE $69
       .BYTE $95
@@ -6532,6 +6543,7 @@ byte_BANK1_ACE8:
       .BYTE $6D
       .BYTE $97
       .BYTE $6F
+ContributorAnimationTiles_Toad:
       .BYTE $83
       .BYTE $85
       .BYTE $83
@@ -6540,6 +6552,7 @@ byte_BANK1_ACE8:
       .BYTE $89
       .BYTE $87
       .BYTE $89
+ContributorAnimationTiles_Princess:
       .BYTE $8B
       .BYTE $8B
       .BYTE $99
@@ -6548,16 +6561,15 @@ byte_BANK1_ACE8:
       .BYTE $8F
       .BYTE $91
       .BYTE $91
-byte_BANK1_AD08:
-      .BYTE $06
 
-      .BYTE $0E
-      .BYTE $16
-      .BYTE $1E
+ContributorAnimationTilesOffset:
+      .BYTE (ContributorAnimationTiles_Mario - ContributorAnimationTiles + 6)
+      .BYTE (ContributorAnimationTiles_Luigi - ContributorAnimationTiles + 6)
+      .BYTE (ContributorAnimationTiles_Toad - ContributorAnimationTiles + 6)
+      .BYTE (ContributorAnimationTiles_Princess - ContributorAnimationTiles + 6)
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_AD0C:
+ContributorCharacterAnimation:
       INC     PlayerWalkFrame
       LDA     #$03
       STA     byte_RAM_0
@@ -6565,23 +6577,22 @@ sub_BANK1_AD0C:
       STA     byte_RAM_1
       LDY     #$3C
 
-loc_BANK1_AD18:
+ContributorCharacterAnimation_OuterLoop:
       LDX     byte_RAM_0
-      LDA     byte_BANK1_AD08,X
+      LDA     ContributorAnimationTilesOffset,X
       TAX
       INC     byte_RAM_1
       LDA     byte_RAM_1
       AND     #$10
-      BEQ     loc_BANK1_AD27
+      BEQ     ContributorCharacterAnimation_Render
 
       INX
 
-loc_BANK1_AD27:
+ContributorCharacterAnimation_Render:
       LDA     #$03
       STA     byte_RAM_2
-
-loc_BANK1_AD2B:
-      LDA     byte_BANK1_ACE8,X
+ContributorCharacterAnimation_InnerLoop:
+      LDA     ContributorAnimationTiles,X
       STA     SpriteDMAArea+$11,Y
       DEX
       DEX
@@ -6590,17 +6601,17 @@ loc_BANK1_AD2B:
       DEY
       DEY
       DEC     byte_RAM_2
-      BPL     loc_BANK1_AD2B
+      BPL     ContributorCharacterAnimation_InnerLoop
 
       DEC     byte_RAM_0
-      BPL     loc_BANK1_AD18
+      BPL     ContributorCharacterAnimation_OuterLoop
 
       RTS
 
-; End of function sub_BANK1_AD0C
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Calculates the list of top contributors
+;
 Ending_GetContributor:
       LDA     #$00
       STA     MaxLevelsCompleted
@@ -6626,7 +6637,7 @@ Ending_GetContributor_Loop2:
       BNE     Ending_GetContributor_Next2
 
       TYA
-      STA     unk_RAM_5BE,X
+      STA     Contributors,X
       INX
 
 Ending_GetContributor_Next2:
@@ -6634,7 +6645,7 @@ Ending_GetContributor_Next2:
       BPL     Ending_GetContributor_Loop2
 
       DEX
-      STX     byte_RAM_5C2
+      STX     NumContributors
       LDX     #$00
       LDA     #$21
       STA     PPUBuffer_301,X
@@ -6700,20 +6711,20 @@ Ending_GetContributor_Next2:
       LDA     #$00
       STA     PPUBuffer_301,X
       LDA     #$3C
-      STA     byte_RAM_5C4
+      STA     ContributorTimer
       RTS
 
 
 ; =============== S U B R O U T I N E =======================================
 
-sub_BANK1_ADF1:
-      DEC     byte_RAM_5C4
-      BPL     locret_BANK1_AE12
+ContributorTicker:
+      DEC     ContributorTimer
+      BPL     ContributorTicker_Exit
 
       LDA     #$3C
-      STA     byte_RAM_5C4
-      LDY     byte_RAM_5C3
-      LDA     unk_RAM_5BE,Y
+      STA     ContributorTimer
+      LDY     ContributorIndex
+      LDA     Contributors,Y
       CLC
       ADC     #$09
 IFDEF COMPATIBILITY
@@ -6724,30 +6735,32 @@ IFNDEF COMPATIBILITY
       NOP ; Alignment fix
 ENDIF
 
-      DEC     byte_RAM_5C3
-      BPL     locret_BANK1_AE12
+      DEC     ContributorIndex
+      BPL     ContributorTicker_Exit
 
-      LDA     byte_RAM_5C2
-      STA     byte_RAM_5C3
+      LDA     NumContributors
+      STA     ContributorIndex
 
-locret_BANK1_AE12:
+ContributorTicker_Exit:
       RTS
 
-; End of function sub_BANK1_ADF1
 
-; ---------------------------------------------------------------------------
 EndingCelebrationText_MARIO:
-      .BYTE $20,$ED,$08,$E6,$DA,$EB,$E2,$E8,$FB,$FB,$FB
+      .BYTE $20, $ED, $08, $E6, $DA, $EB, $E2, $E8, $FB, $FB, $FB
       .BYTE $00
+
 EndingCelebrationText_PRINCESS:
-      .BYTE $20,$ED,$08,$E9,$EB,$E2,$E7,$DC,$DE,$EC,$EC
+      .BYTE $20, $ED, $08, $E9, $EB, $E2, $E7, $DC, $DE, $EC, $EC
       .BYTE $00
+
 EndingCelebrationText_TOAD:
-      .BYTE $20,$ED,$08,$ED,$E8,$DA,$DD,$FB,$FB,$FB,$FB
+      .BYTE $20, $ED, $08, $ED, $E8, $DA, $DD, $FB, $FB, $FB, $FB
       .BYTE $00
+
 EndingCelebrationText_LUIGI:
-      .BYTE $20,$ED,$08,$E5,$EE,$E2,$E0,$E2,$FB,$FB,$FB
+      .BYTE $20, $ED, $08, $E5, $EE, $E2, $E0, $E2, $FB, $FB, $FB
       .BYTE $00
+
 
 ; =============== S U B R O U T I N E =======================================
 

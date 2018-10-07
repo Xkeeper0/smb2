@@ -580,9 +580,10 @@ ScreenUpdateBufferPointers:
       .WORD PPUBuffer_7194
       .WORD PPUBuffer_71A8
       .WORD PPUBuffer_721B
-      .WORD PPUBuffer_BANKE_DFAF
-      .WORD PPUBuffer_BANKE_DFA7
+      .WORD PPUBuffer_TitleCard
+      .WORD PPUBuffer_PauseExtraLife
       .WORD BonusChanceLayoutRAM
+
 PPUBuffer_CharacterSelect:
       .BYTE $21,$49,$06,$E9,$E5,$DE,$DA,$EC,$DE ; PLEASE
       .BYTE $21,$50,$06,$EC,$DE,$E5,$DE,$DC,$ED ; SELECT
@@ -698,39 +699,33 @@ PPUBuffer_BANKE_DE7A:
       .BYTE $FF,$FF,$FF,$11 ; $F
       .BYTE $27,$E0,$10,$44,$FF,$FF,$FF,$FF,$FF,$FF,$11,$44,$FF,$FF,$FF
       .BYTE $FF,$FF,$AF,$11 ; $F
-      .BYTE $27,$F0,$08,$44,$05,$05,$05,$05,$05,$05,1
+      .BYTE $27,$F0,$08,$44,$05,$05,$05,$05,$05,$05,$01
       .BYTE $27,$04,$58,$FB
       .BYTE $00
-PPUBuffer_BANKE_DFA7:
-      .BYTE $27,$EA,$05,$AA,$AA,$AA,$AA,$AA
-PPUBuffer_BANKE_DFAF:
-      .BYTE $20,$1E,$9E,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-      .BYTE $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ; $F
-      .BYTE $FF,$FF,$FF ; $1E
-      .BYTE $20,$1F,$9E,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-      .BYTE $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ; $F
-      .BYTE $FF,$FF,$FF ; $1E
-      .BYTE $23,$C7,$01,0
-      .BYTE $23,$CF,$01,0
-      .BYTE $23,$D7,$01,0
-      .BYTE $23,$DF,$01 ; Data continues in Bank E
-; end of 'BANKE'
 
-; ===========================================================================
+; nametable attribute data
+PPUBuffer_PauseExtraLife:
+      .BYTE $27, $EA, $05
+      .BYTE $AA, $AA, $AA, $AA, $AA
 
-
-
-; -------------------------------------------
-
-
-; .segment BANKF
-; * =  $E000
-      .BYTE $00 ; PPUBuffer_BANKE_DFA7 continued from end of Bank D
-      .BYTE $23,$E7,$01,0
-      .BYTE $23,$EF,$01,0
-      .BYTE $23,$F7,$01,0
-      .BYTE $23,$FF,$01,0
+; nametable attribute data
+PPUBuffer_TitleCard:
+      .BYTE $20, $1E, $9E
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+      .BYTE $20, $1F, $9E
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+      .BYTE $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+      .BYTE $23, $C7, $01, $00
+      .BYTE $23, $CF, $01, $00
+      .BYTE $23, $D7, $01, $00
+      .BYTE $23, $DF, $01, $00
+      .BYTE $23, $E7, $01, $00
+      .BYTE $23, $EF, $01, $00
+      .BYTE $23, $F7, $01, $00
+      .BYTE $23, $FF, $01, $00
       .BYTE $00
+
 WorldStartingLevel:
       .BYTE $00
       .BYTE $03 ; $00
@@ -740,70 +735,87 @@ WorldStartingLevel:
       .BYTE $0F ; $04
       .BYTE $12 ; $05
       .BYTE $14 ; $06
+
 PlayerSelectMarioSprites1:
-      .BYTE $8F,$00,$00,$48 ; $00
-      .BYTE $8F,$00,$40,$50 ; $04
-      .BYTE $9F,$02,$00,$48 ; $08
-      .BYTE $9F,$02,$40,$50 ; $0C
+      .BYTE $8F, $00, $00, $48
+      .BYTE $8F, $00, $40, $50
+      .BYTE $9F, $02, $00, $48
+      .BYTE $9F, $02, $40, $50
+
 PlayerSelectLuigiSprites1:
-      .BYTE $8F,$04,$01,$68 ; $00
-      .BYTE $8F,$04,$41,$70 ; $04
-      .BYTE $9F,$06,$01,$68 ; $08
-      .BYTE $9F,$06,$41,$70 ; $0C
+      .BYTE $8F, $04, $01, $68
+      .BYTE $8F, $04, $41, $70
+      .BYTE $9F, $06, $01, $68
+      .BYTE $9F, $06, $41, $70
+
 PlayerSelectToadSprites1:
-      .BYTE $8F,$08,$02,$88 ; $00
-      .BYTE $8F,$08,$42,$90 ; $04
-      .BYTE $9F,$0A,$02,$88 ; $08
-      .BYTE $9F,$0A,$42,$90 ; $0C
+      .BYTE $8F, $08, $02, $88
+      .BYTE $8F, $08, $42, $90
+      .BYTE $9F, $0A, $02, $88
+      .BYTE $9F, $0A, $42, $90
+
 PlayerSelectPrincessSprites1:
-      .BYTE $8F,$0C,$03,$A8 ; $00
-      .BYTE $8F,$0C,$43,$B0 ; $04
-      .BYTE $9F,$0E,$03,$A8 ; $08
-      .BYTE $9F,$0E,$43,$B0 ; $0C
+      .BYTE $8F, $0C, $03, $A8
+      .BYTE $8F, $0C, $43, $B0
+      .BYTE $9F, $0E, $03, $A8
+      .BYTE $9F, $0E, $43, $B0
+
 PlayerSelectMarioSprites2:
-      .BYTE $8F,$10,$00,$48 ; $00
-      .BYTE $8F,$12,$00,$50 ; $04
-      .BYTE $9F,$14,$00,$48 ; $08
-      .BYTE $9F,$16,$00,$50 ; $0C
+      .BYTE $8F, $10, $00, $48
+      .BYTE $8F, $12, $00, $50
+      .BYTE $9F, $14, $00, $48
+      .BYTE $9F, $16, $00, $50
+
 PlayerSelectLuigiSprites2:
-      .BYTE $8F,$18,$01,$68 ; $00
-      .BYTE $8F,$1A,$01,$70 ; $04
-      .BYTE $9F,$1C,$01,$68 ; $08
-      .BYTE $9F,$1E,$01,$70 ; $0C
+      .BYTE $8F, $18, $01, $68
+      .BYTE $8F, $1A, $01, $70
+      .BYTE $9F, $1C, $01, $68
+      .BYTE $9F, $1E, $01, $70
+
 PlayerSelectToadSprites2:
-      .BYTE $8F,$20,$02,$88 ; $00
-      .BYTE $8F,$22,$02,$90 ; $04
-      .BYTE $9F,$24,$02,$88 ; $08
-      .BYTE $9F,$26,$02,$90 ; $0C
+      .BYTE $8F, $20, $02, $88
+      .BYTE $8F, $22, $02, $90
+      .BYTE $9F, $24, $02, $88
+      .BYTE $9F, $26, $02, $90
+
 PlayerSelectPrincessSprites2:
-      .BYTE $8F,$28,$03,$A8 ; $00
-      .BYTE $8F,$2A,$03,$B0 ; $04
-      .BYTE $9F,$2C,$03,$A8 ; $08
-      .BYTE $9F,$2E,$03,$B0 ; $0C
+      .BYTE $8F, $28, $03, $A8
+      .BYTE $8F, $2A, $03, $B0
+      .BYTE $9F, $2C, $03, $A8
+      .BYTE $9F, $2E, $03, $B0
+
 PlayerSelectSpriteIndexes:
       .BYTE $00, $30, $20, $10
+
 BonusChanceCherrySprite:
-      .BYTE $5F,$05,$01,$58 ; $00
-      .BYTE $5F,$07,$01,$60 ; $04
+      .BYTE $5F, $05, $01, $58
+      .BYTE $5F, $07, $01, $60
+
 BonusChanceStarSprite:
-      .BYTE $5F,$09,$01,$58 ; $00
-      .BYTE $5F,$09,$41,$60 ; $04
+      .BYTE $5F, $09, $01, $58
+      .BYTE $5F, $09, $41, $60
+
 BonusChanceVeggieSprite:
-      .BYTE $5F,$0B,$01,$58 ; $00
-      .BYTE $5F,$0B,$41,$60 ; $04
+      .BYTE $5F, $0B, $01, $58
+      .BYTE $5F, $0B, $41, $60
+
 BonusChanceSnifitSprite:
-      .BYTE $5F,$01,$01,$58 ; $00
-      .BYTE $5F,$03,$01,$60 ; $04
+      .BYTE $5F, $01, $01, $58
+      .BYTE $5F, $03, $01, $60
 
 PlayerSelectSpritePalettesDark:
-      .BYTE $3F,$10,$10,$0F,$22,$12,$01,$0F,$22,$12,$01,$0F,$22,$12,$01,$0F,$22
-      .BYTE $12,$01 ; This is actually PPU data, not a straight-up palette
+      .BYTE $3F, $10, $10 ; PPU Data
+      .BYTE $0F, $22, $12, $01
+      .BYTE $0F, $22, $12, $01
+      .BYTE $0F, $22, $12, $01
+      .BYTE $0F, $22, $12, $01
 
 PlayerSelectPaletteOffsets:
       .BYTE (PlayerSelectSpritePalettes_Mario-PlayerSelectSpritePalettes)
       .BYTE (PlayerSelectSpritePalettes_Princess-PlayerSelectSpritePalettes)
       .BYTE (PlayerSelectSpritePalettes_Toad-PlayerSelectSpritePalettes)
       .BYTE (PlayerSelectSpritePalettes_Luigi-PlayerSelectSpritePalettes)
+
 PlayerSelectSpritePalettes:
 PlayerSelectSpritePalettes_Mario:
       .BYTE $3F,$10,$04,$0F,$27,$16,$01
@@ -815,15 +827,15 @@ PlayerSelectSpritePalettes_Princess:
       .BYTE $3F,$1C,$04,$0F,$36,$25,$07
 
 TitleCardPalettes:
-      .BYTE $3F,$00,$20 ; PPU data
-      .BYTE $38,$30,$1A,$0F
-      .BYTE $38,$38,$0F,$0F
-      .BYTE $38,$17,$17,$38
-      .BYTE $38,$28,$18,$08
-      .BYTE $38,$30,$27,$01
-      .BYTE $38,$37,$27,$06
-      .BYTE $38,$25,$36,$06
-      .BYTE $38,$12,$36,$01
+      .BYTE $3F, $00, $20 ; PPU data
+      .BYTE $38, $30, $1A, $0F
+      .BYTE $38, $38, $0F, $0F
+      .BYTE $38, $17, $17, $38
+      .BYTE $38, $28, $18, $08
+      .BYTE $38, $30, $27, $01
+      .BYTE $38, $37, $27, $06
+      .BYTE $38, $25, $36, $06
+      .BYTE $38, $12, $36, $01
       .BYTE $00
 
 BonusChanceSpritePalettes:
@@ -1087,8 +1099,8 @@ DisplayLevelTitleCardAndMore_TitleCardPaletteLoop:
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
-      LDA     #ScreenUpdateBuffer_BANKE_DFAF ; @TODO I am not sure what this is doing, exactly
-      STA     ScreenUpdateIndex ; Commenting it out doesn't seem to have any effect
+      LDA     #ScreenUpdateBuffer_TitleCard
+      STA     ScreenUpdateIndex
       JSR     WaitForNMI
 
       JSR     DrawTitleCardWorldImage
@@ -1822,8 +1834,8 @@ loc_BANKF_E665:
       STA     byte_RAM_7180
       LDA     #$48
       STA     byte_RAM_7181
-      LDA     #ScreenUpdateBuffer_BANKE_DFAF
-      STA     byte_RAM_5BD
+      LDA     #ScreenUpdateBuffer_TitleCard
+      STA     CardScreenUpdateIndex
       JSR     PauseScreen_Card
 
 IFNDEF CHARACTER_SELECT_AFTER_DEATH
@@ -2344,7 +2356,8 @@ EndingSceneRoutine:
       JSR     ChangeMappedPRGBank
 
       INC     GameMilestoneCounter
-      JSR     sub_BANK1_AA79
+
+      JSR     ContributorScene
 
       JSR     WaitForNMI_TurnOffPPU
 
@@ -2406,8 +2419,8 @@ byte_BANKF_E9E3:
 ; Displays extra life info on the pause screen
 ;
 PauseScreen_ExtraLife:
-      LDA     #ScreenUpdateBuffer_BANKE_DFA7
-      STA     byte_RAM_5BD
+      LDA     #ScreenUpdateBuffer_PauseExtraLife
+      STA     CardScreenUpdateIndex
       LDA     #$26
       STA     byte_RAM_7180
       LDA     #$C8
@@ -2447,7 +2460,7 @@ PauseScreen_Card_ScreenReset:
       STA     PPUScrollXMirror
       JSR     WaitForNMI
 
-      LDA     byte_RAM_5BD
+      LDA     CardScreenUpdateIndex
       STA     ScreenUpdateIndex
       JSR     WaitForNMI
 

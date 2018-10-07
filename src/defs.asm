@@ -145,8 +145,8 @@ ScreenUpdateBuffer_RAM_6e4 = $11
 ScreenUpdateBuffer_RAM_7194 = $12
 ScreenUpdateBuffer_RAM_71a8 = $13
 ScreenUpdateBuffer_RAM_721b = $14
-ScreenUpdateBuffer_BANKE_DFAF = $15
-ScreenUpdateBuffer_BANKE_DFA7 = $16
+ScreenUpdateBuffer_TitleCard = $15
+ScreenUpdateBuffer_PauseExtraLife = $16
 ScreenUpdateBuffer_RAM_BonusChanceLayout = $17
 
 ; ---------------------------------------------------------------------------
