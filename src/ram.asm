@@ -2840,6 +2840,8 @@ IFDEF CONTROLLER_2_DEBUG
       StatOffsetsRAM = $7e10
       ChangeCharacterTimer = $7e80
       ChangeCharacterPoofTimer = $7e81
+      CreateObjectType = $7e82
+      CreateObjectAttributes = $7e83
 ENDIF
 
 ItemCarryYOffsetsRAM = $7f00

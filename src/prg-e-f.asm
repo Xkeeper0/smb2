@@ -3449,6 +3449,10 @@ loc_BANKF_F146:
 
       JSR     AreaSecondaryRoutine
 
+IFDEF CONTROLLER_2_DEBUG
+      JSR     AreaDebugRoutine
+ENDIF
+
       JSR     AnimateCHRRoutine
 
       JSR     SetAreaStartPage
@@ -4747,7 +4751,7 @@ sub_BANKF_F6A1:
       LSR     A
       STA     CurrentLevelArea
       LDA     AreaPointersByPage,Y
-      AND     #$F
+      AND     #$0F
       STA     CurrentLevelEntryPage
       RTS
 
