@@ -7418,6 +7418,8 @@ CheckPlayer2Joypad_CheckLeftRight:
 
       LDX     #$18
       STX     ChangeCharacterTimer
+      LDX     #$08
+      STX     ChangeCharacterPoofTimer
 
 ;
 ; Changes the current character
@@ -7427,9 +7429,12 @@ CheckPlayer2Joypad_CheckLeftRight:
 ;
 SetCurrentCharacter:
       CMP     CurrentCharacter
-      BEQ     SetCurrentCharacter_Exit
+      BEQ     CheckPlayer2Joypad_Exit
 
       STA     CurrentCharacter
+
+      LDA     GravityWithJumpButton
+      PHA
 
       LDX     CurrentCharacter
       LDY     StatOffsetsRAM,X
@@ -7472,55 +7477,62 @@ SetCurrentCharacter_PaletteLoop:
 
       ; if already floating, keep going
       CMP     JumpFloatTimer
-      BCC     SetCurrentCharacter_Update
+      BCC     SetCurrentCharacter_CheckGravityChange
 
 SetCurrentCharacter_SetJumpFloatTimer:
       STA     JumpFloatTimer
 
+SetCurrentCharacter_CheckGravityChange:
+      ; check whether gravity is increasing
+      PLA
+      SEC
+      SBC     GravityWithJumpButton
+      BEQ     SetCurrentCharacter_Update
+
+      ; stash velocity delta in X
+      TAX
+
+      ; check whether y-velocity is negative
+      LDA     PlayerYVelocity
+      BPL     SetCurrentCharacter_Update
+
+      CPX     #$00
+      BPL     SetCurrentCharacter_ClampYVelocity
+
+      ; scale y-velocity based on difference in gravity
+      EOR     #$FF
+      CLC
+      ADC     #$01
+
+      DEX
+SetCurrentCharacter_ScaleVelocityYUp_Loop:
+      ASL
+      INX
+      BEQ     SetCurrentCharacter_ScaleVelocityYUp_Loop
+
+      EOR     #$FF
+      STA     PlayerYVelocity
+
+      JMP     SetCurrentCharacter_Update
+
+SetCurrentCharacter_ClampYVelocity:
+      LDA     PlayerYVelocity
+      CMP     JumpHeightRunning
+
+      BPL     SetCurrentCharacter_Update
+
+      LDA     JumpHeightStandingCarrying
+      STA     PlayerYVelocity
+
 SetCurrentCharacter_Update:
       INC     SkyFlashTimer
 
-      JSR     LoadCharacterCHRBanks ; update chr
+       ; update chr for character
+      JSR     LoadCharacterCHRBanks
 
       LDA     #DPCM_PlayerDeath
       STA     DPCMQueue
 
-      LDA     #$00
-      JSR     SetCurrentCharacter_CreatePoof
-      LDA     #$10
-      JSR     SetCurrentCharacter_CreatePoof
-
 SetCurrentCharacter_Exit:
-      RTS
-
-SetCurrentCharacter_CreatePoof:
-      PHA
-      JSR     CreateEnemy_TryAllSlots_Bank1
-      BMI     SetCurrentCharacter_Exit
-
-      LDX     byte_RAM_0
-
-      PLA
-      STA     byte_RAM_0
-
-      LDA     #Enemy_SubspaceDoor
-      STA     ObjectType,X
-      LDA     #EnemyState_PuffOfSmoke
-      STA     EnemyState,X
-      STA     ObjectAnimationTimer,X
-      LDA     #$10
-      STA     EnemyTimer,X
-
-      LDA     PlayerXLo
-      STA     ObjectXLo,X
-      LDA     PlayerXHi
-      STA     ObjectXHi,X
-      LDA     PlayerYLo
-      CLC
-      ADC     byte_RAM_0
-      STA     ObjectYLo,X
-      LDA     PlayerYHi
-      ADC     #$00
-      STA     ObjectYHi,X
       RTS
 ENDIF
