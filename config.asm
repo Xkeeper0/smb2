@@ -41,7 +41,7 @@ PRESERVE_UNUSED_SPACE = 1
 ; FIX_CLIMB_ZIP = 1
 
 ; Skip unnecessary bonus chance RAM copy
-; BONUS_CHANCE_RAM_OPTIMIZATION = 1
+; BONUS_CHANCE_RAM_CLEANUP = 1
 
 ; Skips Bonus Chance after the end of a level
 ; DISABLE_BONUS_CHANCE = 1

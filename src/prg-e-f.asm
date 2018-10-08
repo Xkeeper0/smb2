@@ -2044,16 +2044,14 @@ ENDIF
 
       JSR     LoadBonusChanceCHRBanks
 
-IFNDEF BONUS_CHANCE_RAM_OPTIMIZATION
+IFNDEF BONUS_CHANCE_RAM_CLEANUP
       JSR     CopyUnusedCoinSpriteToSpriteArea
 ENDIF
 
       LDA     #PRGBank_A_B
       JSR     ChangeMappedPRGBank
 
-IFNDEF BONUS_CHANCE_RAM_OPTIMIZATION
       JSR     CopyBonusChanceLayoutToRAM
-ENDIF
 
       LDA     #ScreenUpdateBuffer_RAM_BonusChanceLayout
       STA     ScreenUpdateIndex
@@ -2701,7 +2699,7 @@ loc_BANKF_EB1F:
 
 ; End of function sub_BANKF_EAF6
 
-IFNDEF BONUS_CHANCE_RAM_OPTIMIZATION
+IFNDEF BONUS_CHANCE_RAM_CLEANUP
 ;
 ; Copies the unused coin sprite from memory into the sprite DMA area at $200
 ;
