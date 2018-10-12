@@ -3180,7 +3180,7 @@ UpdatePPUFBWO_CopySingleTileSkip:
 
 
 IFDEF DEBUG
-      .include "src/debug-f.asm"
+      .include "src/extras/debug-f.asm"
 ENDIF
 
 IFDEF MMC5

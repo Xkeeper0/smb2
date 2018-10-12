@@ -646,5 +646,5 @@ ENDIF
 
 
 IFDEF DEBUG
-      .include "src/debug-a.asm"
+      .include "src/extras/debug-a.asm"
 ENDIF
