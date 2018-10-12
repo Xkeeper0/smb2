@@ -19,4 +19,48 @@ COMPATIBILITY = 1
 PRESERVE_UNUSED_SPACE = 1
 
 ; Include debugging tools
-;DEBUG = 1
+; DEBUG = 1
+
+; Includes controller 2 debug features
+; CONTROLLER_2_DEBUG = 1
+
+; Use MMC5 (mapper 5) instead of MMC3 (mapper 4)
+; Based on RetroRain's MMC5 patch (https://www.romhacking.net/hacks/2568)
+; MMC5 = 1
+
+; Builds a "Revision A" ROM, which fixes the FryGuy softlock bug.
+; REV_A = 1
+
+; Show all 8 frames of CHR cycling animation
+; FIX_CHR_CYCLE = 1
+
+; Fixes the POW falling log glitch
+; FIX_POW_LOG_GLITCH = 1
+
+; Fixes vine climbing bug when holding up and down simultaneously
+; FIX_CLIMB_ZIP = 1
+
+; Skip unnecessary bonus chance RAM copy
+; BONUS_CHANCE_RAM_CLEANUP = 1
+
+; Skips Bonus Chance after the end of a level
+; DISABLE_BONUS_CHANCE = 1
+
+; Go to the Charater Select screen after death
+; CHARACTER_SELECT_AFTER_DEATH = 1
+
+; Enables prototype samples and/or music
+; PROTOTYPE_DPCM_SAMPLES = 1
+; PROTOTYPE_MUSIC = 1
+
+; Encode world tileset in unused 3 bits of area header
+; AREA_HEADER_TILESET = 1
+
+; Enables additional level engine features
+; LEVEL_ENGINE_UPGRADES = 1
+
+; Disables door pointers, so that area pointers are always required
+; DISABLE_DOOR_POINTERS = 1
+
+; Enables full-page door/vine searching so that entrances don't need to align
+; ROBUST_TRANSITION_SEARCH = 1

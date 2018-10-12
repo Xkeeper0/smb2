@@ -1,1 +1,3 @@
 *.nes
+*.lst
+.DS_Store

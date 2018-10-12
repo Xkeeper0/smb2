@@ -1,31 +1,41 @@
+;
+; Bank 4 & Bank 5
+; ===============
+;
+; What's inside:
+;
+;   - Music engine
+;   - Sound effects engine
+;   - Sound effect pointers and data
+;   - Song pointers and data
+;   - Note length tables (tempos)
+;   - Instrument tables and data
+;
 
-      ;.segment	BANK4
-;       *	=  $8000
+; .segment BANK4
+; * =  $8000
 
-; =============== S U B	R O U T	I N E =======================================
 
 StartProcessingSoundQueue:
       LDA     #$FF
       STA     JOY2
       LDA     StackArea
-      CMP     #$41
-						  ; various values otherwise
+      CMP     #Stack100_Pause
       BNE     ProcessMusicAndSfxQueues
 
-      LDA     #$C				  ; Mute the two square	channels
-						  ; (TODO: Bitmask pls)
+      LDA     #%00001100 ; Mute the two square channels
       STA     SND_CHN
-      JMP     ProcessOnlyMusicQueue2		  ; You	would think you	could skip processing,
-						  ; since if the game is paused, nothing should
-						  ; be setting new music or whatever.
-						  ;
-						  ; You	would be correct, except for the suicide code!
-						  ; That sets MusicQueue2.
-						  ;
-						  ; If not for processing it, the music	would not
-						  ; change (or stop) when you used the code. Welp!
+      ; You would think you could skip processing,
+      ; since if the game is paused, nothing should
+      ; be setting new music or whatever.
+      ;
+      ; You would be correct, except for the suicide code!
+      ; That sets MusicQueue2.
+      ;
+      ; If not for processing it, the music would not
+      ; change (or stop) when you used the code. Welp!
+      JMP     ProcessOnlyMusicQueue2
 
-; ---------------------------------------------------------------------------
 
 ProcessMusicAndSfxQueues:
       JSR     ProcessSoundEffectQueue2
@@ -37,390 +47,391 @@ ProcessMusicAndSfxQueues:
       JSR     ProcessDPCMQueue
 
 ProcessOnlyMusicQueue2:
-      JSR     ProcessMusicQueue2
+      JSR     ProcessMusicQueue
 
-      LDA     #0
+      ; Reset queues
+      LDA     #$00
       STA     SoundEffectQueue2
       STA     MusicQueue2
-      STA     SoundEffect1Queue
+      STA     SoundEffectQueue1
       STA     DPCMQueue
-      STA     Music1Queue
+      STA     MusicQueue1
       STA     SoundEffectQueue3
       RTS
 
-; End of function StartProcessingSoundQueue
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8038:
+ProcessSoundEffectQueue2_Jump:
       LDA     #$42
       LDX     #$82
       LDY     #$A8
-      JSR     sub_BANK4_86C8
+      JSR     PlaySquare1Sweep
 
       LDA     #$22
-      STA     byte_RAM_C4
+      STA     SoundEffectTimer2
 
-loc_BANK4_8045:
-      LDA     byte_RAM_C4
+ProcessSoundEffectQueue2_JumpPart2:
+      LDA     SoundEffectTimer2
       CMP     #$20
-      BNE     loc_BANK4_8051
+      BNE     ProcessSoundEffectQueue2_JumpPart3
 
       LDX     #$DF
       LDY     #$F6
-      BNE     loc_BANK4_8059
+      BNE     ProcessSoundEffectQueue2_SetSquare1ThenDecrementTimer
 
-loc_BANK4_8051:
+ProcessSoundEffectQueue2_JumpPart3:
       CMP     #$1A
-      BNE     loc_BANK4_8076
+      BNE     ProcessSoundEffectQueue2_ThenDecrementTimer
 
       LDX     #$C1
       LDY     #$BC
 
-loc_BANK4_8059:
-      JSR     sub_BANK4_86BA
+ProcessSoundEffectQueue2_SetSquare1ThenDecrementTimer:
+      JSR     SetSquare1VolumeAndSweep
 
-      BNE     loc_BANK4_8076
+      BNE     ProcessSoundEffectQueue2_ThenDecrementTimer
 
-loc_BANK4_805E:
+ProcessSoundEffectQueue2_CoinGet:
       LDA     #$35
       LDX     #$8D
-      STA     byte_RAM_C4
+      STA     SoundEffectTimer2
+
       LDY     #$7F
-
-loc_BANK4_8066:
       LDA     #$5E
-      JSR     sub_BANK4_86C8
+      JSR     PlaySquare1Sweep
 
-loc_BANK4_806B:
-      LDA     byte_RAM_C4
+ProcessSoundEffectQueue2_CoinGetPart2:
+      LDA     SoundEffectTimer2
       CMP     #$30
-      BNE     loc_BANK4_8076
+      BNE     ProcessSoundEffectQueue2_ThenDecrementTimer
 
       LDA     #$54
       STA     SQ1_LO
 
-loc_BANK4_8076:
-      BNE     loc_BANK4_80D3
-
-; =============== S U B	R O U T	I N E =======================================
+ProcessSoundEffectQueue2_ThenDecrementTimer:
+      BNE     ProcessSoundEffectQueue2_DecrementTimer
 
 ProcessSoundEffectQueue2:
-      LDA     byte_RAM_60D
-      CMP     #2
-      BEQ     loc_BANK4_80D3
+      LDA     SoundEffectPlaying2
+      CMP     #SoundEffect2_Climbing
+      BEQ     ProcessSoundEffectQueue2_DecrementTimer
 
       LDY     SoundEffectQueue2
+      BEQ     ProcessSoundEffectQueue2_None
 
-loc_BANK4_8082:
-      BEQ     loc_BANK4_80A5
-
-      STY     byte_RAM_60D
+      STY     SoundEffectPlaying2
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_8038
+      BCS     ProcessSoundEffectQueue2_Jump
 
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_80C3
+      BCS     ProcessSoundEffectQueue2_Climbing
 
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_805E
+      BCS     ProcessSoundEffectQueue2_CoinGet
 
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_80E7
+      BCS     ProcessSoundEffectQueue2_Shrinking
 
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_80BD
+      BCS     ProcessSoundEffectQueue2_IntroFallSlide
 
       LSR     SoundEffectQueue2
-      BCS     loc_BANK4_8103
+      BCS     ProcessSoundEffectQueue2_Growing
 
-loc_BANK4_80A5:
-      LDA     byte_RAM_60D
-      BEQ     locret_BANK4_80BC
+ProcessSoundEffectQueue2_None:
+      LDA     SoundEffectPlaying2
+      BEQ     ProcessSoundEffectQueue2_NoneExit
 
+      ; Jumping
       LSR     A
-      BCS     loc_BANK4_8045
+      BCS     ProcessSoundEffectQueue2_JumpPart2
 
+      ; Climbing
       LSR     A
-      BCS     loc_BANK4_80D3
+      BCS     ProcessSoundEffectQueue2_DecrementTimer
 
+      ; CoinGet
       LSR     A
-      BCS     loc_BANK4_806B
+      BCS     ProcessSoundEffectQueue2_CoinGetPart2
 
+      ; Shrinking
       LSR     A
-      BCS     loc_BANK4_80EB
+      BCS     ProcessSoundEffectQueue2_ShrinkingPart2
 
+      ; IntroFallSlide
       LSR     A
-      BCS     loc_BANK4_80D3
+      BCS     ProcessSoundEffectQueue2_DecrementTimer
 
+      ; Growing
       LSR     A
-      BCS     loc_BANK4_8107
+      BCS     ProcessSoundEffectQueue2_GrowingPart2
 
-locret_BANK4_80BC:
+ProcessSoundEffectQueue2_NoneExit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_80BD:
+ProcessSoundEffectQueue2_IntroFallSlide:
       LDA     #$60
       LDY     #$A5
-      BNE     loc_BANK4_80CA
+      BNE     ProcessSoundEffectQueue2_SingleSweep
 
-loc_BANK4_80C3:
-      STY     byte_RAM_60D
-      LDA     #5
+ProcessSoundEffectQueue2_Climbing:
+      STY     SoundEffectPlaying2
+      LDA     #$05
       LDY     #$9C
 
-loc_BANK4_80CA:
+; A = timer
+; Y = sweep
+ProcessSoundEffectQueue2_SingleSweep:
       LDX     #$9E
-      STA     byte_RAM_C4
+      STA     SoundEffectTimer2
       LDA     #$60
-      JSR     sub_BANK4_86C8
+      JSR     PlaySquare1Sweep
 
-loc_BANK4_80D3:
-      DEC     byte_RAM_C4
-      BNE     locret_BANK4_80E6
+ProcessSoundEffectQueue2_DecrementTimer:
+      DEC     SoundEffectTimer2
+      BNE     ProcessSoundEffectQueue2_Exit
 
-      LDX     #$E
+      LDX     #%00001110
       STX     SND_CHN
-      LDX     #$F
+      LDX     #%00001111
       STX     SND_CHN
-      LDX     #0
-      STX     byte_RAM_60D
+      LDX     #$00
+      STX     SoundEffectPlaying2
 
-locret_BANK4_80E6:
+ProcessSoundEffectQueue2_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_80E7:
+ProcessSoundEffectQueue2_Shrinking:
       LDA     #$2F
-      STA     byte_RAM_C4
+      STA     SoundEffectTimer2
 
-loc_BANK4_80EB:
-      LDA     byte_RAM_C4
+ProcessSoundEffectQueue2_ShrinkingPart2:
+      LDA     SoundEffectTimer2
       LSR     A
-      BCS     loc_BANK4_8100
+      BCS     ProcessSoundEffectQueue2_ShrinkingPart3
 
       LSR     A
-      BCS     loc_BANK4_8100
+      BCS     ProcessSoundEffectQueue2_ShrinkingPart3
 
-      AND     #2
-      BEQ     loc_BANK4_8100
+      AND     #$02
+      BEQ     ProcessSoundEffectQueue2_ShrinkingPart3
 
       LDY     #$91
       LDX     #$9A
       LDA     #$68
-      JSR     sub_BANK4_86C8
+      JSR     PlaySquare1Sweep
 
-loc_BANK4_8100:
-      JMP     loc_BANK4_80D3
+ProcessSoundEffectQueue2_ShrinkingPart3:
+      JMP     ProcessSoundEffectQueue2_DecrementTimer
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8103:
+ProcessSoundEffectQueue2_Growing:
       LDA     #$36
-      STA     byte_RAM_C4
+      STA     SoundEffectTimer2
 
-loc_BANK4_8107:
-      LDA     byte_RAM_C4
+ProcessSoundEffectQueue2_GrowingPart2:
+      LDA     SoundEffectTimer2
       LSR     A
-      BCS     loc_BANK4_80D3
+      BCS     ProcessSoundEffectQueue2_DecrementTimer
 
       TAY
       LDA     MushroomSoundData-1,Y
       LDX     #$5D
       LDY     #$7F
-      JSR     sub_BANK4_86C8
+      JSR     PlaySquare1Sweep
 
-loc_BANK4_8117:
-      JMP     loc_BANK4_80D3
+      JMP     ProcessSoundEffectQueue2_DecrementTimer
 
-; End of function ProcessSoundEffectQueue2
-
-; ---------------------------------------------------------------------------
 MushroomSoundData:
-	  .BYTE	$6A, $74, $6A, $64, $5C, $52, $5C, $52,	$4C, $44, $66, $70, $66, $60, $58, $4E
-      .BYTE $58, $4E, $48, $40,	$56, $60, $56, $50, $48, $3E, $48, $3E,	$38, $30; $10
+      .BYTE $6A, $74, $6A, $64, $5C, $52, $5C, $52, $4C, $44, $66, $70, $66, $60, $58, $4E
+      .BYTE $58, $4E, $48, $40, $56, $60, $56, $50, $48, $3E, $48, $3E, $38, $30 ; $10
 
-; =============== S U B	R O U T	I N E =======================================
 
 ProcessSoundEffectQueue1:
-      LDA     SoundEffect1Queue
-      BEQ     loc_BANK4_8146
+      LDA     SoundEffectQueue1
+      BEQ     ProcessSoundEffectQueue1_None
 
       CMP     #SoundEffect1_StopwatchTick
-      BNE     loc_BANK4_814C
+      BNE     ProcessSoundEffectQueue1_Part2
 
-      LDX     byte_RAM_607
-      BEQ     loc_BANK4_814C
+      LDX     SoundEffectPlaying1
+      BEQ     ProcessSoundEffectQueue1_Part2
 
-loc_BANK4_8146:
-      LDA     byte_RAM_607
-      BNE     loc_BANK4_815A
+ProcessSoundEffectQueue1_None:
+      LDA     SoundEffectPlaying1
+      BNE     ProcessSoundEffectQueue1_Part3
 
       RTS
 
-; ---------------------------------------------------------------------------
+ProcessSoundEffectQueue1_Part2:
+      STA     SoundEffectPlaying1
+      LDY     #$00
 
-loc_BANK4_814C:
-      STA     byte_RAM_607
-      LDY     #0
-
-loc_BANK4_8151:
+ProcessSoundEffectQueue1_PointerLoop:
       INY
       LSR     A
-      BCC     loc_BANK4_8151
+      BCC     ProcessSoundEffectQueue1_PointerLoop
 
-      LDA     locret_BANK4_818E,Y
-      STA     byte_RAM_C1
+      LDA     SoundEffectPointers-1,Y
+      STA     SoundEffect1DataOffset
 
-loc_BANK4_815A:
-      LDY     byte_RAM_C1
-      INC     byte_RAM_C1
+ProcessSoundEffectQueue1_Part3:
+      LDY     SoundEffect1DataOffset
+      INC     SoundEffect1DataOffset
       LDA     SoundEffectPointers,Y
-      BMI     loc_BANK4_8178
+      BMI     ProcessSoundEffectQueue1_Patch
 
-      BNE     loc_BANK4_8182
+      BNE     ProcessSoundEffectQueue1_Note
 
+      ; if it was $00, we're at the end of the data for this sound effect
       LDX     #$90
       STX     SQ2_VOL
       LDX     #$18
       STX     SQ2_HI
-      LDX     #0
+      LDX     #$00
       STX     SQ2_LO
-      STX     byte_RAM_607
+      STX     SoundEffectPlaying1
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8178:
+ProcessSoundEffectQueue1_Patch:
       STA     SQ2_VOL
-      LDY     byte_RAM_C1
-      INC     byte_RAM_C1
+      LDY     SoundEffect1DataOffset
+      INC     SoundEffect1DataOffset
       LDA     SoundEffectPointers,Y
 
-loc_BANK4_8182:
+ProcessSoundEffectQueue1_Note:
       CMP     #$7E
-      BEQ     loc_BANK4_8189
+      BEQ     ProcessSoundEffectQueue1_Exit
 
-      JSR     sub_BANK4_873F
+      JSR     PlaySquare2Note
 
-loc_BANK4_8189:
+ProcessSoundEffectQueue1_Exit:
       LDA     #$7F
       STA     SQ2_SWEEP
 
-locret_BANK4_818E:
       RTS
 
-; End of function ProcessSoundEffectQueue1
 
-; ---------------------------------------------------------------------------
 SoundEffectPointers:
-	  .BYTE $4E, 8, $6D, $27, $D7, $74, $8B, $A5
-						  ; Relative pointers to the below sound effect	data.
-						  ; If you want	to edit	this easier, or	once the main
-						  ; part of disassembling is done, replace this	with:
-						  ;
-						  ; @TODO asm.php should have a	"replace this" directive
-						  ;
-						  ; tmp	= $   ;	For relative offset calculations
-						  ; .BYTE <(SoundEffect1Data_BirdoShot - tmp)
-						  ; .BYTE <(SoundEffect1Data_PotionDoorBong - tmp)
-						  ; .BYTE <(SoundEffect1Data_CherryGet - tmp)
-						  ; .BYTE <(SoundEffect1Data_ThrowItem - tmp)
-						  ; .BYTE <(SoundEffect1Data_1UP - tmp)
-						  ; .BYTE <(SoundEffect1Data_EnemyHit -	tmp)
-						  ; .BYTE <(SoundEffect1Data_StopwatchTick - tmp)
-						  ; .BYTE <(SoundEffect1Data_HawkOpen_WartBarf - tmp)
+      .BYTE SoundEffect1Data_BirdoShot - SoundEffectPointers
+      .BYTE SoundEffect1Data_PotionDoorBong - SoundEffectPointers
+      .BYTE SoundEffect1Data_CherryGet - SoundEffectPointers
+      .BYTE SoundEffect1Data_ThrowItem - SoundEffectPointers
+      .BYTE SoundEffect1Data_1UP - SoundEffectPointers
+      .BYTE SoundEffect1Data_EnemyHit - SoundEffectPointers
+      .BYTE SoundEffect1Data_StopwatchTick - SoundEffectPointers
+      .BYTE SoundEffect1Data_HawkOpen_WartBarf - SoundEffectPointers
+
 SoundEffect1Data_PotionDoorBong:
-	  .BYTE $9F, $10,	$E, $C,	$7E, $7E, $7E, $10, $E,	$C, $7E, $7E, $7E
-      .BYTE $86, $10, $E, $C, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $7E, $7E, $7E, $7E,	0
+      .BYTE $9F
+      .BYTE $10, $0E, $0C, $7E, $7E, $7E
+      .BYTE $10, $0E, $0C, $7E, $7E, $7E
+      .BYTE $86
+      .BYTE $10, $0E, $0C, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $00
+
 SoundEffect1Data_ThrowItem:
-	  .BYTE $9F, $64, $7E,	$7E, $9E, $68, $7E, $7E, $9D, $6A, $7E,	$7E
-      .BYTE $9C, $6E, $7E, $7E,	$9B, $72, $7E, $7E, $9A, $76, $7E, $7E
-      .BYTE $84, $78, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $7E, $7E, 0
+      .BYTE $9F, $64, $7E, $7E
+      .BYTE $9E, $68, $7E, $7E
+      .BYTE $9D, $6A, $7E, $7E
+      .BYTE $9C, $6E, $7E, $7E
+      .BYTE $9B, $72, $7E, $7E
+      .BYTE $9A, $76, $7E, $7E
+      .BYTE $84, $78, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $00
+
 SoundEffect1Data_BirdoShot:
-	  .BYTE $9F, $30, $34,	$36, $38, $9F, $3C, $3E, $40, $42, $9A,	$3A
-      .BYTE $3C, $3E, $40, $9C,	$38, $3A, $3C, $3E, $96, $36, $38, $3A
-      .BYTE $3C, $98, $34, $36,	$38, $36, 0
+      .BYTE $9F, $30, $34, $36, $38
+      .BYTE $9F, $3C, $3E, $40, $42
+      .BYTE $9A, $3A, $3C, $3E, $40
+      .BYTE $9C, $38, $3A, $3C, $3E
+      .BYTE $96, $36, $38, $3A, $3C
+      .BYTE $98, $34, $36, $38, $36
+      .BYTE $00
+
 SoundEffect1Data_CherryGet:
-	  .BYTE $81, $56, $7E,	$64, $7E, $68, 0
+      .BYTE $81, $56, $7E, $64, $7E, $68
+      .BYTE $00
+
 SoundEffect1Data_EnemyHit:
-	  .BYTE	$99, $18, $1A, $18, $1C, $18, $1A, $9B,	$18, $1C, $18, $20
-      .BYTE $18, $22, $9F, $18,	$3C, $24, $30, $3C, $18, $30, 0
+      .BYTE $99, $18, $1A, $18, $1C, $18, $1A
+      .BYTE $9B, $18, $1C, $18, $20, $18, $22
+      .BYTE $9F, $18, $3C, $24, $30, $3C, $18, $30
+      .BYTE $00
+
 SoundEffect1Data_StopwatchTick:
-	  .BYTE $80, $68, $7E, $7E, $7E, $7E, $7E,	$7E, $7E, $7E, $60, $7E
-      .BYTE $7E, $64, $7E, $7E,	$7E, $7E, $7E, $7E, $7E, $7E, $56, $7E
-      .BYTE $7E, 0
+      .BYTE $80
+      .BYTE $68, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $60, $7E, $7E
+      .BYTE $64, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $56, $7E, $7E
+      .BYTE $00
+
 SoundEffect1Data_HawkOpen_WartBarf:
-	  .BYTE $80, $1E, $1C,	$1E, $1A, $18, $16, $1C, $18, $1A, $1E,	$18
-      .BYTE $16, $14, $12, $14,	$16, $14, $12, $2C, $2C, $2A, $2E, $2C
-      .BYTE $2A, $28, $26, $28,	$24, $22, $20, $1E, $1C, $1A, $18, $16
-      .BYTE $14, $14, $12, $10,	$E, $C,	$A, 8, 8, 6, 4,	2, 2, 0
-SoundEffect1Data_HawkOpen_1UP:
-	  .BYTE $81, $5E, $7E, $7E,	$7E, $7E, $7E, $7E, $64, $7E, $7E, $7E
-      .BYTE $7E, $7E, $7E, $76,	$7E, $7E, $7E, $7E, $7E, $7E, $6E, $7E
-      .BYTE $7E, $7E, $7E, $7E,	$7E, $72, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $7C, $7E, $7E, 0
-; ---------------------------------------------------------------------------
+      .BYTE $80, $1E, $1C, $1E, $1A, $18, $16, $1C, $18, $1A, $1E, $18
+      .BYTE $16, $14, $12, $14, $16, $14, $12, $2C, $2C, $2A, $2E, $2C
+      .BYTE $2A, $28, $26, $28, $24, $22, $20, $1E, $1C, $1A, $18, $16
+      .BYTE $14, $14, $12, $10, $0E, $0C, $0A, $08, $08, $06, $04, $02, $02
+      .BYTE $00
 
-loc_BANK4_828E:
-      LDA     #2
-      STA     byte_RAM_611
+SoundEffect1Data_1UP:
+      .BYTE $81
+      .BYTE $5E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $64, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $76, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $6E, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $72, $7E, $7E, $7E, $7E, $7E, $7E
+      .BYTE $7C, $7E, $7E
+      .BYTE $00
 
-loc_BANK4_8293:
+
+ProcessSoundEffectQueue3_ShortNoise:
+      LDA     #$02
+      STA     SoundEffectTimer3
+
+ProcessSoundEffectQueue3_ShortNoisePart2:
       LDA     #$1A
       STA     NOISE_VOL
-      LDA     #4
+      LDA     #$04
       STA     NOISE_LO
       STA     NOISE_HI
-      BNE     loc_BANK4_82E8
-
-; =============== S U B	R O U T	I N E =======================================
+      BNE     ProcessSoundEffectQueue3_DecrementTimer
 
 ProcessSoundEffectQueue3:
       LDY     SoundEffectQueue3
-      BEQ     loc_BANK4_82B9
+      BEQ     ProcessSoundEffectQueue3_Part2
 
-      STY     byte_RAM_60E
+      STY     SoundEffectPlaying3
       LSR     SoundEffectQueue3
-      BCS     loc_BANK4_828E
+      BCS     ProcessSoundEffectQueue3_ShortNoise
 
       LSR     SoundEffectQueue3
-      BCS     loc_BANK4_82C6
+      BCS     ProcessSoundEffectQueue3_Rumble
 
-loc_BANK4_82B4:
       LSR     SoundEffectQueue3
-      BCS     loc_BANK4_82C6
+      BCS     ProcessSoundEffectQueue3_Rumble
 
-loc_BANK4_82B9:
-      LDA     byte_RAM_60E
+ProcessSoundEffectQueue3_Part2:
+      LDA     SoundEffectPlaying3
       LSR     A
-      BCS     loc_BANK4_8293
-
-      LSR     A
-      BCS     loc_BANK4_82CB
+      BCS     ProcessSoundEffectQueue3_ShortNoisePart2
 
       LSR     A
-      BCS     loc_BANK4_82CB
+      BCS     ProcessSoundEffectQueue3_RumblePart2
+
+      LSR     A
+      BCS     ProcessSoundEffectQueue3_RumblePart2
 
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_82C6:
+ProcessSoundEffectQueue3_Rumble:
       LDA     #$7F
-      STA     byte_RAM_611
+      STA     SoundEffectTimer3
 
-loc_BANK4_82CB:
-      LDY     byte_RAM_611
-      LDA     ProcessMusicQueue2,Y		  ; @TODO ??? Uhhhhhhhhhhhhhhhhh????????
-      ORA     #$C
+ProcessSoundEffectQueue3_RumblePart2:
+      LDY     SoundEffectTimer3
+      LDA     ProcessMusicQueue,Y ; weird, but i guess that's one way to get "random" noise
+      ORA     #$0C
       STA     NOISE_LO
-      LDA     byte_RAM_611
+      LDA     SoundEffectTimer3
       LSR     A
       LSR     A
       LSR     A
@@ -430,199 +441,178 @@ loc_BANK4_82CB:
       LDA     #$18
       STA     NOISE_HI
 
-loc_BANK4_82E8:
-      DEC     byte_RAM_611
-      BNE     locret_BANK4_82FC
+ProcessSoundEffectQueue3_DecrementTimer:
+      DEC     SoundEffectTimer3
+      BNE     ProcessSoundEffectQueue3_Exit
 
-      LDX     #7
+      LDX     #$07
       STX     SND_CHN
-      LDX     #$F
+      LDX     #$0F
       STX     SND_CHN
-      LDX     #0
-      STX     byte_RAM_60E
+      LDX     #$00
+      STX     SoundEffectPlaying3
 
-locret_BANK4_82FC:
+ProcessSoundEffectQueue3_Exit:
       RTS
 
-; End of function ProcessSoundEffectQueue3
-
-; =============== S U B	R O U T	I N E =======================================
 
 ProcessDPCMQueue:
       LDA     DPCMQueue
-      BNE     loc_BANK4_8317
+      BNE     ProcessDPCMQueue_Part2
 
-      LDA     byte_RAM_608
-      BEQ     loc_BANK4_830C
+      LDA     DPCMPlaying
+      BEQ     ProcessDPCMQueue_None
 
-      DEC     byte_RAM_60A
-      BNE     locret_BANK4_8316
+      DEC     DPCMTimer
+      BNE     ProcessDPCMQueue_Exit
 
-loc_BANK4_830C:
-      LDA     #0
-
-loc_BANK4_830E:
-      STA     byte_RAM_608
-      LDA     #$F
+ProcessDPCMQueue_None:
+      LDA     #$00
+      STA     DPCMPlaying
+      LDA     #%00001111
       STA     SND_CHN
 
-locret_BANK4_8316:
+ProcessDPCMQueue_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
+ProcessDPCMQueue_Part2:
+      STA     DPCMPlaying
+      LDY     #$00
 
-loc_BANK4_8317:
-      STA     byte_RAM_608
-      LDY     #0
-
-loc_BANK4_831C:
+ProcessDPCMQueue_PointerLoop:
       INY
       LSR     A
-      BCC     loc_BANK4_831C
+      BCC     ProcessDPCMQueue_PointerLoop
 
       LDA     DMCFreqTable-1,Y
       STA     DMC_FREQ
 
-loc_BANK4_8326:
       LDA     DMCStartTable-1,Y
       STA     DMC_START
       LDA     DMCLengthTable-1,Y
       STA     DMC_LEN
       LDA     #$A0
-      STA     byte_RAM_60A
-      LDA     #$F
+      STA     DPCMTimer
+      LDA     #%00001111
       STA     SND_CHN
-      LDA     #$1F
+      LDA     #%00011111
       STA     SND_CHN
       RTS
 
-; End of function ProcessDPCMQueue
 
-; ---------------------------------------------------------------------------
 DMCStartTable:
-	  .BYTE $4F
-						  ; @TODO
-						  ; It seems that the references to these tables are off by one	byte, maybe intentionally?
-						  ; Need to fix	this in	the final disassembly
-      .BYTE $60
-      .BYTE $4B
-      .BYTE 0
-      .BYTE $31
-      .BYTE $60
-      .BYTE $E
-      .BYTE $1D
+      .BYTE (DPCMSampleData_DoorOpenBombBom - DPCMSampleData)/64 ; $4F
+      .BYTE (DPCMSampleData_DrumSample - DPCMSampleData)/64 ; $60
+      .BYTE (DPCMSampleData_PlayerHurt - DPCMSampleData)/64 ; $4B
+      .BYTE (DPCMSampleData_ItemPull - DPCMSampleData)/64 ; $00
+      .BYTE (DPCMSampleData_BossDeath - DPCMSampleData)/64 ; $31
+      .BYTE (DPCMSampleData_DrumSample - DPCMSampleData)/64 ; $60
+      .BYTE (DPCMSampleData_BossHurt - DPCMSampleData)/64 ; $0E
+      .BYTE (DPCMSampleData_PlayerDeath - DPCMSampleData)/64 ; $1D
+
 DMCLengthTable:
-	  .BYTE $43
+      .BYTE (DPCMSampleDataEnd_DoorOpenBombBom - DPCMSampleData_DoorOpenBombBom)/16 ; $43
+      .BYTE (DPCMSampleDataEnd_DrumSample_A - DPCMSampleData_DrumSample)/16 ; $14
+      .BYTE (DPCMSampleDataEnd_PlayerHurt - DPCMSampleData_PlayerHurt)/16 ; $10
+      .BYTE (DPCMSampleDataEnd_ItemPull - DPCMSampleData_ItemPull)/16 ; $38
+      .BYTE (DPCMSampleDataEnd_BossDeath - DPCMSampleData_BossDeath)/16 ; $48
+      .BYTE (DPCMSampleDataEnd_DrumSample_B - DPCMSampleData_DrumSample)/16 ; $28
+      .BYTE (DPCMSampleDataEnd_BossHurt - DPCMSampleData_BossHurt)/16 ; $3C
+      .BYTE (DPCMSampleDataEnd_PlayerDeath - DPCMSampleData_PlayerDeath)/16 ; $50
 
-      .BYTE $14
-      .BYTE $10
-      .BYTE $38
-      .BYTE $48
-      .BYTE $28
-      .BYTE $3C
-      .BYTE $50
 DMCFreqTable:
-	  .BYTE $E
+      .BYTE $0E
+      .BYTE $0E
+      .BYTE $0F
+      .BYTE $0F
+      .BYTE $0F
+      .BYTE $0F
+      .BYTE $0F
+      .BYTE $0F
+      .BYTE $60 ; ???
 
-      .BYTE $E
-      .BYTE $F
-      .BYTE $F
-      .BYTE $F
-      .BYTE $F
-      .BYTE $F
-      .BYTE  $F
-      .BYTE $60
-; ---------------------------------------------------------------------------
 
-loc_BANK4_835B:
-      JMP     loc_BANK4_8429
+ProcessMusicQueue_ThenReadNoteData:
+      JMP     ProcessMusicQueue_ReadNoteData
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_835E:
+ProcessMusicQueue_StopMusic:
       JMP     StopMusic
 
-; =============== S U B	R O U T	I N E =======================================
-
-ProcessMusicQueue2:
+ProcessMusicQueue:
       LDA     MusicQueue2
-      BMI     loc_BANK4_835E
+      BMI     ProcessMusicQueue_StopMusic
 
       CMP     #Music2_EndingAndCast
-      BEQ     loc_BANK4_837D
+      BEQ     ProcessMusicQueue_EndingAndCast
 
       LDA     MusicQueue2
-      BNE     loc_BANK4_83C5
+      BNE     ProcessMusicQueue_Part2
 
-      LDA     Music1Queue
-      BNE     loc_BANK4_8389
+      LDA     MusicQueue1
+      BNE     ProcessMusicQueue_MusicQueue1
 
-      LDA     byte_RAM_606
-      ORA     byte_RAM_609
-      BNE     loc_BANK4_835B
+      LDA     MusicPlaying2
+      ORA     MusicPlaying1
+      BNE     ProcessMusicQueue_ThenReadNoteData
 
       RTS
 
-; ---------------------------------------------------------------------------
+ProcessMusicQueue_EndingAndCast:
+      STA     MusicPlaying2
+      LDY     #$00
+      STY     MusicPlaying1
+      LDY     #$08 ; index of ending music pointer
+      BNE     ProcessMusicQueue_ReadFirstPointer
 
-loc_BANK4_837D:
-      STA     byte_RAM_606
-      LDY     #0
-      STY     byte_RAM_609
-      LDY     #8
-      BNE     loc_BANK4_8397
-
-loc_BANK4_8389:
-      STA     byte_RAM_609
-      LDY     #0
-      STY     byte_RAM_606
+ProcessMusicQueue_MusicQueue1:
+      STA     MusicPlaying1
+      LDY     #$00
+      STY     MusicPlaying2
       LDY     #$FF
 
-loc_BANK4_8393:
+ProcessMusicQueue_FirstPointerLoop:
       INY
       LSR     A
-      BCC     loc_BANK4_8393
+      BCC     ProcessMusicQueue_FirstPointerLoop
 
-loc_BANK4_8397:
+ProcessMusicQueue_ReadFirstPointer:
       LDA     MusicPointersFirstPart,Y
-      STA     byte_RAM_5EE
+      STA     MusicPointerFirstPart
       LDA     MusicPointersEndPart,Y
       CLC
-      ADC     #2
-      STA     byte_RAM_5EF
+      ADC     #$02
+      STA     MusicPointerEndPart
       LDA     MusicPointersLoopPart,Y
-      STA     byte_RAM_5F0
-      LDA     byte_RAM_5EE
+      STA     MusicPointerLoopPart
+      LDA     MusicPointerFirstPart
 
-loc_BANK4_83AF:
-      STA     byte_RAM_5EC
+ProcessMusicQueue_SetCurrentPart:
+      STA     MusicPointerCurrentPart
 
-loc_BANK4_83B2:
-      INC     byte_RAM_5EC
-      LDY     byte_RAM_5EC
-      CPY     byte_RAM_5EF
-      BNE     loc_BANK4_83D7
+ProcessMusicQueue_SetNextPart:
+      INC     MusicPointerCurrentPart
+      LDY     MusicPointerCurrentPart
+      CPY     MusicPointerEndPart
+      BNE     ProcessMusicQueue_ReadHeader
 
-      LDA     byte_RAM_5F0
-      BNE     loc_BANK4_83AF
+      LDA     MusicPointerLoopPart
+      BNE     ProcessMusicQueue_SetCurrentPart
 
       JMP     StopMusic
 
-; ---------------------------------------------------------------------------
+ProcessMusicQueue_Part2:
+      STA     MusicPlaying2
+      LDY     MusicPlaying1
+      STY     MusicResume1
+      LDY     #$00
+      STY     MusicPlaying1
 
-loc_BANK4_83C5:
-      STA     byte_RAM_606
-      LDY     byte_RAM_609
-      STY     byte_RAM_5F3
-      LDY     #0
-      STY     byte_RAM_609
-
-loc_BANK4_83D3:
+ProcessMusicQueue_PointerLoop:
       INY
       LSR     A
-      BCC     loc_BANK4_83D3
+      BCC     ProcessMusicQueue_PointerLoop
 
-loc_BANK4_83D7:
+ProcessMusicQueue_ReadHeader:
       LDA     MusicPartPointers-1,Y
       TAY
       LDA     MusicPartPointers,Y
@@ -632,301 +622,289 @@ loc_BANK4_83D7:
       LDA     MusicPartPointers+2,Y
       STA     CurrentMusicPointer+1
       LDA     MusicPartPointers+3,Y
-      STA     byte_RAM_615
+      STA     CurrentMusicTriangleOffset
       LDA     MusicPartPointers+4,Y
-      STA     byte_RAM_614
+      STA     CurrentMusicSquare1Offset
       LDA     MusicPartPointers+5,Y
-      STA     byte_RAM_616
-      STA     byte_RAM_5F5
-      STA     byte_RAM_5FF
-      STA     byte_RAM_5FC
-      LDA     #1
-      STA     byte_RAM_618
-      STA     byte_RAM_61A
-      STA     byte_RAM_61D
-      STA     byte_RAM_61E
-      STA     byte_RAM_5FA
-      LDA     #0
-      STA     byte_RAM_613
-      STA     byte_RAM_60C
-      LDA     #$B
+      STA     CurrentMusicNoiseOffset
+      STA     CurrentMusicNoiseStartOffset
+IFDEF PROTOTYPE_MUSIC
+      LDA     MusicPartPointers+6,Y
+ENDIF
+      STA     CurrentMusicDPCMOffset
+      STA     CurrentMusicDPCMStartOffset
+      LDA     #$01
+      STA     MusicSquare2NoteLength
+      STA     MusicSquare1NoteLength
+      STA     MusicTriangleNoteLength
+      STA     MusicNoiseNoteLength
+      STA     MusicDPCMNoteLength
+      LDA     #$00
+      STA     MusicSquare1NoteOffset
+      STA     MusicSquare1NoteSweep
+
+      LDA     #%00001011
       STA     SND_CHN
-      LDA     #$F
+      LDA     #%00001111
       STA     SND_CHN
 
-loc_BANK4_8429:
-      DEC     byte_RAM_618
-      BNE     loc_BANK4_84A1
+ProcessMusicQueue_ReadNoteData:
+      DEC     MusicSquare2NoteLength
+      BNE     ProcessMusicQueue_Square2SustainNote
 
-      LDY     byte_RAM_613
-      INC     byte_RAM_613
+      LDY     MusicSquare1NoteOffset
+      INC     MusicSquare1NoteOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_843C
+      BEQ     ProcessMusicQueue_EndOfSegment
 
-      BPL     loc_BANK4_847D
+      BPL     ProcessMusicQueue_Square2Note
 
-      BNE     loc_BANK4_8468
+      BNE     ProcessMusicQueue_Square2Patch
 
-loc_BANK4_843C:
-      LDA     byte_RAM_609
-      BNE     loc_BANK4_8462
+ProcessMusicQueue_EndOfSegment:
+      LDA     MusicPlaying1
+      BNE     ProcessMusicQueue_ThenSetNextPart
 
-loc_BANK4_8441:
-      LDA     byte_RAM_606
-      CMP     #4
-      BEQ     loc_BANK4_8462
+      LDA     MusicPlaying2
+      CMP     #Music2_EndingAndCast
+      BEQ     ProcessMusicQueue_ThenSetNextPart
 
-      AND     #$25
+      AND     #Music1_Overworld|Music1_Inside|Music1_Subspace
       BEQ     StopMusic
 
-      LDA     byte_RAM_5F3
-      BNE     loc_BANK4_8465
+      LDA     MusicResume1
+      BNE     ProcessMusicQueue_ResumeMusicQueue1
 
 StopMusic:
-      LDA     #0				  ; Pretty sure	this stops the music
-      STA     byte_RAM_606
-      STA     byte_RAM_609
+      LDA     #$00
+      STA     MusicPlaying2
+      STA     MusicPlaying1
       STA     SND_CHN
-
-loc_BANK4_845C:
-      LDX     #$F
+      LDX     #%00001111
       STX     SND_CHN
       RTS
 
-; ---------------------------------------------------------------------------
+ProcessMusicQueue_ThenSetNextPart:
+      JMP     ProcessMusicQueue_SetNextPart
 
-loc_BANK4_8462:
-      JMP     loc_BANK4_83B2
+ProcessMusicQueue_ResumeMusicQueue1:
+      JMP     ProcessMusicQueue_MusicQueue1
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8465:
-      JMP     loc_BANK4_8389
-
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8468:
+ProcessMusicQueue_Square2Patch:
       TAX
       AND     #$F0
-      STA     byte_RAM_5F1
+      STA     MusicSquare2Patch
       TXA
-      JSR     sub_BANK4_8629
+      JSR     ProcessMusicQueue_PatchNoteLength
 
-      STA     byte_RAM_617
-      LDY     byte_RAM_613
-      INC     byte_RAM_613
+      STA     MusicSquare2NoteStartLength
+      LDY     MusicSquare1NoteOffset
+      INC     MusicSquare1NoteOffset
       LDA     (CurrentMusicPointer),Y
 
-loc_BANK4_847D:
-      LDX     byte_RAM_607
-      BNE     loc_BANK4_849B
+ProcessMusicQueue_Square2Note:
+      LDX     SoundEffectPlaying1
+      BNE     ProcessMusicQueue_Square2ContinueNote
 
-      JSR     sub_BANK4_873F
+      JSR     PlaySquare2Note
 
       TAY
-      BNE     loc_BANK4_848D
+      BNE     ProcessMusicQueue_Square2StartNote
 
-      LDA     byte_RAM_BF
-      JMP     loc_BANK4_8495
+      LDA     UNINITIALIZED_MusicSquare2Volume
+      JMP     ProcessMusicQueue_Square2UpdateNoteOffset
 
-; ---------------------------------------------------------------------------
+ProcessMusicQueue_Square2StartNote:
+      LDA     MusicSquare2NoteStartLength
+      LDX     UNINITIALIZED_MusicSquare2Volume ; always overridden in the following subroutine...?
+      JSR     SetInstrumentStartOffset
 
-loc_BANK4_848D:
-      LDA     byte_RAM_617
-      LDX     byte_RAM_BF
+ProcessMusicQueue_Square2UpdateNoteOffset:
+      STA     MusicSquare2InstrumentOffset
+      JSR     SetSquare2VolumeAndSweep
 
-loc_BANK4_8492:
-      JSR     sub_BANK4_8634
+ProcessMusicQueue_Square2ContinueNote:
+      LDA     MusicSquare2NoteStartLength
+      STA     MusicSquare2NoteLength
 
-loc_BANK4_8495:
-      STA     byte_RAM_619
-      JSR     sub_BANK4_86C1
+ProcessMusicQueue_Square2SustainNote:
+      LDX     SoundEffectPlaying1
+      BNE     ProcessMusicQueue_Square1
 
-loc_BANK4_849B:
-      LDA     byte_RAM_617
-      STA     byte_RAM_618
+      LDY     MusicSquare2InstrumentOffset
+      BEQ     ProcessMusicQueue_LoadSquare2Instrument
 
-loc_BANK4_84A1:
-      LDX     byte_RAM_607
-      BNE     loc_BANK4_84BF
+      DEC     MusicSquare2InstrumentOffset
 
-      LDY     byte_RAM_619
-      BEQ     loc_BANK4_84AE
-
-      DEC     byte_RAM_619
-
-loc_BANK4_84AE:
-      LDA     byte_RAM_617
-      LDX     byte_RAM_5F1
-      JSR     sub_BANK4_8643
+ProcessMusicQueue_LoadSquare2Instrument:
+      LDA     MusicSquare2NoteStartLength
+      LDX     MusicSquare2Patch
+      JSR     LoadSquareInstrumentDVE
 
       STA     SQ2_VOL
       LDX     #$7F
       STX     SQ2_SWEEP
 
-loc_BANK4_84BF:
-      DEC     byte_RAM_61A
-      BNE     loc_BANK4_8518
+ProcessMusicQueue_Square1:
+      DEC     MusicSquare1NoteLength
+      BNE     ProcessMusicQueue_Square1SustainNote
 
-loc_BANK4_84C4:
-      LDY     byte_RAM_614
-      INC     byte_RAM_614
+ProcessMusicQueue_Square1Patch:
+      LDY     CurrentMusicSquare1Offset
+      INC     CurrentMusicSquare1Offset
       LDA     (CurrentMusicPointer),Y
-      BPL     loc_BANK4_84E3
+      BPL     ProcessMusicQueue_Square1AfterPatch
 
       TAX
       AND     #$F0
-      STA     byte_RAM_5F2
+      STA     MusicSquare1Patch
       TXA
-      JSR     sub_BANK4_8629
+      JSR     ProcessMusicQueue_PatchNoteLength
 
-      STA     byte_RAM_5ED
-      LDY     byte_RAM_614
-      INC     byte_RAM_614
+      STA     MusicSquare1NoteStartLength
+      LDY     CurrentMusicSquare1Offset
+      INC     CurrentMusicSquare1Offset
       LDA     (CurrentMusicPointer),Y
 
-loc_BANK4_84E3:
+ProcessMusicQueue_Square1AfterPatch:
       TAY
-      BNE     loc_BANK4_84F5
+      BNE     ProcessMusicQueue_Square1Note
 
       LDA     #$83
       STA     SQ1_VOL
       LDA     #$94
       STA     SQ1_SWEEP
-      STA     byte_RAM_60C
-      BNE     loc_BANK4_84C4
+      STA     MusicSquare1NoteSweep
+      BNE     ProcessMusicQueue_Square1Patch
 
-loc_BANK4_84F5:
-      LDY     byte_RAM_60D
-      BNE     loc_BANK4_8512
+ProcessMusicQueue_Square1Note:
+      LDY     SoundEffectPlaying2
+      BNE     ProcessMusicQueue_Square1ContinueNote
 
-      JSR     sub_BANK4_86CE
+      JSR     PlaySquare1Note
 
-      BNE     loc_BANK4_8504
+      BNE     ProcessMusicQueue_Square1StartNote
 
-loc_BANK4_84FF:
-      LDA     byte_RAM_BF
-      JMP     loc_BANK4_850C
+      LDA     UNINITIALIZED_MusicSquare2Volume
+      JMP     ProcessMusicQueue_Square1UpdateNoteOffset
 
-; ---------------------------------------------------------------------------
+ProcessMusicQueue_Square1StartNote:
+      LDA     MusicSquare1NoteStartLength
+      LDX     UNINITIALIZED_MusicSquare1Volume ; always overridden in the following subroutine...?
+      JSR     SetInstrumentStartOffset
 
-loc_BANK4_8504:
-      LDA     byte_RAM_5ED
-      LDX     byte_RAM_C0
-      JSR     sub_BANK4_8634
+ProcessMusicQueue_Square1UpdateNoteOffset:
+      STA     MusicSquare1InstrumentOffset
+      JSR     SetSquare1VolumeAndSweep
 
-loc_BANK4_850C:
-      STA     byte_RAM_61B
-      JSR     sub_BANK4_86BA
+ProcessMusicQueue_Square1ContinueNote:
+      LDA     MusicSquare1NoteStartLength
+      STA     MusicSquare1NoteLength
 
-loc_BANK4_8512:
-      LDA     byte_RAM_5ED
-      STA     byte_RAM_61A
+ProcessMusicQueue_Square1SustainNote:
+      LDA     SoundEffectPlaying2
+      BNE     ProcessMusicQueue_Triangle
 
-loc_BANK4_8518:
-      LDA     byte_RAM_60D
-      BNE     loc_BANK4_853B
+      LDY     MusicSquare1InstrumentOffset
+      BEQ     ProcessMusicQueue_Square1AfterDecrementInstrumentOffset
 
-      LDY     byte_RAM_61B
-      BEQ     loc_BANK4_8525
+      DEC     MusicSquare1InstrumentOffset
 
-      DEC     byte_RAM_61B
-
-loc_BANK4_8525:
-      LDA     byte_RAM_5ED
-      LDX     byte_RAM_5F2
-      JSR     sub_BANK4_8643
+ProcessMusicQueue_Square1AfterDecrementInstrumentOffset:
+      LDA     MusicSquare1NoteStartLength
+      LDX     MusicSquare1Patch
+      JSR     LoadSquareInstrumentDVE
 
       STA     SQ1_VOL
-      LDA     byte_RAM_60C
-      BNE     loc_BANK4_8538
+      LDA     MusicSquare1NoteSweep
+      BNE     ProcessMusicQueue_Square1Sweep
 
       LDA     #$7F
 
-loc_BANK4_8538:
+ProcessMusicQueue_Square1Sweep:
       STA     SQ1_SWEEP
 
-loc_BANK4_853B:
-      LDA     byte_RAM_615
-      BEQ     loc_BANK4_8585
+ProcessMusicQueue_Triangle:
+      LDA     CurrentMusicTriangleOffset
+      BEQ     ProcessMusicQueue_NoiseDPCM
 
-      DEC     byte_RAM_61D
-      BNE     loc_BANK4_8585
+      DEC     MusicTriangleNoteLength
+      BNE     ProcessMusicQueue_NoiseDPCM
 
-      LDY     byte_RAM_615
-      INC     byte_RAM_615
+      LDY     CurrentMusicTriangleOffset
+      INC     CurrentMusicTriangleOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_8582
+      BEQ     ProcessMusicQueue_TriangleSetLength
 
-      BPL     loc_BANK4_8566
+      BPL     ProcessMusicQueue_TriangleNote
 
-      JSR     sub_BANK4_8629
+      JSR     ProcessMusicQueue_PatchNoteLength
 
-      STA     byte_RAM_61C
+      STA     MusicTriangleNoteStartLength
       LDA     #$1F
       STA     TRI_LINEAR
-      LDY     byte_RAM_615
-      INC     byte_RAM_615
+      LDY     CurrentMusicTriangleOffset
+      INC     CurrentMusicTriangleOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_8582
+      BEQ     ProcessMusicQueue_TriangleSetLength
 
-loc_BANK4_8566:
-      JSR     loc_BANK4_8743
+ProcessMusicQueue_TriangleNote:
+      JSR     PlayTriangleNote
 
-      LDX     byte_RAM_61C
-      STX     byte_RAM_61D
+      LDX     MusicTriangleNoteStartLength
+      STX     MusicTriangleNoteLength
       TXA
-      CMP     #$A
-      BCC     loc_BANK4_857C
+      CMP     #$0A
+      BCC     ProcessMusicQueue_TriangleNoteShort
 
       CMP     #$1E
+      BCS     ProcessMusicQueue_TriangleNoteLong
 
-loc_BANK4_8576:
-      BCS     loc_BANK4_8580
-
+ProcessMusicQueue_TriangleNoteMedium:
       LDA     #$24
-      BNE     loc_BANK4_8582
+      BNE     ProcessMusicQueue_TriangleSetLength
 
-loc_BANK4_857C:
+ProcessMusicQueue_TriangleNoteShort:
       LDA     #$18
+      BNE     ProcessMusicQueue_TriangleSetLength
 
-loc_BANK4_857E:
-      BNE     loc_BANK4_8582
-
-loc_BANK4_8580:
+ProcessMusicQueue_TriangleNoteLong:
       LDA     #$6F
 
-loc_BANK4_8582:
+ProcessMusicQueue_TriangleSetLength:
       STA     TRI_LINEAR
 
-loc_BANK4_8585:
-      LDA     byte_RAM_609
-      AND     #$14
-      BNE     loc_BANK4_85E0
+ProcessMusicQueue_NoiseDPCM:
+IFNDEF PROTOTYPE_MUSIC
+      LDA     MusicPlaying1
+      AND     #Music1_Inside|Music1_Invincible
+      BNE     ProcessMusicQueue_DPCM
+ENDIF
 
-      LDA     byte_RAM_616
-      BEQ     loc_BANK4_85CC
+ProcessMusicQueue_Noise:
+      LDA     CurrentMusicNoiseOffset
+      BEQ     ProcessMusicQueue_ThenNoiseEnd
 
-      DEC     byte_RAM_61E
-      BNE     loc_BANK4_85CC
+      DEC     MusicNoiseNoteLength
+      BNE     ProcessMusicQueue_ThenNoiseEnd
 
-loc_BANK4_8596:
-      LDY     byte_RAM_616
-      INC     byte_RAM_616
+ProcessMusicQueue_NoiseByte:
+      LDY     CurrentMusicNoiseOffset
+      INC     CurrentMusicNoiseOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_85CF
+      BEQ     ProcessMusicQueue_NoiseLoopSegment
 
-      BPL     loc_BANK4_85B2
+      BPL     ProcessMusicQueue_NoiseNote
 
-      JSR     sub_BANK4_8629
+      JSR     ProcessMusicQueue_PatchNoteLength
 
-      STA     byte_RAM_61F
-      LDY     byte_RAM_616
-      INC     byte_RAM_616
+      STA     MusicNoiseNoteStartLength
+      LDY     CurrentMusicNoiseOffset
+      INC     CurrentMusicNoiseOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_85CF
+      BEQ     ProcessMusicQueue_NoiseLoopSegment
 
-loc_BANK4_85B2:
+ProcessMusicQueue_NoiseNote:
       LSR     A
       TAY
       LDA     NoiseVolTable,Y
@@ -935,82 +913,93 @@ loc_BANK4_85B2:
       STA     NOISE_LO
       LDA     NoiseHiTable,Y
       STA     NOISE_HI
-      LDA     byte_RAM_61F
-      STA     byte_RAM_61E
+      LDA     MusicNoiseNoteStartLength
+      STA     MusicNoiseNoteLength
 
-loc_BANK4_85CC:
-      JMP     loc_BANK4_85D8
+ProcessMusicQueue_ThenNoiseEnd:
+      JMP     ProcessMusicQueue_NoiseEnd
 
-; ---------------------------------------------------------------------------
+ProcessMusicQueue_NoiseLoopSegment:
+      LDA     CurrentMusicNoiseStartOffset
+      STA     CurrentMusicNoiseOffset
+      JMP     ProcessMusicQueue_NoiseByte
 
-loc_BANK4_85CF:
-      LDA     byte_RAM_5F5
-      STA     byte_RAM_616
-      JMP     loc_BANK4_8596
-
-; ---------------------------------------------------------------------------
-
-loc_BANK4_85D8:
-      LDA     byte_RAM_609
-      AND     #$14
-      BNE     loc_BANK4_85E0
+ProcessMusicQueue_NoiseEnd:
+      LDA     MusicPlaying1
+IFNDEF PROTOTYPE_MUSIC
+      AND     #Music1_Inside|Music1_Invincible
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+      AND     #Music1_Inside
+ENDIF
+      BNE     ProcessMusicQueue_DPCM
 
       RTS
 
-; ---------------------------------------------------------------------------
+ProcessMusicQueue_DPCM:
+      LDA     CurrentMusicDPCMOffset
+      BEQ     ProcessMusicQueue_DPCMEnd
 
-loc_BANK4_85E0:
-      LDA     byte_RAM_5FF
-      BEQ     locret_BANK4_8613
+      DEC     MusicDPCMNoteLength
+      BNE     ProcessMusicQueue_DPCMEnd
 
-      DEC     byte_RAM_5FA
-      BNE     locret_BANK4_8613
-
-loc_BANK4_85EA:
-      LDY     byte_RAM_5FF
-      INC     byte_RAM_5FF
+ProcessMusicQueue_DPCMByte:
+      LDY     CurrentMusicDPCMOffset
+      INC     CurrentMusicDPCMOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_8614
+      BEQ     ProcessMusicQueue_DPCMLoopSegment
 
-      BPL     loc_BANK4_8606
+      BPL     ProcessMusicQueue_DPCMNote
 
-      JSR     sub_BANK4_8629
+      JSR     ProcessMusicQueue_PatchNoteLength
 
-      STA     byte_RAM_5FB
-      LDY     byte_RAM_5FF
-      INC     byte_RAM_5FF
+      STA     MusicDPCMNoteStartLength
+      LDY     CurrentMusicDPCMOffset
+      INC     CurrentMusicDPCMOffset
       LDA     (CurrentMusicPointer),Y
-      BEQ     loc_BANK4_8614
+      BEQ     ProcessMusicQueue_DPCMLoopSegment
 
-loc_BANK4_8606:
+ProcessMusicQueue_DPCMNote:
       ASL     A
       STA     DPCMQueue
       JSR     ProcessDPCMQueue
 
-      LDA     byte_RAM_5FB
-      STA     byte_RAM_5FA
+      LDA     MusicDPCMNoteStartLength
+      STA     MusicDPCMNoteLength
 
-locret_BANK4_8613:
+ProcessMusicQueue_DPCMEnd:
       RTS
 
-; ---------------------------------------------------------------------------
+ProcessMusicQueue_DPCMLoopSegment:
+      LDA     CurrentMusicDPCMStartOffset
+      STA     CurrentMusicDPCMOffset
+      JMP     ProcessMusicQueue_DPCMByte
 
-loc_BANK4_8614:
-      LDA     byte_RAM_5FC
-      STA     byte_RAM_5FF
-      JMP     loc_BANK4_85EA
 
-; End of function ProcessMusicQueue2
-
-; ---------------------------------------------------------------------------
 NoiseVolTable:
-	  .BYTE $10,$1E,$1F,$16			  
-NoiseLoTable:
-	  .BYTE 0,3,$A,2				 
-NoiseHiTable:
-	  .BYTE 0,$18,$18,$58			 ; =============== S U B	R O U T	I N E =======================================
+      .BYTE $10
+      .BYTE $1E
+      .BYTE $1F
+      .BYTE $16
 
-sub_BANK4_8629:
+NoiseLoTable:
+      .BYTE $00
+      .BYTE $03
+      .BYTE $0A
+      .BYTE $02
+
+NoiseHiTable:
+      .BYTE $00
+      .BYTE $18
+      .BYTE $18
+      .BYTE $58
+
+
+; Input
+;   A = full patch byte
+; Output
+;   A = new note length
+ProcessMusicQueue_PatchNoteLength:
       AND     #$F
       CLC
       ADC     MusicTempoSetting
@@ -1018,577 +1007,972 @@ sub_BANK4_8629:
       LDA     NoteLengthTable,Y
       RTS
 
-; End of function sub_BANK4_8629
-
-; =============== S U B	R O U T	I N E =======================================
-
-sub_BANK4_8634:
+; Input
+;   A = note start length, >= $13 for table A, < $13 for instrument table B
+; Ouput
+;   A = starting instrument offset ($16 for short, $3F for long)
+;   X = duty/volume/envelope ($82)
+;   Y = sweep ($7F)
+;
+SetInstrumentStartOffset:
       CMP     #$13
-      BCC     loc_BANK4_863C
-
+      BCC     SetInstrumentStartOffset_Short
       LDA     #$3F
-      BNE     loc_BANK4_863E
-
-loc_BANK4_863C:
+      BNE     SetInstrumentStartOffset_Exit
+SetInstrumentStartOffset_Short:
       LDA     #$16
-
-loc_BANK4_863E:
+SetInstrumentStartOffset_Exit:
       LDX     #$82
       LDY     #$7F
       RTS
 
-; End of function sub_BANK4_8634
-
-; =============== S U B	R O U T	I N E =======================================
-
-sub_BANK4_8643:
+;
+; Loads instrument data for a square channel
+;
+; Each instrument has two lookup tables based on the note length.
+;
+; Input
+;   A = note length, >= $13 for table A, < $13 for instrument table B
+;   X = instrument patch
+;   Y = instrument offset
+; Output
+;   A = duty/volume/envelope
+;
+LoadSquareInstrumentDVE:
       CPX     #$90
-      BEQ     loc_BANK4_866C
+      BEQ     LoadSquareInstrumentDVE_90_E0
 
       CPX     #$E0
-      BEQ     loc_BANK4_866C
+      BEQ     LoadSquareInstrumentDVE_90_E0
 
       CPX     #$A0
-      BEQ     loc_BANK4_8679
+      BEQ     LoadSquareInstrumentDVE_A0
 
       CPX     #$B0
-      BEQ     loc_BANK4_8686
+      BEQ     LoadSquareInstrumentDVE_B0
 
       CPX     #$C0
-      BEQ     loc_BANK4_8693
+      BEQ     LoadSquareInstrumentDVE_C0
 
       CPX     #$D0
-      BEQ     loc_BANK4_86AD
+      BEQ     LoadSquareInstrumentDVE_D0
 
       CPX     #$F0
-      BEQ     loc_BANK4_86A0
+      BEQ     LoadSquareInstrumentDVE_F0
 
+LoadSquareInstrumentDVE_80:
       CMP     #$13
-      BCC     loc_BANK4_8668
-
-      LDA     byte_BANK5_A18D,Y
-      BNE     locret_BANK4_866B
-
-loc_BANK4_8668:
-      LDA     byte_BANK5_A1CD,Y
-
-locret_BANK4_866B:
+      BCC     LoadSquareInstrumentDVE_80_Short
+      LDA     InstrumentDVE_80,Y
+      BNE     LoadSquareInstrumentDVE_80_Exit
+LoadSquareInstrumentDVE_80_Short:
+      LDA     InstrumentDVE_80_Short,Y
+LoadSquareInstrumentDVE_80_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_866C:
+LoadSquareInstrumentDVE_90_E0:
       CMP     #$13
-      BCC     loc_BANK4_8675
-
-      LDA     byte_BANK5_A1E4,Y
-      BNE     locret_BANK4_8678
-
-loc_BANK4_8675:
-      LDA     byte_BANK5_A224,Y
-
-locret_BANK4_8678:
+      BCC     LoadSquareInstrumentDVE_90_E0_Short
+      LDA     InstrumentDVE_90_E0,Y
+      BNE     LoadSquareInstrumentDVE_90_E0_Exit
+LoadSquareInstrumentDVE_90_E0_Short:
+      LDA     InstrumentDVE_90_E0_Short,Y
+LoadSquareInstrumentDVE_90_E0_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8679:
+LoadSquareInstrumentDVE_A0:
       CMP     #$13
-      BCC     loc_BANK4_8682
-
-      LDA     byte_BANK5_A23B,Y
-      BNE     locret_BANK4_8685
-
-loc_BANK4_8682:
-      LDA     byte_BANK5_A27B,Y
-
-locret_BANK4_8685:
+      BCC     LoadSquareInstrumentDVE_A0_Short
+      LDA     InstrumentDVE_A0,Y
+      BNE     LoadSquareInstrumentDVE_A0_Exit
+LoadSquareInstrumentDVE_A0_Short:
+      LDA     InstrumentDVE_A0_Short,Y
+LoadSquareInstrumentDVE_A0_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8686:
+LoadSquareInstrumentDVE_B0:
       CMP     #$13
-      BCC     loc_BANK4_868F
-
-      LDA     byte_BANK5_A293,Y
-      BNE     locret_BANK4_8692
-
-loc_BANK4_868F:
-      LDA     byte_BANK5_A2D3,Y
-
-locret_BANK4_8692:
+      BCC     LoadSquareInstrumentDVE_B0_Short
+      LDA     InstrumentDVE_B0,Y
+      BNE     LoadSquareInstrumentDVE_B0_Exit
+LoadSquareInstrumentDVE_B0_Short:
+      LDA     InstrumentDVE_B0_Short,Y
+LoadSquareInstrumentDVE_B0_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8693:
+LoadSquareInstrumentDVE_C0:
       CMP     #$13
-      BCC     loc_BANK4_869C
-
-      LDA     byte_BANK5_A301,Y
-      BNE     locret_BANK4_869F
-
-loc_BANK4_869C:
-      LDA     byte_BANK5_A2EA,Y
-
-locret_BANK4_869F:
+      BCC     LoadSquareInstrumentDVE_C0_Short
+      LDA     InstrumentDVE_C0,Y
+      BNE     LoadSquareInstrumentDVE_C0_Exit
+LoadSquareInstrumentDVE_C0_Short:
+      LDA     InstrumentDVE_C0_Short,Y
+LoadSquareInstrumentDVE_C0_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_86A0:
+LoadSquareInstrumentDVE_F0:
       CMP     #$13
-      BCC     loc_BANK4_86A9
-
-      LDA     byte_BANK5_A3AF,Y
-      BNE     locret_BANK4_86AC
-
-loc_BANK4_86A9:
-      LDA     byte_BANK5_A398,Y
-
-locret_BANK4_86AC:
+      BCC     LoadSquareInstrumentDVE_F0_Short
+      LDA     InstrumentDVE_F0,Y
+      BNE     LoadSquareInstrumentDVE_F0_Exit
+LoadSquareInstrumentDVE_F0_Short:
+      LDA     InstrumentDVE_F0_Short,Y
+LoadSquareInstrumentDVE_F0_Exit:
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_86AD:
+LoadSquareInstrumentDVE_D0:
       CMP     #$13
-      BCC     loc_BANK4_86B6
-
-      LDA     unk_BANK5_A341,Y
-      BNE     locret_BANK4_86B9
-
-loc_BANK4_86B6:
-      LDA     unk_BANK5_A381,Y
-
-locret_BANK4_86B9:
+      BCC     LoadSquareInstrumentDVE_D0_Short
+      LDA     InstrumentDVE_D0,Y
+      BNE     LoadSquareInstrumentDVE_D0_Exit
+LoadSquareInstrumentDVE_D0_Short:
+      LDA     InstrumentDVE_D0_Short,Y
+LoadSquareInstrumentDVE_D0_Exit:
       RTS
 
-; End of function sub_BANK4_8643
 
-; =============== S U B	R O U T	I N E =======================================
-
-sub_BANK4_86BA:
+; Sets volume/sweep on Square 1 channel
+;
+; Input
+;   X = duty/volume/envelope
+;   Y = sweep
+SetSquare1VolumeAndSweep:
       STY     SQ1_SWEEP
       STX     SQ1_VOL
       RTS
 
-; End of function sub_BANK4_86BA
-
-; =============== S U B	R O U T	I N E =======================================
-
-sub_BANK4_86C1:
+; Sets volume/sweep on Square 2 channel
+;
+; Input
+;   X = duty/volume/envelope
+;   Y = sweep
+SetSquare2VolumeAndSweep:
       STX     SQ2_VOL
       STY     SQ2_SWEEP
       RTS
 
-; End of function sub_BANK4_86C1
-
-; =============== S U B	R O U T	I N E =======================================
-
-sub_BANK4_86C8:
+; Sets volume/sweep on Square 1 channel and plays a note
+;
+; Input
+;   A = note
+;   X = duty/volume/envelope
+;   Y = sweep
+PlaySquare1Sweep:
       STX     SQ1_VOL
       STY     SQ1_SWEEP
 
-; End of function sub_BANK4_86C8
+; Play a note on the Square 1 channel
+;
+; Input
+;   A = note
+PlaySquare1Note:
+      LDX     #$00
 
-; =============== S U B	R O U T	I N E =======================================
-
-sub_BANK4_86CE:
-      LDX     #0
-
-loc_BANK4_86D0:
+; Plays a note
+;
+; Input
+;   A = note
+;   X = channel
+;       $00: square 1
+;       $04: square 2
+;       $08: triangle
+;       $0C: noise
+; Output
+;   A = $00
+PlayNote:
       CMP     #$7E
-      BNE     loc_BANK4_86DC
+      BNE     PlayNote_NotRest
 
       LDA     #$10
       STA     SQ1_VOL,X
-      LDA     #0
+      LDA     #$00
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_86DC:
-      LDY     #1
-      STY     byte_RAM_5F4
+PlayNote_NotRest:
+      LDY     #$01
+      STY     NextOctave
       PHA
       TAY
-      BMI     loc_BANK4_86ED
+      BMI     PlayNote_LoadFrequencyData
 
-loc_BANK4_86E5:
-      INC     byte_RAM_5F4
+PlayNote_IncrementOctave:
+      INC     NextOctave
       SEC
       SBC     #$18
-      BPL     loc_BANK4_86E5
+      BPL     PlayNote_IncrementOctave
 
-loc_BANK4_86ED:
+PlayNote_LoadFrequencyData:
       CLC
       ADC     #$18
       TAY
       LDA     NoteFrequencyData,Y
-      STA     byte_RAM_BD
+      STA     NextFrequencyLo
       LDA     NoteFrequencyData+1,Y
-      STA     byte_RAM_BE
+      STA     NextFrequencyHi
 
-loc_BANK4_86FB:
-      LSR     byte_RAM_BE
-      ROR     byte_RAM_BD
-      DEC     byte_RAM_5F4
-      BNE     loc_BANK4_86FB
+PlayNote_FrequencyOctaveLoop:
+      LSR     NextFrequencyHi
+      ROR     NextFrequencyLo
+      DEC     NextOctave
+      BNE     PlayNote_FrequencyOctaveLoop
 
       PLA
       CMP     #$38
-      BCC     loc_BANK4_870B
+      BCC     PlayNote_CheckSquareChorus
 
-      DEC     byte_RAM_BD
+      ; tweak the frequency for notes >= $38
+      DEC     NextFrequencyLo
 
-loc_BANK4_870B:
+;
+; Square 2 plays slightly detuned when Square 1 is using instrument E0
+;
+; This can be used to achieve a honky tonk piano effect, which is used for the
+; title screen as well as the bridge of the overworld theme.
+;
+PlayNote_CheckSquareChorus:
       TXA
+      CMP     #APUOffset_Square2
+      BNE     PlayNote_SetFrequency
 
-loc_BANK4_870C:
-      CMP     #4
-      BNE     loc_BANK4_8717
-
-      LDA     byte_RAM_5F2
+      LDA     MusicSquare1Patch
       CMP     #$E0
-      BEQ     loc_BANK4_8727
+      BEQ     PlayNote_SetFrequency_Square2Detuned
 
-loc_BANK4_8717:
-      LDA     byte_RAM_BD
+PlayNote_SetFrequency:
+      LDA     NextFrequencyLo
       STA     SQ1_LO,X
-      STA     unk_RAM_5F9,X
-      LDA     byte_RAM_BE
-      ORA     #8
+      STA     UNUSED_MusicSquare1Lo,X ; unused?
+      LDA     NextFrequencyHi
+      ORA     #$08
       STA     SQ1_HI,X
       RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK4_8727:
-      LDA     byte_RAM_BD
+PlayNote_SetFrequency_Square2Detuned:
+      LDA     NextFrequencyLo
       SEC
-      SBC     #2
+      SBC     #$02
       STA     SQ2_LO
-      STA     byte_RAM_C2
-      LDA     byte_RAM_BE
-      ORA     #8
+      STA     UNINITIALIZED_MusicSquare2Lo ; unused?
+      LDA     NextFrequencyHi
+      ORA     #$08
       STA     SQ2_HI
       RTS
 
-; End of function sub_BANK4_86CE
-
-; ---------------------------------------------------------------------------
+; (not referenced)
+; Sets volume/sweep on Square 2 channel and plays a note
+;
+; Input
+;   A = note
+;   X = duty/volume/envelope
+;   Y = sweep
+PlaySquare2Sweep:
       STX     SQ2_VOL
       STY     SQ2_SWEEP
 
-; =============== S U B	R O U T	I N E =======================================
+; Play a note on the Square 2 channel
+;
+; Input
+;   A = note
+PlaySquare2Note:
+      LDX     #APUOffset_Square2
+      BNE     PlayNote
 
-sub_BANK4_873F:
-      LDX     #4
-      BNE     loc_BANK4_86D0
+; Play a note on the Triangle channel
+;
+; Input
+;   A = note
+PlayTriangleNote:
+      LDX     #APUOffset_Triangle
+      BNE     PlayNote
 
-; End of function sub_BANK4_873F
-
-loc_BANK4_8743:
-      LDX     #8
-      BNE     loc_BANK4_86D0
-
-; ---------------------------------------------------------------------------
 NoteFrequencyData:
-	  .WORD	$1AB8				      ; C
-      .WORD $1938				  ; C# / Db
-      .WORD $17CC				  ; D
-      .WORD $1678				  ; D# / Eb
-      .WORD $1534				  ; E
-      .WORD $1404				  ; F
-      .WORD $12E4				  ; F# / Gb
-      .WORD $11D4				  ; G
-      .WORD $10D4				  ; G# / Ab
-      .WORD $FE0				  ; A
-      .WORD $EFC				  ; A# / Bb
-      .WORD $E24				  ; B
+      .WORD $1AB8 ; C
+      .WORD $1938 ; C# / Db
+      .WORD $17CC ; D
+      .WORD $1678 ; D# / Eb
+      .WORD $1534 ; E
+      .WORD $1404 ; F
+      .WORD $12E4 ; F# / Gb
+      .WORD $11D4 ; G
+      .WORD $10D4 ; G# / Ab
+      .WORD $0FE0 ; A
+      .WORD $0EFC ; A# / Bb
+      .WORD $0E24 ; B
+
+
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $875F - $8EFF
+; Unused space in the original
+; $875F - $8EFF
+      .pad $8F00, $FF
 ENDIF
-     ; @TODO
-     ; Music pointers are not currently	defined	and labeled yet,
-     ; so we have to keep proper alignment
-     .pad $8F00, $FF
 
-
-; [000007A1 BYTES: END OF AREA UNUSED-BANK4:875F. PRESS	KEYPAD "-" TO COLLAPSE]
+;
+; Note Lengths
+; ============
+;
+; These are lookup tables used to determine note lengths (in ticks).
+;
+; There are a few weird values floating around, but it's generally broken into
+; groups of 13 note lengths that correspond to a tempo as follows:
+;
+; $x0: 1/16 note (rounding down)
+; $x1: 1/16 note (rounding up)
+; $x2: 1/4 note triplet (rounding down)
+; $x3: 1/4 note triplet (rounding up)
+; $x4: 1/8 note
+; $x5: dotted 1/8 note
+; $x6: 1/2 note triplet (rounding down)
+; $x7: 1/2 not triplet (rounding up)
+; $x8: 1/4 note
+; $x9: dotted 1/4 note
+; $xA: 1/2 note
+; $xB: dotted 1/2 note
+; $xC: whole note
+; $xD: dotted whole note (usually not defined)
+; $xE: double note (usually note defined)
+; $xF: usually not defined
+;
+; 14400 is the number of ticks in a minute (4 ticks * 60 fps * 60 seconds), and
+; you can work out the tempo by dividing 14400 by the length of a whole note.
+;
 NoteLengthTable:
-	  .BYTE 3, 3, 4, 4, 6, 9,	8, 8, $C, $12, $18, $24, $30, 3, 4, 5
-      .BYTE 4, 7, $A, 9, $A, $E, $15, $1C, $2A,	$38, $B, 4, 4, 5, 6, 8;	$10
-      .BYTE $C,	$B, $A,	$10, $18, $20, $30, $40, 4, 5, 6, 6, 9,	$D, $C,	$C; $20
-      .BYTE $12, $1B, $24, $36,	$48, $E, 3, 5, 5, 7, 6,	$A, $F,	$D, $E,	$14; $30
-      .BYTE $1E, $28, $3C, $50,	5, 6, 7, 8, $B,	$10, $F, $E, $16, $21, $2C, $42; $40
-      .BYTE $58, $11, 6, 6, 8, 8, $C, $12, $10,	$10, $18, $24, $30, $48, $60, 2; $50
-      .BYTE 6, 7, 9, 8,	$D, $13, $11, $12, $1A,	$27, $34, $4E, $68, $14, 7, 7; $60
-      .BYTE 9, $A, $E, $15, $13, $12, $1C, $2A,	$38, $54, $70, 3, 4, 7,	8, $A; $70
-      .BYTE $A,	$F, $16, $14, $14, $1E,	$2D, $3C, $5A, $78, $17, 8, 8, $B, $A, $10; $80
-      .BYTE $18, $15, $16, $20,	$30, $40, $60, $80, 8, 9, $B, $C, $11, $19, $15, $16; $90
-      .BYTE $22, $33, $44, $60,	$88, $1A, 9, 9,	$C, $C,	$12, $1B, $18, $18, $24, $36; $A0
-      .BYTE $48, $6C, $90			  ; $B0
+
+; Character Select
+; Star
+; Crystal
+; Game Over
+; Boss Beaten
+NoteLengthTable_300bpm:
+      .BYTE $03, $03, $04, $04, $06, $09, $08, $08, $0C, $12, $18, $24, $30
+
+NoteLengthTable_257bpm: ; rounded
+      .BYTE $03, $04, $05, $04, $07, $0A, $09, $0A, $0E, $15, $1C, $2A, $38
+
+      .BYTE $0B ; junk?
+
+; Title Screen
+NoteLengthTable_225bpm:
+      .BYTE $04, $04, $05, $06, $08, $0C, $0B, $0A, $10, $18, $20, $30, $40
+
+; Overworld
+; Boss
+; Wart
+; Death
+; Subspace
+NoteLengthTable_200bpm:
+      .BYTE $04, $05, $06, $06, $09, $0D, $0C, $0C, $12, $1B, $24, $36, $48
+
+      .BYTE $0E, $03 ; junk?
+
+NoteLengthTable_180bpm:
+      .BYTE $05, $05, $07, $06, $0A, $0F, $0D, $0E, $14, $1E, $28, $3C, $50
+
+NoteLengthTable_164bpm: ; rounded, 163.64 bpm
+      .BYTE $05, $06, $07, $08, $0B, $10, $0F, $0E, $16, $21, $2C, $42, $58
+
+      .BYTE $11 ; junk?
+
+; Bonus Chance
+NoteLengthTable_150bpm:
+      .BYTE $06, $06, $08, $08, $0C, $12, $10, $10, $18, $24, $30, $48, $60
+
+      .BYTE $02 ; junk?
+
+NoteLengthTable_138bpm: ; rounded, 138.46 bpm
+      .BYTE $06, $07, $09, $08, $0D, $13, $11, $12, $1A, $27, $34, $4E, $68
+
+      .BYTE $14 ; junk?
+
+; Underground
+; Ending
+NoteLengthTable_129bpm: ; rounded, 128.57
+      .BYTE $07, $07, $09, $0A, $0E, $15, $13, $12, $1C, $2A, $38, $54, $70
+
+      .BYTE $03, $04 ; junk?
+
+NoteLengthTable_120bpm:
+      .BYTE $07, $08, $0A, $0A, $0F, $16, $14, $14, $1E, $2D, $3C, $5A, $78
+
+      .BYTE $17 ; junk?
+
+NoteLengthTable_112bpm: ; rounded, 112.5 bpm
+      .BYTE $08, $08, $0B, $0A, $10, $18, $15, $16, $20, $30, $40, $60, $80
+
+NoteLengthTable_106bpm: ; rounded, 105.88 bpm
+      .BYTE $08, $09, $0B, $0C, $11, $19, $15, $16, $22, $33, $44, $60, $88
+
+      .BYTE $1A ; junk?
+
+NoteLengthTable_100bpm:
+      .BYTE $09, $09, $0C, $0C, $12, $1B, $18, $18, $24, $36, $48, $6C, $90
+
+
 IFDEF PRESERVE_UNUSED_SPACE
-     ; Unused space in the original
-     ; $8FB3 - $8FFF
+      ; Unused space in the original
+      ; $8FB3 - $8FFF
+      .pad $9000, $FF
 ENDIF
-     ; @TODO
-     ; Music pointers are not currently	defined	and labeled yet,
-     ; so we have to keep proper alignment
-     .pad $9000, $FF
 
 
+;
+; Music Part Pointers
+; ===================
+;
+; These are the pointers to various music segments used to cue those themes in
+; the game as well as handle relative offsets for looping segments
+;
 MusicPartPointers:
-	  .BYTE	$99,$8E,$84,$A4,$89,$84,$99
-      .BYTE $2A,$30,$36,$30,$3C,$42,$A9
-      .BYTE $9E,$93,$48,$4E,$54,$5A,$54
-      .BYTE $60,$66,$72,$78,$7E,$B5,$AF
-      .BYTE $BB,$C1,$C7,$CD,$D3,$CD,$D9
-      .BYTE $DF,$EB,$E5,$F7,$F1,$FD,$6C
-      .BYTE 0,$AD,$98,$6B,$36,$A0,0
-      .BYTE $5C,$99,$8E,$48,$B0,0,$9A
-      .BYTE $99
-      .BYTE $6F
-      .BYTE $48
-      .BYTE $76
-      .BYTE 0
-      .BYTE $9E
-      .BYTE $99
-      .BYTE $6B
-      .BYTE $47
-      .BYTE $72
-      .BYTE 0
-      .BYTE $26
-      .BYTE $9A
-      .BYTE $8A
-      .BYTE $46
-      .BYTE $AC
-      .BYTE $28
-      .BYTE $D4
-      .BYTE $9B
-      .BYTE $2B
-      .BYTE $16
-      .BYTE $3D
-      .BYTE $28
-      .BYTE $20
-      .BYTE $9C
-      .BYTE $A8
-      .BYTE $54
-      .BYTE $C9
-      .BYTE $28
-      .BYTE $F9
-      .BYTE $9C
-      .BYTE $DD
-      .BYTE $73
-      .BYTE $6C
-      .BYTE $28
-      .BYTE $3F
-      .BYTE $9D
-      .BYTE $B2
-      .BYTE $73
-      .BYTE $26
-      .BYTE $28
-      .BYTE 0
-      .BYTE $9E
-      .BYTE $38
-      .BYTE $1D
-      .BYTE $46
-      .BYTE $28
-      .BYTE $4D
-      .BYTE $9E
-      .BYTE $A7
-      .BYTE $4F
-      .BYTE $C8
-      .BYTE $6E
-      .BYTE $BD
-      .BYTE $94
-      .BYTE $53
-      .BYTE $2A
-      .BYTE $84
-      .BYTE $28
-      .BYTE $1C
-      .BYTE $9F
-      .BYTE $83
-      .BYTE $42
-      .BYTE 0
-      .BYTE 0
-      .BYTE $69
-      .BYTE $94
-      .BYTE $37
-      .BYTE $1A
-      .BYTE $49
-      .BYTE $28
-      .BYTE $C7
-      .BYTE $9F
-      .BYTE $96
-      .BYTE $4B
-      .BYTE 0
-      .BYTE 0
-      .BYTE $48
-      .BYTE $A1
-      .BYTE $1B
-      .BYTE $D
-      .BYTE 0
-      .BYTE $CE
-      .BYTE $A0
-      .BYTE $1B
-      .BYTE  $E
-      .BYTE 0
-      .BYTE $F2
-      .BYTE $A0
-      .BYTE $41
-      .BYTE $27
-      .BYTE 0
-      .BYTE $93
-      .BYTE $9B
-      .BYTE $2F
-      .BYTE $21
-      .BYTE $38
-      .BYTE $52
-      .BYTE $BB
-      .BYTE $A0
-      .BYTE 0
-      .BYTE $A
-      .BYTE 0
-      .BYTE $DF
-      .BYTE $9A
-      .BYTE $97
-      .BYTE $61
-      .BYTE $B0
-      .BYTE $28
-      .BYTE $6F
-      .BYTE $A1
-      .BYTE $17
-      .BYTE $C
-      .BYTE 0
-      .BYTE $5D
-      .BYTE $9A
-      .BYTE $6C
-      .BYTE $45
-      .BYTE $79
-      .BYTE $1B
-      .BYTE $A7
-      .BYTE $96
-      .BYTE $BC
-      .BYTE $64
-      .BYTE $59
-      .BYTE $1B
-      .BYTE $3E
-      .BYTE $96
-      .BYTE $43
-      .BYTE $22
-      .BYTE $57
-      .BYTE $1B
-      .BYTE $94
-      .BYTE $97
-      .BYTE $8D
-      .BYTE $47
-      .BYTE $BA
-      .BYTE $1B
-      .BYTE $78
-      .BYTE $98
-      .BYTE $24
-      .BYTE $12
-      .BYTE $29
-      .BYTE $28
-      .BYTE $50
-      .BYTE $95
-      .BYTE $38
-      .BYTE $1C
-      .BYTE $83
-      .BYTE $28
-      .BYTE $A3
-      .BYTE $95
-      .BYTE $24
-      .BYTE $12
-      .BYTE $30	
-      .BYTE $28
-      .BYTE $E0
-      .BYTE $95
-      .BYTE $22
-      .BYTE $10
-      .BYTE $51
-      .BYTE $28
-      .BYTE  $F
-      .BYTE $96
-      .BYTE $17
-      .BYTE  $A
-      .BYTE $22
-      .BYTE $6E
-      .BYTE $1E
-      .BYTE $91
-      .BYTE $3D
-      .BYTE $1F
-      .BYTE $6D
-      .BYTE $6E
-      .BYTE $9C
-      .BYTE $91
-      .BYTE $41
-      .BYTE $21
-      .BYTE $8C
-      .BYTE $6E
-      .BYTE $80
-      .BYTE $92
-      .BYTE $2A
-      .BYTE $5A
-      .BYTE $19
-      .BYTE $6E
-      .BYTE $F2
-      .BYTE $92
-      .BYTE $4C
-      .BYTE $14
-      .BYTE $68
-      .BYTE $6E
-      .BYTE $D
-      .BYTE $92
-      .BYTE $43
-      .BYTE $29
-      .BYTE $1B
-      .BYTE $6E
-      .BYTE $76
-      .BYTE $93
-      .BYTE 0
-      .BYTE $72
-      .BYTE 0
+
+; These pointers correspond to MusicQueue2 fanfares that temporarily interrupt
+; the current background music
+MusicPartPointers_Mushroom:
+      .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
+
+MusicPartPointers_BossBeaten:
+      .BYTE MusicHeaderBossBeaten - MusicPartPointers
+
+; This version of the crystal fanfare is unused, because special logic in
+; ProcessMusicQueue uses this slot for the ending theme instead.
+MusicPartPointers_CrystalUnused:
+      .BYTE MusicHeaderCrystal - MusicPartPointers
+
+MusicPartPointers_Death:
+      .BYTE MusicHeaderDeath - MusicPartPointers
+
+MusicPartPointers_GameOver:
+      .BYTE MusicHeaderGameOver - MusicPartPointers
+
+MusicPartPointers_Crystal:
+      .BYTE MusicHeaderCrystal - MusicPartPointers
+
+MusicPartPointers_BonusChance:
+      .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
+
+; The rest of the pointers correspond to music that uses the pointer tables
+; with support for segment-based looping.
+MusicPartPointers_CharacterSelect:
+      .BYTE MusicHeaderCharacterSelect1 - MusicPartPointers
+MusicPartPointers_CharacterSelectLoop:
+      .BYTE MusicHeaderCharacterSelect2 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect3 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect2 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect4 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect5 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect6 - MusicPartPointers
+      .BYTE MusicHeaderCharacterSelect7 - MusicPartPointers
+MusicPartPointers_CharacterSelectEnd:
+      .BYTE MusicHeaderCharacterSelect8 - MusicPartPointers
+
+MusicPartPointers_Overworld:
+      .BYTE MusicHeaderOverworld1 - MusicPartPointers
+MusicPartPointers_OverworldLoop:
+      .BYTE MusicHeaderOverworld2 - MusicPartPointers
+      .BYTE MusicHeaderOverworld3 - MusicPartPointers
+      .BYTE MusicHeaderOverworld4 - MusicPartPointers
+      .BYTE MusicHeaderOverworld3 - MusicPartPointers
+      .BYTE MusicHeaderOverworld5 - MusicPartPointers
+MusicPartPointers_OverworldEnd:
+      .BYTE MusicHeaderOverworld6 - MusicPartPointers
+
+MusicPartPointers_Boss:
+MusicPartPointers_BossLoop:
+MusicPartPointers_BossEnd:
+      .BYTE MusicHeaderBoss - MusicPartPointers
+
+MusicPartPointers_Star:
+MusicPartPointers_StarLoop:
+MusicPartPointers_StarEnd:
+      .BYTE MusicHeaderStar - MusicPartPointers
+
+MusicPartPointers_Wart:
+MusicPartPointers_WartLoop:
+MusicPartPointers_WartEnd:
+      .BYTE MusicHeaderWart - MusicPartPointers
+
+MusicPartPointers_TitleScreen:
+      .BYTE MusicHeaderTitleScreen1 - MusicPartPointers
+      .BYTE MusicHeaderTitleScreen2 - MusicPartPointers
+      .BYTE MusicHeaderTitleScreen3 - MusicPartPointers
+MusicPartPointers_TitleScreenEnd:
+      .BYTE MusicHeaderTitleScreen4 - MusicPartPointers
+
+MusicPartPointers_SubSpace:
+MusicPartPointers_SubSpaceLoop:
+      .BYTE MusicHeaderSubspace1 - MusicPartPointers
+      .BYTE MusicHeaderSubspace2 - MusicPartPointers
+      .BYTE MusicHeaderSubspace3 - MusicPartPointers
+      .BYTE MusicHeaderSubspace2 - MusicPartPointers
+MusicPartPointers_SubSpaceEnd:
+      .BYTE MusicHeaderSubspace4 - MusicPartPointers
+
+MusicPartPointers_Ending:
+      .BYTE MusicHeaderEnding1 - MusicPartPointers
+      .BYTE MusicHeaderEnding2 - MusicPartPointers
+      .BYTE MusicHeaderEnding3 - MusicPartPointers
+      .BYTE MusicHeaderEnding4 - MusicPartPointers
+IFNDEF PROTOTYPE_MUSIC
+      .BYTE MusicHeaderEnding5 - MusicPartPointers
+MusicPartPointers_EndingLoop:
+MusicPartPointers_EndingEnd:
+      .BYTE MusicHeaderEnding6 - MusicPartPointers
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+MusicPartPointers_EndingEnd:
+      .BYTE MusicHeaderEnding5 - MusicPartPointers
+ENDIF
+
+IFNDEF PROTOTYPE_MUSIC
+MusicPartPointers_Underground:
+MusicPartPointers_UndergroundLoop:
+MusicPartPointers_UndergroundEnd:
+      .BYTE MusicHeaderUnderground - MusicPartPointers
+ENDIF
+
+IFDEF PROTOTYPE_MUSIC
+MusicPartPointers_Underground:
+MusicPartPointers_UndergroundLoop:
+      .BYTE MusicHeaderUndergroundBeta1 - MusicPartPointers
+      .BYTE MusicHeaderUndergroundBeta1 - MusicPartPointers
+      .BYTE MusicHeaderUndergroundBeta2 - MusicPartPointers
+MusicPartPointers_UndergroundEnd:
+      .BYTE MusicHeaderUndergroundBeta2 - MusicPartPointers
+ENDIF
+
+;
+; Music Headers
+; =============
+;
+; These are broken down by song segment and point to the note length table and
+; and individual channel data. Square 2 is the main pointer, and triangle,
+; square 1, and noise are stored as offets relative to the main pointer.
+;
+; Bytes:
+;   00: Note length table (from $8F00)
+;   01: Main address / Square 2 (lo)
+;   02: Main address / Square 2 (hi)
+;   03: Triangle offset from main
+;   04: Square 1 offset from main
+;   05: Noise offset from main
+;
+MusicPartHeaders:
+MusicHeaderCharacterSelect1:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $AD, $98
+      .WORD MusicDataCharacterSelect1
+      .BYTE MusicDataCharacterSelect1_Triangle - MusicDataCharacterSelect1 ; $6B
+      .BYTE MusicDataCharacterSelect1_Square1 - MusicDataCharacterSelect1 ; $36
+      .BYTE MusicDataCharacterSelect1_Noise - MusicDataCharacterSelect1 ; $A0
+
+MusicHeaderCharacterSelect2:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $5C, $99
+      .WORD MusicDataCharacterSelect2
+      .BYTE MusicDataCharacterSelect2_Triangle - MusicDataCharacterSelect2 ; $8E
+      .BYTE MusicDataCharacterSelect2_Square1 - MusicDataCharacterSelect2 ; $48
+      .BYTE MusicDataCharacterSelect2_Noise - MusicDataCharacterSelect2 ; $B0
+
+MusicHeaderCharacterSelect3:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $9A, $99
+      .WORD MusicDataCharacterSelect3
+      .BYTE MusicDataCharacterSelect3_Triangle - MusicDataCharacterSelect3 ; $6F
+      .BYTE MusicDataCharacterSelect3_Square1 - MusicDataCharacterSelect3 ; $48
+      .BYTE MusicDataCharacterSelect3_Noise - MusicDataCharacterSelect3 ; $76
+
+MusicHeaderCharacterSelect4:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $9E, $99
+      .WORD MusicDataCharacterSelect4
+      .BYTE MusicDataCharacterSelect4_Triangle - MusicDataCharacterSelect4 ; $6B
+      .BYTE MusicDataCharacterSelect4_Square1 - MusicDataCharacterSelect4 ; $47
+      .BYTE MusicDataCharacterSelect4_Noise - MusicDataCharacterSelect4 ; $72
+
+MusicHeaderCharacterSelect5:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $26, $9A
+      .WORD MusicDataCharacterSelect5
+      .BYTE MusicDataCharacterSelect5_Triangle - MusicDataCharacterSelect5 ; $8A
+      .BYTE MusicDataCharacterSelect5_Square1 - MusicDataCharacterSelect5 ; $46
+      .BYTE MusicDataCharacterSelect5_Noise - MusicDataCharacterSelect5 ; $AC
+
+MusicHeaderOverworld1:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $D4, $9B
+      .WORD MusicDataOverworld1
+      .BYTE MusicDataOverworld1_Triangle - MusicDataOverworld1 ; $2B
+      .BYTE MusicDataOverworld1_Square1 - MusicDataOverworld1 ; $16
+      .BYTE MusicDataOverworld1_Noise - MusicDataOverworld1 ; $3D
+
+MusicHeaderOverworld2:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $20, $9C
+      .WORD MusicDataOverworld2
+      .BYTE MusicDataOverworld2_Triangle - MusicDataOverworld2 ; $A8
+      .BYTE MusicDataOverworld2_Square1 - MusicDataOverworld2 ; $54
+      .BYTE MusicDataOverworld2_Noise - MusicDataOverworld2 ; $C9
+
+MusicHeaderOverworld3:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $F9, $9C
+      .WORD MusicDataOverworld3
+      .BYTE MusicDataOverworld3_Triangle - MusicDataOverworld3 ; $DD
+      .BYTE MusicDataOverworld3_Square1 - MusicDataOverworld3 ; $73
+      .BYTE MusicDataOverworld3_Noise - MusicDataOverworld3 ; $6C
+
+MusicHeaderOverworld4:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $3F, $9D
+      .WORD MusicDataOverworld4
+      .BYTE MusicDataOverworld4_Triangle - MusicDataOverworld4 ; $B2
+      .BYTE MusicDataOverworld4_Square1 - MusicDataOverworld4 ; $73
+      .BYTE MusicDataOverworld4_Noise - MusicDataOverworld4 ; $26
+
+MusicHeaderOverworld5:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $00, $9E
+      .WORD MusicDataOverworld5
+      .BYTE MusicDataOverworld5_Triangle - MusicDataOverworld5 ; $38
+      .BYTE MusicDataOverworld5_Square1 - MusicDataOverworld5 ; $1D
+      .BYTE MusicDataOverworld5_Noise - MusicDataOverworld5 ; $46
+
+MusicHeaderOverworld6:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $4D, $9E
+      .WORD MusicDataOverworld6
+      .BYTE MusicDataOverworld6_Triangle - MusicDataOverworld6 ; $A7
+      .BYTE MusicDataOverworld6_Square1 - MusicDataOverworld6 ; $4F
+      .BYTE MusicDataOverworld6_Noise - MusicDataOverworld6 ; $C8
+
+IFNDEF PROTOTYPE_MUSIC
+MusicHeaderUnderground:
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
+      ; .BYTE $BD, $94
+      .WORD MusicDataUnderground
+      .BYTE MusicDataUnderground_Triangle - MusicDataUnderground ; $53
+      .BYTE MusicDataUnderground_Square1 - MusicDataUnderground ; $2A
+      .BYTE MusicDataUnderground_DPCM - MusicDataUnderground ; $84
+ENDIF
+
+IFDEF PROTOTYPE_MUSIC
+MusicHeaderUndergroundBeta1:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      .WORD MusicDataUndergroundBeta1
+      .BYTE MusicDataUndergroundBeta1_Triangle - MusicDataUndergroundBeta1
+      .BYTE MusicDataUndergroundBeta1_Square1 - MusicDataUndergroundBeta1
+      .BYTE MusicDataUndergroundBeta1_Noise - MusicDataUndergroundBeta1
+      .BYTE MusicDataUndergroundBeta1_DPCM - MusicDataUndergroundBeta1
+MusicHeaderUndergroundBeta2:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      .WORD MusicDataUndergroundBeta2
+      .BYTE MusicDataUndergroundBeta2_Triangle - MusicDataUndergroundBeta2
+      .BYTE MusicDataUndergroundBeta2_Square1 - MusicDataUndergroundBeta2
+      .BYTE MusicDataUndergroundBeta2_Noise - MusicDataUndergroundBeta2
+      .BYTE MusicDataUndergroundBeta2_DPCM - MusicDataUndergroundBeta2
+ENDIF
+
+MusicHeaderBoss:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $1C, $9F
+      .WORD MusicDataBoss
+      .BYTE MusicDataBoss_Triangle - MusicDataBoss ; $83
+      .BYTE MusicDataBoss_Square1 - MusicDataBoss ; $42
+IFNDEF PROTOTYPE_MUSIC
+      .BYTE $00 ; no noise channel
+ENDIF
+
+MusicHeaderStar:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $69, $94
+      .WORD MusicDataStar
+      .BYTE MusicDataStar_Triangle - MusicDataStar ; $37
+      .BYTE MusicDataStar_Square1 - MusicDataStar ; $1A
+IFNDEF PROTOTYPE_MUSIC
+      .BYTE MusicDataStar_DPCM - MusicDataStar ; $49
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+      .BYTE MusicDataStar_Noise - MusicDataStar
+ENDIF
+
+MusicHeaderWart:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $C7, $9F
+      .WORD MusicDataWart
+      .BYTE MusicDataWart_Triangle - MusicDataWart ; $96
+      .BYTE MusicDataWart_Square1 - MusicDataWart ; $4B
+IFNDEF PROTOTYPE_MUSIC
+      .BYTE $00 ; no noise channel
+ENDIF
+
+MusicHeaderCrystal:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $48, $A1
+      .WORD MusicDataCrystal
+      .BYTE MusicDataCrystal_Triangle - MusicDataCrystal ; $1B
+      .BYTE MusicDataCrystal_Square1 - MusicDataCrystal ; $0D
+      ; no noise channel, using $00 from below
+
+MusicHeaderGameOver:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $CE, $A0
+      .WORD MusicDataGameOver
+      .BYTE MusicDataGameOver_Triangle - MusicDataGameOver ; $1B
+      .BYTE MusicDataGameOver_Square1 - MusicDataGameOver ; $0E
+      ; no noise channel, using $00 from below
+
+MusicHeaderBossBeaten:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $F2, $A0
+      .WORD MusicDataBossBeaten
+      .BYTE MusicDataBossBeaten_Triangle - MusicDataBossBeaten ; $41
+      .BYTE MusicDataBossBeaten_Square1 - MusicDataBossBeaten ; $27
+      ; no noise channel, using $00 from below
+
+MusicHeaderCharacterSelect8:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $93, $9B
+      .WORD MusicDataCharacterSelect8
+      .BYTE MusicDataCharacterSelect8_Triangle - MusicDataCharacterSelect8 ; $2F
+      .BYTE MusicDataCharacterSelect8_Square1 - MusicDataCharacterSelect8 ; $21
+      .BYTE MusicDataCharacterSelect8_Noise - MusicDataCharacterSelect8 ; $38
+
+MusicHeaderMushroomBonusChance:
+      .BYTE NoteLengthTable_150bpm - NoteLengthTable
+      ; .BYTE $BB, $A0
+      .WORD MusicDataMushroomBonusChance
+      .BYTE $00 ; no triangle channel
+      .BYTE MusicDataMushroomBonusChance_Square1 - MusicDataMushroomBonusChance ; $0A
+      ; no noise channel, using $00 from below
+
+MusicHeaderCharacterSelect7:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $DF, $9A
+      .WORD MusicDataCharacterSelect7
+      .BYTE MusicDataCharacterSelect7_Triangle - MusicDataCharacterSelect7 ; $97
+      .BYTE MusicDataCharacterSelect7_Square1 - MusicDataCharacterSelect7 ; $61
+      .BYTE MusicDataCharacterSelect7_Noise - MusicDataCharacterSelect7 ; $B0
+
+MusicHeaderDeath:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $6F, $A1
+      .WORD MusicDataDeath
+      .BYTE MusicDataDeath_Triangle - MusicDataDeath ; $17
+      .BYTE MusicDataDeath_Square1 - MusicDataDeath ; $0C
+      ; no noise channel, using $00 from below
+
+MusicHeaderCharacterSelect6:
+      .BYTE NoteLengthTable_300bpm - NoteLengthTable
+      ; .BYTE $5D, $9A
+      .WORD MusicDataCharacterSelect6
+      .BYTE MusicDataCharacterSelect6_Triangle - MusicDataCharacterSelect6 ; $6C
+      .BYTE MusicDataCharacterSelect6_Square1 - MusicDataCharacterSelect6 ; $45
+      .BYTE MusicDataCharacterSelect6_Noise - MusicDataCharacterSelect6 ; $79
+
+MusicHeaderTitleScreen2:
+      .BYTE NoteLengthTable_225bpm - NoteLengthTable
+      ; .BYTE $A7, $96
+      .WORD MusicDataTitleScreen2
+      .BYTE MusicDataTitleScreen2_Triangle - MusicDataTitleScreen2 ; $BC
+      .BYTE MusicDataTitleScreen2_Square1 - MusicDataTitleScreen2 ; $64
+      .BYTE MusicDataTitleScreen2_Noise - MusicDataTitleScreen2 ; $59
+
+MusicHeaderTitleScreen1:
+      .BYTE NoteLengthTable_225bpm - NoteLengthTable
+      ; .BYTE $3E, $96
+      .WORD MusicDataTitleScreen1
+      .BYTE MusicDataTitleScreen1_Triangle - MusicDataTitleScreen1 ; $43
+      .BYTE MusicDataTitleScreen1_Square1 - MusicDataTitleScreen1 ; $22
+      .BYTE MusicDataTitleScreen1_Noise - MusicDataTitleScreen1 ; $57
+
+MusicHeaderTitleScreen3:
+      .BYTE NoteLengthTable_225bpm - NoteLengthTable
+      ; .BYTE $94, $97
+      .WORD MusicDataTitleScreen3
+      .BYTE MusicDataTitleScreen3_Triangle - MusicDataTitleScreen3 ; $8D
+      .BYTE MusicDataTitleScreen3_Square1 - MusicDataTitleScreen3 ; $47
+      .BYTE MusicDataTitleScreen3_Noise - MusicDataTitleScreen3 ; $BA
+
+MusicHeaderTitleScreen4:
+      .BYTE NoteLengthTable_225bpm - NoteLengthTable
+      ; .BYTE $78, $98
+      .WORD MusicDataTitleScreen4
+      .BYTE MusicDataTitleScreen4_Triangle - MusicDataTitleScreen4 ; $24
+      .BYTE MusicDataTitleScreen4_Square1 - MusicDataTitleScreen4 ; $12
+      .BYTE MusicDataTitleScreen4_Noise - MusicDataTitleScreen4 ; $29
+
+MusicHeaderSubspace1:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $50, $95
+      .WORD MusicDataSubspace1
+      .BYTE MusicDataSubspace1_Triangle - MusicDataSubspace1 ; $38
+      .BYTE MusicDataSubspace1_Square1 - MusicDataSubspace1 ; $1C
+      .BYTE MusicDataSubspace1_Noise - MusicDataSubspace1 ; $83
+
+MusicHeaderSubspace2:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $A3, $95
+      .WORD MusicDataSubspace2
+      .BYTE MusicDataSubspace2_Triangle - MusicDataSubspace2 ; $24
+      .BYTE MusicDataSubspace2_Square1 - MusicDataSubspace2 ; $12
+      .BYTE MusicDataSubspace2_Noise - MusicDataSubspace2 ; $30
+
+MusicHeaderSubspace3:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $E0, $95
+      .WORD MusicDataSubspace3
+      .BYTE MusicDataSubspace3_Triangle - MusicDataSubspace3 ; $22
+      .BYTE MusicDataSubspace3_Square1 - MusicDataSubspace3 ; $10
+      .BYTE MusicDataSubspace3_Noise - MusicDataSubspace3 ; $51
+
+MusicHeaderSubspace4:
+      .BYTE NoteLengthTable_200bpm - NoteLengthTable
+      ; .BYTE $0F, $96
+      .WORD MusicDataSubspace4
+      .BYTE MusicDataSubspace4_Triangle - MusicDataSubspace4 ; $17
+      .BYTE MusicDataSubspace4_Square1 - MusicDataSubspace4 ; $0A
+      .BYTE MusicDataSubspace4_Noise - MusicDataSubspace4 ; $22
+
+MusicHeaderEnding1:
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
+      ; .BYTE $1E, $91
+      .WORD MusicDataEnding1
+      .BYTE MusicDataEnding1_Triangle - MusicDataEnding1 ; $3D
+      .BYTE MusicDataEnding1_Square1 - MusicDataEnding1; $1F
+      .BYTE MusicDataEnding1_Noise - MusicDataEnding1 ; $6D
+
+MusicHeaderEnding3:
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
+      ; .BYTE $9C, $91
+      .WORD MusicDataEnding3
+      .BYTE MusicDataEnding3_Triangle - MusicDataEnding3 ; $41
+      .BYTE MusicDataEnding3_Square1 - MusicDataEnding3 ; $21
+      .BYTE MusicDataEnding3_Noise - MusicDataEnding3 ; $8C
+
+MusicHeaderEnding2:
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
+      ; .BYTE $80, $92
+      .WORD MusicDataEnding2
+      .BYTE MusicDataEnding2_Triangle - MusicDataEnding2 ; $2A
+      .BYTE MusicDataEnding2_Square1 - MusicDataEnding2 ; $5A
+      .BYTE MusicDataEnding2_Noise - MusicDataEnding2 ; $19
+
+MusicHeaderEnding5:
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
+      ; .BYTE $F2, $92
+      .WORD MusicDataEnding5
+      .BYTE MusicDataEnding5_Triangle - MusicDataEnding5 ; $4C
+      .BYTE MusicDataEnding5_Square1 - MusicDataEnding5 ; $14
+      .BYTE MusicDataEnding5_Noise - MusicDataEnding5 ; $68
+
+MusicHeaderEnding4:
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
+      ; .BYTE $0D, $92
+      .WORD MusicDataEnding4
+      .BYTE MusicDataEnding4_Triangle - MusicDataEnding4 ; $43
+      .BYTE MusicDataEnding4_Square1 - MusicDataEnding4 ; $29
+      .BYTE MusicDataEnding4_Noise - MusicDataEnding4 ; $1B
+
+IFNDEF PROTOTYPE_MUSIC
+MusicHeaderEnding6:
+      .BYTE NoteLengthTable_129bpm - NoteLengthTable
+      ; .BYTE $76, $93
+      .WORD MusicDataEnding6
+      .BYTE $00 ; no triangle channel
+      .BYTE MusicDataEnding6_Square1 - MusicDataEnding6 ; $72
+      .BYTE $00 ; no square channel
+ENDIF
+
+
 MusicPointersFirstPart:
-	  .BYTE $10
+      .BYTE MusicPartPointers_Overworld - MusicPartPointers
+      .BYTE MusicPartPointers_CharacterSelect - MusicPartPointers
+      .BYTE MusicPartPointers_Underground - MusicPartPointers
+      .BYTE MusicPartPointers_Boss - MusicPartPointers
+      .BYTE MusicPartPointers_Star - MusicPartPointers
+      .BYTE MusicPartPointers_SubSpace - MusicPartPointers
+      .BYTE MusicPartPointers_Wart - MusicPartPointers
+      .BYTE MusicPartPointers_TitleScreen - MusicPartPointers
+      .BYTE MusicPartPointers_Ending - MusicPartPointers
 
-      .BYTE 7
-      .BYTE $29
-      .BYTE $17
-      .BYTE $18
-      .BYTE $1E
-      .BYTE $19
-      .BYTE $1A
-      .BYTE $23
 MusicPointersEndPart:
-	  .BYTE $16
+      .BYTE MusicPartPointers_OverworldEnd - MusicPartPointers
+      .BYTE MusicPartPointers_CharacterSelectEnd - MusicPartPointers
+      .BYTE MusicPartPointers_UndergroundEnd - MusicPartPointers
+      .BYTE MusicPartPointers_BossEnd - MusicPartPointers
+      .BYTE MusicPartPointers_StarEnd - MusicPartPointers
+      .BYTE MusicPartPointers_SubSpaceEnd - MusicPartPointers
+      .BYTE MusicPartPointers_WartEnd - MusicPartPointers
+      .BYTE MusicPartPointers_TitleScreenEnd - MusicPartPointers
+      .BYTE MusicPartPointers_EndingEnd - MusicPartPointers
 
-      .BYTE $F
-      .BYTE $29
-      .BYTE $17
-      .BYTE $18
-      .BYTE $22
-      .BYTE $19
-      .BYTE $1D
-      .BYTE $28
 MusicPointersLoopPart:
-	  .BYTE $11
+      .BYTE MusicPartPointers_OverworldLoop - MusicPartPointers
+      .BYTE MusicPartPointers_CharacterSelectLoop - MusicPartPointers
+      .BYTE MusicPartPointers_UndergroundLoop - MusicPartPointers
+      .BYTE MusicPartPointers_BossLoop - MusicPartPointers
+      .BYTE MusicPartPointers_StarLoop - MusicPartPointers
+      .BYTE MusicPartPointers_SubSpaceLoop - MusicPartPointers
+      .BYTE MusicPartPointers_WartEnd - MusicPartPointers
+      .BYTE $00 ; no loop
+IFNDEF PROTOTYPE_MUSIC
+      .BYTE MusicPartPointers_EndingLoop - MusicPartPointers
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+      .BYTE $00 ; no loop
+ENDIF
 
-      .BYTE 8
-      .BYTE $29
-      .BYTE $17
-      .BYTE $18
-      .BYTE $1E
-      .BYTE $19
-      .BYTE 0
-      .BYTE $28
+;
+; Music Data
+; ==========
+;
+; Each segment of music is broken down into tracks for individual instruments.
+;
+; Square 2:
+;   $00: End of segment
+;   $01-$7D: Note On
+;   $7E: Rest
+;   $80-$FE: first nybble is the instrument, second nybble is the note length
+;            as determined by the note length lookup table. The next byte is
+;            expected to be a Note On.
+;   $FF: activate bend if used after a Note On
+;
+; Square 1 is the same as Square 2, except for the following:
+;   $00: Activate a ramp effect
+;
+; Triangle is the same as Square 2, except for the following:
+;   $00: Mute output (triangle channel is constant volume otherwise)
+;   $80-$FF: second nybble is the note length from the note length lookup table
+;
+; Noise/DPCM:
+;   $00: Restart (used for looping percussion within a segment)
+;   $01: Rest
+;   $02-$7F: Various note-on values, low bit is ignored
+;   $02: Closed Hi-Hat
+;   $04: Kick
+;   $06: Open Hi-Hat
+;   $08: Quiet Hi-Hat
+;   $0A: Crash Cymbal
+;   $0C: Brushed Snare
+;   $0E: Muted Crash
+;   $10: Snare
+;   $12: Deep Kick
+;   $14: High Static
+;   $16: Low Static
+;   $18: Ride
+;   $1A: Closed Hi-Hat
+;   $1C: Medium Static
+;   $1E: Obnoxious Crash
+;   $80-$FF: second nybble is the note length from the note length lookup table
+;
+; DPCM is the same as Noise, except for the following:
+;
+; The SMB3 disassembly is a good reference, since the format is the same:
+; http://sonicepoch.com/sm3mix/disassembly.html#TRACK
+;
 MusicData:
-	  .BYTE	$8A
+
+MusicDataEnding1:
+MusicDataEnding1_Square2:
+      .BYTE $8A
       .BYTE $50
       .BYTE $84
       .BYTE $7E
@@ -1618,7 +2002,8 @@ MusicData:
       .BYTE $50
       .BYTE $88
       .BYTE $4C
-      .BYTE 0
+      .BYTE $00
+MusicDataEnding1_Square1:
       .BYTE $8A
       .BYTE $3E
       .BYTE $84
@@ -1649,6 +2034,7 @@ MusicData:
       .BYTE $3E
       .BYTE $88
       .BYTE $3A
+MusicDataEnding1_Triangle:
       .BYTE $88
       .BYTE $30
       .BYTE $82
@@ -1697,6 +2083,7 @@ MusicData:
       .BYTE $30
       .BYTE $2E
       .BYTE $2E
+MusicDataEnding1_Noise:
       .BYTE $88
       .BYTE $10
       .BYTE $82
@@ -1713,7 +2100,10 @@ MusicData:
       .BYTE $10
       .BYTE $84
       .BYTE $10
-      .BYTE 0
+      .BYTE $00
+
+MusicDataEnding3:
+MusicDataEnding3_Square2:
       .BYTE $8A
       .BYTE $50
       .BYTE $84
@@ -1746,7 +2136,8 @@ MusicData:
       .BYTE $52
       .BYTE $88
       .BYTE $3A
-      .BYTE 0
+      .BYTE $00
+MusicDataEnding3_Square1:
       .BYTE $8A
       .BYTE $48
       .BYTE $84
@@ -1779,6 +2170,7 @@ MusicData:
       .BYTE $48
       .BYTE $88
       .BYTE $30
+MusicDataEnding3_Triangle:
       .BYTE $88
       .BYTE $30
       .BYTE $82
@@ -1827,6 +2219,9 @@ MusicData:
       .BYTE $2A
       .BYTE $2A
       .BYTE $2A
+
+MusicDataEnding4:
+MusicDataEnding4_Square2:
       .BYTE $8A
       .BYTE $48
       .BYTE $84
@@ -1853,7 +2248,9 @@ MusicData:
       .BYTE $42
       .BYTE $46
       .BYTE $50
-      .BYTE 0
+      .BYTE $00
+MusicDataEnding3_Noise:
+MusicDataEnding4_Noise:
       .BYTE $88
       .BYTE $10
       .BYTE $82
@@ -1867,7 +2264,8 @@ MusicData:
       .BYTE $10
       .BYTE $10
       .BYTE $10
-      .BYTE 0
+      .BYTE $00
+MusicDataEnding4_Square1:
       .BYTE $8A
       .BYTE $40
       .BYTE $84
@@ -1894,6 +2292,7 @@ MusicData:
       .BYTE $3A
       .BYTE $3A
       .BYTE $3A
+MusicDataEnding4_Triangle:
       .BYTE $88
       .BYTE $28
       .BYTE $82
@@ -1942,6 +2341,9 @@ MusicData:
       .BYTE $26
       .BYTE $26
       .BYTE $26
+
+MusicDataEnding2:
+MusicDataEnding2_Square2:
       .BYTE $8A
       .BYTE $48
       .BYTE $84
@@ -1966,7 +2368,8 @@ MusicData:
       .BYTE $8A
       .BYTE $56
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+MusicDataEnding2_Noise:
       .BYTE $88
       .BYTE $10
       .BYTE $82
@@ -1983,7 +2386,8 @@ MusicData:
       .BYTE $10
       .BYTE $84
       .BYTE $10
-      .BYTE 0
+      .BYTE $00
+MusicDataEnding2_Triangle:
       .BYTE $88
       .BYTE $2A
       .BYTE $82
@@ -2032,6 +2436,7 @@ MusicData:
       .BYTE $26
       .BYTE $26
       .BYTE $26
+MusicDataEnding2_Square1:
       .BYTE $8A
       .BYTE $38
       .BYTE $84
@@ -2056,6 +2461,9 @@ MusicData:
       .BYTE $8A
       .BYTE $48
       .BYTE $46
+
+MusicDataEnding5:
+MusicDataEnding5_Square2:
       .BYTE $8A
       .BYTE $48
       .BYTE $48
@@ -2067,6 +2475,7 @@ MusicData:
       .BYTE $26
       .BYTE $8A
       .BYTE $26
+IFNDEF PROTOTYPE_MUSIC
       .BYTE $7E
       .BYTE $8C
       .BYTE $7E
@@ -2075,7 +2484,9 @@ MusicData:
       .BYTE $FC
       .BYTE $7E
       .BYTE $7E
-      .BYTE 0
+ENDIF
+      .BYTE $00
+MusicDataEnding5_Square1:
       .BYTE $88
       .BYTE $40
       .BYTE $82
@@ -2096,6 +2507,7 @@ MusicData:
       .BYTE $18
       .BYTE $18
       .BYTE $18
+IFNDEF PROTOTYPE_MUSIC
       .BYTE $88
       .BYTE $18
       .BYTE $F4
@@ -2132,6 +2544,12 @@ MusicData:
       .BYTE $56
       .BYTE $4C
       .BYTE $56
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+      .BYTE $8A
+      .BYTE $18
+ENDIF
+MusicDataEnding5_Triangle:
       .BYTE $88
       .BYTE $28
       .BYTE $82
@@ -2154,12 +2572,15 @@ MusicData:
       .BYTE $30
       .BYTE $8A
       .BYTE $30
+IFNDEF PROTOTYPE_MUSIC
       .BYTE $7E
       .BYTE $8C
       .BYTE $7E
       .BYTE $7E
       .BYTE $7E
       .BYTE $7E
+ENDIF
+MusicDataEnding5_Noise:
       .BYTE $88
       .BYTE $10
       .BYTE $82
@@ -2182,12 +2603,18 @@ MusicData:
       .BYTE $10
       .BYTE $8A
       .BYTE $10
-      .BYTE 1
+IFNDEF PROTOTYPE_MUSIC
+      .BYTE $01
       .BYTE $8C
-      .BYTE 1
-      .BYTE 1
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
+      .BYTE $01
+      .BYTE $01
+ENDIF
+
+IFNDEF PROTOTYPE_MUSIC
+MusicDataEnding6:
+MusicDataEnding6_Square2:
       .BYTE $F4
       .BYTE $68
       .BYTE $6A
@@ -2301,7 +2728,8 @@ MusicData:
       .BYTE $7E
       .BYTE $8B
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+MusicDataEnding6_Square1:
       .BYTE $F4
       .BYTE $48
       .BYTE $56
@@ -2431,6 +2859,10 @@ MusicData:
       .BYTE $52
       .BYTE $4C
       .BYTE $5E
+ENDIF
+
+MusicDataStar:
+MusicDataStar_Square2:
       .BYTE $98
       .BYTE $48
       .BYTE $48
@@ -2456,7 +2888,8 @@ MusicData:
       .BYTE $98
       .BYTE $46
       .BYTE $46
-      .BYTE 0
+      .BYTE $00
+MusicDataStar_Square1:
       .BYTE $98
       .BYTE $3A
       .BYTE $3A
@@ -2486,6 +2919,7 @@ MusicData:
       .BYTE $30
       .BYTE $98
       .BYTE $38
+MusicDataStar_Triangle:
       .BYTE $9A
       .BYTE $34
       .BYTE $99
@@ -2504,19 +2938,42 @@ MusicData:
       .BYTE $7E
       .BYTE $3E
       .BYTE $48
+IFNDEF PROTOTYPE_MUSIC
+MusicDataStar_DPCM:
       .BYTE $94
-      .BYTE 1
+      .BYTE $01
       .BYTE $98
       .BYTE $10
       .BYTE $94
       .BYTE $10
       .BYTE $10
       .BYTE $10
-      .BYTE 1
-      .BYTE 1
-      .BYTE 0
+      .BYTE $01
+      .BYTE $01
+      .BYTE $00
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+MusicDataStar_Noise:
+      .BYTE $98
+      .BYTE $04
+      .BYTE $92
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $98
+      .BYTE $06
+      .BYTE $92
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
+ENDIF
+
+IFNDEF PROTOTYPE_MUSIC
+MusicDataUnderground:
+MusicDataUnderground_Square2:
       .BYTE $A4
-      .BYTE $A
+      .BYTE $0A
       .BYTE $18
       .BYTE $22
       .BYTE $84
@@ -2525,7 +2982,7 @@ MusicData:
       .BYTE $89
       .BYTE $42
       .BYTE $A4
-      .BYTE $A
+      .BYTE $0A
       .BYTE $18
       .BYTE $22
       .BYTE $84
@@ -2556,9 +3013,10 @@ MusicData:
       .BYTE $36
       .BYTE $B8
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+MusicDataUnderground_Square1:
       .BYTE $B4
-      .BYTE $A
+      .BYTE $0A
       .BYTE $18
       .BYTE $22
       .BYTE $84
@@ -2567,7 +3025,7 @@ MusicData:
       .BYTE $89
       .BYTE $38
       .BYTE $B4
-      .BYTE $A
+      .BYTE $0A
       .BYTE $18
       .BYTE $22
       .BYTE $84
@@ -2598,6 +3056,7 @@ MusicData:
       .BYTE $28
       .BYTE $B8
       .BYTE $7E
+MusicDataUnderground_Triangle:
       .BYTE $84
       .BYTE $22
       .BYTE $30
@@ -2647,8 +3106,9 @@ MusicData:
       .BYTE $40
       .BYTE $3A
       .BYTE $30
+MusicDataUnderground_DPCM:
       .BYTE $85
-      .BYTE 1
+      .BYTE $01
       .BYTE $8D
       .BYTE $10
       .BYTE $8E
@@ -2658,10 +3118,242 @@ MusicData:
       .BYTE $88
       .BYTE $10
       .BYTE $84
-      .BYTE 1
-      .BYTE 1
-      .BYTE 1
-      .BYTE 0
+      .BYTE $01
+      .BYTE $01
+      .BYTE $01
+      .BYTE $00
+ENDIF
+
+IFDEF PROTOTYPE_MUSIC
+MusicDataUndergroundBeta1:
+MusicDataUndergroundBeta2:
+MusicDataUndergroundBeta1_Square2:
+MusicDataUndergroundBeta2_Square2:
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $D4
+      .BYTE $18
+      .BYTE $30
+      .BYTE $12
+      .BYTE $2A
+      .BYTE $14
+      .BYTE $2C
+      .BYTE $D8
+      .BYTE $7E
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $D4
+      .BYTE $18
+      .BYTE $30
+      .BYTE $12
+      .BYTE $2A
+      .BYTE $14
+      .BYTE $2C
+      .BYTE $D8
+      .BYTE $7E
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $D4
+      .BYTE $0A
+      .BYTE $22
+      .BYTE $04
+      .BYTE $1C
+      .BYTE $06
+      .BYTE $1E
+      .BYTE $D8
+      .BYTE $7E
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $D4
+      .BYTE $0A
+      .BYTE $22
+      .BYTE $04
+      .BYTE $1C
+      .BYTE $06
+      .BYTE $1E
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $D2
+      .BYTE $1E
+      .BYTE $1C
+      .BYTE $1A
+      .BYTE $D8
+      .BYTE $18
+      .BYTE $1E
+      .BYTE $1C
+      .BYTE $10
+      .BYTE $0E
+      .BYTE $1A
+      .BYTE $D2
+      .BYTE $18
+      .BYTE $24
+      .BYTE $22
+      .BYTE $20
+      .BYTE $2C
+      .BYTE $2A
+      .BYTE $D6
+      .BYTE $28
+      .BYTE $1E
+      .BYTE $16
+      .BYTE $14
+      .BYTE $12
+      .BYTE $10
+      .BYTE $DC
+      .BYTE $7E
+      .BYTE $00
+MusicDataUndergroundBeta1_Square1:
+MusicDataUndergroundBeta2_Square1:
+MusicDataUndergroundBeta1_Triangle:
+MusicDataUndergroundBeta2_Triangle:
+      .BYTE $8C
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $7E
+      .BYTE $84
+      .BYTE $30
+      .BYTE $48
+      .BYTE $2A
+      .BYTE $42
+      .BYTE $2C
+      .BYTE $44
+      .BYTE $88
+      .BYTE $7E
+      .BYTE $8C
+      .BYTE $7E
+      .BYTE $84
+      .BYTE $30
+      .BYTE $48
+      .BYTE $2A
+      .BYTE $42
+      .BYTE $2C
+      .BYTE $44
+      .BYTE $88
+      .BYTE $7E
+      .BYTE $8C
+      .BYTE $7E
+      .BYTE $84
+      .BYTE $22
+      .BYTE $3A
+      .BYTE $1C
+      .BYTE $34
+      .BYTE $1E
+      .BYTE $36
+      .BYTE $88
+      .BYTE $7E
+      .BYTE $8C
+      .BYTE $7E
+      .BYTE $84
+      .BYTE $22
+      .BYTE $3A
+      .BYTE $1C
+      .BYTE $34
+      .BYTE $1E
+      .BYTE $36
+      .BYTE $8C
+      .BYTE $7E
+      .BYTE $82
+      .BYTE $36
+      .BYTE $34
+      .BYTE $32
+      .BYTE $88
+      .BYTE $30
+      .BYTE $36
+      .BYTE $34
+      .BYTE $28
+      .BYTE $26
+      .BYTE $32
+      .BYTE $82
+      .BYTE $30
+      .BYTE $3C
+      .BYTE $3A
+      .BYTE $38
+      .BYTE $44
+      .BYTE $42
+      .BYTE $86
+      .BYTE $40
+      .BYTE $36
+      .BYTE $2E
+      .BYTE $2C
+      .BYTE $2A
+      .BYTE $28
+      .BYTE $8C
+      .BYTE $7E
+MusicDataUndergroundBeta1_DPCM:
+      .BYTE $8A
+      .BYTE $01
+      .BYTE $10
+      .BYTE $84
+      .BYTE $01
+      .BYTE $01
+      .BYTE $88
+      .BYTE $01
+      .BYTE $8A
+      .BYTE $10
+      .BYTE $8A
+      .BYTE $01
+      .BYTE $89
+      .BYTE $10
+      .BYTE $88
+      .BYTE $01
+      .BYTE $01
+      .BYTE $84
+      .BYTE $01
+      .BYTE $88
+      .BYTE $10
+      .BYTE $84
+      .BYTE $10
+      .BYTE $10
+      .BYTE $00
+MusicDataUndergroundBeta2_DPCM:
+      .BYTE $88
+      .BYTE $01
+      .BYTE $10
+      .BYTE $84
+      .BYTE $01
+      .BYTE $01
+      .BYTE $88
+      .BYTE $10
+      .BYTE $84
+      .BYTE $01
+      .BYTE $01
+      .BYTE $10
+      .BYTE $88
+      .BYTE $01
+      .BYTE $84
+      .BYTE $01
+      .BYTE $88
+      .BYTE $10
+      .BYTE $00
+MusicDataUndergroundBeta1_Noise:
+      .BYTE $8A
+      .BYTE $01
+      .BYTE $10
+      .BYTE $01
+      .BYTE $10
+      .BYTE $01
+      .BYTE $10
+      .BYTE $01
+      .BYTE $88
+      .BYTE $10
+      .BYTE $84
+      .BYTE $10
+      .BYTE $10
+      .BYTE $00
+MusicDataUndergroundBeta2_Noise:
+      .BYTE $84
+      .BYTE $02
+      .BYTE $02
+      .BYTE $10
+      .BYTE $02
+      .BYTE $00
+ENDIF
+
+MusicDataSubspace1:
+MusicDataSubspace1_Square2:
       .BYTE $99
       .BYTE $48
       .BYTE $3E
@@ -2689,20 +3381,21 @@ MusicData:
       .BYTE $4C
       .BYTE $99
       .BYTE $46
-      .BYTE   0
+      .BYTE $00
+MusicDataSubspace1_Square1:
       .BYTE $99
       .BYTE $38
       .BYTE $30
       .BYTE $26
       .BYTE $98
-      .BYTE $30	
-      .BYTE $34	; 4
+      .BYTE $30
+      .BYTE $34
       .BYTE $94
-      .BYTE $32	; 2
+      .BYTE $32
       .BYTE $98
-      .BYTE $30	
+      .BYTE $30
       .BYTE $96
-      .BYTE $30	
+      .BYTE $30
       .BYTE $3E
       .BYTE $46
       .BYTE $98
@@ -2714,10 +3407,11 @@ MusicData:
       .BYTE $98
       .BYTE $42
       .BYTE $94
-      .BYTE $38	; 8
+      .BYTE $38
       .BYTE $3A
       .BYTE $99
-      .BYTE $34	; 4
+      .BYTE $34
+MusicDataSubspace1_Triangle:
       .BYTE $99
       .BYTE $3E
       .BYTE $38
@@ -2730,7 +3424,7 @@ MusicData:
       .BYTE $3A
       .BYTE $7E
       .BYTE $96
-      .BYTE $38	; 8
+      .BYTE $38
       .BYTE $48
       .BYTE $50
       .BYTE $94
@@ -2745,6 +3439,9 @@ MusicData:
       .BYTE $46
       .BYTE $99
       .BYTE $3E
+
+MusicDataSubspace2:
+MusicDataSubspace2_Square2:
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2762,7 +3459,8 @@ MusicData:
       .BYTE $42
       .BYTE $48
       .BYTE $4C
-      .BYTE   0
+      .BYTE $00
+MusicDataSubspace2_Square1:
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2774,15 +3472,16 @@ MusicData:
       .BYTE $94
       .BYTE $48
       .BYTE $7E
-      .BYTE $38	; 8
+      .BYTE $38
       .BYTE $3A
       .BYTE $3E
       .BYTE $7E
-      .BYTE $30	
-      .BYTE $38	; 8
+      .BYTE $30
+      .BYTE $38
       .BYTE $3A
+MusicDataSubspace2_Triangle:
       .BYTE $99
-      .BYTE $30	
+      .BYTE $30
       .BYTE $3E
       .BYTE $98
       .BYTE $48
@@ -2793,19 +3492,24 @@ MusicData:
       .BYTE $98
       .BYTE $48
       .BYTE $3A
+MusicDataSubspace1_Noise:
+MusicDataSubspace2_Noise:
       .BYTE $98
-      .BYTE 4
+      .BYTE $04
       .BYTE $92
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
       .BYTE $98
-      .BYTE 6
+      .BYTE $06
       .BYTE $92
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
-      .BYTE   0
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
+
+MusicDataSubspace3:
+MusicDataSubspace3_Square2:
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2821,7 +3525,8 @@ MusicData:
       .BYTE $60
       .BYTE $9A
       .BYTE $60
-      .BYTE   0
+      .BYTE $00
+MusicDataSubspace3_Square1:
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2840,9 +3545,10 @@ MusicData:
       .BYTE $52
       .BYTE $99
       .BYTE $7E
+MusicDataSubspace3_Triangle:
       .BYTE $99
-      .BYTE $30	
-      .BYTE $38	; 8
+      .BYTE $30
+      .BYTE $38
       .BYTE $94
       .BYTE $3E
       .BYTE $98
@@ -2853,6 +3559,9 @@ MusicData:
       .BYTE $98
       .BYTE $6E
       .BYTE $3E
+
+MusicDataSubspace4:
+MusicDataSubspace4_Square2:
       .BYTE $98
       .BYTE $7E
       .BYTE $99
@@ -2862,7 +3571,8 @@ MusicData:
       .BYTE $9A
       .BYTE $48
       .BYTE $7E
-      .BYTE   0
+      .BYTE $00
+MusicDataSubspace4_Square1:
       .BYTE $98
       .BYTE $7E
       .BYTE $94
@@ -2874,10 +3584,11 @@ MusicData:
       .BYTE $98
       .BYTE $7E
       .BYTE $9A
-      .BYTE $38	; 8
+      .BYTE $38
       .BYTE $7E
+MusicDataSubspace4_Triangle:
       .BYTE $98
-      .BYTE $30	
+      .BYTE $30
       .BYTE $99
       .BYTE $40
       .BYTE $44
@@ -2886,20 +3597,25 @@ MusicData:
       .BYTE $3E
       .BYTE $98
       .BYTE $3E
-      .BYTE $30	
+      .BYTE $30
+MusicDataSubspace3_Noise:
+MusicDataSubspace4_Noise:
       .BYTE $98
-      .BYTE   4
+      .BYTE $04
       .BYTE $92
-      .BYTE   2
-      .BYTE   1
-      .BYTE   2
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
       .BYTE $98
-      .BYTE   6
+      .BYTE $06
       .BYTE $92
-      .BYTE   2
-      .BYTE   1
-      .BYTE   2
-      .BYTE   0
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
+
+MusicDataTitleScreen1:
+MusicDataTitleScreen1_Square2:
       .BYTE $E4
       .BYTE $6E
       .BYTE $E8
@@ -2933,7 +3649,8 @@ MusicData:
       .BYTE $7E
       .BYTE $E9
       .BYTE $3E
-      .BYTE 0
+      .BYTE $00
+MusicDataTitleScreen1_Square1:
       .BYTE $E4
       .BYTE $56
       .BYTE $E8
@@ -2959,7 +3676,7 @@ MusicData:
       .BYTE $1C
       .BYTE $16
       .BYTE $E8
-      .BYTE $E
+      .BYTE $0E
       .BYTE $7E
       .BYTE $26
       .BYTE $E8
@@ -2967,6 +3684,7 @@ MusicData:
       .BYTE $7E
       .BYTE $E9
       .BYTE $3E
+MusicDataTitleScreen1_Triangle:
       .BYTE $EB
       .BYTE $7E
       .BYTE $7E
@@ -2987,24 +3705,28 @@ MusicData:
       .BYTE $7E
       .BYTE $89
       .BYTE $7E
+MusicDataTitleScreen1_Noise:
       .BYTE $E8
       .BYTE $10
-      .BYTE 2
-      .BYTE 6
+      .BYTE $02
+      .BYTE $06
       .BYTE $10
-      .BYTE 2
-      .BYTE 6
+      .BYTE $02
+      .BYTE $06
       .BYTE $10
-      .BYTE 2
-      .BYTE 6
+      .BYTE $02
+      .BYTE $06
       .BYTE $10
-      .BYTE 1
+      .BYTE $01
       .BYTE $10
       .BYTE $10
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
       .BYTE $EA
-      .BYTE 1
+      .BYTE $01
+
+MusicDataTitleScreen2:
+MusicDataTitleScreen2_Square2:
       .BYTE $E4
       .BYTE $50
       .BYTE $3E
@@ -3093,18 +3815,20 @@ MusicData:
       .BYTE $2E
       .BYTE $30
       .BYTE $34
-      .BYTE 0
+      .BYTE $00
+MusicDataTitleScreen2_Noise:
       .BYTE $B8
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $B4
       .BYTE $10
       .BYTE $10
       .BYTE $B8
       .BYTE $10
-      .BYTE 0
+      .BYTE $00
+MusicDataTitleScreen2_Square1:
       .BYTE $E4
       .BYTE $38
       .BYTE $3E
@@ -3193,6 +3917,7 @@ MusicData:
       .BYTE $2E
       .BYTE $30
       .BYTE $34
+MusicDataTitleScreen2_Triangle:
       .BYTE $88
       .BYTE $48
       .BYTE $56
@@ -3242,6 +3967,9 @@ MusicData:
       .BYTE $3E
       .BYTE $56
       .BYTE $56
+
+MusicDataTitleScreen3:
+MusicDataTitleScreen3_Square2:
       .BYTE $E4
       .BYTE $56
       .BYTE $48
@@ -3312,7 +4040,8 @@ MusicData:
       .BYTE $50
       .BYTE $E4
       .BYTE $46
-      .BYTE 0
+      .BYTE $00
+MusicDataTitleScreen3_Square1:
       .BYTE $E4
       .BYTE $50
       .BYTE $48
@@ -3383,6 +4112,7 @@ MusicData:
       .BYTE $46
       .BYTE $E4
       .BYTE $3A
+MusicDataTitleScreen3_Triangle:
       .BYTE $48
       .BYTE $56
       .BYTE $56
@@ -3428,48 +4158,52 @@ MusicData:
       .BYTE $52
       .BYTE $84
       .BYTE $46
+MusicDataTitleScreen3_Noise:
       .BYTE $B8
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
-      .BYTE $10
-      .BYTE $86
-      .BYTE 1
-      .BYTE $84
-      .BYTE 1
-      .BYTE $88
-      .BYTE 2
-      .BYTE $10
-      .BYTE $10
-      .BYTE 2
-      .BYTE $10
-      .BYTE $10
-      .BYTE 2
-      .BYTE $10
-      .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $86
-      .BYTE 1
+      .BYTE $01
       .BYTE $84
-      .BYTE 1
+      .BYTE $01
       .BYTE $88
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
-      .BYTE 2
+      .BYTE $02
       .BYTE $10
       .BYTE $10
+      .BYTE $02
+      .BYTE $10
+      .BYTE $86
+      .BYTE $01
+      .BYTE $84
+      .BYTE $01
+      .BYTE $88
+      .BYTE $02
+      .BYTE $10
+      .BYTE $10
+      .BYTE $02
+      .BYTE $10
+      .BYTE $10
+      .BYTE $02
+      .BYTE $10
+      .BYTE $10
+
+MusicDataTitleScreen4:
+MusicDataTitleScreen4_Square2:
       .BYTE $48
       .BYTE $7E
       .BYTE $7E
@@ -3487,7 +4221,8 @@ MusicData:
       .BYTE $7E
       .BYTE $3E
       .BYTE $48
-      .BYTE 0
+      .BYTE $00
+MusicDataTitleScreen4_Square1:
       .BYTE $30
       .BYTE $7E
       .BYTE $7E
@@ -3497,32 +4232,37 @@ MusicData:
       .BYTE $18
       .BYTE $7E
       .BYTE $7E
-      .BYTE $E
-      .BYTE 8
-      .BYTE 4
+      .BYTE $0E
+      .BYTE $08
+      .BYTE $04
       .BYTE $E8
       .BYTE $18
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
       .BYTE $2E
       .BYTE $38
+MusicDataTitleScreen4_Triangle:
       .BYTE $EB
       .BYTE $7E
       .BYTE $7E
       .BYTE $7E
       .BYTE $30
+MusicDataTitleScreen4_Noise:
       .BYTE $10
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
       .BYTE $10
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
       .BYTE $10
-      .BYTE 1
+      .BYTE $01
       .BYTE $10
       .BYTE $10
-      .BYTE   1
-      .BYTE   1
+      .BYTE $01
+      .BYTE $01
+
+MusicDataCharacterSelect1:
+MusicDataCharacterSelect1_Square2:
       .BYTE $96
       .BYTE $48
       .BYTE $92
@@ -3576,7 +4316,8 @@ MusicData:
       .BYTE $7E
       .BYTE $4C
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+MusicDataCharacterSelect1_Square1:
       .BYTE $96
       .BYTE $3E
       .BYTE $92
@@ -3630,6 +4371,7 @@ MusicData:
       .BYTE $7E
       .BYTE $3A
       .BYTE $7E
+MusicDataCharacterSelect1_Triangle:
       .BYTE $96
       .BYTE $48
       .BYTE $92
@@ -3683,10 +4425,14 @@ MusicData:
       .BYTE $7E
       .BYTE $46
       .BYTE $7E
+MusicDataCharacterSelect1_Noise:
       .BYTE $8A
-      .BYTE 4
-      .BYTE 1
-      .BYTE 0
+      .BYTE $04
+      .BYTE $01
+      .BYTE $00
+
+; Seems to be a little duplicated chunk of MusicDataCharacterSelect2_Square2
+MusicDataCharacterSelect_Square_UNUSED:
       .BYTE $A6
       .BYTE $7E
       .BYTE $A2
@@ -3698,6 +4444,9 @@ MusicData:
       .BYTE $A8
       .BYTE $50
       .BYTE $50
+
+MusicDataCharacterSelect2:
+MusicDataCharacterSelect2_Square2:
       .BYTE $A8
       .BYTE $50
       .BYTE $7E
@@ -3759,17 +4508,25 @@ MusicData:
       .BYTE $7E
       .BYTE $AA
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+
+MusicDataCharacterSelect3:
+MusicDataCharacterSelect3_Square2:
       .BYTE $AA
       .BYTE $7E
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+
+MusicDataCharacterSelect4:
+MusicDataCharacterSelect4_Square2:
       .BYTE $C8
       .BYTE $7E
       .BYTE $48
       .BYTE $4C
       .BYTE $4E
-      .BYTE 0
+      .BYTE $00
+
+MusicDataCharacterSelect2_Square1:
       .BYTE $A8
       .BYTE $3E
       .BYTE $7E
@@ -3832,14 +4589,20 @@ MusicData:
       .BYTE $7E
       .BYTE $AA
       .BYTE $7E
+
+MusicDataCharacterSelect3_Square1:
       .BYTE $AA
       .BYTE $7E
       .BYTE $7E
+
+MusicDataCharacterSelect4_Square1:
       .BYTE $C8
       .BYTE $7E
       .BYTE $38
       .BYTE $3A
       .BYTE $3C
+
+MusicDataCharacterSelect2_Triangle:
       .BYTE $88
       .BYTE $30
       .BYTE $7E
@@ -3871,35 +4634,46 @@ MusicData:
       .BYTE $7E
       .BYTE $7E
       .BYTE $7E
+
+MusicDataCharacterSelect3_Triangle:
+MusicDataCharacterSelect4_Triangle:
       .BYTE $8A
       .BYTE $7E
       .BYTE $7E
+
+MusicDataCharacterSelect2_Noise:
       .BYTE $88
-      .BYTE 2
-      .BYTE 4
-      .BYTE 0
+      .BYTE $02
+      .BYTE $04
+      .BYTE $00
+
+MusicDataCharacterSelect3_Noise:
+MusicDataCharacterSelect4_Noise:
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $86
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 1
+      .BYTE $01
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
       .BYTE $82
-      .BYTE 1
+      .BYTE $01
       .BYTE $82
-      .BYTE 4
+      .BYTE $04
+
+MusicDataCharacterSelect5:
+MusicDataCharacterSelect5_Square2:
       .BYTE $C8
       .BYTE $50
       .BYTE $7E
@@ -3954,7 +4728,10 @@ MusicData:
       .BYTE $C4
       .BYTE $42
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+
+MusicDataCharacterSelect6:
+MusicDataCharacterSelect6_Square2:
       .BYTE $C8
       .BYTE $7E
       .BYTE $46
@@ -3969,7 +4746,9 @@ MusicData:
       .BYTE $3E
       .BYTE $C2
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+
+MusicDataCharacterSelect5_Square1:
       .BYTE $C8
       .BYTE $40
       .BYTE $7E
@@ -4024,6 +4803,8 @@ MusicData:
       .BYTE $C4
       .BYTE $30
       .BYTE $7E
+
+MusicDataCharacterSelect6_Square1:
       .BYTE $C8
       .BYTE $7E
       .BYTE $34
@@ -4038,6 +4819,8 @@ MusicData:
       .BYTE $2E
       .BYTE $C2
       .BYTE $7E
+
+MusicDataCharacterSelect5_Triangle:
       .BYTE $88
       .BYTE $38
       .BYTE $7E
@@ -4063,6 +4846,8 @@ MusicData:
       .BYTE $7E
       .BYTE $3C
       .BYTE $42
+
+MusicDataCharacterSelect6_Triangle:
       .BYTE $88
       .BYTE $7E
       .BYTE $3E
@@ -4072,19 +4857,26 @@ MusicData:
       .BYTE $7E
       .BYTE $8A
       .BYTE $7E
+
+MusicDataCharacterSelect5_Noise:
       .BYTE $88
-      .BYTE 2
-      .BYTE 4
-      .BYTE 0
+      .BYTE $02
+      .BYTE $04
+      .BYTE $00
+
+MusicDataCharacterSelect6_Noise:
       .BYTE $88
-      .BYTE 2
-      .BYTE 4
-      .BYTE 4
-      .BYTE 4
-      .BYTE 2
-      .BYTE 2
+      .BYTE $02
+      .BYTE $04
+      .BYTE $04
+      .BYTE $04
+      .BYTE $02
+      .BYTE $02
       .BYTE $7E
-      .BYTE 6
+      .BYTE $06
+
+MusicDataCharacterSelect7:
+MusicDataCharacterSelect7_Square2:
       .BYTE $96
       .BYTE $50
       .BYTE $92
@@ -4181,7 +4973,8 @@ MusicData:
       .BYTE $5A
       .BYTE $92
       .BYTE $5C
-      .BYTE 0
+      .BYTE $00
+MusicDataCharacterSelect7_Square1:
       .BYTE $C8
       .BYTE $50
       .BYTE $7E
@@ -4236,6 +5029,7 @@ MusicData:
       .BYTE $C4
       .BYTE $42
       .BYTE $7E
+MusicDataCharacterSelect7_Triangle:
       .BYTE $88
       .BYTE $38
       .BYTE $7E
@@ -4261,10 +5055,14 @@ MusicData:
       .BYTE $7E
       .BYTE $3C
       .BYTE $42
+MusicDataCharacterSelect7_Noise:
       .BYTE $88
-      .BYTE 2
-      .BYTE 4
-      .BYTE 0
+      .BYTE $02
+      .BYTE $04
+      .BYTE $00
+
+MusicDataCharacterSelect8:
+MusicDataCharacterSelect8_Square2:
       .BYTE $96
       .BYTE $5E
       .BYTE $92
@@ -4297,7 +5095,8 @@ MusicData:
       .BYTE $42
       .BYTE $92
       .BYTE $3E
-      .BYTE 0
+      .BYTE $00
+MusicDataCharacterSelect8_Square1:
       .BYTE $C8
       .BYTE $7E
       .BYTE $46
@@ -4312,6 +5111,7 @@ MusicData:
       .BYTE $3E
       .BYTE $C2
       .BYTE $7E
+MusicDataCharacterSelect8_Triangle:
       .BYTE $88
       .BYTE $7E
       .BYTE $3E
@@ -4321,15 +5121,19 @@ MusicData:
       .BYTE $7E
       .BYTE $8A
       .BYTE $7E
+MusicDataCharacterSelect8_Noise:
       .BYTE $88
-      .BYTE 2
-      .BYTE 4
-      .BYTE 4
-      .BYTE 4
-      .BYTE 2
-      .BYTE 2
+      .BYTE $02
+      .BYTE $04
+      .BYTE $04
+      .BYTE $04
+      .BYTE $02
+      .BYTE $02
       .BYTE $7E
-      .BYTE 6
+      .BYTE $06
+
+MusicDataOverworld1:
+MusicDataOverworld1_Square2:
       .BYTE $A2
       .BYTE $7E
       .BYTE $7E
@@ -4351,7 +5155,8 @@ MusicData:
       .BYTE $A8
       .BYTE $3E
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+MusicDataOverworld1_Square1:
       .BYTE $A2
       .BYTE $7E
       .BYTE $7E
@@ -4373,6 +5178,7 @@ MusicData:
       .BYTE $A8
       .BYTE $3A
       .BYTE $7E
+MusicDataOverworld1_Triangle:
       .BYTE $82
       .BYTE $7E
       .BYTE $7E
@@ -4391,21 +5197,25 @@ MusicData:
       .BYTE $4C
       .BYTE $34
       .BYTE $3E
+MusicDataOverworld1_Noise:
       .BYTE $8A
-      .BYTE 1
-      .BYTE 1
+      .BYTE $01
+      .BYTE $01
       .BYTE $88
-      .BYTE 2
+      .BYTE $02
       .BYTE $82
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+
+MusicDataOverworld2:
+MusicDataOverworld2_Square2:
       .BYTE $82
       .BYTE $56
       .BYTE $7E
@@ -4489,7 +5299,8 @@ MusicData:
       .BYTE $7E
       .BYTE $82
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+MusicDataOverworld2_Square1:
       .BYTE $82
       .BYTE $48
       .BYTE $7E
@@ -4574,6 +5385,7 @@ MusicData:
       .BYTE $7E
       .BYTE $82
       .BYTE $7E
+MusicDataOverworld2_Triangle:
       .BYTE $88
       .BYTE $30
       .BYTE $3E
@@ -4607,22 +5419,26 @@ MusicData:
       .BYTE $26
       .BYTE $30
       .BYTE $7E
+MusicDataOverworld2_Noise:
       .BYTE $88
-      .BYTE 1
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
+      .BYTE $01
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
       .BYTE $88
-      .BYTE 1
-      .BYTE 2
+      .BYTE $01
+      .BYTE $02
       .BYTE $82
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
-      .BYTE 0
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
+
+MusicDataOverworld3:
+MusicDataOverworld3_Square2:
       .BYTE $92
       .BYTE $7E
       .BYTE $7E
@@ -4692,7 +5508,10 @@ MusicData:
       .BYTE $5A
       .BYTE $7E
       .BYTE $56
-      .BYTE 0
+      .BYTE $00
+
+MusicDataOverworld4:
+MusicDataOverworld4_Square2:
       .BYTE $92
       .BYTE $50
       .BYTE $7E
@@ -4730,14 +5549,19 @@ MusicData:
       .BYTE $7E
       .BYTE $3E
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+
+MusicDataOverworld3_Noise:
+MusicDataOverworld4_Noise:
       .BYTE $88
-      .BYTE 6
+      .BYTE $06
       .BYTE $82
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
-      .BYTE 0
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
+
+MusicDataOverworld3_Square1:
       .BYTE $92
       .BYTE $7E
       .BYTE $7E
@@ -4808,6 +5632,8 @@ MusicData:
       .BYTE $48
       .BYTE $7E
       .BYTE $46
+
+MusicDataOverworld4_Square1:
       .BYTE $92
       .BYTE $3E
       .BYTE $7E
@@ -4844,6 +5670,8 @@ MusicData:
       .BYTE $7E
       .BYTE $36
       .BYTE $7E
+
+MusicDataOverworld3_Triangle:
       .BYTE $88
       .BYTE $30
       .BYTE $34
@@ -4871,6 +5699,8 @@ MusicData:
       .BYTE $34
       .BYTE $2E
       .BYTE $26
+
+MusicDataOverworld4_Triangle:
       .BYTE $88
       .BYTE $2A
       .BYTE $2E
@@ -4886,6 +5716,9 @@ MusicData:
       .BYTE $2A
       .BYTE $26
       .BYTE $2E
+
+MusicDataOverworld5:
+MusicDataOverworld5_Square2:
       .BYTE $92
       .BYTE $5A
       .BYTE $7E
@@ -4914,7 +5747,8 @@ MusicData:
       .BYTE $7E
       .BYTE $7E
       .BYTE $50
-      .BYTE 0
+      .BYTE $00
+MusicDataOverworld5_Square1:
       .BYTE $92
       .BYTE $48
       .BYTE $7E
@@ -4942,6 +5776,7 @@ MusicData:
       .BYTE $7E
       .BYTE $7E
       .BYTE $38
+MusicDataOverworld5_Triangle:
       .BYTE $2A
       .BYTE $2E
       .BYTE $30
@@ -4956,13 +5791,17 @@ MusicData:
       .BYTE $88
       .BYTE $7E
       .BYTE $7E
+MusicDataOverworld5_Noise:
       .BYTE $88
-      .BYTE 6
+      .BYTE $06
       .BYTE $82
-      .BYTE 2
-      .BYTE 1
-      .BYTE 2
-      .BYTE 0
+      .BYTE $02
+      .BYTE $01
+      .BYTE $02
+      .BYTE $00
+
+MusicDataOverworld6:
+MusicDataOverworld6_Square2:
       .BYTE $E2
       .BYTE $7E
       .BYTE $7E
@@ -5041,7 +5880,8 @@ MusicData:
       .BYTE $46
       .BYTE $7E
       .BYTE $3E
-      .BYTE 0
+      .BYTE $00
+MusicDataOverworld6_Square1:
       .BYTE $E2
       .BYTE $7E
       .BYTE $7E
@@ -5130,6 +5970,7 @@ MusicData:
       .BYTE $2E
       .BYTE $7E
       .BYTE $26
+MusicDataOverworld6_Triangle:
       .BYTE $88
       .BYTE $38
       .BYTE $46
@@ -5163,13 +6004,17 @@ MusicData:
       .BYTE $2E
       .BYTE $2A
       .BYTE $26
+MusicDataOverworld6_Noise:
       .BYTE $88
-      .BYTE 6
+      .BYTE $06
       .BYTE $82
       .BYTE $10
-      .BYTE 1
+      .BYTE $01
       .BYTE $10
-      .BYTE 0
+      .BYTE $00
+
+MusicDataBoss:
+MusicDataBoss_Square2:
       .BYTE $94
       .BYTE $34
       .BYTE $36
@@ -5235,7 +6080,8 @@ MusicData:
       .BYTE $3A
       .BYTE $38
       .BYTE $3A
-      .BYTE 0
+      .BYTE $00
+MusicDataBoss_Square1:
       .BYTE $94
       .BYTE $7E
       .BYTE $42
@@ -5301,6 +6147,7 @@ MusicData:
       .BYTE $44
       .BYTE $7E
       .BYTE $44
+MusicDataBoss_Triangle:
       .BYTE $89
       .BYTE $3C
       .BYTE $3C
@@ -5341,6 +6188,9 @@ MusicData:
       .BYTE $3E
       .BYTE $88
       .BYTE $3E
+
+MusicDataWart:
+MusicDataWart_Square2:
       .BYTE $A9
       .BYTE $56
       .BYTE $54
@@ -5398,18 +6248,7 @@ MusicData:
       .BYTE $50
       .BYTE $4E
       .BYTE $50
-; end of 'BANK4'
-
-; ===========================================================================
-
-
-
-; -------------------------------------------
-
-
-      ;.segment	BANK5
-;       *	=  $A000
-      .BYTE $4E					  ; This data continues	from the end of	bank 4
+      .BYTE $4E
       .BYTE $52
       .BYTE $50
       .BYTE $52
@@ -5426,7 +6265,8 @@ MusicData:
       .BYTE $52
       .BYTE $54
       .BYTE $52
-      .BYTE 0
+      .BYTE $00
+MusicDataWart_Square1:
       .BYTE $A9
       .BYTE $44
       .BYTE $42
@@ -5502,6 +6342,7 @@ MusicData:
       .BYTE $46
       .BYTE $48
       .BYTE $46
+MusicDataWart_Triangle:
       .BYTE $84
       .BYTE $3E
       .BYTE $42
@@ -5596,6 +6437,9 @@ MusicData:
       .BYTE $40
       .BYTE $84
       .BYTE $40
+
+MusicDataMushroomBonusChance:
+MusicDataMushroomBonusChance_Square2:
       .BYTE $82
       .BYTE $46
       .BYTE $48
@@ -5605,7 +6449,8 @@ MusicData:
       .BYTE $56
       .BYTE $88
       .BYTE $52
-      .BYTE 0
+      .BYTE $00
+MusicDataMushroomBonusChance_Square1:
       .BYTE $82
       .BYTE $3E
       .BYTE $42
@@ -5615,6 +6460,9 @@ MusicData:
       .BYTE $50
       .BYTE $88
       .BYTE $4C
+
+MusicDataGameOver:
+MusicDataGameOver_Square2:
       .BYTE $94
       .BYTE $56
       .BYTE $5A
@@ -5625,32 +6473,37 @@ MusicData:
       .BYTE $26
       .BYTE $2A
       .BYTE $98
-      .BYTE $30	
+      .BYTE $30
       .BYTE $26
-      .BYTE $30	
-      .BYTE   0
+      .BYTE $30
+      .BYTE $00
+MusicDataGameOver_Square1:
       .BYTE $98
       .BYTE $7E
       .BYTE $94
-      .BYTE $30	
+      .BYTE $30
       .BYTE $98
       .BYTE $7E
       .BYTE $94
-      .BYTE $30	
+      .BYTE $30
       .BYTE $98
       .BYTE $7E
-      .BYTE $30	
+      .BYTE $30
       .BYTE $3A
-      .BYTE $38	; 8
+      .BYTE $38
+MusicDataGameOver_Triangle:
       .BYTE $88
       .BYTE $7E
       .BYTE $89
       .BYTE $60
       .BYTE $48
       .BYTE $88
-      .BYTE $30	
+      .BYTE $30
       .BYTE $3E
-      .BYTE $30	
+      .BYTE $30
+
+MusicDataBossBeaten:
+MusicDataBossBeaten_Square2:
       .BYTE $94
       .BYTE $42
       .BYTE $48
@@ -5689,7 +6542,8 @@ MusicData:
       .BYTE $26
       .BYTE $30
       .BYTE $7E
-      .BYTE 0
+      .BYTE $00
+MusicDataBossBeaten_Square1:
       .BYTE $88
       .BYTE $7E
       .BYTE $30
@@ -5716,6 +6570,7 @@ MusicData:
       .BYTE $7E
       .BYTE $9A
       .BYTE $48
+MusicDataBossBeaten_Triangle:
       .BYTE $88
       .BYTE $3A
       .BYTE $52
@@ -5737,6 +6592,9 @@ MusicData:
       .BYTE $3E
       .BYTE $30
       .BYTE $7E
+
+MusicDataCrystal:
+MusicDataCrystal_Square2:
       .BYTE $89
       .BYTE $40
       .BYTE $84
@@ -5749,7 +6607,8 @@ MusicData:
       .BYTE $52
       .BYTE $8B
       .BYTE $50
-      .BYTE 0
+      .BYTE $00
+MusicDataCrystal_Square1:
       .BYTE $89
       .BYTE $36
       .BYTE $84
@@ -5764,6 +6623,7 @@ MusicData:
       .BYTE $40
       .BYTE $8B
       .BYTE $3E
+MusicDataCrystal_Triangle:
       .BYTE $89
       .BYTE $40
       .BYTE $84
@@ -5776,6 +6636,9 @@ MusicData:
       .BYTE $4A
       .BYTE $8B
       .BYTE $48
+
+MusicDataDeath:
+MusicDataDeath_Square2:
       .BYTE $84
       .BYTE $7E
       .BYTE $82
@@ -5787,7 +6650,8 @@ MusicData:
       .BYTE $3A
       .BYTE $8A
       .BYTE $38
-      .BYTE 0
+      .BYTE $00
+MusicDataDeath_Square1:
       .BYTE $84
       .BYTE $7E
       .BYTE $82
@@ -5799,6 +6663,7 @@ MusicData:
       .BYTE $2A
       .BYTE $8A
       .BYTE $26
+MusicDataDeath_Triangle:
       .BYTE $84
       .BYTE $7E
       .BYTE $88
@@ -5806,76 +6671,92 @@ MusicData:
       .BYTE $3E
       .BYTE $8A
       .BYTE $30
-byte_BANK5_A18D:
-	  .BYTE $90
 
+
+;
+; Instrument Sound Data
+; =====================
+;
+; Each "instrument" is a lookup table of duty/volume/envelope values that are
+; read backwards from the end
+;
+; The normal version of an instrument is 64 bytes
+; The shorter version of an instrument is 23 bytes
+;
 InstrumentSoundData:
-	  .BYTE $95			  ; @TODO Should this label be moved up? oops
-      .BYTE $95
-      .BYTE $95
-      .BYTE $95
-      .BYTE $95
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $97
-      .BYTE $97
-      .BYTE $97
-      .BYTE $97
-      .BYTE $98
-      .BYTE $98
-byte_BANK5_A1CD:
-	  .BYTE $90
 
+; Long square
+; 50% duty cycle (square) with slight decay
+InstrumentDVE_80: ; $A18D
+      .BYTE $90
+      .BYTE $95
+      .BYTE $95
+      .BYTE $95
+      .BYTE $95
+      .BYTE $95
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $96
+      .BYTE $97
+      .BYTE $97
+      .BYTE $97
+      .BYTE $97
+      .BYTE $98
+      .BYTE $98
+
+; Long square
+; 50% duty cycle (square) with slight decay
+InstrumentDVE_80_Short: ; $A1CD
+      .BYTE $90
       .BYTE $92
       .BYTE $94
       .BYTE $96
@@ -5898,9 +6779,11 @@ byte_BANK5_A1CD:
       .BYTE $97
       .BYTE $98
       .BYTE $98
-byte_BANK5_A1E4:
-	  .BYTE $51
 
+; Short square
+; 25% duty cycle with pronounced decay
+InstrumentDVE_90_E0: ; $A1E4
+      .BYTE $51
       .BYTE $51
       .BYTE $51
       .BYTE $51
@@ -5964,9 +6847,11 @@ byte_BANK5_A1E4:
       .BYTE $59
       .BYTE $5A
       .BYTE $5B
-byte_BANK5_A224:
-	  .BYTE $51
 
+; Short square
+; 25% duty cycle with pronounced decay
+InstrumentDVE_90_E0_Short: ; $A224
+      .BYTE $51
       .BYTE $51
       .BYTE $51
       .BYTE $51
@@ -5989,9 +6874,11 @@ byte_BANK5_A224:
       .BYTE $59
       .BYTE $5A
       .BYTE $5B
-byte_BANK5_A23B:
-	  .BYTE $10
 
+; Electric Piano
+; 12.5% duty cycle with pronounced decay
+InstrumentDVE_A0: ; $A23B
+      .BYTE $10
       .BYTE $11
       .BYTE $11
       .BYTE $11
@@ -6055,9 +6942,11 @@ byte_BANK5_A23B:
       .BYTE $1B
       .BYTE $1B
       .BYTE $1C
-byte_BANK5_A27B:
-	  .BYTE $10
 
+; Electric Piano
+; 12.5% duty cycle with pronounced decay
+InstrumentDVE_A0_Short: ; $A27B
+      .BYTE $10
       .BYTE $11
       .BYTE $12
       .BYTE $13
@@ -6081,9 +6970,11 @@ byte_BANK5_A27B:
       .BYTE $1B
       .BYTE $1B
       .BYTE $1C
-byte_BANK5_A293:
-	  .BYTE $51
 
+; Organ
+; 25% duty cycle with slight decay
+InstrumentDVE_B0: ; $A293
+      .BYTE $51
       .BYTE $52
       .BYTE $52
       .BYTE $52
@@ -6147,9 +7038,11 @@ byte_BANK5_A293:
       .BYTE $56
       .BYTE $56
       .BYTE $56
-byte_BANK5_A2D3:
-	  .BYTE $51
 
+; Organ
+; 25% duty cycle with slight decay
+InstrumentDVE_B0_Short: ; $A2D3
+      .BYTE $51
       .BYTE $52
       .BYTE $52
       .BYTE $52
@@ -6172,9 +7065,11 @@ byte_BANK5_A2D3:
       .BYTE $55
       .BYTE $56
       .BYTE $56
-byte_BANK5_A2EA:
-	  .BYTE $51
 
+; Strings
+; 25% duty cycle with slow attack
+InstrumentDVE_C0_Short: ; $A2EA
+      .BYTE $51
       .BYTE $52
       .BYTE $53
       .BYTE $54
@@ -6197,9 +7092,11 @@ byte_BANK5_A2EA:
       .BYTE $56
       .BYTE $55
       .BYTE $55
-byte_BANK5_A301:
-	  .BYTE $51
 
+; Strings
+; 25% duty cycle with slow attack
+InstrumentDVE_C0: ; $A301
+      .BYTE $51
       .BYTE $52
       .BYTE $52
       .BYTE $51
@@ -6263,8 +7160,11 @@ byte_BANK5_A301:
       .BYTE $56
       .BYTE $55
       .BYTE $55
-unk_BANK5_A341:
-	  .BYTE $50
+
+; Pluck
+; 50% to -25% to 12.5% to 12.5% duty cycle with pronounced decay
+InstrumentDVE_D0: ; $A341
+      .BYTE $50
       .BYTE $50
       .BYTE $50
       .BYTE $50
@@ -6328,8 +7228,11 @@ unk_BANK5_A341:
       .BYTE $19
       .BYTE $DA
       .BYTE $9B
-unk_BANK5_A381:
-	  .BYTE $50
+
+; Pluck
+; 50% to -25% to 12.5% to 12.5% duty cycle with pronounced decay
+InstrumentDVE_D0_Short: ; $A381
+      .BYTE $50
       .BYTE $51
       .BYTE $51
       .BYTE $51
@@ -6352,74 +7255,11 @@ unk_BANK5_A381:
       .BYTE $19
       .BYTE $DA
       .BYTE $9B
-byte_BANK5_A398:
-	  .BYTE $50
 
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $53
-      .BYTE $53
-      .BYTE $54
-      .BYTE $55
-byte_BANK5_A3AF:
-	  .BYTE $50
-
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
+IFNDEF PROTOTYPE_MUSIC
+; Soft pluck
+; 25% duty cycle with pronounced decay
+InstrumentDVE_F0_Short: ; $A398
       .BYTE $50
       .BYTE $50
       .BYTE $50
@@ -6443,4 +7283,166 @@ byte_BANK5_A3AF:
       .BYTE $53
       .BYTE $54
       .BYTE $55
-; The rest of this bank	is empty
+
+; Soft pluck
+; 25% duty cycle with pronounced decay
+InstrumentDVE_F0: ; $A3AF
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $50
+      .BYTE $51
+      .BYTE $51
+      .BYTE $51
+      .BYTE $51
+      .BYTE $52
+      .BYTE $52
+      .BYTE $52
+      .BYTE $53
+      .BYTE $53
+      .BYTE $54
+      .BYTE $55
+ENDIF
+
+IFDEF PROTOTYPE_MUSIC
+; Soft pluck
+; 25% duty cycle with pronounced decay
+InstrumentDVE_F0_Short:
+      .BYTE $54
+      .BYTE $54
+      .BYTE $55
+      .BYTE $56
+      .BYTE $56
+      .BYTE $57
+      .BYTE $58
+      .BYTE $59
+      .BYTE $5A
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5D
+
+; Soft pluck
+; 25% duty cycle with pronounced decay
+InstrumentDVE_F0:
+      .BYTE $51
+      .BYTE $51
+      .BYTE $51
+      .BYTE $51
+      .BYTE $52
+      .BYTE $52
+      .BYTE $52
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $53
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $54
+      .BYTE $55
+      .BYTE $55
+      .BYTE $55
+      .BYTE $55
+      .BYTE $55
+      .BYTE $56
+      .BYTE $56
+      .BYTE $56
+      .BYTE $57
+      .BYTE $57
+      .BYTE $57
+      .BYTE $57
+      .BYTE $57
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $58
+      .BYTE $59
+      .BYTE $59
+      .BYTE $59
+      .BYTE $59
+      .BYTE $5A
+      .BYTE $5A
+      .BYTE $5A
+      .BYTE $5A
+      .BYTE $5A
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5B
+      .BYTE $5C
+      .BYTE $5C
+      .BYTE $5C
+      .BYTE $5D
+ENDIF
