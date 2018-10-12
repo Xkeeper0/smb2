@@ -5,13 +5,11 @@ PRG1="6ca47e9da206914730895e45fef4f7393e59772c1c80e9b9befc1a01d7ecf724"
 
 
 compareHash() {
-	#echo $1 $2
 	echo $1 $2 | sha256sum --check > /dev/null 2>&1
 }
 
 build() {
-	#echo tools/asm6f smb2.asm -n -c -L bin/smb2.nes "$@"
-	tools/asm6f smb2.asm -n -c -L bin/smb2.nes "$@" > bin/assembler.log 2> bin/assembler-err.log
+	tools/asm6f smb2.asm -n -c -L bin/smb2.nes "$@" > bin/assembler.log
 }
 
 
@@ -56,7 +54,7 @@ echo 'Assembling...'
 build $@
 
 if [ $? -ne 0 ] ; then
-	echo 'Build failed! Check bin/assembler-err.log for details'
+	echo 'Build failed!'
 	exit 1
 fi
 
