@@ -1,3 +1,5 @@
 *.nes
 *.lst
 .DS_Store
+Thumbs.db
+*.cdl
