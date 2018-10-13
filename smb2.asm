@@ -25,6 +25,11 @@ IFDEF MMC5
       .dsb 5, $00 ; clear the remaining bytes
 ENDIF
 
+
+; -----------------------------------------
+; Add macros
+.include "src/macros.asm"
+
 ; -----------------------------------------
 ; Add definitions
 .enum $0000
