@@ -2,40 +2,45 @@
 ![Logo](tools/logo.png "Logo")\
 A disassembly of Super Mario Bros. 2.
 
+[![Build Status](https://travis-ci.com/Xkeeper0/smb2.svg?branch=asm6)](https://travis-ci.com/Xkeeper0/smb2)
+
 This is designed for use with [asm6f](https://github.com/freem/asm6f/).
-For your convinience, a binary of that is included.
+For your convinience, binaries of that have been included. (Windows/Linux)
 
 ## Building
 
 ### Windows
 Open a command prompt window and run:
 
-    build
+    build           (builds PRG0)
+	build -dREV_A   (builds PRG1)
 
-This will optionally also compare the ROM built against the original, if you
-place the original ROM in the `tools/` folder. The batch file will output
-instructions to this effect.
-
-You can start the batch file from Explorer, but the window will auto-close,
-so you will have to check the output yourself.
+This will build the ROM from the assembly, and print any errors in the process.
+It will then output the SHA-256 hashes of PRG0 and PRG1, as well as the SHA-256
+hash of the assembled ROM, useful if you intend to keep a one-to-one build.
 
 ### Linux, etc
-You will need to build your own copy of `asm6f`.
+A version of `asm6f` built under Ubuntu has been included under `tools/`.
+To build, run the following command:
 
-    asm6f smb2.asm -n -L bin/smb2.nes > bin/assembler.log 2> bin/assembler-err.log
+	./build.sh           (builds PRG0)
+	./build.sh -dREV_A   (builds PRG1)
+	./build.sh test      (builds both PRG0 and PRG1, verifying they match)
+
+The build script will also display a message if the built ROM's SHA-256 hash
+matches either PRG0 or PRG1.
 
 ### Output
 The build process will generate a few files:
 
-* `bin/smb2.nes`, your ROM.
+* `bin/smb2.nes`, your assembled ROM.
 * `bin/smb2.lst`, the assembler listing. Use this to see how the code assembled.
-* `bin/assembler.txt` and `bin/assembler-err.txt`, logs from the assembler
+* `bin/assembler.txt`, the log from the assembler
 * `bin/smb2.*.nl`, name-listing files for FCEUX's debugger.
-* Some other cruft, probably
+* Some other cruft, probably. welp
 
-By default, the build script will create a byte-for-byte copy of the game.
-
-If you want to make sure, check the SHA-256:
+**By default, the build script will create a byte-for-byte copy of the game**,
+matching these two SHA-256 hashes:
 
 * PRG0: `47ba60fad332fdea5ae44b7979fe1ee78de1d316ee027fea2ad5fe3c0d86f25a`
 * PRG1: `6ca47e9da206914730895e45fef4f7393e59772c1c80e9b9befc1a01d7ecf724`
@@ -45,27 +50,24 @@ You can edit `config.asm` to change some build options; see that file for detail
 ## Assembly
 The "source" lives in the `src` directory:
 
-* `prg-x-x.asm` are the program banks. They are grouped in pairs, as that is how SMB2 loads them. If you want to change this, you will need to split them apart again.
-* `defs.asm` are some definitions.
-* `ram.asm` are definitions and labels for RAM addresses.
+* `prg-x-x.asm` are the program banks. They are grouped in pairs, as that is how
+  SMB2 loads them. If you want to change this, you will need to split them apart again.
+* `defs.asm` defines various enums and identifiers.
+* `ram.asm` contains labels and definitions for RAM addresses.
+* `extras/` contains some additional fun things (see `config.asm`).
+* `levels/` contains level and enemy data.
+* This list is growing as we split the disassembly into smaller parts.
 
-The `tools/Super Mario Bros. 2 (USA) 2.asm` file is an auto-generated disassembly
-from a certain disassembly tool. If you modify it (for some reason),
-you can use `php tools/asm.php` to re-split the disassembly and clean it up.
-Note that doing so will *lose all changes* you might have made in the split disassembly!
-
-If you want to build the *Rev A* version of the game that fixes a soft-lock bug
-involving the Fryguy boss, you should check out the `rev-a` branch. This will eventually
-be incorporated into the main branch, but for now it is separate.
 
 ## Contributing
-Right now, most of the work is being done in a different tool. Unfortunately, that
-tool is not very usable in a collaborative way. However, you can open issues or
-pull requests that describe data or suggest fixes, and I will implement them.
+* Fork the repository.
+* Make changes.
+* Submit a pull request!
+* You are also encouraged to visit the [Discord server](https://discord.gg/TsWMMeV)
+  if you have any questions.
 
-At some point in the future, once most of the memory addresses and routines are
-mostly named, we will start using the split disassembly exclusively and from there
-typical pull requests will be preferred.
+We do not have a formal style guide yet. Sorry.
+
 
 ## See Also
 * [Data Crystal's SMB2 page](http://datacrystal.romhacking.net/wiki/Super_Mario_Bros._2)
