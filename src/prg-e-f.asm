@@ -4244,77 +4244,77 @@ byte_BANKF_F4DA:
 
 ; Sprite display configuration
 ObjectAttributeTable:
-      .BYTE ObjAttrib_Palette1 ; $00
-      .BYTE ObjAttrib_Palette1 ; $01
-      .BYTE ObjAttrib_Palette1 ; $02
-      .BYTE ObjAttrib_Palette3 ; $03
-      .BYTE ObjAttrib_Palette2 ; $04
-      .BYTE ObjAttrib_Palette1 ; $05
-      .BYTE ObjAttrib_Palette2 ; $06
-      .BYTE ObjAttrib_Palette3 ; $07
-      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $08
-      .BYTE ObjAttrib_Palette1 ; $09
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0A
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0B
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0C
-      .BYTE ObjAttrib_Palette1 ; $0D
-      .BYTE ObjAttrib_Palette1 ; $0E
-      .BYTE ObjAttrib_Palette1 ; $0F
-      .BYTE ObjAttrib_Palette2 ; $10
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $11
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_FrontFacing ; $12
-      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $13
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $14
-      .BYTE ObjAttrib_Palette0 ; $15
-      .BYTE ObjAttrib_Palette0 ; $16
-      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $17
-      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32|ObjAttrib_UpsideDown ; $18
-      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $19
-      .BYTE ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1A
-      .BYTE ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1B
-      .BYTE ObjAttrib_Palette2|ObjAttrib_16x32 ; $1C
-      .BYTE ObjAttrib_Palette3|ObjAttrib_16x32 ; $1D
-      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $1E
-      .BYTE ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1F
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $20
-      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $21
-      .BYTE ObjAttrib_Palette2 ; $22
-      .BYTE ObjAttrib_Palette1 ; $23
-      .BYTE ObjAttrib_Palette3 ; $24
-      .BYTE ObjAttrib_Palette2 ; $25
-      .BYTE ObjAttrib_Palette1 ; $26
-      .BYTE ObjAttrib_Palette1 ; $27
-      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $28
-      .BYTE ObjAttrib_Palette1 ; $29
-      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $2A
-      .BYTE ObjAttrib_Palette1 ; $2B
-      .BYTE ObjAttrib_Palette3|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_16x32 ; $2C
-      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $2D
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $2E
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $2F
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $30
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $31
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $32
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $33
-      .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $34
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $35
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $36
-      .BYTE ObjAttrib_Palette1|ObjAttrib_UpsideDown ; $37
-      .BYTE ObjAttrib_Palette1|ObjAttrib_UpsideDown ; $38
-      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $39
-      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $3A
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_16x32 ; $3B
-      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $3C
-      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $3D
-      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $3E
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $3F
-      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $40
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $41
-      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $42
-      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $43
-      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $44
-      .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored ; $45
-      .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $46
+      .BYTE ObjAttrib_Palette1 ; $00 Enemy_Heart
+      .BYTE ObjAttrib_Palette1 ; $01 Enemy_ShyguyRed
+      .BYTE ObjAttrib_Palette1 ; $02 Enemy_Tweeter
+      .BYTE ObjAttrib_Palette3 ; $03 Enemy_ShyguyPink
+      .BYTE ObjAttrib_Palette2 ; $04 Enemy_Porcupo
+      .BYTE ObjAttrib_Palette1 ; $05 Enemy_SnifitRed
+      .BYTE ObjAttrib_Palette2 ; $06 Enemy_SnifitGray
+      .BYTE ObjAttrib_Palette3 ; $07 Enemy_SnifitPink
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $08 Enemy_Ostro
+      .BYTE ObjAttrib_Palette1 ; $09 Enemy_BobOmb
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0A Enemy_AlbatossCarryingBobOmb
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0B Enemy_AlbatossStartRight
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0C Enemy_AlbatossStartLeft
+      .BYTE ObjAttrib_Palette1 ; $0D Enemy_NinjiRunning
+      .BYTE ObjAttrib_Palette1 ; $0E Enemy_NinjiJumping
+      .BYTE ObjAttrib_Palette1 ; $0F Enemy_BeezoDiving
+      .BYTE ObjAttrib_Palette2 ; $10 Enemy_BeezoStraight
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $11 Enemy_WartBubble
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_FrontFacing ; $12 Enemy_Pidgit
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $13 Enemy_Trouter
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $14 Enemy_Hoopstar
+      .BYTE ObjAttrib_Palette0 ; $15 Enemy_JarGeneratorShyguy
+      .BYTE ObjAttrib_Palette0 ; $16 Enemy_JarGeneratorBobOmb
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $17 Enemy_Phanto
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32|ObjAttrib_UpsideDown ; $18 Enemy_CobratJar
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $19 Enemy_CobratSand
+      .BYTE ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1A Enemy_Pokey
+      .BYTE ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1B Enemy_Bullet
+      .BYTE ObjAttrib_Palette2|ObjAttrib_16x32 ; $1C Enemy_Birdo
+      .BYTE ObjAttrib_Palette3|ObjAttrib_16x32 ; $1D Enemy_Mouser
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $1E Enemy_Egg
+      .BYTE ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1F Enemy_Tryclyde
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $20 Enemy_Fireball
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $21 Enemy_Clawgrip
+      .BYTE ObjAttrib_Palette2 ; $22 Enemy_ClawgripRock
+      .BYTE ObjAttrib_Palette1 ; $23 Enemy_PanserStationaryFiresAngled
+      .BYTE ObjAttrib_Palette3 ; $24 Enemy_PanserWalking
+      .BYTE ObjAttrib_Palette2 ; $25 Enemy_PanserStationaryFiresUp
+      .BYTE ObjAttrib_Palette1 ; $26 Enemy_Autobomb
+      .BYTE ObjAttrib_Palette1 ; $27 Enemy_AutobombFire
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $28 Enemy_WhaleSpout
+      .BYTE ObjAttrib_Palette1 ; $29 Enemy_Flurry
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $2A Enemy_Fryguy
+      .BYTE ObjAttrib_Palette1 ; $2B Enemy_FryguySplit
+      .BYTE ObjAttrib_Palette3|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_16x32 ; $2C Enemy_Wart
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $2D Enemy_HawkmouthBoss
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $2E Enemy_Spark1
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $2F Enemy_Spark2
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $30 Enemy_Spark3
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $31 Enemy_Spark4
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $32 Enemy_VegetableSmall
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $33 Enemy_VegetableLarge
+      .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $34 Enemy_VegetableWart
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $35 Enemy_Shell
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $36 Enemy_Coin
+      .BYTE ObjAttrib_Palette1|ObjAttrib_UpsideDown ; $37 Enemy_Bomb
+      .BYTE ObjAttrib_Palette1|ObjAttrib_UpsideDown ; $38 Enemy_Rocket
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $39 Enemy_MushroomBlock
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $3A Enemy_POWBlock
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_16x32 ; $3B Enemy_FallingLogs
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $3C Enemy_SubspaceDoor
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $3D Enemy_Key
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $3E Enemy_SubspacePotion
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $3F Enemy_Mushroom
+      .BYTE ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $40 Enemy_Mushroom1up
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $41 Enemy_FlyingCarpet
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $42 Enemy_HawkmouthRight
+      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32 ; $43 Enemy_HawkmouthLeft
+      .BYTE ObjAttrib_Palette1|ObjAttrib_Mirrored ; $44 Enemy_CrystalBall
+      .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored ; $45 Enemy_Starman
+      .BYTE ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $46 Enemy_Stopwatch
 
 ;
 ; Enemy Behavior 46E
@@ -4328,303 +4328,303 @@ ObjectAttributeTable:
 ;   bit 1 ($02) - unliftable
 ;   bit 0 ($01) - hurts when touched
 EnemyArray_46E_Data:
-      .BYTE %00000100 ; $00
-      .BYTE %00000000 ; $01
-      .BYTE %00000000 ; $02
-      .BYTE %00000000 ; $03
-      .BYTE %00000011 ; $04
-      .BYTE %00000000 ; $05
-      .BYTE %00000000 ; $06
-      .BYTE %00000000 ; $07
-      .BYTE %01010000 ; $08
-      .BYTE %01000000 ; $09
-      .BYTE %01000010 ; $0A
-      .BYTE %01000010 ; $0B
-      .BYTE %01000010 ; $0C
-      .BYTE %01000000 ; $0D
-      .BYTE %01000000 ; $0E
-      .BYTE %01000000 ; $0F
-      .BYTE %01000000 ; $10
-      .BYTE %00010011 ; $11
-      .BYTE %11010000 ; $12
-      .BYTE %10000000 ; $13
-      .BYTE %00000000 ; $14
-      .BYTE %00000110 ; $15
-      .BYTE %00000110 ; $16
-      .BYTE %00000111 ; $17
-      .BYTE %00010000 ; $18
-      .BYTE %01010000 ; $19
-      .BYTE %10010000 ; $1A
-      .BYTE %00000111 ; $1B
-      .BYTE %00001010 ; $1C
-      .BYTE %00111011 ; $1D
-      .BYTE %01000000 ; $1E
-      .BYTE %00011000 ; $1F
-      .BYTE %00000111 ; $20
-      .BYTE %00011011 ; $21
-      .BYTE %00010000 ; $22
-      .BYTE %00000111 ; $23
-      .BYTE %00000111 ; $24
-      .BYTE %00000111 ; $25
-      .BYTE %01010000 ; $26
-      .BYTE %01010011 ; $27
-      .BYTE %10010110 ; $28
-      .BYTE %01010000 ; $29
-      .BYTE %10011011 ; $2A
-      .BYTE %11010011 ; $2B
-      .BYTE %00011011 ; $2C
-      .BYTE %00001011 ; $2D
-      .BYTE %00000011 ; $2E
-      .BYTE %00000011 ; $2F
-      .BYTE %00000011 ; $30
-      .BYTE %00000011 ; $31
-      .BYTE %00000000 ; $32
-      .BYTE %00000000 ; $33
-      .BYTE %00000000 ; $34
-      .BYTE %00000000 ; $35
-      .BYTE %00000100 ; $36
-      .BYTE %00000100 ; $37
-      .BYTE %00000100 ; $38
-      .BYTE %00000000 ; $39
-      .BYTE %00000000 ; $3A
-      .BYTE %00000110 ; $3B
-      .BYTE %00000100 ; $3C
-      .BYTE %00000000 ; $3D
-      .BYTE %00000100 ; $3E
-      .BYTE %00000100 ; $3F
-      .BYTE %00000100 ; $40
-      .BYTE %00010110 ; $41
-      .BYTE %00000110 ; $42
-      .BYTE %00000110 ; $43
-      .BYTE %00001100 ; $44
-      .BYTE %00000100 ; $45
-      .BYTE %00000100 ; $46
+      .BYTE %00000100 ; $00 Enemy_Heart
+      .BYTE %00000000 ; $01 Enemy_ShyguyRed
+      .BYTE %00000000 ; $02 Enemy_Tweeter
+      .BYTE %00000000 ; $03 Enemy_ShyguyPink
+      .BYTE %00000011 ; $04 Enemy_Porcupo
+      .BYTE %00000000 ; $05 Enemy_SnifitRed
+      .BYTE %00000000 ; $06 Enemy_SnifitGray
+      .BYTE %00000000 ; $07 Enemy_SnifitPink
+      .BYTE %01010000 ; $08 Enemy_Ostro
+      .BYTE %01000000 ; $09 Enemy_BobOmb
+      .BYTE %01000010 ; $0A Enemy_AlbatossCarryingBobOmb
+      .BYTE %01000010 ; $0B Enemy_AlbatossStartRight
+      .BYTE %01000010 ; $0C Enemy_AlbatossStartLeft
+      .BYTE %01000000 ; $0D Enemy_NinjiRunning
+      .BYTE %01000000 ; $0E Enemy_NinjiJumping
+      .BYTE %01000000 ; $0F Enemy_BeezoDiving
+      .BYTE %01000000 ; $10 Enemy_BeezoStraight
+      .BYTE %00010011 ; $11 Enemy_WartBubble
+      .BYTE %11010000 ; $12 Enemy_Pidgit
+      .BYTE %10000000 ; $13 Enemy_Trouter
+      .BYTE %00000000 ; $14 Enemy_Hoopstar
+      .BYTE %00000110 ; $15 Enemy_JarGeneratorShyguy
+      .BYTE %00000110 ; $16 Enemy_JarGeneratorBobOmb
+      .BYTE %00000111 ; $17 Enemy_Phanto
+      .BYTE %00010000 ; $18 Enemy_CobratJar
+      .BYTE %01010000 ; $19 Enemy_CobratSand
+      .BYTE %10010000 ; $1A Enemy_Pokey
+      .BYTE %00000111 ; $1B Enemy_Bullet
+      .BYTE %00001010 ; $1C Enemy_Birdo
+      .BYTE %00111011 ; $1D Enemy_Mouser
+      .BYTE %01000000 ; $1E Enemy_Egg
+      .BYTE %00011000 ; $1F Enemy_Tryclyde
+      .BYTE %00000111 ; $20 Enemy_Fireball
+      .BYTE %00011011 ; $21 Enemy_Clawgrip
+      .BYTE %00010000 ; $22 Enemy_ClawgripRock
+      .BYTE %00000111 ; $23 Enemy_PanserStationaryFiresAngled
+      .BYTE %00000111 ; $24 Enemy_PanserWalking
+      .BYTE %00000111 ; $25 Enemy_PanserStationaryFiresUp
+      .BYTE %01010000 ; $26 Enemy_Autobomb
+      .BYTE %01010011 ; $27 Enemy_AutobombFire
+      .BYTE %10010110 ; $28 Enemy_WhaleSpout
+      .BYTE %01010000 ; $29 Enemy_Flurry
+      .BYTE %10011011 ; $2A Enemy_Fryguy
+      .BYTE %11010011 ; $2B Enemy_FryguySplit
+      .BYTE %00011011 ; $2C Enemy_Wart
+      .BYTE %00001011 ; $2D Enemy_HawkmouthBoss
+      .BYTE %00000011 ; $2E Enemy_Spark1
+      .BYTE %00000011 ; $2F Enemy_Spark2
+      .BYTE %00000011 ; $30 Enemy_Spark3
+      .BYTE %00000011 ; $31 Enemy_Spark4
+      .BYTE %00000000 ; $32 Enemy_VegetableSmall
+      .BYTE %00000000 ; $33 Enemy_VegetableLarge
+      .BYTE %00000000 ; $34 Enemy_VegetableWart
+      .BYTE %00000000 ; $35 Enemy_Shell
+      .BYTE %00000100 ; $36 Enemy_Coin
+      .BYTE %00000100 ; $37 Enemy_Bomb
+      .BYTE %00000100 ; $38 Enemy_Rocket
+      .BYTE %00000000 ; $39 Enemy_MushroomBlock
+      .BYTE %00000000 ; $3A Enemy_POWBlock
+      .BYTE %00000110 ; $3B Enemy_FallingLogs
+      .BYTE %00000100 ; $3C Enemy_SubspaceDoor
+      .BYTE %00000000 ; $3D Enemy_Key
+      .BYTE %00000100 ; $3E Enemy_SubspacePotion
+      .BYTE %00000100 ; $3F Enemy_Mushroom
+      .BYTE %00000100 ; $40 Enemy_Mushroom1up
+      .BYTE %00010110 ; $41 Enemy_FlyingCarpet
+      .BYTE %00000110 ; $42 Enemy_HawkmouthRight
+      .BYTE %00000110 ; $43 Enemy_HawkmouthLeft
+      .BYTE %00001100 ; $44 Enemy_CrystalBall
+      .BYTE %00000100 ; $45 Enemy_Starman
+      .BYTE %00000100 ; $46 Enemy_Stopwatch
 
 ;
 ; Height and horizontal collision detection
 ;
 EnemyArray_492_Data:
-      .BYTE $00 ; $00
-      .BYTE $05 ; $01
-      .BYTE $05 ; $02
-      .BYTE $05 ; $03
-      .BYTE $05 ; $04
-      .BYTE $05 ; $05
-      .BYTE $05 ; $06
-      .BYTE $05 ; $07
-      .BYTE $0C ; $08
-      .BYTE $05 ; $09
-      .BYTE $05 ; $0A
-      .BYTE $05 ; $0B
-      .BYTE $05 ; $0C
-      .BYTE $05 ; $0D
-      .BYTE $05 ; $0E
-      .BYTE $05 ; $0F
-      .BYTE $05 ; $10
-      .BYTE $05 ; $11
-      .BYTE $05 ; $12
-      .BYTE $05 ; $13
-      .BYTE $05 ; $14
-      .BYTE $0D ; $15
-      .BYTE $0D ; $16
-      .BYTE $05 ; $17
-      .BYTE $0C ; $18
-      .BYTE $0C ; $19
-      .BYTE $05 ; $1A
-      .BYTE $0D ; $1B
-      .BYTE $0C ; $1C
-      .BYTE $0C ; $1D
-      .BYTE $05 ; $1E
-      .BYTE $0E ; $1F
-      .BYTE $0D ; $20
-      .BYTE $0C ; $21
-      .BYTE $05 ; $22
-      .BYTE $05 ; $23
-      .BYTE $05 ; $24
-      .BYTE $05 ; $25
-      .BYTE $0C ; $26
-      .BYTE $05 ; $27
-      .BYTE $05 ; $28
-      .BYTE $05 ; $29
-      .BYTE $05 ; $2A
-      .BYTE $05 ; $2B
-      .BYTE $05 ; $2C
-      .BYTE $00 ; $2D
-      .BYTE $0F ; $2E
-      .BYTE $0F ; $2F
-      .BYTE $0F ; $30
-      .BYTE $0F ; $31
-      .BYTE $05 ; $32
-      .BYTE $05 ; $33
-      .BYTE $05 ; $34
-      .BYTE $05 ; $35
-      .BYTE $05 ; $36
-      .BYTE $05 ; $37
-      .BYTE $05 ; $38
-      .BYTE $04 ; $39
-      .BYTE $04 ; $3A
-      .BYTE $04 ; $3B
-      .BYTE $04 ; $3C
-      .BYTE $04 ; $3D
-      .BYTE $04 ; $3E
-      .BYTE $04 ; $3F
-      .BYTE $04 ; $40
-      .BYTE $10 ; $41
-      .BYTE $00 ; $42
-      .BYTE $00 ; $43
-      .BYTE $05 ; $44
-      .BYTE $05 ; $45
-      .BYTE $05 ; $46
+      .BYTE $00 ; $00 Enemy_Heart
+      .BYTE $05 ; $01 Enemy_ShyguyRed
+      .BYTE $05 ; $02 Enemy_Tweeter
+      .BYTE $05 ; $03 Enemy_ShyguyPink
+      .BYTE $05 ; $04 Enemy_Porcupo
+      .BYTE $05 ; $05 Enemy_SnifitRed
+      .BYTE $05 ; $06 Enemy_SnifitGray
+      .BYTE $05 ; $07 Enemy_SnifitPink
+      .BYTE $0C ; $08 Enemy_Ostro
+      .BYTE $05 ; $09 Enemy_BobOmb
+      .BYTE $05 ; $0A Enemy_AlbatossCarryingBobOmb
+      .BYTE $05 ; $0B Enemy_AlbatossStartRight
+      .BYTE $05 ; $0C Enemy_AlbatossStartLeft
+      .BYTE $05 ; $0D Enemy_NinjiRunning
+      .BYTE $05 ; $0E Enemy_NinjiJumping
+      .BYTE $05 ; $0F Enemy_BeezoDiving
+      .BYTE $05 ; $10 Enemy_BeezoStraight
+      .BYTE $05 ; $11 Enemy_WartBubble
+      .BYTE $05 ; $12 Enemy_Pidgit
+      .BYTE $05 ; $13 Enemy_Trouter
+      .BYTE $05 ; $14 Enemy_Hoopstar
+      .BYTE $0D ; $15 Enemy_JarGeneratorShyguy
+      .BYTE $0D ; $16 Enemy_JarGeneratorBobOmb
+      .BYTE $05 ; $17 Enemy_Phanto
+      .BYTE $0C ; $18 Enemy_CobratJar
+      .BYTE $0C ; $19 Enemy_CobratSand
+      .BYTE $05 ; $1A Enemy_Pokey
+      .BYTE $0D ; $1B Enemy_Bullet
+      .BYTE $0C ; $1C Enemy_Birdo
+      .BYTE $0C ; $1D Enemy_Mouser
+      .BYTE $05 ; $1E Enemy_Egg
+      .BYTE $0E ; $1F Enemy_Tryclyde
+      .BYTE $0D ; $20 Enemy_Fireball
+      .BYTE $0C ; $21 Enemy_Clawgrip
+      .BYTE $05 ; $22 Enemy_ClawgripRock
+      .BYTE $05 ; $23 Enemy_PanserStationaryFiresAngled
+      .BYTE $05 ; $24 Enemy_PanserWalking
+      .BYTE $05 ; $25 Enemy_PanserStationaryFiresUp
+      .BYTE $0C ; $26 Enemy_Autobomb
+      .BYTE $05 ; $27 Enemy_AutobombFire
+      .BYTE $05 ; $28 Enemy_WhaleSpout
+      .BYTE $05 ; $29 Enemy_Flurry
+      .BYTE $05 ; $2A Enemy_Fryguy
+      .BYTE $05 ; $2B Enemy_FryguySplit
+      .BYTE $05 ; $2C Enemy_Wart
+      .BYTE $00 ; $2D Enemy_HawkmouthBoss
+      .BYTE $0F ; $2E Enemy_Spark1
+      .BYTE $0F ; $2F Enemy_Spark2
+      .BYTE $0F ; $30 Enemy_Spark3
+      .BYTE $0F ; $31 Enemy_Spark4
+      .BYTE $05 ; $32 Enemy_VegetableSmall
+      .BYTE $05 ; $33 Enemy_VegetableLarge
+      .BYTE $05 ; $34 Enemy_VegetableWart
+      .BYTE $05 ; $35 Enemy_Shell
+      .BYTE $05 ; $36 Enemy_Coin
+      .BYTE $05 ; $37 Enemy_Bomb
+      .BYTE $05 ; $38 Enemy_Rocket
+      .BYTE $04 ; $39 Enemy_MushroomBlock
+      .BYTE $04 ; $3A Enemy_POWBlock
+      .BYTE $04 ; $3B Enemy_FallingLogs
+      .BYTE $04 ; $3C Enemy_SubspaceDoor
+      .BYTE $04 ; $3D Enemy_Key
+      .BYTE $04 ; $3E Enemy_SubspacePotion
+      .BYTE $04 ; $3F Enemy_Mushroom
+      .BYTE $04 ; $40 Enemy_Mushroom1up
+      .BYTE $10 ; $41 Enemy_FlyingCarpet
+      .BYTE $00 ; $42 Enemy_HawkmouthRight
+      .BYTE $00 ; $43 Enemy_HawkmouthLeft
+      .BYTE $05 ; $44 Enemy_CrystalBall
+      .BYTE $05 ; $45 Enemy_Starman
+      .BYTE $05 ; $46 Enemy_Stopwatch
 
 ;
 ; Horizontal hitbox, collision detection, and carried height
 ;
 EnemyArray_489_Data:
-      .BYTE $08 ; $00
-      .BYTE $02 ; $01
-      .BYTE $02 ; $02
-      .BYTE $02 ; $03
-      .BYTE $02 ; $04
-      .BYTE $02 ; $05
-      .BYTE $02 ; $06
-      .BYTE $02 ; $07
-      .BYTE $04 ; $08
-      .BYTE $02 ; $09
-      .BYTE $09 ; $0A
-      .BYTE $09 ; $0B
-      .BYTE $09 ; $0C
-      .BYTE $02 ; $0D
-      .BYTE $02 ; $0E
-      .BYTE $02 ; $0F
-      .BYTE $02 ; $10
-      .BYTE $02 ; $11
-      .BYTE $02 ; $12
-      .BYTE $02 ; $13
-      .BYTE $02 ; $14
-      .BYTE $08 ; $15
-      .BYTE $08 ; $16
-      .BYTE $02 ; $17
-      .BYTE $04 ; $18
-      .BYTE $04 ; $19
-      .BYTE $0E ; $1A
-      .BYTE $08 ; $1B
-      .BYTE $04 ; $1C
-      .BYTE $04 ; $1D
-      .BYTE $02 ; $1E
-      .BYTE $0F ; $1F
-      .BYTE $02 ; $20
-      .BYTE $13 ; $21
-      .BYTE $02 ; $22
-      .BYTE $02 ; $23
-      .BYTE $02 ; $24
-      .BYTE $02 ; $25
-      .BYTE $10 ; $26
-      .BYTE $02 ; $27
-      .BYTE $12 ; $28
-      .BYTE $02 ; $29
-      .BYTE $0F ; $2A
-      .BYTE $02 ; $2B
-      .BYTE $11 ; $2C
-      .BYTE $0B ; $2D
-      .BYTE $02 ; $2E
-      .BYTE $02 ; $2F
-      .BYTE $02 ; $30
-      .BYTE $02 ; $31
-      .BYTE $02 ; $32
-      .BYTE $02 ; $33
-      .BYTE $02 ; $34
-      .BYTE $02 ; $35
-      .BYTE $02 ; $36
-      .BYTE $02 ; $37
-      .BYTE $04 ; $38
-      .BYTE $03 ; $39
-      .BYTE $03 ; $3A
-      .BYTE $07 ; $3B
-      .BYTE $04 ; $3C
-      .BYTE $03 ; $3D
-      .BYTE $03 ; $3E
-      .BYTE $03 ; $3F
-      .BYTE $03 ; $40
-      .BYTE $09 ; $41
-      .BYTE $0B ; $42
-      .BYTE $0B ; $43
-      .BYTE $02 ; $44
-      .BYTE $02 ; $45
-      .BYTE $02 ; $46
+      .BYTE $08 ; $00Enemy_Heart
+      .BYTE $02 ; $01Enemy_ShyguyRed
+      .BYTE $02 ; $02Enemy_Tweeter
+      .BYTE $02 ; $03Enemy_ShyguyPink
+      .BYTE $02 ; $04Enemy_Porcupo
+      .BYTE $02 ; $05Enemy_SnifitRed
+      .BYTE $02 ; $06Enemy_SnifitGray
+      .BYTE $02 ; $07Enemy_SnifitPink
+      .BYTE $04 ; $08Enemy_Ostro
+      .BYTE $02 ; $09Enemy_BobOmb
+      .BYTE $09 ; $0AEnemy_AlbatossCarryingBobOmb
+      .BYTE $09 ; $0BEnemy_AlbatossStartRight
+      .BYTE $09 ; $0CEnemy_AlbatossStartLeft
+      .BYTE $02 ; $0DEnemy_NinjiRunning
+      .BYTE $02 ; $0EEnemy_NinjiJumping
+      .BYTE $02 ; $0FEnemy_BeezoDiving
+      .BYTE $02 ; $10Enemy_BeezoStraight
+      .BYTE $02 ; $11Enemy_WartBubble
+      .BYTE $02 ; $12Enemy_Pidgit
+      .BYTE $02 ; $13Enemy_Trouter
+      .BYTE $02 ; $14Enemy_Hoopstar
+      .BYTE $08 ; $15Enemy_JarGeneratorShyguy
+      .BYTE $08 ; $16Enemy_JarGeneratorBobOmb
+      .BYTE $02 ; $17Enemy_Phanto
+      .BYTE $04 ; $18Enemy_CobratJar
+      .BYTE $04 ; $19Enemy_CobratSand
+      .BYTE $0E ; $1AEnemy_Pokey
+      .BYTE $08 ; $1BEnemy_Bullet
+      .BYTE $04 ; $1CEnemy_Birdo
+      .BYTE $04 ; $1DEnemy_Mouser
+      .BYTE $02 ; $1EEnemy_Egg
+      .BYTE $0F ; $1FEnemy_Tryclyde
+      .BYTE $02 ; $20Enemy_Fireball
+      .BYTE $13 ; $21Enemy_Clawgrip
+      .BYTE $02 ; $22Enemy_ClawgripRock
+      .BYTE $02 ; $23Enemy_PanserStationaryFiresAngled
+      .BYTE $02 ; $24Enemy_PanserWalking
+      .BYTE $02 ; $25Enemy_PanserStationaryFiresUp
+      .BYTE $10 ; $26Enemy_Autobomb
+      .BYTE $02 ; $27Enemy_AutobombFire
+      .BYTE $12 ; $28Enemy_WhaleSpout
+      .BYTE $02 ; $29Enemy_Flurry
+      .BYTE $0F ; $2AEnemy_Fryguy
+      .BYTE $02 ; $2BEnemy_FryguySplit
+      .BYTE $11 ; $2CEnemy_Wart
+      .BYTE $0B ; $2DEnemy_HawkmouthBoss
+      .BYTE $02 ; $2EEnemy_Spark1
+      .BYTE $02 ; $2FEnemy_Spark2
+      .BYTE $02 ; $30Enemy_Spark3
+      .BYTE $02 ; $31Enemy_Spark4
+      .BYTE $02 ; $32Enemy_VegetableSmall
+      .BYTE $02 ; $33Enemy_VegetableLarge
+      .BYTE $02 ; $34Enemy_VegetableWart
+      .BYTE $02 ; $35Enemy_Shell
+      .BYTE $02 ; $36Enemy_Coin
+      .BYTE $02 ; $37Enemy_Bomb
+      .BYTE $04 ; $38Enemy_Rocket
+      .BYTE $03 ; $39Enemy_MushroomBlock
+      .BYTE $03 ; $3AEnemy_POWBlock
+      .BYTE $07 ; $3BEnemy_FallingLogs
+      .BYTE $04 ; $3CEnemy_SubspaceDoor
+      .BYTE $03 ; $3DEnemy_Key
+      .BYTE $03 ; $3EEnemy_SubspacePotion
+      .BYTE $03 ; $3FEnemy_Mushroom
+      .BYTE $03 ; $40Enemy_Mushroom1up
+      .BYTE $09 ; $41Enemy_FlyingCarpet
+      .BYTE $0B ; $42Enemy_HawkmouthRight
+      .BYTE $0B ; $43Enemy_HawkmouthLeft
+      .BYTE $02 ; $44Enemy_CrystalBall
+      .BYTE $02 ; $45Enemy_Starman
+      .BYTE $02 ; $46Enemy_Stopwatch
 
 ; More collision (post-throw)
 byte_BANKF_F607:
-      .BYTE $00 ; $00
-      .BYTE $00 ; $01
-      .BYTE $00 ; $02
-      .BYTE $00 ; $03
-      .BYTE $00 ; $04
-      .BYTE $00 ; $05
-      .BYTE $00 ; $06
-      .BYTE $00 ; $07
-      .BYTE $00 ; $08
-      .BYTE $00 ; $09
-      .BYTE $00 ; $0A
-      .BYTE $00 ; $0B
-      .BYTE $00 ; $0C
-      .BYTE $00 ; $0D
-      .BYTE $00 ; $0E
-      .BYTE $00 ; $0F
-      .BYTE $00 ; $10
-      .BYTE $00 ; $11
-      .BYTE $00 ; $12
-      .BYTE $00 ; $13
-      .BYTE $00 ; $14
-      .BYTE $00 ; $15
-      .BYTE $00 ; $16
-      .BYTE $00 ; $17
-      .BYTE $00 ; $18
-      .BYTE $00 ; $19
-      .BYTE $00 ; $1A
-      .BYTE $00 ; $1B
-      .BYTE $00 ; $1C
-      .BYTE $00 ; $1D
-      .BYTE $00 ; $1E
-      .BYTE $00 ; $1F
-      .BYTE $00 ; $20
-      .BYTE $00 ; $21
-      .BYTE $00 ; $22
-      .BYTE $00 ; $23
-      .BYTE $00 ; $24
-      .BYTE $00 ; $25
-      .BYTE $00 ; $26
-      .BYTE $00 ; $27
-      .BYTE $00 ; $28
-      .BYTE $00 ; $29
-      .BYTE $00 ; $2A
-      .BYTE $00 ; $2B
-      .BYTE $00 ; $2C
-      .BYTE $00 ; $2D
-      .BYTE $00 ; $2E
-      .BYTE $00 ; $2F
-      .BYTE $00 ; $30
-      .BYTE $00 ; $31
-      .BYTE $01 ; $32
-      .BYTE $01 ; $33
-      .BYTE $01 ; $34
-      .BYTE $01 ; $35
-      .BYTE $02 ; $36
-      .BYTE $01 ; $37
-      .BYTE $00 ; $38
-      .BYTE $02 ; $39
-      .BYTE $03 ; $3A
-      .BYTE $02 ; $3B
-      .BYTE $04 ; $3C
-      .BYTE $02 ; $3D
-      .BYTE $02 ; $3E
-      .BYTE $02 ; $3F
-      .BYTE $02 ; $40
-      .BYTE $02 ; $41
-      .BYTE $02 ; $42
-      .BYTE $02 ; $43
-      .BYTE $02 ; $44
-      .BYTE $00 ; $45
-      .BYTE $02 ; $46
+      .BYTE $00 ; $00Enemy_Heart
+      .BYTE $00 ; $01Enemy_ShyguyRed
+      .BYTE $00 ; $02Enemy_Tweeter
+      .BYTE $00 ; $03Enemy_ShyguyPink
+      .BYTE $00 ; $04Enemy_Porcupo
+      .BYTE $00 ; $05Enemy_SnifitRed
+      .BYTE $00 ; $06Enemy_SnifitGray
+      .BYTE $00 ; $07Enemy_SnifitPink
+      .BYTE $00 ; $08Enemy_Ostro
+      .BYTE $00 ; $09Enemy_BobOmb
+      .BYTE $00 ; $0AEnemy_AlbatossCarryingBobOmb
+      .BYTE $00 ; $0BEnemy_AlbatossStartRight
+      .BYTE $00 ; $0CEnemy_AlbatossStartLeft
+      .BYTE $00 ; $0DEnemy_NinjiRunning
+      .BYTE $00 ; $0EEnemy_NinjiJumping
+      .BYTE $00 ; $0FEnemy_BeezoDiving
+      .BYTE $00 ; $10Enemy_BeezoStraight
+      .BYTE $00 ; $11Enemy_WartBubble
+      .BYTE $00 ; $12Enemy_Pidgit
+      .BYTE $00 ; $13Enemy_Trouter
+      .BYTE $00 ; $14Enemy_Hoopstar
+      .BYTE $00 ; $15Enemy_JarGeneratorShyguy
+      .BYTE $00 ; $16Enemy_JarGeneratorBobOmb
+      .BYTE $00 ; $17Enemy_Phanto
+      .BYTE $00 ; $18Enemy_CobratJar
+      .BYTE $00 ; $19Enemy_CobratSand
+      .BYTE $00 ; $1AEnemy_Pokey
+      .BYTE $00 ; $1BEnemy_Bullet
+      .BYTE $00 ; $1CEnemy_Birdo
+      .BYTE $00 ; $1DEnemy_Mouser
+      .BYTE $00 ; $1EEnemy_Egg
+      .BYTE $00 ; $1FEnemy_Tryclyde
+      .BYTE $00 ; $20Enemy_Fireball
+      .BYTE $00 ; $21Enemy_Clawgrip
+      .BYTE $00 ; $22Enemy_ClawgripRock
+      .BYTE $00 ; $23Enemy_PanserStationaryFiresAngled
+      .BYTE $00 ; $24Enemy_PanserWalking
+      .BYTE $00 ; $25Enemy_PanserStationaryFiresUp
+      .BYTE $00 ; $26Enemy_Autobomb
+      .BYTE $00 ; $27Enemy_AutobombFire
+      .BYTE $00 ; $28Enemy_WhaleSpout
+      .BYTE $00 ; $29Enemy_Flurry
+      .BYTE $00 ; $2AEnemy_Fryguy
+      .BYTE $00 ; $2BEnemy_FryguySplit
+      .BYTE $00 ; $2CEnemy_Wart
+      .BYTE $00 ; $2DEnemy_HawkmouthBoss
+      .BYTE $00 ; $2EEnemy_Spark1
+      .BYTE $00 ; $2FEnemy_Spark2
+      .BYTE $00 ; $30Enemy_Spark3
+      .BYTE $00 ; $31Enemy_Spark4
+      .BYTE $01 ; $32Enemy_VegetableSmall
+      .BYTE $01 ; $33Enemy_VegetableLarge
+      .BYTE $01 ; $34Enemy_VegetableWart
+      .BYTE $01 ; $35Enemy_Shell
+      .BYTE $02 ; $36Enemy_Coin
+      .BYTE $01 ; $37Enemy_Bomb
+      .BYTE $00 ; $38Enemy_Rocket
+      .BYTE $02 ; $39Enemy_MushroomBlock
+      .BYTE $03 ; $3AEnemy_POWBlock
+      .BYTE $02 ; $3BEnemy_FallingLogs
+      .BYTE $04 ; $3CEnemy_SubspaceDoor
+      .BYTE $02 ; $3DEnemy_Key
+      .BYTE $02 ; $3EEnemy_SubspacePotion
+      .BYTE $02 ; $3FEnemy_Mushroom
+      .BYTE $02 ; $40Enemy_Mushroom1up
+      .BYTE $02 ; $41Enemy_FlyingCarpet
+      .BYTE $02 ; $42Enemy_HawkmouthRight
+      .BYTE $02 ; $43Enemy_HawkmouthLeft
+      .BYTE $02 ; $44Enemy_CrystalBall
+      .BYTE $00 ; $45Enemy_Starman
+      .BYTE $02 ; $46Enemy_Stopwatch
 
 ;
 ; This table determines the "solidness" of tiles.
