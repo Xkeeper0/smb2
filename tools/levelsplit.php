@@ -4472,7 +4472,7 @@ E;
             $oldw = $w;
             $oldl = $l;
 
-            file_put_contents("level-data.asm", $out . 'include "src/'. $f .'"' ."\n", FILE_APPEND);
+            file_put_contents("level-data.asm", $out . 'include "src/levels/'. $f .'"' ."\n", FILE_APPEND);
             print $f ."\n";
       }
 
