@@ -1,11 +1,40 @@
 ; Level 3-3, Area 4
 
 EnemyData_Level_3_3_Area4:
-      .BYTE $03,$06,$6C
-      .BYTE $05,$23,$8D,$23,$CD
-      .BYTE $05,$02,$57,$02,$ED
-      .BYTE $01
-      .BYTE $05,$05,$C2,$07,$3B
-      .BYTE $05,$07,$C4,$03,$3D
-      .BYTE $03,$0E,$D6
-      .BYTE $01
+
+; Page 0
+      distTo + ; $03 (1 enemy)
+      enemy $6, $C, Enemy_SnifitGray
+
+; Page 1
++     distTo + ; $05 (2 enemies)
+      enemy $8, $D, Enemy_PanserStationaryFiresAngled
+      enemy $C, $D, Enemy_PanserStationaryFiresAngled
+
+; Page 2
++     distTo + ; $05 (2 enemies)
+      enemy $5, $7, Enemy_Tweeter
+      enemy $E, $D, Enemy_Tweeter
+
+; Page 3
++     distTo + ; $01 (0 enemies)
+
+; Page 4
++     distTo + ; $05 (2 enemies)
+      enemy $C, $2, Enemy_SnifitRed
+      enemy $3, $B, Enemy_SnifitPink
+
+; Page 5
++     distTo + ; $05 (2 enemies)
+      enemy $C, $4, Enemy_SnifitPink
+      enemy $3, $D, Enemy_ShyguyPink
+
+; Page 6
++     distTo + ; $03 (1 enemy)
+      enemy $D, $6, Enemy_NinjiJumping
+
+; Page 7
++     distTo + ; $01 (0 enemies)
+
+; End of enemy data
++

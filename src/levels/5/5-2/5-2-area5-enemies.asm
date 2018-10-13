@@ -1,8 +1,22 @@
 ; Level 5-2, Area 5
 
 EnemyData_Level_5_2_Area5:
-      .BYTE $01
 
-      .BYTE $07,$13,$73,$1C,$B8,$44,$B9
-      .BYTE $03,$43,$B4
-      .BYTE $01
+; Page 0
+      distTo + ; $01 (0 enemies)
+
+; Page 1
++     distTo + ; $07 (3 enemies)
+      enemy $7, $3, Enemy_Trouter
+      enemy $B, $8, Enemy_Birdo
+      enemy $B, $9, Enemy_CrystalBall
+
+; Page 2
++     distTo + ; $03 (1 enemy)
+      enemy $B, $4, Enemy_HawkmouthLeft
+
+; Page 3
++     distTo + ; $01 (0 enemies)
+
+; End of enemy data
++

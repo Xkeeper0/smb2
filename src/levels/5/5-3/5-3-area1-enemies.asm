@@ -1,14 +1,49 @@
 ; Level 5-3, Area 1
 
 EnemyData_Level_5_3_Area1:
-      .BYTE $03,$49,$80
-      .BYTE $01
-      .BYTE $03,$47,$00
-      .BYTE $01
-      .BYTE $03,$47,$40
-      .BYTE $03,$49,$C0
-      .BYTE $03,$49,$C0
-      .BYTE $07,$09,$2C,$09,$7C,$09,$AC
-      .BYTE $01
-      .BYTE $05,$09,$58,$09,$78
-      .BYTE $01
+
+; Page 0
+      distTo + ; $03 (1 enemy)
+      enemy $8, $0, Enemy_StopAttack
+
+; Page 1
++     distTo + ; $01 (0 enemies)
+
+; Page 2
++     distTo + ; $03 (1 enemy)
+      enemy $0, $0, Enemy_AttackAlbatossCarryingBobOmb
+
+; Page 3
++     distTo + ; $01 (0 enemies)
+
+; Page 4
++     distTo + ; $03 (1 enemy)
+      enemy $4, $0, Enemy_AttackAlbatossCarryingBobOmb
+
+; Page 5
++     distTo + ; $03 (1 enemy)
+      enemy $C, $0, Enemy_StopAttack
+
+; Page 6
++     distTo + ; $03 (1 enemy)
+      enemy $C, $0, Enemy_StopAttack
+
+; Page 7
++     distTo + ; $07 (3 enemies)
+      enemy $2, $C, Enemy_BobOmb
+      enemy $7, $C, Enemy_BobOmb
+      enemy $A, $C, Enemy_BobOmb
+
+; Page 8
++     distTo + ; $01 (0 enemies)
+
+; Page 9
++     distTo + ; $05 (2 enemies)
+      enemy $5, $8, Enemy_BobOmb
+      enemy $7, $8, Enemy_BobOmb
+
+; Page A
++     distTo + ; $01 (0 enemies)
+
+; End of enemy data
++

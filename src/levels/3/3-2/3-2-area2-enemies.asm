@@ -1,8 +1,24 @@
 ; Level 3-2, Area 2
 
 EnemyData_Level_3_2_Area2:
-      .BYTE $05,$1C,$B6,$44,$B6
-      .BYTE $03,$43,$FA
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
+
+; Page 0
+      distTo + ; $05 (2 enemies)
+      enemy $B, $6, Enemy_Birdo
+      enemy $B, $6, Enemy_CrystalBall
+
+; Page 1
++     distTo + ; $03 (1 enemy)
+      enemy $F, $A, Enemy_HawkmouthLeft
+
+; Page 2
++     distTo + ; $01 (0 enemies)
+
+; Page 3
++     distTo + ; $01 (0 enemies)
+
+; Page 4
++     distTo + ; $01 (0 enemies)
+
+; End of enemy data
++

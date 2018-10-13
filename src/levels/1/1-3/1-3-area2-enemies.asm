@@ -1,11 +1,39 @@
 ; Level 1-3, Area 2
 
 EnemyData_Level_1_3_Area2:
-      .BYTE $07,$2E,$4B,$30,$7C,$30,$C9
-      .BYTE $01
-      .BYTE $07,$30,$61,$31,$5A,$03,$BA
-      .BYTE $03,$01,$DB
-      .BYTE $03,$06,$4A
-      .BYTE $03,$03,$35
-      .BYTE $01
-      .BYTE $01
+
+; Page 0
+      distTo + ; $07 (3 enemies)
+      enemy $4, $B, Enemy_Spark1
+      enemy $7, $C, Enemy_Spark3
+      enemy $C, $9, Enemy_Spark3
+
+; Page 1
++     distTo + ; $01 (0 enemies)
+
+; Page 2
++     distTo + ; $07 (3 enemies)
+      enemy $6, $1, Enemy_Spark3
+      enemy $5, $A, Enemy_Spark4
+      enemy $B, $A, Enemy_ShyguyPink
+
+; Page 3
++     distTo + ; $03 (1 enemy)
+      enemy $D, $B, Enemy_ShyguyRed
+
+; Page 4
++     distTo + ; $03 (1 enemy)
+      enemy $4, $A, Enemy_SnifitGray
+
+; Page 5
++     distTo + ; $03 (1 enemy)
+      enemy $3, $5, Enemy_ShyguyPink
+
+; Page 6
++     distTo + ; $01 (0 enemies)
+
+; Page 7
++     distTo + ; $01 (0 enemies)
+
+; End of enemy data
++

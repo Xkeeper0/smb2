@@ -1,9 +1,29 @@
 ; Level 7-1, Area 2
 
 EnemyData_Level_7_1_Area2:
-      .BYTE $01
 
-      .BYTE $07,$02,$A8,$06,$B6,$06,$CB
-      .BYTE $07,$15,$38,$03,$DC,$06,$F3
-      .BYTE $05,$0D,$59,$06,$AB
-      .BYTE $01
+; Page 0
+      distTo + ; $01 (0 enemies)
+
+; Page 1
++     distTo + ; $07 (3 enemies)
+      enemy $A, $8, Enemy_Tweeter
+      enemy $B, $6, Enemy_SnifitGray
+      enemy $C, $B, Enemy_SnifitGray
+
+; Page 2
++     distTo + ; $07 (3 enemies)
+      enemy $3, $8, Enemy_JarGeneratorShyguy
+      enemy $D, $C, Enemy_ShyguyPink
+      enemy $F, $3, Enemy_SnifitGray
+
+; Page 3
++     distTo + ; $05 (2 enemies)
+      enemy $5, $9, Enemy_NinjiRunning
+      enemy $A, $B, Enemy_SnifitGray
+
+; Page 4
++     distTo + ; $01 (0 enemies)
+
+; End of enemy data
++

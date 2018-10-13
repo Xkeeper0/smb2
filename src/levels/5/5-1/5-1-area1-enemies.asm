@@ -1,14 +1,54 @@
 ; Level 5-1, Area 1
 
 EnemyData_Level_5_1_Area1:
-      .BYTE $01
-      .BYTE $03,$3B,$E4
-      .BYTE $09,$3B,$34,$3B,$84,$13,$B2,$3B,$D4
-      .BYTE $05,$13,$82,$13,$C2
-      .BYTE $05,$13,$02,$3B,$A4
-      .BYTE $07,$13,$42,$13,$82,$13,$C2
-      .BYTE $03,$13,$B2
-      .BYTE $05,$3B,$94,$3B,$E4
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
+
+; Page 0
+      distTo + ; $01 (0 enemies)
+
+; Page 1
++     distTo + ; $03 (1 enemy)
+      enemy $E, $4, Enemy_FallingLogs
+
+; Page 2
++     distTo + ; $09 (4 enemies)
+      enemy $3, $4, Enemy_FallingLogs
+      enemy $8, $4, Enemy_FallingLogs
+      enemy $B, $2, Enemy_Trouter
+      enemy $D, $4, Enemy_FallingLogs
+
+; Page 3
++     distTo + ; $05 (2 enemies)
+      enemy $8, $2, Enemy_Trouter
+      enemy $C, $2, Enemy_Trouter
+
+; Page 4
++     distTo + ; $05 (2 enemies)
+      enemy $0, $2, Enemy_Trouter
+      enemy $A, $4, Enemy_FallingLogs
+
+; Page 5
++     distTo + ; $07 (3 enemies)
+      enemy $4, $2, Enemy_Trouter
+      enemy $8, $2, Enemy_Trouter
+      enemy $C, $2, Enemy_Trouter
+
+; Page 6
++     distTo + ; $03 (1 enemy)
+      enemy $B, $2, Enemy_Trouter
+
+; Page 7
++     distTo + ; $05 (2 enemies)
+      enemy $9, $4, Enemy_FallingLogs
+      enemy $E, $4, Enemy_FallingLogs
+
+; Page 8
++     distTo + ; $01 (0 enemies)
+
+; Page 9
++     distTo + ; $01 (0 enemies)
+
+; Page A
++     distTo + ; $01 (0 enemies)
+
+; End of enemy data
++
