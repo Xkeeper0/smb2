@@ -7,8 +7,6 @@
 ;   - The ending sequence with Mario sleeping and the cast roll
 ;
 
-; .segment BANKC
-; * =  $8000
 MarioDream_Pointers:
       .WORD PPUBuffer_301
       .WORD MarioDream_Bed

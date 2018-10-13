@@ -21,9 +21,6 @@
 ;   - and more!
 ;
 
-; .segment BANKE
-; * =  $C000
-
 ;
 ; PCM Data
 ;

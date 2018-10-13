@@ -7,9 +7,6 @@
 ;   - Enemy initialization and logic
 ;
 
-; .segment BANK2
-; * =  $8000
-
 CarryYOffsets:
 CarryYOffsetBigLo:
       .BYTE $FA ; Mario

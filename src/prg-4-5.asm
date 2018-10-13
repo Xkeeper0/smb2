@@ -12,10 +12,6 @@
 ;   - Instrument tables and data
 ;
 
-; .segment BANK4
-; * =  $8000
-
-
 StartProcessingSoundQueue:
       LDA     #$FF
       STA     JOY2

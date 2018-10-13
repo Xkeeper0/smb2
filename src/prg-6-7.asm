@@ -7,9 +7,6 @@
 ;   - Level handling code
 ;
 
-; .segment BANK6
-; * =  $8000
-
 WorldBackgroundPalettePointersLo:
       .BYTE <World1BackgroundPalettes
       .BYTE <World2BackgroundPalettes

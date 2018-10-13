@@ -9,9 +9,6 @@
 ;   - Enemy data
 ;
 
-; .segment BANK8
-; * =  $8000
-
 ;
 ; Table to determine what "total" index a given
 ; level + area is. Get the starting area from this

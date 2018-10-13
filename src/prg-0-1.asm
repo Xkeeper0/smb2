@@ -10,10 +10,6 @@
 ;   - Enemy handling
 ;
 
-; .segment BANK0
-; * =  $8000
-
-
 ;
 ; Initializes a vertical area
 ;
