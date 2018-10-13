@@ -4323,10 +4323,10 @@ ObjectAttributeTable:
 ;   bit 6 ($40) - double speed
 ;   bit 5 ($20) - wider sprite? used for mouser
 ;   bit 4 ($10) - use tilemap 2
-;   bit 3 ($08) - squawk on death
+;   bit 3 ($08) - squawk on death (prevents despawning offscreen?)
 ;   bit 2 ($04) - disable collision with other enemies
 ;   bit 1 ($02) - unliftable
-;   bit 0 ($01) - hurts when touched
+;   bit 0 ($01) - hurts when touched from above
 EnemyArray_46E_Data:
       .BYTE %00000100 ; $00 Enemy_Heart
       .BYTE %00000000 ; $01 Enemy_ShyguyRed
