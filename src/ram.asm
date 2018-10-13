@@ -1,4 +1,25 @@
-; .segment RAM
+;
+; NES and cart RAM
+; ================
+;
+; What's inside: some bits, some bytes. @todo: describe more
+;
+;   - 0000-00FF: Zero page, various things, enemies/player data
+;   - 0100-01FF: Stack area
+;   - 0200-02FF: Sprite OAM DMA area
+;   - 0300-03FF: PPU buffers, etc.
+;   - 0400-04FF: Some enemy data, other small game-state stuff
+;   - 0500-05FF: PPU buffers, more game state tracking and other crap
+;   - 0600-06FF: Music engine, bonus chance, more PPU buffers, etc.
+;   - 0700-07FF: Tile layout for subspace/jar areas
+;
+;   - 2000-2007: PPU registers
+;   - 4000-4017: APU and joypad registers
+;   - 5000-5015: Used by MMC5 expansion
+;   - 6000-7FFF: on-cart RAM; decoded level, level data, enemy data, and more
+;
+;   - 8000-FFFF: you're in the wrong file, pal. that's rom.
+;
 
 byte_RAM_0:
       .dsb 1 ; $0000
@@ -445,520 +466,14 @@ PPUMaskMirror:
       .dsb 1 ; $00fe
 PPUCtrlMirror:
       .dsb 1 ; $00ff
+
+
 StackArea:
-      .dsb 1 ; $0100
-      .dsb 1 ; 1                ; $0101
-      .dsb 1 ; 2                ; $0102
-      .dsb 1 ; 3                ; $0103
-      .dsb 1 ; 4                ; $0104
-      .dsb 1 ; 5                ; $0105
-      .dsb 1 ; 6                ; $0106
-      .dsb 1 ; 7                ; $0107
-      .dsb 1 ; 8                ; $0108
-      .dsb 1 ; 9                ; $0109
-      .dsb 1 ; $A               ; $010a
-      .dsb 1 ; $B               ; $010b
-      .dsb 1 ; $C               ; $010c
-      .dsb 1 ; $D               ; $010d
-      .dsb 1 ; $E               ; $010e
-      .dsb 1 ; $F               ; $010f
-      .dsb 1 ; $10              ; $0110
-      .dsb 1 ; $11              ; $0111
-      .dsb 1 ; $12              ; $0112
-      .dsb 1 ; $13              ; $0113
-      .dsb 1 ; $14              ; $0114
-      .dsb 1 ; $15              ; $0115
-      .dsb 1 ; $16              ; $0116
-      .dsb 1 ; $17              ; $0117
-      .dsb 1 ; $18              ; $0118
-      .dsb 1 ; $19              ; $0119
-      .dsb 1 ; $1A              ; $011a
-      .dsb 1 ; $1B              ; $011b
-      .dsb 1 ; $1C              ; $011c
-      .dsb 1 ; $1D              ; $011d
-      .dsb 1 ; $1E              ; $011e
-      .dsb 1 ; $1F              ; $011f
-      .dsb 1 ; $20              ; $0120
-      .dsb 1 ; $21              ; $0121
-      .dsb 1 ; $22              ; $0122
-      .dsb 1 ; $23              ; $0123
-      .dsb 1 ; $24              ; $0124
-      .dsb 1 ; $25              ; $0125
-      .dsb 1 ; $26              ; $0126
-      .dsb 1 ; $27              ; $0127
-      .dsb 1 ; $28              ; $0128
-      .dsb 1 ; $29              ; $0129
-      .dsb 1 ; $2A              ; $012a
-      .dsb 1 ; $2B              ; $012b
-      .dsb 1 ; $2C              ; $012c
-      .dsb 1 ; $2D              ; $012d
-      .dsb 1 ; $2E              ; $012e
-      .dsb 1 ; $2F              ; $012f
-      .dsb 1 ; $30              ; $0130
-      .dsb 1 ; $31              ; $0131
-      .dsb 1 ; $32              ; $0132
-      .dsb 1 ; $33              ; $0133
-      .dsb 1 ; $34              ; $0134
-      .dsb 1 ; $35              ; $0135
-      .dsb 1 ; $36              ; $0136
-      .dsb 1 ; $37              ; $0137
-      .dsb 1 ; $38              ; $0138
-      .dsb 1 ; $39              ; $0139
-      .dsb 1 ; $3A              ; $013a
-      .dsb 1 ; $3B              ; $013b
-      .dsb 1 ; $3C              ; $013c
-      .dsb 1 ; $3D              ; $013d
-      .dsb 1 ; $3E              ; $013e
-      .dsb 1 ; $3F              ; $013f
-      .dsb 1 ; $40              ; $0140
-      .dsb 1 ; $41              ; $0141
-      .dsb 1 ; $42              ; $0142
-      .dsb 1 ; $43              ; $0143
-      .dsb 1 ; $44              ; $0144
-      .dsb 1 ; $45              ; $0145
-      .dsb 1 ; $46              ; $0146
-      .dsb 1 ; $47              ; $0147
-      .dsb 1 ; $48              ; $0148
-      .dsb 1 ; $49              ; $0149
-      .dsb 1 ; $4A              ; $014a
-      .dsb 1 ; $4B              ; $014b
-      .dsb 1 ; $4C              ; $014c
-      .dsb 1 ; $4D              ; $014d
-      .dsb 1 ; $4E              ; $014e
-      .dsb 1 ; $4F              ; $014f
-      .dsb 1 ; $50              ; $0150
-      .dsb 1 ; $51              ; $0151
-      .dsb 1 ; $52              ; $0152
-      .dsb 1 ; $53              ; $0153
-      .dsb 1 ; $54              ; $0154
-      .dsb 1 ; $55              ; $0155
-      .dsb 1 ; $56              ; $0156
-      .dsb 1 ; $57              ; $0157
-      .dsb 1 ; $58              ; $0158
-      .dsb 1 ; $59              ; $0159
-      .dsb 1 ; $5A              ; $015a
-      .dsb 1 ; $5B              ; $015b
-      .dsb 1 ; $5C              ; $015c
-      .dsb 1 ; $5D              ; $015d
-      .dsb 1 ; $5E              ; $015e
-      .dsb 1 ; $5F              ; $015f
-      .dsb 1 ; $60              ; $0160
-      .dsb 1 ; $61              ; $0161
-      .dsb 1 ; $62              ; $0162
-      .dsb 1 ; $63              ; $0163
-      .dsb 1 ; $64              ; $0164
-      .dsb 1 ; $65              ; $0165
-      .dsb 1 ; $66              ; $0166
-      .dsb 1 ; $67              ; $0167
-      .dsb 1 ; $68              ; $0168
-      .dsb 1 ; $69              ; $0169
-      .dsb 1 ; $6A              ; $016a
-      .dsb 1 ; $6B              ; $016b
-      .dsb 1 ; $6C              ; $016c
-      .dsb 1 ; $6D              ; $016d
-      .dsb 1 ; $6E              ; $016e
-      .dsb 1 ; $6F              ; $016f
-      .dsb 1 ; $70              ; $0170
-      .dsb 1 ; $71              ; $0171
-      .dsb 1 ; $72              ; $0172
-      .dsb 1 ; $73              ; $0173
-      .dsb 1 ; $74              ; $0174
-      .dsb 1 ; $75              ; $0175
-      .dsb 1 ; $76              ; $0176
-      .dsb 1 ; $77              ; $0177
-      .dsb 1 ; $78              ; $0178
-      .dsb 1 ; $79              ; $0179
-      .dsb 1 ; $7A              ; $017a
-      .dsb 1 ; $7B              ; $017b
-      .dsb 1 ; $7C              ; $017c
-      .dsb 1 ; $7D              ; $017d
-      .dsb 1 ; $7E              ; $017e
-      .dsb 1 ; $7F              ; $017f
-      .dsb 1 ; $80              ; $0180
-      .dsb 1 ; $81              ; $0181
-      .dsb 1 ; $82              ; $0182
-      .dsb 1 ; $83              ; $0183
-      .dsb 1 ; $84              ; $0184
-      .dsb 1 ; $85              ; $0185
-      .dsb 1 ; $86              ; $0186
-      .dsb 1 ; $87              ; $0187
-      .dsb 1 ; $88              ; $0188
-      .dsb 1 ; $89              ; $0189
-      .dsb 1 ; $8A              ; $018a
-      .dsb 1 ; $8B              ; $018b
-      .dsb 1 ; $8C              ; $018c
-      .dsb 1 ; $8D              ; $018d
-      .dsb 1 ; $8E              ; $018e
-      .dsb 1 ; $8F              ; $018f
-      .dsb 1 ; $90              ; $0190
-      .dsb 1 ; $91              ; $0191
-      .dsb 1 ; $92              ; $0192
-      .dsb 1 ; $93              ; $0193
-      .dsb 1 ; $94              ; $0194
-      .dsb 1 ; $95              ; $0195
-      .dsb 1 ; $96              ; $0196
-      .dsb 1 ; $97              ; $0197
-      .dsb 1 ; $98              ; $0198
-      .dsb 1 ; $99              ; $0199
-      .dsb 1 ; $9A              ; $019a
-      .dsb 1 ; $9B              ; $019b
-      .dsb 1 ; $9C              ; $019c
-      .dsb 1 ; $9D              ; $019d
-      .dsb 1 ; $9E              ; $019e
-      .dsb 1 ; $9F              ; $019f
-      .dsb 1 ; $A0              ; $01a0
-      .dsb 1 ; $A1              ; $01a1
-      .dsb 1 ; $A2              ; $01a2
-      .dsb 1 ; $A3              ; $01a3
-      .dsb 1 ; $A4              ; $01a4
-      .dsb 1 ; $A5              ; $01a5
-      .dsb 1 ; $A6              ; $01a6
-      .dsb 1 ; $A7              ; $01a7
-      .dsb 1 ; $A8              ; $01a8
-      .dsb 1 ; $A9              ; $01a9
-      .dsb 1 ; $AA              ; $01aa
-      .dsb 1 ; $AB              ; $01ab
-      .dsb 1 ; $AC              ; $01ac
-      .dsb 1 ; $AD              ; $01ad
-      .dsb 1 ; $AE              ; $01ae
-      .dsb 1 ; $AF              ; $01af
-      .dsb 1 ; $B0              ; $01b0
-      .dsb 1 ; $B1              ; $01b1
-      .dsb 1 ; $B2              ; $01b2
-      .dsb 1 ; $B3              ; $01b3
-      .dsb 1 ; $B4              ; $01b4
-      .dsb 1 ; $B5              ; $01b5
-      .dsb 1 ; $B6              ; $01b6
-      .dsb 1 ; $B7              ; $01b7
-      .dsb 1 ; $B8              ; $01b8
-      .dsb 1 ; $B9              ; $01b9
-      .dsb 1 ; $BA              ; $01ba
-      .dsb 1 ; $BB              ; $01bb
-      .dsb 1 ; $BC              ; $01bc
-      .dsb 1 ; $BD              ; $01bd
-      .dsb 1 ; $BE              ; $01be
-      .dsb 1 ; $BF              ; $01bf
-      .dsb 1 ; $C0              ; $01c0
-      .dsb 1 ; $C1              ; $01c1
-      .dsb 1 ; $C2              ; $01c2
-      .dsb 1 ; $C3              ; $01c3
-      .dsb 1 ; $C4              ; $01c4
-      .dsb 1 ; $C5              ; $01c5
-      .dsb 1 ; $C6              ; $01c6
-      .dsb 1 ; $C7              ; $01c7
-      .dsb 1 ; $C8              ; $01c8
-      .dsb 1 ; $C9              ; $01c9
-      .dsb 1 ; $CA              ; $01ca
-      .dsb 1 ; $CB              ; $01cb
-      .dsb 1 ; $CC              ; $01cc
-      .dsb 1 ; $CD              ; $01cd
-      .dsb 1 ; $CE              ; $01ce
-      .dsb 1 ; $CF              ; $01cf
-      .dsb 1 ; $D0              ; $01d0
-      .dsb 1 ; $D1              ; $01d1
-      .dsb 1 ; $D2              ; $01d2
-      .dsb 1 ; $D3              ; $01d3
-      .dsb 1 ; $D4              ; $01d4
-      .dsb 1 ; $D5              ; $01d5
-      .dsb 1 ; $D6              ; $01d6
-      .dsb 1 ; $D7              ; $01d7
-      .dsb 1 ; $D8              ; $01d8
-      .dsb 1 ; $D9              ; $01d9
-      .dsb 1 ; $DA              ; $01da
-      .dsb 1 ; $DB              ; $01db
-      .dsb 1 ; $DC              ; $01dc
-      .dsb 1 ; $DD              ; $01dd
-      .dsb 1 ; $DE              ; $01de
-      .dsb 1 ; $DF              ; $01df
-      .dsb 1 ; $E0              ; $01e0
-      .dsb 1 ; $E1              ; $01e1
-      .dsb 1 ; $E2              ; $01e2
-      .dsb 1 ; $E3              ; $01e3
-      .dsb 1 ; $E4              ; $01e4
-      .dsb 1 ; $E5              ; $01e5
-      .dsb 1 ; $E6              ; $01e6
-      .dsb 1 ; $E7              ; $01e7
-      .dsb 1 ; $E8              ; $01e8
-      .dsb 1 ; $E9              ; $01e9
-      .dsb 1 ; $EA              ; $01ea
-      .dsb 1 ; $EB              ; $01eb
-      .dsb 1 ; $EC              ; $01ec
-      .dsb 1 ; $ED              ; $01ed
-      .dsb 1 ; $EE              ; $01ee
-      .dsb 1 ; $EF              ; $01ef
-      .dsb 1 ; $F0              ; $01f0
-      .dsb 1 ; $F1              ; $01f1
-      .dsb 1 ; $F2              ; $01f2
-      .dsb 1 ; $F3              ; $01f3
-      .dsb 1 ; $F4              ; $01f4
-      .dsb 1 ; $F5              ; $01f5
-      .dsb 1 ; $F6              ; $01f6
-      .dsb 1 ; $F7              ; $01f7
-      .dsb 1 ; $F8              ; $01f8
-      .dsb 1 ; $F9              ; $01f9
-      .dsb 1 ; $FA              ; $01fa
-      .dsb 1 ; $FB              ; $01fb
-      .dsb 1 ; $FC              ; $01fc
-      .dsb 1 ; $FD              ; $01fd
-      .dsb 1 ; $FE              ; $01fe
-      .dsb 1 ; $FF              ; $01ff
+      .dsb $100   ; $0100 - $01FF
+
 SpriteDMAArea:
-      .dsb 1 ; DATA XREF: sub_BANK1_A60E+5w ; $0200
-      .dsb 1 ; 1                ; $0201
-      .dsb 1 ; 2                ; $0202
-      .dsb 1 ; 3                ; $0203
-      .dsb 1 ; 4                ; $0204
-      .dsb 1 ; 5                ; $0205
-      .dsb 1 ; 6                ; $0206
-      .dsb 1 ; 7                ; $0207
-      .dsb 1 ; 8                ; $0208
-      .dsb 1 ; 9                ; $0209
-      .dsb 1 ; $A               ; $020a
-      .dsb 1 ; $B               ; $020b
-      .dsb 1 ; $C               ; $020c
-      .dsb 1 ; $D               ; $020d
-      .dsb 1 ; $E               ; $020e
-      .dsb 1 ; $F               ; $020f
-      .dsb 1 ; $10              ; $0210
-      .dsb 1 ; $11              ; $0211
-      .dsb 1 ; $12              ; $0212
-      .dsb 1 ; $13              ; $0213
-      .dsb 1 ; $14              ; $0214
-      .dsb 1 ; $15              ; $0215
-      .dsb 1 ; $16              ; $0216
-      .dsb 1 ; $17              ; $0217
-      .dsb 1 ; $18              ; $0218
-      .dsb 1 ; $19              ; $0219
-      .dsb 1 ; $1A              ; $021a
-      .dsb 1 ; $1B              ; $021b
-      .dsb 1 ; $1C              ; $021c
-      .dsb 1 ; $1D              ; $021d
-      .dsb 1 ; $1E              ; $021e
-      .dsb 1 ; $1F              ; $021f
-      .dsb 1 ; $20              ; $0220
-      .dsb 1 ; $21              ; $0221
-      .dsb 1 ; $22              ; $0222
-      .dsb 1 ; $23              ; $0223
-      .dsb 1 ; $24              ; $0224
-      .dsb 1 ; $25              ; $0225
-      .dsb 1 ; $26              ; $0226
-      .dsb 1 ; $27              ; $0227
-      .dsb 1 ; $28              ; $0228
-      .dsb 1 ; $29              ; $0229
-      .dsb 1 ; $2A              ; $022a
-      .dsb 1 ; $2B              ; $022b
-      .dsb 1 ; $2C              ; $022c
-      .dsb 1 ; $2D              ; $022d
-      .dsb 1 ; $2E              ; $022e
-      .dsb 1 ; $2F              ; $022f
-      .dsb 1 ; $30              ; $0230
-      .dsb 1 ; $31              ; $0231
-      .dsb 1 ; $32              ; $0232
-      .dsb 1 ; $33              ; $0233
-      .dsb 1 ; $34              ; $0234
-      .dsb 1 ; $35              ; $0235
-      .dsb 1 ; $36              ; $0236
-      .dsb 1 ; $37              ; $0237
-      .dsb 1 ; $38              ; $0238
-      .dsb 1 ; $39              ; $0239
-      .dsb 1 ; $3A              ; $023a
-      .dsb 1 ; $3B              ; $023b
-      .dsb 1 ; $3C              ; $023c
-      .dsb 1 ; $3D              ; $023d
-      .dsb 1 ; $3E              ; $023e
-      .dsb 1 ; $3F              ; $023f
-      .dsb 1 ; $40              ; $0240
-      .dsb 1 ; $41              ; $0241
-      .dsb 1 ; $42              ; $0242
-      .dsb 1 ; $43              ; $0243
-      .dsb 1 ; $44              ; $0244
-      .dsb 1 ; $45              ; $0245
-      .dsb 1 ; $46              ; $0246
-      .dsb 1 ; $47              ; $0247
-      .dsb 1 ; $48              ; $0248
-      .dsb 1 ; $49              ; $0249
-      .dsb 1 ; $4A              ; $024a
-      .dsb 1 ; $4B              ; $024b
-      .dsb 1 ; $4C              ; $024c
-      .dsb 1 ; $4D              ; $024d
-      .dsb 1 ; $4E              ; $024e
-      .dsb 1 ; $4F              ; $024f
-      .dsb 1 ; $50              ; $0250
-      .dsb 1 ; $51              ; $0251
-      .dsb 1 ; $52              ; $0252
-      .dsb 1 ; $53              ; $0253
-      .dsb 1 ; $54              ; $0254
-      .dsb 1 ; $55              ; $0255
-      .dsb 1 ; $56              ; $0256
-      .dsb 1 ; $57              ; $0257
-      .dsb 1 ; $58              ; $0258
-      .dsb 1 ; $59              ; $0259
-      .dsb 1 ; $5A              ; $025a
-      .dsb 1 ; $5B              ; $025b
-      .dsb 1 ; $5C              ; $025c
-      .dsb 1 ; $5D              ; $025d
-      .dsb 1 ; $5E              ; $025e
-      .dsb 1 ; $5F              ; $025f
-      .dsb 1 ; $60              ; $0260
-      .dsb 1 ; $61              ; $0261
-      .dsb 1 ; $62              ; $0262
-      .dsb 1 ; $63              ; $0263
-      .dsb 1 ; $64              ; $0264
-      .dsb 1 ; $65              ; $0265
-      .dsb 1 ; $66              ; $0266
-      .dsb 1 ; $67              ; $0267
-      .dsb 1 ; $68              ; $0268
-      .dsb 1 ; $69              ; $0269
-      .dsb 1 ; $6A              ; $026a
-      .dsb 1 ; $6B              ; $026b
-      .dsb 1 ; $6C              ; $026c
-      .dsb 1 ; $6D              ; $026d
-      .dsb 1 ; $6E              ; $026e
-      .dsb 1 ; $6F              ; $026f
-      .dsb 1 ; $70              ; $0270
-      .dsb 1 ; $71              ; $0271
-      .dsb 1 ; $72              ; $0272
-      .dsb 1 ; $73              ; $0273
-      .dsb 1 ; $74              ; $0274
-      .dsb 1 ; $75              ; $0275
-      .dsb 1 ; $76              ; $0276
-      .dsb 1 ; $77              ; $0277
-      .dsb 1 ; $78              ; $0278
-      .dsb 1 ; $79              ; $0279
-      .dsb 1 ; $7A              ; $027a
-      .dsb 1 ; $7B              ; $027b
-      .dsb 1 ; $7C              ; $027c
-      .dsb 1 ; $7D              ; $027d
-      .dsb 1 ; $7E              ; $027e
-      .dsb 1 ; $7F              ; $027f
-      .dsb 1 ; $80              ; $0280
-      .dsb 1 ; $81              ; $0281
-      .dsb 1 ; $82              ; $0282
-      .dsb 1 ; $83              ; $0283
-      .dsb 1 ; $84              ; $0284
-      .dsb 1 ; $85              ; $0285
-      .dsb 1 ; $86              ; $0286
-      .dsb 1 ; $87              ; $0287
-      .dsb 1 ; $88              ; $0288
-      .dsb 1 ; $89              ; $0289
-      .dsb 1 ; $8A              ; $028a
-      .dsb 1 ; $8B              ; $028b
-      .dsb 1 ; $8C              ; $028c
-      .dsb 1 ; $8D              ; $028d
-      .dsb 1 ; $8E              ; $028e
-      .dsb 1 ; $8F              ; $028f
-      .dsb 1 ; $90              ; $0290
-      .dsb 1 ; $91              ; $0291
-      .dsb 1 ; $92              ; $0292
-      .dsb 1 ; $93              ; $0293
-      .dsb 1 ; $94              ; $0294
-      .dsb 1 ; $95              ; $0295
-      .dsb 1 ; $96              ; $0296
-      .dsb 1 ; $97              ; $0297
-      .dsb 1 ; $98              ; $0298
-      .dsb 1 ; $99              ; $0299
-      .dsb 1 ; $9A              ; $029a
-      .dsb 1 ; $9B              ; $029b
-      .dsb 1 ; $9C              ; $029c
-      .dsb 1 ; $9D              ; $029d
-      .dsb 1 ; $9E              ; $029e
-      .dsb 1 ; $9F              ; $029f
-      .dsb 1 ; $A0              ; $02a0
-      .dsb 1 ; $A1              ; $02a1
-      .dsb 1 ; $A2              ; $02a2
-      .dsb 1 ; $A3              ; $02a3
-      .dsb 1 ; $A4              ; $02a4
-      .dsb 1 ; $A5              ; $02a5
-      .dsb 1 ; $A6              ; $02a6
-      .dsb 1 ; $A7              ; $02a7
-      .dsb 1 ; $A8              ; $02a8
-      .dsb 1 ; $A9              ; $02a9
-      .dsb 1 ; $AA              ; $02aa
-      .dsb 1 ; $AB              ; $02ab
-      .dsb 1 ; $AC              ; $02ac
-      .dsb 1 ; $AD              ; $02ad
-      .dsb 1 ; $AE              ; $02ae
-      .dsb 1 ; $AF              ; $02af
-      .dsb 1 ; $B0              ; $02b0
-      .dsb 1 ; $B1              ; $02b1
-      .dsb 1 ; $B2              ; $02b2
-      .dsb 1 ; $B3              ; $02b3
-      .dsb 1 ; $B4              ; $02b4
-      .dsb 1 ; $B5              ; $02b5
-      .dsb 1 ; $B6              ; $02b6
-      .dsb 1 ; $B7              ; $02b7
-      .dsb 1 ; $B8              ; $02b8
-      .dsb 1 ; $B9              ; $02b9
-      .dsb 1 ; $BA              ; $02ba
-      .dsb 1 ; $BB              ; $02bb
-      .dsb 1 ; $BC              ; $02bc
-      .dsb 1 ; $BD              ; $02bd
-      .dsb 1 ; $BE              ; $02be
-      .dsb 1 ; $BF              ; $02bf
-      .dsb 1 ; $C0              ; $02c0
-      .dsb 1 ; $C1              ; $02c1
-      .dsb 1 ; $C2              ; $02c2
-      .dsb 1 ; $C3              ; $02c3
-      .dsb 1 ; $C4              ; $02c4
-      .dsb 1 ; $C5              ; $02c5
-      .dsb 1 ; $C6              ; $02c6
-      .dsb 1 ; $C7              ; $02c7
-      .dsb 1 ; $C8              ; $02c8
-      .dsb 1 ; $C9              ; $02c9
-      .dsb 1 ; $CA              ; $02ca
-      .dsb 1 ; $CB              ; $02cb
-      .dsb 1 ; $CC              ; $02cc
-      .dsb 1 ; $CD              ; $02cd
-      .dsb 1 ; $CE              ; $02ce
-      .dsb 1 ; $CF              ; $02cf
-      .dsb 1 ; $D0              ; $02d0
-      .dsb 1 ; $D1              ; $02d1
-      .dsb 1 ; $D2              ; $02d2
-      .dsb 1 ; $D3              ; $02d3
-      .dsb 1 ; $D4              ; $02d4
-      .dsb 1 ; $D5              ; $02d5
-      .dsb 1 ; $D6              ; $02d6
-      .dsb 1 ; $D7              ; $02d7
-      .dsb 1 ; $D8              ; $02d8
-      .dsb 1 ; $D9              ; $02d9
-      .dsb 1 ; $DA              ; $02da
-      .dsb 1 ; $DB              ; $02db
-      .dsb 1 ; $DC              ; $02dc
-      .dsb 1 ; $DD              ; $02dd
-      .dsb 1 ; $DE              ; $02de
-      .dsb 1 ; $DF              ; $02df
-      .dsb 1 ; $E0              ; $02e0
-      .dsb 1 ; $E1              ; $02e1
-      .dsb 1 ; $E2              ; $02e2
-      .dsb 1 ; $E3              ; $02e3
-      .dsb 1 ; $E4              ; $02e4
-      .dsb 1 ; $E5              ; $02e5
-      .dsb 1 ; $E6              ; $02e6
-      .dsb 1 ; $E7              ; $02e7
-      .dsb 1 ; $E8              ; $02e8
-      .dsb 1 ; $E9              ; $02e9
-      .dsb 1 ; $EA              ; $02ea
-      .dsb 1 ; $EB              ; $02eb
-      .dsb 1 ; $EC              ; $02ec
-      .dsb 1 ; $ED              ; $02ed
-      .dsb 1 ; $EE              ; $02ee
-      .dsb 1 ; $EF              ; $02ef
-      .dsb 1 ; $F0              ; $02f0
-      .dsb 1 ; $F1              ; $02f1
-      .dsb 1 ; $F2              ; $02f2
-      .dsb 1 ; $F3              ; $02f3
-      .dsb 1 ; $F4              ; $02f4
-      .dsb 1 ; $F5              ; $02f5
-      .dsb 1 ; $F6              ; $02f6
-      .dsb 1 ; $F7              ; $02f7
-      .dsb 1 ; $F8              ; $02f8
-      .dsb 1 ; $F9              ; $02f9
-      .dsb 1 ; $FA              ; $02fa
-      .dsb 1 ; $FB              ; $02fb
-      .dsb 1 ; $FC              ; $02fc
-      .dsb 1 ; $FD              ; $02fd
-      .dsb 1 ; $FE              ; $02fe
-      .dsb 1 ; $FF              ; $02ff
+      .dsb $100   ; $0200 - $02FF
+
 byte_RAM_300:
       .dsb 1 ; $0300
 PPUBuffer_301:
@@ -999,7 +514,6 @@ unk_RAM_318:
       .dsb 1 ; $0321
       .dsb 1 ; $0322
       .dsb 1 ; $0323
-
       .dsb 1 ; $0324
       .dsb 1 ; $0325
       .dsb 1 ; $0326
@@ -2432,279 +1946,27 @@ BackgroundCHR2Timer:
 ; of the current screen as it will be shown (e.g. reversed, like in-game)
 ; Not sure if anything else uses this area yet
 SubAreaTileLayout:
-      .dsb 1 ; $0700
-      .dsb 1 ; $01              ; $0701
-      .dsb 1 ; $02              ; $0702
-      .dsb 1 ; $03              ; $0703
-      .dsb 1 ; $04              ; $0704
-      .dsb 1 ; $05              ; $0705
-      .dsb 1 ; $06              ; $0706
-      .dsb 1 ; $07              ; $0707
-      .dsb 1 ; $08              ; $0708
-      .dsb 1 ; $09              ; $0709
-      .dsb 1 ; $0A              ; $070a
-      .dsb 1 ; $0B              ; $070b
-      .dsb 1 ; $0C              ; $070c
-      .dsb 1 ; $0D              ; $070d
-      .dsb 1 ; $0E              ; $070e
-      .dsb 1 ; $0F              ; $070f
-      .dsb 1 ; $10              ; $0710
-      .dsb 1 ; $11              ; $0711
-      .dsb 1 ; $12              ; $0712
-      .dsb 1 ; $13              ; $0713
-      .dsb 1 ; $14              ; $0714
-      .dsb 1 ; $15              ; $0715
-      .dsb 1 ; $16              ; $0716
-      .dsb 1 ; $17              ; $0717
-      .dsb 1 ; $18              ; $0718
-      .dsb 1 ; $19              ; $0719
-      .dsb 1 ; $1A              ; $071a
-      .dsb 1 ; $1B              ; $071b
-      .dsb 1 ; $1C              ; $071c
-      .dsb 1 ; $1D              ; $071d
-      .dsb 1 ; $1E              ; $071e
-      .dsb 1 ; $1F              ; $071f
-      .dsb 1 ; $20              ; $0720
-      .dsb 1 ; $21              ; $0721
-      .dsb 1 ; $22              ; $0722
-      .dsb 1 ; $23              ; $0723
-      .dsb 1 ; $24              ; $0724
-      .dsb 1 ; $25              ; $0725
-      .dsb 1 ; $26              ; $0726
-      .dsb 1 ; $27              ; $0727
-      .dsb 1 ; $28              ; $0728
-      .dsb 1 ; $29              ; $0729
-      .dsb 1 ; $2A              ; $072a
-      .dsb 1 ; $2B              ; $072b
-      .dsb 1 ; $2C              ; $072c
-      .dsb 1 ; $2D              ; $072d
-      .dsb 1 ; $2E              ; $072e
-      .dsb 1 ; $2F              ; $072f
-      .dsb 1 ; $30              ; $0730
-      .dsb 1 ; $31              ; $0731
-      .dsb 1 ; $32              ; $0732
-      .dsb 1 ; $33              ; $0733
-      .dsb 1 ; $34              ; $0734
-      .dsb 1 ; $35              ; $0735
-      .dsb 1 ; $36              ; $0736
-      .dsb 1 ; $37              ; $0737
-      .dsb 1 ; $38              ; $0738
-      .dsb 1 ; $39              ; $0739
-      .dsb 1 ; $3A              ; $073a
-      .dsb 1 ; $3B              ; $073b
-      .dsb 1 ; $3C              ; $073c
-      .dsb 1 ; $3D              ; $073d
-      .dsb 1 ; $3E              ; $073e
-      .dsb 1 ; $3F              ; $073f
-      .dsb 1 ; $40              ; $0740
-      .dsb 1 ; $41              ; $0741
-      .dsb 1 ; $42              ; $0742
-      .dsb 1 ; $43              ; $0743
-      .dsb 1 ; $44              ; $0744
-      .dsb 1 ; $45              ; $0745
-      .dsb 1 ; $46              ; $0746
-      .dsb 1 ; $47              ; $0747
-      .dsb 1 ; $48              ; $0748
-      .dsb 1 ; $49              ; $0749
-      .dsb 1 ; $4A              ; $074a
-      .dsb 1 ; $4B              ; $074b
-      .dsb 1 ; $4C              ; $074c
-      .dsb 1 ; $4D              ; $074d
-      .dsb 1 ; $4E              ; $074e
-      .dsb 1 ; $4F              ; $074f
-      .dsb 1 ; $50              ; $0750
-      .dsb 1 ; $51              ; $0751
-      .dsb 1 ; $52              ; $0752
-      .dsb 1 ; $53              ; $0753
-      .dsb 1 ; $54              ; $0754
-      .dsb 1 ; $55              ; $0755
-      .dsb 1 ; $56              ; $0756
-      .dsb 1 ; $57              ; $0757
-      .dsb 1 ; $58              ; $0758
-      .dsb 1 ; $59              ; $0759
-      .dsb 1 ; $5A              ; $075a
-      .dsb 1 ; $5B              ; $075b
-      .dsb 1 ; $5C              ; $075c
-      .dsb 1 ; $5D              ; $075d
-      .dsb 1 ; $5E              ; $075e
-      .dsb 1 ; $5F              ; $075f
-      .dsb 1 ; $60              ; $0760
-      .dsb 1 ; $61              ; $0761
-      .dsb 1 ; $62              ; $0762
-      .dsb 1 ; $63              ; $0763
-      .dsb 1 ; $64              ; $0764
-      .dsb 1 ; $65              ; $0765
-      .dsb 1 ; $66              ; $0766
-      .dsb 1 ; $67              ; $0767
-      .dsb 1 ; $68              ; $0768
-      .dsb 1 ; $69              ; $0769
-      .dsb 1 ; $6A              ; $076a
-      .dsb 1 ; $6B              ; $076b
-      .dsb 1 ; $6C              ; $076c
-      .dsb 1 ; $6D              ; $076d
-      .dsb 1 ; $6E              ; $076e
-      .dsb 1 ; $6F              ; $076f
-      .dsb 1 ; $70              ; $0770
-      .dsb 1 ; $71              ; $0771
-      .dsb 1 ; $72              ; $0772
-      .dsb 1 ; $73              ; $0773
-      .dsb 1 ; $74              ; $0774
-      .dsb 1 ; $75              ; $0775
-      .dsb 1 ; $76              ; $0776
-      .dsb 1 ; $77              ; $0777
-      .dsb 1 ; $78              ; $0778
-      .dsb 1 ; $79              ; $0779
-      .dsb 1 ; $7A              ; $077a
-      .dsb 1 ; $7B              ; $077b
-      .dsb 1 ; $7C              ; $077c
-      .dsb 1 ; $7D              ; $077d
-      .dsb 1 ; $7E              ; $077e
-      .dsb 1 ; $7F              ; $077f
-      .dsb 1 ; $80              ; $0780
-      .dsb 1 ; $81              ; $0781
-      .dsb 1 ; $82              ; $0782
-      .dsb 1 ; $83              ; $0783
-      .dsb 1 ; $84              ; $0784
-      .dsb 1 ; $85              ; $0785
-      .dsb 1 ; $86              ; $0786
-      .dsb 1 ; $87              ; $0787
-      .dsb 1 ; $88              ; $0788
-      .dsb 1 ; $89              ; $0789
-      .dsb 1 ; $8A              ; $078a
-      .dsb 1 ; $8B              ; $078b
-      .dsb 1 ; $8C              ; $078c
-      .dsb 1 ; $8D              ; $078d
-      .dsb 1 ; $8E              ; $078e
-      .dsb 1 ; $8F              ; $078f
-      .dsb 1 ; $90              ; $0790
-      .dsb 1 ; $91              ; $0791
-      .dsb 1 ; $92              ; $0792
-      .dsb 1 ; $93              ; $0793
-      .dsb 1 ; $94              ; $0794
-      .dsb 1 ; $95              ; $0795
-      .dsb 1 ; $96              ; $0796
-      .dsb 1 ; $97              ; $0797
-      .dsb 1 ; $98              ; $0798
-      .dsb 1 ; $99              ; $0799
-      .dsb 1 ; $9A              ; $079a
-      .dsb 1 ; $9B              ; $079b
-      .dsb 1 ; $9C              ; $079c
-      .dsb 1 ; $9D              ; $079d
-      .dsb 1 ; $9E              ; $079e
-      .dsb 1 ; $9F              ; $079f
-      .dsb 1 ; $A0              ; $07a0
-      .dsb 1 ; $A1              ; $07a1
-      .dsb 1 ; $A2              ; $07a2
-      .dsb 1 ; $A3              ; $07a3
-      .dsb 1 ; $A4              ; $07a4
-      .dsb 1 ; $A5              ; $07a5
-      .dsb 1 ; $A6              ; $07a6
-      .dsb 1 ; $A7              ; $07a7
-      .dsb 1 ; $A8              ; $07a8
-      .dsb 1 ; $A9              ; $07a9
-      .dsb 1 ; $AA              ; $07aa
-      .dsb 1 ; $AB              ; $07ab
-      .dsb 1 ; $AC              ; $07ac
-      .dsb 1 ; $AD              ; $07ad
-      .dsb 1 ; $AE              ; $07ae
-      .dsb 1 ; $AF              ; $07af
-      .dsb 1 ; $B0              ; $07b0
-      .dsb 1 ; $B1              ; $07b1
-      .dsb 1 ; $B2              ; $07b2
-      .dsb 1 ; $B3              ; $07b3
-      .dsb 1 ; $B4              ; $07b4
-      .dsb 1 ; $B5              ; $07b5
-      .dsb 1 ; $B6              ; $07b6
-      .dsb 1 ; $B7              ; $07b7
-      .dsb 1 ; $B8              ; $07b8
-      .dsb 1 ; $B9              ; $07b9
-      .dsb 1 ; $BA              ; $07ba
-      .dsb 1 ; $BB              ; $07bb
-      .dsb 1 ; $BC              ; $07bc
-      .dsb 1 ; $BD              ; $07bd
-      .dsb 1 ; $BE              ; $07be
-      .dsb 1 ; $BF              ; $07bf
-      .dsb 1 ; $C0              ; $07c0
-      .dsb 1 ; $C1              ; $07c1
-      .dsb 1 ; $C2              ; $07c2
-      .dsb 1 ; $C3              ; $07c3
-      .dsb 1 ; $C4              ; $07c4
-      .dsb 1 ; $C5              ; $07c5
-      .dsb 1 ; $C6              ; $07c6
-      .dsb 1 ; $C7              ; $07c7
-      .dsb 1 ; $C8              ; $07c8
-      .dsb 1 ; $C9              ; $07c9
-      .dsb 1 ; $CA              ; $07ca
-      .dsb 1 ; $CB              ; $07cb
-      .dsb 1 ; $CC              ; $07cc
-      .dsb 1 ; $CD              ; $07cd
-      .dsb 1 ; $CE              ; $07ce
-      .dsb 1 ; $CF              ; $07cf
-      .dsb 1 ; $D0              ; $07d0
-      .dsb 1 ; $D1              ; $07d1
-      .dsb 1 ; $D2              ; $07d2
-      .dsb 1 ; $D3              ; $07d3
-      .dsb 1 ; $D4              ; $07d4
-      .dsb 1 ; $D5              ; $07d5
-      .dsb 1 ; $D6              ; $07d6
-      .dsb 1 ; $D7              ; $07d7
-      .dsb 1 ; $D8              ; $07d8
-      .dsb 1 ; $D9              ; $07d9
-      .dsb 1 ; $DA              ; $07da
-      .dsb 1 ; $DB              ; $07db
-      .dsb 1 ; $DC              ; $07dc
-      .dsb 1 ; $DD              ; $07dd
-      .dsb 1 ; $DE              ; $07de
-      .dsb 1 ; $DF              ; $07df
-      .dsb 1 ; $E0              ; $07e0
-      .dsb 1 ; $E1              ; $07e1
-      .dsb 1 ; $E2              ; $07e2
-      .dsb 1 ; $E3              ; $07e3
-      .dsb 1 ; $E4              ; $07e4
-      .dsb 1 ; $E5              ; $07e5
-      .dsb 1 ; $E6              ; $07e6
-      .dsb 1 ; $E7              ; $07e7
-      .dsb 1 ; $E8              ; $07e8
-      .dsb 1 ; $E9              ; $07e9
-      .dsb 1 ; $EA              ; $07ea
-      .dsb 1 ; $EB              ; $07eb
-      .dsb 1 ; $EC              ; $07ec
-      .dsb 1 ; $ED              ; $07ed
-      .dsb 1 ; $EE              ; $07ee
-      .dsb 1 ; $EF              ; $07ef
-      .dsb 1 ; $F0              ; $07f0
-      .dsb 1 ; $F1              ; $07f1
-      .dsb 1 ; $F2              ; $07f2
-      .dsb 1 ; $F3              ; $07f3
-      .dsb 1 ; $F4              ; $07f4
-      .dsb 1 ; $F5              ; $07f5
-      .dsb 1 ; $F6              ; $07f6
-      .dsb 1 ; $F7              ; $07f7
-      .dsb 1 ; $F8              ; $07f8
-      .dsb 1 ; $F9              ; $07f9
-      .dsb 1 ; $FA              ; $07fa
-      .dsb 1 ; $FB              ; $07fb
-      .dsb 1 ; $FC              ; $07fc
-      .dsb 1 ; $FD              ; $07fd
-      .dsb 1 ; $FE              ; $07fe
-      .dsb 1 ; $FF              ; $07ff
+      .dsb $100   ; $0700-$07FF
 
+
+;
+; PPU registers
+; $2000-$2007
+;
 
 PPUCTRL = $2000
-
 PPUMASK = $2001
-
 PPUSTATUS = $2002
-
 OAMADDR = $2003
-
 OAMDATA = $2004
-
 PPUSCROLL = $2005
-
 PPUADDR = $2006
-
 PPUDATA = $2007
+
+;
+; APU registers and joypad registers
+;  $4000-$4015         $4016-$4017
+;
 
 SQ1_VOL = $4000
 SQ1_SWEEP = $4001
@@ -2736,16 +1998,17 @@ OAM_DMA = $4014
 SND_CHN = $4015
 
 JOY1 = $4016
-
 JOY2 = $4017
 
-unk_RAM_4022 = $4022
-
+; Leftover code in prg-e-f references this
+; (otherwise unused, since, well, not FDS)
 FDS_WAVETABLE_VOL = $4080
 
-unk_RAM_4500 = $4500
 
-unk_RAM_4E8B = $4e8b
+;
+; Expansion chip stuff for MMC5 support
+; $5000-$5015
+;
 
 MMC5_PULSE1_VOL = $5000
 MMC5_PULSE1_SWEEP = $5001
@@ -2762,10 +2025,19 @@ MMC5_RAW_PCM = $5011
 
 MMC5_SND_CHN = $5015
 
+
+;
+; Cartridge on-board RAM
+; Decoded level data is stored in memory here,
+; as well as some other junk
+; $6000-$7FFF
+;
+
 DecodedLevelData = $6000
 
 ; collision y data?
 ; byte_BANKF_F099 copied to RAM
+; these various addrs are used(?) around prg-2-3
 unk_RAM_7100 = $7100
 
 byte_RAM_710B = $710b
@@ -2780,6 +2052,7 @@ unk_RAM_7128 = $7128
 unk_RAM_713C = $713c
 
 ; MysteryData14439 copied to RAM
+; Does anything read this???
 unk_RAM_7150 = $7150
 
 PPUBuffer_7168 = $7168
@@ -2834,6 +2107,10 @@ RawJarData = $7a00
 
 RawEnemyDataAddr = $7b00
 
+;
+; Extra enhancement support for 2P debug mode controls
+; Spread around to some 'for rent' addresses
+;
 IFDEF CONTROLLER_2_DEBUG
       UpdateJoypadsTemp = $00c6
       CarryYOffsetsRAM = $7e00
