@@ -1,7 +1,7 @@
 @echo off
 
 echo Assembling...
-tools\asm6f.exe smb2.asm -n -c -L %* bin\smb2.nes > bin\assembler.log 2> bin\assembler-err.log
+tools\asm6f.exe smb2.asm -n -c -L %* bin\smb2.nes > bin\assembler.log
 if %ERRORLEVEL% neq 0 goto buildfail
 move /y smb2.lst bin > nul
 move /y smb2.cdl bin > nul
@@ -18,8 +18,7 @@ certutil -hashfile bin\smb2.nes SHA256 | findstr /V ":"
 goto end
 
 :buildfail
-echo The build seems to have failed somehow.
-echo Check bin/assembler-err.log for details.
+echo The build seems to have failed.
 goto end
 
 :buildsame
