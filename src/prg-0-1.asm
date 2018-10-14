@@ -452,7 +452,7 @@ loc_BANK0_825E:
 loc_BANK0_8268:
 	INC byte_RAM_537
 	LDA #$00
-	STA byte_RAM_53A,X
+	STA byte_RAM_53A, X
 	STA byte_RAM_53D
 	STA byte_RAM_53E
 	RTS
@@ -473,10 +473,10 @@ loc_BANK0_8277:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8287:
-	LDA byte_RAM_D3,X
+	LDA byte_RAM_D3, X
 	SEC
 	SBC #$20
-	STA byte_RAM_D3,X
+	STA byte_RAM_D3, X
 
 locret_BANK0_828E:
 	RTS
@@ -486,10 +486,10 @@ locret_BANK0_828E:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_828F:
-	LDA byte_RAM_D2,X
+	LDA byte_RAM_D2, X
 	CLC
 	ADC #$20
-	STA byte_RAM_D2,X
+	STA byte_RAM_D2, X
 	RTS
 
 ; End of function sub_BANK0_828F
@@ -497,31 +497,31 @@ sub_BANK0_828F:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8297:
-	LDA byte_RAM_CF,X
+	LDA byte_RAM_CF, X
 	SEC
 	SBC #$10
-	STA byte_RAM_CF,X
+	STA byte_RAM_CF, X
 	AND #$F0
 	CMP #$F0
 	BNE locret_BANK0_82BD
 
-	LDA byte_RAM_CF,X
+	LDA byte_RAM_CF, X
 	AND #$0F
 	CLC
 	ADC #$E0
-	STA byte_RAM_CF,X
-	DEC byte_RAM_CF,X
-	LDA byte_RAM_CF,X
+	STA byte_RAM_CF, X
+	DEC byte_RAM_CF, X
+	LDA byte_RAM_CF, X
 	CMP #$0DF
 	BNE loc_BANK0_82B9
 
 loc_BANK0_82B5:
 	LDA #$E9
-	STA byte_RAM_CF,X
+	STA byte_RAM_CF, X
 
 loc_BANK0_82B9:
 	LDA #$A0
-	STA byte_RAM_D3,X
+	STA byte_RAM_D3, X
 
 locret_BANK0_82BD:
 	RTS
@@ -531,28 +531,28 @@ locret_BANK0_82BD:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_82BE:
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	CLC
 	ADC #$10
-	STA byte_RAM_CE,X
+	STA byte_RAM_CE, X
 	AND #$F0
 	CMP #$F0
 	BNE locret_BANK0_82E1
 
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	AND #$0F
-	STA byte_RAM_CE,X
-	INC byte_RAM_CE,X
-	LDA byte_RAM_CE,X
+	STA byte_RAM_CE, X
+	INC byte_RAM_CE, X
+	LDA byte_RAM_CE, X
 	CMP #$0A
 	BNE loc_BANK0_82DD
 
 	LDA #$00
-	STA byte_RAM_CE,X
+	STA byte_RAM_CE, X
 
 loc_BANK0_82DD:
 	LDA #$00
-	STA byte_RAM_D2,X
+	STA byte_RAM_D2, X
 
 locret_BANK0_82E1:
 	RTS
@@ -562,17 +562,17 @@ locret_BANK0_82E1:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_82E2:
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	AND #$0F
 	TAY
-	LDA DecodedLevelPageStartLo_Bank1,Y
+	LDA DecodedLevelPageStartLo_Bank1, Y
 	STA byte_RAM_E9
-	LDA DecodedLevelPageStartHi_Bank1,Y
+	LDA DecodedLevelPageStartHi_Bank1, Y
 	STA byte_RAM_EA
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	AND #$F0
 	STA byte_RAM_D7
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	LSR A
 	BCC loc_BANK0_8300
 
@@ -584,7 +584,7 @@ loc_BANK0_8300:
 
 loc_BANK0_8302:
 	STA byte_RAM_D1
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	AND #$C0
 	ASL A
 	ROL A
@@ -593,7 +593,7 @@ loc_BANK0_8302:
 	STA byte_RAM_D1
 
 loc_BANK0_830F:
-	LDA byte_RAM_D2,X
+	LDA byte_RAM_D2, X
 	STA byte_RAM_D2
 
 locret_BANK0_8313:
@@ -604,15 +604,15 @@ locret_BANK0_8313:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8314:
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	AND #$10
 	BEQ locret_BANK0_8313
 
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	STA byte_RAM_3
 	SEC
 	SBC byte_RAM_1
-	STA byte_RAM_CE,X
+	STA byte_RAM_CE, X
 	JSR sub_BANK0_82E2
 
 loc_BANK0_8326:
@@ -628,7 +628,7 @@ loc_BANK0_832E:
 	BPL loc_BANK0_832E
 
 	LDA byte_RAM_3
-	STA byte_RAM_CE,X
+	STA byte_RAM_CE, X
 	DEC byte_RAM_E4
 	JMP sub_BANK0_82E2
 
@@ -639,13 +639,13 @@ loc_BANK0_832E:
 sub_BANK0_833E:
 	LDX byte_RAM_300
 	LDA byte_RAM_D1
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA byte_RAM_D2
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA #$20
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA #$00
 	STA byte_RAM_D6
@@ -664,19 +664,19 @@ sub_BANK0_833E:
 
 loc_BANK0_836C:
 	LDY byte_RAM_D7
-	LDA (byte_RAM_E9),Y
+	LDA (byte_RAM_E9), Y
 	STA byte_RAM_51B
 	AND #$C0
 	ASL A
 	ROL A
 	ROL A
 	TAY
-	LDA TileQuadPointersLo,Y
+	LDA TileQuadPointersLo, Y
 	STA byte_RAM_0
-	LDA TileQuadPointersHi,Y
+	LDA TileQuadPointersHi, Y
 	STA byte_RAM_1
 	LDY byte_RAM_D7
-	LDA (byte_RAM_E9),Y
+	LDA (byte_RAM_E9), Y
 	ASL A
 	ASL A
 	TAY
@@ -687,8 +687,8 @@ loc_BANK0_836C:
 	INY
 
 loc_BANK0_8390:
-	LDA (byte_RAM_0),Y
-	STA PPUBuffer_301,X
+	LDA (byte_RAM_0), Y
+	STA PPUBuffer_301, X
 	INC byte_RAM_D6
 	INX
 	INY
@@ -708,7 +708,7 @@ loc_BANK0_83A7:
 	BCC loc_BANK0_836C
 
 	LDA #$00
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	STX byte_RAM_300
 	LDA byte_RAM_D5
 	BEQ loc_BANK0_840B
@@ -750,12 +750,12 @@ loc_BANK0_83DE:
 	BCC loc_BANK0_83FA
 
 	INX
-	LDA byte_RAM_CF,X
+	LDA byte_RAM_CF, X
 	AND #$F0
 	CMP #$E0
 	BEQ loc_BANK0_83F4
 
-	LDA byte_RAM_CF,X
+	LDA byte_RAM_CF, X
 	AND #$10
 	BNE loc_BANK0_840B
 
@@ -767,12 +767,12 @@ loc_BANK0_83F4:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_83FA:
-	LDA byte_RAM_CF,X
+	LDA byte_RAM_CF, X
 	AND #$F0
 	CMP #$E0
 	BEQ loc_BANK0_8408
 
-	LDA byte_RAM_CF,X
+	LDA byte_RAM_CF, X
 	AND #$10
 	BEQ loc_BANK0_840B
 
@@ -794,13 +794,13 @@ sub_BANK0_8412:
 	LDY byte_RAM_300
 	LDA byte_RAM_D1
 	ORA #$03
-	STA PPUBuffer_301,Y
+	STA PPUBuffer_301, Y
 	INY
-	LDA byte_RAM_E1,X
-	STA PPUBuffer_301,Y
+	LDA byte_RAM_E1, X
+	STA PPUBuffer_301, Y
 	INY
 	LDA #$08
-	STA PPUBuffer_301,Y
+	STA PPUBuffer_301, Y
 	INY
 	LDX #$07
 
@@ -808,12 +808,12 @@ loc_BANK0_842B:
 	LDA byte_RAM_539
 	BEQ loc_BANK0_843B
 
-	LDA EnemyArray_D9,X
+	LDA EnemyArray_D9, X
 	LSR A
 	LSR A
 	LSR A
 	LSR A
-	STA EnemyArray_D9,X
+	STA EnemyArray_D9, X
 	JMP loc_BANK0_8452
 
 ; ---------------------------------------------------------------------------
@@ -824,13 +824,13 @@ loc_BANK0_843B:
 	BCC loc_BANK0_8452
 
 loc_BANK0_8440:
-	LDA EnemyArray_D9,X
+	LDA EnemyArray_D9, X
 	ASL A
 	ASL A
 	ASL A
 	ASL A
 	STA byte_RAM_1
-	LDA EnemyArray_D9,X
+	LDA EnemyArray_D9, X
 	LSR A
 	LSR A
 	LSR A
@@ -838,11 +838,11 @@ loc_BANK0_8440:
 	ORA byte_RAM_1
 
 loc_BANK0_8450:
-	STA EnemyArray_D9,X
+	STA EnemyArray_D9, X
 
 loc_BANK0_8452:
-	LDA EnemyArray_D9,X
-	STA PPUBuffer_301,Y
+	LDA EnemyArray_D9, X
+	STA PPUBuffer_301, Y
 	INY
 	DEX
 	BPL loc_BANK0_842B
@@ -851,7 +851,7 @@ loc_BANK0_8452:
 	STA byte_RAM_E4
 	LSR A
 	STA byte_RAM_539
-	STA PPUBuffer_301,Y
+	STA PPUBuffer_301, Y
 	STY byte_RAM_300
 	RTS
 
@@ -860,14 +860,14 @@ loc_BANK0_8452:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_846A:
-	LDA byte_RAM_E1,X
+	LDA byte_RAM_E1, X
 	CLC
 	ADC #$08
-	STA byte_RAM_E1,X
+	STA byte_RAM_E1, X
 	BCC locret_BANK0_8477
 
 	LDA #$C0
-	STA byte_RAM_E1,X
+	STA byte_RAM_E1, X
 
 locret_BANK0_8477:
 	RTS
@@ -877,15 +877,15 @@ locret_BANK0_8477:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8478:
-	LDA byte_RAM_E1,X
+	LDA byte_RAM_E1, X
 	SEC
 	SBC #$08
-	STA byte_RAM_E1,X
+	STA byte_RAM_E1, X
 	CMP #$C0
 	BCS locret_BANK0_8487
 
 	LDA #$F8
-	STA byte_RAM_E1,X
+	STA byte_RAM_E1, X
 
 locret_BANK0_8487:
 	RTS
@@ -898,14 +898,14 @@ sub_BANK0_8488:
 	LDA byte_RAM_E3
 	LSR A
 	TAY
-	LDA EnemyArray_D9,Y
+	LDA EnemyArray_D9, Y
 	LSR A
 	LSR A
-	STA EnemyArray_D9,Y
+	STA EnemyArray_D9, Y
 	LDA byte_RAM_51B
 	AND #$C0
-	ORA EnemyArray_D9,Y
-	STA EnemyArray_D9,Y
+	ORA EnemyArray_D9, Y
+	STA EnemyArray_D9, Y
 	DEC byte_RAM_E3
 	RTS
 
@@ -918,7 +918,7 @@ _code_04A2:
 	LDA #$00
 
 loc_BANK0_84A6:
-	STA EnemyArray_D9,X
+	STA EnemyArray_D9, X
 	DEX
 	BNE loc_BANK0_84A6
 
@@ -928,7 +928,7 @@ loc_BANK0_84A6:
 
 sub_BANK0_84AC:
 	LDY byte_RAM_D7
-	LDA (byte_RAM_E9),Y
+	LDA (byte_RAM_E9), Y
 	STA byte_RAM_51B
 	INC byte_RAM_D7
 	JMP sub_BANK0_8488
@@ -1049,7 +1049,7 @@ loc_BANK0_858F:
 	LDA byte_RAM_BA
 	AND #$F0
 	CLC
-	ADC byte_RAM_CE,X
+	ADC byte_RAM_CE, X
 	PHP
 	ADC byte_RAM_B
 	PLP
@@ -1059,7 +1059,7 @@ loc_BANK0_858F:
 
 	BCC loc_BANK0_85C2
 
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	AND #$0F
 	CMP #$09
 	BNE loc_BANK0_85C2
@@ -1073,7 +1073,7 @@ loc_BANK0_858F:
 loc_BANK0_85B1:
 	BCS loc_BANK0_85C2
 
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	AND #$0F
 	BNE loc_BANK0_85C2
 
@@ -1088,7 +1088,7 @@ loc_BANK0_85C2:
 	LDA byte_RAM_C
 
 loc_BANK0_85C4:
-	STA byte_RAM_CE,X
+	STA byte_RAM_CE, X
 	DEX
 	BPL loc_BANK0_858F
 
@@ -1324,7 +1324,7 @@ loc_BANK0_86FC:
 	LDA #$00
 	STA byte_RAM_C9
 	STA byte_RAM_C8
-	LDA byte_BANK0_8709,Y
+	LDA byte_BANK0_8709, Y
 
 loc_BANK0_8705:
 	STA byte_RAM_506
@@ -1474,19 +1474,19 @@ loc_BANK0_87DA:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_87E6:
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	SEC
 	SBC #$10
-	STA byte_RAM_CE,X
+	STA byte_RAM_CE, X
 	BCS locret_BANK0_87FB
 
-	DEC byte_RAM_CE,X
-	LDA byte_RAM_CE,X
+	DEC byte_RAM_CE, X
+	LDA byte_RAM_CE, X
 	CMP #$0EF
 	BNE locret_BANK0_87FB
 
 	LDA #$F9
-	STA byte_RAM_CE,X
+	STA byte_RAM_CE, X
 
 locret_BANK0_87FB:
 	RTS
@@ -1494,19 +1494,19 @@ locret_BANK0_87FB:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_87FC:
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	CLC
 	ADC #$10
-	STA byte_RAM_CE,X
+	STA byte_RAM_CE, X
 	BCC locret_BANK0_8811
 
-	INC byte_RAM_CE,X
-	LDA byte_RAM_CE,X
+	INC byte_RAM_CE, X
+	LDA byte_RAM_CE, X
 	CMP #$0A
 	BNE locret_BANK0_8811
 
 	LDA #$00
-	STA byte_RAM_CE,X
+	STA byte_RAM_CE, X
 
 locret_BANK0_8811:
 	RTS
@@ -1517,14 +1517,14 @@ locret_BANK0_8811:
 
 sub_BANK0_8812:
 	STY byte_RAM_F
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	AND #$0F
 	TAY
-	LDA DecodedLevelPageStartLo_Bank1,Y
+	LDA DecodedLevelPageStartLo_Bank1, Y
 	STA byte_RAM_E9
-	LDA DecodedLevelPageStartHi_Bank1,Y
+	LDA DecodedLevelPageStartHi_Bank1, Y
 	STA byte_RAM_EA
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	LSR A
 	LSR A
 	LSR A
@@ -1533,7 +1533,7 @@ sub_BANK0_8812:
 	ASL A
 	STA byte_RAM_D2
 	LDY #$20
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	LSR A
 	BCS loc_BANK0_8837
 
@@ -1552,11 +1552,11 @@ sub_BANK0_883C:
 	STX byte_RAM_8
 	LDX byte_RAM_9
 	LDY #$02
-	LDA byte_RAM_CE,X
+	LDA byte_RAM_CE, X
 	STA byte_RAM_3
 	SEC
 	SBC byte_RAM_1
-	STA byte_RAM_CE,X
+	STA byte_RAM_CE, X
 	JSR sub_BANK0_8812
 
 	LDA #$07
@@ -1596,21 +1596,21 @@ sub_BANK0_8872:
 
 loc_BANK0_887D:
 	LDY byte_RAM_D7
-	LDA (byte_RAM_E9),Y
+	LDA (byte_RAM_E9), Y
 	STA byte_RAM_51B
 	AND #$C0
 	ASL A
 	ROL A
 	ROL A
 	TAY
-	LDA TileQuadPointersLo,Y
+	LDA TileQuadPointersLo, Y
 	STA byte_RAM_0
-	LDA TileQuadPointersHi,Y
+	LDA TileQuadPointersHi, Y
 	STA byte_RAM_1
 
 loc_BANK0_8894:
 	LDY byte_RAM_D7
-	LDA (byte_RAM_E9),Y
+	LDA (byte_RAM_E9), Y
 	ASL A
 	ASL A
 	TAY
@@ -1620,17 +1620,17 @@ loc_BANK0_8894:
 	INY
 
 loc_BANK0_88A0:
-	LDA (byte_RAM_0),Y
-	STA unk_RAM_380,X
+	LDA (byte_RAM_0), Y
+	STA unk_RAM_380, X
 	INY
-	LDA (byte_RAM_0),Y
-	STA unk_RAM_39E,X
+	LDA (byte_RAM_0), Y
+	STA unk_RAM_39E, X
 	INY
-	LDA (byte_RAM_0),Y
-	STA unk_RAM_381,X
+	LDA (byte_RAM_0), Y
+	STA unk_RAM_381, X
 	INY
-	LDA (byte_RAM_0),Y
-	STA unk_RAM_39F,X
+	LDA (byte_RAM_0), Y
+	STA unk_RAM_39F, X
 	INC byte_RAM_D6
 	INX
 	INX
@@ -1696,15 +1696,15 @@ sub_BANK0_8901:
 
 loc_BANK0_890A:
 	LDX byte_RAM_E
-	LDA EnemyArray_D9,X
-	STA unk_RAM_3BE,Y
+	LDA EnemyArray_D9, X
+	STA unk_RAM_3BE, Y
 	INY
 	DEX
 	DEX
 	DEX
 	DEX
-	LDA EnemyArray_D9,X
-	STA unk_RAM_3BE,Y
+	LDA EnemyArray_D9, X
+	STA unk_RAM_3BE, Y
 	INY
 	DEC byte_RAM_E
 	LDA byte_RAM_E
@@ -1725,23 +1725,23 @@ sub_BANK0_8925:
 	LDX byte_RAM_E3
 
 loc_BANK0_892F:
-	LDA EnemyArray_D9,X
+	LDA EnemyArray_D9, X
 	LSR A
 	LSR A
-	STA EnemyArray_D9,X
-	LDA (byte_RAM_E9),Y
+	STA EnemyArray_D9, X
+	LDA (byte_RAM_E9), Y
 	AND #$C0
-	ORA EnemyArray_D9,X
-	STA EnemyArray_D9,X
+	ORA EnemyArray_D9, X
+	STA EnemyArray_D9, X
 	INY
-	LDA EnemyArray_D9,X
+	LDA EnemyArray_D9, X
 	LSR A
 	LSR A
-	STA EnemyArray_D9,X
-	LDA (byte_RAM_E9),Y
+	STA EnemyArray_D9, X
+	LDA (byte_RAM_E9), Y
 	AND #$C0
-	ORA EnemyArray_D9,X
-	STA EnemyArray_D9,X
+	ORA EnemyArray_D9, X
+	STA EnemyArray_D9, X
 	LDA byte_RAM_D7
 	CLC
 	ADC #$10
@@ -1761,7 +1761,7 @@ SetObjectLocks:
 	LDX #$07
 
 SetObjectLocks_Loop:
-	STA ObjectLock-1,X
+	STA ObjectLock - 1, X
 	DEX
 	BPL SetObjectLocks_Loop
 
@@ -1797,7 +1797,7 @@ ENDIF
 	BEQ loc_BANK0_8A26
 
 	LDY PlayerCurrentSize
-	LDA GrowShrinkSFXIndexes,Y
+	LDA GrowShrinkSFXIndexes, Y
 	STA SoundEffectQueue2
 	LDA #$1E
 	STA PlayerStateTimer
@@ -1901,7 +1901,7 @@ HandlePlayerState_Lifting:
 	BNE locret_BANK0_8AC1
 
 	LDX ObjectBeingCarriedIndex
-	LDY ObjectBeingCarriedTimer,X
+	LDY ObjectBeingCarriedTimer, X
 	CPY #$02
 	BCC loc_BANK0_8ABB
 
@@ -1912,23 +1912,23 @@ HandlePlayerState_Lifting:
 	STA DPCMQueue
 
 loc_BANK0_8A9D:
-	DEC ObjectBeingCarriedTimer,X
-	LDA PlayerLiftFrames,Y
+	DEC ObjectBeingCarriedTimer, X
+	LDA PlayerLiftFrames, Y
 	STA PlayerAnimationFrame
-	LDA EnemyState,X
+	LDA EnemyState, X
 	CMP #$06
 	BEQ loc_BANK0_8AB0
 
-	LDA ObjectType,X
+	LDA ObjectType, X
 	CMP #Enemy_VegetableSmall
 	BNE loc_BANK0_8AB5
 
 loc_BANK0_8AB0:
-	LDA PlayerLiftTimer-2,Y
+	LDA PlayerLiftTimer - 2, Y
 	BPL loc_BANK0_8AB8
 
 loc_BANK0_8AB5:
-	LDA PickupSpeedAnimation-2,Y
+	LDA PickupSpeedAnimation - 2, Y
 
 loc_BANK0_8AB8:
 	STA PlayerStateTimer
@@ -1971,7 +1971,7 @@ byte_BANK0_8ACE:
 
 HandlePlayerState_Climbing:
 	LDA Player1JoypadHeld
-	AND #ControllerInput_Down|ControllerInput_Up
+	AND #ControllerInput_Down | ControllerInput_Up
 	LSR A
 	LSR A
 	TAY
@@ -1981,12 +1981,12 @@ HandlePlayerState_Climbing:
 	JSR PlayerClimbAnimation
 
 loc_BANK0_8ADF:
-	LDA ClimbSpeed,Y
+	LDA ClimbSpeed, Y
 	STA PlayerYVelocity
 	LDA Player1JoypadHeld
-	AND #ControllerInput_Right|ControllerInput_Left
+	AND #ControllerInput_Right | ControllerInput_Left
 	TAY
-	LDA byte_BANK0_8ACE,Y
+	LDA byte_BANK0_8ACE, Y
 	STA PlayerXVelocity
 	LDA PlayerXLo
 	CLC
@@ -2072,7 +2072,7 @@ PlayerTileCollision_CheckClimbable:
 	LDY #$09
 
 PlayerTileCollision_CheckClimbable_Loop:
-	CMP ClimbableTiles,Y
+	CMP ClimbableTiles, Y
 	BEQ PlayerTileCollision_CheckClimbable_Exit
 
 	DEY
@@ -2156,11 +2156,11 @@ HandlePlayerState_ClimbingAreaTransition:
 	AND #$01
 	TAY
 	LDA PlayerScreenYHi
-	CMP byte_BANK0_8B87,Y
+	CMP byte_BANK0_8B87, Y
 	BNE loc_BANK0_8BB0
 
 	LDA PlayerScreenYLo
-	CMP byte_BANK0_8B89,Y
+	CMP byte_BANK0_8B89, Y
 	BNE loc_BANK0_8BB0
 
 	JSR DoAreaReset
@@ -2177,7 +2177,7 @@ loc_BANK0_8BB0:
 	BNE loc_BANK0_8BBD
 
 	LDA PlayerScreenYLo
-	CMP byte_BANK0_8B8B,Y
+	CMP byte_BANK0_8B8B, Y
 	BEQ loc_BANK0_8BC6
 
 loc_BANK0_8BBD:
@@ -2252,7 +2252,7 @@ HandlePlayerState_ChangingSize:
 
 	LDY #$04
 HandlePlayerState_ChangingSize_Loop:
-	CMP ChangingSizeKeyframes,Y
+	CMP ChangingSizeKeyframes, Y
 	BNE HandlePlayerState_ChangingSize_Next
 
 	LDA PlayerCurrentSize
@@ -2348,7 +2348,7 @@ ResetPartialCrouchJumpTimer: ; reset crouch jump timer if it isn't full
 
 loc_BANK0_8C6F:
 	LDA Player1JoypadHeld
-	AND #ControllerInput_Right|ControllerInput_Left
+	AND #ControllerInput_Right | ControllerInput_Left
 	BEQ loc_BANK0_8C92
 
 	AND #$01
@@ -2362,7 +2362,7 @@ loc_BANK0_8C6F:
 
 	LDA PlayerXVelocity
 	CLC
-	ADC PlayerControlAcceleration,Y
+	ADC PlayerControlAcceleration, Y
 	STA PlayerXVelocity
 
 ResetCrouchJumpTimer:
@@ -2436,7 +2436,7 @@ PlayerStartJump_SetYVelocity:
 	ASL A
 	ORA HoldingItem
 	TAY
-	LDA JumpHeightStanding,Y
+	LDA JumpHeightStanding, Y
 	STA PlayerYVelocity
 
 	LDA JumpFloatLength
@@ -2483,7 +2483,7 @@ loc_BANK0_8CE5:
 	LSR A
 	AND #$03
 	TAY
-	LDA FloatingYVelocity,Y
+	LDA FloatingYVelocity, Y
 	STA PlayerYVelocity
 	RTS
 
@@ -2538,9 +2538,9 @@ sub_BANK0_8D2C:
 	ROL A
 	TAY
 	LDA PlayerXVelocity
-	ADC PlayerXDeceleration,Y
+	ADC PlayerXDeceleration, Y
 	TAX
-	EOR PlayerControlAcceleration,Y
+	EOR PlayerControlAcceleration, Y
 	BMI loc_BANK0_8D4B
 
 	LDX #$00
@@ -2630,7 +2630,7 @@ PlayerWalkFrameDuration:
 	LSR A
 	LSR A
 	TAY
-	LDA PlayerWalkFrameDurations,Y
+	LDA PlayerWalkFrameDurations, Y
 
 NextPlayerWalkFrame:
 	STA PlayerWalkFrameCounter ; hold frame for duration specified in accumulator
@@ -2642,7 +2642,7 @@ NextPlayerWalkFrame:
 
 UpdatePlayerAnimationFrame:
 	LDY PlayerWalkFrame
-	LDA PlayerWalkFrames,Y
+	LDA PlayerWalkFrames, Y
 	STA PlayerAnimationFrame
 
 ExitPlayerWalkJumpAnim:
@@ -2684,7 +2684,7 @@ sub_BANK0_8DC0:
 	BEQ loc_BANK0_8DDF
 
 	LDX ObjectBeingCarriedIndex
-	LDA ObjectType,X
+	LDA ObjectType, X
 	CMP #Enemy_VegetableSmall
 	BCC loc_BANK0_8DE0
 
@@ -2698,13 +2698,13 @@ loc_BANK0_8DDF:
 	DEY
 
 loc_BANK0_8DE0:
-	LDA RunSpeedRight,Y
+	LDA RunSpeedRight, Y
 	BIT Player1JoypadHeld
 	BVC loc_BANK0_8DEC
 
 	LSR A
 	CLC
-	ADC RunSpeedRight,Y
+	ADC RunSpeedRight, Y
 
 loc_BANK0_8DEC:
 	CMP PlayerXVelocity
@@ -2713,14 +2713,14 @@ loc_BANK0_8DEC:
 	STA PlayerXVelocity
 
 loc_BANK0_8DF2:
-	LDA RunSpeedLeft,Y
+	LDA RunSpeedLeft, Y
 	BIT Player1JoypadHeld
 	BVC loc_BANK0_8DFF
 
 	SEC
 	ROR A
 	CLC
-	ADC RunSpeedLeft,Y
+	ADC RunSpeedLeft, Y
 
 loc_BANK0_8DFF:
 	CMP PlayerXVelocity
@@ -2737,11 +2737,11 @@ loc_BANK0_8E05:
 
 	LDY #$00
 	LDX ObjectBeingCarriedIndex
-	LDA EnemyState,X
+	LDA EnemyState, X
 	CMP #EnemyState_Sand
 	BEQ locret_BANK0_8E41
 
-	LDA ObjectType,X
+	LDA ObjectType, X
 	CMP #Enemy_MushroomBlock
 	BCC loc_BANK0_8E22
 
@@ -2760,7 +2760,7 @@ loc_BANK0_8E28:
 	ASL A
 	ORA PlayerDucking
 	TAX
-	LDY byte_BANKF_F006,X
+	LDY byte_BANKF_F006, X
 	LDX #$00
 	JSR sub_BANK0_924F
 
@@ -2792,7 +2792,7 @@ loc_BANK0_8E42:
 	STA byte_RAM_1
 	LDX ObjectBeingCarriedIndex
 	LDA #Enemy_Coin
-	CMP ObjectType,X
+	CMP ObjectType, X
 	ROL byte_RAM_1
 	LDA PlayerXVelocity
 	BPL loc_BANK0_8E6F
@@ -2807,34 +2807,34 @@ loc_BANK0_8E6F:
 	BNE loc_BANK0_8E89
 
 	LDY PlayerDirection
-	LDA SoftThrowOffset,Y
+	LDA SoftThrowOffset, Y
 	CLC
-	ADC ObjectXLo,X
-	STA ObjectXLo,X
+	ADC ObjectXLo, X
+	STA ObjectXLo, X
 	LDA IsHorizontalLevel
 	BEQ loc_BANK0_8E89
 
 	DEY
 	TYA
-	ADC ObjectXHi,X
+	ADC ObjectXHi, X
 
 loc_BANK0_8E87:
-	STA ObjectXHi,X
+	STA ObjectXHi, X
 
 loc_BANK0_8E89:
 	LDY byte_RAM_1
-	LDA ThrowYVelocity,Y
-	STA ObjectYVelocity,X
+	LDA ThrowYVelocity, Y
+	STA ObjectYVelocity, X
 	LDA byte_RAM_1
 	ASL A
 	ORA PlayerDirection
 	TAY
-	LDA ThrowXVelocity,Y
-	STA ObjectXVelocity,X
+	LDA ThrowXVelocity, Y
+	STA ObjectXVelocity, X
 	LDA #$01
-	STA EnemyArray_42F,X
+	STA EnemyArray_42F, X
 	LSR A
-	STA ObjectBeingCarriedTimer,X
+	STA ObjectBeingCarriedTimer, X
 	RTS
 
 
@@ -2852,9 +2852,9 @@ ApplyPlayerPhysicsY:
 ;
 ApplyPlayerPhysics:
 	; Add acceleration to velocity
-	LDA PlayerXVelocity,X
+	LDA PlayerXVelocity, X
 	CLC
-	ADC PlayerXAcceleration,X
+	ADC PlayerXAcceleration, X
 	PHP
 	BPL loc_BANK0_8EB4
 
@@ -2879,8 +2879,8 @@ loc_BANK0_8EB4:
 	ASL A
 	CLC
 
-	ADC PlayerXSubpixel,X
-	STA PlayerXSubpixel,X
+	ADC PlayerXSubpixel, X
+	STA PlayerXSubpixel, X
 
 	TYA
 	ADC #$00
@@ -2900,13 +2900,13 @@ loc_BANK0_8ED1:
 
 loc_BANK0_8ED8:
 	CLC
-	ADC PlayerXLo,X
-	STA PlayerXLo,X
+	ADC PlayerXLo, X
+	STA PlayerXLo, X
 	TYA
-	ADC PlayerXHi,X
-	STA PlayerXHi,X
+	ADC PlayerXHi, X
+	STA PlayerXHi, X
 	LDA #$00
-	STA PlayerXAcceleration,X
+	STA PlayerXAcceleration, X
 	RTS
 
 
@@ -2970,7 +2970,7 @@ PlayerTileCollision:
 	TAX
 
 	; Look up the bounding box for collision detection
-	LDA byte_BANKF_F000,X
+	LDA byte_BANKF_F000, X
 	STA byte_RAM_8
 
 	; Determine whether the player is going up
@@ -3032,7 +3032,7 @@ PlayerTileCollision_CheckConveyorTile:
 	BCC PlayerTileCollision_CheckSlipperyTile
 
 	LDX byte_RAM_A
-	LDA ConveyorSpeedTable,X
+	LDA ConveyorSpeedTable, X
 	STA PlayerXAcceleration
 
 PlayerTileCollision_CheckSlipperyTile:
@@ -3075,7 +3075,7 @@ loc_BANK0_8FA3:
 	JSR sub_BANK0_8FB2
 
 	LDA PlayerCollision
-	AND #CollisionFlags_Right|CollisionFlags_Left
+	AND #CollisionFlags_Right | CollisionFlags_Left
 	BEQ PlayerTileCollision_Exit
 
 	JMP PlayerHorizontalCollision_Bank0
@@ -3102,7 +3102,7 @@ loc_BANK0_8FB5:
 	JSR sub_BANK0_924F
 
 	LDX byte_RAM_7
-	LDY JumpthroughTileCollisionTable,X
+	LDY JumpthroughTileCollisionTable, X
 	LDA byte_RAM_0
 	JSR sub_BANK0_9053
 
@@ -3112,7 +3112,7 @@ loc_BANK0_8FB5:
 	BNE loc_BANK0_8FD3
 
 	; Spikes behavior
-	LDA InteractiveTileCollisionTable,X
+	LDA InteractiveTileCollisionTable, X
 	STA byte_RAM_E
 	BNE loc_BANK0_8FEB
 
@@ -3121,7 +3121,7 @@ loc_BANK0_8FD3:
 	BNE loc_BANK0_8FDE
 
 	; Ice behavior
-	LDA InteractiveTileCollisionTable,X
+	LDA InteractiveTileCollisionTable, X
 	STA byte_RAM_C
 	BNE loc_BANK0_8FEB
 
@@ -3133,11 +3133,11 @@ loc_BANK0_8FDE:
 
 	; Conveyor behavior
 	ASL A
-	ORA InteractiveTileCollisionTable,X
+	ORA InteractiveTileCollisionTable, X
 	STA byte_RAM_A
 
 loc_BANK0_8FEB:
-	LDA CollisionFlagTableThing,X
+	LDA CollisionFlagTableThing, X
 	ORA PlayerCollision
 	STA PlayerCollision
 
@@ -3200,7 +3200,7 @@ PlayerTileCollision_Cherry:
 
 PlayerTileCollision_Climbable:
 	LDA Player1JoypadHeld
-	AND #ControllerInput_Down|ControllerInput_Up
+	AND #ControllerInput_Down | ControllerInput_Up
 	BEQ PlayerTileCollision_Climbable_Exit
 
 	LDY HoldingItem
@@ -3246,10 +3246,10 @@ sub_BANK0_9053:
 	ASL A
 	ROL A
 	ROL A
-	ADC TileGroupTable,Y
+	ADC TileGroupTable, Y
 	TAY
 	PLA
-	CMP TileSolidnessTable,Y
+	CMP TileSolidnessTable, Y
 	RTS
 
 
@@ -3285,7 +3285,7 @@ loc_BANK0_9074:
 	LDX #$06
 
 loc_BANK0_9076:
-	LDA EnemyState,X
+	LDA EnemyState, X
 	BEQ loc_BANK0_9080
 
 	INX
@@ -3297,19 +3297,19 @@ loc_BANK0_9076:
 ; create the sprite for the item being picked up
 loc_BANK0_9080:
 	LDA byte_RAM_0
-	STA EnemyVariable,X
+	STA EnemyVariable, X
 	LDA byte_RAM_3
-	STA ObjectXHi,X
+	STA ObjectXHi, X
 	LDA byte_RAM_4
-	STA ObjectYHi,X
+	STA ObjectYHi, X
 	LDA byte_RAM_5
-	STA ObjectXLo,X
+	STA ObjectXLo, X
 	LDA byte_RAM_6
-	STA ObjectYLo,X
+	STA ObjectYLo, X
 	LDA #$00
-	STA EnemyArray_42F,X
-	STA ObjectAnimationTimer,X
-	STA EnemyArray_B1,X
+	STA EnemyArray_42F, X
+	STA ObjectAnimationTimer, X
+	STA EnemyArray_B1, X
 	JSR UnlinkEnemyFromRawData_Bank1
 
 	LDA #EnemyState_Alive
@@ -3318,13 +3318,13 @@ loc_BANK0_9080:
 	BNE loc_BANK0_90AE
 
 	LDA #$20
-	STA EnemyTimer,X
+	STA EnemyTimer, X
 	LDA #EnemyState_Sand
 
 loc_BANK0_90AE:
-	STA EnemyState,X
-	LDA PickUpToEnemyTypeTable,Y ; What sprite is spawned for you when lifting a bg object
-	STA ObjectType,X
+	STA EnemyState, X
+	LDA PickUpToEnemyTypeTable, Y ; What sprite is spawned for you when lifting a bg object
+	STA ObjectType, X
 
 	LDY #$0FF ; regular bomb fuse
 	CMP #Enemy_Bomb
@@ -3336,7 +3336,7 @@ loc_BANK0_90AE:
 	LDY #$50 ; BobOmb fuse
 
 loc_BANK0_90C1:
-	STY EnemyTimer,X
+	STY EnemyTimer, X
 	BNE loc_BANK0_90EA
 
 loc_BANK0_90C5:
@@ -3347,7 +3347,7 @@ loc_BANK0_90C5:
 	BEQ loc_BANK0_90EA
 
 	LDA #Enemy_VegetableSmall
-	STA ObjectType,X
+	STA ObjectType, X
 
 	JMP loc_BANK0_90EA
 
@@ -3361,7 +3361,7 @@ loc_BANK0_90D5:
 	BCC loc_BANK0_90E7
 
 	LDA #Enemy_Stopwatch
-	STA ObjectType,X
+	STA ObjectType, X
 	LDY #$00
 
 loc_BANK0_90E7:
@@ -3371,12 +3371,12 @@ loc_BANK0_90EA:
 	JSR loc_BANK1_B9EB
 
 	LDA #CollisionFlags_Down
-	STA EnemyCollision,X
+	STA EnemyCollision, X
 	LDA #BackgroundTile_Sky
 	JSR ReplaceTile_Bank0
 
 	LDA #$07
-	STA ObjectBeingCarriedTimer,X
+	STA ObjectBeingCarriedTimer, X
 	STX ObjectBeingCarriedIndex
 	LDA #PlayerState_Lifting
 	STA PlayerState
@@ -3517,12 +3517,12 @@ loc_BANK0_917C:
 	JSR SetTileOffsetAndAreaPageAddr_Bank1
 
 	LDY byte_RAM_E7
-	LDA (byte_RAM_1),Y
+	LDA (byte_RAM_1), Y
 	LDX HoldingItem
 	BEQ loc_BANK0_91AE
 
 	LDX ObjectBeingCarriedIndex
-	LDY ObjectType,X
+	LDY ObjectType, X
 	CPY #Enemy_Key
 	BNE locret_BANK0_91CE
 
@@ -3535,7 +3535,7 @@ loc_BANK0_91AE:
 
 ; check to see if the tile matches one of the door tiles
 loc_BANK0_91B7:
-	CMP DoorTiles,Y
+	CMP DoorTiles, Y
 	BEQ loc_BANK0_91EB
 
 	DEY
@@ -3644,7 +3644,7 @@ DoorHandling_LockedDoor:
 
 	; and make sure you have a key
 	LDY ObjectBeingCarriedIndex
-	LDA ObjectType,Y
+	LDA ObjectType, Y
 	CMP #Enemy_Key
 	BNE DoorHandling_Exit
 
@@ -3685,14 +3685,14 @@ sub_BANK0_924F:
 	LDA #$00
 	STA byte_RAM_0
 	STA byte_RAM_1
-	LDA byte_BANKF_F011,Y
+	LDA byte_BANKF_F011, Y
 	BPL loc_BANK0_925E
 
 	DEC byte_RAM_0
 
 loc_BANK0_925E:
 	CLC
-	ADC PlayerXLo,X
+	ADC PlayerXLo, X
 	AND #$F0
 	STA byte_RAM_5
 	PHP
@@ -3702,7 +3702,7 @@ loc_BANK0_925E:
 	LSR A
 	STA byte_RAM_E5
 	PLP
-	LDA PlayerXHi,X
+	LDA PlayerXHi, X
 	ADC byte_RAM_0
 	STA byte_RAM_2
 	STA byte_RAM_3
@@ -3715,7 +3715,7 @@ loc_BANK0_9277:
 	STA byte_RAM_3
 
 loc_BANK0_927D:
-	LDA byte_BANKF_F055,Y
+	LDA byte_BANKF_F055, Y
 	BPL loc_BANK0_9284
 
 	DEC byte_RAM_1
@@ -3724,11 +3724,11 @@ loc_BANK0_9284:
 	CLC
 
 loc_BANK0_9285:
-	ADC PlayerYLo,X
+	ADC PlayerYLo, X
 	AND #$F0
 	STA byte_RAM_6
 	STA byte_RAM_E6
-	LDA PlayerYHi,X
+	LDA PlayerYHi, X
 	ADC byte_RAM_1
 	STA byte_RAM_1
 	STA byte_RAM_4
@@ -3743,7 +3743,7 @@ loc_BANK0_929E:
 	JSR SetTileOffsetAndAreaPageAddr_Bank1
 
 	LDY byte_RAM_E7
-	LDA (byte_RAM_1),Y
+	LDA (byte_RAM_1), Y
 
 loc_BANK0_92A5:
 	STA byte_RAM_0
@@ -3793,14 +3793,14 @@ sub_BANK0_92C1:
 	STY byte_RAM_1
 	STA byte_RAM_E6
 	LDY IsHorizontalLevel
-	LDA byte_RAM_1,Y
+	LDA byte_RAM_1, Y
 	STA byte_RAM_E8
 	LDA byte_RAM_2
-	CMP byte_BANK0_92E0+1,Y
+	CMP byte_BANK0_92E0 + 1, Y
 	BCS locret_BANK0_92DF
 
 	LDA byte_RAM_1
-	CMP byte_BANK0_92E0,Y
+	CMP byte_BANK0_92E0, Y
 
 locret_BANK0_92DF:
 	RTS
@@ -3892,7 +3892,7 @@ PlayerAreaBoundaryCollision_CheckRight:
 
 PlayerAreaBoundaryCollision_BoundaryHit:
 	LDA PlayerCollision
-	ORA PlayerCollisionDirectionTable-1,Y
+	ORA PlayerCollisionDirectionTable - 1, Y
 	STA PlayerCollision
 
 ;
@@ -3902,14 +3902,14 @@ PlayerHorizontalCollision_Bank0:
 	LDX #$00
 	LDY PlayerMovementDirection
 	LDA PlayerXVelocity
-	EOR PlayerCollisionResultTable_Bank0-1,Y
+	EOR PlayerCollisionResultTable_Bank0 - 1, Y
 	BPL loc_BANK0_9340
 
 	STX PlayerXVelocity
 
 loc_BANK0_9340:
 	LDA PlayerXAcceleration
-	EOR PlayerCollisionResultTable_Bank0-1,Y
+	EOR PlayerCollisionResultTable_Bank0 - 1, Y
 	BPL loc_BANK0_934B
 
 	STX PlayerXAcceleration
@@ -3934,7 +3934,7 @@ locret_BANK0_934E:
 ;
 ReplaceTile_Bank0:
 	PHA ; Something to update the PPU for some tile change
-	LDA ObjectXLo,X
+	LDA ObjectXLo, X
 	CLC
 	ADC #$08
 	PHP
@@ -3944,7 +3944,7 @@ ReplaceTile_Bank0:
 	LSR A
 	STA byte_RAM_E5
 	PLP
-	LDA ObjectXHi,X
+	LDA ObjectXHi, X
 	LDY IsHorizontalLevel
 	BEQ ReplaceTile_StoreXHi_Bank0
 
@@ -3952,12 +3952,12 @@ ReplaceTile_Bank0:
 
 ReplaceTile_StoreXHi_Bank0:
 	STA byte_RAM_2
-	LDA ObjectYLo,X
+	LDA ObjectYLo, X
 	CLC
 	ADC #$08
 	AND #$F0
 	STA byte_RAM_E6
-	LDA ObjectYHi,X
+	LDA ObjectYHi, X
 	ADC #$00
 	STA byte_RAM_1
 	JSR sub_BANK0_92C1
@@ -3976,27 +3976,27 @@ loc_BANK0_937C:
 
 	PLA
 	LDY byte_RAM_E7
-	STA (byte_RAM_1),Y
+	STA (byte_RAM_1), Y
 	PHA
 	LDX byte_RAM_300
 	LDA #$00
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	TYA
 	AND #$F0
 	ASL A
-	ROL PPUBuffer_301,X
+	ROL PPUBuffer_301, X
 	ASL A
-	ROL PPUBuffer_301,X
-	STA PPUBuffer_301+1,X
+	ROL PPUBuffer_301, X
+	STA PPUBuffer_301 + 1, X
 	TYA
 	AND #$0F
 	ASL A
 
-	ADC PPUBuffer_301+1,X
-	STA PPUBuffer_301+1,X
+	ADC PPUBuffer_301 + 1, X
+	STA PPUBuffer_301 + 1, X
 	CLC
 	ADC #$20
-	STA PPUBuffer_301+6,X
+	STA PPUBuffer_301 + 6, X
 	LDA IsHorizontalLevel
 	ASL A
 	TAY
@@ -4007,14 +4007,14 @@ loc_BANK0_937C:
 	INY
 
 loc_BANK0_93B9:
-	LDA byte_BANK0_940A,Y
+	LDA byte_BANK0_940A, Y
 	CLC
-	ADC PPUBuffer_301,X
-	STA PPUBuffer_301,X
-	STA PPUBuffer_301+5,X
+	ADC PPUBuffer_301, X
+	STA PPUBuffer_301, X
+	STA PPUBuffer_301 + 5, X
 	LDA #$02
-	STA PPUBuffer_301+2,X
-	STA PPUBuffer_301+7,X
+	STA PPUBuffer_301 + 2, X
+	STA PPUBuffer_301 + 7, X
 	PLA
 	PHA
 	AND #$C0
@@ -4022,27 +4022,27 @@ loc_BANK0_93B9:
 	ROL A
 	ROL A
 	TAY
-	LDA TileQuadPointersLo,Y
+	LDA TileQuadPointersLo, Y
 	STA byte_RAM_0
-	LDA TileQuadPointersHi,Y
+	LDA TileQuadPointersHi, Y
 	STA byte_RAM_1
 	PLA
 	ASL A
 	ASL A
 	TAY
-	LDA (byte_RAM_0),Y
-	STA PPUBuffer_301+3,X
+	LDA (byte_RAM_0), Y
+	STA PPUBuffer_301 + 3, X
 	INY
-	LDA (byte_RAM_0),Y
-	STA PPUBuffer_301+4,X
+	LDA (byte_RAM_0), Y
+	STA PPUBuffer_301 + 4, X
 	INY
-	LDA (byte_RAM_0),Y
-	STA PPUBuffer_301+8,X
+	LDA (byte_RAM_0), Y
+	STA PPUBuffer_301 + 8, X
 	INY
-	LDA (byte_RAM_0),Y
-	STA PPUBuffer_301+9,X
+	LDA (byte_RAM_0), Y
+	STA PPUBuffer_301 + 9, X
 	LDA #$00
-	STA PPUBuffer_301+10,X
+	STA PPUBuffer_301 + 10, X
 	TXA
 	CLC
 	ADC #$0A
@@ -4223,7 +4223,7 @@ loc_BANK0_94F8:
 	JSR SetTileOffsetAndAreaPageAddr_Bank1
 
 	LDY byte_RAM_E7
-	LDA (byte_RAM_1),Y
+	LDA (byte_RAM_1), Y
 	CMP #$40
 	BEQ AreaTransitionPlacement_MovePlayerUp1Tile
 
@@ -4285,12 +4285,12 @@ AreaTransitionPlacement_Door_Loop:
 
 	; Read the target tile
 	LDY byte_RAM_E7
-	LDA (byte_RAM_1),Y
+	LDA (byte_RAM_1), Y
 	LDY #$05
 
 AreaTransitionPlacement_Door_InnerLoop:
 	; See if it matches any door tile
-	CMP DoorTiles-1,Y
+	CMP DoorTiles - 1, Y
 	BEQ AreaTransitionPlacement_Door_Exit
 	DEY
 	BNE AreaTransitionPlacement_Door_InnerLoop
@@ -4340,12 +4340,12 @@ AreaTransitionPlacement_DoorCustom:
 AreaTransitionPlacement_DoorCustom_Loop:
 	; Read the target tile
 	LDY byte_RAM_E7
-	LDA (byte_RAM_1),Y
+	LDA (byte_RAM_1), Y
 	LDY #$05
 
 AreaTransitionPlacement_DoorCustom_InnerLoop:
 	; See if it matches any door tile
-	CMP DoorTiles-1,Y
+	CMP DoorTiles - 1, Y
 	BEQ AreaTransitionPlacement_DoorCustom_Exit
 	DEY
 	BNE AreaTransitionPlacement_DoorCustom_InnerLoop
@@ -4458,12 +4458,12 @@ AreaTransitionPlacement_ClimbingCustom_AfterNudge:
 	STA byte_RAM_E8
 	JSR SetTileOffsetAndAreaPageAddr_Bank1
 	LDY byte_RAM_E7
-	LDA (byte_RAM_1),Y
+	LDA (byte_RAM_1), Y
 
 	; Check if the target tile is climbable
 	LDY #$09
 AreaTransitionPlacement_ClimbingCustom_CheckLoop:
-	CMP ClimbableTiles,Y
+	CMP ClimbableTiles, Y
 	BEQ AreaTransitionPlacement_ClimbingCustom_Exit
 	DEY
 	BPL AreaTransitionPlacement_ClimbingCustom_CheckLoop
@@ -4482,11 +4482,11 @@ AreaTransitionPlacement_ClimbingCustom_CheckLoop:
 AreaTransitionPlacement_ClimbingCustom_Loop:
 	; Read the target tile
 	LDY byte_RAM_E7
-	LDA (byte_RAM_1),Y
+	LDA (byte_RAM_1), Y
 	LDY #$09
 
 AreaTransitionPlacement_ClimbingCustom_InnerLoop:
-	CMP ClimbableTiles,Y
+	CMP ClimbableTiles, Y
 	BEQ AreaTransitionPlacement_ClimbingCustom_SetXPosition
 	DEY
 	BPL AreaTransitionPlacement_ClimbingCustom_InnerLoop
@@ -4583,7 +4583,7 @@ TitleScreenPPUDataPointers:
 ; =============== S U B R O U T I N E =======================================
 
 WaitForNMI_TitleScreen_TurnOnPPU:
-	LDA #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
+	LDA #PPUMask_ShowLeft8Pixels_BG | PPUMask_ShowLeft8Pixels_SPR | PPUMask_ShowBackground | PPUMask_ShowSprites
 	STA PPUMaskMirror
 
 ; End of function WaitForNMI_TitleScreen_TurnOnPPU
@@ -4594,10 +4594,10 @@ WaitForNMI_TitleScreen:
 	LDA ScreenUpdateIndex
 	ASL A
 	TAX
-	LDA TitleScreenPPUDataPointers,X
+	LDA TitleScreenPPUDataPointers, X
 	STA RAM_PPUDataBufferPointer
-	LDA TitleScreenPPUDataPointers+1,X
-	STA RAM_PPUDataBufferPointer+1
+	LDA TitleScreenPPUDataPointers + 1, X
+	STA RAM_PPUDataBufferPointer + 1
 	LDA #$00
 	STA NMIWaitFlag
 
@@ -4872,7 +4872,7 @@ TitleScreen:
 	TYA
 
 InitMemoryLoop:
-	STA (byte_RAM_0),Y ; I'm not sure if a different method of initializing memory
+	STA (byte_RAM_0), Y ; I'm not sure if a different method of initializing memory
 ; would work better in this case.
 	DEY
 	BNE InitMemoryLoop
@@ -4891,7 +4891,7 @@ InitMemoryLoop2:
 	; Notably, this leaves the stack area $0100-$01FF uninitialized.
 	; This is not super important, but you might want to do it yourself to
 	; track stack corruption or whatever.
-	STA byte_RAM_0,Y
+	STA byte_RAM_0, Y
 	INY
 	BNE InitMemoryLoop2
 
@@ -4906,7 +4906,7 @@ InitMemoryLoop2:
 	STY PPUADDR
 
 loc_BANK0_9A6F:
-	LDA TitleBackgroundPalettes,Y
+	LDA TitleBackgroundPalettes, Y
 	STA PPUDATA
 	INY
 	CPY #$20
@@ -4915,10 +4915,10 @@ loc_BANK0_9A6F:
 	LDA #$01
 	STA RAM_PPUDataBufferPointer
 	LDA #$03
-	STA RAM_PPUDataBufferPointer+1
+	STA RAM_PPUDataBufferPointer + 1
 	LDA #Stack100_Menu
 	STA StackArea
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 	STA PPUCTRL
 	JSR WaitForNMI_TitleScreen
@@ -4940,12 +4940,12 @@ loc_BANK0_9A6F:
 	LDA #$C7
 	STA ObjectXHi
 	LDA #$52
-	STA ObjectXHi+1
+	STA ObjectXHi + 1
 
 loc_BANK0_9AB4:
 	JSR WaitForNMI_TitleScreen
 
-	LDA ObjectXHi+2
+	LDA ObjectXHi + 2
 	BNE loc_BANK0_9AF3
 
 loc_BANK0_9ABB:
@@ -4964,34 +4964,34 @@ loc_BANK0_9AC6:
 	CMP #$06
 	BNE loc_BANK0_9B4D
 
-	INC ObjectXHi+2
+	INC ObjectXHi + 2
 	LDA PlayerXHi
 	STA PPUBuffer_301
 	LDA ObjectXHi
-	STA PPUBuffer_301+1
-	LDA ObjectXHi+1
-	STA PPUBuffer_301+2
+	STA PPUBuffer_301 + 1
+	LDA ObjectXHi + 1
+	STA PPUBuffer_301 + 2
 	LDA #$E6
 	STA ObjectXHi
 	LDA #$54
-	STA ObjectXHi+1
+	STA ObjectXHi + 1
 	LDA #$0FB
-	STA PPUBuffer_301+3
+	STA PPUBuffer_301 + 3
 	LDA #$00
-	STA PPUBuffer_301+4
+	STA PPUBuffer_301 + 4
 	BEQ loc_BANK0_9B4D
 
 loc_BANK0_9AF3:
 	LDA PlayerXHi
 	STA PPUBuffer_301
 	LDA ObjectXHi
-	STA PPUBuffer_301+1
-	LDA ObjectXHi+1
-	STA PPUBuffer_301+2
+	STA PPUBuffer_301 + 1
+	LDA ObjectXHi + 1
+	STA PPUBuffer_301 + 2
 	LDA #$0FB
-	STA PPUBuffer_301+3
+	STA PPUBuffer_301 + 3
 	LDA #$00
-	STA PPUBuffer_301+4
+	STA PPUBuffer_301 + 4
 	LDA ObjectXHi
 	CLC
 	ADC #$20
@@ -5010,28 +5010,28 @@ loc_BANK0_9B1B:
 	LDY #$00
 
 loc_BANK0_9B25:
-	LDA TitleAttributeData1,Y
-	STA PPUBuffer_301+4,Y
+	LDA TitleAttributeData1, Y
+	STA PPUBuffer_301 + 4, Y
 	INY
 	DEX
 	BPL loc_BANK0_9B25
 
 	LDA #$00
-	STA PPUBuffer_301+4,Y
+	STA PPUBuffer_301 + 4, Y
 	JSR WaitForNMI_TitleScreen
 
 	LDX #$1B
 	LDY #$00
 
 loc_BANK0_9B3B:
-	LDA TitleAttributeData2,Y
-	STA PPUBuffer_301,Y
+	LDA TitleAttributeData2, Y
+	STA PPUBuffer_301, Y
 	INY
 	DEX
 	BPL loc_BANK0_9B3B
 
 	LDA #$00
-	STA PPUBuffer_301,Y
+	STA PPUBuffer_301, Y
 	JMP loc_BANK0_9B59
 
 ; ---------------------------------------------------------------------------
@@ -5053,7 +5053,7 @@ loc_BANK0_9B56:
 loc_BANK0_9B59:
 	JSR WaitForNMI_TitleScreen
 
-	LDA ObjectXHi+4
+	LDA ObjectXHi + 4
 	BEQ loc_BANK0_9B63
 
 	JMP loc_BANK0_9C19
@@ -5061,11 +5061,11 @@ loc_BANK0_9B59:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9B63:
-	LDA ObjectXHi+3
+	LDA ObjectXHi + 3
 	CMP #$09
 	BEQ loc_BANK0_9B93
 
-	LDA ObjectXHi+3
+	LDA ObjectXHi + 3
 	BNE loc_BANK0_9BA3
 
 	DEC byte_RAM_10
@@ -5079,37 +5079,37 @@ TitleScreen_WriteSTORYText:
 	LDA #$20
 	STA PPUBuffer_301
 	LDA #$0AE
-	STA PPUBuffer_301+1
+	STA PPUBuffer_301 + 1
 	LDA #$05 ; Length of STORY text (5 bytes)
-	STA PPUBuffer_301+2
+	STA PPUBuffer_301 + 2
 	LDY #$04 ; Bytes to copy minus one (5-1=4)
 
 TitleScreen_WriteSTORYTextLoop:
-	LDA TitleStoryText_STORY,Y ; Copy STORY text to PPU write buffer
-	STA PPUBuffer_301+3,Y
+	LDA TitleStoryText_STORY, Y ; Copy STORY text to PPU write buffer
+	STA PPUBuffer_301 + 3, Y
 	DEY
 	BPL TitleScreen_WriteSTORYTextLoop
 
 	LDA #$00 ; Terminate STORY text in buffer
-	STA PPUBuffer_301+8
+	STA PPUBuffer_301 + 8
 
 loc_BANK0_9B93:
-	INC ObjectXHi+3
+	INC ObjectXHi + 3
 	LDA #$21
 	STA PlayerXHi
 	LDA #$06
 	STA ObjectXHi
 	LDA #$40
-	STA ObjectXHi+5
+	STA ObjectXHi + 5
 	BNE loc_BANK0_9C19
 
 loc_BANK0_9BA3:
-	DEC ObjectXHi+5
+	DEC ObjectXHi + 5
 	BPL loc_BANK0_9C19
 
 loc_BANK0_9BA7:
 	LDA #$40
-	STA ObjectXHi+5
+	STA ObjectXHi + 5
 	LDA PlayerXHi
 	STA PPUBuffer_301
 
@@ -5117,28 +5117,28 @@ loc_BANK0_9BB0:
 	LDA ObjectXHi
 
 loc_BANK0_9BB2:
-	STA PPUBuffer_301+1
+	STA PPUBuffer_301 + 1
 	LDA #$14
-	STA PPUBuffer_301+2
-	LDX ObjectXHi+3
+	STA PPUBuffer_301 + 2
+	LDX ObjectXHi + 3
 	DEX
-	LDA TitleStoryTextPointersHi,X
+	LDA TitleStoryTextPointersHi, X
 	STA byte_RAM_4
-	LDA TitleStoryTextPointersLo,X
+	LDA TitleStoryTextPointersLo, X
 	STA byte_RAM_3
 	LDY #$00
 	LDX #$13
 
 loc_BANK0_9BCB:
-	LDA (byte_RAM_3),Y
-	STA PPUBuffer_301+3,Y
+	LDA (byte_RAM_3), Y
+	STA PPUBuffer_301 + 3, Y
 	INY
 	DEX
 	BPL loc_BANK0_9BCB
 
 	LDA #$00
-	STA PPUBuffer_301+3,Y
-	INC ObjectXHi+3
+	STA PPUBuffer_301 + 3, Y
+	INC ObjectXHi + 3
 	LDA ObjectXHi
 	CLC
 	ADC #$40
@@ -5146,7 +5146,7 @@ loc_BANK0_9BCB:
 	LDA PlayerXHi
 	ADC #$00
 	STA PlayerXHi
-	LDA ObjectXHi+3
+	LDA ObjectXHi + 3
 	CMP #$09
 	BCC loc_BANK0_9C19
 
@@ -5161,9 +5161,9 @@ loc_BANK0_9BCB:
 	LDA #$C7
 	STA ObjectXHi
 	LDA #$52
-	STA ObjectXHi+1
+	STA ObjectXHi + 1
 	LDA #$00
-	STA ObjectXHi+2
+	STA ObjectXHi + 2
 	JMP loc_BANK0_9ABB
 
 ; ---------------------------------------------------------------------------
@@ -5172,7 +5172,7 @@ loc_BANK0_9C0B:
 	CMP #$12
 	BCC loc_BANK0_9C19
 
-	INC ObjectXHi+4
+	INC ObjectXHi + 4
 	LDA #$25
 	STA byte_RAM_2
 	LDA #$03
@@ -5192,7 +5192,7 @@ loc_BANK0_9C1F:
 	TAY
 
 loc_BANK0_9C2A:
-	STA byte_RAM_0,Y
+	STA byte_RAM_0, Y
 	INY
 	CPY #$F0
 	BCC loc_BANK0_9C2A
@@ -5202,7 +5202,7 @@ loc_BANK0_9C2A:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9C35:
-	LDA ObjectXHi+4
+	LDA ObjectXHi + 4
 	BEQ loc_BANK0_9C4B
 
 	INC byte_RAM_10
@@ -5223,7 +5223,7 @@ loc_BANK0_9C4B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9C4E:
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIDisabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIDisabled
 	STA PPUCtrlMirror
 
 loc_BANK0_9C52:
@@ -5261,7 +5261,7 @@ WaitForNMI_Ending_TurnOffPPU:
 	BEQ WaitForNMI_Ending_SetPPUMaskMirror
 
 WaitForNMI_Ending_TurnOnPPU:
-	LDA #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
+	LDA #PPUMask_ShowLeft8Pixels_BG | PPUMask_ShowLeft8Pixels_SPR | PPUMask_ShowBackground | PPUMask_ShowSprites
 
 WaitForNMI_Ending_SetPPUMaskMirror:
 	STA PPUMaskMirror
@@ -5270,10 +5270,10 @@ WaitForNMI_Ending:
 	LDA ScreenUpdateIndex
 	ASL A
 	TAX
-	LDA EndingPPUDataPointers,X
+	LDA EndingPPUDataPointers, X
 	STA RAM_PPUDataBufferPointer
-	LDA EndingPPUDataPointers+1,X
-	STA RAM_PPUDataBufferPointer+1
+	LDA EndingPPUDataPointers + 1, X
+	STA RAM_PPUDataBufferPointer + 1
 
 	LDA #$00
 	STA NMIWaitFlag
@@ -5412,7 +5412,7 @@ FreeSubconsScene:
 
 	LDA #Stack100_Menu
 	STA StackArea
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 	STA PPUCTRL
 	JSR WaitForNMI_Ending
@@ -5435,18 +5435,18 @@ FreeSubconsScene:
 
 	LDX #$09
 FreeSubconsScene_SpriteLoop:
-	LDA CorkRoomSpriteStartX,X
-	STA ObjectXLo-1,X
-	LDA CorkRoomSpriteStartY,X
-	STA ObjectYLo-1,X
-	LDA CorkRoomSpriteTargetX,X
-	STA ObjectXVelocity-1,X
-	LDA CorkRoomSpriteTargetY,X
-	STA ObjectYVelocity-1,X
-	LDA CorkRoomSpriteDelay,X
-	STA EnemyTimer-1,X
-	LDA CorkRoomSpriteAttributes,X
-	STA ObjectAttributes-1,X
+	LDA CorkRoomSpriteStartX, X
+	STA ObjectXLo - 1, X
+	LDA CorkRoomSpriteStartY, X
+	STA ObjectYLo - 1, X
+	LDA CorkRoomSpriteTargetX, X
+	STA ObjectXVelocity - 1, X
+	LDA CorkRoomSpriteTargetY, X
+	STA ObjectYVelocity - 1, X
+	LDA CorkRoomSpriteDelay, X
+	STA EnemyTimer - 1, X
+	LDA CorkRoomSpriteAttributes, X
+	STA ObjectAttributes - 1, X
 	DEX
 	BPL FreeSubconsScene_SpriteLoop
 
@@ -5638,12 +5638,12 @@ FreeSubconsScene_Phase4:
 	STA DPCMQueue
 
 	LDA #$A0
-	STA ObjectYVelocity+8
+	STA ObjectYVelocity + 8
 	RTS
 
 FreeSubconsScene_Phase4_NextCorkFrame:
 	LDY FreeSubconsCorkCounter
-	LDA PullCorkFrameDurations-1,Y
+	LDA PullCorkFrameDurations - 1, Y
 	STA PlayerStateTimer
 
 FreeSubconsScene_Phase4_Exit:
@@ -5683,7 +5683,7 @@ CorkRoomCharacterGravity:
 
 ApplyCorkRoomGravity:
 	LDY CurrentCharacter
-	LDA CorkRoomCharacterGravity,Y
+	LDA CorkRoomCharacterGravity, Y
 	CLC
 	ADC PlayerYVelocity
 	STA PlayerYVelocity
@@ -5698,7 +5698,7 @@ FreeSubconsScene_Subcons:
 
 FreeSubconsScene_Subcons_Loop:
 	STX byte_RAM_12
-	LDA EnemyTimer,X
+	LDA EnemyTimer, X
 	BEQ FreeSubconsScene_Subcons_Movement
 
 	CMP #$01
@@ -5711,17 +5711,17 @@ FreeSubconsScene_Subcons_Loop:
 FreeSubconsScene_Subcons_Movement:
 	JSR ApplyObjectMovement_Bank1
 
-	LDA ObjectYVelocity,X
+	LDA ObjectYVelocity, X
 	CMP #$08
 	BMI FreeSubconsScene_Subcons_Render
 
 	LDA #$00
-	STA ObjectXVelocity,X
+	STA ObjectXVelocity, X
 	LDA #$F9
-	STA ObjectYVelocity,X
-	LDA CorkRoomSpriteAttributes+1,X
-	EOR #ObjAttrib_Palette0|ObjAttrib_16x32
-	STA ObjectAttributes,X
+	STA ObjectYVelocity, X
+	LDA CorkRoomSpriteAttributes + 1, X
+	EOR #ObjAttrib_Palette0 | ObjAttrib_16x32
+	STA ObjectAttributes, X
 
 FreeSubconsScene_Subcons_Render:
 	LDA byte_RAM_10
@@ -5730,10 +5730,10 @@ FreeSubconsScene_Subcons_Render:
 	STA byte_RAM_F
 	JSR FreeSubconsScene_Render
 
-	INC EnemyTimer,X
+	INC EnemyTimer, X
 
 FreeSubconsScene_Subcons_Next:
-	DEC EnemyTimer,X
+	DEC EnemyTimer, X
 	DEX
 	BPL FreeSubconsScene_Subcons_Loop
 
@@ -5751,17 +5751,17 @@ FreeSubconsScene_Cork:
 	LDY FreeSubconsCorkCounter
 	BNE FreeSubconsScene_Cork_Pull
 
-	LDA ObjectYLo+8
+	LDA ObjectYLo + 8
 	CMP #$F0
 	BCS FreeSubconsScene_Cork_Exit
 
 	JMP ApplyObjectPhysicsY_Bank1
 
 FreeSubconsScene_Cork_Pull:
-	LDA PullCorkOffsets-1,Y
+	LDA PullCorkOffsets - 1, Y
 	CLC
 	ADC PlayerYLo
-	STA ObjectYLo+8
+	STA ObjectYLo + 8
 
 FreeSubconsScene_Cork_Exit:
 	RTS
@@ -5788,34 +5788,34 @@ CorkRoomSpriteOAMAddress:
 
 
 FreeSubconsScene_Render:
-	LDY CorkRoomSpriteOAMAddress,X
-	LDA ObjectYLo,X
-	STA SpriteDMAArea,Y
-	STA SpriteDMAArea+4,Y
-	LDA ObjectXLo,X
-	STA SpriteDMAArea+3,Y
+	LDY CorkRoomSpriteOAMAddress, X
+	LDA ObjectYLo, X
+	STA SpriteDMAArea, Y
+	STA SpriteDMAArea + 4, Y
+	LDA ObjectXLo, X
+	STA SpriteDMAArea + 3, Y
 	CLC
 	ADC #$08
-	STA SpriteDMAArea+7,Y
-	LDA ObjectAttributes,X
-	STA SpriteDMAArea+2,Y
-	STA SpriteDMAArea+6,Y
+	STA SpriteDMAArea + 7, Y
+	LDA ObjectAttributes, X
+	STA SpriteDMAArea + 2, Y
+	STA SpriteDMAArea + 6, Y
 	LDX byte_RAM_F
 	AND #ObjAttrib_16x32
 	BNE FreeSubconsScene_Render_Flipped
 
-	LDA CorkRoomSpriteTiles,X
-	STA SpriteDMAArea+1,Y
-	LDA CorkRoomSpriteTiles+1,X
+	LDA CorkRoomSpriteTiles, X
+	STA SpriteDMAArea + 1, Y
+	LDA CorkRoomSpriteTiles + 1, X
 	BNE FreeSubconsScene_Render_Exit
 
 FreeSubconsScene_Render_Flipped:
-	LDA CorkRoomSpriteTiles+1,X
-	STA SpriteDMAArea+1,Y
-	LDA CorkRoomSpriteTiles,X
+	LDA CorkRoomSpriteTiles + 1, X
+	STA SpriteDMAArea + 1, Y
+	LDA CorkRoomSpriteTiles, X
 
 FreeSubconsScene_Render_Exit:
-	STA SpriteDMAArea+5,Y
+	STA SpriteDMAArea + 5, Y
 	LDX byte_RAM_12
 	RTS
 
@@ -6050,8 +6050,8 @@ ContributorScene:
 
 	LDY #$03
 ContributorScene_SpriteZeroLoop:
-	LDA ContributorSpriteZeroOAMData,Y
-	STA SpriteDMAArea,Y
+	LDA ContributorSpriteZeroOAMData, Y
+	STA SpriteDMAArea, Y
 	DEY
 	BPL ContributorScene_SpriteZeroLoop
 
@@ -6061,8 +6061,8 @@ ContributorScene_SpriteZeroLoop:
 
 	LDY #$3F
 ContributorScene_CharacterLoop:
-	LDA ContributorCharacterOAMData,Y
-	STA SpriteDMAArea+$10,Y
+	LDA ContributorCharacterOAMData, Y
+	STA SpriteDMAArea + $10, Y
 	DEY
 	BPL ContributorScene_CharacterLoop
 
@@ -6222,7 +6222,7 @@ EndingSceneTransition:
 	CPY #$03
 	BCS EndingSceneTransition_Next
 
-	LDA EndingScreenUpdateIndex,Y
+	LDA EndingScreenUpdateIndex, Y
 	STA ScreenUpdateIndex
 	RTS
 
@@ -6242,7 +6242,7 @@ loc_BANK1_ABA7:
 
 	DEC byte_RAM_E5
 	LDY byte_RAM_E5
-	LDA EndingScreenUpdateIndex,Y
+	LDA EndingScreenUpdateIndex, Y
 	STA ScreenUpdateIndex
 	TYA
 	BNE EndingSceneTransition_Exit
@@ -6252,14 +6252,14 @@ loc_BANK1_ABA7:
 
 
 EnableNMI_Bank1:
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 	STA PPUCTRL
 	RTS
 
 
 DisableNMI_Bank1:
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
 	STA PPUCTRL
 	STA PPUCtrlMirror
 	RTS
@@ -6363,15 +6363,15 @@ ENDIF
 
 loc_BANK1_AC22:
 	LDA #$20
-	STA ObjectXLo,X
+	STA ObjectXLo, X
 	LDA #$A8
 
 loc_BANK1_AC28:
-	STA ObjectYLo,X
-	LDA byte_BANK1_ABDA,X
-	STA ObjectXVelocity,X
-	LDA byte_BANK1_ABE0,X
-	STA ObjectYVelocity,X
+	STA ObjectYLo, X
+	LDA byte_BANK1_ABDA, X
+	STA ObjectXVelocity, X
+	LDA byte_BANK1_ABE0, X
+	STA ObjectYVelocity, X
 	DEX
 	BPL loc_BANK1_AC22
 
@@ -6397,16 +6397,16 @@ loc_BANK1_AC45:
 loc_BANK1_AC4B:
 	LDA PlayerYLo
 	CLC
-	ADC byte_BANK1_ABFE,X
-	STA SpriteDMAArea,Y
-	LDA EndingWartTiles,X
-	STA SpriteDMAArea+1,Y
+	ADC byte_BANK1_ABFE, X
+	STA SpriteDMAArea, Y
+	LDA EndingWartTiles, X
+	STA SpriteDMAArea + 1, Y
 	LDA #$01
-	STA SpriteDMAArea+2,Y
+	STA SpriteDMAArea + 2, Y
 	LDA PlayerXLo
 	CLC
-	ADC byte_BANK1_ABF2,X
-	STA SpriteDMAArea+3,Y
+	ADC byte_BANK1_ABF2, X
+	STA SpriteDMAArea + 3, Y
 	LDA PlayerXHi
 
 loc_BANK1_AC6A:
@@ -6414,7 +6414,7 @@ loc_BANK1_AC6A:
 	BEQ loc_BANK1_AC73
 
 	LDA #$F0
-	STA SpriteDMAArea,Y
+	STA SpriteDMAArea, Y
 
 loc_BANK1_AC73:
 	INY
@@ -6449,16 +6449,16 @@ loc_BANK1_AC87:
 	BNE loc_BANK1_ACA4
 
 loc_BANK1_AC8B:
-	STA ObjectXSubpixel+6
-	STA ObjectYSubpixel+6
-	STA ObjectXLo+6
+	STA ObjectXSubpixel + 6
+	STA ObjectYSubpixel + 6
+	STA ObjectXLo + 6
 	STA byte_RAM_10
 	LDA #$6F
-	STA ObjectYLo+6
+	STA ObjectYLo + 6
 	LDA #$E6
-	STA ObjectXVelocity+6
+	STA ObjectXVelocity + 6
 	LDA #$0DA
-	STA ObjectYVelocity+6
+	STA ObjectYVelocity + 6
 IFDEF COMPATIBILITY
 	.db $ee, $e6, $00 ; INC $00E6
 ENDIF
@@ -6482,22 +6482,22 @@ loc_BANK1_ACA6:
 	BEQ loc_BANK1_ACC1
 
 	AND #$0F
-	CMP byte_BANK1_AC81,X
+	CMP byte_BANK1_AC81, X
 	BNE loc_BANK1_ACC3
 
 	LDA #$20
-	STA ObjectXLo,X
+	STA ObjectXLo, X
 	LDY #$A8
 
 loc_BANK1_ACC1:
-	STY ObjectYLo,X
+	STY ObjectYLo, X
 
 loc_BANK1_ACC3:
 	TXA
 	ASL A
 	ASL A
 	TAY
-	LDA ObjectXLo,X
+	LDA ObjectXLo, X
 	CMP #$80
 	BCS loc_BANK1_ACD1
 
@@ -6505,15 +6505,15 @@ loc_BANK1_ACC3:
 	BNE loc_BANK1_ACD6
 
 loc_BANK1_ACD1:
-	STA SpriteDMAArea+$73,Y
-	LDA ObjectYLo,X
+	STA SpriteDMAArea + $73, Y
+	LDA ObjectYLo, X
 
 loc_BANK1_ACD6:
-	STA SpriteDMAArea+$70,Y
-	LDA ZonkTiles,X
-	STA SpriteDMAArea+$71,Y
+	STA SpriteDMAArea + $70, Y
+	LDA ZonkTiles, X
+	STA SpriteDMAArea + $71, Y
 	LDA #$00
-	STA SpriteDMAArea+$72,Y
+	STA SpriteDMAArea + $72, Y
 	DEX
 	BPL loc_BANK1_ACA6
 
@@ -6575,7 +6575,7 @@ ContributorCharacterAnimation:
 
 ContributorCharacterAnimation_OuterLoop:
 	LDX byte_RAM_0
-	LDA ContributorAnimationTilesOffset,X
+	LDA ContributorAnimationTilesOffset, X
 	TAX
 	INC byte_RAM_1
 	LDA byte_RAM_1
@@ -6588,8 +6588,8 @@ ContributorCharacterAnimation_Render:
 	LDA #$03
 	STA byte_RAM_2
 ContributorCharacterAnimation_InnerLoop:
-	LDA ContributorAnimationTiles,X
-	STA SpriteDMAArea+$11,Y
+	LDA ContributorAnimationTiles, X
+	STA SpriteDMAArea + $11, Y
 	DEX
 	DEX
 	DEY
@@ -6614,11 +6614,11 @@ Ending_GetContributor:
 
 	LDY #$03
 Ending_GetContributor_Loop:
-	LDA CharacterLevelsCompleted,Y
+	LDA CharacterLevelsCompleted, Y
 	CMP MaxLevelsCompleted
 	BCC Ending_GetContributor_Next
 
-	LDA CharacterLevelsCompleted,Y
+	LDA CharacterLevelsCompleted, Y
 	STA MaxLevelsCompleted
 
 Ending_GetContributor_Next:
@@ -6628,12 +6628,12 @@ Ending_GetContributor_Next:
 	LDX #$00
 	LDY #$03
 Ending_GetContributor_Loop2:
-	LDA CharacterLevelsCompleted,Y
+	LDA CharacterLevelsCompleted, Y
 	CMP MaxLevelsCompleted
 	BNE Ending_GetContributor_Next2
 
 	TYA
-	STA Contributors,X
+	STA Contributors, X
 	INX
 
 Ending_GetContributor_Next2:
@@ -6644,68 +6644,68 @@ Ending_GetContributor_Next2:
 	STX NumContributors
 	LDX #$00
 	LDA #$21
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA #$2A
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA #$0C
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDY #$00
-	LDA CharacterLevelsCompleted,Y
+	LDA CharacterLevelsCompleted, Y
 	JSR sub_BANK1_AE43
 
 	TYA
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA byte_RAM_1
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA #$0FB
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDY #$03
-	LDA CharacterLevelsCompleted,Y
+	LDA CharacterLevelsCompleted, Y
 	JSR sub_BANK1_AE43
 
 	TYA
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA byte_RAM_1
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 
 	LDA #$0FB
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDY #$02
-	LDA CharacterLevelsCompleted,Y
+	LDA CharacterLevelsCompleted, Y
 	JSR sub_BANK1_AE43
 
 	TYA
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA byte_RAM_1
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA #$0FB
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDY #$01
-	LDA CharacterLevelsCompleted,Y
+	LDA CharacterLevelsCompleted, Y
 	JSR sub_BANK1_AE43
 
 	TYA
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA byte_RAM_1
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	INX
 	LDA #$00
-	STA PPUBuffer_301,X
+	STA PPUBuffer_301, X
 	LDA #$3C
 	STA ContributorTimer
 	RTS
@@ -6720,7 +6720,7 @@ ContributorTicker:
 	LDA #$3C
 	STA ContributorTimer
 	LDY ContributorIndex
-	LDA Contributors,Y
+	LDA Contributors, Y
 	CLC
 	ADC #$09
 IFDEF COMPATIBILITY
@@ -6834,9 +6834,9 @@ ApplyObjectPhysicsY_Bank1:
 ;
 ApplyObjectPhysicsX_Bank1:
 	; Add acceleration to velocity
-	LDA ObjectXVelocity,X
+	LDA ObjectXVelocity, X
 	CLC
-	ADC ObjectXAcceleration,X
+	ADC ObjectXAcceleration, X
 
 	PHA
 	; Lower nybble of velocity is for subpixel position
@@ -6873,21 +6873,21 @@ ApplyObjectPhysics_StoreDirection_Bank1:
 	STY byte_RAM_2
 
 	; Add lower nybble of velocity for subpixel position
-	LDA ObjectXSubpixel,X
+	LDA ObjectXSubpixel, X
 	CLC
 	ADC byte_RAM_1
-	STA ObjectXSubpixel,X
+	STA ObjectXSubpixel, X
 
 	; Add upper nybble of velocity for lo position
-	LDA ObjectXLo,X
+	LDA ObjectXLo, X
 	ADC byte_RAM_0
-	STA ObjectXLo,X
+	STA ObjectXLo, X
 
 ApplyObjectPhysics_PositionHi_Bank1:
 	LSR byte_RAM_1
-	LDA ObjectXHi,X
+	LDA ObjectXHi, X
 	ADC byte_RAM_2
-	STA ObjectXHi,X
+	STA ObjectXHi, X
 
 ApplyObjectPhysics_Exit_Bank1:
 	LDX byte_RAM_12
@@ -6902,7 +6902,7 @@ ApplyObjectPhysics_Exit_Bank1:
 ;   X = enemy index
 ;
 ApplyObjectMovement_Bank1:
-	LDA ObjectShakeTimer,X
+	LDA ObjectShakeTimer, X
 	BNE ApplyObjectMovement_Vertical_Bank1
 
 	JSR ApplyObjectPhysicsX_Bank1
@@ -6910,7 +6910,7 @@ ApplyObjectMovement_Bank1:
 ApplyObjectMovement_Vertical_Bank1:
 	JSR ApplyObjectPhysicsY_Bank1
 
-	LDA ObjectYVelocity,X
+	LDA ObjectYVelocity, X
 	BMI ApplyObjectMovement_Gravity_Bank1
 
 	; Check terminal velocity
@@ -6918,8 +6918,8 @@ ApplyObjectMovement_Vertical_Bank1:
 	BCS ApplyObjectMovement_Exit_Bank1
 
 ApplyObjectMovement_Gravity_Bank1:
-	INC ObjectYVelocity,X
-	INC ObjectYVelocity,X
+	INC ObjectYVelocity, X
+	INC ObjectYVelocity, X
 
 ApplyObjectMovement_Exit_Bank1:
 	RTS
@@ -6938,18 +6938,18 @@ DoorAnimation:
 
 DoorAnimation_Loop:
 	; skip if inactive
-	LDA EnemyState,Y
+	LDA EnemyState, Y
 	BEQ DoorAnimation_LoopNext
 
 	; skip enemies that aren't the door
-	LDA ObjectType,Y
+	LDA ObjectType, Y
 	CMP #Enemy_SubspaceDoor
 	BNE DoorAnimation_LoopNext
 
 	LDA #EnemyState_PuffOfSmoke
-	STA EnemyState,Y
+	STA EnemyState, Y
 	LDA #$20
-	STA EnemyTimer,Y
+	STA EnemyTimer, Y
 
 DoorAnimation_LoopNext:
 	DEY
@@ -6964,22 +6964,22 @@ DoorAnimation_LoopNext:
 	STA SubspaceDoorTimer
 	LDX byte_RAM_0
 	PLA
-	STA EnemyArray_477,X
+	STA EnemyArray_477, X
 	LDA #Enemy_SubspaceDoor
-	STA ObjectType,X
+	STA ObjectType, X
 	LDA PlayerXLo
 	ADC #$08
 	AND #$F0
-	STA ObjectXLo,X
+	STA ObjectXLo, X
 	LDA PlayerXHi
 	ADC #$00
-	STA ObjectXHi,X
+	STA ObjectXHi, X
 	LDA PlayerYLo
-	STA ObjectYLo,X
+	STA ObjectYLo, X
 	LDA PlayerYHi
-	STA ObjectYHi,X
-	LDA #ObjAttrib_Palette1|ObjAttrib_16x32
-	STA ObjectAttributes,X
+	STA ObjectYHi, X
+	LDA #ObjAttrib_Palette1 | ObjAttrib_16x32
+	STA ObjectAttributes, X
 	LDX byte_RAM_12
 	RTS
 
@@ -6995,19 +6995,19 @@ CreateStarman:
 
 	LDX byte_RAM_0
 	LDA #Enemy_Starman
-	STA ObjectType,X
+	STA ObjectType, X
 	LDA ScreenBoundaryLeftLo
 	ADC #$D0
-	STA ObjectXLo,X
+	STA ObjectXLo, X
 	LDA ScreenBoundaryLeftHi
 	ADC #$00
-	STA ObjectXHi,X
+	STA ObjectXHi, X
 	LDA ScreenYLo
 	ADC #$E0
-	STA ObjectYLo,X
+	STA ObjectYLo, X
 	LDA ScreenYHi
 	ADC #$00
-	STA ObjectYHi,X
+	STA ObjectYHi, X
 	JSR loc_BANK1_BA17
 
 	LDX byte_RAM_12
@@ -7020,41 +7020,41 @@ CreateStarman_Exit:
 
 EnemyInit_Basic_Bank1:
 	LDA #$00
-	STA EnemyTimer,X
+	STA EnemyTimer, X
 	LDA #$00
-	STA EnemyVariable,X
+	STA EnemyVariable, X
 
 loc_BANK1_B9EB:
 	LDA #$00
-	STA EnemyArray_B1,X
-	STA EnemyArray_42F,X
-	STA ObjectBeingCarriedTimer,X
-	STA ObjectAnimationTimer,X
-	STA ObjectShakeTimer,X
-	STA EnemyCollision,X
-	STA EnemyArray_438,X
-	STA EnemyArray_453,X
-	STA ObjectXAcceleration,X
-	STA ObjectYAcceleration,X
-	STA EnemyArray_45C,X
-	STA EnemyArray_477,X
-	STA EnemyArray_480,X
-	STA EnemyHP,X
-	STA ObjectYVelocity,X
-	STA ObjectXVelocity,X
+	STA EnemyArray_B1, X
+	STA EnemyArray_42F, X
+	STA ObjectBeingCarriedTimer, X
+	STA ObjectAnimationTimer, X
+	STA ObjectShakeTimer, X
+	STA EnemyCollision, X
+	STA EnemyArray_438, X
+	STA EnemyArray_453, X
+	STA ObjectXAcceleration, X
+	STA ObjectYAcceleration, X
+	STA EnemyArray_45C, X
+	STA EnemyArray_477, X
+	STA EnemyArray_480, X
+	STA EnemyHP, X
+	STA ObjectYVelocity, X
+	STA ObjectXVelocity, X
 
 ; look up object attributes
 loc_BANK1_BA17:
-	LDY ObjectType,X
-	LDA ObjectAttributeTable,Y
-	AND #ObjAttrib_Palette|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_Mirrored|ObjAttrib_BehindBackground|ObjAttrib_16x32
-	STA ObjectAttributes,X
-	LDA EnemyArray_46E_Data,Y
-	STA EnemyArray_46E,X
-	LDA EnemyArray_489_Data,Y
-	STA EnemyArray_489,X
-	LDA EnemyArray_492_Data,Y
-	STA EnemyArray_492,X
+	LDY ObjectType, X
+	LDA ObjectAttributeTable, Y
+	AND #ObjAttrib_Palette | ObjAttrib_Horizontal | ObjAttrib_FrontFacing | ObjAttrib_Mirrored | ObjAttrib_BehindBackground | ObjAttrib_16x32
+	STA ObjectAttributes, X
+	LDA EnemyArray_46E_Data, Y
+	STA EnemyArray_46E, X
+	LDA EnemyArray_489_Data, Y
+	STA EnemyArray_489, X
+	LDA EnemyArray_492_Data, Y
+	STA EnemyArray_492, X
 	RTS
 
 ; End of function EnemyInit_Basic_Bank1
@@ -7069,15 +7069,15 @@ loc_BANK1_BA17:
 ;   X = value of byte_RAM_12
 ;
 TurnKeyIntoPuffOfSmoke:
-	LDA ObjectAttributes,X
+	LDA ObjectAttributes, X
 	AND #%11111100
 	ORA #ObjAttrib_Palette1
-	STA ObjectAttributes,X
+	STA ObjectAttributes, X
 	LDA #EnemyState_PuffOfSmoke
-	STA EnemyState,X
-	STA ObjectAnimationTimer,X
+	STA EnemyState, X
+	STA ObjectAnimationTimer, X
 	LDA #$1F
-	STA EnemyTimer,X
+	STA EnemyTimer, X
 	LDX byte_RAM_12
 	RTS
 
@@ -7097,7 +7097,7 @@ TurnKeyIntoPuffOfSmoke:
 ;
 UnlinkEnemyFromRawData_Bank1:
 	LDA #$0FF
-	STA unk_RAM_441,X
+	STA unk_RAM_441, X
 	RTS
 
 
@@ -7161,9 +7161,9 @@ DecodedLevelPageStartHi_Bank1:
 ;   byte_RAM_2 = low byte of decoded level data RAM
 ;
 SetAreaPageAddr_Bank1:
-	LDA DecodedLevelPageStartLo_Bank1,X
+	LDA DecodedLevelPageStartLo_Bank1, X
 	STA byte_RAM_1
-	LDA DecodedLevelPageStartHi_Bank1,X
+	LDA DecodedLevelPageStartHi_Bank1, X
 	STA byte_RAM_2
 	RTS
 
@@ -7277,7 +7277,7 @@ loc_BANK1_BAED:
 	BMI loc_BANK1_BAFD
 
 	LSR A
-	STA EnemyArray_438,Y
+	STA EnemyArray_438, Y
 
 loc_BANK1_BAFD:
 	JMP KillPlayer
@@ -7286,16 +7286,16 @@ loc_BANK1_BAFD:
 ; ---------------------------------------------------------------------------
 
 _code_3B00:
-	LDY unk_RAM_441,X
+	LDY unk_RAM_441, X
 	BMI loc_BANK1_BB0B
 
-	LDA (RawEnemyData),Y
+	LDA (RawEnemyData), Y
 	AND #$7F
-	STA (RawEnemyData),Y
+	STA (RawEnemyData), Y
 
 loc_BANK1_BB0B:
 	LDA #$00
-	STA EnemyState,X
+	STA EnemyState, X
 	RTS
 
 
@@ -7322,7 +7322,7 @@ CreateEnemy_Bank1:
 	LDY #$05
 
 CreateEnemy_Bank1_FindSlot:
-	LDA EnemyState,Y
+	LDA EnemyState, Y
 	BEQ CreateEnemy_Bank1_FoundSlot
 
 	DEY
@@ -7332,21 +7332,21 @@ CreateEnemy_Bank1_FindSlot:
 
 CreateEnemy_Bank1_FoundSlot:
 	LDA #EnemyState_Alive
-	STA EnemyState,Y
+	STA EnemyState, Y
 	LSR A
-	STA unk_RAM_49B,Y
+	STA unk_RAM_49B, Y
 	LDA #Enemy_ShyguyRed
-	STA ObjectType,Y
-	LDA ObjectXLo,X
+	STA ObjectType, Y
+	LDA ObjectXLo, X
 	ADC #$05
-	STA ObjectXLo,Y
-	LDA ObjectXHi,X
+	STA ObjectXLo, Y
+	LDA ObjectXHi, X
 	ADC #$00
-	STA ObjectXHi,Y
-	LDA ObjectYLo,X
-	STA ObjectYLo,Y
-	LDA ObjectYHi,X
-	STA ObjectYHi,Y
+	STA ObjectXHi, Y
+	LDA ObjectYLo, X
+	STA ObjectYLo, Y
+	LDA ObjectYHi, X
+	STA ObjectYHi, Y
 	STY byte_RAM_0
 	TYA
 	TAX
@@ -7425,7 +7425,7 @@ CheckPlayer2Joypad_CheckUp:
 
 	LDY PlayerMaxHealth
 	LDA PlayerHealth
-	CMP PlayerHealthValueByHeartCount,Y
+	CMP PlayerHealthValueByHeartCount, Y
 	BPL CheckPlayer2Joypad_CheckDown
 
 	LDA #SoundEffect1_CherryGet
@@ -7485,9 +7485,9 @@ CheckPlayer2Joypad_NoButtonB:
 
 CheckPlayer2Joypad_CheckLeftRight:
 	LDA Player2JoypadPress
-	AND #ControllerInput_Right|ControllerInput_Left
+	AND #ControllerInput_Right | ControllerInput_Left
 	BEQ CheckPlayer2Joypad_Exit
-	CMP #ControllerInput_Right|ControllerInput_Left
+	CMP #ControllerInput_Right | ControllerInput_Left
 	BEQ CheckPlayer2Joypad_Exit
 
 	CLC
@@ -7495,7 +7495,7 @@ CheckPlayer2Joypad_CheckLeftRight:
 	ADC CurrentCharacter
 
 	TAY
-	LDA ChangeCharacterOffsets,Y
+	LDA ChangeCharacterOffsets, Y
 
 	LDX #$18
 	STX ChangeCharacterTimer
@@ -7526,11 +7526,11 @@ SetCurrentCharacter:
 	PHA
 
 	LDX CurrentCharacter
-	LDY StatOffsetsRAM,X
+	LDY StatOffsetsRAM, X
 	LDX #$00
 SetCurrentCharacter_StatsLoop:
-	LDA StatOffsetsRAM+CharacterStats-StatOffsets,Y
-	STA CharacterStatsRAM,X
+	LDA StatOffsetsRAM + CharacterStats-StatOffsets, Y
+	STA CharacterStatsRAM, X
 	INY
 	INX
 	CPX #$17
@@ -7542,8 +7542,8 @@ SetCurrentCharacter_StatsLoop:
 	TAY
 	LDX #$00
 SetCurrentCharacter_PaletteLoop:
-	LDA StatOffsetsRAM+CharacterPalette-StatOffsets,Y
-	STA RestorePlayerPalette0,X
+	LDA StatOffsetsRAM + CharacterPalette-StatOffsets, Y
+	STA RestorePlayerPalette0, X
 	INY
 	INX
 	CPX #$04
@@ -7551,14 +7551,14 @@ SetCurrentCharacter_PaletteLoop:
 
 	; load carry offsets
 	LDY CurrentCharacter
-	LDA CarryYOffsetsRAM+CarryYOffsetBigLo-CarryYOffsets,Y
+	LDA CarryYOffsetsRAM + CarryYOffsetBigLo-CarryYOffsets, Y
 	STA ItemCarryYOffsetsRAM
-	LDA CarryYOffsetsRAM+CarryYOffsetSmallLo-CarryYOffsets,Y
-	STA ItemCarryYOffsetsRAM+$07
-	LDA CarryYOffsetsRAM+CarryYOffsetBigHi-CarryYOffsets,Y
-	STA ItemCarryYOffsetsRAM+$0E
-	LDA CarryYOffsetsRAM+CarryYOffsetSmallHi-CarryYOffsets,Y
-	STA ItemCarryYOffsetsRAM+$15
+	LDA CarryYOffsetsRAM + CarryYOffsetSmallLo-CarryYOffsets, Y
+	STA ItemCarryYOffsetsRAM + $07
+	LDA CarryYOffsetsRAM + CarryYOffsetBigHi-CarryYOffsets, Y
+	STA ItemCarryYOffsetsRAM + $0E
+	LDA CarryYOffsetsRAM + CarryYOffsetSmallHi-CarryYOffsets, Y
+	STA ItemCarryYOffsetsRAM + $15
 
 	; interrupt floating if this character can't do it
 	LDA JumpFloatLength
@@ -7667,9 +7667,9 @@ RandomCarryObject:
 	LSR A
 	AND #$07
 	TAX
-	LDA RandomCarryObjectAttributes,X
+	LDA RandomCarryObjectAttributes, X
 	STA CreateObjectAttributes
-	LDA RandomCarryObjectTypes,X
+	LDA RandomCarryObjectTypes, X
 	STA CreateObjectType
 
 RandomCarryObject_Exit:
@@ -7704,9 +7704,9 @@ DebugRandomObject:
 	LSR A
 	AND #$07
 	TAX
-	LDA DebugRandomObjectAttributes,X
+	LDA DebugRandomObjectAttributes, X
 	STA CreateObjectAttributes
-	LDA DebugRandomObjectTypes,X
+	LDA DebugRandomObjectTypes, X
 	STA CreateObjectType
 	RTS
 ENDIF

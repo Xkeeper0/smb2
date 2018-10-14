@@ -1,6 +1,6 @@
 ; inside CheckCollisionWithPlayer_NotInvincible
 IFDEF JUMP_STOMPS
-	LDA ObjectType,Y
+	LDA ObjectType, Y
 	CMP #Enemy_ShyguyRed
 	BMI CheckCollisionWithPlayer_NoStompEnemy
 	CMP #Enemy_Ostro
@@ -19,11 +19,11 @@ CheckCollisionWithPlayer_StompEnemy:
 	BMI CheckCollisionWithPlayer_ExitStompEnemy
 
 	LDA #EnemyState_Dead
-	STA EnemyState,Y
+	STA EnemyState, Y
 
-	LDA EnemyCollision,Y
+	LDA EnemyCollision, Y
 	ORA #CollisionFlags_Damage
-	STA EnemyCollision,Y
+	STA EnemyCollision, Y
 
 	; stash Y
 	TYA
@@ -32,7 +32,7 @@ CheckCollisionWithPlayer_StompEnemy:
 	LDY #$02
 	; INY
 
-	LDA JumpHeightStanding,Y
+	LDA JumpHeightStanding, Y
 	AND #$7F
 	ASL A
 	ORA #$80

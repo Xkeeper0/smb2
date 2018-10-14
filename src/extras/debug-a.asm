@@ -66,19 +66,19 @@ Debug_InitMenu:
 	LDA #$4a ; Y
 	STA SpriteDMAArea
 	LDA #$38 ; Tile
-	STA SpriteDMAArea+1
+	STA SpriteDMAArea + 1
 	LDA #$0 ; Attributes
-	STA SpriteDMAArea+2
+	STA SpriteDMAArea + 2
 	LDA #$1b ; X
-	STA SpriteDMAArea+3
+	STA SpriteDMAArea + 3
 	LDA #$4a
-	STA SpriteDMAArea+4
+	STA SpriteDMAArea + 4
 	LDA #$3A
-	STA SpriteDMAArea+5
+	STA SpriteDMAArea + 5
 	LDA #$0
-	STA SpriteDMAArea+6
+	STA SpriteDMAArea + 6
 	LDA #$23
-	STA SpriteDMAArea+7
+	STA SpriteDMAArea + 7
 
 
 Debug_MenuLoop:
@@ -92,7 +92,7 @@ Debug_MenuLoop:
 	CLC
 	ADC #$4a ; Move the cursor
 	STA SpriteDMAArea
-	STA SpriteDMAArea+4
+	STA SpriteDMAArea + 4
 
 	LDA Player1JoypadPress ; Check if we should abort
 	CMP #ControllerInput_B
@@ -178,7 +178,7 @@ DebugMenu_Level:
 	DEC CurrentLevel ; Decrease
 	JMP +s ; Skip ahead
 +r	LDA CurrentLevel
-	CMP #WorldStartingLevel+7
+	CMP #WorldStartingLevel + 7
 	BEQ -f ; Already at last level, go away
 	INC CurrentLevel ; Otherwise increase
 +s	LDA #SoundEffect2_CoinGet
@@ -247,7 +247,7 @@ DebugMenu_Character:
 	PLA ; Pull the value to update...
 	CLC
 	ADC #$D0 ; Move to character offset
-	STA PPUBuffer_301+3
+	STA PPUBuffer_301 + 3
 	RTS
 
 Debug_UpdateWorld:
@@ -295,11 +295,11 @@ Debug_UpdateLevel:
 	PLA ; Then draw the level number...
 	CLC
 	ADC #$D1
-	STA PPUBuffer_301+9
+	STA PPUBuffer_301 + 9
 	PLA ; ...and the world number...
 	CLC
 	ADC #$D1
-	STA PPUBuffer_301+7
+	STA PPUBuffer_301 + 7
 	LDA CurrentLevel ; ...and the internal level number high nybble...
 	LSR
 	LSR
@@ -307,12 +307,12 @@ Debug_UpdateLevel:
 	LSR
 	CLC
 	ADC #$D0
-	STA PPUBuffer_301+3
+	STA PPUBuffer_301 + 3
 	LDA CurrentLevel ; ...and the internal level number low nybble.
 	AND #$0F
 	CLC
 	ADC #$D0
-	STA PPUBuffer_301+4
+	STA PPUBuffer_301 + 4
 	RTS
 
 ; WorldStartingLevel
@@ -321,15 +321,15 @@ Debug_UpdateLevel:
 Debug_BufferText:
 	ASL A ; Rotate A left one
 	TAX ; A->X
-	LDA DebugPPU_TextPointers,X ; Load low pointer
+	LDA DebugPPU_TextPointers, X ; Load low pointer
 	STA $0 ; Store one byte to low address
-	LDA DebugPPU_TextPointers+1,X ; Store high pointer
+	LDA DebugPPU_TextPointers + 1, X ; Store high pointer
 	STA $1 ; Store one byte to low address
 	LDA ($0), Y ; Load the length of data to copy
 	TAY
 -
 	LDA ($0), Y ; Load our PPU data...
-	STA PPUBuffer_301-1, Y ; ...and store it in the buffer
+	STA PPUBuffer_301 - 1, Y ; ...and store it in the buffer
 	DEY
 	BNE -
 	RTS

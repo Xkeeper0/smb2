@@ -855,10 +855,10 @@ JumpToTableAfterJump:
 	PLA
 	STA byte_RAM_B
 	INY
-	LDA (byte_RAM_A),Y
+	LDA (byte_RAM_A), Y
 	STA byte_RAM_C
 	INY
-	LDA (byte_RAM_A),Y
+	LDA (byte_RAM_A), Y
 	STA byte_RAM_D
 	JMP (byte_RAM_C)
 
@@ -878,7 +878,7 @@ SetBlackAndWhitePalette_Loop:
 	TYA
 	AND #$03
 	TAX
-	LDA BlackAndWhitePalette,X
+	LDA BlackAndWhitePalette, X
 	STA PPUDATA
 	INY
 	CPY #$14
@@ -973,7 +973,7 @@ DisplayLevelTitleCardText:
 	LDY #$06
 	LDA #$FB
 loc_BANKF_E1B6:
-	STA unk_RAM_716B,Y ; writes to $7171
+	STA unk_RAM_716B, Y ; writes to $7171
 	DEY
 	BPL loc_BANKF_E1B6
 
@@ -981,15 +981,15 @@ loc_BANKF_E1B6:
 	LDY CurrentWorld
 	LDA CurrentLevel
 	SEC
-	SBC WorldStartingLevel,Y
+	SBC WorldStartingLevel, Y
 	STA CurrentLevelRelative
 	CLC
 	ADC #$D1
 	STA byte_RAM_717F
 
-	LDA WorldStartingLevel+1,Y
+	LDA WorldStartingLevel + 1, Y
 	SEC
-	SBC WorldStartingLevel,Y
+	SBC WorldStartingLevel, Y
 	STA byte_RAM_3
 
 	; Level dots
@@ -1003,7 +1003,7 @@ loc_BANKF_E1DC:
 	LDA #$F6
 
 loc_BANKF_E1E5:
-	STA unk_RAM_716B,Y
+	STA unk_RAM_716B, Y
 	INY
 	INY
 	INX
@@ -1087,8 +1087,8 @@ DisplayLevelTitleCardAndMore:
 
 	LDY #$23
 DisplayLevelTitleCardAndMore_TitleCardPaletteLoop:
-	LDA TitleCardPalettes,Y
-	STA PPUBuffer_55F,Y
+	LDA TitleCardPalettes, Y
+	STA PPUBuffer_55F, Y
 	DEY
 	BPL DisplayLevelTitleCardAndMore_TitleCardPaletteLoop
 
@@ -1176,8 +1176,8 @@ loc_BANKF_E2B2:
 	LDY #$3F
 
 loc_BANKF_E2CA:
-	LDA PlayerSelectMarioSprites1,Y
-	STA SpriteDMAArea+$10,Y
+	LDA PlayerSelectMarioSprites1, Y
+	STA SpriteDMAArea + $10, Y
 	DEY
 	BPL loc_BANKF_E2CA
 
@@ -1197,7 +1197,7 @@ loc_BANKF_E2CA:
 
 loc_BANKF_E2E8:
 	LDA Player1JoypadPress
-	AND #ControllerInput_Right|ControllerInput_Left
+	AND #ControllerInput_Right | ControllerInput_Left
 	BNE CharacterSelect_ChangeCharacter
 
 	JMP CharacterSelectMenuLoop
@@ -1232,50 +1232,50 @@ loc_BANKF_E311:
 	LDA #$21
 	STA PPUBuffer_301
 	LDA #$C9
-	STA PPUBuffer_301+1
+	STA PPUBuffer_301 + 1
 	LDA #$4F
-	STA PPUBuffer_301+2
+	STA PPUBuffer_301 + 2
 	LDA #$FB
-	STA PPUBuffer_301+3
+	STA PPUBuffer_301 + 3
 	LDA #$21
-	STA PPUBuffer_301+4
+	STA PPUBuffer_301 + 4
 	LDA #$E9
-	STA PPUBuffer_301+5
+	STA PPUBuffer_301 + 5
 	LDA #$4F
-	STA PPUBuffer_301+6
+	STA PPUBuffer_301 + 6
 	LDA #$FB
-	STA PPUBuffer_301+7
+	STA PPUBuffer_301 + 7
 	LDY CurrentCharacter
 	LDA #$21
-	STA PPUBuffer_301+8
-	LDA PlayerSelectArrowTop,Y
-	STA PPUBuffer_301+9
+	STA PPUBuffer_301 + 8
+	LDA PlayerSelectArrowTop, Y
+	STA PPUBuffer_301 + 9
 	LDA #$02
-	STA PPUBuffer_301+10
+	STA PPUBuffer_301 + 10
 	LDA #$BE
-	STA PPUBuffer_301+11
+	STA PPUBuffer_301 + 11
 	LDA #$C0
-	STA PPUBuffer_301+12
+	STA PPUBuffer_301 + 12
 	LDA #$21
-	STA PPUBuffer_301+13
-	LDA PlayerSelectArrowBottom,Y
-	STA PPUBuffer_301+14
+	STA PPUBuffer_301 + 13
+	LDA PlayerSelectArrowBottom, Y
+	STA PPUBuffer_301 + 14
 	LDA #$02
-	STA PPUBuffer_301+15
+	STA PPUBuffer_301 + 15
 	LDA #$BF
-	STA PPUBuffer_301+16
+	STA PPUBuffer_301 + 16
 	LDA #$C1
-	STA PPUBuffer_301+17
+	STA PPUBuffer_301 + 17
 	LDA #$00
-	STA PPUBuffer_301+18
+	STA PPUBuffer_301 + 18
 	JSR WaitForNMI_TurnOnPPU
 
 	LDX #$12
 	LDY #$00
 
 loc_BANKF_E37D:
-	LDA PlayerSelectSpritePalettesDark,Y
-	STA PPUBuffer_301,Y
+	LDA PlayerSelectSpritePalettesDark, Y
+	STA PPUBuffer_301, Y
 	INY
 	DEX
 	BPL loc_BANKF_E37D
@@ -1283,19 +1283,19 @@ loc_BANKF_E37D:
 	LDA #$06
 	STA byte_RAM_A
 	LDX CurrentCharacter
-	LDA PlayerSelectPaletteOffsets,X
+	LDA PlayerSelectPaletteOffsets, X
 	TAX
 
 loc_BANKF_E391:
-	LDA PlayerSelectSpritePalettes,X
-	STA PPUBuffer_301,Y
+	LDA PlayerSelectSpritePalettes, X
+	STA PPUBuffer_301, Y
 	INY
 	INX
 	DEC byte_RAM_A
 	BPL loc_BANKF_E391
 
 	LDA #$00
-	STA PPUBuffer_301,Y
+	STA PPUBuffer_301, Y
 
 CharacterSelectMenuLoop:
 	JSR WaitForNMI_TurnOnPPU
@@ -1322,12 +1322,12 @@ loc_BANKF_E3AE:
 	LDX #$F
 	LDA CurrentCharacter
 	TAY
-	LDA PlayerSelectSpriteIndexes,Y
+	LDA PlayerSelectSpriteIndexes, Y
 	TAY
 
 loc_BANKF_E3CC:
-	LDA PlayerSelectMarioSprites2,Y
-	STA SpriteDMAArea+$10,Y
+	LDA PlayerSelectMarioSprites2, Y
+	STA SpriteDMAArea + $10, Y
 	INY
 	DEX
 	BPL loc_BANKF_E3CC
@@ -1341,8 +1341,8 @@ loc_BANKF_E3D6:
 	LDY #$3F
 
 loc_BANKF_E3DF:
-	LDA PlayerSelectMarioSprites1,Y
-	STA SpriteDMAArea+$10,Y
+	LDA PlayerSelectMarioSprites1, Y
+	STA SpriteDMAArea + $10, Y
 	DEY
 	BPL loc_BANKF_E3DF
 
@@ -1386,7 +1386,7 @@ ContinueGame:
 
 StartCharacterSelectMenu:
 	LDX CurrentWorld
-	LDY WorldStartingLevel,X
+	LDY WorldStartingLevel, X
 	STY CurrentLevel
 	STY CurrentLevel_Init
 	JSR DoCharacterSelectMenu
@@ -1443,7 +1443,7 @@ ENDIF
 
 	JSR SetStack100Gameplay
 
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 
 	LDA IsHorizontalLevel
@@ -1590,7 +1590,7 @@ DoSuicideCheatCheck:
 	BEQ PauseScreenExitCheck ; If so, skip the suicide code check
 
 	LDA Player2JoypadHeld ; Check for suicide code
-	CMP #ControllerInput_Up|ControllerInput_B|ControllerInput_A ; Up + A + B
+	CMP #ControllerInput_Up | ControllerInput_B | ControllerInput_A ; Up + A + B
 	BNE PauseScreenExitCheck ; Not being held! Nothing to see here
 
 	JSR KillPlayer ; KILL THYSELF
@@ -1785,7 +1785,7 @@ loc_BANKF_E627:
 	LDA StarInvincibilityTimer
 	BNE loc_BANKF_E64C
 
-	LDA LevelMusicIndexes,Y
+	LDA LevelMusicIndexes, Y
 	STA MusicQueue1
 
 loc_BANKF_E64C:
@@ -1894,8 +1894,8 @@ loc_BANKF_E6E6:
 	LDY #$28
 
 loc_BANKF_E6EF:
-	LDA Text_Continue,Y
-	STA PPUBuffer_67B,Y
+	LDA Text_Continue, Y
+	STA PPUBuffer_67B, Y
 	DEY
 	BPL loc_BANKF_E6EF
 
@@ -1943,7 +1943,7 @@ loc_BANKF_E733:
 	STA byte_RAM_71AB
 	STA byte_RAM_71AF
 	LDA #$F6
-	STA byte_RAM_71AB,Y
+	STA byte_RAM_71AB, Y
 	LDA #ScreenUpdateBuffer_RAM_71a8
 	STA ScreenUpdateIndex
 
@@ -1971,11 +1971,11 @@ loc_BANKF_E75A:
 
 	LDY CurrentWorld
 	STY PreviousWorld
-	LDA WarpDestinations,Y
+	LDA WarpDestinations, Y
 	STA CurrentWorld
 	TAY
 	LDX CurrentCharacter
-	LDA WorldStartingLevel,Y
+	LDA WorldStartingLevel, Y
 	STA CurrentLevel
 	STA CurrentLevel_Init
 	INY
@@ -2013,7 +2013,7 @@ EndOfLevel:
 
 	; Increase current characters "contribution" counter
 	LDX CurrentCharacter
-	INC CharacterLevelsCompleted,X
+	INC CharacterLevelsCompleted, X
 
 	; Check if we've completed the final level
 	LDA CurrentLevel
@@ -2075,9 +2075,9 @@ ENDIF
 
 loc_BANKF_E7F2:
 	LDA #$03
-	STA ObjectXLo+3
-	STA ObjectXLo+4
-	STA ObjectXLo+5
+	STA ObjectXLo + 3
+	STA ObjectXLo + 4
+	STA ObjectXLo + 5
 	JSR WaitForNMI_TurnOnPPU
 
 loc_BANKF_E7FD:
@@ -2086,7 +2086,7 @@ loc_BANKF_E7FD:
 
 GoToNextLevel:
 	LDY CurrentWorld
-	LDA WorldStartingLevel+1,Y
+	LDA WorldStartingLevel + 1, Y
 	SEC
 	SBC #$01
 	CMP CurrentLevel
@@ -2109,7 +2109,7 @@ loc_BANKF_E81E:
 
 loc_BANKF_E826:
 	INY
-	CMP WorldStartingLevel,Y
+	CMP WorldStartingLevel, Y
 	BCS loc_BANKF_E826
 
 	DEY
@@ -2117,7 +2117,7 @@ loc_BANKF_E826:
 	LDY CurrentWorld
 	LDA CurrentLevel
 	SEC
-	SBC WorldStartingLevel,Y
+	SBC WorldStartingLevel, Y
 	STA CurrentLevelRelative
 	LDA CurrentLevel
 	STA CurrentLevel_Init
@@ -2145,12 +2145,12 @@ StartSlotMachine:
 
 	LDA #$01 ; Set all reel timers
 	STA ObjectXLo
-	STA ObjectXLo+1
-	STA ObjectXLo+2
+	STA ObjectXLo + 1
+	STA ObjectXLo + 2
 	LSR A ; Set all reels to the first position
-	STA ObjectXLo+6
-	STA ObjectXLo+7
-	STA ObjectXLo+8
+	STA ObjectXLo + 6
+	STA ObjectXLo + 7
+	STA ObjectXLo + 8
 
 DoSlotMachineSpinnyShit:
 	JSR WaitForNMI ; $2C-$2E: Reel change timer
@@ -2166,12 +2166,12 @@ DoSlotMachineSpinnyShit:
 
 	JSR sub_BANKF_E916
 
-	LDA byte_BANKF_E9DF,Y
+	LDA byte_BANKF_E9DF, Y
 	STA ScreenUpdateIndex
 	INC byte_RAM_6
 	LDA ObjectXLo ; Reel 1 still active?
-	ORA ObjectXLo+1 ; Reel 2 still active?
-	ORA ObjectXLo+2 ; Reel 3 still active?
+	ORA ObjectXLo + 1 ; Reel 2 still active?
+	ORA ObjectXLo + 2 ; Reel 3 still active?
 	BNE DoSlotMachineSpinnyShit ; If any are still active, go back to waiting
 
 	LDA #ScreenUpdateBuffer_RAM_6df
@@ -2179,15 +2179,15 @@ DoSlotMachineSpinnyShit:
 	JSR WaitForNMI
 
 	LDY #$00
-	LDX ObjectXLo+6 ; Load reel 1
-	LDA SlotMachineReelOrder1RAM,X
+	LDX ObjectXLo + 6 ; Load reel 1
+	LDA SlotMachineReelOrder1RAM, X
 	BNE CheckReel2Symbol ; Is this reel a cherry?
 
 	INY ; Yes; add one life
 
 CheckReel2Symbol:
-	LDX ObjectXLo+7 ; Load reel 2
-	CMP SlotMachineReelOrder2RAM,X
+	LDX ObjectXLo + 7 ; Load reel 2
+	CMP SlotMachineReelOrder2RAM, X
 	BNE AddSlotMachineExtraLives ; Does this match the previous symbol?
 
 	CMP #$00 ; Yes; are they both cherries?
@@ -2196,8 +2196,8 @@ CheckReel2Symbol:
 	INY ; They are both cherries, add another life or something
 
 CheckReel3Symbol:
-	LDX ObjectXLo+8 ; Load reel 3
-	CMP SlotMachineReelOrder3RAM,X ; Does reel 3 match the previous two?
+	LDX ObjectXLo + 8 ; Load reel 3
+	CMP SlotMachineReelOrder3RAM, X ; Does reel 3 match the previous two?
 	BNE AddSlotMachineExtraLives ; No, fuck you
 
 	INY ; They all match! Yay! Add a life.
@@ -2236,7 +2236,7 @@ loc_BANKF_E8ED:
 
 	JSR sub_BANKF_E916
 
-	LDA byte_BANKF_E9E3,Y
+	LDA byte_BANKF_E9E3, Y
 	STA ScreenUpdateIndex
 	DEC byte_RAM_6
 	BNE loc_BANKF_E8ED
@@ -2286,7 +2286,7 @@ loc_BANKF_E92A:
 	LDA byte_RAM_6
 	AND #$01
 	TAY
-	LDA byte_BANKF_E9E1,Y
+	LDA byte_BANKF_E9E1, Y
 	STA ScreenUpdateIndex
 
 	LDA #$0A
@@ -2374,7 +2374,7 @@ SetupMarioSleepingScene:
 ; =============== S U B R O U T I N E =======================================
 
 DisableNMI:
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
 	STA PPUCTRL
 	STA PPUCtrlMirror
 	RTS
@@ -2437,8 +2437,8 @@ PauseScreen_Card:
 	; Load title card palette
 	LDY #$23
 PauseScreen_Card_Loop:
-	LDA TitleCardPalettes,Y
-	STA PPUBuffer_55F,Y
+	LDA TitleCardPalettes, Y
+	STA PPUBuffer_55F, Y
 	DEY
 	BPL PauseScreen_Card_Loop
 
@@ -2461,7 +2461,7 @@ PauseScreen_Card_ScreenReset:
 
 
 EnableNMI:
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 	STA PPUCTRL
 	RTS
@@ -2479,7 +2479,7 @@ sub_BANKF_EA33:
 	STY PPUADDR
 
 loc_BANKF_EA43:
-	LDA unk_RAM_59C,Y
+	LDA unk_RAM_59C, Y
 	STA PPUDATA
 	INY
 	CPY #$10
@@ -2493,7 +2493,7 @@ loc_BANKF_EA43:
 	STA PPUADDR
 
 SetBonusChancePalette:
-	LDA BonusChanceSpritePalettes,Y
+	LDA BonusChanceSpritePalettes, Y
 	STA PPUDATA
 	INY
 	CPY #$10
@@ -2564,7 +2564,7 @@ WaitForNMI_TurnOffPPU:
 	BEQ _WaitForNMI_StuffPPUMask ; Branch always
 
 WaitForNMI_TurnOnPPU:
-	LDA #PPUMask_ShowLeft8Pixels_BG|PPUMask_ShowLeft8Pixels_SPR|PPUMask_ShowBackground|PPUMask_ShowSprites
+	LDA #PPUMask_ShowLeft8Pixels_BG | PPUMask_ShowLeft8Pixels_SPR | PPUMask_ShowBackground | PPUMask_ShowSprites
 
 _WaitForNMI_StuffPPUMask:
 	STA PPUMaskMirror
@@ -2573,10 +2573,10 @@ WaitForNMI:
 	LDA ScreenUpdateIndex
 	ASL A
 	TAX
-	LDA ScreenUpdateBufferPointers,X
+	LDA ScreenUpdateBufferPointers, X
 	STA RAM_PPUDataBufferPointer
-	LDA ScreenUpdateBufferPointers+1,X
-	STA RAM_PPUDataBufferPointer+1
+	LDA ScreenUpdateBufferPointers + 1, X
+	STA RAM_PPUDataBufferPointer + 1
 	LDA #$00
 	STA NMIWaitFlag ; Start waiting for NMI to finish
 
@@ -2597,7 +2597,7 @@ sub_BANKF_EAC2:
 	LDX #$00
 
 loc_BANKF_EAC8:
-	LDA ObjectXLo,X
+	LDA ObjectXLo, X
 	BNE loc_BANKF_EAD2
 
 	INX
@@ -2611,7 +2611,7 @@ locret_BANKF_EAD1:
 
 loc_BANKF_EAD2:
 	LDA #$00
-	STA ObjectXLo,X
+	STA ObjectXLo, X
 	LDA #SoundEffect1_CherryGet
 	STA SoundEffectQueue1
 	RTS
@@ -2624,19 +2624,19 @@ sub_BANKF_EADC:
 	LDX #$02
 
 loc_BANKF_EADE:
-	LDA ObjectXLo,X
+	LDA ObjectXLo, X
 	BEQ loc_BANKF_EAF2
 
-	DEC ObjectXLo+3,X
+	DEC ObjectXLo + 3, X
 	BNE loc_BANKF_EAF2
 
 	LDA #$04
-	STA ObjectXLo+3,X
-	DEC ObjectXLo+6,X
+	STA ObjectXLo + 3, X
+	DEC ObjectXLo + 6, X
 	BPL loc_BANKF_EAF2
 
 	LDA #$07
-	STA ObjectXLo+6,X
+	STA ObjectXLo + 6, X
 
 loc_BANKF_EAF2:
 	DEX
@@ -2659,16 +2659,16 @@ loc_BANKF_EAFA:
 	ASL A
 	ASL A
 	TAX
-	ADC ObjectXLo+6,Y
+	ADC ObjectXLo + 6, Y
 	TAY
-	LDA SlotMachineReelOrder1RAM,Y
+	LDA SlotMachineReelOrder1RAM, Y
 	TAY
 	LDA #$07
 	STA byte_RAM_1
 
 loc_BANKF_EB0D:
-	LDA BonusChanceCherrySprite,Y
-	STA SpriteDMAArea+$10,X
+	LDA BonusChanceCherrySprite, Y
+	STA SpriteDMAArea + $10, X
 	INX
 	INY
 	DEC byte_RAM_1
@@ -2684,8 +2684,8 @@ loc_BANKF_EB1F:
 	AND #$18
 	ASL A
 	ASL A
-	ADC SpriteDMAArea+$10,X
-	STA SpriteDMAArea+$10,X
+	ADC SpriteDMAArea + $10, X
+	STA SpriteDMAArea + $10, X
 	DEX
 	DEX
 	DEX
@@ -2704,8 +2704,8 @@ CopyUnusedCoinSpriteToSpriteArea:
 	LDY #$00
 
 CopyUnusedCoinSpriteToSpriteArea_Loop:
-	LDA unk_RAM_653,Y ; Copy two sprites from memory to memory.
-	STA SpriteDMAArea+$28,Y ; This is definitely efficient.
+	LDA unk_RAM_653, Y ; Copy two sprites from memory to memory.
+	STA SpriteDMAArea + $28, Y ; This is definitely efficient.
 	INY ; Two sprites for each half of the coin.
 	CPY #$08 ; Four bytes per sprite * 2 sprites = 8 bytes
 	BCC CopyUnusedCoinSpriteToSpriteArea_Loop
@@ -2793,7 +2793,7 @@ NMI:
 	LDX #$1E
 	LDY #$00
 	LDA PPUSTATUS
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteVertical|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCTRL
 
 loc_BANKF_EBC9:
@@ -2817,7 +2817,7 @@ ENDIF
 	STA PPUADDR
 
 loc_BANKF_EBD5:
-	LDA unk_RAM_380,Y
+	LDA unk_RAM_380, Y
 	STA PPUDATA
 	INY
 	DEX
@@ -2839,7 +2839,7 @@ loc_BANKF_EBE8:
 	LDA byte_RAM_3BC
 	BEQ loc_BANKF_EC1F
 
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteVertical|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCTRL
 	LDY #$00
 	LDX #$04
@@ -2852,7 +2852,7 @@ loc_BANKF_EBF6:
 	STA PPUADDR
 
 loc_BANKF_EC05:
-	LDA unk_RAM_3BE,Y
+	LDA unk_RAM_3BE, Y
 	STA PPUDATA
 	INY
 	TYA
@@ -2980,7 +2980,7 @@ HideAllSprites:
 	LDA #$F8
 
 HideAllSpritesLoop:
-	STA SpriteDMAArea,Y
+	STA SpriteDMAArea, Y
 	DEY
 	DEY
 	DEY
@@ -2992,7 +2992,7 @@ HideAllSpritesLoop:
 
 ClearNametableChunk:
 	LDY PPUSTATUS ; Reset PPU address latch
-	LDY #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIDisabled
+	LDY #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
 	STY PPUCTRL ; Turn off NMI
 	STY PPUCtrlMirror
 	LDY #$00
@@ -3045,26 +3045,26 @@ PPUBufferUpdatesComplete:
 ; a terminating $00. Welp!
 ;
 UpdatePPUFromBufferNMI:
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCTRL
 	LDY #$00
 
 UpdatePPUFromBufferNMI_CheckForBuffer:
-	LDA (RAM_PPUDataBufferPointer),Y
+	LDA (RAM_PPUDataBufferPointer), Y
 	BEQ PPUBufferUpdatesComplete
 
 	LDX PPUSTATUS
 	STA PPUADDR
 	INY
-	LDA (RAM_PPUDataBufferPointer),Y
+	LDA (RAM_PPUDataBufferPointer), Y
 	STA PPUADDR
 	INY
-	LDA (RAM_PPUDataBufferPointer),Y
+	LDA (RAM_PPUDataBufferPointer), Y
 	TAX
 
 UpdatePPUFromBufferNMI_CopyLoop:
 	INY
-	LDA (RAM_PPUDataBufferPointer),Y
+	LDA (RAM_PPUDataBufferPointer), Y
 	STA PPUDATA
 	DEX
 	BNE UpdatePPUFromBufferNMI_CopyLoop
@@ -3100,7 +3100,7 @@ UpdatePPUFromBufferNMI_CopyLoop:
 UpdatePPUFromBufferWithOptions:
 	; First, check if we have anything to send to the PPU
 	LDY #$00
-	LDA (RAM_PPUDataBufferPointer),Y
+	LDA (RAM_PPUDataBufferPointer), Y
 	; If the first byte at the buffer address is #$00, we have nothing. We're done here!
 	BEQ PPUBufferUpdatesComplete
 
@@ -3110,19 +3110,19 @@ UpdatePPUFromBufferWithOptions:
 	; address from the PPU buffer
 	STA PPUADDR
 	INY
-	LDA (RAM_PPUDataBufferPointer),Y
+	LDA (RAM_PPUDataBufferPointer), Y
 	STA PPUADDR
 	INY
-	LDA (RAM_PPUDataBufferPointer),Y ; Data segment length byte...
+	LDA (RAM_PPUDataBufferPointer), Y ; Data segment length byte...
 	ASL A
 	PHA
 	; Enable NMI + Vertical increment + whatever else was already set...
 	LDA PPUCtrlMirror
-	ORA #PPUCtrl_Base2000|PPUCtrl_WriteVertical|PPUCtrl_Sprite0000|PPUCtrl_Background0000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIEnabled
+	ORA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
 	; ...but only if $80 was set in the length byte. Otherwise, turn vertical incrementing back off.
 	BCS UpdatePPUFBWO_EnableVerticalIncrement
 
-	AND #PPUCtrl_Base2C00|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite1000|PPUCtrl_Background1000|PPUCtrl_SpriteSize8x16|PPUCtrl_NMIEnabled|$40
+	AND #PPUCtrl_Base2C00 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled | $40
 
 UpdatePPUFBWO_EnableVerticalIncrement:
 	STA PPUCTRL
@@ -3156,7 +3156,7 @@ UpdatePPUFBWO_CopyLoop:
 	INY
 
 UpdatePPUFBWO_CopySingleTileSkip:
-	LDA (RAM_PPUDataBufferPointer),Y ; Load data from buffer...
+	LDA (RAM_PPUDataBufferPointer), Y ; Load data from buffer...
 	STA PPUDATA ; ...store it to the PPU.
 	DEX ; Decrease remaining length.
 	BNE UpdatePPUFBWO_CopyLoop ; Are we done? If no, copy more stuff
@@ -3166,11 +3166,11 @@ UpdatePPUFBWO_CopySingleTileSkip:
 	CLC ; Clear carry bit (from earlier)
 	ADC RAM_PPUDataBufferPointer ; Add the length to the PPU data buffer
 	STA RAM_PPUDataBufferPointer
-	LDA RAM_PPUDataBufferPointer+1
+	LDA RAM_PPUDataBufferPointer + 1
 	; If the length overflowed (carry set),
 	; add that to the hi byte of the pointer
 	ADC #$00
-	STA RAM_PPUDataBufferPointer+1
+	STA RAM_PPUDataBufferPointer + 1
 	; Start the cycle over again.
 	; (If the PPU buffer points to a 0, it will terminate after this jump)
 	JMP UpdatePPUFromBufferWithOptions
@@ -3455,10 +3455,10 @@ ENDIF
 	LDX #$03
 
 loc_BANKF_F159:
-	LDA PlayerStateTimer,X
+	LDA PlayerStateTimer, X
 	BEQ loc_BANKF_F15F
 
-	DEC PlayerStateTimer,X
+	DEC PlayerStateTimer, X
 
 loc_BANKF_F15F:
 	DEX
@@ -3476,7 +3476,7 @@ loc_BANKF_F15F:
 	BNE locret_BANKF_F17D
 
 	LDY CurrentMusicIndex
-	LDA LevelMusicIndexes,Y
+	LDA LevelMusicIndexes, Y
 	STA MusicQueue1
 
 locret_BANKF_F17D:
@@ -3532,8 +3532,8 @@ sub_BANKF_F1AE:
 	LDY #$03
 
 loc_BANKF_F1B7:
-	LDA CurrentLevel,Y
-	STA CurrentLevel_Init,Y
+	LDA CurrentLevel, Y
+	STA CurrentLevel_Init, Y
 	DEY
 	BPL loc_BANKF_F1B7
 
@@ -3568,8 +3568,8 @@ LevelInitialization:
 
 ; Loop through and set level, area, page, and transition from RAM
 LevelInitialization_AreaSetupLoop:
-	LDA CurrentLevel_Init,Y
-	STA CurrentLevel,Y
+	LDA CurrentLevel_Init, Y
+	STA CurrentLevel, Y
 	DEY
 	BPL LevelInitialization_AreaSetupLoop
 
@@ -3595,7 +3595,7 @@ LevelInitialization_AreaSetupLoop:
 
 RestorePlayerToFullHealth:
 	LDY PlayerMaxHealth ; Get player's current max HP
-	LDA PlayerHealthValueByHeartCount,Y ; Get the health value for this amount of hearts
+	LDA PlayerHealthValueByHeartCount, Y ; Get the health value for this amount of hearts
 	STA PlayerHealth
 	RTS
 
@@ -3851,37 +3851,37 @@ IFDEF CONTROLLER_2_DEBUG
 
 	; tile
 	LDY ChangeCharacterPoofTimer
-	LDA ChangePlayerPoofTiles,Y
-	STA SpriteDMAArea+$01
-	STA SpriteDMAArea+$05
-	STA SpriteDMAArea+$09
-	STA SpriteDMAArea+$0D
+	LDA ChangePlayerPoofTiles, Y
+	STA SpriteDMAArea + $01
+	STA SpriteDMAArea + $05
+	STA SpriteDMAArea + $09
+	STA SpriteDMAArea + $0D
 
 	; attributes
 	LDA #ObjAttrib_Palette1
-	STA SpriteDMAArea+$02
-	STA SpriteDMAArea+$0A
-	LDA #ObjAttrib_Palette1|ObjAttrib_16x32
-	STA SpriteDMAArea+$06
-	STA SpriteDMAArea+$0E
+	STA SpriteDMAArea + $02
+	STA SpriteDMAArea + $0A
+	LDA #ObjAttrib_Palette1 | ObjAttrib_16x32
+	STA SpriteDMAArea + $06
+	STA SpriteDMAArea + $0E
 
 	; y-position
 	LDA PlayerScreenYLo
-	STA SpriteDMAArea+$00
-	STA SpriteDMAArea+$04
+	STA SpriteDMAArea + $00
+	STA SpriteDMAArea + $04
 	CLC
 	ADC #$10
-	STA SpriteDMAArea+$08
-	STA SpriteDMAArea+$0C
+	STA SpriteDMAArea + $08
+	STA SpriteDMAArea + $0C
 
 	; x-position
 	LDA PlayerScreenX
-	STA SpriteDMAArea+$03
-	STA SpriteDMAArea+$0B
+	STA SpriteDMAArea + $03
+	STA SpriteDMAArea + $0B
 	CLC
 	ADC #$08
-	STA SpriteDMAArea+$07
-	STA SpriteDMAArea+$0F
+	STA SpriteDMAArea + $07
+	STA SpriteDMAArea + $0F
 
 RenderPlayer_AfterChangeCharacterPoof:
 ENDIF
@@ -3910,7 +3910,7 @@ ENDIF
 	LSR A
 	TAY
 	LDA DamageInvulnTime
-	AND DamageInvulnBlinkFrames,Y
+	AND DamageInvulnBlinkFrames, Y
 	BNE loc_BANKF_F345
 
 	RTS
@@ -3940,12 +3940,12 @@ loc_BANKF_F345:
 
 loc_BANKF_F350:
 	LDA PlayerScreenX
-	STA SpriteDMAArea+$23
-	STA SpriteDMAArea+$2B
+	STA SpriteDMAArea + $23
+	STA SpriteDMAArea + $2B
 	CLC
 	ADC #$08
-	STA SpriteDMAArea+$27
-	STA SpriteDMAArea+$2F
+	STA SpriteDMAArea + $27
+	STA SpriteDMAArea + $2F
 	LDA PlayerScreenYLo
 	STA byte_RAM_0
 	LDA PlayerScreenYHi
@@ -3988,9 +3988,9 @@ loc_BANKF_F394:
 	BNE loc_BANKF_F3A6
 
 	LDA byte_RAM_0
-	STA SpriteDMAArea,Y
-	STA SpriteDMAArea+$20
-	STA SpriteDMAArea+$24
+	STA SpriteDMAArea, Y
+	STA SpriteDMAArea + $20
+	STA SpriteDMAArea + $24
 
 loc_BANKF_F3A6:
 	LDA byte_RAM_0
@@ -4002,8 +4002,8 @@ loc_BANKF_F3A6:
 	BNE loc_BANKF_F3BB
 
 	LDA byte_RAM_0
-	STA SpriteDMAArea+$28
-	STA SpriteDMAArea+$2C
+	STA SpriteDMAArea + $28
+	STA SpriteDMAArea + $2C
 
 loc_BANKF_F3BB:
 	LDA CrouchJumpTimer
@@ -4023,7 +4023,7 @@ loc_BANKF_F3CA:
 	ORA PlayerAttributes
 	AND #%11111100
 	ORA #ObjAttrib_Palette1
-	STA SpriteDMAArea+2,Y
+	STA SpriteDMAArea + 2, Y
 	LDX PlayerAnimationFrame
 	CPX #$07
 	BEQ loc_BANKF_F3E2
@@ -4033,28 +4033,28 @@ loc_BANKF_F3CA:
 
 loc_BANKF_F3E2:
 	LDA PlayerAttributes
-	STA SpriteDMAArea+$22
-	STA SpriteDMAArea+$2A
+	STA SpriteDMAArea + $22
+	STA SpriteDMAArea + $2A
 	ORA #$40
 	BNE loc_BANKF_F3F8
 
 loc_BANKF_F3EE:
 	AND #$FC
 	ORA PlayerAttributes
-	STA SpriteDMAArea+$22
-	STA SpriteDMAArea+$2A
+	STA SpriteDMAArea + $22
+	STA SpriteDMAArea + $2A
 
 loc_BANKF_F3F8:
-	STA SpriteDMAArea+$26
-	STA SpriteDMAArea+$2E
-	LDA byte_BANKF_F2D5,X
+	STA SpriteDMAArea + $26
+	STA SpriteDMAArea + $2E
+	LDA byte_BANKF_F2D5, X
 	BNE loc_BANKF_F408
 
 	LDX CurrentCharacter
-	LDA CharacterEyeTiles,X
+	LDA CharacterEyeTiles, X
 
 loc_BANKF_F408:
-	STA SpriteDMAArea+1,Y
+	STA SpriteDMAArea + 1, Y
 	LDA PlayerAnimationFrame
 	CMP #$06
 	BCS loc_BANKF_F413
@@ -4068,12 +4068,12 @@ loc_BANKF_F413:
 	LDA PlayerDirection
 	BNE loc_BANKF_F44A
 
-	LDA SpriteDMAArea+$23
-	STA SpriteDMAArea+3,Y
-	LDA byte_BANKF_F2E4,X
-	STA SpriteDMAArea+$21
-	LDA byte_BANKF_F2E5,X
-	STA SpriteDMAArea+$25
+	LDA SpriteDMAArea + $23
+	STA SpriteDMAArea + 3, Y
+	LDA byte_BANKF_F2E4, X
+	STA SpriteDMAArea + $21
+	LDA byte_BANKF_F2E5, X
+	STA SpriteDMAArea + $25
 	LDA PlayerCurrentSize
 	BNE loc_BANKF_F43F
 
@@ -4088,18 +4088,18 @@ loc_BANKF_F413:
 	LDX #$2A
 
 loc_BANKF_F43F:
-	LDA byte_BANKF_F2E6,X
-	STA SpriteDMAArea+$29
-	LDA byte_BANKF_F2E7,X
+	LDA byte_BANKF_F2E6, X
+	STA SpriteDMAArea + $29
+	LDA byte_BANKF_F2E7, X
 	BNE loc_BANKF_F478
 
 loc_BANKF_F44A:
-	LDA SpriteDMAArea+$27
-	STA SpriteDMAArea+3,Y
-	LDA byte_BANKF_F2E5,X
-	STA SpriteDMAArea+$21
-	LDA byte_BANKF_F2E4,X
-	STA SpriteDMAArea+$25
+	LDA SpriteDMAArea + $27
+	STA SpriteDMAArea + 3, Y
+	LDA byte_BANKF_F2E5, X
+	STA SpriteDMAArea + $21
+	LDA byte_BANKF_F2E4, X
+	STA SpriteDMAArea + $25
 	LDA PlayerCurrentSize
 	BNE loc_BANKF_F46F
 
@@ -4114,12 +4114,12 @@ loc_BANKF_F44A:
 	LDX #$2A
 
 loc_BANKF_F46F:
-	LDA byte_BANKF_F2E7,X
-	STA SpriteDMAArea+$29
-	LDA byte_BANKF_F2E6,X
+	LDA byte_BANKF_F2E7, X
+	STA SpriteDMAArea + $29
+	LDA byte_BANKF_F2E6, X
 
 loc_BANKF_F478:
-	STA SpriteDMAArea+$2D
+	STA SpriteDMAArea + $2D
 	RTS
 
 
@@ -4252,69 +4252,69 @@ ObjectAttributeTable:
 	.db ObjAttrib_Palette1 ; $05 Enemy_SnifitRed
 	.db ObjAttrib_Palette2 ; $06 Enemy_SnifitGray
 	.db ObjAttrib_Palette3 ; $07 Enemy_SnifitPink
-	.db ObjAttrib_Palette1|ObjAttrib_16x32 ; $08 Enemy_Ostro
+	.db ObjAttrib_Palette1 | ObjAttrib_16x32 ; $08 Enemy_Ostro
 	.db ObjAttrib_Palette1 ; $09 Enemy_BobOmb
-	.db ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0A Enemy_AlbatossCarryingBobOmb
-	.db ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0B Enemy_AlbatossStartRight
-	.db ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $0C Enemy_AlbatossStartLeft
+	.db ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_16x32 ; $0A Enemy_AlbatossCarryingBobOmb
+	.db ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_16x32 ; $0B Enemy_AlbatossStartRight
+	.db ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_16x32 ; $0C Enemy_AlbatossStartLeft
 	.db ObjAttrib_Palette1 ; $0D Enemy_NinjiRunning
 	.db ObjAttrib_Palette1 ; $0E Enemy_NinjiJumping
 	.db ObjAttrib_Palette1 ; $0F Enemy_BeezoDiving
 	.db ObjAttrib_Palette2 ; $10 Enemy_BeezoStraight
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored ; $11 Enemy_WartBubble
-	.db ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_FrontFacing ; $12 Enemy_Pidgit
-	.db ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $13 Enemy_Trouter
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored ; $14 Enemy_Hoopstar
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $11 Enemy_WartBubble
+	.db ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_FrontFacing ; $12 Enemy_Pidgit
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $13 Enemy_Trouter
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $14 Enemy_Hoopstar
 	.db ObjAttrib_Palette0 ; $15 Enemy_JarGeneratorShyguy
 	.db ObjAttrib_Palette0 ; $16 Enemy_JarGeneratorBobOmb
-	.db ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $17 Enemy_Phanto
-	.db ObjAttrib_Palette1|ObjAttrib_16x32|ObjAttrib_UpsideDown ; $18 Enemy_CobratJar
-	.db ObjAttrib_Palette1|ObjAttrib_16x32 ; $19 Enemy_CobratSand
-	.db ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1A Enemy_Pokey
-	.db ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1B Enemy_Bullet
-	.db ObjAttrib_Palette2|ObjAttrib_16x32 ; $1C Enemy_Birdo
-	.db ObjAttrib_Palette3|ObjAttrib_16x32 ; $1D Enemy_Mouser
-	.db ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $1E Enemy_Egg
-	.db ObjAttrib_Palette2|ObjAttrib_FrontFacing ; $1F Enemy_Tryclyde
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored ; $20 Enemy_Fireball
-	.db ObjAttrib_Palette1|ObjAttrib_16x32 ; $21 Enemy_Clawgrip
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $17 Enemy_Phanto
+	.db ObjAttrib_Palette1 | ObjAttrib_16x32 | ObjAttrib_UpsideDown ; $18 Enemy_CobratJar
+	.db ObjAttrib_Palette1 | ObjAttrib_16x32 ; $19 Enemy_CobratSand
+	.db ObjAttrib_Palette2 | ObjAttrib_FrontFacing ; $1A Enemy_Pokey
+	.db ObjAttrib_Palette2 | ObjAttrib_FrontFacing ; $1B Enemy_Bullet
+	.db ObjAttrib_Palette2 | ObjAttrib_16x32 ; $1C Enemy_Birdo
+	.db ObjAttrib_Palette3 | ObjAttrib_16x32 ; $1D Enemy_Mouser
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $1E Enemy_Egg
+	.db ObjAttrib_Palette2 | ObjAttrib_FrontFacing ; $1F Enemy_Tryclyde
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $20 Enemy_Fireball
+	.db ObjAttrib_Palette1 | ObjAttrib_16x32 ; $21 Enemy_Clawgrip
 	.db ObjAttrib_Palette2 ; $22 Enemy_ClawgripRock
 	.db ObjAttrib_Palette1 ; $23 Enemy_PanserStationaryFiresAngled
 	.db ObjAttrib_Palette3 ; $24 Enemy_PanserWalking
 	.db ObjAttrib_Palette2 ; $25 Enemy_PanserStationaryFiresUp
 	.db ObjAttrib_Palette1 ; $26 Enemy_Autobomb
 	.db ObjAttrib_Palette1 ; $27 Enemy_AutobombFire
-	.db ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $28 Enemy_WhaleSpout
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $28 Enemy_WhaleSpout
 	.db ObjAttrib_Palette1 ; $29 Enemy_Flurry
-	.db ObjAttrib_Palette1|ObjAttrib_16x32 ; $2A Enemy_Fryguy
+	.db ObjAttrib_Palette1 | ObjAttrib_16x32 ; $2A Enemy_Fryguy
 	.db ObjAttrib_Palette1 ; $2B Enemy_FryguySplit
-	.db ObjAttrib_Palette3|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_16x32 ; $2C Enemy_Wart
-	.db ObjAttrib_Palette1|ObjAttrib_16x32 ; $2D Enemy_HawkmouthBoss
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored ; $2E Enemy_Spark1
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored ; $2F Enemy_Spark2
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored ; $30 Enemy_Spark3
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored ; $31 Enemy_Spark4
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $32 Enemy_VegetableSmall
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $33 Enemy_VegetableLarge
-	.db ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $34 Enemy_VegetableWart
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $35 Enemy_Shell
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $36 Enemy_Coin
-	.db ObjAttrib_Palette1|ObjAttrib_UpsideDown ; $37 Enemy_Bomb
-	.db ObjAttrib_Palette1|ObjAttrib_UpsideDown ; $38 Enemy_Rocket
-	.db ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $39 Enemy_MushroomBlock
-	.db ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $3A Enemy_POWBlock
-	.db ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_FrontFacing|ObjAttrib_16x32 ; $3B Enemy_FallingLogs
-	.db ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $3C Enemy_SubspaceDoor
-	.db ObjAttrib_Palette1|ObjAttrib_FrontFacing ; $3D Enemy_Key
-	.db ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $3E Enemy_SubspacePotion
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored ; $3F Enemy_Mushroom
-	.db ObjAttrib_Palette1|ObjAttrib_FrontFacing|ObjAttrib_UpsideDown ; $40 Enemy_Mushroom1up
-	.db ObjAttrib_Palette1|ObjAttrib_Horizontal|ObjAttrib_16x32 ; $41 Enemy_FlyingCarpet
-	.db ObjAttrib_Palette1|ObjAttrib_16x32 ; $42 Enemy_HawkmouthRight
-	.db ObjAttrib_Palette1|ObjAttrib_16x32 ; $43 Enemy_HawkmouthLeft
-	.db ObjAttrib_Palette1|ObjAttrib_Mirrored ; $44 Enemy_CrystalBall
-	.db ObjAttrib_Palette2|ObjAttrib_Mirrored ; $45 Enemy_Starman
-	.db ObjAttrib_Palette2|ObjAttrib_Mirrored|ObjAttrib_UpsideDown ; $46 Enemy_Stopwatch
+	.db ObjAttrib_Palette3 | ObjAttrib_Horizontal | ObjAttrib_FrontFacing | ObjAttrib_16x32 ; $2C Enemy_Wart
+	.db ObjAttrib_Palette1 | ObjAttrib_16x32 ; $2D Enemy_HawkmouthBoss
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $2E Enemy_Spark1
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $2F Enemy_Spark2
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $30 Enemy_Spark3
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $31 Enemy_Spark4
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored | ObjAttrib_UpsideDown ; $32 Enemy_VegetableSmall
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored | ObjAttrib_UpsideDown ; $33 Enemy_VegetableLarge
+	.db ObjAttrib_Palette2 | ObjAttrib_Mirrored | ObjAttrib_UpsideDown ; $34 Enemy_VegetableWart
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored | ObjAttrib_UpsideDown ; $35 Enemy_Shell
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored | ObjAttrib_UpsideDown ; $36 Enemy_Coin
+	.db ObjAttrib_Palette1 | ObjAttrib_UpsideDown ; $37 Enemy_Bomb
+	.db ObjAttrib_Palette1 | ObjAttrib_UpsideDown ; $38 Enemy_Rocket
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $39 Enemy_MushroomBlock
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing | ObjAttrib_UpsideDown ; $3A Enemy_POWBlock
+	.db ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_FrontFacing | ObjAttrib_16x32 ; $3B Enemy_FallingLogs
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $3C Enemy_SubspaceDoor
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $3D Enemy_Key
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing | ObjAttrib_UpsideDown ; $3E Enemy_SubspacePotion
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $3F Enemy_Mushroom
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing | ObjAttrib_UpsideDown ; $40 Enemy_Mushroom1up
+	.db ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_16x32 ; $41 Enemy_FlyingCarpet
+	.db ObjAttrib_Palette1 | ObjAttrib_16x32 ; $42 Enemy_HawkmouthRight
+	.db ObjAttrib_Palette1 | ObjAttrib_16x32 ; $43 Enemy_HawkmouthLeft
+	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $44 Enemy_CrystalBall
+	.db ObjAttrib_Palette2 | ObjAttrib_Mirrored ; $45 Enemy_Starman
+	.db ObjAttrib_Palette2 | ObjAttrib_Mirrored | ObjAttrib_UpsideDown ; $46 Enemy_Stopwatch
 
 ;
 ; Enemy Behavior 46E
@@ -4688,12 +4688,12 @@ ENDIF
 	LDX #$01
 
 UpdateJoypads_Loop:
-	LDA Player1JoypadPress,X ; Update the press/held values
+	LDA Player1JoypadPress, X ; Update the press/held values
 	TAY
-	EOR Player1JoypadHeld,X
-	AND Player1JoypadPress,X
-	STA Player1JoypadPress,X
-	STY Player1JoypadHeld,X
+	EOR Player1JoypadHeld, X
+	AND Player1JoypadPress, X
+	STA Player1JoypadPress, X
+	STY Player1JoypadHeld, X
 	DEX
 	BPL UpdateJoypads_Loop
 
@@ -4736,16 +4736,16 @@ sub_BANKF_F6A1:
 	LDA CurrentLevelPage
 	ASL A
 	TAY
-	LDA AreaPointersByPage,Y
+	LDA AreaPointersByPage, Y
 	STA CurrentLevel
 	INY
-	LDA AreaPointersByPage,Y
+	LDA AreaPointersByPage, Y
 	LSR A
 	LSR A
 	LSR A
 	LSR A
 	STA CurrentLevelArea
-	LDA AreaPointersByPage,Y
+	LDA AreaPointersByPage, Y
 	AND #$0F
 	STA CurrentLevelEntryPage
 	RTS
@@ -4777,7 +4777,7 @@ EnsureCorrectMusic:
 	CMP #$08
 	BCS EnsureCorrectMusic_Exit
 
-	LDA LevelMusicIndexes,X
+	LDA LevelMusicIndexes, X
 	STA MusicQueue1
 
 EnsureCorrectMusic_Exit:
@@ -4796,13 +4796,13 @@ ENDIF
 	LDX #$08
 
 DoAreaReset_EnemyLoop:
-	LDA EnemyState,X
+	LDA EnemyState, X
 	BEQ DoAreaReset_EnemyLoopEnd
 
-	LDA ObjectBeingCarriedTimer,X
+	LDA ObjectBeingCarriedTimer, X
 	BEQ DoAreaReset_AfterCarryOver
 
-	LDA ObjectType,X
+	LDA ObjectType, X
 	CMP #Enemy_MushroomBlock
 	BEQ DoAreaReset_AfterCarryOver
 
@@ -4824,18 +4824,18 @@ DoAreaReset_EnemyLoopEnd:
 
 AreaResetEnemyDestroy:
 	; load raw enemy data offset so we can allow the level object to respawn
-	LDY unk_RAM_441,X
+	LDY unk_RAM_441, X
 	; nothing to reset if offset is invalid
 	BMI AreaResetEnemyDestroy_AfterAllowRespawn
 
 	; disabling bit 7 allows the object to respawn
-	LDA (RawEnemyData),Y
+	LDA (RawEnemyData), Y
 	AND #$7F
-	STA (RawEnemyData),Y
+	STA (RawEnemyData), Y
 
 AreaResetEnemyDestroy_AfterAllowRespawn:
 	LDA #EnemyState_Inactive
-	STA EnemyState,X
+	STA EnemyState, X
 	RTS
 
 ; End of function AreaResetEnemyDestroy
@@ -4858,17 +4858,17 @@ KillPlayer:
 	; a held item on death
 	DEC HoldingItem
 	LDY ObjectBeingCarriedIndex
-	STA EnemyArray_42F,Y
+	STA EnemyArray_42F, Y
 	LSR A
-	STA ObjectBeingCarriedTimer,Y
-	STA ObjectXVelocity,Y
+	STA ObjectBeingCarriedTimer, Y
+	STA ObjectXVelocity, Y
 	LDA #$E0
 	STX byte_RAM_D
-	LDX EnemyState,Y
+	LDX EnemyState, Y
 	CPX #EnemyState_7
 	BEQ loc_BANKF_F747
 
-	STA ObjectYVelocity,Y
+	STA ObjectYVelocity, Y
 
 loc_BANKF_F747:
 	LDX byte_RAM_D
@@ -4890,13 +4890,13 @@ loc_BANKF_F749:
 
 GetLevelPointers:
 	LDY CurrentLevel
-	LDA LevelAreaStartIndexes,Y
+	LDA LevelAreaStartIndexes, Y
 	CLC
 	ADC CurrentLevelArea
 	TAY ; Y now contains the current area or something
-	LDA LevelDataPointersLo,Y
+	LDA LevelDataPointersLo, Y
 	STA byte_RAM_5 ; $0005/$0006 are pointers to the level data
-	LDA LevelDataPointersHi,Y
+	LDA LevelDataPointersHi, Y
 	STA byte_RAM_6
 	LDX #$FF ; Set to load level data into $7800 in RAM
 	LDA #$78
@@ -4905,13 +4905,13 @@ GetLevelPointers:
 	STY byte_RAM_1
 
 CopyLevelDataToMemory:
-	LDA (byte_RAM_5),Y
-	STA (byte_RAM_1),Y
+	LDA (byte_RAM_5), Y
+	STA (byte_RAM_1), Y
 	INY
 	DEX
 	BNE CopyLevelDataToMemory
 
-	STA (byte_RAM_1),Y
+	STA (byte_RAM_1), Y
 
 ; End of function GetLevelPointers
 
@@ -4919,13 +4919,13 @@ CopyLevelDataToMemory:
 
 GetEnemyPointers:
 	LDY CurrentLevel
-	LDA EnemyPointersByLevel_HiHi,Y
+	LDA EnemyPointersByLevel_HiHi, Y
 	STA byte_RAM_1
-	LDA EnemyPointersByLevel_HiLo,Y
+	LDA EnemyPointersByLevel_HiLo, Y
 	STA byte_RAM_0
-	LDA EnemyPointersByLevel_LoHi,Y
+	LDA EnemyPointersByLevel_LoHi, Y
 	STA byte_RAM_3
-	LDA EnemyPointersByLevel_LoLo,Y
+	LDA EnemyPointersByLevel_LoLo, Y
 	STA byte_RAM_2
 	LDA InSubspaceOrJar ; Are we in a jar?
 	CMP #$01
@@ -4940,9 +4940,9 @@ loc_BANKF_F7A0:
 	LDY CurrentLevelArea
 
 loc_BANKF_F7A3:
-	LDA (byte_RAM_0),Y
+	LDA (byte_RAM_0), Y
 	STA byte_RAM_1
-	LDA (byte_RAM_2),Y
+	LDA (byte_RAM_2), Y
 	STA byte_RAM_0
 	LDX #$FF
 	LDA #$7B
@@ -4951,8 +4951,8 @@ loc_BANKF_F7A3:
 	STY byte_RAM_2
 
 CopyEnemyDataToMemory:
-	LDA (byte_RAM_0),Y
-	STA (byte_RAM_2),Y
+	LDA (byte_RAM_0), Y
+	STA (byte_RAM_2), Y
 	INY
 	DEX
 	BNE CopyEnemyDataToMemory
@@ -4965,13 +4965,13 @@ CopyEnemyDataToMemory:
 
 GetJarPointers:
 	LDY CurrentLevel ; Get the area starting index for the current level
-	LDA LevelAreaStartIndexes,Y
+	LDA LevelAreaStartIndexes, Y
 	CLC
 	ADC #$04 ; 4 is always the jar sub area
 	TAY
-	LDA LevelDataPointersLo,Y
+	LDA LevelDataPointersLo, Y
 	STA byte_RAM_5
-	LDA LevelDataPointersHi,Y
+	LDA LevelDataPointersHi, Y
 	STA byte_RAM_6
 	LDA #$7A
 	STA byte_RAM_2
@@ -4979,18 +4979,18 @@ GetJarPointers:
 	STY byte_RAM_1
 
 CopyJarDataToMemory:
-	LDA (byte_RAM_5),Y
+	LDA (byte_RAM_5), Y
 	CMP #$FF ; This one actually terminates on any $FF read! Welp.
 	BEQ CopyJarDataToMemoryFinished
 
-	STA (byte_RAM_1),Y
+	STA (byte_RAM_1), Y
 	INY
 	JMP CopyJarDataToMemory
 
 ; ---------------------------------------------------------------------------
 
 CopyJarDataToMemoryFinished:
-	STA (byte_RAM_1),Y
+	STA (byte_RAM_1), Y
 	RTS
 
 ; End of function GetJarPointers
@@ -5254,11 +5254,11 @@ AnimateCHRRoutine:
 	LDY #(DefaultCHRAnimationSpeed_Area - DefaultCHRAnimationSpeed_Level - 1)
 AnimateCHRRoutine_DefaultSpeedLoop:
 	LDA CurrentLevel_Init
-	CMP DefaultCHRAnimationSpeed_Level,Y
+	CMP DefaultCHRAnimationSpeed_Level, Y
 	BNE AnimateCHRRoutine_DefaultSpeedNext
 
 	LDA CurrentLevelArea_Init
-	CMP DefaultCHRAnimationSpeed_Area,Y
+	CMP DefaultCHRAnimationSpeed_Area, Y
 	BEQ AnimateCHRRoutine_SetSpeed
 
 AnimateCHRRoutine_DefaultSpeedNext:
@@ -5268,14 +5268,14 @@ AnimateCHRRoutine_DefaultSpeedNext:
 	LDX CurrentWorldTileset
 
 AnimateCHRRoutine_SetSpeed:
-	LDA BackgroundCHRAnimationSpeedByWorld,X
+	LDA BackgroundCHRAnimationSpeedByWorld, X
 	STA BackgroundCHR2Timer
 	LDY BackgroundCHR2
 	INY
 	INY
 
 IFDEF FIX_CHR_CYCLE
-	CPY #CHRBank_Animated8+1
+	CPY #CHRBank_Animated8 + 1
 ENDIF
 IFNDEF FIX_CHR_CYCLE
 	; Bug: This is in the original game
@@ -5301,7 +5301,7 @@ loc_BANKF_FAFE:
 	LDX #$08 ; @TODO Something to with drawing certain sprites?
 
 loc_BANKF_FB00:
-	LDA EnemyState,X
+	LDA EnemyState, X
 	BEQ loc_BANKF_FB1C
 
 loc_BANKF_FB04:
@@ -5309,11 +5309,11 @@ loc_BANKF_FB04:
 	BPL loc_BANKF_FB00
 
 	LDY #$00
-	LDA SpriteDMAArea,Y
+	LDA SpriteDMAArea, Y
 	CMP #$F8
 	BNE loc_BANKF_FB17
 
-	LDA SpriteDMAArea+4,Y
+	LDA SpriteDMAArea + 4, Y
 	CMP #$F8
 	BEQ loc_BANKF_FB19
 
@@ -5331,13 +5331,13 @@ loc_BANKF_FB1C:
 	CLC
 	ADC SpriteFlickerSlot
 	TAY
-	LDA byte_BANKF_F4DA,Y
+	LDA byte_BANKF_F4DA, Y
 	TAY
-	LDA SpriteDMAArea,Y
+	LDA SpriteDMAArea, Y
 	CMP #$F8
 	BNE loc_BANKF_FB04
 
-	LDA SpriteDMAArea+4,Y
+	LDA SpriteDMAArea + 4, Y
 	CMP #$F8
 	BNE loc_BANKF_FB04
 	BEQ loc_BANKF_FB19
@@ -5385,9 +5385,9 @@ LoadWorldCHRBanks:
 	INY
 	STY SpriteCHR3
 	LDY CurrentWorldTileset
-	LDA CHRBank_WorldEnemies,Y
+	LDA CHRBank_WorldEnemies, Y
 	STA SpriteCHR4
-	LDA CHRBank_WorldBossBackground,Y
+	LDA CHRBank_WorldBossBackground, Y
 	STA BackgroundCHR1
 	LDA #CHRBank_Animated1
 	STA BackgroundCHR2
@@ -5397,7 +5397,7 @@ LoadCharacterCHRBanks:
 	ASL A
 	ORA PlayerCurrentSize
 	TAY
-	LDA CHRBank_CharacterSize,Y
+	LDA CHRBank_CharacterSize, Y
 	STA SpriteCHR1
 	RTS
 
@@ -5440,7 +5440,7 @@ TitleCardCHRBanks:
 
 ChangeTitleCardCHR:
 	LDY CurrentWorld
-	LDA TitleCardCHRBanks,Y
+	LDA TitleCardCHRBanks, Y
 	STA BackgroundCHR2
 	RTS
 
@@ -5460,7 +5460,7 @@ LoadMarioSleepingCHRBanks:
 	STY SpriteCHR2
 	LDA #CHRBank_EndingBackground1
 	STA BackgroundCHR1
-	LDA #CHRBank_EndingBackground1+2
+	LDA #CHRBank_EndingBackground1 + 2
 	STA BackgroundCHR2
 	RTS
 
@@ -5477,7 +5477,7 @@ ENDIF
 RESET:
 	SEI
 	CLD
-	LDA #PPUCtrl_Base2000|PPUCtrl_WriteHorizontal|PPUCtrl_Sprite0000|PPUCtrl_Background0000|PPUCtrl_SpriteSize8x8|PPUCtrl_NMIDisabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIDisabled
 	STA PPUCTRL
 	LDX #$FF ; Reset stack pointer
 	TXS
@@ -5515,7 +5515,7 @@ ChangeCHRBanks_Loop:
 	TYA
 	ORA #$80
 	STA $8000
-	LDA BackgroundCHR1,Y
+	LDA BackgroundCHR1, Y
 	STA $8001
 	DEY
 	BPL ChangeCHRBanks_Loop

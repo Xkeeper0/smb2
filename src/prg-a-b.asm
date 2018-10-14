@@ -130,8 +130,8 @@ BonusChanceLayout:
 CopyBonusChanceLayoutToRAM:
 	LDY #$00
 CopyBonusChanceLayoutToRAM_Loop1:
-	LDA BonusChanceLayout,Y ; Blindly copy $100 bytes from $8140 to $7400
-	STA BonusChanceLayoutRAM,Y
+	LDA BonusChanceLayout, Y ; Blindly copy $100 bytes from $8140 to $7400
+	STA BonusChanceLayoutRAM, Y
 	DEY
 	BNE CopyBonusChanceLayoutToRAM_Loop1
 
@@ -139,8 +139,8 @@ CopyBonusChanceLayoutToRAM_Loop1:
 CopyBonusChanceLayoutToRAM_Loop2:
 	; Blindly copy $100 more bytes from $8240 to $7500
 	; That range includes this code! clap. clap.
-	LDA BonusChanceLayout+$100,Y
-	STA BonusChanceLayoutRAM2,Y
+	LDA BonusChanceLayout + $100, Y
+	STA BonusChanceLayoutRAM2, Y
 	DEY
 	BNE CopyBonusChanceLayoutToRAM_Loop2
 
@@ -170,7 +170,7 @@ loc_BANKA_8342:
 	STA PPUADDR
 
 loc_BANKA_8347:
-	LDA World1thru6TitleCard,Y
+	LDA World1thru6TitleCard, Y
 	STA PPUDATA
 	INY
 	DEX
@@ -237,7 +237,7 @@ loc_BANKA_839C:
 	STA PPUADDR
 
 loc_BANKA_83AB:
-	LDA World7TitleCard,Y
+	LDA World7TitleCard, Y
 	STA PPUDATA
 	INY
 	DEX
@@ -418,11 +418,11 @@ IFDEF CONTROLLER_2_DEBUG
 ENDIF
 
 	LDX CurrentCharacter
-	LDY StatOffsets,X
+	LDY StatOffsets, X
 	LDX #$00
 loc_BANKA_8458:
-	LDA CharacterStats,Y
-	STA CharacterStatsRAM,X
+	LDA CharacterStats, Y
+	STA CharacterStatsRAM, X
 	INY
 	INX
 	CPX #$17
@@ -434,8 +434,8 @@ loc_BANKA_8458:
 	TAY
 	LDX #$00
 loc_BANKA_846B:
-	LDA CharacterPalette,Y
-	STA RestorePlayerPalette0,X
+	LDA CharacterPalette, Y
+	STA RestorePlayerPalette0, X
 	INY
 	INX
 	CPX #$04
@@ -443,68 +443,68 @@ loc_BANKA_846B:
 
 	LDY #$4C
 loc_BANKA_8479:
-	LDA PlayerSelectPalettes,Y
-	STA PPUBuffer_55F,Y
+	LDA PlayerSelectPalettes, Y
+	STA PPUBuffer_55F, Y
 	DEY
 	CPY #$FF
 	BNE loc_BANKA_8479
 
 	LDY #$B6
 loc_BANKA_8486:
-	LDA BonusChanceReel1Order,Y
-	STA SlotMachineReelOrder1RAM,Y
+	LDA BonusChanceReel1Order, Y
+	STA SlotMachineReelOrder1RAM, Y
 	DEY
 	CPY #$FF
 	BNE loc_BANKA_8486
 
 	LDY #$63
 loc_BANKA_8493:
-	LDA Text_Unknown5,Y
-	STA PPUBuffer_7168,Y
+	LDA Text_Unknown5, Y
+	STA PPUBuffer_7168, Y
 	DEY
 	CPY #$FF
 	BNE loc_BANKA_8493
 
 	LDY #$17
 loc_BANKA_84A0:
-	LDA MysteryData14439,Y
-	STA unk_RAM_7150,Y
+	LDA MysteryData14439, Y
+	STA unk_RAM_7150, Y
 	DEY
 	BPL loc_BANKA_84A0
 
 	LDY #$4F
 loc_BANKA_84AB:
-	LDA byte_BANKF_F099,Y
-	STA unk_RAM_7100,Y
+	LDA byte_BANKF_F099, Y
+	STA unk_RAM_7100, Y
 	DEY
 	BPL loc_BANKA_84AB
 
 	LDY #$03
 loc_BANKA_84B6:
-	LDA byte_BANKA_84E1,Y
-	STA byte_RAM_71CC,Y
+	LDA byte_BANKA_84E1, Y
+	STA byte_RAM_71CC, Y
 	DEY
 	BPL loc_BANKA_84B6
 
 	; Collision data
 	LDY #$49
 loc_BANKA_84C1:
-	LDA byte_BANKF_F607,Y
-	STA unk_RAM_71D1,Y
+	LDA byte_BANKF_F607, Y
+	STA unk_RAM_71D1, Y
 	DEY
 	BPL loc_BANKA_84C1
 
 	LDY #$20
 loc_BANKA_84CC:
-	LDA EndOfLevelDoor,Y
-	STA PPUBuffer_721B,Y
+	LDA EndOfLevelDoor, Y
+	STA PPUBuffer_721B, Y
 	DEY
 	BPL loc_BANKA_84CC
 
 	LDY #$06
 loc_BANKA_84D7:
-	LDA byte_BANKA_84E5,Y
-	STA unk_RAM_7265,Y
+	LDA byte_BANKA_84E5, Y
+	STA unk_RAM_7265, Y
 	DEY
 	BPL loc_BANKA_84D7
 
@@ -641,8 +641,8 @@ IFDEF CONTROLLER_2_DEBUG
 CopyCharacterStats:
 	LDX #(MysteryData14439 - StatOffsets - 1)
 CopyCharacterStats_Loop:
-	LDA StatOffsets,X
-	STA StatOffsetsRAM,X
+	LDA StatOffsets, X
+	STA StatOffsetsRAM, X
 	DEX
 	BPL CopyCharacterStats_Loop
 

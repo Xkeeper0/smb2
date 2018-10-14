@@ -229,7 +229,7 @@ ProcessSoundEffectQueue2_GrowingPart2:
 	BCS ProcessSoundEffectQueue2_DecrementTimer
 
 	TAY
-	LDA MushroomSoundData-1,Y
+	LDA MushroomSoundData - 1, Y
 	LDX #$5D
 	LDY #$7F
 	JSR PlaySquare1Sweep
@@ -266,13 +266,13 @@ ProcessSoundEffectQueue1_PointerLoop:
 	LSR A
 	BCC ProcessSoundEffectQueue1_PointerLoop
 
-	LDA SoundEffectPointers-1,Y
+	LDA SoundEffectPointers - 1, Y
 	STA SoundEffect1DataOffset
 
 ProcessSoundEffectQueue1_Part3:
 	LDY SoundEffect1DataOffset
 	INC SoundEffect1DataOffset
-	LDA SoundEffectPointers,Y
+	LDA SoundEffectPointers, Y
 	BMI ProcessSoundEffectQueue1_Patch
 
 	BNE ProcessSoundEffectQueue1_Note
@@ -291,7 +291,7 @@ ProcessSoundEffectQueue1_Patch:
 	STA SQ2_VOL
 	LDY SoundEffect1DataOffset
 	INC SoundEffect1DataOffset
-	LDA SoundEffectPointers,Y
+	LDA SoundEffectPointers, Y
 
 ProcessSoundEffectQueue1_Note:
 	CMP #$7E
@@ -424,7 +424,7 @@ ProcessSoundEffectQueue3_Rumble:
 
 ProcessSoundEffectQueue3_RumblePart2:
 	LDY SoundEffectTimer3
-	LDA ProcessMusicQueue,Y ; weird, but i guess that's one way to get "random" noise
+	LDA ProcessMusicQueue, Y ; weird, but i guess that's one way to get "random" noise
 	ORA #$0C
 	STA NOISE_LO
 	LDA SoundEffectTimer3
@@ -480,12 +480,12 @@ ProcessDPCMQueue_PointerLoop:
 	LSR A
 	BCC ProcessDPCMQueue_PointerLoop
 
-	LDA DMCFreqTable-1,Y
+	LDA DMCFreqTable - 1, Y
 	STA DMC_FREQ
 
-	LDA DMCStartTable-1,Y
+	LDA DMCStartTable - 1, Y
 	STA DMC_START
-	LDA DMCLengthTable-1,Y
+	LDA DMCLengthTable - 1, Y
 	STA DMC_LEN
 	LDA #$A0
 	STA DPCMTimer
@@ -572,13 +572,13 @@ ProcessMusicQueue_FirstPointerLoop:
 	BCC ProcessMusicQueue_FirstPointerLoop
 
 ProcessMusicQueue_ReadFirstPointer:
-	LDA MusicPointersFirstPart,Y
+	LDA MusicPointersFirstPart, Y
 	STA MusicPointerFirstPart
-	LDA MusicPointersEndPart,Y
+	LDA MusicPointersEndPart, Y
 	CLC
 	ADC #$02
 	STA MusicPointerEndPart
-	LDA MusicPointersLoopPart,Y
+	LDA MusicPointersLoopPart, Y
 	STA MusicPointerLoopPart
 	LDA MusicPointerFirstPart
 
@@ -609,23 +609,23 @@ ProcessMusicQueue_PointerLoop:
 	BCC ProcessMusicQueue_PointerLoop
 
 ProcessMusicQueue_ReadHeader:
-	LDA MusicPartPointers-1,Y
+	LDA MusicPartPointers - 1, Y
 	TAY
-	LDA MusicPartPointers,Y
+	LDA MusicPartPointers, Y
 	STA MusicTempoSetting
-	LDA MusicPartPointers+1,Y
+	LDA MusicPartPointers + 1, Y
 	STA CurrentMusicPointer
-	LDA MusicPartPointers+2,Y
-	STA CurrentMusicPointer+1
-	LDA MusicPartPointers+3,Y
+	LDA MusicPartPointers + 2, Y
+	STA CurrentMusicPointer + 1
+	LDA MusicPartPointers + 3, Y
 	STA CurrentMusicTriangleOffset
-	LDA MusicPartPointers+4,Y
+	LDA MusicPartPointers + 4, Y
 	STA CurrentMusicSquare1Offset
-	LDA MusicPartPointers+5,Y
+	LDA MusicPartPointers + 5, Y
 	STA CurrentMusicNoiseOffset
 	STA CurrentMusicNoiseStartOffset
 IFDEF PROTOTYPE_MUSIC
-	LDA MusicPartPointers+6,Y
+	LDA MusicPartPointers + 6, Y
 ENDIF
 	STA CurrentMusicDPCMOffset
 	STA CurrentMusicDPCMStartOffset
@@ -650,7 +650,7 @@ ProcessMusicQueue_ReadNoteData:
 
 	LDY MusicSquare1NoteOffset
 	INC MusicSquare1NoteOffset
-	LDA (CurrentMusicPointer),Y
+	LDA (CurrentMusicPointer), Y
 	BEQ ProcessMusicQueue_EndOfSegment
 
 	BPL ProcessMusicQueue_Square2Note
@@ -665,7 +665,7 @@ ProcessMusicQueue_EndOfSegment:
 	CMP #Music2_EndingAndCast
 	BEQ ProcessMusicQueue_ThenSetNextPart
 
-	AND #Music1_Overworld|Music1_Inside|Music1_Subspace
+	AND #Music1_Overworld | Music1_Inside | Music1_Subspace
 	BEQ StopMusic
 
 	LDA MusicResume1
@@ -696,7 +696,7 @@ ProcessMusicQueue_Square2Patch:
 	STA MusicSquare2NoteStartLength
 	LDY MusicSquare1NoteOffset
 	INC MusicSquare1NoteOffset
-	LDA (CurrentMusicPointer),Y
+	LDA (CurrentMusicPointer), Y
 
 ProcessMusicQueue_Square2Note:
 	LDX SoundEffectPlaying1
@@ -748,7 +748,7 @@ ProcessMusicQueue_Square1:
 ProcessMusicQueue_Square1Patch:
 	LDY CurrentMusicSquare1Offset
 	INC CurrentMusicSquare1Offset
-	LDA (CurrentMusicPointer),Y
+	LDA (CurrentMusicPointer), Y
 	BPL ProcessMusicQueue_Square1AfterPatch
 
 	TAX
@@ -760,7 +760,7 @@ ProcessMusicQueue_Square1Patch:
 	STA MusicSquare1NoteStartLength
 	LDY CurrentMusicSquare1Offset
 	INC CurrentMusicSquare1Offset
-	LDA (CurrentMusicPointer),Y
+	LDA (CurrentMusicPointer), Y
 
 ProcessMusicQueue_Square1AfterPatch:
 	TAY
@@ -829,7 +829,7 @@ ProcessMusicQueue_Triangle:
 
 	LDY CurrentMusicTriangleOffset
 	INC CurrentMusicTriangleOffset
-	LDA (CurrentMusicPointer),Y
+	LDA (CurrentMusicPointer), Y
 	BEQ ProcessMusicQueue_TriangleSetLength
 
 	BPL ProcessMusicQueue_TriangleNote
@@ -841,7 +841,7 @@ ProcessMusicQueue_Triangle:
 	STA TRI_LINEAR
 	LDY CurrentMusicTriangleOffset
 	INC CurrentMusicTriangleOffset
-	LDA (CurrentMusicPointer),Y
+	LDA (CurrentMusicPointer), Y
 	BEQ ProcessMusicQueue_TriangleSetLength
 
 ProcessMusicQueue_TriangleNote:
@@ -873,7 +873,7 @@ ProcessMusicQueue_TriangleSetLength:
 ProcessMusicQueue_NoiseDPCM:
 IFNDEF PROTOTYPE_MUSIC
 	LDA MusicPlaying1
-	AND #Music1_Inside|Music1_Invincible
+	AND #Music1_Inside | Music1_Invincible
 	BNE ProcessMusicQueue_DPCM
 ENDIF
 
@@ -887,7 +887,7 @@ ProcessMusicQueue_Noise:
 ProcessMusicQueue_NoiseByte:
 	LDY CurrentMusicNoiseOffset
 	INC CurrentMusicNoiseOffset
-	LDA (CurrentMusicPointer),Y
+	LDA (CurrentMusicPointer), Y
 	BEQ ProcessMusicQueue_NoiseLoopSegment
 
 	BPL ProcessMusicQueue_NoiseNote
@@ -897,17 +897,17 @@ ProcessMusicQueue_NoiseByte:
 	STA MusicNoiseNoteStartLength
 	LDY CurrentMusicNoiseOffset
 	INC CurrentMusicNoiseOffset
-	LDA (CurrentMusicPointer),Y
+	LDA (CurrentMusicPointer), Y
 	BEQ ProcessMusicQueue_NoiseLoopSegment
 
 ProcessMusicQueue_NoiseNote:
 	LSR A
 	TAY
-	LDA NoiseVolTable,Y
+	LDA NoiseVolTable, Y
 	STA NOISE_VOL
-	LDA NoiseLoTable,Y
+	LDA NoiseLoTable, Y
 	STA NOISE_LO
-	LDA NoiseHiTable,Y
+	LDA NoiseHiTable, Y
 	STA NOISE_HI
 	LDA MusicNoiseNoteStartLength
 	STA MusicNoiseNoteLength
@@ -923,7 +923,7 @@ ProcessMusicQueue_NoiseLoopSegment:
 ProcessMusicQueue_NoiseEnd:
 	LDA MusicPlaying1
 IFNDEF PROTOTYPE_MUSIC
-	AND #Music1_Inside|Music1_Invincible
+	AND #Music1_Inside | Music1_Invincible
 ENDIF
 IFDEF PROTOTYPE_MUSIC
 	AND #Music1_Inside
@@ -942,7 +942,7 @@ ProcessMusicQueue_DPCM:
 ProcessMusicQueue_DPCMByte:
 	LDY CurrentMusicDPCMOffset
 	INC CurrentMusicDPCMOffset
-	LDA (CurrentMusicPointer),Y
+	LDA (CurrentMusicPointer), Y
 	BEQ ProcessMusicQueue_DPCMLoopSegment
 
 	BPL ProcessMusicQueue_DPCMNote
@@ -952,7 +952,7 @@ ProcessMusicQueue_DPCMByte:
 	STA MusicDPCMNoteStartLength
 	LDY CurrentMusicDPCMOffset
 	INC CurrentMusicDPCMOffset
-	LDA (CurrentMusicPointer),Y
+	LDA (CurrentMusicPointer), Y
 	BEQ ProcessMusicQueue_DPCMLoopSegment
 
 ProcessMusicQueue_DPCMNote:
@@ -1000,7 +1000,7 @@ ProcessMusicQueue_PatchNoteLength:
 	CLC
 	ADC MusicTempoSetting
 	TAY
-	LDA NoteLengthTable,Y
+	LDA NoteLengthTable, Y
 	RTS
 
 ; Input
@@ -1059,70 +1059,70 @@ LoadSquareInstrumentDVE:
 LoadSquareInstrumentDVE_80:
 	CMP #$13
 	BCC LoadSquareInstrumentDVE_80_Short
-	LDA InstrumentDVE_80,Y
+	LDA InstrumentDVE_80, Y
 	BNE LoadSquareInstrumentDVE_80_Exit
 LoadSquareInstrumentDVE_80_Short:
-	LDA InstrumentDVE_80_Short,Y
+	LDA InstrumentDVE_80_Short, Y
 LoadSquareInstrumentDVE_80_Exit:
 	RTS
 
 LoadSquareInstrumentDVE_90_E0:
 	CMP #$13
 	BCC LoadSquareInstrumentDVE_90_E0_Short
-	LDA InstrumentDVE_90_E0,Y
+	LDA InstrumentDVE_90_E0, Y
 	BNE LoadSquareInstrumentDVE_90_E0_Exit
 LoadSquareInstrumentDVE_90_E0_Short:
-	LDA InstrumentDVE_90_E0_Short,Y
+	LDA InstrumentDVE_90_E0_Short, Y
 LoadSquareInstrumentDVE_90_E0_Exit:
 	RTS
 
 LoadSquareInstrumentDVE_A0:
 	CMP #$13
 	BCC LoadSquareInstrumentDVE_A0_Short
-	LDA InstrumentDVE_A0,Y
+	LDA InstrumentDVE_A0, Y
 	BNE LoadSquareInstrumentDVE_A0_Exit
 LoadSquareInstrumentDVE_A0_Short:
-	LDA InstrumentDVE_A0_Short,Y
+	LDA InstrumentDVE_A0_Short, Y
 LoadSquareInstrumentDVE_A0_Exit:
 	RTS
 
 LoadSquareInstrumentDVE_B0:
 	CMP #$13
 	BCC LoadSquareInstrumentDVE_B0_Short
-	LDA InstrumentDVE_B0,Y
+	LDA InstrumentDVE_B0, Y
 	BNE LoadSquareInstrumentDVE_B0_Exit
 LoadSquareInstrumentDVE_B0_Short:
-	LDA InstrumentDVE_B0_Short,Y
+	LDA InstrumentDVE_B0_Short, Y
 LoadSquareInstrumentDVE_B0_Exit:
 	RTS
 
 LoadSquareInstrumentDVE_C0:
 	CMP #$13
 	BCC LoadSquareInstrumentDVE_C0_Short
-	LDA InstrumentDVE_C0,Y
+	LDA InstrumentDVE_C0, Y
 	BNE LoadSquareInstrumentDVE_C0_Exit
 LoadSquareInstrumentDVE_C0_Short:
-	LDA InstrumentDVE_C0_Short,Y
+	LDA InstrumentDVE_C0_Short, Y
 LoadSquareInstrumentDVE_C0_Exit:
 	RTS
 
 LoadSquareInstrumentDVE_F0:
 	CMP #$13
 	BCC LoadSquareInstrumentDVE_F0_Short
-	LDA InstrumentDVE_F0,Y
+	LDA InstrumentDVE_F0, Y
 	BNE LoadSquareInstrumentDVE_F0_Exit
 LoadSquareInstrumentDVE_F0_Short:
-	LDA InstrumentDVE_F0_Short,Y
+	LDA InstrumentDVE_F0_Short, Y
 LoadSquareInstrumentDVE_F0_Exit:
 	RTS
 
 LoadSquareInstrumentDVE_D0:
 	CMP #$13
 	BCC LoadSquareInstrumentDVE_D0_Short
-	LDA InstrumentDVE_D0,Y
+	LDA InstrumentDVE_D0, Y
 	BNE LoadSquareInstrumentDVE_D0_Exit
 LoadSquareInstrumentDVE_D0_Short:
-	LDA InstrumentDVE_D0_Short,Y
+	LDA InstrumentDVE_D0_Short, Y
 LoadSquareInstrumentDVE_D0_Exit:
 	RTS
 
@@ -1180,7 +1180,7 @@ PlayNote:
 	BNE PlayNote_NotRest
 
 	LDA #$10
-	STA SQ1_VOL,X
+	STA SQ1_VOL, X
 	LDA #$00
 	RTS
 
@@ -1201,9 +1201,9 @@ PlayNote_LoadFrequencyData:
 	CLC
 	ADC #$18
 	TAY
-	LDA NoteFrequencyData,Y
+	LDA NoteFrequencyData, Y
 	STA NextFrequencyLo
-	LDA NoteFrequencyData+1,Y
+	LDA NoteFrequencyData + 1, Y
 	STA NextFrequencyHi
 
 PlayNote_FrequencyOctaveLoop:
@@ -1236,11 +1236,11 @@ PlayNote_CheckSquareChorus:
 
 PlayNote_SetFrequency:
 	LDA NextFrequencyLo
-	STA SQ1_LO,X
-	STA UNUSED_MusicSquare1Lo,X ; unused?
+	STA SQ1_LO, X
+	STA UNUSED_MusicSquare1Lo, X ; unused?
 	LDA NextFrequencyHi
 	ORA #$08
-	STA SQ1_HI,X
+	STA SQ1_HI, X
 	RTS
 
 PlayNote_SetFrequency_Square2Detuned:
