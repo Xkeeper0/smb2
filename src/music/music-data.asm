@@ -98,6 +98,7 @@ ENDIF
 ; 3 and 4 share the same triangle and noise channel
 ;
 .include "src/music/segments/character-select/character-select-1.asm"
+
 .include "src/music/segments/character-select/character-select-2-square2.asm"
 .include "src/music/segments/character-select/character-select-3-square2.asm"
 .include "src/music/segments/character-select/character-select-4-square2.asm"
@@ -109,228 +110,16 @@ ENDIF
 .include "src/music/segments/character-select/character-select-2-noise.asm"
 .include "src/music/segments/character-select/character-select-3-4-noise.asm"
 
+.include "src/music/segments/character-select/character-select-5-square2.asm"
+.include "src/music/segments/character-select/character-select-6-square2.asm"
+.include "src/music/segments/character-select/character-select-5-square1.asm"
+.include "src/music/segments/character-select/character-select-6-square1.asm"
+.include "src/music/segments/character-select/character-select-5-triangle.asm"
+.include "src/music/segments/character-select/character-select-6-triangle.asm"
+.include "src/music/segments/character-select/character-select-5-noise.asm"
+.include "src/music/segments/character-select/character-select-6-noise.asm"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-MusicDataCharacterSelect5:
-MusicDataCharacterSelect5_Square2:
-	.db $C8
-	.db $50
-	.db $7E
-	.db $50
-	.db $C6
-	.db $7E
-	.db $C2
-	.db $50
-	.db $C6
-	.db $7E
-	.db $C8
-	.db $4C
-	.db $C2
-	.db $7E
-	.db $C8
-	.db $4C
-	.db $50
-	.db $C4
-	.db $4C
-	.db $7E
-	.db $48
-	.db $7E
-	.db $C2
-	.db $48
-	.db $C6
-	.db $46
-	.db $7E
-	.db $C8
-	.db $48
-	.db $C2
-	.db $7E
-	.db $C8
-	.db $42
-	.db $46
-	.db $48
-	.db $C8
-	.db $4C
-	.db $7E
-	.db $4C
-	.db $C6
-	.db $7E
-	.db $C2
-	.db $4C
-	.db $C6
-	.db $7E
-	.db $C8
-	.db $48
-	.db $C2
-	.db $7E
-	.db $C8
-	.db $46
-	.db $C4
-	.db $42
-	.db $7E
-	.db $00
-
-MusicDataCharacterSelect6:
-MusicDataCharacterSelect6_Square2:
-	.db $C8
-	.db $7E
-	.db $46
-	.db $48
-	.db $4A
-	.db $C8
-	.db $4C
-	.db $7E
-	.db $C6
-	.db $7E
-	.db $C8
-	.db $3E
-	.db $C2
-	.db $7E
-	.db $00
-
-MusicDataCharacterSelect5_Square1:
-	.db $C8
-	.db $40
-	.db $7E
-	.db $40
-	.db $C6
-	.db $7E
-	.db $C2
-	.db $40
-	.db $C6
-	.db $7E
-	.db $C8
-	.db $3C
-	.db $C2
-	.db $7E
-	.db $C8
-	.db $3C
-	.db $40
-	.db $C4
-	.db $38
-	.db $7E
-	.db $38
-	.db $7E
-	.db $C2
-	.db $38
-	.db $C6
-	.db $34
-	.db $7E
-	.db $C8
-	.db $38
-	.db $C2
-	.db $7E
-	.db $C8
-	.db $30
-	.db $34
-	.db $38
-	.db $C8
-	.db $3C
-	.db $7E
-	.db $3C
-	.db $C6
-	.db $7E
-	.db $C2
-	.db $3C
-	.db $C6
-	.db $7E
-	.db $C8
-	.db $38
-	.db $C2
-	.db $7E
-	.db $C8
-	.db $34
-	.db $C4
-	.db $30
-	.db $7E
-
-MusicDataCharacterSelect6_Square1:
-	.db $C8
-	.db $7E
-	.db $34
-	.db $38
-	.db $3A
-	.db $C8
-	.db $3C
-	.db $7E
-	.db $C6
-	.db $7E
-	.db $C8
-	.db $2E
-	.db $C2
-	.db $7E
-
-MusicDataCharacterSelect5_Triangle:
-	.db $88
-	.db $38
-	.db $7E
-	.db $3C
-	.db $7E
-	.db $3E
-	.db $7E
-	.db $40
-	.db $46
-	.db $42
-	.db $7E
-	.db $46
-	.db $7E
-	.db $48
-	.db $7E
-	.db $46
-	.db $42
-	.db $34
-	.db $7E
-	.db $38
-	.db $7E
-	.db $3A
-	.db $7E
-	.db $3C
-	.db $42
-
-MusicDataCharacterSelect6_Triangle:
-	.db $88
-	.db $7E
-	.db $3E
-	.db $42
-	.db $44
-	.db $46
-	.db $7E
-	.db $8A
-	.db $7E
-
-MusicDataCharacterSelect5_Noise:
-	.db $88
-	.db $02
-	.db $04
-	.db $00
-
-MusicDataCharacterSelect6_Noise:
-	.db $88
-	.db $02
-	.db $04
-	.db $04
-	.db $04
-	.db $02
-	.db $02
-	.db $7E
-	.db $06
 
 MusicDataCharacterSelect7:
 MusicDataCharacterSelect7_Square2:

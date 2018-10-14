@@ -1,0 +1,26 @@
+MusicDataCharacterSelect5_Triangle:
+	.db $88
+	.db $38
+	.db $7E
+	.db $3C
+	.db $7E
+	.db $3E
+	.db $7E
+	.db $40
+	.db $46
+	.db $42
+	.db $7E
+	.db $46
+	.db $7E
+	.db $48
+	.db $7E
+	.db $46
+	.db $42
+	.db $34
+	.db $7E
+	.db $38
+	.db $7E
+	.db $3A
+	.db $7E
+	.db $3C
+	.db $42
