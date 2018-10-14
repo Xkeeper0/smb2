@@ -327,7 +327,7 @@ locret_BANK0_81A0:
 ; End of function sub_BANK0_8083
 
 ; ---------------------------------------------------------------------------
-      .BYTE $01
+      .db $01
 
 
 ;
@@ -1334,10 +1334,10 @@ loc_BANK0_8705:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8709:
-      .BYTE $28
-      .BYTE $24
+      .db $28
+      .db $24
 byte_BANK0_870B:
-      .BYTE $0A
+      .db $0A
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1776,8 +1776,8 @@ ENDIF
 
 
 GrowShrinkSFXIndexes:
-      .BYTE SoundEffect2_Shrinking
-      .BYTE SoundEffect2_Growing
+      .db SoundEffect2_Shrinking
+      .db SoundEffect2_Growing
 
 
 HandlePlayerState:
@@ -1810,15 +1810,15 @@ loc_BANK0_8A26:
       LDA     PlayerState
       JSR     JumpToTableAfterJump ; Player state handling?
 
-      .WORD HandlePlayerState_Normal ; Normal
-      .WORD HandlePlayerState_Climbing ; Climbing
-      .WORD HandlePlayerState_Lifting ; Lifting
-      .WORD HandlePlayerState_ClimbingAreaTransition ; Climbing area transition
-      .WORD HandlePlayerState_GoingDownJar ; Going down jar
-      .WORD HandlePlayerState_ExitingJar ; Exiting jar
-      .WORD HandlePlayerState_HawkmouthEating ; Hawkmouth eating
-      .WORD HandlePlayerState_Dying ; Dying
-      .WORD HandlePlayerState_ChangingSize ; Changing size
+      .dw HandlePlayerState_Normal ; Normal
+      .dw HandlePlayerState_Climbing ; Climbing
+      .dw HandlePlayerState_Lifting ; Lifting
+      .dw HandlePlayerState_ClimbingAreaTransition ; Climbing area transition
+      .dw HandlePlayerState_GoingDownJar ; Going down jar
+      .dw HandlePlayerState_ExitingJar ; Exiting jar
+      .dw HandlePlayerState_HawkmouthEating ; Hawkmouth eating
+      .dw HandlePlayerState_Dying ; Dying
+      .dw HandlePlayerState_ChangingSize ; Changing size
 
 
 HandlePlayerState_Normal:
@@ -1948,25 +1948,25 @@ locret_BANK0_8AC1:
 
 
 PlayerLiftTimer:
-      .BYTE $00
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
+      .db $00
+      .db $01
+      .db $01
+      .db $01
 
 PlayerLiftFrames:
-      .BYTE $01
-      .BYTE $02
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $08
-      .BYTE $08
+      .db $01
+      .db $02
+      .db $04
+      .db $04
+      .db $04
+      .db $04
+      .db $08
+      .db $08
 
 byte_BANK0_8ACE:
-      .BYTE $00
-      .BYTE $10
-      .BYTE $F0
+      .db $00
+      .db $10
+      .db $F0
 ; ---------------------------------------------------------------------------
 
 HandlePlayerState_Climbing:
@@ -2045,16 +2045,16 @@ PlayerClimbAnimation_Exit:
 
 
 ClimbableTiles:
-      .BYTE BackgroundTile_Vine
-      .BYTE BackgroundTile_VineStandable
-      .BYTE BackgroundTile_VineBottom
-      .BYTE BackgroundTile_UnusedC4
-      .BYTE BackgroundTile_Chain
-      .BYTE BackgroundTile_Ladder
-      .BYTE BackgroundTile_LadderShadow
-      .BYTE BackgroundTile_LadderStandable
-      .BYTE BackgroundTile_LadderStandableShadow
-      .BYTE BackgroundTile_ChainStandable
+      .db BackgroundTile_Vine
+      .db BackgroundTile_VineStandable
+      .db BackgroundTile_VineBottom
+      .db BackgroundTile_UnusedC4
+      .db BackgroundTile_Chain
+      .db BackgroundTile_Ladder
+      .db BackgroundTile_LadderShadow
+      .db BackgroundTile_LadderStandable
+      .db BackgroundTile_LadderStandableShadow
+      .db BackgroundTile_ChainStandable
 
 
 ;
@@ -2137,16 +2137,16 @@ locret_BANK0_8B86:
 
 ; ---------------------------------------------------------------------------
 byte_BANK0_8B87:
-      .BYTE $00
-      .BYTE $FF
+      .db $00
+      .db $FF
 
 byte_BANK0_8B89:
-      .BYTE $EE
-      .BYTE $DE
+      .db $EE
+      .db $DE
 
 byte_BANK0_8B8B:
-      .BYTE $09
-      .BYTE $A1
+      .db $09
+      .db $A1
 ; ---------------------------------------------------------------------------
 
 HandlePlayerState_ClimbingAreaTransition:
@@ -2237,11 +2237,11 @@ locret_BANK0_8BEB:
 
 ; Alternate between large and small graphics on these frames when changing size
 ChangingSizeKeyframes:
-      .BYTE $05
-      .BYTE $0A
-      .BYTE $0F
-      .BYTE $14
-      .BYTE $19
+      .db $05
+      .db $0A
+      .db $0F
+      .db $14
+      .db $19
 
 
 HandlePlayerState_ChangingSize:
@@ -2282,8 +2282,8 @@ loc_BANK0_8C15:
 ; ---------------------------------------------------------------------------
 
 PlayerControlAcceleration:
-      .BYTE $FE
-      .BYTE $02
+      .db $FE
+      .db $02
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2512,14 +2512,14 @@ PlayerGravity_Exit:
 
 
 FloatingYVelocity:
-      .BYTE $FC
-      .BYTE $00
-      .BYTE $04
-      .BYTE $00
+      .db $FC
+      .db $00
+      .db $04
+      .db $00
 
 PlayerXDeceleration:
-      .BYTE $FD
-      .BYTE $03
+      .db $FD
+      .db $03
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -2572,21 +2572,21 @@ locret_BANK0_8D61:
 ; ---------------------------------------------------------------------------
 
 PlayerWalkFrameDurations:
-      .BYTE $0C
-      .BYTE $0A
-      .BYTE $08
-      .BYTE $05
-      .BYTE $03
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
+      .db $0C
+      .db $0A
+      .db $08
+      .db $05
+      .db $03
+      .db $02
+      .db $02
+      .db $02
+      .db $02
+      .db $02
 
 PlayerWalkFrames:
-      .BYTE SpriteAnimation_Standing ; $00
-      .BYTE SpriteAnimation_Walking ; $01
-      .BYTE SpriteAnimation_Throwing ; ; $02
+      .db SpriteAnimation_Standing ; $00
+      .db SpriteAnimation_Walking ; $01
+      .db SpriteAnimation_Throwing ; ; $02
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2650,25 +2650,25 @@ ExitPlayerWalkJumpAnim:
 
 
 ThrowXVelocity:
-      .BYTE $00 ; standing, left (blocks)
-      .BYTE $00 ; standing, right (blocks)
-      .BYTE $D0 ; moving, left (blocks)
-      .BYTE $30 ; moving, right (blocks)
-      .BYTE $D0 ; standing, left (projectiles)
-      .BYTE $30 ; standing, right (projectiles)
-      .BYTE $D0 ; moving, left (projectiles)
-      .BYTE $30 ; moving, right (projectiles)
+      .db $00 ; standing, left (blocks)
+      .db $00 ; standing, right (blocks)
+      .db $D0 ; moving, left (blocks)
+      .db $30 ; moving, right (blocks)
+      .db $D0 ; standing, left (projectiles)
+      .db $30 ; standing, right (projectiles)
+      .db $D0 ; moving, left (projectiles)
+      .db $30 ; moving, right (projectiles)
 
 ThrowYVelocity:
-      .BYTE $18 ; standing (blocks)
-      .BYTE $00 ; moving (blocks)
-      .BYTE $18 ; standing (projectiles)
-      .BYTE $F8 ; moving (projectiles)
+      .db $18 ; standing (blocks)
+      .db $00 ; moving (blocks)
+      .db $18 ; standing (projectiles)
+      .db $F8 ; moving (projectiles)
 
 ; used for objects that can be thrown next to the player
 SoftThrowOffset:
-      .BYTE $F0
-      .BYTE $10
+      .db $F0
+      .db $10
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -2921,28 +2921,28 @@ loc_BANK0_8ED8:
 ;
 JumpthroughTileCollisionTable:
 InteractiveTileCollisionTable:
-      .BYTE $02 ; jumpthrough bottom (y-velocity < 0)
-      .BYTE $02
-      .BYTE $01 ; jumpthrough top (y-velocity > 0)
-      .BYTE $01
-      .BYTE $02 ; jumpthrough right (x-velocity < 0)
-      .BYTE $02
-      .BYTE $02 ; jumpthrough left (x-velocity > 0)
-      .BYTE $02
+      .db $02 ; jumpthrough bottom (y-velocity < 0)
+      .db $02
+      .db $01 ; jumpthrough top (y-velocity > 0)
+      .db $01
+      .db $02 ; jumpthrough right (x-velocity < 0)
+      .db $02
+      .db $02 ; jumpthrough left (x-velocity > 0)
+      .db $02
 
 CollisionFlagTableThing:
-      .BYTE CollisionFlags_Up
-      .BYTE CollisionFlags_Up
-      .BYTE CollisionFlags_Down
-      .BYTE CollisionFlags_Down
-      .BYTE CollisionFlags_Left
-      .BYTE CollisionFlags_Left
-      .BYTE CollisionFlags_Right
-      .BYTE CollisionFlags_Right
+      .db CollisionFlags_Up
+      .db CollisionFlags_Up
+      .db CollisionFlags_Down
+      .db CollisionFlags_Down
+      .db CollisionFlags_Left
+      .db CollisionFlags_Left
+      .db CollisionFlags_Right
+      .db CollisionFlags_Right
 
 ConveyorSpeedTable:
-      .BYTE $F0
-      .BYTE $10
+      .db $F0
+      .db $10
 
 
 ;
@@ -3257,27 +3257,27 @@ sub_BANK0_9053:
 ; These map the two high bits of a tile to offets in TileSolidnessTable
 ;
 TileGroupTable:
-      .BYTE $00 ; solid to mushroom blocks
-      .BYTE $04 ; solid on top
-      .BYTE $08 ; solid on all sides
+      .db $00 ; solid to mushroom blocks
+      .db $04 ; solid on top
+      .db $08 ; solid on all sides
 
 
 PickUpToEnemyTypeTable:
-      .BYTE Enemy_MushroomBlock ; $00
-      .BYTE Enemy_MushroomBlock ; $01
-      .BYTE Enemy_MushroomBlock ; $02
-      .BYTE Enemy_POWBlock ; $03
-      .BYTE Enemy_Coin ; $04
-      .BYTE Enemy_VegetableLarge ; $05
-      .BYTE Enemy_VegetableSmall ; $06
-      .BYTE Enemy_Rocket ; $07
-      .BYTE Enemy_Shell ; $08
-      .BYTE Enemy_Bomb ; $09
-      .BYTE Enemy_SubspacePotion ; $0A
-      .BYTE Enemy_Mushroom1up ; $0B
-      .BYTE Enemy_POWBlock ; $0C
-      .BYTE Enemy_BobOmb ; $0D
-      .BYTE Enemy_MushroomBlock ; $0E ; this one seems to be overridden for digging in sand
+      .db Enemy_MushroomBlock ; $00
+      .db Enemy_MushroomBlock ; $01
+      .db Enemy_MushroomBlock ; $02
+      .db Enemy_POWBlock ; $03
+      .db Enemy_Coin ; $04
+      .db Enemy_VegetableLarge ; $05
+      .db Enemy_VegetableSmall ; $06
+      .db Enemy_Rocket ; $07
+      .db Enemy_Shell ; $08
+      .db Enemy_Bomb ; $09
+      .db Enemy_SubspacePotion ; $0A
+      .db Enemy_Mushroom1up ; $0B
+      .db Enemy_POWBlock ; $0C
+      .db Enemy_BobOmb ; $0D
+      .db Enemy_MushroomBlock ; $0E ; this one seems to be overridden for digging in sand
 
 
 ; find a slot for the item being lifted
@@ -3616,10 +3616,10 @@ loc_BANK0_9205:
       JSR     JumpToTableAfterJump
 
 DoorHandlingPointers:
-      .WORD DoorHandling_UnlockedDoor ; unlocked door
-      .WORD DoorHandling_LockedDoor ; locked door
-      .WORD DoorHandling_Entrance ; dark door
-      .WORD DoorHandling_Entrance ; light door
+      .dw DoorHandling_UnlockedDoor ; unlocked door
+      .dw DoorHandling_LockedDoor ; locked door
+      .dw DoorHandling_Entrance ; dark door
+      .dw DoorHandling_Entrance ; light door
 
 
 DoorHandling_UnlockedDoor:
@@ -3664,11 +3664,11 @@ DoorHandling_Entrance:
 
 
 DoorTiles:
-      .BYTE BackgroundTile_DoorBottom
-      .BYTE BackgroundTile_DoorBottomLock
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_LightDoor
-      .BYTE BackgroundTile_LightDoorEndLevel
+      .db BackgroundTile_DoorBottom
+      .db BackgroundTile_DoorBottomLock
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_LightDoor
+      .db BackgroundTile_LightDoorEndLevel
 
 
 ;
@@ -3807,9 +3807,9 @@ locret_BANK0_92DF:
 
 
 byte_BANK0_92E0:
-      .BYTE $0A
-      .BYTE $01
-      .BYTE $0B
+      .db $0A
+      .db $01
+      .db $0B
 
 
 ; Unused?
@@ -3859,12 +3859,12 @@ locret_BANK0_9311:
 
 
 PlayerCollisionDirectionTable:
-      .BYTE CollisionFlags_Right
-      .BYTE CollisionFlags_Left
+      .db CollisionFlags_Right
+      .db CollisionFlags_Left
 
 PlayerCollisionResultTable_Bank0:
-      .BYTE CollisionFlags_80
-      .BYTE CollisionFlags_00
+      .db CollisionFlags_80
+      .db CollisionFlags_00
 
 
 ;
@@ -4053,10 +4053,10 @@ loc_BANK0_93B9:
 
 ; Another byte of PPU high addresses for horiz/vert levels
 byte_BANK0_940A:
-      .BYTE $20
-      .BYTE $28
-      .BYTE $20
-      .BYTE $24
+      .db $20
+      .db $28
+      .db $20
+      .db $24
 
 
 ;
@@ -4193,12 +4193,12 @@ AreaTransitionPlacement:
       LDA     TransitionType
       JSR     JumpToTableAfterJump
 
-      .WORD AreaTransitionPlacement_Reset
-      .WORD AreaTransitionPlacement_Door
-      .WORD AreaTransitionPlacement_Jar
-      .WORD AreaTransitionPlacement_Climbing
-      .WORD AreaTransitionPlacement_Subspace
-      .WORD AreaTransitionPlacement_Rocket
+      .dw AreaTransitionPlacement_Reset
+      .dw AreaTransitionPlacement_Door
+      .dw AreaTransitionPlacement_Jar
+      .dw AreaTransitionPlacement_Climbing
+      .dw AreaTransitionPlacement_Subspace
+      .dw AreaTransitionPlacement_Rocket
 
 
 AreaTransitionPlacement_Reset:
@@ -4576,8 +4576,8 @@ ENDIF
 
 
 TitleScreenPPUDataPointers:
-      .WORD PPUBuffer_301
-      .WORD TitleLayout1
+      .dw PPUBuffer_301
+      .dw TitleLayout1
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -4612,254 +4612,254 @@ WaitForNMI_TitleScreenLoop:
 
 TitleLayout1:
       ; red lines, vertical, left
-      .BYTE $20, $00, $DE, $FD
-      .BYTE $20, $01, $DE, $FD
-      .BYTE $20, $02, $DE, $FD
-      .BYTE $20, $03, $DE, $FD
+      .db $20, $00, $DE, $FD
+      .db $20, $01, $DE, $FD
+      .db $20, $02, $DE, $FD
+      .db $20, $03, $DE, $FD
       ; red lines, vertical, right
-      .BYTE $20, $1C, $DE, $FD
-      .BYTE $20, $1D, $DE, $FD
-      .BYTE $20, $1E, $DE, $FD
-      .BYTE $20, $1F, $DE, $FD
+      .db $20, $1C, $DE, $FD
+      .db $20, $1D, $DE, $FD
+      .db $20, $1E, $DE, $FD
+      .db $20, $1F, $DE, $FD
       ; red lines, horizontal, top
-      .BYTE $20, $03, $5D, $FD
-      .BYTE $20, $23, $5D, $FD
-      .BYTE $20, $43, $5D, $FD
-      .BYTE $20, $63, $5D, $FD
+      .db $20, $03, $5D, $FD
+      .db $20, $23, $5D, $FD
+      .db $20, $43, $5D, $FD
+      .db $20, $63, $5D, $FD
       ; red lines, vertical, bottom
-      .BYTE $23, $63, $5D, $FD
-      .BYTE $23, $83, $5D, $FD
-      .BYTE $23, $A3, $5D, $FD
+      .db $23, $63, $5D, $FD
+      .db $23, $83, $5D, $FD
+      .db $23, $A3, $5D, $FD
 
       ; ornate frame, top
-      .BYTE $20, $68, $10, $48, $4A, $4C, $4E, $50, $51, $52, $53, $54, $55, $56, $57, $58, $5A, $5C, $5E
-      .BYTE $20, $84, $08, $FD, $22, $23, $24, $49, $4B, $4D, $4F
-      .BYTE $20, $94, $08, $59, $5B, $5D, $5F, $2E, $2F, $30, $FD
-      .BYTE $20, $A4, $03, $25, $26, $27
-      .BYTE $20, $B9, $03, $31, $32, $33
-      .BYTE $20, $C4, $03, $28, $29, $2A
-      .BYTE $20, $D9, $03, $34, $35, $36
-      .BYTE $20, $E3, $03, $2B, $2C, $2D
-      .BYTE $20, $FA, $03, $37, $38, $39
-      .BYTE $21, $03, $02, $3A, $3B
-      .BYTE $21, $1B, $02, $40, $41
+      .db $20, $68, $10, $48, $4A, $4C, $4E, $50, $51, $52, $53, $54, $55, $56, $57, $58, $5A, $5C, $5E
+      .db $20, $84, $08, $FD, $22, $23, $24, $49, $4B, $4D, $4F
+      .db $20, $94, $08, $59, $5B, $5D, $5F, $2E, $2F, $30, $FD
+      .db $20, $A4, $03, $25, $26, $27
+      .db $20, $B9, $03, $31, $32, $33
+      .db $20, $C4, $03, $28, $29, $2A
+      .db $20, $D9, $03, $34, $35, $36
+      .db $20, $E3, $03, $2B, $2C, $2D
+      .db $20, $FA, $03, $37, $38, $39
+      .db $21, $03, $02, $3A, $3B
+      .db $21, $1B, $02, $40, $41
       ; ornate frame, lines down, top
-      .BYTE $21, $23, $C6, $3C
-      .BYTE $21, $3C, $C6, $42
+      .db $21, $23, $C6, $3C
+      .db $21, $3C, $C6, $42
       ; ornate frame, middle
-      .BYTE $21, $E3, $01, $3D
-      .BYTE $21, $FC, $01, $60
-      .BYTE $22, $02, $02, $3E, $3F
-      .BYTE $22, $1C, $02, $61, $62
-      .BYTE $22, $22, $02, $43, $44
-      .BYTE $22, $3C, $02, $63, $64
-      .BYTE $22, $43, $01, $45
-      .BYTE $22, $5C, $01, $65
+      .db $21, $E3, $01, $3D
+      .db $21, $FC, $01, $60
+      .db $22, $02, $02, $3E, $3F
+      .db $22, $1C, $02, $61, $62
+      .db $22, $22, $02, $43, $44
+      .db $22, $3C, $02, $63, $64
+      .db $22, $43, $01, $45
+      .db $22, $5C, $01, $65
       ; ornate frame, lines down, bottom
-      .BYTE $22, $63, $C6, $3C
-      .BYTE $22, $7C, $C4, $42
+      .db $22, $63, $C6, $3C
+      .db $22, $7C, $C4, $42
       ; ornate frame, bottom, characters
-      .BYTE $22, $C4, $02, $A6, $A8
-      .BYTE $22, $E4, $02, $A7, $A9
-      .BYTE $22, $FA, $04, $80, $82, $88, $8A
-      .BYTE $23, $04, $02, $90, $92
-      .BYTE $23, $14, $02, $9E, $A0
-      .BYTE $23, $1A, $04, $81, $83, $89, $8B
-      .BYTE $23, $23, $03, $46, $91, $93
-      .BYTE $23, $2A, $02, $A2, $A4
-      .BYTE $23, $2E, $0B, $67, $6C, $6E, $70, $72, $69, $9F, $A1, $75, $98, $9A
-      .BYTE $23, $3A, $04, $84, $86, $8C, $8E
-      .BYTE $23, $43, $1B, $47, $94, $96, $74, $74, $74, $74, $A3, $A5, $74, $66, $68
-      .BYTE $6D, $6F, $71, $73, $6A, $6B, $74, $74, $99, $9B, $74, $85, $87, $8D, $8F
-      .BYTE $23, $64, $05, $95, $97, $FD, $AA ,$AB
-      .BYTE $23, $77, $04, $9C, $9D, $AA, $AB
-      .BYTE $23, $89, $02, $AA, $AB
+      .db $22, $C4, $02, $A6, $A8
+      .db $22, $E4, $02, $A7, $A9
+      .db $22, $FA, $04, $80, $82, $88, $8A
+      .db $23, $04, $02, $90, $92
+      .db $23, $14, $02, $9E, $A0
+      .db $23, $1A, $04, $81, $83, $89, $8B
+      .db $23, $23, $03, $46, $91, $93
+      .db $23, $2A, $02, $A2, $A4
+      .db $23, $2E, $0B, $67, $6C, $6E, $70, $72, $69, $9F, $A1, $75, $98, $9A
+      .db $23, $3A, $04, $84, $86, $8C, $8E
+      .db $23, $43, $1B, $47, $94, $96, $74, $74, $74, $74, $A3, $A5, $74, $66, $68
+      .db $6D, $6F, $71, $73, $6A, $6B, $74, $74, $99, $9B, $74, $85, $87, $8D, $8F
+      .db $23, $64, $05, $95, $97, $FD, $AA ,$AB
+      .db $23, $77, $04, $9C, $9D, $AA, $AB
+      .db $23, $89, $02, $AA, $AB
 
       ; SUPER
       ;                    SSSSSSSS  UUUUUUUU  PPPPPPPP  EEEEEEEE  RRRRRRRR
-      .BYTE $20, $CB, $0A, $00, $01, $08, $08, $FC, $01, $FC, $08, $FC, $01
-      .BYTE $20, $EB, $0A, $02, $03, $08, $08, $0A, $05, $0B, $0C, $0A, $0D
-      .BYTE $21, $0B, $0A, $04, $05, $04, $05, $0E, $07, $FC, $08, $0E, $08
-      .BYTE $21, $2B, $05, $06, $07, $06, $07, $09
-      .BYTE $21, $31, $04, $76, $09, $09, $09
+      .db $20, $CB, $0A, $00, $01, $08, $08, $FC, $01, $FC, $08, $FC, $01
+      .db $20, $EB, $0A, $02, $03, $08, $08, $0A, $05, $0B, $0C, $0A, $0D
+      .db $21, $0B, $0A, $04, $05, $04, $05, $0E, $07, $FC, $08, $0E, $08
+      .db $21, $2B, $05, $06, $07, $06, $07, $09
+      .db $21, $31, $04, $76, $09, $09, $09
 
       ; TM
       ;                    TTT  MMM
-      .BYTE $21, $38, $02, $F9, $FA
+      .db $21, $38, $02, $F9, $FA
 
       ; MARIO
       ;                    MMMMMMMMMMMMM  AAAAAAAA  RRRRRRRR  III  OOOOOOOO
-      .BYTE $21, $46, $0A, $00, $0F, $01, $00, $01, $FC, $01, $08, $00, $01
-      .BYTE $21, $66, $0A, $10, $10, $08, $10, $08, $10, $08, $08, $10, $08
-      .BYTE $21, $86, $0A, $08, $08, $08, $08, $08, $13, $0D, $08, $08, $08
-      .BYTE $21, $A6, $0A, $08, $08, $08, $FC, $08, $0E, $08, $08, $08, $08
-      .BYTE $21, $C6, $0A, $08, $08, $08, $10, $08, $08, $08, $08, $04, $05
-      .BYTE $21, $E6, $0A, $09, $09, $09, $09, $09, $09, $09, $09, $06, $07
+      .db $21, $46, $0A, $00, $0F, $01, $00, $01, $FC, $01, $08, $00, $01
+      .db $21, $66, $0A, $10, $10, $08, $10, $08, $10, $08, $08, $10, $08
+      .db $21, $86, $0A, $08, $08, $08, $08, $08, $13, $0D, $08, $08, $08
+      .db $21, $A6, $0A, $08, $08, $08, $FC, $08, $0E, $08, $08, $08, $08
+      .db $21, $C6, $0A, $08, $08, $08, $10, $08, $08, $08, $08, $04, $05
+      .db $21, $E6, $0A, $09, $09, $09, $09, $09, $09, $09, $09, $06, $07
 
       ; BROS
       ;                    BBBBBBBB  RRRRRRRR  OOOOOOOO  SSSSSSSS
-      .BYTE $21, $51, $08, $FC, $01, $FC, $01, $00, $01, $00, $01 ; BROS
-      .BYTE $21, $71, $08, $10, $08, $10, $08, $10, $08, $10, $08
-      .BYTE $21, $91, $08, $13, $0D, $13, $0D, $08, $08, $77, $03
-      .BYTE $21, $B1, $08, $0E, $08, $0E, $08, $08, $08, $12, $08
-      .BYTE $21, $D1, $09, $13, $05, $08, $08, $04, $05, $04, $05, $08
-      .BYTE $21, $F1, $09, $11, $07, $09, $09, $06, $07, $06, $07, $09
+      .db $21, $51, $08, $FC, $01, $FC, $01, $00, $01, $00, $01 ; BROS
+      .db $21, $71, $08, $10, $08, $10, $08, $10, $08, $10, $08
+      .db $21, $91, $08, $13, $0D, $13, $0D, $08, $08, $77, $03
+      .db $21, $B1, $08, $0E, $08, $0E, $08, $08, $08, $12, $08
+      .db $21, $D1, $09, $13, $05, $08, $08, $04, $05, $04, $05, $08
+      .db $21, $F1, $09, $11, $07, $09, $09, $06, $07, $06, $07, $09
 
       ; 2
       ;               22222222222222222222222
-      .BYTE $22, $0E, $04, $14, $15, $16, $17
-      .BYTE $22, $2E, $04, $18, $19, $1A, $1B
-      .BYTE $22, $4E, $04, $1C, $1D, $1E, $1F
-      .BYTE $22, $6E, $04, $FC, $FC, $FC, $20
-      .BYTE $22, $8E, $04, $76, $76, $76, $21
+      .db $22, $0E, $04, $14, $15, $16, $17
+      .db $22, $2E, $04, $18, $19, $1A, $1B
+      .db $22, $4E, $04, $1C, $1D, $1E, $1F
+      .db $22, $6E, $04, $FC, $FC, $FC, $20
+      .db $22, $8E, $04, $76, $76, $76, $21
 
       ; (C) 1988
       ;                    (C)  111  999  888  888
-      .BYTE $22, $E9, $05, $F8, $D1, $D9, $D8, $D8  ; (C) 1988
+      .db $22, $E9, $05, $F8, $D1, $D9, $D8, $D8  ; (C) 1988
 
       ; NINTENDO
       ;                    NNN  III  NNN  TTT  EEE  NNN  DDD  OOO
-      .BYTE $22, $EF, $08, $E7, $E2, $E7, $ED, $DE, $E7, $DD, $E8
+      .db $22, $EF, $08, $E7, $E2, $E7, $ED, $DE, $E7, $DD, $E8
 
-      .BYTE $23, $CA, $04, $80, $A0, $A0, $20
-      .BYTE $23, $D1, $0E, $80, $A8, $AA, $AA, $A2, $22, $00, $00, $88, $AA, $AA, $AA, $AA, $22
-      .BYTE $23, $E3, $02, $88, $22
-      .BYTE $23, $EA, $04, $F0, $F8, $F2, $F0
-      .BYTE $00
+      .db $23, $CA, $04, $80, $A0, $A0, $20
+      .db $23, $D1, $0E, $80, $A8, $AA, $AA, $A2, $22, $00, $00, $88, $AA, $AA, $AA, $AA, $22
+      .db $23, $E3, $02, $88, $22
+      .db $23, $EA, $04, $F0, $F8, $F2, $F0
+      .db $00
 
 TitleBackgroundPalettes:
-      .BYTE $22, $37, $16, $07 ; Most of screen, outline, etc.
-      .BYTE $22, $30, $31, $0F ; Unused
-      .BYTE $22, $30, $0F, $0F ; Logo
-      .BYTE $22, $30, $0F, $0F ; Copyright, Story
+      .db $22, $37, $16, $07 ; Most of screen, outline, etc.
+      .db $22, $30, $31, $0F ; Unused
+      .db $22, $30, $0F, $0F ; Logo
+      .db $22, $30, $0F, $0F ; Copyright, Story
 
 TitleSpritePalettes:
-      .BYTE $22, $30, $28, $0F ; Unused DDP character palettes
-      .BYTE $22, $30, $25, $0F ; There are no sprites on the title screen,
-      .BYTE $22, $30, $12, $0F ; so these are totally unused
-      .BYTE $22, $30, $23, $0F
+      .db $22, $30, $28, $0F ; Unused DDP character palettes
+      .db $22, $30, $25, $0F ; There are no sprites on the title screen,
+      .db $22, $30, $12, $0F ; so these are totally unused
+      .db $22, $30, $23, $0F
 
 TitleStoryText_STORY:
-      .BYTE $EC, $ED, $E8, $EB, $F2 ; STORY
+      .db $EC, $ED, $E8, $EB, $F2 ; STORY
 
 TitleStoryTextPointersHi:
-      .BYTE >TitleStoryText_Line01
-      .BYTE >TitleStoryText_Line02
-      .BYTE >TitleStoryText_Line03
-      .BYTE >TitleStoryText_Line04
-      .BYTE >TitleStoryText_Line05
-      .BYTE >TitleStoryText_Line06
-      .BYTE >TitleStoryText_Line07
-      .BYTE >TitleStoryText_Line08
-      .BYTE >TitleStoryText_Line08 ; For some reason line 8 is referenced twice here, but not used
-      .BYTE >TitleStoryText_Line09
-      .BYTE >TitleStoryText_Line10
-      .BYTE >TitleStoryText_Line11
-      .BYTE >TitleStoryText_Line12
-      .BYTE >TitleStoryText_Line13
-      .BYTE >TitleStoryText_Line14
-      .BYTE >TitleStoryText_Line15
-      .BYTE >TitleStoryText_Line16
+      .db >TitleStoryText_Line01
+      .db >TitleStoryText_Line02
+      .db >TitleStoryText_Line03
+      .db >TitleStoryText_Line04
+      .db >TitleStoryText_Line05
+      .db >TitleStoryText_Line06
+      .db >TitleStoryText_Line07
+      .db >TitleStoryText_Line08
+      .db >TitleStoryText_Line08 ; For some reason line 8 is referenced twice here, but not used
+      .db >TitleStoryText_Line09
+      .db >TitleStoryText_Line10
+      .db >TitleStoryText_Line11
+      .db >TitleStoryText_Line12
+      .db >TitleStoryText_Line13
+      .db >TitleStoryText_Line14
+      .db >TitleStoryText_Line15
+      .db >TitleStoryText_Line16
 
 TitleStoryTextPointersLo:
-      .BYTE <TitleStoryText_Line01
-      .BYTE <TitleStoryText_Line02
-      .BYTE <TitleStoryText_Line03
-      .BYTE <TitleStoryText_Line04
-      .BYTE <TitleStoryText_Line05
-      .BYTE <TitleStoryText_Line06
-      .BYTE <TitleStoryText_Line07
-      .BYTE <TitleStoryText_Line08
-      .BYTE <TitleStoryText_Line08
-      .BYTE <TitleStoryText_Line09
-      .BYTE <TitleStoryText_Line10
-      .BYTE <TitleStoryText_Line11
-      .BYTE <TitleStoryText_Line12
-      .BYTE <TitleStoryText_Line13
-      .BYTE <TitleStoryText_Line14
-      .BYTE <TitleStoryText_Line15
-      .BYTE <TitleStoryText_Line16
+      .db <TitleStoryText_Line01
+      .db <TitleStoryText_Line02
+      .db <TitleStoryText_Line03
+      .db <TitleStoryText_Line04
+      .db <TitleStoryText_Line05
+      .db <TitleStoryText_Line06
+      .db <TitleStoryText_Line07
+      .db <TitleStoryText_Line08
+      .db <TitleStoryText_Line08
+      .db <TitleStoryText_Line09
+      .db <TitleStoryText_Line10
+      .db <TitleStoryText_Line11
+      .db <TitleStoryText_Line12
+      .db <TitleStoryText_Line13
+      .db <TitleStoryText_Line14
+      .db <TitleStoryText_Line15
+      .db <TitleStoryText_Line16
 
 TitleStoryText_Line01:
-      .BYTE $F0, $E1, $DE, $E7, $FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB, $E8, $E9, $DE, $E7
-      .BYTE $DE, $DD, $FB, $DA ; WHEN MARIO OPENED A
+      .db $F0, $E1, $DE, $E7, $FB, $FB, $E6, $DA, $EB, $E2, $E8, $FB, $E8, $E9, $DE, $E7
+      .db $DE, $DD, $FB, $DA ; WHEN MARIO OPENED A
 
 TitleStoryText_Line02:
-      .BYTE $DD, $E8, $E8, $EB, $FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB, $DC, $E5, $E2, $E6
-      .BYTE $DB, $E2, $E7, $E0 ; DOOR AFTER CLIMBING
+      .db $DD, $E8, $E8, $EB, $FB, $DA, $DF, $ED, $DE, $EB, $FB, $FB, $DC, $E5, $E2, $E6
+      .db $DB, $E2, $E7, $E0 ; DOOR AFTER CLIMBING
 
 TitleStoryText_Line03:
-      .BYTE $DA, $FB, $E5, $E8, $E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB, $FB, $E2, $E7, $FB
-      .BYTE $FB, $E1, $E2, $EC ; A LONG STAIR IN HIS
+      .db $DA, $FB, $E5, $E8, $E7, $E0, $FB, $EC, $ED, $DA, $E2, $EB, $FB, $E2, $E7, $FB
+      .db $FB, $E1, $E2, $EC ; A LONG STAIR IN HIS
 
 TitleStoryText_Line04:
-      .BYTE $DD, $EB, $DE, $DA, $E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1, $DE, $EB, $FB, $F0
-      .BYTE $E8, $EB, $E5, $DD ; DREAM, ANOTHER WORLD
+      .db $DD, $EB, $DE, $DA, $E6, $F7, $FB, $DA, $E7, $E8, $ED, $E1, $DE, $EB, $FB, $F0
+      .db $E8, $EB, $E5, $DD ; DREAM, ANOTHER WORLD
 
 TitleStoryText_Line05:
-      .BYTE $EC, $E9, $EB, $DE, $DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF, $E8, $EB, $DE, $FB
-      .BYTE $FB, $E1, $E2, $E6 ; SPREAD BEFORE HIM
+      .db $EC, $E9, $EB, $DE, $DA, $DD, $FB, $FB, $FB, $DB, $DE, $DF, $E8, $EB, $DE, $FB
+      .db $FB, $E1, $E2, $E6 ; SPREAD BEFORE HIM
 
 TitleStoryText_Line06:
-      .BYTE $DA, $E7, $DD, $FB, $E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD, $FB, $DA, $FB, $EF
-      .BYTE $E8, $E2, $DC, $DE ; AND HE HEARD A VOICE
+      .db $DA, $E7, $DD, $FB, $E1, $DE, $FB, $E1, $DE, $DA, $EB, $DD, $FB, $DA, $FB, $EF
+      .db $E8, $E2, $DC, $DE ; AND HE HEARD A VOICE
 
 TitleStoryText_Line07:
-      .BYTE $DC, $DA, $E5, $E5, $FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5, $E9, $FB, $ED, $E8
-      .BYTE $FB, $FB, $DB, $DE ; CALL FOR HELP TO BE
+      .db $DC, $DA, $E5, $E5, $FB, $DF, $E8, $EB, $FB, $E1, $DE, $E5, $E9, $FB, $ED, $E8
+      .db $FB, $FB, $DB, $DE ; CALL FOR HELP TO BE
 
 TitleStoryText_Line08:
-      .BYTE $FB, $DF, $EB, $DE, $DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6, $FB, $DA, $FB, $EC
-      .BYTE $E9, $DE, $E5, $E5 ; FREED FROM A SPELL
+      .db $FB, $DF, $EB, $DE, $DE, $DD, $FB, $FB, $DF, $EB, $E8, $E6, $FB, $DA, $FB, $EC
+      .db $E9, $DE, $E5, $E5 ; FREED FROM A SPELL
 
 TitleStoryText_Line09:
-      .BYTE $DA, $DF, $ED, $DE, $EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE, $E7, $E2, $E7, $E0
-      .BYTE $F7, $FB, $FB, $FB ; AFTER AWAKENING,
+      .db $DA, $DF, $ED, $DE, $EB, $FB, $FB, $DA, $F0, $DA, $E4, $DE, $E7, $E2, $E7, $E0
+      .db $F7, $FB, $FB, $FB ; AFTER AWAKENING,
 
 TitleStoryText_Line10:
-      .BYTE $E6, $DA, $EB, $E2, $E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB, $ED, $E8, $FB, $FB
-      .BYTE $DA, $FB, $FB, $FB ; MARIO WENT TO A
+      .db $E6, $DA, $EB, $E2, $E8, $FB, $FB, $F0, $DE, $E7, $ED, $FB, $ED, $E8, $FB, $FB
+      .db $DA, $FB, $FB, $FB ; MARIO WENT TO A
 
 TitleStoryText_Line11:
-      .BYTE $DC, $DA, $EF, $DE, $FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2, $FB, $DA, $E7, $DD
-      .BYTE $FB, $FB, $ED, $E8 ; CAVE NEARBY AND TO
+      .db $DC, $DA, $EF, $DE, $FB, $FB, $E7, $DE, $DA, $EB, $DB, $F2, $FB, $DA, $E7, $DD
+      .db $FB, $FB, $ED, $E8 ; CAVE NEARBY AND TO
 
 TitleStoryText_Line12:
-      .BYTE $E1, $E2, $EC, $FB, $FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC, $DE, $FB, $E1, $DE
-      .BYTE $FB, $EC, $DA, $F0 ; HIS SURPRISE HE SAW
+      .db $E1, $E2, $EC, $FB, $FB, $EC, $EE, $EB, $E9, $EB, $E2, $EC, $DE, $FB, $E1, $DE
+      .db $FB, $EC, $DA, $F0 ; HIS SURPRISE HE SAW
 
 TitleStoryText_Line13:
-      .BYTE $DE, $F1, $DA, $DC, $ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA, $ED, $FB, $E1, $DE
-      .BYTE $FB, $EC, $DA, $F0 ; EXACTLY WHAT HE SAW
+      .db $DE, $F1, $DA, $DC, $ED, $E5, $F2, $FB, $FB, $F0, $E1, $DA, $ED, $FB, $E1, $DE
+      .db $FB, $EC, $DA, $F0 ; EXACTLY WHAT HE SAW
 
 TitleStoryText_Line14:
-      .BYTE $E2, $E7, $FB, $E1, $E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6, $CF, $CF, $CF, $CF
-      .BYTE $FB, $FB, $FB, $FB ; IN HIS DREAM....
+      .db $E2, $E7, $FB, $E1, $E2, $EC, $FB, $DD, $EB, $DE, $DA, $E6, $CF, $CF, $CF, $CF
+      .db $FB, $FB, $FB, $FB ; IN HIS DREAM....
 
 TitleStoryText_Line15:
-      .BYTE $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
-      .BYTE $FB, $FB, $FB, $FB ; (blank)
+      .db $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
+      .db $FB, $FB, $FB, $FB ; (blank)
 
 TitleStoryText_Line16:
-      .BYTE $FB, $FB, $E9, $EE, $EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED, $FB, $DB, $EE, $ED
-      .BYTE $ED, $E8, $E7, $FB ; PUSH START BUTTON
+      .db $FB, $FB, $E9, $EE, $EC, $E1, $FB, $EC, $ED, $DA, $EB, $ED, $FB, $DB, $EE, $ED
+      .db $ED, $E8, $E7, $FB ; PUSH START BUTTON
 
 TitleAttributeData1:
-      .BYTE $23, $CB, $42, $FF
-      .BYTE $23, $D1, $01, $CC
-      .BYTE $23, $D2, $44, $FF
-      .BYTE $23, $D6, $01, $33
-      .BYTE $23, $D9, $01, $CC
-      .BYTE $23, $DA, $44, $FF
+      .db $23, $CB, $42, $FF
+      .db $23, $D1, $01, $CC
+      .db $23, $D2, $44, $FF
+      .db $23, $D6, $01, $33
+      .db $23, $D9, $01, $CC
+      .db $23, $DA, $44, $FF
 
 TitleAttributeData2:
-      .BYTE $23, $DE, $01, $33
-      .BYTE $23, $E1, $01, $CC
-      .BYTE $23, $E2, $44, $FF
-      .BYTE $23, $E6, $01, $33
-      .BYTE $23, $EA, $44, $FF
-      .BYTE $23, $E9, $01, $CC
-      .BYTE $23, $EE, $01, $33
+      .db $23, $DE, $01, $33
+      .db $23, $E1, $01, $CC
+      .db $23, $E2, $44, $FF
+      .db $23, $E6, $01, $33
+      .db $23, $EA, $44, $FF
+      .db $23, $E9, $01, $CC
+      .db $23, $EE, $01, $33
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -5241,19 +5241,19 @@ ENDIF
 
 
 EndingPPUDataPointers:
-      .WORD PPUBuffer_301
-      .WORD EndingCorkJarRoom
-      .WORD EndingCelebrationCeilingTextAndPodium
-      .WORD EndingCelebrationFloorAndSubconParade
-      .WORD EndingCelebrationPaletteFade1
-      .WORD EndingCelebrationPaletteFade2
-      .WORD EndingCelebrationPaletteFade3
-      .WORD EndingCelebrationSubconStandStill
-      .WORD EndingCelebrationUnusedText_THE_END
-      .WORD EndingCelebrationText_MARIO
-      .WORD EndingCelebrationText_PRINCESS
-      .WORD EndingCelebrationText_TOAD
-      .WORD EndingCelebrationText_LUIGI
+      .dw PPUBuffer_301
+      .dw EndingCorkJarRoom
+      .dw EndingCelebrationCeilingTextAndPodium
+      .dw EndingCelebrationFloorAndSubconParade
+      .dw EndingCelebrationPaletteFade1
+      .dw EndingCelebrationPaletteFade2
+      .dw EndingCelebrationPaletteFade3
+      .dw EndingCelebrationSubconStandStill
+      .dw EndingCelebrationUnusedText_THE_END
+      .dw EndingCelebrationText_MARIO
+      .dw EndingCelebrationText_PRINCESS
+      .dw EndingCelebrationText_TOAD
+      .dw EndingCelebrationText_LUIGI
 
 
 WaitForNMI_Ending_TurnOffPPU:
@@ -5285,125 +5285,125 @@ WaitForNMI_EndingLoop:
 
 
 EndingCorkJarRoom:
-      .BYTE $20, $00, $9E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
-      .BYTE $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
-      .BYTE $73, $72, $73
-      .BYTE $20, $01, $9E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
-      .BYTE $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
-      .BYTE $72, $73, $72
-      .BYTE $22, $02, $8E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
-      .BYTE $72, $73
-      .BYTE $22, $03, $8E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
-      .BYTE $73, $72
-      .BYTE $23, $44, $18, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
-      .BYTE $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
-      .BYTE $23, $64, $18, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
-      .BYTE $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
-      .BYTE $23, $84, $18, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
-      .BYTE $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
-      .BYTE $23, $A4, $18, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
-      .BYTE $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
-      .BYTE $22, $1C, $8E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
-      .BYTE $72, $73
-      .BYTE $22, $1D, $8E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
-      .BYTE $73, $72
-      .BYTE $20, $1E, $9E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
-      .BYTE $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
-      .BYTE $73, $72, $73
-      .BYTE $20, $1F, $9E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
-      .BYTE $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
-      .BYTE $72, $73, $72
-      .BYTE $22, $C6, $C4, $FC
-      .BYTE $22, $C7, $C4, $FC
-      .BYTE $22, $C8, $84, $AD, $AC, $AC, $AC
-      .BYTE $22, $E9, $83, $AD, $AC, $AC
-      .BYTE $23, $0A, $82, $AD, $AC
-      .BYTE $23, $2B, $01, $AD
-      .BYTE $22, $90, $84, $88, $89, $89, $8C
-      .BYTE $22, $91, $84, $8A, $8B, $8B, $8D
-      .BYTE $23, $0E, $06, $74, $76, $74, $76, $74, $76
-      .BYTE $23, $2E, $06, $75, $77, $75, $77, $75, $77
-      .BYTE $23, $C0, $20, $22, $00, $00, $00, $00, $00, $00, $88, $22, $00, $00, $00, $00, $00, $00, $88, $22, $00
-      .BYTE $00, $00, $00, $00, $00, $88, $22, $00, $00, $00, $00, $00, $00, $88
-      .BYTE $23, $E0, $20, $AA, $00, $00, $00, $00, $00, $00, $AA, $AA, $00, $00, $00, $11, $00, $00, $AA, $AA
-      .BYTE $A0, $A0, $A4, $A5, $A0, $A0, $AA, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-      .BYTE $00
+      .db $20, $00, $9E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .db $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .db $73, $72, $73
+      .db $20, $01, $9E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .db $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .db $72, $73, $72
+      .db $22, $02, $8E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .db $72, $73
+      .db $22, $03, $8E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .db $73, $72
+      .db $23, $44, $18, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .db $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .db $23, $64, $18, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .db $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .db $23, $84, $18, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .db $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .db $23, $A4, $18, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .db $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .db $22, $1C, $8E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .db $72, $73
+      .db $22, $1D, $8E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .db $73, $72
+      .db $20, $1E, $9E, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .db $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .db $73, $72, $73
+      .db $20, $1F, $9E, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72
+      .db $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73, $72, $73
+      .db $72, $73, $72
+      .db $22, $C6, $C4, $FC
+      .db $22, $C7, $C4, $FC
+      .db $22, $C8, $84, $AD, $AC, $AC, $AC
+      .db $22, $E9, $83, $AD, $AC, $AC
+      .db $23, $0A, $82, $AD, $AC
+      .db $23, $2B, $01, $AD
+      .db $22, $90, $84, $88, $89, $89, $8C
+      .db $22, $91, $84, $8A, $8B, $8B, $8D
+      .db $23, $0E, $06, $74, $76, $74, $76, $74, $76
+      .db $23, $2E, $06, $75, $77, $75, $77, $75, $77
+      .db $23, $C0, $20, $22, $00, $00, $00, $00, $00, $00, $88, $22, $00, $00, $00, $00, $00, $00, $88, $22, $00
+      .db $00, $00, $00, $00, $00, $88, $22, $00, $00, $00, $00, $00, $00, $88
+      .db $23, $E0, $20, $AA, $00, $00, $00, $00, $00, $00, $AA, $AA, $00, $00, $00, $11, $00, $00, $AA, $AA
+      .db $A0, $A0, $A4, $A5, $A0, $A0, $AA, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+      .db $00
 
 EndingCelebrationUnusedText_THANK_YOU:
-      .BYTE $21, $0C, $09, $ED, $E1, $DA, $E7, $E4, $FB, $F2, $E8, $EE
-      .BYTE $00
+      .db $21, $0C, $09, $ED, $E1, $DA, $E7, $E4, $FB, $F2, $E8, $EE
+      .db $00
 
 CorkRoomSpriteStartX:
-      .BYTE $30 ; player
-      .BYTE $80 ; subcon 8
-      .BYTE $80 ; subcon 7
-      .BYTE $80 ; subcon 6
-      .BYTE $80 ; subcon 5
-      .BYTE $80 ; subcon 4
-      .BYTE $80 ; subcon 3
-      .BYTE $80 ; subcon 2
-      .BYTE $80 ; subcon 1
-      .BYTE $80 ; cork
+      .db $30 ; player
+      .db $80 ; subcon 8
+      .db $80 ; subcon 7
+      .db $80 ; subcon 6
+      .db $80 ; subcon 5
+      .db $80 ; subcon 4
+      .db $80 ; subcon 3
+      .db $80 ; subcon 2
+      .db $80 ; subcon 1
+      .db $80 ; cork
 
 CorkRoomSpriteStartY:
-      .BYTE $B0 ; player
-      .BYTE $A0 ; subcon 8
-      .BYTE $A0 ; subcon 7
-      .BYTE $A0 ; subcon 6
-      .BYTE $A0 ; subcon 5
-      .BYTE $A0 ; subcon 4
-      .BYTE $A0 ; subcon 3
-      .BYTE $A0 ; subcon 2
-      .BYTE $A0 ; subcon 1
-      .BYTE $95 ; cork
+      .db $B0 ; player
+      .db $A0 ; subcon 8
+      .db $A0 ; subcon 7
+      .db $A0 ; subcon 6
+      .db $A0 ; subcon 5
+      .db $A0 ; subcon 4
+      .db $A0 ; subcon 3
+      .db $A0 ; subcon 2
+      .db $A0 ; subcon 1
+      .db $95 ; cork
 
 CorkRoomSpriteTargetX:
-      .BYTE $10 ; player
-      .BYTE $F4 ; subcon 8
-      .BYTE $0C ; subcon 7
-      .BYTE $E8 ; subcon 6
-      .BYTE $18 ; subcon 5
-      .BYTE $EC ; subcon 4
-      .BYTE $14 ; subcon 3
-      .BYTE $F8 ; subcon 2
-      .BYTE $08 ; subcon 1
-      .BYTE $00 ; cork
+      .db $10 ; player
+      .db $F4 ; subcon 8
+      .db $0C ; subcon 7
+      .db $E8 ; subcon 6
+      .db $18 ; subcon 5
+      .db $EC ; subcon 4
+      .db $14 ; subcon 3
+      .db $F8 ; subcon 2
+      .db $08 ; subcon 1
+      .db $00 ; cork
 
 CorkRoomSpriteTargetY:
-      .BYTE $00 ; player
-      .BYTE $C4 ; subcon 8
-      .BYTE $C4 ; subcon 7
-      .BYTE $B8 ; subcon 6
-      .BYTE $B8 ; subcon 5
-      .BYTE $A8 ; subcon 4
-      .BYTE $A8 ; subcon 3
-      .BYTE $A0 ; subcon 2
-      .BYTE $A0 ; subcon 1
-      .BYTE $00 ; cork
+      .db $00 ; player
+      .db $C4 ; subcon 8
+      .db $C4 ; subcon 7
+      .db $B8 ; subcon 6
+      .db $B8 ; subcon 5
+      .db $A8 ; subcon 4
+      .db $A8 ; subcon 3
+      .db $A0 ; subcon 2
+      .db $A0 ; subcon 1
+      .db $00 ; cork
 
 CorkRoomSpriteDelay:
-      .BYTE $00 ; player
-      .BYTE $F0 ; subcon 8
-      .BYTE $E0 ; subcon 7
-      .BYTE $C0 ; subcon 6
-      .BYTE $A0 ; subcon 5
-      .BYTE $80 ; subcon 4
-      .BYTE $60 ; subcon 3
-      .BYTE $40 ; subcon 2
-      .BYTE $20 ; subcon 1
-      .BYTE $00 ; cork
+      .db $00 ; player
+      .db $F0 ; subcon 8
+      .db $E0 ; subcon 7
+      .db $C0 ; subcon 6
+      .db $A0 ; subcon 5
+      .db $80 ; subcon 4
+      .db $60 ; subcon 3
+      .db $40 ; subcon 2
+      .db $20 ; subcon 1
+      .db $00 ; cork
 
 CorkRoomSpriteAttributes:
-      .BYTE $00 ; player
-      .BYTE $21 ; subcon 8
-      .BYTE $61 ; subcon 7
-      .BYTE $21 ; subcon 6
-      .BYTE $61 ; subcon 5
-      .BYTE $21 ; subcon 4
-      .BYTE $61 ; subcon 3
-      .BYTE $21 ; subcon 2
-      .BYTE $61 ; subcon 1
-      .BYTE $22 ; cork
+      .db $00 ; player
+      .db $21 ; subcon 8
+      .db $61 ; subcon 7
+      .db $21 ; subcon 6
+      .db $61 ; subcon 5
+      .db $21 ; subcon 4
+      .db $61 ; subcon 3
+      .db $21 ; subcon 2
+      .db $61 ; subcon 1
+      .db $22 ; cork
 
 
 FreeSubconsScene:
@@ -5511,11 +5511,11 @@ FreeSubconsScene_Player_AfterStateTimer:
       JSR     JumpToTableAfterJump
 
 
-      .WORD FreeSubconsScene_Phase1
-      .WORD FreeSubconsScene_Phase2
-      .WORD FreeSubconsScene_Phase3
-      .WORD FreeSubconsScene_Phase4
-      .WORD FreeSubconsScene_Phase5
+      .dw FreeSubconsScene_Phase1
+      .dw FreeSubconsScene_Phase2
+      .dw FreeSubconsScene_Phase3
+      .dw FreeSubconsScene_Phase4
+      .dw FreeSubconsScene_Phase5
 
 
 ; Walking in and first jump
@@ -5604,17 +5604,17 @@ FreeSubconsScene_Phase3:
 
 
 PullCorkFrameDurations:
-      .BYTE $14
-      .BYTE $0A
-      .BYTE $14
-      .BYTE $0A
+      .db $14
+      .db $0A
+      .db $14
+      .db $0A
 
 PullCorkOffsets:
-      .BYTE $1C
-      .BYTE $1B
-      .BYTE $1E
-      .BYTE $1D
-      .BYTE $1F
+      .db $1C
+      .db $1B
+      .db $1E
+      .db $1D
+      .db $1F
 
 
 ; Pull the cork out
@@ -5675,10 +5675,10 @@ FreeSubconsScene_Phase5_Exit:
 
 
 CorkRoomCharacterGravity:
-      .BYTE $04 ; Mario
-      .BYTE $04 ; Princess
-      .BYTE $04 ; Toad
-      .BYTE $01 ; Luigi
+      .db $04 ; Mario
+      .db $04 ; Princess
+      .db $04 ; Toad
+      .db $01 ; Luigi
 
 
 ApplyCorkRoomGravity:
@@ -5768,23 +5768,23 @@ FreeSubconsScene_Cork_Exit:
 
 
 CorkRoomSpriteTiles:
-      .BYTE $E8 ; subcon left, wings up
-      .BYTE $EA ; subcon right, wings up
-      .BYTE $EC ; subcon left, wings down
-      .BYTE $EE ; subcon right, wings down
-      .BYTE $61 ; cork left
-      .BYTE $63 ; cork right
+      .db $E8 ; subcon left, wings up
+      .db $EA ; subcon right, wings up
+      .db $EC ; subcon left, wings down
+      .db $EE ; subcon right, wings down
+      .db $61 ; cork left
+      .db $63 ; cork right
 
 CorkRoomSpriteOAMAddress:
-      .BYTE $30 ; subcon 8
-      .BYTE $38 ; subcon 7
-      .BYTE $40 ; subcon 6
-      .BYTE $48 ; subcon 5
-      .BYTE $50 ; subcon 4
-      .BYTE $58 ; subcon 3
-      .BYTE $60 ; subcon 2
-      .BYTE $68 ; subcon 1
-      .BYTE $00 ; cork
+      .db $30 ; subcon 8
+      .db $38 ; subcon 7
+      .db $40 ; subcon 6
+      .db $48 ; subcon 5
+      .db $50 ; subcon 4
+      .db $58 ; subcon 3
+      .db $60 ; subcon 2
+      .db $68 ; subcon 1
+      .db $00 ; cork
 
 
 FreeSubconsScene_Render:
@@ -5821,198 +5821,198 @@ FreeSubconsScene_Render_Exit:
 
 
 EndingCelebrationCeilingTextAndPodium:
-      .BYTE $20, $00, $20
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $20, $00, $20
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
 
-      .BYTE $20, $20, $20
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $20, $20, $20
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
 
-      .BYTE $20, $40, $20
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $20, $40, $20
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
 
-      .BYTE $20, $60, $20
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $20, $60, $20
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
 
-      .BYTE $20, $88, $01, $5A
-      .BYTE $20, $89, $4E, $9A
-      .BYTE $20, $97, $01, $5C
-      .BYTE $20, $A8, $C3, $9B
-      .BYTE $20, $B7, $C3, $9B
-      .BYTE $21, $08, $01, $5B
-      .BYTE $21, $09, $4E, $9A
-      .BYTE $21, $17, $01, $5D
-      .BYTE $20, $AB, $0B, $DC, $E8, $E7, $ED, $EB, $E2, $DB, $EE, $ED, $E8, $EB
-      .BYTE $20, $E3, $04, $40, $42, $44, $46
-      .BYTE $20, $F9, $04, $40, $42, $44, $46
-      .BYTE $21, $23, $C9, $48
-      .BYTE $21, $24, $C9, $49
-      .BYTE $21, $25, $C9, $4A
-      .BYTE $21, $26, $C9, $4B
-      .BYTE $22, $43, $04, $4C, $4D, $4E, $4F
-      .BYTE $21, $03, $04, $41, $43, $45, $47
-      .BYTE $21, $19, $04, $41, $43, $45, $47
-      .BYTE $21, $39, $C9, $48
-      .BYTE $21, $3A, $C9, $49
-      .BYTE $21, $3B, $C9, $4A
-      .BYTE $21, $3C, $C9, $4B
-      .BYTE $22, $59, $04, $4C, $4D, $4E, $4F
-      .BYTE $21, $CA, $4C, $54
-      .BYTE $21, $EA, $4C, $55
-      .BYTE $22, $0B, $0A, $50, $52, $50, $52, $50, $52, $50, $52, $50, $52
-      .BYTE $22, $2B, $0A, $51, $53, $51, $53, $51, $53, $51, $53, $51, $53
-      .BYTE $22, $4C, $02, $3A, $3B
-      .BYTE $22, $6C, $C5, $3C
-      .BYTE $22, $6D, $C5, $3D
-      .BYTE $22, $52, $02, $3A, $3B
-      .BYTE $22, $72, $C5, $3C
-      .BYTE $22, $73, $C5, $3D
-      .BYTE $00
+      .db $20, $88, $01, $5A
+      .db $20, $89, $4E, $9A
+      .db $20, $97, $01, $5C
+      .db $20, $A8, $C3, $9B
+      .db $20, $B7, $C3, $9B
+      .db $21, $08, $01, $5B
+      .db $21, $09, $4E, $9A
+      .db $21, $17, $01, $5D
+      .db $20, $AB, $0B, $DC, $E8, $E7, $ED, $EB, $E2, $DB, $EE, $ED, $E8, $EB
+      .db $20, $E3, $04, $40, $42, $44, $46
+      .db $20, $F9, $04, $40, $42, $44, $46
+      .db $21, $23, $C9, $48
+      .db $21, $24, $C9, $49
+      .db $21, $25, $C9, $4A
+      .db $21, $26, $C9, $4B
+      .db $22, $43, $04, $4C, $4D, $4E, $4F
+      .db $21, $03, $04, $41, $43, $45, $47
+      .db $21, $19, $04, $41, $43, $45, $47
+      .db $21, $39, $C9, $48
+      .db $21, $3A, $C9, $49
+      .db $21, $3B, $C9, $4A
+      .db $21, $3C, $C9, $4B
+      .db $22, $59, $04, $4C, $4D, $4E, $4F
+      .db $21, $CA, $4C, $54
+      .db $21, $EA, $4C, $55
+      .db $22, $0B, $0A, $50, $52, $50, $52, $50, $52, $50, $52, $50, $52
+      .db $22, $2B, $0A, $51, $53, $51, $53, $51, $53, $51, $53, $51, $53
+      .db $22, $4C, $02, $3A, $3B
+      .db $22, $6C, $C5, $3C
+      .db $22, $6D, $C5, $3D
+      .db $22, $52, $02, $3A, $3B
+      .db $22, $72, $C5, $3C
+      .db $22, $73, $C5, $3D
+      .db $00
 
 EndingCelebrationFloorAndSubconParade:
-      .BYTE $23, $00, $20
-      .BYTE $00, $02, $08, $0A, $0C, $0E, $04, $06, $08, $0A, $04, $06, $0C, $0E, $04, $06
-      .BYTE $08, $0A, $00, $02, $0C, $0E, $0C, $0E, $00, $02, $04, $06, $04, $06, $08, $0A
+      .db $23, $00, $20
+      .db $00, $02, $08, $0A, $0C, $0E, $04, $06, $08, $0A, $04, $06, $0C, $0E, $04, $06
+      .db $08, $0A, $00, $02, $0C, $0E, $0C, $0E, $00, $02, $04, $06, $04, $06, $08, $0A
 
-      .BYTE $23, $20, $20
-      .BYTE $01, $03, $09, $0B, $0D, $0F, $05, $07, $09, $0B, $05, $07, $0D, $0F, $05, $07
-      .BYTE $09, $0B, $01, $03, $0D, $0F, $0D, $0F, $01, $03, $05, $07, $05, $07, $09, $0B
+      .db $23, $20, $20
+      .db $01, $03, $09, $0B, $0D, $0F, $05, $07, $09, $0B, $05, $07, $0D, $0F, $05, $07
+      .db $09, $0B, $01, $03, $0D, $0F, $0D, $0F, $01, $03, $05, $07, $05, $07, $09, $0B
 
-      .BYTE $27, $00, $20
-      .BYTE $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76
-      .BYTE $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76
+      .db $27, $00, $20
+      .db $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76
+      .db $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76, $74, $76
 
-      .BYTE $27, $20, $20
-      .BYTE $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77
-      .BYTE $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77
+      .db $27, $20, $20
+      .db $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77
+      .db $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77, $75, $77
 
-      .BYTE $23, $40, $20
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $23, $40, $20
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
 
-      .BYTE $23, $60, $20
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $23, $60, $20
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
 
-      .BYTE $23, $80, $20
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $23, $80, $20
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
 
-      .BYTE $23, $A0, $20
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $23, $A0, $20
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
 
-      .BYTE $27, $40, $20
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $27, $40, $20
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
 
-      .BYTE $27, $60, $20
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $27, $60, $20
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
 
-      .BYTE $27, $80, $20
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
-      .BYTE $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $27, $80, $20
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
+      .db $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81
 
-      .BYTE $27, $A0, $20
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
-      .BYTE $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $27, $A0, $20
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
+      .db $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80, $81, $80
 
-      .BYTE $23, $C0, $48, $AA
-      .BYTE $23, $C8, $08, $15, $05, $FF, $FF, $FF, $FF, $15, $45
+      .db $23, $C0, $48, $AA
+      .db $23, $C8, $08, $15, $05, $FF, $FF, $FF, $FF, $15, $45
 
-      .BYTE $23, $D0, $20
-      .BYTE $31, $00, $FF, $FF, $FF, $FF, $00, $44, $33, $00, $A6, $A5, $A5, $A6, $00, $44
-      .BYTE $F3, $F0, $59, $AA, $AA, $96, $F0, $74, $DD, $FF, $55, $AA, $AA, $95, $55, $55
+      .db $23, $D0, $20
+      .db $31, $00, $FF, $FF, $FF, $FF, $00, $44, $33, $00, $A6, $A5, $A5, $A6, $00, $44
+      .db $F3, $F0, $59, $AA, $AA, $96, $F0, $74, $DD, $FF, $55, $AA, $AA, $95, $55, $55
 
-      .BYTE $23, $F0, $48, $A5
-      .BYTE $23, $F8, $48, $0A
-      .BYTE $27, $F0, $48, $A5
-      .BYTE $27, $F8, $48, $0A
-      .BYTE $00
+      .db $23, $F0, $48, $A5
+      .db $23, $F8, $48, $0A
+      .db $27, $F0, $48, $A5
+      .db $27, $F8, $48, $0A
+      .db $00
 
 EndingCelebrationSubconStandStill:
-      .BYTE $23, $00, $20
-      .BYTE $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72
-      .BYTE $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72
-      .BYTE $23, $20, $20
-      .BYTE $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73
-      .BYTE $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73
-      .BYTE $00
+      .db $23, $00, $20
+      .db $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72
+      .db $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72, $70, $72
+      .db $23, $20, $20
+      .db $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73
+      .db $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73, $71, $73
+      .db $00
 
 EndingCelebrationUnusedText_THE_END:
-      .BYTE $21, $AC, $07
-      .BYTE $ED, $E1, $DE, $FB, $DE, $E7, $DD
-      .BYTE $00
+      .db $21, $AC, $07
+      .db $ED, $E1, $DE, $FB, $DE, $E7, $DD
+      .db $00
 
 EndingCelebrationPaletteFade1:
-      .BYTE $3F, $00, $20
-      .BYTE $01, $30, $21, $0F
-      .BYTE $01, $30, $16, $0F
-      .BYTE $01, $28, $18, $0F
-      .BYTE $01, $30, $30, $01
-      .BYTE $01, $27, $16, $0F
-      .BYTE $01, $37, $2A, $0F
-      .BYTE $01, $27, $30, $0F
-      .BYTE $01, $36, $25, $0F
-      .BYTE $00
+      .db $3F, $00, $20
+      .db $01, $30, $21, $0F
+      .db $01, $30, $16, $0F
+      .db $01, $28, $18, $0F
+      .db $01, $30, $30, $01
+      .db $01, $27, $16, $0F
+      .db $01, $37, $2A, $0F
+      .db $01, $27, $30, $0F
+      .db $01, $36, $25, $0F
+      .db $00
 
 EndingCelebrationPaletteFade2:
-      .BYTE $3F, $00, $20
-      .BYTE $0F, $10, $00, $0F
-      .BYTE $0F, $10, $00, $0F
-      .BYTE $0F, $10, $00, $0F
-      .BYTE $0F, $10, $00, $0F
-      .BYTE $0F, $10, $00, $0F
-      .BYTE $0F, $10, $00, $0F
-      .BYTE $0F, $10, $00, $0F
-      .BYTE $0F, $10, $00, $0F
-      .BYTE $00
+      .db $3F, $00, $20
+      .db $0F, $10, $00, $0F
+      .db $0F, $10, $00, $0F
+      .db $0F, $10, $00, $0F
+      .db $0F, $10, $00, $0F
+      .db $0F, $10, $00, $0F
+      .db $0F, $10, $00, $0F
+      .db $0F, $10, $00, $0F
+      .db $0F, $10, $00, $0F
+      .db $00
 
 EndingCelebrationPaletteFade3:
-      .BYTE $3F, $00, $20
-      .BYTE $0F, $00, $0F, $0F
-      .BYTE $0F, $00, $0F, $0F
-      .BYTE $0F, $00, $0F, $0F
-      .BYTE $0F, $00, $0F, $0F
-      .BYTE $0F, $00, $0F, $0F
-      .BYTE $0F, $00, $0F, $0F
-      .BYTE $0F, $00, $0F, $0F
-      .BYTE $0F, $00, $0F, $0F
-      .BYTE $00
+      .db $3F, $00, $20
+      .db $0F, $00, $0F, $0F
+      .db $0F, $00, $0F, $0F
+      .db $0F, $00, $0F, $0F
+      .db $0F, $00, $0F, $0F
+      .db $0F, $00, $0F, $0F
+      .db $0F, $00, $0F, $0F
+      .db $0F, $00, $0F, $0F
+      .db $0F, $00, $0F, $0F
+      .db $00
 
 EndingScreenUpdateIndex:
-      .BYTE EndingUpdateBuffer_PaletteFade1
-      .BYTE EndingUpdateBuffer_PaletteFade2 ; 1 ; @TODO This seems wrong, somehow
-      .BYTE EndingUpdateBuffer_PaletteFade3 ; 2
+      .db EndingUpdateBuffer_PaletteFade1
+      .db EndingUpdateBuffer_PaletteFade2 ; 1 ; @TODO This seems wrong, somehow
+      .db EndingUpdateBuffer_PaletteFade3 ; 2
 
 ContributorSpriteZeroOAMData:
-      .BYTE $8C, $FC, $20, $94
+      .db $8C, $FC, $20, $94
 
 ContributorCharacterOAMData:
       ; Mario
-      .BYTE $4F, $61, $20, $50
-      .BYTE $4F, $63, $20, $58
-      .BYTE $5F, $65, $20, $50
-      .BYTE $5F, $67, $20, $58
+      .db $4F, $61, $20, $50
+      .db $4F, $63, $20, $58
+      .db $5F, $65, $20, $50
+      .db $5F, $67, $20, $58
       ; Luigi
-      .BYTE $4F, $69, $21, $68
-      .BYTE $4F, $6B, $21, $70
-      .BYTE $5F, $6D, $21, $68
-      .BYTE $5F, $6F, $21, $70
+      .db $4F, $69, $21, $68
+      .db $4F, $6B, $21, $70
+      .db $5F, $6D, $21, $68
+      .db $5F, $6F, $21, $70
       ; Toad
-      .BYTE $4F, $83, $22, $88
-      .BYTE $4F, $83, $62, $90
-      .BYTE $5F, $87, $22, $88
-      .BYTE $5F, $87, $62, $90
+      .db $4F, $83, $22, $88
+      .db $4F, $83, $62, $90
+      .db $5F, $87, $22, $88
+      .db $5F, $87, $62, $90
       ; Princess
-      .BYTE $4F, $8B, $23, $A0
-      .BYTE $4F, $8D, $23, $A8
-      .BYTE $5F, $8F, $23, $A0
-      .BYTE $5F, $91, $23, $A8
+      .db $4F, $8B, $23, $A0
+      .db $4F, $8D, $23, $A8
+      .db $5F, $8F, $23, $A0
+      .db $5F, $91, $23, $A8
 
 
 ;
@@ -6272,68 +6272,68 @@ loc_BANK1_ABCC:
       LDA     byte_RAM_E6
       JSR     JumpToTableAfterJump
 
-      .WORD loc_BANK1_ABA7
-      .WORD loc_BANK1_AC0A
-      .WORD loc_BANK1_AC87
+      .dw loc_BANK1_ABA7
+      .dw loc_BANK1_AC0A
+      .dw loc_BANK1_AC87
 
 
 byte_BANK1_ABDA:
-      .BYTE $C0
-      .BYTE $C8
-      .BYTE $B8
-      .BYTE $B8
-      .BYTE $C8
-      .BYTE $C0
+      .db $C0
+      .db $C8
+      .db $B8
+      .db $B8
+      .db $C8
+      .db $C0
 
 byte_BANK1_ABE0:
-      .BYTE $C0
-      .BYTE $08
-      .BYTE $E0
-      .BYTE $F0
-      .BYTE $D0
-      .BYTE $E8
+      .db $C0
+      .db $08
+      .db $E0
+      .db $F0
+      .db $D0
+      .db $E8
 
 EndingWartTiles:
-      .BYTE $11
-      .BYTE $13
-      .BYTE $19
-      .BYTE $1B
-      .BYTE $21
-      .BYTE $23
-      .BYTE $15
-      .BYTE $17
-      .BYTE $1D
-      .BYTE $1F
-      .BYTE $25
-      .BYTE $27
+      .db $11
+      .db $13
+      .db $19
+      .db $1B
+      .db $21
+      .db $23
+      .db $15
+      .db $17
+      .db $1D
+      .db $1F
+      .db $25
+      .db $27
 
 byte_BANK1_ABF2:
-      .BYTE $00
-      .BYTE $08
-      .BYTE $10
-      .BYTE $18
-      .BYTE $20
-      .BYTE $28
-      .BYTE $00
-      .BYTE $08
-      .BYTE $10
-      .BYTE $18
-      .BYTE $20
-      .BYTE $28
+      .db $00
+      .db $08
+      .db $10
+      .db $18
+      .db $20
+      .db $28
+      .db $00
+      .db $08
+      .db $10
+      .db $18
+      .db $20
+      .db $28
 
 byte_BANK1_ABFE:
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $10
+      .db $10
+      .db $10
+      .db $10
+      .db $10
+      .db $10
 
 
 ; ---------------------------------------------------------------------------
@@ -6428,20 +6428,20 @@ loc_BANK1_AC73:
 
 
 ZonkTiles:
-      .BYTE $39
-      .BYTE $35
-      .BYTE $37
-      .BYTE $35
-      .BYTE $37
-      .BYTE $39
+      .db $39
+      .db $35
+      .db $37
+      .db $35
+      .db $37
+      .db $39
 
 byte_BANK1_AC81:
-      .BYTE $00
-      .BYTE $06
-      .BYTE $03
-      .BYTE $09
-      .BYTE $0F
-      .BYTE $0C
+      .db $00
+      .db $06
+      .db $03
+      .db $09
+      .db $0F
+      .db $0C
 
 
 loc_BANK1_AC87:
@@ -6522,47 +6522,47 @@ loc_BANK1_ACD6:
 
 ContributorAnimationTiles:
 ContributorAnimationTiles_Mario:
-      .BYTE $61
-      .BYTE $61
-      .BYTE $63
-      .BYTE $93
-      .BYTE $65
-      .BYTE $65
-      .BYTE $67
-      .BYTE $67
+      .db $61
+      .db $61
+      .db $63
+      .db $93
+      .db $65
+      .db $65
+      .db $67
+      .db $67
 ContributorAnimationTiles_Luigi:
-      .BYTE $69
-      .BYTE $69
-      .BYTE $95
-      .BYTE $6B
-      .BYTE $6D
-      .BYTE $6D
-      .BYTE $97
-      .BYTE $6F
+      .db $69
+      .db $69
+      .db $95
+      .db $6B
+      .db $6D
+      .db $6D
+      .db $97
+      .db $6F
 ContributorAnimationTiles_Toad:
-      .BYTE $83
-      .BYTE $85
-      .BYTE $83
-      .BYTE $85
-      .BYTE $87
-      .BYTE $89
-      .BYTE $87
-      .BYTE $89
+      .db $83
+      .db $85
+      .db $83
+      .db $85
+      .db $87
+      .db $89
+      .db $87
+      .db $89
 ContributorAnimationTiles_Princess:
-      .BYTE $8B
-      .BYTE $8B
-      .BYTE $99
-      .BYTE $8D
-      .BYTE $8F
-      .BYTE $8F
-      .BYTE $91
-      .BYTE $91
+      .db $8B
+      .db $8B
+      .db $99
+      .db $8D
+      .db $8F
+      .db $8F
+      .db $91
+      .db $91
 
 ContributorAnimationTilesOffset:
-      .BYTE (ContributorAnimationTiles_Mario - ContributorAnimationTiles + 6)
-      .BYTE (ContributorAnimationTiles_Luigi - ContributorAnimationTiles + 6)
-      .BYTE (ContributorAnimationTiles_Toad - ContributorAnimationTiles + 6)
-      .BYTE (ContributorAnimationTiles_Princess - ContributorAnimationTiles + 6)
+      .db (ContributorAnimationTiles_Mario - ContributorAnimationTiles + 6)
+      .db (ContributorAnimationTiles_Luigi - ContributorAnimationTiles + 6)
+      .db (ContributorAnimationTiles_Toad - ContributorAnimationTiles + 6)
+      .db (ContributorAnimationTiles_Princess - ContributorAnimationTiles + 6)
 
 
 ContributorCharacterAnimation:
@@ -6742,20 +6742,20 @@ ContributorTicker_Exit:
 
 
 EndingCelebrationText_MARIO:
-      .BYTE $20, $ED, $08, $E6, $DA, $EB, $E2, $E8, $FB, $FB, $FB
-      .BYTE $00
+      .db $20, $ED, $08, $E6, $DA, $EB, $E2, $E8, $FB, $FB, $FB
+      .db $00
 
 EndingCelebrationText_PRINCESS:
-      .BYTE $20, $ED, $08, $E9, $EB, $E2, $E7, $DC, $DE, $EC, $EC
-      .BYTE $00
+      .db $20, $ED, $08, $E9, $EB, $E2, $E7, $DC, $DE, $EC, $EC
+      .db $00
 
 EndingCelebrationText_TOAD:
-      .BYTE $20, $ED, $08, $ED, $E8, $DA, $DD, $FB, $FB, $FB, $FB
-      .BYTE $00
+      .db $20, $ED, $08, $ED, $E8, $DA, $DD, $FB, $FB, $FB, $FB
+      .db $00
 
 EndingCelebrationText_LUIGI:
-      .BYTE $20, $ED, $08, $E5, $EE, $E2, $E0, $E2, $FB, $FB, $FB
-      .BYTE $00
+      .db $20, $ED, $08, $E5, $EE, $E2, $E0, $E2, $FB, $FB, $FB
+      .db $00
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -6797,13 +6797,13 @@ ENDIF
 
 ; [00000AA6 BYTES: END OF AREA UNUSED-BANK1:AE5A. PRESS KEYPAD "-" TO COLLAPSE]
 MysteryCharacterData3900:
-      .BYTE $FB ; � ; @TODO ??? Not sure what this is
-      .BYTE $FF
-      .BYTE $00
-      .BYTE $08
-      .BYTE $0C
-      .BYTE $18
-      .BYTE $1A
+      .db $FB ; � ; @TODO ??? Not sure what this is
+      .db $FF
+      .db $00
+      .db $08
+      .db $0C
+      .db $18
+      .db $1A
 
 
 ;
@@ -7125,30 +7125,30 @@ SetTileOffsetAndAreaPageAddr_Bank1:
 
 
 DecodedLevelPageStartLo_Bank1:
-      .BYTE <DecodedLevelData
-      .BYTE <(DecodedLevelData+$00F0)
-      .BYTE <(DecodedLevelData+$01E0)
-      .BYTE <(DecodedLevelData+$02D0)
-      .BYTE <(DecodedLevelData+$03C0)
-      .BYTE <(DecodedLevelData+$04B0)
-      .BYTE <(DecodedLevelData+$05A0)
-      .BYTE <(DecodedLevelData+$0690)
-      .BYTE <(DecodedLevelData+$0780)
-      .BYTE <(DecodedLevelData+$0870)
-      .BYTE <(SubAreaTileLayout)
+      .db <DecodedLevelData
+      .db <(DecodedLevelData+$00F0)
+      .db <(DecodedLevelData+$01E0)
+      .db <(DecodedLevelData+$02D0)
+      .db <(DecodedLevelData+$03C0)
+      .db <(DecodedLevelData+$04B0)
+      .db <(DecodedLevelData+$05A0)
+      .db <(DecodedLevelData+$0690)
+      .db <(DecodedLevelData+$0780)
+      .db <(DecodedLevelData+$0870)
+      .db <(SubAreaTileLayout)
 
 DecodedLevelPageStartHi_Bank1:
-      .BYTE >DecodedLevelData
-      .BYTE >(DecodedLevelData+$00F0)
-      .BYTE >(DecodedLevelData+$01E0)
-      .BYTE >(DecodedLevelData+$02D0)
-      .BYTE >(DecodedLevelData+$03C0)
-      .BYTE >(DecodedLevelData+$04B0)
-      .BYTE >(DecodedLevelData+$05A0)
-      .BYTE >(DecodedLevelData+$0690)
-      .BYTE >(DecodedLevelData+$0780)
-      .BYTE >(DecodedLevelData+$0870)
-      .BYTE >(SubAreaTileLayout)
+      .db >DecodedLevelData
+      .db >(DecodedLevelData+$00F0)
+      .db >(DecodedLevelData+$01E0)
+      .db >(DecodedLevelData+$02D0)
+      .db >(DecodedLevelData+$03C0)
+      .db >(DecodedLevelData+$04B0)
+      .db >(DecodedLevelData+$05A0)
+      .db >(DecodedLevelData+$0690)
+      .db >(DecodedLevelData+$0780)
+      .db >(DecodedLevelData+$0870)
+      .db >(SubAreaTileLayout)
 
 
 ;
@@ -7360,15 +7360,15 @@ CreateEnemy_Bank1_FoundSlot:
 
 IFDEF CONTROLLER_2_DEBUG
 ChangeCharacterOffsets:
-      .BYTE   $00 ; unused
-      .BYTE   $03 ; Mario to right
-      .BYTE   $01 ; Mario to left
-      .BYTE   $00 ; Princess to right
-      .BYTE   $02 ; Princess to left
-      .BYTE   $01 ; Toad to right
-      .BYTE   $03 ; Toad to left
-      .BYTE   $02 ; Luigi to right
-      .BYTE   $00 ; Luigi to left
+      .db   $00 ; unused
+      .db   $03 ; Mario to right
+      .db   $01 ; Mario to left
+      .db   $00 ; Princess to right
+      .db   $02 ; Princess to left
+      .db   $01 ; Toad to right
+      .db   $03 ; Toad to left
+      .db   $02 ; Luigi to right
+      .db   $00 ; Luigi to left
 
 CheckPlayer2Joypad:
       LDA     ChangeCharacterTimer
@@ -7627,14 +7627,14 @@ SetCurrentCharacter_Exit:
 
 
 RandomCarryObjectTypes:
-      .BYTE #Enemy_VegetableSmall
-      .BYTE #Enemy_VegetableLarge
-      .BYTE #Enemy_Shell
-      .BYTE #Enemy_Bomb
-      .BYTE #Enemy_ShyguyRed
-      .BYTE #Enemy_Tweeter
-      .BYTE #Enemy_SnifitRed
-      .BYTE #Enemy_Egg
+      .db #Enemy_VegetableSmall
+      .db #Enemy_VegetableLarge
+      .db #Enemy_Shell
+      .db #Enemy_Bomb
+      .db #Enemy_ShyguyRed
+      .db #Enemy_Tweeter
+      .db #Enemy_SnifitRed
+      .db #Enemy_Egg
 
 ; bit 7: put in player's hands
 ; bit 6: set enemy timer
@@ -7645,14 +7645,14 @@ RandomCarryObjectTypes:
 ; bit 1: set thrown flag
 ; bit 0: disable velocity reset
 RandomCarryObjectAttributes:
-      .BYTE %10000000
-      .BYTE %10000000
-      .BYTE %10000000
-      .BYTE %11000000
-      .BYTE %10000001
-      .BYTE %10000001
-      .BYTE %10000001
-      .BYTE %10000001
+      .db %10000000
+      .db %10000000
+      .db %10000000
+      .db %11000000
+      .db %10000001
+      .db %10000001
+      .db %10000001
+      .db %10000001
 
 
 RandomCarryObject:
@@ -7677,24 +7677,24 @@ RandomCarryObject_Exit:
 
 
 DebugRandomObjectTypes:
-      .BYTE #Enemy_Bomb
-      .BYTE #Enemy_Bomb
-      .BYTE #Enemy_POWBlock
-      .BYTE #Enemy_POWBlock
-      .BYTE #Enemy_POWBlock
-      .BYTE #Enemy_Starman
-      .BYTE #Enemy_Starman
-      .BYTE #Enemy_Starman
+      .db #Enemy_Bomb
+      .db #Enemy_Bomb
+      .db #Enemy_POWBlock
+      .db #Enemy_POWBlock
+      .db #Enemy_POWBlock
+      .db #Enemy_Starman
+      .db #Enemy_Starman
+      .db #Enemy_Starman
 
 DebugRandomObjectAttributes:
-      .BYTE %01000010
-      .BYTE %01000010
-      .BYTE %00000010
-      .BYTE %00000010
-      .BYTE %00000010
-      .BYTE %00100010
-      .BYTE %00100010
-      .BYTE %00100010
+      .db %01000010
+      .db %01000010
+      .db %00000010
+      .db %00000010
+      .db %00000010
+      .db %00100010
+      .db %00100010
+      .db %00100010
 
 
 DebugRandomObject:

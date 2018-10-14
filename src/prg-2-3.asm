@@ -9,28 +9,28 @@
 
 CarryYOffsets:
 CarryYOffsetBigLo:
-      .BYTE $FA ; Mario
-      .BYTE $F6 ; Princess
-      .BYTE $FC ; Toad
-      .BYTE $F7 ; Luigi
+      .db $FA ; Mario
+      .db $F6 ; Princess
+      .db $FC ; Toad
+      .db $F7 ; Luigi
 
 CarryYOffsetBigHi:
-      .BYTE $FF ; Mario
-      .BYTE $FF ; Princess
-      .BYTE $FF ; Toad
-      .BYTE $FF ; Luigi
+      .db $FF ; Mario
+      .db $FF ; Princess
+      .db $FF ; Toad
+      .db $FF ; Luigi
 
 CarryYOffsetSmallLo:
-      .BYTE $02 ; Mario
-      .BYTE $FE ; Princess
-      .BYTE $04 ; Toad
-      .BYTE $FF ; Luigi
+      .db $02 ; Mario
+      .db $FE ; Princess
+      .db $04 ; Toad
+      .db $FF ; Luigi
 
 CarryYOffsetSmallHi:
-      .BYTE $00 ; Mario
-      .BYTE $FF ; Princess
-      .BYTE $00 ; Toad
-      .BYTE $FF ; Luigi
+      .db $00 ; Mario
+      .db $FF ; Princess
+      .db $00 ; Toad
+      .db $FF ; Luigi
 
 
 AreaMainRoutine:
@@ -372,10 +372,10 @@ loc_BANK2_81E7:
       JSR     JumpToTableAfterJump
 
 ; ---------------------------------------------------------------------------
-      .WORD Swarm_AlbatossCarryingBobOmb
-      .WORD Swarm_BeezoDiving
-      .WORD Swarm_Stop
-      .WORD Generator_VegetableThrower
+      .dw Swarm_AlbatossCarryingBobOmb
+      .dw Swarm_BeezoDiving
+      .dw Swarm_Stop
+      .dw Generator_VegetableThrower
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -438,21 +438,21 @@ HandleEnemyState:
       LDA     EnemyState,X
       JSR     JumpToTableAfterJump
 
-      .WORD HandleEnemyState_Inactive ; 0 (not active)
-      .WORD HandleEnemyState_Alive ; Alive
-      .WORD HandleEnemyState_Dead ; Dead
-      .WORD HandleEnemyState_BlockFizzle ; Block fizzle
-      .WORD HandleEnemyState_BombExploding ; Bomb exploding
-      .WORD HandleEnemyState_PuffOfSmoke ; Puff of smoke
-      .WORD HandleEnemyState_Sand ; Sand after digging
-      .WORD loc_BANK2_85B2 ; Object carried/thrown?
+      .dw HandleEnemyState_Inactive ; 0 (not active)
+      .dw HandleEnemyState_Alive ; Alive
+      .dw HandleEnemyState_Dead ; Dead
+      .dw HandleEnemyState_BlockFizzle ; Block fizzle
+      .dw HandleEnemyState_BombExploding ; Bomb exploding
+      .dw HandleEnemyState_PuffOfSmoke ; Puff of smoke
+      .dw HandleEnemyState_Sand ; Sand after digging
+      .dw loc_BANK2_85B2 ; Object carried/thrown?
 
 
 byte_BANK2_8252:
-      .BYTE $18
-      .BYTE $E0
-      .BYTE $01
-      .BYTE $FF
+      .db $18
+      .db $E0
+      .db $01
+      .db $FF
 
 
 loc_BANK2_8256:
@@ -462,8 +462,8 @@ loc_BANK2_8256:
       LDA     IsHorizontalLevel
       JSR     JumpToTableAfterJump
 
-      .WORD loc_BANK2_82ED ; vertical
-      .WORD loc_BANK2_8264 ; horizontal
+      .dw loc_BANK2_82ED ; vertical
+      .dw loc_BANK2_8264 ; horizontal
 
 
 loc_BANK2_8264:
@@ -749,77 +749,77 @@ InitializeEnemy:
 
 ; ---------------------------------------------------------------------------
 EnemyInitializationTable:
-      .WORD EnemyInit_Basic ; Heart
-      .WORD EnemyInit_Basic ; ShyguyRed
-      .WORD EnemyInit_Basic ; Tweeter
-      .WORD EnemyInit_Basic ; ShyguyPink
-      .WORD EnemyInit_Basic ; Porcupo
-      .WORD EnemyInit_Basic ; SnifitRed
-      .WORD EnemyInit_Stationary ; SnifitGray
-      .WORD EnemyInit_Basic ; SnifitPink
-      .WORD EnemyInit_Basic ; Ostro
-      .WORD EnemyInit_Bobomb ; BobOmb
-      .WORD EnemyInit_Basic ; AlbatossCarryingBobOmb
-      .WORD EnemyInit_AlbatossStartRight ; AlbatossStartRight
-      .WORD EnemyInit_AlbatossStartLeft ; AlbatossStartLeft
-      .WORD EnemyInit_Basic ; NinjiRunning
-      .WORD EnemyInit_Stationary ; NinjiJumping
-      .WORD EnemyInit_BeezoDiving ; BeezoDiving
-      .WORD EnemyInit_Basic ; BeezoStraight
-      .WORD EnemyInit_Basic ; WartBubble
-      .WORD EnemyInit_Basic ; Pidgit
-      .WORD EnemyInit_Trouter ; Trouter
-      .WORD EnemyInit_Basic ; Hoopstar
-      .WORD EnemyInit_JarGenerators ; JarGeneratorShyguy
-      .WORD EnemyInit_JarGenerators ; JarGeneratorBobOmb
-      .WORD EnemyInit_Phanto ; Phanto
-      .WORD EnemyInit_Cobrats ; CobratJar
-      .WORD EnemyInit_Cobrats ; CobratSand
-      .WORD EnemyInit_Pokey ; Pokey
-      .WORD EnemyInit_Basic ; Bullet
-      .WORD EnemyInit_Birdo ; Birdo
-      .WORD EnemyInit_Mouser ; Mouser
-      .WORD EnemyInit_Basic ; Egg
-      .WORD EnemyInit_Tryclyde ; Tryclyde
-      .WORD EnemyInit_Basic ; Fireball
-      .WORD EnemyInit_Clawgrip ; Clawgrip
-      .WORD EnemyInit_Basic ; ClawgripRock
-      .WORD EnemyInit_Stationary ; PanserStationaryFiresAngled
-      .WORD EnemyInit_Basic ; PanserWalking
-      .WORD EnemyInit_Stationary ; PanserStationaryFiresUp
-      .WORD EnemyInit_Basic ; Autobomb
-      .WORD EnemyInit_Basic ; AutobombFire
-      .WORD EnemyInit_WhaleSpout ; WhaleSpout
-      .WORD EnemyInit_Basic ; Flurry
-      .WORD EnemyInit_Fryguy ; Fryguy
-      .WORD EnemyInit_Fryguy ; FryguySplit
-      .WORD EnemyInit_Wart ; Wart
-      .WORD EnemyInit_HawkmouthBoss ; HawkmouthBoss
-      .WORD EnemyInit_Sparks ; Spark1
-      .WORD EnemyInit_Sparks ; Spark2
-      .WORD EnemyInit_Sparks ; Spark3
-      .WORD EnemyInit_Sparks ; Spark4
-      .WORD EnemyInit_Basic ; VegetableSmall
-      .WORD EnemyInit_Basic ; VegetableLarge
-      .WORD EnemyInit_Basic ; VegetableWart
-      .WORD EnemyInit_Basic ; Shell
-      .WORD EnemyInit_Basic ; Coin
-      .WORD EnemyInit_Basic ; Bomb
-      .WORD EnemyInit_Basic ; Rocket
-      .WORD EnemyInit_Basic ; MushroomBlock
-      .WORD EnemyInit_Basic ; POWBlock
-      .WORD EnemyInit_FallingLogs ; FallingLogs
-      .WORD EnemyInit_Basic ; SubspaceDoor
-      .WORD EnemyInit_Key ; Key
-      .WORD EnemyInit_Basic ; SubspacePotion
-      .WORD EnemyInit_Stationary ; Mushroom
-      .WORD EnemyInit_Stationary ; Mushroom1up
-      .WORD EnemyInit_Basic ; FlyingCarpet
-      .WORD EnemyInit_Hawkmouth ; HawkmouthRight
-      .WORD EnemyInit_Hawkmouth ; HawkmouthLeft
-      .WORD EnemyInit_CrystalBallStarmanStopwatch ; CrystalBall
-      .WORD EnemyInit_CrystalBallStarmanStopwatch ; Starman
-      .WORD EnemyInit_CrystalBallStarmanStopwatch ; Stopwatch
+      .dw EnemyInit_Basic ; Heart
+      .dw EnemyInit_Basic ; ShyguyRed
+      .dw EnemyInit_Basic ; Tweeter
+      .dw EnemyInit_Basic ; ShyguyPink
+      .dw EnemyInit_Basic ; Porcupo
+      .dw EnemyInit_Basic ; SnifitRed
+      .dw EnemyInit_Stationary ; SnifitGray
+      .dw EnemyInit_Basic ; SnifitPink
+      .dw EnemyInit_Basic ; Ostro
+      .dw EnemyInit_Bobomb ; BobOmb
+      .dw EnemyInit_Basic ; AlbatossCarryingBobOmb
+      .dw EnemyInit_AlbatossStartRight ; AlbatossStartRight
+      .dw EnemyInit_AlbatossStartLeft ; AlbatossStartLeft
+      .dw EnemyInit_Basic ; NinjiRunning
+      .dw EnemyInit_Stationary ; NinjiJumping
+      .dw EnemyInit_BeezoDiving ; BeezoDiving
+      .dw EnemyInit_Basic ; BeezoStraight
+      .dw EnemyInit_Basic ; WartBubble
+      .dw EnemyInit_Basic ; Pidgit
+      .dw EnemyInit_Trouter ; Trouter
+      .dw EnemyInit_Basic ; Hoopstar
+      .dw EnemyInit_JarGenerators ; JarGeneratorShyguy
+      .dw EnemyInit_JarGenerators ; JarGeneratorBobOmb
+      .dw EnemyInit_Phanto ; Phanto
+      .dw EnemyInit_Cobrats ; CobratJar
+      .dw EnemyInit_Cobrats ; CobratSand
+      .dw EnemyInit_Pokey ; Pokey
+      .dw EnemyInit_Basic ; Bullet
+      .dw EnemyInit_Birdo ; Birdo
+      .dw EnemyInit_Mouser ; Mouser
+      .dw EnemyInit_Basic ; Egg
+      .dw EnemyInit_Tryclyde ; Tryclyde
+      .dw EnemyInit_Basic ; Fireball
+      .dw EnemyInit_Clawgrip ; Clawgrip
+      .dw EnemyInit_Basic ; ClawgripRock
+      .dw EnemyInit_Stationary ; PanserStationaryFiresAngled
+      .dw EnemyInit_Basic ; PanserWalking
+      .dw EnemyInit_Stationary ; PanserStationaryFiresUp
+      .dw EnemyInit_Basic ; Autobomb
+      .dw EnemyInit_Basic ; AutobombFire
+      .dw EnemyInit_WhaleSpout ; WhaleSpout
+      .dw EnemyInit_Basic ; Flurry
+      .dw EnemyInit_Fryguy ; Fryguy
+      .dw EnemyInit_Fryguy ; FryguySplit
+      .dw EnemyInit_Wart ; Wart
+      .dw EnemyInit_HawkmouthBoss ; HawkmouthBoss
+      .dw EnemyInit_Sparks ; Spark1
+      .dw EnemyInit_Sparks ; Spark2
+      .dw EnemyInit_Sparks ; Spark3
+      .dw EnemyInit_Sparks ; Spark4
+      .dw EnemyInit_Basic ; VegetableSmall
+      .dw EnemyInit_Basic ; VegetableLarge
+      .dw EnemyInit_Basic ; VegetableWart
+      .dw EnemyInit_Basic ; Shell
+      .dw EnemyInit_Basic ; Coin
+      .dw EnemyInit_Basic ; Bomb
+      .dw EnemyInit_Basic ; Rocket
+      .dw EnemyInit_Basic ; MushroomBlock
+      .dw EnemyInit_Basic ; POWBlock
+      .dw EnemyInit_FallingLogs ; FallingLogs
+      .dw EnemyInit_Basic ; SubspaceDoor
+      .dw EnemyInit_Key ; Key
+      .dw EnemyInit_Basic ; SubspacePotion
+      .dw EnemyInit_Stationary ; Mushroom
+      .dw EnemyInit_Stationary ; Mushroom1up
+      .dw EnemyInit_Basic ; FlyingCarpet
+      .dw EnemyInit_Hawkmouth ; HawkmouthRight
+      .dw EnemyInit_Hawkmouth ; HawkmouthLeft
+      .dw EnemyInit_CrystalBallStarmanStopwatch ; CrystalBall
+      .dw EnemyInit_CrystalBallStarmanStopwatch ; Starman
+      .dw EnemyInit_CrystalBallStarmanStopwatch ; Stopwatch
 
 
 ;
@@ -903,11 +903,11 @@ EnemyInit_BasicMovementExit:
 
 ; ---------------------------------------------------------------------------
 BeezoXOffsetTable:
-      .BYTE $FE ; If player moving right
-      .BYTE $00 ; If moving left
+      .db $FE ; If player moving right
+      .db $00 ; If moving left
 BeezoDiveSpeedTable:
-      .BYTE $12,$16,$1A,$1E,$22,$26,$2A,$2D
-      .BYTE $30,$32,$34,$37,$39,$3B,$3D,$3E
+      .db $12,$16,$1A,$1E,$22,$26,$2A,$2D
+      .db $30,$32,$34,$37,$39,$3B,$3D,$3E
 ; ---------------------------------------------------------------------------
 
 EnemyInit_BeezoDiving:
@@ -1171,27 +1171,27 @@ loc_BANK2_85E1:
 
 
 ExplosionTileXOffsets:
-      .BYTE $F8
-      .BYTE $00
-      .BYTE $F8
-      .BYTE $00
-      .BYTE $08
-      .BYTE $10
-      .BYTE $08
-      .BYTE $10
+      .db $F8
+      .db $00
+      .db $F8
+      .db $00
+      .db $08
+      .db $10
+      .db $08
+      .db $10
 
 ExplosionTileYOffsets:
-      .BYTE $F8
-      .BYTE $F8
+      .db $F8
+      .db $F8
 
 EnemyInitialAccelerationTable:
       ; these values are shared with ExplosionTileYOffsets!
-      .BYTE $08
-      .BYTE $08
-      .BYTE $F8
-      .BYTE $F8
-      .BYTE $08
-      .BYTE $08
+      .db $08
+      .db $08
+      .db $F8
+      .db $F8
+      .db $08
+      .db $08
 
 
 HandleEnemyState_BombExploding:
@@ -1253,52 +1253,52 @@ locret_BANK2_8649:
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_864A:
-      .BYTE $FB
-      .BYTE $08
-      .BYTE $15
-      .BYTE $FB
-      .BYTE $08
-      .BYTE $15
-      .BYTE $FB
-      .BYTE $08
-      .BYTE $15
+      .db $FB
+      .db $08
+      .db $15
+      .db $FB
+      .db $08
+      .db $15
+      .db $FB
+      .db $08
+      .db $15
 
 byte_BANK2_8653:
-      .BYTE $FF
-      .BYTE $00
-      .BYTE $00
-      .BYTE $FF
-      .BYTE $00
-      .BYTE $00
-      .BYTE $FF
-      .BYTE $00
-      .BYTE $00
+      .db $FF
+      .db $00
+      .db $00
+      .db $FF
+      .db $00
+      .db $00
+      .db $FF
+      .db $00
+      .db $00
 
 byte_BANK2_865C:
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $FC
-      .BYTE $08
-      .BYTE $08
-      .BYTE $08
-      .BYTE $14
-      .BYTE $14
-      .BYTE $14
+      .db $FC
+      .db $FC
+      .db $FC
+      .db $08
+      .db $08
+      .db $08
+      .db $14
+      .db $14
+      .db $14
 
 byte_BANK2_8665:
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
 
 byte_BANK2_866E:
-      .BYTE $5F
-      .BYTE $06
+      .db $5F
+      .db $06
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1505,10 +1505,10 @@ locret_BANK2_8797:
 
 ; ---------------------------------------------------------------------------
 byte_BANK2_8798:
-      .BYTE $46
-      .BYTE $4A
-      .BYTE $4E
-      .BYTE $52
+      .db $46
+      .db $4A
+      .db $4E
+      .db $52
 ; ---------------------------------------------------------------------------
 
 HandleEnemyState_PuffOfSmoke:
@@ -1750,15 +1750,15 @@ locret_BANK2_88DF:
 ; ---------------------------------------------------------------------------
 ; threshold for x-wrapping sprites near the edge of the screen
 byte_BANK2_88E0: ; hi
-      .BYTE $08
-      .BYTE $04
-      .BYTE $02
-      .BYTE $01
+      .db $08
+      .db $04
+      .db $02
+      .db $01
 byte_BANK2_88E4: ; lo
-      .BYTE $00
-      .BYTE $08
-      .BYTE $10
-      .BYTE $18
+      .db $00
+      .db $08
+      .db $10
+      .db $18
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2045,77 +2045,77 @@ loc_BANK2_8A53:
 
 
 EnemyBehaviorPointerTable:
-      .WORD EnemyBehavior_00
-      .WORD EnemyBehavior_BasicWalker
-      .WORD EnemyBehavior_BasicWalker
-      .WORD EnemyBehavior_BasicWalker
-      .WORD EnemyBehavior_BasicWalker
-      .WORD EnemyBehavior_BasicWalker
-      .WORD EnemyBehavior_BasicWalker
-      .WORD EnemyBehavior_BasicWalker
-      .WORD EnemyBehavior_Ostro
-      .WORD EnemyBehavior_BobOmb
-      .WORD EnemyBehavior_Albatoss ; 10
-      .WORD EnemyBehavior_Albatoss
-      .WORD EnemyBehavior_Albatoss
-      .WORD EnemyBehavior_NinjiRunning
-      .WORD EnemyBehavior_NinjiJumping
-      .WORD EnemyBehavior_Beezo
-      .WORD EnemyBehavior_Beezo
-      .WORD EnemyBehavior_WartBubble
-      .WORD EnemyBehavior_Pidgit
-      .WORD EnemyBehavior_Trouter
-      .WORD EnemyBehavior_Hoopstar ; 20
-      .WORD EnemyBehavior_JarGenerators
-      .WORD EnemyBehavior_JarGenerators
-      .WORD EnemyBehavior_Phanto
-      .WORD EnemyBehavior_CobratJar
-      .WORD EnemyBehavior_CobratGround
-      .WORD EnemyBehavior_Pokey
-      .WORD EnemyBehavior_BulletAndEgg
-      .WORD EnemyBehavior_Birdo
-      .WORD EnemyBehavior_Mouser
-      .WORD EnemyBehavior_BulletAndEgg ; 30
-      .WORD EnemyBehavior_Tryclyde
-      .WORD EnemyBehavior_Fireball
-      .WORD EnemyBehavior_Clawgrip
-      .WORD EnemyBehavior_ClawgripRock
-      .WORD EnemyBehavior_PanserRedAndGray
-      .WORD EnemyBehavior_PanserPink
-      .WORD EnemyBehavior_PanserRedAndGray
-      .WORD EnemyBehavior_Autobomb
-      .WORD EnemyBehavior_AutobombFire
-      .WORD EnemyBehavior_WhaleSpout ; 40
-      .WORD EnemyBehavior_Flurry
-      .WORD EnemyBehavior_Fryguy
-      .WORD EnemyBehavior_FryguySplit
-      .WORD EnemyBehavior_Wart
-      .WORD EnemyBehavior_HawkmouthBoss
-      .WORD EnemyBehavior_Spark
-      .WORD EnemyBehavior_Spark
-      .WORD EnemyBehavior_Spark
-      .WORD EnemyBehavior_Spark
-      .WORD EnemyBehavior_Vegetable ; 50
-      .WORD EnemyBehavior_Vegetable
-      .WORD EnemyBehavior_Vegetable
-      .WORD EnemyBehavior_Shell
-      .WORD EnemyBehavior_Coin
-      .WORD EnemyBehavior_Bomb
-      .WORD EnemyBehavior_Rocket
-      .WORD EnemyBehavior_MushroomBlockAndPOW
-      .WORD EnemyBehavior_MushroomBlockAndPOW
-      .WORD EnemyBehavior_FallingLogs
-      .WORD EnemyBehavior_SubspaceDoor ; 60
-      .WORD EnemyBehavior_Key
-      .WORD EnemyBehavior_SubspacePotion
-      .WORD EnemyBehavior_Mushroom
-      .WORD EnemyBehavior_Mushroom1up
-      .WORD EnemyBehavior_FlyingCarpet
-      .WORD EnemyBehavior_Hawkmouth
-      .WORD EnemyBehavior_Hawkmouth
-      .WORD EnemyBehavior_CrystalBall
-      .WORD EnemyBehavior_Starman
-      .WORD EnemyBehavior_Mushroom ; 70
+      .dw EnemyBehavior_00
+      .dw EnemyBehavior_BasicWalker
+      .dw EnemyBehavior_BasicWalker
+      .dw EnemyBehavior_BasicWalker
+      .dw EnemyBehavior_BasicWalker
+      .dw EnemyBehavior_BasicWalker
+      .dw EnemyBehavior_BasicWalker
+      .dw EnemyBehavior_BasicWalker
+      .dw EnemyBehavior_Ostro
+      .dw EnemyBehavior_BobOmb
+      .dw EnemyBehavior_Albatoss ; 10
+      .dw EnemyBehavior_Albatoss
+      .dw EnemyBehavior_Albatoss
+      .dw EnemyBehavior_NinjiRunning
+      .dw EnemyBehavior_NinjiJumping
+      .dw EnemyBehavior_Beezo
+      .dw EnemyBehavior_Beezo
+      .dw EnemyBehavior_WartBubble
+      .dw EnemyBehavior_Pidgit
+      .dw EnemyBehavior_Trouter
+      .dw EnemyBehavior_Hoopstar ; 20
+      .dw EnemyBehavior_JarGenerators
+      .dw EnemyBehavior_JarGenerators
+      .dw EnemyBehavior_Phanto
+      .dw EnemyBehavior_CobratJar
+      .dw EnemyBehavior_CobratGround
+      .dw EnemyBehavior_Pokey
+      .dw EnemyBehavior_BulletAndEgg
+      .dw EnemyBehavior_Birdo
+      .dw EnemyBehavior_Mouser
+      .dw EnemyBehavior_BulletAndEgg ; 30
+      .dw EnemyBehavior_Tryclyde
+      .dw EnemyBehavior_Fireball
+      .dw EnemyBehavior_Clawgrip
+      .dw EnemyBehavior_ClawgripRock
+      .dw EnemyBehavior_PanserRedAndGray
+      .dw EnemyBehavior_PanserPink
+      .dw EnemyBehavior_PanserRedAndGray
+      .dw EnemyBehavior_Autobomb
+      .dw EnemyBehavior_AutobombFire
+      .dw EnemyBehavior_WhaleSpout ; 40
+      .dw EnemyBehavior_Flurry
+      .dw EnemyBehavior_Fryguy
+      .dw EnemyBehavior_FryguySplit
+      .dw EnemyBehavior_Wart
+      .dw EnemyBehavior_HawkmouthBoss
+      .dw EnemyBehavior_Spark
+      .dw EnemyBehavior_Spark
+      .dw EnemyBehavior_Spark
+      .dw EnemyBehavior_Spark
+      .dw EnemyBehavior_Vegetable ; 50
+      .dw EnemyBehavior_Vegetable
+      .dw EnemyBehavior_Vegetable
+      .dw EnemyBehavior_Shell
+      .dw EnemyBehavior_Coin
+      .dw EnemyBehavior_Bomb
+      .dw EnemyBehavior_Rocket
+      .dw EnemyBehavior_MushroomBlockAndPOW
+      .dw EnemyBehavior_MushroomBlockAndPOW
+      .dw EnemyBehavior_FallingLogs
+      .dw EnemyBehavior_SubspaceDoor ; 60
+      .dw EnemyBehavior_Key
+      .dw EnemyBehavior_SubspacePotion
+      .dw EnemyBehavior_Mushroom
+      .dw EnemyBehavior_Mushroom1up
+      .dw EnemyBehavior_FlyingCarpet
+      .dw EnemyBehavior_Hawkmouth
+      .dw EnemyBehavior_Hawkmouth
+      .dw EnemyBehavior_CrystalBall
+      .dw EnemyBehavior_Starman
+      .dw EnemyBehavior_Mushroom ; 70
 
 
 EnemyInit_JarGenerators:
@@ -2127,12 +2127,12 @@ EnemyInit_JarGenerators:
 
 
 SparkAccelerationTable:
-      .BYTE $F0
-      .BYTE $E0
-      .BYTE $F0
-      .BYTE $E0
-      .BYTE $10
-      .BYTE $20
+      .db $F0
+      .db $E0
+      .db $F0
+      .db $E0
+      .db $10
+      .db $20
 
 
 EnemyInit_Sparks:
@@ -2147,12 +2147,12 @@ EnemyInit_Sparks:
 
 
 SparkCollision: ; spark movement based on collision
-      .BYTE CollisionFlags_Up|CollisionFlags_Down ; horizontal
-      .BYTE CollisionFlags_Left|CollisionFlags_Right ; vertical
+      .db CollisionFlags_Up|CollisionFlags_Down ; horizontal
+      .db CollisionFlags_Left|CollisionFlags_Right ; vertical
 
 SparkTurnOffset:
-      .BYTE $00 ; clockwise
-      .BYTE $0A ; counter-clockwise
+      .db $00 ; clockwise
+      .db $0A ; counter-clockwise
 
 
 ;
@@ -2232,12 +2232,12 @@ IncrementAnimationTimerBy2:
 
 
 AlbatossSwarmStartXLo:
-      .BYTE $F0
-      .BYTE $00
+      .db $F0
+      .db $00
 
 AlbatossSwarmStartXHi:
-      .BYTE $FF
-      .BYTE $01
+      .db $FF
+      .db $01
 
 
 Swarm_AlbatossCarryingBobOmb:
@@ -2265,8 +2265,8 @@ Swarm_AlbatossCarryingBobOmb:
 
 
 BeezoSwarmStartXLo:
-      .BYTE $00
-      .BYTE $FF
+      .db $00
+      .db $FF
 
 
 Swarm_BeezoDiving:
@@ -2372,8 +2372,8 @@ EnemyBehavior_Fireball_Exit:
 
 
 PanserFireXVelocity:
-      .BYTE $10
-      .BYTE $F0
+      .db $10
+      .db $F0
 
 
 EnemyBehavior_PanserPink:
@@ -2846,22 +2846,22 @@ locret_BANK2_8E78:
 
 
 byte_BANK2_8E79:
-      .BYTE $AC
-      .BYTE $AE
-      .BYTE $B1
-      .BYTE $B5
-      .BYTE $B8
-      .BYTE $BC
-      .BYTE $C0
-      .BYTE $C4
-      .BYTE $C8
-      .BYTE $CC
-      .BYTE $D2
-      .BYTE $D8
+      .db $AC
+      .db $AE
+      .db $B1
+      .db $B5
+      .db $B8
+      .db $BC
+      .db $C0
+      .db $C4
+      .db $C8
+      .db $CC
+      .db $D2
+      .db $D8
 
 byte_BANK2_8E85:
-      .BYTE $92
-      .BYTE $EA
+      .db $92
+      .db $EA
 
 
 EnemyBehavior_Trouter:
@@ -2903,12 +2903,12 @@ loc_BANK2_8EB6:
 
 
 Enemy_Hoopstar_YVelocity:
-      .BYTE $FA ; up
-      .BYTE $0C ; down
+      .db $FA ; up
+      .db $0C ; down
 
 Enemy_Hoopstar_Attributes:
-      .BYTE $91 ; up
-      .BYTE $11 ; down
+      .db $91 ; up
+      .db $11 ; down
 
 
 EnemyBehavior_Hoopstar:
@@ -3016,9 +3016,9 @@ RenderSprite_Heart_Exit:
 
 
 Enemy_Birdo_Attributes:
-      .BYTE ObjAttrib_Palette3|ObjAttrib_16x32
-      .BYTE ObjAttrib_Palette1|ObjAttrib_16x32
-      .BYTE ObjAttrib_Palette2|ObjAttrib_16x32
+      .db ObjAttrib_Palette3|ObjAttrib_16x32
+      .db ObjAttrib_Palette1|ObjAttrib_16x32
+      .db ObjAttrib_Palette2|ObjAttrib_16x32
 
 
 ;
@@ -3052,8 +3052,8 @@ EnemyInit_Birdo_Exit:
 
 
 ProjectileLaunchXOffsets:
-      .BYTE $FE
-      .BYTE $F8
+      .db $FE
+      .db $F8
 
 
 EnemyBehavior_Birdo:
@@ -3084,18 +3084,18 @@ EnemyBehavior_Birdo:
 
 
 BirdoSpitDelay:
-      .BYTE $7F
-      .BYTE $3F
-      .BYTE $3F
+      .db $7F
+      .db $3F
+      .db $3F
 
 
 ; Health-based Birdo egg/fire chances.
 ; If PRNG & $1F >= this, shoot an egg
 ; Otherwise, shoot a fireball
 BirdoHealthEggProbabilities:
-      .BYTE $08
-      .BYTE $06
-      .BYTE $04
+      .db $08
+      .db $06
+      .db $04
 
 
 loc_BANK2_8FA3:
@@ -3198,14 +3198,14 @@ loc_BANK2_901B:
 
 
 ; ---------------------------------------------------------------------------
-      .BYTE $18
-      .BYTE $E8
+      .db $18
+      .db $E8
 
 byte_BANK2_9020:
-      .BYTE $FE
-      .BYTE $F8
-      .BYTE $F0
-      .BYTE $E8
+      .db $FE
+      .db $F8
+      .db $F0
+      .db $E8
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Coin:
@@ -3529,8 +3529,8 @@ TurnIntoPuffOfSmoke_Exit:
 
 
 byte_BANK2_91C5:
-      .BYTE $F8
-      .BYTE $08
+      .db $F8
+      .db $08
 
 
 ;
@@ -3586,11 +3586,11 @@ AttachObjectToBirdo_DoAttach:
 
 
 byte_BANK2_9212:
-      .BYTE $F0
+      .db $F0
 
 byte_BANK2_9213:
-      .BYTE $FF
-      .BYTE $00
+      .db $FF
+      .db $00
 ; ---------------------------------------------------------------------------
 
 EnemyInit_AlbatossStartLeft:
@@ -3684,8 +3684,8 @@ sub_BANK2_927A:
 
 
 ; Unused?
-      .BYTE $D0
-      .BYTE $03
+      .db $D0
+      .db $03
 
 
 EnemyBehavior_BulletAndEgg:
@@ -3797,19 +3797,19 @@ CreateEnemy_FoundSlot:
 
 
 Phanto_AccelX:
-      .BYTE $01
-      .BYTE $FF
+      .db $01
+      .db $FF
 Phanto_MaxVelX:
-      .BYTE $30
-      .BYTE $D0
+      .db $30
+      .db $D0
 Phanto_AccelY:
-      .BYTE $01
-      .BYTE $FF ; Exit up
-      .BYTE $01 ; Exit down
+      .db $01
+      .db $FF ; Exit up
+      .db $01 ; Exit down
 Phanto_MaxVelY:
-      .BYTE $18
-      .BYTE $E8
-      .BYTE $18
+      .db $18
+      .db $E8
+      .db $18
 
 EnemyBehavior_Phanto:
       LDA     ObjectShakeTimer,X
@@ -3944,10 +3944,10 @@ Phanto_Activated:
 
 
 Enemy_Ninji_JumpVelocity:
-      .BYTE $E8
-      .BYTE $D0
-      .BYTE $D8
-      .BYTE $D0
+      .db $E8
+      .db $D0
+      .db $D8
+      .db $D0
 
 
 EnemyBehavior_NinjiJumping:
@@ -4062,8 +4062,8 @@ loc_BANK2_9439:
 
 
 BulletProjectileXSpeeds:
-      .BYTE $20
-      .BYTE $E0
+      .db $20
+      .db $E0
 
 
 EnemyBehavior_BobOmb:
@@ -4495,14 +4495,14 @@ CreateBullet_Exit:
 
 
 CharacterYOffsetCrouch:
-      .BYTE $0A ; Mario
-      .BYTE $0E ; Princess
-      .BYTE $0A ; Toad
-      .BYTE $0D ; Luigi
-      .BYTE $04 ; Small Mario
-      .BYTE $07 ; Small Princess
-      .BYTE $04 ; Small Toad
-      .BYTE $06 ; Small Luigi
+      .db $0A ; Mario
+      .db $0E ; Princess
+      .db $0A ; Toad
+      .db $0D ; Luigi
+      .db $04 ; Small Mario
+      .db $07 ; Small Princess
+      .db $04 ; Small Toad
+      .db $06 ; Small Luigi
 
 
 ; This is run when the player is carrying
@@ -4604,8 +4604,8 @@ loc_BANK2_9686:
 
 
 ; Unused?
-      .BYTE $10
-      .BYTE $F0
+      .db $10
+      .db $F0
 
 
 EnemyBehavior_MushroomBlockAndPOW:
@@ -4902,62 +4902,62 @@ loc_BANK2_9805:
 
 
 DoorSpriteAnimation:
-      .BYTE $00
-      .BYTE $01
-      .BYTE $01
-      .BYTE $02
-      .BYTE $02
-      .BYTE $03
-      .BYTE $04
-      .BYTE $06
-      .BYTE $08
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $08
-      .BYTE $06
-      .BYTE $04
-      .BYTE $03
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
+      .db $00
+      .db $01
+      .db $01
+      .db $02
+      .db $02
+      .db $03
+      .db $04
+      .db $06
+      .db $08
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $08
+      .db $06
+      .db $04
+      .db $03
+      .db $02
+      .db $02
+      .db $02
+      .db $02
+      .db $01
+      .db $01
+      .db $01
+      .db $01
+      .db $01
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
 DoorSpriteAnimationEnd:
-      .BYTE $00
+      .db $00
 
 ; Unused?
-      .BYTE $A9
-      .BYTE $02
-      .BYTE $D0
-      .BYTE $06
+      .db $A9
+      .db $02
+      .db $D0
+      .db $06
 
 
 ;
@@ -5030,8 +5030,8 @@ DoorAnimation_Exit_Bank2:
 
 
 ShellSpeed:
-      .BYTE $1C
-      .BYTE $E4
+      .db $1C
+      .db $E4
 
 
 EnemyBehavior_Shell:
@@ -5319,99 +5319,99 @@ EnemyBehavior_CheckDamagedInterrupt_Exit:
 
 
 EnemyTilemap1:
-      .BYTE $D0,$D2 ; $00
-      .BYTE $D4,$D6 ; $02
-      .BYTE $F8,$F8 ; $04
-      .BYTE $FA,$FA ; $06
-      .BYTE $CC,$CE ; $08
-      .BYTE $CC,$CE ; $0A
-      .BYTE $C8,$CA ; $0C
-      .BYTE $C8,$CA ; $0E
-      .BYTE $70,$72 ; $10
-      .BYTE $74,$76 ; $12
-      .BYTE $C0,$C2 ; $14
-      .BYTE $C4,$C6 ; $16
-      .BYTE $E1,$E3 ; $18
-      .BYTE $E5,$E7 ; $1A
-      .BYTE $E1,$E3 ; $1C
-      .BYTE $E5,$E7 ; $1E
-      .BYTE $78,$7A ; $20
-      .BYTE $7C,$7E ; $22
-      .BYTE $DC,$DA ; $24
-      .BYTE $DC,$DE ; $26
-      .BYTE $FE,$FE ; $28
-      .BYTE $FC,$FC ; $2A
-      .BYTE $94,$94 ; $2C
-      .BYTE $96,$96 ; $2E
-      .BYTE $98,$98 ; $30
-      .BYTE $9A,$9A ; $32
-      .BYTE $DB,$DD ; $34
-      .BYTE $DB,$DD ; $36
-      .BYTE $7D,$7F ; $38
-      .BYTE $C1,$C3 ; $3A
-      .BYTE $8C,$8C ; $3C
-      .BYTE $8E,$8E ; $3E
-      .BYTE $E0,$E2 ; $40
-      .BYTE $6B,$6D ; $42
-      .BYTE $6D,$6F ; $44
-      .BYTE $3A,$3A ; $46
-      .BYTE $3A,$3A ; $48
-      .BYTE $38,$38 ; $4A
-      .BYTE $38,$38 ; $4C
-      .BYTE $36,$36 ; $4E
-      .BYTE $36,$36 ; $50
-      .BYTE $34,$34 ; $52
-      .BYTE $34,$34 ; $54
-      .BYTE $AE,$FB ; $56
-      .BYTE $AE,$FB ; $58
-      .BYTE $80,$82 ; $5A
-      .BYTE $84,$86 ; $5C
-      .BYTE $80,$82 ; $5E
-      .BYTE $AA,$AC ; $60
-      .BYTE $88,$8A ; $62
-      .BYTE $84,$86 ; $64
-      .BYTE $88,$8A ; $66
-      .BYTE $AA,$AC ; $68
-      .BYTE $BC,$BE ; $6A
-      .BYTE $AA,$AC ; $6C
-      .BYTE $BC,$BE ; $6E
-      .BYTE $AA,$AC ; $70
-      .BYTE $B5,$B9 ; $72
-      .BYTE $B5,$B9 ; $74
-      .BYTE $81,$83 ; $76
-      .BYTE $85,$87 ; $78
-      .BYTE $FF,$FF ; $7A
-      .BYTE $FF,$FF ; $7C
-      .BYTE $81,$83 ; $7E
-      .BYTE $F5,$87 ; $80
-      .BYTE $C5,$C7 ; $82
-      .BYTE $C9,$CB ; $84
-      .BYTE $92,$94 ; $86
-      .BYTE $29,$29 ; $88
-      .BYTE $2B,$2B ; $8A
-      .BYTE $3D,$3F ; $8C
-      .BYTE $4C,$4E ; $8E
-      .BYTE $50,$52 ; $90
-      .BYTE $4C,$4E ; $92
-      .BYTE $56,$58 ; $94
-      .BYTE $FB,$5C ; $96
-      .BYTE $FB,$5A ; $98
-      .BYTE $FB,$FB ; $9A
-      .BYTE $FB,$54 ; $9C
-      .BYTE $CF,$CF ; $9E
-      .BYTE $A5,$A5 ; $A0
-      .BYTE $B0,$B2 ; $A2
-      .BYTE $90,$90 ; $A4
-      .BYTE $CD,$CD ; $A6
-      .BYTE $A8,$A8 ; $A8
-      .BYTE $A8,$A8 ; $AA
-      .BYTE $A0,$A2 ; $AC
-      .BYTE $A4,$A4 ; $AE
-      .BYTE $A4,$A4 ; $B0
-      .BYTE $4D,$4D ; $B2
-      .BYTE $8C,$8C ; $B4
-      .BYTE $A6,$A6 ; $B6
-      .BYTE $AB,$AB ; $B8
+      .db $D0,$D2 ; $00
+      .db $D4,$D6 ; $02
+      .db $F8,$F8 ; $04
+      .db $FA,$FA ; $06
+      .db $CC,$CE ; $08
+      .db $CC,$CE ; $0A
+      .db $C8,$CA ; $0C
+      .db $C8,$CA ; $0E
+      .db $70,$72 ; $10
+      .db $74,$76 ; $12
+      .db $C0,$C2 ; $14
+      .db $C4,$C6 ; $16
+      .db $E1,$E3 ; $18
+      .db $E5,$E7 ; $1A
+      .db $E1,$E3 ; $1C
+      .db $E5,$E7 ; $1E
+      .db $78,$7A ; $20
+      .db $7C,$7E ; $22
+      .db $DC,$DA ; $24
+      .db $DC,$DE ; $26
+      .db $FE,$FE ; $28
+      .db $FC,$FC ; $2A
+      .db $94,$94 ; $2C
+      .db $96,$96 ; $2E
+      .db $98,$98 ; $30
+      .db $9A,$9A ; $32
+      .db $DB,$DD ; $34
+      .db $DB,$DD ; $36
+      .db $7D,$7F ; $38
+      .db $C1,$C3 ; $3A
+      .db $8C,$8C ; $3C
+      .db $8E,$8E ; $3E
+      .db $E0,$E2 ; $40
+      .db $6B,$6D ; $42
+      .db $6D,$6F ; $44
+      .db $3A,$3A ; $46
+      .db $3A,$3A ; $48
+      .db $38,$38 ; $4A
+      .db $38,$38 ; $4C
+      .db $36,$36 ; $4E
+      .db $36,$36 ; $50
+      .db $34,$34 ; $52
+      .db $34,$34 ; $54
+      .db $AE,$FB ; $56
+      .db $AE,$FB ; $58
+      .db $80,$82 ; $5A
+      .db $84,$86 ; $5C
+      .db $80,$82 ; $5E
+      .db $AA,$AC ; $60
+      .db $88,$8A ; $62
+      .db $84,$86 ; $64
+      .db $88,$8A ; $66
+      .db $AA,$AC ; $68
+      .db $BC,$BE ; $6A
+      .db $AA,$AC ; $6C
+      .db $BC,$BE ; $6E
+      .db $AA,$AC ; $70
+      .db $B5,$B9 ; $72
+      .db $B5,$B9 ; $74
+      .db $81,$83 ; $76
+      .db $85,$87 ; $78
+      .db $FF,$FF ; $7A
+      .db $FF,$FF ; $7C
+      .db $81,$83 ; $7E
+      .db $F5,$87 ; $80
+      .db $C5,$C7 ; $82
+      .db $C9,$CB ; $84
+      .db $92,$94 ; $86
+      .db $29,$29 ; $88
+      .db $2B,$2B ; $8A
+      .db $3D,$3F ; $8C
+      .db $4C,$4E ; $8E
+      .db $50,$52 ; $90
+      .db $4C,$4E ; $92
+      .db $56,$58 ; $94
+      .db $FB,$5C ; $96
+      .db $FB,$5A ; $98
+      .db $FB,$FB ; $9A
+      .db $FB,$54 ; $9C
+      .db $CF,$CF ; $9E
+      .db $A5,$A5 ; $A0
+      .db $B0,$B2 ; $A2
+      .db $90,$90 ; $A4
+      .db $CD,$CD ; $A6
+      .db $A8,$A8 ; $A8
+      .db $A8,$A8 ; $AA
+      .db $A0,$A2 ; $AC
+      .db $A4,$A4 ; $AE
+      .db $A4,$A4 ; $B0
+      .db $4D,$4D ; $B2
+      .db $8C,$8C ; $B4
+      .db $A6,$A6 ; $B6
+      .db $AB,$AB ; $B8
 
 
 ;
@@ -5423,77 +5423,77 @@ EnemyTilemap1:
 ; $FF is used to make an enemy invisible
 ;
 EnemyAnimationTable:
-      .BYTE $00 ; $00
-      .BYTE $00 ; $01
-      .BYTE $08 ; $02
-      .BYTE $00 ; $03
-      .BYTE $0C ; $04
-      .BYTE $10 ; $05
-      .BYTE $10 ; $06
-      .BYTE $10 ; $07
-      .BYTE $40 ; $08
-      .BYTE $14 ; $09
-      .BYTE $18 ; $0A
-      .BYTE $18 ; $0B
-      .BYTE $18 ; $0C
-      .BYTE $20 ; $0D
-      .BYTE $20 ; $0E
-      .BYTE $24 ; $0F
-      .BYTE $24 ; $10
-      .BYTE $BE ; $11
-      .BYTE $00 ; $12
-      .BYTE $86 ; $13
-      .BYTE $88 ; $14
-      .BYTE $FF ; $15
-      .BYTE $FF ; $16
-      .BYTE $8C ; $17
-      .BYTE $5C ; $18
-      .BYTE $5C ; $19
-      .BYTE $6C ; $1A
-      .BYTE $56 ; $1B
-      .BYTE $5A ; $1C
-      .BYTE $14 ; $1D
-      .BYTE $72 ; $1E
-      .BYTE $00 ; $1F
-      .BYTE $A8 ; $20
-      .BYTE $00 ; $21
-      .BYTE $D6 ; $22
-      .BYTE $AC ; $23
-      .BYTE $AC ; $24
-      .BYTE $AC ; $25
-      .BYTE $74 ; $26
-      .BYTE $7A ; $27
-      .BYTE $92 ; $28
-      .BYTE $9A ; $29
-      .BYTE $80 ; $2A
-      .BYTE $90 ; $2B
-      .BYTE $00 ; $2C
-      .BYTE $00 ; $2D
-      .BYTE $B6 ; $2E
-      .BYTE $B6 ; $2F
-      .BYTE $B6 ; $30
-      .BYTE $B6 ; $31
-      .BYTE $28 ; $32
-      .BYTE $2A ; $33
-      .BYTE $2C ; $34
-      .BYTE $2E ; $35
-      .BYTE $30 ; $36
-      .BYTE $34 ; $37
-      .BYTE $00 ; $38
-      .BYTE $38 ; $39
-      .BYTE $3A ; $3A
-      .BYTE $42 ; $3B
-      .BYTE $82 ; $3C
-      .BYTE $82 ; $3D
-      .BYTE $84 ; $3E
-      .BYTE $A0 ; $3F
-      .BYTE $A2 ; $40
-      .BYTE $04 ; $41
-      .BYTE $8E ; $42
-      .BYTE $8E ; $43
-      .BYTE $9E ; $44
-      .BYTE $A6 ; $45
-      .BYTE $A4 ; $46
+      .db $00 ; $00
+      .db $00 ; $01
+      .db $08 ; $02
+      .db $00 ; $03
+      .db $0C ; $04
+      .db $10 ; $05
+      .db $10 ; $06
+      .db $10 ; $07
+      .db $40 ; $08
+      .db $14 ; $09
+      .db $18 ; $0A
+      .db $18 ; $0B
+      .db $18 ; $0C
+      .db $20 ; $0D
+      .db $20 ; $0E
+      .db $24 ; $0F
+      .db $24 ; $10
+      .db $BE ; $11
+      .db $00 ; $12
+      .db $86 ; $13
+      .db $88 ; $14
+      .db $FF ; $15
+      .db $FF ; $16
+      .db $8C ; $17
+      .db $5C ; $18
+      .db $5C ; $19
+      .db $6C ; $1A
+      .db $56 ; $1B
+      .db $5A ; $1C
+      .db $14 ; $1D
+      .db $72 ; $1E
+      .db $00 ; $1F
+      .db $A8 ; $20
+      .db $00 ; $21
+      .db $D6 ; $22
+      .db $AC ; $23
+      .db $AC ; $24
+      .db $AC ; $25
+      .db $74 ; $26
+      .db $7A ; $27
+      .db $92 ; $28
+      .db $9A ; $29
+      .db $80 ; $2A
+      .db $90 ; $2B
+      .db $00 ; $2C
+      .db $00 ; $2D
+      .db $B6 ; $2E
+      .db $B6 ; $2F
+      .db $B6 ; $30
+      .db $B6 ; $31
+      .db $28 ; $32
+      .db $2A ; $33
+      .db $2C ; $34
+      .db $2E ; $35
+      .db $30 ; $36
+      .db $34 ; $37
+      .db $00 ; $38
+      .db $38 ; $39
+      .db $3A ; $3A
+      .db $42 ; $3B
+      .db $82 ; $3C
+      .db $82 ; $3D
+      .db $84 ; $3E
+      .db $A0 ; $3F
+      .db $A2 ; $40
+      .db $04 ; $41
+      .db $8E ; $42
+      .db $8E ; $43
+      .db $9E ; $44
+      .db $A6 ; $45
+      .db $A4 ; $46
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -6112,28 +6112,28 @@ loc_BANK2_9DF0:
 
 
 UNUSED_PorcupoOffset:
-      .BYTE $04
-      .BYTE $00
+      .db $04
+      .db $00
 PorcupoOffsetXRight:
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $00
-      .BYTE $00
+      .db $FF
+      .db $FF
+      .db $00
+      .db $00
 PorcupoOffsetXLeft:
-      .BYTE $01
-      .BYTE $01
-      .BYTE $00
-      .BYTE $00
+      .db $01
+      .db $01
+      .db $00
+      .db $00
 PorcupoOffsetYRight:
-      .BYTE $01
-      .BYTE $00
-      .BYTE $00
-      .BYTE $01
+      .db $01
+      .db $00
+      .db $00
+      .db $01
 PorcupoOffsetYLeft:
-      .BYTE $01
-      .BYTE $00
-      .BYTE $00
-      .BYTE $01
+      .db $01
+      .db $00
+      .db $00
+      .db $01
 
 
 RenderSprite_Porcupo:
@@ -6324,115 +6324,115 @@ ENDIF
 
 
 EnemyTilemap2:
-      .BYTE $2D,$2F ; $00
-      .BYTE $2D,$2F ; $02
-      .BYTE $E0,$E2 ; $04
-      .BYTE $E4,$E6 ; $06
-      .BYTE $E0,$E2 ; $08
-      .BYTE $E4,$E6 ; $0A
-      .BYTE $E8,$EA ; $0C
-      .BYTE $EC,$EE ; $0E
-      .BYTE $E8,$EA ; $10
-      .BYTE $EC,$EE ; $12
-      .BYTE $01,$03 ; $14
-      .BYTE $09,$05 ; $16
-      .BYTE $07,$0B ; $18
-      .BYTE $0D,$0F ; $1A
-      .BYTE $15,$11 ; $1C
-      .BYTE $13,$17 ; $1E
-      .BYTE $01,$03 ; $20
-      .BYTE $09,$05 ; $22
-      .BYTE $19,$1B ; $24
-      .BYTE $01,$03 ; $26
-      .BYTE $09,$05 ; $28
-      .BYTE $19,$1B ; $2A
-      .BYTE $1D,$1F ; $2C
-      .BYTE $25,$21 ; $2E
-      .BYTE $23,$27 ; $30
-      .BYTE $1D,$1F ; $32
-      .BYTE $25,$21 ; $34
-      .BYTE $23,$27 ; $36
-      .BYTE $9C,$9E ; $38
-      .BYTE $9C,$9E ; $3A
-      .BYTE $D0,$D2 ; $3C
-      .BYTE $D4,$D6 ; $3E
-      .BYTE $F0,$F2 ; $40
-      .BYTE $F4,$F6 ; $42
-      .BYTE $F0,$F2 ; $44
-      .BYTE $F8,$FA ; $46
-      .BYTE $0F,$11 ; $48
-      .BYTE $13,$15 ; $4A
-      .BYTE $1F,$11 ; $4C
-      .BYTE $13,$15 ; $4E
-      .BYTE $17,$19 ; $50
-      .BYTE $1B,$17 ; $52
-      .BYTE $19,$1D ; $54
-      .BYTE $09,$0B ; $56
-      .BYTE $01,$03 ; $58
-      .BYTE $05,$07 ; $5A
-      .BYTE $55,$59 ; $5C
-      .BYTE $5B,$5D ; $5E
-      .BYTE $F0,$F2 ; $60
-      .BYTE $F4,$F6 ; $62
-      .BYTE $45,$59 ; $64
-      .BYTE $5B,$5D ; $66
-      .BYTE $45,$59 ; $68
-      .BYTE $5B,$5D ; $6A
-      .BYTE $E8,$EA ; $6C
-      .BYTE $EC,$EE ; $6E
-      .BYTE $EC,$EE ; $70
-      .BYTE $EC,$EE ; $72
-      .BYTE $F0,$F2 ; $74
-      .BYTE $F0,$F2 ; $76
-      .BYTE $F4,$F6 ; $78
-      .BYTE $F8,$FA ; $7A
-      .BYTE $D0,$D2 ; $7C
-      .BYTE $D4,$D6 ; $7E
-      .BYTE $01,$03 ; $80
-      .BYTE $05,$07 ; $82
-      .BYTE $09,$0B ; $84
-      .BYTE $0D,$0F ; $86
-      .BYTE $01,$11 ; $88
-      .BYTE $05,$15 ; $8A
-      .BYTE $13,$0B ; $8C
-      .BYTE $17,$0F ; $8E
-      .BYTE $19,$1B ; $90
-      .BYTE $2D,$2F ; $92
-      .BYTE $3A,$3A ; $94
-      .BYTE $E0,$E2 ; $96
-      .BYTE $E4,$E6 ; $98
-      .BYTE $E8,$EA ; $9A
-      .BYTE $EC,$EE ; $9C
-      .BYTE $01,$03 ; $9E
-      .BYTE $05,$07 ; $A0
-      .BYTE $4F,$5D ; $A2
-      .BYTE $05,$07 ; $A4
-      .BYTE $09,$0B ; $A6
-      .BYTE $0D,$0F ; $A8
-      .BYTE $27,$79 ; $AA
-      .BYTE $7B,$2D ; $AC
-      .BYTE $4F,$2F ; $AE
-      .BYTE $45,$55 ; $B0
-      .BYTE $11,$13 ; $B2
-      .BYTE $15,$17 ; $B4
-      .BYTE $1F,$21 ; $B6
-      .BYTE $23,$25 ; $B8
-      .BYTE $11,$13 ; $BA
-      .BYTE $23,$25 ; $BC
-      .BYTE $59,$59 ; $BE
-      .BYTE $5B,$5B ; $C0
-      .BYTE $01,$03 ; $C2
-      .BYTE $05,$07 ; $C4
-      .BYTE $09,$0B ; $C6
-      .BYTE $0D,$0F ; $C8
-      .BYTE $FB,$11 ; $CA
-      .BYTE $15,$17 ; $CC
-      .BYTE $13,$FB ; $CE
-      .BYTE $19,$1B ; $D0
-      .BYTE $1D,$1F ; $D2
-      .BYTE $21,$23 ; $D4
-      .BYTE $25,$27 ; $D6
-      .BYTE $25,$27 ; $D8
+      .db $2D,$2F ; $00
+      .db $2D,$2F ; $02
+      .db $E0,$E2 ; $04
+      .db $E4,$E6 ; $06
+      .db $E0,$E2 ; $08
+      .db $E4,$E6 ; $0A
+      .db $E8,$EA ; $0C
+      .db $EC,$EE ; $0E
+      .db $E8,$EA ; $10
+      .db $EC,$EE ; $12
+      .db $01,$03 ; $14
+      .db $09,$05 ; $16
+      .db $07,$0B ; $18
+      .db $0D,$0F ; $1A
+      .db $15,$11 ; $1C
+      .db $13,$17 ; $1E
+      .db $01,$03 ; $20
+      .db $09,$05 ; $22
+      .db $19,$1B ; $24
+      .db $01,$03 ; $26
+      .db $09,$05 ; $28
+      .db $19,$1B ; $2A
+      .db $1D,$1F ; $2C
+      .db $25,$21 ; $2E
+      .db $23,$27 ; $30
+      .db $1D,$1F ; $32
+      .db $25,$21 ; $34
+      .db $23,$27 ; $36
+      .db $9C,$9E ; $38
+      .db $9C,$9E ; $3A
+      .db $D0,$D2 ; $3C
+      .db $D4,$D6 ; $3E
+      .db $F0,$F2 ; $40
+      .db $F4,$F6 ; $42
+      .db $F0,$F2 ; $44
+      .db $F8,$FA ; $46
+      .db $0F,$11 ; $48
+      .db $13,$15 ; $4A
+      .db $1F,$11 ; $4C
+      .db $13,$15 ; $4E
+      .db $17,$19 ; $50
+      .db $1B,$17 ; $52
+      .db $19,$1D ; $54
+      .db $09,$0B ; $56
+      .db $01,$03 ; $58
+      .db $05,$07 ; $5A
+      .db $55,$59 ; $5C
+      .db $5B,$5D ; $5E
+      .db $F0,$F2 ; $60
+      .db $F4,$F6 ; $62
+      .db $45,$59 ; $64
+      .db $5B,$5D ; $66
+      .db $45,$59 ; $68
+      .db $5B,$5D ; $6A
+      .db $E8,$EA ; $6C
+      .db $EC,$EE ; $6E
+      .db $EC,$EE ; $70
+      .db $EC,$EE ; $72
+      .db $F0,$F2 ; $74
+      .db $F0,$F2 ; $76
+      .db $F4,$F6 ; $78
+      .db $F8,$FA ; $7A
+      .db $D0,$D2 ; $7C
+      .db $D4,$D6 ; $7E
+      .db $01,$03 ; $80
+      .db $05,$07 ; $82
+      .db $09,$0B ; $84
+      .db $0D,$0F ; $86
+      .db $01,$11 ; $88
+      .db $05,$15 ; $8A
+      .db $13,$0B ; $8C
+      .db $17,$0F ; $8E
+      .db $19,$1B ; $90
+      .db $2D,$2F ; $92
+      .db $3A,$3A ; $94
+      .db $E0,$E2 ; $96
+      .db $E4,$E6 ; $98
+      .db $E8,$EA ; $9A
+      .db $EC,$EE ; $9C
+      .db $01,$03 ; $9E
+      .db $05,$07 ; $A0
+      .db $4F,$5D ; $A2
+      .db $05,$07 ; $A4
+      .db $09,$0B ; $A6
+      .db $0D,$0F ; $A8
+      .db $27,$79 ; $AA
+      .db $7B,$2D ; $AC
+      .db $4F,$2F ; $AE
+      .db $45,$55 ; $B0
+      .db $11,$13 ; $B2
+      .db $15,$17 ; $B4
+      .db $1F,$21 ; $B6
+      .db $23,$25 ; $B8
+      .db $11,$13 ; $BA
+      .db $23,$25 ; $BC
+      .db $59,$59 ; $BE
+      .db $5B,$5B ; $C0
+      .db $01,$03 ; $C2
+      .db $05,$07 ; $C4
+      .db $09,$0B ; $C6
+      .db $0D,$0F ; $C8
+      .db $FB,$11 ; $CA
+      .db $15,$17 ; $CC
+      .db $13,$FB ; $CE
+      .db $19,$1B ; $D0
+      .db $1D,$1F ; $D2
+      .db $21,$23 ; $D4
+      .db $25,$27 ; $D6
+      .db $25,$27 ; $D8
 ; ---------------------------------------------------------------------------
 
 EnemyInit_Clawgrip:
@@ -6450,23 +6450,23 @@ EnemyInit_Clawgrip:
 
 ; ---------------------------------------------------------------------------
 unk_BANK3_A120:
-      .BYTE $C8
-      .BYTE $D0
-      .BYTE $E0
-      .BYTE $F0
-      .BYTE $00
-      .BYTE $10
-      .BYTE $20
-      .BYTE $C8
+      .db $C8
+      .db $D0
+      .db $E0
+      .db $F0
+      .db $00
+      .db $10
+      .db $20
+      .db $C8
 unk_BANK3_A128:
-      .BYTE $DC
-      .BYTE $E2
-      .BYTE $E8
-      .BYTE $F0
-      .BYTE $F8
-      .BYTE $E8
-      .BYTE $DC
-      .BYTE $DC
+      .db $DC
+      .db $E2
+      .db $E8
+      .db $F0
+      .db $F8
+      .db $E8
+      .db $DC
+      .db $DC
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Clawgrip:
@@ -6580,24 +6580,24 @@ loc_BANK3_A1D3:
       JMP     RenderSprite
 
 
-      .BYTE $08
-      .BYTE $08
+      .db $08
+      .db $08
 
 byte_BANK3_A1D8:
-      .BYTE $1C
-      .BYTE $F4
-      .BYTE $11
-      .BYTE $0F
+      .db $1C
+      .db $F4
+      .db $11
+      .db $0F
 
 byte_BANK3_A1DC:
-      .BYTE $04
-      .BYTE $06
-      .BYTE $08
-      .BYTE $08
-      .BYTE $08
-      .BYTE $08
-      .BYTE $06
-      .BYTE $04
+      .db $04
+      .db $06
+      .db $08
+      .db $08
+      .db $08
+      .db $08
+      .db $06
+      .db $04
 
 
 RenderSprite_Clawgrip:
@@ -6908,10 +6908,10 @@ loc_BANK3_A362:
 
 
 FlyingCarpetSpeed:
-      .BYTE $00
-      .BYTE $15
-      .BYTE $EB
-      .BYTE $00
+      .db $00
+      .db $15
+      .db $EB
+      .db $00
 
 
 EnemyBehavior_FlyingCarpet:
@@ -7127,32 +7127,32 @@ loc_BANK3_A478:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_A47B:
-      .BYTE $02
+      .db $02
 
-      .BYTE $02
-      .BYTE $01
-      .BYTE $01
+      .db $02
+      .db $01
+      .db $01
 byte_BANK3_A47F:
-      .BYTE $04
+      .db $04
 
-      .BYTE $0C
-      .BYTE $0C
-      .BYTE $04
+      .db $0C
+      .db $0C
+      .db $04
 unk_BANK3_A483:
-      .BYTE $01
-      .BYTE $FF
+      .db $01
+      .db $FF
 unk_BANK3_A485:
-      .BYTE $08
-      .BYTE $F8
+      .db $08
+      .db $F8
 unk_BANK3_A487:
-      .BYTE $01
-      .BYTE $FF
+      .db $01
+      .db $FF
 unk_BANK3_A489:
-      .BYTE $20
-      .BYTE $E0
+      .db $20
+      .db $E0
 unk_BANK3_A48B:
-      .BYTE $14
-      .BYTE $EC
+      .db $14
+      .db $EC
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Pidgit:
@@ -7509,8 +7509,8 @@ RenderSprite_Mouser_Exit:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_A652:
-      .BYTE $FB
-      .BYTE $05
+      .db $FB
+      .db $05
 ; ---------------------------------------------------------------------------
 
 RenderSprite_Ostro:
@@ -7667,50 +7667,50 @@ EnemyInit_Tryclyde:
 
 
 TryclydeHeadPosition:
-      .BYTE $00
-      .BYTE $FF
-      .BYTE $FE
-      .BYTE $FD
-      .BYTE $FC
-      .BYTE $FB
-      .BYTE $FA
-      .BYTE $F9
-      .BYTE $F8
-      .BYTE $F9
-      .BYTE $FA
-      .BYTE $FB
-      .BYTE $FC
-      .BYTE $FD
-      .BYTE $FE
-      .BYTE $FF
+      .db $00
+      .db $FF
+      .db $FE
+      .db $FD
+      .db $FC
+      .db $FB
+      .db $FA
+      .db $F9
+      .db $F8
+      .db $F9
+      .db $FA
+      .db $FB
+      .db $FC
+      .db $FD
+      .db $FE
+      .db $FF
 
 TryclydeFireYVelocity:
-      .BYTE $0B
-      .BYTE $0C
-      .BYTE $0D
-      .BYTE $0F
-      .BYTE $10
-      .BYTE $12
-      .BYTE $14
-      .BYTE $17
-      .BYTE $1A
-      .BYTE $1D
-      .BYTE $1F
-      .BYTE $20
+      .db $0B
+      .db $0C
+      .db $0D
+      .db $0F
+      .db $10
+      .db $12
+      .db $14
+      .db $17
+      .db $1A
+      .db $1D
+      .db $1F
+      .db $20
 
 TryclydeFireXVelocity:
-      .BYTE $E2
-      .BYTE $E2
-      .BYTE $E2
-      .BYTE $E3
-      .BYTE $E4
-      .BYTE $E5
-      .BYTE $E7
-      .BYTE $E9
-      .BYTE $ED
-      .BYTE $F1
-      .BYTE $F8
-      .BYTE $00
+      .db $E2
+      .db $E2
+      .db $E2
+      .db $E3
+      .db $E4
+      .db $E5
+      .db $E7
+      .db $E9
+      .db $ED
+      .db $F1
+      .db $F8
+      .db $00
 
 
 locret_BANK3_A75C:
@@ -8253,10 +8253,10 @@ EnemyInit_Pokey:
 
 ; ---------------------------------------------------------------------------
 unk_BANK3_AA1C:
-      .BYTE $02
-      .BYTE $04
-      .BYTE $0D
-      .BYTE $0E
+      .db $02
+      .db $04
+      .db $0D
+      .db $0E
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Pokey:
@@ -8351,13 +8351,13 @@ loc_BANK3_AAA4:
 
 
 PokeyWiggleOffset:
-      .BYTE $00
-      .BYTE $01
-      .BYTE $00
-      .BYTE $FF
-      .BYTE $00
-      .BYTE $01
-      .BYTE $00
+      .db $00
+      .db $01
+      .db $00
+      .db $FF
+      .db $00
+      .db $01
+      .db $00
 
 
 RenderSprite_Pokey:
@@ -8596,11 +8596,11 @@ RenderSprite_Rocket:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_AC25:
-      .BYTE $F0
+      .db $F0
 
 byte_BANK3_AC26:
-      .BYTE $00
-      .BYTE $F0
+      .db $00
+      .db $F0
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -8667,38 +8667,38 @@ EnemyInit_Fryguy:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_AC77:
-      .BYTE $E0
-      .BYTE $20
-      .BYTE $F0
-      .BYTE $10
+      .db $E0
+      .db $20
+      .db $F0
+      .db $10
 
 byte_BANK3_AC7B:
-      .BYTE $04
-      .BYTE $0C
-      .BYTE $04
-      .BYTE $0C
+      .db $04
+      .db $0C
+      .db $04
+      .db $0C
 
 byte_BANK3_AC7F:
-      .BYTE $04
-      .BYTE $04
-      .BYTE $0C
-      .BYTE $0C
+      .db $04
+      .db $04
+      .db $0C
+      .db $0C
 
 byte_BANK3_AC83:
-      .BYTE $01
-      .BYTE $FF
+      .db $01
+      .db $FF
 
 byte_BANK3_AC85:
-      .BYTE $2A
-      .BYTE $D6
+      .db $2A
+      .db $D6
 
 byte_BANK3_AC87:
-      .BYTE $01
-      .BYTE $FF
+      .db $01
+      .db $FF
 
 byte_BANK3_AC89:
-      .BYTE $18
-      .BYTE $E8
+      .db $18
+      .db $E8
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Fryguy:
@@ -8810,15 +8810,15 @@ loc_BANK3_AD37:
 
 ; ---------------------------------------------------------------------------
 unk_BANK3_AD40:
-      .BYTE $3F
-      .BYTE $3F
-      .BYTE $3F
-      .BYTE $7F
+      .db $3F
+      .db $3F
+      .db $3F
+      .db $7F
 unk_BANK3_AD44:
-      .BYTE $D4
-      .BYTE $D8
-      .BYTE $DA
-      .BYTE $DE
+      .db $D4
+      .db $D8
+      .db $DA
+      .db $DE
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_FryguySplit:
@@ -9248,12 +9248,12 @@ locret_BANK3_AF74:
       RTS
 
 ; ---------------------------------------------------------------------------
-      .BYTE $1C
+      .db $1C
 byte_BANK3_AF76:
-      .BYTE $E4
+      .db $E4
 
-      .BYTE $01
-      .BYTE $FF
+      .db $01
+      .db $FF
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_Flurry:
@@ -9342,17 +9342,17 @@ EnemyInit_HawkmouthBoss:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_AFEC:
-      .BYTE $01
-      .BYTE $FF
+      .db $01
+      .db $FF
 byte_BANK3_AFEE:
-      .BYTE $28
-      .BYTE $D8
+      .db $28
+      .db $D8
 byte_BANK3_AFF0:
-      .BYTE $01
-      .BYTE $FF
+      .db $01
+      .db $FF
 byte_BANK3_AFF2:
-      .BYTE $10
-      .BYTE $F0
+      .db $10
+      .db $F0
 ; ---------------------------------------------------------------------------
 
 EnemyBehavior_HawkmouthBoss:
@@ -9515,8 +9515,8 @@ loc_BANK3_B0E3:
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_B0E6:
-      .BYTE $F8
-      .BYTE $10
+      .db $F8
+      .db $10
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -9607,26 +9607,26 @@ loc_BANK3_B16D:
 
 
 VegetableThrowerOffsetX:
-      .BYTE $08
-      .BYTE $28
-      .BYTE $48
-      .BYTE $28
+      .db $08
+      .db $28
+      .db $48
+      .db $28
 
 VegetableThrowerOffsetY:
-      .BYTE $94
-      .BYTE $84
-      .BYTE $94
-      .BYTE $84
+      .db $94
+      .db $84
+      .db $94
+      .db $84
 
 VegetableThrowerVelocity:
-      .BYTE $F8
-      .BYTE $08
-      .BYTE $F8
-      .BYTE $08
-      .BYTE $08
-      .BYTE $F8
-      .BYTE $08
-      .BYTE $F8
+      .db $F8
+      .db $08
+      .db $F8
+      .db $08
+      .db $08
+      .db $F8
+      .db $08
+      .db $F8
 
 
 Generator_VegetableThrower:
@@ -9691,10 +9691,10 @@ EnemyInit_Wart:
 
 
 WartBubbleYVelocity:
-      .BYTE $E0
-      .BYTE $F0
-      .BYTE $E8
-      .BYTE $E4
+      .db $E0
+      .db $F0
+      .db $E8
+      .db $E4
 
 
 ;
@@ -10050,8 +10050,8 @@ ENDIF
 
 
 byte_BANK3_B4E0:
-      .BYTE $F0
-      .BYTE $10
+      .db $F0
+      .db $10
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -10260,24 +10260,24 @@ ClearDirectionalCollisionFlags_Exit:
 
 
 byte_BANK3_B5BC:
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $02
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
+      .db $02
+      .db $01
+      .db $02
+      .db $02
+      .db $00
+      .db $00
+      .db $00
+      .db $00
 
 byte_BANK3_B5C4:
-      .BYTE $08
-      .BYTE $04
-      .BYTE $02
-      .BYTE $01
-      .BYTE $08
-      .BYTE $04
-      .BYTE $02
-      .BYTE $01
+      .db $08
+      .db $04
+      .db $02
+      .db $01
+      .db $08
+      .db $04
+      .db $02
+      .db $01
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -10528,11 +10528,11 @@ EnemyCollisionBehavior_ReadCollisionType:
       LDA     unk_RAM_71D1,Y
       JSR     JumpToTableAfterJump
 
-      .WORD EnemyCollisionBehavior_Enemy
-      .WORD EnemyCollisionBehavior_ProjectileItem
-      .WORD EnemyCollisionBehavior_Object
-      .WORD EnemyCollisionBehavior_POW
-      .WORD EnemyCollisionBehavior_Door
+      .dw EnemyCollisionBehavior_Enemy
+      .dw EnemyCollisionBehavior_ProjectileItem
+      .dw EnemyCollisionBehavior_Object
+      .dw EnemyCollisionBehavior_POW
+      .dw EnemyCollisionBehavior_Door
 
 
 EnemyCollisionBehavior_Door:
@@ -10663,8 +10663,8 @@ loc_BANK3_B7E0:
 
 ; ---------------------------------------------------------------------------
 InvincibilityKill_VelocityX:
-      .BYTE $F8 ; to the left
-      .BYTE $08 ; to the right
+      .db $F8 ; to the left
+      .db $08 ; to the right
 ; ---------------------------------------------------------------------------
 
 CheckCollisionWithPlayer:
@@ -10894,8 +10894,8 @@ locret_BANK3_B902:
 
 ; ---------------------------------------------------------------------------
 unk_BANK3_B903:
-      .BYTE $08
-      .BYTE $04
+      .db $08
+      .db $04
 ; ---------------------------------------------------------------------------
 
 ; collision with items that the player can stand on
@@ -11337,8 +11337,8 @@ DetermineCollisionFlags_ExitY:
 
 
 byte_BANK3_BB2F:
-      .BYTE $0B
-      .BYTE $10
+      .db $0B
+      .db $10
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -11368,24 +11368,24 @@ locret_BANK3_BB49:
 
 ; ---------------------------------------------------------------------------
 _unused_BANK3_BB4A:
-      .BYTE $FF ; May not be used, but wasn't marked as data
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $FF
+      .db $FF ; May not be used, but wasn't marked as data
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
+      .db $FF
 
 byte_BANK3_BB50:
-      .BYTE $C2
-      .BYTE $D4
-      .BYTE $C3
-      .BYTE $C4
-      .BYTE $07
-      .BYTE $80
-      .BYTE $81
-      .BYTE $94
-      .BYTE $95
-      .BYTE $17
+      .db $C2
+      .db $D4
+      .db $C3
+      .db $C4
+      .db $07
+      .db $80
+      .db $81
+      .db $94
+      .db $95
+      .db $17
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -11408,34 +11408,34 @@ locret_BANK3_BB6A:
 
 
 ItemCarryYOffsets:
-      .BYTE $F9
-      .BYTE $FF
-      .BYTE $00
-      .BYTE $08
-      .BYTE $0C
-      .BYTE $18
-      .BYTE $1A
-      .BYTE $01
-      .BYTE $06
-      .BYTE $0A
-      .BYTE $0C
-      .BYTE $18
-      .BYTE $1A
-      .BYTE $1C
-      .BYTE $FF
-      .BYTE $FF
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
-      .BYTE $00
+      .db $F9
+      .db $FF
+      .db $00
+      .db $08
+      .db $0C
+      .db $18
+      .db $1A
+      .db $01
+      .db $06
+      .db $0A
+      .db $0C
+      .db $18
+      .db $1A
+      .db $1C
+      .db $FF
+      .db $FF
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
+      .db $00
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -11527,9 +11527,9 @@ sub_BANK3_BBE2:
 ; These map the two high bits of a tile to offets in TileSolidnessTable
 ;
 TileGroupTable_Bank3:
-      .BYTE $00 ; solid to mushroom blocks
-      .BYTE $04 ; solid on top
-      .BYTE $08 ; solid on all sides
+      .db $00 ; solid to mushroom blocks
+      .db $04 ; solid on top
+      .db $08 ; solid on all sides
 
 
 DoorHandling_GoThroughDoor_Bank3:
@@ -11607,9 +11607,9 @@ locret_BANK3_BC4C:
 
 
 byte_BANK3_BC4D:
-      .BYTE $0A
-      .BYTE $01
-      .BYTE $0B
+      .db $0A
+      .db $01
+      .db $0B
 
 
 ;
@@ -11735,10 +11735,10 @@ loc_BANK3_BCBA:
 
 ; Another byte of PPU high addresses for horiz/vert levels
 unk_BANK3_BD0B:
-      .BYTE $20
-      .BYTE $28
-      .BYTE $20
-      .BYTE $24
+      .db $20
+      .db $28
+      .db $20
+      .db $24
 
 
 StashPlayerPosition:
@@ -11782,30 +11782,30 @@ SetTileOffsetAndAreaPageAddr:
 
 
 DecodedLevelPageStartLo:
-      .BYTE <DecodedLevelData
-      .BYTE <(DecodedLevelData+$00F0)
-      .BYTE <(DecodedLevelData+$01E0)
-      .BYTE <(DecodedLevelData+$02D0)
-      .BYTE <(DecodedLevelData+$03C0)
-      .BYTE <(DecodedLevelData+$04B0)
-      .BYTE <(DecodedLevelData+$05A0)
-      .BYTE <(DecodedLevelData+$0690)
-      .BYTE <(DecodedLevelData+$0780)
-      .BYTE <(DecodedLevelData+$0870)
-      .BYTE <(SubAreaTileLayout)
+      .db <DecodedLevelData
+      .db <(DecodedLevelData+$00F0)
+      .db <(DecodedLevelData+$01E0)
+      .db <(DecodedLevelData+$02D0)
+      .db <(DecodedLevelData+$03C0)
+      .db <(DecodedLevelData+$04B0)
+      .db <(DecodedLevelData+$05A0)
+      .db <(DecodedLevelData+$0690)
+      .db <(DecodedLevelData+$0780)
+      .db <(DecodedLevelData+$0870)
+      .db <(SubAreaTileLayout)
 
 DecodedLevelPageStartHi:
-      .BYTE >DecodedLevelData
-      .BYTE >(DecodedLevelData+$00F0)
-      .BYTE >(DecodedLevelData+$01E0)
-      .BYTE >(DecodedLevelData+$02D0)
-      .BYTE >(DecodedLevelData+$03C0)
-      .BYTE >(DecodedLevelData+$04B0)
-      .BYTE >(DecodedLevelData+$05A0)
-      .BYTE >(DecodedLevelData+$0690)
-      .BYTE >(DecodedLevelData+$0780)
-      .BYTE >(DecodedLevelData+$0870)
-      .BYTE >(SubAreaTileLayout)
+      .db >DecodedLevelData
+      .db >(DecodedLevelData+$00F0)
+      .db >(DecodedLevelData+$01E0)
+      .db >(DecodedLevelData+$02D0)
+      .db >(DecodedLevelData+$03C0)
+      .db >(DecodedLevelData+$04B0)
+      .db >(DecodedLevelData+$05A0)
+      .db >(DecodedLevelData+$0690)
+      .db >(DecodedLevelData+$0780)
+      .db >(DecodedLevelData+$0870)
+      .db >(SubAreaTileLayout)
 
 
 
@@ -11827,8 +11827,8 @@ SetAreaPageAddr:
 
 
 PlayerCollisionResultTable:
-      .BYTE CollisionFlags_80
-      .BYTE CollisionFlags_00
+      .db CollisionFlags_80
+      .db CollisionFlags_00
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -11990,38 +11990,38 @@ loc_BANK3_BDEC:
 
 ; ---------------------------------------------------------------------------
 HealthBarTiles:
-      .BYTE $BA ; 0
-      .BYTE $BA
-      .BYTE $BA
-      .BYTE $BA
-      .BYTE $B8 ; 1
-      .BYTE $BA
-      .BYTE $BA
-      .BYTE $BA
-      .BYTE $B8 ; 2
-      .BYTE $B8
-      .BYTE $BA
-      .BYTE $BA
-      .BYTE $B8 ; 3
-      .BYTE $B8
-      .BYTE $B8
-      .BYTE $BA
-      .BYTE $B8 ; 4
-      .BYTE $B8
-      .BYTE $B8
-      .BYTE $B8
+      .db $BA ; 0
+      .db $BA
+      .db $BA
+      .db $BA
+      .db $B8 ; 1
+      .db $BA
+      .db $BA
+      .db $BA
+      .db $B8 ; 2
+      .db $B8
+      .db $BA
+      .db $BA
+      .db $B8 ; 3
+      .db $B8
+      .db $B8
+      .db $BA
+      .db $B8 ; 4
+      .db $B8
+      .db $B8
+      .db $B8
 
 POWQuakeOffsets:
-      .BYTE $00
-      .BYTE $03
-      .BYTE $00
-      .BYTE $FD
+      .db $00
+      .db $03
+      .db $00
+      .db $FD
 
 SkyFlashColors:
-      .BYTE $26
-      .BYTE $2A
-      .BYTE $22
-      .BYTE $26
+      .db $26
+      .db $2A
+      .db $22
+      .db $26
 
 ; =============== S U B R O U T I N E =======================================
 

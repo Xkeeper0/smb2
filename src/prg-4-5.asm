@@ -237,8 +237,8 @@ ProcessSoundEffectQueue2_GrowingPart2:
       JMP     ProcessSoundEffectQueue2_DecrementTimer
 
 MushroomSoundData:
-      .BYTE $6A, $74, $6A, $64, $5C, $52, $5C, $52, $4C, $44, $66, $70, $66, $60, $58, $4E
-      .BYTE $58, $4E, $48, $40, $56, $60, $56, $50, $48, $3E, $48, $3E, $38, $30 ; $10
+      .db $6A, $74, $6A, $64, $5C, $52, $5C, $52, $4C, $44, $66, $70, $66, $60, $58, $4E
+      .db $58, $4E, $48, $40, $56, $60, $56, $50, $48, $3E, $48, $3E, $38, $30 ; $10
 
 
 ProcessSoundEffectQueue1:
@@ -307,76 +307,76 @@ ProcessSoundEffectQueue1_Exit:
 
 
 SoundEffectPointers:
-      .BYTE SoundEffect1Data_BirdoShot - SoundEffectPointers
-      .BYTE SoundEffect1Data_PotionDoorBong - SoundEffectPointers
-      .BYTE SoundEffect1Data_CherryGet - SoundEffectPointers
-      .BYTE SoundEffect1Data_ThrowItem - SoundEffectPointers
-      .BYTE SoundEffect1Data_1UP - SoundEffectPointers
-      .BYTE SoundEffect1Data_EnemyHit - SoundEffectPointers
-      .BYTE SoundEffect1Data_StopwatchTick - SoundEffectPointers
-      .BYTE SoundEffect1Data_HawkOpen_WartBarf - SoundEffectPointers
+      .db SoundEffect1Data_BirdoShot - SoundEffectPointers
+      .db SoundEffect1Data_PotionDoorBong - SoundEffectPointers
+      .db SoundEffect1Data_CherryGet - SoundEffectPointers
+      .db SoundEffect1Data_ThrowItem - SoundEffectPointers
+      .db SoundEffect1Data_1UP - SoundEffectPointers
+      .db SoundEffect1Data_EnemyHit - SoundEffectPointers
+      .db SoundEffect1Data_StopwatchTick - SoundEffectPointers
+      .db SoundEffect1Data_HawkOpen_WartBarf - SoundEffectPointers
 
 SoundEffect1Data_PotionDoorBong:
-      .BYTE $9F
-      .BYTE $10, $0E, $0C, $7E, $7E, $7E
-      .BYTE $10, $0E, $0C, $7E, $7E, $7E
-      .BYTE $86
-      .BYTE $10, $0E, $0C, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $00
+      .db $9F
+      .db $10, $0E, $0C, $7E, $7E, $7E
+      .db $10, $0E, $0C, $7E, $7E, $7E
+      .db $86
+      .db $10, $0E, $0C, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .db $00
 
 SoundEffect1Data_ThrowItem:
-      .BYTE $9F, $64, $7E, $7E
-      .BYTE $9E, $68, $7E, $7E
-      .BYTE $9D, $6A, $7E, $7E
-      .BYTE $9C, $6E, $7E, $7E
-      .BYTE $9B, $72, $7E, $7E
-      .BYTE $9A, $76, $7E, $7E
-      .BYTE $84, $78, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $00
+      .db $9F, $64, $7E, $7E
+      .db $9E, $68, $7E, $7E
+      .db $9D, $6A, $7E, $7E
+      .db $9C, $6E, $7E, $7E
+      .db $9B, $72, $7E, $7E
+      .db $9A, $76, $7E, $7E
+      .db $84, $78, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .db $00
 
 SoundEffect1Data_BirdoShot:
-      .BYTE $9F, $30, $34, $36, $38
-      .BYTE $9F, $3C, $3E, $40, $42
-      .BYTE $9A, $3A, $3C, $3E, $40
-      .BYTE $9C, $38, $3A, $3C, $3E
-      .BYTE $96, $36, $38, $3A, $3C
-      .BYTE $98, $34, $36, $38, $36
-      .BYTE $00
+      .db $9F, $30, $34, $36, $38
+      .db $9F, $3C, $3E, $40, $42
+      .db $9A, $3A, $3C, $3E, $40
+      .db $9C, $38, $3A, $3C, $3E
+      .db $96, $36, $38, $3A, $3C
+      .db $98, $34, $36, $38, $36
+      .db $00
 
 SoundEffect1Data_CherryGet:
-      .BYTE $81, $56, $7E, $64, $7E, $68
-      .BYTE $00
+      .db $81, $56, $7E, $64, $7E, $68
+      .db $00
 
 SoundEffect1Data_EnemyHit:
-      .BYTE $99, $18, $1A, $18, $1C, $18, $1A
-      .BYTE $9B, $18, $1C, $18, $20, $18, $22
-      .BYTE $9F, $18, $3C, $24, $30, $3C, $18, $30
-      .BYTE $00
+      .db $99, $18, $1A, $18, $1C, $18, $1A
+      .db $9B, $18, $1C, $18, $20, $18, $22
+      .db $9F, $18, $3C, $24, $30, $3C, $18, $30
+      .db $00
 
 SoundEffect1Data_StopwatchTick:
-      .BYTE $80
-      .BYTE $68, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $60, $7E, $7E
-      .BYTE $64, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $56, $7E, $7E
-      .BYTE $00
+      .db $80
+      .db $68, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .db $60, $7E, $7E
+      .db $64, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
+      .db $56, $7E, $7E
+      .db $00
 
 SoundEffect1Data_HawkOpen_WartBarf:
-      .BYTE $80, $1E, $1C, $1E, $1A, $18, $16, $1C, $18, $1A, $1E, $18
-      .BYTE $16, $14, $12, $14, $16, $14, $12, $2C, $2C, $2A, $2E, $2C
-      .BYTE $2A, $28, $26, $28, $24, $22, $20, $1E, $1C, $1A, $18, $16
-      .BYTE $14, $14, $12, $10, $0E, $0C, $0A, $08, $08, $06, $04, $02, $02
-      .BYTE $00
+      .db $80, $1E, $1C, $1E, $1A, $18, $16, $1C, $18, $1A, $1E, $18
+      .db $16, $14, $12, $14, $16, $14, $12, $2C, $2C, $2A, $2E, $2C
+      .db $2A, $28, $26, $28, $24, $22, $20, $1E, $1C, $1A, $18, $16
+      .db $14, $14, $12, $10, $0E, $0C, $0A, $08, $08, $06, $04, $02, $02
+      .db $00
 
 SoundEffect1Data_1UP:
-      .BYTE $81
-      .BYTE $5E, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $64, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $76, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $6E, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $72, $7E, $7E, $7E, $7E, $7E, $7E
-      .BYTE $7C, $7E, $7E
-      .BYTE $00
+      .db $81
+      .db $5E, $7E, $7E, $7E, $7E, $7E, $7E
+      .db $64, $7E, $7E, $7E, $7E, $7E, $7E
+      .db $76, $7E, $7E, $7E, $7E, $7E, $7E
+      .db $6E, $7E, $7E, $7E, $7E, $7E, $7E
+      .db $72, $7E, $7E, $7E, $7E, $7E, $7E
+      .db $7C, $7E, $7E
+      .db $00
 
 
 ProcessSoundEffectQueue3_ShortNoise:
@@ -497,35 +497,35 @@ ProcessDPCMQueue_PointerLoop:
 
 
 DMCStartTable:
-      .BYTE (DPCMSampleData_DoorOpenBombBom - DPCMSampleData)/64 ; $4F
-      .BYTE (DPCMSampleData_DrumSample - DPCMSampleData)/64 ; $60
-      .BYTE (DPCMSampleData_PlayerHurt - DPCMSampleData)/64 ; $4B
-      .BYTE (DPCMSampleData_ItemPull - DPCMSampleData)/64 ; $00
-      .BYTE (DPCMSampleData_BossDeath - DPCMSampleData)/64 ; $31
-      .BYTE (DPCMSampleData_DrumSample - DPCMSampleData)/64 ; $60
-      .BYTE (DPCMSampleData_BossHurt - DPCMSampleData)/64 ; $0E
-      .BYTE (DPCMSampleData_PlayerDeath - DPCMSampleData)/64 ; $1D
+      .db (DPCMSampleData_DoorOpenBombBom - DPCMSampleData)/64 ; $4F
+      .db (DPCMSampleData_DrumSample - DPCMSampleData)/64 ; $60
+      .db (DPCMSampleData_PlayerHurt - DPCMSampleData)/64 ; $4B
+      .db (DPCMSampleData_ItemPull - DPCMSampleData)/64 ; $00
+      .db (DPCMSampleData_BossDeath - DPCMSampleData)/64 ; $31
+      .db (DPCMSampleData_DrumSample - DPCMSampleData)/64 ; $60
+      .db (DPCMSampleData_BossHurt - DPCMSampleData)/64 ; $0E
+      .db (DPCMSampleData_PlayerDeath - DPCMSampleData)/64 ; $1D
 
 DMCLengthTable:
-      .BYTE (DPCMSampleDataEnd_DoorOpenBombBom - DPCMSampleData_DoorOpenBombBom)/16 ; $43
-      .BYTE (DPCMSampleDataEnd_DrumSample_A - DPCMSampleData_DrumSample)/16 ; $14
-      .BYTE (DPCMSampleDataEnd_PlayerHurt - DPCMSampleData_PlayerHurt)/16 ; $10
-      .BYTE (DPCMSampleDataEnd_ItemPull - DPCMSampleData_ItemPull)/16 ; $38
-      .BYTE (DPCMSampleDataEnd_BossDeath - DPCMSampleData_BossDeath)/16 ; $48
-      .BYTE (DPCMSampleDataEnd_DrumSample_B - DPCMSampleData_DrumSample)/16 ; $28
-      .BYTE (DPCMSampleDataEnd_BossHurt - DPCMSampleData_BossHurt)/16 ; $3C
-      .BYTE (DPCMSampleDataEnd_PlayerDeath - DPCMSampleData_PlayerDeath)/16 ; $50
+      .db (DPCMSampleDataEnd_DoorOpenBombBom - DPCMSampleData_DoorOpenBombBom)/16 ; $43
+      .db (DPCMSampleDataEnd_DrumSample_A - DPCMSampleData_DrumSample)/16 ; $14
+      .db (DPCMSampleDataEnd_PlayerHurt - DPCMSampleData_PlayerHurt)/16 ; $10
+      .db (DPCMSampleDataEnd_ItemPull - DPCMSampleData_ItemPull)/16 ; $38
+      .db (DPCMSampleDataEnd_BossDeath - DPCMSampleData_BossDeath)/16 ; $48
+      .db (DPCMSampleDataEnd_DrumSample_B - DPCMSampleData_DrumSample)/16 ; $28
+      .db (DPCMSampleDataEnd_BossHurt - DPCMSampleData_BossHurt)/16 ; $3C
+      .db (DPCMSampleDataEnd_PlayerDeath - DPCMSampleData_PlayerDeath)/16 ; $50
 
 DMCFreqTable:
-      .BYTE $0E
-      .BYTE $0E
-      .BYTE $0F
-      .BYTE $0F
-      .BYTE $0F
-      .BYTE $0F
-      .BYTE $0F
-      .BYTE $0F
-      .BYTE $60 ; ???
+      .db $0E
+      .db $0E
+      .db $0F
+      .db $0F
+      .db $0F
+      .db $0F
+      .db $0F
+      .db $0F
+      .db $60 ; ???
 
 
 ProcessMusicQueue_ThenReadNoteData:
@@ -973,22 +973,22 @@ ProcessMusicQueue_DPCMLoopSegment:
 
 
 NoiseVolTable:
-      .BYTE $10
-      .BYTE $1E
-      .BYTE $1F
-      .BYTE $16
+      .db $10
+      .db $1E
+      .db $1F
+      .db $16
 
 NoiseLoTable:
-      .BYTE $00
-      .BYTE $03
-      .BYTE $0A
-      .BYTE $02
+      .db $00
+      .db $03
+      .db $0A
+      .db $02
 
 NoiseHiTable:
-      .BYTE $00
-      .BYTE $18
-      .BYTE $18
-      .BYTE $58
+      .db $00
+      .db $18
+      .db $18
+      .db $58
 
 
 ; Input
@@ -1282,18 +1282,18 @@ PlayTriangleNote:
       BNE     PlayNote
 
 NoteFrequencyData:
-      .WORD $1AB8 ; C
-      .WORD $1938 ; C# / Db
-      .WORD $17CC ; D
-      .WORD $1678 ; D# / Eb
-      .WORD $1534 ; E
-      .WORD $1404 ; F
-      .WORD $12E4 ; F# / Gb
-      .WORD $11D4 ; G
-      .WORD $10D4 ; G# / Ab
-      .WORD $0FE0 ; A
-      .WORD $0EFC ; A# / Bb
-      .WORD $0E24 ; B
+      .dw $1AB8 ; C
+      .dw $1938 ; C# / Db
+      .dw $17CC ; D
+      .dw $1678 ; D# / Eb
+      .dw $1534 ; E
+      .dw $1404 ; F
+      .dw $12E4 ; F# / Gb
+      .dw $11D4 ; G
+      .dw $10D4 ; G# / Ab
+      .dw $0FE0 ; A
+      .dw $0EFC ; A# / Bb
+      .dw $0E24 ; B
 
 
 IFDEF PRESERVE_UNUSED_SPACE
@@ -1339,16 +1339,16 @@ NoteLengthTable:
 ; Game Over
 ; Boss Beaten
 NoteLengthTable_300bpm:
-      .BYTE $03, $03, $04, $04, $06, $09, $08, $08, $0C, $12, $18, $24, $30
+      .db $03, $03, $04, $04, $06, $09, $08, $08, $0C, $12, $18, $24, $30
 
 NoteLengthTable_257bpm: ; rounded
-      .BYTE $03, $04, $05, $04, $07, $0A, $09, $0A, $0E, $15, $1C, $2A, $38
+      .db $03, $04, $05, $04, $07, $0A, $09, $0A, $0E, $15, $1C, $2A, $38
 
-      .BYTE $0B ; junk?
+      .db $0B ; junk?
 
 ; Title Screen
 NoteLengthTable_225bpm:
-      .BYTE $04, $04, $05, $06, $08, $0C, $0B, $0A, $10, $18, $20, $30, $40
+      .db $04, $04, $05, $06, $08, $0C, $0B, $0A, $10, $18, $20, $30, $40
 
 ; Overworld
 ; Boss
@@ -1356,51 +1356,51 @@ NoteLengthTable_225bpm:
 ; Death
 ; Subspace
 NoteLengthTable_200bpm:
-      .BYTE $04, $05, $06, $06, $09, $0D, $0C, $0C, $12, $1B, $24, $36, $48
+      .db $04, $05, $06, $06, $09, $0D, $0C, $0C, $12, $1B, $24, $36, $48
 
-      .BYTE $0E, $03 ; junk?
+      .db $0E, $03 ; junk?
 
 NoteLengthTable_180bpm:
-      .BYTE $05, $05, $07, $06, $0A, $0F, $0D, $0E, $14, $1E, $28, $3C, $50
+      .db $05, $05, $07, $06, $0A, $0F, $0D, $0E, $14, $1E, $28, $3C, $50
 
 NoteLengthTable_164bpm: ; rounded, 163.64 bpm
-      .BYTE $05, $06, $07, $08, $0B, $10, $0F, $0E, $16, $21, $2C, $42, $58
+      .db $05, $06, $07, $08, $0B, $10, $0F, $0E, $16, $21, $2C, $42, $58
 
-      .BYTE $11 ; junk?
+      .db $11 ; junk?
 
 ; Bonus Chance
 NoteLengthTable_150bpm:
-      .BYTE $06, $06, $08, $08, $0C, $12, $10, $10, $18, $24, $30, $48, $60
+      .db $06, $06, $08, $08, $0C, $12, $10, $10, $18, $24, $30, $48, $60
 
-      .BYTE $02 ; junk?
+      .db $02 ; junk?
 
 NoteLengthTable_138bpm: ; rounded, 138.46 bpm
-      .BYTE $06, $07, $09, $08, $0D, $13, $11, $12, $1A, $27, $34, $4E, $68
+      .db $06, $07, $09, $08, $0D, $13, $11, $12, $1A, $27, $34, $4E, $68
 
-      .BYTE $14 ; junk?
+      .db $14 ; junk?
 
 ; Underground
 ; Ending
 NoteLengthTable_129bpm: ; rounded, 128.57
-      .BYTE $07, $07, $09, $0A, $0E, $15, $13, $12, $1C, $2A, $38, $54, $70
+      .db $07, $07, $09, $0A, $0E, $15, $13, $12, $1C, $2A, $38, $54, $70
 
-      .BYTE $03, $04 ; junk?
+      .db $03, $04 ; junk?
 
 NoteLengthTable_120bpm:
-      .BYTE $07, $08, $0A, $0A, $0F, $16, $14, $14, $1E, $2D, $3C, $5A, $78
+      .db $07, $08, $0A, $0A, $0F, $16, $14, $14, $1E, $2D, $3C, $5A, $78
 
-      .BYTE $17 ; junk?
+      .db $17 ; junk?
 
 NoteLengthTable_112bpm: ; rounded, 112.5 bpm
-      .BYTE $08, $08, $0B, $0A, $10, $18, $15, $16, $20, $30, $40, $60, $80
+      .db $08, $08, $0B, $0A, $10, $18, $15, $16, $20, $30, $40, $60, $80
 
 NoteLengthTable_106bpm: ; rounded, 105.88 bpm
-      .BYTE $08, $09, $0B, $0C, $11, $19, $15, $16, $22, $33, $44, $60, $88
+      .db $08, $09, $0B, $0C, $11, $19, $15, $16, $22, $33, $44, $60, $88
 
-      .BYTE $1A ; junk?
+      .db $1A ; junk?
 
 NoteLengthTable_100bpm:
-      .BYTE $09, $09, $0C, $0C, $12, $1B, $18, $18, $24, $36, $48, $6C, $90
+      .db $09, $09, $0C, $0C, $12, $1B, $18, $18, $24, $36, $48, $6C, $90
 
 
 IFDEF PRESERVE_UNUSED_SPACE
@@ -1422,116 +1422,116 @@ MusicPartPointers:
 ; These pointers correspond to MusicQueue2 fanfares that temporarily interrupt
 ; the current background music
 MusicPartPointers_Mushroom:
-      .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
+      .db MusicHeaderMushroomBonusChance - MusicPartPointers
 
 MusicPartPointers_BossBeaten:
-      .BYTE MusicHeaderBossBeaten - MusicPartPointers
+      .db MusicHeaderBossBeaten - MusicPartPointers
 
 ; This version of the crystal fanfare is unused, because special logic in
 ; ProcessMusicQueue uses this slot for the ending theme instead.
 MusicPartPointers_CrystalUnused:
-      .BYTE MusicHeaderCrystal - MusicPartPointers
+      .db MusicHeaderCrystal - MusicPartPointers
 
 MusicPartPointers_Death:
-      .BYTE MusicHeaderDeath - MusicPartPointers
+      .db MusicHeaderDeath - MusicPartPointers
 
 MusicPartPointers_GameOver:
-      .BYTE MusicHeaderGameOver - MusicPartPointers
+      .db MusicHeaderGameOver - MusicPartPointers
 
 MusicPartPointers_Crystal:
-      .BYTE MusicHeaderCrystal - MusicPartPointers
+      .db MusicHeaderCrystal - MusicPartPointers
 
 MusicPartPointers_BonusChance:
-      .BYTE MusicHeaderMushroomBonusChance - MusicPartPointers
+      .db MusicHeaderMushroomBonusChance - MusicPartPointers
 
 ; The rest of the pointers correspond to music that uses the pointer tables
 ; with support for segment-based looping.
 MusicPartPointers_CharacterSelect:
-      .BYTE MusicHeaderCharacterSelect1 - MusicPartPointers
+      .db MusicHeaderCharacterSelect1 - MusicPartPointers
 MusicPartPointers_CharacterSelectLoop:
-      .BYTE MusicHeaderCharacterSelect2 - MusicPartPointers
-      .BYTE MusicHeaderCharacterSelect3 - MusicPartPointers
-      .BYTE MusicHeaderCharacterSelect2 - MusicPartPointers
-      .BYTE MusicHeaderCharacterSelect4 - MusicPartPointers
-      .BYTE MusicHeaderCharacterSelect5 - MusicPartPointers
-      .BYTE MusicHeaderCharacterSelect6 - MusicPartPointers
-      .BYTE MusicHeaderCharacterSelect7 - MusicPartPointers
+      .db MusicHeaderCharacterSelect2 - MusicPartPointers
+      .db MusicHeaderCharacterSelect3 - MusicPartPointers
+      .db MusicHeaderCharacterSelect2 - MusicPartPointers
+      .db MusicHeaderCharacterSelect4 - MusicPartPointers
+      .db MusicHeaderCharacterSelect5 - MusicPartPointers
+      .db MusicHeaderCharacterSelect6 - MusicPartPointers
+      .db MusicHeaderCharacterSelect7 - MusicPartPointers
 MusicPartPointers_CharacterSelectEnd:
-      .BYTE MusicHeaderCharacterSelect8 - MusicPartPointers
+      .db MusicHeaderCharacterSelect8 - MusicPartPointers
 
 MusicPartPointers_Overworld:
-      .BYTE MusicHeaderOverworld1 - MusicPartPointers
+      .db MusicHeaderOverworld1 - MusicPartPointers
 MusicPartPointers_OverworldLoop:
-      .BYTE MusicHeaderOverworld2 - MusicPartPointers
-      .BYTE MusicHeaderOverworld3 - MusicPartPointers
-      .BYTE MusicHeaderOverworld4 - MusicPartPointers
-      .BYTE MusicHeaderOverworld3 - MusicPartPointers
-      .BYTE MusicHeaderOverworld5 - MusicPartPointers
+      .db MusicHeaderOverworld2 - MusicPartPointers
+      .db MusicHeaderOverworld3 - MusicPartPointers
+      .db MusicHeaderOverworld4 - MusicPartPointers
+      .db MusicHeaderOverworld3 - MusicPartPointers
+      .db MusicHeaderOverworld5 - MusicPartPointers
 MusicPartPointers_OverworldEnd:
-      .BYTE MusicHeaderOverworld6 - MusicPartPointers
+      .db MusicHeaderOverworld6 - MusicPartPointers
 
 MusicPartPointers_Boss:
 MusicPartPointers_BossLoop:
 MusicPartPointers_BossEnd:
-      .BYTE MusicHeaderBoss - MusicPartPointers
+      .db MusicHeaderBoss - MusicPartPointers
 
 MusicPartPointers_Star:
 MusicPartPointers_StarLoop:
 MusicPartPointers_StarEnd:
-      .BYTE MusicHeaderStar - MusicPartPointers
+      .db MusicHeaderStar - MusicPartPointers
 
 MusicPartPointers_Wart:
 MusicPartPointers_WartLoop:
 MusicPartPointers_WartEnd:
-      .BYTE MusicHeaderWart - MusicPartPointers
+      .db MusicHeaderWart - MusicPartPointers
 
 MusicPartPointers_TitleScreen:
-      .BYTE MusicHeaderTitleScreen1 - MusicPartPointers
-      .BYTE MusicHeaderTitleScreen2 - MusicPartPointers
-      .BYTE MusicHeaderTitleScreen3 - MusicPartPointers
+      .db MusicHeaderTitleScreen1 - MusicPartPointers
+      .db MusicHeaderTitleScreen2 - MusicPartPointers
+      .db MusicHeaderTitleScreen3 - MusicPartPointers
 MusicPartPointers_TitleScreenEnd:
-      .BYTE MusicHeaderTitleScreen4 - MusicPartPointers
+      .db MusicHeaderTitleScreen4 - MusicPartPointers
 
 MusicPartPointers_SubSpace:
 MusicPartPointers_SubSpaceLoop:
-      .BYTE MusicHeaderSubspace1 - MusicPartPointers
-      .BYTE MusicHeaderSubspace2 - MusicPartPointers
-      .BYTE MusicHeaderSubspace3 - MusicPartPointers
-      .BYTE MusicHeaderSubspace2 - MusicPartPointers
+      .db MusicHeaderSubspace1 - MusicPartPointers
+      .db MusicHeaderSubspace2 - MusicPartPointers
+      .db MusicHeaderSubspace3 - MusicPartPointers
+      .db MusicHeaderSubspace2 - MusicPartPointers
 MusicPartPointers_SubSpaceEnd:
-      .BYTE MusicHeaderSubspace4 - MusicPartPointers
+      .db MusicHeaderSubspace4 - MusicPartPointers
 
 MusicPartPointers_Ending:
-      .BYTE MusicHeaderEnding1 - MusicPartPointers
-      .BYTE MusicHeaderEnding2 - MusicPartPointers
-      .BYTE MusicHeaderEnding3 - MusicPartPointers
-      .BYTE MusicHeaderEnding4 - MusicPartPointers
+      .db MusicHeaderEnding1 - MusicPartPointers
+      .db MusicHeaderEnding2 - MusicPartPointers
+      .db MusicHeaderEnding3 - MusicPartPointers
+      .db MusicHeaderEnding4 - MusicPartPointers
 IFNDEF PROTOTYPE_MUSIC
-      .BYTE MusicHeaderEnding5 - MusicPartPointers
+      .db MusicHeaderEnding5 - MusicPartPointers
 MusicPartPointers_EndingLoop:
 MusicPartPointers_EndingEnd:
-      .BYTE MusicHeaderEnding6 - MusicPartPointers
+      .db MusicHeaderEnding6 - MusicPartPointers
 ENDIF
 IFDEF PROTOTYPE_MUSIC
 MusicPartPointers_EndingEnd:
-      .BYTE MusicHeaderEnding5 - MusicPartPointers
+      .db MusicHeaderEnding5 - MusicPartPointers
 ENDIF
 
 IFNDEF PROTOTYPE_MUSIC
 MusicPartPointers_Underground:
 MusicPartPointers_UndergroundLoop:
 MusicPartPointers_UndergroundEnd:
-      .BYTE MusicHeaderUnderground - MusicPartPointers
+      .db MusicHeaderUnderground - MusicPartPointers
 ENDIF
 
 IFDEF PROTOTYPE_MUSIC
 MusicPartPointers_Underground:
 MusicPartPointers_UndergroundLoop:
-      .BYTE MusicHeaderUndergroundBeta1 - MusicPartPointers
-      .BYTE MusicHeaderUndergroundBeta1 - MusicPartPointers
-      .BYTE MusicHeaderUndergroundBeta2 - MusicPartPointers
+      .db MusicHeaderUndergroundBeta1 - MusicPartPointers
+      .db MusicHeaderUndergroundBeta1 - MusicPartPointers
+      .db MusicHeaderUndergroundBeta2 - MusicPartPointers
 MusicPartPointers_UndergroundEnd:
-      .BYTE MusicHeaderUndergroundBeta2 - MusicPartPointers
+      .db MusicHeaderUndergroundBeta2 - MusicPartPointers
 ENDIF
 
 ;
@@ -1552,368 +1552,368 @@ ENDIF
 ;
 MusicPartHeaders:
 MusicHeaderCharacterSelect1:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $AD, $98
-      .WORD MusicDataCharacterSelect1
-      .BYTE MusicDataCharacterSelect1_Triangle - MusicDataCharacterSelect1 ; $6B
-      .BYTE MusicDataCharacterSelect1_Square1 - MusicDataCharacterSelect1 ; $36
-      .BYTE MusicDataCharacterSelect1_Noise - MusicDataCharacterSelect1 ; $A0
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $AD, $98
+      .dw MusicDataCharacterSelect1
+      .db MusicDataCharacterSelect1_Triangle - MusicDataCharacterSelect1 ; $6B
+      .db MusicDataCharacterSelect1_Square1 - MusicDataCharacterSelect1 ; $36
+      .db MusicDataCharacterSelect1_Noise - MusicDataCharacterSelect1 ; $A0
 
 MusicHeaderCharacterSelect2:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $5C, $99
-      .WORD MusicDataCharacterSelect2
-      .BYTE MusicDataCharacterSelect2_Triangle - MusicDataCharacterSelect2 ; $8E
-      .BYTE MusicDataCharacterSelect2_Square1 - MusicDataCharacterSelect2 ; $48
-      .BYTE MusicDataCharacterSelect2_Noise - MusicDataCharacterSelect2 ; $B0
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $5C, $99
+      .dw MusicDataCharacterSelect2
+      .db MusicDataCharacterSelect2_Triangle - MusicDataCharacterSelect2 ; $8E
+      .db MusicDataCharacterSelect2_Square1 - MusicDataCharacterSelect2 ; $48
+      .db MusicDataCharacterSelect2_Noise - MusicDataCharacterSelect2 ; $B0
 
 MusicHeaderCharacterSelect3:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $9A, $99
-      .WORD MusicDataCharacterSelect3
-      .BYTE MusicDataCharacterSelect3_Triangle - MusicDataCharacterSelect3 ; $6F
-      .BYTE MusicDataCharacterSelect3_Square1 - MusicDataCharacterSelect3 ; $48
-      .BYTE MusicDataCharacterSelect3_Noise - MusicDataCharacterSelect3 ; $76
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $9A, $99
+      .dw MusicDataCharacterSelect3
+      .db MusicDataCharacterSelect3_Triangle - MusicDataCharacterSelect3 ; $6F
+      .db MusicDataCharacterSelect3_Square1 - MusicDataCharacterSelect3 ; $48
+      .db MusicDataCharacterSelect3_Noise - MusicDataCharacterSelect3 ; $76
 
 MusicHeaderCharacterSelect4:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $9E, $99
-      .WORD MusicDataCharacterSelect4
-      .BYTE MusicDataCharacterSelect4_Triangle - MusicDataCharacterSelect4 ; $6B
-      .BYTE MusicDataCharacterSelect4_Square1 - MusicDataCharacterSelect4 ; $47
-      .BYTE MusicDataCharacterSelect4_Noise - MusicDataCharacterSelect4 ; $72
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $9E, $99
+      .dw MusicDataCharacterSelect4
+      .db MusicDataCharacterSelect4_Triangle - MusicDataCharacterSelect4 ; $6B
+      .db MusicDataCharacterSelect4_Square1 - MusicDataCharacterSelect4 ; $47
+      .db MusicDataCharacterSelect4_Noise - MusicDataCharacterSelect4 ; $72
 
 MusicHeaderCharacterSelect5:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $26, $9A
-      .WORD MusicDataCharacterSelect5
-      .BYTE MusicDataCharacterSelect5_Triangle - MusicDataCharacterSelect5 ; $8A
-      .BYTE MusicDataCharacterSelect5_Square1 - MusicDataCharacterSelect5 ; $46
-      .BYTE MusicDataCharacterSelect5_Noise - MusicDataCharacterSelect5 ; $AC
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $26, $9A
+      .dw MusicDataCharacterSelect5
+      .db MusicDataCharacterSelect5_Triangle - MusicDataCharacterSelect5 ; $8A
+      .db MusicDataCharacterSelect5_Square1 - MusicDataCharacterSelect5 ; $46
+      .db MusicDataCharacterSelect5_Noise - MusicDataCharacterSelect5 ; $AC
 
 MusicHeaderOverworld1:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $D4, $9B
-      .WORD MusicDataOverworld1
-      .BYTE MusicDataOverworld1_Triangle - MusicDataOverworld1 ; $2B
-      .BYTE MusicDataOverworld1_Square1 - MusicDataOverworld1 ; $16
-      .BYTE MusicDataOverworld1_Noise - MusicDataOverworld1 ; $3D
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $D4, $9B
+      .dw MusicDataOverworld1
+      .db MusicDataOverworld1_Triangle - MusicDataOverworld1 ; $2B
+      .db MusicDataOverworld1_Square1 - MusicDataOverworld1 ; $16
+      .db MusicDataOverworld1_Noise - MusicDataOverworld1 ; $3D
 
 MusicHeaderOverworld2:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $20, $9C
-      .WORD MusicDataOverworld2
-      .BYTE MusicDataOverworld2_Triangle - MusicDataOverworld2 ; $A8
-      .BYTE MusicDataOverworld2_Square1 - MusicDataOverworld2 ; $54
-      .BYTE MusicDataOverworld2_Noise - MusicDataOverworld2 ; $C9
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $20, $9C
+      .dw MusicDataOverworld2
+      .db MusicDataOverworld2_Triangle - MusicDataOverworld2 ; $A8
+      .db MusicDataOverworld2_Square1 - MusicDataOverworld2 ; $54
+      .db MusicDataOverworld2_Noise - MusicDataOverworld2 ; $C9
 
 MusicHeaderOverworld3:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $F9, $9C
-      .WORD MusicDataOverworld3
-      .BYTE MusicDataOverworld3_Triangle - MusicDataOverworld3 ; $DD
-      .BYTE MusicDataOverworld3_Square1 - MusicDataOverworld3 ; $73
-      .BYTE MusicDataOverworld3_Noise - MusicDataOverworld3 ; $6C
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $F9, $9C
+      .dw MusicDataOverworld3
+      .db MusicDataOverworld3_Triangle - MusicDataOverworld3 ; $DD
+      .db MusicDataOverworld3_Square1 - MusicDataOverworld3 ; $73
+      .db MusicDataOverworld3_Noise - MusicDataOverworld3 ; $6C
 
 MusicHeaderOverworld4:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $3F, $9D
-      .WORD MusicDataOverworld4
-      .BYTE MusicDataOverworld4_Triangle - MusicDataOverworld4 ; $B2
-      .BYTE MusicDataOverworld4_Square1 - MusicDataOverworld4 ; $73
-      .BYTE MusicDataOverworld4_Noise - MusicDataOverworld4 ; $26
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $3F, $9D
+      .dw MusicDataOverworld4
+      .db MusicDataOverworld4_Triangle - MusicDataOverworld4 ; $B2
+      .db MusicDataOverworld4_Square1 - MusicDataOverworld4 ; $73
+      .db MusicDataOverworld4_Noise - MusicDataOverworld4 ; $26
 
 MusicHeaderOverworld5:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $00, $9E
-      .WORD MusicDataOverworld5
-      .BYTE MusicDataOverworld5_Triangle - MusicDataOverworld5 ; $38
-      .BYTE MusicDataOverworld5_Square1 - MusicDataOverworld5 ; $1D
-      .BYTE MusicDataOverworld5_Noise - MusicDataOverworld5 ; $46
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $00, $9E
+      .dw MusicDataOverworld5
+      .db MusicDataOverworld5_Triangle - MusicDataOverworld5 ; $38
+      .db MusicDataOverworld5_Square1 - MusicDataOverworld5 ; $1D
+      .db MusicDataOverworld5_Noise - MusicDataOverworld5 ; $46
 
 MusicHeaderOverworld6:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $4D, $9E
-      .WORD MusicDataOverworld6
-      .BYTE MusicDataOverworld6_Triangle - MusicDataOverworld6 ; $A7
-      .BYTE MusicDataOverworld6_Square1 - MusicDataOverworld6 ; $4F
-      .BYTE MusicDataOverworld6_Noise - MusicDataOverworld6 ; $C8
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $4D, $9E
+      .dw MusicDataOverworld6
+      .db MusicDataOverworld6_Triangle - MusicDataOverworld6 ; $A7
+      .db MusicDataOverworld6_Square1 - MusicDataOverworld6 ; $4F
+      .db MusicDataOverworld6_Noise - MusicDataOverworld6 ; $C8
 
 IFNDEF PROTOTYPE_MUSIC
 MusicHeaderUnderground:
-      .BYTE NoteLengthTable_129bpm - NoteLengthTable
-      ; .BYTE $BD, $94
-      .WORD MusicDataUnderground
-      .BYTE MusicDataUnderground_Triangle - MusicDataUnderground ; $53
-      .BYTE MusicDataUnderground_Square1 - MusicDataUnderground ; $2A
-      .BYTE MusicDataUnderground_DPCM - MusicDataUnderground ; $84
+      .db NoteLengthTable_129bpm - NoteLengthTable
+      ; .db $BD, $94
+      .dw MusicDataUnderground
+      .db MusicDataUnderground_Triangle - MusicDataUnderground ; $53
+      .db MusicDataUnderground_Square1 - MusicDataUnderground ; $2A
+      .db MusicDataUnderground_DPCM - MusicDataUnderground ; $84
 ENDIF
 
 IFDEF PROTOTYPE_MUSIC
 MusicHeaderUndergroundBeta1:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      .WORD MusicDataUndergroundBeta1
-      .BYTE MusicDataUndergroundBeta1_Triangle - MusicDataUndergroundBeta1
-      .BYTE MusicDataUndergroundBeta1_Square1 - MusicDataUndergroundBeta1
-      .BYTE MusicDataUndergroundBeta1_Noise - MusicDataUndergroundBeta1
-      .BYTE MusicDataUndergroundBeta1_DPCM - MusicDataUndergroundBeta1
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      .dw MusicDataUndergroundBeta1
+      .db MusicDataUndergroundBeta1_Triangle - MusicDataUndergroundBeta1
+      .db MusicDataUndergroundBeta1_Square1 - MusicDataUndergroundBeta1
+      .db MusicDataUndergroundBeta1_Noise - MusicDataUndergroundBeta1
+      .db MusicDataUndergroundBeta1_DPCM - MusicDataUndergroundBeta1
 MusicHeaderUndergroundBeta2:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      .WORD MusicDataUndergroundBeta2
-      .BYTE MusicDataUndergroundBeta2_Triangle - MusicDataUndergroundBeta2
-      .BYTE MusicDataUndergroundBeta2_Square1 - MusicDataUndergroundBeta2
-      .BYTE MusicDataUndergroundBeta2_Noise - MusicDataUndergroundBeta2
-      .BYTE MusicDataUndergroundBeta2_DPCM - MusicDataUndergroundBeta2
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      .dw MusicDataUndergroundBeta2
+      .db MusicDataUndergroundBeta2_Triangle - MusicDataUndergroundBeta2
+      .db MusicDataUndergroundBeta2_Square1 - MusicDataUndergroundBeta2
+      .db MusicDataUndergroundBeta2_Noise - MusicDataUndergroundBeta2
+      .db MusicDataUndergroundBeta2_DPCM - MusicDataUndergroundBeta2
 ENDIF
 
 MusicHeaderBoss:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $1C, $9F
-      .WORD MusicDataBoss
-      .BYTE MusicDataBoss_Triangle - MusicDataBoss ; $83
-      .BYTE MusicDataBoss_Square1 - MusicDataBoss ; $42
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $1C, $9F
+      .dw MusicDataBoss
+      .db MusicDataBoss_Triangle - MusicDataBoss ; $83
+      .db MusicDataBoss_Square1 - MusicDataBoss ; $42
 IFNDEF PROTOTYPE_MUSIC
-      .BYTE $00 ; no noise channel
+      .db $00 ; no noise channel
 ENDIF
 
 MusicHeaderStar:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $69, $94
-      .WORD MusicDataStar
-      .BYTE MusicDataStar_Triangle - MusicDataStar ; $37
-      .BYTE MusicDataStar_Square1 - MusicDataStar ; $1A
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $69, $94
+      .dw MusicDataStar
+      .db MusicDataStar_Triangle - MusicDataStar ; $37
+      .db MusicDataStar_Square1 - MusicDataStar ; $1A
 IFNDEF PROTOTYPE_MUSIC
-      .BYTE MusicDataStar_DPCM - MusicDataStar ; $49
+      .db MusicDataStar_DPCM - MusicDataStar ; $49
 ENDIF
 IFDEF PROTOTYPE_MUSIC
-      .BYTE MusicDataStar_Noise - MusicDataStar
+      .db MusicDataStar_Noise - MusicDataStar
 ENDIF
 
 MusicHeaderWart:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $C7, $9F
-      .WORD MusicDataWart
-      .BYTE MusicDataWart_Triangle - MusicDataWart ; $96
-      .BYTE MusicDataWart_Square1 - MusicDataWart ; $4B
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $C7, $9F
+      .dw MusicDataWart
+      .db MusicDataWart_Triangle - MusicDataWart ; $96
+      .db MusicDataWart_Square1 - MusicDataWart ; $4B
 IFNDEF PROTOTYPE_MUSIC
-      .BYTE $00 ; no noise channel
+      .db $00 ; no noise channel
 ENDIF
 
 MusicHeaderCrystal:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $48, $A1
-      .WORD MusicDataCrystal
-      .BYTE MusicDataCrystal_Triangle - MusicDataCrystal ; $1B
-      .BYTE MusicDataCrystal_Square1 - MusicDataCrystal ; $0D
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $48, $A1
+      .dw MusicDataCrystal
+      .db MusicDataCrystal_Triangle - MusicDataCrystal ; $1B
+      .db MusicDataCrystal_Square1 - MusicDataCrystal ; $0D
       ; no noise channel, using $00 from below
 
 MusicHeaderGameOver:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $CE, $A0
-      .WORD MusicDataGameOver
-      .BYTE MusicDataGameOver_Triangle - MusicDataGameOver ; $1B
-      .BYTE MusicDataGameOver_Square1 - MusicDataGameOver ; $0E
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $CE, $A0
+      .dw MusicDataGameOver
+      .db MusicDataGameOver_Triangle - MusicDataGameOver ; $1B
+      .db MusicDataGameOver_Square1 - MusicDataGameOver ; $0E
       ; no noise channel, using $00 from below
 
 MusicHeaderBossBeaten:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $F2, $A0
-      .WORD MusicDataBossBeaten
-      .BYTE MusicDataBossBeaten_Triangle - MusicDataBossBeaten ; $41
-      .BYTE MusicDataBossBeaten_Square1 - MusicDataBossBeaten ; $27
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $F2, $A0
+      .dw MusicDataBossBeaten
+      .db MusicDataBossBeaten_Triangle - MusicDataBossBeaten ; $41
+      .db MusicDataBossBeaten_Square1 - MusicDataBossBeaten ; $27
       ; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect8:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $93, $9B
-      .WORD MusicDataCharacterSelect8
-      .BYTE MusicDataCharacterSelect8_Triangle - MusicDataCharacterSelect8 ; $2F
-      .BYTE MusicDataCharacterSelect8_Square1 - MusicDataCharacterSelect8 ; $21
-      .BYTE MusicDataCharacterSelect8_Noise - MusicDataCharacterSelect8 ; $38
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $93, $9B
+      .dw MusicDataCharacterSelect8
+      .db MusicDataCharacterSelect8_Triangle - MusicDataCharacterSelect8 ; $2F
+      .db MusicDataCharacterSelect8_Square1 - MusicDataCharacterSelect8 ; $21
+      .db MusicDataCharacterSelect8_Noise - MusicDataCharacterSelect8 ; $38
 
 MusicHeaderMushroomBonusChance:
-      .BYTE NoteLengthTable_150bpm - NoteLengthTable
-      ; .BYTE $BB, $A0
-      .WORD MusicDataMushroomBonusChance
-      .BYTE $00 ; no triangle channel
-      .BYTE MusicDataMushroomBonusChance_Square1 - MusicDataMushroomBonusChance ; $0A
+      .db NoteLengthTable_150bpm - NoteLengthTable
+      ; .db $BB, $A0
+      .dw MusicDataMushroomBonusChance
+      .db $00 ; no triangle channel
+      .db MusicDataMushroomBonusChance_Square1 - MusicDataMushroomBonusChance ; $0A
       ; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect7:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $DF, $9A
-      .WORD MusicDataCharacterSelect7
-      .BYTE MusicDataCharacterSelect7_Triangle - MusicDataCharacterSelect7 ; $97
-      .BYTE MusicDataCharacterSelect7_Square1 - MusicDataCharacterSelect7 ; $61
-      .BYTE MusicDataCharacterSelect7_Noise - MusicDataCharacterSelect7 ; $B0
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $DF, $9A
+      .dw MusicDataCharacterSelect7
+      .db MusicDataCharacterSelect7_Triangle - MusicDataCharacterSelect7 ; $97
+      .db MusicDataCharacterSelect7_Square1 - MusicDataCharacterSelect7 ; $61
+      .db MusicDataCharacterSelect7_Noise - MusicDataCharacterSelect7 ; $B0
 
 MusicHeaderDeath:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $6F, $A1
-      .WORD MusicDataDeath
-      .BYTE MusicDataDeath_Triangle - MusicDataDeath ; $17
-      .BYTE MusicDataDeath_Square1 - MusicDataDeath ; $0C
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $6F, $A1
+      .dw MusicDataDeath
+      .db MusicDataDeath_Triangle - MusicDataDeath ; $17
+      .db MusicDataDeath_Square1 - MusicDataDeath ; $0C
       ; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect6:
-      .BYTE NoteLengthTable_300bpm - NoteLengthTable
-      ; .BYTE $5D, $9A
-      .WORD MusicDataCharacterSelect6
-      .BYTE MusicDataCharacterSelect6_Triangle - MusicDataCharacterSelect6 ; $6C
-      .BYTE MusicDataCharacterSelect6_Square1 - MusicDataCharacterSelect6 ; $45
-      .BYTE MusicDataCharacterSelect6_Noise - MusicDataCharacterSelect6 ; $79
+      .db NoteLengthTable_300bpm - NoteLengthTable
+      ; .db $5D, $9A
+      .dw MusicDataCharacterSelect6
+      .db MusicDataCharacterSelect6_Triangle - MusicDataCharacterSelect6 ; $6C
+      .db MusicDataCharacterSelect6_Square1 - MusicDataCharacterSelect6 ; $45
+      .db MusicDataCharacterSelect6_Noise - MusicDataCharacterSelect6 ; $79
 
 MusicHeaderTitleScreen2:
-      .BYTE NoteLengthTable_225bpm - NoteLengthTable
-      ; .BYTE $A7, $96
-      .WORD MusicDataTitleScreen2
-      .BYTE MusicDataTitleScreen2_Triangle - MusicDataTitleScreen2 ; $BC
-      .BYTE MusicDataTitleScreen2_Square1 - MusicDataTitleScreen2 ; $64
-      .BYTE MusicDataTitleScreen2_Noise - MusicDataTitleScreen2 ; $59
+      .db NoteLengthTable_225bpm - NoteLengthTable
+      ; .db $A7, $96
+      .dw MusicDataTitleScreen2
+      .db MusicDataTitleScreen2_Triangle - MusicDataTitleScreen2 ; $BC
+      .db MusicDataTitleScreen2_Square1 - MusicDataTitleScreen2 ; $64
+      .db MusicDataTitleScreen2_Noise - MusicDataTitleScreen2 ; $59
 
 MusicHeaderTitleScreen1:
-      .BYTE NoteLengthTable_225bpm - NoteLengthTable
-      ; .BYTE $3E, $96
-      .WORD MusicDataTitleScreen1
-      .BYTE MusicDataTitleScreen1_Triangle - MusicDataTitleScreen1 ; $43
-      .BYTE MusicDataTitleScreen1_Square1 - MusicDataTitleScreen1 ; $22
-      .BYTE MusicDataTitleScreen1_Noise - MusicDataTitleScreen1 ; $57
+      .db NoteLengthTable_225bpm - NoteLengthTable
+      ; .db $3E, $96
+      .dw MusicDataTitleScreen1
+      .db MusicDataTitleScreen1_Triangle - MusicDataTitleScreen1 ; $43
+      .db MusicDataTitleScreen1_Square1 - MusicDataTitleScreen1 ; $22
+      .db MusicDataTitleScreen1_Noise - MusicDataTitleScreen1 ; $57
 
 MusicHeaderTitleScreen3:
-      .BYTE NoteLengthTable_225bpm - NoteLengthTable
-      ; .BYTE $94, $97
-      .WORD MusicDataTitleScreen3
-      .BYTE MusicDataTitleScreen3_Triangle - MusicDataTitleScreen3 ; $8D
-      .BYTE MusicDataTitleScreen3_Square1 - MusicDataTitleScreen3 ; $47
-      .BYTE MusicDataTitleScreen3_Noise - MusicDataTitleScreen3 ; $BA
+      .db NoteLengthTable_225bpm - NoteLengthTable
+      ; .db $94, $97
+      .dw MusicDataTitleScreen3
+      .db MusicDataTitleScreen3_Triangle - MusicDataTitleScreen3 ; $8D
+      .db MusicDataTitleScreen3_Square1 - MusicDataTitleScreen3 ; $47
+      .db MusicDataTitleScreen3_Noise - MusicDataTitleScreen3 ; $BA
 
 MusicHeaderTitleScreen4:
-      .BYTE NoteLengthTable_225bpm - NoteLengthTable
-      ; .BYTE $78, $98
-      .WORD MusicDataTitleScreen4
-      .BYTE MusicDataTitleScreen4_Triangle - MusicDataTitleScreen4 ; $24
-      .BYTE MusicDataTitleScreen4_Square1 - MusicDataTitleScreen4 ; $12
-      .BYTE MusicDataTitleScreen4_Noise - MusicDataTitleScreen4 ; $29
+      .db NoteLengthTable_225bpm - NoteLengthTable
+      ; .db $78, $98
+      .dw MusicDataTitleScreen4
+      .db MusicDataTitleScreen4_Triangle - MusicDataTitleScreen4 ; $24
+      .db MusicDataTitleScreen4_Square1 - MusicDataTitleScreen4 ; $12
+      .db MusicDataTitleScreen4_Noise - MusicDataTitleScreen4 ; $29
 
 MusicHeaderSubspace1:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $50, $95
-      .WORD MusicDataSubspace1
-      .BYTE MusicDataSubspace1_Triangle - MusicDataSubspace1 ; $38
-      .BYTE MusicDataSubspace1_Square1 - MusicDataSubspace1 ; $1C
-      .BYTE MusicDataSubspace1_Noise - MusicDataSubspace1 ; $83
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $50, $95
+      .dw MusicDataSubspace1
+      .db MusicDataSubspace1_Triangle - MusicDataSubspace1 ; $38
+      .db MusicDataSubspace1_Square1 - MusicDataSubspace1 ; $1C
+      .db MusicDataSubspace1_Noise - MusicDataSubspace1 ; $83
 
 MusicHeaderSubspace2:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $A3, $95
-      .WORD MusicDataSubspace2
-      .BYTE MusicDataSubspace2_Triangle - MusicDataSubspace2 ; $24
-      .BYTE MusicDataSubspace2_Square1 - MusicDataSubspace2 ; $12
-      .BYTE MusicDataSubspace2_Noise - MusicDataSubspace2 ; $30
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $A3, $95
+      .dw MusicDataSubspace2
+      .db MusicDataSubspace2_Triangle - MusicDataSubspace2 ; $24
+      .db MusicDataSubspace2_Square1 - MusicDataSubspace2 ; $12
+      .db MusicDataSubspace2_Noise - MusicDataSubspace2 ; $30
 
 MusicHeaderSubspace3:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $E0, $95
-      .WORD MusicDataSubspace3
-      .BYTE MusicDataSubspace3_Triangle - MusicDataSubspace3 ; $22
-      .BYTE MusicDataSubspace3_Square1 - MusicDataSubspace3 ; $10
-      .BYTE MusicDataSubspace3_Noise - MusicDataSubspace3 ; $51
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $E0, $95
+      .dw MusicDataSubspace3
+      .db MusicDataSubspace3_Triangle - MusicDataSubspace3 ; $22
+      .db MusicDataSubspace3_Square1 - MusicDataSubspace3 ; $10
+      .db MusicDataSubspace3_Noise - MusicDataSubspace3 ; $51
 
 MusicHeaderSubspace4:
-      .BYTE NoteLengthTable_200bpm - NoteLengthTable
-      ; .BYTE $0F, $96
-      .WORD MusicDataSubspace4
-      .BYTE MusicDataSubspace4_Triangle - MusicDataSubspace4 ; $17
-      .BYTE MusicDataSubspace4_Square1 - MusicDataSubspace4 ; $0A
-      .BYTE MusicDataSubspace4_Noise - MusicDataSubspace4 ; $22
+      .db NoteLengthTable_200bpm - NoteLengthTable
+      ; .db $0F, $96
+      .dw MusicDataSubspace4
+      .db MusicDataSubspace4_Triangle - MusicDataSubspace4 ; $17
+      .db MusicDataSubspace4_Square1 - MusicDataSubspace4 ; $0A
+      .db MusicDataSubspace4_Noise - MusicDataSubspace4 ; $22
 
 MusicHeaderEnding1:
-      .BYTE NoteLengthTable_129bpm - NoteLengthTable
-      ; .BYTE $1E, $91
-      .WORD MusicDataEnding1
-      .BYTE MusicDataEnding1_Triangle - MusicDataEnding1 ; $3D
-      .BYTE MusicDataEnding1_Square1 - MusicDataEnding1; $1F
-      .BYTE MusicDataEnding1_Noise - MusicDataEnding1 ; $6D
+      .db NoteLengthTable_129bpm - NoteLengthTable
+      ; .db $1E, $91
+      .dw MusicDataEnding1
+      .db MusicDataEnding1_Triangle - MusicDataEnding1 ; $3D
+      .db MusicDataEnding1_Square1 - MusicDataEnding1; $1F
+      .db MusicDataEnding1_Noise - MusicDataEnding1 ; $6D
 
 MusicHeaderEnding3:
-      .BYTE NoteLengthTable_129bpm - NoteLengthTable
-      ; .BYTE $9C, $91
-      .WORD MusicDataEnding3
-      .BYTE MusicDataEnding3_Triangle - MusicDataEnding3 ; $41
-      .BYTE MusicDataEnding3_Square1 - MusicDataEnding3 ; $21
-      .BYTE MusicDataEnding3_Noise - MusicDataEnding3 ; $8C
+      .db NoteLengthTable_129bpm - NoteLengthTable
+      ; .db $9C, $91
+      .dw MusicDataEnding3
+      .db MusicDataEnding3_Triangle - MusicDataEnding3 ; $41
+      .db MusicDataEnding3_Square1 - MusicDataEnding3 ; $21
+      .db MusicDataEnding3_Noise - MusicDataEnding3 ; $8C
 
 MusicHeaderEnding2:
-      .BYTE NoteLengthTable_129bpm - NoteLengthTable
-      ; .BYTE $80, $92
-      .WORD MusicDataEnding2
-      .BYTE MusicDataEnding2_Triangle - MusicDataEnding2 ; $2A
-      .BYTE MusicDataEnding2_Square1 - MusicDataEnding2 ; $5A
-      .BYTE MusicDataEnding2_Noise - MusicDataEnding2 ; $19
+      .db NoteLengthTable_129bpm - NoteLengthTable
+      ; .db $80, $92
+      .dw MusicDataEnding2
+      .db MusicDataEnding2_Triangle - MusicDataEnding2 ; $2A
+      .db MusicDataEnding2_Square1 - MusicDataEnding2 ; $5A
+      .db MusicDataEnding2_Noise - MusicDataEnding2 ; $19
 
 MusicHeaderEnding5:
-      .BYTE NoteLengthTable_129bpm - NoteLengthTable
-      ; .BYTE $F2, $92
-      .WORD MusicDataEnding5
-      .BYTE MusicDataEnding5_Triangle - MusicDataEnding5 ; $4C
-      .BYTE MusicDataEnding5_Square1 - MusicDataEnding5 ; $14
-      .BYTE MusicDataEnding5_Noise - MusicDataEnding5 ; $68
+      .db NoteLengthTable_129bpm - NoteLengthTable
+      ; .db $F2, $92
+      .dw MusicDataEnding5
+      .db MusicDataEnding5_Triangle - MusicDataEnding5 ; $4C
+      .db MusicDataEnding5_Square1 - MusicDataEnding5 ; $14
+      .db MusicDataEnding5_Noise - MusicDataEnding5 ; $68
 
 MusicHeaderEnding4:
-      .BYTE NoteLengthTable_129bpm - NoteLengthTable
-      ; .BYTE $0D, $92
-      .WORD MusicDataEnding4
-      .BYTE MusicDataEnding4_Triangle - MusicDataEnding4 ; $43
-      .BYTE MusicDataEnding4_Square1 - MusicDataEnding4 ; $29
-      .BYTE MusicDataEnding4_Noise - MusicDataEnding4 ; $1B
+      .db NoteLengthTable_129bpm - NoteLengthTable
+      ; .db $0D, $92
+      .dw MusicDataEnding4
+      .db MusicDataEnding4_Triangle - MusicDataEnding4 ; $43
+      .db MusicDataEnding4_Square1 - MusicDataEnding4 ; $29
+      .db MusicDataEnding4_Noise - MusicDataEnding4 ; $1B
 
 IFNDEF PROTOTYPE_MUSIC
 MusicHeaderEnding6:
-      .BYTE NoteLengthTable_129bpm - NoteLengthTable
-      ; .BYTE $76, $93
-      .WORD MusicDataEnding6
-      .BYTE $00 ; no triangle channel
-      .BYTE MusicDataEnding6_Square1 - MusicDataEnding6 ; $72
-      .BYTE $00 ; no square channel
+      .db NoteLengthTable_129bpm - NoteLengthTable
+      ; .db $76, $93
+      .dw MusicDataEnding6
+      .db $00 ; no triangle channel
+      .db MusicDataEnding6_Square1 - MusicDataEnding6 ; $72
+      .db $00 ; no square channel
 ENDIF
 
 
 MusicPointersFirstPart:
-      .BYTE MusicPartPointers_Overworld - MusicPartPointers
-      .BYTE MusicPartPointers_CharacterSelect - MusicPartPointers
-      .BYTE MusicPartPointers_Underground - MusicPartPointers
-      .BYTE MusicPartPointers_Boss - MusicPartPointers
-      .BYTE MusicPartPointers_Star - MusicPartPointers
-      .BYTE MusicPartPointers_SubSpace - MusicPartPointers
-      .BYTE MusicPartPointers_Wart - MusicPartPointers
-      .BYTE MusicPartPointers_TitleScreen - MusicPartPointers
-      .BYTE MusicPartPointers_Ending - MusicPartPointers
+      .db MusicPartPointers_Overworld - MusicPartPointers
+      .db MusicPartPointers_CharacterSelect - MusicPartPointers
+      .db MusicPartPointers_Underground - MusicPartPointers
+      .db MusicPartPointers_Boss - MusicPartPointers
+      .db MusicPartPointers_Star - MusicPartPointers
+      .db MusicPartPointers_SubSpace - MusicPartPointers
+      .db MusicPartPointers_Wart - MusicPartPointers
+      .db MusicPartPointers_TitleScreen - MusicPartPointers
+      .db MusicPartPointers_Ending - MusicPartPointers
 
 MusicPointersEndPart:
-      .BYTE MusicPartPointers_OverworldEnd - MusicPartPointers
-      .BYTE MusicPartPointers_CharacterSelectEnd - MusicPartPointers
-      .BYTE MusicPartPointers_UndergroundEnd - MusicPartPointers
-      .BYTE MusicPartPointers_BossEnd - MusicPartPointers
-      .BYTE MusicPartPointers_StarEnd - MusicPartPointers
-      .BYTE MusicPartPointers_SubSpaceEnd - MusicPartPointers
-      .BYTE MusicPartPointers_WartEnd - MusicPartPointers
-      .BYTE MusicPartPointers_TitleScreenEnd - MusicPartPointers
-      .BYTE MusicPartPointers_EndingEnd - MusicPartPointers
+      .db MusicPartPointers_OverworldEnd - MusicPartPointers
+      .db MusicPartPointers_CharacterSelectEnd - MusicPartPointers
+      .db MusicPartPointers_UndergroundEnd - MusicPartPointers
+      .db MusicPartPointers_BossEnd - MusicPartPointers
+      .db MusicPartPointers_StarEnd - MusicPartPointers
+      .db MusicPartPointers_SubSpaceEnd - MusicPartPointers
+      .db MusicPartPointers_WartEnd - MusicPartPointers
+      .db MusicPartPointers_TitleScreenEnd - MusicPartPointers
+      .db MusicPartPointers_EndingEnd - MusicPartPointers
 
 MusicPointersLoopPart:
-      .BYTE MusicPartPointers_OverworldLoop - MusicPartPointers
-      .BYTE MusicPartPointers_CharacterSelectLoop - MusicPartPointers
-      .BYTE MusicPartPointers_UndergroundLoop - MusicPartPointers
-      .BYTE MusicPartPointers_BossLoop - MusicPartPointers
-      .BYTE MusicPartPointers_StarLoop - MusicPartPointers
-      .BYTE MusicPartPointers_SubSpaceLoop - MusicPartPointers
-      .BYTE MusicPartPointers_WartEnd - MusicPartPointers
-      .BYTE $00 ; no loop
+      .db MusicPartPointers_OverworldLoop - MusicPartPointers
+      .db MusicPartPointers_CharacterSelectLoop - MusicPartPointers
+      .db MusicPartPointers_UndergroundLoop - MusicPartPointers
+      .db MusicPartPointers_BossLoop - MusicPartPointers
+      .db MusicPartPointers_StarLoop - MusicPartPointers
+      .db MusicPartPointers_SubSpaceLoop - MusicPartPointers
+      .db MusicPartPointers_WartEnd - MusicPartPointers
+      .db $00 ; no loop
 IFNDEF PROTOTYPE_MUSIC
-      .BYTE MusicPartPointers_EndingLoop - MusicPartPointers
+      .db MusicPartPointers_EndingLoop - MusicPartPointers
 ENDIF
 IFDEF PROTOTYPE_MUSIC
-      .BYTE $00 ; no loop
+      .db $00 ; no loop
 ENDIF
 
 ;
@@ -1968,1156 +1968,1156 @@ MusicData:
 
 MusicDataEnding1:
 MusicDataEnding1_Square2:
-      .BYTE $8A
-      .BYTE $50
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $52
-      .BYTE $50
-      .BYTE $48
-      .BYTE $82
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $83
-      .BYTE $50
-      .BYTE $8A
-      .BYTE $52
-      .BYTE $88
-      .BYTE $4C
-      .BYTE $8A
-      .BYTE $56
-      .BYTE $82
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $52
-      .BYTE $52
-      .BYTE $83
-      .BYTE $50
-      .BYTE $4C
-      .BYTE $8B
-      .BYTE $50
-      .BYTE $88
-      .BYTE $4C
-      .BYTE $00
+      .db $8A
+      .db $50
+      .db $84
+      .db $7E
+      .db $52
+      .db $50
+      .db $48
+      .db $82
+      .db $4C
+      .db $7E
+      .db $83
+      .db $50
+      .db $8A
+      .db $52
+      .db $88
+      .db $4C
+      .db $8A
+      .db $56
+      .db $82
+      .db $7E
+      .db $7E
+      .db $52
+      .db $52
+      .db $83
+      .db $50
+      .db $4C
+      .db $8B
+      .db $50
+      .db $88
+      .db $4C
+      .db $00
 MusicDataEnding1_Square1:
-      .BYTE $8A
-      .BYTE $3E
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $3E
-      .BYTE $38
-      .BYTE $82
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $83
-      .BYTE $3E
-      .BYTE $8A
-      .BYTE $44
-      .BYTE $88
-      .BYTE $3A
-      .BYTE $8A
-      .BYTE $44
-      .BYTE $82
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $44
-      .BYTE $83
-      .BYTE $3E
-      .BYTE $3A
-      .BYTE $8B
-      .BYTE $3E
-      .BYTE $88
-      .BYTE $3A
+      .db $8A
+      .db $3E
+      .db $84
+      .db $7E
+      .db $42
+      .db $3E
+      .db $38
+      .db $82
+      .db $3A
+      .db $7E
+      .db $83
+      .db $3E
+      .db $8A
+      .db $44
+      .db $88
+      .db $3A
+      .db $8A
+      .db $44
+      .db $82
+      .db $7E
+      .db $7E
+      .db $44
+      .db $44
+      .db $83
+      .db $3E
+      .db $3A
+      .db $8B
+      .db $3E
+      .db $88
+      .db $3A
 MusicDataEnding1_Triangle:
-      .BYTE $88
-      .BYTE $30
-      .BYTE $82
-      .BYTE $30
-      .BYTE $30
-      .BYTE $83
-      .BYTE $30
-      .BYTE $84
-      .BYTE $30
-      .BYTE $30
-      .BYTE $30
-      .BYTE $30
-      .BYTE $88
-      .BYTE $30
-      .BYTE $82
-      .BYTE $30
-      .BYTE $30
-      .BYTE $83
-      .BYTE $30
-      .BYTE $84
-      .BYTE $30
-      .BYTE $30
-      .BYTE $30
-      .BYTE $30
-      .BYTE $88
-      .BYTE $30
-      .BYTE $82
-      .BYTE $30
-      .BYTE $30
-      .BYTE $83
-      .BYTE $30
-      .BYTE $84
-      .BYTE $30
-      .BYTE $30
-      .BYTE $30
-      .BYTE $30
-      .BYTE $88
-      .BYTE $30
-      .BYTE $82
-      .BYTE $30
-      .BYTE $30
-      .BYTE $83
-      .BYTE $30
-      .BYTE $84
-      .BYTE $30
-      .BYTE $30
-      .BYTE $2E
-      .BYTE $2E
+      .db $88
+      .db $30
+      .db $82
+      .db $30
+      .db $30
+      .db $83
+      .db $30
+      .db $84
+      .db $30
+      .db $30
+      .db $30
+      .db $30
+      .db $88
+      .db $30
+      .db $82
+      .db $30
+      .db $30
+      .db $83
+      .db $30
+      .db $84
+      .db $30
+      .db $30
+      .db $30
+      .db $30
+      .db $88
+      .db $30
+      .db $82
+      .db $30
+      .db $30
+      .db $83
+      .db $30
+      .db $84
+      .db $30
+      .db $30
+      .db $30
+      .db $30
+      .db $88
+      .db $30
+      .db $82
+      .db $30
+      .db $30
+      .db $83
+      .db $30
+      .db $84
+      .db $30
+      .db $30
+      .db $2E
+      .db $2E
 MusicDataEnding1_Noise:
-      .BYTE $88
-      .BYTE $10
-      .BYTE $82
-      .BYTE $10
-      .BYTE $82
-      .BYTE $10
-      .BYTE $83
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $00
+      .db $88
+      .db $10
+      .db $82
+      .db $10
+      .db $82
+      .db $10
+      .db $83
+      .db $10
+      .db $84
+      .db $10
+      .db $84
+      .db $10
+      .db $84
+      .db $10
+      .db $84
+      .db $10
+      .db $00
 
 MusicDataEnding3:
 MusicDataEnding3_Square2:
-      .BYTE $8A
-      .BYTE $50
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $52
-      .BYTE $50
-      .BYTE $48
-      .BYTE $82
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $83
-      .BYTE $4C
-      .BYTE $8A
-      .BYTE $56
-      .BYTE $88
-      .BYTE $3E
-      .BYTE $8A
-      .BYTE $4C
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $4E
-      .BYTE $4C
-      .BYTE $44
-      .BYTE $82
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $83
-      .BYTE $48
-      .BYTE $8A
-      .BYTE $52
-      .BYTE $88
-      .BYTE $3A
-      .BYTE $00
+      .db $8A
+      .db $50
+      .db $84
+      .db $7E
+      .db $52
+      .db $50
+      .db $48
+      .db $82
+      .db $4C
+      .db $7E
+      .db $83
+      .db $4C
+      .db $8A
+      .db $56
+      .db $88
+      .db $3E
+      .db $8A
+      .db $4C
+      .db $84
+      .db $7E
+      .db $4E
+      .db $4C
+      .db $44
+      .db $82
+      .db $48
+      .db $7E
+      .db $83
+      .db $48
+      .db $8A
+      .db $52
+      .db $88
+      .db $3A
+      .db $00
 MusicDataEnding3_Square1:
-      .BYTE $8A
-      .BYTE $48
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $48
-      .BYTE $3E
-      .BYTE $82
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $83
-      .BYTE $46
-      .BYTE $8A
-      .BYTE $4C
-      .BYTE $88
-      .BYTE $34
-      .BYTE $8A
-      .BYTE $44
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $44
-      .BYTE $3A
-      .BYTE $82
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $83
-      .BYTE $42
-      .BYTE $8A
-      .BYTE $48
-      .BYTE $88
-      .BYTE $30
+      .db $8A
+      .db $48
+      .db $84
+      .db $7E
+      .db $48
+      .db $48
+      .db $3E
+      .db $82
+      .db $46
+      .db $7E
+      .db $83
+      .db $46
+      .db $8A
+      .db $4C
+      .db $88
+      .db $34
+      .db $8A
+      .db $44
+      .db $84
+      .db $7E
+      .db $44
+      .db $44
+      .db $3A
+      .db $82
+      .db $42
+      .db $7E
+      .db $83
+      .db $42
+      .db $8A
+      .db $48
+      .db $88
+      .db $30
 MusicDataEnding3_Triangle:
-      .BYTE $88
-      .BYTE $30
-      .BYTE $82
-      .BYTE $30
-      .BYTE $30
-      .BYTE $83
-      .BYTE $30
-      .BYTE $84
-      .BYTE $30
-      .BYTE $30
-      .BYTE $30
-      .BYTE $30
-      .BYTE $88
-      .BYTE $2E
-      .BYTE $82
-      .BYTE $2E
-      .BYTE $2E
-      .BYTE $83
-      .BYTE $2E
-      .BYTE $84
-      .BYTE $2E
-      .BYTE $2E
-      .BYTE $2E
-      .BYTE $2E
-      .BYTE $88
-      .BYTE $2C
-      .BYTE $82
-      .BYTE $2C
-      .BYTE $2C
-      .BYTE $83
-      .BYTE $2C
-      .BYTE $84
-      .BYTE $2C
-      .BYTE $2C
-      .BYTE $2C
-      .BYTE $2C
-      .BYTE $88
-      .BYTE $2A
-      .BYTE $82
-      .BYTE $2A
-      .BYTE $2A
-      .BYTE $83
-      .BYTE $2A
-      .BYTE $84
-      .BYTE $2A
-      .BYTE $2A
-      .BYTE $2A
-      .BYTE $2A
+      .db $88
+      .db $30
+      .db $82
+      .db $30
+      .db $30
+      .db $83
+      .db $30
+      .db $84
+      .db $30
+      .db $30
+      .db $30
+      .db $30
+      .db $88
+      .db $2E
+      .db $82
+      .db $2E
+      .db $2E
+      .db $83
+      .db $2E
+      .db $84
+      .db $2E
+      .db $2E
+      .db $2E
+      .db $2E
+      .db $88
+      .db $2C
+      .db $82
+      .db $2C
+      .db $2C
+      .db $83
+      .db $2C
+      .db $84
+      .db $2C
+      .db $2C
+      .db $2C
+      .db $2C
+      .db $88
+      .db $2A
+      .db $82
+      .db $2A
+      .db $2A
+      .db $83
+      .db $2A
+      .db $84
+      .db $2A
+      .db $2A
+      .db $2A
+      .db $2A
 
 MusicDataEnding4:
 MusicDataEnding4_Square2:
-      .BYTE $8A
-      .BYTE $48
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $52
-      .BYTE $8A
-      .BYTE $50
-      .BYTE $88
-      .BYTE $48
-      .BYTE $3E
-      .BYTE $8A
-      .BYTE $42
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $46
-      .BYTE $48
-      .BYTE $8A
-      .BYTE $42
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $46
-      .BYTE $50
-      .BYTE $00
+      .db $8A
+      .db $48
+      .db $84
+      .db $7E
+      .db $48
+      .db $4C
+      .db $52
+      .db $8A
+      .db $50
+      .db $88
+      .db $48
+      .db $3E
+      .db $8A
+      .db $42
+      .db $84
+      .db $7E
+      .db $42
+      .db $46
+      .db $48
+      .db $8A
+      .db $42
+      .db $84
+      .db $7E
+      .db $42
+      .db $46
+      .db $50
+      .db $00
 MusicDataEnding3_Noise:
 MusicDataEnding4_Noise:
-      .BYTE $88
-      .BYTE $10
-      .BYTE $82
-      .BYTE $10
-      .BYTE $10
-      .BYTE $83
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $00
+      .db $88
+      .db $10
+      .db $82
+      .db $10
+      .db $10
+      .db $83
+      .db $10
+      .db $84
+      .db $10
+      .db $84
+      .db $10
+      .db $10
+      .db $10
+      .db $00
 MusicDataEnding4_Square1:
-      .BYTE $8A
-      .BYTE $40
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $40
-      .BYTE $48
-      .BYTE $8A
-      .BYTE $48
-      .BYTE $88
-      .BYTE $3E
-      .BYTE $38
-      .BYTE $8A
-      .BYTE $3A
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $42
-      .BYTE $8A
-      .BYTE $3A
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $3A
+      .db $8A
+      .db $40
+      .db $84
+      .db $7E
+      .db $40
+      .db $40
+      .db $48
+      .db $8A
+      .db $48
+      .db $88
+      .db $3E
+      .db $38
+      .db $8A
+      .db $3A
+      .db $84
+      .db $7E
+      .db $3A
+      .db $3A
+      .db $42
+      .db $8A
+      .db $3A
+      .db $84
+      .db $7E
+      .db $3A
+      .db $3A
+      .db $3A
 MusicDataEnding4_Triangle:
-      .BYTE $88
-      .BYTE $28
-      .BYTE $82
-      .BYTE $28
-      .BYTE $28
-      .BYTE $83
-      .BYTE $28
-      .BYTE $84
-      .BYTE $28
-      .BYTE $28
-      .BYTE $28
-      .BYTE $28
-      .BYTE $88
-      .BYTE $26
-      .BYTE $82
-      .BYTE $26
-      .BYTE $26
-      .BYTE $83
-      .BYTE $26
-      .BYTE $84
-      .BYTE $26
-      .BYTE $26
-      .BYTE $26
-      .BYTE $26
-      .BYTE $88
-      .BYTE $34
-      .BYTE $82
-      .BYTE $34
-      .BYTE $34
-      .BYTE $83
-      .BYTE $34
-      .BYTE $84
-      .BYTE $34
-      .BYTE $34
-      .BYTE $34
-      .BYTE $34
-      .BYTE $88
-      .BYTE $26
-      .BYTE $82
-      .BYTE $26
-      .BYTE $26
-      .BYTE $83
-      .BYTE $26
-      .BYTE $84
-      .BYTE $26
-      .BYTE $26
-      .BYTE $26
-      .BYTE $26
+      .db $88
+      .db $28
+      .db $82
+      .db $28
+      .db $28
+      .db $83
+      .db $28
+      .db $84
+      .db $28
+      .db $28
+      .db $28
+      .db $28
+      .db $88
+      .db $26
+      .db $82
+      .db $26
+      .db $26
+      .db $83
+      .db $26
+      .db $84
+      .db $26
+      .db $26
+      .db $26
+      .db $26
+      .db $88
+      .db $34
+      .db $82
+      .db $34
+      .db $34
+      .db $83
+      .db $34
+      .db $84
+      .db $34
+      .db $34
+      .db $34
+      .db $34
+      .db $88
+      .db $26
+      .db $82
+      .db $26
+      .db $26
+      .db $83
+      .db $26
+      .db $84
+      .db $26
+      .db $26
+      .db $26
+      .db $26
 
 MusicDataEnding2:
 MusicDataEnding2_Square2:
-      .BYTE $8A
-      .BYTE $48
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $8A
-      .BYTE $48
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $8A
-      .BYTE $48
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $8A
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $00
+      .db $8A
+      .db $48
+      .db $84
+      .db $7E
+      .db $46
+      .db $48
+      .db $4C
+      .db $8A
+      .db $48
+      .db $84
+      .db $7E
+      .db $46
+      .db $48
+      .db $4C
+      .db $8A
+      .db $48
+      .db $84
+      .db $7E
+      .db $42
+      .db $48
+      .db $4C
+      .db $8A
+      .db $56
+      .db $7E
+      .db $00
 MusicDataEnding2_Noise:
-      .BYTE $88
-      .BYTE $10
-      .BYTE $82
-      .BYTE $10
-      .BYTE $82
-      .BYTE $10
-      .BYTE $83
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $00
+      .db $88
+      .db $10
+      .db $82
+      .db $10
+      .db $82
+      .db $10
+      .db $83
+      .db $10
+      .db $84
+      .db $10
+      .db $84
+      .db $10
+      .db $84
+      .db $10
+      .db $84
+      .db $10
+      .db $00
 MusicDataEnding2_Triangle:
-      .BYTE $88
-      .BYTE $2A
-      .BYTE $82
-      .BYTE $2A
-      .BYTE $2A
-      .BYTE $83
-      .BYTE $2A
-      .BYTE $84
-      .BYTE $28
-      .BYTE $28
-      .BYTE $28
-      .BYTE $28
-      .BYTE $88
-      .BYTE $26
-      .BYTE $82
-      .BYTE $26
-      .BYTE $26
-      .BYTE $83
-      .BYTE $26
-      .BYTE $84
-      .BYTE $24
-      .BYTE $24
-      .BYTE $24
-      .BYTE $24
-      .BYTE $88
-      .BYTE $22
-      .BYTE $82
-      .BYTE $22
-      .BYTE $22
-      .BYTE $83
-      .BYTE $22
-      .BYTE $84
-      .BYTE $22
-      .BYTE $22
-      .BYTE $22
-      .BYTE $22
-      .BYTE $88
-      .BYTE $26
-      .BYTE $82
-      .BYTE $26
-      .BYTE $26
-      .BYTE $83
-      .BYTE $26
-      .BYTE $84
-      .BYTE $26
-      .BYTE $26
-      .BYTE $26
-      .BYTE $26
+      .db $88
+      .db $2A
+      .db $82
+      .db $2A
+      .db $2A
+      .db $83
+      .db $2A
+      .db $84
+      .db $28
+      .db $28
+      .db $28
+      .db $28
+      .db $88
+      .db $26
+      .db $82
+      .db $26
+      .db $26
+      .db $83
+      .db $26
+      .db $84
+      .db $24
+      .db $24
+      .db $24
+      .db $24
+      .db $88
+      .db $22
+      .db $82
+      .db $22
+      .db $22
+      .db $83
+      .db $22
+      .db $84
+      .db $22
+      .db $22
+      .db $22
+      .db $22
+      .db $88
+      .db $26
+      .db $82
+      .db $26
+      .db $26
+      .db $83
+      .db $26
+      .db $84
+      .db $26
+      .db $26
+      .db $26
+      .db $26
 MusicDataEnding2_Square1:
-      .BYTE $8A
-      .BYTE $38
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $8A
-      .BYTE $38
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $36
-      .BYTE $36
-      .BYTE $36
-      .BYTE $8A
-      .BYTE $34
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $8A
-      .BYTE $48
-      .BYTE $46
+      .db $8A
+      .db $38
+      .db $84
+      .db $7E
+      .db $3A
+      .db $3A
+      .db $3A
+      .db $8A
+      .db $38
+      .db $84
+      .db $7E
+      .db $36
+      .db $36
+      .db $36
+      .db $8A
+      .db $34
+      .db $84
+      .db $7E
+      .db $30
+      .db $3A
+      .db $3A
+      .db $8A
+      .db $48
+      .db $46
 
 MusicDataEnding5:
 MusicDataEnding5_Square2:
-      .BYTE $8A
-      .BYTE $48
-      .BYTE $48
-      .BYTE $88
-      .BYTE $48
-      .BYTE $84
-      .BYTE $26
-      .BYTE $26
-      .BYTE $26
-      .BYTE $8A
-      .BYTE $26
+      .db $8A
+      .db $48
+      .db $48
+      .db $88
+      .db $48
+      .db $84
+      .db $26
+      .db $26
+      .db $26
+      .db $8A
+      .db $26
 IFNDEF PROTOTYPE_MUSIC
-      .BYTE $7E
-      .BYTE $8C
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $FC
-      .BYTE $7E
-      .BYTE $7E
+      .db $7E
+      .db $8C
+      .db $7E
+      .db $88
+      .db $7E
+      .db $FC
+      .db $7E
+      .db $7E
 ENDIF
-      .BYTE $00
+      .db $00
 MusicDataEnding5_Square1:
-      .BYTE $88
-      .BYTE $40
-      .BYTE $82
-      .BYTE $40
-      .BYTE $40
-      .BYTE $83
-      .BYTE $40
-      .BYTE $88
-      .BYTE $3A
-      .BYTE $82
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $83
-      .BYTE $3A
-      .BYTE $88
-      .BYTE $38
-      .BYTE $84
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
+      .db $88
+      .db $40
+      .db $82
+      .db $40
+      .db $40
+      .db $83
+      .db $40
+      .db $88
+      .db $3A
+      .db $82
+      .db $3A
+      .db $3A
+      .db $83
+      .db $3A
+      .db $88
+      .db $38
+      .db $84
+      .db $18
+      .db $18
+      .db $18
 IFNDEF PROTOTYPE_MUSIC
-      .BYTE $88
-      .BYTE $18
-      .BYTE $F4
-      .BYTE $48
-      .BYTE $56
-      .BYTE $50
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $4C
-      .BYTE $56
-      .BYTE $42
-      .BYTE $56
-      .BYTE $50
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $4C
-      .BYTE $56
-      .BYTE $F4
-      .BYTE $48
-      .BYTE $56
-      .BYTE $50
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $4C
-      .BYTE $56
-      .BYTE $42
-      .BYTE $56
-      .BYTE $50
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $4C
-      .BYTE $56
+      .db $88
+      .db $18
+      .db $F4
+      .db $48
+      .db $56
+      .db $50
+      .db $56
+      .db $46
+      .db $56
+      .db $4C
+      .db $56
+      .db $42
+      .db $56
+      .db $50
+      .db $56
+      .db $46
+      .db $56
+      .db $4C
+      .db $56
+      .db $F4
+      .db $48
+      .db $56
+      .db $50
+      .db $56
+      .db $46
+      .db $56
+      .db $4C
+      .db $56
+      .db $42
+      .db $56
+      .db $50
+      .db $56
+      .db $46
+      .db $56
+      .db $4C
+      .db $56
 ENDIF
 IFDEF PROTOTYPE_MUSIC
-      .BYTE $8A
-      .BYTE $18
+      .db $8A
+      .db $18
 ENDIF
 MusicDataEnding5_Triangle:
-      .BYTE $88
-      .BYTE $28
-      .BYTE $82
-      .BYTE $28
-      .BYTE $28
-      .BYTE $83
-      .BYTE $28
-      .BYTE $88
-      .BYTE $2C
-      .BYTE $82
-      .BYTE $2C
-      .BYTE $2C
-      .BYTE $83
-      .BYTE $2C
-      .BYTE $88
-      .BYTE $30
-      .BYTE $84
-      .BYTE $30
-      .BYTE $30
-      .BYTE $30
-      .BYTE $8A
-      .BYTE $30
+      .db $88
+      .db $28
+      .db $82
+      .db $28
+      .db $28
+      .db $83
+      .db $28
+      .db $88
+      .db $2C
+      .db $82
+      .db $2C
+      .db $2C
+      .db $83
+      .db $2C
+      .db $88
+      .db $30
+      .db $84
+      .db $30
+      .db $30
+      .db $30
+      .db $8A
+      .db $30
 IFNDEF PROTOTYPE_MUSIC
-      .BYTE $7E
-      .BYTE $8C
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
+      .db $7E
+      .db $8C
+      .db $7E
+      .db $7E
+      .db $7E
+      .db $7E
 ENDIF
 MusicDataEnding5_Noise:
-      .BYTE $88
-      .BYTE $10
-      .BYTE $82
-      .BYTE $10
-      .BYTE $10
-      .BYTE $83
-      .BYTE $10
-      .BYTE $88
-      .BYTE $10
-      .BYTE $82
-      .BYTE $10
-      .BYTE $10
-      .BYTE $83
-      .BYTE $10
-      .BYTE $88
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $8A
-      .BYTE $10
+      .db $88
+      .db $10
+      .db $82
+      .db $10
+      .db $10
+      .db $83
+      .db $10
+      .db $88
+      .db $10
+      .db $82
+      .db $10
+      .db $10
+      .db $83
+      .db $10
+      .db $88
+      .db $10
+      .db $84
+      .db $10
+      .db $10
+      .db $10
+      .db $8A
+      .db $10
 IFNDEF PROTOTYPE_MUSIC
-      .BYTE $01
-      .BYTE $8C
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
+      .db $01
+      .db $8C
+      .db $01
+      .db $01
+      .db $01
+      .db $01
 ENDIF
 
 IFNDEF PROTOTYPE_MUSIC
 MusicDataEnding6:
 MusicDataEnding6_Square2:
-      .BYTE $F4
-      .BYTE $68
-      .BYTE $6A
-      .BYTE $6E
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $64
-      .BYTE $60
-      .BYTE $64
-      .BYTE $68
-      .BYTE $5E
-      .BYTE $7E
-      .BYTE $5E
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $5A
-      .BYTE $5E
-      .BYTE $60
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $54
-      .BYTE $56
-      .BYTE $5A
-      .BYTE $5E
-      .BYTE $60
-      .BYTE $5E
-      .BYTE $7E
-      .BYTE $60
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $68
-      .BYTE $6A
-      .BYTE $6E
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $64
-      .BYTE $6E
-      .BYTE $76
-      .BYTE $78
-      .BYTE $7C
-      .BYTE $78
-      .BYTE $76
-      .BYTE $7E
-      .BYTE $72
-      .BYTE $6E
-      .BYTE $6A
-      .BYTE $68
-      .BYTE $6A
-      .BYTE $6E
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $64
-      .BYTE $60
-      .BYTE $5E
-      .BYTE $60
-      .BYTE $7E
-      .BYTE $FB
-      .BYTE $7E
-      .BYTE $F4
-      .BYTE $60
-      .BYTE $64
-      .BYTE $60
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $66
-      .BYTE $6A
-      .BYTE $6E
-      .BYTE $FC
-      .BYTE $7E
-      .BYTE $F4
-      .BYTE $60
-      .BYTE $64
-      .BYTE $60
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $66
-      .BYTE $7E
-      .BYTE $6A
-      .BYTE $6E
-      .BYTE $7E
-      .BYTE $FB
-      .BYTE $7E
-      .BYTE $F4
-      .BYTE $60
-      .BYTE $64
-      .BYTE $60
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $66
-      .BYTE $6A
-      .BYTE $6E
-      .BYTE $7E
-      .BYTE $68
-      .BYTE $60
-      .BYTE $56
-      .BYTE $FA
-      .BYTE $7E
-      .BYTE $F4
-      .BYTE $60
-      .BYTE $64
-      .BYTE $60
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $5A
-      .BYTE $5E
-      .BYTE $60
-      .BYTE $64
-      .BYTE $7E
-      .BYTE $8B
-      .BYTE $7E
-      .BYTE $00
+      .db $F4
+      .db $68
+      .db $6A
+      .db $6E
+      .db $64
+      .db $7E
+      .db $64
+      .db $7E
+      .db $64
+      .db $60
+      .db $64
+      .db $68
+      .db $5E
+      .db $7E
+      .db $5E
+      .db $7E
+      .db $56
+      .db $5A
+      .db $5E
+      .db $60
+      .db $56
+      .db $7E
+      .db $56
+      .db $54
+      .db $56
+      .db $5A
+      .db $5E
+      .db $60
+      .db $5E
+      .db $7E
+      .db $60
+      .db $64
+      .db $7E
+      .db $68
+      .db $6A
+      .db $6E
+      .db $64
+      .db $7E
+      .db $64
+      .db $6E
+      .db $76
+      .db $78
+      .db $7C
+      .db $78
+      .db $76
+      .db $7E
+      .db $72
+      .db $6E
+      .db $6A
+      .db $68
+      .db $6A
+      .db $6E
+      .db $64
+      .db $7E
+      .db $64
+      .db $60
+      .db $5E
+      .db $60
+      .db $7E
+      .db $FB
+      .db $7E
+      .db $F4
+      .db $60
+      .db $64
+      .db $60
+      .db $64
+      .db $7E
+      .db $66
+      .db $6A
+      .db $6E
+      .db $FC
+      .db $7E
+      .db $F4
+      .db $60
+      .db $64
+      .db $60
+      .db $64
+      .db $7E
+      .db $66
+      .db $7E
+      .db $6A
+      .db $6E
+      .db $7E
+      .db $FB
+      .db $7E
+      .db $F4
+      .db $60
+      .db $64
+      .db $60
+      .db $64
+      .db $7E
+      .db $66
+      .db $6A
+      .db $6E
+      .db $7E
+      .db $68
+      .db $60
+      .db $56
+      .db $FA
+      .db $7E
+      .db $F4
+      .db $60
+      .db $64
+      .db $60
+      .db $64
+      .db $7E
+      .db $5A
+      .db $5E
+      .db $60
+      .db $64
+      .db $7E
+      .db $8B
+      .db $7E
+      .db $00
 MusicDataEnding6_Square1:
-      .BYTE $F4
-      .BYTE $48
-      .BYTE $56
-      .BYTE $50
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $4C
-      .BYTE $56
-      .BYTE $42
-      .BYTE $56
-      .BYTE $50
-      .BYTE $56
-      .BYTE $3E
-      .BYTE $56
-      .BYTE $4C
-      .BYTE $56
-      .BYTE $3A
-      .BYTE $52
-      .BYTE $48
-      .BYTE $52
-      .BYTE $38
-      .BYTE $50
-      .BYTE $46
-      .BYTE $50
-      .BYTE $34
-      .BYTE $4C
-      .BYTE $42
-      .BYTE $4C
-      .BYTE $3E
-      .BYTE $52
-      .BYTE $46
-      .BYTE $52
-      .BYTE $48
-      .BYTE $56
-      .BYTE $50
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $4C
-      .BYTE $56
-      .BYTE $44
-      .BYTE $52
-      .BYTE $4C
-      .BYTE $52
-      .BYTE $42
-      .BYTE $52
-      .BYTE $48
-      .BYTE $52
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $48
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $4C
-      .BYTE $46
-      .BYTE $4C
-      .BYTE $48
-      .BYTE $56
-      .BYTE $50
-      .BYTE $56
-      .BYTE $48
-      .BYTE $56
-      .BYTE $50
-      .BYTE $56
-      .BYTE $40
-      .BYTE $4E
-      .BYTE $48
-      .BYTE $4E
-      .BYTE $40
-      .BYTE $4E
-      .BYTE $48
-      .BYTE $4E
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $48
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $48
-      .BYTE $50
-      .BYTE $40
-      .BYTE $4E
-      .BYTE $48
-      .BYTE $4E
-      .BYTE $40
-      .BYTE $4E
-      .BYTE $48
-      .BYTE $4E
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $48
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $48
-      .BYTE $50
-      .BYTE $40
-      .BYTE $4E
-      .BYTE $48
-      .BYTE $4E
-      .BYTE $40
-      .BYTE $4E
-      .BYTE $48
-      .BYTE $4E
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $48
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $48
-      .BYTE $50
-      .BYTE $3C
-      .BYTE $4C
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $3C
-      .BYTE $4C
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $3E
-      .BYTE $4C
-      .BYTE $46
-      .BYTE $4C
-      .BYTE $3E
-      .BYTE $52
-      .BYTE $4C
-      .BYTE $5E
+      .db $F4
+      .db $48
+      .db $56
+      .db $50
+      .db $56
+      .db $46
+      .db $56
+      .db $4C
+      .db $56
+      .db $42
+      .db $56
+      .db $50
+      .db $56
+      .db $3E
+      .db $56
+      .db $4C
+      .db $56
+      .db $3A
+      .db $52
+      .db $48
+      .db $52
+      .db $38
+      .db $50
+      .db $46
+      .db $50
+      .db $34
+      .db $4C
+      .db $42
+      .db $4C
+      .db $3E
+      .db $52
+      .db $46
+      .db $52
+      .db $48
+      .db $56
+      .db $50
+      .db $56
+      .db $46
+      .db $56
+      .db $4C
+      .db $56
+      .db $44
+      .db $52
+      .db $4C
+      .db $52
+      .db $42
+      .db $52
+      .db $48
+      .db $52
+      .db $3E
+      .db $50
+      .db $48
+      .db $50
+      .db $3E
+      .db $4C
+      .db $46
+      .db $4C
+      .db $48
+      .db $56
+      .db $50
+      .db $56
+      .db $48
+      .db $56
+      .db $50
+      .db $56
+      .db $40
+      .db $4E
+      .db $48
+      .db $4E
+      .db $40
+      .db $4E
+      .db $48
+      .db $4E
+      .db $3E
+      .db $50
+      .db $48
+      .db $50
+      .db $3E
+      .db $50
+      .db $48
+      .db $50
+      .db $40
+      .db $4E
+      .db $48
+      .db $4E
+      .db $40
+      .db $4E
+      .db $48
+      .db $4E
+      .db $3E
+      .db $50
+      .db $48
+      .db $50
+      .db $3E
+      .db $50
+      .db $48
+      .db $50
+      .db $40
+      .db $4E
+      .db $48
+      .db $4E
+      .db $40
+      .db $4E
+      .db $48
+      .db $4E
+      .db $3E
+      .db $50
+      .db $48
+      .db $50
+      .db $3E
+      .db $50
+      .db $48
+      .db $50
+      .db $3C
+      .db $4C
+      .db $48
+      .db $4C
+      .db $3C
+      .db $4C
+      .db $48
+      .db $4C
+      .db $3E
+      .db $4C
+      .db $46
+      .db $4C
+      .db $3E
+      .db $52
+      .db $4C
+      .db $5E
 ENDIF
 
 MusicDataStar:
 MusicDataStar_Square2:
-      .BYTE $98
-      .BYTE $48
-      .BYTE $48
-      .BYTE $48
-      .BYTE $94
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $99
-      .BYTE $48
-      .BYTE $98
-      .BYTE $48
-      .BYTE $48
-      .BYTE $46
-      .BYTE $46
-      .BYTE $46
-      .BYTE $94
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $99
-      .BYTE $46
-      .BYTE $98
-      .BYTE $46
-      .BYTE $46
-      .BYTE $00
+      .db $98
+      .db $48
+      .db $48
+      .db $48
+      .db $94
+      .db $7E
+      .db $48
+      .db $7E
+      .db $99
+      .db $48
+      .db $98
+      .db $48
+      .db $48
+      .db $46
+      .db $46
+      .db $46
+      .db $94
+      .db $7E
+      .db $46
+      .db $7E
+      .db $99
+      .db $46
+      .db $98
+      .db $46
+      .db $46
+      .db $00
 MusicDataStar_Square1:
-      .BYTE $98
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $94
-      .BYTE $34
-      .BYTE $98
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $94
-      .BYTE $34
-      .BYTE $3A
-      .BYTE $34
-      .BYTE $98
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $38
-      .BYTE $38
-      .BYTE $94
-      .BYTE $30
-      .BYTE $98
-      .BYTE $38
-      .BYTE $38
-      .BYTE $94
-      .BYTE $30
-      .BYTE $38
-      .BYTE $30
-      .BYTE $98
-      .BYTE $38
+      .db $98
+      .db $3A
+      .db $3A
+      .db $3A
+      .db $94
+      .db $34
+      .db $98
+      .db $3A
+      .db $3A
+      .db $94
+      .db $34
+      .db $3A
+      .db $34
+      .db $98
+      .db $3A
+      .db $38
+      .db $38
+      .db $38
+      .db $94
+      .db $30
+      .db $98
+      .db $38
+      .db $38
+      .db $94
+      .db $30
+      .db $38
+      .db $30
+      .db $98
+      .db $38
 MusicDataStar_Triangle:
-      .BYTE $9A
-      .BYTE $34
-      .BYTE $99
-      .BYTE $42
-      .BYTE $4C
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $4C
-      .BYTE $9A
-      .BYTE $30
-      .BYTE $99
-      .BYTE $3E
-      .BYTE $48
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $48
+      .db $9A
+      .db $34
+      .db $99
+      .db $42
+      .db $4C
+      .db $98
+      .db $7E
+      .db $42
+      .db $4C
+      .db $9A
+      .db $30
+      .db $99
+      .db $3E
+      .db $48
+      .db $98
+      .db $7E
+      .db $3E
+      .db $48
 IFNDEF PROTOTYPE_MUSIC
 MusicDataStar_DPCM:
-      .BYTE $94
-      .BYTE $01
-      .BYTE $98
-      .BYTE $10
-      .BYTE $94
-      .BYTE $10
-      .BYTE $10
-      .BYTE $10
-      .BYTE $01
-      .BYTE $01
-      .BYTE $00
+      .db $94
+      .db $01
+      .db $98
+      .db $10
+      .db $94
+      .db $10
+      .db $10
+      .db $10
+      .db $01
+      .db $01
+      .db $00
 ENDIF
 IFDEF PROTOTYPE_MUSIC
 MusicDataStar_Noise:
-      .BYTE $98
-      .BYTE $04
-      .BYTE $92
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $98
-      .BYTE $06
-      .BYTE $92
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $00
+      .db $98
+      .db $04
+      .db $92
+      .db $02
+      .db $01
+      .db $02
+      .db $98
+      .db $06
+      .db $92
+      .db $02
+      .db $01
+      .db $02
+      .db $00
 ENDIF
 
 IFNDEF PROTOTYPE_MUSIC
 MusicDataUnderground:
 MusicDataUnderground_Square2:
-      .BYTE $A4
-      .BYTE $0A
-      .BYTE $18
-      .BYTE $22
-      .BYTE $84
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $89
-      .BYTE $42
-      .BYTE $A4
-      .BYTE $0A
-      .BYTE $18
-      .BYTE $22
-      .BYTE $84
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $89
-      .BYTE $3E
-      .BYTE $B8
-      .BYTE $7E
-      .BYTE $B9
-      .BYTE $48
-      .BYTE $44
-      .BYTE $B8
-      .BYTE $3A
-      .BYTE $B9
-      .BYTE $40
-      .BYTE $B8
-      .BYTE $44
-      .BYTE $B4
-      .BYTE $36
-      .BYTE $B8
-      .BYTE $3A
-      .BYTE $B9
-      .BYTE $30
-      .BYTE $B9
-      .BYTE $34
-      .BYTE $BB
-      .BYTE $36
-      .BYTE $B8
-      .BYTE $7E
-      .BYTE $00
+      .db $A4
+      .db $0A
+      .db $18
+      .db $22
+      .db $84
+      .db $40
+      .db $7E
+      .db $89
+      .db $42
+      .db $A4
+      .db $0A
+      .db $18
+      .db $22
+      .db $84
+      .db $40
+      .db $7E
+      .db $89
+      .db $3E
+      .db $B8
+      .db $7E
+      .db $B9
+      .db $48
+      .db $44
+      .db $B8
+      .db $3A
+      .db $B9
+      .db $40
+      .db $B8
+      .db $44
+      .db $B4
+      .db $36
+      .db $B8
+      .db $3A
+      .db $B9
+      .db $30
+      .db $B9
+      .db $34
+      .db $BB
+      .db $36
+      .db $B8
+      .db $7E
+      .db $00
 MusicDataUnderground_Square1:
-      .BYTE $B4
-      .BYTE $0A
-      .BYTE $18
-      .BYTE $22
-      .BYTE $84
-      .BYTE $36
-      .BYTE $7E
-      .BYTE $89
-      .BYTE $38
-      .BYTE $B4
-      .BYTE $0A
-      .BYTE $18
-      .BYTE $22
-      .BYTE $84
-      .BYTE $36
-      .BYTE $7E
-      .BYTE $89
-      .BYTE $34
-      .BYTE $B8
-      .BYTE $7E
-      .BYTE $B9
-      .BYTE $3A
-      .BYTE $36
-      .BYTE $B8
-      .BYTE $30
-      .BYTE $B9
-      .BYTE $36
-      .BYTE $B8
-      .BYTE $3A
-      .BYTE $B4
-      .BYTE $2C
-      .BYTE $B8
-      .BYTE $30
-      .BYTE $B9
-      .BYTE $22
-      .BYTE $B9
-      .BYTE $26
-      .BYTE $BB
-      .BYTE $28
-      .BYTE $B8
-      .BYTE $7E
+      .db $B4
+      .db $0A
+      .db $18
+      .db $22
+      .db $84
+      .db $36
+      .db $7E
+      .db $89
+      .db $38
+      .db $B4
+      .db $0A
+      .db $18
+      .db $22
+      .db $84
+      .db $36
+      .db $7E
+      .db $89
+      .db $34
+      .db $B8
+      .db $7E
+      .db $B9
+      .db $3A
+      .db $36
+      .db $B8
+      .db $30
+      .db $B9
+      .db $36
+      .db $B8
+      .db $3A
+      .db $B4
+      .db $2C
+      .db $B8
+      .db $30
+      .db $B9
+      .db $22
+      .db $B9
+      .db $26
+      .db $BB
+      .db $28
+      .db $B8
+      .db $7E
 MusicDataUnderground_Triangle:
-      .BYTE $84
-      .BYTE $22
-      .BYTE $30
-      .BYTE $3A
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $3A
-      .BYTE $30
-      .BYTE $22
-      .BYTE $30
-      .BYTE $3A
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $3A
-      .BYTE $30
-      .BYTE $22
-      .BYTE $30
-      .BYTE $3A
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $3A
-      .BYTE $30
-      .BYTE $22
-      .BYTE $30
-      .BYTE $3A
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $3A
-      .BYTE $30
-      .BYTE $22
-      .BYTE $30
-      .BYTE $3A
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $3A
-      .BYTE $30
-      .BYTE $22
-      .BYTE $30
-      .BYTE $3A
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $3A
-      .BYTE $30
+      .db $84
+      .db $22
+      .db $30
+      .db $3A
+      .db $42
+      .db $7E
+      .db $44
+      .db $3A
+      .db $30
+      .db $22
+      .db $30
+      .db $3A
+      .db $42
+      .db $7E
+      .db $40
+      .db $3A
+      .db $30
+      .db $22
+      .db $30
+      .db $3A
+      .db $30
+      .db $7E
+      .db $40
+      .db $3A
+      .db $30
+      .db $22
+      .db $30
+      .db $3A
+      .db $30
+      .db $7E
+      .db $40
+      .db $3A
+      .db $30
+      .db $22
+      .db $30
+      .db $3A
+      .db $30
+      .db $7E
+      .db $40
+      .db $3A
+      .db $30
+      .db $22
+      .db $30
+      .db $3A
+      .db $30
+      .db $7E
+      .db $40
+      .db $3A
+      .db $30
 MusicDataUnderground_DPCM:
-      .BYTE $85
-      .BYTE $01
-      .BYTE $8D
-      .BYTE $10
-      .BYTE $8E
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $88
-      .BYTE $10
-      .BYTE $84
-      .BYTE $01
-      .BYTE $01
-      .BYTE $01
-      .BYTE $00
+      .db $85
+      .db $01
+      .db $8D
+      .db $10
+      .db $8E
+      .db $10
+      .db $84
+      .db $10
+      .db $88
+      .db $10
+      .db $84
+      .db $01
+      .db $01
+      .db $01
+      .db $00
 ENDIF
 
 IFDEF PROTOTYPE_MUSIC
@@ -3125,3548 +3125,3548 @@ MusicDataUndergroundBeta1:
 MusicDataUndergroundBeta2:
 MusicDataUndergroundBeta1_Square2:
 MusicDataUndergroundBeta2_Square2:
-      .BYTE $DC
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $D4
-      .BYTE $18
-      .BYTE $30
-      .BYTE $12
-      .BYTE $2A
-      .BYTE $14
-      .BYTE $2C
-      .BYTE $D8
-      .BYTE $7E
-      .BYTE $DC
-      .BYTE $7E
-      .BYTE $D4
-      .BYTE $18
-      .BYTE $30
-      .BYTE $12
-      .BYTE $2A
-      .BYTE $14
-      .BYTE $2C
-      .BYTE $D8
-      .BYTE $7E
-      .BYTE $DC
-      .BYTE $7E
-      .BYTE $D4
-      .BYTE $0A
-      .BYTE $22
-      .BYTE $04
-      .BYTE $1C
-      .BYTE $06
-      .BYTE $1E
-      .BYTE $D8
-      .BYTE $7E
-      .BYTE $DC
-      .BYTE $7E
-      .BYTE $D4
-      .BYTE $0A
-      .BYTE $22
-      .BYTE $04
-      .BYTE $1C
-      .BYTE $06
-      .BYTE $1E
-      .BYTE $DC
-      .BYTE $7E
-      .BYTE $D2
-      .BYTE $1E
-      .BYTE $1C
-      .BYTE $1A
-      .BYTE $D8
-      .BYTE $18
-      .BYTE $1E
-      .BYTE $1C
-      .BYTE $10
-      .BYTE $0E
-      .BYTE $1A
-      .BYTE $D2
-      .BYTE $18
-      .BYTE $24
-      .BYTE $22
-      .BYTE $20
-      .BYTE $2C
-      .BYTE $2A
-      .BYTE $D6
-      .BYTE $28
-      .BYTE $1E
-      .BYTE $16
-      .BYTE $14
-      .BYTE $12
-      .BYTE $10
-      .BYTE $DC
-      .BYTE $7E
-      .BYTE $00
+      .db $DC
+      .db $7E
+      .db $7E
+      .db $7E
+      .db $7E
+      .db $D4
+      .db $18
+      .db $30
+      .db $12
+      .db $2A
+      .db $14
+      .db $2C
+      .db $D8
+      .db $7E
+      .db $DC
+      .db $7E
+      .db $D4
+      .db $18
+      .db $30
+      .db $12
+      .db $2A
+      .db $14
+      .db $2C
+      .db $D8
+      .db $7E
+      .db $DC
+      .db $7E
+      .db $D4
+      .db $0A
+      .db $22
+      .db $04
+      .db $1C
+      .db $06
+      .db $1E
+      .db $D8
+      .db $7E
+      .db $DC
+      .db $7E
+      .db $D4
+      .db $0A
+      .db $22
+      .db $04
+      .db $1C
+      .db $06
+      .db $1E
+      .db $DC
+      .db $7E
+      .db $D2
+      .db $1E
+      .db $1C
+      .db $1A
+      .db $D8
+      .db $18
+      .db $1E
+      .db $1C
+      .db $10
+      .db $0E
+      .db $1A
+      .db $D2
+      .db $18
+      .db $24
+      .db $22
+      .db $20
+      .db $2C
+      .db $2A
+      .db $D6
+      .db $28
+      .db $1E
+      .db $16
+      .db $14
+      .db $12
+      .db $10
+      .db $DC
+      .db $7E
+      .db $00
 MusicDataUndergroundBeta1_Square1:
 MusicDataUndergroundBeta2_Square1:
 MusicDataUndergroundBeta1_Triangle:
 MusicDataUndergroundBeta2_Triangle:
-      .BYTE $8C
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $84
-      .BYTE $30
-      .BYTE $48
-      .BYTE $2A
-      .BYTE $42
-      .BYTE $2C
-      .BYTE $44
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $8C
-      .BYTE $7E
-      .BYTE $84
-      .BYTE $30
-      .BYTE $48
-      .BYTE $2A
-      .BYTE $42
-      .BYTE $2C
-      .BYTE $44
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $8C
-      .BYTE $7E
-      .BYTE $84
-      .BYTE $22
-      .BYTE $3A
-      .BYTE $1C
-      .BYTE $34
-      .BYTE $1E
-      .BYTE $36
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $8C
-      .BYTE $7E
-      .BYTE $84
-      .BYTE $22
-      .BYTE $3A
-      .BYTE $1C
-      .BYTE $34
-      .BYTE $1E
-      .BYTE $36
-      .BYTE $8C
-      .BYTE $7E
-      .BYTE $82
-      .BYTE $36
-      .BYTE $34
-      .BYTE $32
-      .BYTE $88
-      .BYTE $30
-      .BYTE $36
-      .BYTE $34
-      .BYTE $28
-      .BYTE $26
-      .BYTE $32
-      .BYTE $82
-      .BYTE $30
-      .BYTE $3C
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $44
-      .BYTE $42
-      .BYTE $86
-      .BYTE $40
-      .BYTE $36
-      .BYTE $2E
-      .BYTE $2C
-      .BYTE $2A
-      .BYTE $28
-      .BYTE $8C
-      .BYTE $7E
+      .db $8C
+      .db $7E
+      .db $7E
+      .db $7E
+      .db $7E
+      .db $84
+      .db $30
+      .db $48
+      .db $2A
+      .db $42
+      .db $2C
+      .db $44
+      .db $88
+      .db $7E
+      .db $8C
+      .db $7E
+      .db $84
+      .db $30
+      .db $48
+      .db $2A
+      .db $42
+      .db $2C
+      .db $44
+      .db $88
+      .db $7E
+      .db $8C
+      .db $7E
+      .db $84
+      .db $22
+      .db $3A
+      .db $1C
+      .db $34
+      .db $1E
+      .db $36
+      .db $88
+      .db $7E
+      .db $8C
+      .db $7E
+      .db $84
+      .db $22
+      .db $3A
+      .db $1C
+      .db $34
+      .db $1E
+      .db $36
+      .db $8C
+      .db $7E
+      .db $82
+      .db $36
+      .db $34
+      .db $32
+      .db $88
+      .db $30
+      .db $36
+      .db $34
+      .db $28
+      .db $26
+      .db $32
+      .db $82
+      .db $30
+      .db $3C
+      .db $3A
+      .db $38
+      .db $44
+      .db $42
+      .db $86
+      .db $40
+      .db $36
+      .db $2E
+      .db $2C
+      .db $2A
+      .db $28
+      .db $8C
+      .db $7E
 MusicDataUndergroundBeta1_DPCM:
-      .BYTE $8A
-      .BYTE $01
-      .BYTE $10
-      .BYTE $84
-      .BYTE $01
-      .BYTE $01
-      .BYTE $88
-      .BYTE $01
-      .BYTE $8A
-      .BYTE $10
-      .BYTE $8A
-      .BYTE $01
-      .BYTE $89
-      .BYTE $10
-      .BYTE $88
-      .BYTE $01
-      .BYTE $01
-      .BYTE $84
-      .BYTE $01
-      .BYTE $88
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $10
-      .BYTE $00
+      .db $8A
+      .db $01
+      .db $10
+      .db $84
+      .db $01
+      .db $01
+      .db $88
+      .db $01
+      .db $8A
+      .db $10
+      .db $8A
+      .db $01
+      .db $89
+      .db $10
+      .db $88
+      .db $01
+      .db $01
+      .db $84
+      .db $01
+      .db $88
+      .db $10
+      .db $84
+      .db $10
+      .db $10
+      .db $00
 MusicDataUndergroundBeta2_DPCM:
-      .BYTE $88
-      .BYTE $01
-      .BYTE $10
-      .BYTE $84
-      .BYTE $01
-      .BYTE $01
-      .BYTE $88
-      .BYTE $10
-      .BYTE $84
-      .BYTE $01
-      .BYTE $01
-      .BYTE $10
-      .BYTE $88
-      .BYTE $01
-      .BYTE $84
-      .BYTE $01
-      .BYTE $88
-      .BYTE $10
-      .BYTE $00
+      .db $88
+      .db $01
+      .db $10
+      .db $84
+      .db $01
+      .db $01
+      .db $88
+      .db $10
+      .db $84
+      .db $01
+      .db $01
+      .db $10
+      .db $88
+      .db $01
+      .db $84
+      .db $01
+      .db $88
+      .db $10
+      .db $00
 MusicDataUndergroundBeta1_Noise:
-      .BYTE $8A
-      .BYTE $01
-      .BYTE $10
-      .BYTE $01
-      .BYTE $10
-      .BYTE $01
-      .BYTE $10
-      .BYTE $01
-      .BYTE $88
-      .BYTE $10
-      .BYTE $84
-      .BYTE $10
-      .BYTE $10
-      .BYTE $00
+      .db $8A
+      .db $01
+      .db $10
+      .db $01
+      .db $10
+      .db $01
+      .db $10
+      .db $01
+      .db $88
+      .db $10
+      .db $84
+      .db $10
+      .db $10
+      .db $00
 MusicDataUndergroundBeta2_Noise:
-      .BYTE $84
-      .BYTE $02
-      .BYTE $02
-      .BYTE $10
-      .BYTE $02
-      .BYTE $00
+      .db $84
+      .db $02
+      .db $02
+      .db $10
+      .db $02
+      .db $00
 ENDIF
 
 MusicDataSubspace1:
 MusicDataSubspace1_Square2:
-      .BYTE $99
-      .BYTE $48
-      .BYTE $3E
-      .BYTE $38
-      .BYTE $98
-      .BYTE $42
-      .BYTE $46
-      .BYTE $94
-      .BYTE $44
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $96
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $56
-      .BYTE $94
-      .BYTE $5A
-      .BYTE $7E
-      .BYTE $52
-      .BYTE $98
-      .BYTE $56
-      .BYTE $50
-      .BYTE $94
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $99
-      .BYTE $46
-      .BYTE $00
+      .db $99
+      .db $48
+      .db $3E
+      .db $38
+      .db $98
+      .db $42
+      .db $46
+      .db $94
+      .db $44
+      .db $42
+      .db $7E
+      .db $96
+      .db $3E
+      .db $50
+      .db $56
+      .db $94
+      .db $5A
+      .db $7E
+      .db $52
+      .db $98
+      .db $56
+      .db $50
+      .db $94
+      .db $48
+      .db $4C
+      .db $99
+      .db $46
+      .db $00
 MusicDataSubspace1_Square1:
-      .BYTE $99
-      .BYTE $38
-      .BYTE $30
-      .BYTE $26
-      .BYTE $98
-      .BYTE $30
-      .BYTE $34
-      .BYTE $94
-      .BYTE $32
-      .BYTE $98
-      .BYTE $30
-      .BYTE $96
-      .BYTE $30
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $98
-      .BYTE $48
-      .BYTE $94
-      .BYTE $42
-      .BYTE $98
-      .BYTE $46
-      .BYTE $98
-      .BYTE $42
-      .BYTE $94
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $99
-      .BYTE $34
+      .db $99
+      .db $38
+      .db $30
+      .db $26
+      .db $98
+      .db $30
+      .db $34
+      .db $94
+      .db $32
+      .db $98
+      .db $30
+      .db $96
+      .db $30
+      .db $3E
+      .db $46
+      .db $98
+      .db $48
+      .db $94
+      .db $42
+      .db $98
+      .db $46
+      .db $98
+      .db $42
+      .db $94
+      .db $38
+      .db $3A
+      .db $99
+      .db $34
 MusicDataSubspace1_Triangle:
-      .BYTE $99
-      .BYTE $3E
-      .BYTE $38
-      .BYTE $30
-      .BYTE $98
-      .BYTE $3A
-      .BYTE $3E
-      .BYTE $94
-      .BYTE $3C
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $96
-      .BYTE $38
-      .BYTE $48
-      .BYTE $50
-      .BYTE $94
-      .BYTE $52
-      .BYTE $7E
-      .BYTE $4C
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $46
-      .BYTE $99
-      .BYTE $3E
+      .db $99
+      .db $3E
+      .db $38
+      .db $30
+      .db $98
+      .db $3A
+      .db $3E
+      .db $94
+      .db $3C
+      .db $3A
+      .db $7E
+      .db $96
+      .db $38
+      .db $48
+      .db $50
+      .db $94
+      .db $52
+      .db $7E
+      .db $4C
+      .db $50
+      .db $7E
+      .db $48
+      .db $7E
+      .db $42
+      .db $46
+      .db $99
+      .db $3E
 
 MusicDataSubspace2:
 MusicDataSubspace2_Square2:
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $94
-      .BYTE $56
-      .BYTE $54
-      .BYTE $52
-      .BYTE $4E
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $42
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $00
+      .db $98
+      .db $7E
+      .db $94
+      .db $56
+      .db $54
+      .db $52
+      .db $4E
+      .db $7E
+      .db $50
+      .db $7E
+      .db $40
+      .db $42
+      .db $48
+      .db $7E
+      .db $42
+      .db $48
+      .db $4C
+      .db $00
 MusicDataSubspace2_Square1:
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $94
-      .BYTE $50
-      .BYTE $4E
-      .BYTE $4C
-      .BYTE $98
-      .BYTE $46
-      .BYTE $94
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $38
-      .BYTE $3A
+      .db $98
+      .db $7E
+      .db $94
+      .db $50
+      .db $4E
+      .db $4C
+      .db $98
+      .db $46
+      .db $94
+      .db $48
+      .db $7E
+      .db $38
+      .db $3A
+      .db $3E
+      .db $7E
+      .db $30
+      .db $38
+      .db $3A
 MusicDataSubspace2_Triangle:
-      .BYTE $99
-      .BYTE $30
-      .BYTE $3E
-      .BYTE $98
-      .BYTE $48
-      .BYTE $99
-      .BYTE $3A
-      .BYTE $94
-      .BYTE $48
-      .BYTE $98
-      .BYTE $48
-      .BYTE $3A
+      .db $99
+      .db $30
+      .db $3E
+      .db $98
+      .db $48
+      .db $99
+      .db $3A
+      .db $94
+      .db $48
+      .db $98
+      .db $48
+      .db $3A
 MusicDataSubspace1_Noise:
 MusicDataSubspace2_Noise:
-      .BYTE $98
-      .BYTE $04
-      .BYTE $92
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $98
-      .BYTE $06
-      .BYTE $92
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $00
+      .db $98
+      .db $04
+      .db $92
+      .db $02
+      .db $01
+      .db $02
+      .db $98
+      .db $06
+      .db $92
+      .db $02
+      .db $01
+      .db $02
+      .db $00
 
 MusicDataSubspace3:
 MusicDataSubspace3_Square2:
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $94
-      .BYTE $56
-      .BYTE $54
-      .BYTE $52
-      .BYTE $4E
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $60
-      .BYTE $7E
-      .BYTE $60
-      .BYTE $9A
-      .BYTE $60
-      .BYTE $00
+      .db $98
+      .db $7E
+      .db $94
+      .db $56
+      .db $54
+      .db $52
+      .db $4E
+      .db $7E
+      .db $50
+      .db $7E
+      .db $60
+      .db $7E
+      .db $60
+      .db $9A
+      .db $60
+      .db $00
 MusicDataSubspace3_Square1:
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $94
-      .BYTE $50
-      .BYTE $4E
-      .BYTE $4C
-      .BYTE $98
-      .BYTE $46
-      .BYTE $94
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $52
-      .BYTE $94
-      .BYTE $52
-      .BYTE $52
-      .BYTE $99
-      .BYTE $7E
+      .db $98
+      .db $7E
+      .db $94
+      .db $50
+      .db $4E
+      .db $4C
+      .db $98
+      .db $46
+      .db $94
+      .db $48
+      .db $7E
+      .db $98
+      .db $52
+      .db $94
+      .db $52
+      .db $52
+      .db $99
+      .db $7E
 MusicDataSubspace3_Triangle:
-      .BYTE $99
-      .BYTE $30
-      .BYTE $38
-      .BYTE $94
-      .BYTE $3E
-      .BYTE $98
-      .BYTE $48
-      .BYTE $6E
-      .BYTE $94
-      .BYTE $6E
-      .BYTE $98
-      .BYTE $6E
-      .BYTE $3E
+      .db $99
+      .db $30
+      .db $38
+      .db $94
+      .db $3E
+      .db $98
+      .db $48
+      .db $6E
+      .db $94
+      .db $6E
+      .db $98
+      .db $6E
+      .db $3E
 
 MusicDataSubspace4:
 MusicDataSubspace4_Square2:
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $99
-      .BYTE $4E
-      .BYTE $99
-      .BYTE $4C
-      .BYTE $9A
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $00
+      .db $98
+      .db $7E
+      .db $99
+      .db $4E
+      .db $99
+      .db $4C
+      .db $9A
+      .db $48
+      .db $7E
+      .db $00
 MusicDataSubspace4_Square1:
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $94
-      .BYTE $40
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $94
-      .BYTE $3A
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $9A
-      .BYTE $38
-      .BYTE $7E
+      .db $98
+      .db $7E
+      .db $94
+      .db $40
+      .db $98
+      .db $7E
+      .db $94
+      .db $3A
+      .db $98
+      .db $7E
+      .db $9A
+      .db $38
+      .db $7E
 MusicDataSubspace4_Triangle:
-      .BYTE $98
-      .BYTE $30
-      .BYTE $99
-      .BYTE $40
-      .BYTE $44
-      .BYTE $48
-      .BYTE $94
-      .BYTE $3E
-      .BYTE $98
-      .BYTE $3E
-      .BYTE $30
+      .db $98
+      .db $30
+      .db $99
+      .db $40
+      .db $44
+      .db $48
+      .db $94
+      .db $3E
+      .db $98
+      .db $3E
+      .db $30
 MusicDataSubspace3_Noise:
 MusicDataSubspace4_Noise:
-      .BYTE $98
-      .BYTE $04
-      .BYTE $92
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $98
-      .BYTE $06
-      .BYTE $92
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $00
+      .db $98
+      .db $04
+      .db $92
+      .db $02
+      .db $01
+      .db $02
+      .db $98
+      .db $06
+      .db $92
+      .db $02
+      .db $01
+      .db $02
+      .db $00
 
 MusicDataTitleScreen1:
 MusicDataTitleScreen1_Square2:
-      .BYTE $E4
-      .BYTE $6E
-      .BYTE $E8
-      .BYTE $6A
-      .BYTE $E4
-      .BYTE $64
-      .BYTE $E8
-      .BYTE $5E
-      .BYTE $E4
-      .BYTE $56
-      .BYTE $E8
-      .BYTE $52
-      .BYTE $E4
-      .BYTE $4C
-      .BYTE $E8
-      .BYTE $46
-      .BYTE $E4
-      .BYTE $3E
-      .BYTE $E8
-      .BYTE $3C
-      .BYTE $E4
-      .BYTE $3A
-      .BYTE $34
-      .BYTE $2E
-      .BYTE $E8
-      .BYTE $26
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $E8
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $E9
-      .BYTE $3E
-      .BYTE $00
+      .db $E4
+      .db $6E
+      .db $E8
+      .db $6A
+      .db $E4
+      .db $64
+      .db $E8
+      .db $5E
+      .db $E4
+      .db $56
+      .db $E8
+      .db $52
+      .db $E4
+      .db $4C
+      .db $E8
+      .db $46
+      .db $E4
+      .db $3E
+      .db $E8
+      .db $3C
+      .db $E4
+      .db $3A
+      .db $34
+      .db $2E
+      .db $E8
+      .db $26
+      .db $7E
+      .db $3E
+      .db $E8
+      .db $56
+      .db $7E
+      .db $E9
+      .db $3E
+      .db $00
 MusicDataTitleScreen1_Square1:
-      .BYTE $E4
-      .BYTE $56
-      .BYTE $E8
-      .BYTE $52
-      .BYTE $E4
-      .BYTE $4C
-      .BYTE $E8
-      .BYTE $46
-      .BYTE $E4
-      .BYTE $3E
-      .BYTE $E8
-      .BYTE $3A
-      .BYTE $E4
-      .BYTE $34
-      .BYTE $E8
-      .BYTE $2E
-      .BYTE $E4
-      .BYTE $26
-      .BYTE $E8
-      .BYTE $24
-      .BYTE $E4
-      .BYTE $22
-      .BYTE $1C
-      .BYTE $16
-      .BYTE $E8
-      .BYTE $0E
-      .BYTE $7E
-      .BYTE $26
-      .BYTE $E8
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $E9
-      .BYTE $3E
+      .db $E4
+      .db $56
+      .db $E8
+      .db $52
+      .db $E4
+      .db $4C
+      .db $E8
+      .db $46
+      .db $E4
+      .db $3E
+      .db $E8
+      .db $3A
+      .db $E4
+      .db $34
+      .db $E8
+      .db $2E
+      .db $E4
+      .db $26
+      .db $E8
+      .db $24
+      .db $E4
+      .db $22
+      .db $1C
+      .db $16
+      .db $E8
+      .db $0E
+      .db $7E
+      .db $26
+      .db $E8
+      .db $46
+      .db $7E
+      .db $E9
+      .db $3E
 MusicDataTitleScreen1_Triangle:
-      .BYTE $EB
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $E4
-      .BYTE $3E
-      .BYTE $E8
-      .BYTE $3C
-      .BYTE $E4
-      .BYTE $3A
-      .BYTE $34
-      .BYTE $2E
-      .BYTE $E8
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $89
-      .BYTE $7E
+      .db $EB
+      .db $7E
+      .db $7E
+      .db $E4
+      .db $3E
+      .db $E8
+      .db $3C
+      .db $E4
+      .db $3A
+      .db $34
+      .db $2E
+      .db $E8
+      .db $3E
+      .db $7E
+      .db $7E
+      .db $E8
+      .db $4C
+      .db $7E
+      .db $89
+      .db $7E
 MusicDataTitleScreen1_Noise:
-      .BYTE $E8
-      .BYTE $10
-      .BYTE $02
-      .BYTE $06
-      .BYTE $10
-      .BYTE $02
-      .BYTE $06
-      .BYTE $10
-      .BYTE $02
-      .BYTE $06
-      .BYTE $10
-      .BYTE $01
-      .BYTE $10
-      .BYTE $10
-      .BYTE $01
-      .BYTE $01
-      .BYTE $EA
-      .BYTE $01
+      .db $E8
+      .db $10
+      .db $02
+      .db $06
+      .db $10
+      .db $02
+      .db $06
+      .db $10
+      .db $02
+      .db $06
+      .db $10
+      .db $01
+      .db $10
+      .db $10
+      .db $01
+      .db $01
+      .db $EA
+      .db $01
 
 MusicDataTitleScreen2:
 MusicDataTitleScreen2_Square2:
-      .BYTE $E4
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $48
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $4E
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $4E
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $EB
-      .BYTE $50
-      .BYTE $E4
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $46
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $48
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $4E
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $52
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $E9
-      .BYTE $50
-      .BYTE $E4
-      .BYTE $26
-      .BYTE $2A
-      .BYTE $26
-      .BYTE $E8
-      .BYTE $2E
-      .BYTE $2A
-      .BYTE $26
-      .BYTE $E4
-      .BYTE $4C
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $4A
-      .BYTE $3E
-      .BYTE $44
-      .BYTE $4A
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $EB
-      .BYTE $4C
-      .BYTE $E4
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $46
-      .BYTE $48
-      .BYTE $4A
-      .BYTE $4C
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $52
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $E9
-      .BYTE $50
-      .BYTE $E4
-      .BYTE $26
-      .BYTE $2A
-      .BYTE $26
-      .BYTE $E8
-      .BYTE $2E
-      .BYTE $30
-      .BYTE $34
-      .BYTE $00
+      .db $E4
+      .db $50
+      .db $3E
+      .db $48
+      .db $50
+      .db $7E
+      .db $3E
+      .db $4E
+      .db $3E
+      .db $46
+      .db $4E
+      .db $7E
+      .db $3E
+      .db $EB
+      .db $50
+      .db $E4
+      .db $7E
+      .db $7E
+      .db $42
+      .db $46
+      .db $48
+      .db $4C
+      .db $50
+      .db $3E
+      .db $48
+      .db $50
+      .db $7E
+      .db $3E
+      .db $4E
+      .db $3E
+      .db $46
+      .db $52
+      .db $7E
+      .db $3E
+      .db $E9
+      .db $50
+      .db $E4
+      .db $26
+      .db $2A
+      .db $26
+      .db $E8
+      .db $2E
+      .db $2A
+      .db $26
+      .db $E4
+      .db $4C
+      .db $3E
+      .db $46
+      .db $4C
+      .db $7E
+      .db $3E
+      .db $4A
+      .db $3E
+      .db $44
+      .db $4A
+      .db $7E
+      .db $3E
+      .db $EB
+      .db $4C
+      .db $E4
+      .db $7E
+      .db $7E
+      .db $42
+      .db $46
+      .db $48
+      .db $4A
+      .db $4C
+      .db $3E
+      .db $46
+      .db $4C
+      .db $7E
+      .db $3E
+      .db $46
+      .db $3E
+      .db $46
+      .db $52
+      .db $7E
+      .db $46
+      .db $E9
+      .db $50
+      .db $E4
+      .db $26
+      .db $2A
+      .db $26
+      .db $E8
+      .db $2E
+      .db $30
+      .db $34
+      .db $00
 MusicDataTitleScreen2_Noise:
-      .BYTE $B8
-      .BYTE $02
-      .BYTE $10
-      .BYTE $10
-      .BYTE $02
-      .BYTE $B4
-      .BYTE $10
-      .BYTE $10
-      .BYTE $B8
-      .BYTE $10
-      .BYTE $00
+      .db $B8
+      .db $02
+      .db $10
+      .db $10
+      .db $02
+      .db $B4
+      .db $10
+      .db $10
+      .db $B8
+      .db $10
+      .db $00
 MusicDataTitleScreen2_Square1:
-      .BYTE $E4
-      .BYTE $38
-      .BYTE $3E
-      .BYTE $48
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $36
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $36
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $EB
-      .BYTE $38
-      .BYTE $E4
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $46
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $38
-      .BYTE $3E
-      .BYTE $48
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $36
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $E9
-      .BYTE $48
-      .BYTE $E4
-      .BYTE $26
-      .BYTE $2A
-      .BYTE $26
-      .BYTE $E8
-      .BYTE $2E
-      .BYTE $2A
-      .BYTE $26
-      .BYTE $E4
-      .BYTE $34
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $32
-      .BYTE $3E
-      .BYTE $44
-      .BYTE $32
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $EB
-      .BYTE $34
-      .BYTE $E4
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $46
-      .BYTE $48
-      .BYTE $4A
-      .BYTE $34
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $2E
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $E9
-      .BYTE $48
-      .BYTE $E4
-      .BYTE $26
-      .BYTE $2A
-      .BYTE $26
-      .BYTE $E8
-      .BYTE $2E
-      .BYTE $30
-      .BYTE $34
+      .db $E4
+      .db $38
+      .db $3E
+      .db $48
+      .db $38
+      .db $7E
+      .db $3E
+      .db $36
+      .db $3E
+      .db $46
+      .db $36
+      .db $7E
+      .db $3E
+      .db $EB
+      .db $38
+      .db $E4
+      .db $7E
+      .db $7E
+      .db $42
+      .db $46
+      .db $48
+      .db $4C
+      .db $38
+      .db $3E
+      .db $48
+      .db $38
+      .db $7E
+      .db $3E
+      .db $36
+      .db $3E
+      .db $46
+      .db $3A
+      .db $7E
+      .db $3E
+      .db $E9
+      .db $48
+      .db $E4
+      .db $26
+      .db $2A
+      .db $26
+      .db $E8
+      .db $2E
+      .db $2A
+      .db $26
+      .db $E4
+      .db $34
+      .db $3E
+      .db $46
+      .db $34
+      .db $7E
+      .db $3E
+      .db $32
+      .db $3E
+      .db $44
+      .db $32
+      .db $7E
+      .db $3E
+      .db $EB
+      .db $34
+      .db $E4
+      .db $7E
+      .db $7E
+      .db $42
+      .db $46
+      .db $48
+      .db $4A
+      .db $34
+      .db $3E
+      .db $46
+      .db $34
+      .db $7E
+      .db $3E
+      .db $2E
+      .db $3E
+      .db $46
+      .db $3A
+      .db $7E
+      .db $46
+      .db $E9
+      .db $48
+      .db $E4
+      .db $26
+      .db $2A
+      .db $26
+      .db $E8
+      .db $2E
+      .db $30
+      .db $34
 MusicDataTitleScreen2_Triangle:
-      .BYTE $88
-      .BYTE $48
-      .BYTE $56
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $56
-      .BYTE $48
-      .BYTE $56
-      .BYTE $56
-      .BYTE $3E
-      .BYTE $56
-      .BYTE $56
-      .BYTE $48
-      .BYTE $56
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $56
-      .BYTE $48
-      .BYTE $56
-      .BYTE $56
-      .BYTE $3E
-      .BYTE $56
-      .BYTE $56
-      .BYTE $4C
-      .BYTE $56
-      .BYTE $56
-      .BYTE $4A
-      .BYTE $54
-      .BYTE $54
-      .BYTE $4C
-      .BYTE $56
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $56
-      .BYTE $4C
-      .BYTE $56
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $56
-      .BYTE $48
-      .BYTE $56
-      .BYTE $56
-      .BYTE $3E
-      .BYTE $56
-      .BYTE $56
+      .db $88
+      .db $48
+      .db $56
+      .db $56
+      .db $46
+      .db $56
+      .db $56
+      .db $48
+      .db $56
+      .db $56
+      .db $3E
+      .db $56
+      .db $56
+      .db $48
+      .db $56
+      .db $56
+      .db $46
+      .db $56
+      .db $56
+      .db $48
+      .db $56
+      .db $56
+      .db $3E
+      .db $56
+      .db $56
+      .db $4C
+      .db $56
+      .db $56
+      .db $4A
+      .db $54
+      .db $54
+      .db $4C
+      .db $56
+      .db $56
+      .db $46
+      .db $56
+      .db $56
+      .db $4C
+      .db $56
+      .db $56
+      .db $46
+      .db $56
+      .db $56
+      .db $48
+      .db $56
+      .db $56
+      .db $3E
+      .db $56
+      .db $56
 
 MusicDataTitleScreen3:
 MusicDataTitleScreen3_Square2:
-      .BYTE $E4
-      .BYTE $56
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $56
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $56
-      .BYTE $44
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $5A
-      .BYTE $7E
-      .BYTE $E6
-      .BYTE $7E
-      .BYTE $E4
-      .BYTE $56
-      .BYTE $52
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $52
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $52
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $52
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $52
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $52
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $52
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $E6
-      .BYTE $7E
-      .BYTE $E4
-      .BYTE $52
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $E8
-      .BYTE $42
-      .BYTE $46
-      .BYTE $52
-      .BYTE $E4
-      .BYTE $50
-      .BYTE $50
-      .BYTE $E9
-      .BYTE $50
-      .BYTE $E4
-      .BYTE $46
-      .BYTE $00
+      .db $E4
+      .db $56
+      .db $48
+      .db $7E
+      .db $56
+      .db $7E
+      .db $48
+      .db $56
+      .db $46
+      .db $7E
+      .db $56
+      .db $7E
+      .db $46
+      .db $56
+      .db $44
+      .db $7E
+      .db $56
+      .db $7E
+      .db $44
+      .db $56
+      .db $7E
+      .db $5A
+      .db $7E
+      .db $E6
+      .db $7E
+      .db $E4
+      .db $56
+      .db $52
+      .db $42
+      .db $7E
+      .db $52
+      .db $7E
+      .db $42
+      .db $52
+      .db $42
+      .db $7E
+      .db $52
+      .db $7E
+      .db $42
+      .db $52
+      .db $42
+      .db $7E
+      .db $52
+      .db $7E
+      .db $42
+      .db $52
+      .db $7E
+      .db $56
+      .db $7E
+      .db $E6
+      .db $7E
+      .db $E4
+      .db $52
+      .db $50
+      .db $3E
+      .db $3E
+      .db $50
+      .db $7E
+      .db $3E
+      .db $E8
+      .db $42
+      .db $46
+      .db $52
+      .db $E4
+      .db $50
+      .db $50
+      .db $E9
+      .db $50
+      .db $E4
+      .db $46
+      .db $00
 MusicDataTitleScreen3_Square1:
-      .BYTE $E4
-      .BYTE $50
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $4A
-      .BYTE $44
-      .BYTE $7E
-      .BYTE $4A
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $4A
-      .BYTE $4A
-      .BYTE $4A
-      .BYTE $7E
-      .BYTE $E6
-      .BYTE $7E
-      .BYTE $E4
-      .BYTE $56
-      .BYTE $4C
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $4A
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $4A
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $48
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $46
-      .BYTE $46
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $E6
-      .BYTE $7E
-      .BYTE $E4
-      .BYTE $52
-      .BYTE $30
-      .BYTE $3E
-      .BYTE $3E
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $E8
-      .BYTE $3A
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $E4
-      .BYTE $46
-      .BYTE $46
-      .BYTE $E9
-      .BYTE $46
-      .BYTE $E4
-      .BYTE $3A
+      .db $E4
+      .db $50
+      .db $48
+      .db $7E
+      .db $50
+      .db $7E
+      .db $48
+      .db $4C
+      .db $46
+      .db $7E
+      .db $4C
+      .db $7E
+      .db $46
+      .db $4A
+      .db $44
+      .db $7E
+      .db $4A
+      .db $7E
+      .db $44
+      .db $4A
+      .db $4A
+      .db $4A
+      .db $7E
+      .db $E6
+      .db $7E
+      .db $E4
+      .db $56
+      .db $4C
+      .db $42
+      .db $7E
+      .db $4C
+      .db $7E
+      .db $42
+      .db $4A
+      .db $42
+      .db $7E
+      .db $4A
+      .db $7E
+      .db $42
+      .db $48
+      .db $42
+      .db $7E
+      .db $48
+      .db $7E
+      .db $42
+      .db $46
+      .db $46
+      .db $46
+      .db $7E
+      .db $E6
+      .db $7E
+      .db $E4
+      .db $52
+      .db $30
+      .db $3E
+      .db $3E
+      .db $30
+      .db $7E
+      .db $3E
+      .db $E8
+      .db $3A
+      .db $3E
+      .db $46
+      .db $E4
+      .db $46
+      .db $46
+      .db $E9
+      .db $46
+      .db $E4
+      .db $3A
 MusicDataTitleScreen3_Triangle:
-      .BYTE $48
-      .BYTE $56
-      .BYTE $56
-      .BYTE $46
-      .BYTE $56
-      .BYTE $56
-      .BYTE $44
-      .BYTE $56
-      .BYTE $56
-      .BYTE $4A
-      .BYTE $56
-      .BYTE $86
-      .BYTE $7E
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $4C
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $4A
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $48
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $46
-      .BYTE $56
-      .BYTE $86
-      .BYTE $7E
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $48
-      .BYTE $56
-      .BYTE $56
-      .BYTE $3E
-      .BYTE $56
-      .BYTE $56
-      .BYTE $84
-      .BYTE $52
-      .BYTE $52
-      .BYTE $89
-      .BYTE $52
-      .BYTE $84
-      .BYTE $46
+      .db $48
+      .db $56
+      .db $56
+      .db $46
+      .db $56
+      .db $56
+      .db $44
+      .db $56
+      .db $56
+      .db $4A
+      .db $56
+      .db $86
+      .db $7E
+      .db $84
+      .db $7E
+      .db $88
+      .db $4C
+      .db $5A
+      .db $5A
+      .db $4A
+      .db $5A
+      .db $5A
+      .db $48
+      .db $5A
+      .db $5A
+      .db $46
+      .db $56
+      .db $86
+      .db $7E
+      .db $84
+      .db $7E
+      .db $88
+      .db $48
+      .db $56
+      .db $56
+      .db $3E
+      .db $56
+      .db $56
+      .db $84
+      .db $52
+      .db $52
+      .db $89
+      .db $52
+      .db $84
+      .db $46
 MusicDataTitleScreen3_Noise:
-      .BYTE $B8
-      .BYTE $02
-      .BYTE $10
-      .BYTE $10
-      .BYTE $02
-      .BYTE $10
-      .BYTE $10
-      .BYTE $02
-      .BYTE $10
-      .BYTE $10
-      .BYTE $02
-      .BYTE $10
-      .BYTE $86
-      .BYTE $01
-      .BYTE $84
-      .BYTE $01
-      .BYTE $88
-      .BYTE $02
-      .BYTE $10
-      .BYTE $10
-      .BYTE $02
-      .BYTE $10
-      .BYTE $10
-      .BYTE $02
-      .BYTE $10
-      .BYTE $10
-      .BYTE $02
-      .BYTE $10
-      .BYTE $86
-      .BYTE $01
-      .BYTE $84
-      .BYTE $01
-      .BYTE $88
-      .BYTE $02
-      .BYTE $10
-      .BYTE $10
-      .BYTE $02
-      .BYTE $10
-      .BYTE $10
-      .BYTE $02
-      .BYTE $10
-      .BYTE $10
+      .db $B8
+      .db $02
+      .db $10
+      .db $10
+      .db $02
+      .db $10
+      .db $10
+      .db $02
+      .db $10
+      .db $10
+      .db $02
+      .db $10
+      .db $86
+      .db $01
+      .db $84
+      .db $01
+      .db $88
+      .db $02
+      .db $10
+      .db $10
+      .db $02
+      .db $10
+      .db $10
+      .db $02
+      .db $10
+      .db $10
+      .db $02
+      .db $10
+      .db $86
+      .db $01
+      .db $84
+      .db $01
+      .db $88
+      .db $02
+      .db $10
+      .db $10
+      .db $02
+      .db $10
+      .db $10
+      .db $02
+      .db $10
+      .db $10
 
 MusicDataTitleScreen4:
 MusicDataTitleScreen4_Square2:
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $38
-      .BYTE $34
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $26
-      .BYTE $20
-      .BYTE $1C
-      .BYTE $E8
-      .BYTE $18
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $48
-      .BYTE $00
+      .db $48
+      .db $7E
+      .db $7E
+      .db $3E
+      .db $38
+      .db $34
+      .db $30
+      .db $7E
+      .db $7E
+      .db $26
+      .db $20
+      .db $1C
+      .db $E8
+      .db $18
+      .db $7E
+      .db $3E
+      .db $48
+      .db $00
 MusicDataTitleScreen4_Square1:
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $26
-      .BYTE $20
-      .BYTE $1C
-      .BYTE $18
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $0E
-      .BYTE $08
-      .BYTE $04
-      .BYTE $E8
-      .BYTE $18
-      .BYTE $7E
-      .BYTE $00
-      .BYTE $2E
-      .BYTE $38
+      .db $30
+      .db $7E
+      .db $7E
+      .db $26
+      .db $20
+      .db $1C
+      .db $18
+      .db $7E
+      .db $7E
+      .db $0E
+      .db $08
+      .db $04
+      .db $E8
+      .db $18
+      .db $7E
+      .db $00
+      .db $2E
+      .db $38
 MusicDataTitleScreen4_Triangle:
-      .BYTE $EB
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $30
+      .db $EB
+      .db $7E
+      .db $7E
+      .db $7E
+      .db $30
 MusicDataTitleScreen4_Noise:
-      .BYTE $10
-      .BYTE $01
-      .BYTE $01
-      .BYTE $10
-      .BYTE $01
-      .BYTE $01
-      .BYTE $10
-      .BYTE $01
-      .BYTE $10
-      .BYTE $10
-      .BYTE $01
-      .BYTE $01
+      .db $10
+      .db $01
+      .db $01
+      .db $10
+      .db $01
+      .db $01
+      .db $10
+      .db $01
+      .db $10
+      .db $10
+      .db $01
+      .db $01
 
 MusicDataCharacterSelect1:
 MusicDataCharacterSelect1_Square2:
-      .BYTE $96
-      .BYTE $48
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $48
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $48
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $98
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $00
+      .db $96
+      .db $48
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $48
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $48
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $98
+      .db $50
+      .db $7E
+      .db $4C
+      .db $7E
+      .db $00
 MusicDataCharacterSelect1_Square1:
-      .BYTE $96
-      .BYTE $3E
-      .BYTE $92
-      .BYTE $3E
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $3E
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $3E
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $3E
-      .BYTE $96
-      .BYTE $3C
-      .BYTE $92
-      .BYTE $3C
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $3C
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $3C
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $3C
-      .BYTE $96
-      .BYTE $3A
-      .BYTE $92
-      .BYTE $3A
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $3A
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $3A
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $3A
-      .BYTE $98
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $7E
+      .db $96
+      .db $3E
+      .db $92
+      .db $3E
+      .db $96
+      .db $7E
+      .db $92
+      .db $3E
+      .db $96
+      .db $7E
+      .db $92
+      .db $3E
+      .db $96
+      .db $7E
+      .db $92
+      .db $3E
+      .db $96
+      .db $3C
+      .db $92
+      .db $3C
+      .db $96
+      .db $7E
+      .db $92
+      .db $3C
+      .db $96
+      .db $7E
+      .db $92
+      .db $3C
+      .db $96
+      .db $7E
+      .db $92
+      .db $3C
+      .db $96
+      .db $3A
+      .db $92
+      .db $3A
+      .db $96
+      .db $7E
+      .db $92
+      .db $3A
+      .db $96
+      .db $7E
+      .db $92
+      .db $3A
+      .db $96
+      .db $7E
+      .db $92
+      .db $3A
+      .db $98
+      .db $46
+      .db $7E
+      .db $3A
+      .db $7E
 MusicDataCharacterSelect1_Triangle:
-      .BYTE $96
-      .BYTE $48
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $48
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $48
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $96
-      .BYTE $7E
-      .BYTE $92
-      .BYTE $48
-      .BYTE $98
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $7E
+      .db $96
+      .db $48
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $48
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $48
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $96
+      .db $7E
+      .db $92
+      .db $48
+      .db $98
+      .db $3E
+      .db $7E
+      .db $46
+      .db $7E
 MusicDataCharacterSelect1_Noise:
-      .BYTE $8A
-      .BYTE $04
-      .BYTE $01
-      .BYTE $00
+      .db $8A
+      .db $04
+      .db $01
+      .db $00
 
 ; Seems to be a little duplicated chunk of MusicDataCharacterSelect2_Square2
 MusicDataCharacterSelect_Square_UNUSED:
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $48
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $42
-      .BYTE $A8
-      .BYTE $50
-      .BYTE $50
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $48
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $42
+      .db $A8
+      .db $50
+      .db $50
 
 MusicDataCharacterSelect2:
 MusicDataCharacterSelect2_Square2:
-      .BYTE $A8
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $50
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $48
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $42
-      .BYTE $AA
-      .BYTE $3E
-      .BYTE $A8
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $48
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $42
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $3C
-      .BYTE $AA
-      .BYTE $38
-      .BYTE $A8
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $50
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $48
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $42
-      .BYTE $A8
-      .BYTE $50
-      .BYTE $50
-      .BYTE $A4
-      .BYTE $48
-      .BYTE $A9
-      .BYTE $7E
-      .BYTE $AA
-      .BYTE $7E
-      .BYTE $00
+      .db $A8
+      .db $50
+      .db $7E
+      .db $50
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $50
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $48
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $42
+      .db $AA
+      .db $3E
+      .db $A8
+      .db $48
+      .db $7E
+      .db $48
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $48
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $42
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $3C
+      .db $AA
+      .db $38
+      .db $A8
+      .db $50
+      .db $7E
+      .db $50
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $50
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $48
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $42
+      .db $A8
+      .db $50
+      .db $50
+      .db $A4
+      .db $48
+      .db $A9
+      .db $7E
+      .db $AA
+      .db $7E
+      .db $00
 
 MusicDataCharacterSelect3:
 MusicDataCharacterSelect3_Square2:
-      .BYTE $AA
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $00
+      .db $AA
+      .db $7E
+      .db $7E
+      .db $00
 
 MusicDataCharacterSelect4:
 MusicDataCharacterSelect4_Square2:
-      .BYTE $C8
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $4E
-      .BYTE $00
+      .db $C8
+      .db $7E
+      .db $48
+      .db $4C
+      .db $4E
+      .db $00
 
 MusicDataCharacterSelect2_Square1:
-      .BYTE $A8
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $A8
-      .BYTE $3E
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $3E
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $38
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $38
-      .BYTE $AA
-      .BYTE $30
-      .BYTE $A8
-      .BYTE $3C
-      .BYTE $7E
-      .BYTE $3C
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $3C
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $34
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $34
-      .BYTE $AA
-      .BYTE $30
-      .BYTE $A8
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $3A
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $34
-      .BYTE $A6
-      .BYTE $7E
-      .BYTE $A2
-      .BYTE $2E
-      .BYTE $A8
-      .BYTE $3E
-      .BYTE $3E
-      .BYTE $A4
-      .BYTE $38
-      .BYTE $A9
-      .BYTE $7E
-      .BYTE $AA
-      .BYTE $7E
+      .db $A8
+      .db $3E
+      .db $7E
+      .db $A8
+      .db $3E
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $3E
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $38
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $38
+      .db $AA
+      .db $30
+      .db $A8
+      .db $3C
+      .db $7E
+      .db $3C
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $3C
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $34
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $34
+      .db $AA
+      .db $30
+      .db $A8
+      .db $3A
+      .db $7E
+      .db $3A
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $3A
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $34
+      .db $A6
+      .db $7E
+      .db $A2
+      .db $2E
+      .db $A8
+      .db $3E
+      .db $3E
+      .db $A4
+      .db $38
+      .db $A9
+      .db $7E
+      .db $AA
+      .db $7E
 
 MusicDataCharacterSelect3_Square1:
-      .BYTE $AA
-      .BYTE $7E
-      .BYTE $7E
+      .db $AA
+      .db $7E
+      .db $7E
 
 MusicDataCharacterSelect4_Square1:
-      .BYTE $C8
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3C
+      .db $C8
+      .db $7E
+      .db $38
+      .db $3A
+      .db $3C
 
 MusicDataCharacterSelect2_Triangle:
-      .BYTE $88
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $8A
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
+      .db $88
+      .db $30
+      .db $7E
+      .db $30
+      .db $7E
+      .db $30
+      .db $7E
+      .db $30
+      .db $7E
+      .db $34
+      .db $7E
+      .db $34
+      .db $7E
+      .db $34
+      .db $7E
+      .db $34
+      .db $7E
+      .db $3E
+      .db $7E
+      .db $3E
+      .db $7E
+      .db $3E
+      .db $7E
+      .db $3E
+      .db $7E
+      .db $30
+      .db $7E
+      .db $8A
+      .db $7E
+      .db $7E
+      .db $7E
 
 MusicDataCharacterSelect3_Triangle:
 MusicDataCharacterSelect4_Triangle:
-      .BYTE $8A
-      .BYTE $7E
-      .BYTE $7E
+      .db $8A
+      .db $7E
+      .db $7E
 
 MusicDataCharacterSelect2_Noise:
-      .BYTE $88
-      .BYTE $02
-      .BYTE $04
-      .BYTE $00
+      .db $88
+      .db $02
+      .db $04
+      .db $00
 
 MusicDataCharacterSelect3_Noise:
 MusicDataCharacterSelect4_Noise:
-      .BYTE $82
-      .BYTE $04
-      .BYTE $82
-      .BYTE $04
-      .BYTE $82
-      .BYTE $04
-      .BYTE $86
-      .BYTE $04
-      .BYTE $82
-      .BYTE $04
-      .BYTE $82
-      .BYTE $04
-      .BYTE $82
-      .BYTE $01
-      .BYTE $82
-      .BYTE $04
-      .BYTE $82
-      .BYTE $04
-      .BYTE $82
-      .BYTE $01
-      .BYTE $82
-      .BYTE $04
+      .db $82
+      .db $04
+      .db $82
+      .db $04
+      .db $82
+      .db $04
+      .db $86
+      .db $04
+      .db $82
+      .db $04
+      .db $82
+      .db $04
+      .db $82
+      .db $01
+      .db $82
+      .db $04
+      .db $82
+      .db $04
+      .db $82
+      .db $01
+      .db $82
+      .db $04
 
 MusicDataCharacterSelect5:
 MusicDataCharacterSelect5_Square2:
-      .BYTE $C8
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C2
-      .BYTE $50
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $4C
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $4C
-      .BYTE $50
-      .BYTE $C4
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $C2
-      .BYTE $48
-      .BYTE $C6
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $48
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $42
-      .BYTE $46
-      .BYTE $48
-      .BYTE $C8
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $4C
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C2
-      .BYTE $4C
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $48
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $46
-      .BYTE $C4
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $00
+      .db $C8
+      .db $50
+      .db $7E
+      .db $50
+      .db $C6
+      .db $7E
+      .db $C2
+      .db $50
+      .db $C6
+      .db $7E
+      .db $C8
+      .db $4C
+      .db $C2
+      .db $7E
+      .db $C8
+      .db $4C
+      .db $50
+      .db $C4
+      .db $4C
+      .db $7E
+      .db $48
+      .db $7E
+      .db $C2
+      .db $48
+      .db $C6
+      .db $46
+      .db $7E
+      .db $C8
+      .db $48
+      .db $C2
+      .db $7E
+      .db $C8
+      .db $42
+      .db $46
+      .db $48
+      .db $C8
+      .db $4C
+      .db $7E
+      .db $4C
+      .db $C6
+      .db $7E
+      .db $C2
+      .db $4C
+      .db $C6
+      .db $7E
+      .db $C8
+      .db $48
+      .db $C2
+      .db $7E
+      .db $C8
+      .db $46
+      .db $C4
+      .db $42
+      .db $7E
+      .db $00
 
 MusicDataCharacterSelect6:
 MusicDataCharacterSelect6_Square2:
-      .BYTE $C8
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $48
-      .BYTE $4A
-      .BYTE $C8
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $3E
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $00
+      .db $C8
+      .db $7E
+      .db $46
+      .db $48
+      .db $4A
+      .db $C8
+      .db $4C
+      .db $7E
+      .db $C6
+      .db $7E
+      .db $C8
+      .db $3E
+      .db $C2
+      .db $7E
+      .db $00
 
 MusicDataCharacterSelect5_Square1:
-      .BYTE $C8
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C2
-      .BYTE $40
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $3C
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $3C
-      .BYTE $40
-      .BYTE $C4
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $C2
-      .BYTE $38
-      .BYTE $C6
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $38
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $30
-      .BYTE $34
-      .BYTE $38
-      .BYTE $C8
-      .BYTE $3C
-      .BYTE $7E
-      .BYTE $3C
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C2
-      .BYTE $3C
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $38
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $34
-      .BYTE $C4
-      .BYTE $30
-      .BYTE $7E
+      .db $C8
+      .db $40
+      .db $7E
+      .db $40
+      .db $C6
+      .db $7E
+      .db $C2
+      .db $40
+      .db $C6
+      .db $7E
+      .db $C8
+      .db $3C
+      .db $C2
+      .db $7E
+      .db $C8
+      .db $3C
+      .db $40
+      .db $C4
+      .db $38
+      .db $7E
+      .db $38
+      .db $7E
+      .db $C2
+      .db $38
+      .db $C6
+      .db $34
+      .db $7E
+      .db $C8
+      .db $38
+      .db $C2
+      .db $7E
+      .db $C8
+      .db $30
+      .db $34
+      .db $38
+      .db $C8
+      .db $3C
+      .db $7E
+      .db $3C
+      .db $C6
+      .db $7E
+      .db $C2
+      .db $3C
+      .db $C6
+      .db $7E
+      .db $C8
+      .db $38
+      .db $C2
+      .db $7E
+      .db $C8
+      .db $34
+      .db $C4
+      .db $30
+      .db $7E
 
 MusicDataCharacterSelect6_Square1:
-      .BYTE $C8
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $C8
-      .BYTE $3C
-      .BYTE $7E
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $2E
-      .BYTE $C2
-      .BYTE $7E
+      .db $C8
+      .db $7E
+      .db $34
+      .db $38
+      .db $3A
+      .db $C8
+      .db $3C
+      .db $7E
+      .db $C6
+      .db $7E
+      .db $C8
+      .db $2E
+      .db $C2
+      .db $7E
 
 MusicDataCharacterSelect5_Triangle:
-      .BYTE $88
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $3C
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $46
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $42
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $3C
-      .BYTE $42
+      .db $88
+      .db $38
+      .db $7E
+      .db $3C
+      .db $7E
+      .db $3E
+      .db $7E
+      .db $40
+      .db $46
+      .db $42
+      .db $7E
+      .db $46
+      .db $7E
+      .db $48
+      .db $7E
+      .db $46
+      .db $42
+      .db $34
+      .db $7E
+      .db $38
+      .db $7E
+      .db $3A
+      .db $7E
+      .db $3C
+      .db $42
 
 MusicDataCharacterSelect6_Triangle:
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $8A
-      .BYTE $7E
+      .db $88
+      .db $7E
+      .db $3E
+      .db $42
+      .db $44
+      .db $46
+      .db $7E
+      .db $8A
+      .db $7E
 
 MusicDataCharacterSelect5_Noise:
-      .BYTE $88
-      .BYTE $02
-      .BYTE $04
-      .BYTE $00
+      .db $88
+      .db $02
+      .db $04
+      .db $00
 
 MusicDataCharacterSelect6_Noise:
-      .BYTE $88
-      .BYTE $02
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $02
-      .BYTE $02
-      .BYTE $7E
-      .BYTE $06
+      .db $88
+      .db $02
+      .db $04
+      .db $04
+      .db $04
+      .db $02
+      .db $02
+      .db $7E
+      .db $06
 
 MusicDataCharacterSelect7:
 MusicDataCharacterSelect7_Square2:
-      .BYTE $96
-      .BYTE $50
-      .BYTE $92
-      .BYTE $4E
-      .BYTE $96
-      .BYTE $50
-      .BYTE $92
-      .BYTE $5E
-      .BYTE $96
-      .BYTE $58
-      .BYTE $92
-      .BYTE $50
-      .BYTE $96
-      .BYTE $68
-      .BYTE $92
-      .BYTE $5E
-      .BYTE $96
-      .BYTE $64
-      .BYTE $92
-      .BYTE $5E
-      .BYTE $96
-      .BYTE $5A
-      .BYTE $92
-      .BYTE $5E
-      .BYTE $96
-      .BYTE $58
-      .BYTE $92
-      .BYTE $52
-      .BYTE $96
-      .BYTE $50
-      .BYTE $92
-      .BYTE $4C
-      .BYTE $96
-      .BYTE $48
-      .BYTE $92
-      .BYTE $46
-      .BYTE $96
-      .BYTE $48
-      .BYTE $92
-      .BYTE $4C
-      .BYTE $96
-      .BYTE $50
-      .BYTE $92
-      .BYTE $4E
-      .BYTE $96
-      .BYTE $50
-      .BYTE $92
-      .BYTE $5A
-      .BYTE $96
-      .BYTE $58
-      .BYTE $92
-      .BYTE $50
-      .BYTE $96
-      .BYTE $4C
-      .BYTE $92
-      .BYTE $4E
-      .BYTE $96
-      .BYTE $5A
-      .BYTE $92
-      .BYTE $50
-      .BYTE $96
-      .BYTE $56
-      .BYTE $92
-      .BYTE $54
-      .BYTE $96
-      .BYTE $52
-      .BYTE $92
-      .BYTE $50
-      .BYTE $96
-      .BYTE $52
-      .BYTE $92
-      .BYTE $5A
-      .BYTE $96
-      .BYTE $68
-      .BYTE $92
-      .BYTE $4C
-      .BYTE $96
-      .BYTE $5A
-      .BYTE $92
-      .BYTE $58
-      .BYTE $96
-      .BYTE $56
-      .BYTE $92
-      .BYTE $68
-      .BYTE $96
-      .BYTE $56
-      .BYTE $92
-      .BYTE $54
-      .BYTE $96
-      .BYTE $52
-      .BYTE $92
-      .BYTE $64
-      .BYTE $96
-      .BYTE $5A
-      .BYTE $92
-      .BYTE $5C
-      .BYTE $00
+      .db $96
+      .db $50
+      .db $92
+      .db $4E
+      .db $96
+      .db $50
+      .db $92
+      .db $5E
+      .db $96
+      .db $58
+      .db $92
+      .db $50
+      .db $96
+      .db $68
+      .db $92
+      .db $5E
+      .db $96
+      .db $64
+      .db $92
+      .db $5E
+      .db $96
+      .db $5A
+      .db $92
+      .db $5E
+      .db $96
+      .db $58
+      .db $92
+      .db $52
+      .db $96
+      .db $50
+      .db $92
+      .db $4C
+      .db $96
+      .db $48
+      .db $92
+      .db $46
+      .db $96
+      .db $48
+      .db $92
+      .db $4C
+      .db $96
+      .db $50
+      .db $92
+      .db $4E
+      .db $96
+      .db $50
+      .db $92
+      .db $5A
+      .db $96
+      .db $58
+      .db $92
+      .db $50
+      .db $96
+      .db $4C
+      .db $92
+      .db $4E
+      .db $96
+      .db $5A
+      .db $92
+      .db $50
+      .db $96
+      .db $56
+      .db $92
+      .db $54
+      .db $96
+      .db $52
+      .db $92
+      .db $50
+      .db $96
+      .db $52
+      .db $92
+      .db $5A
+      .db $96
+      .db $68
+      .db $92
+      .db $4C
+      .db $96
+      .db $5A
+      .db $92
+      .db $58
+      .db $96
+      .db $56
+      .db $92
+      .db $68
+      .db $96
+      .db $56
+      .db $92
+      .db $54
+      .db $96
+      .db $52
+      .db $92
+      .db $64
+      .db $96
+      .db $5A
+      .db $92
+      .db $5C
+      .db $00
 MusicDataCharacterSelect7_Square1:
-      .BYTE $C8
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C2
-      .BYTE $50
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $4C
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $4C
-      .BYTE $50
-      .BYTE $C4
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $C2
-      .BYTE $48
-      .BYTE $C6
-      .BYTE $46
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $48
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $42
-      .BYTE $46
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $4C
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C2
-      .BYTE $4C
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $48
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $46
-      .BYTE $C4
-      .BYTE $42
-      .BYTE $7E
+      .db $C8
+      .db $50
+      .db $7E
+      .db $50
+      .db $C6
+      .db $7E
+      .db $C2
+      .db $50
+      .db $C6
+      .db $7E
+      .db $C8
+      .db $4C
+      .db $C2
+      .db $7E
+      .db $C8
+      .db $4C
+      .db $50
+      .db $C4
+      .db $4C
+      .db $7E
+      .db $48
+      .db $7E
+      .db $C2
+      .db $48
+      .db $C6
+      .db $46
+      .db $C6
+      .db $7E
+      .db $C8
+      .db $48
+      .db $C2
+      .db $7E
+      .db $C8
+      .db $42
+      .db $46
+      .db $48
+      .db $4C
+      .db $7E
+      .db $4C
+      .db $C6
+      .db $7E
+      .db $C2
+      .db $4C
+      .db $C6
+      .db $7E
+      .db $C8
+      .db $48
+      .db $C2
+      .db $7E
+      .db $C8
+      .db $46
+      .db $C4
+      .db $42
+      .db $7E
 MusicDataCharacterSelect7_Triangle:
-      .BYTE $88
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $3C
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $46
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $42
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $3C
-      .BYTE $42
+      .db $88
+      .db $38
+      .db $7E
+      .db $3C
+      .db $7E
+      .db $3E
+      .db $7E
+      .db $40
+      .db $46
+      .db $42
+      .db $7E
+      .db $46
+      .db $7E
+      .db $48
+      .db $7E
+      .db $46
+      .db $42
+      .db $34
+      .db $7E
+      .db $38
+      .db $7E
+      .db $3A
+      .db $7E
+      .db $3C
+      .db $42
 MusicDataCharacterSelect7_Noise:
-      .BYTE $88
-      .BYTE $02
-      .BYTE $04
-      .BYTE $00
+      .db $88
+      .db $02
+      .db $04
+      .db $00
 
 MusicDataCharacterSelect8:
 MusicDataCharacterSelect8_Square2:
-      .BYTE $96
-      .BYTE $5E
-      .BYTE $92
-      .BYTE $5C
-      .BYTE $96
-      .BYTE $5E
-      .BYTE $92
-      .BYTE $5A
-      .BYTE $96
-      .BYTE $56
-      .BYTE $92
-      .BYTE $52
-      .BYTE $96
-      .BYTE $42
-      .BYTE $92
-      .BYTE $46
-      .BYTE $96
-      .BYTE $56
-      .BYTE $92
-      .BYTE $52
-      .BYTE $96
-      .BYTE $46
-      .BYTE $92
-      .BYTE $42
-      .BYTE $96
-      .BYTE $52
-      .BYTE $92
-      .BYTE $46
-      .BYTE $96
-      .BYTE $42
-      .BYTE $92
-      .BYTE $3E
-      .BYTE $00
+      .db $96
+      .db $5E
+      .db $92
+      .db $5C
+      .db $96
+      .db $5E
+      .db $92
+      .db $5A
+      .db $96
+      .db $56
+      .db $92
+      .db $52
+      .db $96
+      .db $42
+      .db $92
+      .db $46
+      .db $96
+      .db $56
+      .db $92
+      .db $52
+      .db $96
+      .db $46
+      .db $92
+      .db $42
+      .db $96
+      .db $52
+      .db $92
+      .db $46
+      .db $96
+      .db $42
+      .db $92
+      .db $3E
+      .db $00
 MusicDataCharacterSelect8_Square1:
-      .BYTE $C8
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $48
-      .BYTE $4A
-      .BYTE $C8
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $C6
-      .BYTE $7E
-      .BYTE $C8
-      .BYTE $3E
-      .BYTE $C2
-      .BYTE $7E
+      .db $C8
+      .db $7E
+      .db $46
+      .db $48
+      .db $4A
+      .db $C8
+      .db $4C
+      .db $7E
+      .db $C6
+      .db $7E
+      .db $C8
+      .db $3E
+      .db $C2
+      .db $7E
 MusicDataCharacterSelect8_Triangle:
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $8A
-      .BYTE $7E
+      .db $88
+      .db $7E
+      .db $3E
+      .db $42
+      .db $44
+      .db $46
+      .db $7E
+      .db $8A
+      .db $7E
 MusicDataCharacterSelect8_Noise:
-      .BYTE $88
-      .BYTE $02
-      .BYTE $04
-      .BYTE $04
-      .BYTE $04
-      .BYTE $02
-      .BYTE $02
-      .BYTE $7E
-      .BYTE $06
+      .db $88
+      .db $02
+      .db $04
+      .db $04
+      .db $04
+      .db $02
+      .db $02
+      .db $7E
+      .db $06
 
 MusicDataOverworld1:
 MusicDataOverworld1_Square2:
-      .BYTE $A2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $54
-      .BYTE $7E
-      .BYTE $52
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $A4
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $A8
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $00
+      .db $A2
+      .db $7E
+      .db $7E
+      .db $56
+      .db $54
+      .db $7E
+      .db $52
+      .db $4C
+      .db $7E
+      .db $46
+      .db $42
+      .db $7E
+      .db $40
+      .db $A4
+      .db $3E
+      .db $7E
+      .db $56
+      .db $7E
+      .db $A8
+      .db $3E
+      .db $7E
+      .db $00
 MusicDataOverworld1_Square1:
-      .BYTE $A2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $44
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $2E
-      .BYTE $A4
-      .BYTE $2E
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $A8
-      .BYTE $3A
-      .BYTE $7E
+      .db $A2
+      .db $7E
+      .db $7E
+      .db $46
+      .db $44
+      .db $7E
+      .db $42
+      .db $3A
+      .db $7E
+      .db $34
+      .db $30
+      .db $7E
+      .db $2E
+      .db $A4
+      .db $2E
+      .db $7E
+      .db $46
+      .db $7E
+      .db $A8
+      .db $3A
+      .db $7E
 MusicDataOverworld1_Triangle:
-      .BYTE $82
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $4C
-      .BYTE $4A
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $88
-      .BYTE $34
-      .BYTE $4C
-      .BYTE $34
-      .BYTE $3E
+      .db $82
+      .db $7E
+      .db $7E
+      .db $4C
+      .db $4A
+      .db $7E
+      .db $48
+      .db $46
+      .db $7E
+      .db $3E
+      .db $3A
+      .db $7E
+      .db $38
+      .db $88
+      .db $34
+      .db $4C
+      .db $34
+      .db $3E
 MusicDataOverworld1_Noise:
-      .BYTE $8A
-      .BYTE $01
-      .BYTE $01
-      .BYTE $88
-      .BYTE $02
-      .BYTE $82
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
+      .db $8A
+      .db $01
+      .db $01
+      .db $88
+      .db $02
+      .db $82
+      .db $02
+      .db $02
+      .db $02
+      .db $02
+      .db $01
+      .db $02
+      .db $02
+      .db $02
+      .db $02
 
 MusicDataOverworld2:
 MusicDataOverworld2_Square2:
-      .BYTE $82
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $56
-      .BYTE $82
-      .BYTE $48
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $46
-      .BYTE $4E
-      .BYTE $56
-      .BYTE $5E
-      .BYTE $7E
-      .BYTE $8A
-      .BYTE $5A
-      .BYTE $82
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $56
-      .BYTE $82
-      .BYTE $44
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $4A
-      .BYTE $50
-      .BYTE $56
-      .BYTE $5E
-      .BYTE $7E
-      .BYTE $8A
-      .BYTE $5A
-      .BYTE $82
-      .BYTE $5E
-      .BYTE $60
-      .BYTE $7E
-      .BYTE $5E
-      .BYTE $60
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $5A
-      .BYTE $82
-      .BYTE $60
-      .BYTE $5E
-      .BYTE $7E
-      .BYTE $5A
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $54
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $50
-      .BYTE $82
-      .BYTE $4A
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $52
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $52
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $46
-      .BYTE $82
-      .BYTE $50
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $8A
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $82
-      .BYTE $7E
-      .BYTE $00
+      .db $82
+      .db $56
+      .db $7E
+      .db $48
+      .db $50
+      .db $7E
+      .db $88
+      .db $56
+      .db $82
+      .db $48
+      .db $50
+      .db $7E
+      .db $56
+      .db $46
+      .db $4E
+      .db $56
+      .db $5E
+      .db $7E
+      .db $8A
+      .db $5A
+      .db $82
+      .db $7E
+      .db $56
+      .db $7E
+      .db $44
+      .db $4C
+      .db $7E
+      .db $88
+      .db $56
+      .db $82
+      .db $44
+      .db $4C
+      .db $7E
+      .db $56
+      .db $4A
+      .db $50
+      .db $56
+      .db $5E
+      .db $7E
+      .db $8A
+      .db $5A
+      .db $82
+      .db $5E
+      .db $60
+      .db $7E
+      .db $5E
+      .db $60
+      .db $7E
+      .db $88
+      .db $5A
+      .db $82
+      .db $60
+      .db $5E
+      .db $7E
+      .db $5A
+      .db $56
+      .db $7E
+      .db $54
+      .db $56
+      .db $7E
+      .db $88
+      .db $50
+      .db $82
+      .db $4A
+      .db $4C
+      .db $7E
+      .db $50
+      .db $52
+      .db $7E
+      .db $50
+      .db $52
+      .db $7E
+      .db $88
+      .db $46
+      .db $82
+      .db $50
+      .db $4C
+      .db $7E
+      .db $8A
+      .db $48
+      .db $7E
+      .db $82
+      .db $7E
+      .db $00
 MusicDataOverworld2_Square1:
-      .BYTE $82
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $48
-      .BYTE $82
-      .BYTE $38
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $36
-      .BYTE $3E
-      .BYTE $46
-      .BYTE $4E
-      .BYTE $7E
-      .BYTE $8A
-      .BYTE $46
-      .BYTE $82
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $44
-      .BYTE $82
-      .BYTE $34
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $38
-      .BYTE $42
-      .BYTE $4A
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $8A
-      .BYTE $4A
-      .BYTE $82
-      .BYTE $50
-      .BYTE $5A
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $5A
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $52
-      .BYTE $82
-      .BYTE $5A
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $54
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $4E
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $48
-      .BYTE $82
-      .BYTE $42
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $4A
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $3E
-      .BYTE $82
-      .BYTE $48
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $8A
-      .BYTE $3E
-      .BYTE $8A
-      .BYTE $7E
-      .BYTE $82
-      .BYTE $7E
+      .db $82
+      .db $48
+      .db $7E
+      .db $38
+      .db $3E
+      .db $7E
+      .db $88
+      .db $48
+      .db $82
+      .db $38
+      .db $3E
+      .db $7E
+      .db $48
+      .db $36
+      .db $3E
+      .db $46
+      .db $4E
+      .db $7E
+      .db $8A
+      .db $46
+      .db $82
+      .db $7E
+      .db $44
+      .db $7E
+      .db $34
+      .db $3E
+      .db $7E
+      .db $88
+      .db $44
+      .db $82
+      .db $34
+      .db $3E
+      .db $7E
+      .db $44
+      .db $38
+      .db $42
+      .db $4A
+      .db $50
+      .db $7E
+      .db $8A
+      .db $4A
+      .db $82
+      .db $50
+      .db $5A
+      .db $7E
+      .db $56
+      .db $5A
+      .db $7E
+      .db $88
+      .db $52
+      .db $82
+      .db $5A
+      .db $56
+      .db $7E
+      .db $54
+      .db $50
+      .db $7E
+      .db $4E
+      .db $50
+      .db $7E
+      .db $88
+      .db $48
+      .db $82
+      .db $42
+      .db $46
+      .db $7E
+      .db $4A
+      .db $4C
+      .db $7E
+      .db $48
+      .db $4C
+      .db $7E
+      .db $88
+      .db $3E
+      .db $82
+      .db $48
+      .db $46
+      .db $7E
+      .db $8A
+      .db $3E
+      .db $8A
+      .db $7E
+      .db $82
+      .db $7E
 MusicDataOverworld2_Triangle:
-      .BYTE $88
-      .BYTE $30
-      .BYTE $3E
-      .BYTE $30
-      .BYTE $3E
-      .BYTE $2E
-      .BYTE $3E
-      .BYTE $2E
-      .BYTE $3E
-      .BYTE $2C
-      .BYTE $3E
-      .BYTE $2C
-      .BYTE $3E
-      .BYTE $2A
-      .BYTE $3E
-      .BYTE $2A
-      .BYTE $3E
-      .BYTE $22
-      .BYTE $3A
-      .BYTE $24
-      .BYTE $3C
-      .BYTE $26
-      .BYTE $3E
-      .BYTE $2A
-      .BYTE $42
-      .BYTE $34
-      .BYTE $3A
-      .BYTE $26
-      .BYTE $34
-      .BYTE $30
-      .BYTE $26
-      .BYTE $30
-      .BYTE $7E
+      .db $88
+      .db $30
+      .db $3E
+      .db $30
+      .db $3E
+      .db $2E
+      .db $3E
+      .db $2E
+      .db $3E
+      .db $2C
+      .db $3E
+      .db $2C
+      .db $3E
+      .db $2A
+      .db $3E
+      .db $2A
+      .db $3E
+      .db $22
+      .db $3A
+      .db $24
+      .db $3C
+      .db $26
+      .db $3E
+      .db $2A
+      .db $42
+      .db $34
+      .db $3A
+      .db $26
+      .db $34
+      .db $30
+      .db $26
+      .db $30
+      .db $7E
 MusicDataOverworld2_Noise:
-      .BYTE $88
-      .BYTE $01
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $88
-      .BYTE $01
-      .BYTE $02
-      .BYTE $82
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $00
+      .db $88
+      .db $01
+      .db $02
+      .db $01
+      .db $02
+      .db $88
+      .db $01
+      .db $02
+      .db $82
+      .db $02
+      .db $02
+      .db $02
+      .db $02
+      .db $01
+      .db $02
+      .db $00
 
 MusicDataOverworld3:
 MusicDataOverworld3_Square2:
-      .BYTE $92
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $50
-      .BYTE $92
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $5A
-      .BYTE $7E
-      .BYTE $9A
-      .BYTE $60
-      .BYTE $92
-      .BYTE $7E
-      .BYTE $5A
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $4C
-      .BYTE $90
-      .BYTE $42
-      .BYTE $4C
-      .BYTE $42
-      .BYTE $4C
-      .BYTE $42
-      .BYTE $4C
-      .BYTE $42
-      .BYTE $4C
-      .BYTE $42
-      .BYTE $4C
-      .BYTE $42
-      .BYTE $4C
-      .BYTE $92
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $4C
-      .BYTE $92
-      .BYTE $50
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $5A
-      .BYTE $92
-      .BYTE $56
-      .BYTE $5A
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $00
+      .db $92
+      .db $7E
+      .db $7E
+      .db $98
+      .db $50
+      .db $92
+      .db $7E
+      .db $56
+      .db $7E
+      .db $7E
+      .db $5A
+      .db $7E
+      .db $9A
+      .db $60
+      .db $92
+      .db $7E
+      .db $5A
+      .db $7E
+      .db $56
+      .db $50
+      .db $7E
+      .db $48
+      .db $4C
+      .db $7E
+      .db $50
+      .db $4C
+      .db $7E
+      .db $50
+      .db $4C
+      .db $7E
+      .db $42
+      .db $7E
+      .db $7E
+      .db $98
+      .db $4C
+      .db $90
+      .db $42
+      .db $4C
+      .db $42
+      .db $4C
+      .db $42
+      .db $4C
+      .db $42
+      .db $4C
+      .db $42
+      .db $4C
+      .db $42
+      .db $4C
+      .db $92
+      .db $7E
+      .db $98
+      .db $4C
+      .db $92
+      .db $50
+      .db $4C
+      .db $7E
+      .db $50
+      .db $4C
+      .db $7E
+      .db $50
+      .db $7E
+      .db $7E
+      .db $98
+      .db $5A
+      .db $92
+      .db $56
+      .db $5A
+      .db $7E
+      .db $56
+      .db $00
 
 MusicDataOverworld4:
 MusicDataOverworld4_Square2:
-      .BYTE $92
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $4C
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $50
-      .BYTE $90
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $50
-      .BYTE $92
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $4E
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $00
+      .db $92
+      .db $50
+      .db $7E
+      .db $4C
+      .db $48
+      .db $7E
+      .db $98
+      .db $50
+      .db $90
+      .db $3E
+      .db $50
+      .db $3E
+      .db $50
+      .db $3E
+      .db $50
+      .db $3E
+      .db $50
+      .db $3E
+      .db $50
+      .db $3E
+      .db $50
+      .db $92
+      .db $7E
+      .db $7E
+      .db $C2
+      .db $7E
+      .db $7E
+      .db $56
+      .db $7E
+      .db $4E
+      .db $7E
+      .db $46
+      .db $7E
+      .db $42
+      .db $7E
+      .db $3E
+      .db $7E
+      .db $00
 
 MusicDataOverworld3_Noise:
 MusicDataOverworld4_Noise:
-      .BYTE $88
-      .BYTE $06
-      .BYTE $82
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $00
+      .db $88
+      .db $06
+      .db $82
+      .db $02
+      .db $01
+      .db $02
+      .db $00
 
 MusicDataOverworld3_Square1:
-      .BYTE $92
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $3E
-      .BYTE $92
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $9A
-      .BYTE $56
-      .BYTE $92
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $3C
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $3C
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $3C
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $3C
-      .BYTE $90
-      .BYTE $34
-      .BYTE $3C
-      .BYTE $34
-      .BYTE $34
-      .BYTE $3C
-      .BYTE $34
-      .BYTE $3C
-      .BYTE $34
-      .BYTE $3C
-      .BYTE $90
-      .BYTE $34
-      .BYTE $3C
-      .BYTE $34
-      .BYTE $92
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $3A
-      .BYTE $92
-      .BYTE $3E
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $48
-      .BYTE $92
-      .BYTE $46
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $46
+      .db $92
+      .db $7E
+      .db $7E
+      .db $98
+      .db $3E
+      .db $92
+      .db $7E
+      .db $48
+      .db $7E
+      .db $7E
+      .db $50
+      .db $7E
+      .db $9A
+      .db $56
+      .db $92
+      .db $7E
+      .db $50
+      .db $7E
+      .db $48
+      .db $42
+      .db $7E
+      .db $3E
+      .db $3C
+      .db $7E
+      .db $3E
+      .db $3C
+      .db $7E
+      .db $3E
+      .db $3C
+      .db $7E
+      .db $34
+      .db $7E
+      .db $7E
+      .db $98
+      .db $3C
+      .db $90
+      .db $34
+      .db $3C
+      .db $34
+      .db $34
+      .db $3C
+      .db $34
+      .db $3C
+      .db $34
+      .db $3C
+      .db $90
+      .db $34
+      .db $3C
+      .db $34
+      .db $92
+      .db $7E
+      .db $98
+      .db $3A
+      .db $92
+      .db $3E
+      .db $3A
+      .db $7E
+      .db $3E
+      .db $3A
+      .db $7E
+      .db $3E
+      .db $7E
+      .db $7E
+      .db $98
+      .db $48
+      .db $92
+      .db $46
+      .db $48
+      .db $7E
+      .db $46
 
 MusicDataOverworld4_Square1:
-      .BYTE $92
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $48
-      .BYTE $90
-      .BYTE $38
-      .BYTE $48
-      .BYTE $38
-      .BYTE $48
-      .BYTE $38
-      .BYTE $48
-      .BYTE $38
-      .BYTE $48
-      .BYTE $38
-      .BYTE $48
-      .BYTE $38
-      .BYTE $48
-      .BYTE $C2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $36
-      .BYTE $7E
+      .db $92
+      .db $3E
+      .db $7E
+      .db $3A
+      .db $38
+      .db $7E
+      .db $98
+      .db $48
+      .db $90
+      .db $38
+      .db $48
+      .db $38
+      .db $48
+      .db $38
+      .db $48
+      .db $38
+      .db $48
+      .db $38
+      .db $48
+      .db $38
+      .db $48
+      .db $C2
+      .db $7E
+      .db $7E
+      .db $7E
+      .db $7E
+      .db $46
+      .db $7E
+      .db $42
+      .db $7E
+      .db $3E
+      .db $7E
+      .db $3A
+      .db $7E
+      .db $36
+      .db $7E
 
 MusicDataOverworld3_Triangle:
-      .BYTE $88
-      .BYTE $30
-      .BYTE $34
-      .BYTE $38
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $3E
-      .BYTE $38
-      .BYTE $30
-      .BYTE $34
-      .BYTE $38
-      .BYTE $3C
-      .BYTE $2A
-      .BYTE $82
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $88
-      .BYTE $30
-      .BYTE $2E
-      .BYTE $2A
-      .BYTE $26
-      .BYTE $3E
-      .BYTE $3A
-      .BYTE $34
-      .BYTE $2E
-      .BYTE $26
+      .db $88
+      .db $30
+      .db $34
+      .db $38
+      .db $3E
+      .db $42
+      .db $3E
+      .db $38
+      .db $30
+      .db $34
+      .db $38
+      .db $3C
+      .db $2A
+      .db $82
+      .db $34
+      .db $7E
+      .db $38
+      .db $88
+      .db $30
+      .db $2E
+      .db $2A
+      .db $26
+      .db $3E
+      .db $3A
+      .db $34
+      .db $2E
+      .db $26
 
 MusicDataOverworld4_Triangle:
-      .BYTE $88
-      .BYTE $2A
-      .BYTE $2E
-      .BYTE $30
-      .BYTE $32
-      .BYTE $34
-      .BYTE $36
-      .BYTE $82
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $2E
-      .BYTE $88
-      .BYTE $2A
-      .BYTE $26
-      .BYTE $2E
+      .db $88
+      .db $2A
+      .db $2E
+      .db $30
+      .db $32
+      .db $34
+      .db $36
+      .db $82
+      .db $38
+      .db $7E
+      .db $2E
+      .db $88
+      .db $2A
+      .db $26
+      .db $2E
 
 MusicDataOverworld5:
 MusicDataOverworld5_Square2:
-      .BYTE $92
-      .BYTE $5A
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $9A
-      .BYTE $48
-      .BYTE $82
-      .BYTE $3C
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $82
-      .BYTE $48
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $00
+      .db $92
+      .db $5A
+      .db $7E
+      .db $56
+      .db $50
+      .db $7E
+      .db $9A
+      .db $48
+      .db $82
+      .db $3C
+      .db $3E
+      .db $7E
+      .db $40
+      .db $42
+      .db $7E
+      .db $48
+      .db $7E
+      .db $7E
+      .db $88
+      .db $7E
+      .db $82
+      .db $48
+      .db $88
+      .db $7E
+      .db $E2
+      .db $7E
+      .db $7E
+      .db $50
+      .db $00
 MusicDataOverworld5_Square1:
-      .BYTE $92
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $9A
-      .BYTE $38
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $82
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $82
-      .BYTE $38
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $38
+      .db $92
+      .db $48
+      .db $7E
+      .db $46
+      .db $3E
+      .db $7E
+      .db $9A
+      .db $38
+      .db $88
+      .db $7E
+      .db $82
+      .db $7E
+      .db $3A
+      .db $7E
+      .db $38
+      .db $7E
+      .db $7E
+      .db $88
+      .db $7E
+      .db $82
+      .db $38
+      .db $88
+      .db $7E
+      .db $E2
+      .db $7E
+      .db $7E
+      .db $38
 MusicDataOverworld5_Triangle:
-      .BYTE $2A
-      .BYTE $2E
-      .BYTE $30
-      .BYTE $26
-      .BYTE $2A
-      .BYTE $2E
-      .BYTE $30
-      .BYTE $82
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $7E
+      .db $2A
+      .db $2E
+      .db $30
+      .db $26
+      .db $2A
+      .db $2E
+      .db $30
+      .db $82
+      .db $7E
+      .db $7E
+      .db $30
+      .db $88
+      .db $7E
+      .db $7E
 MusicDataOverworld5_Noise:
-      .BYTE $88
-      .BYTE $06
-      .BYTE $82
-      .BYTE $02
-      .BYTE $01
-      .BYTE $02
-      .BYTE $00
+      .db $88
+      .db $06
+      .db $82
+      .db $02
+      .db $01
+      .db $02
+      .db $00
 
 MusicDataOverworld6:
 MusicDataOverworld6_Square2:
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $52
-      .BYTE $4E
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $52
-      .BYTE $7E
-      .BYTE $4E
-      .BYTE $50
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $5E
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $58
-      .BYTE $52
-      .BYTE $50
-      .BYTE $E2
-      .BYTE $4C
-      .BYTE $E0
-      .BYTE $50
-      .BYTE $4C
-      .BYTE $48
-      .BYTE $E2
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $E2
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $EA
-      .BYTE $48
-      .BYTE $E2
-      .BYTE $48
-      .BYTE $E8
-      .BYTE $46
-      .BYTE $48
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $4C
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $4A
-      .BYTE $E2
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $5A
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $54
-      .BYTE $56
-      .BYTE $5A
-      .BYTE $EA
-      .BYTE $5E
-      .BYTE $5A
-      .BYTE $E8
-      .BYTE $58
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $7E
-      .BYTE $4C
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $00
+      .db $E2
+      .db $7E
+      .db $7E
+      .db $52
+      .db $4E
+      .db $7E
+      .db $50
+      .db $52
+      .db $7E
+      .db $4E
+      .db $50
+      .db $7E
+      .db $E8
+      .db $5E
+      .db $E2
+      .db $7E
+      .db $E8
+      .db $58
+      .db $52
+      .db $50
+      .db $E2
+      .db $4C
+      .db $E0
+      .db $50
+      .db $4C
+      .db $48
+      .db $E2
+      .db $46
+      .db $7E
+      .db $48
+      .db $E2
+      .db $4C
+      .db $7E
+      .db $48
+      .db $46
+      .db $7E
+      .db $EA
+      .db $48
+      .db $E2
+      .db $48
+      .db $E8
+      .db $46
+      .db $48
+      .db $E2
+      .db $7E
+      .db $7E
+      .db $E8
+      .db $4C
+      .db $E2
+      .db $7E
+      .db $E8
+      .db $4A
+      .db $E2
+      .db $4C
+      .db $7E
+      .db $E8
+      .db $5A
+      .db $E2
+      .db $7E
+      .db $E8
+      .db $54
+      .db $56
+      .db $5A
+      .db $EA
+      .db $5E
+      .db $5A
+      .db $E8
+      .db $58
+      .db $E2
+      .db $7E
+      .db $7E
+      .db $7E
+      .db $56
+      .db $7E
+      .db $4C
+      .db $46
+      .db $7E
+      .db $3E
+      .db $00
 MusicDataOverworld6_Square1:
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $36
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $7E
-      .BYTE $36
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $46
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $40
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $E2
-      .BYTE $34
-      .BYTE $E0
-      .BYTE $38
-      .BYTE $34
-      .BYTE $30
-      .BYTE $E2
-      .BYTE $2E
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $E2
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $2E
-      .BYTE $7E
-      .BYTE $EA
-      .BYTE $30
-      .BYTE $E2
-      .BYTE $30
-      .BYTE $E8
-      .BYTE $2E
-      .BYTE $30
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $34
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $32
-      .BYTE $E2
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $42
-      .BYTE $E2
-      .BYTE $7E
-      .BYTE $E8
-      .BYTE $3C
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $E2
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $5E
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $5A
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $3E
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $58
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $2E
-      .BYTE $7E
-      .BYTE $26
+      .db $E2
+      .db $7E
+      .db $7E
+      .db $3A
+      .db $36
+      .db $7E
+      .db $38
+      .db $3A
+      .db $7E
+      .db $36
+      .db $38
+      .db $7E
+      .db $E8
+      .db $46
+      .db $E2
+      .db $7E
+      .db $E8
+      .db $40
+      .db $3A
+      .db $38
+      .db $E2
+      .db $34
+      .db $E0
+      .db $38
+      .db $34
+      .db $30
+      .db $E2
+      .db $2E
+      .db $7E
+      .db $30
+      .db $E2
+      .db $34
+      .db $7E
+      .db $30
+      .db $2E
+      .db $7E
+      .db $EA
+      .db $30
+      .db $E2
+      .db $30
+      .db $E8
+      .db $2E
+      .db $30
+      .db $E2
+      .db $7E
+      .db $7E
+      .db $E8
+      .db $34
+      .db $E2
+      .db $7E
+      .db $E8
+      .db $32
+      .db $E2
+      .db $34
+      .db $7E
+      .db $E8
+      .db $42
+      .db $E2
+      .db $7E
+      .db $E8
+      .db $3C
+      .db $3E
+      .db $42
+      .db $E2
+      .db $46
+      .db $7E
+      .db $44
+      .db $46
+      .db $7E
+      .db $5E
+      .db $42
+      .db $7E
+      .db $40
+      .db $42
+      .db $7E
+      .db $5A
+      .db $40
+      .db $7E
+      .db $3E
+      .db $40
+      .db $7E
+      .db $58
+      .db $3E
+      .db $7E
+      .db $34
+      .db $2E
+      .db $7E
+      .db $26
 MusicDataOverworld6_Triangle:
-      .BYTE $88
-      .BYTE $38
-      .BYTE $46
-      .BYTE $40
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $34
-      .BYTE $2E
-      .BYTE $28
-      .BYTE $2A
-      .BYTE $2E
-      .BYTE $30
-      .BYTE $34
-      .BYTE $38
-      .BYTE $30
-      .BYTE $2E
-      .BYTE $2A
-      .BYTE $34
-      .BYTE $38
-      .BYTE $3C
-      .BYTE $42
-      .BYTE $34
-      .BYTE $2A
-      .BYTE $34
-      .BYTE $3C
-      .BYTE $3E
-      .BYTE $3A
-      .BYTE $34
-      .BYTE $2E
-      .BYTE $34
-      .BYTE $2E
-      .BYTE $2A
-      .BYTE $26
+      .db $88
+      .db $38
+      .db $46
+      .db $40
+      .db $3A
+      .db $38
+      .db $34
+      .db $2E
+      .db $28
+      .db $2A
+      .db $2E
+      .db $30
+      .db $34
+      .db $38
+      .db $30
+      .db $2E
+      .db $2A
+      .db $34
+      .db $38
+      .db $3C
+      .db $42
+      .db $34
+      .db $2A
+      .db $34
+      .db $3C
+      .db $3E
+      .db $3A
+      .db $34
+      .db $2E
+      .db $34
+      .db $2E
+      .db $2A
+      .db $26
 MusicDataOverworld6_Noise:
-      .BYTE $88
-      .BYTE $06
-      .BYTE $82
-      .BYTE $10
-      .BYTE $01
-      .BYTE $10
-      .BYTE $00
+      .db $88
+      .db $06
+      .db $82
+      .db $10
+      .db $01
+      .db $10
+      .db $00
 
 MusicDataBoss:
 MusicDataBoss_Square2:
-      .BYTE $94
-      .BYTE $34
-      .BYTE $36
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $36
-      .BYTE $34
-      .BYTE $36
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $38
-      .BYTE $3A
-      .BYTE $00
+      .db $94
+      .db $34
+      .db $36
+      .db $36
+      .db $34
+      .db $36
+      .db $36
+      .db $34
+      .db $36
+      .db $34
+      .db $36
+      .db $36
+      .db $34
+      .db $36
+      .db $36
+      .db $34
+      .db $36
+      .db $34
+      .db $36
+      .db $36
+      .db $34
+      .db $36
+      .db $36
+      .db $34
+      .db $36
+      .db $34
+      .db $36
+      .db $36
+      .db $34
+      .db $36
+      .db $36
+      .db $34
+      .db $36
+      .db $38
+      .db $3A
+      .db $3A
+      .db $38
+      .db $3A
+      .db $3A
+      .db $38
+      .db $3A
+      .db $38
+      .db $3A
+      .db $3A
+      .db $38
+      .db $3A
+      .db $3A
+      .db $38
+      .db $3A
+      .db $38
+      .db $3A
+      .db $3A
+      .db $38
+      .db $3A
+      .db $3A
+      .db $38
+      .db $3A
+      .db $38
+      .db $3A
+      .db $3A
+      .db $38
+      .db $3A
+      .db $3A
+      .db $38
+      .db $3A
+      .db $00
 MusicDataBoss_Square1:
-      .BYTE $94
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $40
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $44
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $44
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $44
-      .BYTE $7E
-      .BYTE $44
-      .BYTE $44
-      .BYTE $7E
-      .BYTE $44
+      .db $94
+      .db $7E
+      .db $42
+      .db $42
+      .db $7E
+      .db $42
+      .db $42
+      .db $7E
+      .db $42
+      .db $7E
+      .db $42
+      .db $42
+      .db $7E
+      .db $42
+      .db $42
+      .db $7E
+      .db $42
+      .db $7E
+      .db $40
+      .db $40
+      .db $7E
+      .db $40
+      .db $40
+      .db $7E
+      .db $40
+      .db $7E
+      .db $40
+      .db $40
+      .db $7E
+      .db $40
+      .db $40
+      .db $7E
+      .db $40
+      .db $7E
+      .db $46
+      .db $46
+      .db $7E
+      .db $46
+      .db $46
+      .db $7E
+      .db $46
+      .db $7E
+      .db $46
+      .db $46
+      .db $7E
+      .db $46
+      .db $46
+      .db $7E
+      .db $46
+      .db $7E
+      .db $44
+      .db $44
+      .db $7E
+      .db $44
+      .db $44
+      .db $7E
+      .db $44
+      .db $7E
+      .db $44
+      .db $44
+      .db $7E
+      .db $44
+      .db $44
+      .db $7E
+      .db $44
 MusicDataBoss_Triangle:
-      .BYTE $89
-      .BYTE $3C
-      .BYTE $3C
-      .BYTE $88
-      .BYTE $3C
-      .BYTE $89
-      .BYTE $3C
-      .BYTE $3C
-      .BYTE $88
-      .BYTE $3C
-      .BYTE $89
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $88
-      .BYTE $3A
-      .BYTE $89
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $88
-      .BYTE $3A
-      .BYTE $89
-      .BYTE $40
-      .BYTE $40
-      .BYTE $88
-      .BYTE $40
-      .BYTE $89
-      .BYTE $40
-      .BYTE $40
-      .BYTE $88
-      .BYTE $40
-      .BYTE $89
-      .BYTE $3E
-      .BYTE $3E
-      .BYTE $88
-      .BYTE $3E
-      .BYTE $89
-      .BYTE $3E
-      .BYTE $3E
-      .BYTE $88
-      .BYTE $3E
+      .db $89
+      .db $3C
+      .db $3C
+      .db $88
+      .db $3C
+      .db $89
+      .db $3C
+      .db $3C
+      .db $88
+      .db $3C
+      .db $89
+      .db $3A
+      .db $3A
+      .db $88
+      .db $3A
+      .db $89
+      .db $3A
+      .db $3A
+      .db $88
+      .db $3A
+      .db $89
+      .db $40
+      .db $40
+      .db $88
+      .db $40
+      .db $89
+      .db $40
+      .db $40
+      .db $88
+      .db $40
+      .db $89
+      .db $3E
+      .db $3E
+      .db $88
+      .db $3E
+      .db $89
+      .db $3E
+      .db $3E
+      .db $88
+      .db $3E
 
 MusicDataWart:
 MusicDataWart_Square2:
-      .BYTE $A9
-      .BYTE $56
-      .BYTE $54
-      .BYTE $A8
-      .BYTE $4C
-      .BYTE $A9
-      .BYTE $54
-      .BYTE $52
-      .BYTE $A8
-      .BYTE $4A
-      .BYTE $A9
-      .BYTE $52
-      .BYTE $50
-      .BYTE $A8
-      .BYTE $48
-      .BYTE $A4
-      .BYTE $4E
-      .BYTE $AB
-      .BYTE $4C
-      .BYTE $A4
-      .BYTE $7E
-      .BYTE $A9
-      .BYTE $5A
-      .BYTE $58
-      .BYTE $A8
-      .BYTE $50
-      .BYTE $A9
-      .BYTE $58
-      .BYTE $56
-      .BYTE $A8
-      .BYTE $4E
-      .BYTE $A9
-      .BYTE $56
-      .BYTE $54
-      .BYTE $A8
-      .BYTE $4C
-      .BYTE $A4
-      .BYTE $52
-      .BYTE $AB
-      .BYTE $50
-      .BYTE $A4
-      .BYTE $7E
-      .BYTE $4E
-      .BYTE $4C
-      .BYTE $4E
-      .BYTE $4C
-      .BYTE $4E
-      .BYTE $4C
-      .BYTE $4E
-      .BYTE $4C
-      .BYTE $50
-      .BYTE $4E
-      .BYTE $50
-      .BYTE $4E
-      .BYTE $50
-      .BYTE $4E
-      .BYTE $50
-      .BYTE $4E
-      .BYTE $52
-      .BYTE $50
-      .BYTE $52
-      .BYTE $50
-      .BYTE $52
-      .BYTE $50
-      .BYTE $52
-      .BYTE $50
-      .BYTE $54
-      .BYTE $52
-      .BYTE $54
-      .BYTE $52
-      .BYTE $54
-      .BYTE $52
-      .BYTE $54
-      .BYTE $52
-      .BYTE $00
+      .db $A9
+      .db $56
+      .db $54
+      .db $A8
+      .db $4C
+      .db $A9
+      .db $54
+      .db $52
+      .db $A8
+      .db $4A
+      .db $A9
+      .db $52
+      .db $50
+      .db $A8
+      .db $48
+      .db $A4
+      .db $4E
+      .db $AB
+      .db $4C
+      .db $A4
+      .db $7E
+      .db $A9
+      .db $5A
+      .db $58
+      .db $A8
+      .db $50
+      .db $A9
+      .db $58
+      .db $56
+      .db $A8
+      .db $4E
+      .db $A9
+      .db $56
+      .db $54
+      .db $A8
+      .db $4C
+      .db $A4
+      .db $52
+      .db $AB
+      .db $50
+      .db $A4
+      .db $7E
+      .db $4E
+      .db $4C
+      .db $4E
+      .db $4C
+      .db $4E
+      .db $4C
+      .db $4E
+      .db $4C
+      .db $50
+      .db $4E
+      .db $50
+      .db $4E
+      .db $50
+      .db $4E
+      .db $50
+      .db $4E
+      .db $52
+      .db $50
+      .db $52
+      .db $50
+      .db $52
+      .db $50
+      .db $52
+      .db $50
+      .db $54
+      .db $52
+      .db $54
+      .db $52
+      .db $54
+      .db $52
+      .db $54
+      .db $52
+      .db $00
 MusicDataWart_Square1:
-      .BYTE $A9
-      .BYTE $44
-      .BYTE $42
-      .BYTE $A8
-      .BYTE $3A
-      .BYTE $A9
-      .BYTE $42
-      .BYTE $40
-      .BYTE $A8
-      .BYTE $38
-      .BYTE $A9
-      .BYTE $40
-      .BYTE $3E
-      .BYTE $A8
-      .BYTE $36
-      .BYTE $A4
-      .BYTE $3C
-      .BYTE $AB
-      .BYTE $3A
-      .BYTE $A4
-      .BYTE $7E
-      .BYTE $A9
-      .BYTE $48
-      .BYTE $46
-      .BYTE $A8
-      .BYTE $3E
-      .BYTE $A9
-      .BYTE $46
-      .BYTE $44
-      .BYTE $A8
-      .BYTE $3C
-      .BYTE $A9
-      .BYTE $44
-      .BYTE $42
-      .BYTE $A8
-      .BYTE $3A
-      .BYTE $A4
-      .BYTE $42
-      .BYTE $AB
-      .BYTE $40
-      .BYTE $A4
-      .BYTE $7E
-      .BYTE $A4
-      .BYTE $42
-      .BYTE $40
-      .BYTE $42
-      .BYTE $40
-      .BYTE $42
-      .BYTE $40
-      .BYTE $42
-      .BYTE $40
-      .BYTE $44
-      .BYTE $42
-      .BYTE $44
-      .BYTE $42
-      .BYTE $44
-      .BYTE $42
-      .BYTE $44
-      .BYTE $42
-      .BYTE $46
-      .BYTE $44
-      .BYTE $46
-      .BYTE $44
-      .BYTE $46
-      .BYTE $44
-      .BYTE $46
-      .BYTE $44
-      .BYTE $48
-      .BYTE $46
-      .BYTE $48
-      .BYTE $46
-      .BYTE $48
-      .BYTE $46
-      .BYTE $48
-      .BYTE $46
+      .db $A9
+      .db $44
+      .db $42
+      .db $A8
+      .db $3A
+      .db $A9
+      .db $42
+      .db $40
+      .db $A8
+      .db $38
+      .db $A9
+      .db $40
+      .db $3E
+      .db $A8
+      .db $36
+      .db $A4
+      .db $3C
+      .db $AB
+      .db $3A
+      .db $A4
+      .db $7E
+      .db $A9
+      .db $48
+      .db $46
+      .db $A8
+      .db $3E
+      .db $A9
+      .db $46
+      .db $44
+      .db $A8
+      .db $3C
+      .db $A9
+      .db $44
+      .db $42
+      .db $A8
+      .db $3A
+      .db $A4
+      .db $42
+      .db $AB
+      .db $40
+      .db $A4
+      .db $7E
+      .db $A4
+      .db $42
+      .db $40
+      .db $42
+      .db $40
+      .db $42
+      .db $40
+      .db $42
+      .db $40
+      .db $44
+      .db $42
+      .db $44
+      .db $42
+      .db $44
+      .db $42
+      .db $44
+      .db $42
+      .db $46
+      .db $44
+      .db $46
+      .db $44
+      .db $46
+      .db $44
+      .db $46
+      .db $44
+      .db $48
+      .db $46
+      .db $48
+      .db $46
+      .db $48
+      .db $46
+      .db $48
+      .db $46
 MusicDataWart_Triangle:
-      .BYTE $84
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $3E
-      .BYTE $44
-      .BYTE $3C
-      .BYTE $40
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $40
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $40
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $40
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $40
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $40
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $40
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $40
-      .BYTE $42
-      .BYTE $3C
-      .BYTE $42
-      .BYTE $84
-      .BYTE $3A
-      .BYTE $88
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $3A
-      .BYTE $84
-      .BYTE $3A
-      .BYTE $3C
-      .BYTE $88
-      .BYTE $3C
-      .BYTE $3C
-      .BYTE $3C
-      .BYTE $84
-      .BYTE $3C
-      .BYTE $3E
-      .BYTE $88
-      .BYTE $3E
-      .BYTE $3E
-      .BYTE $3E
-      .BYTE $84
-      .BYTE $3E
-      .BYTE $40
-      .BYTE $88
-      .BYTE $40
-      .BYTE $40
-      .BYTE $40
-      .BYTE $84
-      .BYTE $40
+      .db $84
+      .db $3E
+      .db $42
+      .db $44
+      .db $3E
+      .db $42
+      .db $44
+      .db $3E
+      .db $44
+      .db $3E
+      .db $42
+      .db $44
+      .db $3E
+      .db $42
+      .db $44
+      .db $3E
+      .db $44
+      .db $3E
+      .db $42
+      .db $44
+      .db $3E
+      .db $42
+      .db $44
+      .db $3E
+      .db $44
+      .db $3E
+      .db $42
+      .db $44
+      .db $3E
+      .db $42
+      .db $44
+      .db $3E
+      .db $44
+      .db $3C
+      .db $40
+      .db $42
+      .db $3C
+      .db $40
+      .db $42
+      .db $3C
+      .db $42
+      .db $3C
+      .db $40
+      .db $42
+      .db $3C
+      .db $40
+      .db $42
+      .db $3C
+      .db $42
+      .db $3C
+      .db $40
+      .db $42
+      .db $3C
+      .db $40
+      .db $42
+      .db $3C
+      .db $42
+      .db $3C
+      .db $40
+      .db $42
+      .db $3C
+      .db $40
+      .db $42
+      .db $3C
+      .db $42
+      .db $84
+      .db $3A
+      .db $88
+      .db $3A
+      .db $3A
+      .db $3A
+      .db $84
+      .db $3A
+      .db $3C
+      .db $88
+      .db $3C
+      .db $3C
+      .db $3C
+      .db $84
+      .db $3C
+      .db $3E
+      .db $88
+      .db $3E
+      .db $3E
+      .db $3E
+      .db $84
+      .db $3E
+      .db $40
+      .db $88
+      .db $40
+      .db $40
+      .db $40
+      .db $84
+      .db $40
 
 MusicDataMushroomBonusChance:
 MusicDataMushroomBonusChance_Square2:
-      .BYTE $82
-      .BYTE $46
-      .BYTE $48
-      .BYTE $4A
-      .BYTE $4C
-      .BYTE $7E
-      .BYTE $56
-      .BYTE $88
-      .BYTE $52
-      .BYTE $00
+      .db $82
+      .db $46
+      .db $48
+      .db $4A
+      .db $4C
+      .db $7E
+      .db $56
+      .db $88
+      .db $52
+      .db $00
 MusicDataMushroomBonusChance_Square1:
-      .BYTE $82
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $44
-      .BYTE $46
-      .BYTE $7E
-      .BYTE $50
-      .BYTE $88
-      .BYTE $4C
+      .db $82
+      .db $3E
+      .db $42
+      .db $44
+      .db $46
+      .db $7E
+      .db $50
+      .db $88
+      .db $4C
 
 MusicDataGameOver:
 MusicDataGameOver_Square2:
-      .BYTE $94
-      .BYTE $56
-      .BYTE $5A
-      .BYTE $60
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $48
-      .BYTE $26
-      .BYTE $2A
-      .BYTE $98
-      .BYTE $30
-      .BYTE $26
-      .BYTE $30
-      .BYTE $00
+      .db $94
+      .db $56
+      .db $5A
+      .db $60
+      .db $3E
+      .db $42
+      .db $48
+      .db $26
+      .db $2A
+      .db $98
+      .db $30
+      .db $26
+      .db $30
+      .db $00
 MusicDataGameOver_Square1:
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $94
-      .BYTE $30
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $94
-      .BYTE $30
-      .BYTE $98
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $3A
-      .BYTE $38
+      .db $98
+      .db $7E
+      .db $94
+      .db $30
+      .db $98
+      .db $7E
+      .db $94
+      .db $30
+      .db $98
+      .db $7E
+      .db $30
+      .db $3A
+      .db $38
 MusicDataGameOver_Triangle:
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $89
-      .BYTE $60
-      .BYTE $48
-      .BYTE $88
-      .BYTE $30
-      .BYTE $3E
-      .BYTE $30
+      .db $88
+      .db $7E
+      .db $89
+      .db $60
+      .db $48
+      .db $88
+      .db $30
+      .db $3E
+      .db $30
 
 MusicDataBossBeaten:
 MusicDataBossBeaten_Square2:
-      .BYTE $94
-      .BYTE $42
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $42
-      .BYTE $48
-      .BYTE $4C
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $50
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $52
-      .BYTE $50
-      .BYTE $48
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $42
-      .BYTE $48
-      .BYTE $50
-      .BYTE $4C
-      .BYTE $3E
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $26
-      .BYTE $2A
-      .BYTE $7E
-      .BYTE $26
-      .BYTE $20
-      .BYTE $7E
-      .BYTE $98
-      .BYTE $18
-      .BYTE $26
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $00
+      .db $94
+      .db $42
+      .db $48
+      .db $4C
+      .db $42
+      .db $48
+      .db $4C
+      .db $3E
+      .db $42
+      .db $50
+      .db $3E
+      .db $42
+      .db $52
+      .db $50
+      .db $48
+      .db $42
+      .db $7E
+      .db $3A
+      .db $42
+      .db $48
+      .db $50
+      .db $4C
+      .db $3E
+      .db $42
+      .db $7E
+      .db $30
+      .db $7E
+      .db $26
+      .db $2A
+      .db $7E
+      .db $26
+      .db $20
+      .db $7E
+      .db $98
+      .db $18
+      .db $26
+      .db $30
+      .db $7E
+      .db $00
 MusicDataBossBeaten_Square1:
-      .BYTE $88
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $7E
-      .BYTE $38
-      .BYTE $7E
-      .BYTE $42
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $48
-      .BYTE $94
-      .BYTE $3E
-      .BYTE $98
-      .BYTE $42
-      .BYTE $94
-      .BYTE $3E
-      .BYTE $98
-      .BYTE $38
-      .BYTE $30
-      .BYTE $7E
-      .BYTE $9A
-      .BYTE $48
+      .db $88
+      .db $7E
+      .db $30
+      .db $7E
+      .db $30
+      .db $7E
+      .db $34
+      .db $7E
+      .db $38
+      .db $7E
+      .db $42
+      .db $7E
+      .db $46
+      .db $48
+      .db $94
+      .db $3E
+      .db $98
+      .db $42
+      .db $94
+      .db $3E
+      .db $98
+      .db $38
+      .db $30
+      .db $7E
+      .db $9A
+      .db $48
 MusicDataBossBeaten_Triangle:
-      .BYTE $88
-      .BYTE $3A
-      .BYTE $52
-      .BYTE $3C
-      .BYTE $54
-      .BYTE $3E
-      .BYTE $56
-      .BYTE $42
-      .BYTE $5A
-      .BYTE $4C
-      .BYTE $3A
-      .BYTE $3E
-      .BYTE $4C
-      .BYTE $48
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $7E
-      .BYTE $48
-      .BYTE $3E
-      .BYTE $30
-      .BYTE $7E
+      .db $88
+      .db $3A
+      .db $52
+      .db $3C
+      .db $54
+      .db $3E
+      .db $56
+      .db $42
+      .db $5A
+      .db $4C
+      .db $3A
+      .db $3E
+      .db $4C
+      .db $48
+      .db $7E
+      .db $7E
+      .db $7E
+      .db $48
+      .db $3E
+      .db $30
+      .db $7E
 
 MusicDataCrystal:
 MusicDataCrystal_Square2:
-      .BYTE $89
-      .BYTE $40
-      .BYTE $84
-      .BYTE $40
-      .BYTE $88
-      .BYTE $40
-      .BYTE $88
-      .BYTE $56
-      .BYTE $56
-      .BYTE $52
-      .BYTE $8B
-      .BYTE $50
-      .BYTE $00
+      .db $89
+      .db $40
+      .db $84
+      .db $40
+      .db $88
+      .db $40
+      .db $88
+      .db $56
+      .db $56
+      .db $52
+      .db $8B
+      .db $50
+      .db $00
 MusicDataCrystal_Square1:
-      .BYTE $89
-      .BYTE $36
-      .BYTE $84
-      .BYTE $36
-      .BYTE $88
-      .BYTE $36
-      .BYTE $88
-      .BYTE $44
-      .BYTE $88
-      .BYTE $44
-      .BYTE $88
-      .BYTE $40
-      .BYTE $8B
-      .BYTE $3E
+      .db $89
+      .db $36
+      .db $84
+      .db $36
+      .db $88
+      .db $36
+      .db $88
+      .db $44
+      .db $88
+      .db $44
+      .db $88
+      .db $40
+      .db $8B
+      .db $3E
 MusicDataCrystal_Triangle:
-      .BYTE $89
-      .BYTE $40
-      .BYTE $84
-      .BYTE $40
-      .BYTE $88
-      .BYTE $40
-      .BYTE $88
-      .BYTE $4E
-      .BYTE $4E
-      .BYTE $4A
-      .BYTE $8B
-      .BYTE $48
+      .db $89
+      .db $40
+      .db $84
+      .db $40
+      .db $88
+      .db $40
+      .db $88
+      .db $4E
+      .db $4E
+      .db $4A
+      .db $8B
+      .db $48
 
 MusicDataDeath:
 MusicDataDeath_Square2:
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $82
-      .BYTE $4E
-      .BYTE $7E
-      .BYTE $46
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $3A
-      .BYTE $8A
-      .BYTE $38
-      .BYTE $00
+      .db $84
+      .db $7E
+      .db $82
+      .db $4E
+      .db $7E
+      .db $46
+      .db $3E
+      .db $7E
+      .db $3A
+      .db $8A
+      .db $38
+      .db $00
 MusicDataDeath_Square1:
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $82
-      .BYTE $3E
-      .BYTE $7E
-      .BYTE $34
-      .BYTE $2E
-      .BYTE $7E
-      .BYTE $2A
-      .BYTE $8A
-      .BYTE $26
+      .db $84
+      .db $7E
+      .db $82
+      .db $3E
+      .db $7E
+      .db $34
+      .db $2E
+      .db $7E
+      .db $2A
+      .db $8A
+      .db $26
 MusicDataDeath_Triangle:
-      .BYTE $84
-      .BYTE $7E
-      .BYTE $88
-      .BYTE $46
-      .BYTE $3E
-      .BYTE $8A
-      .BYTE $30
+      .db $84
+      .db $7E
+      .db $88
+      .db $46
+      .db $3E
+      .db $8A
+      .db $30
 
 
 ;
@@ -6684,761 +6684,761 @@ InstrumentSoundData:
 ; Long square
 ; 50% duty cycle (square) with slight decay
 InstrumentDVE_80: ; $A18D
-      .BYTE $90
-      .BYTE $95
-      .BYTE $95
-      .BYTE $95
-      .BYTE $95
-      .BYTE $95
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $97
-      .BYTE $97
-      .BYTE $97
-      .BYTE $97
-      .BYTE $98
-      .BYTE $98
+      .db $90
+      .db $95
+      .db $95
+      .db $95
+      .db $95
+      .db $95
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $97
+      .db $97
+      .db $97
+      .db $97
+      .db $98
+      .db $98
 
 ; Long square
 ; 50% duty cycle (square) with slight decay
 InstrumentDVE_80_Short: ; $A1CD
-      .BYTE $90
-      .BYTE $92
-      .BYTE $94
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $96
-      .BYTE $97
-      .BYTE $97
-      .BYTE $97
-      .BYTE $97
-      .BYTE $98
-      .BYTE $98
+      .db $90
+      .db $92
+      .db $94
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $96
+      .db $97
+      .db $97
+      .db $97
+      .db $97
+      .db $98
+      .db $98
 
 ; Short square
 ; 25% duty cycle with pronounced decay
 InstrumentDVE_90_E0: ; $A1E4
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $52
-      .BYTE $53
-      .BYTE $54
-      .BYTE $55
-      .BYTE $56
-      .BYTE $57
-      .BYTE $58
-      .BYTE $59
-      .BYTE $5A
-      .BYTE $5B
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $52
+      .db $53
+      .db $54
+      .db $55
+      .db $56
+      .db $57
+      .db $58
+      .db $59
+      .db $5A
+      .db $5B
 
 ; Short square
 ; 25% duty cycle with pronounced decay
 InstrumentDVE_90_E0_Short: ; $A224
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $52
-      .BYTE $53
-      .BYTE $54
-      .BYTE $55
-      .BYTE $56
-      .BYTE $57
-      .BYTE $58
-      .BYTE $59
-      .BYTE $5A
-      .BYTE $5B
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $52
+      .db $53
+      .db $54
+      .db $55
+      .db $56
+      .db $57
+      .db $58
+      .db $59
+      .db $5A
+      .db $5B
 
 ; Electric Piano
 ; 12.5% duty cycle with pronounced decay
 InstrumentDVE_A0: ; $A23B
-      .BYTE $10
-      .BYTE $11
-      .BYTE $11
-      .BYTE $11
-      .BYTE $12
-      .BYTE $12
-      .BYTE $12
-      .BYTE $13
-      .BYTE $13
-      .BYTE $14
-      .BYTE $14
-      .BYTE $14
-      .BYTE $14
-      .BYTE $15
-      .BYTE $15
-      .BYTE $15
-      .BYTE $15
-      .BYTE $16
-      .BYTE $16
-      .BYTE $16
-      .BYTE $17
-      .BYTE $17
-      .BYTE $17
-      .BYTE $17
-      .BYTE $17
-      .BYTE $17
-      .BYTE $17
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $19
-      .BYTE $19
-      .BYTE $19
-      .BYTE $1A
-      .BYTE $1A
-      .BYTE $1B
-      .BYTE $1B
-      .BYTE $1C
+      .db $10
+      .db $11
+      .db $11
+      .db $11
+      .db $12
+      .db $12
+      .db $12
+      .db $13
+      .db $13
+      .db $14
+      .db $14
+      .db $14
+      .db $14
+      .db $15
+      .db $15
+      .db $15
+      .db $15
+      .db $16
+      .db $16
+      .db $16
+      .db $17
+      .db $17
+      .db $17
+      .db $17
+      .db $17
+      .db $17
+      .db $17
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $19
+      .db $19
+      .db $19
+      .db $1A
+      .db $1A
+      .db $1B
+      .db $1B
+      .db $1C
 
 ; Electric Piano
 ; 12.5% duty cycle with pronounced decay
 InstrumentDVE_A0_Short: ; $A27B
-      .BYTE $10
-      .BYTE $11
-      .BYTE $12
-      .BYTE $13
-      .BYTE $14
-      .BYTE $15
-      .BYTE $16
-      .BYTE $17
-      .BYTE $17
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $18
-      .BYTE $19
-      .BYTE $19
-      .BYTE $19
-      .BYTE $1A
-      .BYTE $1A
-      .BYTE $1B
-      .BYTE $1B
-      .BYTE $1C
+      .db $10
+      .db $11
+      .db $12
+      .db $13
+      .db $14
+      .db $15
+      .db $16
+      .db $17
+      .db $17
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $18
+      .db $19
+      .db $19
+      .db $19
+      .db $1A
+      .db $1A
+      .db $1B
+      .db $1B
+      .db $1C
 
 ; Organ
 ; 25% duty cycle with slight decay
 InstrumentDVE_B0: ; $A293
-      .BYTE $51
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $55
-      .BYTE $55
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
+      .db $51
+      .db $52
+      .db $52
+      .db $52
+      .db $52
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $55
+      .db $55
+      .db $55
+      .db $55
+      .db $55
+      .db $55
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $55
+      .db $55
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
+      .db $56
 
 ; Organ
 ; 25% duty cycle with slight decay
 InstrumentDVE_B0_Short: ; $A2D3
-      .BYTE $51
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $55
-      .BYTE $55
-      .BYTE $56
-      .BYTE $56
+      .db $51
+      .db $52
+      .db $52
+      .db $52
+      .db $52
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $55
+      .db $55
+      .db $56
+      .db $56
 
 ; Strings
 ; 25% duty cycle with slow attack
 InstrumentDVE_C0_Short: ; $A2EA
-      .BYTE $51
-      .BYTE $52
-      .BYTE $53
-      .BYTE $54
-      .BYTE $54
-      .BYTE $55
-      .BYTE $56
-      .BYTE $56
-      .BYTE $57
-      .BYTE $58
-      .BYTE $59
-      .BYTE $5A
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5A
-      .BYTE $59
-      .BYTE $58
-      .BYTE $56
-      .BYTE $55
-      .BYTE $55
+      .db $51
+      .db $52
+      .db $53
+      .db $54
+      .db $54
+      .db $55
+      .db $56
+      .db $56
+      .db $57
+      .db $58
+      .db $59
+      .db $5A
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5A
+      .db $59
+      .db $58
+      .db $56
+      .db $55
+      .db $55
 
 ; Strings
 ; 25% duty cycle with slow attack
 InstrumentDVE_C0: ; $A301
-      .BYTE $51
-      .BYTE $52
-      .BYTE $52
-      .BYTE $51
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $57
-      .BYTE $57
-      .BYTE $57
-      .BYTE $57
-      .BYTE $57
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $59
-      .BYTE $59
-      .BYTE $59
-      .BYTE $59
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5A
-      .BYTE $59
-      .BYTE $58
-      .BYTE $56
-      .BYTE $55
-      .BYTE $55
+      .db $51
+      .db $52
+      .db $52
+      .db $51
+      .db $52
+      .db $52
+      .db $52
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $55
+      .db $55
+      .db $55
+      .db $55
+      .db $55
+      .db $56
+      .db $56
+      .db $56
+      .db $57
+      .db $57
+      .db $57
+      .db $57
+      .db $57
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $59
+      .db $59
+      .db $59
+      .db $59
+      .db $5A
+      .db $5A
+      .db $5A
+      .db $5A
+      .db $5A
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5A
+      .db $59
+      .db $58
+      .db $56
+      .db $55
+      .db $55
 
 ; Pluck
 ; 50% to -25% to 12.5% to 12.5% duty cycle with pronounced decay
 InstrumentDVE_D0: ; $A341
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $52
-      .BYTE $53
-      .BYTE $54
-      .BYTE $55
-      .BYTE $56
-      .BYTE $57
-      .BYTE $58
-      .BYTE $19
-      .BYTE $DA
-      .BYTE $9B
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $52
+      .db $53
+      .db $54
+      .db $55
+      .db $56
+      .db $57
+      .db $58
+      .db $19
+      .db $DA
+      .db $9B
 
 ; Pluck
 ; 50% to -25% to 12.5% to 12.5% duty cycle with pronounced decay
 InstrumentDVE_D0_Short: ; $A381
-      .BYTE $50
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $52
-      .BYTE $53
-      .BYTE $54
-      .BYTE $55
-      .BYTE $56
-      .BYTE $57
-      .BYTE $58
-      .BYTE $19
-      .BYTE $DA
-      .BYTE $9B
+      .db $50
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $52
+      .db $53
+      .db $54
+      .db $55
+      .db $56
+      .db $57
+      .db $58
+      .db $19
+      .db $DA
+      .db $9B
 
 IFNDEF PROTOTYPE_MUSIC
 ; Soft pluck
 ; 25% duty cycle with pronounced decay
 InstrumentDVE_F0_Short: ; $A398
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $53
-      .BYTE $53
-      .BYTE $54
-      .BYTE $55
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $52
+      .db $52
+      .db $52
+      .db $53
+      .db $53
+      .db $54
+      .db $55
 
 ; Soft pluck
 ; 25% duty cycle with pronounced decay
 InstrumentDVE_F0: ; $A3AF
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $50
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $53
-      .BYTE $53
-      .BYTE $54
-      .BYTE $55
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $50
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $52
+      .db $52
+      .db $52
+      .db $53
+      .db $53
+      .db $54
+      .db $55
 ENDIF
 
 IFDEF PROTOTYPE_MUSIC
 ; Soft pluck
 ; 25% duty cycle with pronounced decay
 InstrumentDVE_F0_Short:
-      .BYTE $54
-      .BYTE $54
-      .BYTE $55
-      .BYTE $56
-      .BYTE $56
-      .BYTE $57
-      .BYTE $58
-      .BYTE $59
-      .BYTE $5A
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5D
+      .db $54
+      .db $54
+      .db $55
+      .db $56
+      .db $56
+      .db $57
+      .db $58
+      .db $59
+      .db $5A
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5D
 
 ; Soft pluck
 ; 25% duty cycle with pronounced decay
 InstrumentDVE_F0:
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $51
-      .BYTE $52
-      .BYTE $52
-      .BYTE $52
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $53
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $54
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $55
-      .BYTE $56
-      .BYTE $56
-      .BYTE $56
-      .BYTE $57
-      .BYTE $57
-      .BYTE $57
-      .BYTE $57
-      .BYTE $57
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $58
-      .BYTE $59
-      .BYTE $59
-      .BYTE $59
-      .BYTE $59
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $5A
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5B
-      .BYTE $5C
-      .BYTE $5C
-      .BYTE $5C
-      .BYTE $5D
+      .db $51
+      .db $51
+      .db $51
+      .db $51
+      .db $52
+      .db $52
+      .db $52
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $53
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $54
+      .db $55
+      .db $55
+      .db $55
+      .db $55
+      .db $55
+      .db $56
+      .db $56
+      .db $56
+      .db $57
+      .db $57
+      .db $57
+      .db $57
+      .db $57
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $58
+      .db $59
+      .db $59
+      .db $59
+      .db $59
+      .db $5A
+      .db $5A
+      .db $5A
+      .db $5A
+      .db $5A
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5B
+      .db $5C
+      .db $5C
+      .db $5C
+      .db $5D
 ENDIF

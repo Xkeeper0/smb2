@@ -1,15 +1,15 @@
 ; Level 2-3, Area 2
 
 LevelData_2_3_Area2:
-      .BYTE $91, $EA, $10, $19
-      .BYTE $8A, $2D
-      .BYTE $0D, $13
-      .BYTE $05, $13
-      .BYTE $18, $54
-      .BYTE $0B, $21
-      .BYTE $F1, $0F
-      .BYTE $F2
-      .BYTE $90, $26
-      .BYTE $01, $52
-      .BYTE $F0, $8A
-      .BYTE $FF
+      .db $91, $EA, $10, $19
+      .db $8A, $2D
+      .db $0D, $13
+      .db $05, $13
+      .db $18, $54
+      .db $0B, $21
+      .db $F1, $0F
+      .db $F2
+      .db $90, $26
+      .db $01, $52
+      .db $F0, $8A
+      .db $FF

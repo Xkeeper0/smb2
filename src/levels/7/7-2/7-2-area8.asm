@@ -1,68 +1,68 @@
 ; Level 7-2, Area 8
 
 LevelData_7_2_Area8:
-      .BYTE $21, $E0, $64, $01
-      .BYTE $28, $A8
-      .BYTE $2C, $0A
-      .BYTE $F5, $13, $40
-      .BYTE $29, $45
-      .BYTE $F0, $54
-      .BYTE $95, $35
-      .BYTE $52, $32
-      .BYTE $45, $33
-      .BYTE $48, $34
-      .BYTE $34, $37
-      .BYTE $32, $33
-      .BYTE $2C, $31
-      .BYTE $46, $32
-      .BYTE $38, $33
-      .BYTE $F0, $95
-      .BYTE $35, $35
-      .BYTE $52, $33
-      .BYTE $15, $AD
-      .BYTE $07, $33
-      .BYTE $12, $0A
-      .BYTE $F5, $13, $90
-      .BYTE $22, $32
-      .BYTE $05, $03
-      .BYTE $0A, $31
-      .BYTE $1A, $A9
-      .BYTE $2A, $03
-      .BYTE $0B, $32
-      .BYTE $F1, $5C
-      .BYTE $81, $86
-      .BYTE $14, $30
-      .BYTE $06, $33
-      .BYTE $0B, $30
-      .BYTE $34, $36
-      .BYTE $31, $AF
-      .BYTE $04, $36
-      .BYTE $F0, $D4
-      .BYTE $31, $03
-      .BYTE $74, $A6
-      .BYTE $06, $A6
-      .BYTE $07, $82
-      .BYTE $08, $A6
-      .BYTE $0A, $A6
-      .BYTE $0D, $AE
-      .BYTE $F0, $20
-      .BYTE $F1, $14
-      .BYTE $7D, $03
-      .BYTE $4E, $A8
-      .BYTE $37, $40
-      .BYTE $17, $A6
-      .BYTE $F5, $13, $21
-      .BYTE $57, $03
-      .BYTE $F0, $00
-      .BYTE $F0, $94
-      .BYTE $F1, $A0
-      .BYTE $F4
-      .BYTE $D6, $0F
-      .BYTE $09, $0F
-      .BYTE $53, $0F
-      .BYTE $46, $0F
-      .BYTE $3A, $0F
-      .BYTE $B7, $0F
-      .BYTE $2A, $0F
-      .BYTE $B6, $0F
-      .BYTE $FF
+      .db $21, $E0, $64, $01
+      .db $28, $A8
+      .db $2C, $0A
+      .db $F5, $13, $40
+      .db $29, $45
+      .db $F0, $54
+      .db $95, $35
+      .db $52, $32
+      .db $45, $33
+      .db $48, $34
+      .db $34, $37
+      .db $32, $33
+      .db $2C, $31
+      .db $46, $32
+      .db $38, $33
+      .db $F0, $95
+      .db $35, $35
+      .db $52, $33
+      .db $15, $AD
+      .db $07, $33
+      .db $12, $0A
+      .db $F5, $13, $90
+      .db $22, $32
+      .db $05, $03
+      .db $0A, $31
+      .db $1A, $A9
+      .db $2A, $03
+      .db $0B, $32
+      .db $F1, $5C
+      .db $81, $86
+      .db $14, $30
+      .db $06, $33
+      .db $0B, $30
+      .db $34, $36
+      .db $31, $AF
+      .db $04, $36
+      .db $F0, $D4
+      .db $31, $03
+      .db $74, $A6
+      .db $06, $A6
+      .db $07, $82
+      .db $08, $A6
+      .db $0A, $A6
+      .db $0D, $AE
+      .db $F0, $20
+      .db $F1, $14
+      .db $7D, $03
+      .db $4E, $A8
+      .db $37, $40
+      .db $17, $A6
+      .db $F5, $13, $21
+      .db $57, $03
+      .db $F0, $00
+      .db $F0, $94
+      .db $F1, $A0
+      .db $F4
+      .db $D6, $0F
+      .db $09, $0F
+      .db $53, $0F
+      .db $46, $0F
+      .db $3A, $0F
+      .db $B7, $0F
+      .db $2A, $0F
+      .db $B6, $0F
+      .db $FF

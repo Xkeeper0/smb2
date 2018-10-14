@@ -1,38 +1,38 @@
 ; Level 1-2, Area 2
 
 LevelData_1_2_Area2:
-      .BYTE $80, $E0, $20, $02
-      .BYTE $00, $8C
-      .BYTE $01, $8C
-      .BYTE $02, $8C
-      .BYTE $03, $8C
-      .BYTE $28, $10
-      .BYTE $1B, $11
-      .BYTE $53, $0B
-      .BYTE $01, $07
-      .BYTE $1F, $16
-      .BYTE $14, $82
-      .BYTE $05, $82
-      .BYTE $0D, $16
-      .BYTE $79, $11
-      .BYTE $16, $10
-      .BYTE $36, $16
-      .BYTE $31, $16
-      .BYTE $04, $48
-      .BYTE $13, $82
-      .BYTE $04, $82
-      .BYTE $05, $82
-      .BYTE $06, $82
-      .BYTE $07, $82
-      .BYTE $08, $82
-      .BYTE $09, $82
-      .BYTE $0A, $82
-      .BYTE $0B, $82
-      .BYTE $0C, $82
-      .BYTE $F2
-      .BYTE $F0, $01
-      .BYTE $F6, $02
-      .BYTE $F0, $59
-      .BYTE $F0, $8A
-      .BYTE $F5, $02, $00
-      .BYTE $FF
+      .db $80, $E0, $20, $02
+      .db $00, $8C
+      .db $01, $8C
+      .db $02, $8C
+      .db $03, $8C
+      .db $28, $10
+      .db $1B, $11
+      .db $53, $0B
+      .db $01, $07
+      .db $1F, $16
+      .db $14, $82
+      .db $05, $82
+      .db $0D, $16
+      .db $79, $11
+      .db $16, $10
+      .db $36, $16
+      .db $31, $16
+      .db $04, $48
+      .db $13, $82
+      .db $04, $82
+      .db $05, $82
+      .db $06, $82
+      .db $07, $82
+      .db $08, $82
+      .db $09, $82
+      .db $0A, $82
+      .db $0B, $82
+      .db $0C, $82
+      .db $F2
+      .db $F0, $01
+      .db $F6, $02
+      .db $F0, $59
+      .db $F0, $8A
+      .db $F5, $02, $00
+      .db $FF

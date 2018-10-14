@@ -8,363 +8,363 @@
 ;
 
 WorldBackgroundPalettePointersLo:
-      .BYTE <World1BackgroundPalettes
-      .BYTE <World2BackgroundPalettes
-      .BYTE <World3BackgroundPalettes
-      .BYTE <World4BackgroundPalettes
-      .BYTE <World5BackgroundPalettes
-      .BYTE <World6BackgroundPalettes
-      .BYTE <World7BackgroundPalettes
+      .db <World1BackgroundPalettes
+      .db <World2BackgroundPalettes
+      .db <World3BackgroundPalettes
+      .db <World4BackgroundPalettes
+      .db <World5BackgroundPalettes
+      .db <World6BackgroundPalettes
+      .db <World7BackgroundPalettes
 
 WorldSpritePalettePointersLo:
-      .BYTE <World1SpritePalettes
-      .BYTE <World2SpritePalettes
-      .BYTE <World3SpritePalettes
-      .BYTE <World4SpritePalettes
-      .BYTE <World5SpritePalettes
-      .BYTE <World6SpritePalettes
-      .BYTE <World7SpritePalettes
+      .db <World1SpritePalettes
+      .db <World2SpritePalettes
+      .db <World3SpritePalettes
+      .db <World4SpritePalettes
+      .db <World5SpritePalettes
+      .db <World6SpritePalettes
+      .db <World7SpritePalettes
 
 WorldBackgroundPalettePointersHi:
-      .BYTE >World1BackgroundPalettes
-      .BYTE >World2BackgroundPalettes
-      .BYTE >World3BackgroundPalettes
-      .BYTE >World4BackgroundPalettes
-      .BYTE >World5BackgroundPalettes
-      .BYTE >World6BackgroundPalettes
-      .BYTE >World7BackgroundPalettes
+      .db >World1BackgroundPalettes
+      .db >World2BackgroundPalettes
+      .db >World3BackgroundPalettes
+      .db >World4BackgroundPalettes
+      .db >World5BackgroundPalettes
+      .db >World6BackgroundPalettes
+      .db >World7BackgroundPalettes
 
 WorldSpritePalettePointersHi:
-      .BYTE >World1SpritePalettes
-      .BYTE >World2SpritePalettes
-      .BYTE >World3SpritePalettes
-      .BYTE >World4SpritePalettes
-      .BYTE >World5SpritePalettes
-      .BYTE >World6SpritePalettes
-      .BYTE >World7SpritePalettes
+      .db >World1SpritePalettes
+      .db >World2SpritePalettes
+      .db >World3SpritePalettes
+      .db >World4SpritePalettes
+      .db >World5SpritePalettes
+      .db >World6SpritePalettes
+      .db >World7SpritePalettes
 
 World1BackgroundPalettes:
-      .BYTE $21,$30,$12,$0F ; $00
-      .BYTE $21,$30,$16,$0F ; $04 ; Some of these palettes, across all of these entries,
-      .BYTE $21,$27,$17,$0F ; $08 ; may be unused; my initial logging suggests that a handful
-      .BYTE $21,$29,$1A,$0F ; $0C ; of them were not used as data anywhere
-      .BYTE $0F,$30,$12,$01 ; $10
-      .BYTE $0F,$30,$16,$02 ; $14
-      .BYTE $0F,$27,$17,$08 ; $18
-      .BYTE $0F,$29,$1A,$0A ; $1C
-      .BYTE $0F,$2C,$1C,$0C ; $20
-      .BYTE $0F,$30,$16,$02 ; $24
-      .BYTE $0F,$27,$17,$08 ; $28
-      .BYTE $0F,$2A,$1A,$0A ; $2C
-      .BYTE $07,$30,$27,$0F ; $30
-      .BYTE $07,$30,$16,$0F ; $34
-      .BYTE $07,$27,$17,$0F ; $38
-      .BYTE $07,$31,$21,$0F ; $3C
-      .BYTE $03,$2C,$1C,$0F ; $40
-      .BYTE $03,$30,$16,$0F ; $44
-      .BYTE $03,$3C,$1C,$0F ; $48
-      .BYTE $03,$25,$15,$05 ; $4C
-      .BYTE $0C,$30,$06,$0F ; $50
-      .BYTE $0C,$30,$16,$0F ; $54
-      .BYTE $0C,$30,$16,$0F ; $58
-      .BYTE $0C,$30,$26,$0F ; $5C
-      .BYTE $01,$0F,$0F,$0F ; $60
-      .BYTE $01,$0F,$0F,$0F ; $64
-      .BYTE $01,$0F,$0F,$0F ; $68
-      .BYTE $01,$0F,$0F,$0F ; $6C
+      .db $21,$30,$12,$0F ; $00
+      .db $21,$30,$16,$0F ; $04 ; Some of these palettes, across all of these entries,
+      .db $21,$27,$17,$0F ; $08 ; may be unused; my initial logging suggests that a handful
+      .db $21,$29,$1A,$0F ; $0C ; of them were not used as data anywhere
+      .db $0F,$30,$12,$01 ; $10
+      .db $0F,$30,$16,$02 ; $14
+      .db $0F,$27,$17,$08 ; $18
+      .db $0F,$29,$1A,$0A ; $1C
+      .db $0F,$2C,$1C,$0C ; $20
+      .db $0F,$30,$16,$02 ; $24
+      .db $0F,$27,$17,$08 ; $28
+      .db $0F,$2A,$1A,$0A ; $2C
+      .db $07,$30,$27,$0F ; $30
+      .db $07,$30,$16,$0F ; $34
+      .db $07,$27,$17,$0F ; $38
+      .db $07,$31,$21,$0F ; $3C
+      .db $03,$2C,$1C,$0F ; $40
+      .db $03,$30,$16,$0F ; $44
+      .db $03,$3C,$1C,$0F ; $48
+      .db $03,$25,$15,$05 ; $4C
+      .db $0C,$30,$06,$0F ; $50
+      .db $0C,$30,$16,$0F ; $54
+      .db $0C,$30,$16,$0F ; $58
+      .db $0C,$30,$26,$0F ; $5C
+      .db $01,$0F,$0F,$0F ; $60
+      .db $01,$0F,$0F,$0F ; $64
+      .db $01,$0F,$0F,$0F ; $68
+      .db $01,$0F,$0F,$0F ; $6C
 
 World1SpritePalettes:
-      .BYTE $FF,$30,$16,$0F ; $00
-      .BYTE $FF,$38,$10,$0F ; $04
-      .BYTE $FF,$30,$25,$0F ; $08
-      .BYTE $FF,$30,$16,$02 ; $0C
-      .BYTE $FF,$38,$10,$02 ; $10
-      .BYTE $FF,$30,$25,$02 ; $14
-      .BYTE $FF,$30,$16,$0F ; $18
-      .BYTE $FF,$30,$10,$0F ; $1C
-      .BYTE $FF,$25,$10,$0F ; $20
+      .db $FF,$30,$16,$0F ; $00
+      .db $FF,$38,$10,$0F ; $04
+      .db $FF,$30,$25,$0F ; $08
+      .db $FF,$30,$16,$02 ; $0C
+      .db $FF,$38,$10,$02 ; $10
+      .db $FF,$30,$25,$02 ; $14
+      .db $FF,$30,$16,$0F ; $18
+      .db $FF,$30,$10,$0F ; $1C
+      .db $FF,$25,$10,$0F ; $20
 
 World2BackgroundPalettes:
-      .BYTE $11,$30,$2A,$0F ; $00
-      .BYTE $11,$30,$16,$0F ; $04
-      .BYTE $11,$28,$18,$0F ; $08
-      .BYTE $11,$17,$07,$0F ; $0C
-      .BYTE $0F,$30,$2A,$0A ; $10
-      .BYTE $0F,$30,$16,$02 ; $14
-      .BYTE $0F,$28,$18,$08 ; $18
-      .BYTE $0F,$17,$07,$08 ; $1C
-      .BYTE $0F,$2A,$1A,$0A ; $20
-      .BYTE $0F,$30,$16,$02 ; $24
-      .BYTE $0F,$28,$18,$08 ; $28
-      .BYTE $0F,$27,$17,$07 ; $2C
-      .BYTE $07,$30,$27,$0F ; $30
-      .BYTE $07,$30,$16,$0F ; $34
-      .BYTE $07,$28,$17,$0F ; $38
-      .BYTE $07,$31,$11,$0F ; $3C
-      .BYTE $0C,$2A,$1A,$0F ; $40
-      .BYTE $0C,$30,$16,$0F ; $44
-      .BYTE $0C,$17,$07,$0F ; $48
-      .BYTE $0C,$25,$15,$0F ; $4C
-      .BYTE $0C,$30,$1A,$0F ; $50
-      .BYTE $0C,$30,$16,$0F ; $54
-      .BYTE $0C,$30,$2A,$0F ; $58
-      .BYTE $0C,$30,$3A,$0F ; $5C
-      .BYTE $01,$0F,$0F,$0F ; $60
-      .BYTE $01,$0F,$0F,$0F ; $64
-      .BYTE $01,$0F,$0F,$0F ; $68
-      .BYTE $01,$0F,$0F,$0F ; $6C
+      .db $11,$30,$2A,$0F ; $00
+      .db $11,$30,$16,$0F ; $04
+      .db $11,$28,$18,$0F ; $08
+      .db $11,$17,$07,$0F ; $0C
+      .db $0F,$30,$2A,$0A ; $10
+      .db $0F,$30,$16,$02 ; $14
+      .db $0F,$28,$18,$08 ; $18
+      .db $0F,$17,$07,$08 ; $1C
+      .db $0F,$2A,$1A,$0A ; $20
+      .db $0F,$30,$16,$02 ; $24
+      .db $0F,$28,$18,$08 ; $28
+      .db $0F,$27,$17,$07 ; $2C
+      .db $07,$30,$27,$0F ; $30
+      .db $07,$30,$16,$0F ; $34
+      .db $07,$28,$17,$0F ; $38
+      .db $07,$31,$11,$0F ; $3C
+      .db $0C,$2A,$1A,$0F ; $40
+      .db $0C,$30,$16,$0F ; $44
+      .db $0C,$17,$07,$0F ; $48
+      .db $0C,$25,$15,$0F ; $4C
+      .db $0C,$30,$1A,$0F ; $50
+      .db $0C,$30,$16,$0F ; $54
+      .db $0C,$30,$2A,$0F ; $58
+      .db $0C,$30,$3A,$0F ; $5C
+      .db $01,$0F,$0F,$0F ; $60
+      .db $01,$0F,$0F,$0F ; $64
+      .db $01,$0F,$0F,$0F ; $68
+      .db $01,$0F,$0F,$0F ; $6C
 
 World2SpritePalettes:
-      .BYTE $FF,$30,$16,$0F ; $00
-      .BYTE $FF,$38,$2A,$0F ; $04
-      .BYTE $FF,$30,$25,$0F ; $08
-      .BYTE $FF,$30,$16,$02 ; $0C
-      .BYTE $FF,$38,$2A,$02 ; $10
-      .BYTE $FF,$30,$25,$02 ; $14
-      .BYTE $FF,$30,$16,$0F ; $18
-      .BYTE $FF,$30,$10,$0F ; $1C
-      .BYTE $FF,$30,$23,$0F ; $20
+      .db $FF,$30,$16,$0F ; $00
+      .db $FF,$38,$2A,$0F ; $04
+      .db $FF,$30,$25,$0F ; $08
+      .db $FF,$30,$16,$02 ; $0C
+      .db $FF,$38,$2A,$02 ; $10
+      .db $FF,$30,$25,$02 ; $14
+      .db $FF,$30,$16,$0F ; $18
+      .db $FF,$30,$10,$0F ; $1C
+      .db $FF,$30,$23,$0F ; $20
 
 World3BackgroundPalettes:
-      .BYTE $22,$30,$12,$0F ; $00
-      .BYTE $22,$30,$16,$0F ; $04
-      .BYTE $22,$27,$17,$0F ; $08
-      .BYTE $22,$29,$1A,$0F ; $0C
-      .BYTE $0F,$30,$12,$01 ; $10
-      .BYTE $0F,$30,$16,$02 ; $14
-      .BYTE $0F,$27,$17,$08 ; $18
-      .BYTE $0F,$29,$1A,$04 ; $1C
-      .BYTE $0F,$30,$1C,$0C ; $20
-      .BYTE $0F,$30,$16,$02 ; $24
-      .BYTE $0F,$27,$17,$08 ; $28
-      .BYTE $0F,$26,$16,$06 ; $2C
-      .BYTE $07,$30,$27,$0F ; $30
-      .BYTE $07,$30,$16,$0F ; $34
-      .BYTE $07,$27,$17,$0F ; $38
-      .BYTE $07,$31,$31,$0F ; $3C
-      .BYTE $03,$31,$21,$0F ; $40
-      .BYTE $03,$30,$16,$0F ; $44
-      .BYTE $03,$3C,$1C,$0F ; $48
-      .BYTE $03,$2A,$1A,$0F ; $4C
-      .BYTE $0C,$30,$11,$0F ; $50
-      .BYTE $0C,$30,$16,$0F ; $54
-      .BYTE $0C,$30,$21,$0F ; $58
-      .BYTE $0C,$30,$31,$0F ; $5C
-      .BYTE $01,$0F,$0F,$0F ; $60
-      .BYTE $01,$0F,$0F,$0F ; $64
-      .BYTE $01,$0F,$0F,$0F ; $68
-      .BYTE $01,$0F,$0F,$0F ; $6C
+      .db $22,$30,$12,$0F ; $00
+      .db $22,$30,$16,$0F ; $04
+      .db $22,$27,$17,$0F ; $08
+      .db $22,$29,$1A,$0F ; $0C
+      .db $0F,$30,$12,$01 ; $10
+      .db $0F,$30,$16,$02 ; $14
+      .db $0F,$27,$17,$08 ; $18
+      .db $0F,$29,$1A,$04 ; $1C
+      .db $0F,$30,$1C,$0C ; $20
+      .db $0F,$30,$16,$02 ; $24
+      .db $0F,$27,$17,$08 ; $28
+      .db $0F,$26,$16,$06 ; $2C
+      .db $07,$30,$27,$0F ; $30
+      .db $07,$30,$16,$0F ; $34
+      .db $07,$27,$17,$0F ; $38
+      .db $07,$31,$31,$0F ; $3C
+      .db $03,$31,$21,$0F ; $40
+      .db $03,$30,$16,$0F ; $44
+      .db $03,$3C,$1C,$0F ; $48
+      .db $03,$2A,$1A,$0F ; $4C
+      .db $0C,$30,$11,$0F ; $50
+      .db $0C,$30,$16,$0F ; $54
+      .db $0C,$30,$21,$0F ; $58
+      .db $0C,$30,$31,$0F ; $5C
+      .db $01,$0F,$0F,$0F ; $60
+      .db $01,$0F,$0F,$0F ; $64
+      .db $01,$0F,$0F,$0F ; $68
+      .db $01,$0F,$0F,$0F ; $6C
 
 World3SpritePalettes:
-      .BYTE $FF,$30,$16,$0F ; $00
-      .BYTE $FF,$38,$10,$0F ; $04
-      .BYTE $FF,$30,$25,$0F ; $08
-      .BYTE $FF,$30,$16,$02 ; $0C
-      .BYTE $FF,$38,$10,$02 ; $10
-      .BYTE $FF,$30,$25,$02 ; $14
-      .BYTE $FF,$30,$16,$0F ; $18
-      .BYTE $FF,$30,$10,$0F ; $1C
-      .BYTE $FF,$2B,$10,$0F ; $20
+      .db $FF,$30,$16,$0F ; $00
+      .db $FF,$38,$10,$0F ; $04
+      .db $FF,$30,$25,$0F ; $08
+      .db $FF,$30,$16,$02 ; $0C
+      .db $FF,$38,$10,$02 ; $10
+      .db $FF,$30,$25,$02 ; $14
+      .db $FF,$30,$16,$0F ; $18
+      .db $FF,$30,$10,$0F ; $1C
+      .db $FF,$2B,$10,$0F ; $20
 
 World4BackgroundPalettes:
-      .BYTE $23,$30,$12,$0F ; $00
-      .BYTE $23,$30,$16,$0F ; $04
-      .BYTE $23,$2B,$1B,$0F ; $08
-      .BYTE $23,$30,$32,$0F ; $0C
-      .BYTE $0F,$30,$12,$01 ; $10
-      .BYTE $0F,$30,$16,$02 ; $14
-      .BYTE $0F,$2B,$1B,$0B ; $18
-      .BYTE $0F,$29,$1A,$0A ; $1C
-      .BYTE $0F,$32,$12,$01 ; $20
-      .BYTE $0F,$30,$16,$02 ; $24
-      .BYTE $0F,$2B,$1B,$0B ; $28
-      .BYTE $0F,$27,$17,$07 ; $2C
-      .BYTE $07,$30,$27,$0F ; $30
-      .BYTE $07,$30,$16,$0F ; $34
-      .BYTE $07,$27,$17,$0F ; $38
-      .BYTE $07,$21,$21,$0F ; $3C
-      .BYTE $03,$30,$12,$0F ; $40
-      .BYTE $03,$30,$16,$0F ; $44
-      .BYTE $03,$3C,$1C,$0F ; $48
-      .BYTE $03,$28,$18,$0F ; $4C
-      .BYTE $0C,$30,$00,$0F ; $50
-      .BYTE $0C,$30,$16,$0F ; $54
-      .BYTE $0C,$30,$10,$0F ; $58
-      .BYTE $0C,$30,$30,$0F ; $5C
-      .BYTE $01,$0F,$0F,$0F ; $60
-      .BYTE $01,$0F,$0F,$0F ; $64
-      .BYTE $01,$0F,$0F,$0F ; $68
-      .BYTE $01,$0F,$0F,$0F ; $6C
+      .db $23,$30,$12,$0F ; $00
+      .db $23,$30,$16,$0F ; $04
+      .db $23,$2B,$1B,$0F ; $08
+      .db $23,$30,$32,$0F ; $0C
+      .db $0F,$30,$12,$01 ; $10
+      .db $0F,$30,$16,$02 ; $14
+      .db $0F,$2B,$1B,$0B ; $18
+      .db $0F,$29,$1A,$0A ; $1C
+      .db $0F,$32,$12,$01 ; $20
+      .db $0F,$30,$16,$02 ; $24
+      .db $0F,$2B,$1B,$0B ; $28
+      .db $0F,$27,$17,$07 ; $2C
+      .db $07,$30,$27,$0F ; $30
+      .db $07,$30,$16,$0F ; $34
+      .db $07,$27,$17,$0F ; $38
+      .db $07,$21,$21,$0F ; $3C
+      .db $03,$30,$12,$0F ; $40
+      .db $03,$30,$16,$0F ; $44
+      .db $03,$3C,$1C,$0F ; $48
+      .db $03,$28,$18,$0F ; $4C
+      .db $0C,$30,$00,$0F ; $50
+      .db $0C,$30,$16,$0F ; $54
+      .db $0C,$30,$10,$0F ; $58
+      .db $0C,$30,$30,$0F ; $5C
+      .db $01,$0F,$0F,$0F ; $60
+      .db $01,$0F,$0F,$0F ; $64
+      .db $01,$0F,$0F,$0F ; $68
+      .db $01,$0F,$0F,$0F ; $6C
 
 World4SpritePalettes:
-      .BYTE $FF,$30,$16,$0F ; $00
-      .BYTE $FF,$38,$10,$0F ; $04
-      .BYTE $FF,$30,$25,$0F ; $08
-      .BYTE $FF,$30,$16,$02 ; $0C
-      .BYTE $FF,$38,$10,$02 ; $10
-      .BYTE $FF,$30,$25,$02 ; $14
-      .BYTE $FF,$30,$16,$0F ; $18
-      .BYTE $FF,$30,$10,$0F ; $1C
-      .BYTE $FF,$27,$16,$0F ; $20
+      .db $FF,$30,$16,$0F ; $00
+      .db $FF,$38,$10,$0F ; $04
+      .db $FF,$30,$25,$0F ; $08
+      .db $FF,$30,$16,$02 ; $0C
+      .db $FF,$38,$10,$02 ; $10
+      .db $FF,$30,$25,$02 ; $14
+      .db $FF,$30,$16,$0F ; $18
+      .db $FF,$30,$10,$0F ; $1C
+      .db $FF,$27,$16,$0F ; $20
 
 World5BackgroundPalettes:
-      .BYTE $0F,$30,$12,$01 ; $00
-      .BYTE $0F,$30,$16,$01 ; $04
-      .BYTE $0F,$27,$17,$07 ; $08
-      .BYTE $0F,$2B,$1B,$0B ; $0C
-      .BYTE $0F,$30,$12,$01 ; $10
-      .BYTE $0F,$30,$16,$02 ; $14
-      .BYTE $0F,$27,$17,$08 ; $18
-      .BYTE $0F,$29,$1A,$0A ; $1C
-      .BYTE $0F,$31,$12,$01 ; $20
-      .BYTE $0F,$30,$16,$02 ; $24
-      .BYTE $0F,$3C,$1C,$0C ; $28
-      .BYTE $0F,$2A,$1A,$0A ; $2C
-      .BYTE $07,$30,$27,$0F ; $30
-      .BYTE $07,$30,$16,$0F ; $34
-      .BYTE $07,$27,$17,$0F ; $38
-      .BYTE $07,$31,$01,$0F ; $3C
-      .BYTE $01,$2A,$1A,$0F ; $40
-      .BYTE $01,$30,$16,$0F ; $44
-      .BYTE $01,$3C,$1C,$0F ; $48
-      .BYTE $01,$25,$15,$05 ; $4C
-      .BYTE $0C,$30,$16,$0F ; $50
-      .BYTE $0C,$30,$16,$0F ; $54
-      .BYTE $0C,$30,$24,$0F ; $58
-      .BYTE $0C,$30,$34,$0F ; $5C
-      .BYTE $01,$0F,$0F,$0F ; $60
-      .BYTE $01,$0F,$0F,$0F ; $64
-      .BYTE $01,$0F,$0F,$0F ; $68
-      .BYTE $01,$0F,$0F,$0F ; $6C
+      .db $0F,$30,$12,$01 ; $00
+      .db $0F,$30,$16,$01 ; $04
+      .db $0F,$27,$17,$07 ; $08
+      .db $0F,$2B,$1B,$0B ; $0C
+      .db $0F,$30,$12,$01 ; $10
+      .db $0F,$30,$16,$02 ; $14
+      .db $0F,$27,$17,$08 ; $18
+      .db $0F,$29,$1A,$0A ; $1C
+      .db $0F,$31,$12,$01 ; $20
+      .db $0F,$30,$16,$02 ; $24
+      .db $0F,$3C,$1C,$0C ; $28
+      .db $0F,$2A,$1A,$0A ; $2C
+      .db $07,$30,$27,$0F ; $30
+      .db $07,$30,$16,$0F ; $34
+      .db $07,$27,$17,$0F ; $38
+      .db $07,$31,$01,$0F ; $3C
+      .db $01,$2A,$1A,$0F ; $40
+      .db $01,$30,$16,$0F ; $44
+      .db $01,$3C,$1C,$0F ; $48
+      .db $01,$25,$15,$05 ; $4C
+      .db $0C,$30,$16,$0F ; $50
+      .db $0C,$30,$16,$0F ; $54
+      .db $0C,$30,$24,$0F ; $58
+      .db $0C,$30,$34,$0F ; $5C
+      .db $01,$0F,$0F,$0F ; $60
+      .db $01,$0F,$0F,$0F ; $64
+      .db $01,$0F,$0F,$0F ; $68
+      .db $01,$0F,$0F,$0F ; $6C
 
 World5SpritePalettes:
-      .BYTE $FF,$30,$16,$0F ; $00
-      .BYTE $FF,$38,$10,$0F ; $04
-      .BYTE $FF,$30,$25,$0F ; $08
-      .BYTE $FF,$30,$16,$02 ; $0C
-      .BYTE $FF,$38,$10,$02 ; $10
-      .BYTE $FF,$30,$25,$02 ; $14
-      .BYTE $FF,$30,$16,$0F ; $18
-      .BYTE $FF,$30,$16,$0F ; $1C
-      .BYTE $FF,$16,$30,$0F ; $20
+      .db $FF,$30,$16,$0F ; $00
+      .db $FF,$38,$10,$0F ; $04
+      .db $FF,$30,$25,$0F ; $08
+      .db $FF,$30,$16,$02 ; $0C
+      .db $FF,$38,$10,$02 ; $10
+      .db $FF,$30,$25,$02 ; $14
+      .db $FF,$30,$16,$0F ; $18
+      .db $FF,$30,$16,$0F ; $1C
+      .db $FF,$16,$30,$0F ; $20
 
 World6BackgroundPalettes:
-      .BYTE $21,$30,$2A,$0F ; $00
-      .BYTE $21,$30,$16,$0F ; $04
-      .BYTE $21,$28,$18,$0F ; $08
-      .BYTE $21,$17,$07,$0F ; $0C
-      .BYTE $0F,$30,$2A,$01 ; $10
-      .BYTE $0F,$30,$16,$02 ; $14
-      .BYTE $0F,$28,$18,$08 ; $18
-      .BYTE $0F,$17,$07,$08 ; $1C
-      .BYTE $0F,$30,$12,$01 ; $20
-      .BYTE $0F,$30,$16,$02 ; $24
-      .BYTE $0F,$28,$18,$08 ; $28
-      .BYTE $0F,$27,$17,$07 ; $2C
-      .BYTE $07,$30,$27,$0F ; $30
-      .BYTE $07,$30,$16,$0F ; $34
-      .BYTE $07,$28,$17,$0F ; $38
-      .BYTE $07,$31,$01,$0F ; $3C
-      .BYTE $0C,$2A,$1A,$0F ; $40
-      .BYTE $0C,$30,$16,$0F ; $44
-      .BYTE $0C,$17,$07,$0F ; $48
-      .BYTE $0C,$25,$15,$0F ; $4C
-      .BYTE $0C,$30,$1B,$0F ; $50
-      .BYTE $0C,$30,$16,$0F ; $54
-      .BYTE $0C,$30,$2B,$0F ; $58
-      .BYTE $0C,$30,$3B,$0F ; $5C
-      .BYTE $01,$0F,$0F,$0F ; $60
-      .BYTE $01,$0F,$0F,$0F ; $64
-      .BYTE $01,$0F,$0F,$0F ; $68
-      .BYTE $01,$0F,$0F,$0F ; $6C
+      .db $21,$30,$2A,$0F ; $00
+      .db $21,$30,$16,$0F ; $04
+      .db $21,$28,$18,$0F ; $08
+      .db $21,$17,$07,$0F ; $0C
+      .db $0F,$30,$2A,$01 ; $10
+      .db $0F,$30,$16,$02 ; $14
+      .db $0F,$28,$18,$08 ; $18
+      .db $0F,$17,$07,$08 ; $1C
+      .db $0F,$30,$12,$01 ; $20
+      .db $0F,$30,$16,$02 ; $24
+      .db $0F,$28,$18,$08 ; $28
+      .db $0F,$27,$17,$07 ; $2C
+      .db $07,$30,$27,$0F ; $30
+      .db $07,$30,$16,$0F ; $34
+      .db $07,$28,$17,$0F ; $38
+      .db $07,$31,$01,$0F ; $3C
+      .db $0C,$2A,$1A,$0F ; $40
+      .db $0C,$30,$16,$0F ; $44
+      .db $0C,$17,$07,$0F ; $48
+      .db $0C,$25,$15,$0F ; $4C
+      .db $0C,$30,$1B,$0F ; $50
+      .db $0C,$30,$16,$0F ; $54
+      .db $0C,$30,$2B,$0F ; $58
+      .db $0C,$30,$3B,$0F ; $5C
+      .db $01,$0F,$0F,$0F ; $60
+      .db $01,$0F,$0F,$0F ; $64
+      .db $01,$0F,$0F,$0F ; $68
+      .db $01,$0F,$0F,$0F ; $6C
 
 World6SpritePalettes:
-      .BYTE $FF,$30,$16,$0F ; $00
-      .BYTE $FF,$38,$2A,$0F ; $04
-      .BYTE $FF,$30,$25,$0F ; $08
-      .BYTE $FF,$30,$16,$02 ; $0C
-      .BYTE $FF,$38,$2A,$02 ; $10
-      .BYTE $FF,$30,$25,$02 ; $14
-      .BYTE $FF,$30,$16,$0F ; $18
-      .BYTE $FF,$30,$10,$0F ; $1C
-      .BYTE $FF,$30,$23,$0F ; $20
+      .db $FF,$30,$16,$0F ; $00
+      .db $FF,$38,$2A,$0F ; $04
+      .db $FF,$30,$25,$0F ; $08
+      .db $FF,$30,$16,$02 ; $0C
+      .db $FF,$38,$2A,$02 ; $10
+      .db $FF,$30,$25,$02 ; $14
+      .db $FF,$30,$16,$0F ; $18
+      .db $FF,$30,$10,$0F ; $1C
+      .db $FF,$30,$23,$0F ; $20
 
 World7BackgroundPalettes:
-      .BYTE $21,$30,$12,$0F ; $00
-      .BYTE $21,$30,$16,$0F ; $04
-      .BYTE $21,$27,$17,$0F ; $08
-      .BYTE $21,$29,$1A,$0F ; $0C
-      .BYTE $0F,$30,$12,$01 ; $10
-      .BYTE $0F,$30,$16,$02 ; $14
-      .BYTE $0F,$27,$17,$08 ; $18
-      .BYTE $0F,$29,$1A,$0A ; $1C
-      .BYTE $0F,$2C,$1C,$0C ; $20
-      .BYTE $0F,$30,$16,$02 ; $24
-      .BYTE $0F,$27,$17,$08 ; $28
-      .BYTE $0F,$2A,$1A,$0A ; $2C
-      .BYTE $07,$30,$16,$0F ; $30
-      .BYTE $07,$30,$16,$0F ; $34
-      .BYTE $07,$27,$17,$0F ; $38
-      .BYTE $07,$31,$01,$0F ; $3C
-      .BYTE $0F,$3C,$2C,$0C ; $40
-      .BYTE $0F,$30,$16,$02 ; $44
-      .BYTE $0F,$28,$18,$08 ; $48
-      .BYTE $0F,$25,$15,$05 ; $4C
-      .BYTE $0C,$30,$08,$0F ; $50
-      .BYTE $0C,$30,$16,$0F ; $54
-      .BYTE $0C,$38,$18,$0F ; $58
-      .BYTE $0C,$28,$08,$0F ; $5C
-      .BYTE $01,$0F,$0F,$0F ; $60
-      .BYTE $01,$0F,$0F,$0F ; $64
-      .BYTE $01,$0F,$0F,$0F ; $68
-      .BYTE $01,$0F,$0F,$0F ; $6C
+      .db $21,$30,$12,$0F ; $00
+      .db $21,$30,$16,$0F ; $04
+      .db $21,$27,$17,$0F ; $08
+      .db $21,$29,$1A,$0F ; $0C
+      .db $0F,$30,$12,$01 ; $10
+      .db $0F,$30,$16,$02 ; $14
+      .db $0F,$27,$17,$08 ; $18
+      .db $0F,$29,$1A,$0A ; $1C
+      .db $0F,$2C,$1C,$0C ; $20
+      .db $0F,$30,$16,$02 ; $24
+      .db $0F,$27,$17,$08 ; $28
+      .db $0F,$2A,$1A,$0A ; $2C
+      .db $07,$30,$16,$0F ; $30
+      .db $07,$30,$16,$0F ; $34
+      .db $07,$27,$17,$0F ; $38
+      .db $07,$31,$01,$0F ; $3C
+      .db $0F,$3C,$2C,$0C ; $40
+      .db $0F,$30,$16,$02 ; $44
+      .db $0F,$28,$18,$08 ; $48
+      .db $0F,$25,$15,$05 ; $4C
+      .db $0C,$30,$08,$0F ; $50
+      .db $0C,$30,$16,$0F ; $54
+      .db $0C,$38,$18,$0F ; $58
+      .db $0C,$28,$08,$0F ; $5C
+      .db $01,$0F,$0F,$0F ; $60
+      .db $01,$0F,$0F,$0F ; $64
+      .db $01,$0F,$0F,$0F ; $68
+      .db $01,$0F,$0F,$0F ; $6C
 
 World7SpritePalettes:
-      .BYTE $FF,$30,$16,$0F ; $00
-      .BYTE $FF,$38,$10,$0F ; $04
-      .BYTE $FF,$30,$25,$0F ; $08
-      .BYTE $FF,$30,$16,$02 ; $0C
-      .BYTE $FF,$38,$10,$02 ; $10
-      .BYTE $FF,$30,$25,$02 ; $14
-      .BYTE $FF,$30,$16,$0F ; $18
-      .BYTE $FF,$30,$10,$0F ; $1C
-      .BYTE $FF,$30,$2A,$0F ; $20
+      .db $FF,$30,$16,$0F ; $00
+      .db $FF,$38,$10,$0F ; $04
+      .db $FF,$30,$25,$0F ; $08
+      .db $FF,$30,$16,$02 ; $0C
+      .db $FF,$38,$10,$02 ; $10
+      .db $FF,$30,$25,$02 ; $14
+      .db $FF,$30,$16,$0F ; $18
+      .db $FF,$30,$10,$0F ; $1C
+      .db $FF,$30,$2A,$0F ; $20
 
 GroundTilesHorizontalLo:
-      .BYTE <World1GroundTilesHorizontal
-      .BYTE <World2GroundTilesHorizontal
-      .BYTE <World3GroundTilesHorizontal
-      .BYTE <World4GroundTilesHorizontal
-      .BYTE <World5GroundTilesHorizontal
-      .BYTE <World6GroundTilesHorizontal
-      .BYTE <World7GroundTilesHorizontal
+      .db <World1GroundTilesHorizontal
+      .db <World2GroundTilesHorizontal
+      .db <World3GroundTilesHorizontal
+      .db <World4GroundTilesHorizontal
+      .db <World5GroundTilesHorizontal
+      .db <World6GroundTilesHorizontal
+      .db <World7GroundTilesHorizontal
 
 GroundTilesVerticalLo:
-      .BYTE <World1GroundTilesVertical
-      .BYTE <World2GroundTilesVertical
-      .BYTE <World3GroundTilesVertical
-      .BYTE <World4GroundTilesVertical
-      .BYTE <World5GroundTilesVertical
-      .BYTE <World6GroundTilesVertical
-      .BYTE <World7GroundTilesVertical
+      .db <World1GroundTilesVertical
+      .db <World2GroundTilesVertical
+      .db <World3GroundTilesVertical
+      .db <World4GroundTilesVertical
+      .db <World5GroundTilesVertical
+      .db <World6GroundTilesVertical
+      .db <World7GroundTilesVertical
 
 GroundTilesHorizontalHi:
-      .BYTE >World1GroundTilesHorizontal
-      .BYTE >World2GroundTilesHorizontal
-      .BYTE >World3GroundTilesHorizontal
-      .BYTE >World4GroundTilesHorizontal
-      .BYTE >World5GroundTilesHorizontal
-      .BYTE >World6GroundTilesHorizontal
-      .BYTE >World7GroundTilesHorizontal
+      .db >World1GroundTilesHorizontal
+      .db >World2GroundTilesHorizontal
+      .db >World3GroundTilesHorizontal
+      .db >World4GroundTilesHorizontal
+      .db >World5GroundTilesHorizontal
+      .db >World6GroundTilesHorizontal
+      .db >World7GroundTilesHorizontal
 
 GroundTilesVerticalHi:
-      .BYTE >World1GroundTilesVertical
-      .BYTE >World2GroundTilesVertical
-      .BYTE >World3GroundTilesVertical
-      .BYTE >World4GroundTilesVertical
-      .BYTE >World5GroundTilesVertical
-      .BYTE >World6GroundTilesVertical
-      .BYTE >World7GroundTilesVertical
+      .db >World1GroundTilesVertical
+      .db >World2GroundTilesVertical
+      .db >World3GroundTilesVertical
+      .db >World4GroundTilesVertical
+      .db >World5GroundTilesVertical
+      .db >World6GroundTilesVertical
+      .db >World7GroundTilesVertical
 
 ;
 ; Ground appearance tiles
@@ -378,483 +378,483 @@ GroundTilesVerticalHi:
 ; presumably as an optimization, so the value doesn't matter!
 ;
 World1GroundTilesHorizontal:
-      .BYTE $00, $99, $D5, $00 ; $00
-      .BYTE $00, $99, $99, $99 ; $01
-      .BYTE $00, $A0, $A0, $A0 ; $02
-      .BYTE $00, $A2, $A2, $A2 ; $03
-      .BYTE $00, $D6, $9B, $18 ; $04
-      .BYTE $00, $A0, $A0, $99 ; $05
-      .BYTE $00, $00, $00, $00 ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $99, $D5, $00 ; $00
+      .db $00, $99, $99, $99 ; $01
+      .db $00, $A0, $A0, $A0 ; $02
+      .db $00, $A2, $A2, $A2 ; $03
+      .db $00, $D6, $9B, $18 ; $04
+      .db $00, $A0, $A0, $99 ; $05
+      .db $00, $00, $00, $00 ; $06
+      .db $00, $00, $00, $00 ; $07
 
 World1GroundTilesVertical:
-      .BYTE $00, $9D, $9E, $C6 ; $00
-      .BYTE $00, $05, $A0, $00 ; $01
-      .BYTE $00, $00, $00, $00 ; $02
-      .BYTE $00, $00, $A2, $00 ; $03
-      .BYTE $00, $00, $C2, $00 ; $04
-      .BYTE $00, $00, $A0, $00 ; $05
-      .BYTE $00, $93, $9E, $C6 ; $06
-      .BYTE $00, $40, $9E, $C6 ; $07
+      .db $00, $9D, $9E, $C6 ; $00
+      .db $00, $05, $A0, $00 ; $01
+      .db $00, $00, $00, $00 ; $02
+      .db $00, $00, $A2, $00 ; $03
+      .db $00, $00, $C2, $00 ; $04
+      .db $00, $00, $A0, $00 ; $05
+      .db $00, $93, $9E, $C6 ; $06
+      .db $00, $40, $9E, $C6 ; $07
 
 World2GroundTilesHorizontal:
-      .BYTE $00, $99, $99, $99 ; $00
-      .BYTE $00, $8A, $8A, $8A ; $01
-      .BYTE $00, $8B, $8B, $8B ; $02
-      .BYTE $00, $A0, $A0, $A0 ; $03
-      .BYTE $00, $A2, $A2, $A2 ; $04
-      .BYTE $00, $D6, $9B, $18 ; $05
-      .BYTE $00, $00, $00, $00 ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $99, $99, $99 ; $00
+      .db $00, $8A, $8A, $8A ; $01
+      .db $00, $8B, $8B, $8B ; $02
+      .db $00, $A0, $A0, $A0 ; $03
+      .db $00, $A2, $A2, $A2 ; $04
+      .db $00, $D6, $9B, $18 ; $05
+      .db $00, $00, $00, $00 ; $06
+      .db $00, $00, $00, $00 ; $07
 
 World2GroundTilesVertical:
-      .BYTE $00, $9D, $9E, $C6 ; $00
-      .BYTE $00, $93, $A0, $00 ; $01
-      .BYTE $00, $40, $9B, $40 ; $02
-      .BYTE $00, $93, $9E, $C6 ; $03
-      .BYTE $00, $40, $9E, $C6 ; $04
-      .BYTE $00, $00, $00, $00 ; $05
-      .BYTE $00, $00, $00, $00 ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $9D, $9E, $C6 ; $00
+      .db $00, $93, $A0, $00 ; $01
+      .db $00, $40, $9B, $40 ; $02
+      .db $00, $93, $9E, $C6 ; $03
+      .db $00, $40, $9E, $C6 ; $04
+      .db $00, $00, $00, $00 ; $05
+      .db $00, $00, $00, $00 ; $06
+      .db $00, $00, $00, $00 ; $07
 
 World3GroundTilesHorizontal:
-      .BYTE $00, $99, $D5, $00 ; $00
-      .BYTE $00, $99, $99, $99 ; $01
-      .BYTE $00, $A0, $A0, $A0 ; $02
-      .BYTE $00, $A2, $A2, $A2 ; $03
-      .BYTE $00, $D6, $9B, $18 ; $04
-      .BYTE $00, $A0, $A0, $99 ; $05
-      .BYTE $00, $00, $00, $00 ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $99, $D5, $00 ; $00
+      .db $00, $99, $99, $99 ; $01
+      .db $00, $A0, $A0, $A0 ; $02
+      .db $00, $A2, $A2, $A2 ; $03
+      .db $00, $D6, $9B, $18 ; $04
+      .db $00, $A0, $A0, $99 ; $05
+      .db $00, $00, $00, $00 ; $06
+      .db $00, $00, $00, $00 ; $07
 
 World3GroundTilesVertical:
-      .BYTE $00, $C6, $9E, $9D ; $00
-      .BYTE $00, $05, $A0, $00 ; $01
-      .BYTE $00, $93, $9E, $C6 ; $02
-      .BYTE $00, $00, $A2, $00 ; $03
-      .BYTE $00, $00, $C2, $00 ; $04
-      .BYTE $00, $00, $A0, $00 ; $05
-      .BYTE $00, $40, $9E, $C6 ; $06
-      .BYTE $00, $06, $A0, $00 ; $07
+      .db $00, $C6, $9E, $9D ; $00
+      .db $00, $05, $A0, $00 ; $01
+      .db $00, $93, $9E, $C6 ; $02
+      .db $00, $00, $A2, $00 ; $03
+      .db $00, $00, $C2, $00 ; $04
+      .db $00, $00, $A0, $00 ; $05
+      .db $00, $40, $9E, $C6 ; $06
+      .db $00, $06, $A0, $00 ; $07
 
 World4GroundTilesHorizontal:
-      .BYTE $00, $99, $D5, $00 ; $00
-      .BYTE $00, $99, $16, $00 ; $01
-      .BYTE $00, $A0, $A0, $A0 ; $02
-      .BYTE $00, $A2, $A2, $A2 ; $03
-      .BYTE $00, $D6, $9B, $18 ; $04
-      .BYTE $00, $0A, $0A, $08 ; $05
-      .BYTE $00, $1F, $1F, $1F ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $99, $D5, $00 ; $00
+      .db $00, $99, $16, $00 ; $01
+      .db $00, $A0, $A0, $A0 ; $02
+      .db $00, $A2, $A2, $A2 ; $03
+      .db $00, $D6, $9B, $18 ; $04
+      .db $00, $0A, $0A, $08 ; $05
+      .db $00, $1F, $1F, $1F ; $06
+      .db $00, $00, $00, $00 ; $07
 
 World4GroundTilesVertical:
-      .BYTE $00, $C6, $99, $9D ; $00
-      .BYTE $00, $A2, $A2, $A2 ; $01
-      .BYTE $00, $9B, $9B, $9B ; $02
-      .BYTE $00, $A0, $A0, $A0 ; $03
-      .BYTE $00, $D6, $D6, $D6 ; $04
-      .BYTE $00, $18, $18, $18 ; $05
-      .BYTE $00, $00, $00, $00 ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $C6, $99, $9D ; $00
+      .db $00, $A2, $A2, $A2 ; $01
+      .db $00, $9B, $9B, $9B ; $02
+      .db $00, $A0, $A0, $A0 ; $03
+      .db $00, $D6, $D6, $D6 ; $04
+      .db $00, $18, $18, $18 ; $05
+      .db $00, $00, $00, $00 ; $06
+      .db $00, $00, $00, $00 ; $07
 
 World5GroundTilesHorizontal:
-      .BYTE $00, $99, $D5, $40 ; $00
-      .BYTE $00, $99, $99, $99 ; $01
-      .BYTE $00, $A0, $A0, $A0 ; $02
-      .BYTE $00, $A2, $A2, $A2 ; $03
-      .BYTE $00, $D6, $9B, $18 ; $04
-      .BYTE $00, $A0, $A0, $99 ; $05
-      .BYTE $00, $00, $00, $00 ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $99, $D5, $40 ; $00
+      .db $00, $99, $99, $99 ; $01
+      .db $00, $A0, $A0, $A0 ; $02
+      .db $00, $A2, $A2, $A2 ; $03
+      .db $00, $D6, $9B, $18 ; $04
+      .db $00, $A0, $A0, $99 ; $05
+      .db $00, $00, $00, $00 ; $06
+      .db $00, $00, $00, $00 ; $07
 
 World5GroundTilesVertical:
-      .BYTE $00, $9D, $9E, $C6 ; $00
-      .BYTE $00, $05, $A0, $00 ; $01
-      .BYTE $00, $40, $A4, $00 ; $02
-      .BYTE $00, $00, $A2, $00 ; $03
-      .BYTE $00, $00, $C2, $00 ; $04
-      .BYTE $00, $00, $A0, $00 ; $05
-      .BYTE $00, $93, $9E, $C6 ; $06
-      .BYTE $00, $40, $9E, $C6 ; $07
+      .db $00, $9D, $9E, $C6 ; $00
+      .db $00, $05, $A0, $00 ; $01
+      .db $00, $40, $A4, $00 ; $02
+      .db $00, $00, $A2, $00 ; $03
+      .db $00, $00, $C2, $00 ; $04
+      .db $00, $00, $A0, $00 ; $05
+      .db $00, $93, $9E, $C6 ; $06
+      .db $00, $40, $9E, $C6 ; $07
 
 World6GroundTilesHorizontal:
-      .BYTE $00, $99, $99, $99 ; $00
-      .BYTE $00, $8A, $8A, $8A ; $01
-      .BYTE $00, $8B, $8B, $8B ; $02
-      .BYTE $00, $A0, $A0, $A0 ; $03
-      .BYTE $00, $A2, $A2, $A2 ; $04
-      .BYTE $00, $D6, $9B, $18 ; $05
-      .BYTE $00, $00, $00, $00 ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $99, $99, $99 ; $00
+      .db $00, $8A, $8A, $8A ; $01
+      .db $00, $8B, $8B, $8B ; $02
+      .db $00, $A0, $A0, $A0 ; $03
+      .db $00, $A2, $A2, $A2 ; $04
+      .db $00, $D6, $9B, $18 ; $05
+      .db $00, $00, $00, $00 ; $06
+      .db $00, $00, $00, $00 ; $07
 
 World6GroundTilesVertical:
-      .BYTE $00, $9D, $9E, $C6 ; $00
-      .BYTE $00, $93, $A0, $00 ; $01
-      .BYTE $00, $40, $18, $40 ; $02
-      .BYTE $00, $93, $9E, $C6 ; $03
-      .BYTE $00, $40, $9E, $C6 ; $04
-      .BYTE $00, $00, $00, $00 ; $05
-      .BYTE $00, $00, $00, $00 ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $9D, $9E, $C6 ; $00
+      .db $00, $93, $A0, $00 ; $01
+      .db $00, $40, $18, $40 ; $02
+      .db $00, $93, $9E, $C6 ; $03
+      .db $00, $40, $9E, $C6 ; $04
+      .db $00, $00, $00, $00 ; $05
+      .db $00, $00, $00, $00 ; $06
+      .db $00, $00, $00, $00 ; $07
 
 World7GroundTilesHorizontal:
-      .BYTE $00, $9C, $9C, $9C ; $00
-      .BYTE $00, $D7, $9C, $19 ; $01
-      .BYTE $00, $00, $00, $00 ; $02
-      .BYTE $00, $00, $00, $00 ; $03
-      .BYTE $00, $00, $00, $00 ; $04
-      .BYTE $00, $00, $00, $00 ; $05
-      .BYTE $00, $00, $00, $00 ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $9C, $9C, $9C ; $00
+      .db $00, $D7, $9C, $19 ; $01
+      .db $00, $00, $00, $00 ; $02
+      .db $00, $00, $00, $00 ; $03
+      .db $00, $00, $00, $00 ; $04
+      .db $00, $00, $00, $00 ; $05
+      .db $00, $00, $00, $00 ; $06
+      .db $00, $00, $00, $00 ; $07
 
 World7GroundTilesVertical:
-      .BYTE $00, $9C, $9C, $9C ; $00
-      .BYTE $00, $05, $A0, $00 ; $01
-      .BYTE $00, $00, $00, $00 ; $02
-      .BYTE $00, $00, $9C, $00 ; $03
-      .BYTE $00, $00, $C2, $00 ; $04
-      .BYTE $00, $00, $A0, $00 ; $05
-      .BYTE $00, $00, $00, $00 ; $06
-      .BYTE $00, $00, $00, $00 ; $07
+      .db $00, $9C, $9C, $9C ; $00
+      .db $00, $05, $A0, $00 ; $01
+      .db $00, $00, $00, $00 ; $02
+      .db $00, $00, $9C, $00 ; $03
+      .db $00, $00, $C2, $00 ; $04
+      .db $00, $00, $A0, $00 ; $05
+      .db $00, $00, $00, $00 ; $06
+      .db $00, $00, $00, $00 ; $07
 
 ; @TODO Check this
 ; Not actually sure what these are used for at all.
 ; My notes say they aren't, and they don't seem to be referenced anywhere...
 ; But there's so many, it would be really surprising if they are unused.
 UnusedTileQuadPointersLo:
-      .BYTE <UnusedTileQuads1
-      .BYTE <UnusedTileQuads2
-      .BYTE <UnusedTileQuads3
-      .BYTE <UnusedTileQuads4
+      .db <UnusedTileQuads1
+      .db <UnusedTileQuads2
+      .db <UnusedTileQuads3
+      .db <UnusedTileQuads4
 UnusedTileQuadPointersHi:
-      .BYTE >UnusedTileQuads1
-      .BYTE >UnusedTileQuads2
-      .BYTE >UnusedTileQuads3
-      .BYTE >UnusedTileQuads4
+      .db >UnusedTileQuads1
+      .db >UnusedTileQuads2
+      .db >UnusedTileQuads3
+      .db >UnusedTileQuads4
 UnusedTileQuads1:
-      .BYTE $FE,$FE,$FE,$FE ; $00
-      .BYTE $B4,$B6,$B5,$B7 ; $04
-      .BYTE $B8,$FA,$B9,$FA ; $08
-      .BYTE $FA,$FA,$B2,$B3 ; $0C
-      .BYTE $BE,$BE,$BF,$BF ; $10
-      .BYTE $BF,$BF,$BF,$BF ; $14
-      .BYTE $4A,$4A,$4B,$4B ; $18
-      .BYTE $5E,$5F,$5E,$5F ; $1C
-      .BYTE $E8,$E8,$A9,$A9 ; $20
-      .BYTE $46,$FC,$46,$FC ; $24
-      .BYTE $A9,$A9,$A9,$A9 ; $28
-      .BYTE $FC,$FC,$FC,$FC ; $2C
-      .BYTE $E9,$E9,$A9,$A9 ; $30
-      .BYTE $FC,$48,$FC,$48 ; $34
-      .BYTE $11,$11,$11,$11 ; $38
-      .BYTE $22,$22,$22,$22 ; $3C
-      .BYTE $33,$33,$33,$33 ; $40
-      .BYTE $E8,$EB,$A9,$A9 ; $44
-      .BYTE $74,$76,$75,$77 ; $48
-      .BYTE $98,$9A,$99,$9B ; $4C
-      .BYTE $9C,$9A,$9D,$9B ; $50
-      .BYTE $9C,$9E,$9B,$9F ; $54
-      .BYTE $58,$5A,$59,$5B ; $58
-      .BYTE $5E,$5F,$5E,$5F ; $5C
-      .BYTE $8E,$8F,$8F,$8E ; $60
-      .BYTE $72,$73,$73,$72 ; $64
-      .BYTE $A6,$A6,$A7,$A7 ; $68
-      .BYTE $92,$93,$93,$92 ; $6C
-      .BYTE $74,$76,$75,$77 ; $70
-      .BYTE $70,$72,$71,$73 ; $74
-      .BYTE $71,$73,$71,$73 ; $78
-      .BYTE $24,$26,$25,$27 ; $7C
-      .BYTE $32,$34,$33,$35 ; $80
-      .BYTE $33,$35,$33,$35 ; $84
-      .BYTE $24,$26,$25,$27 ; $88
+      .db $FE,$FE,$FE,$FE ; $00
+      .db $B4,$B6,$B5,$B7 ; $04
+      .db $B8,$FA,$B9,$FA ; $08
+      .db $FA,$FA,$B2,$B3 ; $0C
+      .db $BE,$BE,$BF,$BF ; $10
+      .db $BF,$BF,$BF,$BF ; $14
+      .db $4A,$4A,$4B,$4B ; $18
+      .db $5E,$5F,$5E,$5F ; $1C
+      .db $E8,$E8,$A9,$A9 ; $20
+      .db $46,$FC,$46,$FC ; $24
+      .db $A9,$A9,$A9,$A9 ; $28
+      .db $FC,$FC,$FC,$FC ; $2C
+      .db $E9,$E9,$A9,$A9 ; $30
+      .db $FC,$48,$FC,$48 ; $34
+      .db $11,$11,$11,$11 ; $38
+      .db $22,$22,$22,$22 ; $3C
+      .db $33,$33,$33,$33 ; $40
+      .db $E8,$EB,$A9,$A9 ; $44
+      .db $74,$76,$75,$77 ; $48
+      .db $98,$9A,$99,$9B ; $4C
+      .db $9C,$9A,$9D,$9B ; $50
+      .db $9C,$9E,$9B,$9F ; $54
+      .db $58,$5A,$59,$5B ; $58
+      .db $5E,$5F,$5E,$5F ; $5C
+      .db $8E,$8F,$8F,$8E ; $60
+      .db $72,$73,$73,$72 ; $64
+      .db $A6,$A6,$A7,$A7 ; $68
+      .db $92,$93,$93,$92 ; $6C
+      .db $74,$76,$75,$77 ; $70
+      .db $70,$72,$71,$73 ; $74
+      .db $71,$73,$71,$73 ; $78
+      .db $24,$26,$25,$27 ; $7C
+      .db $32,$34,$33,$35 ; $80
+      .db $33,$35,$33,$35 ; $84
+      .db $24,$26,$25,$27 ; $88
 UnusedTileQuads2:
-      .BYTE $FA,$FA,$FA,$FA ; $00
-      .BYTE $FA,$FA,$FA,$FA ; $04
-      .BYTE $FA,$FA,$FA,$FA ; $08
-      .BYTE $FA,$FA,$B0,$B1 ; $0C
-      .BYTE $FA,$FA,$B0,$B1 ; $10
-      .BYTE $FA,$FA,$B0,$B1 ; $14
-      .BYTE $FA,$FA,$B0,$B1 ; $18
-      .BYTE $FA,$FA,$B0,$B1 ; $1C
-      .BYTE $FA,$FA,$B0,$B1 ; $20
-      .BYTE $FA,$FA,$B0,$B1 ; $24
-      .BYTE $FA,$FA,$B0,$B1 ; $28
-      .BYTE $FA,$FA,$B0,$B1 ; $2C
-      .BYTE $FA,$FA,$B0,$B1 ; $30
-      .BYTE $FA,$FA,$B0,$B1 ; $34
-      .BYTE $A0,$A2,$A1,$A3 ; $38
-      .BYTE $80,$82,$81,$83 ; $3C
-      .BYTE $F4,$86,$F5,$87 ; $40
-      .BYTE $84,$86,$85,$87 ; $44
-      .BYTE $FC,$FC,$FC,$FC ; $48
-      .BYTE $AD,$FB,$AC,$AD ; $4C
-      .BYTE $AC,$AC,$AC,$AC ; $50
-      .BYTE $FB,$3B,$3B,$AC ; $54
-      .BYTE $FC,$FC,$FC,$FC ; $58
-      .BYTE $F4,$86,$F5,$87 ; $5C
-      .BYTE $FB,$49,$49,$FB ; $60
-      .BYTE $FE,$FE,$FE,$FE ; $64
-      .BYTE $FE,$FE,$6D,$FE ; $68
-      .BYTE $3C,$3E,$3D,$3F ; $6C
-      .BYTE $58,$FD,$59,$5A ; $70
-      .BYTE $5B,$5A,$FD,$FD ; $74
-      .BYTE $5B,$5C,$FD,$5D ; $78
-      .BYTE $FD,$FD,$5B,$5A ; $7C
-      .BYTE $6C,$FE,$FE,$FE ; $80
-      .BYTE $FE,$FE,$FE,$FE ; $84
-      .BYTE $FE,$6E,$FE,$6F ; $88
-      .BYTE $20,$22,$21,$23 ; $8C
-      .BYTE $6E,$6F,$70,$71 ; $90
-      .BYTE $57,$57,$FB,$FB ; $94
-      .BYTE $57,$57,$FE,$FE ; $98
-      .BYTE $D3,$D3,$FB,$FB ; $9C
-      .BYTE $D2,$D2,$FB,$FB ; $A0
-      .BYTE $7C,$7E,$7D,$7F ; $A4
-      .BYTE $CA,$CC,$CB,$CD ; $A8
-      .BYTE $CA,$CC,$CB,$CD ; $AC
-      .BYTE $C0,$C2,$C1,$C3 ; $B0
-      .BYTE $2C,$2E,$2D,$2F ; $B4
-      .BYTE $8E,$8F,$8F,$8E ; $B8
-      .BYTE $88,$8A,$89,$8B ; $BC
-      .BYTE $89,$8B,$89,$8B ; $C0
-      .BYTE $89,$8B,$8C,$8D ; $C4
-      .BYTE $88,$8A,$8C,$8D ; $C8
-      .BYTE $88,$8A,$89,$8B ; $CC
-      .BYTE $88,$8A,$89,$8B ; $D0
-      .BYTE $6A,$6C,$6B,$6D ; $D4
-      .BYTE $6C,$6C,$6D,$6D ; $D8
-      .BYTE $6C,$6E,$6D,$6F ; $DC
-      .BYTE $6C,$54,$6D,$55 ; $E0
-      .BYTE $32,$34,$33,$35 ; $E4
-      .BYTE $33,$35,$33,$35 ; $E8
+      .db $FA,$FA,$FA,$FA ; $00
+      .db $FA,$FA,$FA,$FA ; $04
+      .db $FA,$FA,$FA,$FA ; $08
+      .db $FA,$FA,$B0,$B1 ; $0C
+      .db $FA,$FA,$B0,$B1 ; $10
+      .db $FA,$FA,$B0,$B1 ; $14
+      .db $FA,$FA,$B0,$B1 ; $18
+      .db $FA,$FA,$B0,$B1 ; $1C
+      .db $FA,$FA,$B0,$B1 ; $20
+      .db $FA,$FA,$B0,$B1 ; $24
+      .db $FA,$FA,$B0,$B1 ; $28
+      .db $FA,$FA,$B0,$B1 ; $2C
+      .db $FA,$FA,$B0,$B1 ; $30
+      .db $FA,$FA,$B0,$B1 ; $34
+      .db $A0,$A2,$A1,$A3 ; $38
+      .db $80,$82,$81,$83 ; $3C
+      .db $F4,$86,$F5,$87 ; $40
+      .db $84,$86,$85,$87 ; $44
+      .db $FC,$FC,$FC,$FC ; $48
+      .db $AD,$FB,$AC,$AD ; $4C
+      .db $AC,$AC,$AC,$AC ; $50
+      .db $FB,$3B,$3B,$AC ; $54
+      .db $FC,$FC,$FC,$FC ; $58
+      .db $F4,$86,$F5,$87 ; $5C
+      .db $FB,$49,$49,$FB ; $60
+      .db $FE,$FE,$FE,$FE ; $64
+      .db $FE,$FE,$6D,$FE ; $68
+      .db $3C,$3E,$3D,$3F ; $6C
+      .db $58,$FD,$59,$5A ; $70
+      .db $5B,$5A,$FD,$FD ; $74
+      .db $5B,$5C,$FD,$5D ; $78
+      .db $FD,$FD,$5B,$5A ; $7C
+      .db $6C,$FE,$FE,$FE ; $80
+      .db $FE,$FE,$FE,$FE ; $84
+      .db $FE,$6E,$FE,$6F ; $88
+      .db $20,$22,$21,$23 ; $8C
+      .db $6E,$6F,$70,$71 ; $90
+      .db $57,$57,$FB,$FB ; $94
+      .db $57,$57,$FE,$FE ; $98
+      .db $D3,$D3,$FB,$FB ; $9C
+      .db $D2,$D2,$FB,$FB ; $A0
+      .db $7C,$7E,$7D,$7F ; $A4
+      .db $CA,$CC,$CB,$CD ; $A8
+      .db $CA,$CC,$CB,$CD ; $AC
+      .db $C0,$C2,$C1,$C3 ; $B0
+      .db $2C,$2E,$2D,$2F ; $B4
+      .db $8E,$8F,$8F,$8E ; $B8
+      .db $88,$8A,$89,$8B ; $BC
+      .db $89,$8B,$89,$8B ; $C0
+      .db $89,$8B,$8C,$8D ; $C4
+      .db $88,$8A,$8C,$8D ; $C8
+      .db $88,$8A,$89,$8B ; $CC
+      .db $88,$8A,$89,$8B ; $D0
+      .db $6A,$6C,$6B,$6D ; $D4
+      .db $6C,$6C,$6D,$6D ; $D8
+      .db $6C,$6E,$6D,$6F ; $DC
+      .db $6C,$54,$6D,$55 ; $E0
+      .db $32,$34,$33,$35 ; $E4
+      .db $33,$35,$33,$35 ; $E8
 UnusedTileQuads3:
-      .BYTE $94,$95,$94,$95 ; $00
-      .BYTE $96,$97,$96,$97 ; $04
-      .BYTE $48,$49,$48,$49 ; $08
-      .BYTE $FE,$FE,$FE,$FE ; $0C
-      .BYTE $FB,$32,$32,$33 ; $10
-      .BYTE $33,$33,$33,$33 ; $14
-      .BYTE $FD,$FD,$FD,$FD ; $18
-      .BYTE $34,$FB,$FD,$34 ; $1C
-      .BYTE $FB,$30,$FB,$FB ; $20
-      .BYTE $FB,$FB,$31,$FB ; $24
-      .BYTE $D0,$D0,$D0,$D0 ; $28
-      .BYTE $D1,$D1,$D1,$D1 ; $2C
-      .BYTE $64,$66,$65,$67 ; $30
-      .BYTE $68,$6A,$69,$6B ; $34
-      .BYTE $FA,$6C,$FA,$6C ; $38
-      .BYTE $6D,$FA,$6D,$FA ; $3C
-      .BYTE $92,$93,$93,$92 ; $40
-      .BYTE $AE,$AF,$AE,$AF ; $44
-      .BYTE $78,$7A,$79,$7B ; $48
-      .BYTE $A8,$A8,$AF,$AE ; $4C
-      .BYTE $94,$95,$94,$95 ; $50
-      .BYTE $96,$97,$96,$97 ; $54
-      .BYTE $22,$24,$23,$25 ; $58
-      .BYTE $92,$93,$93,$92 ; $5C
-      .BYTE $50,$51,$50,$51 ; $60
-      .BYTE $AE,$AF,$AE,$AF ; $64
-      .BYTE $50,$51,$50,$51 ; $68
-      .BYTE $8E,$8F,$8F,$8E ; $6C
-      .BYTE $72,$73,$73,$72 ; $70
-      .BYTE $50,$52,$51,$53 ; $74
-      .BYTE $FD,$FD,$FD,$FD ; $78
-      .BYTE $FB,$36,$36,$4F ; $7C
-      .BYTE $4F,$4E,$4E,$4F ; $80
-      .BYTE $4E,$4F,$4F,$4E ; $84
-      .BYTE $92,$93,$93,$92 ; $88
-      .BYTE $8E,$8F,$8F,$8E ; $8C
-      .BYTE $44,$45,$45,$44 ; $90
-      .BYTE $4F,$37,$4E,$FE ; $94
-      .BYTE $4F,$3A,$4E,$FE ; $98
-      .BYTE $4F,$4E,$37,$38 ; $9C
-      .BYTE $4A,$4B,$FE,$FE ; $A0
-      .BYTE $72,$73,$4A,$4B ; $A4
-      .BYTE $40,$42,$41,$43 ; $A8
-      .BYTE $41,$43,$41,$43 ; $AC
+      .db $94,$95,$94,$95 ; $00
+      .db $96,$97,$96,$97 ; $04
+      .db $48,$49,$48,$49 ; $08
+      .db $FE,$FE,$FE,$FE ; $0C
+      .db $FB,$32,$32,$33 ; $10
+      .db $33,$33,$33,$33 ; $14
+      .db $FD,$FD,$FD,$FD ; $18
+      .db $34,$FB,$FD,$34 ; $1C
+      .db $FB,$30,$FB,$FB ; $20
+      .db $FB,$FB,$31,$FB ; $24
+      .db $D0,$D0,$D0,$D0 ; $28
+      .db $D1,$D1,$D1,$D1 ; $2C
+      .db $64,$66,$65,$67 ; $30
+      .db $68,$6A,$69,$6B ; $34
+      .db $FA,$6C,$FA,$6C ; $38
+      .db $6D,$FA,$6D,$FA ; $3C
+      .db $92,$93,$93,$92 ; $40
+      .db $AE,$AF,$AE,$AF ; $44
+      .db $78,$7A,$79,$7B ; $48
+      .db $A8,$A8,$AF,$AE ; $4C
+      .db $94,$95,$94,$95 ; $50
+      .db $96,$97,$96,$97 ; $54
+      .db $22,$24,$23,$25 ; $58
+      .db $92,$93,$93,$92 ; $5C
+      .db $50,$51,$50,$51 ; $60
+      .db $AE,$AF,$AE,$AF ; $64
+      .db $50,$51,$50,$51 ; $68
+      .db $8E,$8F,$8F,$8E ; $6C
+      .db $72,$73,$73,$72 ; $70
+      .db $50,$52,$51,$53 ; $74
+      .db $FD,$FD,$FD,$FD ; $78
+      .db $FB,$36,$36,$4F ; $7C
+      .db $4F,$4E,$4E,$4F ; $80
+      .db $4E,$4F,$4F,$4E ; $84
+      .db $92,$93,$93,$92 ; $88
+      .db $8E,$8F,$8F,$8E ; $8C
+      .db $44,$45,$45,$44 ; $90
+      .db $4F,$37,$4E,$FE ; $94
+      .db $4F,$3A,$4E,$FE ; $98
+      .db $4F,$4E,$37,$38 ; $9C
+      .db $4A,$4B,$FE,$FE ; $A0
+      .db $72,$73,$4A,$4B ; $A4
+      .db $40,$42,$41,$43 ; $A8
+      .db $41,$43,$41,$43 ; $AC
 UnusedTileQuads4:
-      .BYTE $40,$42,$41,$43 ; $00
-      .BYTE $40,$42,$41,$43 ; $04
-      .BYTE $BA,$BC,$BB,$BD ; $08
-      .BYTE $BA,$BC,$90,$91 ; $0C
-      .BYTE $FA,$FA,$FA,$FA ; $10
-      .BYTE $FA,$FA,$FA,$FA ; $14
-      .BYTE $FD,$FD,$FD,$FD ; $18
-      .BYTE $61,$63,$61,$63 ; $1C
-      .BYTE $65,$63,$65,$63 ; $20
-      .BYTE $65,$67,$65,$67 ; $24
-      .BYTE $60,$62,$61,$63 ; $28
-      .BYTE $32,$34,$33,$35 ; $2C
-      .BYTE $64,$62,$65,$63 ; $30
-      .BYTE $36,$34,$37,$35 ; $34
-      .BYTE $64,$66,$65,$67 ; $38
-      .BYTE $36,$38,$37,$39 ; $3C
-      .BYTE $68,$62,$61,$63 ; $40
-      .BYTE $64,$69,$65,$67 ; $44
-      .BYTE $46,$62,$61,$63 ; $48
-      .BYTE $64,$47,$65,$67 ; $4C
-      .BYTE $BA,$BC,$BB,$BD ; $50
-      .BYTE $70,$72,$71,$73 ; $54
-      .BYTE $8E,$8F,$8F,$8E ; $58
-      .BYTE $72,$73,$73,$72 ; $5C
-      .BYTE $44,$45,$45,$44 ; $60
+      .db $40,$42,$41,$43 ; $00
+      .db $40,$42,$41,$43 ; $04
+      .db $BA,$BC,$BB,$BD ; $08
+      .db $BA,$BC,$90,$91 ; $0C
+      .db $FA,$FA,$FA,$FA ; $10
+      .db $FA,$FA,$FA,$FA ; $14
+      .db $FD,$FD,$FD,$FD ; $18
+      .db $61,$63,$61,$63 ; $1C
+      .db $65,$63,$65,$63 ; $20
+      .db $65,$67,$65,$67 ; $24
+      .db $60,$62,$61,$63 ; $28
+      .db $32,$34,$33,$35 ; $2C
+      .db $64,$62,$65,$63 ; $30
+      .db $36,$34,$37,$35 ; $34
+      .db $64,$66,$65,$67 ; $38
+      .db $36,$38,$37,$39 ; $3C
+      .db $68,$62,$61,$63 ; $40
+      .db $64,$69,$65,$67 ; $44
+      .db $46,$62,$61,$63 ; $48
+      .db $64,$47,$65,$67 ; $4C
+      .db $BA,$BC,$BB,$BD ; $50
+      .db $70,$72,$71,$73 ; $54
+      .db $8E,$8F,$8F,$8E ; $58
+      .db $72,$73,$73,$72 ; $5C
+      .db $44,$45,$45,$44 ; $60
 ; ---------------------------------------------------------------------------
 
 CreateObjects_30thruF0:
       JSR     JumpToTableAfterJump
 
-      .WORD CreateObject_HorizontalBlocks ; $3X
-      .WORD CreateObject_HorizontalBlocks ; $4X
-      .WORD CreateObject_HorizontalBlocks ; $5X
-      .WORD CreateObject_HorizontalBlocks ; $6X
-      .WORD CreateObject_HorizontalBlocks ; $7X
-      .WORD CreateObject_VerticalBlocks ; $8X
-      .WORD CreateObject_VerticalBlocks ; $9X
-      .WORD CreateObject_VerticalBlocks ; $AX
-      .WORD CreateObject_WhaleOrDrawBridgeChain ; $BX
-      .WORD CreateObject_JumpthroughPlatform ; $CX
-      .WORD CreateObject_HorizontalPlatform ; $DX
-      .WORD CreateObject_HorizontalPlatform ; $EX
-      .WORD CreateObject_WaterfallOrFrozenRocks ; $FX
+      .dw CreateObject_HorizontalBlocks ; $3X
+      .dw CreateObject_HorizontalBlocks ; $4X
+      .dw CreateObject_HorizontalBlocks ; $5X
+      .dw CreateObject_HorizontalBlocks ; $6X
+      .dw CreateObject_HorizontalBlocks ; $7X
+      .dw CreateObject_VerticalBlocks ; $8X
+      .dw CreateObject_VerticalBlocks ; $9X
+      .dw CreateObject_VerticalBlocks ; $AX
+      .dw CreateObject_WhaleOrDrawBridgeChain ; $BX
+      .dw CreateObject_JumpthroughPlatform ; $CX
+      .dw CreateObject_HorizontalPlatform ; $DX
+      .dw CreateObject_HorizontalPlatform ; $EX
+      .dw CreateObject_WaterfallOrFrozenRocks ; $FX
 
 CreateObjects_00:
       JSR     JumpToTableAfterJump
 
-      .WORD CreateObject_SingleBlock ; $00
-      .WORD CreateObject_SingleBlock ; $01
-      .WORD CreateObject_SingleBlock ; $02
-      .WORD CreateObject_SingleBlock ; $03
-      .WORD CreateObject_SingleBlock ; $04
-      .WORD CreateObject_SingleBlock ; $05
-      .WORD CreateObject_Vase ; $06
-      .WORD CreateObject_Vase ; $07
-      .WORD CreateObject_Vase ; $08
-      .WORD CreateObject_Door ; $09
-      .WORD CreateObject_Door ; $0A
-      .WORD CreateObject_Door ; $0B
-      .WORD CreateObject_Vine ; $0C
-      .WORD CreateObject_Vine ; $0D
-      .WORD CreateObject_StarBackground ; $0E
-      .WORD CreateObject_Pillar ; $0F
+      .dw CreateObject_SingleBlock ; $00
+      .dw CreateObject_SingleBlock ; $01
+      .dw CreateObject_SingleBlock ; $02
+      .dw CreateObject_SingleBlock ; $03
+      .dw CreateObject_SingleBlock ; $04
+      .dw CreateObject_SingleBlock ; $05
+      .dw CreateObject_Vase ; $06
+      .dw CreateObject_Vase ; $07
+      .dw CreateObject_Vase ; $08
+      .dw CreateObject_Door ; $09
+      .dw CreateObject_Door ; $0A
+      .dw CreateObject_Door ; $0B
+      .dw CreateObject_Vine ; $0C
+      .dw CreateObject_Vine ; $0D
+      .dw CreateObject_StarBackground ; $0E
+      .dw CreateObject_Pillar ; $0F
 
 CreateObjects_10:
       LDA     byte_RAM_50E
       JSR     JumpToTableAfterJump
 
-      .WORD CreateObject_BigCloud ; $10
-      .WORD CreateObject_SmallCloud ; $11
-      .WORD CreateObject_VineBottom ; $12
-      .WORD CreateObject_LightEntranceRight ; $13
-      .WORD CreateObject_LightEntranceLeft ; $14
-      .WORD CreateObject_Tall ; $15
-      .WORD CreateObject_Tall ; $16
-      .WORD CreateObject_Pyramid ; $17
-      .WORD CreateObject_Wall ; $18
-      .WORD CreateObject_Wall ; $19
-      .WORD CreateObject_Horn ; $1A
-      .WORD CreateObject_DrawBridgeChain ; $1B
-      .WORD CreateObject_Door ; $1C
-      .WORD CreateObject_Door ; $1D
-      .WORD CreateObject_RockWallEntrance ; $1E
-      .WORD CreateObject_TreeBackground ; $1F
+      .dw CreateObject_BigCloud ; $10
+      .dw CreateObject_SmallCloud ; $11
+      .dw CreateObject_VineBottom ; $12
+      .dw CreateObject_LightEntranceRight ; $13
+      .dw CreateObject_LightEntranceLeft ; $14
+      .dw CreateObject_Tall ; $15
+      .dw CreateObject_Tall ; $16
+      .dw CreateObject_Pyramid ; $17
+      .dw CreateObject_Wall ; $18
+      .dw CreateObject_Wall ; $19
+      .dw CreateObject_Horn ; $1A
+      .dw CreateObject_DrawBridgeChain ; $1B
+      .dw CreateObject_Door ; $1C
+      .dw CreateObject_Door ; $1D
+      .dw CreateObject_RockWallEntrance ; $1E
+      .dw CreateObject_TreeBackground ; $1F
 
 CreateObjects_20:
       JMP     CreateObject_SingleObject
 
 WorldObjectTilePointersLo:
-      .BYTE <World1ObjectTiles
-      .BYTE <World2ObjectTiles
-      .BYTE <World3ObjectTiles
-      .BYTE <World4ObjectTiles
-      .BYTE <World5ObjectTiles
-      .BYTE <World6ObjectTiles
-      .BYTE <World7ObjectTiles
+      .db <World1ObjectTiles
+      .db <World2ObjectTiles
+      .db <World3ObjectTiles
+      .db <World4ObjectTiles
+      .db <World5ObjectTiles
+      .db <World6ObjectTiles
+      .db <World7ObjectTiles
 
 WorldObjectTilePointersHi:
-      .BYTE >World1ObjectTiles
-      .BYTE >World2ObjectTiles
-      .BYTE >World3ObjectTiles
-      .BYTE >World4ObjectTiles
-      .BYTE >World5ObjectTiles
-      .BYTE >World6ObjectTiles
-      .BYTE >World7ObjectTiles
+      .db >World1ObjectTiles
+      .db >World2ObjectTiles
+      .db >World3ObjectTiles
+      .db >World4ObjectTiles
+      .db >World5ObjectTiles
+      .db >World6ObjectTiles
+      .db >World7ObjectTiles
 
 World1ObjectTiles:
-      .BYTE $97, $92, $12, $12 ; 3X (horizontal jump-through block)
-      .BYTE $1C, $99, $1C, $1C ; 4X (horizontal solid block)
-      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
-      .BYTE $65, $65, $65, $65 ; 6X (bridge)
-      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
-      .BYTE $A0, $00, $9D, $A2 ; 8X (vertical wall, eg. rock, bombable)
-      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
-      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
-      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
+      .db $97, $92, $12, $12 ; 3X (horizontal jump-through block)
+      .db $1C, $99, $1C, $1C ; 4X (horizontal solid block)
+      .db $45, $45, $45, $45 ; 5X (small veggie grass)
+      .db $65, $65, $65, $65 ; 6X (bridge)
+      .db $1A, $1A, $1A, $1A ; 7X (spikes)
+      .db $A0, $00, $9D, $A2 ; 8X (vertical wall, eg. rock, bombable)
+      .db $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .db $80, $07, $81, $80 ; AX (ladder, chain)
+      .db $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World2ObjectTiles:
-      .BYTE $96, $92, $93, $12 ; 3X (horizontal jump-through block)
-      .BYTE $1C, $1C, $1C, $1C ; 4X (horizontal solid block)
-      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
-      .BYTE $65, $65, $65, $65 ; 6X (bridge)
-      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
-      .BYTE $A0, $40, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
-      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
-      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
-      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
+      .db $96, $92, $93, $12 ; 3X (horizontal jump-through block)
+      .db $1C, $1C, $1C, $1C ; 4X (horizontal solid block)
+      .db $45, $45, $45, $45 ; 5X (small veggie grass)
+      .db $65, $65, $65, $65 ; 6X (bridge)
+      .db $1A, $1A, $1A, $1A ; 7X (spikes)
+      .db $A0, $40, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
+      .db $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .db $80, $07, $81, $80 ; AX (ladder, chain)
+      .db $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World3ObjectTiles:
-      .BYTE $97, $92, $12, $12 ; 3X (horizontal jump-through block)
-      .BYTE $1C, $99, $A0, $1C ; 4X (horizontal solid block)
-      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
-      .BYTE $65, $65, $65, $65 ; 6X (bridge)
-      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
-      .BYTE $A0, $00, $9D, $A2 ; 8X (vertical wall, eg. rock, bombable)
-      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
-      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
-      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
+      .db $97, $92, $12, $12 ; 3X (horizontal jump-through block)
+      .db $1C, $99, $A0, $1C ; 4X (horizontal solid block)
+      .db $45, $45, $45, $45 ; 5X (small veggie grass)
+      .db $65, $65, $65, $65 ; 6X (bridge)
+      .db $1A, $1A, $1A, $1A ; 7X (spikes)
+      .db $A0, $00, $9D, $A2 ; 8X (vertical wall, eg. rock, bombable)
+      .db $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .db $80, $07, $81, $80 ; AX (ladder, chain)
+      .db $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World4ObjectTiles:
-      .BYTE $16, $92, $16, $12 ; 3X (horizontal jump-through block)
-      .BYTE $1C, $99, $A2, $18 ; 4X (horizontal solid block)
-      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
-      .BYTE $65, $65, $65, $65 ; 6X (bridge)
-      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
-      .BYTE $A0, $1F, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
-      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
-      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
-      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
+      .db $16, $92, $16, $12 ; 3X (horizontal jump-through block)
+      .db $1C, $99, $A2, $18 ; 4X (horizontal solid block)
+      .db $45, $45, $45, $45 ; 5X (small veggie grass)
+      .db $65, $65, $65, $65 ; 6X (bridge)
+      .db $1A, $1A, $1A, $1A ; 7X (spikes)
+      .db $A0, $1F, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
+      .db $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .db $80, $07, $81, $80 ; AX (ladder, chain)
+      .db $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World5ObjectTiles:
-      .BYTE $97, $92, $12, $12 ; 3X (horizontal jump-through block)
-      .BYTE $1C, $99, $1C, $1C ; 4X (horizontal solid block)
-      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
-      .BYTE $65, $65, $65, $65 ; 6X (bridge)
-      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
-      .BYTE $A0, $A4, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
-      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
-      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
-      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
+      .db $97, $92, $12, $12 ; 3X (horizontal jump-through block)
+      .db $1C, $99, $1C, $1C ; 4X (horizontal solid block)
+      .db $45, $45, $45, $45 ; 5X (small veggie grass)
+      .db $65, $65, $65, $65 ; 6X (bridge)
+      .db $1A, $1A, $1A, $1A ; 7X (spikes)
+      .db $A0, $A4, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
+      .db $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .db $80, $07, $81, $80 ; AX (ladder, chain)
+      .db $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World6ObjectTiles:
-      .BYTE $96, $92, $93, $12 ; 3X (horizontal jump-through block)
-      .BYTE $1C, $1C, $1C, $1C ; 4X (horizontal solid block)
-      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
-      .BYTE $65, $65, $65, $65 ; 6X (bridge)
-      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
-      .BYTE $A0, $40, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
-      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
-      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
-      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
+      .db $96, $92, $93, $12 ; 3X (horizontal jump-through block)
+      .db $1C, $1C, $1C, $1C ; 4X (horizontal solid block)
+      .db $45, $45, $45, $45 ; 5X (small veggie grass)
+      .db $65, $65, $65, $65 ; 6X (bridge)
+      .db $1A, $1A, $1A, $1A ; 7X (spikes)
+      .db $A0, $40, $9D, $18 ; 8X (vertical wall, eg. rock, bombable)
+      .db $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .db $80, $07, $81, $80 ; AX (ladder, chain)
+      .db $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 World7ObjectTiles:
-      .BYTE $12, $68, $12, $9D ; 3X (horizontal jump-through block)
-      .BYTE $9C, $67, $64, $69 ; 4X (horizontal solid block)
-      .BYTE $45, $45, $45, $45 ; 5X (small veggie grass)
-      .BYTE $65, $65, $65, $65 ; 6X (bridge)
-      .BYTE $1A, $1A, $1A, $1A ; 7X (spikes)
-      .BYTE $9C, $9C, $9C, $9C ; 8X (vertical wall, eg. rock, bombable)
-      .BYTE $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
-      .BYTE $80, $07, $81, $80 ; AX (ladder, chain)
-      .BYTE $81, $81, $81, $81 ; AX over background (ladder with shadow)
+      .db $12, $68, $12, $9D ; 3X (horizontal jump-through block)
+      .db $9C, $67, $64, $69 ; 4X (horizontal solid block)
+      .db $45, $45, $45, $45 ; 5X (small veggie grass)
+      .db $65, $65, $65, $65 ; 6X (bridge)
+      .db $1A, $1A, $1A, $1A ; 7X (spikes)
+      .db $9C, $9C, $9C, $9C ; 8X (vertical wall, eg. rock, bombable)
+      .db $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
+      .db $80, $07, $81, $80 ; AX (ladder, chain)
+      .db $81, $81, $81, $81 ; AX over background (ladder with shadow)
 
 ;
 ; Places a tile using the world-specific tile lookup table
@@ -1108,22 +1108,22 @@ CreateObject_VerticalBlocks_NextRow:
 
 
 World1thru6SingleBlocks:
-      .BYTE BackgroundTile_MushroomBlock
-      .BYTE BackgroundTile_POWBlock
-      .BYTE BackgroundTile_BombableBrick
-      .BYTE BackgroundTile_VineStandable
-      .BYTE BackgroundTile_JarSmall
-      .BYTE BackgroundTile_LadderStandable
-      .BYTE BackgroundTile_LadderStandableShadow
+      .db BackgroundTile_MushroomBlock
+      .db BackgroundTile_POWBlock
+      .db BackgroundTile_BombableBrick
+      .db BackgroundTile_VineStandable
+      .db BackgroundTile_JarSmall
+      .db BackgroundTile_LadderStandable
+      .db BackgroundTile_LadderStandableShadow
 
 World7SingleBlocks:
-      .BYTE BackgroundTile_MushroomBlock
-      .BYTE BackgroundTile_POWBlock
-      .BYTE BackgroundTile_BombableBrick
-      .BYTE BackgroundTile_ChainStandable
-      .BYTE BackgroundTile_JarSmall
-      .BYTE BackgroundTile_LadderStandable
-      .BYTE BackgroundTile_LadderStandableShadow
+      .db BackgroundTile_MushroomBlock
+      .db BackgroundTile_POWBlock
+      .db BackgroundTile_BombableBrick
+      .db BackgroundTile_ChainStandable
+      .db BackgroundTile_JarSmall
+      .db BackgroundTile_LadderStandable
+      .db BackgroundTile_LadderStandableShadow
 
 CreateObject_SingleBlock:
       LDA     byte_RAM_50E
@@ -1156,14 +1156,14 @@ CreateObject_SingleBlock_Exit:
 
 
 HorizontalPlatformLeftTiles:
-      .BYTE BackgroundTile_LogLeft
-      .BYTE BackgroundTile_CloudLeft
+      .db BackgroundTile_LogLeft
+      .db BackgroundTile_CloudLeft
 HorizontalPlatformMiddleTiles:
-      .BYTE BackgroundTile_LogMiddle
-      .BYTE BackgroundTile_CloudMiddle
+      .db BackgroundTile_LogMiddle
+      .db BackgroundTile_CloudMiddle
 HorizontalPlatformRightTiles:
-      .BYTE BackgroundTile_LogRight
-      .BYTE BackgroundTile_CloudRight
+      .db BackgroundTile_LogRight
+      .db BackgroundTile_CloudRight
 
 CreateObject_HorizontalPlatform:
       LDA     CurrentWorldTileset
@@ -1200,18 +1200,18 @@ CreateObject_HorizontalPlatform_Exit:
 
 
 GreenPlatformTiles:
-      .BYTE BackgroundTile_GreenPlatformTopLeft
-      .BYTE BackgroundTile_GreenPlatformTop
-      .BYTE BackgroundTile_GreenPlatformTopRight
-      .BYTE BackgroundTile_GreenPlatformLeft
-      .BYTE BackgroundTile_GreenPlatformMiddle
-      .BYTE BackgroundTile_GreenPlatformRight
+      .db BackgroundTile_GreenPlatformTopLeft
+      .db BackgroundTile_GreenPlatformTop
+      .db BackgroundTile_GreenPlatformTopRight
+      .db BackgroundTile_GreenPlatformLeft
+      .db BackgroundTile_GreenPlatformMiddle
+      .db BackgroundTile_GreenPlatformRight
 ; These are the background tiles that the green platforms are allowed to overwrite.
 ; Any other tiles will stop the green platform from extending to the bottom of the page.
 GreenPlatformOverwriteTiles:
-      .BYTE BackgroundTile_Sky
-      .BYTE BackgroundTile_WaterfallTop
-      .BYTE BackgroundTile_Waterfall
+      .db BackgroundTile_Sky
+      .db BackgroundTile_WaterfallTop
+      .db BackgroundTile_Waterfall
 
 
 ; Draw green platforms or mushroom house depending on world
@@ -1275,17 +1275,17 @@ locret_BANK6_8BFA:
 
 ; ---------------------------------------------------------------------------
 GreenPlatformOverlapCompareTiles:
-      .BYTE BackgroundTile_GreenPlatformLeft
-      .BYTE BackgroundTile_GreenPlatformMiddle
-      .BYTE BackgroundTile_GreenPlatformRight
+      .db BackgroundTile_GreenPlatformLeft
+      .db BackgroundTile_GreenPlatformMiddle
+      .db BackgroundTile_GreenPlatformRight
 GreenPlatformOverlapLeftTiles:
-      .BYTE BackgroundTile_GreenPlatformTopLeftOverlapEdge
-      .BYTE BackgroundTile_GreenPlatformTopLeftOverlap
-      .BYTE BackgroundTile_GreenPlatformTopLeftOverlap
+      .db BackgroundTile_GreenPlatformTopLeftOverlapEdge
+      .db BackgroundTile_GreenPlatformTopLeftOverlap
+      .db BackgroundTile_GreenPlatformTopLeftOverlap
 GreenPlatformOverlapRightTiles:
-      .BYTE BackgroundTile_GreenPlatformTopRightOverlap
-      .BYTE BackgroundTile_GreenPlatformTopRightOverlap
-      .BYTE BackgroundTile_GreenPlatformTopRightOverlapEdge
+      .db BackgroundTile_GreenPlatformTopRightOverlap
+      .db BackgroundTile_GreenPlatformTopRightOverlap
+      .db BackgroundTile_GreenPlatformTopRightOverlapEdge
 
 loc_BANK6_8C04:
       STX     byte_RAM_8
@@ -1358,11 +1358,11 @@ loc_BANK6_8C4D:
       RTS
 
 TallObjectTopTiles:
-      .BYTE BackgroundTile_LightDoor
-      .BYTE BackgroundTile_PalmTreeTop
+      .db BackgroundTile_LightDoor
+      .db BackgroundTile_PalmTreeTop
 TallObjectBottomTiles:
-      .BYTE BackgroundTile_LightDoor
-      .BYTE BackgroundTile_PalmTreeTrunk
+      .db BackgroundTile_LightDoor
+      .db BackgroundTile_PalmTreeTrunk
 
 CreateObject_Tall:
       LDA     CurrentWorldTileset
@@ -1396,11 +1396,11 @@ locret_BANK6_8C82:
       RTS
 
 World5TallObjectTopTiles:
-      .BYTE BackgroundTile_PalmTreeTop
-      .BYTE BackgroundTile_PalmTreeTop
+      .db BackgroundTile_PalmTreeTop
+      .db BackgroundTile_PalmTreeTop
 World5TallObjectBottomTiles:
-      .BYTE BackgroundTile_PalmTreeTrunk
-      .BYTE BackgroundTile_PalmTreeTrunk
+      .db BackgroundTile_PalmTreeTrunk
+      .db BackgroundTile_PalmTreeTrunk
 
 CreateObject_Tall_World5:
       LDX     #$00
@@ -1452,9 +1452,9 @@ CreateObject_SmallCloud:
       RTS
 
 JarTopTiles:
-      .BYTE BackgroundTile_JarTopPointer
-      .BYTE BackgroundTile_JarTopGeneric
-      .BYTE BackgroundTile_JarTopNonEnterable
+      .db BackgroundTile_JarTopPointer
+      .db BackgroundTile_JarTopGeneric
+      .db BackgroundTile_JarTopNonEnterable
 
 CreateObject_Vase:
       LDY     byte_RAM_E7
@@ -1546,21 +1546,21 @@ locret_BANK6_8D2F:
       RTS
 
 SingleObjects:
-      .BYTE BackgroundTile_GrassCoin ; $20
-      .BYTE BackgroundTile_GrassLargeVeggie ; $21
-      .BYTE BackgroundTile_GrassSmallVeggie ; $22
-      .BYTE BackgroundTile_GrassRocket ; $23
-      .BYTE BackgroundTile_GrassShell ; $24
-      .BYTE BackgroundTile_GrassBomb ; $25
-      .BYTE BackgroundTile_GrassPotion ; $26
-      .BYTE BackgroundTile_Grass1UP ; $27
-      .BYTE BackgroundTile_GrassPow ; $28
-      .BYTE BackgroundTile_Cherry ; $29
-      .BYTE BackgroundTile_GrassBobOmb ; $2A
-      .BYTE BackgroundTile_SubspaceMushroom1 ; $2B
-      .BYTE BackgroundTile_Phanto ; $2C
-      .BYTE BackgroundTile_SubspaceMushroom2 ; $2D
-      .BYTE BackgroundTile_WhaleEye ; $2E
+      .db BackgroundTile_GrassCoin ; $20
+      .db BackgroundTile_GrassLargeVeggie ; $21
+      .db BackgroundTile_GrassSmallVeggie ; $22
+      .db BackgroundTile_GrassRocket ; $23
+      .db BackgroundTile_GrassShell ; $24
+      .db BackgroundTile_GrassBomb ; $25
+      .db BackgroundTile_GrassPotion ; $26
+      .db BackgroundTile_Grass1UP ; $27
+      .db BackgroundTile_GrassPow ; $28
+      .db BackgroundTile_Cherry ; $29
+      .db BackgroundTile_GrassBobOmb ; $2A
+      .db BackgroundTile_SubspaceMushroom1 ; $2B
+      .db BackgroundTile_Phanto ; $2C
+      .db BackgroundTile_SubspaceMushroom2 ; $2D
+      .db BackgroundTile_WhaleEye ; $2E
       ; No entry for $2F in this table, so it uses tile $A4 due to the LDY below
 
 CreateObject_SingleObject:
@@ -1572,12 +1572,12 @@ CreateObject_SingleObject:
 
 
 World1thru6BrickWallTiles:
-      .BYTE BackgroundTile_BackgroundBrick
-      .BYTE BackgroundTile_SolidBrick2Wall
+      .db BackgroundTile_BackgroundBrick
+      .db BackgroundTile_SolidBrick2Wall
 
 World7BrickWallTiles:
-      .BYTE BackgroundTile_GroundBrick2
-      .BYTE BackgroundTile_GroundBrick2
+      .db BackgroundTile_GroundBrick2
+      .db BackgroundTile_GroundBrick2
 
 
 CreateObject_Wall:
@@ -1629,8 +1629,8 @@ CreateObject_Wall_Exit:
 
 
 WaterfallTiles:
-      .BYTE BackgroundTile_WaterfallTop
-      .BYTE BackgroundTile_Waterfall
+      .db BackgroundTile_WaterfallTop
+      .db BackgroundTile_Waterfall
 
 
 CreateObject_WaterfallOrFrozenRocks:
@@ -1781,14 +1781,14 @@ loc_BANK6_8E3D:
 ; End of function sub_BANK6_8E24
 
 StarBackgroundTiles:
-      .BYTE BackgroundTile_Sky
-      .BYTE BackgroundTile_StarBg1
-      .BYTE BackgroundTile_Sky
-      .BYTE BackgroundTile_Sky
-      .BYTE BackgroundTile_Sky
-      .BYTE BackgroundTile_Sky
-      .BYTE BackgroundTile_StarBg2
-      .BYTE BackgroundTile_Sky
+      .db BackgroundTile_Sky
+      .db BackgroundTile_StarBg1
+      .db BackgroundTile_Sky
+      .db BackgroundTile_Sky
+      .db BackgroundTile_Sky
+      .db BackgroundTile_Sky
+      .db BackgroundTile_StarBg2
+      .db BackgroundTile_Sky
 
 CreateObject_StarBackground:
       LDA     byte_RAM_E8
@@ -1827,23 +1827,23 @@ loc_BANK6_8E56:
       RTS
 
 WhaleLeftTiles:
-      .BYTE BackgroundTile_Black
-      .BYTE BackgroundTile_CloudLeft
-      .BYTE BackgroundTile_WhaleTopLeft
-      .BYTE BackgroundTile_Whale
-      .BYTE BackgroundTile_WaterWhale
+      .db BackgroundTile_Black
+      .db BackgroundTile_CloudLeft
+      .db BackgroundTile_WhaleTopLeft
+      .db BackgroundTile_Whale
+      .db BackgroundTile_WaterWhale
 WhaleMiddleTiles:
-      .BYTE BackgroundTile_Black
-      .BYTE BackgroundTile_CloudMiddle
-      .BYTE BackgroundTile_WhaleTop
-      .BYTE BackgroundTile_Whale
-      .BYTE BackgroundTile_WaterWhale
+      .db BackgroundTile_Black
+      .db BackgroundTile_CloudMiddle
+      .db BackgroundTile_WhaleTop
+      .db BackgroundTile_Whale
+      .db BackgroundTile_WaterWhale
 WhaleRightTiles:
-      .BYTE BackgroundTile_Black
-      .BYTE BackgroundTile_CloudRight
-      .BYTE BackgroundTile_WhaleTopRight
-      .BYTE BackgroundTile_Whale
-      .BYTE BackgroundTile_WaterWhale
+      .db BackgroundTile_Black
+      .db BackgroundTile_CloudRight
+      .db BackgroundTile_WhaleTopRight
+      .db BackgroundTile_Whale
+      .db BackgroundTile_WaterWhale
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1942,8 +1942,8 @@ loc_BANK6_8F0B:
       RTS
 
 FrozenRockTiles:
-      .BYTE BackgroundTile_WaterWhale
-      .BYTE BackgroundTile_FrozenRock
+      .db BackgroundTile_WaterWhale
+      .db BackgroundTile_FrozenRock
 
 CreateObject_FrozenRocks:
       LDA     #$01
@@ -1990,16 +1990,16 @@ loc_BANK6_8F45:
 ; Unlike HorizontalPlatform(Left/Middle/Right)Tiles, these support overlap with
 ; the red tree background
 HorizontalPlatformWithOverlapLeftTiles:
-      .BYTE BackgroundTile_LogLeft
-      .BYTE BackgroundTile_CloudLeft
-      .BYTE BackgroundTile_LogMiddle
+      .db BackgroundTile_LogLeft
+      .db BackgroundTile_CloudLeft
+      .db BackgroundTile_LogMiddle
 HorizontalPlatformWithOverlapMiddleTiles:
-      .BYTE BackgroundTile_LogMiddle
-      .BYTE BackgroundTile_CloudMiddle
+      .db BackgroundTile_LogMiddle
+      .db BackgroundTile_CloudMiddle
 HorizontalPlatformWithOverlapRightTiles:
-      .BYTE BackgroundTile_LogRight
-      .BYTE BackgroundTile_CloudRight
-      .BYTE BackgroundTile_LogRightTree
+      .db BackgroundTile_LogRight
+      .db BackgroundTile_CloudRight
+      .db BackgroundTile_LogRightTree
 
 CreateObject_HorizontalPlatform_World5:
       LDY     byte_RAM_E7
@@ -2052,9 +2052,9 @@ CreateObject_HorizontalPlatform_World5CheckOverlap_Exit:
 
 
 TreeBackgroundTiles:
-      .BYTE BackgroundTile_TreeBackgroundRight
-      .BYTE BackgroundTile_TreeBackgroundMiddleLeft
-      .BYTE BackgroundTile_TreeBackgroundLeft
+      .db BackgroundTile_TreeBackgroundRight
+      .db BackgroundTile_TreeBackgroundMiddleLeft
+      .db BackgroundTile_TreeBackgroundLeft
 
 CreateObject_TreeBackground:
       LDA     #$04
@@ -2117,51 +2117,51 @@ sub_BANK6_8FC2:
 
 ; Unreferenced?
 SomeUnusedTilesTop:
-      .BYTE BackgroundTile_LightDoor
-      .BYTE BackgroundTile_Grass
-      .BYTE BackgroundTile_PalmTreeTop
+      .db BackgroundTile_LightDoor
+      .db BackgroundTile_Grass
+      .db BackgroundTile_PalmTreeTop
 SomeUnusedTilesBottom:
-      .BYTE BackgroundTile_LightDoor
-      .BYTE BackgroundTile_CactusMiddle
-      .BYTE BackgroundTile_PalmTreeTrunk
+      .db BackgroundTile_LightDoor
+      .db BackgroundTile_CactusMiddle
+      .db BackgroundTile_PalmTreeTrunk
 
 ; This 3x9 tile entrance is used in 6-3
 RockWallEntranceTiles:
-      .BYTE BackgroundTile_RockWallAngle
-      .BYTE BackgroundTile_RockWall
-      .BYTE BackgroundTile_RockWall
+      .db BackgroundTile_RockWallAngle
+      .db BackgroundTile_RockWall
+      .db BackgroundTile_RockWall
 
-      .BYTE BackgroundTile_RockWall
-      .BYTE BackgroundTile_RockWall
-      .BYTE BackgroundTile_RockWall
+      .db BackgroundTile_RockWall
+      .db BackgroundTile_RockWall
+      .db BackgroundTile_RockWall
 
-      .BYTE BackgroundTile_RockWall
-      .BYTE BackgroundTile_RockWall
-      .BYTE BackgroundTile_RockWall
+      .db BackgroundTile_RockWall
+      .db BackgroundTile_RockWall
+      .db BackgroundTile_RockWall
 
-      .BYTE BackgroundTile_RockWallEyeLeft
-      .BYTE BackgroundTile_RockWallEyeRight
-      .BYTE BackgroundTile_RockWall
+      .db BackgroundTile_RockWallEyeLeft
+      .db BackgroundTile_RockWallEyeRight
+      .db BackgroundTile_RockWall
 
-      .BYTE BackgroundTile_RockWallMouth
-      .BYTE BackgroundTile_RockWallMouth
-      .BYTE BackgroundTile_RockWall
+      .db BackgroundTile_RockWallMouth
+      .db BackgroundTile_RockWallMouth
+      .db BackgroundTile_RockWall
 
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_RockWall
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_RockWall
 
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_RockWall
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_RockWall
 
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_RockWall
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_RockWall
 
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_RockWall
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_RockWall
 
 CreateObject_RockWallEntrance:
       LDX     #$00
@@ -2191,18 +2191,18 @@ CreateObject_RockWallEntrance_InnerLoop:
 
 
 DoorTopTiles:
-      .BYTE BackgroundTile_DoorTop
-      .BYTE BackgroundTile_DoorTop
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_DoorwayTop
-      .BYTE BackgroundTile_WindowTop
+      .db BackgroundTile_DoorTop
+      .db BackgroundTile_DoorTop
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_DoorwayTop
+      .db BackgroundTile_WindowTop
 
 DoorBottomTiles:
-      .BYTE BackgroundTile_DoorBottomLock
-      .BYTE BackgroundTile_DoorBottom
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_DarkDoor
-      .BYTE BackgroundTile_DarkDoor
+      .db BackgroundTile_DoorBottomLock
+      .db BackgroundTile_DoorBottom
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_DarkDoor
+      .db BackgroundTile_DarkDoor
 
 CreateObject_Door:
       LDY     byte_RAM_E7
@@ -2245,22 +2245,22 @@ CreateObject_Door_Exit:
 
 
 MushroomHouseLeftTiles:
-      .BYTE BackgroundTile_Black
-      .BYTE BackgroundTile_CloudLeft
-      .BYTE BackgroundTile_MushroomTopLeft
-      .BYTE BackgroundTile_HouseLeft
+      .db BackgroundTile_Black
+      .db BackgroundTile_CloudLeft
+      .db BackgroundTile_MushroomTopLeft
+      .db BackgroundTile_HouseLeft
 
 MushroomHouseMiddleTiles:
-      .BYTE BackgroundTile_Black
-      .BYTE BackgroundTile_CloudMiddle
-      .BYTE BackgroundTile_MushroomTopMiddle
-      .BYTE BackgroundTile_HouseMiddle
+      .db BackgroundTile_Black
+      .db BackgroundTile_CloudMiddle
+      .db BackgroundTile_MushroomTopMiddle
+      .db BackgroundTile_HouseMiddle
 
 MushroomHouseRightTiles:
-      .BYTE BackgroundTile_Black
-      .BYTE BackgroundTile_CloudRight
-      .BYTE BackgroundTile_MushroomTopRight
-      .BYTE BackgroundTile_HouseRight
+      .db BackgroundTile_Black
+      .db BackgroundTile_CloudRight
+      .db BackgroundTile_MushroomTopRight
+      .db BackgroundTile_HouseRight
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2342,22 +2342,22 @@ locret_BANK6_90C4:
 
 ; Pillar tiles, arranged by world
 PillarTopTiles:
-      .BYTE BackgroundTile_LogPillarTop1
-      .BYTE BackgroundTile_CactusTop
-      .BYTE BackgroundTile_LogPillarTop1
-      .BYTE BackgroundTile_LogPillarTop0
-      .BYTE BackgroundTile_LogPillarTop1
-      .BYTE BackgroundTile_CactusTop
-      .BYTE BackgroundTile_ColumnPillarTop2
+      .db BackgroundTile_LogPillarTop1
+      .db BackgroundTile_CactusTop
+      .db BackgroundTile_LogPillarTop1
+      .db BackgroundTile_LogPillarTop0
+      .db BackgroundTile_LogPillarTop1
+      .db BackgroundTile_CactusTop
+      .db BackgroundTile_ColumnPillarTop2
 
 PillarBottomTiles:
-      .BYTE BackgroundTile_LogPillarMiddle1
-      .BYTE BackgroundTile_CactusMiddle
-      .BYTE BackgroundTile_LogPillarMiddle1
-      .BYTE BackgroundTile_LogPillarMiddle0
-      .BYTE BackgroundTile_LogPillarMiddle1
-      .BYTE BackgroundTile_CactusMiddle
-      .BYTE BackgroundTile_ColumnPillarMiddle2
+      .db BackgroundTile_LogPillarMiddle1
+      .db BackgroundTile_CactusMiddle
+      .db BackgroundTile_LogPillarMiddle1
+      .db BackgroundTile_LogPillarMiddle0
+      .db BackgroundTile_LogPillarMiddle1
+      .db BackgroundTile_CactusMiddle
+      .db BackgroundTile_ColumnPillarMiddle2
 
 CreateObject_Pillar:
       LDX     CurrentWorldTileset
@@ -2446,37 +2446,37 @@ ENDIF
 ;   11 - secondary background (eg. black background in 3-2)
 ;
 HorizontalGroundSetData:
-      .BYTE $00,$00,$00,$24
-      .BYTE $00,$00,$02,$54
-      .BYTE $00,$02,$55,$54
-      .BYTE $00,$02,$7F,$54
-      .BYTE $00,$02,$7F,$D4
-      .BYTE $00,$03,$FF,$54
-      .BYTE $00,$02,$5F,$FC
-      .BYTE $00,$03,$FF,$FC
-      .BYTE $00,$00,$00,$00
-      .BYTE $55,$55,$55,$7C
-      .BYTE $E7,$9E,$79,$E4
-      .BYTE $00,$0E,$79,$E4
-      .BYTE $00,$00,$09,$E4
-      .BYTE $00,$00,$00,$24
-      .BYTE $E0,$0E,$79,$E4
-      .BYTE $E4,$00,$09,$E4
-      .BYTE $E4,$00,$00,$24
-      .BYTE $E7,$90,$09,$E4
-      .BYTE $E7,$9E,$70,$24
-      .BYTE $E7,$9E,$40,$24
-      .BYTE $E7,$9C,$00,$24
-      .BYTE $E0,$0E,$40,$24
-      .BYTE $00,$00,$00,$E4
-      .BYTE $E4,$00,$00,$00
-      .BYTE $E7,$9E,$79,$E4
-      .BYTE $E7,$90,$01,$E4
-      .BYTE $E0,$00,$01,$E4
-      .BYTE $E7,$90,$00,$24
-      .BYTE $E0,$00,$00,$24
-      .BYTE $00,$00,$00,$24
-      .BYTE $00,$00,$00,$24
+      .db $00,$00,$00,$24
+      .db $00,$00,$02,$54
+      .db $00,$02,$55,$54
+      .db $00,$02,$7F,$54
+      .db $00,$02,$7F,$D4
+      .db $00,$03,$FF,$54
+      .db $00,$02,$5F,$FC
+      .db $00,$03,$FF,$FC
+      .db $00,$00,$00,$00
+      .db $55,$55,$55,$7C
+      .db $E7,$9E,$79,$E4
+      .db $00,$0E,$79,$E4
+      .db $00,$00,$09,$E4
+      .db $00,$00,$00,$24
+      .db $E0,$0E,$79,$E4
+      .db $E4,$00,$09,$E4
+      .db $E4,$00,$00,$24
+      .db $E7,$90,$09,$E4
+      .db $E7,$9E,$70,$24
+      .db $E7,$9E,$40,$24
+      .db $E7,$9C,$00,$24
+      .db $E0,$0E,$40,$24
+      .db $00,$00,$00,$E4
+      .db $E4,$00,$00,$00
+      .db $E7,$9E,$79,$E4
+      .db $E7,$90,$01,$E4
+      .db $E0,$00,$01,$E4
+      .db $E7,$90,$00,$24
+      .db $E0,$00,$00,$24
+      .db $00,$00,$00,$24
+      .db $00,$00,$00,$24
 
 ;
 ; Vertical ground set data
@@ -2493,111 +2493,111 @@ HorizontalGroundSetData:
 ;   11 - secondary background
 ;
 VerticalGroundSetData:
-      .BYTE $AA,$AA,$AA,$AA
-      .BYTE $80,$00,$00,$02
-      .BYTE $AA,$00,$00,$AA
-      .BYTE $FA,$00,$00,$AF
-      .BYTE $FE,$00,$00,$BF
-      .BYTE $FA,$80,$02,$AF
-      .BYTE $E8,$00,$00,$2B
-      .BYTE $E0,$00,$00,$0B
-      .BYTE $FA,$95,$56,$AF
-      .BYTE $95,$00,$00,$56
-      .BYTE $A5,$55,$55,$5A
-      .BYTE $A5,$5A,$A5,$5A
-      .BYTE $55,$55,$55,$55
-      .BYTE $95,$55,$55,$56
-      .BYTE $95,$5A,$A5,$56
-      .BYTE $A9,$55,$55,$6A
-      .BYTE $81,$55,$55,$42
-      .BYTE $AA,$A5,$55,$5A
-      .BYTE $A5,$55,$5A,$AA
-      .BYTE $00,$00,$00,$00
-      .BYTE $80,$00,$00,$02
-      .BYTE $A0,$00,$00,$0A
-      .BYTE $AA,$00,$00,$AA
-      .BYTE $AA,$A0,$0A,$AA
-      .BYTE $80,$00,$0A,$AA
-      .BYTE $80,$0A,$AA,$AA
-      .BYTE $AA,$AA,$A0,$02
-      .BYTE $AA,$A0,$00,$02
-      .BYTE $A0,$0A,$A0,$0A
-      .BYTE $A0,$00,$00,$00
-      .BYTE $00,$00,$00,$0A
+      .db $AA,$AA,$AA,$AA
+      .db $80,$00,$00,$02
+      .db $AA,$00,$00,$AA
+      .db $FA,$00,$00,$AF
+      .db $FE,$00,$00,$BF
+      .db $FA,$80,$02,$AF
+      .db $E8,$00,$00,$2B
+      .db $E0,$00,$00,$0B
+      .db $FA,$95,$56,$AF
+      .db $95,$00,$00,$56
+      .db $A5,$55,$55,$5A
+      .db $A5,$5A,$A5,$5A
+      .db $55,$55,$55,$55
+      .db $95,$55,$55,$56
+      .db $95,$5A,$A5,$56
+      .db $A9,$55,$55,$6A
+      .db $81,$55,$55,$42
+      .db $AA,$A5,$55,$5A
+      .db $A5,$55,$5A,$AA
+      .db $00,$00,$00,$00
+      .db $80,$00,$00,$02
+      .db $A0,$00,$00,$0A
+      .db $AA,$00,$00,$AA
+      .db $AA,$A0,$0A,$AA
+      .db $80,$00,$0A,$AA
+      .db $80,$0A,$AA,$AA
+      .db $AA,$AA,$A0,$02
+      .db $AA,$A0,$00,$02
+      .db $A0,$0A,$A0,$0A
+      .db $A0,$00,$00,$00
+      .db $00,$00,$00,$0A
 
 DecodedLevelPageStartLo_Bank6:
-      .BYTE <DecodedLevelData
-      .BYTE <(DecodedLevelData+$00F0)
-      .BYTE <(DecodedLevelData+$01E0)
-      .BYTE <(DecodedLevelData+$02D0)
-      .BYTE <(DecodedLevelData+$03C0)
-      .BYTE <(DecodedLevelData+$04B0)
-      .BYTE <(DecodedLevelData+$05A0)
-      .BYTE <(DecodedLevelData+$0690)
-      .BYTE <(DecodedLevelData+$0780)
-      .BYTE <(DecodedLevelData+$0870)
-      .BYTE <(SubAreaTileLayout)
+      .db <DecodedLevelData
+      .db <(DecodedLevelData+$00F0)
+      .db <(DecodedLevelData+$01E0)
+      .db <(DecodedLevelData+$02D0)
+      .db <(DecodedLevelData+$03C0)
+      .db <(DecodedLevelData+$04B0)
+      .db <(DecodedLevelData+$05A0)
+      .db <(DecodedLevelData+$0690)
+      .db <(DecodedLevelData+$0780)
+      .db <(DecodedLevelData+$0870)
+      .db <(SubAreaTileLayout)
 
 DecodedLevelPageStartHi_Bank6:
-      .BYTE >DecodedLevelData
-      .BYTE >(DecodedLevelData+$00F0)
-      .BYTE >(DecodedLevelData+$01E0)
-      .BYTE >(DecodedLevelData+$02D0)
-      .BYTE >(DecodedLevelData+$03C0)
-      .BYTE >(DecodedLevelData+$04B0)
-      .BYTE >(DecodedLevelData+$05A0)
-      .BYTE >(DecodedLevelData+$0690)
-      .BYTE >(DecodedLevelData+$0780)
-      .BYTE >(DecodedLevelData+$0870)
-      .BYTE >(SubAreaTileLayout)
+      .db >DecodedLevelData
+      .db >(DecodedLevelData+$00F0)
+      .db >(DecodedLevelData+$01E0)
+      .db >(DecodedLevelData+$02D0)
+      .db >(DecodedLevelData+$03C0)
+      .db >(DecodedLevelData+$04B0)
+      .db >(DecodedLevelData+$05A0)
+      .db >(DecodedLevelData+$0690)
+      .db >(DecodedLevelData+$0780)
+      .db >(DecodedLevelData+$0870)
+      .db >(SubAreaTileLayout)
 
 SubspaceTilesSearch:
-      .BYTE $75 ; $00
-      .BYTE $77 ; $01
-      .BYTE $CA ; $02
-      .BYTE $CE ; $03
-      .BYTE $C7 ; $04
-      .BYTE $C8 ; $05 ; BUG: This should be $C9
-      .BYTE $D0 ; $06
-      .BYTE $D1 ; $07
-      .BYTE $01 ; $08
-      .BYTE $02 ; $09
-      .BYTE $84 ; $0A
-      .BYTE $87 ; $0B
-      .BYTE $60 ; $0C
-      .BYTE $62 ; $0D
-      .BYTE $13 ; $0E
-      .BYTE $15 ; $0F
-      .BYTE $53 ; $10
-      .BYTE $55 ; $11
-      .BYTE $CB ; $12
-      .BYTE $CF ; $13
-      .BYTE $09 ; $14
-      .BYTE $0D ; $15
+      .db $75 ; $00
+      .db $77 ; $01
+      .db $CA ; $02
+      .db $CE ; $03
+      .db $C7 ; $04
+      .db $C8 ; $05 ; BUG: This should be $C9
+      .db $D0 ; $06
+      .db $D1 ; $07
+      .db $01 ; $08
+      .db $02 ; $09
+      .db $84 ; $0A
+      .db $87 ; $0B
+      .db $60 ; $0C
+      .db $62 ; $0D
+      .db $13 ; $0E
+      .db $15 ; $0F
+      .db $53 ; $10
+      .db $55 ; $11
+      .db $CB ; $12
+      .db $CF ; $13
+      .db $09 ; $14
+      .db $0D ; $15
 
 SubspaceTilesReplace:
-      .BYTE $77 ; $00
-      .BYTE $75 ; $01
-      .BYTE $CE ; $02
-      .BYTE $CA ; $03
-      .BYTE $C8 ; $04 ; BUG: This should be $C9
-      .BYTE $C7 ; $05
-      .BYTE $D1 ; $06
-      .BYTE $D0 ; $07
-      .BYTE $02 ; $08
-      .BYTE $01 ; $09
-      .BYTE $87 ; $0A
-      .BYTE $84 ; $0B
-      .BYTE $62 ; $0C
-      .BYTE $60 ; $0D
-      .BYTE $15 ; $0E
-      .BYTE $13 ; $0F
-      .BYTE $55 ; $10
-      .BYTE $53 ; $11
-      .BYTE $CF ; $12
-      .BYTE $CB ; $13
-      .BYTE $0D ; $14
-      .BYTE $09 ; $15
+      .db $77 ; $00
+      .db $75 ; $01
+      .db $CE ; $02
+      .db $CA ; $03
+      .db $C8 ; $04 ; BUG: This should be $C9
+      .db $C7 ; $05
+      .db $D1 ; $06
+      .db $D0 ; $07
+      .db $02 ; $08
+      .db $01 ; $09
+      .db $87 ; $0A
+      .db $84 ; $0B
+      .db $62 ; $0C
+      .db $60 ; $0D
+      .db $15 ; $0E
+      .db $13 ; $0F
+      .db $55 ; $10
+      .db $53 ; $11
+      .db $CF ; $12
+      .db $CB ; $13
+      .db $0D ; $14
+      .db $09 ; $15
 
 
 ;
@@ -3002,11 +3002,11 @@ LoadAreaMusic_Exit:
 ; be leftover code from a previous version.
 ;
 Unused_LevelMusicIndexes:
-      .BYTE Music1_Overworld
-      .BYTE Music1_Inside
-      .BYTE Music1_Boss
-      .BYTE Music1_Wart
-      .BYTE Music1_Subspace
+      .db Music1_Overworld
+      .db Music1_Inside
+      .db Music1_Boss
+      .db Music1_Wart
+      .db Music1_Subspace
 
 Unused_ChangeAreaMusic:
       LDA     CompareMusicIndex
@@ -3313,30 +3313,30 @@ UpdateAreaYOffset_Exit:
 ProcessSpecialObjectA:
       JSR     JumpToTableAfterJump
 
-      .WORD EatLevelObject1Byte ; Ground setting 0-8
-      .WORD EatLevelObject1Byte ; Ground setting 9-15
-      .WORD SkipForwardPage1 ; Skip forward 1 page
-      .WORD SkipForwardPage2 ; Skip forward 2 pages
-      .WORD ResetPageAndOffset ; New object layer
-      .WORD SetAreaPointer ; Area pointer
-      .WORD EatLevelObject1Byte ; Ground appearance
+      .dw EatLevelObject1Byte ; Ground setting 0-8
+      .dw EatLevelObject1Byte ; Ground setting 9-15
+      .dw SkipForwardPage1 ; Skip forward 1 page
+      .dw SkipForwardPage2 ; Skip forward 2 pages
+      .dw ResetPageAndOffset ; New object layer
+      .dw SetAreaPointer ; Area pointer
+      .dw EatLevelObject1Byte ; Ground appearance
 IFDEF LEVEL_ENGINE_UPGRADES
-      .WORD CreateRawTiles
+      .dw CreateRawTiles
 ENDIF
 
 
 ProcessSpecialObjectB:
       JSR     JumpToTableAfterJump
 
-      .WORD SetGroundSettingA ; Ground setting 0-7
-      .WORD SetGroundSettingB ; Ground setting 8-15
-      .WORD loc_BANK6_96BE ; Skip forward 1 page
-      .WORD loc_BANK6_96BB ; Skip forward 2 pages
-      .WORD loc_BANK6_9712 ; New object layer
-      .WORD SetAreaPointerNoOp ; Area pointer
-      .WORD loc_BANK6_971B ; Ground appearance
+      .dw SetGroundSettingA ; Ground setting 0-7
+      .dw SetGroundSettingB ; Ground setting 8-15
+      .dw loc_BANK6_96BE ; Skip forward 1 page
+      .dw loc_BANK6_96BB ; Skip forward 2 pages
+      .dw loc_BANK6_9712 ; New object layer
+      .dw SetAreaPointerNoOp ; Area pointer
+      .dw loc_BANK6_971B ; Ground appearance
 IFDEF LEVEL_ENGINE_UPGRADES
-      .WORD CreateRawTilesNoOp
+      .dw CreateRawTilesNoOp
 ENDIF
 
 
@@ -3966,8 +3966,8 @@ ENDIF
 
 ; ---------------------------------------------------------------------------
 unk_BANK6_98DA:
-      .BYTE $28
-      .BYTE $24
+      .db $28
+      .db $24
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK6_98DC:

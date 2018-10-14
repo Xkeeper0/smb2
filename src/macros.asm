@@ -8,12 +8,12 @@
 ; distTo
 ; Outputs distance (byte) to label
 ; e.g.:
-; .BYTE (+ - $)  is  distTo +
+; .db (+ - $)  is  distTo +
 ;
 MACRO distTo label
-      .BYTE (label - $)
+      .db (label - $)
 ENDM
 
 MACRO enemy x, y, type
-      .BYTE type, x << 4 | y
+      .db type, x << 4 | y
 ENDM

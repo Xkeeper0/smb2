@@ -110,10 +110,10 @@ Debug_MenuLoop:
 
       LDA Debug_CurrentMenuOption
       JSR JumpToTableAfterJump
-      .word DebugMenu_World
-      .word DebugMenu_Level
-      .word DebugMenu_Area
-      .word DebugMenu_Character
+      .dw DebugMenu_World
+      .dw DebugMenu_Level
+      .dw DebugMenu_Area
+      .dw DebugMenu_Character
 
 
 Debug_DoAbort:
@@ -341,20 +341,20 @@ Debug_BufferText:
 
 
 DebugPPU_TextPointers:
-      .word DebugPPU_DebugText ; 0
-      .word DebugPPU_WorldText ; 1
-      .word DebugPPU_LevelText ; 2
-      .word DebugPPU_AreaText ; 3
-      .word DebugPPU_CharacterText ; 4
-      .word DebugPPU_AbortText ; 5
+      .dw DebugPPU_DebugText ; 0
+      .dw DebugPPU_WorldText ; 1
+      .dw DebugPPU_LevelText ; 2
+      .dw DebugPPU_AreaText ; 3
+      .dw DebugPPU_CharacterText ; 4
+      .dw DebugPPU_AbortText ; 5
 
-      .word DebugPPU_UpdateWorld ; 6
-      .word DebugPPU_UpdateLevel ; 7
-      .word DebugPPU_UpdateArea ; 8
-      .word DebugPPU_UpdateCharacter0 ; 9
-      .word DebugPPU_UpdateCharacter1 ; 10
-      .word DebugPPU_UpdateCharacter2 ; 11
-      .word DebugPPU_UpdateCharacter3 ; 12
+      .dw DebugPPU_UpdateWorld ; 6
+      .dw DebugPPU_UpdateLevel ; 7
+      .dw DebugPPU_UpdateArea ; 8
+      .dw DebugPPU_UpdateCharacter0 ; 9
+      .dw DebugPPU_UpdateCharacter1 ; 10
+      .dw DebugPPU_UpdateCharacter2 ; 11
+      .dw DebugPPU_UpdateCharacter3 ; 12
 
 
 DebugPPU_DebugText: ; DEBUG
