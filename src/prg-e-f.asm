@@ -278,10 +278,10 @@ PlayerSelectSpritePalettesDark:
 	.db $0F, $22, $12, $01
 
 PlayerSelectPaletteOffsets:
-	.db (PlayerSelectSpritePalettes_Mario-PlayerSelectSpritePalettes)
-	.db (PlayerSelectSpritePalettes_Princess-PlayerSelectSpritePalettes)
-	.db (PlayerSelectSpritePalettes_Toad-PlayerSelectSpritePalettes)
-	.db (PlayerSelectSpritePalettes_Luigi-PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Mario - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Princess - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Toad - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Luigi - PlayerSelectSpritePalettes)
 
 PlayerSelectSpritePalettes:
 PlayerSelectSpritePalettes_Mario:
