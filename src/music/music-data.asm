@@ -64,7 +64,6 @@ MusicData:
 ;
 .include "src/music/segments/star/star.asm"
 
-
 ;
 ; Underground music
 ; (including prototype version)
@@ -76,267 +75,21 @@ IFDEF PROTOTYPE_MUSIC
 	.include "src/music/segments/underground/underground-prototype.asm"
 ENDIF
 
-MusicDataSubspace1:
-MusicDataSubspace1_Square2:
-	.db $99
-	.db $48
-	.db $3E
-	.db $38
-	.db $98
-	.db $42
-	.db $46
-	.db $94
-	.db $44
-	.db $42
-	.db $7E
-	.db $96
-	.db $3E
-	.db $50
-	.db $56
-	.db $94
-	.db $5A
-	.db $7E
-	.db $52
-	.db $98
-	.db $56
-	.db $50
-	.db $94
-	.db $48
-	.db $4C
-	.db $99
-	.db $46
-	.db $00
-MusicDataSubspace1_Square1:
-	.db $99
-	.db $38
-	.db $30
-	.db $26
-	.db $98
-	.db $30
-	.db $34
-	.db $94
-	.db $32
-	.db $98
-	.db $30
-	.db $96
-	.db $30
-	.db $3E
-	.db $46
-	.db $98
-	.db $48
-	.db $94
-	.db $42
-	.db $98
-	.db $46
-	.db $98
-	.db $42
-	.db $94
-	.db $38
-	.db $3A
-	.db $99
-	.db $34
-MusicDataSubspace1_Triangle:
-	.db $99
-	.db $3E
-	.db $38
-	.db $30
-	.db $98
-	.db $3A
-	.db $3E
-	.db $94
-	.db $3C
-	.db $3A
-	.db $7E
-	.db $96
-	.db $38
-	.db $48
-	.db $50
-	.db $94
-	.db $52
-	.db $7E
-	.db $4C
-	.db $50
-	.db $7E
-	.db $48
-	.db $7E
-	.db $42
-	.db $46
-	.db $99
-	.db $3E
+;
+; Subspace music
+; Segments 1 and 2 share the same noise track,
+; as do segments 3 and 4 (defined in 2 and 4)
+;
+.include "src/music/segments/subspace/subspace-1.asm"
+.include "src/music/segments/subspace/subspace-2.asm"
+.include "src/music/segments/subspace/subspace-3.asm"
+.include "src/music/segments/subspace/subspace-4.asm"
 
-MusicDataSubspace2:
-MusicDataSubspace2_Square2:
-	.db $98
-	.db $7E
-	.db $94
-	.db $56
-	.db $54
-	.db $52
-	.db $4E
-	.db $7E
-	.db $50
-	.db $7E
-	.db $40
-	.db $42
-	.db $48
-	.db $7E
-	.db $42
-	.db $48
-	.db $4C
-	.db $00
-MusicDataSubspace2_Square1:
-	.db $98
-	.db $7E
-	.db $94
-	.db $50
-	.db $4E
-	.db $4C
-	.db $98
-	.db $46
-	.db $94
-	.db $48
-	.db $7E
-	.db $38
-	.db $3A
-	.db $3E
-	.db $7E
-	.db $30
-	.db $38
-	.db $3A
-MusicDataSubspace2_Triangle:
-	.db $99
-	.db $30
-	.db $3E
-	.db $98
-	.db $48
-	.db $99
-	.db $3A
-	.db $94
-	.db $48
-	.db $98
-	.db $48
-	.db $3A
-MusicDataSubspace1_Noise:
-MusicDataSubspace2_Noise:
-	.db $98
-	.db $04
-	.db $92
-	.db $02
-	.db $01
-	.db $02
-	.db $98
-	.db $06
-	.db $92
-	.db $02
-	.db $01
-	.db $02
-	.db $00
 
-MusicDataSubspace3:
-MusicDataSubspace3_Square2:
-	.db $98
-	.db $7E
-	.db $94
-	.db $56
-	.db $54
-	.db $52
-	.db $4E
-	.db $7E
-	.db $50
-	.db $7E
-	.db $60
-	.db $7E
-	.db $60
-	.db $9A
-	.db $60
-	.db $00
-MusicDataSubspace3_Square1:
-	.db $98
-	.db $7E
-	.db $94
-	.db $50
-	.db $4E
-	.db $4C
-	.db $98
-	.db $46
-	.db $94
-	.db $48
-	.db $7E
-	.db $98
-	.db $52
-	.db $94
-	.db $52
-	.db $52
-	.db $99
-	.db $7E
-MusicDataSubspace3_Triangle:
-	.db $99
-	.db $30
-	.db $38
-	.db $94
-	.db $3E
-	.db $98
-	.db $48
-	.db $6E
-	.db $94
-	.db $6E
-	.db $98
-	.db $6E
-	.db $3E
 
-MusicDataSubspace4:
-MusicDataSubspace4_Square2:
-	.db $98
-	.db $7E
-	.db $99
-	.db $4E
-	.db $99
-	.db $4C
-	.db $9A
-	.db $48
-	.db $7E
-	.db $00
-MusicDataSubspace4_Square1:
-	.db $98
-	.db $7E
-	.db $94
-	.db $40
-	.db $98
-	.db $7E
-	.db $94
-	.db $3A
-	.db $98
-	.db $7E
-	.db $9A
-	.db $38
-	.db $7E
-MusicDataSubspace4_Triangle:
-	.db $98
-	.db $30
-	.db $99
-	.db $40
-	.db $44
-	.db $48
-	.db $94
-	.db $3E
-	.db $98
-	.db $3E
-	.db $30
-MusicDataSubspace3_Noise:
-MusicDataSubspace4_Noise:
-	.db $98
-	.db $04
-	.db $92
-	.db $02
-	.db $01
-	.db $02
-	.db $98
-	.db $06
-	.db $92
-	.db $02
-	.db $01
-	.db $02
-	.db $00
+
+
+
 
 MusicDataTitleScreen1:
 MusicDataTitleScreen1_Square2:
