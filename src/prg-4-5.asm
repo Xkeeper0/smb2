@@ -1552,123 +1552,54 @@ ENDIF
 ;
 MusicPartHeaders:
 MusicHeaderCharacterSelect1:
-	noteLength NoteLengthTable_300bpm
-	; .db $AD, $98
-	.dw MusicDataCharacterSelect1
-	.db MusicDataCharacterSelect1_Triangle - MusicDataCharacterSelect1 ; $6B
-	.db MusicDataCharacterSelect1_Square1 - MusicDataCharacterSelect1 ; $36
-	.db MusicDataCharacterSelect1_Noise - MusicDataCharacterSelect1 ; $A0
+	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect1, MusicDataCharacterSelect1_Triangle, MusicDataCharacterSelect1_Square1, MusicDataCharacterSelect1_Noise
 
 MusicHeaderCharacterSelect2:
-	noteLength NoteLengthTable_300bpm
-	; .db $5C, $99
-	.dw MusicDataCharacterSelect2
-	.db MusicDataCharacterSelect2_Triangle - MusicDataCharacterSelect2 ; $8E
-	.db MusicDataCharacterSelect2_Square1 - MusicDataCharacterSelect2 ; $48
-	.db MusicDataCharacterSelect2_Noise - MusicDataCharacterSelect2 ; $B0
+	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect2, MusicDataCharacterSelect2_Triangle, MusicDataCharacterSelect2_Square1, MusicDataCharacterSelect2_Noise
 
 MusicHeaderCharacterSelect3:
-	noteLength NoteLengthTable_300bpm
-	; .db $9A, $99
-	.dw MusicDataCharacterSelect3
-	.db MusicDataCharacterSelect3_Triangle - MusicDataCharacterSelect3 ; $6F
-	.db MusicDataCharacterSelect3_Square1 - MusicDataCharacterSelect3 ; $48
-	.db MusicDataCharacterSelect3_Noise - MusicDataCharacterSelect3 ; $76
+	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect3, MusicDataCharacterSelect3_Triangle, MusicDataCharacterSelect3_Square1, MusicDataCharacterSelect3_Noise
 
 MusicHeaderCharacterSelect4:
-	noteLength NoteLengthTable_300bpm
-	; .db $9E, $99
-	.dw MusicDataCharacterSelect4
-	.db MusicDataCharacterSelect4_Triangle - MusicDataCharacterSelect4 ; $6B
-	.db MusicDataCharacterSelect4_Square1 - MusicDataCharacterSelect4 ; $47
-	.db MusicDataCharacterSelect4_Noise - MusicDataCharacterSelect4 ; $72
+	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect4, MusicDataCharacterSelect4_Triangle, MusicDataCharacterSelect4_Square1, MusicDataCharacterSelect4_Noise
 
 MusicHeaderCharacterSelect5:
-	noteLength NoteLengthTable_300bpm
-	; .db $26, $9A
-	.dw MusicDataCharacterSelect5
-	.db MusicDataCharacterSelect5_Triangle - MusicDataCharacterSelect5 ; $8A
-	.db MusicDataCharacterSelect5_Square1 - MusicDataCharacterSelect5 ; $46
-	.db MusicDataCharacterSelect5_Noise - MusicDataCharacterSelect5 ; $AC
+	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect5, MusicDataCharacterSelect5_Triangle, MusicDataCharacterSelect5_Square1, MusicDataCharacterSelect5_Noise
 
 MusicHeaderOverworld1:
-	noteLength NoteLengthTable_200bpm
-	; .db $D4, $9B
-	.dw MusicDataOverworld1
-	.db MusicDataOverworld1_Triangle - MusicDataOverworld1 ; $2B
-	.db MusicDataOverworld1_Square1 - MusicDataOverworld1 ; $16
-	.db MusicDataOverworld1_Noise - MusicDataOverworld1 ; $3D
+	musicHeader NoteLengthTable_200bpm, MusicDataOverworld1, MusicDataOverworld1_Triangle, MusicDataOverworld1_Square1, MusicDataOverworld1_Noise
 
 MusicHeaderOverworld2:
-	noteLength NoteLengthTable_200bpm
-	; .db $20, $9C
-	.dw MusicDataOverworld2
-	.db MusicDataOverworld2_Triangle - MusicDataOverworld2 ; $A8
-	.db MusicDataOverworld2_Square1 - MusicDataOverworld2 ; $54
-	.db MusicDataOverworld2_Noise - MusicDataOverworld2 ; $C9
+	musicHeader NoteLengthTable_200bpm, MusicDataOverworld2, MusicDataOverworld2_Triangle, MusicDataOverworld2_Square1, MusicDataOverworld2_Noise
 
 MusicHeaderOverworld3:
-	noteLength NoteLengthTable_200bpm
-	; .db $F9, $9C
-	.dw MusicDataOverworld3
-	.db MusicDataOverworld3_Triangle - MusicDataOverworld3 ; $DD
-	.db MusicDataOverworld3_Square1 - MusicDataOverworld3 ; $73
-	.db MusicDataOverworld3_Noise - MusicDataOverworld3 ; $6C
+	musicHeader NoteLengthTable_200bpm, MusicDataOverworld3, MusicDataOverworld3_Triangle, MusicDataOverworld3_Square1, MusicDataOverworld3_Noise
 
 MusicHeaderOverworld4:
-	noteLength NoteLengthTable_200bpm
-	; .db $3F, $9D
-	.dw MusicDataOverworld4
-	.db MusicDataOverworld4_Triangle - MusicDataOverworld4 ; $B2
-	.db MusicDataOverworld4_Square1 - MusicDataOverworld4 ; $73
-	.db MusicDataOverworld4_Noise - MusicDataOverworld4 ; $26
+	musicHeader NoteLengthTable_200bpm, MusicDataOverworld4, MusicDataOverworld4_Triangle, MusicDataOverworld4_Square1, MusicDataOverworld4_Noise
 
 MusicHeaderOverworld5:
-	noteLength NoteLengthTable_200bpm
-	; .db $00, $9E
-	.dw MusicDataOverworld5
-	.db MusicDataOverworld5_Triangle - MusicDataOverworld5 ; $38
-	.db MusicDataOverworld5_Square1 - MusicDataOverworld5 ; $1D
-	.db MusicDataOverworld5_Noise - MusicDataOverworld5 ; $46
+	musicHeader NoteLengthTable_200bpm, MusicDataOverworld5, MusicDataOverworld5_Triangle, MusicDataOverworld5_Square1, MusicDataOverworld5_Noise
 
 MusicHeaderOverworld6:
-	noteLength NoteLengthTable_200bpm
-	; .db $4D, $9E
-	.dw MusicDataOverworld6
-	.db MusicDataOverworld6_Triangle - MusicDataOverworld6 ; $A7
-	.db MusicDataOverworld6_Square1 - MusicDataOverworld6 ; $4F
-	.db MusicDataOverworld6_Noise - MusicDataOverworld6 ; $C8
+	musicHeader NoteLengthTable_200bpm, MusicDataOverworld6, MusicDataOverworld6_Triangle, MusicDataOverworld6_Square1, MusicDataOverworld6_Noise
 
 IFNDEF PROTOTYPE_MUSIC
 MusicHeaderUnderground:
-	noteLength NoteLengthTable_129bpm
-	; .db $BD, $94
-	.dw MusicDataUnderground
-	.db MusicDataUnderground_Triangle - MusicDataUnderground ; $53
-	.db MusicDataUnderground_Square1 - MusicDataUnderground ; $2A
-	.db MusicDataUnderground_DPCM - MusicDataUnderground ; $84
+	musicHeader NoteLengthTable_129bpm, MusicDataUnderground, MusicDataUnderground_Triangle, MusicDataUnderground_Square1, MusicDataUnderground_DPCM
 ENDIF
 
 IFDEF PROTOTYPE_MUSIC
 MusicHeaderUndergroundBeta1:
-	noteLength NoteLengthTable_200bpm
-	.dw MusicDataUndergroundBeta1
-	.db MusicDataUndergroundBeta1_Triangle - MusicDataUndergroundBeta1
-	.db MusicDataUndergroundBeta1_Square1 - MusicDataUndergroundBeta1
-	.db MusicDataUndergroundBeta1_Noise - MusicDataUndergroundBeta1
+	musicHeader NoteLengthTable_200bpm, MusicDataUndergroundBeta1, MusicDataUndergroundBeta1_Triangle, MusicDataUndergroundBeta1_Square1, MusicDataUndergroundBeta1_Noise
 	.db MusicDataUndergroundBeta1_DPCM - MusicDataUndergroundBeta1
 MusicHeaderUndergroundBeta2:
-	noteLength NoteLengthTable_200bpm
-	.dw MusicDataUndergroundBeta2
-	.db MusicDataUndergroundBeta2_Triangle - MusicDataUndergroundBeta2
-	.db MusicDataUndergroundBeta2_Square1 - MusicDataUndergroundBeta2
-	.db MusicDataUndergroundBeta2_Noise - MusicDataUndergroundBeta2
+	musicHeader NoteLengthTable_200bpm, MusicDataUndergroundBeta2, MusicDataUndergroundBeta2_Triangle, MusicDataUndergroundBeta2_Square1, MusicDataUndergroundBeta2_Noise
 	.db MusicDataUndergroundBeta2_DPCM - MusicDataUndergroundBeta2
 ENDIF
 
 MusicHeaderBoss:
 	noteLength NoteLengthTable_200bpm
-	; .db $1C, $9F
 	.dw MusicDataBoss
 	.db MusicDataBoss_Triangle - MusicDataBoss ; $83
 	.db MusicDataBoss_Square1 - MusicDataBoss ; $42
@@ -1678,7 +1609,6 @@ ENDIF
 
 MusicHeaderStar:
 	noteLength NoteLengthTable_300bpm
-	; .db $69, $94
 	.dw MusicDataStar
 	.db MusicDataStar_Triangle - MusicDataStar ; $37
 	.db MusicDataStar_Square1 - MusicDataStar ; $1A
@@ -1691,7 +1621,6 @@ ENDIF
 
 MusicHeaderWart:
 	noteLength NoteLengthTable_200bpm
-	; .db $C7, $9F
 	.dw MusicDataWart
 	.db MusicDataWart_Triangle - MusicDataWart ; $96
 	.db MusicDataWart_Square1 - MusicDataWart ; $4B
@@ -1701,7 +1630,6 @@ ENDIF
 
 MusicHeaderCrystal:
 	noteLength NoteLengthTable_300bpm
-	; .db $48, $A1
 	.dw MusicDataCrystal
 	.db MusicDataCrystal_Triangle - MusicDataCrystal ; $1B
 	.db MusicDataCrystal_Square1 - MusicDataCrystal ; $0D
@@ -1709,7 +1637,6 @@ MusicHeaderCrystal:
 
 MusicHeaderGameOver:
 	noteLength NoteLengthTable_300bpm
-	; .db $CE, $A0
 	.dw MusicDataGameOver
 	.db MusicDataGameOver_Triangle - MusicDataGameOver ; $1B
 	.db MusicDataGameOver_Square1 - MusicDataGameOver ; $0E
@@ -1717,164 +1644,76 @@ MusicHeaderGameOver:
 
 MusicHeaderBossBeaten:
 	noteLength NoteLengthTable_300bpm
-	; .db $F2, $A0
 	.dw MusicDataBossBeaten
 	.db MusicDataBossBeaten_Triangle - MusicDataBossBeaten ; $41
 	.db MusicDataBossBeaten_Square1 - MusicDataBossBeaten ; $27
 	; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect8:
-	noteLength NoteLengthTable_300bpm
-	; .db $93, $9B
-	.dw MusicDataCharacterSelect8
-	.db MusicDataCharacterSelect8_Triangle - MusicDataCharacterSelect8 ; $2F
-	.db MusicDataCharacterSelect8_Square1 - MusicDataCharacterSelect8 ; $21
-	.db MusicDataCharacterSelect8_Noise - MusicDataCharacterSelect8 ; $38
+	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect8, MusicDataCharacterSelect8_Triangle, MusicDataCharacterSelect8_Square1, MusicDataCharacterSelect8_Noise
 
 MusicHeaderMushroomBonusChance:
 	noteLength NoteLengthTable_150bpm
-	; .db $BB, $A0
 	.dw MusicDataMushroomBonusChance
 	.db $00 ; no triangle channel
 	.db MusicDataMushroomBonusChance_Square1 - MusicDataMushroomBonusChance ; $0A
 	; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect7:
-	noteLength NoteLengthTable_300bpm
-	; .db $DF, $9A
-	.dw MusicDataCharacterSelect7
-	.db MusicDataCharacterSelect7_Triangle - MusicDataCharacterSelect7 ; $97
-	.db MusicDataCharacterSelect7_Square1 - MusicDataCharacterSelect7 ; $61
-	.db MusicDataCharacterSelect7_Noise - MusicDataCharacterSelect7 ; $B0
+	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect7, MusicDataCharacterSelect7_Triangle, MusicDataCharacterSelect7_Square1, MusicDataCharacterSelect7_Noise
 
 MusicHeaderDeath:
 	noteLength NoteLengthTable_200bpm
-	; .db $6F, $A1
 	.dw MusicDataDeath
 	.db MusicDataDeath_Triangle - MusicDataDeath ; $17
 	.db MusicDataDeath_Square1 - MusicDataDeath ; $0C
 	; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect6:
-	noteLength NoteLengthTable_300bpm
-	; .db $5D, $9A
-	.dw MusicDataCharacterSelect6
-	.db MusicDataCharacterSelect6_Triangle - MusicDataCharacterSelect6 ; $6C
-	.db MusicDataCharacterSelect6_Square1 - MusicDataCharacterSelect6 ; $45
-	.db MusicDataCharacterSelect6_Noise - MusicDataCharacterSelect6 ; $79
+	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect6, MusicDataCharacterSelect6_Triangle, MusicDataCharacterSelect6_Square1, MusicDataCharacterSelect6_Noise
 
 MusicHeaderTitleScreen2:
-	noteLength NoteLengthTable_225bpm
-	; .db $A7, $96
-	.dw MusicDataTitleScreen2
-	.db MusicDataTitleScreen2_Triangle - MusicDataTitleScreen2 ; $BC
-	.db MusicDataTitleScreen2_Square1 - MusicDataTitleScreen2 ; $64
-	.db MusicDataTitleScreen2_Noise - MusicDataTitleScreen2 ; $59
+	musicHeader NoteLengthTable_225bpm, MusicDataTitleScreen2, MusicDataTitleScreen2_Triangle, MusicDataTitleScreen2_Square1, MusicDataTitleScreen2_Noise
 
 MusicHeaderTitleScreen1:
-	noteLength NoteLengthTable_225bpm
-	; .db $3E, $96
-	.dw MusicDataTitleScreen1
-	.db MusicDataTitleScreen1_Triangle - MusicDataTitleScreen1 ; $43
-	.db MusicDataTitleScreen1_Square1 - MusicDataTitleScreen1 ; $22
-	.db MusicDataTitleScreen1_Noise - MusicDataTitleScreen1 ; $57
+	musicHeader NoteLengthTable_225bpm, MusicDataTitleScreen1, MusicDataTitleScreen1_Triangle, MusicDataTitleScreen1_Square1, MusicDataTitleScreen1_Noise
 
 MusicHeaderTitleScreen3:
-	noteLength NoteLengthTable_225bpm
-	; .db $94, $97
-	.dw MusicDataTitleScreen3
-	.db MusicDataTitleScreen3_Triangle - MusicDataTitleScreen3 ; $8D
-	.db MusicDataTitleScreen3_Square1 - MusicDataTitleScreen3 ; $47
-	.db MusicDataTitleScreen3_Noise - MusicDataTitleScreen3 ; $BA
+	musicHeader NoteLengthTable_225bpm, MusicDataTitleScreen3, MusicDataTitleScreen3_Triangle, MusicDataTitleScreen3_Square1, MusicDataTitleScreen3_Noise
 
 MusicHeaderTitleScreen4:
-	noteLength NoteLengthTable_225bpm
-	; .db $78, $98
-	.dw MusicDataTitleScreen4
-	.db MusicDataTitleScreen4_Triangle - MusicDataTitleScreen4 ; $24
-	.db MusicDataTitleScreen4_Square1 - MusicDataTitleScreen4 ; $12
-	.db MusicDataTitleScreen4_Noise - MusicDataTitleScreen4 ; $29
+	musicHeader NoteLengthTable_225bpm, MusicDataTitleScreen4, MusicDataTitleScreen4_Triangle, MusicDataTitleScreen4_Square1, MusicDataTitleScreen4_Noise
 
 MusicHeaderSubspace1:
-	noteLength NoteLengthTable_200bpm
-	; .db $50, $95
-	.dw MusicDataSubspace1
-	.db MusicDataSubspace1_Triangle - MusicDataSubspace1 ; $38
-	.db MusicDataSubspace1_Square1 - MusicDataSubspace1 ; $1C
-	.db MusicDataSubspace1_Noise - MusicDataSubspace1 ; $83
+	musicHeader NoteLengthTable_200bpm, MusicDataSubspace1, MusicDataSubspace1_Triangle, MusicDataSubspace1_Square1, MusicDataSubspace1_Noise
 
 MusicHeaderSubspace2:
-	noteLength NoteLengthTable_200bpm
-	; .db $A3, $95
-	.dw MusicDataSubspace2
-	.db MusicDataSubspace2_Triangle - MusicDataSubspace2 ; $24
-	.db MusicDataSubspace2_Square1 - MusicDataSubspace2 ; $12
-	.db MusicDataSubspace2_Noise - MusicDataSubspace2 ; $30
+	musicHeader NoteLengthTable_200bpm, MusicDataSubspace2, MusicDataSubspace2_Triangle, MusicDataSubspace2_Square1, MusicDataSubspace2_Noise
 
 MusicHeaderSubspace3:
-	noteLength NoteLengthTable_200bpm
-	; .db $E0, $95
-	.dw MusicDataSubspace3
-	.db MusicDataSubspace3_Triangle - MusicDataSubspace3 ; $22
-	.db MusicDataSubspace3_Square1 - MusicDataSubspace3 ; $10
-	.db MusicDataSubspace3_Noise - MusicDataSubspace3 ; $51
+	musicHeader NoteLengthTable_200bpm, MusicDataSubspace3, MusicDataSubspace3_Triangle, MusicDataSubspace3_Square1, MusicDataSubspace3_Noise
 
 MusicHeaderSubspace4:
-	noteLength NoteLengthTable_200bpm
-	; .db $0F, $96
-	.dw MusicDataSubspace4
-	.db MusicDataSubspace4_Triangle - MusicDataSubspace4 ; $17
-	.db MusicDataSubspace4_Square1 - MusicDataSubspace4 ; $0A
-	.db MusicDataSubspace4_Noise - MusicDataSubspace4 ; $22
+	musicHeader NoteLengthTable_200bpm, MusicDataSubspace4, MusicDataSubspace4_Triangle, MusicDataSubspace4_Square1, MusicDataSubspace4_Noise
 
 MusicHeaderEnding1:
-	noteLength NoteLengthTable_129bpm
-	; .db $1E, $91
-	.dw MusicDataEnding1
-	.db MusicDataEnding1_Triangle - MusicDataEnding1 ; $3D
-	.db MusicDataEnding1_Square1 - MusicDataEnding1; $1F
-	.db MusicDataEnding1_Noise - MusicDataEnding1 ; $6D
+	musicHeader NoteLengthTable_129bpm, MusicDataEnding1, MusicDataEnding1_Triangle, MusicDataEnding1_Square1, MusicDataEnding1_Noise
 
 MusicHeaderEnding3:
-	noteLength NoteLengthTable_129bpm
-	; .db $9C, $91
-	.dw MusicDataEnding3
-	.db MusicDataEnding3_Triangle - MusicDataEnding3 ; $41
-	.db MusicDataEnding3_Square1 - MusicDataEnding3 ; $21
-	.db MusicDataEnding3_Noise - MusicDataEnding3 ; $8C
+	musicHeader NoteLengthTable_129bpm, MusicDataEnding3, MusicDataEnding3_Triangle, MusicDataEnding3_Square1, MusicDataEnding3_Noise
 
 MusicHeaderEnding2:
-	noteLength NoteLengthTable_129bpm
-	; .db $80, $92
-	.dw MusicDataEnding2
-	.db MusicDataEnding2_Triangle - MusicDataEnding2 ; $2A
-	.db MusicDataEnding2_Square1 - MusicDataEnding2 ; $5A
-	.db MusicDataEnding2_Noise - MusicDataEnding2 ; $19
+	musicHeader NoteLengthTable_129bpm, MusicDataEnding2, MusicDataEnding2_Triangle, MusicDataEnding2_Square1, MusicDataEnding2_Noise
 
 MusicHeaderEnding5:
-	noteLength NoteLengthTable_129bpm
-	; .db $F2, $92
-	.dw MusicDataEnding5
-	.db MusicDataEnding5_Triangle - MusicDataEnding5 ; $4C
-	.db MusicDataEnding5_Square1 - MusicDataEnding5 ; $14
-	.db MusicDataEnding5_Noise - MusicDataEnding5 ; $68
+	musicHeader NoteLengthTable_129bpm, MusicDataEnding5, MusicDataEnding5_Triangle, MusicDataEnding5_Square1, MusicDataEnding5_Noise
 
 MusicHeaderEnding4:
-	noteLength NoteLengthTable_129bpm
-	; .db $0D, $92
-	.dw MusicDataEnding4
-	.db MusicDataEnding4_Triangle - MusicDataEnding4 ; $43
-	.db MusicDataEnding4_Square1 - MusicDataEnding4 ; $29
-	.db MusicDataEnding4_Noise - MusicDataEnding4 ; $1B
+	musicHeader NoteLengthTable_129bpm, MusicDataEnding4, MusicDataEnding4_Triangle, MusicDataEnding4_Square1, MusicDataEnding4_Noise
 
 IFNDEF PROTOTYPE_MUSIC
 MusicHeaderEnding6:
-	noteLength NoteLengthTable_129bpm
-	; .db $76, $93
-	.dw MusicDataEnding6
-	.db $00 ; no triangle channel
-	.db MusicDataEnding6_Square1 - MusicDataEnding6 ; $72
-	.db $00 ; no square channel
+	musicHeader NoteLengthTable_129bpm, MusicDataEnding6, $00, MusicDataEnding6_Square1, $00
 ENDIF
 
 
