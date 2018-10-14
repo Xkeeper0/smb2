@@ -1281,32 +1281,21 @@ PlayTriangleNote:
 	LDX #APUOffset_Triangle
 	BNE PlayNote
 
-NoteFrequencyData:
-	.dw $1AB8 ; C
-	.dw $1938 ; C# / Db
-	.dw $17CC ; D
-	.dw $1678 ; D# / Eb
-	.dw $1534 ; E
-	.dw $1404 ; F
-	.dw $12E4 ; F# / Gb
-	.dw $11D4 ; G
-	.dw $10D4 ; G# / Ab
-	.dw $0FE0 ; A
-	.dw $0EFC ; A# / Bb
-	.dw $0E24 ; B
-
-
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $875F - $8EFF
-	.pad $8F00, $FF
-ENDIF
 
 ;
 ; -------------------------------------------------------------------------
 ; Various bits of the music engine have been extracted into separate files;
 ; see the individual files for details on the formats within
 ;
+
+; Frequency table for notes; standard between various Mario games
+.include "src/music/frequency-table.asm";
+
+IFDEF PRESERVE_UNUSED_SPACE
+; Unused space in the original
+; $875F - $8EFF
+	.pad $8F00, $FF
+ENDIF
 
 ; Note lengths for various BPM settings
 .include "src/music/note-lengths.asm";
