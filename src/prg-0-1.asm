@@ -936,11 +936,9 @@ sub_BANK0_84AC:
 ; End of function sub_BANK0_84AC
 
 ; ---------------------------------------------------------------------------
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $84B8 - $84FF
-	.pad $8500, $FF
-ENDIF
+
+; Unused space in the original ($84B8 - $84FF)
+unusedSpace $8500, $FF
 
 
 ;
@@ -1768,11 +1766,9 @@ SetObjectLocks_Loop:
 	RTS
 
 
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $8966 - $89FF
-	.pad $8A00, $FF
-ENDIF
+
+; Unused space in the original ($8966 - $89FF)
+unusedSpace $8A00, $FF
 
 
 GrowShrinkSFXIndexes:
@@ -4567,11 +4563,9 @@ locret_BANK0_95C2:
 
 
 IFNDEF ROBUST_TRANSITION_SEARCH
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $95C3 - $95FF
-	.pad $9600, $FF
-ENDIF
+
+; Unused space in the original ($95C3 - $95FF)
+unusedSpace $9600, $FF
 ENDIF
 
 
@@ -5233,11 +5227,9 @@ loc_BANK0_9C52:
 ; End of function TitleScreen
 
 
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $9C58 - $A1FF
-	.pad $A200, $FF
-ENDIF
+
+; Unused space in the original ($9C58 - $A1FF)
+unusedSpace $A200, $FF
 
 
 EndingPPUDataPointers:
@@ -6789,15 +6781,12 @@ loc_BANK1_AE57:
 ; End of function sub_BANK1_AE43
 
 ; ---------------------------------------------------------------------------
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $AE5A - $B8FF
-	.pad $B900, $FF
-ENDIF
 
-; [00000AA6 BYTES: END OF AREA UNUSED-BANK1:AE5A. PRESS KEYPAD "-" TO COLLAPSE]
+; Unused space in the original ($AE5A - $B8FF)
+unusedSpace $B900, $FF
+
 MysteryCharacterData3900:
-	.db $FB ; � ; @TODO ??? Not sure what this is
+	.db $FB ; @TODO ??? Not sure what this is
 	.db $FF
 	.db $00
 	.db $08

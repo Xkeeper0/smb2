@@ -2729,11 +2729,8 @@ ChangeCHRBanks_MMC5:
 	RTS
 ENDIF
 
-IFDEF PRESERVE_UNUSED_SPACE
-	; Unused space in the original
-	; $ED4D - $EFFF
-	.pad $F000, $FF
-ENDIF
+; Unused space in the original ($ED4D - $EFFF)
+unusedSpace $F000, $FF
 
 
 ; these seem like they might be pointers, not actual values?
@@ -4813,11 +4810,8 @@ loc_BANKF_FB1C:
 	BEQ loc_BANKF_FB19
 
 
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $FB36 - $FDFF
-	.pad $FE00, $FF
-ENDIF
+; Unused space in the original ($FB36 - $FDFF)
+unusedSpace $FE00, $FF
 
 
 CHRBank_WorldEnemies:
@@ -4935,11 +4929,8 @@ LoadMarioSleepingCHRBanks:
 	RTS
 
 
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $FE97 - $FF4F
-	.pad $FF50, $FF
-ENDIF
+; Unused space in the original ($FE97 - $FF4F)
+unusedSpace $FF50, $FF
 
 
 ; public RESET
@@ -4999,10 +4990,10 @@ IFDEF MMC5
 ;
 ChangeCHRBanks:
 	JMP ChangeCHRBanks_MMC5
-IFDEF PRESERVE_UNUSED_SPACE
+
 	; Maintain location of the next subroutine
-	.pad $FF85, $FF
-ENDIF
+	unusedSpace $FF85, $FF
+
 ENDIF
 
 
@@ -5048,10 +5039,8 @@ IFDEF MMC5
 	STA $5115
 	RTS
 
-IFDEF PRESERVE_UNUSED_SPACE
 	; Maintain location of the next subroutine
-	.pad $FFA0, $FF
-ENDIF
+	unusedSpace $FFA0, $FF
 
 ENDIF
 
@@ -5066,11 +5055,8 @@ ChangeNametableMirroring:
 	RTS
 
 
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $FFA4 - $FFEA
-	.pad $FFEB, $FF
-ENDIF
+; Unused space in the original ($FFA4 - $FFEA)
+unusedSpace $FFEB, $FF
 
 ; Technically you can delete the stuff from here to the vector table as well,
 ; but because it looks slightly less like unused space it isn't being removed.

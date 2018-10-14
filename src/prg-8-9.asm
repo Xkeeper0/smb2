@@ -48,9 +48,9 @@ include "src/levels/level-data.asm"
 
 
 ; Pad out any remaining space
-; @TODO Should respect PRESERVE_UNUSED_SPACE flag
+; @TODO Verify that this is OK if unused space is reclaimed
 LevelData_Unused:
-	.pad $A500,$FF
+unusedSpace $A500,$FF
 
 
 ; Pointers to enemy data

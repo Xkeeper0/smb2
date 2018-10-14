@@ -1224,20 +1224,14 @@ PlayTriangleNote:
 ; Frequency table for notes; standard between various Mario games
 .include "src/music/frequency-table.asm";
 
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $875F - $8EFF
-	.pad $8F00, $FF
-ENDIF
+; Unused space in the original ($875F - $8EFF)
+unusedSpace $8F00, $FF
 
 ; Note lengths for various BPM settings
 .include "src/music/note-lengths.asm";
 
-IFDEF PRESERVE_UNUSED_SPACE
-	; Unused space in the original
-	; $8FB3 - $8FFF
-	.pad $9000, $FF
-ENDIF
+; Unused space in the original ($8FB3 - $8FFF)
+unusedSpace $9000, $FF
 
 ; Pointers to music segments
 .include "src/music/music-part-pointers.asm"

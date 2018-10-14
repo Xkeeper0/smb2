@@ -2423,11 +2423,9 @@ CreateObject_DrawBridgeChain_Loop:
 	RTS
 
 
-IFDEF PRESERVE_UNUSED_SPACE
-	; Unused space in the original
-	; $9126 - $91FF
-	.pad $9200, $FF
-ENDIF
+; Unused space in the original ($9126 - $91FF)
+unusedSpace $9200, $FF
+
 
 ;
 ; Horizontal ground set data

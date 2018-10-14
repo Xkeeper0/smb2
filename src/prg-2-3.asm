@@ -6316,11 +6316,8 @@ EnemyBehavior_TurnAroundExit:
 	JMP ApplyObjectPhysicsX
 
 
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $9EBD - $A02F
-	.pad $A030, $FF
-ENDIF
+; Unused space in the original ($9EBD - $A02F)
+unusedSpace $A030, $FF
 
 
 EnemyTilemap2:
@@ -10042,11 +10039,8 @@ RenderSprite_Wart_Exit:
 	RTS
 
 
-IFDEF PRESERVE_UNUSED_SPACE
-; Unused space in the original
-; $B39B - $B4DF
-	.pad $B4E0, $FF
-ENDIF
+; Unused space in the original ($B39B - $B4DF)
+unusedSpace $B4E0, $FF
 
 
 byte_BANK3_B4E0:
