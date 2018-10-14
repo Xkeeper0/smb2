@@ -1422,116 +1422,116 @@ MusicPartPointers:
 ; These pointers correspond to MusicQueue2 fanfares that temporarily interrupt
 ; the current background music
 MusicPartPointers_Mushroom:
-	.db MusicHeaderMushroomBonusChance - MusicPartPointers
+	musicPart MusicHeaderMushroomBonusChance
 
 MusicPartPointers_BossBeaten:
-	.db MusicHeaderBossBeaten - MusicPartPointers
+	musicPart MusicHeaderBossBeaten
 
 ; This version of the crystal fanfare is unused, because special logic in
 ; ProcessMusicQueue uses this slot for the ending theme instead.
 MusicPartPointers_CrystalUnused:
-	.db MusicHeaderCrystal - MusicPartPointers
+	musicPart MusicHeaderCrystal
 
 MusicPartPointers_Death:
-	.db MusicHeaderDeath - MusicPartPointers
+	musicPart MusicHeaderDeath
 
 MusicPartPointers_GameOver:
-	.db MusicHeaderGameOver - MusicPartPointers
+	musicPart MusicHeaderGameOver
 
 MusicPartPointers_Crystal:
-	.db MusicHeaderCrystal - MusicPartPointers
+	musicPart MusicHeaderCrystal
 
 MusicPartPointers_BonusChance:
-	.db MusicHeaderMushroomBonusChance - MusicPartPointers
+	musicPart MusicHeaderMushroomBonusChance
 
 ; The rest of the pointers correspond to music that uses the pointer tables
 ; with support for segment-based looping.
 MusicPartPointers_CharacterSelect:
-	.db MusicHeaderCharacterSelect1 - MusicPartPointers
+	musicPart MusicHeaderCharacterSelect1
 MusicPartPointers_CharacterSelectLoop:
-	.db MusicHeaderCharacterSelect2 - MusicPartPointers
-	.db MusicHeaderCharacterSelect3 - MusicPartPointers
-	.db MusicHeaderCharacterSelect2 - MusicPartPointers
-	.db MusicHeaderCharacterSelect4 - MusicPartPointers
-	.db MusicHeaderCharacterSelect5 - MusicPartPointers
-	.db MusicHeaderCharacterSelect6 - MusicPartPointers
-	.db MusicHeaderCharacterSelect7 - MusicPartPointers
+	musicPart MusicHeaderCharacterSelect2
+	musicPart MusicHeaderCharacterSelect3
+	musicPart MusicHeaderCharacterSelect2
+	musicPart MusicHeaderCharacterSelect4
+	musicPart MusicHeaderCharacterSelect5
+	musicPart MusicHeaderCharacterSelect6
+	musicPart MusicHeaderCharacterSelect7
 MusicPartPointers_CharacterSelectEnd:
-	.db MusicHeaderCharacterSelect8 - MusicPartPointers
+	musicPart MusicHeaderCharacterSelect8
 
 MusicPartPointers_Overworld:
-	.db MusicHeaderOverworld1 - MusicPartPointers
+	musicPart MusicHeaderOverworld1
 MusicPartPointers_OverworldLoop:
-	.db MusicHeaderOverworld2 - MusicPartPointers
-	.db MusicHeaderOverworld3 - MusicPartPointers
-	.db MusicHeaderOverworld4 - MusicPartPointers
-	.db MusicHeaderOverworld3 - MusicPartPointers
-	.db MusicHeaderOverworld5 - MusicPartPointers
+	musicPart MusicHeaderOverworld2
+	musicPart MusicHeaderOverworld3
+	musicPart MusicHeaderOverworld4
+	musicPart MusicHeaderOverworld3
+	musicPart MusicHeaderOverworld5
 MusicPartPointers_OverworldEnd:
-	.db MusicHeaderOverworld6 - MusicPartPointers
+	musicPart MusicHeaderOverworld6
 
 MusicPartPointers_Boss:
 MusicPartPointers_BossLoop:
 MusicPartPointers_BossEnd:
-	.db MusicHeaderBoss - MusicPartPointers
+	musicPart MusicHeaderBoss
 
 MusicPartPointers_Star:
 MusicPartPointers_StarLoop:
 MusicPartPointers_StarEnd:
-	.db MusicHeaderStar - MusicPartPointers
+	musicPart MusicHeaderStar
 
 MusicPartPointers_Wart:
 MusicPartPointers_WartLoop:
 MusicPartPointers_WartEnd:
-	.db MusicHeaderWart - MusicPartPointers
+	musicPart MusicHeaderWart
 
 MusicPartPointers_TitleScreen:
-	.db MusicHeaderTitleScreen1 - MusicPartPointers
-	.db MusicHeaderTitleScreen2 - MusicPartPointers
-	.db MusicHeaderTitleScreen3 - MusicPartPointers
+	musicPart MusicHeaderTitleScreen1
+	musicPart MusicHeaderTitleScreen2
+	musicPart MusicHeaderTitleScreen3
 MusicPartPointers_TitleScreenEnd:
-	.db MusicHeaderTitleScreen4 - MusicPartPointers
+	musicPart MusicHeaderTitleScreen4
 
 MusicPartPointers_SubSpace:
 MusicPartPointers_SubSpaceLoop:
-	.db MusicHeaderSubspace1 - MusicPartPointers
-	.db MusicHeaderSubspace2 - MusicPartPointers
-	.db MusicHeaderSubspace3 - MusicPartPointers
-	.db MusicHeaderSubspace2 - MusicPartPointers
+	musicPart MusicHeaderSubspace1
+	musicPart MusicHeaderSubspace2
+	musicPart MusicHeaderSubspace3
+	musicPart MusicHeaderSubspace2
 MusicPartPointers_SubSpaceEnd:
-	.db MusicHeaderSubspace4 - MusicPartPointers
+	musicPart MusicHeaderSubspace4
 
 MusicPartPointers_Ending:
-	.db MusicHeaderEnding1 - MusicPartPointers
-	.db MusicHeaderEnding2 - MusicPartPointers
-	.db MusicHeaderEnding3 - MusicPartPointers
-	.db MusicHeaderEnding4 - MusicPartPointers
+	musicPart MusicHeaderEnding1
+	musicPart MusicHeaderEnding2
+	musicPart MusicHeaderEnding3
+	musicPart MusicHeaderEnding4
 IFNDEF PROTOTYPE_MUSIC
-	.db MusicHeaderEnding5 - MusicPartPointers
+	musicPart MusicHeaderEnding5
 MusicPartPointers_EndingLoop:
 MusicPartPointers_EndingEnd:
-	.db MusicHeaderEnding6 - MusicPartPointers
+	musicPart MusicHeaderEnding6
 ENDIF
 IFDEF PROTOTYPE_MUSIC
 MusicPartPointers_EndingEnd:
-	.db MusicHeaderEnding5 - MusicPartPointers
+	musicPart MusicHeaderEnding5
 ENDIF
 
 IFNDEF PROTOTYPE_MUSIC
 MusicPartPointers_Underground:
 MusicPartPointers_UndergroundLoop:
 MusicPartPointers_UndergroundEnd:
-	.db MusicHeaderUnderground - MusicPartPointers
+	musicPart MusicHeaderUnderground
 ENDIF
 
 IFDEF PROTOTYPE_MUSIC
 MusicPartPointers_Underground:
 MusicPartPointers_UndergroundLoop:
-	.db MusicHeaderUndergroundBeta1 - MusicPartPointers
-	.db MusicHeaderUndergroundBeta1 - MusicPartPointers
-	.db MusicHeaderUndergroundBeta2 - MusicPartPointers
+	musicPart MusicHeaderUndergroundBeta1
+	musicPart MusicHeaderUndergroundBeta1
+	musicPart MusicHeaderUndergroundBeta2
 MusicPartPointers_UndergroundEnd:
-	.db MusicHeaderUndergroundBeta2 - MusicPartPointers
+	musicPart MusicHeaderUndergroundBeta2
 ENDIF
 
 ;
@@ -1552,7 +1552,7 @@ ENDIF
 ;
 MusicPartHeaders:
 MusicHeaderCharacterSelect1:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $AD, $98
 	.dw MusicDataCharacterSelect1
 	.db MusicDataCharacterSelect1_Triangle - MusicDataCharacterSelect1 ; $6B
@@ -1560,7 +1560,7 @@ MusicHeaderCharacterSelect1:
 	.db MusicDataCharacterSelect1_Noise - MusicDataCharacterSelect1 ; $A0
 
 MusicHeaderCharacterSelect2:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $5C, $99
 	.dw MusicDataCharacterSelect2
 	.db MusicDataCharacterSelect2_Triangle - MusicDataCharacterSelect2 ; $8E
@@ -1568,7 +1568,7 @@ MusicHeaderCharacterSelect2:
 	.db MusicDataCharacterSelect2_Noise - MusicDataCharacterSelect2 ; $B0
 
 MusicHeaderCharacterSelect3:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $9A, $99
 	.dw MusicDataCharacterSelect3
 	.db MusicDataCharacterSelect3_Triangle - MusicDataCharacterSelect3 ; $6F
@@ -1576,7 +1576,7 @@ MusicHeaderCharacterSelect3:
 	.db MusicDataCharacterSelect3_Noise - MusicDataCharacterSelect3 ; $76
 
 MusicHeaderCharacterSelect4:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $9E, $99
 	.dw MusicDataCharacterSelect4
 	.db MusicDataCharacterSelect4_Triangle - MusicDataCharacterSelect4 ; $6B
@@ -1584,7 +1584,7 @@ MusicHeaderCharacterSelect4:
 	.db MusicDataCharacterSelect4_Noise - MusicDataCharacterSelect4 ; $72
 
 MusicHeaderCharacterSelect5:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $26, $9A
 	.dw MusicDataCharacterSelect5
 	.db MusicDataCharacterSelect5_Triangle - MusicDataCharacterSelect5 ; $8A
@@ -1592,7 +1592,7 @@ MusicHeaderCharacterSelect5:
 	.db MusicDataCharacterSelect5_Noise - MusicDataCharacterSelect5 ; $AC
 
 MusicHeaderOverworld1:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $D4, $9B
 	.dw MusicDataOverworld1
 	.db MusicDataOverworld1_Triangle - MusicDataOverworld1 ; $2B
@@ -1600,7 +1600,7 @@ MusicHeaderOverworld1:
 	.db MusicDataOverworld1_Noise - MusicDataOverworld1 ; $3D
 
 MusicHeaderOverworld2:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $20, $9C
 	.dw MusicDataOverworld2
 	.db MusicDataOverworld2_Triangle - MusicDataOverworld2 ; $A8
@@ -1608,7 +1608,7 @@ MusicHeaderOverworld2:
 	.db MusicDataOverworld2_Noise - MusicDataOverworld2 ; $C9
 
 MusicHeaderOverworld3:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $F9, $9C
 	.dw MusicDataOverworld3
 	.db MusicDataOverworld3_Triangle - MusicDataOverworld3 ; $DD
@@ -1616,7 +1616,7 @@ MusicHeaderOverworld3:
 	.db MusicDataOverworld3_Noise - MusicDataOverworld3 ; $6C
 
 MusicHeaderOverworld4:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $3F, $9D
 	.dw MusicDataOverworld4
 	.db MusicDataOverworld4_Triangle - MusicDataOverworld4 ; $B2
@@ -1624,7 +1624,7 @@ MusicHeaderOverworld4:
 	.db MusicDataOverworld4_Noise - MusicDataOverworld4 ; $26
 
 MusicHeaderOverworld5:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $00, $9E
 	.dw MusicDataOverworld5
 	.db MusicDataOverworld5_Triangle - MusicDataOverworld5 ; $38
@@ -1632,7 +1632,7 @@ MusicHeaderOverworld5:
 	.db MusicDataOverworld5_Noise - MusicDataOverworld5 ; $46
 
 MusicHeaderOverworld6:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $4D, $9E
 	.dw MusicDataOverworld6
 	.db MusicDataOverworld6_Triangle - MusicDataOverworld6 ; $A7
@@ -1641,7 +1641,7 @@ MusicHeaderOverworld6:
 
 IFNDEF PROTOTYPE_MUSIC
 MusicHeaderUnderground:
-	.db NoteLengthTable_129bpm - NoteLengthTable
+	noteLength NoteLengthTable_129bpm
 	; .db $BD, $94
 	.dw MusicDataUnderground
 	.db MusicDataUnderground_Triangle - MusicDataUnderground ; $53
@@ -1651,14 +1651,14 @@ ENDIF
 
 IFDEF PROTOTYPE_MUSIC
 MusicHeaderUndergroundBeta1:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	.dw MusicDataUndergroundBeta1
 	.db MusicDataUndergroundBeta1_Triangle - MusicDataUndergroundBeta1
 	.db MusicDataUndergroundBeta1_Square1 - MusicDataUndergroundBeta1
 	.db MusicDataUndergroundBeta1_Noise - MusicDataUndergroundBeta1
 	.db MusicDataUndergroundBeta1_DPCM - MusicDataUndergroundBeta1
 MusicHeaderUndergroundBeta2:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	.dw MusicDataUndergroundBeta2
 	.db MusicDataUndergroundBeta2_Triangle - MusicDataUndergroundBeta2
 	.db MusicDataUndergroundBeta2_Square1 - MusicDataUndergroundBeta2
@@ -1667,7 +1667,7 @@ MusicHeaderUndergroundBeta2:
 ENDIF
 
 MusicHeaderBoss:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $1C, $9F
 	.dw MusicDataBoss
 	.db MusicDataBoss_Triangle - MusicDataBoss ; $83
@@ -1677,7 +1677,7 @@ IFNDEF PROTOTYPE_MUSIC
 ENDIF
 
 MusicHeaderStar:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $69, $94
 	.dw MusicDataStar
 	.db MusicDataStar_Triangle - MusicDataStar ; $37
@@ -1690,7 +1690,7 @@ IFDEF PROTOTYPE_MUSIC
 ENDIF
 
 MusicHeaderWart:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $C7, $9F
 	.dw MusicDataWart
 	.db MusicDataWart_Triangle - MusicDataWart ; $96
@@ -1700,7 +1700,7 @@ IFNDEF PROTOTYPE_MUSIC
 ENDIF
 
 MusicHeaderCrystal:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $48, $A1
 	.dw MusicDataCrystal
 	.db MusicDataCrystal_Triangle - MusicDataCrystal ; $1B
@@ -1708,7 +1708,7 @@ MusicHeaderCrystal:
 	; no noise channel, using $00 from below
 
 MusicHeaderGameOver:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $CE, $A0
 	.dw MusicDataGameOver
 	.db MusicDataGameOver_Triangle - MusicDataGameOver ; $1B
@@ -1716,7 +1716,7 @@ MusicHeaderGameOver:
 	; no noise channel, using $00 from below
 
 MusicHeaderBossBeaten:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $F2, $A0
 	.dw MusicDataBossBeaten
 	.db MusicDataBossBeaten_Triangle - MusicDataBossBeaten ; $41
@@ -1724,7 +1724,7 @@ MusicHeaderBossBeaten:
 	; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect8:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $93, $9B
 	.dw MusicDataCharacterSelect8
 	.db MusicDataCharacterSelect8_Triangle - MusicDataCharacterSelect8 ; $2F
@@ -1732,7 +1732,7 @@ MusicHeaderCharacterSelect8:
 	.db MusicDataCharacterSelect8_Noise - MusicDataCharacterSelect8 ; $38
 
 MusicHeaderMushroomBonusChance:
-	.db NoteLengthTable_150bpm - NoteLengthTable
+	noteLength NoteLengthTable_150bpm
 	; .db $BB, $A0
 	.dw MusicDataMushroomBonusChance
 	.db $00 ; no triangle channel
@@ -1740,7 +1740,7 @@ MusicHeaderMushroomBonusChance:
 	; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect7:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $DF, $9A
 	.dw MusicDataCharacterSelect7
 	.db MusicDataCharacterSelect7_Triangle - MusicDataCharacterSelect7 ; $97
@@ -1748,7 +1748,7 @@ MusicHeaderCharacterSelect7:
 	.db MusicDataCharacterSelect7_Noise - MusicDataCharacterSelect7 ; $B0
 
 MusicHeaderDeath:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $6F, $A1
 	.dw MusicDataDeath
 	.db MusicDataDeath_Triangle - MusicDataDeath ; $17
@@ -1756,7 +1756,7 @@ MusicHeaderDeath:
 	; no noise channel, using $00 from below
 
 MusicHeaderCharacterSelect6:
-	.db NoteLengthTable_300bpm - NoteLengthTable
+	noteLength NoteLengthTable_300bpm
 	; .db $5D, $9A
 	.dw MusicDataCharacterSelect6
 	.db MusicDataCharacterSelect6_Triangle - MusicDataCharacterSelect6 ; $6C
@@ -1764,7 +1764,7 @@ MusicHeaderCharacterSelect6:
 	.db MusicDataCharacterSelect6_Noise - MusicDataCharacterSelect6 ; $79
 
 MusicHeaderTitleScreen2:
-	.db NoteLengthTable_225bpm - NoteLengthTable
+	noteLength NoteLengthTable_225bpm
 	; .db $A7, $96
 	.dw MusicDataTitleScreen2
 	.db MusicDataTitleScreen2_Triangle - MusicDataTitleScreen2 ; $BC
@@ -1772,7 +1772,7 @@ MusicHeaderTitleScreen2:
 	.db MusicDataTitleScreen2_Noise - MusicDataTitleScreen2 ; $59
 
 MusicHeaderTitleScreen1:
-	.db NoteLengthTable_225bpm - NoteLengthTable
+	noteLength NoteLengthTable_225bpm
 	; .db $3E, $96
 	.dw MusicDataTitleScreen1
 	.db MusicDataTitleScreen1_Triangle - MusicDataTitleScreen1 ; $43
@@ -1780,7 +1780,7 @@ MusicHeaderTitleScreen1:
 	.db MusicDataTitleScreen1_Noise - MusicDataTitleScreen1 ; $57
 
 MusicHeaderTitleScreen3:
-	.db NoteLengthTable_225bpm - NoteLengthTable
+	noteLength NoteLengthTable_225bpm
 	; .db $94, $97
 	.dw MusicDataTitleScreen3
 	.db MusicDataTitleScreen3_Triangle - MusicDataTitleScreen3 ; $8D
@@ -1788,7 +1788,7 @@ MusicHeaderTitleScreen3:
 	.db MusicDataTitleScreen3_Noise - MusicDataTitleScreen3 ; $BA
 
 MusicHeaderTitleScreen4:
-	.db NoteLengthTable_225bpm - NoteLengthTable
+	noteLength NoteLengthTable_225bpm
 	; .db $78, $98
 	.dw MusicDataTitleScreen4
 	.db MusicDataTitleScreen4_Triangle - MusicDataTitleScreen4 ; $24
@@ -1796,7 +1796,7 @@ MusicHeaderTitleScreen4:
 	.db MusicDataTitleScreen4_Noise - MusicDataTitleScreen4 ; $29
 
 MusicHeaderSubspace1:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $50, $95
 	.dw MusicDataSubspace1
 	.db MusicDataSubspace1_Triangle - MusicDataSubspace1 ; $38
@@ -1804,7 +1804,7 @@ MusicHeaderSubspace1:
 	.db MusicDataSubspace1_Noise - MusicDataSubspace1 ; $83
 
 MusicHeaderSubspace2:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $A3, $95
 	.dw MusicDataSubspace2
 	.db MusicDataSubspace2_Triangle - MusicDataSubspace2 ; $24
@@ -1812,7 +1812,7 @@ MusicHeaderSubspace2:
 	.db MusicDataSubspace2_Noise - MusicDataSubspace2 ; $30
 
 MusicHeaderSubspace3:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $E0, $95
 	.dw MusicDataSubspace3
 	.db MusicDataSubspace3_Triangle - MusicDataSubspace3 ; $22
@@ -1820,7 +1820,7 @@ MusicHeaderSubspace3:
 	.db MusicDataSubspace3_Noise - MusicDataSubspace3 ; $51
 
 MusicHeaderSubspace4:
-	.db NoteLengthTable_200bpm - NoteLengthTable
+	noteLength NoteLengthTable_200bpm
 	; .db $0F, $96
 	.dw MusicDataSubspace4
 	.db MusicDataSubspace4_Triangle - MusicDataSubspace4 ; $17
@@ -1828,7 +1828,7 @@ MusicHeaderSubspace4:
 	.db MusicDataSubspace4_Noise - MusicDataSubspace4 ; $22
 
 MusicHeaderEnding1:
-	.db NoteLengthTable_129bpm - NoteLengthTable
+	noteLength NoteLengthTable_129bpm
 	; .db $1E, $91
 	.dw MusicDataEnding1
 	.db MusicDataEnding1_Triangle - MusicDataEnding1 ; $3D
@@ -1836,7 +1836,7 @@ MusicHeaderEnding1:
 	.db MusicDataEnding1_Noise - MusicDataEnding1 ; $6D
 
 MusicHeaderEnding3:
-	.db NoteLengthTable_129bpm - NoteLengthTable
+	noteLength NoteLengthTable_129bpm
 	; .db $9C, $91
 	.dw MusicDataEnding3
 	.db MusicDataEnding3_Triangle - MusicDataEnding3 ; $41
@@ -1844,7 +1844,7 @@ MusicHeaderEnding3:
 	.db MusicDataEnding3_Noise - MusicDataEnding3 ; $8C
 
 MusicHeaderEnding2:
-	.db NoteLengthTable_129bpm - NoteLengthTable
+	noteLength NoteLengthTable_129bpm
 	; .db $80, $92
 	.dw MusicDataEnding2
 	.db MusicDataEnding2_Triangle - MusicDataEnding2 ; $2A
@@ -1852,7 +1852,7 @@ MusicHeaderEnding2:
 	.db MusicDataEnding2_Noise - MusicDataEnding2 ; $19
 
 MusicHeaderEnding5:
-	.db NoteLengthTable_129bpm - NoteLengthTable
+	noteLength NoteLengthTable_129bpm
 	; .db $F2, $92
 	.dw MusicDataEnding5
 	.db MusicDataEnding5_Triangle - MusicDataEnding5 ; $4C
@@ -1860,7 +1860,7 @@ MusicHeaderEnding5:
 	.db MusicDataEnding5_Noise - MusicDataEnding5 ; $68
 
 MusicHeaderEnding4:
-	.db NoteLengthTable_129bpm - NoteLengthTable
+	noteLength NoteLengthTable_129bpm
 	; .db $0D, $92
 	.dw MusicDataEnding4
 	.db MusicDataEnding4_Triangle - MusicDataEnding4 ; $43
@@ -1869,7 +1869,7 @@ MusicHeaderEnding4:
 
 IFNDEF PROTOTYPE_MUSIC
 MusicHeaderEnding6:
-	.db NoteLengthTable_129bpm - NoteLengthTable
+	noteLength NoteLengthTable_129bpm
 	; .db $76, $93
 	.dw MusicDataEnding6
 	.db $00 ; no triangle channel
@@ -1879,38 +1879,38 @@ ENDIF
 
 
 MusicPointersFirstPart:
-	.db MusicPartPointers_Overworld - MusicPartPointers
-	.db MusicPartPointers_CharacterSelect - MusicPartPointers
-	.db MusicPartPointers_Underground - MusicPartPointers
-	.db MusicPartPointers_Boss - MusicPartPointers
-	.db MusicPartPointers_Star - MusicPartPointers
-	.db MusicPartPointers_SubSpace - MusicPartPointers
-	.db MusicPartPointers_Wart - MusicPartPointers
-	.db MusicPartPointers_TitleScreen - MusicPartPointers
-	.db MusicPartPointers_Ending - MusicPartPointers
+	musicPart MusicPartPointers_Overworld
+	musicPart MusicPartPointers_CharacterSelect
+	musicPart MusicPartPointers_Underground
+	musicPart MusicPartPointers_Boss
+	musicPart MusicPartPointers_Star
+	musicPart MusicPartPointers_SubSpace
+	musicPart MusicPartPointers_Wart
+	musicPart MusicPartPointers_TitleScreen
+	musicPart MusicPartPointers_Ending
 
 MusicPointersEndPart:
-	.db MusicPartPointers_OverworldEnd - MusicPartPointers
-	.db MusicPartPointers_CharacterSelectEnd - MusicPartPointers
-	.db MusicPartPointers_UndergroundEnd - MusicPartPointers
-	.db MusicPartPointers_BossEnd - MusicPartPointers
-	.db MusicPartPointers_StarEnd - MusicPartPointers
-	.db MusicPartPointers_SubSpaceEnd - MusicPartPointers
-	.db MusicPartPointers_WartEnd - MusicPartPointers
-	.db MusicPartPointers_TitleScreenEnd - MusicPartPointers
-	.db MusicPartPointers_EndingEnd - MusicPartPointers
+	musicPart MusicPartPointers_OverworldEnd
+	musicPart MusicPartPointers_CharacterSelectEnd
+	musicPart MusicPartPointers_UndergroundEnd
+	musicPart MusicPartPointers_BossEnd
+	musicPart MusicPartPointers_StarEnd
+	musicPart MusicPartPointers_SubSpaceEnd
+	musicPart MusicPartPointers_WartEnd
+	musicPart MusicPartPointers_TitleScreenEnd
+	musicPart MusicPartPointers_EndingEnd
 
 MusicPointersLoopPart:
-	.db MusicPartPointers_OverworldLoop - MusicPartPointers
-	.db MusicPartPointers_CharacterSelectLoop - MusicPartPointers
-	.db MusicPartPointers_UndergroundLoop - MusicPartPointers
-	.db MusicPartPointers_BossLoop - MusicPartPointers
-	.db MusicPartPointers_StarLoop - MusicPartPointers
-	.db MusicPartPointers_SubSpaceLoop - MusicPartPointers
-	.db MusicPartPointers_WartEnd - MusicPartPointers
+	musicPart MusicPartPointers_OverworldLoop
+	musicPart MusicPartPointers_CharacterSelectLoop
+	musicPart MusicPartPointers_UndergroundLoop
+	musicPart MusicPartPointers_BossLoop
+	musicPart MusicPartPointers_StarLoop
+	musicPart MusicPartPointers_SubSpaceLoop
+	musicPart MusicPartPointers_WartEnd
 	.db $00 ; no loop
 IFNDEF PROTOTYPE_MUSIC
-	.db MusicPartPointers_EndingLoop - MusicPartPointers
+	musicPart MusicPartPointers_EndingLoop
 ENDIF
 IFDEF PROTOTYPE_MUSIC
 	.db $00 ; no loop
