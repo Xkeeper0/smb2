@@ -1318,7 +1318,7 @@ ENDIF
 ; $x4: 1/8 note
 ; $x5: dotted 1/8 note
 ; $x6: 1/2 note triplet (rounding down)
-; $x7: 1/2 not triplet (rounding up)
+; $x7: 1/2 note triplet (rounding up)
 ; $x8: 1/4 note
 ; $x9: dotted 1/4 note
 ; $xA: 1/2 note
@@ -1339,15 +1339,17 @@ NoteLengthTable:
 ; Game Over
 ; Boss Beaten
 NoteLengthTable_300bpm:
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $03, $03, $04, $04, $06, $09, $08, $08, $0C, $12, $18, $24, $30
 
 NoteLengthTable_257bpm: ; rounded
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $03, $04, $05, $04, $07, $0A, $09, $0A, $0E, $15, $1C, $2A, $38
-
 	.db $0B ; junk?
 
 ; Title Screen
 NoteLengthTable_225bpm:
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $04, $04, $05, $06, $08, $0C, $0B, $0A, $10, $18, $20, $30, $40
 
 ; Overworld
@@ -1356,50 +1358,53 @@ NoteLengthTable_225bpm:
 ; Death
 ; Subspace
 NoteLengthTable_200bpm:
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $04, $05, $06, $06, $09, $0D, $0C, $0C, $12, $1B, $24, $36, $48
-
 	.db $0E, $03 ; junk?
 
 NoteLengthTable_180bpm:
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $05, $05, $07, $06, $0A, $0F, $0D, $0E, $14, $1E, $28, $3C, $50
 
 NoteLengthTable_164bpm: ; rounded, 163.64 bpm
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $05, $06, $07, $08, $0B, $10, $0F, $0E, $16, $21, $2C, $42, $58
-
 	.db $11 ; junk?
 
 ; Bonus Chance
 NoteLengthTable_150bpm:
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $06, $06, $08, $08, $0C, $12, $10, $10, $18, $24, $30, $48, $60
-
 	.db $02 ; junk?
 
 NoteLengthTable_138bpm: ; rounded, 138.46 bpm
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $06, $07, $09, $08, $0D, $13, $11, $12, $1A, $27, $34, $4E, $68
-
 	.db $14 ; junk?
 
 ; Underground
 ; Ending
 NoteLengthTable_129bpm: ; rounded, 128.57
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $07, $07, $09, $0A, $0E, $15, $13, $12, $1C, $2A, $38, $54, $70
-
 	.db $03, $04 ; junk?
 
 NoteLengthTable_120bpm:
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $07, $08, $0A, $0A, $0F, $16, $14, $14, $1E, $2D, $3C, $5A, $78
-
 	.db $17 ; junk?
 
 NoteLengthTable_112bpm: ; rounded, 112.5 bpm
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $08, $08, $0B, $0A, $10, $18, $15, $16, $20, $30, $40, $60, $80
 
 NoteLengthTable_106bpm: ; rounded, 105.88 bpm
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $08, $09, $0B, $0C, $11, $19, $15, $16, $22, $33, $44, $60, $88
-
 	.db $1A ; junk?
 
 NoteLengthTable_100bpm:
+	;   $0   $1   $2   $3   $4   $5   $6   $7   $8   $9   $A   $B   $C
 	.db $09, $09, $0C, $0C, $12, $1B, $18, $18, $24, $36, $48, $6C, $90
 
 
@@ -1459,6 +1464,7 @@ MusicPartPointers_CharacterSelectLoop:
 MusicPartPointers_CharacterSelectEnd:
 	musicPart MusicHeaderCharacterSelect8
 
+
 MusicPartPointers_Overworld:
 	musicPart MusicHeaderOverworld1
 MusicPartPointers_OverworldLoop:
@@ -1470,20 +1476,24 @@ MusicPartPointers_OverworldLoop:
 MusicPartPointers_OverworldEnd:
 	musicPart MusicHeaderOverworld6
 
+
 MusicPartPointers_Boss:
 MusicPartPointers_BossLoop:
 MusicPartPointers_BossEnd:
 	musicPart MusicHeaderBoss
+
 
 MusicPartPointers_Star:
 MusicPartPointers_StarLoop:
 MusicPartPointers_StarEnd:
 	musicPart MusicHeaderStar
 
+
 MusicPartPointers_Wart:
 MusicPartPointers_WartLoop:
 MusicPartPointers_WartEnd:
 	musicPart MusicHeaderWart
+
 
 MusicPartPointers_TitleScreen:
 	musicPart MusicHeaderTitleScreen1
@@ -1491,6 +1501,7 @@ MusicPartPointers_TitleScreen:
 	musicPart MusicHeaderTitleScreen3
 MusicPartPointers_TitleScreenEnd:
 	musicPart MusicHeaderTitleScreen4
+
 
 MusicPartPointers_SubSpace:
 MusicPartPointers_SubSpaceLoop:
@@ -1500,6 +1511,7 @@ MusicPartPointers_SubSpaceLoop:
 	musicPart MusicHeaderSubspace2
 MusicPartPointers_SubSpaceEnd:
 	musicPart MusicHeaderSubspace4
+
 
 MusicPartPointers_Ending:
 	musicPart MusicHeaderEnding1
@@ -1516,6 +1528,7 @@ IFDEF PROTOTYPE_MUSIC
 MusicPartPointers_EndingEnd:
 	musicPart MusicHeaderEnding5
 ENDIF
+
 
 IFNDEF PROTOTYPE_MUSIC
 MusicPartPointers_Underground:
@@ -1548,9 +1561,17 @@ ENDIF
 ;   02: Main address / Square 2 (hi)
 ;   03: Triangle offset from main
 ;   04: Square 1 offset from main
-;   05: Noise offset from main
+;   05: Noise/DPCM offset from main
+;
+; For the musicHeader macro, specifying $00 is "none", -1 for noise/pcm is "omit".
+; Some of the music headers use the $00 from the next header's note length table,
+; to save one byte (in a ROM /full/ of unused space...)
 ;
 MusicPartHeaders:
+
+; ----------------------------------------
+; Character select segments 1 through 5
+; (6 through 8 are a ways below this)
 MusicHeaderCharacterSelect1:
 	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect1, MusicDataCharacterSelect1_Triangle, MusicDataCharacterSelect1_Square1, MusicDataCharacterSelect1_Noise
 
@@ -1566,6 +1587,8 @@ MusicHeaderCharacterSelect4:
 MusicHeaderCharacterSelect5:
 	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect5, MusicDataCharacterSelect5_Triangle, MusicDataCharacterSelect5_Square1, MusicDataCharacterSelect5_Noise
 
+; ----------------------------------------
+; Overworld music headers
 MusicHeaderOverworld1:
 	musicHeader NoteLengthTable_200bpm, MusicDataOverworld1, MusicDataOverworld1_Triangle, MusicDataOverworld1_Square1, MusicDataOverworld1_Noise
 
@@ -1584,12 +1607,16 @@ MusicHeaderOverworld5:
 MusicHeaderOverworld6:
 	musicHeader NoteLengthTable_200bpm, MusicDataOverworld6, MusicDataOverworld6_Triangle, MusicDataOverworld6_Square1, MusicDataOverworld6_Noise
 
+; ----------------------------------------
+; Underground music
 IFNDEF PROTOTYPE_MUSIC
 MusicHeaderUnderground:
 	musicHeader NoteLengthTable_129bpm, MusicDataUnderground, MusicDataUnderground_Triangle, MusicDataUnderground_Square1, MusicDataUnderground_DPCM
 ENDIF
 
 IFDEF PROTOTYPE_MUSIC
+; Much cooler SMB3-esque underground music...
+; apparently using /both/ noise and DPCM (!)
 MusicHeaderUndergroundBeta1:
 	musicHeader NoteLengthTable_200bpm, MusicDataUndergroundBeta1, MusicDataUndergroundBeta1_Triangle, MusicDataUndergroundBeta1_Square1, MusicDataUndergroundBeta1_Noise
 	.db MusicDataUndergroundBeta1_DPCM - MusicDataUndergroundBeta1
@@ -1598,79 +1625,64 @@ MusicHeaderUndergroundBeta2:
 	.db MusicDataUndergroundBeta2_DPCM - MusicDataUndergroundBeta2
 ENDIF
 
+; ----------------------------------------
+; Boss and boss area music
 MusicHeaderBoss:
-	noteLength NoteLengthTable_200bpm
-	.dw MusicDataBoss
-	.db MusicDataBoss_Triangle - MusicDataBoss ; $83
-	.db MusicDataBoss_Square1 - MusicDataBoss ; $42
+	musicHeader NoteLengthTable_200bpm, MusicDataBoss, MusicDataBoss_Triangle, MusicDataBoss_Square1, -1
 IFNDEF PROTOTYPE_MUSIC
 	.db $00 ; no noise channel
+	; @todo ? this should be covered by MusicHeaderStar's first byte, unless
+	;       this was some weird space-saver in the original. shrug
 ENDIF
 
+; ----------------------------------------
+; Starman music
 MusicHeaderStar:
-	noteLength NoteLengthTable_300bpm
-	.dw MusicDataStar
-	.db MusicDataStar_Triangle - MusicDataStar ; $37
-	.db MusicDataStar_Square1 - MusicDataStar ; $1A
 IFNDEF PROTOTYPE_MUSIC
-	.db MusicDataStar_DPCM - MusicDataStar ; $49
+	musicHeader NoteLengthTable_300bpm, MusicDataStar, MusicDataStar_Triangle, MusicDataStar_Square1, MusicDataStar_DPCM
 ENDIF
 IFDEF PROTOTYPE_MUSIC
-	.db MusicDataStar_Noise - MusicDataStar
+	musicHeader NoteLengthTable_300bpm, MusicDataStar, MusicDataStar_Triangle, MusicDataStar_Square1, MusicDataStar_Noise
 ENDIF
 
+; ----------------------------------------
+; Wart's final boss music
 MusicHeaderWart:
-	noteLength NoteLengthTable_200bpm
-	.dw MusicDataWart
-	.db MusicDataWart_Triangle - MusicDataWart ; $96
-	.db MusicDataWart_Square1 - MusicDataWart ; $4B
+	musicHeader NoteLengthTable_200bpm, MusicDataWart, MusicDataWart_Triangle, MusicDataWart_Square1, -1
 IFNDEF PROTOTYPE_MUSIC
 	.db $00 ; no noise channel
+	; @todo same note as above chunk
 ENDIF
 
+; ----------------------------------------
+; Various shorter jingles, extra character select segments (8, 7, 6), and other potpourri
+
 MusicHeaderCrystal:
-	noteLength NoteLengthTable_300bpm
-	.dw MusicDataCrystal
-	.db MusicDataCrystal_Triangle - MusicDataCrystal ; $1B
-	.db MusicDataCrystal_Square1 - MusicDataCrystal ; $0D
-	; no noise channel, using $00 from below
+	musicHeader NoteLengthTable_300bpm, MusicDataCrystal, MusicDataCrystal_Triangle, MusicDataCrystal_Square1, -1
 
 MusicHeaderGameOver:
-	noteLength NoteLengthTable_300bpm
-	.dw MusicDataGameOver
-	.db MusicDataGameOver_Triangle - MusicDataGameOver ; $1B
-	.db MusicDataGameOver_Square1 - MusicDataGameOver ; $0E
-	; no noise channel, using $00 from below
+ 	musicHeader NoteLengthTable_300bpm, MusicDataGameOver, MusicDataGameOver_Triangle, MusicDataGameOver_Square1, -1
 
 MusicHeaderBossBeaten:
-	noteLength NoteLengthTable_300bpm
-	.dw MusicDataBossBeaten
-	.db MusicDataBossBeaten_Triangle - MusicDataBossBeaten ; $41
-	.db MusicDataBossBeaten_Square1 - MusicDataBossBeaten ; $27
-	; no noise channel, using $00 from below
+ 	musicHeader NoteLengthTable_300bpm, MusicDataBossBeaten, MusicDataBossBeaten_Triangle, MusicDataBossBeaten_Square1, -1
 
 MusicHeaderCharacterSelect8:
 	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect8, MusicDataCharacterSelect8_Triangle, MusicDataCharacterSelect8_Square1, MusicDataCharacterSelect8_Noise
 
 MusicHeaderMushroomBonusChance:
-	noteLength NoteLengthTable_150bpm
-	.dw MusicDataMushroomBonusChance
-	.db $00 ; no triangle channel
-	.db MusicDataMushroomBonusChance_Square1 - MusicDataMushroomBonusChance ; $0A
-	; no noise channel, using $00 from below
+ 	musicHeader NoteLengthTable_150bpm, MusicDataMushroomBonusChance, $00, MusicDataMushroomBonusChance_Square1, -1
 
 MusicHeaderCharacterSelect7:
 	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect7, MusicDataCharacterSelect7_Triangle, MusicDataCharacterSelect7_Square1, MusicDataCharacterSelect7_Noise
 
 MusicHeaderDeath:
-	noteLength NoteLengthTable_200bpm
-	.dw MusicDataDeath
-	.db MusicDataDeath_Triangle - MusicDataDeath ; $17
-	.db MusicDataDeath_Square1 - MusicDataDeath ; $0C
-	; no noise channel, using $00 from below
+ 	musicHeader NoteLengthTable_200bpm, MusicDataDeath, MusicDataDeath_Triangle, MusicDataDeath_Square1, -1
 
 MusicHeaderCharacterSelect6:
 	musicHeader NoteLengthTable_300bpm, MusicDataCharacterSelect6, MusicDataCharacterSelect6_Triangle, MusicDataCharacterSelect6_Square1, MusicDataCharacterSelect6_Noise
+
+; ----------------------------------------
+; Title screen segments
 
 MusicHeaderTitleScreen2:
 	musicHeader NoteLengthTable_225bpm, MusicDataTitleScreen2, MusicDataTitleScreen2_Triangle, MusicDataTitleScreen2_Square1, MusicDataTitleScreen2_Noise
@@ -1684,6 +1696,9 @@ MusicHeaderTitleScreen3:
 MusicHeaderTitleScreen4:
 	musicHeader NoteLengthTable_225bpm, MusicDataTitleScreen4, MusicDataTitleScreen4_Triangle, MusicDataTitleScreen4_Square1, MusicDataTitleScreen4_Noise
 
+; ----------------------------------------
+; Subspace music, quite longer than normally heard
+
 MusicHeaderSubspace1:
 	musicHeader NoteLengthTable_200bpm, MusicDataSubspace1, MusicDataSubspace1_Triangle, MusicDataSubspace1_Square1, MusicDataSubspace1_Noise
 
@@ -1695,6 +1710,9 @@ MusicHeaderSubspace3:
 
 MusicHeaderSubspace4:
 	musicHeader NoteLengthTable_200bpm, MusicDataSubspace4, MusicDataSubspace4_Triangle, MusicDataSubspace4_Square1, MusicDataSubspace4_Noise
+
+; ----------------------------------------
+; Ending music
 
 MusicHeaderEnding1:
 	musicHeader NoteLengthTable_129bpm, MusicDataEnding1, MusicDataEnding1_Triangle, MusicDataEnding1_Square1, MusicDataEnding1_Noise
@@ -1715,6 +1733,7 @@ IFNDEF PROTOTYPE_MUSIC
 MusicHeaderEnding6:
 	musicHeader NoteLengthTable_129bpm, MusicDataEnding6, $00, MusicDataEnding6_Square1, $00
 ENDIF
+
 
 
 MusicPointersFirstPart:
@@ -6508,776 +6527,5 @@ MusicDataDeath_Triangle:
 	.db $30
 
 
-;
-; Instrument Sound Data
-; =====================
-;
-; Each "instrument" is a lookup table of duty/volume/envelope values that are
-; read backwards from the end
-;
-; The normal version of an instrument is 64 bytes
-; The shorter version of an instrument is 23 bytes
-;
-InstrumentSoundData:
-
-; Long square
-; 50% duty cycle (square) with slight decay
-InstrumentDVE_80: ; $A18D
-	.db $90
-	.db $95
-	.db $95
-	.db $95
-	.db $95
-	.db $95
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $97
-	.db $97
-	.db $97
-	.db $97
-	.db $98
-	.db $98
-
-; Long square
-; 50% duty cycle (square) with slight decay
-InstrumentDVE_80_Short: ; $A1CD
-	.db $90
-	.db $92
-	.db $94
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $96
-	.db $97
-	.db $97
-	.db $97
-	.db $97
-	.db $98
-	.db $98
-
-; Short square
-; 25% duty cycle with pronounced decay
-InstrumentDVE_90_E0: ; $A1E4
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $52
-	.db $53
-	.db $54
-	.db $55
-	.db $56
-	.db $57
-	.db $58
-	.db $59
-	.db $5A
-	.db $5B
-
-; Short square
-; 25% duty cycle with pronounced decay
-InstrumentDVE_90_E0_Short: ; $A224
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $52
-	.db $53
-	.db $54
-	.db $55
-	.db $56
-	.db $57
-	.db $58
-	.db $59
-	.db $5A
-	.db $5B
-
-; Electric Piano
-; 12.5% duty cycle with pronounced decay
-InstrumentDVE_A0: ; $A23B
-	.db $10
-	.db $11
-	.db $11
-	.db $11
-	.db $12
-	.db $12
-	.db $12
-	.db $13
-	.db $13
-	.db $14
-	.db $14
-	.db $14
-	.db $14
-	.db $15
-	.db $15
-	.db $15
-	.db $15
-	.db $16
-	.db $16
-	.db $16
-	.db $17
-	.db $17
-	.db $17
-	.db $17
-	.db $17
-	.db $17
-	.db $17
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $19
-	.db $19
-	.db $19
-	.db $1A
-	.db $1A
-	.db $1B
-	.db $1B
-	.db $1C
-
-; Electric Piano
-; 12.5% duty cycle with pronounced decay
-InstrumentDVE_A0_Short: ; $A27B
-	.db $10
-	.db $11
-	.db $12
-	.db $13
-	.db $14
-	.db $15
-	.db $16
-	.db $17
-	.db $17
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $18
-	.db $19
-	.db $19
-	.db $19
-	.db $1A
-	.db $1A
-	.db $1B
-	.db $1B
-	.db $1C
-
-; Organ
-; 25% duty cycle with slight decay
-InstrumentDVE_B0: ; $A293
-	.db $51
-	.db $52
-	.db $52
-	.db $52
-	.db $52
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $55
-	.db $55
-	.db $55
-	.db $55
-	.db $55
-	.db $55
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $55
-	.db $55
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-	.db $56
-
-; Organ
-; 25% duty cycle with slight decay
-InstrumentDVE_B0_Short: ; $A2D3
-	.db $51
-	.db $52
-	.db $52
-	.db $52
-	.db $52
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $55
-	.db $55
-	.db $56
-	.db $56
-
-; Strings
-; 25% duty cycle with slow attack
-InstrumentDVE_C0_Short: ; $A2EA
-	.db $51
-	.db $52
-	.db $53
-	.db $54
-	.db $54
-	.db $55
-	.db $56
-	.db $56
-	.db $57
-	.db $58
-	.db $59
-	.db $5A
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5A
-	.db $59
-	.db $58
-	.db $56
-	.db $55
-	.db $55
-
-; Strings
-; 25% duty cycle with slow attack
-InstrumentDVE_C0: ; $A301
-	.db $51
-	.db $52
-	.db $52
-	.db $51
-	.db $52
-	.db $52
-	.db $52
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $55
-	.db $55
-	.db $55
-	.db $55
-	.db $55
-	.db $56
-	.db $56
-	.db $56
-	.db $57
-	.db $57
-	.db $57
-	.db $57
-	.db $57
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $59
-	.db $59
-	.db $59
-	.db $59
-	.db $5A
-	.db $5A
-	.db $5A
-	.db $5A
-	.db $5A
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5A
-	.db $59
-	.db $58
-	.db $56
-	.db $55
-	.db $55
-
-; Pluck
-; 50% to -25% to 12.5% to 12.5% duty cycle with pronounced decay
-InstrumentDVE_D0: ; $A341
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $52
-	.db $53
-	.db $54
-	.db $55
-	.db $56
-	.db $57
-	.db $58
-	.db $19
-	.db $DA
-	.db $9B
-
-; Pluck
-; 50% to -25% to 12.5% to 12.5% duty cycle with pronounced decay
-InstrumentDVE_D0_Short: ; $A381
-	.db $50
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $52
-	.db $53
-	.db $54
-	.db $55
-	.db $56
-	.db $57
-	.db $58
-	.db $19
-	.db $DA
-	.db $9B
-
-IFNDEF PROTOTYPE_MUSIC
-; Soft pluck
-; 25% duty cycle with pronounced decay
-InstrumentDVE_F0_Short: ; $A398
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $52
-	.db $52
-	.db $52
-	.db $53
-	.db $53
-	.db $54
-	.db $55
-
-; Soft pluck
-; 25% duty cycle with pronounced decay
-InstrumentDVE_F0: ; $A3AF
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $50
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $52
-	.db $52
-	.db $52
-	.db $53
-	.db $53
-	.db $54
-	.db $55
-ENDIF
-
-IFDEF PROTOTYPE_MUSIC
-; Soft pluck
-; 25% duty cycle with pronounced decay
-InstrumentDVE_F0_Short:
-	.db $54
-	.db $54
-	.db $55
-	.db $56
-	.db $56
-	.db $57
-	.db $58
-	.db $59
-	.db $5A
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5D
-
-; Soft pluck
-; 25% duty cycle with pronounced decay
-InstrumentDVE_F0:
-	.db $51
-	.db $51
-	.db $51
-	.db $51
-	.db $52
-	.db $52
-	.db $52
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $53
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $54
-	.db $55
-	.db $55
-	.db $55
-	.db $55
-	.db $55
-	.db $56
-	.db $56
-	.db $56
-	.db $57
-	.db $57
-	.db $57
-	.db $57
-	.db $57
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $58
-	.db $59
-	.db $59
-	.db $59
-	.db $59
-	.db $5A
-	.db $5A
-	.db $5A
-	.db $5A
-	.db $5A
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5B
-	.db $5C
-	.db $5C
-	.db $5C
-	.db $5D
-ENDIF
+; Include instruent data; see this file for format details
+.include "src/music/instruments.asm"

@@ -26,6 +26,18 @@ MACRO noteLength label
 	.db (label - NoteLengthTable)
 ENDM
 
+;
+; MusicHeader macro, to replace this:
+;	noteLength NoteLengthTable_300bpm
+;	.dw MusicDataXXX
+;	.db MusicDataXXX_Triangle - MusicDataXXX
+;	.db MusicDataXXX_Square1 - MusicDataXXX
+;	.db MusicDataXXX_Noise - MusicDataXXX
+;	; no noise channel, using $00 from below
+;
+; Setting "noise" to -1 will suppress output of the final $00,
+; in case the music header 'reuses' the note length from the next header
+;
 MACRO musicHeader noteLengthLabel, square2, triangle, square1, noise
 	noteLength noteLengthLabel
 	.dw square2
