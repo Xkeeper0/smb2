@@ -306,77 +306,10 @@ ProcessSoundEffectQueue1_Exit:
 	RTS
 
 
-SoundEffectPointers:
-	.db SoundEffect1Data_BirdoShot - SoundEffectPointers
-	.db SoundEffect1Data_PotionDoorBong - SoundEffectPointers
-	.db SoundEffect1Data_CherryGet - SoundEffectPointers
-	.db SoundEffect1Data_ThrowItem - SoundEffectPointers
-	.db SoundEffect1Data_1UP - SoundEffectPointers
-	.db SoundEffect1Data_EnemyHit - SoundEffectPointers
-	.db SoundEffect1Data_StopwatchTick - SoundEffectPointers
-	.db SoundEffect1Data_HawkOpen_WartBarf - SoundEffectPointers
-
-SoundEffect1Data_PotionDoorBong:
-	.db $9F
-	.db $10, $0E, $0C, $7E, $7E, $7E
-	.db $10, $0E, $0C, $7E, $7E, $7E
-	.db $86
-	.db $10, $0E, $0C, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-	.db $00
-
-SoundEffect1Data_ThrowItem:
-	.db $9F, $64, $7E, $7E
-	.db $9E, $68, $7E, $7E
-	.db $9D, $6A, $7E, $7E
-	.db $9C, $6E, $7E, $7E
-	.db $9B, $72, $7E, $7E
-	.db $9A, $76, $7E, $7E
-	.db $84, $78, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-	.db $00
-
-SoundEffect1Data_BirdoShot:
-	.db $9F, $30, $34, $36, $38
-	.db $9F, $3C, $3E, $40, $42
-	.db $9A, $3A, $3C, $3E, $40
-	.db $9C, $38, $3A, $3C, $3E
-	.db $96, $36, $38, $3A, $3C
-	.db $98, $34, $36, $38, $36
-	.db $00
-
-SoundEffect1Data_CherryGet:
-	.db $81, $56, $7E, $64, $7E, $68
-	.db $00
-
-SoundEffect1Data_EnemyHit:
-	.db $99, $18, $1A, $18, $1C, $18, $1A
-	.db $9B, $18, $1C, $18, $20, $18, $22
-	.db $9F, $18, $3C, $24, $30, $3C, $18, $30
-	.db $00
-
-SoundEffect1Data_StopwatchTick:
-	.db $80
-	.db $68, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-	.db $60, $7E, $7E
-	.db $64, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E
-	.db $56, $7E, $7E
-	.db $00
-
-SoundEffect1Data_HawkOpen_WartBarf:
-	.db $80, $1E, $1C, $1E, $1A, $18, $16, $1C, $18, $1A, $1E, $18
-	.db $16, $14, $12, $14, $16, $14, $12, $2C, $2C, $2A, $2E, $2C
-	.db $2A, $28, $26, $28, $24, $22, $20, $1E, $1C, $1A, $18, $16
-	.db $14, $14, $12, $10, $0E, $0C, $0A, $08, $08, $06, $04, $02, $02
-	.db $00
-
-SoundEffect1Data_1UP:
-	.db $81
-	.db $5E, $7E, $7E, $7E, $7E, $7E, $7E
-	.db $64, $7E, $7E, $7E, $7E, $7E, $7E
-	.db $76, $7E, $7E, $7E, $7E, $7E, $7E
-	.db $6E, $7E, $7E, $7E, $7E, $7E, $7E
-	.db $72, $7E, $7E, $7E, $7E, $7E, $7E
-	.db $7C, $7E, $7E
-	.db $00
+;
+; Sound effect data
+;
+.include "src/music/sound-effect-data.asm"
 
 
 ProcessSoundEffectQueue3_ShortNoise:
