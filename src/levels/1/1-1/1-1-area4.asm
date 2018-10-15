@@ -13,6 +13,11 @@ LevelData_1_1_Area4:
       .BYTE $F1, $0F
       .BYTE $F1, $50
       .BYTE $E1, $13
+IFNDEF DISABLE_DOOR_POINTERS
       .BYTE $00, $27
+ENDIF
+IFDEF DISABLE_DOOR_POINTERS
+      .BYTE $F5, $00, $27
+ENDIF
       .BYTE $F0, $8A
       .BYTE $FF

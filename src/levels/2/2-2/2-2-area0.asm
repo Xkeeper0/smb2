@@ -7,7 +7,12 @@ LevelData_2_2_Area0:
       .BYTE $F0, $B0
       .BYTE $F1, $6F
       .BYTE $BD, $14
+IFNDEF DISABLE_DOOR_POINTERS
       .BYTE $04, $10
+ENDIF
+IFDEF DISABLE_DOOR_POINTERS
+      .BYTE $F5, $04, $10
+ENDIF
       .BYTE $40, $81
       .BYTE $F0, $2E
       .BYTE $F1, $CA

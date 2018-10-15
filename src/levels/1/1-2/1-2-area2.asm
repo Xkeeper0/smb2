@@ -9,7 +9,12 @@ LevelData_1_2_Area2:
       .BYTE $28, $10
       .BYTE $1B, $11
       .BYTE $53, $0B
+IFNDEF DISABLE_DOOR_POINTERS
       .BYTE $01, $07
+ENDIF
+IFDEF DISABLE_DOOR_POINTERS
+      .BYTE $F5, $01, $07
+ENDIF
       .BYTE $1F, $16
       .BYTE $14, $82
       .BYTE $05, $82

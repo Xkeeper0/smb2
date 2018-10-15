@@ -2557,7 +2557,12 @@ SubspaceTilesSearch:
       .BYTE $CA ; $02
       .BYTE $CE ; $03
       .BYTE $C7 ; $04
+IFNDEF FIX_SUBSPACE_TILES
       .BYTE $C8 ; $05 ; BUG: This should be $C9
+ENDIF
+IFDEF FIX_SUBSPACE_TILES
+      .BYTE $C9 ; $05
+ENDIF
       .BYTE $D0 ; $06
       .BYTE $D1 ; $07
       .BYTE $01 ; $08
@@ -2580,7 +2585,12 @@ SubspaceTilesReplace:
       .BYTE $75 ; $01
       .BYTE $CE ; $02
       .BYTE $CA ; $03
+IFNDEF FIX_SUBSPACE_TILES
       .BYTE $C8 ; $04 ; BUG: This should be $C9
+ENDIF
+IFDEF FIX_SUBSPACE_TILES
+      .BYTE $C9 ; $04
+ENDIF
       .BYTE $C7 ; $05
       .BYTE $D1 ; $06
       .BYTE $D0 ; $07

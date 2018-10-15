@@ -636,7 +636,7 @@ ENDIF
       STA     MusicNoiseNoteLength
       STA     MusicDPCMNoteLength
       LDA     #$00
-      STA     MusicSquare1NoteOffset
+      STA     CurrentMusicSquare2Offset
       STA     MusicSquare1NoteSweep
 
       LDA     #%00001011
@@ -648,8 +648,8 @@ ProcessMusicQueue_ReadNoteData:
       DEC     MusicSquare2NoteLength
       BNE     ProcessMusicQueue_Square2SustainNote
 
-      LDY     MusicSquare1NoteOffset
-      INC     MusicSquare1NoteOffset
+      LDY     CurrentMusicSquare2Offset
+      INC     CurrentMusicSquare2Offset
       LDA     (CurrentMusicPointer),Y
       BEQ     ProcessMusicQueue_EndOfSegment
 
@@ -694,8 +694,8 @@ ProcessMusicQueue_Square2Patch:
       JSR     ProcessMusicQueue_PatchNoteLength
 
       STA     MusicSquare2NoteStartLength
-      LDY     MusicSquare1NoteOffset
-      INC     MusicSquare1NoteOffset
+      LDY     CurrentMusicSquare2Offset
+      INC     CurrentMusicSquare2Offset
       LDA     (CurrentMusicPointer),Y
 
 ProcessMusicQueue_Square2Note:

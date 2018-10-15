@@ -3,7 +3,12 @@
 LevelData_4_3_Area2:
       .BYTE $20, $E0, $60, $09
       .BYTE $44, $0A
+IFNDEF DISABLE_DOOR_POINTERS
       .BYTE $0B, $41
+ENDIF
+IFDEF DISABLE_DOOR_POINTERS
+      .BYTE $F5, $0B, $41
+ENDIF
       .BYTE $21, $34
       .BYTE $0A, $34
       .BYTE $27, $31
@@ -58,7 +63,12 @@ LevelData_4_3_Area2:
       .BYTE $21, $31
       .BYTE $09, $33
       .BYTE $14, $0A
+IFNDEF DISABLE_DOOR_POINTERS
       .BYTE $0B, $16
+ENDIF
+IFDEF DISABLE_DOOR_POINTERS
+      .BYTE $F5, $0B, $16
+ENDIF
       .BYTE $66, $78
       .BYTE $F1, $3B
       .BYTE $F1, $C0

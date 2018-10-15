@@ -5,7 +5,7 @@ A disassembly of Super Mario Bros. 2.
 [![Build Status](https://travis-ci.com/Xkeeper0/smb2.svg?branch=asm6)](https://travis-ci.com/Xkeeper0/smb2)
 
 This is designed for use with [asm6f](https://github.com/freem/asm6f/).
-For your convinience, binaries of that have been included. (Windows/Linux)
+For your convenience, binaries of that have been included. (Windows/Linux)
 
 ## Building
 
