@@ -1,60 +1,60 @@
 ; Level 3-3, Area 5
 
 LevelData_3_3_Area5:
-      .BYTE $20, $E0, $37, $19
-      .BYTE $A0, $37
-      .BYTE $1B, $0A
+	.db $20, $E0, $37, $19
+	.db $A0, $37
+	.db $1B, $0A
 IFNDEF DISABLE_DOOR_POINTERS
-      .BYTE $08, $60
+	.db $08, $60
 ENDIF
 IFDEF DISABLE_DOOR_POINTERS
-      .BYTE $F5, $08, $60
+	.db $F5, $08, $60
 ENDIF
-      .BYTE $27, $38
-      .BYTE $F0, $9E
-      .BYTE $F0, $F3
-      .BYTE $F1, $5E
-      .BYTE $F1, $D3
-      .BYTE $26, $04
-      .BYTE $10, $37
-      .BYTE $37, $38
-      .BYTE $26, $04
-      .BYTE $10, $37
-      .BYTE $37, $38
-      .BYTE $26, $04
-      .BYTE $10, $37
-      .BYTE $F0, $3E
-      .BYTE $F0, $B3
-      .BYTE $F0, $FE
-      .BYTE $F1, $73
-      .BYTE $F1, $BE
-      .BYTE $37, $38
-      .BYTE $26, $04
-      .BYTE $10, $37
-      .BYTE $37, $38
-      .BYTE $26, $04
-      .BYTE $10, $37
-      .BYTE $37, $38
-      .BYTE $F0, $53
-      .BYTE $F0, $9E
-      .BYTE $F1, $13
-      .BYTE $F1, $5E
-      .BYTE $F1, $D3
-      .BYTE $26, $04
-      .BYTE $10, $37
-      .BYTE $37, $38
-      .BYTE $26, $04
-      .BYTE $10, $37
-      .BYTE $43, $0A
+	.db $27, $38
+	.db $F0, $9E
+	.db $F0, $F3
+	.db $F1, $5E
+	.db $F1, $D3
+	.db $26, $04
+	.db $10, $37
+	.db $37, $38
+	.db $26, $04
+	.db $10, $37
+	.db $37, $38
+	.db $26, $04
+	.db $10, $37
+	.db $F0, $3E
+	.db $F0, $B3
+	.db $F0, $FE
+	.db $F1, $73
+	.db $F1, $BE
+	.db $37, $38
+	.db $26, $04
+	.db $10, $37
+	.db $37, $38
+	.db $26, $04
+	.db $10, $37
+	.db $37, $38
+	.db $F0, $53
+	.db $F0, $9E
+	.db $F1, $13
+	.db $F1, $5E
+	.db $F1, $D3
+	.db $26, $04
+	.db $10, $37
+	.db $37, $38
+	.db $26, $04
+	.db $10, $37
+	.db $43, $0A
 IFNDEF DISABLE_DOOR_POINTERS
-      .BYTE $08, $22
+	.db $08, $22
 ENDIF
 IFDEF DISABLE_DOOR_POINTERS
-      .BYTE $F5, $08, $22
+	.db $F5, $08, $22
 ENDIF
-      .BYTE $F0, $3E
-      .BYTE $F0, $B3
-      .BYTE $F0, $FE
-      .BYTE $F1, $59
-      .BYTE $F1, $A0
-      .BYTE $FF
+	.db $F0, $3E
+	.db $F0, $B3
+	.db $F0, $FE
+	.db $F1, $59
+	.db $F1, $A0
+	.db $FF

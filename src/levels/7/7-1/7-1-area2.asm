@@ -1,39 +1,39 @@
 ; Level 7-1, Area 2
 
 LevelData_7_1_Area2:
-      .BYTE $80, $E8, $30, $00
-      .BYTE $3C, $11
-      .BYTE $19, $10
-      .BYTE $5F, $EB
-      .BYTE $34, $E7
-      .BYTE $0C, $E9
-      .BYTE $54, $10
-      .BYTE $1B, $29
-      .BYTE $5C, $E6
-      .BYTE $31, $29
-      .BYTE $02, $E8
-      .BYTE $19, $EA
-      .BYTE $5C, $29
-      .BYTE $43, $ED
-      .BYTE $23, $04
-      .BYTE $06, $EA
-      .BYTE $10, $EE
-      .BYTE $18, $E7
-      .BYTE $12, $EF
-      .BYTE $23, $EC
-      .BYTE $2C, $A7
-      .BYTE $F5, $12, $33
-      .BYTE $71, $29
-      .BYTE $12, $EB
-      .BYTE $20, $29
-      .BYTE $02, $E5
-      .BYTE $28, $E5
-      .BYTE $10, $E3
-      .BYTE $F4
-      .BYTE $95, $0F
-      .BYTE $DB, $0F
-      .BYTE $CF, $0F
-      .BYTE $12, $0F
-      .BYTE $AB, $0F
-      .BYTE $81, $0F
-      .BYTE $FF
+	.db $80, $E8, $30, $00
+	.db $3C, $11
+	.db $19, $10
+	.db $5F, $EB
+	.db $34, $E7
+	.db $0C, $E9
+	.db $54, $10
+	.db $1B, $29
+	.db $5C, $E6
+	.db $31, $29
+	.db $02, $E8
+	.db $19, $EA
+	.db $5C, $29
+	.db $43, $ED
+	.db $23, $04
+	.db $06, $EA
+	.db $10, $EE
+	.db $18, $E7
+	.db $12, $EF
+	.db $23, $EC
+	.db $2C, $A7
+	.db $F5, $12, $33
+	.db $71, $29
+	.db $12, $EB
+	.db $20, $29
+	.db $02, $E5
+	.db $28, $E5
+	.db $10, $E3
+	.db $F4
+	.db $95, $0F
+	.db $DB, $0F
+	.db $CF, $0F
+	.db $12, $0F
+	.db $AB, $0F
+	.db $81, $0F
+	.db $FF

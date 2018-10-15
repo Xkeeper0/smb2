@@ -1,40 +1,40 @@
 ; Level 4-3, Area 4
 
 LevelData_4_3_Area4:
-      .BYTE $80, $E8, $32, $18
-      .BYTE $5D, $E2
-      .BYTE $4F, $E1
-      .BYTE $91, $41
-      .BYTE $04, $41
-      .BYTE $07, $41
-      .BYTE $0A, $41
-      .BYTE $0D, $41
-      .BYTE $12, $18
-      .BYTE $08, $18
-      .BYTE $5B, $0A
+	.db $80, $E8, $32, $18
+	.db $5D, $E2
+	.db $4F, $E1
+	.db $91, $41
+	.db $04, $41
+	.db $07, $41
+	.db $0A, $41
+	.db $0D, $41
+	.db $12, $18
+	.db $08, $18
+	.db $5B, $0A
 IFNDEF DISABLE_DOOR_POINTERS
-      .BYTE $0B, $20
+	.db $0B, $20
 ENDIF
 IFDEF DISABLE_DOOR_POINTERS
-      .BYTE $F5, $0B, $20
+	.db $F5, $0B, $20
 ENDIF
-      .BYTE $1F, $26
-      .BYTE $13, $6C
-      .BYTE $6F, $2D
-      .BYTE $12, $41
-      .BYTE $05, $41
-      .BYTE $08, $41
-      .BYTE $0B, $41
-      .BYTE $0E, $41
-      .BYTE $13, $18
-      .BYTE $09, $18
-      .BYTE $58, $0A
+	.db $1F, $26
+	.db $13, $6C
+	.db $6F, $2D
+	.db $12, $41
+	.db $05, $41
+	.db $08, $41
+	.db $0B, $41
+	.db $0E, $41
+	.db $13, $18
+	.db $09, $18
+	.db $58, $0A
 IFNDEF DISABLE_DOOR_POINTERS
-      .BYTE $0B, $30
+	.db $0B, $30
 ENDIF
 IFDEF DISABLE_DOOR_POINTERS
-      .BYTE $F5, $0B, $30
+	.db $F5, $0B, $30
 ENDIF
-      .BYTE $11, $22
-      .BYTE $10, $6C
-      .BYTE $FF
+	.db $11, $22
+	.db $10, $6C
+	.db $FF

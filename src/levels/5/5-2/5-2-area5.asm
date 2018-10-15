@@ -1,28 +1,28 @@
 ; Level 5-2, Area 5
 
 LevelData_5_2_Area5:
-      .BYTE $81, $EA, $20, $12
-      .BYTE $82, $0B
+	.db $81, $EA, $20, $12
+	.db $82, $0B
 IFNDEF DISABLE_DOOR_POINTERS
-      .BYTE $0D, $36
+	.db $0D, $36
 ENDIF
 IFDEF DISABLE_DOOR_POINTERS
-      .BYTE $F5, $0D, $36
+	.db $F5, $0D, $36
 ENDIF
-      .BYTE $2A, $67
-      .BYTE $2A, $FF
-      .BYTE $F0, $6C
-      .BYTE $F1, $48
-      .BYTE $53, $10
-      .BYTE $26, $11
-      .BYTE $3E, $6D
-      .BYTE $34, $69
-      .BYTE $2A, $F3
-      .BYTE $F1, $CC
-      .BYTE $55, $10
-      .BYTE $A0, $F9
-      .BYTE $F0, $08
-      .BYTE $F1, $4C
-      .BYTE $F1, $8A
-      .BYTE $F5, $0E, $00
-      .BYTE $FF
+	.db $2A, $67
+	.db $2A, $FF
+	.db $F0, $6C
+	.db $F1, $48
+	.db $53, $10
+	.db $26, $11
+	.db $3E, $6D
+	.db $34, $69
+	.db $2A, $F3
+	.db $F1, $CC
+	.db $55, $10
+	.db $A0, $F9
+	.db $F0, $08
+	.db $F1, $4C
+	.db $F1, $8A
+	.db $F5, $0E, $00
+	.db $FF

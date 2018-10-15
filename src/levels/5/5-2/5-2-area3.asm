@@ -1,68 +1,68 @@
 ; Level 5-2, Area 3
 
 LevelData_5_2_Area3:
-      .BYTE $01, $F5, $60, $29
-      .BYTE $14, $10
-      .BYTE $2C, $11
-      .BYTE $11, $0B
+	.db $01, $F5, $60, $29
+	.db $14, $10
+	.db $2C, $11
+	.db $11, $0B
 IFNDEF DISABLE_DOOR_POINTERS
-      .BYTE $0D, $20
+	.db $0D, $20
 ENDIF
 IFDEF DISABLE_DOOR_POINTERS
-      .BYTE $F5, $0D, $20
+	.db $F5, $0D, $20
 ENDIF
-      .BYTE $22, $6B
-      .BYTE $07, $01
-      .BYTE $36, $10
-      .BYTE $29, $11
-      .BYTE $32, $70
-      .BYTE $0D, $70
-      .BYTE $12, $8E
-      .BYTE $0D, $8E
-      .BYTE $E3, $70
-      .BYTE $0C, $70
-      .BYTE $2B, $70
-      .BYTE $1B, $83
-      .BYTE $4B, $8F
-      .BYTE $17, $70
-      .BYTE $17, $86
-      .BYTE $18, $70
-      .BYTE $18, $87
-      .BYTE $04, $70
-      .BYTE $14, $81
-      .BYTE $3A, $70
-      .BYTE $F0, $16
-      .BYTE $1A, $89
-      .BYTE $74, $70
-      .BYTE $0B, $82
-      .BYTE $14, $81
-      .BYTE $15, $70
-      .BYTE $36, $70
-      .BYTE $16, $85
-      .BYTE $F1, $57
-      .BYTE $99, $70
-      .BYTE $19, $88
-      .BYTE $48, $70
-      .BYTE $18, $83
-      .BYTE $F2
-      .BYTE $F0, $96
-      .BYTE $F0, $D5
-      .BYTE $F1, $14
-      .BYTE $F2
-      .BYTE $3E, $70
-      .BYTE $1E, $85
-      .BYTE $2D, $81
-      .BYTE $2D, $0B
+	.db $22, $6B
+	.db $07, $01
+	.db $36, $10
+	.db $29, $11
+	.db $32, $70
+	.db $0D, $70
+	.db $12, $8E
+	.db $0D, $8E
+	.db $E3, $70
+	.db $0C, $70
+	.db $2B, $70
+	.db $1B, $83
+	.db $4B, $8F
+	.db $17, $70
+	.db $17, $86
+	.db $18, $70
+	.db $18, $87
+	.db $04, $70
+	.db $14, $81
+	.db $3A, $70
+	.db $F0, $16
+	.db $1A, $89
+	.db $74, $70
+	.db $0B, $82
+	.db $14, $81
+	.db $15, $70
+	.db $36, $70
+	.db $16, $85
+	.db $F1, $57
+	.db $99, $70
+	.db $19, $88
+	.db $48, $70
+	.db $18, $83
+	.db $F2
+	.db $F0, $96
+	.db $F0, $D5
+	.db $F1, $14
+	.db $F2
+	.db $3E, $70
+	.db $1E, $85
+	.db $2D, $81
+	.db $2D, $0B
 IFNDEF DISABLE_DOOR_POINTERS
-      .BYTE $0D, $50
+	.db $0D, $50
 ENDIF
 IFDEF DISABLE_DOOR_POINTERS
-      .BYTE $F5, $0D, $50
+	.db $F5, $0D, $50
 ENDIF
-      .BYTE $11, $70
-      .BYTE $14, $60
-      .BYTE $07, $60
-      .BYTE $0A, $60
-      .BYTE $24, $F7
-      .BYTE $F1, $56
-      .BYTE $FF
+	.db $11, $70
+	.db $14, $60
+	.db $07, $60
+	.db $0A, $60
+	.db $24, $F7
+	.db $F1, $56
+	.db $FF

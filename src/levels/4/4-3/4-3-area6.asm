@@ -1,25 +1,25 @@
 ; Level 4-3, Area 6
 
 LevelData_4_3_Area6:
-      .BYTE $A0, $EA, $10, $1A
-      .BYTE $62, $3D
-      .BYTE $46, $0A
+	.db $A0, $EA, $10, $1A
+	.db $62, $3D
+	.db $46, $0A
 IFNDEF DISABLE_DOOR_POINTERS
-      .BYTE $0B, $18
+	.db $0B, $18
 ENDIF
 IFDEF DISABLE_DOOR_POINTERS
-      .BYTE $F5, $0B, $18
+	.db $F5, $0B, $18
 ENDIF
-      .BYTE $22, $3D
-      .BYTE $F0, $50
-      .BYTE $90, $34
-      .BYTE $51, $42
-      .BYTE $10, $34
-      .BYTE $F0, $B7
-      .BYTE $F0, $EF
-      .BYTE $F1, $2E
-      .BYTE $F1, $6F
-      .BYTE $F1, $97
-      .BYTE $F1, $CA
-      .BYTE $F5, $0B, $70
-      .BYTE $FF
+	.db $22, $3D
+	.db $F0, $50
+	.db $90, $34
+	.db $51, $42
+	.db $10, $34
+	.db $F0, $B7
+	.db $F0, $EF
+	.db $F1, $2E
+	.db $F1, $6F
+	.db $F1, $97
+	.db $F1, $CA
+	.db $F5, $0B, $70
+	.db $FF

@@ -1,104 +1,104 @@
 ; Level 2-3, Area 1
 
 LevelData_2_3_Area1:
-      .BYTE $80, $EC, $90, $00
-      .BYTE $00, $89
-      .BYTE $01, $89
-      .BYTE $02, $89
-      .BYTE $03, $89
-      .BYTE $25, $29
-      .BYTE $1C, $29
-      .BYTE $18, $2B
-      .BYTE $16, $C4
-      .BYTE $2B, $21
-      .BYTE $1A, $C2
-      .BYTE $95, $11
-      .BYTE $08, $10
-      .BYTE $66, $A6
-      .BYTE $F5, $05, $00
-      .BYTE $12, $32
-      .BYTE $09, $32
-      .BYTE $0D, $26
-      .BYTE $0E, $21
-      .BYTE $0F, $21
-      .BYTE $14, $31
-      .BYTE $06, $05
-      .BYTE $07, $32
-      .BYTE $14, $31
-      .BYTE $07, $32
-      .BYTE $14, $31
-      .BYTE $07, $32
-      .BYTE $14, $31
-      .BYTE $07, $32
-      .BYTE $14, $31
-      .BYTE $06, $05
-      .BYTE $07, $32
-      .BYTE $53, $29
-      .BYTE $31, $0F
-      .BYTE $0F, $29
-      .BYTE $23, $21
-      .BYTE $05, $21
-      .BYTE $71, $C2
-      .BYTE $1E, $29
-      .BYTE $02, $0B
+	.db $80, $EC, $90, $00
+	.db $00, $89
+	.db $01, $89
+	.db $02, $89
+	.db $03, $89
+	.db $25, $29
+	.db $1C, $29
+	.db $18, $2B
+	.db $16, $C4
+	.db $2B, $21
+	.db $1A, $C2
+	.db $95, $11
+	.db $08, $10
+	.db $66, $A6
+	.db $F5, $05, $00
+	.db $12, $32
+	.db $09, $32
+	.db $0D, $26
+	.db $0E, $21
+	.db $0F, $21
+	.db $14, $31
+	.db $06, $05
+	.db $07, $32
+	.db $14, $31
+	.db $07, $32
+	.db $14, $31
+	.db $07, $32
+	.db $14, $31
+	.db $07, $32
+	.db $14, $31
+	.db $06, $05
+	.db $07, $32
+	.db $53, $29
+	.db $31, $0F
+	.db $0F, $29
+	.db $23, $21
+	.db $05, $21
+	.db $71, $C2
+	.db $1E, $29
+	.db $02, $0B
 IFNDEF DISABLE_DOOR_POINTERS
-      .BYTE $05, $20
+	.db $05, $20
 ENDIF
 IFDEF DISABLE_DOOR_POINTERS
-      .BYTE $F5, $05, $20
+	.db $F5, $05, $20
 ENDIF
-      .BYTE $16, $22
-      .BYTE $09, $22
-      .BYTE $11, $C2
-      .BYTE $05, $C3
-      .BYTE $09, $C2
-      .BYTE $0E, $C3
-      .BYTE $DD, $11
-      .BYTE $5D, $0F
-      .BYTE $C3, $29
-      .BYTE $39, $0F
-      .BYTE $13, $0F
-      .BYTE $0E, $0F
-      .BYTE $F1, $4C
-      .BYTE $F6, $01
-      .BYTE $F1, $CC
-      .BYTE $F6, $00
-      .BYTE $90, $10
-      .BYTE $0E, $10
-      .BYTE $12, $11
-      .BYTE $52, $0F
-      .BYTE $06, $0F
-      .BYTE $0A, $0F
-      .BYTE $1E, $D1
-      .BYTE $F0, $6C
-      .BYTE $F6, $01
-      .BYTE $F0, $CC
-      .BYTE $F6, $00
-      .BYTE $86, $11
-      .BYTE $31, $29
-      .BYTE $08, $29
-      .BYTE $43, $D2
-      .BYTE $0A, $D1
-      .BYTE $F0, $0C
-      .BYTE $F6, $02
-      .BYTE $F0, $6C
-      .BYTE $F6, $00
-      .BYTE $F0, $CC
-      .BYTE $F6, $02
-      .BYTE $F1, $4C
-      .BYTE $F6, $00
-      .BYTE $84, $10
-      .BYTE $52, $0F
-      .BYTE $0E, $0F
-      .BYTE $C8, $17
-      .BYTE $47, $0B
+	.db $16, $22
+	.db $09, $22
+	.db $11, $C2
+	.db $05, $C3
+	.db $09, $C2
+	.db $0E, $C3
+	.db $DD, $11
+	.db $5D, $0F
+	.db $C3, $29
+	.db $39, $0F
+	.db $13, $0F
+	.db $0E, $0F
+	.db $F1, $4C
+	.db $F6, $01
+	.db $F1, $CC
+	.db $F6, $00
+	.db $90, $10
+	.db $0E, $10
+	.db $12, $11
+	.db $52, $0F
+	.db $06, $0F
+	.db $0A, $0F
+	.db $1E, $D1
+	.db $F0, $6C
+	.db $F6, $01
+	.db $F0, $CC
+	.db $F6, $00
+	.db $86, $11
+	.db $31, $29
+	.db $08, $29
+	.db $43, $D2
+	.db $0A, $D1
+	.db $F0, $0C
+	.db $F6, $02
+	.db $F0, $6C
+	.db $F6, $00
+	.db $F0, $CC
+	.db $F6, $02
+	.db $F1, $4C
+	.db $F6, $00
+	.db $84, $10
+	.db $52, $0F
+	.db $0E, $0F
+	.db $C8, $17
+	.db $47, $0B
 IFNDEF DISABLE_DOOR_POINTERS
-      .BYTE $05, $30
+	.db $05, $30
 ENDIF
 IFDEF DISABLE_DOOR_POINTERS
-      .BYTE $F5, $05, $30
+	.db $F5, $05, $30
 ENDIF
-      .BYTE $F4
-      .BYTE $26, $16
-      .BYTE $09, $16
-      .BYTE $FF
+	.db $F4
+	.db $26, $16
+	.db $09, $16
+	.db $FF

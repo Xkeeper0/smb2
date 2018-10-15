@@ -1,20 +1,20 @@
 ; Level 6-1, Area 2
 
 LevelData_6_1_Area2:
-      .BYTE $89, $EA, $20, $1A
-      .BYTE $83, $13
-      .BYTE $F5, $0F, $13
-      .BYTE $F0, $51
-      .BYTE $B7, $83
-      .BYTE $26, $81
-      .BYTE $25, $32
-      .BYTE $12, $00
-      .BYTE $03, $00
-      .BYTE $04, $00
-      .BYTE $05, $32
-      .BYTE $F0, $0C
-      .BYTE $F2
-      .BYTE $F0, $0F
-      .BYTE $F0, $6A
-      .BYTE $F5, $10, $00
-      .BYTE $FF
+	.db $89, $EA, $20, $1A
+	.db $83, $13
+	.db $F5, $0F, $13
+	.db $F0, $51
+	.db $B7, $83
+	.db $26, $81
+	.db $25, $32
+	.db $12, $00
+	.db $03, $00
+	.db $04, $00
+	.db $05, $32
+	.db $F0, $0C
+	.db $F2
+	.db $F0, $0F
+	.db $F0, $6A
+	.db $F5, $10, $00
+	.db $FF
