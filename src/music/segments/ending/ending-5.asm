@@ -1,0 +1,149 @@
+MusicDataEnding5:
+MusicDataEnding5_Square2:
+	.db $8A
+	.db $48
+	.db $48
+	.db $88
+	.db $48
+	.db $84
+	.db $26
+	.db $26
+	.db $26
+	.db $8A
+	.db $26
+IFNDEF PROTOTYPE_MUSIC
+	.db $7E
+	.db $8C
+	.db $7E
+	.db $88
+	.db $7E
+	.db $FC
+	.db $7E
+	.db $7E
+ENDIF
+	.db $00
+MusicDataEnding5_Square1:
+	.db $88
+	.db $40
+	.db $82
+	.db $40
+	.db $40
+	.db $83
+	.db $40
+	.db $88
+	.db $3A
+	.db $82
+	.db $3A
+	.db $3A
+	.db $83
+	.db $3A
+	.db $88
+	.db $38
+	.db $84
+	.db $18
+	.db $18
+	.db $18
+IFNDEF PROTOTYPE_MUSIC
+	.db $88
+	.db $18
+	.db $F4
+	.db $48
+	.db $56
+	.db $50
+	.db $56
+	.db $46
+	.db $56
+	.db $4C
+	.db $56
+	.db $42
+	.db $56
+	.db $50
+	.db $56
+	.db $46
+	.db $56
+	.db $4C
+	.db $56
+	.db $F4
+	.db $48
+	.db $56
+	.db $50
+	.db $56
+	.db $46
+	.db $56
+	.db $4C
+	.db $56
+	.db $42
+	.db $56
+	.db $50
+	.db $56
+	.db $46
+	.db $56
+	.db $4C
+	.db $56
+ENDIF
+IFDEF PROTOTYPE_MUSIC
+	.db $8A
+	.db $18
+ENDIF
+MusicDataEnding5_Triangle:
+	.db $88
+	.db $28
+	.db $82
+	.db $28
+	.db $28
+	.db $83
+	.db $28
+	.db $88
+	.db $2C
+	.db $82
+	.db $2C
+	.db $2C
+	.db $83
+	.db $2C
+	.db $88
+	.db $30
+	.db $84
+	.db $30
+	.db $30
+	.db $30
+	.db $8A
+	.db $30
+IFNDEF PROTOTYPE_MUSIC
+	.db $7E
+	.db $8C
+	.db $7E
+	.db $7E
+	.db $7E
+	.db $7E
+ENDIF
+MusicDataEnding5_Noise:
+	.db $88
+	.db $10
+	.db $82
+	.db $10
+	.db $10
+	.db $83
+	.db $10
+	.db $88
+	.db $10
+	.db $82
+	.db $10
+	.db $10
+	.db $83
+	.db $10
+	.db $88
+	.db $10
+	.db $84
+	.db $10
+	.db $10
+	.db $10
+	.db $8A
+	.db $10
+IFNDEF PROTOTYPE_MUSIC
+	.db $01
+	.db $8C
+	.db $01
+	.db $01
+	.db $01
+	.db $01
+ENDIF

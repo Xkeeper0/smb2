@@ -1,5 +1,5 @@
 LevelDataPointersLo:
-      ; Level 1-1
+	; Level 1-1
 	.db <LevelData_1_1_Area0
 	.db <LevelData_1_1_Area1
 	.db <LevelData_1_1_Area2
@@ -10,7 +10,7 @@ LevelDataPointersLo:
 	.db <LevelData_1_1_Area5
 	.db <LevelData_1_1_Area5
 	.db <LevelData_1_1_Area5
-      ; Level 1-2
+	; Level 1-2
 	.db <LevelData_1_2_Area0
 	.db <LevelData_1_2_Area1
 	.db <LevelData_1_2_Area2
@@ -21,7 +21,7 @@ LevelDataPointersLo:
 	.db <LevelData_1_3_Area0
 	.db <LevelData_1_3_Area0
 	.db <LevelData_1_3_Area0
-      ; Level 1-3
+	; Level 1-3
 	.db <LevelData_1_3_Area0
 	.db <LevelData_1_3_Area1
 	.db <LevelData_1_3_Area2
@@ -32,7 +32,7 @@ LevelDataPointersLo:
 	.db <LevelData_1_3_Area4
 	.db <LevelData_1_3_Area4
 	.db <LevelData_1_3_Area4
-      ; Level 2-1
+	; Level 2-1
 	.db <LevelData_2_1_Area0
 	.db <LevelData_2_1_Area1
 	.db <LevelData_2_1_Area4
@@ -43,7 +43,7 @@ LevelDataPointersLo:
 	.db <LevelData_2_1_Area4
 	.db <LevelData_2_1_Area4
 	.db <LevelData_2_1_Area4
-      ; Level 2-2
+	; Level 2-2
 	.db <LevelData_2_2_Area0
 	.db <LevelData_2_2_Area1
 	.db <LevelData_2_2_Area2
@@ -54,7 +54,7 @@ LevelDataPointersLo:
 	.db <LevelData_2_2_Area5
 	.db <LevelData_2_2_Area5
 	.db <LevelData_2_2_Area5
-      ; Level 2-3
+	; Level 2-3
 	.db <LevelData_2_3_Area0
 	.db <LevelData_2_3_Area1
 	.db <LevelData_2_3_Area2
@@ -65,7 +65,7 @@ LevelDataPointersLo:
 	.db <LevelData_2_3_Area7
 	.db <LevelData_2_3_Area7
 	.db <LevelData_2_3_Area7
-      ; Level 3-1
+	; Level 3-1
 	.db <LevelData_3_1_Area0
 	.db <LevelData_3_1_Area1
 	.db <LevelData_3_1_Area2
@@ -76,7 +76,7 @@ LevelDataPointersLo:
 	.db <LevelData_3_2_Area0
 	.db <LevelData_3_2_Area0
 	.db <LevelData_3_2_Area0
-      ; Level 3-2
+	; Level 3-2
 	.db <LevelData_3_2_Area0
 	.db <LevelData_3_2_Area1
 	.db <LevelData_3_2_Area2
@@ -87,7 +87,7 @@ LevelDataPointersLo:
 	.db <LevelData_3_3_Area0
 	.db <LevelData_3_3_Area0
 	.db <LevelData_3_3_Area0
-      ; Level 3-3
+	; Level 3-3
 	.db <LevelData_3_3_Area0
 	.db <LevelData_3_3_Area1
 	.db <LevelData_3_3_Area2
@@ -98,7 +98,7 @@ LevelDataPointersLo:
 	.db <LevelData_3_3_Area7
 	.db <LevelData_3_3_Area8
 	.db <LevelData_3_3_Area8
-      ; Level 4-1
+	; Level 4-1
 	.db <LevelData_4_1_Area0
 	.db <LevelData_4_1_Area1
 	.db <LevelData_4_2_Area0
@@ -109,7 +109,7 @@ LevelDataPointersLo:
 	.db <LevelData_4_2_Area0
 	.db <LevelData_4_2_Area0
 	.db <LevelData_4_2_Area0
-      ; Level 4-2
+	; Level 4-2
 	.db <LevelData_4_2_Area0
 	.db <LevelData_4_2_Area1
 	.db <LevelData_4_2_Area2
@@ -120,7 +120,7 @@ LevelDataPointersLo:
 	.db <LevelData_4_2_Area4
 	.db <LevelData_4_2_Area4
 	.db <LevelData_4_2_Area4
-      ; Level 4-3
+	; Level 4-3
 	.db <LevelData_4_3_Area0
 	.db <LevelData_4_3_Area1
 	.db <LevelData_4_3_Area2
@@ -131,7 +131,7 @@ LevelDataPointersLo:
 	.db <LevelData_4_3_Area7
 	.db <LevelData_5_1_Area0
 	.db <LevelData_5_1_Area0
-      ; Level 5-1
+	; Level 5-1
 	.db <LevelData_5_1_Area0
 	.db <LevelData_5_1_Area1
 	.db <LevelData_5_1_Area2
@@ -142,7 +142,7 @@ LevelDataPointersLo:
 	.db <LevelData_5_2_Area0
 	.db <LevelData_5_2_Area0
 	.db <LevelData_5_2_Area0
-      ; Level 5-2
+	; Level 5-2
 	.db <LevelData_5_2_Area0
 	.db <LevelData_5_2_Area1
 	.db <LevelData_5_2_Area2
@@ -153,7 +153,7 @@ LevelDataPointersLo:
 	.db <LevelData_5_3_Area0
 	.db <LevelData_5_3_Area0
 	.db <LevelData_5_3_Area0
-      ; Level 5-3
+	; Level 5-3
 	.db <LevelData_5_3_Area0
 	.db <LevelData_5_3_Area1
 	.db <LevelData_5_3_Area2
@@ -164,7 +164,7 @@ LevelDataPointersLo:
 	.db <LevelData_5_3_Area5
 	.db <LevelData_5_3_Area5
 	.db <LevelData_5_3_Area5
-      ; Level 6-1
+	; Level 6-1
 	.db <LevelData_6_1_Area0
 	.db <LevelData_6_1_Area1
 	.db <LevelData_6_1_Area2
@@ -175,7 +175,7 @@ LevelDataPointersLo:
 	.db <LevelData_6_1_Area6
 	.db <LevelData_6_1_Area6
 	.db <LevelData_6_1_Area6
-      ; Level 6-2
+	; Level 6-2
 	.db <LevelData_6_2_Area0
 	.db <LevelData_6_2_Area1
 	.db <LevelData_6_2_Area2
@@ -186,7 +186,7 @@ LevelDataPointersLo:
 	.db <LevelData_6_2_Area2
 	.db <LevelData_6_2_Area2
 	.db <LevelData_6_2_Area2
-      ; Level 6-3
+	; Level 6-3
 	.db <LevelData_6_3_Area0
 	.db <LevelData_6_3_Area1
 	.db <LevelData_6_3_Area2
@@ -197,7 +197,7 @@ LevelDataPointersLo:
 	.db <LevelData_6_3_Area6
 	.db <LevelData_6_3_Area6
 	.db <LevelData_6_3_Area6
-      ; Level 7-1
+	; Level 7-1
 	.db <LevelData_7_1_Area0
 	.db <LevelData_7_1_Area1
 	.db <LevelData_7_1_Area2
@@ -208,7 +208,7 @@ LevelDataPointersLo:
 	.db <LevelData_7_1_Area5
 	.db <LevelData_7_1_Area5
 	.db <LevelData_7_1_Area5
-      ; Level 7-2
+	; Level 7-2
 	.db <LevelData_7_2_Area0
 	.db <LevelData_7_2_Area1
 	.db <LevelData_7_2_Area2
@@ -219,7 +219,7 @@ LevelDataPointersLo:
 	.db <LevelData_7_2_Area7
 	.db <LevelData_7_2_Area8
 	.db <LevelData_7_2_Area9
-      ; Level 7-3
+	; Level 7-3
 	.db <LevelData_7_3_Area0
 	.db <LevelData_7_3_Area0
 	.db <LevelData_7_3_Area0
@@ -232,7 +232,7 @@ LevelDataPointersLo:
 	.db <LevelData_7_3_Area0
 
 LevelDataPointersHi:
-      ; Level 1-1
+	; Level 1-1
 	.db >LevelData_1_1_Area0
 	.db >LevelData_1_1_Area1
 	.db >LevelData_1_1_Area2
@@ -243,7 +243,7 @@ LevelDataPointersHi:
 	.db >LevelData_1_1_Area5
 	.db >LevelData_1_1_Area5
 	.db >LevelData_1_1_Area5
-      ; Level 1-2
+	; Level 1-2
 	.db >LevelData_1_2_Area0
 	.db >LevelData_1_2_Area1
 	.db >LevelData_1_2_Area2
@@ -254,7 +254,7 @@ LevelDataPointersHi:
 	.db >LevelData_1_3_Area0
 	.db >LevelData_1_3_Area0
 	.db >LevelData_1_3_Area0
-      ; Level 1-3
+	; Level 1-3
 	.db >LevelData_1_3_Area0
 	.db >LevelData_1_3_Area1
 	.db >LevelData_1_3_Area2
@@ -265,7 +265,7 @@ LevelDataPointersHi:
 	.db >LevelData_1_3_Area4
 	.db >LevelData_1_3_Area4
 	.db >LevelData_1_3_Area4
-      ; Level 2-1
+	; Level 2-1
 	.db >LevelData_2_1_Area0
 	.db >LevelData_2_1_Area1
 	.db >LevelData_2_1_Area4
@@ -276,7 +276,7 @@ LevelDataPointersHi:
 	.db >LevelData_2_1_Area4
 	.db >LevelData_2_1_Area4
 	.db >LevelData_2_1_Area4
-      ; Level 2-2
+	; Level 2-2
 	.db >LevelData_2_2_Area0
 	.db >LevelData_2_2_Area1
 	.db >LevelData_2_2_Area2
@@ -287,7 +287,7 @@ LevelDataPointersHi:
 	.db >LevelData_2_2_Area5
 	.db >LevelData_2_2_Area5
 	.db >LevelData_2_2_Area5
-      ; Level 2-3
+	; Level 2-3
 	.db >LevelData_2_3_Area0
 	.db >LevelData_2_3_Area1
 	.db >LevelData_2_3_Area2
@@ -298,7 +298,7 @@ LevelDataPointersHi:
 	.db >LevelData_2_3_Area7
 	.db >LevelData_2_3_Area7
 	.db >LevelData_2_3_Area7
-      ; Level 3-1
+	; Level 3-1
 	.db >LevelData_3_1_Area0
 	.db >LevelData_3_1_Area1
 	.db >LevelData_3_1_Area2
@@ -309,7 +309,7 @@ LevelDataPointersHi:
 	.db >LevelData_3_2_Area0
 	.db >LevelData_3_2_Area0
 	.db >LevelData_3_2_Area0
-      ; Level 3-2
+	; Level 3-2
 	.db >LevelData_3_2_Area0
 	.db >LevelData_3_2_Area1
 	.db >LevelData_3_2_Area2
@@ -320,7 +320,7 @@ LevelDataPointersHi:
 	.db >LevelData_3_3_Area0
 	.db >LevelData_3_3_Area0
 	.db >LevelData_3_3_Area0
-      ; Level 3-3
+	; Level 3-3
 	.db >LevelData_3_3_Area0
 	.db >LevelData_3_3_Area1
 	.db >LevelData_3_3_Area2
@@ -331,7 +331,7 @@ LevelDataPointersHi:
 	.db >LevelData_3_3_Area7
 	.db >LevelData_3_3_Area8
 	.db >LevelData_3_3_Area8
-      ; Level 4-1
+	; Level 4-1
 	.db >LevelData_4_1_Area0
 	.db >LevelData_4_1_Area1
 	.db >LevelData_4_2_Area0
@@ -342,7 +342,7 @@ LevelDataPointersHi:
 	.db >LevelData_4_2_Area0
 	.db >LevelData_4_2_Area0
 	.db >LevelData_4_2_Area0
-      ; Level 4-2
+	; Level 4-2
 	.db >LevelData_4_2_Area0
 	.db >LevelData_4_2_Area1
 	.db >LevelData_4_2_Area2
@@ -353,7 +353,7 @@ LevelDataPointersHi:
 	.db >LevelData_4_2_Area4
 	.db >LevelData_4_2_Area4
 	.db >LevelData_4_2_Area4
-      ; Level 4-3
+	; Level 4-3
 	.db >LevelData_4_3_Area0
 	.db >LevelData_4_3_Area1
 	.db >LevelData_4_3_Area2
@@ -364,7 +364,7 @@ LevelDataPointersHi:
 	.db >LevelData_4_3_Area7
 	.db >LevelData_5_1_Area0
 	.db >LevelData_5_1_Area0
-      ; Level 5-1
+	; Level 5-1
 	.db >LevelData_5_1_Area0
 	.db >LevelData_5_1_Area1
 	.db >LevelData_5_1_Area2
@@ -375,7 +375,7 @@ LevelDataPointersHi:
 	.db >LevelData_5_2_Area0
 	.db >LevelData_5_2_Area0
 	.db >LevelData_5_2_Area0
-      ; Level 5-2
+	; Level 5-2
 	.db >LevelData_5_2_Area0
 	.db >LevelData_5_2_Area1
 	.db >LevelData_5_2_Area2
@@ -386,7 +386,7 @@ LevelDataPointersHi:
 	.db >LevelData_5_3_Area0
 	.db >LevelData_5_3_Area0
 	.db >LevelData_5_3_Area0
-      ; Level 5-3
+	; Level 5-3
 	.db >LevelData_5_3_Area0
 	.db >LevelData_5_3_Area1
 	.db >LevelData_5_3_Area2
@@ -397,7 +397,7 @@ LevelDataPointersHi:
 	.db >LevelData_5_3_Area5
 	.db >LevelData_5_3_Area5
 	.db >LevelData_5_3_Area5
-      ; Level 6-1
+	; Level 6-1
 	.db >LevelData_6_1_Area0
 	.db >LevelData_6_1_Area1
 	.db >LevelData_6_1_Area2
@@ -408,7 +408,7 @@ LevelDataPointersHi:
 	.db >LevelData_6_1_Area6
 	.db >LevelData_6_1_Area6
 	.db >LevelData_6_1_Area6
-      ; Level 6-2
+	; Level 6-2
 	.db >LevelData_6_2_Area0
 	.db >LevelData_6_2_Area1
 	.db >LevelData_6_2_Area2
@@ -419,7 +419,7 @@ LevelDataPointersHi:
 	.db >LevelData_6_2_Area2
 	.db >LevelData_6_2_Area2
 	.db >LevelData_6_2_Area2
-      ; Level 6-3
+	; Level 6-3
 	.db >LevelData_6_3_Area0
 	.db >LevelData_6_3_Area1
 	.db >LevelData_6_3_Area2
@@ -430,7 +430,7 @@ LevelDataPointersHi:
 	.db >LevelData_6_3_Area6
 	.db >LevelData_6_3_Area6
 	.db >LevelData_6_3_Area6
-      ; Level 7-1
+	; Level 7-1
 	.db >LevelData_7_1_Area0
 	.db >LevelData_7_1_Area1
 	.db >LevelData_7_1_Area2
@@ -441,7 +441,7 @@ LevelDataPointersHi:
 	.db >LevelData_7_1_Area5
 	.db >LevelData_7_1_Area5
 	.db >LevelData_7_1_Area5
-      ; Level 7-2
+	; Level 7-2
 	.db >LevelData_7_2_Area0
 	.db >LevelData_7_2_Area1
 	.db >LevelData_7_2_Area2
@@ -452,7 +452,7 @@ LevelDataPointersHi:
 	.db >LevelData_7_2_Area7
 	.db >LevelData_7_2_Area8
 	.db >LevelData_7_2_Area9
-      ; Level 7-3
+	; Level 7-3
 	.db >LevelData_7_3_Area0
 	.db >LevelData_7_3_Area0
 	.db >LevelData_7_3_Area0

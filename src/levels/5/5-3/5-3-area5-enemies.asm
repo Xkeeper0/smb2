@@ -3,14 +3,14 @@
 EnemyData_Level_5_3_Area5:
 
 ; Page 0
-      distTo + ; $01 (0 enemies)
+	distTo + ; $01 (0 enemies)
 
 ; Page 1
-+     distTo + ; $03 (1 enemy)
-      enemy $A, $7, Enemy_BossClawgrip
++	distTo + ; $03 (1 enemy)
+	enemy $A, $7, Enemy_BossClawgrip
 
 ; Page 2
-+     distTo + ; $01 (0 enemies)
++	distTo + ; $01 (0 enemies)
 
 ; End of enemy data
 +
