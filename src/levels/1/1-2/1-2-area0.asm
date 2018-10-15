@@ -50,7 +50,12 @@ ENDIF
 	.db $3C, $16
 	.db $1D, $16
 	.db $13, $0B
+IFNDEF DISABLE_DOOR_POINTERS
 	.db $01, $13
+ENDIF
+IFDEF DISABLE_DOOR_POINTERS
+	.db $F5, $01, $13
+ENDIF
 	.db $15, $56
 	.db $0E, $51
 	.db $9C, $8C
@@ -62,7 +67,12 @@ ENDIF
 	.db $4A, $16
 	.db $14, $16
 	.db $0C, $0B
+IFNDEF DISABLE_DOOR_POINTERS
 	.db $01, $20
+ENDIF
+IFDEF DISABLE_DOOR_POINTERS
+	.db $F5, $01, $20
+ENDIF
 	.db $26, $16
 	.db $09, $82
 	.db $0A, $82

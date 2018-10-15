@@ -114,6 +114,9 @@ PRESERVE_UNUSED_SPACE = 1
 ; Based on RetroRain's MMC5 patch (https://www.romhacking.net/hacks/2568)
 ; MMC5 = 1
 
+; Pads title screen PPU data for easier modification
+; PAD_TITLE_SCREEN_PPU_DATA = 1
+
 ; Skip unnecessary bonus chance RAM copy
 ; BONUS_CHANCE_RAM_CLEANUP = 1
 
