@@ -4571,7 +4571,7 @@ ENDIF
 
 TitleScreenPPUDataPointers:
 	.dw PPUBuffer_301
-	.dw TitleLayout1
+	.dw TitleLayout
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -4604,7 +4604,7 @@ WaitForNMI_TitleScreenLoop:
 ; End of function WaitForNMI_TitleScreen
 
 
-TitleLayout1:
+TitleLayout:
 	; red lines, vertical, left
 	.db $20, $00, $DE, $FD
 	.db $20, $01, $DE, $FD
@@ -4670,7 +4670,7 @@ TitleLayout1:
 	.db $23, $89, $02, $AA, $AB
 
 	; SUPER
-	;                    SSSSSSSS  UUUUUUUU  PPPPPPPP  EEEEEEEE  RRRRRRRR
+	;                  SSSSSSSS  UUUUUUUU  PPPPPPPP  EEEEEEEE  RRRRRRRR
 	.db $20, $CB, $0A, $00, $01, $08, $08, $FC, $01, $FC, $08, $FC, $01
 	.db $20, $EB, $0A, $02, $03, $08, $08, $0A, $05, $0B, $0C, $0A, $0D
 	.db $21, $0B, $0A, $04, $05, $04, $05, $0E, $07, $FC, $08, $0E, $08
@@ -4678,11 +4678,11 @@ TitleLayout1:
 	.db $21, $31, $04, $76, $09, $09, $09
 
 	; TM
-	;                    TTT  MMM
+	;                  TTT  MMM
 	.db $21, $38, $02, $F9, $FA
 
 	; MARIO
-	;                    MMMMMMMMMMMMM  AAAAAAAA  RRRRRRRR  III  OOOOOOOO
+	;                  MMMMMMMMMMMMM  AAAAAAAA  RRRRRRRR  III  OOOOOOOO
 	.db $21, $46, $0A, $00, $0F, $01, $00, $01, $FC, $01, $08, $00, $01
 	.db $21, $66, $0A, $10, $10, $08, $10, $08, $10, $08, $08, $10, $08
 	.db $21, $86, $0A, $08, $08, $08, $08, $08, $13, $0D, $08, $08, $08
@@ -4691,7 +4691,7 @@ TitleLayout1:
 	.db $21, $E6, $0A, $09, $09, $09, $09, $09, $09, $09, $09, $06, $07
 
 	; BROS
-	;                    BBBBBBBB  RRRRRRRR  OOOOOOOO  SSSSSSSS
+	;                  BBBBBBBB  RRRRRRRR  OOOOOOOO  SSSSSSSS
 	.db $21, $51, $08, $FC, $01, $FC, $01, $00, $01, $00, $01 ; BROS
 	.db $21, $71, $08, $10, $08, $10, $08, $10, $08, $10, $08
 	.db $21, $91, $08, $13, $0D, $13, $0D, $08, $08, $77, $03
@@ -4700,7 +4700,7 @@ TitleLayout1:
 	.db $21, $F1, $09, $11, $07, $09, $09, $06, $07, $06, $07, $09
 
 	; 2
-	;               22222222222222222222222
+	;             22222222222222222222222
 	.db $22, $0E, $04, $14, $15, $16, $17
 	.db $22, $2E, $04, $18, $19, $1A, $1B
 	.db $22, $4E, $04, $1C, $1D, $1E, $1F
@@ -4708,11 +4708,11 @@ TitleLayout1:
 	.db $22, $8E, $04, $76, $76, $76, $21
 
 	; (C) 1988
-	;                    (C)  111  999  888  888
+	;                  (C)  111  999  888  888
 	.db $22, $E9, $05, $F8, $D1, $D9, $D8, $D8  ; (C) 1988
 
 	; NINTENDO
-	;                    NNN  III  NNN  TTT  EEE  NNN  DDD  OOO
+	;                  NNN  III  NNN  TTT  EEE  NNN  DDD  OOO
 	.db $22, $EF, $08, $E7, $E2, $E7, $ED, $DE, $E7, $DD, $E8
 
 	.db $23, $CA, $04, $80, $A0, $A0, $20
@@ -4720,6 +4720,10 @@ TitleLayout1:
 	.db $23, $E3, $02, $88, $22
 	.db $23, $EA, $04, $F0, $F8, $F2, $F0
 	.db $00
+
+IFDEF PAD_TITLE_SCREEN_PPU_DATA
+	.pad TitleLayout + $300, $00
+ENDIF
 
 TitleBackgroundPalettes:
 	.db $22, $37, $16, $07 ; Most of screen, outline, etc.
