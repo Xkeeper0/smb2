@@ -7,7 +7,12 @@ LevelData_1_1_Area3:
 	.db $0B, $25
 	.db $16, $83
 	.db $24, $0A
+IFNDEF DISABLE_DOOR_POINTERS
 	.db $00, $54
+ENDIF
+IFDEF DISABLE_DOOR_POINTERS
+	.db $F5, $00, $54
+ENDIF
 	.db $13, $25
 	.db $F0, $71
 	.db $F0, $FC
@@ -21,7 +26,12 @@ LevelData_1_1_Area3:
 	.db $48, $03
 	.db $18, $03
 	.db $C7, $13
+IFNDEF DISABLE_DOOR_POINTERS
 	.db $00, $28
+ENDIF
+IFDEF DISABLE_DOOR_POINTERS
+	.db $F5, $00, $28
+ENDIF
 	.db $F0, $B2
 	.db $F1, $4A
 	.db $FF

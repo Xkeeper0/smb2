@@ -2555,7 +2555,12 @@ SubspaceTilesSearch:
 	.db $CA ; $02
 	.db $CE ; $03
 	.db $C7 ; $04
+IFNDEF FIX_SUBSPACE_TILES
 	.db $C8 ; $05 ; BUG: This should be $C9
+ENDIF
+IFDEF FIX_SUBSPACE_TILES
+	.db $C9 ; $05
+ENDIF
 	.db $D0 ; $06
 	.db $D1 ; $07
 	.db $01 ; $08
@@ -2578,7 +2583,12 @@ SubspaceTilesReplace:
 	.db $75 ; $01
 	.db $CE ; $02
 	.db $CA ; $03
+IFNDEF FIX_SUBSPACE_TILES
 	.db $C8 ; $04 ; BUG: This should be $C9
+ENDIF
+IFDEF FIX_SUBSPACE_TILES
+	.db $C9 ; $04
+ENDIF
 	.db $C7 ; $05
 	.db $D1 ; $06
 	.db $D0 ; $07

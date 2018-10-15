@@ -3,7 +3,12 @@
 LevelData_5_2_Area5:
 	.db $81, $EA, $20, $12
 	.db $82, $0B
+IFNDEF DISABLE_DOOR_POINTERS
 	.db $0D, $36
+ENDIF
+IFDEF DISABLE_DOOR_POINTERS
+	.db $F5, $0D, $36
+ENDIF
 	.db $2A, $67
 	.db $2A, $FF
 	.db $F0, $6C

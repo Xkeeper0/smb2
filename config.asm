@@ -76,6 +76,8 @@ PRESERVE_UNUSED_SPACE = 1
 ; Fixes vine climbing bug when holding up and down simultaneously
 ; FIX_CLIMB_ZIP = 1
 
+; Fixes green platform tiles in Subspace
+; FIX_SUBSPACE_TILES = 1
 
 
 ; ----------------------------------------

@@ -1617,7 +1617,7 @@ SoundEffectTimer3:
 	.dsb 1 ; $0611
 MusicTempoSetting:
 	.dsb 1 ; $0612
-MusicSquare1NoteOffset:
+CurrentMusicSquare2Offset:
 	.dsb 1 ; $0613
 CurrentMusicSquare1Offset:
 	.dsb 1 ; $0614
