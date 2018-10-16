@@ -25,11 +25,11 @@ works, as well as some other stuff.
   * [PRGC and PRGD](#prgc-and-prgd): Mario's asleep ending and cast roll
   * [PRGE and PRGF](#prge-and-prgf): Fixed-bank potpourri, basically important stuff
 * Data formats
-  * [Level data](forats/levels.md)
-    * [Headers](formats/levels.md#header)
-    * [Objects](formats/levels.md#objects)
-    * [Ground types](formats/levels.md#ground-types)
-    * [Enemies](formats/levels.md#enemy-layouts)
+  * [Level data](formats/levels)
+    * [Headers](formats/levels#header)
+    * [Objects](formats/levels#objects)
+    * [Ground types](formats/levels#ground-types)
+    * [Enemies](formats/levels#enemy-layouts)
   * PPU buffers
   * Music
   * etc...
