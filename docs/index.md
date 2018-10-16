@@ -24,8 +24,15 @@ works, as well as some other stuff.
   * [PRGA and PRGB](#prga-and-prgb): Level title cards, Bonus Chance background, character select stuff
   * [PRGC and PRGD](#prgc-and-prgd): Mario's asleep ending and cast roll
   * [PRGE and PRGF](#prge-and-prgf): Fixed-bank potpourri, basically important stuff
-  * 
-* Test
+* Data formats
+  * [Level data](forats/levels.md)
+    * [Headers](formats/levels.md#header)
+    * [Objects](formats/levels.md#objects)
+    * [Ground types](formats/levels.md#ground-types)
+    * [Enemies](formats/levels.md#enemy-layouts)
+  * PPU buffers
+  * Music
+  * etc...
 
 
 
@@ -38,7 +45,7 @@ way that they're treated more like 8 &times; 16K banks (swapped in pairs of two)
 
 Technically you (or Nintendo, really) could have used the full capabilities of
 the MMC3 mapper and swapped them in 8K sections, but the game was originally
-converted from the FDS *Doki Doki Panic*; 
+converted from the FDS *Doki Doki Panic*;
 [the prototype of the conversion](https://tcrf.net/Proto:Super_Mario_Bros._2_(NES%29))
 uses the [MMC1 mapper](https://wiki.nesdev.com/w/index.php/MMC1), which only
 supported 16K banks.
