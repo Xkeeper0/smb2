@@ -1,13 +1,23 @@
 # Super Mario Bros. 2, Discombobulated
-![Logo](tools/logo.png "Logo")\
+[![Logo](tools/logo.png "Logo")](https://xkeeper0.github.io/smb2)\
 A disassembly of Super Mario Bros. 2.
 
-[![Build Status](https://travis-ci.com/Xkeeper0/smb2.svg?branch=asm6)](https://travis-ci.com/Xkeeper0/smb2)
+This project is intended to fully disassemble, comment, and understand
+everything about the game *Super Mario Bros. 2* on the NES. In addition to the
+disassembly, there is also [documentation about the game's formats](https://xkeeper0.github.io/smb2),
+though those are more of a work in progress than the disassembly.
+
+As an added bonus, a fully understood disassembly will also make modifying and
+changing the game easier!
+
+----
+
+## Building
 
 This is designed for use with [asm6f](https://github.com/freem/asm6f/).
 For your convenience, binaries of that have been included. (Windows/Linux)
 
-## Building
+[![Build Status](https://travis-ci.com/Xkeeper0/smb2.svg?branch=asm6)](https://travis-ci.com/Xkeeper0/smb2)
 
 ### Windows
 Open a command prompt window and run:
@@ -56,6 +66,7 @@ The "source" lives in the `src` directory:
 * `ram.asm` contains labels and definitions for RAM addresses.
 * `extras/` contains some additional fun things (see `config.asm`).
 * `levels/` contains level and enemy data.
+* `music/` contains music and sound data.
 * This list is growing as we split the disassembly into smaller parts.
 
 
@@ -65,8 +76,6 @@ The "source" lives in the `src` directory:
 * Submit a pull request!
 * You are also encouraged to visit the [Discord server](https://discord.gg/TsWMMeV)
   if you have any questions.
-
-We do not have a formal style guide yet. Sorry.
 
 
 ## See Also

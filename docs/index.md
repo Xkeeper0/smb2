@@ -1,9 +1,3 @@
-# Super Mario Bros. 2 Disassembly
-
-Join us on [Discord](https://discord.gg/TsWMMeV)!
-
---
-
 This is the GitHub repository for the *Super Mario Bros. 2* (USA) disassembly
 project.
 
@@ -13,9 +7,14 @@ Instructions for how to download and reassemble the game are in the
 This site will primarily work on detailing some of the innards of how the game
 works, as well as some other stuff.
 
+We have a [Discord](https://discord.gg/TsWMMeV) you can join if you'd like to
+talk about or assist in disassembling and documenting the game, as well.
+
+--------------------------------------------------------------------------------
+
 ## Contents
 
-* Program ROM banks
+* **Program ROM banks**
   * [PRG0 and PRG1](#prg0-and-prg1): Title screens, controls, player/enemy handling.
   * [PRG2 and PRG3](#prg2-and-prg3): Enemy initialization and logic
   * [PRG4 and PRG5](#prg4-and-prg5): Music and sound engine
@@ -24,7 +23,9 @@ works, as well as some other stuff.
   * [PRGA and PRGB](#prga-and-prgb): Level title cards, Bonus Chance background, character select stuff
   * [PRGC and PRGD](#prgc-and-prgd): Mario's asleep ending and cast roll
   * [PRGE and PRGF](#prge-and-prgf): Fixed-bank potpourri, basically important stuff
-* Data formats
+
+
+* **Data formats**
   * [Level data](formats/levels)
     * [Headers](formats/levels#header)
     * [Objects](formats/levels#objects)
@@ -34,8 +35,7 @@ works, as well as some other stuff.
   * Music
   * etc...
 
-
-
+--------------------------------------------------------------------------------
 
 # Program ROM banks
 
