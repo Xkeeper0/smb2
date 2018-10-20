@@ -78,8 +78,8 @@ include "src/levels/1/1-3/1-3-area4.asm"
 ; World 2-1
 include "src/levels/2/2-1/2-1-area0.asm"
 include "src/levels/2/2-1/2-1-area1.asm"
+include "src/levels/2/2-1/2-1-area2.asm"
 include "src/levels/2/2-1/2-1-area4.asm"
-include "src/levels/2/2-1/2-1-area3.asm"
 
 ; World 2-2
 include "src/levels/2/2-2/2-2-area0.asm"

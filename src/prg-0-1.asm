@@ -2044,7 +2044,7 @@ ClimbableTiles:
 	.db BackgroundTile_Vine
 	.db BackgroundTile_VineStandable
 	.db BackgroundTile_VineBottom
-	.db BackgroundTile_UnusedC4
+	.db BackgroundTile_ClimbableSky
 	.db BackgroundTile_Chain
 	.db BackgroundTile_Ladder
 	.db BackgroundTile_LadderShadow

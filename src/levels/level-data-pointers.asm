@@ -35,14 +35,14 @@ LevelDataPointersLo:
 	; Level 2-1
 	.db <LevelData_2_1_Area0
 	.db <LevelData_2_1_Area1
+	.db <LevelData_2_1_Area2
+	.db <LevelData_2_1_Area2
 	.db <LevelData_2_1_Area4
-	.db <LevelData_2_1_Area4
-	.db <LevelData_2_1_Area3
-	.db <LevelData_2_1_Area4
-	.db <LevelData_2_1_Area4
-	.db <LevelData_2_1_Area4
-	.db <LevelData_2_1_Area4
-	.db <LevelData_2_1_Area4
+	.db <LevelData_2_1_Area2
+	.db <LevelData_2_1_Area2
+	.db <LevelData_2_1_Area2
+	.db <LevelData_2_1_Area2
+	.db <LevelData_2_1_Area2
 	; Level 2-2
 	.db <LevelData_2_2_Area0
 	.db <LevelData_2_2_Area1
@@ -268,14 +268,14 @@ LevelDataPointersHi:
 	; Level 2-1
 	.db >LevelData_2_1_Area0
 	.db >LevelData_2_1_Area1
+	.db >LevelData_2_1_Area2
+	.db >LevelData_2_1_Area2
 	.db >LevelData_2_1_Area4
-	.db >LevelData_2_1_Area4
-	.db >LevelData_2_1_Area3
-	.db >LevelData_2_1_Area4
-	.db >LevelData_2_1_Area4
-	.db >LevelData_2_1_Area4
-	.db >LevelData_2_1_Area4
-	.db >LevelData_2_1_Area4
+	.db >LevelData_2_1_Area2
+	.db >LevelData_2_1_Area2
+	.db >LevelData_2_1_Area2
+	.db >LevelData_2_1_Area2
+	.db >LevelData_2_1_Area2
 	; Level 2-2
 	.db >LevelData_2_2_Area0
 	.db >LevelData_2_2_Area1

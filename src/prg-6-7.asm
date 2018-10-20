@@ -4,6 +4,9 @@
 ;
 ; What's inside:
 ;
+;   - Level palettes
+;   - Groundset data
+;   - Object tiles
 ;   - Level handling code
 ;
 
