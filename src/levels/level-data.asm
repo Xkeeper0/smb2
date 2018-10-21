@@ -31,13 +31,13 @@
 ;   $TT - type
 ;
 ; Special objects (1-3 bytes):
-;   $F0 - ground setting; one parameter for the ground setting
-;   $F1 - ground setting; one parameter for the ground setting
+;   $F0 - ground setting; byte 1: oooGGGGG, where o is offset and G is ground setting
+;   $F1 - ground setting; byte 1: oooGGGGG, where o+8 is offset and G is ground setting
 ;   $F2 - skip forward one page; no parameters
 ;   $F3 - skip forward two pages; no parameters
 ;   $F4 - new object layer; next object will be positioned relative to (0, 0) of the first page; no parameters
 ;   $F5 - area pointer; byte 1: world/level offset, byte 2: $AP, where A is the area and P is the page offset within the area
-;   $F6 - ground type; one parameter for ground type
+;   $F6 - ground type; byte 1: ground type
 ;   $F7-$FE - seemingly unused
 ;   $FF - end of the data for the current level; no parameters
 ;
