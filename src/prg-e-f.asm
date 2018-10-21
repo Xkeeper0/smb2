@@ -4398,7 +4398,7 @@ GetEnemyPointers:
 	CMP #$01
 	BNE loc_BANKF_F7A0 ; No, load the area as usual
 
-	LDY #$04 ; Yes; jars are always area #$04 for some reason
+	LDY #AreaIndex_Jar
 	JMP loc_BANKF_F7A3
 
 ; ---------------------------------------------------------------------------
@@ -4412,9 +4412,9 @@ loc_BANKF_F7A3:
 	LDA (byte_RAM_2), Y
 	STA byte_RAM_0
 	LDX #$FF
-	LDA #$7B
+	LDA #>RawEnemyDataAddr
 	STA byte_RAM_3
-	LDY #$00
+	LDY #<RawEnemyDataAddr
 	STY byte_RAM_2
 
 CopyEnemyDataToMemory:
@@ -4434,15 +4434,15 @@ GetJarPointers:
 	LDY CurrentLevel ; Get the area starting index for the current level
 	LDA LevelAreaStartIndexes, Y
 	CLC
-	ADC #$04 ; 4 is always the jar sub area
+	ADC #AreaIndex_Jar
 	TAY
 	LDA LevelDataPointersLo, Y
 	STA byte_RAM_5
 	LDA LevelDataPointersHi, Y
 	STA byte_RAM_6
-	LDA #$7A
+	LDA #>RawJarData
 	STA byte_RAM_2
-	LDY #$00
+	LDY #<RawJarData
 	STY byte_RAM_1
 
 CopyJarDataToMemory:

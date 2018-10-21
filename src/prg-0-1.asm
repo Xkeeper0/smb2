@@ -1334,7 +1334,9 @@ loc_BANK0_8705:
 byte_BANK0_8709:
 	.db $28
 	.db $24
-byte_BANK0_870B:
+; The sub-area "page" is is the index in the DecodedLevelPageStart table.
+; This is why there are 10 blank pages in the jar enemy data.
+SubAreaPage:
 	.db $0A
 
 ; =============== S U B R O U T I N E =======================================
@@ -1347,22 +1349,22 @@ sub_BANK0_870C:
 	LDA ScreenBoundaryLeftHi
 	STA ScreenBoundaryLeftHi_Backup
 	INC byte_RAM_53D
-	LDA byte_BANK0_870B
+	LDA SubAreaPage
 	STA CurrentLevelEntryPage
 	JSR sub_BANK0_86EE
 
 	LDA #$00
 	STA PPUScrollXMirror
 	STA ScreenBoundaryLeftLo
-	LDA byte_BANK0_870B
+	LDA SubAreaPage
 	STA ScreenBoundaryLeftHi
 	JSR sub_BANK0_946D
 
-	LDA byte_BANK0_870B
+	LDA SubAreaPage
 	STA byte_RAM_CE
 	LDA #$E0
 	STA byte_RAM_506
-	LDA byte_BANK0_870B
+	LDA SubAreaPage
 	CLC
 	ADC #$F0
 	STA byte_RAM_505

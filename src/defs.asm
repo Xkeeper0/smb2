@@ -16,6 +16,9 @@ ENDIF
 
 ; ---------------------------------------------------------------------------
 
+AreaIndex_Start = $00
+AreaIndex_Jar = $04
+
 ; enum PlayerStates (width 1 byte)
 PlayerState_Normal = $00
 PlayerState_Climbing = $01
