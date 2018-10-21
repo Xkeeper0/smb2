@@ -1493,6 +1493,7 @@ IFNDEF DISABLE_BONUS_CHANCE
 	BNE EndOfLevelSlotMachine
 ENDIF
 IFDEF DISABLE_BONUS_CHANCE
+	STY PlayerCurrentSize
 	BNE GoToNextLevel
 ENDIF
 	; Otherwise, display the ending
