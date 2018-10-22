@@ -2372,6 +2372,7 @@ loc_BANK6_9086:
 
 ; ---------------------------------------------------------------------------
 
+; Jump-through mushroom platforms, used in World 7
 CreateObject_MushroomJumpthroughPlatform:
 	LDA byte_RAM_50D
 	STA byte_RAM_7
