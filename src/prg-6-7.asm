@@ -1246,6 +1246,7 @@ CreateObject_Platform_CX:
 ENDIF
 
 
+; Typical (usually) green hill platforms used throughout World 1 through 6
 CreateObject_GreenJumpthroughPlatform:
 	LDX #$00
 
