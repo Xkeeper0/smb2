@@ -714,8 +714,14 @@ CreateObjects_30thruF0:
 	.dw CreateObject_VerticalBlocks ; $8X
 	.dw CreateObject_VerticalBlocks ; $9X
 	.dw CreateObject_VerticalBlocks ; $AX
+IFNDEF ENABLE_LEVEL_OBJECT_MODE
 	.dw CreateObject_WhaleOrDrawBridgeChain ; $BX
 	.dw CreateObject_JumpthroughPlatform ; $CX
+ENDIF
+IFDEF ENABLE_LEVEL_OBJECT_MODE
+	.dw CreateObject_Platform_BX ; $BX
+	.dw CreateObject_Platform_CX ; $CX
+ENDIF
 	.dw CreateObject_HorizontalPlatform ; $DX
 	.dw CreateObject_HorizontalPlatform ; $EX
 	.dw CreateObject_WaterfallOrFrozenRocks ; $FX
@@ -1217,18 +1223,30 @@ GreenPlatformOverwriteTiles:
 	.db BackgroundTile_Waterfall
 
 
+IFNDEF ENABLE_LEVEL_OBJECT_MODE
 ; Draw green platforms or mushroom house depending on world
 CreateObject_JumpthroughPlatform:
 	LDA CurrentWorldTileset
 	CMP #$06
-	BNE loc_BANK6_8BBD
+	BNE CreateObject_GreenJumpthroughPlatform
 
-	JMP loc_BANK6_908F
+	JMP CreateObject_MushroomJumpthroughPlatform
+ENDIF
 
-; ---------------------------------------------------------------------------
 
-; Draw green platform
-loc_BANK6_8BBD:
+IFDEF ENABLE_LEVEL_OBJECT_MODE
+CreateObject_Platform_CX:
+	LDA LevelObjectMode
+	JSR JumpToTableAfterJump
+
+	.dw CreateObject_GreenJumpthroughPlatform
+	.dw CreateObject_GreenJumpthroughPlatform
+	.dw CreateObject_Whale
+	.dw CreateObject_MushroomJumpthroughPlatform
+ENDIF
+
+
+CreateObject_GreenJumpthroughPlatform:
 	LDX #$00
 
 loc_BANK6_8BBF:
@@ -1637,17 +1655,19 @@ WaterfallTiles:
 
 
 CreateObject_WaterfallOrFrozenRocks:
+IFNDEF ENABLE_LEVEL_OBJECT_MODE
 	LDA CurrentWorldTileset
 	CMP #$03
 	BNE CreateObject_Waterfall
 
 	JMP CreateObject_FrozenRocks
+ENDIF
 
 CreateObject_Waterfall:
 	LDA #$00
 	STA byte_RAM_8
 
-loc_BANK6_8DA3:
+CreateObject_Waterfall_OuterLoop:
 	LDY byte_RAM_E7
 	LDX byte_RAM_E8
 	JSR SetAreaPageAddr_Bank6
@@ -1657,13 +1677,13 @@ loc_BANK6_8DA3:
 	STA byte_RAM_7
 	LDX byte_RAM_8
 
-loc_BANK6_8DB3:
+CreateObject_Waterfall_InnerLoop:
 	LDA WaterfallTiles, X
 	STA (byte_RAM_1), Y
 	JSR IncrementAreaXOffset
 
 	DEC byte_RAM_7
-	BPL loc_BANK6_8DB3
+	BPL CreateObject_Waterfall_InnerLoop
 
 	LDA #$01
 	STA byte_RAM_8
@@ -1671,15 +1691,56 @@ loc_BANK6_8DB3:
 	CLC
 	ADC #$10
 	CMP #$F0
-	BCS locret_BANK6_8DD1
+	BCS CreateObject_Waterfall_Exit
 
 	STA byte_RAM_E7
-	JMP loc_BANK6_8DA3
+	JMP CreateObject_Waterfall_OuterLoop
 
-locret_BANK6_8DD1:
+CreateObject_Waterfall_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
+
+IFDEF ENABLE_LEVEL_OBJECT_MODE
+WaterTiles:
+	.db BackgroundTile_WaterTop
+	.db BackgroundTile_Water
+
+CreateObject_Water:
+	LDA #$00
+	STA byte_RAM_8
+
+CreateObject_Water_OuterLoop:
+	LDY byte_RAM_E7
+	LDX byte_RAM_E8
+	JSR SetAreaPageAddr_Bank6
+
+	LDY byte_RAM_E7
+	LDA byte_RAM_50D
+	STA byte_RAM_7
+	LDX byte_RAM_8
+
+CreateObject_Water_InnerLoop:
+	LDA WaterTiles, X
+	STA (byte_RAM_1), Y
+	JSR IncrementAreaXOffset
+
+	DEC byte_RAM_7
+	BPL CreateObject_Water_InnerLoop
+
+	LDA #$01
+	STA byte_RAM_8
+	LDA byte_RAM_E7
+	CLC
+	ADC #$10
+	CMP #$F0
+	BCS CreateObject_Water_Exit
+
+	STA byte_RAM_E7
+	JMP CreateObject_Water_OuterLoop
+
+CreateObject_Water_Exit:
+	RTS
+ENDIF
 
 CreateObject_Pyramid:
 	LDY byte_RAM_E7
@@ -1880,12 +1941,25 @@ loc_BANK6_8EAF:
 
 ; ---------------------------------------------------------------------------
 
+IFDEF ENABLE_LEVEL_OBJECT_MODE
+CreateObject_Platform_BX:
+	LDA LevelObjectMode
+	JSR JumpToTableAfterJump
+
+	.dw CreateObject_Water
+	.dw CreateObject_FrozenRocks
+	.dw CreateObject_FrozenRocks
+	.dw CreateObject_DrawBridgeChain
+ENDIF
+
+IFNDEF ENABLE_LEVEL_OBJECT_MODE
 CreateObject_WhaleOrDrawBridgeChain:
 	LDA CurrentWorldTileset
 	CMP #$06
 	BNE CreateObject_Whale
 
 	JMP CreateObject_DrawBridgeChain
+ENDIF
 
 ; ---------------------------------------------------------------------------
 
@@ -2297,8 +2371,7 @@ loc_BANK6_9086:
 
 ; ---------------------------------------------------------------------------
 
-; Draw mushroom houses for World 7
-loc_BANK6_908F:
+CreateObject_MushroomJumpthroughPlatform:
 	LDA byte_RAM_50D
 	STA byte_RAM_7
 	LDA #$0C
@@ -3076,6 +3149,16 @@ LoadCurrentArea:
 	AND #%00011100
 	STA GroundType
 	JSR RestoreLevelDataCopyAddress
+
+IFDEF ENABLE_LEVEL_OBJECT_MODE
+	; level object mode
+	LDA (byte_RAM_5), Y
+	ROL A
+	ROL A
+	ROL A
+	AND #%00000011
+	STA LevelObjectMode
+ENDIF
 
 	; horizontal or vertical level
 	LDY #$00
