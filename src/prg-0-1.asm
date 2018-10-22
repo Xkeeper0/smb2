@@ -3001,7 +3001,13 @@ PlayerTileCollision_Downward:
 	BEQ PlayerTileCollision_Downward_CheckQuicksand
 
 	CPY #$05
+IFNDEF ALWAYS_ALLOW_QUICKSAND
 	BNE PlayerTileCollision_Downward_AfterCheckQuicksand
+ENDIF
+IFDEF ALWAYS_ALLOW_QUICKSAND
+	NOP
+	NOP
+ENDIF
 
 PlayerTileCollision_Downward_CheckQuicksand:
 	JSR PlayerTileCollision_CheckQuicksand
