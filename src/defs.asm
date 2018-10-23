@@ -16,6 +16,10 @@ ENDIF
 
 ; ---------------------------------------------------------------------------
 
+; Each level has a maximum of 10 ($00~$09) areas.
+; Extra ones are generally empty or pointers to the last 'real' area.
+; "Common jars", if used in a level, occupy area $04.
+; but if common jars aren't used, it can (and often is) a regular area.
 AreaIndex_Start = $00
 AreaIndex_Jar = $04
 
