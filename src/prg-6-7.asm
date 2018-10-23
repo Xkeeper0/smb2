@@ -1224,7 +1224,7 @@ GreenPlatformOverwriteTiles:
 
 
 IFNDEF ENABLE_LEVEL_OBJECT_MODE
-; Draw green platforms or mushroom house depending on world
+; Either draw typical green hill platforms (W1-6) or a mushroom-like platform (W7)
 CreateObject_JumpthroughPlatform:
 	LDA CurrentWorldTileset
 	CMP #$06
