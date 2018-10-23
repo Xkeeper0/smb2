@@ -120,11 +120,17 @@ PRESERVE_UNUSED_SPACE = 1
 ; Skip unnecessary bonus chance RAM copy
 ; BONUS_CHANCE_RAM_CLEANUP = 1
 
-; Encode world tileset in unused 3 bits of area header
+; Encode world tileset in unused 3 bits of area header byte 2
 ; AREA_HEADER_TILESET = 1
+
+; Encode level engine object mode switch in unused 2 bits of area header byte 4
+; ENABLE_LEVEL_OBJECT_MODE = 1
 
 ; Enables additional level engine features
 ; LEVEL_ENGINE_UPGRADES = 1
+
+; Enables quicksand tile behavior outside of worlds 2 and 6
+; ALWAYS_ALLOW_QUICKSAND = 1
 
 ; Disables door pointers, so that area pointers are always required
 ; DISABLE_DOOR_POINTERS = 1

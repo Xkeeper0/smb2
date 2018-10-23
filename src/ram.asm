@@ -1679,6 +1679,7 @@ MaxLevelsCompleted:
 ; FOR RENT
 	.dsb 1 ; $0632
 ; FOR RENT
+LevelObjectMode:
 	.dsb 1 ; $0633
 
 IFDEF AREA_HEADER_TILESET
