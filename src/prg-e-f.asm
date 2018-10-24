@@ -3288,6 +3288,7 @@ byte_BANKF_F2E7:
 	.db $1A
 	.db $1C
 	.db $1E
+; Princess jump frames
 	.db $B4
 	.db $B6
 
