@@ -5780,7 +5780,7 @@ loc_BANK2_9BEF:
 	LDY EnemyArray_45C, X
 	BEQ loc_BANK2_9C07
 
-	AND #$A0
+	AND #ObjAttrib_UpsideDown | ObjAttrib_BehindBackground
 	STA byte_RAM_8
 	TYA
 	LSR A
@@ -6936,7 +6936,7 @@ loc_BANK3_A37C:
 	LDA #$00
 	STA ObjectYVelocity, X
 	STA PlayerRidingCarpet
-	JMP sub_BANK3_A552
+	JMP RenderSprite_FlyingCarpet
 
 ; ---------------------------------------------------------------------------
 
@@ -7067,27 +7067,24 @@ loc_BANK3_A42A:
 
 	LDA EnemyArray_B1, X
 	CMP #$20
-	BCS loc_BANK3_A43D
+	BCS EnemyBehavior_FlyingCarpet_Render
 
 	LDA byte_RAM_10
 	AND #$02
 
 loc_BANK3_A43A:
-	BNE loc_BANK3_A43D
+	BNE EnemyBehavior_FlyingCarpet_Render
 
 	RTS
 
-; ---------------------------------------------------------------------------
+EnemyBehavior_FlyingCarpet_Render:
+	JMP RenderSprite_FlyingCarpet
 
-loc_BANK3_A43D:
-	JMP sub_BANK3_A552
-
-; =============== S U B R O U T I N E =======================================
 
 CreateFlyingCarpet:
 	JSR CreateEnemy_TryAllSlots
 
-	BMI loc_BANK3_A478
+	BMI CreateFlyingCarpet_Exit
 
 	LDX byte_RAM_0
 	LDY byte_RAM_12
@@ -7116,14 +7113,12 @@ CreateFlyingCarpet:
 	LDA #$A0
 	STA EnemyArray_B1, X
 
-loc_BANK3_A478:
+CreateFlyingCarpet_Exit:
 	LDX byte_RAM_12
 	RTS
 
-; End of function CreateFlyingCarpet
 
-; ---------------------------------------------------------------------------
-byte_BANK3_A47B:
+FlyingCarpetMirroring:
 	.db $02
 	.db $02
 	.db $01
@@ -7135,32 +7130,36 @@ FlyingCarpetTilemapIndex:
 	.db $0C
 	.db $04
 
-unk_BANK3_A483:
+PidgitYAcceleration:
 	.db $01
 	.db $FF
-unk_BANK3_A485:
+
+PidgitTurnYVelocity:
 	.db $08
 	.db $F8
-unk_BANK3_A487:
+
+PidgitXAcceleration:
 	.db $01
 	.db $FF
-unk_BANK3_A489:
+
+PidgitTurnXVelocity:
 	.db $20
 	.db $E0
-unk_BANK3_A48B:
+
+PidgitDiveXVelocity:
 	.db $14
 	.db $EC
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_Pidgit:
 	JSR EnemyBehavior_CheckDamagedInterrupt
 
 	INC ObjectAnimationTimer, X
 	LDA EnemyArray_42F, X
-	BEQ loc_BANK3_A4A3
+	BEQ EnemyBehavior_Pidgit_Alive
 
 	LDA ObjectAttributes, X
-	ORA #$80
+	ORA #ObjAttrib_UpsideDown
 	STA ObjectAttributes, X
 	JSR RenderSprite_Pidgit
 
@@ -7168,7 +7167,7 @@ EnemyBehavior_Pidgit:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A4A3:
+EnemyBehavior_Pidgit_Alive:
 	JSR EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
 	LDA EnemyArray_B1, X
@@ -7200,7 +7199,7 @@ loc_BANK3_A4C1:
 	STA ObjectYVelocity, X
 	JSR EnemyFindWhichSidePlayerIsOn
 
-	LDA unk_BANK3_A48B, Y
+	LDA PidgitDiveXVelocity, Y
 	STA ObjectXVelocity, X
 	INC EnemyArray_B1, X
 	JMP RenderSprite_Pidgit
@@ -7213,9 +7212,9 @@ loc_BANK3_A4D6:
 	TAY
 	LDA ObjectYVelocity, X
 	CLC
-	ADC unk_BANK3_A483, Y
+	ADC PidgitYAcceleration, Y
 	STA ObjectYVelocity, X
-	CMP unk_BANK3_A485, Y
+	CMP PidgitTurnYVelocity, Y
 	BNE loc_BANK3_A4EC
 
 	INC EnemyArray_480, X
@@ -7226,9 +7225,9 @@ loc_BANK3_A4EC:
 	TAY
 	LDA ObjectXVelocity, X
 	CLC
-	ADC unk_BANK3_A487, Y
+	ADC PidgitXAcceleration, Y
 	STA ObjectXVelocity, X
-	CMP unk_BANK3_A489, Y
+	CMP PidgitTurnXVelocity, Y
 	BNE loc_BANK3_A502
 
 	INC EnemyArray_477, X
@@ -7238,7 +7237,6 @@ loc_BANK3_A502:
 
 	JSR ApplyObjectPhysicsX
 
-; =============== S U B R O U T I N E =======================================
 
 RenderSprite_Pidgit:
 	JSR RenderSprite_NotAlbatoss
@@ -7248,8 +7246,9 @@ RenderSprite_Pidgit:
 	SBC #$01
 	ORA EnemyArray_42F, X
 	ORA ObjectBeingCarriedTimer, X
-	BNE locret_BANK3_A551
+	BNE RenderSprite_Pidgit_Exit
 
+	; Render Pidgit's carpet
 	JSR loc_BANKF_FAFE
 
 IFDEF COMPATIBILITY
@@ -7260,7 +7259,7 @@ IFNDEF COMPATIBILITY
 	NOP ; Alignment fix
 ENDIF
 
-	LDA #$45
+	LDA #ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_16x32
 	STA ObjectAttributes, X
 	LDA ObjectXLo, X
 	PHA
@@ -7284,18 +7283,16 @@ ENDIF
 	LDA SpriteTempScreenX
 	SBC #$07
 	STA SpriteTempScreenX
-	JSR sub_BANK3_A552
+	JSR RenderSprite_FlyingCarpet
 
 	LDA #ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_FrontFacing
 	STA ObjectAttributes, X
 
-locret_BANK3_A551:
+RenderSprite_Pidgit_Exit:
 	RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK3_A552:
+RenderSprite_FlyingCarpet:
 	LDA byte_RAM_10
 	LSR A
 	LSR A
@@ -7308,12 +7305,10 @@ sub_BANK3_A552:
 
 loc_BANK3_A55F:
 	TAY
-	LDA byte_BANK3_A47B, Y
+	LDA FlyingCarpetMirroring, Y
 	STA EnemyMovementDirection, X
 	LDA FlyingCarpetTilemapIndex, Y
 	JMP RenderSprite_DrawObject
-
-; End of function sub_BANK3_A552
 
 
 EnemyInit_Mouser:
