@@ -27,6 +27,24 @@ MACRO enemy x, y, type
 	.db type, x << 4 | y
 ENDM
 
+;
+; LevelHeader macro
+;
+; The order of the parameters is slightly different than how it's encoded, but
+; hopefully this order is a little more intuitive?
+;
+MACRO levelHeader pages, horizontal, bgPalette, spritePalette, music, objectTypeAXFX, objectType3X9X, groundSetting, groundType
+	.db horizontal << 7 | bgPalette << 3 | spritePalette
+	.db %11100000 | groundSetting
+	.db pages << 4 | objectTypeAXFX << 2 | objectType3X9X
+	IFNDEF LEVEL_ENGINE_UPGRADES
+		.db groundType << 3 | music
+	ENDIF
+	IFDEF LEVEL_ENGINE_UPGRADES
+		.db groundType << 4 | music
+	ENDIF
+ENDM
+
 MACRO musicPart label
 	.db (label - MusicPartPointers)
 ENDM

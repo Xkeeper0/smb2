@@ -1,7 +1,8 @@
 ; Level 3-2, Area 1
 
 LevelData_3_2_Area1:
-	.db $91, $EA, $72, $11
+	levelHeader 7, LevelDirection_Horizontal, 2, 1, LevelMusic_Underground, 0, 2, $0a, $2
+
 	.db $97, $25
 	.db $09, $21
 	.db $0B, $21

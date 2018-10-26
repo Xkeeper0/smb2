@@ -117,6 +117,9 @@ PRESERVE_UNUSED_SPACE = 1
 ; Pads title screen PPU data for easier modification
 ; PAD_TITLE_SCREEN_PPU_DATA = 1
 
+; Expands various lookup tables so that more values can be added
+; EXPAND_TABLES = 1
+
 ; Skip unnecessary bonus chance RAM copy
 ; BONUS_CHANCE_RAM_CLEANUP = 1
 

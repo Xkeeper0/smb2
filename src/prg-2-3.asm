@@ -5412,7 +5412,9 @@ EnemyTilemap1:
 	.db $8C,$8C ; $B4
 	.db $A6,$A6 ; $B6
 	.db $AB,$AB ; $B8
-
+IFDEF EXPAND_TABLES
+	unusedSpace EnemyTilemap1 + $100, $FB
+ENDIF
 
 ;
 ; Enemy Animation table
@@ -6430,7 +6432,10 @@ EnemyTilemap2:
 	.db $21,$23 ; $D4
 	.db $25,$27 ; $D6
 	.db $25,$27 ; $D8
-; ---------------------------------------------------------------------------
+IFDEF EXPAND_TABLES
+	unusedSpace EnemyTilemap2 + $100, $FB
+ENDIF
+
 
 EnemyInit_Clawgrip:
 	JSR EnemyInit_Birdo

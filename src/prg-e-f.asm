@@ -4530,6 +4530,9 @@ TileQuads1:
 	.db $32,$34,$33,$35 ; $80
 	.db $33,$35,$33,$35 ; $84
 	.db $24,$26,$25,$27 ; $88
+IFDEF EXPAND_TABLES
+	unusedSpace TileQuads1 + $100, $FC
+ENDIF
 
 TileQuads2:
 	.db $FA,$FA,$FA,$FA ; $00
@@ -4591,6 +4594,9 @@ TileQuads2:
 	.db $6C,$54,$6D,$55 ; $E0
 	.db $32,$34,$33,$35 ; $E4
 	.db $33,$35,$33,$35 ; $E8
+IFDEF EXPAND_TABLES
+	unusedSpace TileQuads2 + $100, $FC
+ENDIF
 
 TileQuads3:
 	.db $94,$95,$94,$95 ; $00
@@ -4637,7 +4643,9 @@ TileQuads3:
 	.db $72,$73,$4A,$4B ; $A4
 	.db $40,$42,$41,$43 ; $A8
 	.db $41,$43,$41,$43 ; $AC
-
+IFDEF EXPAND_TABLES
+	unusedSpace TileQuads3 + $100, $FC
+ENDIF
 TileQuads4:
 	.db $40,$42,$41,$43 ; $00
 	.db $40,$42,$41,$43 ; $04
@@ -4664,6 +4672,9 @@ TileQuads4:
 	.db $8E,$8F,$8F,$8E ; $58
 	.db $72,$73,$73,$72 ; $5C
 	.db $44,$45,$45,$44 ; $60
+IFDEF EXPAND_TABLES
+	unusedSpace TileQuads4 + $100, $FC
+ENDIF
 
 EndOfLevelDoor: ; PPU data
 	.db $22,$D0,$04,$FC,$FC,$AD,$FA

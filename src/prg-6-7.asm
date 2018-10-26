@@ -86,6 +86,9 @@ World1SpritePalettes:
 	.db $FF,$30,$16,$0F ; $18
 	.db $FF,$30,$10,$0F ; $1C
 	.db $FF,$25,$10,$0F ; $20
+IFDEF EXPAND_TABLES
+	unusedSpace World1SpritePalettes + $30, $FF
+ENDIF
 
 World2BackgroundPalettes:
 	.db $11,$30,$2A,$0F ; $00
@@ -127,6 +130,9 @@ World2SpritePalettes:
 	.db $FF,$30,$16,$0F ; $18
 	.db $FF,$30,$10,$0F ; $1C
 	.db $FF,$30,$23,$0F ; $20
+IFDEF EXPAND_TABLES
+	unusedSpace World2SpritePalettes + $30, $FF
+ENDIF
 
 World3BackgroundPalettes:
 	.db $22,$30,$12,$0F ; $00
@@ -168,6 +174,9 @@ World3SpritePalettes:
 	.db $FF,$30,$16,$0F ; $18
 	.db $FF,$30,$10,$0F ; $1C
 	.db $FF,$2B,$10,$0F ; $20
+IFDEF EXPAND_TABLES
+	unusedSpace World3SpritePalettes + $30, $FF
+ENDIF
 
 World4BackgroundPalettes:
 	.db $23,$30,$12,$0F ; $00
@@ -209,6 +218,9 @@ World4SpritePalettes:
 	.db $FF,$30,$16,$0F ; $18
 	.db $FF,$30,$10,$0F ; $1C
 	.db $FF,$27,$16,$0F ; $20
+IFDEF EXPAND_TABLES
+	unusedSpace World4SpritePalettes + $30, $FF
+ENDIF
 
 World5BackgroundPalettes:
 	.db $0F,$30,$12,$01 ; $00
@@ -250,6 +262,9 @@ World5SpritePalettes:
 	.db $FF,$30,$16,$0F ; $18
 	.db $FF,$30,$16,$0F ; $1C
 	.db $FF,$16,$30,$0F ; $20
+IFDEF EXPAND_TABLES
+	unusedSpace World5SpritePalettes + $30, $FF
+ENDIF
 
 World6BackgroundPalettes:
 	.db $21,$30,$2A,$0F ; $00
@@ -291,6 +306,9 @@ World6SpritePalettes:
 	.db $FF,$30,$16,$0F ; $18
 	.db $FF,$30,$10,$0F ; $1C
 	.db $FF,$30,$23,$0F ; $20
+IFDEF EXPAND_TABLES
+	unusedSpace World6SpritePalettes + $30, $FF
+ENDIF
 
 World7BackgroundPalettes:
 	.db $21,$30,$12,$0F ; $00
@@ -332,6 +350,9 @@ World7SpritePalettes:
 	.db $FF,$30,$16,$0F ; $18
 	.db $FF,$30,$10,$0F ; $1C
 	.db $FF,$30,$2A,$0F ; $20
+IFDEF EXPAND_TABLES
+	unusedSpace World7SpritePalettes + $30, $FF
+ENDIF
 
 GroundTilesHorizontalLo:
 	.db <World1GroundTilesHorizontal
@@ -374,7 +395,7 @@ GroundTilesVerticalHi:
 ; =======================
 ;
 ; These are the tiles used to render the ground setting of an area.
-; Each row in a world's table corresponds to the ground appearance setting.
+; Each row in a world's table corresponds to the ground type.
 ;
 ; You'll notice that the first entry, which correponds to the sky/background is
 ; $00 instead of $40. This is skipped with a BEQ in WriteGroundSetTiles,
@@ -389,6 +410,9 @@ World1GroundTilesHorizontal:
 	.db $00, $A0, $A0, $99 ; $05
 	.db $00, $00, $00, $00 ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World1GroundTilesHorizontal + $40, $00
+ENDIF
 
 World1GroundTilesVertical:
 	.db $00, $9D, $9E, $C6 ; $00
@@ -399,6 +423,9 @@ World1GroundTilesVertical:
 	.db $00, $00, $A0, $00 ; $05
 	.db $00, $93, $9E, $C6 ; $06
 	.db $00, $40, $9E, $C6 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World1GroundTilesVertical + $40, $00
+ENDIF
 
 World2GroundTilesHorizontal:
 	.db $00, $99, $99, $99 ; $00
@@ -409,6 +436,9 @@ World2GroundTilesHorizontal:
 	.db $00, $D6, $9B, $18 ; $05
 	.db $00, $00, $00, $00 ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World2GroundTilesHorizontal + $40, $00
+ENDIF
 
 World2GroundTilesVertical:
 	.db $00, $9D, $9E, $C6 ; $00
@@ -419,6 +449,9 @@ World2GroundTilesVertical:
 	.db $00, $00, $00, $00 ; $05
 	.db $00, $00, $00, $00 ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World2GroundTilesVertical + $40, $00
+ENDIF
 
 World3GroundTilesHorizontal:
 	.db $00, $99, $D5, $00 ; $00
@@ -429,6 +462,9 @@ World3GroundTilesHorizontal:
 	.db $00, $A0, $A0, $99 ; $05
 	.db $00, $00, $00, $00 ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World3GroundTilesHorizontal + $40, $00
+ENDIF
 
 World3GroundTilesVertical:
 	.db $00, $C6, $9E, $9D ; $00
@@ -439,6 +475,9 @@ World3GroundTilesVertical:
 	.db $00, $00, $A0, $00 ; $05
 	.db $00, $40, $9E, $C6 ; $06
 	.db $00, $06, $A0, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World3GroundTilesVertical + $40, $00
+ENDIF
 
 World4GroundTilesHorizontal:
 	.db $00, $99, $D5, $00 ; $00
@@ -449,6 +488,9 @@ World4GroundTilesHorizontal:
 	.db $00, $0A, $0A, $08 ; $05
 	.db $00, $1F, $1F, $1F ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World4GroundTilesHorizontal + $40, $00
+ENDIF
 
 World4GroundTilesVertical:
 	.db $00, $C6, $99, $9D ; $00
@@ -459,6 +501,9 @@ World4GroundTilesVertical:
 	.db $00, $18, $18, $18 ; $05
 	.db $00, $00, $00, $00 ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World4GroundTilesVertical + $40, $00
+ENDIF
 
 World5GroundTilesHorizontal:
 	.db $00, $99, $D5, $40 ; $00
@@ -469,6 +514,9 @@ World5GroundTilesHorizontal:
 	.db $00, $A0, $A0, $99 ; $05
 	.db $00, $00, $00, $00 ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World5GroundTilesHorizontal + $40, $00
+ENDIF
 
 World5GroundTilesVertical:
 	.db $00, $9D, $9E, $C6 ; $00
@@ -479,6 +527,9 @@ World5GroundTilesVertical:
 	.db $00, $00, $A0, $00 ; $05
 	.db $00, $93, $9E, $C6 ; $06
 	.db $00, $40, $9E, $C6 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World5GroundTilesVertical + $40, $00
+ENDIF
 
 World6GroundTilesHorizontal:
 	.db $00, $99, $99, $99 ; $00
@@ -489,6 +540,9 @@ World6GroundTilesHorizontal:
 	.db $00, $D6, $9B, $18 ; $05
 	.db $00, $00, $00, $00 ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World6GroundTilesHorizontal + $40, $00
+ENDIF
 
 World6GroundTilesVertical:
 	.db $00, $9D, $9E, $C6 ; $00
@@ -499,6 +553,9 @@ World6GroundTilesVertical:
 	.db $00, $00, $00, $00 ; $05
 	.db $00, $00, $00, $00 ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World6GroundTilesVertical + $40, $00
+ENDIF
 
 World7GroundTilesHorizontal:
 	.db $00, $9C, $9C, $9C ; $00
@@ -509,6 +566,9 @@ World7GroundTilesHorizontal:
 	.db $00, $00, $00, $00 ; $05
 	.db $00, $00, $00, $00 ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World7GroundTilesHorizontal + $40, $00
+ENDIF
 
 World7GroundTilesVertical:
 	.db $00, $9C, $9C, $9C ; $00
@@ -519,11 +579,11 @@ World7GroundTilesVertical:
 	.db $00, $00, $A0, $00 ; $05
 	.db $00, $00, $00, $00 ; $06
 	.db $00, $00, $00, $00 ; $07
+IFDEF EXPAND_TABLES
+	unusedSpace World7GroundTilesVertical + $40, $00
+ENDIF
 
-; @TODO Check this
-; Not actually sure what these are used for at all.
-; My notes say they aren't, and they don't seem to be referenced anywhere...
-; But there's so many, it would be really surprising if they are unused.
+; These seem to be unused duplicates of the tile quads from bank F
 UnusedTileQuadPointersLo:
 	.db <UnusedTileQuads1
 	.db <UnusedTileQuads2
@@ -1584,6 +1644,9 @@ SingleObjects:
 	.db BackgroundTile_SubspaceMushroom2 ; $2D
 	.db BackgroundTile_WhaleEye ; $2E
 	; No entry for $2F in this table, so it uses tile $A4 due to the LDY below
+IFDEF EXPAND_TABLES
+	.db BackgroundTile_SolidWood ; $2F
+ENDIF
 
 CreateObject_SingleObject:
 	LDY byte_RAM_E7
@@ -2501,8 +2564,10 @@ CreateObject_DrawBridgeChain_Loop:
 	RTS
 
 
+IFNDEF EXPAND_TABLES
 ; Unused space in the original ($9126 - $91FF)
 unusedSpace $9200, $FF
+ENDIF
 
 
 ;
@@ -2522,37 +2587,42 @@ unusedSpace $9200, $FF
 ;   11 - secondary background (eg. black background in 3-2)
 ;
 HorizontalGroundSetData:
-	.db $00,$00,$00,$24
-	.db $00,$00,$02,$54
-	.db $00,$02,$55,$54
-	.db $00,$02,$7F,$54
-	.db $00,$02,$7F,$D4
-	.db $00,$03,$FF,$54
-	.db $00,$02,$5F,$FC
-	.db $00,$03,$FF,$FC
-	.db $00,$00,$00,$00
-	.db $55,$55,$55,$7C
-	.db $E7,$9E,$79,$E4
-	.db $00,$0E,$79,$E4
-	.db $00,$00,$09,$E4
-	.db $00,$00,$00,$24
-	.db $E0,$0E,$79,$E4
-	.db $E4,$00,$09,$E4
-	.db $E4,$00,$00,$24
-	.db $E7,$90,$09,$E4
-	.db $E7,$9E,$70,$24
-	.db $E7,$9E,$40,$24
-	.db $E7,$9C,$00,$24
-	.db $E0,$0E,$40,$24
-	.db $00,$00,$00,$E4
-	.db $E4,$00,$00,$00
-	.db $E7,$9E,$79,$E4
-	.db $E7,$90,$01,$E4
-	.db $E0,$00,$01,$E4
-	.db $E7,$90,$00,$24
-	.db $E0,$00,$00,$24
-	.db $00,$00,$00,$24
-	.db $00,$00,$00,$24
+	.db $00,$00,$00,$24 ; $00
+	.db $00,$00,$02,$54 ; $01
+	.db $00,$02,$55,$54 ; $02
+	.db $00,$02,$7F,$54 ; $03
+	.db $00,$02,$7F,$D4 ; $04
+	.db $00,$03,$FF,$54 ; $05
+	.db $00,$02,$5F,$FC ; $06
+	.db $00,$03,$FF,$FC ; $07
+	.db $00,$00,$00,$00 ; $08
+	.db $55,$55,$55,$7C ; $09
+	.db $E7,$9E,$79,$E4 ; $0A
+	.db $00,$0E,$79,$E4 ; $0B
+	.db $00,$00,$09,$E4 ; $0C
+	.db $00,$00,$00,$24 ; $0D
+	.db $E0,$0E,$79,$E4 ; $0E
+	.db $E4,$00,$09,$E4 ; $0F
+	.db $E4,$00,$00,$24 ; $10
+	.db $E7,$90,$09,$E4 ; $11
+	.db $E7,$9E,$70,$24 ; $12
+	.db $E7,$9E,$40,$24 ; $13
+	.db $E7,$9C,$00,$24 ; $14
+	.db $E0,$0E,$40,$24 ; $15
+	.db $00,$00,$00,$E4 ; $16
+	.db $E4,$00,$00,$00 ; $17
+	.db $E7,$9E,$79,$E4 ; $18
+	.db $E7,$90,$01,$E4 ; $19
+	.db $E0,$00,$01,$E4 ; $1A
+	.db $E7,$90,$00,$24 ; $1B
+	.db $E0,$00,$00,$24 ; $1C
+	.db $00,$00,$00,$24 ; $1D
+	.db $00,$00,$00,$24 ; $1E
+	; Based on the level header parsing code, $1F seems like it may have been reserved for some
+	; special behavior at some point, but it doesn't appear to be implemented.
+IFDEF EXPAND_TABLES
+	.db $00,$00,$00,$24 ; $1F
+ENDIF
 
 ;
 ; Vertical ground set data
@@ -2569,37 +2639,42 @@ HorizontalGroundSetData:
 ;   11 - secondary background
 ;
 VerticalGroundSetData:
-	.db $AA,$AA,$AA,$AA
-	.db $80,$00,$00,$02
-	.db $AA,$00,$00,$AA
-	.db $FA,$00,$00,$AF
-	.db $FE,$00,$00,$BF
-	.db $FA,$80,$02,$AF
-	.db $E8,$00,$00,$2B
-	.db $E0,$00,$00,$0B
-	.db $FA,$95,$56,$AF
-	.db $95,$00,$00,$56
-	.db $A5,$55,$55,$5A
-	.db $A5,$5A,$A5,$5A
-	.db $55,$55,$55,$55
-	.db $95,$55,$55,$56
-	.db $95,$5A,$A5,$56
-	.db $A9,$55,$55,$6A
-	.db $81,$55,$55,$42
-	.db $AA,$A5,$55,$5A
-	.db $A5,$55,$5A,$AA
-	.db $00,$00,$00,$00
-	.db $80,$00,$00,$02
-	.db $A0,$00,$00,$0A
-	.db $AA,$00,$00,$AA
-	.db $AA,$A0,$0A,$AA
-	.db $80,$00,$0A,$AA
-	.db $80,$0A,$AA,$AA
-	.db $AA,$AA,$A0,$02
-	.db $AA,$A0,$00,$02
-	.db $A0,$0A,$A0,$0A
-	.db $A0,$00,$00,$00
-	.db $00,$00,$00,$0A
+	.db $AA,$AA,$AA,$AA ; $00
+	.db $80,$00,$00,$02 ; $01
+	.db $AA,$00,$00,$AA ; $02
+	.db $FA,$00,$00,$AF ; $03
+	.db $FE,$00,$00,$BF ; $04
+	.db $FA,$80,$02,$AF ; $05
+	.db $E8,$00,$00,$2B ; $06
+	.db $E0,$00,$00,$0B ; $07
+	.db $FA,$95,$56,$AF ; $08
+	.db $95,$00,$00,$56 ; $09
+	.db $A5,$55,$55,$5A ; $0A
+	.db $A5,$5A,$A5,$5A ; $0B
+	.db $55,$55,$55,$55 ; $0C
+	.db $95,$55,$55,$56 ; $0D
+	.db $95,$5A,$A5,$56 ; $0E
+	.db $A9,$55,$55,$6A ; $0F
+	.db $81,$55,$55,$42 ; $10
+	.db $AA,$A5,$55,$5A ; $11
+	.db $A5,$55,$5A,$AA ; $12
+	.db $00,$00,$00,$00 ; $13
+	.db $80,$00,$00,$02 ; $14
+	.db $A0,$00,$00,$0A ; $15
+	.db $AA,$00,$00,$AA ; $16
+	.db $AA,$A0,$0A,$AA ; $17
+	.db $80,$00,$0A,$AA ; $18
+	.db $80,$0A,$AA,$AA ; $19
+	.db $AA,$AA,$A0,$02 ; $1A
+	.db $AA,$A0,$00,$02 ; $1B
+	.db $A0,$0A,$A0,$0A ; $1C
+	.db $A0,$00,$00,$00 ; $1D
+	.db $00,$00,$00,$0A ; $1E
+	; Based on the level header parsing code, $1F seems like it may have been reserved for some
+	; special behavior at some point, but it doesn't appear to be implemented.
+IFDEF EXPAND_TABLES
+	.db $00,$00,$00,$0A ; $1F
+ENDIF
 
 DecodedLevelPageStartLo_Bank6:
 	.db <DecodedLevelData
@@ -3147,17 +3222,26 @@ LoadCurrentArea:
 	; ground type
 	LDY #$03
 	LDA (byte_RAM_5), Y
+IFNDEF LEVEL_ENGINE_UPGRADES
 	LSR A
 	AND #%00011100
+ENDIF
+IFDEF LEVEL_ENGINE_UPGRADES
+	; double available ground types
+	AND #%11110000
+	LSR A
+	LSR A
+ENDIF
+
+	; store ground type
 	STA GroundType
 	JSR RestoreLevelDataCopyAddress
 
 IFDEF ENABLE_LEVEL_OBJECT_MODE
 	; level object mode
 	LDA (byte_RAM_5), Y
-	ROL A
-	ROL A
-	ROL A
+	LSR A
+	LSR A
 	AND #%00000011
 	STA LevelObjectMode
 ENDIF
@@ -3209,14 +3293,14 @@ LoadCurrentArea_IsValid:
 	STA CurrentWorldTileset
 ENDIF
 
-	; ground type
+	; ground setting
 	LDA (byte_RAM_5), Y
 	AND #%00011111
-	; ground type of $1F would skip the next part, but no areas do this...?
+	; ground setting of $1F would skip the next part, but no areas do this...?
 	CMP #%00011111
 	BEQ LoadCurrentArea_StartLevelData
 
-	; store ground type
+	; store ground setting
 	STA GroundSetting
 
 	; read first object
@@ -3430,7 +3514,7 @@ ProcessSpecialObjectB:
 	.dw loc_BANK6_96BB ; Skip forward 2 pages
 	.dw loc_BANK6_9712 ; New object layer
 	.dw SetAreaPointerNoOp ; Area pointer
-	.dw loc_BANK6_971B ; Ground appearance
+	.dw SetGroundType ; Ground appearance
 IFDEF LEVEL_ENGINE_UPGRADES
 	.dw CreateRawTilesNoOp
 ENDIF
@@ -3598,7 +3682,7 @@ ReadGroundSettingOffset:
 	LDY byte_RAM_F
 	INY
 	LDA (byte_RAM_5), Y
-	AND #$E0
+	AND #%11100000
 	LSR A
 	LSR A
 	LSR A
@@ -3651,11 +3735,11 @@ SetAreaPointerNoOp:
 	RTS
 
 
-loc_BANK6_971B:
+SetGroundType:
 	LDY byte_RAM_F
 	INY
 	LDA (byte_RAM_5), Y
-	AND #$F
+	AND #%00001111
 	ASL A
 	ASL A
 	STA GroundType

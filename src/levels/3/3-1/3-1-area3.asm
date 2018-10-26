@@ -1,7 +1,8 @@
 ; Level 3-1, Area 3
 
 LevelData_3_1_Area3:
-	.db $80, $E8, $53, $10
+	levelHeader 5, LevelDirection_Horizontal, 0, 0, LevelMusic_Overworld, 0, 3, $08, $2
+
 	.db $56, $10
 	.db $2A, $11
 	.db $2E, $10
