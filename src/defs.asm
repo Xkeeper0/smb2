@@ -342,7 +342,6 @@ BackgroundTile_GroundBrick0 = $19
 BackgroundTile_Spikes = $1A
 BackgroundTile_SolidRoundBrick0 = $1B
 BackgroundTile_SolidBlock = $1C
-BackgroundTile_Grass = $1D ; Double-duty!
 BackgroundTile_CactusTop = $1D
 BackgroundTile_CactusMiddle = $1E
 BackgroundTile_FrozenRock = $1F

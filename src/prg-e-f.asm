@@ -285,13 +285,17 @@ PlayerSelectPaletteOffsets:
 
 PlayerSelectSpritePalettes:
 PlayerSelectSpritePalettes_Mario:
-	.db $3F,$10,$04,$0F,$27,$16,$01
+	.db $3F, $10, $04
+	.db $0F, $27, $16, $01
 PlayerSelectSpritePalettes_Luigi:
-	.db $3F,$14,$04,$0F,$36,$2A,$01
+	.db $3F, $14, $04
+	.db $0F, $36, $2A, $01
 PlayerSelectSpritePalettes_Toad:
-	.db $3F,$18,$04,$0F,$27,$30,$01
+	.db $3F, $18, $04
+	.db $0F, $27, $30, $01
 PlayerSelectSpritePalettes_Princess:
-	.db $3F,$1C,$04,$0F,$36,$25,$07
+	.db $3F, $1C, $04
+	.db $0F, $36, $25, $07
 
 TitleCardPalettes:
 	.db $3F, $00, $20 ; PPU data
@@ -846,6 +850,7 @@ StartGame:
 	JSR TitleScreen ; The whole title screen is a subroutine, lol
 
 	INC GameMilestoneCounter
+SetNumContinues:
 	LDA #$02 ; Number of continues on start
 	STA Continues
 
@@ -1305,6 +1310,7 @@ loc_BANKF_E665:
 	STA CardScreenUpdateIndex
 	JSR PauseScreen_Card
 
+AfterDeathJump:
 IFNDEF CHARACTER_SELECT_AFTER_DEATH
 	JMP StartLevelAfterTitleCard
 ENDIF
@@ -1490,10 +1496,12 @@ EndOfLevel:
 	CMP #$13
 IFNDEF DISABLE_BONUS_CHANCE
 	; If not, go to bonus chance and proceed to the next level
+EndOfLevelJump:
 	BNE EndOfLevelSlotMachine
 ENDIF
 IFDEF DISABLE_BONUS_CHANCE
 	STY PlayerCurrentSize
+EndOfLevelJump:
 	BNE GoToNextLevel
 ENDIF
 	; Otherwise, display the ending
@@ -4771,6 +4779,7 @@ AnimateCHRRoutine_SetSpeed:
 	INY
 	INY
 
+AnimatedCHRCheck:
 IFDEF FIX_CHR_CYCLE
 	CPY #CHRBank_Animated8 + 1
 ENDIF
