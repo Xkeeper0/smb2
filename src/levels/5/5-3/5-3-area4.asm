@@ -1,7 +1,8 @@
 ; Level 5-3, Area 4
 
 LevelData_5_3_Area4:
-	.db $81, $E8, $90, $12
+	levelHeader 9, LevelDirection_Horizontal, 0, 1, LevelMusic_Boss, 0, 0, $08, $2
+
 	.db $02, $1F
 	.db $67, $0B
 IFNDEF DISABLE_DOOR_POINTERS

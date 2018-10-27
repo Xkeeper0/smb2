@@ -703,6 +703,16 @@ Enemy_BossMushroom = $7F
 
 ; ---------------------------------------------------------------------------
 
+LevelDirection_Horizontal = 1
+LevelDirection_Vertical = 0
+
+LevelMusic_Overworld = 0
+LevelMusic_Underground = 1
+LevelMusic_Boss = 2
+LevelMusic_Wart = 3
+
+; ---------------------------------------------------------------------------
+
 ; enum CollisionFlags (bitfield) (width 1 byte)
 CollisionFlags_00 = %00000000
 CollisionFlags_Right = %00000001

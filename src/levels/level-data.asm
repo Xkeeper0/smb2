@@ -16,14 +16,14 @@
 ;   S: sprite palette (0-3)
 ;
 ;   Byte 2: xxxGGGGG
-;   G: ground setting
+;   G: ground setting (0-31)
 ;
 ;   Byte 3: PPPPOOOO
 ;   P: number of pages minus 1 (0 = 1 page, 1 = 2 pages, etc.)
 ;   O: object type (xxOO for 3X-9X, OOxx for AX-FX)
 ;
 ;   Byte 4: xxTTTxMM
-;   T: ground type
+;   T: ground type (0-7)
 ;   M: music (0 = overworld, 1 = underground, 2 = boss, 3 = Wart)
 ;
 ; Regular object (2 bytes):

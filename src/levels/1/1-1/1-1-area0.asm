@@ -1,7 +1,8 @@
 ; Level 1-1, Area 0
 
 LevelData_1_1_Area0:
-	.db $09, $F3, $30, $00
+	levelHeader 3, LevelDirection_Vertical, 1, 1, LevelMusic_Overworld, 0, 0, $13, $0
+
 	.db $B7, $0A
 IFNDEF DISABLE_DOOR_POINTERS
 	.db $00, $00

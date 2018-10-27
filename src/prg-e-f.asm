@@ -3217,79 +3217,97 @@ loc_BANKF_F2D2:
 
 ; End of function sub_BANKF_F2C2
 
-; ---------------------------------------------------------------------------
-byte_BANKF_F2D5:
-	.db $00
-	.db $00
-	.db $00
-	.db $00
-	.db $FB
-	.db $FB
-	.db $00
-	.db $FB
-	.db $FB
-	.db $00
-	.db $FB
 
+; Tiles to use for eye sprite. If $00, this will use the character-specific table
+CharacterFrameEyeTiles:
+	.db $00 ; Walk1
+	.db $00 ; Carry1
+	.db $00 ; Walk2
+	.db $00 ; Carry2
+	.db $FB ; Duck
+	.db $FB ; DuckCarry
+	.db $00 ; Jump
+	.db $FB ; Death
+	.db $FB ; Lift
+	.db $00 ; Throw
+	.db $FB ; Climb
+
+; Specific to each character
 CharacterEyeTiles:
-	.db $D5
-	.db $D9
-	.db $FB
-	.db $D7
+	.db $D5 ; Mario
+	.db $D9 ; Luigi
+	.db $FB ; Toad
+	.db $D7 ; Princess
 
-byte_BANKF_F2E4:
-	.db $00
-
-byte_BANKF_F2E5:
-	.db $02
-
-byte_BANKF_F2E6:
-	.db $04
-
-byte_BANKF_F2E7:
-	.db $06
-	.db $0C
-	.db $0E
-	.db $10
-	.db $12
+CharacterTiles_Walk1:
 	.db $00
 	.db $02
-	.db $08
-	.db $0A
-	.db $0C
-	.db $0E
-	.db $14
-	.db $16
-	.db $FB
-	.db $FB
-	.db $2C
-	.db $2C
-	.db $FB
-	.db $FB
-	.db $2E
-	.db $2E
-	.db $0C
-	.db $0E
-	.db $10
-	.db $12
-	.db $30
-	.db $30
-	.db $32
-	.db $32
-	.db $20
-	.db $22
-	.db $24
-	.db $26
-	.db $00
-	.db $02
-	.db $28
-	.db $2A
-	.db $18
-	.db $1A
-	.db $1C
-	.db $1E
-	.db $B4
-	.db $B6
+	.db $04 ; $00 - start of relative character tile offets, for some reason
+	.db $06 ; $01
+
+CharacterTiles_Carry1:
+	.db $0C ; $02
+	.db $0E ; $03
+	.db $10 ; $04
+	.db $12 ; $05
+
+CharacterTiles_Walk2:
+	.db $00 ; $06
+	.db $02 ; $07
+	.db $08 ; $08
+	.db $0A ; $09
+
+CharacterTiles_Carry2:
+	.db $0C ; $0a
+	.db $0E ; $0b
+	.db $14 ; $0c
+	.db $16 ; $0d
+
+CharacterTiles_Duck:
+	.db $FB ; $0e
+	.db $FB ; $0f
+	.db $2C ; $10
+	.db $2C ; $11
+
+CharacterTiles_DuckCarry:
+	.db $FB ; $12
+	.db $FB ; $13
+	.db $2E ; $14
+	.db $2E ; $15
+
+CharacterTiles_Jump:
+	.db $0C ; $16
+	.db $0E ; $17
+	.db $10 ; $18
+	.db $12 ; $19
+
+CharacterTiles_Death:
+	.db $30 ; $1a
+	.db $30 ; $1b
+	.db $32 ; $1c
+	.db $32 ; $1d
+
+CharacterTiles_Lift:
+	.db $20 ; $1e
+	.db $22 ; $1f
+	.db $24 ; $20
+	.db $26 ; $21
+
+CharacterTiles_Throw:
+	.db $00 ; $22
+	.db $02 ; $23
+	.db $28 ; $24
+	.db $2A ; $25
+
+CharacterTiles_Climb:
+	.db $18 ; $26
+	.db $1A ; $27
+	.db $1C ; $28
+	.db $1E ; $29
+
+CharacterTiles_PrincessJumpBody:
+	.db $B4 ; $2a
+	.db $B6 ; $2b
 
 DamageInvulnBlinkFrames:
 	.db $01, $01, $01, $02, $02, $04, $04, $04
@@ -3515,7 +3533,7 @@ loc_BANKF_F3EE:
 loc_BANKF_F3F8:
 	STA SpriteDMAArea + $26
 	STA SpriteDMAArea + $2E
-	LDA byte_BANKF_F2D5, X
+	LDA CharacterFrameEyeTiles, X
 	BNE loc_BANKF_F408
 
 	LDX CurrentCharacter
@@ -3538,9 +3556,9 @@ loc_BANKF_F413:
 
 	LDA SpriteDMAArea + $23
 	STA SpriteDMAArea + 3, Y
-	LDA byte_BANKF_F2E4, X
+	LDA CharacterTiles_Walk1, X
 	STA SpriteDMAArea + $21
-	LDA byte_BANKF_F2E5, X
+	LDA CharacterTiles_Walk1 + 1, X
 	STA SpriteDMAArea + $25
 	LDA PlayerCurrentSize
 	BNE loc_BANKF_F43F
@@ -3556,17 +3574,17 @@ loc_BANKF_F413:
 	LDX #$2A
 
 loc_BANKF_F43F:
-	LDA byte_BANKF_F2E6, X
+	LDA CharacterTiles_Walk1 + 2, X
 	STA SpriteDMAArea + $29
-	LDA byte_BANKF_F2E7, X
+	LDA CharacterTiles_Walk1 + 3, X
 	BNE loc_BANKF_F478
 
 loc_BANKF_F44A:
 	LDA SpriteDMAArea + $27
 	STA SpriteDMAArea + 3, Y
-	LDA byte_BANKF_F2E5, X
+	LDA CharacterTiles_Walk1 + 1, X
 	STA SpriteDMAArea + $21
-	LDA byte_BANKF_F2E4, X
+	LDA CharacterTiles_Walk1, X
 	STA SpriteDMAArea + $25
 	LDA PlayerCurrentSize
 	BNE loc_BANKF_F46F
@@ -3582,9 +3600,9 @@ loc_BANKF_F44A:
 	LDX #$2A
 
 loc_BANKF_F46F:
-	LDA byte_BANKF_F2E7, X
+	LDA CharacterTiles_Walk1 + 3, X
 	STA SpriteDMAArea + $29
-	LDA byte_BANKF_F2E6, X
+	LDA CharacterTiles_Walk1 + 2, X
 
 loc_BANKF_F478:
 	STA SpriteDMAArea + $2D
@@ -4512,6 +4530,9 @@ TileQuads1:
 	.db $32,$34,$33,$35 ; $80
 	.db $33,$35,$33,$35 ; $84
 	.db $24,$26,$25,$27 ; $88
+IFDEF EXPAND_TABLES
+	unusedSpace TileQuads1 + $100, $FC
+ENDIF
 
 TileQuads2:
 	.db $FA,$FA,$FA,$FA ; $00
@@ -4573,6 +4594,9 @@ TileQuads2:
 	.db $6C,$54,$6D,$55 ; $E0
 	.db $32,$34,$33,$35 ; $E4
 	.db $33,$35,$33,$35 ; $E8
+IFDEF EXPAND_TABLES
+	unusedSpace TileQuads2 + $100, $FC
+ENDIF
 
 TileQuads3:
 	.db $94,$95,$94,$95 ; $00
@@ -4619,7 +4643,9 @@ TileQuads3:
 	.db $72,$73,$4A,$4B ; $A4
 	.db $40,$42,$41,$43 ; $A8
 	.db $41,$43,$41,$43 ; $AC
-
+IFDEF EXPAND_TABLES
+	unusedSpace TileQuads3 + $100, $FC
+ENDIF
 TileQuads4:
 	.db $40,$42,$41,$43 ; $00
 	.db $40,$42,$41,$43 ; $04
@@ -4646,6 +4672,9 @@ TileQuads4:
 	.db $8E,$8F,$8F,$8E ; $58
 	.db $72,$73,$73,$72 ; $5C
 	.db $44,$45,$45,$44 ; $60
+IFDEF EXPAND_TABLES
+	unusedSpace TileQuads4 + $100, $FC
+ENDIF
 
 EndOfLevelDoor: ; PPU data
 	.db $22,$D0,$04,$FC,$FC,$AD,$FA

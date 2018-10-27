@@ -1,7 +1,8 @@
 ; Level 7-2, Area 4
 
 LevelData_7_2_Area4:
-	.db $A1, $EA, $95, $02
+	levelHeader 9, LevelDirection_Horizontal, 4, 1, LevelMusic_Boss, 1, 1, $0a, $0
+
 	.db $3F, $A7
 	.db $36, $80
 	.db $16, $A3

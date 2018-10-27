@@ -5412,7 +5412,9 @@ EnemyTilemap1:
 	.db $8C,$8C ; $B4
 	.db $A6,$A6 ; $B6
 	.db $AB,$AB ; $B8
-
+IFDEF EXPAND_TABLES
+	unusedSpace EnemyTilemap1 + $100, $FB
+ENDIF
 
 ;
 ; Enemy Animation table
@@ -5423,77 +5425,77 @@ EnemyTilemap1:
 ; $FF is used to make an enemy invisible
 ;
 EnemyAnimationTable:
-	.db $00 ; $00
-	.db $00 ; $01
-	.db $08 ; $02
-	.db $00 ; $03
-	.db $0C ; $04
-	.db $10 ; $05
-	.db $10 ; $06
-	.db $10 ; $07
-	.db $40 ; $08
-	.db $14 ; $09
-	.db $18 ; $0A
-	.db $18 ; $0B
-	.db $18 ; $0C
-	.db $20 ; $0D
-	.db $20 ; $0E
-	.db $24 ; $0F
-	.db $24 ; $10
-	.db $BE ; $11
-	.db $00 ; $12
-	.db $86 ; $13
-	.db $88 ; $14
-	.db $FF ; $15
-	.db $FF ; $16
-	.db $8C ; $17
-	.db $5C ; $18
-	.db $5C ; $19
-	.db $6C ; $1A
-	.db $56 ; $1B
-	.db $5A ; $1C
-	.db $14 ; $1D
-	.db $72 ; $1E
-	.db $00 ; $1F
-	.db $A8 ; $20
-	.db $00 ; $21
-	.db $D6 ; $22
-	.db $AC ; $23
-	.db $AC ; $24
-	.db $AC ; $25
-	.db $74 ; $26
-	.db $7A ; $27
-	.db $92 ; $28
-	.db $9A ; $29
-	.db $80 ; $2A
-	.db $90 ; $2B
-	.db $00 ; $2C
-	.db $00 ; $2D
-	.db $B6 ; $2E
-	.db $B6 ; $2F
-	.db $B6 ; $30
-	.db $B6 ; $31
-	.db $28 ; $32
-	.db $2A ; $33
-	.db $2C ; $34
-	.db $2E ; $35
-	.db $30 ; $36
-	.db $34 ; $37
-	.db $00 ; $38
-	.db $38 ; $39
-	.db $3A ; $3A
-	.db $42 ; $3B
-	.db $82 ; $3C
-	.db $82 ; $3D
-	.db $84 ; $3E
-	.db $A0 ; $3F
-	.db $A2 ; $40
-	.db $04 ; $41
-	.db $8E ; $42
-	.db $8E ; $43
-	.db $9E ; $44
-	.db $A6 ; $45
-	.db $A4 ; $46
+	.db $00 ; $00 Enemy_Heart
+	.db $00 ; $01 Enemy_ShyguyRed
+	.db $08 ; $02 Enemy_Tweeter
+	.db $00 ; $03 Enemy_ShyguyPink
+	.db $0C ; $04 Enemy_Porcupo
+	.db $10 ; $05 Enemy_SnifitRed
+	.db $10 ; $06 Enemy_SnifitGray
+	.db $10 ; $07 Enemy_SnifitPink
+	.db $40 ; $08 Enemy_Ostro
+	.db $14 ; $09 Enemy_BobOmb
+	.db $18 ; $0A Enemy_AlbatossCarryingBobOmb
+	.db $18 ; $0B Enemy_AlbatossStartRight
+	.db $18 ; $0C Enemy_AlbatossStartLeft
+	.db $20 ; $0D Enemy_NinjiRunning
+	.db $20 ; $0E Enemy_NinjiJumping
+	.db $24 ; $0F Enemy_BeezoDiving
+	.db $24 ; $10 Enemy_BeezoStraight
+	.db $BE ; $11 Enemy_WartBubble
+	.db $00 ; $12 Enemy_Pidgit
+	.db $86 ; $13 Enemy_Trouter
+	.db $88 ; $14 Enemy_Hoopstar
+	.db $FF ; $15 Enemy_JarGeneratorShyguy
+	.db $FF ; $16 Enemy_JarGeneratorBobOmb
+	.db $8C ; $17 Enemy_Phanto
+	.db $5C ; $18 Enemy_CobratJar
+	.db $5C ; $19 Enemy_CobratSand
+	.db $6C ; $1A Enemy_Pokey
+	.db $56 ; $1B Enemy_Bullet
+	.db $5A ; $1C Enemy_Birdo
+	.db $14 ; $1D Enemy_Mouser
+	.db $72 ; $1E Enemy_Egg
+	.db $00 ; $1F Enemy_Tryclyde
+	.db $A8 ; $20 Enemy_Fireball
+	.db $00 ; $21 Enemy_Clawgrip
+	.db $D6 ; $22 Enemy_ClawgripRock
+	.db $AC ; $23 Enemy_PanserStationaryFiresAngled
+	.db $AC ; $24 Enemy_PanserWalking
+	.db $AC ; $25 Enemy_PanserStationaryFiresUp
+	.db $74 ; $26 Enemy_Autobomb
+	.db $7A ; $27 Enemy_AutobombFire
+	.db $92 ; $28 Enemy_WhaleSpout
+	.db $9A ; $29 Enemy_Flurry
+	.db $80 ; $2A Enemy_Fryguy
+	.db $90 ; $2B Enemy_FryguySplit
+	.db $00 ; $2C Enemy_Wart
+	.db $00 ; $2D Enemy_HawkmouthBoss
+	.db $B6 ; $2E Enemy_Spark1
+	.db $B6 ; $2F Enemy_Spark2
+	.db $B6 ; $30 Enemy_Spark3
+	.db $B6 ; $31 Enemy_Spark4
+	.db $28 ; $32 Enemy_VegetableSmall
+	.db $2A ; $33 Enemy_VegetableLarge
+	.db $2C ; $34 Enemy_VegetableWart
+	.db $2E ; $35 Enemy_Shell
+	.db $30 ; $36 Enemy_Coin
+	.db $34 ; $37 Enemy_Bomb
+	.db $00 ; $38 Enemy_Rocket
+	.db $38 ; $39 Enemy_MushroomBlock
+	.db $3A ; $3A Enemy_POWBlock
+	.db $42 ; $3B Enemy_FallingLogs
+	.db $82 ; $3C Enemy_SubspaceDoor
+	.db $82 ; $3D Enemy_Key
+	.db $84 ; $3E Enemy_SubspacePotion
+	.db $A0 ; $3F Enemy_Mushroom
+	.db $A2 ; $40 Enemy_Mushroom1up
+	.db $04 ; $41 Enemy_FlyingCarpet
+	.db $8E ; $42 Enemy_HawkmouthRight
+	.db $8E ; $43 Enemy_HawkmouthLeft
+	.db $9E ; $44 Enemy_CrystalBall
+	.db $A6 ; $45 Enemy_Starman
+	.db $A4 ; $46 Enemy_Stopwatch
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -5780,7 +5782,7 @@ loc_BANK2_9BEF:
 	LDY EnemyArray_45C, X
 	BEQ loc_BANK2_9C07
 
-	AND #$A0
+	AND #ObjAttrib_UpsideDown | ObjAttrib_BehindBackground
 	STA byte_RAM_8
 	TYA
 	LSR A
@@ -6430,7 +6432,10 @@ EnemyTilemap2:
 	.db $21,$23 ; $D4
 	.db $25,$27 ; $D6
 	.db $25,$27 ; $D8
-; ---------------------------------------------------------------------------
+IFDEF EXPAND_TABLES
+	unusedSpace EnemyTilemap2 + $100, $FB
+ENDIF
+
 
 EnemyInit_Clawgrip:
 	JSR EnemyInit_Birdo
@@ -6936,7 +6941,7 @@ loc_BANK3_A37C:
 	LDA #$00
 	STA ObjectYVelocity, X
 	STA PlayerRidingCarpet
-	JMP sub_BANK3_A552
+	JMP RenderSprite_FlyingCarpet
 
 ; ---------------------------------------------------------------------------
 
@@ -7067,27 +7072,24 @@ loc_BANK3_A42A:
 
 	LDA EnemyArray_B1, X
 	CMP #$20
-	BCS loc_BANK3_A43D
+	BCS EnemyBehavior_FlyingCarpet_Render
 
 	LDA byte_RAM_10
 	AND #$02
 
 loc_BANK3_A43A:
-	BNE loc_BANK3_A43D
+	BNE EnemyBehavior_FlyingCarpet_Render
 
 	RTS
 
-; ---------------------------------------------------------------------------
+EnemyBehavior_FlyingCarpet_Render:
+	JMP RenderSprite_FlyingCarpet
 
-loc_BANK3_A43D:
-	JMP sub_BANK3_A552
-
-; =============== S U B R O U T I N E =======================================
 
 CreateFlyingCarpet:
 	JSR CreateEnemy_TryAllSlots
 
-	BMI loc_BANK3_A478
+	BMI CreateFlyingCarpet_Exit
 
 	LDX byte_RAM_0
 	LDY byte_RAM_12
@@ -7116,51 +7118,53 @@ CreateFlyingCarpet:
 	LDA #$A0
 	STA EnemyArray_B1, X
 
-loc_BANK3_A478:
+CreateFlyingCarpet_Exit:
 	LDX byte_RAM_12
 	RTS
 
-; End of function CreateFlyingCarpet
 
-; ---------------------------------------------------------------------------
-byte_BANK3_A47B:
+FlyingCarpetMirroring:
 	.db $02
-
 	.db $02
 	.db $01
 	.db $01
-byte_BANK3_A47F:
+
+FlyingCarpetTilemapIndex:
+	.db $04
+	.db $0C
+	.db $0C
 	.db $04
 
-	.db $0C
-	.db $0C
-	.db $04
-unk_BANK3_A483:
+PidgitYAcceleration:
 	.db $01
 	.db $FF
-unk_BANK3_A485:
+
+PidgitTurnYVelocity:
 	.db $08
 	.db $F8
-unk_BANK3_A487:
+
+PidgitXAcceleration:
 	.db $01
 	.db $FF
-unk_BANK3_A489:
+
+PidgitTurnXVelocity:
 	.db $20
 	.db $E0
-unk_BANK3_A48B:
+
+PidgitDiveXVelocity:
 	.db $14
 	.db $EC
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_Pidgit:
 	JSR EnemyBehavior_CheckDamagedInterrupt
 
 	INC ObjectAnimationTimer, X
 	LDA EnemyArray_42F, X
-	BEQ loc_BANK3_A4A3
+	BEQ EnemyBehavior_Pidgit_Alive
 
 	LDA ObjectAttributes, X
-	ORA #$80
+	ORA #ObjAttrib_UpsideDown
 	STA ObjectAttributes, X
 	JSR RenderSprite_Pidgit
 
@@ -7168,7 +7172,7 @@ EnemyBehavior_Pidgit:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK3_A4A3:
+EnemyBehavior_Pidgit_Alive:
 	JSR EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
 	LDA EnemyArray_B1, X
@@ -7200,7 +7204,7 @@ loc_BANK3_A4C1:
 	STA ObjectYVelocity, X
 	JSR EnemyFindWhichSidePlayerIsOn
 
-	LDA unk_BANK3_A48B, Y
+	LDA PidgitDiveXVelocity, Y
 	STA ObjectXVelocity, X
 	INC EnemyArray_B1, X
 	JMP RenderSprite_Pidgit
@@ -7213,9 +7217,9 @@ loc_BANK3_A4D6:
 	TAY
 	LDA ObjectYVelocity, X
 	CLC
-	ADC unk_BANK3_A483, Y
+	ADC PidgitYAcceleration, Y
 	STA ObjectYVelocity, X
-	CMP unk_BANK3_A485, Y
+	CMP PidgitTurnYVelocity, Y
 	BNE loc_BANK3_A4EC
 
 	INC EnemyArray_480, X
@@ -7226,9 +7230,9 @@ loc_BANK3_A4EC:
 	TAY
 	LDA ObjectXVelocity, X
 	CLC
-	ADC unk_BANK3_A487, Y
+	ADC PidgitXAcceleration, Y
 	STA ObjectXVelocity, X
-	CMP unk_BANK3_A489, Y
+	CMP PidgitTurnXVelocity, Y
 	BNE loc_BANK3_A502
 
 	INC EnemyArray_477, X
@@ -7238,7 +7242,6 @@ loc_BANK3_A502:
 
 	JSR ApplyObjectPhysicsX
 
-; =============== S U B R O U T I N E =======================================
 
 RenderSprite_Pidgit:
 	JSR RenderSprite_NotAlbatoss
@@ -7248,8 +7251,9 @@ RenderSprite_Pidgit:
 	SBC #$01
 	ORA EnemyArray_42F, X
 	ORA ObjectBeingCarriedTimer, X
-	BNE locret_BANK3_A551
+	BNE RenderSprite_Pidgit_Exit
 
+	; Render Pidgit's carpet
 	JSR loc_BANKF_FAFE
 
 IFDEF COMPATIBILITY
@@ -7260,7 +7264,7 @@ IFNDEF COMPATIBILITY
 	NOP ; Alignment fix
 ENDIF
 
-	LDA #$45
+	LDA #ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_16x32
 	STA ObjectAttributes, X
 	LDA ObjectXLo, X
 	PHA
@@ -7279,23 +7283,21 @@ ENDIF
 	STA ObjectXLo, X
 	LDA SpriteTempScreenY
 	CLC
-	ADC #$C
+	ADC #$0C
 	STA SpriteTempScreenY
 	LDA SpriteTempScreenX
 	SBC #$07
 	STA SpriteTempScreenX
-	JSR sub_BANK3_A552
+	JSR RenderSprite_FlyingCarpet
 
-	LDA #$D
+	LDA #ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_FrontFacing
 	STA ObjectAttributes, X
 
-locret_BANK3_A551:
+RenderSprite_Pidgit_Exit:
 	RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK3_A552:
+RenderSprite_FlyingCarpet:
 	LDA byte_RAM_10
 	LSR A
 	LSR A
@@ -7308,12 +7310,10 @@ sub_BANK3_A552:
 
 loc_BANK3_A55F:
 	TAY
-	LDA byte_BANK3_A47B, Y
+	LDA FlyingCarpetMirroring, Y
 	STA EnemyMovementDirection, X
-	LDA byte_BANK3_A47F, Y
+	LDA FlyingCarpetTilemapIndex, Y
 	JMP RenderSprite_DrawObject
-
-; End of function sub_BANK3_A552
 
 
 EnemyInit_Mouser:

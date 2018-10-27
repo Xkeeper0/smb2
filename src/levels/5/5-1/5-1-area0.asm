@@ -1,7 +1,8 @@
 ; Level 5-1, Area 0
 
 LevelData_5_1_Area0:
-	.db $81, $E2, $20, $00
+	levelHeader 2, LevelDirection_Horizontal, 0, 1, LevelMusic_Overworld, 0, 0, $02, $0
+
 	.db $00, $86
 	.db $01, $86
 	.db $02, $86
