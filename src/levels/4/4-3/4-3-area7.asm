@@ -1,6 +1,9 @@
 ; Level 4-3, Area 7
 
 LevelData_4_3_Area7:
+	; Level Header
+	;   pages (0-indexed), orientation, background palette, sprite palette, music,
+	;   AX-FX type, 3X-9X type, ground setting (0-31), ground type (0-7)
 	levelHeader 0, LevelDirection_Vertical, 5, 2, LevelMusic_Boss, 3, 3, $15, $2
 
 	.db $54, $32
