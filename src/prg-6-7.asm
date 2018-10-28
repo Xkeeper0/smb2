@@ -864,7 +864,12 @@ CreateObjects_00:
 	.dw CreateObject_SingleBlock ; $02
 	.dw CreateObject_SingleBlock ; $03
 	.dw CreateObject_SingleBlock ; $04
+IFNDEF LEVEL_ENGINE_UPGRADES
 	.dw CreateObject_SingleBlock ; $05
+ENDIF
+IFDEF LEVEL_ENGINE_UPGRADES
+	.dw CreateObject_StandableAutomatic ; $05
+ENDIF
 	.dw CreateObject_Vase ; $06
 	.dw CreateObject_Vase ; $07
 	.dw CreateObject_Vase ; $08
@@ -994,6 +999,105 @@ World7ObjectTiles:
 	.db $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
 	.db $80, $07, $81, $80 ; AX (ladder, chain)
 	.db $81, $81, $81, $81 ; AX over background (ladder with shadow)
+
+
+IFDEF LEVEL_ENGINE_UPGRADES
+ClimbableTileSearch:
+	.db BackgroundTile_LadderShadow
+	.db BackgroundTile_Ladder
+	.db BackgroundTile_Chain
+	.db BackgroundTile_Vine
+
+ClimbableTilePlatform:
+	.db BackgroundTile_LadderStandableShadow
+	.db BackgroundTile_LadderStandable
+	.db BackgroundTile_ChainStandable
+	.db BackgroundTile_VineStandable
+
+
+;
+; Find the corresponding climbable tile
+;
+; Input
+;   A = search tile
+; Output
+;   A = replace tile
+;   C = set if a match was found
+;
+FindClimableTile:
+	STX byte_RAM_7
+	LDX #(ClimbableTilePlatform - ClimbableTileSearch - 1)
+
+FindClimableTile_Loop:
+	CMP ClimbableTileSearch, X
+	BEQ FindClimableTile_LoadReplacement
+
+	DEX
+	BPL FindClimableTile_Loop
+
+	LDX byte_RAM_7
+	CLC
+	RTS
+
+FindClimableTile_LoadReplacement:
+	LDA ClimbableTilePlatform, X
+	LDX byte_RAM_7
+	RTS
+
+;
+; Creatse a climbable tile that you can stand on based on ObjectTypeAXthruFX
+;
+; Output
+;   A = tile that was written
+;
+CreateObject_StandableObjectType:
+	LDA ObjectTypeAXthruFX
+	BEQ CreateObject_StandableObjectType_TableOffset
+
+	; Offset for shadow
+	CLC
+	ADC #$04
+
+CreateObject_StandableObjectType_TableOffset:
+	; Offset to ladder/chain object definition
+	ADC #$1C
+	TAX
+
+	LDY byte_RAM_E7
+	STX byte_RAM_7
+	STY byte_RAM_8
+	LDX CurrentWorldTileset
+	LDA WorldObjectTilePointersLo, X
+	STA byte_RAM_C
+	LDA WorldObjectTilePointersHi, X
+	STA byte_RAM_D
+	LDY byte_RAM_7
+	LDA (byte_RAM_C), Y
+	LDY byte_RAM_8
+	LDX byte_RAM_7
+
+	JSR FindClimableTile
+
+	STA (byte_RAM_1), Y
+	RTS
+
+;
+; Creates a climbable tile that you can stand on based on the based on the tile underneath
+;
+; Output
+;   A = tile that was written
+;
+CreateObject_StandableAutomatic:
+	LDY byte_RAM_E7
+	LDA (byte_RAM_1), Y
+
+	JSR FindClimableTile
+	BCC CreateObject_StandableObjectType
+
+	STA (byte_RAM_1), Y
+	RTS
+ENDIF
+
 
 ;
 ; Places a tile using the world-specific tile lookup table
@@ -1268,15 +1372,15 @@ CreateObject_SingleBlock:
 	LDA byte_RAM_50E
 	TAX
 	CMP #$05
-	BNE CreateObject_SingleBlock_NotWorld6Custom
+	BNE CreateObject_SingleBlock_NotLadderStandable
 
-	; world 6 + custom object type?
+	; the ladder has a shadow ObjectTypeAXthruFX is set
 	LDA ObjectTypeAXthruFX
-	BEQ CreateObject_SingleBlock_NotWorld6Custom
+	BEQ CreateObject_SingleBlock_NotLadderStandable
 
 	INX
 
-CreateObject_SingleBlock_NotWorld6Custom:
+CreateObject_SingleBlock_NotLadderStandable:
 	LDY byte_RAM_E7
 	LDA CurrentWorldTileset
 	CMP #$06
@@ -1292,7 +1396,6 @@ CreateObject_SingleBlock_NotWorld7:
 CreateObject_SingleBlock_Exit:
 	STA (byte_RAM_1), Y
 	RTS
-
 
 HorizontalPlatformLeftTiles:
 	.db BackgroundTile_LogLeft
@@ -1345,12 +1448,19 @@ GreenPlatformTiles:
 	.db BackgroundTile_GreenPlatformLeft
 	.db BackgroundTile_GreenPlatformMiddle
 	.db BackgroundTile_GreenPlatformRight
+
 ; These are the background tiles that the green platforms are allowed to overwrite.
 ; Any other tiles will stop the green platform from extending to the bottom of the page.
 GreenPlatformOverwriteTiles:
 	.db BackgroundTile_Sky
 	.db BackgroundTile_WaterfallTop
 	.db BackgroundTile_Waterfall
+IFDEF LEVEL_ENGINE_UPGRADES
+	.db BackgroundTile_WaterfallSplash
+	.db BackgroundTile_Water
+	.db BackgroundTile_WaterTop
+ENDIF
+GreenPlatformTiles_End:
 
 
 IFNDEF ENABLE_LEVEL_OBJECT_MODE
@@ -1482,7 +1592,7 @@ loc_BANK6_8C30:
 	BNE loc_BANK6_8C4B
 
 loc_BANK6_8C35:
-	LDX #$08
+	LDX #(GreenPlatformTiles_End - GreenPlatformTiles - 1)
 
 loc_BANK6_8C37:
 	LDA (byte_RAM_1), Y
@@ -1509,12 +1619,15 @@ loc_BANK6_8C4D:
 	DEC byte_RAM_7
 	RTS
 
+
 TallObjectTopTiles:
 	.db BackgroundTile_LightDoor
 	.db BackgroundTile_PalmTreeTop
+
 TallObjectBottomTiles:
 	.db BackgroundTile_LightDoor
 	.db BackgroundTile_PalmTreeTrunk
+
 
 CreateObject_Tall:
 	LDA CurrentWorldTileset
@@ -1532,56 +1645,71 @@ CreateObject_Tall_NotWorld5:
 	LDA TallObjectTopTiles, X
 	STA (byte_RAM_1), Y
 
-loc_BANK6_8C70:
+CreateObject_Tall_NotWorld5_Loop:
 	JSR IncrementAreaYOffset
 
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BNE locret_BANK6_8C82
+	BNE CreateObject_Tall_NotWorld5_Exit
 
 	LDX byte_RAM_7
 	LDA TallObjectBottomTiles, X
 	STA (byte_RAM_1), Y
-	BNE loc_BANK6_8C70
+	BNE CreateObject_Tall_NotWorld5_Loop
 
-locret_BANK6_8C82:
+CreateObject_Tall_NotWorld5_Exit:
 	RTS
+
 
 World5TallObjectTopTiles:
 	.db BackgroundTile_PalmTreeTop
 	.db BackgroundTile_PalmTreeTop
+
 World5TallObjectBottomTiles:
 	.db BackgroundTile_PalmTreeTrunk
 	.db BackgroundTile_PalmTreeTrunk
 
+
+;
+; POI: The only practical difference with this subroutine (other than the fact
+; that it only renders palm trees and not doors) is that it will stop at the
+; bottom of the screen if it doesn't encounter another tile beforehand.
+;
+; This appears to be a work-around for the palm trees in 5-2 that have vertical
+; rock platforms beneath them. Since the rock comes later, tree trunk tiles would
+; render all the way down to the screen and through to the next page!
+;
+; Using a new object layer would have achieved the same effect, but the
+; developer decided to create this special case instead.
+;
 CreateObject_Tall_World5:
 	LDX #$00
 	LDA byte_RAM_50E
 	CMP #$05
-	BEQ loc_BANK6_8C91
+	BEQ CreateObject_Tall_World5_DoLookup
 
 	INX
 
-loc_BANK6_8C91:
+CreateObject_Tall_World5_DoLookup:
 	STX byte_RAM_7
 	LDY byte_RAM_E7
 	LDA World5TallObjectTopTiles, X
 	STA (byte_RAM_1), Y
 
-loc_BANK6_8C9A:
+CreateObject_Tall_World5_Loop:
 	JSR IncrementAreaYOffset
 
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BNE locret_BANK6_8CAE
+	BNE CreateObject_Tall_World5_Exit
 
 	LDX byte_RAM_7
 	LDA World5TallObjectBottomTiles, X
 	STA (byte_RAM_1), Y
 	CPY #$E0
-	BCC loc_BANK6_8C9A
+	BCC CreateObject_Tall_World5_Loop
 
-locret_BANK6_8CAE:
+CreateObject_Tall_World5_Exit:
 	RTS
 
 ; ---------------------------------------------------------------------------
@@ -1603,10 +1731,12 @@ CreateObject_SmallCloud:
 	STA (byte_RAM_1), Y
 	RTS
 
+
 JarTopTiles:
 	.db BackgroundTile_JarTopPointer
 	.db BackgroundTile_JarTopGeneric
 	.db BackgroundTile_JarTopNonEnterable
+
 
 CreateObject_Vase:
 	LDY byte_RAM_E7
@@ -1617,18 +1747,18 @@ CreateObject_Vase:
 	LDA JarTopTiles, X
 	STA (byte_RAM_1), Y
 
-loc_BANK6_8CD3:
+CreateObject_Vase_Loop:
 	JSR IncrementAreaYOffset
 
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BNE loc_BANK6_8CE3
+	BNE CreateObject_Vase_Exit
 
 	LDA #BackgroundTile_JarMiddle
 	STA (byte_RAM_1), Y
-	JMP loc_BANK6_8CD3
+	JMP CreateObject_Vase_Loop
 
-loc_BANK6_8CE3:
+CreateObject_Vase_Exit:
 	TYA
 	SEC
 	SBC #$10
@@ -1636,6 +1766,7 @@ loc_BANK6_8CE3:
 	LDA #BackgroundTile_JarBottom
 	STA (byte_RAM_1), Y
 	RTS
+
 
 CreateObject_Vine:
 	LDY byte_RAM_E7
