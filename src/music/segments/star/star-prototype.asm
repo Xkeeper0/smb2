@@ -75,15 +75,17 @@ MusicDataStar_Triangle:
 	.db $7E
 	.db $3E
 	.db $48
-MusicDataStar_DPCM:
-	.db $94
-	.db $01
+MusicDataStar_Noise:
 	.db $98
-	.db $10
-	.db $94
-	.db $10
-	.db $10
-	.db $10
+	.db $04
+	.db $92
+	.db $02
 	.db $01
+	.db $02
+	.db $98
+	.db $06
+	.db $92
+	.db $02
 	.db $01
+	.db $02
 	.db $00

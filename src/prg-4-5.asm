@@ -541,6 +541,7 @@ ProcessMusicQueue_PointerLoop:
 	LSR A
 	BCC ProcessMusicQueue_PointerLoop
 
+IFNDEF EXPAND_MUSIC
 ProcessMusicQueue_ReadHeader:
 	LDA MusicPartPointers - 1, Y
 	TAY
@@ -557,11 +558,49 @@ ProcessMusicQueue_ReadHeader:
 	LDA MusicPartPointers + 5, Y
 	STA CurrentMusicNoiseOffset
 	STA CurrentMusicNoiseStartOffset
-IFDEF PROTOTYPE_MUSIC
+IFDEF PROTOTYPE_MUSIC_UNDERGROUND
 	LDA MusicPartPointers + 6, Y
 ENDIF
 	STA CurrentMusicDPCMOffset
 	STA CurrentMusicDPCMStartOffset
+ENDIF
+
+IFDEF EXPAND_MUSIC
+ProcessMusicQueue_ReadHeader:
+	LDA MusicPartPointers - 1, Y
+	TAY
+
+	LDA MusicHeaderPointersLo, Y
+	STA byte_RAM_5
+	LDA MusicHeaderPointersHi, Y
+	STA byte_RAM_6
+
+	LDY #$00
+
+	LDA (byte_RAM_5), Y
+	STA MusicTempoSetting
+	INY
+	LDA (byte_RAM_5), Y
+	STA CurrentMusicPointer
+	INY
+	LDA (byte_RAM_5), Y
+	STA CurrentMusicPointer + 1
+	INY
+	LDA (byte_RAM_5), Y
+	STA CurrentMusicTriangleOffset
+	INY
+	LDA (byte_RAM_5), Y
+	STA CurrentMusicSquare1Offset
+	INY
+	LDA (byte_RAM_5), Y
+	STA CurrentMusicNoiseOffset
+	STA CurrentMusicNoiseStartOffset
+	INY
+	LDA (byte_RAM_5), Y
+	STA CurrentMusicDPCMOffset
+	STA CurrentMusicDPCMStartOffset
+ENDIF
+
 	LDA #$01
 	STA MusicSquare2NoteLength
 	STA MusicSquare1NoteLength
@@ -804,10 +843,27 @@ ProcessMusicQueue_TriangleSetLength:
 	STA TRI_LINEAR
 
 ProcessMusicQueue_NoiseDPCM:
-IFNDEF PROTOTYPE_MUSIC
-	LDA MusicPlaying1
-	AND #Music1_Inside | Music1_Invincible
-	BNE ProcessMusicQueue_DPCM
+IFNDEF EXPAND_MUSIC
+	IFNDEF PROTOTYPE_MUSIC_UNDERGROUND
+		IFNDEF PROTOTYPE_MUSIC_STARMAN
+			; skip to DPCM for underground/invincibility music
+			LDA MusicPlaying1
+			AND #Music1_Inside | Music1_Invincible
+			BNE ProcessMusicQueue_DPCM
+		ELSE
+			; skip to DPCM for underground music ONLY
+			LDA MusicPlaying1
+			AND #Music1_Inside
+			BNE ProcessMusicQueue_DPCM
+		ENDIF
+	ELSE
+		IFNDEF PROTOTYPE_MUSIC_STARMAN
+			; no starman, underground
+			LDA MusicPlaying1
+			AND #Music1_Invincible
+			BNE ProcessMusicQueue_DPCM
+		ENDIF
+	ENDIF
 ENDIF
 
 ProcessMusicQueue_Noise:
@@ -854,16 +910,17 @@ ProcessMusicQueue_NoiseLoopSegment:
 	JMP ProcessMusicQueue_NoiseByte
 
 ProcessMusicQueue_NoiseEnd:
+IFNDEF EXPAND_MUSIC
 	LDA MusicPlaying1
-IFNDEF PROTOTYPE_MUSIC
-	AND #Music1_Inside | Music1_Invincible
-ENDIF
-IFDEF PROTOTYPE_MUSIC
-	AND #Music1_Inside
-ENDIF
+	IFNDEF PROTOTYPE_MUSIC_STARMAN
+		AND #Music1_Inside | Music1_Invincible
+	ELSE
+		AND #Music1_Inside
+	ENDIF
 	BNE ProcessMusicQueue_DPCM
 
 	RTS
+ENDIF
 
 ProcessMusicQueue_DPCM:
 	LDA CurrentMusicDPCMOffset
@@ -1234,7 +1291,11 @@ unusedSpace $8F00, $FF
 unusedSpace $9000, $FF
 
 ; Pointers to music segments
-.include "src/music/music-part-pointers.asm"
+IFNDEF EXPAND_MUSIC
+	.include "src/music/music-part-pointers.asm"
+ELSE
+	.include "src/music/music-part-pointers-expanded.asm"
+ENDIF
 
 ; Headers for songs (BPM, tracks to use, etc)
 .include "src/music/music-headers.asm"

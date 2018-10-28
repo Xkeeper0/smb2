@@ -11,14 +11,6 @@ MusicDataEnding5_Square2:
 	.db $26
 	.db $8A
 	.db $26
-	.db $7E
-	.db $8C
-	.db $7E
-	.db $88
-	.db $7E
-	.db $FC
-	.db $7E
-	.db $7E
 	.db $00
 MusicDataEnding5_Square1:
 	.db $88
@@ -41,42 +33,8 @@ MusicDataEnding5_Square1:
 	.db $18
 	.db $18
 	.db $18
-	.db $88
+	.db $8A
 	.db $18
-	.db $F4
-	.db $48
-	.db $56
-	.db $50
-	.db $56
-	.db $46
-	.db $56
-	.db $4C
-	.db $56
-	.db $42
-	.db $56
-	.db $50
-	.db $56
-	.db $46
-	.db $56
-	.db $4C
-	.db $56
-	.db $F4
-	.db $48
-	.db $56
-	.db $50
-	.db $56
-	.db $46
-	.db $56
-	.db $4C
-	.db $56
-	.db $42
-	.db $56
-	.db $50
-	.db $56
-	.db $46
-	.db $56
-	.db $4C
-	.db $56
 MusicDataEnding5_Triangle:
 	.db $88
 	.db $28
@@ -100,12 +58,6 @@ MusicDataEnding5_Triangle:
 	.db $30
 	.db $8A
 	.db $30
-	.db $7E
-	.db $8C
-	.db $7E
-	.db $7E
-	.db $7E
-	.db $7E
 MusicDataEnding5_Noise:
 	.db $88
 	.db $10
@@ -129,9 +81,3 @@ MusicDataEnding5_Noise:
 	.db $10
 	.db $8A
 	.db $10
-	.db $01
-	.db $8C
-	.db $01
-	.db $01
-	.db $01
-	.db $01

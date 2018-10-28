@@ -33,10 +33,10 @@ MusicPointersLoopPart:
 	musicPart MusicPartPointers_StarLoop
 	musicPart MusicPartPointers_SubSpaceLoop
 	musicPart MusicPartPointers_WartEnd
-	.db $00 ; no loop
-IFNDEF PROTOTYPE_MUSIC
+	.db $00 ; title screen, no loop
+IFNDEF PROTOTYPE_MUSIC_ENDING
 	musicPart MusicPartPointers_EndingLoop
 ENDIF
-IFDEF PROTOTYPE_MUSIC
-	.db $00 ; no loop
+IFDEF PROTOTYPE_MUSIC_ENDING
+	.db $00 ; ending, no loop
 ENDIF

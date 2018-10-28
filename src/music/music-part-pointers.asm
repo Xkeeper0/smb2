@@ -101,26 +101,26 @@ MusicPartPointers_Ending:
 	musicPart MusicHeaderEnding2
 	musicPart MusicHeaderEnding3
 	musicPart MusicHeaderEnding4
-IFNDEF PROTOTYPE_MUSIC
+IFNDEF PROTOTYPE_MUSIC_ENDING
 	musicPart MusicHeaderEnding5
 MusicPartPointers_EndingLoop:
 MusicPartPointers_EndingEnd:
 	musicPart MusicHeaderEnding6
 ENDIF
-IFDEF PROTOTYPE_MUSIC
+IFDEF PROTOTYPE_MUSIC_ENDING
 MusicPartPointers_EndingEnd:
 	musicPart MusicHeaderEnding5
 ENDIF
 
 
-IFNDEF PROTOTYPE_MUSIC
+IFNDEF PROTOTYPE_MUSIC_UNDERGROUND
 MusicPartPointers_Underground:
 MusicPartPointers_UndergroundLoop:
 MusicPartPointers_UndergroundEnd:
 	musicPart MusicHeaderUnderground
 ENDIF
 
-IFDEF PROTOTYPE_MUSIC
+IFDEF PROTOTYPE_MUSIC_UNDERGROUND
 MusicPartPointers_Underground:
 MusicPartPointers_UndergroundLoop:
 	musicPart MusicHeaderUndergroundBeta1

@@ -94,7 +94,7 @@ InstrumentDVE_D0_Short: ; $A381
 	.db $50, $51, $51, $51, $51, $51, $51, $51, $51, $51, $51, $51, $51, $52, $53, $54
 	.db $55, $56, $57, $58, $19, $DA, $9B
 
-IFNDEF PROTOTYPE_MUSIC
+IFNDEF PROTOTYPE_INSTRUMENTS
 ; Soft pluck
 ; 25% duty cycle with pronounced decay
 InstrumentDVE_F0_Short: ; $A398
@@ -110,7 +110,7 @@ InstrumentDVE_F0: ; $A3AF
 	.db $50, $50, $50, $50, $50, $51, $51, $51, $51, $52, $52, $52, $53, $53, $54, $55
 
 ENDIF
-IFDEF PROTOTYPE_MUSIC
+IFDEF PROTOTYPE_INSTRUMENTS
 ; Soft pluck
 ; 25% duty cycle with pronounced decay
 InstrumentDVE_F0_Short:
