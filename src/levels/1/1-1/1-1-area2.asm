@@ -87,9 +87,11 @@ ENDIF
 	.db $0D, $12
 	.db $F5, $00, $13
 	.db $18, $C6
-	.db $F4, $F3
-	.db $F3, $DF
-	.db $C6, $F3
+	.db $F4
+	.db $F3
+	.db $F3
+	.db $DF, $C6
+	.db $F3
 	.db $6D, $C8
 	.db $F2
 	.db $6A, $CF
