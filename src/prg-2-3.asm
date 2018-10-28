@@ -3002,6 +3002,7 @@ RenderSprite_Heart:
 	STA SpriteDMAArea, Y
 	LDA SpriteTempScreenX
 	STA SpriteDMAArea + 3, Y
+SetHeartSprite:
 	LDA #$D8
 	STA SpriteDMAArea + 1, Y
 	LDA byte_RAM_10

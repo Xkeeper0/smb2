@@ -47,309 +47,379 @@ WorldSpritePalettePointersHi:
 	.db >World7SpritePalettes
 
 World1BackgroundPalettes:
-	.db $21,$30,$12,$0F ; $00
-	.db $21,$30,$16,$0F ; $04 ; Some of these palettes, across all of these entries,
-	.db $21,$27,$17,$0F ; $08 ; may be unused; my initial logging suggests that a handful
-	.db $21,$29,$1A,$0F ; $0C ; of them were not used as data anywhere
-	.db $0F,$30,$12,$01 ; $10
-	.db $0F,$30,$16,$02 ; $14
-	.db $0F,$27,$17,$08 ; $18
-	.db $0F,$29,$1A,$0A ; $1C
-	.db $0F,$2C,$1C,$0C ; $20
-	.db $0F,$30,$16,$02 ; $24
-	.db $0F,$27,$17,$08 ; $28
-	.db $0F,$2A,$1A,$0A ; $2C
-	.db $07,$30,$27,$0F ; $30
-	.db $07,$30,$16,$0F ; $34
-	.db $07,$27,$17,$0F ; $38
-	.db $07,$31,$21,$0F ; $3C
-	.db $03,$2C,$1C,$0F ; $40
-	.db $03,$30,$16,$0F ; $44
-	.db $03,$3C,$1C,$0F ; $48
-	.db $03,$25,$15,$05 ; $4C
-	.db $0C,$30,$06,$0F ; $50
-	.db $0C,$30,$16,$0F ; $54
-	.db $0C,$30,$16,$0F ; $58
-	.db $0C,$30,$26,$0F ; $5C
-	.db $01,$0F,$0F,$0F ; $60
-	.db $01,$0F,$0F,$0F ; $64
-	.db $01,$0F,$0F,$0F ; $68
-	.db $01,$0F,$0F,$0F ; $6C
+	; Day
+	.db $21, $30, $12, $0F ; $00
+	.db $21, $30, $16, $0F ; $04
+	.db $21, $27, $17, $0F ; $08
+	.db $21, $29, $1A, $0F ; $0C
+	; Night
+	.db $0F, $30, $12, $01 ; $10
+	.db $0F, $30, $16, $02 ; $14
+	.db $0F, $27, $17, $08 ; $18
+	.db $0F, $29, $1A, $0A ; $1C
+	; Underground
+	.db $0F, $2C, $1C, $0C ; $20
+	.db $0F, $30, $16, $02 ; $24
+	.db $0F, $27, $17, $08 ; $28
+	.db $0F, $2A, $1A, $0A ; $2C
+	; Jar
+	.db $07, $30, $27, $0F ; $30
+	.db $07, $30, $16, $0F ; $34
+	.db $07, $27, $17, $0F ; $38
+	.db $07, $31, $21, $0F ; $3C
+	; Castle
+	.db $03, $2C, $1C, $0F ; $40
+	.db $03, $30, $16, $0F ; $44
+	.db $03, $3C, $1C, $0F ; $48
+	.db $03, $25, $15, $05 ; $4C
+	; Boss
+	.db $0C, $30, $06, $0F ; $50
+	.db $0C, $30, $16, $0F ; $54
+	.db $0C, $30, $16, $0F ; $58
+	.db $0C, $30, $26, $0F ; $5C
+	; Subspace
+	.db $01, $0F, $0F, $0F ; $60
+	.db $01, $0F, $0F, $0F ; $64
+	.db $01, $0F, $0F, $0F ; $68
+	.db $01, $0F, $0F, $0F ; $6C
 
 World1SpritePalettes:
-	.db $FF,$30,$16,$0F ; $00
-	.db $FF,$38,$10,$0F ; $04
-	.db $FF,$30,$25,$0F ; $08
-	.db $FF,$30,$16,$02 ; $0C
-	.db $FF,$38,$10,$02 ; $10
-	.db $FF,$30,$25,$02 ; $14
-	.db $FF,$30,$16,$0F ; $18
-	.db $FF,$30,$10,$0F ; $1C
-	.db $FF,$25,$10,$0F ; $20
+	; Overworld
+	.db $FF, $30, $16, $0F ; $00
+	.db $FF, $38, $10, $0F ; $04
+	.db $FF, $30, $25, $0F ; $08
+	; Underground
+	.db $FF, $30, $16, $02 ; $0C
+	.db $FF, $38, $10, $02 ; $10
+	.db $FF, $30, $25, $02 ; $14
+	; Boss
+	.db $FF, $30, $16, $0F ; $18
+	.db $FF, $30, $10, $0F ; $1C
+	.db $FF, $25, $10, $0F ; $20
 IFDEF EXPAND_TABLES
 	unusedSpace World1SpritePalettes + $30, $FF
 ENDIF
 
 World2BackgroundPalettes:
-	.db $11,$30,$2A,$0F ; $00
-	.db $11,$30,$16,$0F ; $04
-	.db $11,$28,$18,$0F ; $08
-	.db $11,$17,$07,$0F ; $0C
-	.db $0F,$30,$2A,$0A ; $10
-	.db $0F,$30,$16,$02 ; $14
-	.db $0F,$28,$18,$08 ; $18
-	.db $0F,$17,$07,$08 ; $1C
-	.db $0F,$2A,$1A,$0A ; $20
-	.db $0F,$30,$16,$02 ; $24
-	.db $0F,$28,$18,$08 ; $28
-	.db $0F,$27,$17,$07 ; $2C
-	.db $07,$30,$27,$0F ; $30
-	.db $07,$30,$16,$0F ; $34
-	.db $07,$28,$17,$0F ; $38
-	.db $07,$31,$11,$0F ; $3C
-	.db $0C,$2A,$1A,$0F ; $40
-	.db $0C,$30,$16,$0F ; $44
-	.db $0C,$17,$07,$0F ; $48
-	.db $0C,$25,$15,$0F ; $4C
-	.db $0C,$30,$1A,$0F ; $50
-	.db $0C,$30,$16,$0F ; $54
-	.db $0C,$30,$2A,$0F ; $58
-	.db $0C,$30,$3A,$0F ; $5C
-	.db $01,$0F,$0F,$0F ; $60
-	.db $01,$0F,$0F,$0F ; $64
-	.db $01,$0F,$0F,$0F ; $68
-	.db $01,$0F,$0F,$0F ; $6C
+	; Day
+	.db $11, $30, $2A, $0F ; $00
+	.db $11, $30, $16, $0F ; $04
+	.db $11, $28, $18, $0F ; $08
+	.db $11, $17, $07, $0F ; $0C
+	; Night (unused?)
+	.db $0F, $30, $2A, $0A ; $10
+	.db $0F, $30, $16, $02 ; $14
+	.db $0F, $28, $18, $08 ; $18
+	.db $0F, $17, $07, $08 ; $1C
+	; Underground
+	.db $0F, $2A, $1A, $0A ; $20
+	.db $0F, $30, $16, $02 ; $24
+	.db $0F, $28, $18, $08 ; $28
+	.db $0F, $27, $17, $07 ; $2C
+	; Jar
+	.db $07, $30, $27, $0F ; $30
+	.db $07, $30, $16, $0F ; $34
+	.db $07, $28, $17, $0F ; $38
+	.db $07, $31, $11, $0F ; $3C;
+	; Castle (unused)
+	.db $0C, $2A, $1A, $0F ; $40
+	.db $0C, $30, $16, $0F ; $44
+	.db $0C, $17, $07, $0F ; $48
+	.db $0C, $25, $15, $0F ; $4C
+	; Boss
+	.db $0C, $30, $1A, $0F ; $50
+	.db $0C, $30, $16, $0F ; $54
+	.db $0C, $30, $2A, $0F ; $58
+	.db $0C, $30, $3A, $0F ; $5C
+	; Subspace
+	.db $01, $0F, $0F, $0F ; $60
+	.db $01, $0F, $0F, $0F ; $64
+	.db $01, $0F, $0F, $0F ; $68
+	.db $01, $0F, $0F, $0F ; $6C
 
 World2SpritePalettes:
-	.db $FF,$30,$16,$0F ; $00
-	.db $FF,$38,$2A,$0F ; $04
-	.db $FF,$30,$25,$0F ; $08
-	.db $FF,$30,$16,$02 ; $0C
-	.db $FF,$38,$2A,$02 ; $10
-	.db $FF,$30,$25,$02 ; $14
-	.db $FF,$30,$16,$0F ; $18
-	.db $FF,$30,$10,$0F ; $1C
-	.db $FF,$30,$23,$0F ; $20
+	; Overworld
+	.db $FF, $30, $16, $0F ; $00
+	.db $FF, $38, $2A, $0F ; $04
+	.db $FF, $30, $25, $0F ; $08
+	; Underground
+	.db $FF, $30, $16, $02 ; $0C
+	.db $FF, $38, $2A, $02 ; $10
+	.db $FF, $30, $25, $02 ; $14
+	; Boss
+	.db $FF, $30, $16, $0F ; $18
+	.db $FF, $30, $10, $0F ; $1C
+	.db $FF, $30, $23, $0F ; $20
 IFDEF EXPAND_TABLES
 	unusedSpace World2SpritePalettes + $30, $FF
 ENDIF
 
 World3BackgroundPalettes:
-	.db $22,$30,$12,$0F ; $00
-	.db $22,$30,$16,$0F ; $04
-	.db $22,$27,$17,$0F ; $08
-	.db $22,$29,$1A,$0F ; $0C
-	.db $0F,$30,$12,$01 ; $10
-	.db $0F,$30,$16,$02 ; $14
-	.db $0F,$27,$17,$08 ; $18
-	.db $0F,$29,$1A,$04 ; $1C
-	.db $0F,$30,$1C,$0C ; $20
-	.db $0F,$30,$16,$02 ; $24
-	.db $0F,$27,$17,$08 ; $28
-	.db $0F,$26,$16,$06 ; $2C
-	.db $07,$30,$27,$0F ; $30
-	.db $07,$30,$16,$0F ; $34
-	.db $07,$27,$17,$0F ; $38
-	.db $07,$31,$31,$0F ; $3C
-	.db $03,$31,$21,$0F ; $40
-	.db $03,$30,$16,$0F ; $44
-	.db $03,$3C,$1C,$0F ; $48
-	.db $03,$2A,$1A,$0F ; $4C
-	.db $0C,$30,$11,$0F ; $50
-	.db $0C,$30,$16,$0F ; $54
-	.db $0C,$30,$21,$0F ; $58
-	.db $0C,$30,$31,$0F ; $5C
-	.db $01,$0F,$0F,$0F ; $60
-	.db $01,$0F,$0F,$0F ; $64
-	.db $01,$0F,$0F,$0F ; $68
-	.db $01,$0F,$0F,$0F ; $6C
+	; Day
+	.db $22, $30, $12, $0F ; $00
+	.db $22, $30, $16, $0F ; $04
+	.db $22, $27, $17, $0F ; $08
+	.db $22, $29, $1A, $0F ; $0C
+	; Night (unused)
+	.db $0F, $30, $12, $01 ; $10
+	.db $0F, $30, $16, $02 ; $14
+	.db $0F, $27, $17, $08 ; $18
+	.db $0F, $29, $1A, $04 ; $1C
+	; Underground
+	.db $0F, $30, $1C, $0C ; $20
+	.db $0F, $30, $16, $02 ; $24
+	.db $0F, $27, $17, $08 ; $28
+	.db $0F, $26, $16, $06 ; $2C
+	; Jar
+	.db $07, $30, $27, $0F ; $30
+	.db $07, $30, $16, $0F ; $34
+	.db $07, $27, $17, $0F ; $38
+	.db $07, $31, $31, $0F ; $3C
+	; Castle
+	.db $03, $31, $21, $0F ; $40
+	.db $03, $30, $16, $0F ; $44
+	.db $03, $3C, $1C, $0F ; $48
+	.db $03, $2A, $1A, $0F ; $4C
+	; Boss
+	.db $0C, $30, $11, $0F ; $50
+	.db $0C, $30, $16, $0F ; $54
+	.db $0C, $30, $21, $0F ; $58
+	.db $0C, $30, $31, $0F ; $5C
+	; Subspace
+	.db $01, $0F, $0F, $0F ; $60
+	.db $01, $0F, $0F, $0F ; $64
+	.db $01, $0F, $0F, $0F ; $68
+	.db $01, $0F, $0F, $0F ; $6C
 
 World3SpritePalettes:
-	.db $FF,$30,$16,$0F ; $00
-	.db $FF,$38,$10,$0F ; $04
-	.db $FF,$30,$25,$0F ; $08
-	.db $FF,$30,$16,$02 ; $0C
-	.db $FF,$38,$10,$02 ; $10
-	.db $FF,$30,$25,$02 ; $14
-	.db $FF,$30,$16,$0F ; $18
-	.db $FF,$30,$10,$0F ; $1C
-	.db $FF,$2B,$10,$0F ; $20
+	; Overworld
+	.db $FF, $30, $16, $0F ; $00
+	.db $FF, $38, $10, $0F ; $04
+	.db $FF, $30, $25, $0F ; $08
+	; Underground
+	.db $FF, $30, $16, $02 ; $0C
+	.db $FF, $38, $10, $02 ; $10
+	.db $FF, $30, $25, $02 ; $14
+	; Boss
+	.db $FF, $30, $16, $0F ; $18
+	.db $FF, $30, $10, $0F ; $1C
+	.db $FF, $2B, $10, $0F ; $20
 IFDEF EXPAND_TABLES
 	unusedSpace World3SpritePalettes + $30, $FF
 ENDIF
 
 World4BackgroundPalettes:
-	.db $23,$30,$12,$0F ; $00
-	.db $23,$30,$16,$0F ; $04
-	.db $23,$2B,$1B,$0F ; $08
-	.db $23,$30,$32,$0F ; $0C
-	.db $0F,$30,$12,$01 ; $10
-	.db $0F,$30,$16,$02 ; $14
-	.db $0F,$2B,$1B,$0B ; $18
-	.db $0F,$29,$1A,$0A ; $1C
-	.db $0F,$32,$12,$01 ; $20
-	.db $0F,$30,$16,$02 ; $24
-	.db $0F,$2B,$1B,$0B ; $28
-	.db $0F,$27,$17,$07 ; $2C
-	.db $07,$30,$27,$0F ; $30
-	.db $07,$30,$16,$0F ; $34
-	.db $07,$27,$17,$0F ; $38
-	.db $07,$21,$21,$0F ; $3C
-	.db $03,$30,$12,$0F ; $40
-	.db $03,$30,$16,$0F ; $44
-	.db $03,$3C,$1C,$0F ; $48
-	.db $03,$28,$18,$0F ; $4C
-	.db $0C,$30,$00,$0F ; $50
-	.db $0C,$30,$16,$0F ; $54
-	.db $0C,$30,$10,$0F ; $58
-	.db $0C,$30,$30,$0F ; $5C
-	.db $01,$0F,$0F,$0F ; $60
-	.db $01,$0F,$0F,$0F ; $64
-	.db $01,$0F,$0F,$0F ; $68
-	.db $01,$0F,$0F,$0F ; $6C
+	; Day
+	.db $23, $30, $12, $0F ; $00
+	.db $23, $30, $16, $0F ; $04
+	.db $23, $2B, $1B, $0F ; $08
+	.db $23, $30, $32, $0F ; $0C
+	; Night (unused)
+	.db $0F, $30, $12, $01 ; $10
+	.db $0F, $30, $16, $02 ; $14
+	.db $0F, $2B, $1B, $0B ; $18
+	.db $0F, $29, $1A, $0A ; $1C
+	; Underground
+	.db $0F, $32, $12, $01 ; $20
+	.db $0F, $30, $16, $02 ; $24
+	.db $0F, $2B, $1B, $0B ; $28
+	.db $0F, $27, $17, $07 ; $2C
+	; Jar
+	.db $07, $30, $27, $0F ; $30
+	.db $07, $30, $16, $0F ; $34
+	.db $07, $27, $17, $0F ; $38
+	.db $07, $21, $21, $0F ; $3C
+	; Castle
+	.db $03, $30, $12, $0F ; $40
+	.db $03, $30, $16, $0F ; $44
+	.db $03, $3C, $1C, $0F ; $48
+	.db $03, $28, $18, $0F ; $4C
+	; Boss
+	.db $0C, $30, $00, $0F ; $50
+	.db $0C, $30, $16, $0F ; $54
+	.db $0C, $30, $10, $0F ; $58
+	.db $0C, $30, $30, $0F ; $5C
+	; Subspace
+	.db $01, $0F, $0F, $0F ; $60
+	.db $01, $0F, $0F, $0F ; $64
+	.db $01, $0F, $0F, $0F ; $68
+	.db $01, $0F, $0F, $0F ; $6C
 
 World4SpritePalettes:
-	.db $FF,$30,$16,$0F ; $00
-	.db $FF,$38,$10,$0F ; $04
-	.db $FF,$30,$25,$0F ; $08
-	.db $FF,$30,$16,$02 ; $0C
-	.db $FF,$38,$10,$02 ; $10
-	.db $FF,$30,$25,$02 ; $14
-	.db $FF,$30,$16,$0F ; $18
-	.db $FF,$30,$10,$0F ; $1C
-	.db $FF,$27,$16,$0F ; $20
+	; Overworld
+	.db $FF, $30, $16, $0F ; $00
+	.db $FF, $38, $10, $0F ; $04
+	.db $FF, $30, $25, $0F ; $08
+	; Underground
+	.db $FF, $30, $16, $02 ; $0C
+	.db $FF, $38, $10, $02 ; $10
+	.db $FF, $30, $25, $02 ; $14
+	; Boss
+	.db $FF, $30, $16, $0F ; $18
+	.db $FF, $30, $10, $0F ; $1C
+	.db $FF, $27, $16, $0F ; $20
 IFDEF EXPAND_TABLES
 	unusedSpace World4SpritePalettes + $30, $FF
 ENDIF
 
 World5BackgroundPalettes:
-	.db $0F,$30,$12,$01 ; $00
-	.db $0F,$30,$16,$01 ; $04
-	.db $0F,$27,$17,$07 ; $08
-	.db $0F,$2B,$1B,$0B ; $0C
-	.db $0F,$30,$12,$01 ; $10
-	.db $0F,$30,$16,$02 ; $14
-	.db $0F,$27,$17,$08 ; $18
-	.db $0F,$29,$1A,$0A ; $1C
-	.db $0F,$31,$12,$01 ; $20
-	.db $0F,$30,$16,$02 ; $24
-	.db $0F,$3C,$1C,$0C ; $28
-	.db $0F,$2A,$1A,$0A ; $2C
-	.db $07,$30,$27,$0F ; $30
-	.db $07,$30,$16,$0F ; $34
-	.db $07,$27,$17,$0F ; $38
-	.db $07,$31,$01,$0F ; $3C
-	.db $01,$2A,$1A,$0F ; $40
-	.db $01,$30,$16,$0F ; $44
-	.db $01,$3C,$1C,$0F ; $48
-	.db $01,$25,$15,$05 ; $4C
-	.db $0C,$30,$16,$0F ; $50
-	.db $0C,$30,$16,$0F ; $54
-	.db $0C,$30,$24,$0F ; $58
-	.db $0C,$30,$34,$0F ; $5C
-	.db $01,$0F,$0F,$0F ; $60
-	.db $01,$0F,$0F,$0F ; $64
-	.db $01,$0F,$0F,$0F ; $68
-	.db $01,$0F,$0F,$0F ; $6C
+	; Night
+	.db $0F, $30, $12, $01 ; $00
+	.db $0F, $30, $16, $01 ; $04
+	.db $0F, $27, $17, $07 ; $08
+	.db $0F, $2B, $1B, $0B ; $0C
+	; Also night (unused)
+	.db $0F, $30, $12, $01 ; $10
+	.db $0F, $30, $16, $02 ; $14
+	.db $0F, $27, $17, $08 ; $18
+	.db $0F, $29, $1A, $0A ; $1C
+	; Underground
+	.db $0F, $31, $12, $01 ; $20
+	.db $0F, $30, $16, $02 ; $24
+	.db $0F, $3C, $1C, $0C ; $28
+	.db $0F, $2A, $1A, $0A ; $2C
+	; Jar/Tree
+	.db $07, $30, $27, $0F ; $30
+	.db $07, $30, $16, $0F ; $34
+	.db $07, $27, $17, $0F ; $38
+	.db $07, $31, $01, $0F ; $3C
+	; Castle
+	.db $01, $2A, $1A, $0F ; $40
+	.db $01, $30, $16, $0F ; $44
+	.db $01, $3C, $1C, $0F ; $48
+	.db $01, $25, $15, $05 ; $4C
+	; Boss
+	.db $0C, $30, $16, $0F ; $50
+	.db $0C, $30, $16, $0F ; $54
+	.db $0C, $30, $24, $0F ; $58
+	.db $0C, $30, $34, $0F ; $5C
+	; Subspace
+	.db $01, $0F, $0F, $0F ; $60
+	.db $01, $0F, $0F, $0F ; $64
+	.db $01, $0F, $0F, $0F ; $68
+	.db $01, $0F, $0F, $0F ; $6C
 
 World5SpritePalettes:
-	.db $FF,$30,$16,$0F ; $00
-	.db $FF,$38,$10,$0F ; $04
-	.db $FF,$30,$25,$0F ; $08
-	.db $FF,$30,$16,$02 ; $0C
-	.db $FF,$38,$10,$02 ; $10
-	.db $FF,$30,$25,$02 ; $14
-	.db $FF,$30,$16,$0F ; $18
-	.db $FF,$30,$16,$0F ; $1C
-	.db $FF,$16,$30,$0F ; $20
+	; Overworld
+	.db $FF, $30, $16, $0F ; $00
+	.db $FF, $38, $10, $0F ; $04
+	.db $FF, $30, $25, $0F ; $08
+	; Underground
+	.db $FF, $30, $16, $02 ; $0C
+	.db $FF, $38, $10, $02 ; $10
+	.db $FF, $30, $25, $02 ; $14
+	; Boss
+	.db $FF, $30, $16, $0F ; $18
+	.db $FF, $30, $16, $0F ; $1C
+	.db $FF, $16, $30, $0F ; $20
 IFDEF EXPAND_TABLES
 	unusedSpace World5SpritePalettes + $30, $FF
 ENDIF
 
 World6BackgroundPalettes:
-	.db $21,$30,$2A,$0F ; $00
-	.db $21,$30,$16,$0F ; $04
-	.db $21,$28,$18,$0F ; $08
-	.db $21,$17,$07,$0F ; $0C
-	.db $0F,$30,$2A,$01 ; $10
-	.db $0F,$30,$16,$02 ; $14
-	.db $0F,$28,$18,$08 ; $18
-	.db $0F,$17,$07,$08 ; $1C
-	.db $0F,$30,$12,$01 ; $20
-	.db $0F,$30,$16,$02 ; $24
-	.db $0F,$28,$18,$08 ; $28
-	.db $0F,$27,$17,$07 ; $2C
-	.db $07,$30,$27,$0F ; $30
-	.db $07,$30,$16,$0F ; $34
-	.db $07,$28,$17,$0F ; $38
-	.db $07,$31,$01,$0F ; $3C
-	.db $0C,$2A,$1A,$0F ; $40
-	.db $0C,$30,$16,$0F ; $44
-	.db $0C,$17,$07,$0F ; $48
-	.db $0C,$25,$15,$0F ; $4C
-	.db $0C,$30,$1B,$0F ; $50
-	.db $0C,$30,$16,$0F ; $54
-	.db $0C,$30,$2B,$0F ; $58
-	.db $0C,$30,$3B,$0F ; $5C
-	.db $01,$0F,$0F,$0F ; $60
-	.db $01,$0F,$0F,$0F ; $64
-	.db $01,$0F,$0F,$0F ; $68
-	.db $01,$0F,$0F,$0F ; $6C
+	; Day
+	.db $21, $30, $2A, $0F ; $00
+	.db $21, $30, $16, $0F ; $04
+	.db $21, $28, $18, $0F ; $08
+	.db $21, $17, $07, $0F ; $0C
+	; Night
+	.db $0F, $30, $2A, $01 ; $10
+	.db $0F, $30, $16, $02 ; $14
+	.db $0F, $28, $18, $08 ; $18
+	.db $0F, $17, $07, $08 ; $1C
+	; Underground
+	.db $0F, $30, $12, $01 ; $20
+	.db $0F, $30, $16, $02 ; $24
+	.db $0F, $28, $18, $08 ; $28
+	.db $0F, $27, $17, $07 ; $2C
+	; Jar
+	.db $07, $30, $27, $0F ; $30
+	.db $07, $30, $16, $0F ; $34
+	.db $07, $28, $17, $0F ; $38
+	.db $07, $31, $01, $0F ; $3C
+	; Castle
+	.db $0C, $2A, $1A, $0F ; $40
+	.db $0C, $30, $16, $0F ; $44
+	.db $0C, $17, $07, $0F ; $48
+	.db $0C, $25, $15, $0F ; $4C
+	; Boss
+	.db $0C, $30, $1B, $0F ; $50
+	.db $0C, $30, $16, $0F ; $54
+	.db $0C, $30, $2B, $0F ; $58
+	.db $0C, $30, $3B, $0F ; $5C
+	; Subspace
+	.db $01, $0F, $0F, $0F ; $60
+	.db $01, $0F, $0F, $0F ; $64
+	.db $01, $0F, $0F, $0F ; $68
+	.db $01, $0F, $0F, $0F ; $6C
 
 World6SpritePalettes:
-	.db $FF,$30,$16,$0F ; $00
-	.db $FF,$38,$2A,$0F ; $04
-	.db $FF,$30,$25,$0F ; $08
-	.db $FF,$30,$16,$02 ; $0C
-	.db $FF,$38,$2A,$02 ; $10
-	.db $FF,$30,$25,$02 ; $14
-	.db $FF,$30,$16,$0F ; $18
-	.db $FF,$30,$10,$0F ; $1C
-	.db $FF,$30,$23,$0F ; $20
+	; Overworld
+	.db $FF, $30, $16, $0F ; $00
+	.db $FF, $38, $2A, $0F ; $04
+	.db $FF, $30, $25, $0F ; $08
+	; Underground
+	.db $FF, $30, $16, $02 ; $0C
+	.db $FF, $38, $2A, $02 ; $10
+	.db $FF, $30, $25, $02 ; $14
+	; Boss
+	.db $FF, $30, $16, $0F ; $18
+	.db $FF, $30, $10, $0F ; $1C
+	.db $FF, $30, $23, $0F ; $20
 IFDEF EXPAND_TABLES
 	unusedSpace World6SpritePalettes + $30, $FF
 ENDIF
 
 World7BackgroundPalettes:
-	.db $21,$30,$12,$0F ; $00
-	.db $21,$30,$16,$0F ; $04
-	.db $21,$27,$17,$0F ; $08
-	.db $21,$29,$1A,$0F ; $0C
-	.db $0F,$30,$12,$01 ; $10
-	.db $0F,$30,$16,$02 ; $14
-	.db $0F,$27,$17,$08 ; $18
-	.db $0F,$29,$1A,$0A ; $1C
-	.db $0F,$2C,$1C,$0C ; $20
-	.db $0F,$30,$16,$02 ; $24
-	.db $0F,$27,$17,$08 ; $28
-	.db $0F,$2A,$1A,$0A ; $2C
-	.db $07,$30,$16,$0F ; $30
-	.db $07,$30,$16,$0F ; $34
-	.db $07,$27,$17,$0F ; $38
-	.db $07,$31,$01,$0F ; $3C
-	.db $0F,$3C,$2C,$0C ; $40
-	.db $0F,$30,$16,$02 ; $44
-	.db $0F,$28,$18,$08 ; $48
-	.db $0F,$25,$15,$05 ; $4C
-	.db $0C,$30,$08,$0F ; $50
-	.db $0C,$30,$16,$0F ; $54
-	.db $0C,$38,$18,$0F ; $58
-	.db $0C,$28,$08,$0F ; $5C
-	.db $01,$0F,$0F,$0F ; $60
-	.db $01,$0F,$0F,$0F ; $64
-	.db $01,$0F,$0F,$0F ; $68
-	.db $01,$0F,$0F,$0F ; $6C
+	; Day
+	.db $21, $30, $12, $0F ; $00
+	.db $21, $30, $16, $0F ; $04
+	.db $21, $27, $17, $0F ; $08
+	.db $21, $29, $1A, $0F ; $0C
+	; Night (unused)
+	.db $0F, $30, $12, $01 ; $10
+	.db $0F, $30, $16, $02 ; $14
+	.db $0F, $27, $17, $08 ; $18
+	.db $0F, $29, $1A, $0A ; $1C
+	; Castle
+	.db $0F, $2C, $1C, $0C ; $20
+	.db $0F, $30, $16, $02 ; $24
+	.db $0F, $27, $17, $08 ; $28
+	.db $0F, $2A, $1A, $0A ; $2C
+	; Jar (unused)
+	.db $07, $30, $16, $0F ; $30
+	.db $07, $30, $16, $0F ; $34
+	.db $07, $27, $17, $0F ; $38
+	.db $07, $31, $01, $0F ; $3C
+	; Castle (unused)
+	.db $0F, $3C, $2C, $0C ; $40
+	.db $0F, $30, $16, $02 ; $44
+	.db $0F, $28, $18, $08 ; $48
+	.db $0F, $25, $15, $05 ; $4C
+	; Boss
+	.db $0C, $30, $08, $0F ; $50
+	.db $0C, $30, $16, $0F ; $54
+	.db $0C, $38, $18, $0F ; $58
+	.db $0C, $28, $08, $0F ; $5C
+	; Subspace
+	.db $01, $0F, $0F, $0F ; $60
+	.db $01, $0F, $0F, $0F ; $64
+	.db $01, $0F, $0F, $0F ; $68
+	.db $01, $0F, $0F, $0F ; $6C
 
 World7SpritePalettes:
-	.db $FF,$30,$16,$0F ; $00
-	.db $FF,$38,$10,$0F ; $04
-	.db $FF,$30,$25,$0F ; $08
-	.db $FF,$30,$16,$02 ; $0C
-	.db $FF,$38,$10,$02 ; $10
-	.db $FF,$30,$25,$02 ; $14
-	.db $FF,$30,$16,$0F ; $18
-	.db $FF,$30,$10,$0F ; $1C
-	.db $FF,$30,$2A,$0F ; $20
+	; Overworld
+	.db $FF, $30, $16, $0F ; $00
+	.db $FF, $38, $10, $0F ; $04
+	.db $FF, $30, $25, $0F ; $08
+	; Underground
+	.db $FF, $30, $16, $02 ; $0C
+	.db $FF, $38, $10, $02 ; $10
+	.db $FF, $30, $25, $02 ; $14
+	; Boss
+	.db $FF, $30, $16, $0F ; $18
+	.db $FF, $30, $10, $0F ; $1C
+	.db $FF, $30, $2A, $0F ; $20
 IFDEF EXPAND_TABLES
 	unusedSpace World7SpritePalettes + $30, $FF
 ENDIF
@@ -794,7 +864,12 @@ CreateObjects_00:
 	.dw CreateObject_SingleBlock ; $02
 	.dw CreateObject_SingleBlock ; $03
 	.dw CreateObject_SingleBlock ; $04
+IFNDEF LEVEL_ENGINE_UPGRADES
 	.dw CreateObject_SingleBlock ; $05
+ENDIF
+IFDEF LEVEL_ENGINE_UPGRADES
+	.dw CreateObject_StandableAutomatic ; $05
+ENDIF
 	.dw CreateObject_Vase ; $06
 	.dw CreateObject_Vase ; $07
 	.dw CreateObject_Vase ; $08
@@ -924,6 +999,105 @@ World7ObjectTiles:
 	.db $A0, $A0, $A0, $A0 ; 9X (vertical wall, eg. rock with angle)
 	.db $80, $07, $81, $80 ; AX (ladder, chain)
 	.db $81, $81, $81, $81 ; AX over background (ladder with shadow)
+
+
+IFDEF LEVEL_ENGINE_UPGRADES
+ClimbableTileSearch:
+	.db BackgroundTile_LadderShadow
+	.db BackgroundTile_Ladder
+	.db BackgroundTile_Chain
+	.db BackgroundTile_Vine
+
+ClimbableTilePlatform:
+	.db BackgroundTile_LadderStandableShadow
+	.db BackgroundTile_LadderStandable
+	.db BackgroundTile_ChainStandable
+	.db BackgroundTile_VineStandable
+
+
+;
+; Find the corresponding climbable tile
+;
+; Input
+;   A = search tile
+; Output
+;   A = replace tile
+;   C = set if a match was found
+;
+FindClimableTile:
+	STX byte_RAM_7
+	LDX #(ClimbableTilePlatform - ClimbableTileSearch - 1)
+
+FindClimableTile_Loop:
+	CMP ClimbableTileSearch, X
+	BEQ FindClimableTile_LoadReplacement
+
+	DEX
+	BPL FindClimableTile_Loop
+
+	LDX byte_RAM_7
+	CLC
+	RTS
+
+FindClimableTile_LoadReplacement:
+	LDA ClimbableTilePlatform, X
+	LDX byte_RAM_7
+	RTS
+
+;
+; Creatse a climbable tile that you can stand on based on ObjectTypeAXthruFX
+;
+; Output
+;   A = tile that was written
+;
+CreateObject_StandableObjectType:
+	LDA ObjectTypeAXthruFX
+	BEQ CreateObject_StandableObjectType_TableOffset
+
+	; Offset for shadow
+	CLC
+	ADC #$04
+
+CreateObject_StandableObjectType_TableOffset:
+	; Offset to ladder/chain object definition
+	ADC #$1C
+	TAX
+
+	LDY byte_RAM_E7
+	STX byte_RAM_7
+	STY byte_RAM_8
+	LDX CurrentWorldTileset
+	LDA WorldObjectTilePointersLo, X
+	STA byte_RAM_C
+	LDA WorldObjectTilePointersHi, X
+	STA byte_RAM_D
+	LDY byte_RAM_7
+	LDA (byte_RAM_C), Y
+	LDY byte_RAM_8
+	LDX byte_RAM_7
+
+	JSR FindClimableTile
+
+	STA (byte_RAM_1), Y
+	RTS
+
+;
+; Creates a climbable tile that you can stand on based on the based on the tile underneath
+;
+; Output
+;   A = tile that was written
+;
+CreateObject_StandableAutomatic:
+	LDY byte_RAM_E7
+	LDA (byte_RAM_1), Y
+
+	JSR FindClimableTile
+	BCC CreateObject_StandableObjectType
+
+	STA (byte_RAM_1), Y
+	RTS
+ENDIF
+
 
 ;
 ; Places a tile using the world-specific tile lookup table
@@ -1198,15 +1372,15 @@ CreateObject_SingleBlock:
 	LDA byte_RAM_50E
 	TAX
 	CMP #$05
-	BNE CreateObject_SingleBlock_NotWorld6Custom
+	BNE CreateObject_SingleBlock_NotLadderStandable
 
-	; world 6 + custom object type?
+	; the ladder has a shadow ObjectTypeAXthruFX is set
 	LDA ObjectTypeAXthruFX
-	BEQ CreateObject_SingleBlock_NotWorld6Custom
+	BEQ CreateObject_SingleBlock_NotLadderStandable
 
 	INX
 
-CreateObject_SingleBlock_NotWorld6Custom:
+CreateObject_SingleBlock_NotLadderStandable:
 	LDY byte_RAM_E7
 	LDA CurrentWorldTileset
 	CMP #$06
@@ -1222,7 +1396,6 @@ CreateObject_SingleBlock_NotWorld7:
 CreateObject_SingleBlock_Exit:
 	STA (byte_RAM_1), Y
 	RTS
-
 
 HorizontalPlatformLeftTiles:
 	.db BackgroundTile_LogLeft
@@ -1275,12 +1448,19 @@ GreenPlatformTiles:
 	.db BackgroundTile_GreenPlatformLeft
 	.db BackgroundTile_GreenPlatformMiddle
 	.db BackgroundTile_GreenPlatformRight
+
 ; These are the background tiles that the green platforms are allowed to overwrite.
 ; Any other tiles will stop the green platform from extending to the bottom of the page.
 GreenPlatformOverwriteTiles:
 	.db BackgroundTile_Sky
 	.db BackgroundTile_WaterfallTop
 	.db BackgroundTile_Waterfall
+IFDEF LEVEL_ENGINE_UPGRADES
+	.db BackgroundTile_WaterfallSplash
+	.db BackgroundTile_Water
+	.db BackgroundTile_WaterTop
+ENDIF
+GreenPlatformTiles_End:
 
 
 IFNDEF ENABLE_LEVEL_OBJECT_MODE
@@ -1412,7 +1592,7 @@ loc_BANK6_8C30:
 	BNE loc_BANK6_8C4B
 
 loc_BANK6_8C35:
-	LDX #$08
+	LDX #(GreenPlatformTiles_End - GreenPlatformTiles - 1)
 
 loc_BANK6_8C37:
 	LDA (byte_RAM_1), Y
@@ -1439,12 +1619,15 @@ loc_BANK6_8C4D:
 	DEC byte_RAM_7
 	RTS
 
+
 TallObjectTopTiles:
 	.db BackgroundTile_LightDoor
 	.db BackgroundTile_PalmTreeTop
+
 TallObjectBottomTiles:
 	.db BackgroundTile_LightDoor
 	.db BackgroundTile_PalmTreeTrunk
+
 
 CreateObject_Tall:
 	LDA CurrentWorldTileset
@@ -1462,56 +1645,71 @@ CreateObject_Tall_NotWorld5:
 	LDA TallObjectTopTiles, X
 	STA (byte_RAM_1), Y
 
-loc_BANK6_8C70:
+CreateObject_Tall_NotWorld5_Loop:
 	JSR IncrementAreaYOffset
 
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BNE locret_BANK6_8C82
+	BNE CreateObject_Tall_NotWorld5_Exit
 
 	LDX byte_RAM_7
 	LDA TallObjectBottomTiles, X
 	STA (byte_RAM_1), Y
-	BNE loc_BANK6_8C70
+	BNE CreateObject_Tall_NotWorld5_Loop
 
-locret_BANK6_8C82:
+CreateObject_Tall_NotWorld5_Exit:
 	RTS
+
 
 World5TallObjectTopTiles:
 	.db BackgroundTile_PalmTreeTop
 	.db BackgroundTile_PalmTreeTop
+
 World5TallObjectBottomTiles:
 	.db BackgroundTile_PalmTreeTrunk
 	.db BackgroundTile_PalmTreeTrunk
 
+
+;
+; POI: The only practical difference with this subroutine (other than the fact
+; that it only renders palm trees and not doors) is that it will stop at the
+; bottom of the screen if it doesn't encounter another tile beforehand.
+;
+; This appears to be a work-around for the palm trees in 5-2 that have vertical
+; rock platforms beneath them. Since the rock comes later, tree trunk tiles would
+; render all the way down to the screen and through to the next page!
+;
+; Using a new object layer would have achieved the same effect, but the
+; developer decided to create this special case instead.
+;
 CreateObject_Tall_World5:
 	LDX #$00
 	LDA byte_RAM_50E
 	CMP #$05
-	BEQ loc_BANK6_8C91
+	BEQ CreateObject_Tall_World5_DoLookup
 
 	INX
 
-loc_BANK6_8C91:
+CreateObject_Tall_World5_DoLookup:
 	STX byte_RAM_7
 	LDY byte_RAM_E7
 	LDA World5TallObjectTopTiles, X
 	STA (byte_RAM_1), Y
 
-loc_BANK6_8C9A:
+CreateObject_Tall_World5_Loop:
 	JSR IncrementAreaYOffset
 
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BNE locret_BANK6_8CAE
+	BNE CreateObject_Tall_World5_Exit
 
 	LDX byte_RAM_7
 	LDA World5TallObjectBottomTiles, X
 	STA (byte_RAM_1), Y
 	CPY #$E0
-	BCC loc_BANK6_8C9A
+	BCC CreateObject_Tall_World5_Loop
 
-locret_BANK6_8CAE:
+CreateObject_Tall_World5_Exit:
 	RTS
 
 ; ---------------------------------------------------------------------------
@@ -1533,10 +1731,12 @@ CreateObject_SmallCloud:
 	STA (byte_RAM_1), Y
 	RTS
 
+
 JarTopTiles:
 	.db BackgroundTile_JarTopPointer
 	.db BackgroundTile_JarTopGeneric
 	.db BackgroundTile_JarTopNonEnterable
+
 
 CreateObject_Vase:
 	LDY byte_RAM_E7
@@ -1547,18 +1747,18 @@ CreateObject_Vase:
 	LDA JarTopTiles, X
 	STA (byte_RAM_1), Y
 
-loc_BANK6_8CD3:
+CreateObject_Vase_Loop:
 	JSR IncrementAreaYOffset
 
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BNE loc_BANK6_8CE3
+	BNE CreateObject_Vase_Exit
 
 	LDA #BackgroundTile_JarMiddle
 	STA (byte_RAM_1), Y
-	JMP loc_BANK6_8CD3
+	JMP CreateObject_Vase_Loop
 
-loc_BANK6_8CE3:
+CreateObject_Vase_Exit:
 	TYA
 	SEC
 	SBC #$10
@@ -1566,6 +1766,7 @@ loc_BANK6_8CE3:
 	LDA #BackgroundTile_JarBottom
 	STA (byte_RAM_1), Y
 	RTS
+
 
 CreateObject_Vine:
 	LDY byte_RAM_E7
@@ -2259,7 +2460,7 @@ sub_BANK6_8FC2:
 ; Unreferenced?
 SomeUnusedTilesTop:
 	.db BackgroundTile_LightDoor
-	.db BackgroundTile_Grass
+	.db BackgroundTile_CactusTop
 	.db BackgroundTile_PalmTreeTop
 SomeUnusedTilesBottom:
 	.db BackgroundTile_LightDoor
