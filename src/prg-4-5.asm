@@ -406,12 +406,26 @@ ProcessDPCMQueue_Exit:
 
 ProcessDPCMQueue_Part2:
 	STA DPCMPlaying
+IFDEF EXPAND_MUSIC
+	CMP #$7E
+	BNE ProcessDPCMQueue_LookUpSample
+
+	LDA #$A0
+	STA DPCMTimer
+	RTS
+
+ProcessDPCMQueue_LookUpSample:
+ENDIF
 	LDY #$00
 
+IFNDEF EXPAND_MUSIC
 ProcessDPCMQueue_PointerLoop:
 	INY
 	LSR A
 	BCC ProcessDPCMQueue_PointerLoop
+ELSE
+	TAY
+ENDIF
 
 	LDA DMCFreqTable - 1, Y
 	STA DMC_FREQ
@@ -499,10 +513,15 @@ ProcessMusicQueue_MusicQueue1:
 	STY MusicPlaying2
 	LDY #$FF
 
+IFNDEF EXPAND_MUSIC
 ProcessMusicQueue_FirstPointerLoop:
 	INY
 	LSR A
 	BCC ProcessMusicQueue_FirstPointerLoop
+ELSE
+	TAY
+	DEY
+ENDIF
 
 ProcessMusicQueue_ReadFirstPointer:
 	LDA MusicPointersFirstPart, Y
@@ -536,10 +555,14 @@ ProcessMusicQueue_Part2:
 	LDY #$00
 	STY MusicPlaying1
 
+IFNDEF EXPAND_MUSIC
 ProcessMusicQueue_PointerLoop:
 	INY
 	LSR A
 	BCC ProcessMusicQueue_PointerLoop
+ELSE
+	TAY
+ENDIF
 
 IFNDEF EXPAND_MUSIC
 ProcessMusicQueue_ReadHeader:
@@ -571,32 +594,32 @@ ProcessMusicQueue_ReadHeader:
 	TAY
 
 	LDA MusicHeaderPointersLo, Y
-	STA byte_RAM_5
+	STA byte_RAM_0
 	LDA MusicHeaderPointersHi, Y
-	STA byte_RAM_6
+	STA byte_RAM_0+1
 
 	LDY #$00
 
-	LDA (byte_RAM_5), Y
+	LDA (byte_RAM_0), Y
 	STA MusicTempoSetting
 	INY
-	LDA (byte_RAM_5), Y
+	LDA (byte_RAM_0), Y
 	STA CurrentMusicPointer
 	INY
-	LDA (byte_RAM_5), Y
+	LDA (byte_RAM_0), Y
 	STA CurrentMusicPointer + 1
 	INY
-	LDA (byte_RAM_5), Y
+	LDA (byte_RAM_0), Y
 	STA CurrentMusicTriangleOffset
 	INY
-	LDA (byte_RAM_5), Y
+	LDA (byte_RAM_0), Y
 	STA CurrentMusicSquare1Offset
 	INY
-	LDA (byte_RAM_5), Y
+	LDA (byte_RAM_0), Y
 	STA CurrentMusicNoiseOffset
 	STA CurrentMusicNoiseStartOffset
 	INY
-	LDA (byte_RAM_5), Y
+	LDA (byte_RAM_0), Y
 	STA CurrentMusicDPCMOffset
 	STA CurrentMusicDPCMStartOffset
 ENDIF
@@ -637,8 +660,20 @@ ProcessMusicQueue_EndOfSegment:
 	CMP #Music2_EndingAndCast
 	BEQ ProcessMusicQueue_ThenSetNextPart
 
+IFNDEF EXPAND_MUSIC
 	AND #Music1_Overworld | Music1_Inside | Music1_Subspace
 	BEQ StopMusic
+ELSE
+	CMP #Music1_Overworld
+	BEQ ResumeMusic
+	CMP #Music1_Inside
+	BEQ ResumeMusic
+	CMP #Music1_Subspace
+	BEQ ResumeMusic
+	BNE StopMusic
+
+	ResumeMusic:
+ENDIF
 
 	LDA MusicResume1
 	BNE ProcessMusicQueue_ResumeMusicQueue1
@@ -946,7 +981,12 @@ ProcessMusicQueue_DPCMByte:
 	BEQ ProcessMusicQueue_DPCMLoopSegment
 
 ProcessMusicQueue_DPCMNote:
+	; POI: This left shift precludes using the first DPCM sample (bomb explosion) in the DPCM track.
+	; This could be to allow $80 for a "rest" note on the DPCM track, but none of the in-game music
+	; takes advantage of that.
+IFNDEF EXPAND_MUSIC
 	ASL A
+ENDIF
 	STA DPCMQueue
 	JSR ProcessDPCMQueue
 
@@ -986,7 +1026,7 @@ NoiseHiTable:
 ; Output
 ;   A = new note length
 ProcessMusicQueue_PatchNoteLength:
-	AND #$F
+	AND #$0F
 	CLC
 	ADC MusicTempoSetting
 	TAY

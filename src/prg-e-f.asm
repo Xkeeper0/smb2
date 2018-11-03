@@ -1760,6 +1760,9 @@ NoCoinsForSlotMachine:
 	LDA #Music2_DeathJingle
 	STA MusicQueue2
 
+IFDEF EXPAND_MUSIC
+	LDA #$08
+ENDIF
 	STA byte_RAM_6
 loc_BANKF_E92A:
 	LDA byte_RAM_6

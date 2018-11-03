@@ -106,8 +106,7 @@ IFNDEF PROTOTYPE_MUSIC_ENDING
 MusicPartPointers_EndingLoop:
 MusicPartPointers_EndingEnd:
 	musicPart MusicHeaderEnding6
-ENDIF
-IFDEF PROTOTYPE_MUSIC_ENDING
+ELSE
 MusicPartPointers_EndingEnd:
 	musicPart MusicHeaderEnding5
 ENDIF
@@ -118,9 +117,7 @@ MusicPartPointers_Underground:
 MusicPartPointers_UndergroundLoop:
 MusicPartPointers_UndergroundEnd:
 	musicPart MusicHeaderUnderground
-ENDIF
-
-IFDEF PROTOTYPE_MUSIC_UNDERGROUND
+ELSE
 MusicPartPointers_Underground:
 MusicPartPointers_UndergroundLoop:
 	musicPart MusicHeaderUndergroundBeta1

@@ -1,8 +1,11 @@
 ;
 ; Music Pointers
 ; ==============
-; @todo describe :P
 ;
+; These pointers are set up the master song table and are used in conjunction
+; with the music part pointers to determine where those songs start and loop
+;
+
 MusicPointersFirstPart:
 	musicPart MusicPartPointers_Overworld
 	musicPart MusicPartPointers_CharacterSelect
@@ -36,7 +39,6 @@ MusicPointersLoopPart:
 	.db $00 ; title screen, no loop
 IFNDEF PROTOTYPE_MUSIC_ENDING
 	musicPart MusicPartPointers_EndingLoop
-ENDIF
-IFDEF PROTOTYPE_MUSIC_ENDING
+ELSE
 	.db $00 ; ending, no loop
 ENDIF
