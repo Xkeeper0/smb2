@@ -42,6 +42,7 @@ MusicDataUnderground_Square2:
 	.db $B8
 	.db $7E
 	.db $00
+
 MusicDataUnderground_Square1:
 	.db $B4
 	.db $0A
@@ -84,6 +85,7 @@ MusicDataUnderground_Square1:
 	.db $28
 	.db $B8
 	.db $7E
+
 MusicDataUnderground_Triangle:
 	.db $84
 	.db $22
@@ -134,19 +136,22 @@ MusicDataUnderground_Triangle:
 	.db $40
 	.db $3A
 	.db $30
+
 MusicDataUnderground_DPCM:
-	.db $85
-	.db $01
-	.db $8D
-	.db $10
-	.db $8E
-	.db $10
-	.db $84
-	.db $10
-	.db $88
-	.db $10
-	.db $84
-	.db $01
-	.db $01
-	.db $01
+IFNDEF EXPAND_MUSIC
+	.db $85, $01
+	.db $8D, $10
+	.db $8E, $10
+	.db $84, $10
+	.db $88, $10
+	.db $84, $01, $01, $01
 	.db $00
+ELSE
+	.db $85, $02
+	.db $8D, $06
+	.db $8E, $06
+	.db $84, $06
+	.db $88, $06
+	.db $84, $02, $02, $02
+	.db $00
+ENDIF
