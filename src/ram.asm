@@ -1512,7 +1512,7 @@ CurrentMusicNoiseStartOffset:
 	.dsb 1 ; $05f6
 	.dsb 1 ; $05f7
 	.dsb 1 ; $05f8
-UNUSED_MusicSquare1Lo:
+MusicSquare1Lo:
 	.dsb 1 ; $05f9
 MusicDPCMNoteLength:
 	.dsb 1 ; $05fa
@@ -1520,7 +1520,7 @@ MusicDPCMNoteStartLength:
 	.dsb 1 ; $05fb
 CurrentMusicDPCMStartOffset:
 	.dsb 1 ; $05fc
-UNUSED_MusicSquare2Lo:
+MusicSquare2Lo:
 	.dsb 1 ; $05fd
 	.dsb 1 ; $05fe
 CurrentMusicDPCMOffset:
@@ -1603,6 +1603,7 @@ MusicPlaying1:
 DPCMTimer:
 	.dsb 1 ; $060a
 ; FOR RENT
+MusicSquare1NoteBend:
 	.dsb 1 ; $060b
 MusicSquare1NoteSweep:
 	.dsb 1 ; $060c
@@ -1610,8 +1611,9 @@ SoundEffectPlaying2:
 	.dsb 1 ; $060d
 SoundEffectPlaying3:
 	.dsb 1 ; $060e
-; FOR RENT
+MusicSquare2NoteBend:
 	.dsb 1 ; $060f
+; FOR RENT
 	.dsb 1 ; $0610
 SoundEffectTimer3:
 	.dsb 1 ; $0611
