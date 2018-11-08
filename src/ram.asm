@@ -1521,7 +1521,7 @@ MusicDPCMNoteStartLength:
 CurrentMusicDPCMStartOffset:
 	.dsb 1 ; $05fc
 MusicSquare2Lo:
-	.dsb 1 ; $05fd
+	.dsb 1 ; $05fd  (unused; written to but not read)
 	.dsb 1 ; $05fe
 CurrentMusicDPCMOffset:
 	.dsb 1 ; $05ff
