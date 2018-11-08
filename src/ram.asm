@@ -336,13 +336,15 @@ NextFrequencyHi:
 ; Seems like they were intended to be either instrument start offets or
 ; duty/volume/envelope for the square channels, but it's not totally clear
 ; from the code, and doesn't actually function as written?
-UNINITIALIZED_MusicSquare2Volume: ; ???
+MusicSquareInstrumentStartOffset: ; (unused; read but never initialized)
 	.dsb 1 ; $00bf
-UNINITIALIZED_MusicSquare1Volume: ; ???
+MusicSquareEnvelope: ; (unused; always overwritten)
 	.dsb 1 ; $00c0
 SoundEffect1DataOffset:
 	.dsb 1 ; $00c1
-UNINITIALIZED_MusicSquare2Lo: ; ???
+IFNDEF EXPAND_MUSIC
+MusicSquare2Lo: ; (unused)
+ENDIF
 	.dsb 1 ; $00c2
 	.dsb 1 ; $00c3
 SoundEffectTimer2:
@@ -1520,8 +1522,10 @@ MusicDPCMNoteStartLength:
 	.dsb 1 ; $05fb
 CurrentMusicDPCMStartOffset:
 	.dsb 1 ; $05fc
-MusicSquare2Lo:
-	.dsb 1 ; $05fd  (unused; written to but not read)
+IFDEF EXPAND_MUSIC
+MusicSquare2Lo: ; needs to be +$04 relative to MusicSquare1Lo
+ENDIF
+	.dsb 1 ; $05fd (unused; written to but not read)
 	.dsb 1 ; $05fe
 CurrentMusicDPCMOffset:
 	.dsb 1 ; $05ff

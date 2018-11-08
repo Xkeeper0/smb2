@@ -713,12 +713,13 @@ ProcessMusicQueue_Square2Note:
 	TAY
 	BNE ProcessMusicQueue_Square2StartNote
 
-	LDA UNINITIALIZED_MusicSquare2Volume
+	LDA MusicSquareInstrumentStartOffset
 	JMP ProcessMusicQueue_Square2UpdateNoteOffset
 
 ProcessMusicQueue_Square2StartNote:
 	LDA MusicSquare2NoteStartLength
-	LDX UNINITIALIZED_MusicSquare2Volume ; always overridden in the following subroutine...?
+	; seems like the next line should be LDX MusicSquareEnvelope based on the equivalent code for square 1?
+	LDX MusicSquareInstrumentStartOffset ; always overridden in the following subroutine...?
 	JSR SetInstrumentStartOffset
 
 ProcessMusicQueue_Square2UpdateNoteOffset:
@@ -804,12 +805,12 @@ ProcessMusicQueue_Square1Note:
 
 	BNE ProcessMusicQueue_Square1StartNote
 
-	LDA UNINITIALIZED_MusicSquare2Volume
+	LDA MusicSquareInstrumentStartOffset
 	JMP ProcessMusicQueue_Square1UpdateNoteOffset
 
 ProcessMusicQueue_Square1StartNote:
 	LDA MusicSquare1NoteStartLength
-	LDX UNINITIALIZED_MusicSquare1Volume ; always overridden in the following subroutine...?
+	LDX MusicSquareEnvelope ; always overridden in the following subroutine...?
 	JSR SetInstrumentStartOffset
 
 ProcessMusicQueue_Square1UpdateNoteOffset:
@@ -1314,7 +1315,7 @@ PlayNote_SetFrequency_Square2Detuned:
 	SEC
 	SBC #$02
 	STA SQ2_LO
-	STA UNINITIALIZED_MusicSquare2Lo ; unused
+	STA MusicSquare2Lo
 	LDA NextFrequencyHi
 	ORA #$08
 	STA SQ2_HI
