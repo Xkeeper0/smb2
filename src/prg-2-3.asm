@@ -5296,6 +5296,9 @@ EnemyBehavior_CheckDamagedInterrupt_SoundEffect:
 	BNE EnemyBehavior_CheckDamagedInterrupt_CheckPidgit
 
 EnemyBehavior_CheckDamagedInterrupt_BossDeathSound:
+IFDEF EXPAND_MUSIC
+	LDA #DPCM_BossDeath
+ENDIF
 	STA DPCMQueue
 
 EnemyBehavior_CheckDamagedInterrupt_CheckPidgit:
