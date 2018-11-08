@@ -2202,13 +2202,7 @@ HandlePlayerState_HawkmouthEating:
 
 	JSR ApplyPlayerPhysicsY
 
-IFDEF COMPATIBILITY
-	.db $ad, $5a, $00 ; LDA $0000 + PlayerCollision
-ENDIF
-IFNDEF COMPATIBILITY
-	LDA PlayerCollision ; Absolute address for zero-page
-	NOP ; Alignment fix
-ENDIF
+	LDA_abs PlayerCollision
 
 	BEQ locret_BANK0_8BEB
 
@@ -6403,13 +6397,7 @@ loc_BANK1_AC0A:
 	CMP #$20
 	BCC loc_BANK1_AC37
 
-IFDEF COMPATIBILITY
-	.db $ee, $e6, $00 ; INC $00E6
-ENDIF
-IFNDEF COMPATIBILITY
-	INC byte_RAM_E6 ; Absolute address for zero-page
-	NOP ; Alignment fix
-ENDIF
+	INC_abs byte_RAM_E6
 
 	LDA #$A0
 	STA byte_RAM_10
@@ -6513,13 +6501,8 @@ loc_BANK1_AC8B:
 	STA ObjectXVelocity + 6
 	LDA #$0DA
 	STA ObjectYVelocity + 6
-IFDEF COMPATIBILITY
-	.db $ee, $e6, $00 ; INC $00E6
-ENDIF
-IFNDEF COMPATIBILITY
-	INC byte_RAM_E6 ; Absolute address for zero-page
-	NOP ; Alignment fix
-ENDIF
+
+	INC_abs byte_RAM_E6
 
 
 loc_BANK1_ACA4:
@@ -6777,13 +6760,8 @@ ContributorTicker:
 	LDA Contributors, Y
 	CLC
 	ADC #$09
-IFDEF COMPATIBILITY
-	.db $8d, $11, $00 ; STA $0011
-ENDIF
-IFNDEF COMPATIBILITY
-	STA ScreenUpdateIndex ; Absolute address for zero-page
-	NOP ; Alignment fix
-ENDIF
+
+	STA_abs ScreenUpdateIndex
 
 	DEC ContributorIndex
 	BPL ContributorTicker_Exit
