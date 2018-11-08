@@ -60,6 +60,19 @@ MACRO LDX_abs addr
 ENDM
 
 ;
+; LDY $0000
+;
+MACRO LDY_abs addr
+	IFDEF COMPATIBILITY
+		.db $ac
+		.dw addr
+	ELSE
+		LDX addr
+		NOP_compat
+	ENDIF
+ENDM
+
+;
 ; STA $0000
 ;
 MACRO STA_abs addr
