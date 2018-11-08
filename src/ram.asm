@@ -1513,7 +1513,7 @@ CurrentMusicNoiseStartOffset:
 	.dsb 1 ; $05f7
 	.dsb 1 ; $05f8
 MusicSquare1Lo:
-	.dsb 1 ; $05f9
+	.dsb 1 ; $05f9 (unused; written to but not read)
 MusicDPCMNoteLength:
 	.dsb 1 ; $05fa
 MusicDPCMNoteStartLength:
