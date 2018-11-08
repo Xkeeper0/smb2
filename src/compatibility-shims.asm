@@ -34,6 +34,32 @@ MACRO LDA_abs addr
 ENDM
 
 ;
+; LDA $0000, X
+;
+MACRO LDA_abs_X addr
+	IFDEF COMPATIBILITY
+		.db $bd
+		.dw addr
+	ELSE
+		LDA addr, X
+		NOP_compat
+	ENDIF
+ENDM
+
+;
+; LDX $0000
+;
+MACRO LDX_abs addr
+	IFDEF COMPATIBILITY
+		.db $ae
+		.dw addr
+	ELSE
+		LDX addr
+		NOP_compat
+	ENDIF
+ENDM
+
+;
 ; STA $0000
 ;
 MACRO STA_abs addr
@@ -47,11 +73,37 @@ MACRO STA_abs addr
 ENDM
 
 ;
+; STY $0000
+;
+MACRO STY_abs addr
+	IFDEF COMPATIBILITY
+		.db $8c
+		.dw addr
+	ELSE
+		STY addr
+		NOP_compat
+	ENDIF
+ENDM
+
+;
 ; INC $0000
 ;
 MACRO INC_abs addr
 	IFDEF COMPATIBILITY
 		.db $ee
+		.dw addr
+	ELSE
+		INC addr
+		NOP_compat
+	ENDIF
+ENDM
+
+;
+; AND $0000
+;
+MACRO AND_abs addr
+	IFDEF COMPATIBILITY
+		.db $2d
 		.dw addr
 	ELSE
 		INC addr
