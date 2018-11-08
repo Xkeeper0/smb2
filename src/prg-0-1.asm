@@ -4428,6 +4428,44 @@ AreaTransitionPlacement_Climbing:
 AreaTransitionPlacement_Climbing_Exit:
 IFDEF ROBUST_TRANSITION_SEARCH
 	JSR AreaTransitionPlacement_ClimbingCustom
+
+	BCS AreaTransitionPlacement_Climbing_SetPlayerAnimationFrame
+
+	; Try the opposite side of the screen
+	LDA PlayerYLo
+	EOR #$10
+	STA PlayerYLo
+
+	LDA PlayerYHi
+	EOR #$FF
+	STA PlayerYHi
+
+	JSR AreaTransitionPlacement_ClimbingCustom
+	BCC AreaTransitionPlacement_Climbing_UnreversePositionY
+
+	; Found something on the opposite side, so flip Y velocity
+	LDY #$01
+	LDA PlayerYVelocity
+	BMI AreaTransitionPlacement_Climbing_SetYVelocity
+
+	INY
+AreaTransitionPlacement_Climbing_SetYVelocity:
+	LDA ClimbSpeed, Y
+	STA PlayerYVelocity
+
+	BNE AreaTransitionPlacement_Climbing_SetPlayerAnimationFrame
+
+AreaTransitionPlacement_Climbing_UnreversePositionY:
+	; Unflip Y position
+	LDA PlayerYLo
+	EOR #$10
+	STA PlayerYLo
+
+	LDA PlayerYHi
+	EOR #$FF
+	STA PlayerYHi
+
+AreaTransitionPlacement_Climbing_SetPlayerAnimationFrame:
 ENDIF
 
 	LDA #SpriteAnimation_Climbing
@@ -4436,6 +4474,10 @@ ENDIF
 
 
 IFDEF ROBUST_TRANSITION_SEARCH
+;
+; Ouput
+;   C = set if a climbable tile was found
+;
 AreaTransitionPlacement_ClimbingCustom:
 	; Target x-position
 	LDA PlayerXLo
@@ -4468,7 +4510,11 @@ AreaTransitionPlacement_ClimbingCustom_AfterNudge:
 	LDY #$09
 AreaTransitionPlacement_ClimbingCustom_CheckLoop:
 	CMP ClimbableTiles, Y
-	BEQ AreaTransitionPlacement_ClimbingCustom_Exit
+	BNE AreaTransitionPlacement_ClimbingCustom_LoopNext
+
+	RTS
+
+AreaTransitionPlacement_ClimbingCustom_LoopNext:
 	DEY
 	BPL AreaTransitionPlacement_ClimbingCustom_CheckLoop
 
@@ -4498,7 +4544,7 @@ AreaTransitionPlacement_ClimbingCustom_InnerLoop:
 	; No matches on this tile, check the next one or give up
 	DEC byte_RAM_E7
 	DEC byte_RAM_3
-	BMI AreaTransitionPlacement_ClimbingCustom_Exit
+	BMI AreaTransitionPlacement_ClimbingCustom_NotFound
 
 	JMP AreaTransitionPlacement_ClimbingCustom_Loop
 
@@ -4510,7 +4556,11 @@ AreaTransitionPlacement_ClimbingCustom_SetXPosition:
 	ASL A
 	STA PlayerXLo
 
-AreaTransitionPlacement_ClimbingCustom_Exit:
+	SEC
+	RTS
+
+AreaTransitionPlacement_ClimbingCustom_NotFound:
+	CLC
 	RTS
 ENDIF
 
