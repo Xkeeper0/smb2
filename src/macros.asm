@@ -4,6 +4,8 @@
 ;
 ;
 
+; Include COMPATIBILITY-flag-related macros
+include "src/compatibility-shims.asm"
 
 ;
 ; Pad out unused space used in the original, if needed

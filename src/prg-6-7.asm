@@ -2652,13 +2652,7 @@ loc_BANK6_909C:
 	STA byte_RAM_E7
 	LDA #$0D
 	STA byte_RAM_50E
-IFDEF COMPATIBILITY
-	.db $ad, $07, $00 ; LDA $0007
-ENDIF
-IFNDEF COMPATIBILITY
-	LDA byte_RAM_7 ; Absolute address for zero-page
-	NOP ; Alignment fix
-ENDIF
+	LDA_abs byte_RAM_7
 
 	STA byte_RAM_50D
 	LDX byte_RAM_E8
@@ -2994,14 +2988,7 @@ ResetLevelData_Loop:
 	STA ScreenYLo
 	STA ScreenBoundaryLeftHi
 	STA ScreenBoundaryLeftLo
-IFDEF COMPATIBILITY
-	.db $8d, $d8, $00 ; STA $00D8
-ENDIF
-IFNDEF COMPATIBILITY
-	STA NeedVerticalScroll ; Absolute address for zero-page
-	NOP ; Alignment fix
-ENDIF
-
+	STA_abs NeedVerticalScroll
 	RTS
 
 

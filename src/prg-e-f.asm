@@ -2279,23 +2279,9 @@ NMI:
 	STA PPUCTRL
 
 loc_BANKF_EBC9:
-IFDEF COMPATIBILITY
-	.db $ad, $d1, $00 ; LDA $00D1
-ENDIF
-IFNDEF COMPATIBILITY
-	LDA byte_RAM_D1 ; Absolute address for zero-page
-	NOP ; Alignment fix
-ENDIF
-
+	LDA_abs byte_RAM_D1
 	STA PPUADDR
-IFDEF COMPATIBILITY
-	.db $ad, $d2, $00 ; LDA $00D2
-ENDIF
-IFNDEF COMPATIBILITY
-	LDA byte_RAM_D2 ; Absolute address for zero-page
-	NOP ; Alignment fix
-ENDIF
-
+	LDA_abs byte_RAM_D2
 	STA PPUADDR
 
 loc_BANKF_EBD5:
@@ -2306,13 +2292,7 @@ loc_BANKF_EBD5:
 	BNE loc_BANKF_EBD5
 
 	LDX #$1E
-IFDEF COMPATIBILITY
-	.db $ee, $d2, $00 ; INC $00D2
-ENDIF
-IFNDEF COMPATIBILITY
-	INC byte_RAM_D2 ; Absolute address for zero-page
-	NOP ; Alignment fix
-ENDIF
+	INC_abs byte_RAM_D2
 
 	CPY #$3C
 	BNE loc_BANKF_EBC9
@@ -3383,14 +3363,7 @@ IFDEF CONTROLLER_2_DEBUG
 RenderPlayer_AfterChangeCharacterPoof:
 ENDIF
 
-IFDEF COMPATIBILITY
-	.db $ac, $50, $00 ; LDA $0000 + PlayerState
-ENDIF
-IFNDEF COMPATIBILITY
-	LDY PlayerState ; Absolute address for zero-page
-	NOP ; Alignment fix
-ENDIF
-
+	LDY_abs PlayerState
 	CPY #PlayerState_ChangingSize
 	BEQ loc_BANKF_F337
 
