@@ -68,6 +68,12 @@ AreaInitialization:
 	STA QuicksandDepth
 	STA BossBeaten
 
+IFDEF RESET_CHR_LATCH
+	LDY #$FF
+	STY BossTileset
+	INC ResetCHRLatch
+ENDIF
+
 	LDY #$1B
 AreaInitialization_CarryYOffsetLoop:
 	; Copy the global carrying Y offsets to memory
@@ -263,6 +269,10 @@ loc_BANK2_8164:
 
 loc_BANK2_816C:
 	JSR loc_BANK2_8256
+
+IFDEF RESET_CHR_LATCH
+	JSR CheckResetCHRLatch
+ENDIF
 
 	LDA StopwatchTimer
 	BEQ loc_BANK2_8185
@@ -6444,6 +6454,11 @@ ENDIF
 EnemyInit_Clawgrip:
 	JSR EnemyInit_Birdo
 
+IFDEF RESET_CHR_LATCH
+	LDA #$03
+	JSR SetBossTileset
+ENDIF
+
 	LDA #$04
 	STA EnemyHP, X
 	LDA #$00
@@ -7287,6 +7302,11 @@ loc_BANK3_A55F:
 EnemyInit_Mouser:
 	JSR EnemyInit_Birdo
 
+IFDEF RESET_CHR_LATCH
+	LDA #$00
+	JSR SetBossTileset
+ENDIF
+
 	LDA #$02
 	LDY CurrentWorldTileset
 	BEQ EnemyInit_Mouser_SetHP
@@ -7616,6 +7636,11 @@ loc_BANK3_A71E:
 
 EnemyInit_Tryclyde:
 	JSR EnemyInit_Basic
+
+IFDEF RESET_CHR_LATCH
+	LDA #$01
+	JSR SetBossTileset
+ENDIF
 
 	LDA #$40
 	STA EnemyArray_477, X
@@ -8596,6 +8621,11 @@ loc_BANK3_AC67:
 
 EnemyInit_Fryguy:
 	JSR EnemyInit_Basic
+
+IFDEF RESET_CHR_LATCH
+	LDA #$02
+	JSR SetBossTileset
+ENDIF
 
 	LDA #$04
 	STA EnemyHP, X
@@ -9578,6 +9608,11 @@ locret_BANK3_B1CC:
 
 EnemyInit_Wart:
 	JSR EnemyInit_Basic
+
+IFDEF RESET_CHR_LATCH
+	LDA #$04
+	JSR SetBossTileset
+ENDIF
 
 	LDA #$06
 	STA EnemyHP, X
@@ -11988,6 +12023,15 @@ AreaSecondaryRoutine_POW_OffsetScreen:
 
 AreaSecondaryRoutine_Exit:
 	RTS
+
+
+IFDEF RESET_CHR_LATCH
+SetBossTileset:
+	STA BossTileset
+	INC ResetCHRLatch
+	RTS
+ENDIF
+
 
 IFDEF CONTROLLER_2_DEBUG
 ;

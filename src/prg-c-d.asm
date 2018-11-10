@@ -397,7 +397,7 @@ loc_BANKC_8402:
 	LDA MarioDream_WakingFrames, Y
 	STA BackgroundCHR1
 	CLC
-	ADC #2
+	ADC #$02
 	STA BackgroundCHR2
 	LDA MarioDream_WakingFrameCounts, Y
 	STA byte_RAM_10
@@ -429,9 +429,7 @@ loc_BANKC_8435:
 	LDA MarioDream_SnoringFrames, Y
 	STA BackgroundCHR1
 	CLC
-	ADC #2
-
-loc_BANKC_8440:
+	ADC #$02
 	STA BackgroundCHR2
 	LDA MarioDream_SnoringFrameCounts, Y
 	STA byte_RAM_10
@@ -472,7 +470,7 @@ loc_BANKC_846D:
 	LDA MarioDream_SnoringFrames, Y
 	STA BackgroundCHR1
 	CLC
-	ADC #2
+	ADC #$02
 	STA BackgroundCHR2
 	LDA MarioDream_SnoringFrameCounts, Y
 	STA byte_RAM_10

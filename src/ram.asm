@@ -749,6 +749,7 @@ SpriteFlickerSlot:
 ; FOR RENT
 	.dsb 1 ; $0401
 ; FOR RENT
+BossTileset:
 	.dsb 1 ; $0402
 ; FOR RENT
 	.dsb 1 ; $0403
@@ -1945,6 +1946,7 @@ SpriteCHR4:
 BackgroundCHR2Timer:
 	.dsb 1 ; $06fd
 ; FOR RENT
+ResetCHRLatch:
 	.dsb 1 ; $06fe
 ; FOR RENT
 	.dsb 1 ; $06ff

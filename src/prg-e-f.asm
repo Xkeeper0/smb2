@@ -1092,6 +1092,11 @@ PauseScreenExitCheck:
 HidePauseScreen:
 	JSR WaitForNMI_TurnOffPPU
 
+IFDEF RESET_CHR_LATCH
+	LDA #$00
+	STA ResetCHRLatch
+ENDIF
+
 	JSR LoadWorldCHRBanks
 
 	LDA #PRGBank_6_7
@@ -4758,8 +4763,7 @@ AnimateCHRRoutine_SetSpeed:
 AnimatedCHRCheck:
 IFDEF FIX_CHR_CYCLE
 	CPY #CHRBank_Animated8 + 1
-ENDIF
-IFNDEF FIX_CHR_CYCLE
+ELSE
 	; Bug: This is in the original game
 	; The last frame of the animation is effectively skipped because
 	; we immediately reset to the first frame when we hit it.
@@ -4828,6 +4832,14 @@ loc_BANKF_FB1C:
 ; Unused space in the original ($FB36 - $FDFF)
 unusedSpace $FE00, $FF
 
+IFDEF RESET_CHR_LATCH
+CHRBank_Boss:
+	.db CHRBank_EnemiesGrass ; Mouser
+	.db CHRBank_EnemiesDesert ; Tryclyde
+	.db CHRBank_EnemiesIce ; Fryguy
+	.db CHRBank_EnemiesGrass ; Clawgrip
+	.db CHRBank_EnemiesSky ; Wart
+ENDIF
 
 CHRBank_WorldEnemies:
 	.db CHRBank_EnemiesGrass
@@ -4871,6 +4883,13 @@ LoadWorldCHRBanks:
 	LDA #CHRBank_Animated1
 	STA BackgroundCHR2
 
+IFDEF RESET_CHR_LATCH
+	LDY BossTileset
+	BMI LoadCharacterCHRBanks
+	LDA CHRBank_Boss, Y
+	STA SpriteCHR4
+ENDIF
+
 LoadCharacterCHRBanks:
 	LDA CurrentCharacter
 	ASL A
@@ -4879,6 +4898,36 @@ LoadCharacterCHRBanks:
 	LDA CHRBank_CharacterSize, Y
 	STA SpriteCHR1
 	RTS
+
+IFDEF RESET_CHR_LATCH
+CheckResetCHRLatch:
+	LDA ResetCHRLatch
+	BEQ CheckResetCHRLatch_Exit
+
+	LDA #$00
+	STA ResetCHRLatch
+
+	LDY #CHRBank_CommonEnemies1
+	STY SpriteCHR2
+	INY
+	STY SpriteCHR3
+
+	LDY CurrentWorldTileset
+	LDA CHRBank_WorldEnemies, Y
+	STA SpriteCHR4
+	LDA CHRBank_WorldBossBackground, Y
+	STA BackgroundCHR1
+	LDA #CHRBank_Animated1
+	STA BackgroundCHR2
+
+	LDY BossTileset
+	BMI CheckResetCHRLatch_Exit
+	LDA CHRBank_Boss, Y
+	STA SpriteCHR4
+
+CheckResetCHRLatch_Exit:
+	RTS
+ENDIF
 
 
 LoadTitleScreenCHRBanks:
