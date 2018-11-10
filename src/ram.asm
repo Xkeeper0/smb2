@@ -969,7 +969,7 @@ EnemyArray_492:
 
 ; FOR RENT
 	.dsb 1 ; $049a
-unk_RAM_49B:
+EnemyArray_SpawnsDoor:
 	.dsb 1 ; $049b
 	.dsb 1 ; $049c
 	.dsb 1 ; $049d

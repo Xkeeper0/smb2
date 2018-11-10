@@ -706,10 +706,10 @@ loc_BANK2_8361:
 	STA ObjectXHi, X
 
 loc_BANK2_8377:
-	STA unk_RAM_49B, X
+	STA EnemyArray_SpawnsDoor, X
 	STY byte_RAM_C
 	LDA (RawEnemyData), Y
-	AND #$3F
+	AND #%00111111
 	CMP #$32
 	BCS loc_BANK2_8393
 
@@ -727,15 +727,15 @@ loc_BANK2_8393:
 	; enable bit 7 of the raw enemy data to indicate that the enemy has spawned
 	LDY byte_RAM_C
 	LDA (RawEnemyData), Y
-	ORA #$80
+	ORA #%10000000
 	STA (RawEnemyData), Y
 
-	CMP #$DC
-	AND #$7F
+	CMP #%10000000 | Enemy_BossBirdo
+	AND #%01111111
 	BCC loc_BANK2_83A6
 
-	AND #$3F
-	STA unk_RAM_49B, X
+	AND #%00111111
+	STA EnemyArray_SpawnsDoor, X
 
 loc_BANK2_83A6:
 	STA ObjectType, X
@@ -981,7 +981,7 @@ loc_BANK2_8500:
 	LDA EnemyState, X
 	BNE MakeEnemyFlipUpsideDown
 
-	LDA unk_RAM_49B, X
+	LDA EnemyArray_SpawnsDoor, X
 	BEQ EnemyDeathMaybe
 
 loc_BANK2_8509:
@@ -1533,7 +1533,7 @@ loc_BANK2_87AC:
 	LDA byte_BANK2_8798, Y
 	JSR RenderSprite_DrawObject
 
-	LDA unk_RAM_49B, X
+	LDA EnemyArray_SpawnsDoor, X
 	BEQ locret_BANK2_8797
 
 	LDA EnemyTimer, X
@@ -1634,7 +1634,7 @@ loc_BANK2_8842:
 	DEC FryguySplitFlames
 	BPL loc_BANK2_8855
 
-	INC unk_RAM_49B, X
+	INC EnemyArray_SpawnsDoor, X
 	INC ObjectType, X
 	JMP loc_BANK2_8509
 
@@ -3106,7 +3106,7 @@ loc_BANK2_8FA3:
 	BNE loc_BANK2_8FB6
 
 	LDA byte_RAM_EE
-	AND #$C
+	AND #$0C
 	BNE loc_BANK2_8FB6
 
 	LDA #$1C
@@ -3773,7 +3773,7 @@ CreateEnemy_FoundSlot:
 	LDA #EnemyState_Alive
 	STA EnemyState, Y
 	LSR A
-	STA unk_RAM_49B, Y
+	STA EnemyArray_SpawnsDoor, Y
 	LDA #Enemy_ShyguyRed
 	STA ObjectType, Y
 	LDA ObjectXLo, X
@@ -4248,7 +4248,7 @@ loc_BANK2_9503:
 	BNE loc_BANK2_9528 ; If not, go handle some other enemies
 
 	; ...but very, very, very rarely, only
-	; when their timer (that incremenets once per bounce)
+	; when their timer (that increments once per bounce)
 	; hits #$3F -- almost unnoticable
 	LDA #$3F
 	JSR sub_BANK2_9599
