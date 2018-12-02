@@ -267,13 +267,13 @@ MarioDream_SnoringFrames:
 	.db CHRBank_EndingBackground2
 
 MarioDream_WakingFrames:
-	.db $78
-	.db $74
-	.db $70
-	.db $7C
-	.db $70
-	.db $74
-	.db $78
+	.db CHRBank_EndingBackground11
+	.db CHRBank_EndingBackground10
+	.db CHRBank_EndingBackground9
+	.db CHRBank_EndingBackground12
+	.db CHRBank_EndingBackground9
+	.db CHRBank_EndingBackground10
+	.db CHRBank_EndingBackground11
 
 
 MarioSleepingScene:

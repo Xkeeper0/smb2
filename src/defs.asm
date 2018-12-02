@@ -821,6 +821,10 @@ CHRBank_EndingBackground5 = $60
 CHRBank_EndingBackground6 = $64
 CHRBank_EndingBackground7 = $68
 CHRBank_EndingBackground8 = $6C
+CHRBank_EndingBackground9 = $70
+CHRBank_EndingBackground10 = $74
+CHRBank_EndingBackground11 = $78
+CHRBank_EndingBackground12 = $7C
 
 
 .endinl
