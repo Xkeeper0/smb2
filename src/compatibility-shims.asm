@@ -67,7 +67,7 @@ MACRO LDY_abs addr
 		.db $ac
 		.dw addr
 	ELSE
-		LDX addr
+		LDY addr
 		NOP_compat
 	ENDIF
 ENDM

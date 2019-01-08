@@ -749,6 +749,7 @@ SpriteFlickerSlot:
 ; FOR RENT
 	.dsb 1 ; $0401
 ; FOR RENT
+BossTileset:
 	.dsb 1 ; $0402
 ; FOR RENT
 	.dsb 1 ; $0403
@@ -969,7 +970,7 @@ EnemyArray_492:
 
 ; FOR RENT
 	.dsb 1 ; $049a
-unk_RAM_49B:
+EnemyArray_SpawnsDoor:
 	.dsb 1 ; $049b
 	.dsb 1 ; $049c
 	.dsb 1 ; $049d
@@ -1945,6 +1946,7 @@ SpriteCHR4:
 BackgroundCHR2Timer:
 	.dsb 1 ; $06fd
 ; FOR RENT
+ResetCHRLatch:
 	.dsb 1 ; $06fe
 ; FOR RENT
 	.dsb 1 ; $06ff

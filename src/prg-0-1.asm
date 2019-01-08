@@ -7363,7 +7363,7 @@ CreateEnemy_Bank1_FoundSlot:
 	LDA #EnemyState_Alive
 	STA EnemyState, Y
 	LSR A
-	STA unk_RAM_49B, Y
+	STA EnemyArray_SpawnsDoor, Y
 	LDA #Enemy_ShyguyRed
 	STA ObjectType, Y
 	LDA ObjectXLo, X

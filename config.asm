@@ -134,6 +134,9 @@ PRESERVE_UNUSED_SPACE = 1
 ; Encode world tileset in unused 3 bits of area header byte 2
 ; AREA_HEADER_TILESET = 1
 
+; Checks the CHR latch variable to reload the CHR data
+; RESET_CHR_LATCH = 1
+
 ; Encode level engine object mode switch in unused 2 bits of area header byte 4
 ; ENABLE_LEVEL_OBJECT_MODE = 1
 
