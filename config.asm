@@ -146,6 +146,9 @@ PRESERVE_UNUSED_SPACE = 1
 ; Enables quicksand tile behavior outside of worlds 2 and 6
 ; ALWAYS_ALLOW_QUICKSAND = 1
 
+; Use a tile attributes table for rather than TileSolidnessTable
+; ENABLE_TILE_ATTRIBUTES_TABLE = 1
+
 ; Disables door pointers, so that area pointers are always required
 ; DISABLE_DOOR_POINTERS = 1
 

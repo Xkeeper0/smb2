@@ -308,7 +308,7 @@ loc_BANK2_8198:
 	TAY
 
 loc_BANK2_81A0:
-	LDA byte_BANKF_F4DA, Y
+	LDA SpriteFlickerDMAOffset, Y
 	LDY ObjectBeingCarriedTimer, X
 	BEQ loc_BANK2_81B1
 
@@ -2808,7 +2808,7 @@ loc_BANK2_8E31:
 
 loc_BANK2_8E44:
 	STA byte_RAM_0
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	LDX #$9A
 	LDA byte_RAM_7
@@ -4800,7 +4800,7 @@ loc_BANK2_9767:
 
 	LDA byte_RAM_F4
 	PHA
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	CPY byte_RAM_F4
 	PHP
@@ -4832,7 +4832,7 @@ loc_BANK2_9784:
 	STA byte_RAM_F4
 
 loc_BANK2_979A:
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	CPY byte_RAM_F4
 	PHP
@@ -5595,7 +5595,7 @@ RenderSprite_Albatoss:
 	LDA #$01
 	STA byte_RAM_3
 	STA byte_RAM_5
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	LDX #$14
 	JMP loc_BANK2_9C7A
@@ -5749,6 +5749,11 @@ RenderSprite_NotRocket:
 ; Input
 ;   A = tile index
 ;   X = enemy index
+;   byte_RAM_EE = sprite clipping
+;   byte_RAM_EF = whether the enemy should be invisible
+;   byte_RAM_F4 = sprite slot offset
+;   SpriteTempScreenX = screen x-position
+;   SpriteTempScreenY = screen y-position
 ;
 RenderSprite_DrawObject:
 	STA byte_RAM_F
@@ -6110,7 +6115,7 @@ loc_BANK2_9DCD:
 	STA SpriteDMAArea + $B, Y
 	TXA
 	PHA
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	PLA
 	TAX
@@ -6715,7 +6720,7 @@ loc_BANK3_A24D:
 loc_BANK3_A262:
 	TYA
 	PHA
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	STY byte_RAM_F4
 	PLA
@@ -7243,7 +7248,7 @@ RenderSprite_Pidgit:
 	BNE RenderSprite_Pidgit_Exit
 
 	; Render Pidgit's carpet
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	STY_abs byte_RAM_F4
 
@@ -7509,7 +7514,7 @@ RenderSprite_Ostro:
 	CLC
 	ADC byte_BANK3_A652 - 1, Y
 	STA byte_RAM_1
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	LDX #$3C
 	JSR SetSpriteTiles
@@ -8375,7 +8380,7 @@ RenderSprite_Pokey_Segments:
 	DEC byte_RAM_9
 	BEQ RenderSprite_Pokey_Exit
 
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	LDX byte_RAM_7
 	LDA PokeyTempScreenX
@@ -8599,7 +8604,7 @@ RenderSprite_Fryguy:
 loc_BANK3_AC4B:
 	JSR RenderSprite_DrawObject
 
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	STY_abs byte_RAM_F4
 	PLA
@@ -9003,7 +9008,7 @@ loc_BANK3_AE5C:
 	CLC
 	ADC #$F5
 	STA SpriteTempScreenY
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	STY_abs byte_RAM_F4
 	LDA #$7C
@@ -9117,7 +9122,7 @@ RenderSprite_WhaleSpout:
 loc_BANK3_AF03:
 	JSR RenderSprite_DrawObject
 
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	LDA #$55
 	LDX byte_RAM_7
@@ -9461,12 +9466,13 @@ RenderSprite_HawkmouthBoss:
 	BEQ loc_BANK3_B16D
 
 	LDA byte_RAM_EE
-	AND #$C
+	AND #$0C
 	BNE loc_BANK3_B16D
 
+	; draw the back of Hawkmouth
 	LDA EnemyTimer, X
 	STA byte_RAM_7
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	LDX byte_RAM_2
 	LDA SpriteTempScreenX
@@ -10003,7 +10009,7 @@ ObjectTileCollision:
 ; Handles object collision with background tiles
 ;
 ; Input
-;   A = whether or not to tread walk-through tiles as solid
+;   A = whether or not to treat walk-through tiles as solid
 ;   X = enemy index
 ; Output
 ;  EnemyCollision, X = collision flags
@@ -10017,47 +10023,77 @@ ObjectTileCollision_Main:
 
 	STA byte_RAM_8
 	LDA ObjectYVelocity - 1, X
-	BPL loc_BANK3_B519
+	BPL ObjectTileCollision_Downward
 
-	JSR sub_BANK3_B58C
+ObjectTileCollision_Upward:
+	JSR CheckEnemyTileCollision
 
 	INC byte_RAM_7
 	INC byte_RAM_8
 	BNE loc_BANK3_B57B
 
-loc_BANK3_B519:
+ObjectTileCollision_Downward:
 	INC byte_RAM_7
 	INC byte_RAM_8
-	JSR sub_BANK3_B58C
+	JSR CheckEnemyTileCollision
 
+ObjectTileCollision_CheckQuicksand:
 	LDA ObjectType - 1, X
 	CMP #Enemy_CobratJar
-	BEQ loc_BANK3_B540
+	BEQ ObjectTileCollision_CheckConveyor
 
 	CMP #Enemy_CobratSand
-	BEQ loc_BANK3_B540
+	BEQ ObjectTileCollision_CheckConveyor
+
+IFNDEF ENABLE_TILE_ATTRIBUTES_TABLE
+	LDA byte_RAM_0
+	SEC
+	SBC #BackgroundTile_QuicksandSlow
+	CMP #$02
+	BCS ObjectTileCollision_CheckConveyor
+ELSE
+	LDY byte_RAM_0
+	LDA TileInteractionAttributesTable, Y
+	AND #%00001100
+	CMP #%00001000
+	BNE ObjectTileCollision_CheckConveyor
 
 	LDA byte_RAM_0
 	SEC
-	SBC #$8A
-	CMP #$02
-	BCS loc_BANK3_B540
+	SBC #BackgroundTile_QuicksandSlow
+ENDIF
 
 	ASL A
 	ADC #$01
 	STA ObjectYVelocity - 1, X
-	LDA #EnemyState_7
+	LDA #EnemyState_Sinking
 	STA EnemyState - 1, X
 	LDA #$FF
 	STA EnemyTimer - 1, X
 
-loc_BANK3_B540:
+ObjectTileCollision_CheckConveyor:
+IFNDEF ENABLE_TILE_ATTRIBUTES_TABLE
 	LDA byte_RAM_0
 	STA byte_RAM_E
+
 	SEC
-	SBC #$67
+	SBC #BackgroundTile_ConveyorLeft
 	CMP #$02
 	BCS loc_BANK3_B57B
+
+ELSE
+	LDY byte_RAM_0
+	STY byte_RAM_E
+
+	LDA TileInteractionAttributesTable, Y
+	AND #%00001100
+	CMP #%00001100
+
+	BNE loc_BANK3_B57B
+
+	TYA
+	AND #%00000001
+ENDIF
 
 	LDY EnemyArray_438 - 1, X
 	BNE loc_BANK3_B57B
@@ -10104,32 +10140,53 @@ loc_BANK3_B57B:
 	INC byte_RAM_8
 
 loc_BANK3_B587:
-	JSR sub_BANK3_B58C
+	JSR CheckEnemyTileCollision
 
 	DEX
 	RTS
 
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_B58C:
+;
+; Check collision attributes for the next two tiles
+;
+IFNDEF ENABLE_TILE_ATTRIBUTES_TABLE
+CheckEnemyTileCollision:
 	LDY byte_RAM_8
 	JSR sub_BANK3_BB87
 
 	LDY byte_RAM_7
-	LDA byte_BANK3_B5BC, Y
+	LDA EnemyTileCollisionTable, Y
 	TAY
 	LDA byte_RAM_0
-	JSR sub_BANK3_BBE2
+	JSR CheckTileUsesCollisionType_Bank3
 
-	BCC loc_BANK3_B5A7
+	BCC CheckEnemyTileCollision_Exit
 
 	LDY byte_RAM_7
-	LDA byte_BANK3_B5C4, Y
+	LDA EnemyEnableCollisionFlagTable, Y
 	ORA EnemyCollision - 1, X
 	STA EnemyCollision - 1, X
 
-loc_BANK3_B5A7:
+ELSE
+CheckEnemyTileCollision:
+	LDY byte_RAM_8
+	JSR sub_BANK3_BB87
+
+	; check tile attributes
+	LDY byte_RAM_0
+	LDA TileCollisionAttributesTable, Y
+	LDY byte_RAM_7
+	AND CheckEnemyTileCollisionAttributesTable, Y
+
+	BEQ CheckEnemyTileCollision_Exit
+
+	LDA EnemyEnableCollisionFlagTable, Y
+	ORA EnemyCollision - 1, X
+	STA EnemyCollision - 1, X
+ENDIF
+
+CheckEnemyTileCollision_Exit:
 	INC byte_RAM_7
 	INC byte_RAM_8
 	RTS
@@ -10159,25 +10216,38 @@ ClearDirectionalCollisionFlags_Exit:
 	RTS
 
 
-byte_BANK3_B5BC:
-	.db $02
-	.db $01
-	.db $02
-	.db $02
-	.db $00
-	.db $00
-	.db $00
-	.db $00
+EnemyTileCollisionTable:
+	.db $02 ; jumpthrough bottom (y-velocity < 0)
+	.db $01 ; jumpthrough top (y-velocity > 0)
+	.db $02 ; jumpthrough right (x-velocity < 0)
+	.db $02 ; jumpthrough left (x-velocity > 0)
+	.db $00 ; treat background as solid
+	.db $00 ; treat background as solid
+	.db $00 ; treat background as solid
+	.db $00 ; treat background as solid
 
-byte_BANK3_B5C4:
-	.db $08
-	.db $04
-	.db $02
-	.db $01
-	.db $08
-	.db $04
-	.db $02
-	.db $01
+
+IFDEF ENABLE_TILE_ATTRIBUTES_TABLE
+CheckEnemyTileCollisionAttributesTable:
+	.db %00001000 ; bottom (y-velocity < 0)
+	.db %00000100 ; top (y-velocity > 0)
+	.db %00000010 ; right (x-velocity < 0)
+	.db %00000001 ; left (x-velocity > 0)
+	.db %10001000 ; background-interactive bottom (y-velocity < 0)
+	.db %01000100 ; background-interactive top (y-velocity > 0)
+	.db %00100010 ; background-interactive right (x-velocity < 0)
+	.db %00010001 ; background-interactive left (x-velocity > 0)
+ENDIF
+
+EnemyEnableCollisionFlagTable:
+	.db CollisionFlags_Up
+	.db CollisionFlags_Down
+	.db CollisionFlags_Left
+	.db CollisionFlags_Right
+	.db CollisionFlags_Up
+	.db CollisionFlags_Down
+	.db CollisionFlags_Left
+	.db CollisionFlags_Right
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -11410,14 +11480,29 @@ loc_BANK3_BBDD:
 	RTS
 
 
-sub_BANK3_BBE2:
-	PHA
+;
+; Check whether a tile should use the given collision handler type
+;
+; Input
+;   A = tile ID
+;   Y = collision handler type (0 = solid for mushroom blocks, 1 = jumpthrough, 2 = solid)
+; Output
+;   C = whether or not collision type Y is relevant
+;
+CheckTileUsesCollisionType_Bank3:
+	PHA ; stash tile ID for later
+
+	; determine which tile table to use (0-3)
 	AND #$C0
 	ASL A
 	ROL A
 	ROL A
+
+	; add the offset for the type of collision we're checking
 	ADC TileGroupTable_Bank3, Y
 	TAY
+
+	; check which side of the tile ID pivot we're on
 	PLA
 	CMP TileSolidnessTable, Y
 	RTS
@@ -11965,7 +12050,7 @@ AreaSecondaryRoutine_PlayerPalette:
 AreaSecondaryRoutine_HealthBar:
 	LDA #$30
 	STA byte_RAM_0
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	LDA PlayerHealth
 	BEQ AreaSecondaryRoutine_HealthBar_Draw

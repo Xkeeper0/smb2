@@ -2758,7 +2758,7 @@ loc_BANK0_8E28:
 
 	LDA byte_RAM_0
 	LDY byte_RAM_7
-	JSR sub_BANK0_9053
+	JSR CheckTileUsesCollisionType
 
 	BCC loc_BANK0_8E42
 	; else carried item can't be thrown
@@ -2922,7 +2922,22 @@ InteractiveTileCollisionTable:
 	.db $02 ; jumpthrough left (x-velocity > 0)
 	.db $02
 
-CollisionFlagTableThing:
+IFDEF ENABLE_TILE_ATTRIBUTES_TABLE
+CheckPlayerTileCollisionAttributesTable:
+	.db %00001000 ; jumpthrough bottom (y-velocity < 0)
+	.db %00001000
+	.db %00000100 ; jumpthrough top (y-velocity > 0)
+	.db %00000100
+	.db %00000010 ; jumpthrough right (x-velocity < 0)
+	.db %00000010
+	.db %00000001 ; jumpthrough left (x-velocity > 0)
+	.db %00000001
+ENDIF
+
+;
+; Collision flags that should be set if a given collision check passes
+;
+EnableCollisionFlagTable:
 	.db CollisionFlags_Up
 	.db CollisionFlags_Up
 	.db CollisionFlags_Down
@@ -2972,16 +2987,16 @@ PlayerTileCollision:
 	BPL PlayerTileCollision_Downward
 
 PlayerTileCollision_Upward:
-	JSR sub_BANK0_8FB2 ; use top two tiles
-	JSR sub_BANK0_8FF5 ; skip bottom two tiles
+	JSR CheckPlayerTileCollision_Twice ; use top two tiles
+	JSR CheckPlayerTileCollision_IncrementTwice ; skip bottom two tiles
 
 	LDA PlayerCollision
 	BNE PlayerTileCollision_CheckDamageTile
 	BEQ PlayerTileCollision_Horizontal
 
 PlayerTileCollision_Downward:
-	JSR sub_BANK0_8FF5
-	JSR sub_BANK0_8FB2
+	JSR CheckPlayerTileCollision_IncrementTwice ; skip top two tiles
+	JSR CheckPlayerTileCollision_Twice ; use bottom two tiles
 
 	LDA PlayerCollision
 	BNE PlayerTileCollision_CheckInteractiveTiles
@@ -2997,8 +3012,7 @@ PlayerTileCollision_Downward:
 	CPY #$05
 IFNDEF ALWAYS_ALLOW_QUICKSAND
 	BNE PlayerTileCollision_Downward_AfterCheckQuicksand
-ENDIF
-IFDEF ALWAYS_ALLOW_QUICKSAND
+ELSE
 	NOP
 	NOP
 ENDIF
@@ -3056,7 +3070,26 @@ PlayerTileCollision_CheckDamageTile:
 	LDA PlayerScreenX
 	STA SpriteTempScreenX
 	ROR byte_RAM_12
+
+IFNDEF ENABLE_TILE_ATTRIBUTES_TABLE
 	JSR PlayerTileCollision_HurtPlayer
+ELSE
+	LDA byte_RAM_E
+	CMP #$02
+	BCC PlayerTileCollision_DamageTile
+	BNE PlayerTileCollision_HealthTile
+
+	; instant kill
+	LDY #$0F
+	STY PlayerHealth
+
+PlayerTileCollision_DamageTile:
+	JSR PlayerTileCollision_HurtPlayer
+	JMP PlayerTileCollision_Horizontal
+
+PlayerTileCollision_HealthTile:
+	JSR RestorePlayerToFullHealth
+ENDIF
 
 PlayerTileCollision_Horizontal:
 	LDY #$02
@@ -3066,11 +3099,11 @@ PlayerTileCollision_Horizontal:
 	BMI loc_BANK0_8FA3
 
 	DEY
-	JSR sub_BANK0_8FF5
+	JSR CheckPlayerTileCollision_IncrementTwice
 
 loc_BANK0_8FA3:
 	STY PlayerMovementDirection
-	JSR sub_BANK0_8FB2
+	JSR CheckPlayerTileCollision_Twice
 
 	LDA PlayerCollision
 	AND #CollisionFlags_Right | CollisionFlags_Left
@@ -3082,19 +3115,22 @@ PlayerTileCollision_Exit:
 	RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
 ;
-; Check two tiles?
+; Check collision attributes for the next two tiles
+;
+; Input
+;   byte_RAM_7: collision direction
+;   byte_RAM_8: bounding box offset
 ;
 ; Output
 ;   byte_RAM_7 += 2
 ;   byte_RAM_8 += 2
 ;
-sub_BANK0_8FB2:
-	JSR loc_BANK0_8FB5
+CheckPlayerTileCollision_Twice:
+	JSR CheckPlayerTileCollision
 
-loc_BANK0_8FB5:
+IFNDEF ENABLE_TILE_ATTRIBUTES_TABLE
+CheckPlayerTileCollision:
 	LDX #$00
 	LDY byte_RAM_8
 	JSR sub_BANK0_924F
@@ -3102,61 +3138,111 @@ loc_BANK0_8FB5:
 	LDX byte_RAM_7
 	LDY JumpthroughTileCollisionTable, X
 	LDA byte_RAM_0
-	JSR sub_BANK0_9053
 
-	BCC loc_BANK0_8FF2
+	JSR CheckTileUsesCollisionType
 
+	BCC CheckPlayerTileCollision_Exit
+
+CheckPlayerTileCollision_CheckSpikes:
 	CMP #BackgroundTile_Spikes
-	BNE loc_BANK0_8FD3
+	BNE CheckPlayerTileCollision_CheckIce
 
-	; Spikes behavior
 	LDA InteractiveTileCollisionTable, X
 	STA byte_RAM_E
-	BNE loc_BANK0_8FEB
+	BNE CheckPlayerTileCollision_UpdatePlayerCollision
 
-loc_BANK0_8FD3:
+CheckPlayerTileCollision_CheckIce:
 	CMP #BackgroundTile_JumpThroughIce
-	BNE loc_BANK0_8FDE
+	BNE CheckPlayerTileCollision_CheckConveyor
 
-	; Ice behavior
 	LDA InteractiveTileCollisionTable, X
 	STA byte_RAM_C
-	BNE loc_BANK0_8FEB
+	BNE CheckPlayerTileCollision_UpdatePlayerCollision
 
-loc_BANK0_8FDE:
+CheckPlayerTileCollision_CheckConveyor:
 	SEC
 	SBC #BackgroundTile_ConveyorLeft
 	CMP #$02
-	BCS loc_BANK0_8FEB
+	BCS CheckPlayerTileCollision_UpdatePlayerCollision
 
-	; Conveyor behavior
 	ASL A
 	ORA InteractiveTileCollisionTable, X
 	STA byte_RAM_A
 
-loc_BANK0_8FEB:
-	LDA CollisionFlagTableThing, X
+CheckPlayerTileCollision_UpdatePlayerCollision:
+	LDA EnableCollisionFlagTable, X
 	ORA PlayerCollision
 	STA PlayerCollision
 
-loc_BANK0_8FF2:
-	JMP loc_BANK0_8FF8
+CheckPlayerTileCollision_Exit:
+	JMP CheckPlayerTileCollision_Increment
 
-; End of function sub_BANK0_8FB2
+ELSE
+; custom behavior using tile attribute table
+CheckPlayerTileCollision:
+	LDX #$00
+	LDY byte_RAM_8
+	JSR sub_BANK0_924F
 
-; =============== S U B R O U T I N E =======================================
+	LDX byte_RAM_7
+	LDY byte_RAM_0
+
+	; check tile attributes
+	LDA TileCollisionAttributesTable, Y
+	AND CheckPlayerTileCollisionAttributesTable, X
+
+	BEQ CheckPlayerTileCollision_CheckSpikes
+
+	LDA EnableCollisionFlagTable, X
+	ORA PlayerCollision
+	STA PlayerCollision
+
+CheckPlayerTileCollision_CheckSpikes:
+	LDA TileInteractionAttributesTable, Y
+	AND #%00000011
+	BEQ CheckPlayerTileCollision_CheckIce
+
+	ASL A
+	ORA #%00000001
+	STA byte_RAM_E
+
+CheckPlayerTileCollision_CheckIce:
+	LDA TileInteractionAttributesTable, Y
+	AND #%00001100
+	BEQ CheckPlayerTileCollision_CheckConveyor
+	CMP #%00000100
+	BNE CheckPlayerTileCollision_CheckConveyor
+
+	LDA #$01
+	STA byte_RAM_C
+	BNE CheckPlayerTileCollision_Exit
+
+CheckPlayerTileCollision_CheckConveyor:
+	CMP #%00001100
+	BNE CheckPlayerTileCollision_Exit
+
+	TYA
+	AND #%00000001
+	ASL A
+	ORA #%00000001
+	STA byte_RAM_A
+
+CheckPlayerTileCollision_Exit:
+	JMP CheckPlayerTileCollision_Increment
+ENDIF
+
 
 ;
-; Skip two tiles?
+; Skip two tiles
 ;
 ; Output
 ;   byte_RAM_7 += 2
 ;   byte_RAM_8 += 2
 ;
-sub_BANK0_8FF5:
-	JSR loc_BANK0_8FF8
+CheckPlayerTileCollision_IncrementTwice:
+	JSR CheckPlayerTileCollision_Increment
 
-loc_BANK0_8FF8:
+CheckPlayerTileCollision_Increment:
 	INC byte_RAM_7
 	INC byte_RAM_8
 	RTS
@@ -3230,22 +3316,28 @@ PlayerTileCollision_Climbable_Exit:
 
 
 ;
-; Check whether a collision has occured
+; Check whether a tile should use the given collision handler type
 ;
 ; Input
-;   A = tile ID ???
-;   Y = collision table offset
+;   A = tile ID
+;   Y = collision handler type (0 = solid for mushroom blocks, 1 = jumpthrough, 2 = solid)
 ; Output
-;   C = whether or not a collision occurred
+;   C = whether or not collision type Y is relevant
 ;
-sub_BANK0_9053:
-	PHA
+CheckTileUsesCollisionType:
+	PHA ; stash tile ID for later
+
+	; determine which tile table to use (0-3)
 	AND #$C0
 	ASL A
 	ROL A
 	ROL A
+
+	; add the offset for the type of collision we're checking
 	ADC TileGroupTable, Y
 	TAY
+
+	; check which side of the tile ID pivot we're on
 	PLA
 	CMP TileSolidnessTable, Y
 	RTS
@@ -3673,6 +3765,7 @@ DoorTiles:
 ; Seems to determine what kind of tile the player has collided with?
 ;
 ; Input
+;   X = object index (0 = player)
 ;   Y = bounding box offset?
 ; Output
 ;   byte_RAM_0 = tile ID
@@ -4614,10 +4707,12 @@ locret_BANK0_95C2:
 	RTS
 
 
+IFNDEF ENABLE_TILE_ATTRIBUTES_TABLE
 IFNDEF ROBUST_TRANSITION_SEARCH
 
 ; Unused space in the original ($95C3 - $95FF)
 unusedSpace $9600, $FF
+ENDIF
 ENDIF
 
 
@@ -7206,6 +7301,7 @@ SetAreaPageAddr_Bank1:
 ;   A = Whether the player is sinking in quicksand
 ;   X = PlayerInAir flag
 ;
+IFNDEF ENABLE_TILE_ATTRIBUTES_TABLE
 PlayerTileCollision_CheckQuicksand:
 	LDA #$01
 	LDY byte_RAM_0
@@ -7215,6 +7311,24 @@ PlayerTileCollision_CheckQuicksand:
 	CPY #BackgroundTile_QuicksandFast
 	BEQ PlayerTileCollision_QuicksandFast
 
+ELSE
+PlayerTileCollision_CheckQuicksand:
+	LDY byte_RAM_0
+	LDA InteractiveTileCollisionTable, Y
+	AND #%00001100
+	CMP #%00001000
+
+	BNE PlayerTileCollision_NotQuicksand
+
+	TYA
+	AND %00000001
+	BNE PlayerTileCollision_QuicksandFast
+
+	LDA #$01
+	BNE PlayerTileCollision_QuicksandSlow
+ENDIF
+
+PlayerTileCollision_NotQuicksand:
 	LDA #$00
 	RTS
 
