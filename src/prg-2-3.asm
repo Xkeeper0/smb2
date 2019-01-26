@@ -377,17 +377,18 @@ loc_BANK2_81E7:
 	BEQ HandleEnemyState_Inactive
 
 	SEC
-	SBC #Enemy_AttackAlbatossCarryingBobOmb
+	SBC #((EnemyInitializationTable_End - EnemyInitializationTable) / 2)
 
 	JSR JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
+
+GeneratorInitializationTable:
 	.dw Swarm_AlbatossCarryingBobOmb
 	.dw Swarm_BeezoDiving
 	.dw Swarm_Stop
 	.dw Generator_VegetableThrower
+GeneratorInitializationTable_End:
 
-; =============== S U B R O U T I N E =======================================
 
 Swarm_Stop:
 	LDA #$00
@@ -551,7 +552,7 @@ loc_BANK2_82AC:
 	CMP #Enemy_BossBirdo
 	BCS loc_BANK2_82C8
 
-	CMP #Enemy_AttackAlbatossCarryingBobOmb
+	CMP #((EnemyInitializationTable_End - EnemyInitializationTable) / 2)
 	BCC loc_BANK2_82C8
 
 	STA SwarmType
@@ -615,9 +616,7 @@ loc_BANK2_82FC:
 	LDA ScreenYHi
 	ADC byte_BANK2_8252 + 1, Y
 	STA byte_RAM_6
-	CMP #$A
-
-loc_BANK2_830F:
+	CMP #$0A
 	BCS locret_BANK2_82AB
 
 loc_BANK2_8311:
@@ -640,8 +639,6 @@ loc_BANK2_8315:
 
 loc_BANK2_8325:
 	LDY byte_RAM_0
-
-loc_BANK2_8327:
 	LDA (RawEnemyData), Y
 	STA byte_RAM_1
 	LDX #$FF
@@ -680,7 +677,7 @@ loc_BANK2_8339:
 	CMP #Enemy_BossBirdo
 	BCS loc_BANK2_8357
 
-	CMP #Enemy_AttackAlbatossCarryingBobOmb
+	CMP #((EnemyInitializationTable_End - EnemyInitializationTable) / 2)
 	BCC loc_BANK2_8357
 
 	STA SwarmType
@@ -830,6 +827,7 @@ EnemyInitializationTable:
 	.dw EnemyInit_CrystalBallStarmanStopwatch ; CrystalBall
 	.dw EnemyInit_CrystalBallStarmanStopwatch ; Starman
 	.dw EnemyInit_CrystalBallStarmanStopwatch ; Stopwatch
+EnemyInitializationTable_End:
 
 
 ;
