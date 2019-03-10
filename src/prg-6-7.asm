@@ -1150,7 +1150,7 @@ FindClimableTile_LoadReplacement:
 	RTS
 
 ;
-; Creates a climbable tile that you can stand on based on `ObjectTypeAXthruFX`.
+; Creates a climbable tile that you can stand on based on ObjectTypeAXthruFX
 ;
 ; ##### Output
 ; - `A`: tile that was written
@@ -1464,14 +1464,6 @@ CreateObject_VerticalBlocks:
 	LDY byte_RAM_E7
 
 IFNDEF LEVEL_ENGINE_UPGRADES
-;
-; This little hack is used to show the pile of rocks behind ClawGrip in his boss
-; room. If we're currently in 5-2, area 5, the vertical rock wall with an angled
-; top is replaced by ClawGrip's rocks instead.
-;
-; The level/area check is important! If you go into one of the duplicates of the
-; boss room, you'll see the angled rock wall instead.
-;
 	LDA byte_RAM_50E
 	CMP #$06
 	BNE CreateObject_VerticalBlocks_NotClawGrip
