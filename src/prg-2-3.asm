@@ -376,9 +376,11 @@ loc_BANK2_81E7:
 	LDA SwarmType
 	BEQ HandleEnemyState_Inactive
 
+InitializeSwarm:
 	SEC
 	SBC #((EnemyInitializationTable_End - EnemyInitializationTable) / 2)
 
+InitializeSwarmRelative:
 	JSR JumpToTableAfterJump
 
 
@@ -2029,7 +2031,7 @@ loc_BANK2_8A3B:
 	STA ObjectAttributes, X
 
 loc_BANK2_8A41:
-	JSR loc_BANK2_8A53
+	JSR RunEnemyBehavior
 
 	LDA ObjectYHi, X
 	BMI loc_BANK2_8A50
@@ -2047,7 +2049,7 @@ loc_BANK2_8A50:
 
 ; ---------------------------------------------------------------------------
 
-loc_BANK2_8A53:
+RunEnemyBehavior:
 	LDA ObjectType, X
 	JSR JumpToTableAfterJump
 
@@ -2124,6 +2126,7 @@ EnemyBehaviorPointerTable:
 	.dw EnemyBehavior_CrystalBall
 	.dw EnemyBehavior_Starman
 	.dw EnemyBehavior_Mushroom ; 70
+EnemyBehaviorPointerTable_End:
 
 
 EnemyInit_JarGenerators:
@@ -2588,13 +2591,11 @@ EnemyBehavior_JarGenerators:
 	JSR ObjectTileCollision
 
 	AND #$03
-	BNE loc_BANK2_8D16
+	BNE EnemyBehavior_JarGenerators_Active
 
 	JMP EnemyDestroy
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_8D16:
+EnemyBehavior_JarGenerators_Active:
 	INC ObjectAnimationTimer, X
 	LDA ObjectAnimationTimer, X
 	ASL A

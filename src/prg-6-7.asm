@@ -1045,7 +1045,7 @@ FindClimableTile_LoadReplacement:
 	RTS
 
 ;
-; Creatse a climbable tile that you can stand on based on ObjectTypeAXthruFX
+; Creates a climbable tile that you can stand on based on ObjectTypeAXthruFX
 ;
 ; Output
 ;   A = tile that was written
@@ -1307,6 +1307,8 @@ CreateObject_LightEntranceLeft_World6or7Exit:
 
 CreateObject_VerticalBlocks:
 	LDY byte_RAM_E7
+
+IFNDEF LEVEL_ENGINE_UPGRADES
 	LDA byte_RAM_50E
 	CMP #$06
 	BNE CreateObject_VerticalBlocks_NotClawGrip
@@ -1328,13 +1330,26 @@ CreateObject_VerticalBlocks_ClawGripRockLoop:
 	BPL CreateObject_VerticalBlocks_ClawGripRockLoop
 
 	RTS
+ENDIF
 
 CreateObject_VerticalBlocks_NotClawGrip:
 	LDA byte_RAM_50E
 	CMP #$06
 	BNE CreateObject_VerticalBlocks_Normal
 
+IFNDEF LEVEL_ENGINE_UPGRADES
 	LDA #BackgroundTile_RockWallAngle
+ELSE
+	; use the previous tile for the top of the column (eg. angled rock wall)
+	; UNLESS we're using a sky tile or have set an object type for in the level header
+	LDX ObjectType3Xthru9X
+	BNE CreateObject_VerticalBlocks_Normal
+	JSR CreateWorldSpecificTile
+	CMP #BackgroundTile_Sky
+	BEQ CreateObject_VerticalBlocks_NextRow
+	CLC
+	SBC #$00
+ENDIF
 	STA (byte_RAM_1), Y
 	JMP CreateObject_VerticalBlocks_NextRow
 
