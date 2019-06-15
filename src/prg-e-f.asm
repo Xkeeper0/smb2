@@ -2647,7 +2647,65 @@ IFDEF DEBUG
 	.include "src/extras/debug-f.asm"
 ENDIF
 
-IFDEF MMC5
+IF INES_MAPPER == MAPPER_FME7
+RESET_FME7:
+	LDA #$08 ; PRG bank 0
+	STA $8000
+	LDA #%11000000
+	STA $A000
+
+	LDA #$09 ; PRG bank 1
+	STA $8000
+	LDA #$00 ; ROM bank 0
+	STA $A000
+
+	LDA #$0A ; PRG bank 2
+	STA $8000
+	LDA #$01 ; ROM bank 1
+	STA $A000
+
+	LDA #$0B ; PRG bank 3
+	STA $8000
+	LDA #$0E ; ROM bank E
+	STA $A000
+
+	JMP RESET
+
+
+ChangeCHRBanks_FME7:
+	LDY BackgroundCHR1
+	LDA #$04
+	STA $8000
+	STY $A000
+
+	INY
+	LDA #$05
+	STA $8000
+	STY $A000
+
+	LDY BackgroundCHR2
+	LDA #$06
+	STA $8000
+	STY $A000
+
+	INY
+	LDA #$07
+	STA $8000
+	STY $A000
+
+	LDY #$03
+ChangeCHRBanks_FME7_Loop:
+	TYA
+	ORA #$80
+	STA $8000
+	LDA SpriteCHR1, Y
+	STA $A000
+	DEY
+	BPL ChangeCHRBanks_FME7_Loop
+
+	RTS
+
+ELSEIF INES_MAPPER == MAPPER_MMC5
 RESET_MMC5:
 	; Set PRG mode 3 and CHR mode 3
 	LDA #$03
@@ -5585,17 +5643,38 @@ IFDEF DEBUG
 	STA Debug_InMenu
 ENDIF
 
+IF INES_MAPPER == MAPPER_FME7
+	LDA #$0C
+	STA $8000
+	LDA #VMirror
+	STA $A000
+ELSE
 	LDA #VMirror
 	STA NametableMapping
 	LDA #$80
-	STA $A001
+	STA $A001 ; PRG-RAM protect
+ENDIF
 	JMP StartGame
 
 
-IFNDEF MMC5
 ;
 ; Switches the current CHR banks
 ;
+IF INES_MAPPER == MAPPER_FME7
+ChangeCHRBanks:
+	JMP ChangeCHRBanks_FME7
+
+	; Maintain location of the next subroutine
+	unusedSpace $FF85, $FF
+
+ELSEIF INES_MAPPER == MAPPER_MMC5
+ChangeCHRBanks:
+	JMP ChangeCHRBanks_MMC5
+
+	; Maintain location of the next subroutine
+	unusedSpace $FF85, $FF
+
+ELSE ; INES_MAPPER == MAPPER_MMC3
 ChangeCHRBanks:
 	LDY #$05
 ChangeCHRBanks_Loop:
@@ -5608,18 +5687,6 @@ ChangeCHRBanks_Loop:
 	BPL ChangeCHRBanks_Loop
 
 	RTS
-ENDIF
-
-IFDEF MMC5
-;
-; Switches the current CHR banks
-;
-ChangeCHRBanks:
-	JMP ChangeCHRBanks_MMC5
-
-	; Maintain location of the next subroutine
-	unusedSpace $FF85, $FF
-
 ENDIF
 
 
@@ -5644,7 +5711,33 @@ ChangeMappedPRGBank:
 ;
 ChangeMappedPRGBankWithoutSaving:
 	ASL A
-IFNDEF MMC5
+
+IF INES_MAPPER == MAPPER_FME7
+	PHA
+	LDA #$09
+	STA $8000
+	PLA
+	STA $A000 ; Change first bank
+	ORA #$01 ; Use the bank right after this one next
+	PHA
+	LDA #$0A
+	STA $8000
+	PLA
+	STA $A000 ; Change second bank
+
+	RTS
+
+ELSEIF INES_MAPPER == MAPPER_MMC5
+	ORA #$80
+	STA $5114
+	ORA #$01
+	STA $5115
+	RTS
+
+	; Maintain location of the next subroutine
+	unusedSpace $FFA0, $FF
+
+ELSE ; INES_MAPPER == MAPPER_MMC3
 	PHA
 	LDA #$86
 	STA $8000
@@ -5657,16 +5750,6 @@ IFNDEF MMC5
 	PLA
 	STA $8001 ; Change second bank
 	RTS
-ENDIF
-IFDEF MMC5
-	ORA #$80
-	STA $5114
-	ORA #$01
-	STA $5115
-	RTS
-
-	; Maintain location of the next subroutine
-	unusedSpace $FFA0, $FF
 
 ENDIF
 
@@ -5677,9 +5760,16 @@ ENDIF
 ;   A = $01 for horizontal
 ;
 ChangeNametableMirroring:
+IF INES_MAPPER == MAPPER_FME7
+	PHA
+	LDA #$0C
+	STA $8000
+	PLA
+	STA $A000
+ELSE
 	STA NametableMapping
+ENDIF
 	RTS
-
 
 ; Unused space in the original ($FFA4 - $FFEA)
 unusedSpace $FFEB, $FF
@@ -5716,10 +5806,11 @@ IRQ:
 ; IRQ is not used, but you could if you wanted.
 NESVectorTables:
 	.dw NMI
-IFNDEF MMC5
-	.dw RESET
-ENDIF
-IFDEF MMC5
+IF INES_MAPPER == MAPPER_FME7
+	.dw RESET_FME7
+ELSEIF INES_MAPPER == MAPPER_MMC5
 	.dw RESET_MMC5
+ELSE ; INES_MAPPER == MAPPER_MMC3
+	.dw RESET
 ENDIF
 	.dw IRQ

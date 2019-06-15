@@ -6,25 +6,48 @@
 ; -----------------------------------------
 
 .include "config.asm"
+.include "constants.asm"
+
+INES_MAPPER = MAPPER_MMC3
+IFDEF FME7
+	INES_MAPPER = MAPPER_FME7
+ENDIF
+IFDEF MMC5
+	INES_MAPPER = MAPPER_MMC5
+ENDIF
 
 ; -----------------------------------------
 ; Add NES header
 	.db "NES", $1a ; identification of the iNES header
+
+IFDEF EXPAND_PRG
+	.db 16 ; this can go up to 32
+ELSE
 	.db 8 ; number of 16KB PRG-ROM pages
+ENDIF
+
+IFDEF EXPAND_CHR
+	.db 32
+ELSE
 	.db 16 ; number of 8KB CHR-ROM pages
-
-IFNDEF MMC5
-	.db $40 ; mapper and mirroring
-	.dsb 9, $00 ; clear the remaining bytes
 ENDIF
 
-IFDEF MMC5
-	.db $52 ; mapper and mirroring
-	.dsb 3, $00
-	.db $70 ; RAM size
+IF INES_MAPPER == MAPPER_FME7
+	.db (INES_MAPPER & %00001111) << 4 ; mapper (lower nybble) and mirroring
+	.db (INES_MAPPER & %11110000) | %1000 ; mapper (upper nybble) and iNES 2.0
+	.dsb 2, $00
+	.db $70 ; flags 10
 	.dsb 5, $00 ; clear the remaining bytes
+ELSEIF INES_MAPPER == MAPPER_MMC5
+	.db (INES_MAPPER & %00001111) << 4 | %10 ; mapper (lower nybble) and mirroring
+	.dsb 3, $00
+	.db $70 ; flags 10
+	.dsb 5, $00 ; clear the remaining bytes
+ELSE ; INES_MAPPER == MAPPER_MMC3
+	.db (INES_MAPPER & %00001111) << 4 ; mapper (lower nybble) and mirroring
+	.db INES_MAPPER & %11110000 ; mapper (upper nybble)
+	.dsb 8, $00 ; clear the remaining bytes
 ENDIF
-
 
 ; -----------------------------------------
 ; Add macros
@@ -103,7 +126,13 @@ ENDIF
 ; The second half is totally empty.
 .base $8000
 .include "src/prg-c-d.asm"
-.org $c000, $ff
+.pad $c000, $ff
+
+; ----------------------------------------
+; extra PRG-ROM pages (8 bank pairs)
+IFDEF EXPAND_PRG
+.dsb (8 * $4000), $ff
+ENDIF
 
 ; ----------------------------------------
 ; Banks E and F. Fixed at $C000-FFFF.
@@ -118,3 +147,9 @@ ENDIF
 ; -----------------------------------------
 ; include CHR-ROM
 .incbin "smb2.chr"
+
+; ----------------------------------------
+; extra CHR-ROM pages
+IFDEF EXPAND_CHR
+.dsb (16 * $2000), $00
+ENDIF

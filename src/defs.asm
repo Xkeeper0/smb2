@@ -1,17 +1,16 @@
 .ignorenl
 
-; MMC3
-IFNDEF MMC5
-VMirror = $00
-HMirror = $01
-NametableMapping = $A000
-ENDIF
-
-; MMC5
-IFDEF MMC5
-VMirror = $44
-HMirror = $50
-NametableMapping = $5105
+IF INES_MAPPER == MAPPER_FME7
+  VMirror = $00
+  HMirror = $01
+ELSEIF INES_MAPPER == MAPPER_MMC5
+  VMirror = $44
+  HMirror = $50
+  NametableMapping = $5105
+ELSE ; INES_MAPPER == MAPPER_MMC3
+  VMirror = $00
+  HMirror = $01
+  NametableMapping = $A000
 ENDIF
 
 ; ---------------------------------------------------------------------------
