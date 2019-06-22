@@ -4325,22 +4325,52 @@ AreaTransitionPlacement_Reset:
 	STA byte_RAM_E6
 	LDA CurrentLevelEntryPage
 	STA byte_RAM_E8
+
+IFDEF LEVEL_ENGINE_UPGRADES
+	LDX IsHorizontalLevel
+	BEQ AreaTransitionPlacement_Reset_FindOpenSpace
+
+	; Find non-sky to use as the ground
+	LDA #$E0
+	STA byte_RAM_E6
+
+AreaTransitionPlacement_Reset_FindStandableTile:
 	LDA #$0C
 	STA byte_RAM_3
-
-loc_BANK0_94F8:
+AreaTransitionPlacement_Reset_FindStandableTileLoop:
 	JSR SetTileOffsetAndAreaPageAddr_Bank1
 
 	LDY byte_RAM_E7
 	LDA (byte_RAM_1), Y
-	CMP #$40
+	CMP #BackgroundTile_Sky
+	BNE AreaTransitionPlacement_Reset_FindOpenSpaceLoop
+
+	JSR AreaTransitionPlacement_MovePlayerUp1Tile
+
+	STA byte_RAM_E6
+	DEC byte_RAM_3
+	BNE AreaTransitionPlacement_Reset_FindStandableTileLoop
+ENDIF
+
+;
+; The player must start in empty space (not a wall)
+;
+AreaTransitionPlacement_Reset_FindOpenSpace:
+	LDA #$0C
+	STA byte_RAM_3
+AreaTransitionPlacement_Reset_FindOpenSpaceLoop:
+	JSR SetTileOffsetAndAreaPageAddr_Bank1
+
+	LDY byte_RAM_E7
+	LDA (byte_RAM_1), Y
+	CMP #BackgroundTile_Sky
 	BEQ AreaTransitionPlacement_MovePlayerUp1Tile
 
 	JSR AreaTransitionPlacement_MovePlayerUp1Tile
 
 	STA byte_RAM_E6
 	DEC byte_RAM_3
-	BNE loc_BANK0_94F8
+	BNE AreaTransitionPlacement_Reset_FindOpenSpaceLoop
 
 
 ;
