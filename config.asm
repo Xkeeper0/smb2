@@ -39,6 +39,13 @@ COMPATIBILITY = 1
 ; when it isn't properly pointed to.
 PRESERVE_UNUSED_SPACE = 1
 
+; ----------------------------------------
+; Compile CHR Separately
+; Instead of as one big block, compiles CHR from a folder of separated
+; sprite data.  Optional, but should not affect ROM output.
+;
+
+; COMPILE_CHR_SEPARATE = 1
 
 ; ----------------------------------------
 ; Build PRG1 / Revision A ROM.

@@ -117,4 +117,47 @@ ENDIF
 
 ; -----------------------------------------
 ; include CHR-ROM
-.incbin "smb2.chr"
+
+IFDEF COMPILE_CHR_SEPARATELY
+    .incbin "chr/players/mario.chr"
+    .incbin "chr/players/luigi.chr"
+    .incbin "chr/players/peach.chr"
+    .incbin "chr/players/toad.chr"
+    .incbin "chr/players/mario_small.chr"
+    .incbin "chr/players/luigi_small.chr"
+    .incbin "chr/players/peach_small.chr"
+    .incbin "chr/players/toad_small.chr"
+
+    .incbin "chr/enemy_common/enemy_common_1.chr"
+    .incbin "chr/enemy_common/enemy_common_2.chr"
+
+    .incbin "chr/world_sets/world_set_5a.chr"
+    .incbin "chr/world_sets/world_set_5b.chr"
+
+    .incbin "chr/enemy_common/enemy_common_3.chr"
+    .incbin "chr/enemy_common/enemy_common_4.chr"
+    .incbin "chr/enemy_common/enemy_common_5.chr"
+    .incbin "chr/enemy_common/enemy_common_6.chr"
+
+    .incbin "chr/world_sets/world_set_1a.chr"
+    .incbin "chr/world_sets/world_set_1b.chr"
+    .incbin "chr/world_sets/world_set_2a.chr"
+    .incbin "chr/world_sets/world_set_2b.chr"
+    .incbin "chr/world_sets/world_set_3a.chr"
+    .incbin "chr/world_sets/world_set_3b.chr"
+    .incbin "chr/world_sets/world_set_4a.chr"
+    .incbin "chr/world_sets/world_set_4b.chr"
+
+    .incbin "chr/anim/anim.chr"
+
+    .incbin "chr/misc/misc.chr" ;; some of this is empty
+
+    .incbin "chr/intermission/intermission.chr"
+
+    .incbin "chr/mario_dream_sprites/mario_dream_sprites.chr"
+
+    .incbin "chr/mario_dream/mario_dream.chr"
+
+ELSE
+    .incbin "smb2.chr"
+ENDIF
