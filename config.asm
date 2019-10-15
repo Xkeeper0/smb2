@@ -115,9 +115,16 @@ PRESERVE_UNUSED_SPACE = 1
 ; only to people hacking the game
 
 
+; Expand PRG and/or CHR to max capacity
+; EXPAND_PRG = 1
+; EXPAND_CHR = 1
+
 ; Use MMC5 (mapper 5) instead of MMC3 (mapper 4)
 ; Based on RetroRain's MMC5 patch (https://www.romhacking.net/hacks/2568)
 ; MMC5 = 1
+
+; Use FME-7 (mapper 69) instead of MMC3 (mapper 4)
+; FME7 = 1
 
 ; Pads title screen PPU data for easier modification
 ; PAD_TITLE_SCREEN_PPU_DATA = 1
@@ -145,6 +152,9 @@ PRESERVE_UNUSED_SPACE = 1
 
 ; Enables quicksand tile behavior outside of worlds 2 and 6
 ; ALWAYS_ALLOW_QUICKSAND = 1
+
+; Use a tile attributes table for rather than TileSolidnessTable
+; ENABLE_TILE_ATTRIBUTES_TABLE = 1
 
 ; Disables door pointers, so that area pointers are always required
 ; DISABLE_DOOR_POINTERS = 1

@@ -2049,10 +2049,12 @@ DecodedLevelData = $6000
 ; these various addrs are used(?) around prg-2-3
 unk_RAM_7100 = $7100
 
+; something to do with hawkmouth
 byte_RAM_710B = $710b
 
 unk_RAM_7114 = $7114
 
+; something to do with hawkmouth
 byte_RAM_711F = $711f
 
 ; collision x data?

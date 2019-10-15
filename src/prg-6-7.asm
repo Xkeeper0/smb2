@@ -831,8 +831,13 @@ UnusedTileQuads4:
 	.db $8E,$8F,$8F,$8E ; $58
 	.db $72,$73,$73,$72 ; $5C
 	.db $44,$45,$45,$44 ; $60
-; ---------------------------------------------------------------------------
 
+
+;
+; The $3X-$FX range is used for objects that specify a type in the upper nybble
+; and length in the lower nybble, including runs of horizontal or vertical
+; blocks, platforms, and waterfalls.
+;
 CreateObjects_30thruF0:
 	JSR JumpToTableAfterJump
 
@@ -847,8 +852,7 @@ CreateObjects_30thruF0:
 IFNDEF ENABLE_LEVEL_OBJECT_MODE
 	.dw CreateObject_WhaleOrDrawBridgeChain ; $BX
 	.dw CreateObject_JumpthroughPlatform ; $CX
-ENDIF
-IFDEF ENABLE_LEVEL_OBJECT_MODE
+ELSE
 	.dw CreateObject_Platform_BX ; $BX
 	.dw CreateObject_Platform_CX ; $CX
 ENDIF
@@ -856,6 +860,11 @@ ENDIF
 	.dw CreateObject_HorizontalPlatform ; $EX
 	.dw CreateObject_WaterfallOrFrozenRocks ; $FX
 
+;
+; The $0X-$2X range is used for various single-block and one-off objects, such a
+; mushroom blocks, standable vines, doors, and vertical objects that extend all
+; the way to the ground.
+;
 CreateObjects_00:
 	JSR JumpToTableAfterJump
 
@@ -904,6 +913,19 @@ CreateObjects_10:
 
 CreateObjects_20:
 	JMP CreateObject_SingleObject
+
+
+;
+; World Object Tiles
+; ==================
+;
+; The repeating blocks in the `$3X-$AX` range are specified per world in these
+; lookup tables. Each world has 4 values for each object type, which are
+; selected using byte 3 of the area header.
+;
+; `$3X-$9X` is specified using `%......XX` in byte 3 of the header.
+; `$AX` (ladder/chain) is specified using `%....XX..` in byte 3 of the header.
+;
 
 WorldObjectTilePointersLo:
 	.db <World1ObjectTiles
@@ -1020,6 +1042,7 @@ ClimbableTilePlatform:
 ;
 ; Input
 ;   A = search tile
+;
 ; Output
 ;   A = replace tile
 ;   C = set if a match was found
@@ -1045,7 +1068,7 @@ FindClimableTile_LoadReplacement:
 	RTS
 
 ;
-; Creatse a climbable tile that you can stand on based on ObjectTypeAXthruFX
+; Creates a climbable tile that you can stand on based on ObjectTypeAXthruFX
 ;
 ; Output
 ;   A = tile that was written
@@ -1118,8 +1141,10 @@ ENDIF
 ;     $0A = log platform
 ;     $0B = cloud platform
 ;     $0C = waterfall
+;
 ; Output
 ;   A = tile that was written
+;
 CreateWorldSpecificTile:
 	LDA byte_RAM_50E
 	ASL A
@@ -1170,6 +1195,13 @@ CreateWorldSpecificTile_Exit:
 	RTS
 
 
+;
+; Creates a horizontal run of blocks
+;
+; Input
+;   byte_RAM_50D = number of blocks to create
+;   byte_RAM_E7 = target tile placement offset
+;
 CreateObject_HorizontalBlocks:
 	LDY byte_RAM_E7
 
@@ -1184,6 +1216,14 @@ CreateObject_HorizontalBlocks_Loop:
 	RTS
 
 
+;
+; Creates a light entrance with the trail facing right
+;
+; World 6 has some extra logic to make the entrance extend down to the floor.
+;
+; Input
+;   byte_RAM_E7 = target tile placement offset
+;
 CreateObject_LightEntranceRight:
 	LDA CurrentWorldTileset
 	CMP #$05
@@ -1268,6 +1308,12 @@ CreateObject_LightEntranceRight_World6_Exit:
 	RTS
 
 
+;
+; Creates a light entrance with the trail facing left
+;
+; Input
+;   byte_RAM_E7 = target tile placement offset
+;
 CreateObject_LightEntranceLeft:
 	LDY byte_RAM_E7
 	LDA #BackgroundTile_LightDoor
@@ -1305,8 +1351,39 @@ CreateObject_LightEntranceLeft_World6or7Exit:
 	RTS
 
 
+;
+; Creates a vertical run of blocks
+;
+; Input
+;   byte_RAM_50D = number of blocks to create
+;   byte_RAM_50E = type of object to create (upper nybble of level object minus 3)
+;     $00 = jumpthrough block
+;     $01 = solid block
+;     $02 = grass
+;     $03 = bridge
+;     $04 = spikes
+;     $05 = vertical rock
+;     $06 = vertical rock with angle
+;     $07 = ladder
+;     $08 = whale
+;     $09 = jumpthrough platform
+;     $0A = log platform
+;     $0B = cloud platform
+;     $0C = waterfall
+;   byte_RAM_E7 = target tile placement offset
+;
 CreateObject_VerticalBlocks:
 	LDY byte_RAM_E7
+
+IFNDEF LEVEL_ENGINE_UPGRADES
+;
+; This little hack is used to show the pile of rocks behind ClawGrip in his boss
+; room. If we're currently in 5-2, area 5, the vertical rock wall with an angled
+; top is replaced by ClawGrip's rocks instead.
+;
+; The level/area check is important! If you go into one of the duplicates of the
+; boss room, you'll see the angled rock wall instead.
+;
 	LDA byte_RAM_50E
 	CMP #$06
 	BNE CreateObject_VerticalBlocks_NotClawGrip
@@ -1328,13 +1405,31 @@ CreateObject_VerticalBlocks_ClawGripRockLoop:
 	BPL CreateObject_VerticalBlocks_ClawGripRockLoop
 
 	RTS
+ENDIF
 
 CreateObject_VerticalBlocks_NotClawGrip:
 	LDA byte_RAM_50E
 	CMP #$06
 	BNE CreateObject_VerticalBlocks_Normal
 
+IFNDEF LEVEL_ENGINE_UPGRADES
 	LDA #BackgroundTile_RockWallAngle
+ELSE
+	;
+	; Use the previous tile for the top of the column UNLESS we're using a sky
+	; tile or have set an object type for in the level header.
+	;
+	; This supports creating a normal vertical block run for $9X as well as the
+	; special rock wall with an angled top.
+	;
+	LDX ObjectType3Xthru9X
+	BNE CreateObject_VerticalBlocks_Normal
+	JSR CreateWorldSpecificTile
+	CMP #BackgroundTile_Sky
+	BEQ CreateObject_VerticalBlocks_NextRow
+	CLC
+	SBC #$00
+ENDIF
 	STA (byte_RAM_1), Y
 	JMP CreateObject_VerticalBlocks_NextRow
 
@@ -1350,6 +1445,12 @@ CreateObject_VerticalBlocks_NextRow:
 	RTS
 
 
+;
+; Lookup tables for single blocks
+;
+; Each the lower nybble of the object type is used as the offset, except for the
+; standable ladder, which is described in the subroutine below.
+;
 World1thru6SingleBlocks:
 	.db BackgroundTile_MushroomBlock
 	.db BackgroundTile_POWBlock
@@ -1368,13 +1469,27 @@ World7SingleBlocks:
 	.db BackgroundTile_LadderStandable
 	.db BackgroundTile_LadderStandableShadow
 
+
+;
+; Creates a single block
+;
+; Input
+;   byte_RAM_50E = object type to use as an offset in the lookup table
+;
 CreateObject_SingleBlock:
 	LDA byte_RAM_50E
 	TAX
+
+;
+; Object `$05` is a single ladder tile that the player can stand on.
+;
+; When `ObjectTypeAXthruFX` is set, it is given a shadow. This works by
+; incrementing the offset by one so that object `$05` ends up using offset `$06`
+; in the lookup table!
+;
 	CMP #$05
 	BNE CreateObject_SingleBlock_NotLadderStandable
 
-	; the ladder has a shadow ObjectTypeAXthruFX is set
 	LDA ObjectTypeAXthruFX
 	BEQ CreateObject_SingleBlock_NotLadderStandable
 
@@ -1382,6 +1497,7 @@ CreateObject_SingleBlock:
 
 CreateObject_SingleBlock_NotLadderStandable:
 	LDY byte_RAM_E7
+	; World 7 gets its own lookup table for climbable chains instead of vines
 	LDA CurrentWorldTileset
 	CMP #$06
 	BNE CreateObject_SingleBlock_NotWorld7
@@ -1397,6 +1513,10 @@ CreateObject_SingleBlock_Exit:
 	STA (byte_RAM_1), Y
 	RTS
 
+
+;
+; Horizontal platform lookup tables. Choose between logs and clouds.
+;
 HorizontalPlatformLeftTiles:
 	.db BackgroundTile_LogLeft
 	.db BackgroundTile_CloudLeft
@@ -1407,11 +1527,18 @@ HorizontalPlatformRightTiles:
 	.db BackgroundTile_LogRight
 	.db BackgroundTile_CloudRight
 
+;
+; Creates a horizontal platform with special tiles for the endcaps.
+;
+; The log platforms and jump-through cloud platforms both use this.
+;
 CreateObject_HorizontalPlatform:
 	LDA CurrentWorldTileset
 	CMP #$04
 	BNE CreateObject_HorizontalPlatform_NotWorld5
 
+	; In World 5, we want to do some special stuff to make the logs look like
+	; branches coming out of the tree trunk background.
 	JMP CreateObject_HorizontalPlatform_World5
 
 CreateObject_HorizontalPlatform_NotWorld5:
@@ -1441,6 +1568,9 @@ CreateObject_HorizontalPlatform_Exit:
 	RTS
 
 
+;
+; Lookup table for the big green platforms
+;
 GreenPlatformTiles:
 	.db BackgroundTile_GreenPlatformTopLeft
 	.db BackgroundTile_GreenPlatformTop
@@ -1464,17 +1594,17 @@ GreenPlatformTiles_End:
 
 
 IFNDEF ENABLE_LEVEL_OBJECT_MODE
-; Either draw typical green hill platforms (W1-6) or a mushroom-like platform (W7)
+;
+; Draws the typical green hill platforms in Worlds 1 through 6 or the mushroom
+; house platforms in World 7.
+;
 CreateObject_JumpthroughPlatform:
 	LDA CurrentWorldTileset
 	CMP #$06
 	BNE CreateObject_GreenJumpthroughPlatform
 
 	JMP CreateObject_MushroomJumpthroughPlatform
-ENDIF
-
-
-IFDEF ENABLE_LEVEL_OBJECT_MODE
+ELSE
 CreateObject_Platform_CX:
 	LDA LevelObjectMode
 	JSR JumpToTableAfterJump
@@ -2127,7 +2257,7 @@ CreateObject_StarBackground:
 	LDA #$31
 	STA byte_RAM_9
 
-loc_BANK6_8E56:
+CreateObject_StarBackground_Loop:
 	JSR sub_BANK6_8E24
 
 	AND #$07
@@ -2137,7 +2267,7 @@ loc_BANK6_8E56:
 	JSR IncrementAreaYOffset
 
 	CPY #$30
-	BCC loc_BANK6_8E56
+	BCC CreateObject_StarBackground_Loop
 
 	TYA
 	AND #$0F
@@ -2147,7 +2277,7 @@ loc_BANK6_8E56:
 	LDA byte_RAM_D
 	STA byte_RAM_E8
 	CMP #$A
-	BNE loc_BANK6_8E56
+	BNE CreateObject_StarBackground_Loop
 
 	LDA #$00
 	STA byte_RAM_E8
@@ -2155,18 +2285,27 @@ loc_BANK6_8E56:
 	STA byte_RAM_E5
 	RTS
 
+
+;
+; Lookup table for whale tiles.
+;
+; It's unclear why there are entries for black background tiles and jumpthrough
+; cloud platforms, but the mushroom houses table also has this.
+;
 WhaleLeftTiles:
 	.db BackgroundTile_Black
 	.db BackgroundTile_CloudLeft
 	.db BackgroundTile_WhaleTopLeft
 	.db BackgroundTile_Whale
 	.db BackgroundTile_WaterWhale
+
 WhaleMiddleTiles:
 	.db BackgroundTile_Black
 	.db BackgroundTile_CloudMiddle
 	.db BackgroundTile_WhaleTop
 	.db BackgroundTile_Whale
 	.db BackgroundTile_WaterWhale
+
 WhaleRightTiles:
 	.db BackgroundTile_Black
 	.db BackgroundTile_CloudRight
@@ -2174,9 +2313,16 @@ WhaleRightTiles:
 	.db BackgroundTile_Whale
 	.db BackgroundTile_WaterWhale
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_8E8F:
+;
+; Draws a row of the whale
+;
+; Input
+;   byte_RAM_E7 = target tile placement offset
+;   byte_RAM_50D = width of house
+;   byte_RAM_50E = offset in the tile lookup table plus $0A, for some reason
+;
+CreateObject_WhaleRow:
 	LDY byte_RAM_E7
 	LDA byte_RAM_50E
 	SEC
@@ -2185,28 +2331,32 @@ sub_BANK6_8E8F:
 	LDA WhaleLeftTiles, X
 	STA (byte_RAM_1), Y
 	DEC byte_RAM_50D
-	BEQ loc_BANK6_8EAF
+	BEQ CreateObject_WhaleRow_Right
 
-loc_BANK6_8EA2:
+CreateObject_WhaleRow_Loop:
 	JSR IncrementAreaXOffset
 
 	LDA WhaleMiddleTiles, X
 	STA (byte_RAM_1), Y
 	DEC byte_RAM_50D
-	BNE loc_BANK6_8EA2
+	BNE CreateObject_WhaleRow_Loop
 
-loc_BANK6_8EAF:
+CreateObject_WhaleRow_Right:
 	JSR IncrementAreaXOffset
 
 	LDA WhaleRightTiles, X
 	STA (byte_RAM_1), Y
 	RTS
 
-; End of function sub_BANK6_8E8F
 
-; ---------------------------------------------------------------------------
+IFNDEF ENABLE_LEVEL_OBJECT_MODE
+CreateObject_WhaleOrDrawBridgeChain:
+	LDA CurrentWorldTileset
+	CMP #$06
+	BNE CreateObject_Whale
 
-IFDEF ENABLE_LEVEL_OBJECT_MODE
+	JMP CreateObject_DrawBridgeChain
+ELSE
 CreateObject_Platform_BX:
 	LDA LevelObjectMode
 	JSR JumpToTableAfterJump
@@ -2217,27 +2367,22 @@ CreateObject_Platform_BX:
 	.dw CreateObject_DrawBridgeChain
 ENDIF
 
-IFNDEF ENABLE_LEVEL_OBJECT_MODE
-CreateObject_WhaleOrDrawBridgeChain:
-	LDA CurrentWorldTileset
-	CMP #$06
-	BNE CreateObject_Whale
-
-	JMP CreateObject_DrawBridgeChain
-ENDIF
-
-; ---------------------------------------------------------------------------
-
+;
+; Draws a whale.
+;
+; Input
+;   byte_RAM_50D = width of whale
+;
 CreateObject_Whale:
 	LDA byte_RAM_50D
 	STA byte_RAM_7
 	LDA #$0C
 	STA byte_RAM_50E
-	JSR sub_BANK6_8E8F
+	JSR CreateObject_WhaleRow
 
 	INC byte_RAM_50E
 
-loc_BANK6_8ED2:
+CreateObject_Whale_Loop:
 	LDA byte_RAM_7
 	STA byte_RAM_50D
 	LDA byte_RAM_E7
@@ -2245,47 +2390,50 @@ loc_BANK6_8ED2:
 	ADC #$10
 	STA byte_RAM_E7
 	CMP #$B0
-	BCC loc_BANK6_8EE2
+	; This branch doesn't actually skip anything...
+	BCC CreateObject_Whale_AboveWater
 
-loc_BANK6_8EE2:
+CreateObject_Whale_AboveWater:
 	LDX byte_RAM_E8
 	JSR SetAreaPageAddr_Bank6
 
-	JSR sub_BANK6_8E8F
+	JSR CreateObject_WhaleRow
 
+	; Check to see if we're at the fixed row above the water.
 	TYA
 	AND #$F0
 	CMP #$B0
-	BNE loc_BANK6_8F01
+	BNE CreateObject_Whale_NotTail
 
+	; Draw the whale tail two tiles away.
 	JSR IncrementAreaXOffset
-
 	JSR IncrementAreaXOffset
 
 	LDA #BackgroundTile_WhaleTail
 	STA (byte_RAM_1), Y
 	INC byte_RAM_50E
-	JMP loc_BANK6_8ED2
+	JMP CreateObject_Whale_Loop
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8F01:
+CreateObject_Whale_NotTail:
 	LDA byte_RAM_50E
-	CMP #$E
-	BNE loc_BANK6_8ED2
+	CMP #$0E
+	BNE CreateObject_Whale_Loop
 
 	JSR IncrementAreaXOffset
-
-loc_BANK6_8F0B:
 	JSR IncrementAreaXOffset
 
 	LDA #BackgroundTile_WaterWhaleTail
 	STA (byte_RAM_1), Y
 	RTS
 
+
+;
+; Lookup table for frozen rocks over water tiles.
+;
 FrozenRockTiles:
 	.db BackgroundTile_WaterWhale
 	.db BackgroundTile_FrozenRock
+
 
 CreateObject_FrozenRocks:
 	LDA #$01
@@ -2329,8 +2477,12 @@ loc_BANK6_8F45:
 	STA byte_RAM_E7
 	JMP loc_BANK6_8F19
 
+;
+; Horizontal platform lookup tables for World 5.
+;
 ; Unlike HorizontalPlatform(Left/Middle/Right)Tiles, these support overlap with
-; the red tree background
+; the red tree background.
+;
 HorizontalPlatformWithOverlapLeftTiles:
 	.db BackgroundTile_LogLeft
 	.db BackgroundTile_CloudLeft
@@ -2343,6 +2495,15 @@ HorizontalPlatformWithOverlapRightTiles:
 	.db BackgroundTile_CloudRight
 	.db BackgroundTile_LogRightTree
 
+;
+; Creates a horizontal platform with special tiles for the endcaps.
+;
+; The endcaps use alternate tiles when they overlap a non-sky tile, which is how
+; the game achieves the effect of a tree with branches in World 5.
+;
+; Amusingly, since cloud platforms also use this subroutine, their endcaps will
+; turn into logs if they overlap another object.
+;
 CreateObject_HorizontalPlatform_World5:
 	LDY byte_RAM_E7
 	LDA byte_RAM_50E
@@ -2374,6 +2535,7 @@ CreateObject_HorizontalPlatform_World5_Exit:
 	STA (byte_RAM_1), Y
 	RTS
 
+
 ;
 ; Check if the next platform tile overlaps the background
 ;
@@ -2393,12 +2555,24 @@ CreateObject_HorizontalPlatform_World5CheckOverlap_Exit:
 	RTS
 
 
+;
+; Lookup table for tree background tiles
+;
 TreeBackgroundTiles:
 	.db BackgroundTile_TreeBackgroundRight
 	.db BackgroundTile_TreeBackgroundMiddleLeft
 	.db BackgroundTile_TreeBackgroundLeft
 
+
+;
+; Creates a tree background
+;
+; Input
+;   byte_RAM_E7 = target tile placement offset
+;   byte_RAM_E8 = area page
+;
 CreateObject_TreeBackground:
+	; width of the middle of the tree (0 = two tiles, 4 = ten tiles)
 	LDA #$04
 	STA byte_RAM_7
 	LDY byte_RAM_E7
@@ -2406,40 +2580,45 @@ CreateObject_TreeBackground:
 	JSR SetAreaPageAddr_Bank6
 
 	LDX #$02
+
+	; Stop when it touches the ground
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BNE locret_BANK6_8FC1
+	BNE CreateObject_TreeBackground_Exit
 
-loc_BANK6_8FA4:
+CreateObject_TreeBackground_Loop:
+	; Draw the left side of the tree
 	LDA TreeBackgroundTiles, X
 	STA (byte_RAM_1), Y
 	JSR IncrementAreaXOffset
 
-	; using two alternating tiles for the middle of the tree
+	; Draw the middle of the tree
 	DEX
 	CPX #$01
-	BNE loc_BANK6_8FB4
+	BNE CreateObject_TreeBackground_Right
 
-	JSR sub_BANK6_8FC2
+	JSR CreateObject_TreeBackground_MiddleLoop
 
-loc_BANK6_8FB4:
+CreateObject_TreeBackground_Right:
+	; Draw the right side of the tree
 	DEX
-	BPL loc_BANK6_8FA4
+	BPL CreateObject_TreeBackground_Loop
 
+	; Try to draw the next row
 	LDY byte_RAM_E7
 	JSR IncrementAreaYOffset
 
 	STY byte_RAM_E7
 	JMP CreateObject_TreeBackground
 
-; ---------------------------------------------------------------------------
-
-locret_BANK6_8FC1:
+CreateObject_TreeBackground_Exit:
 	RTS
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_8FC2:
+;
+; Loops through and creates n+1 pairs of tiles for the middle of the tree.
+;
+CreateObject_TreeBackground_MiddleLoop:
 	LDA #BackgroundTile_TreeBackgroundMiddleLeft
 	STA (byte_RAM_1), Y
 	JSR IncrementAreaXOffset
@@ -2449,13 +2628,10 @@ sub_BANK6_8FC2:
 	JSR IncrementAreaXOffset
 
 	DEC byte_RAM_7
-	BPL sub_BANK6_8FC2
+	BPL CreateObject_TreeBackground_MiddleLoop
 
 	RTS
 
-; End of function sub_BANK6_8FC2
-
-; ---------------------------------------------------------------------------
 
 ; Unreferenced?
 SomeUnusedTilesTop:
@@ -2467,7 +2643,10 @@ SomeUnusedTilesBottom:
 	.db BackgroundTile_CactusMiddle
 	.db BackgroundTile_PalmTreeTrunk
 
+
+;
 ; This 3x9 tile entrance is used in 6-3
+;
 RockWallEntranceTiles:
 	.db BackgroundTile_RockWallAngle
 	.db BackgroundTile_RockWall
@@ -2505,6 +2684,13 @@ RockWallEntranceTiles:
 	.db BackgroundTile_DarkDoor
 	.db BackgroundTile_RockWall
 
+
+;
+; Creates the rock wall face entrance for 6-3.
+;
+; If you ask me, this is a lot of trouble for a one-off, especially since they
+; didn't correctly align the "eyes" and "teeth" tiles with the wall pattern!
+;
 CreateObject_RockWallEntrance:
 	LDX #$00
 
@@ -2532,6 +2718,9 @@ CreateObject_RockWallEntrance_InnerLoop:
 	RTS
 
 
+;
+; Door tile lookup tables
+;
 DoorTopTiles:
 	.db BackgroundTile_DoorTop
 	.db BackgroundTile_DoorTop
@@ -2546,19 +2735,29 @@ DoorBottomTiles:
 	.db BackgroundTile_DarkDoor
 	.db BackgroundTile_DarkDoor
 
+
+;
+; Creates a door object.
+;
+; Input
+;   byte_RAM_E7 = target tile placement offset
+;   byte_RAM_50E = type of object to create
+;
 CreateObject_Door:
 	LDY byte_RAM_E7
 	LDA byte_RAM_50E
 	CMP #$09
-	BNE loc_BANK6_9034
+	BNE CreateObject_Door_Unlocked
 
+	; If we've already used the key, create an unlocked door
 	LDA KeyUsed
-	BEQ loc_BANK6_9034
+	BEQ CreateObject_Door_Unlocked
 
+	; Use the door two slots after the locked door for the unlocked version
 	INC byte_RAM_50E
 	INC byte_RAM_50E
 
-loc_BANK6_9034:
+CreateObject_Door_Unlocked:
 	LDA byte_RAM_50E
 	SEC
 	SBC #$09
@@ -2569,7 +2768,27 @@ loc_BANK6_9034:
 
 	LDA DoorBottomTiles, X
 	STA (byte_RAM_1), Y
+
 IFNDEF DISABLE_DOOR_POINTERS
+	;
+	; For Worlds 1-5, the object after a door is used as an area pointer.
+	;
+	; This seems to be primarily a way to save space, as this method costs 1 byte
+	; less than using a normal area pointer object.
+	;
+	; **But wait! Why not also use this space-saving trick for Worlds 6 and 7?**
+	;
+	; Regular level objects use the first nybble of the first byte for the Y
+	; offset relative to the previous object. As it turns out, door pointer are
+	; still "regular objects," at least insofar as their Y offset factors in when
+	; rendering the level.
+	;
+	; For an area pointer, the first byte is the level offset. The first nybble of
+	; that byte is $0 for levels 1-1 through 6-1, so there is no Y offset.
+	; Door pointers starting in 6-2 would introduce a Y offset because that is
+	; level offset is $10. Having everything after a door shift down by 1 row was
+	; probably a nuisance when programming the levels.
+	;
 	LDA CurrentWorld
 	CMP #$05
 	BEQ CreateObject_Door_Exit
@@ -2578,7 +2797,6 @@ IFNDEF DISABLE_DOOR_POINTERS
 	CMP #$06
 	BEQ CreateObject_Door_Exit
 
-loc_BANK6_9056:
 	JSR LevelParser_EatDoorPointer
 ENDIF
 
@@ -2586,6 +2804,13 @@ CreateObject_Door_Exit:
 	RTS
 
 
+;
+; Lookup table for World 7 mushroom house tiles.
+;
+; Interestingly, there are entries for black background tiles and jumpthrough
+; cloud platforms in this table as well, although they are never used. Perhaps
+; these houses would have included their own base at some point.
+;
 MushroomHouseLeftTiles:
 	.db BackgroundTile_Black
 	.db BackgroundTile_CloudLeft
@@ -2604,9 +2829,16 @@ MushroomHouseRightTiles:
 	.db BackgroundTile_MushroomTopRight
 	.db BackgroundTile_HouseRight
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_9066:
+;
+; Draws a row of the mushroom house
+;
+; Input
+;   byte_RAM_E7 = target tile placement offset
+;   byte_RAM_50D = width of house
+;   byte_RAM_50E = offset in the tile lookup table plus $0A, for some reason
+;
+CreateObject_MushroomHouseRow:
 	LDY byte_RAM_E7
 	LDA byte_RAM_50E
 	SEC
@@ -2615,37 +2847,36 @@ sub_BANK6_9066:
 	LDA MushroomHouseLeftTiles, X
 	STA (byte_RAM_1), Y
 	DEC byte_RAM_50D
-	BEQ loc_BANK6_9086
+	BEQ CreateObject_MushroomHouseRow_Right
 
-loc_BANK6_9079:
+CreateObject_MushroomHouseRow_Loop:
 	JSR IncrementAreaXOffset
 
 	LDA MushroomHouseMiddleTiles, X
 	STA (byte_RAM_1), Y
 	DEC byte_RAM_50D
-	BNE loc_BANK6_9079
+	BNE CreateObject_MushroomHouseRow_Loop
 
-loc_BANK6_9086:
+CreateObject_MushroomHouseRow_Right:
 	JSR IncrementAreaXOffset
 
 	LDA MushroomHouseRightTiles, X
 	STA (byte_RAM_1), Y
 	RTS
 
-; End of function sub_BANK6_9066
 
-; ---------------------------------------------------------------------------
-
-; Jump-through mushroom platforms, used in World 7
+;
+; Draws the jump-through mushroom house platforms used in World 7
+;
 CreateObject_MushroomJumpthroughPlatform:
 	LDA byte_RAM_50D
 	STA byte_RAM_7
 	LDA #$0C
 	STA byte_RAM_50E
 	; Draw roof of mushroom house
-	JSR sub_BANK6_9066
+	JSR CreateObject_MushroomHouseRow
 
-loc_BANK6_909C:
+CreateObject_MushroomJumpthroughPlatform_Loop:
 	LDA byte_RAM_E7
 	CLC
 	ADC #$10
@@ -2661,22 +2892,22 @@ loc_BANK6_909C:
 	LDY byte_RAM_E7
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BNE locret_BANK6_90C4
+	BNE CreateObject_MushroomJumpthroughPlatform_Exit
 
 	; Draw body of mushroom house
-	JSR sub_BANK6_9066
+	JSR CreateObject_MushroomHouseRow
 
 	LDA byte_RAM_E7
 	CMP #$E0
+	BCC CreateObject_MushroomJumpthroughPlatform_Loop
 
-loc_BANK6_90C2:
-	BCC loc_BANK6_909C
-
-locret_BANK6_90C4:
+CreateObject_MushroomJumpthroughPlatform_Exit:
 	RTS
 
 
-; Pillar tiles, arranged by world
+;
+; Lookup table for pillar tiles, arranged by world
+;
 PillarTopTiles:
 	.db BackgroundTile_LogPillarTop1
 	.db BackgroundTile_CactusTop
@@ -2695,6 +2926,13 @@ PillarBottomTiles:
 	.db BackgroundTile_CactusMiddle
 	.db BackgroundTile_ColumnPillarMiddle2
 
+
+;
+; Draws a pillar that extends to the ground
+;
+; Input
+;   byte_RAM_E7 = target tile placement offset
+;
 CreateObject_Pillar:
 	LDX CurrentWorldTileset
 	LDY byte_RAM_E7
@@ -2712,11 +2950,18 @@ CreateObject_Pillar_Loop:
 	LDA PillarBottomTiles, X
 	STA (byte_RAM_1), Y
 
+	;
+	; Normally the pillars extend until they hit another tile, wrapping around to
+	; the top of the next page, if necessary.
+	;
+	; This World 5 check prevents logs from coming down from the sky in the last
+	; area before ClawGrip's boss room.
+	;
 	LDA CurrentWorldTileset
 	CMP #$04
 	BNE CreateObject_Pillar_Loop
 
-	; some kind of special behavior for world 5?
+	; Prevent the pillar from looping around to the next page
 	CPY #$E0
 	BCC CreateObject_Pillar_Loop
 
@@ -2724,6 +2969,12 @@ CreateObject_Pillar_Exit:
 	RTS
 
 
+;
+; Draws one horn of Wart's vegetable thrower
+;
+; Input
+;   byte_RAM_E7 = target tile placement offset
+;
 CreateObject_Horn:
 	LDY byte_RAM_E7
 	LDA #BackgroundTile_HornTopLeft
@@ -2743,6 +2994,12 @@ CreateObject_Horn:
 	RTS
 
 
+;
+; Draws the drawbridge chain
+;
+; Input
+;   byte_RAM_E7 = target tile placement offset
+;
 CreateObject_DrawBridgeChain:
 	LDY byte_RAM_E7
 
@@ -2871,6 +3128,10 @@ IFDEF EXPAND_TABLES
 	.db $00,$00,$00,$0A ; $1F
 ENDIF
 
+
+;
+; Lookup tables for decoded level data by page
+;
 DecodedLevelPageStartLo_Bank6:
 	.db <DecodedLevelData
 	.db <(DecodedLevelData+$00F0)
@@ -2897,6 +3158,19 @@ DecodedLevelPageStartHi_Bank6:
 	.db >(DecodedLevelData+$0870)
 	.db >(SubAreaTileLayout)
 
+
+;
+; Subspace tile remapping
+; =======================
+;
+; The horizontal order of tiles is reversed in subspace. Tiles with an obvious
+; left/right direction (eg. the corners of green platforms) appear backwards
+; until they're swapped with the corresponding right/left version.
+;
+; This is handled in two tables corresponding tables. If a tile is found in the
+; first table, it will be replaced with the tile at the corresponding offset in
+; the second table.
+;
 SubspaceTilesSearch:
 	.db $75 ; $00
 	.db $77 ; $01
@@ -3413,8 +3687,7 @@ LoadCurrentArea:
 IFNDEF LEVEL_ENGINE_UPGRADES
 	LSR A
 	AND #%00011100
-ENDIF
-IFDEF LEVEL_ENGINE_UPGRADES
+ELSE
 	; double available ground types
 	AND #%11110000
 	LSR A
@@ -3540,6 +3813,7 @@ HijackLevelDataCopyAddressWithJar:
 ; Reads level data from the beginning
 ;
 ReadLevelData:
+	; start at area page 0
 	LDA #$00
 	STA byte_RAM_E8
 
@@ -3559,9 +3833,13 @@ ReadLevelData_NextByte:
 	RTS
 
 ReadLevelData_ProcessObject:
+	; Stash the lower nybble of the first byte.
+	; For a special object, this will be the special object type.
+	; For a regular object, this will be the X position.
 	LDA (byte_RAM_5), Y
 	AND #$0F
 	STA byte_RAM_E5
+	; If the upper nybble of the first byte is $F, this is a special object.
 	LDA (byte_RAM_5), Y
 	AND #$F0
 	CMP #$F0
@@ -3678,6 +3956,9 @@ UpdateAreaYOffset_Exit:
 	RTS
 
 
+;
+; First pass of processing consumes bytes
+;
 ProcessSpecialObjectA:
 	JSR JumpToTableAfterJump
 
@@ -3698,8 +3979,8 @@ ProcessSpecialObjectB:
 
 	.dw SetGroundSettingA ; Ground setting 0-7
 	.dw SetGroundSettingB ; Ground setting 8-15
-	.dw loc_BANK6_96BE ; Skip forward 1 page
-	.dw loc_BANK6_96BB ; Skip forward 2 pages
+	.dw SkipForwardPage1B ; Skip forward 1 page
+	.dw SkipForwardPage2B ; Skip forward 2 pages
 	.dw loc_BANK6_9712 ; New object layer
 	.dw SetAreaPointerNoOp ; Area pointer
 	.dw SetGroundType ; Ground appearance
@@ -3708,9 +3989,17 @@ IFDEF LEVEL_ENGINE_UPGRADES
 ENDIF
 
 
+;
+; Moves the tile placement cursor forward to the beginning of the page after next.
+;
+; Output
+;   byte_RAM_E8 = area page
+;   byte_RAM_E6 = tile placement offset
+;
 SkipForwardPage2:
 	INC byte_RAM_E8
 
+; Moves the tile placement cursor forward to the beginning of the next page.
 SkipForwardPage1:
 	INC byte_RAM_E8
 	LDA #$00
@@ -3718,26 +4007,51 @@ SkipForwardPage1:
 	RTS
 
 
-loc_BANK6_96BB:
+;
+; Advances the last page pointer by two pages.
+;
+; Output
+;   byte_RAM_540 = last page?
+;   byte_RAM_E = ???
+;   byte_RAM_9 = ???
+;
+SkipForwardPage2B:
 	INC byte_RAM_540
 
-loc_BANK6_96BE:
+; Advances the last page pointer by one pages.
+SkipForwardPage1B:
 	INC byte_RAM_540
 	LDA #$00
 	STA byte_RAM_E
 	STA byte_RAM_9
 	RTS
 
-
+;
+; Advances two bytes in the level data.
+;
 ; Unreferenced?
+;
 EatLevelObject2Bytes:
 	INC byte_RAM_F
 
+;
+; Advances one byte in the level data.
+;
 EatLevelObject1Byte:
 	INC byte_RAM_F
 	RTS
 
 
+;
+; Sets the area pointer for this page.
+;
+; Input
+;   byte_RAM_F = level data byte offset
+;   byte_RAM_E8 = area page
+;
+; Output
+;   byte_RAM_F = level data byte offset
+;
 SetAreaPointer:
 	LDY byte_RAM_F
 	INY
@@ -3752,6 +4066,7 @@ SetAreaPointer:
 	STA AreaPointersByPage, X
 	STY byte_RAM_F
 	RTS
+
 
 IFDEF LEVEL_ENGINE_UPGRADES
 ;
@@ -3905,10 +4220,13 @@ SetGroundSetting_Exit:
 	RTS
 
 
+;
+; Moves the tile placement cursor to the beginning of the first page.
+;
 ResetPageAndOffset:
 	LDA #$00
-	STA byte_RAM_E8
-	STA byte_RAM_E6
+	STA byte_RAM_E8 ; area page
+	STA byte_RAM_E6 ; tile placement offset
 	RTS
 
 
@@ -4312,6 +4630,10 @@ IncrementAreaYOffset_Exit:
 	RTS
 
 IFNDEF DISABLE_DOOR_POINTERS
+;
+; Consume the object as an area pointer. This overwrites any existing area
+; pointer for this page.
+;
 LevelParser_EatDoorPointer:
 	LDY byte_RAM_4
 	INY

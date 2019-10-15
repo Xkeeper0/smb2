@@ -2647,7 +2647,65 @@ IFDEF DEBUG
 	.include "src/extras/debug-f.asm"
 ENDIF
 
-IFDEF MMC5
+IF INES_MAPPER == MAPPER_FME7
+RESET_FME7:
+	LDA #$08 ; PRG bank 0
+	STA $8000
+	LDA #%11000000
+	STA $A000
+
+	LDA #$09 ; PRG bank 1
+	STA $8000
+	LDA #$00 ; ROM bank 0
+	STA $A000
+
+	LDA #$0A ; PRG bank 2
+	STA $8000
+	LDA #$01 ; ROM bank 1
+	STA $A000
+
+	LDA #$0B ; PRG bank 3
+	STA $8000
+	LDA #$0E ; ROM bank E
+	STA $A000
+
+	JMP RESET
+
+
+ChangeCHRBanks_FME7:
+	LDY BackgroundCHR1
+	LDA #$04
+	STA $8000
+	STY $A000
+
+	INY
+	LDA #$05
+	STA $8000
+	STY $A000
+
+	LDY BackgroundCHR2
+	LDA #$06
+	STA $8000
+	STY $A000
+
+	INY
+	LDA #$07
+	STA $8000
+	STY $A000
+
+	LDY #$03
+ChangeCHRBanks_FME7_Loop:
+	TYA
+	ORA #$80
+	STA $8000
+	LDA SpriteCHR1, Y
+	STA $A000
+	DEY
+	BPL ChangeCHRBanks_FME7_Loop
+
+	RTS
+
+ELSEIF INES_MAPPER == MAPPER_MMC5
 RESET_MMC5:
 	; Set PRG mode 3 and CHR mode 3
 	LDA #$03
@@ -3457,7 +3515,7 @@ loc_BANKF_F392:
 	DEC byte_RAM_0
 
 loc_BANKF_F394:
-	JSR loc_BANKF_FAFE
+	JSR FindSpriteSlot
 
 	LDA byte_RAM_1
 	BNE loc_BANKF_F3A6
@@ -3697,8 +3755,8 @@ locret_BANKF_F4D9:
 
 ; End of function GetVerticalAreaStartPage
 
-; ---------------------------------------------------------------------------
-byte_BANKF_F4DA:
+
+SpriteFlickerDMAOffset:
 	.db $C0
 	.db $70
 	.db $80
@@ -4101,6 +4159,8 @@ byte_BANKF_F607:
 	.db $00 ; $45Enemy_Starman
 	.db $02 ; $46Enemy_Stopwatch
 
+; @TODO: use flag
+; IFNDEF ENABLE_TILE_ATTRIBUTES_TABLE
 ;
 ; This table determines the "solidness" of tiles.
 ;
@@ -4131,8 +4191,556 @@ TileSolidnessTable:
 	.db $98
 	.db $D5
 
+IFDEF ENABLE_TILE_ATTRIBUTES_TABLE
+; ELSE
+;
+; This table determines the collision properties of a tile
+;
+; * bit 7: whether bottom is solid to "background interactive" enemies
+; * bit 6: whether top is solid to "background interactive" enemies
+; * bit 5: whether right side is solid to "background interactive" enemies
+; * bit 4: whether left side is solid to "background interactive" enemies
+; * bit 3: whether bottom is solid
+; * bit 2: whether top is solid
+; * bit 1: whether right side is solid
+; * bit 0: whether left side is solid
+;
+TileCollisionAttributesTable:
+	.db %00000000 ; $00
+	.db %11110000 ; $01
+	.db %11110000 ; $02
+	.db %11110000 ; $03
+	.db %11110000 ; $04
+	.db %11110000 ; $05
+	.db %11110000 ; $06
+	.db %11110000 ; $07
+	.db %11110000 ; $08
+	.db %11110000 ; $09
+	.db %11110000 ; $0A
+	.db %11110000 ; $0B
+	.db %11110000 ; $0C
+	.db %11110000 ; $0D
+	.db %11110000 ; $0E
+	.db %11110000 ; $0F
+	.db %11110000 ; $10
+	.db %11110000 ; $11
+	.db %00000100 ; $12
+	.db %00000100 ; $13
+	.db %00000100 ; $14
+	.db %00000100 ; $15
+	.db %00000100 ; $16
+	.db %00000100 ; $17
+	.db %00001111 ; $18
+	.db %00001111 ; $19
+	.db %10001111 ; $1A
+	.db %00001111 ; $1B
+	.db %00001111 ; $1C
+	.db %00001111 ; $1D
+	.db %00001111 ; $1E
+	.db %00001111 ; $1F
+	.db %00001111 ; $20
+	.db %00001111 ; $21
+	.db %00001111 ; $22
+	.db %00001111 ; $23
+	.db %00001111 ; $24
+	.db %00001111 ; $25
+	.db %00001111 ; $26
+	.db %00001111 ; $27
+	.db %00001111 ; $28
+	.db %00001111 ; $29
+	.db %00001111 ; $2A
+	.db %00001111 ; $2B
+	.db %00001111 ; $2C
+	.db %00001111 ; $2D
+	.db %00001111 ; $2E
+	.db %00001111 ; $2F
+	.db %00001111 ; $30
+	.db %00001111 ; $31
+	.db %00001111 ; $32
+	.db %00001111 ; $33
+	.db %00001111 ; $34
+	.db %00001111 ; $35
+	.db %00001111 ; $36
+	.db %00001111 ; $37
+	.db %00001111 ; $38
+	.db %00001111 ; $39
+	.db %00001111 ; $3A
+	.db %00001111 ; $3B
+	.db %00001111 ; $3C
+	.db %00001111 ; $3D
+	.db %00001111 ; $3E
+	.db %00001111 ; $3F
+	.db %00000000 ; $40
+	.db %00000000 ; $41
+	.db %00000000 ; $42
+	.db %11110000 ; $43
+	.db %11110000 ; $44
+	.db %11110000 ; $45
+	.db %11110000 ; $46
+	.db %11110000 ; $47
+	.db %11110000 ; $48
+	.db %11110000 ; $49
+	.db %11110000 ; $4A
+	.db %11110000 ; $4B
+	.db %11110000 ; $4C
+	.db %11110000 ; $4D
+	.db %11110000 ; $4E
+	.db %11110000 ; $4F
+	.db %11110000 ; $50
+	.db %11110000 ; $51
+	.db %11110000 ; $52
+	.db %11110000 ; $53
+	.db %11110000 ; $54
+	.db %11110000 ; $55
+	.db %11110000 ; $56
+	.db %11110000 ; $57
+	.db %11110000 ; $58
+	.db %11110000 ; $59
+	.db %11110000 ; $5A
+	.db %11110000 ; $5B
+	.db %11110000 ; $5C
+	.db %11110000 ; $5D
+	.db %11110000 ; $5E
+	.db %11110000 ; $5F
+	.db %00000100 ; $60
+	.db %00000100 ; $61
+	.db %00000100 ; $62
+	.db %00000100 ; $63
+	.db %00000100 ; $64
+	.db %00000100 ; $65
+	.db %00000100 ; $66
+	.db %00000100 ; $67
+	.db %00000100 ; $68
+	.db %00001111 ; $69
+	.db %00001111 ; $6A
+	.db %00001111 ; $6B
+	.db %00001111 ; $6C
+	.db %00001111 ; $6D
+	.db %00001111 ; $6E
+	.db %00001111 ; $6F
+	.db %00001111 ; $70
+	.db %00001111 ; $71
+	.db %00001111 ; $72
+	.db %00001111 ; $73
+	.db %00001111 ; $74
+	.db %00001111 ; $75
+	.db %00001111 ; $76
+	.db %00001111 ; $77
+	.db %00001111 ; $78
+	.db %00001111 ; $79
+	.db %00001111 ; $7A
+	.db %00001111 ; $7B
+	.db %00001111 ; $7C
+	.db %00001111 ; $7D
+	.db %00001111 ; $7E
+	.db %00001111 ; $7F
+	.db %11110000 ; $80
+	.db %11110000 ; $81
+	.db %11110000 ; $82
+	.db %11110000 ; $83
+	.db %11110000 ; $84
+	.db %11110000 ; $85
+	.db %11110000 ; $86
+	.db %11110000 ; $87
+	.db %11110000 ; $88
+	.db %11110000 ; $89
+	.db %11110000 ; $8A
+	.db %11110000 ; $8B
+	.db %11110000 ; $8C
+	.db %11110000 ; $8D
+	.db %11110000 ; $8E
+	.db %11110000 ; $8F
+	.db %11110000 ; $90
+	.db %00000100 ; $91
+	.db %00000100 ; $92
+	.db %00000100 ; $93
+	.db %00000100 ; $94
+	.db %00000100 ; $95
+	.db %00000100 ; $96
+	.db %00000100 ; $97
+	.db %00001111 ; $98
+	.db %00001111 ; $99
+	.db %00001111 ; $9A
+	.db %00001111 ; $9B
+	.db %00001111 ; $9C
+	.db %00001111 ; $9D
+	.db %00001111 ; $9E
+	.db %00001111 ; $9F
+	.db %00001111 ; $A0
+	.db %00001111 ; $A1
+	.db %00001111 ; $A2
+	.db %00001111 ; $A3
+	.db %00001111 ; $A4
+	.db %00001111 ; $A5
+	.db %00001111 ; $A6
+	.db %00001111 ; $A7
+	.db %00001111 ; $A8
+	.db %00001111 ; $A9
+	.db %00001111 ; $AA
+	.db %00001111 ; $AB
+	.db %00001111 ; $AC
+	.db %00001111 ; $AD
+	.db %00001111 ; $AE
+	.db %00001111 ; $AF
+	.db %00001111 ; $B0
+	.db %00001111 ; $B1
+	.db %00001111 ; $B2
+	.db %00001111 ; $B3
+	.db %00001111 ; $B4
+	.db %00001111 ; $B5
+	.db %00001111 ; $B6
+	.db %00001111 ; $B7
+	.db %00001111 ; $B8
+	.db %00001111 ; $B9
+	.db %00001111 ; $BA
+	.db %00001111 ; $BB
+	.db %00001111 ; $BC
+	.db %00001111 ; $BD
+	.db %00001111 ; $BE
+	.db %00001111 ; $BF
+	.db %11110000 ; $C0
+	.db %11110000 ; $C1
+	.db %11110000 ; $C2
+	.db %11110000 ; $C3
+	.db %11110000 ; $C4
+	.db %11110000 ; $C5
+	.db %11110000 ; $C6
+	.db %11110000 ; $C7
+	.db %11110000 ; $C8
+	.db %11110000 ; $C9
+	.db %00000100 ; $CA
+	.db %00000100 ; $CB
+	.db %00000100 ; $CC
+	.db %00000100 ; $CD
+	.db %00000100 ; $CE
+	.db %00000100 ; $CF
+	.db %00000100 ; $D0
+	.db %00000100 ; $D1
+	.db %00000100 ; $D2
+	.db %00000100 ; $D3
+	.db %00000100 ; $D4
+	.db %00001111 ; $D5
+	.db %00001111 ; $D6
+	.db %00001111 ; $D7
+	.db %00001111 ; $D8
+	.db %00001111 ; $D9
+	.db %00001111 ; $DA
+	.db %00001111 ; $DB
+	.db %00001111 ; $DC
+	.db %00001111 ; $DD
+	.db %00001111 ; $DE
+	.db %00001111 ; $DF
+	.db %00001111 ; $E0
+	.db %00001111 ; $E1
+	.db %00001111 ; $E2
+	.db %00001111 ; $E3
+	.db %00001111 ; $E4
+	.db %00001111 ; $E5
+	.db %00001111 ; $E6
+	.db %00001111 ; $E7
+	.db %00001111 ; $E8
+	.db %00001111 ; $E9
+	.db %00001111 ; $EA
+	.db %00001111 ; $EB
+	.db %00001111 ; $EC
+	.db %00001111 ; $ED
+	.db %00001111 ; $EE
+	.db %00001111 ; $EF
+	.db %00001111 ; $F0
+	.db %00001111 ; $F1
+	.db %00001111 ; $F2
+	.db %00001111 ; $F3
+	.db %00001111 ; $F4
+	.db %00001111 ; $F5
+	.db %00001111 ; $F6
+	.db %00001111 ; $F7
+	.db %00001111 ; $F8
+	.db %00001111 ; $F9
+	.db %00001111 ; $FA
+	.db %00001111 ; $FB
+	.db %00001111 ; $FC
+	.db %00001111 ; $FD
+	.db %00001111 ; $FE
+	.db %00001111 ; $FF
+
+
+; Tile attributes
+;
+; This table determines properties of each tile, including collision properties and special flags
+;
+; %76543210
+;  xxxxMMHH
+;
+; * M: movement effect (0 = none, 1 = slippery, 2 = quicksand, 3 = conveyor)
+; * H: health effect (0 = none, 1 = damage, 2 = kill, 3 = heal)
+;
+TileInteractionAttributesTable:
+	.db %00000000 ; $00
+	.db %00000000 ; $01
+	.db %00000000 ; $02
+	.db %00000000 ; $03
+	.db %00000000 ; $04
+	.db %00000000 ; $05
+	.db %00000000 ; $06
+	.db %00000000 ; $07
+	.db %00000000 ; $08
+	.db %00000000 ; $09
+	.db %00000000 ; $0A
+	.db %00000000 ; $0B
+	.db %00000000 ; $0C
+	.db %00000000 ; $0D
+	.db %00000000 ; $0E
+	.db %00000000 ; $0F
+	.db %00000000 ; $10
+	.db %00000000 ; $11
+	.db %00000000 ; $12
+	.db %00000000 ; $13
+	.db %00000000 ; $14
+	.db %00000000 ; $15
+	.db %00000100 ; $16
+	.db %00000000 ; $17
+	.db %00000000 ; $18
+	.db %00000000 ; $19
+	.db %00000001 ; $1A
+	.db %00000000 ; $1B
+	.db %00000000 ; $1C
+	.db %00000000 ; $1D
+	.db %00000000 ; $1E
+	.db %00000000 ; $1F
+	.db %00000000 ; $20
+	.db %00000000 ; $21
+	.db %00000000 ; $22
+	.db %00000000 ; $23
+	.db %00000000 ; $24
+	.db %00000000 ; $25
+	.db %00000000 ; $26
+	.db %00000000 ; $27
+	.db %00000000 ; $28
+	.db %00000000 ; $29
+	.db %00000000 ; $2A
+	.db %00000000 ; $2B
+	.db %00000000 ; $2C
+	.db %00000000 ; $2D
+	.db %00000000 ; $2E
+	.db %00000000 ; $2F
+	.db %00000000 ; $30
+	.db %00000000 ; $31
+	.db %00000000 ; $32
+	.db %00000000 ; $33
+	.db %00000000 ; $34
+	.db %00000000 ; $35
+	.db %00000000 ; $36
+	.db %00000000 ; $37
+	.db %00000000 ; $38
+	.db %00000000 ; $39
+	.db %00000000 ; $3A
+	.db %00000000 ; $3B
+	.db %00000000 ; $3C
+	.db %00000000 ; $3D
+	.db %00000000 ; $3E
+	.db %00000000 ; $3F
+	.db %00000000 ; $40
+	.db %00000000 ; $41
+	.db %00000000 ; $42
+	.db %00000000 ; $43
+	.db %00000000 ; $44
+	.db %00000000 ; $45
+	.db %00000000 ; $46
+	.db %00000000 ; $47
+	.db %00000000 ; $48
+	.db %00000000 ; $49
+	.db %00000000 ; $4A
+	.db %00000000 ; $4B
+	.db %00000000 ; $4C
+	.db %00000000 ; $4D
+	.db %00000000 ; $4E
+	.db %00000000 ; $4F
+	.db %00000000 ; $50
+	.db %00000000 ; $51
+	.db %00000000 ; $52
+	.db %00000000 ; $53
+	.db %00000000 ; $54
+	.db %00000000 ; $55
+	.db %00000000 ; $56
+	.db %00000000 ; $57
+	.db %00000000 ; $58
+	.db %00000000 ; $59
+	.db %00000000 ; $5A
+	.db %00000000 ; $5B
+	.db %00000000 ; $5C
+	.db %00000000 ; $5D
+	.db %00000000 ; $5E
+	.db %00000000 ; $5F
+	.db %00000000 ; $60
+	.db %00000000 ; $61
+	.db %00000000 ; $62
+	.db %00000000 ; $63
+	.db %00000000 ; $64
+	.db %00000000 ; $65
+	.db %00000000 ; $66
+	.db %00001100 ; $67
+	.db %00001100 ; $68
+	.db %00000000 ; $69
+	.db %00000000 ; $6A
+	.db %00000000 ; $6B
+	.db %00000000 ; $6C
+	.db %00000000 ; $6D
+	.db %00000000 ; $6E
+	.db %00000000 ; $6F
+	.db %00000000 ; $70
+	.db %00000000 ; $71
+	.db %00000000 ; $72
+	.db %00000000 ; $73
+	.db %00000000 ; $74
+	.db %00000000 ; $75
+	.db %00000000 ; $76
+	.db %00000000 ; $77
+	.db %00000000 ; $78
+	.db %00000000 ; $79
+	.db %00000000 ; $7A
+	.db %00000000 ; $7B
+	.db %00000000 ; $7C
+	.db %00000000 ; $7D
+	.db %00000000 ; $7E
+	.db %00000000 ; $7F
+	.db %00000000 ; $80
+	.db %00000000 ; $81
+	.db %00000000 ; $82
+	.db %00000000 ; $83
+	.db %00000000 ; $84
+	.db %00000000 ; $85
+	.db %00000000 ; $86
+	.db %00000000 ; $87
+	.db %00000000 ; $88
+	.db %00000000 ; $89
+	.db %00001000 ; $8A
+	.db %00001000 ; $8B
+	.db %00000000 ; $8C
+	.db %00000000 ; $8D
+	.db %00000000 ; $8E
+	.db %00000000 ; $8F
+	.db %00000000 ; $90
+	.db %00000000 ; $91
+	.db %00000000 ; $92
+	.db %00000000 ; $93
+	.db %00000000 ; $94
+	.db %00000000 ; $95
+	.db %00000000 ; $96
+	.db %00000000 ; $97
+	.db %00000000 ; $98
+	.db %00000000 ; $99
+	.db %00000000 ; $9A
+	.db %00000000 ; $9B
+	.db %00000000 ; $9C
+	.db %00000000 ; $9D
+	.db %00000000 ; $9E
+	.db %00000000 ; $9F
+	.db %00000000 ; $A0
+	.db %00000000 ; $A1
+	.db %00000000 ; $A2
+	.db %00000000 ; $A3
+	.db %00000000 ; $A4
+	.db %00000000 ; $A5
+	.db %00000000 ; $A6
+	.db %00000000 ; $A7
+	.db %00000000 ; $A8
+	.db %00000000 ; $A9
+	.db %00000000 ; $AA
+	.db %00000000 ; $AB
+	.db %00000000 ; $AC
+	.db %00000000 ; $AD
+	.db %00000000 ; $AE
+	.db %00000000 ; $AF
+	.db %00000000 ; $B0
+	.db %00000000 ; $B1
+	.db %00000000 ; $B2
+	.db %00000000 ; $B3
+	.db %00000000 ; $B4
+	.db %00000000 ; $B5
+	.db %00000000 ; $B6
+	.db %00000000 ; $B7
+	.db %00000000 ; $B8
+	.db %00000000 ; $B9
+	.db %00000000 ; $BA
+	.db %00000000 ; $BB
+	.db %00000000 ; $BC
+	.db %00000000 ; $BD
+	.db %00000000 ; $BE
+	.db %00000000 ; $BF
+	.db %00000000 ; $C0
+	.db %00000000 ; $C1
+	.db %00000000 ; $C2
+	.db %00000000 ; $C3
+	.db %00000000 ; $C4
+	.db %00000000 ; $C5
+	.db %00000000 ; $C6
+	.db %00000000 ; $C7
+	.db %00000000 ; $C8
+	.db %00000000 ; $C9
+	.db %00000000 ; $CA
+	.db %00000000 ; $CB
+	.db %00000000 ; $CC
+	.db %00000000 ; $CD
+	.db %00000000 ; $CE
+	.db %00000000 ; $CF
+	.db %00000000 ; $D0
+	.db %00000000 ; $D1
+	.db %00000000 ; $D2
+	.db %00000000 ; $D3
+	.db %00000000 ; $D4
+	.db %00000000 ; $D5
+	.db %00000000 ; $D6
+	.db %00000000 ; $D7
+	.db %00000000 ; $D8
+	.db %00000000 ; $D9
+	.db %00000000 ; $DA
+	.db %00000000 ; $DB
+	.db %00000000 ; $DC
+	.db %00000000 ; $DD
+	.db %00000000 ; $DE
+	.db %00000000 ; $DF
+	.db %00000000 ; $E0
+	.db %00000000 ; $E1
+	.db %00000000 ; $E2
+	.db %00000000 ; $E3
+	.db %00000000 ; $E4
+	.db %00000000 ; $E5
+	.db %00000000 ; $E6
+	.db %00000000 ; $E7
+	.db %00000000 ; $E8
+	.db %00000000 ; $E9
+	.db %00000000 ; $EA
+	.db %00000000 ; $EB
+	.db %00000000 ; $EC
+	.db %00000000 ; $ED
+	.db %00000000 ; $EE
+	.db %00000000 ; $EF
+	.db %00000000 ; $F0
+	.db %00000000 ; $F1
+	.db %00000000 ; $F2
+	.db %00000000 ; $F3
+	.db %00000000 ; $F4
+	.db %00000000 ; $F5
+	.db %00000000 ; $F6
+	.db %00000000 ; $F7
+	.db %00000000 ; $F8
+	.db %00000000 ; $F9
+	.db %00000000 ; $FA
+	.db %00000000 ; $FB
+	.db %00000000 ; $FC
+	.db %00000000 ; $FD
+	.db %00000000 ; $FE
+	.db %00000000 ; $FF
+ENDIF
+
 WarpDestinations:
-	.db $03, $01, $04, $05, $06, $05, $06
+	.db $03
+	.db $01
+	.db $04
+	.db $05
+	.db $06
+	.db $05
+	.db $06
 
 
 ;
@@ -4340,7 +4948,7 @@ KillPlayer:
 	LDA #$E0
 	STX byte_RAM_D
 	LDX EnemyState, Y
-	CPX #EnemyState_7
+	CPX #EnemyState_Sinking
 	BEQ loc_BANKF_F747
 
 	STA ObjectYVelocity, Y
@@ -4781,52 +5389,64 @@ AnimateCHRRoutine_Exit:
 	RTS
 
 
-; ---------------------------------------------------------------------------
+;
+; Looks for an unused sprite slot
+;
+; Input
+;   X = enemy slot
+; Output
+;   X = byte_RAM_12
+;   Y = sprite slot
+;
+FindSpriteSlot:
+	LDX #$08
 
-loc_BANKF_FAFE:
-	LDX #$08 ; @TODO Something to with drawing certain sprites?
-
-loc_BANKF_FB00:
+FindSpriteSlot_Loop:
 	LDA EnemyState, X
-	BEQ loc_BANKF_FB1C
+	BEQ FindSpriteSlot_CheckInactiveSlot
 
-loc_BANKF_FB04:
+FindSpriteSlot_LoopNext:
 	DEX
-	BPL loc_BANKF_FB00
+	BPL FindSpriteSlot_Loop
 
+FindSpriteSlot_Default:
+	; Check that both halves of the default sprite slot are unused
 	LDY #$00
 	LDA SpriteDMAArea, Y
 	CMP #$F8
-	BNE loc_BANKF_FB17
+	BNE FindSpriteSlot_FallbackExit
 
 	LDA SpriteDMAArea + 4, Y
 	CMP #$F8
-	BEQ loc_BANKF_FB19
+	BEQ FindSpriteSlot_Exit
 
-loc_BANKF_FB17:
+FindSpriteSlot_FallbackExit:
+	; If all else fails, here's $10
 	LDY #$10
 
-loc_BANKF_FB19:
+FindSpriteSlot_Exit:
 	LDX byte_RAM_12
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_FB1C:
+; The object slot is inactive, so check that something else hasn't claimed the
+; corresponding sprite slot.
+FindSpriteSlot_CheckInactiveSlot:
+	; Calculate the sprite slot using the flicker offset
 	TXA
 	CLC
 	ADC SpriteFlickerSlot
 	TAY
-	LDA byte_BANKF_F4DA, Y
+	LDA SpriteFlickerDMAOffset, Y
+
+	; Check that both halves of the object's sprite slot are unused
 	TAY
 	LDA SpriteDMAArea, Y
 	CMP #$F8
-	BNE loc_BANKF_FB04
-
+	BNE FindSpriteSlot_LoopNext
 	LDA SpriteDMAArea + 4, Y
 	CMP #$F8
-	BNE loc_BANKF_FB04
-	BEQ loc_BANKF_FB19
+	BNE FindSpriteSlot_LoopNext
+	BEQ FindSpriteSlot_Exit
 
 
 ; Unused space in the original ($FB36 - $FDFF)
@@ -5023,17 +5643,38 @@ IFDEF DEBUG
 	STA Debug_InMenu
 ENDIF
 
+IF INES_MAPPER == MAPPER_FME7
+	LDA #$0C
+	STA $8000
+	LDA #VMirror
+	STA $A000
+ELSE
 	LDA #VMirror
 	STA NametableMapping
 	LDA #$80
-	STA $A001
+	STA $A001 ; PRG-RAM protect
+ENDIF
 	JMP StartGame
 
 
-IFNDEF MMC5
 ;
 ; Switches the current CHR banks
 ;
+IF INES_MAPPER == MAPPER_FME7
+ChangeCHRBanks:
+	JMP ChangeCHRBanks_FME7
+
+	; Maintain location of the next subroutine
+	unusedSpace $FF85, $FF
+
+ELSEIF INES_MAPPER == MAPPER_MMC5
+ChangeCHRBanks:
+	JMP ChangeCHRBanks_MMC5
+
+	; Maintain location of the next subroutine
+	unusedSpace $FF85, $FF
+
+ELSE ; INES_MAPPER == MAPPER_MMC3
 ChangeCHRBanks:
 	LDY #$05
 ChangeCHRBanks_Loop:
@@ -5046,18 +5687,6 @@ ChangeCHRBanks_Loop:
 	BPL ChangeCHRBanks_Loop
 
 	RTS
-ENDIF
-
-IFDEF MMC5
-;
-; Switches the current CHR banks
-;
-ChangeCHRBanks:
-	JMP ChangeCHRBanks_MMC5
-
-	; Maintain location of the next subroutine
-	unusedSpace $FF85, $FF
-
 ENDIF
 
 
@@ -5082,7 +5711,33 @@ ChangeMappedPRGBank:
 ;
 ChangeMappedPRGBankWithoutSaving:
 	ASL A
-IFNDEF MMC5
+
+IF INES_MAPPER == MAPPER_FME7
+	PHA
+	LDA #$09
+	STA $8000
+	PLA
+	STA $A000 ; Change first bank
+	ORA #$01 ; Use the bank right after this one next
+	PHA
+	LDA #$0A
+	STA $8000
+	PLA
+	STA $A000 ; Change second bank
+
+	RTS
+
+ELSEIF INES_MAPPER == MAPPER_MMC5
+	ORA #$80
+	STA $5114
+	ORA #$01
+	STA $5115
+	RTS
+
+	; Maintain location of the next subroutine
+	unusedSpace $FFA0, $FF
+
+ELSE ; INES_MAPPER == MAPPER_MMC3
 	PHA
 	LDA #$86
 	STA $8000
@@ -5095,16 +5750,6 @@ IFNDEF MMC5
 	PLA
 	STA $8001 ; Change second bank
 	RTS
-ENDIF
-IFDEF MMC5
-	ORA #$80
-	STA $5114
-	ORA #$01
-	STA $5115
-	RTS
-
-	; Maintain location of the next subroutine
-	unusedSpace $FFA0, $FF
 
 ENDIF
 
@@ -5115,9 +5760,16 @@ ENDIF
 ;   A = $01 for horizontal
 ;
 ChangeNametableMirroring:
+IF INES_MAPPER == MAPPER_FME7
+	PHA
+	LDA #$0C
+	STA $8000
+	PLA
+	STA $A000
+ELSE
 	STA NametableMapping
+ENDIF
 	RTS
-
 
 ; Unused space in the original ($FFA4 - $FFEA)
 unusedSpace $FFEB, $FF
@@ -5154,10 +5806,11 @@ IRQ:
 ; IRQ is not used, but you could if you wanted.
 NESVectorTables:
 	.dw NMI
-IFNDEF MMC5
-	.dw RESET
-ENDIF
-IFDEF MMC5
+IF INES_MAPPER == MAPPER_FME7
+	.dw RESET_FME7
+ELSEIF INES_MAPPER == MAPPER_MMC5
 	.dw RESET_MMC5
+ELSE ; INES_MAPPER == MAPPER_MMC3
+	.dw RESET
 ENDIF
 	.dw IRQ

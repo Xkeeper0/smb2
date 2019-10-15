@@ -1,17 +1,16 @@
 .ignorenl
 
-; MMC3
-IFNDEF MMC5
-VMirror = $00
-HMirror = $01
-NametableMapping = $A000
-ENDIF
-
-; MMC5
-IFDEF MMC5
-VMirror = $44
-HMirror = $50
-NametableMapping = $5105
+IF INES_MAPPER == MAPPER_FME7
+  VMirror = $00
+  HMirror = $01
+ELSEIF INES_MAPPER == MAPPER_MMC5
+  VMirror = $44
+  HMirror = $50
+  NametableMapping = $5105
+ELSE ; INES_MAPPER == MAPPER_MMC3
+  VMirror = $00
+  HMirror = $01
+  NametableMapping = $A000
 ENDIF
 
 ; ---------------------------------------------------------------------------
@@ -324,7 +323,7 @@ EnemyState_BlockFizzle = $03
 EnemyState_BombExploding = $04
 EnemyState_PuffOfSmoke = $05
 EnemyState_Sand = $06
-EnemyState_7 = $07
+EnemyState_Sinking = $07
 EnemyState_27 = $27
 
 ; ---------------------------------------------------------------------------
@@ -821,6 +820,10 @@ CHRBank_EndingBackground5 = $60
 CHRBank_EndingBackground6 = $64
 CHRBank_EndingBackground7 = $68
 CHRBank_EndingBackground8 = $6C
+CHRBank_EndingBackground9 = $70
+CHRBank_EndingBackground10 = $74
+CHRBank_EndingBackground11 = $78
+CHRBank_EndingBackground12 = $7C
 
 
 .endinl
