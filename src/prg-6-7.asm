@@ -9,6 +9,8 @@
 ;   - Object tiles
 ;   - Level handling code
 ;
+; -----
+;
 
 ;
 ; ## Level palettes
@@ -454,6 +456,9 @@ IFDEF EXPAND_TABLES
 	unusedSpace World7SpritePalettes + $30, $FF
 ENDIF
 
+; -----
+
+
 ;
 ; ## Ground appearance tiles
 ;
@@ -696,6 +701,9 @@ IFDEF EXPAND_TABLES
 	unusedSpace World7GroundTilesVertical + $40, $00
 ENDIF
 
+; -----
+
+
 ;
 ; ## Tile quads (unused)
 ;
@@ -883,6 +891,8 @@ UnusedTileQuads4:
 	.db $8E,$8F,$8F,$8E ; $58
 	.db $72,$73,$73,$72 ; $5C
 	.db $44,$45,$45,$44 ; $60
+
+; -----
 
 
 ;
@@ -1647,7 +1657,7 @@ CreateObject_HorizontalPlatform_Exit:
 
 
 ;
-; Lookup table for the big green platforms
+; Lookup table for the big green platforms.
 ;
 GreenPlatformTiles:
 	.db BackgroundTile_GreenPlatformTopLeft
@@ -1694,140 +1704,183 @@ CreateObject_Platform_CX:
 ENDIF
 
 
-; Typical (usually) green hill platforms used throughout World 1 through 6
+;
+; #### Green platforms
+;
+; Creates the typical (usually) green hill platforms used throughout World 1 through 6.
+;
+; These platforms are allowed to overlap each other, but typically appear behind other tiles that
+; are already present in the area.
+;
+; ##### Input
+; - `byte_RAM_E7`: target tile placement offset
+; - `byte_RAM_E8`: area page
+; - `byte_RAM_50D`: width of platform
+;
 CreateObject_GreenJumpthroughPlatform:
+	; Start with a top-left tile.
 	LDX #$00
 
-loc_BANK6_8BBF:
+CreateObject_GreenJumpthroughPlatform_Row:
 	STX byte_RAM_B
+	; Update the area page.
 	LDX byte_RAM_E8
 	JSR SetAreaPageAddr_Bank6
 
+	; These two lines seem like leftovers.
 	LDX #$05
 	LDY byte_RAM_E7
+
+	; Draw a left corner or side.
 	LDX byte_RAM_B
 	LDY byte_RAM_E7
 	LDA byte_RAM_50D
 	STA byte_RAM_7
-	JSR loc_BANK6_8C04
+	JSR CreateObject_GreenJumpthroughPlatformTile
 
+	; Skip to the right side if we're drawing a short platform.
 	INX
 	LDA byte_RAM_7
-	BEQ loc_BANK6_8BE3
+	BEQ CreateObject_GreenJumpthroughPlatform_Right
 
-loc_BANK6_8BDB:
+	; Draw top or middle tiles.
+CreateObject_GreenJumpthroughPlatform_Loop:
 	JSR IncrementAreaXOffset
 
-	JSR loc_BANK6_8C04
+	JSR CreateObject_GreenJumpthroughPlatformTile
 
-	BNE loc_BANK6_8BDB
+	BNE CreateObject_GreenJumpthroughPlatform_Loop
 
-loc_BANK6_8BE3:
+	; Draw right corner or side.
+CreateObject_GreenJumpthroughPlatform_Right:
 	JSR IncrementAreaXOffset
 
 	INX
-	JSR loc_BANK6_8C04
+	JSR CreateObject_GreenJumpthroughPlatformTile
 
+	; Exit if we've hit the bottom of the page.
 	LDA byte_RAM_E7
 	CLC
 	ADC #$10
 	CMP #$F0
-	BCS locret_BANK6_8BFA
+	BCS CreateObject_GreenJumpthroughPlatform_Exit
 
+	; Drawing a left side tile next.
 	LDX #$03
 	STA byte_RAM_E7
-	JMP loc_BANK6_8BBF
+	JMP CreateObject_GreenJumpthroughPlatform_Row
 
-; ---------------------------------------------------------------------------
-
-locret_BANK6_8BFA:
+CreateObject_GreenJumpthroughPlatform_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
+
+;
+; Lookup table for green platform overlap tiles.
+;
+; When drawing the top of a green platform, if the destination tile matches the compare tile, the
+; corresponding left or right overlap tile will be drawn instead.
+;
 GreenPlatformOverlapCompareTiles:
 	.db BackgroundTile_GreenPlatformLeft
 	.db BackgroundTile_GreenPlatformMiddle
 	.db BackgroundTile_GreenPlatformRight
+
 GreenPlatformOverlapLeftTiles:
 	.db BackgroundTile_GreenPlatformTopLeftOverlapEdge
 	.db BackgroundTile_GreenPlatformTopLeftOverlap
 	.db BackgroundTile_GreenPlatformTopLeftOverlap
+
 GreenPlatformOverlapRightTiles:
 	.db BackgroundTile_GreenPlatformTopRightOverlap
 	.db BackgroundTile_GreenPlatformTopRightOverlap
 	.db BackgroundTile_GreenPlatformTopRightOverlapEdge
 
-loc_BANK6_8C04:
+
+;
+; Draws a single tile of the green platform, taking into account the existing tile at the target.
+;
+; ##### Input
+; - `X`: offset in `GreenPlatformTiles` table (0-2=top, 3-5=middle)
+; - `Y`: raw data offset
+;
+CreateObject_GreenJumpthroughPlatformTile:
 	STX byte_RAM_8
 	TXA
-	BNE loc_BANK6_8C1C
+	BNE CreateObject_GreenJumpthroughPlatformTile_NotTopLeft
 
-	LDX #$02
+	; Check if the top left corner requires a special tile
+	LDX #(GreenPlatformOverlapLeftTiles - GreenPlatformOverlapCompareTiles - 1)
 	LDA (byte_RAM_1), Y
 
-loc_BANK6_8C0D:
+CreateObject_GreenJumpthroughPlatformTile_TopLeftLoop:
 	CMP GreenPlatformOverlapCompareTiles, X
-	BEQ loc_BANK6_8C17
+	BEQ CreateObject_GreenJumpthroughPlatformTile_TopLeftMatch
 
 	DEX
-	BPL loc_BANK6_8C0D
+	BPL CreateObject_GreenJumpthroughPlatformTile_TopLeftLoop
 
-	BMI loc_BANK6_8C35
+	BMI CreateObject_GreenJumpthroughPlatformTile_CheckOverwrite
 
-loc_BANK6_8C17:
+CreateObject_GreenJumpthroughPlatformTile_TopLeftMatch:
 	LDA GreenPlatformOverlapLeftTiles, X
-	BNE loc_BANK6_8C4B
+	BNE CreateObject_GreenJumpthroughPlatformTile_SetTile
 
-loc_BANK6_8C1C:
+CreateObject_GreenJumpthroughPlatformTile_NotTopLeft:
 	LDX byte_RAM_8
 	CPX #$02
-	BNE loc_BANK6_8C35
+	BNE CreateObject_GreenJumpthroughPlatformTile_CheckOverwrite
 
-	LDX #$02
+	; Check if the top right corner requires a special tile
+	LDX #(GreenPlatformOverlapLeftTiles - GreenPlatformOverlapCompareTiles - 1)
 	LDA (byte_RAM_1), Y
 
-loc_BANK6_8C26:
+CreateObject_GreenJumpthroughPlatformTile_TopRightLoop:
 	CMP GreenPlatformOverlapCompareTiles, X
-	BEQ loc_BANK6_8C30
+	BEQ CreateObject_GreenJumpthroughPlatformTile_TopRightMatch
 
 	DEX
-	BPL loc_BANK6_8C26
+	BPL CreateObject_GreenJumpthroughPlatformTile_TopRightLoop
 
-	BMI loc_BANK6_8C35
+	BMI CreateObject_GreenJumpthroughPlatformTile_CheckOverwrite
 
-loc_BANK6_8C30:
+CreateObject_GreenJumpthroughPlatformTile_TopRightMatch:
 	LDA GreenPlatformOverlapRightTiles, X
-	BNE loc_BANK6_8C4B
+	BNE CreateObject_GreenJumpthroughPlatformTile_SetTile
 
-loc_BANK6_8C35:
+	; Check if the target tile can be overwritten by a green platform
+CreateObject_GreenJumpthroughPlatformTile_CheckOverwrite:
 	LDX #(GreenPlatformTiles_End - GreenPlatformTiles - 1)
 
-loc_BANK6_8C37:
+CreateObject_GreenJumpthroughPlatformTile_CheckOverwriteLoop:
 	LDA (byte_RAM_1), Y
 	CMP GreenPlatformTiles, X
-	BEQ loc_BANK6_8C46
+	BEQ CreateObject_GreenJumpthroughPlatformTile_Overwrite
 
 	DEX
-	BPL loc_BANK6_8C37
+	BPL CreateObject_GreenJumpthroughPlatformTile_CheckOverwriteLoop
 
+	; Otherwise, we cannot overwrite this tile with a green platform.
 	LDX byte_RAM_8
-	JMP loc_BANK6_8C4D
+	JMP CreateObject_GreenJumpthroughPlatformTile_Exit
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8C46:
+CreateObject_GreenJumpthroughPlatformTile_Overwrite:
 	LDX byte_RAM_8
 	LDA GreenPlatformTiles, X
 
-loc_BANK6_8C4B:
+CreateObject_GreenJumpthroughPlatformTile_SetTile:
 	STA (byte_RAM_1), Y
 
-loc_BANK6_8C4D:
+CreateObject_GreenJumpthroughPlatformTile_Exit:
 	LDX byte_RAM_8
 	DEC byte_RAM_7
 	RTS
 
+; -----
 
+
+;
+; Lookup table for tall objects that extend to the ground.
+;
 TallObjectTopTiles:
 	.db BackgroundTile_LightDoor
 	.db BackgroundTile_PalmTreeTop
@@ -1837,6 +1890,15 @@ TallObjectBottomTiles:
 	.db BackgroundTile_PalmTreeTrunk
 
 
+;
+; #### Tall objects
+;
+; ##### Input
+; - `byte_RAM_E7`: target tile placement offset
+; - `byte_RAM_50E`: type of object to create (lower nybble of level object minus 5)
+;
+; Creates a tree or light door object that extends down until it hits another tile.
+;
 CreateObject_Tall:
 	LDA CurrentWorldTileset
 	CMP #$04
@@ -1869,6 +1931,9 @@ CreateObject_Tall_NotWorld5_Exit:
 	RTS
 
 
+;
+; Lookup table for tall objects that extend to the ground in World 5.
+;
 World5TallObjectTopTiles:
 	.db BackgroundTile_PalmTreeTop
 	.db BackgroundTile_PalmTreeTop
@@ -1879,9 +1944,11 @@ World5TallObjectBottomTiles:
 
 
 ;
-; POI: The only practical difference with this subroutine (other than the fact
-; that it only renders palm trees and not doors) is that it will stop at the
-; bottom of the screen if it doesn't encounter another tile beforehand.
+; ##### Tall objects (World 5)
+;
+; Other than the fact that this only renders palm trees and not doors, the only practical difference
+; in this subroutine is that it will stop at the bottom of the screen if it doesn't encounter
+; another tile beforehand.
 ;
 ; This appears to be a work-around for the palm trees in 5-2 that have vertical
 ; rock platforms beneath them. Since the rock comes later, tree trunk tiles would
@@ -1920,8 +1987,11 @@ CreateObject_Tall_World5_Loop:
 CreateObject_Tall_World5_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
+; -----
 
+;
+; Creates the larger, two-tile-wide big cloud.
+;
 CreateObject_BigCloud:
 	LDY byte_RAM_E7
 	LDA #BackgroundTile_BgCloudLeft
@@ -1931,13 +2001,19 @@ CreateObject_BigCloud:
 	STA (byte_RAM_1), Y
 	RTS
 
-; ---------------------------------------------------------------------------
+; -----
 
+
+;
+; Creates a tiny, single-tile cloud.
+;
 CreateObject_SmallCloud:
 	LDY byte_RAM_E7
 	LDA #BackgroundTile_BgCloudSmall
 	STA (byte_RAM_1), Y
 	RTS
+
+; -----
 
 
 JarTopTiles:
@@ -3593,7 +3669,7 @@ GenerateSubspaceArea_TileRemapLoop:
 DoSubspaceTileRemap:
 	STY byte_RAM_8
 	STX byte_RAM_7
-	LDX #(SubspaceTilesReplace-SubspaceTilesSearch-1)
+	LDX #(SubspaceTilesReplace - SubspaceTilesSearch - 1)
 
 DoSubspaceTileRemap_Loop:
 	CMP SubspaceTilesSearch, X
@@ -4478,8 +4554,7 @@ ReadLevelBackgroundData_Object:
 	BNE ReadLevelBackgroundData_ProcessObject
 
 	; Encountering `$FF` indicates the end of the level data.
-
-	; Render the remaining ground setting through the end of the last page in the area.
+	; We need to render the remaining ground setting through the end of the last page in the area.
 	LDA #$0A
 	STA byte_RAM_540
 	INC byte_RAM_540
@@ -4659,6 +4734,8 @@ ReadLevelBackgroundData_RenderGround_Exit:
 	STA GroundSetting
 	JMP ReadLevelBackgroundData_ProcessObject_AdvanceByte
 
+; -----
+
 
 ;
 ; Reads the current ground setting byte.
@@ -4828,7 +4905,7 @@ ReadGroundTileVertical:
 ;
 ; ##### Output
 ; - `byte_RAM_1`: low byte of decoded level data RAM
-; - `byte_RAM_2`: low byte of decoded level data RAM
+; - `byte_RAM_2`: high byte of decoded level data RAM
 ; - `byte_RAM_E7`: target tile placement offset
 ;
 SetTileOffsetAndAreaPageAddr_Bank6:
@@ -4849,7 +4926,7 @@ SetTileOffsetAndAreaPageAddr_Bank6:
 ;
 ; ##### Output
 ; - `byte_RAM_1`: low byte of decoded level data RAM
-; - `byte_RAM_2`: low byte of decoded level data RAM
+; - `byte_RAM_2`: high byte of decoded level data RAM
 ;
 SetAreaPageAddr_Bank6:
 	LDA DecodedLevelPageStartLo_Bank6, X
@@ -4900,6 +4977,7 @@ IncrementAreaYOffset:
 
 IncrementAreaYOffset_Exit:
 	RTS
+
 
 IFNDEF DISABLE_DOOR_POINTERS
 ;
