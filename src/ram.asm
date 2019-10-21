@@ -355,11 +355,9 @@ SoundEffectTimer2:
 	.dsb 1 ; $00c6
 PlayerAnimationFrame:
 	.dsb 1 ; $00c7
-; related to y-mirroring
-byte_RAM_C8:
+PPUScrollYHiMirror:
 	.dsb 1 ; $00c8
-; related to x-mirroring
-byte_RAM_C9:
+PPUScrollXHiMirror:
 	.dsb 1 ; $00c9
 ; Not sure about this, but seems to be that way
 ScreenYHi:
@@ -848,8 +846,9 @@ EnemyArray_438:
 
 ; FOR RENT
 	.dsb 1 ; $0440
-; Despawn offset
-unk_RAM_441:
+; Raw enemy data offset used to prevent enemy from spawning multiple times.
+; A value of `$FF` indicates that the enemy is not linked to any particular level data.
+EnemyRawDataOffset:
 	.dsb 1 ; $0441
 	.dsb 1 ; $0442
 	.dsb 1 ; $0443
@@ -1178,9 +1177,9 @@ PPUScrollYMirror_Backup:
 	.dsb 1 ; $0509
 PPUScrollXMirror_Backup:
 	.dsb 1 ; $050a
-byte_RAM_50B:
+PPUScrollYHiMirror_Backup:
 	.dsb 1 ; $050b
-byte_RAM_50C:
+PPUScrollXHiMirror_Backup:
 	.dsb 1 ; $050c
 byte_RAM_50D:
 	.dsb 1 ; $050d

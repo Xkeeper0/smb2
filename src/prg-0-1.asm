@@ -52,7 +52,7 @@ loc_BANK0_802B:
 	STA byte_RAM_D0
 	LDA CurrentLevelEntryPage
 	LDY #$00
-	JSR sub_BANK0_86EE
+	JSR ResetPPUScrollHi
 
 	LDA #$20
 	STA byte_RAM_D3
@@ -159,13 +159,13 @@ loc_BANK0_80C8:
 	CMP #$0FC
 	BNE loc_BANK0_80DB
 
-	LDA #$0EC
+	LDA #$EC
 	STA PPUScrollYMirror
-	LDA byte_RAM_C8
+	LDA PPUScrollYHiMirror
 	EOR #$02
-	STA byte_RAM_C8
+	STA PPUScrollYHiMirror
 	LSR A
-	STA byte_RAM_C9
+	STA PPUScrollXHiMirror
 
 loc_BANK0_80DB:
 	LDA PPUScrollYMirror
@@ -258,11 +258,11 @@ loc_BANK0_813F:
 
 	LDA #$00
 	STA PPUScrollYMirror
-	LDA byte_RAM_C8
+	LDA PPUScrollYHiMirror
 	EOR #$02
-	STA byte_RAM_C8
+	STA PPUScrollYHiMirror
 	LSR A
-	STA byte_RAM_C9
+	STA PPUScrollXHiMirror
 
 loc_BANK0_8152:
 	LDX #$02
@@ -339,10 +339,10 @@ StashScreenScrollPosition:
 	STA PPUScrollYMirror_Backup
 	LDA PPUScrollXMirror
 	STA PPUScrollXMirror_Backup
-	LDA byte_RAM_C8
-	STA byte_RAM_50B
-	LDA byte_RAM_C9
-	STA byte_RAM_50C
+	LDA PPUScrollYHiMirror
+	STA PPUScrollYHiMirror_Backup
+	LDA PPUScrollXHiMirror
+	STA PPUScrollXHiMirror_Backup
 	LDA ScreenYHi
 	STA ScreenYHi_Backup
 	LDA ScreenYLo
@@ -354,8 +354,8 @@ StashScreenScrollPosition:
 	LDA #$00
 	STA PPUScrollYMirror
 	STA PPUScrollXMirror
-	STA byte_RAM_C8
-	STA byte_RAM_C9
+	STA PPUScrollYHiMirror
+	STA PPUScrollXHiMirror
 	RTS
 
 
@@ -365,10 +365,10 @@ RestoreScreenScrollPosition:
 	LDA PPUScrollXMirror_Backup
 	STA PPUScrollXMirror
 	STA ScreenBoundaryLeftLo
-	LDA byte_RAM_50B
-	STA byte_RAM_C8
-	LDA byte_RAM_50C
-	STA byte_RAM_C9
+	LDA PPUScrollYHiMirror_Backup
+	STA PPUScrollYHiMirror
+	LDA PPUScrollXHiMirror_Backup
+	STA PPUScrollXHiMirror
 	LDA ScreenBoundaryLeftHi_Backup
 	STA ScreenBoundaryLeftHi
 	LDA ScreenYHi_Backup
@@ -984,7 +984,7 @@ loc_BANK0_8532:
 	STA byte_RAM_D0
 	LDA CurrentLevelEntryPage
 	LDY #$01
-	JSR sub_BANK0_86EE
+	JSR ResetPPUScrollHi
 
 	INC byte_RAM_502
 	LDA CurrentLevelEntryPage
@@ -1099,9 +1099,9 @@ loc_BANK0_85C4:
 	BPL loc_BANK0_85E7
 
 	DEC ScreenBoundaryLeftHi
-	LDA byte_RAM_C9
+	LDA PPUScrollXHiMirror
 	EOR #$01
-	STA byte_RAM_C9
+	STA PPUScrollXHiMirror
 	LDA #$01
 	STA byte_RAM_507
 
@@ -1195,11 +1195,11 @@ loc_BANK0_8651:
 	BCC loc_BANK0_8669
 
 	INC ScreenBoundaryLeftHi
-	LDA byte_RAM_C9
+	LDA PPUScrollXHiMirror
 	EOR #$01
-	STA byte_RAM_C9
+	STA PPUScrollXHiMirror
 	ASL A
-	STA byte_RAM_C8
+	STA PPUScrollYHiMirror
 
 loc_BANK0_8669:
 	LDA ScreenBoundaryLeftHi
@@ -1261,11 +1261,11 @@ loc_BANK0_86A8:
 	BCS loc_BANK0_86C0
 
 	DEC ScreenBoundaryLeftHi
-	LDA byte_RAM_C9
+	LDA PPUScrollXHiMirror
 	EOR #$01
-	STA byte_RAM_C9
+	STA PPUScrollXHiMirror
 	ASL A
-	STA byte_RAM_C8
+	STA PPUScrollYHiMirror
 
 loc_BANK0_86C0:
 	LDA PPUScrollXMirror
@@ -1305,36 +1305,54 @@ loc_BANK0_86E9:
 
 ; End of function sub_BANK0_85EC
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_86EE:
+;
+; Resets the PPU high scrolling values and sets the high byte of the PPU scroll offset.
+;
+; ##### Input
+; - `A`: 0 = use nametable A, 1 = use nametable B
+; - `Y`: 0 = vertical, 1 = horizontal
+;
+; ##### Output
+; - `PPUScrollYHiMirror`
+; - `PPUScrollXHiMirror`
+; - `byte_RAM_506`: PPU scroll offset high byte
+;
+ResetPPUScrollHi:
 	LSR A
-	BCS loc_BANK0_86FC
+	BCS ResetPPUScrollHi_NametableB
 
+ResetPPUScrollHi_NametableA:
 	LDA #$01
-	STA byte_RAM_C9
+	STA PPUScrollXHiMirror
 	ASL A
-	STA byte_RAM_C8
+	STA PPUScrollYHiMirror
 	LDA #$20
-	BNE loc_BANK0_8705
+	BNE ResetPPUScrollHi_Exit
 
-loc_BANK0_86FC:
+ResetPPUScrollHi_NametableB:
 	LDA #$00
-	STA byte_RAM_C9
-	STA byte_RAM_C8
-	LDA byte_BANK0_8709, Y
+	STA PPUScrollXHiMirror
+	STA PPUScrollYHiMirror
+	LDA PPUScrollHiOffsets, Y
 
-loc_BANK0_8705:
+ResetPPUScrollHi_Exit:
 	STA byte_RAM_506
 	RTS
 
-; End of function sub_BANK0_86EE
 
-; ---------------------------------------------------------------------------
-byte_BANK0_8709:
-	.db $28
-	.db $24
-; The sub-area "page" is is the index in the DecodedLevelPageStart table.
+;
+; High byte of the PPU scroll offset for nametable B.
+;
+; When mirroring vertically, nametable A is `$2000` and nametable B is `$2800`.
+; When mirroring horizontally, nametable A is `$2000` and nametable B is `$2400`.
+;
+PPUScrollHiOffsets:
+	.db $28 ; vertical
+	.db $24 ; horizontal
+
+
+; The sub-area "page" is the index in the DecodedLevelPageStart table.
 ; This is why there are 10 blank pages in the jar enemy data.
 SubAreaPage:
 	.db $0A
@@ -1344,14 +1362,14 @@ SubAreaPage:
 sub_BANK0_870C:
 	LDA PPUScrollXMirror
 	STA PPUScrollXMirror_Backup
-	LDA byte_RAM_C9
-	STA byte_RAM_50C
+	LDA PPUScrollXHiMirror
+	STA PPUScrollXHiMirror_Backup
 	LDA ScreenBoundaryLeftHi
 	STA ScreenBoundaryLeftHi_Backup
 	INC byte_RAM_53D
 	LDA SubAreaPage
 	STA CurrentLevelEntryPage
-	JSR sub_BANK0_86EE
+	JSR ResetPPUScrollHi
 
 	LDA #$00
 	STA PPUScrollXMirror
@@ -1378,8 +1396,8 @@ sub_BANK0_874C:
 	LDA PPUScrollXMirror_Backup
 	STA PPUScrollXMirror
 	STA ScreenBoundaryLeftLo
-	LDA byte_RAM_50C
-	STA byte_RAM_C9
+	LDA PPUScrollXHiMirror_Backup
+	STA PPUScrollXHiMirror
 	LDA ScreenBoundaryLeftHi_Backup
 	STA ScreenBoundaryLeftHi
 	LDA byte_RAM_53D
@@ -7221,7 +7239,7 @@ TurnKeyIntoPuffOfSmoke:
 ;
 UnlinkEnemyFromRawData_Bank1:
 	LDA #$0FF
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	RTS
 
 
@@ -7429,7 +7447,7 @@ loc_BANK1_BAFD:
 ; ---------------------------------------------------------------------------
 
 _code_3B00:
-	LDY unk_RAM_441, X
+	LDY EnemyRawDataOffset, X
 	BMI loc_BANK1_BB0B
 
 	LDA (RawEnemyData), Y

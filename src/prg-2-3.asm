@@ -122,7 +122,7 @@ AreaInitialization_CheckObjectCarriedOver:
 	LDY #EnemyState_Alive
 	STY EnemyState + 5
 	LDY #$FF
-	STY unk_RAM_441 + 5
+	STY EnemyRawDataOffset + 5
 	CMP #Enemy_Rocket
 	BNE AreaInitialization_NonRocketCarryOver
 
@@ -749,7 +749,7 @@ loc_BANK2_8393:
 loc_BANK2_83A6:
 	STA ObjectType, X
 	TYA
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	INC EnemyState, X
 	LDA ObjectType, X
 
@@ -1064,7 +1064,7 @@ EnemyDeathMaybe:
 ;
 UnlinkEnemyFromRawData:
 	LDA #$FF
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	RTS
 
 
@@ -1897,7 +1897,7 @@ loc_BANK2_89A5:
 
 EnemyDestroy:
 	; load raw enemy data offset so we can allow the level object to respawn
-	LDY unk_RAM_441, X
+	LDY EnemyRawDataOffset, X
 	; nothing to reset if offset is invalid
 	BMI EnemyDestroy_AfterAllowRespawn
 
@@ -7548,10 +7548,10 @@ EnemyBehavior_Ostro:
 	STA ObjectXLo, Y
 	LDA ObjectXHi, X
 	STA ObjectXHi, Y
-	LDA unk_RAM_441, X
-	STA unk_RAM_441, Y
+	LDA EnemyRawDataOffset, X
+	STA EnemyRawDataOffset, Y
 	LDA #$FF
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	LDA ObjectXVelocity, X
 	STA ObjectXVelocity, Y
 	TYA
@@ -8276,10 +8276,10 @@ sub_BANK3_AA3E:
 	STA EnemyVariable, X
 	LDA #$02
 	STA EnemyArray_489, X
-	LDA unk_RAM_441, X
+	LDA EnemyRawDataOffset, X
 	STA byte_RAM_6
 	LDA #$FF
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	JSR CreateEnemy
 
 	BMI loc_BANK3_AA99
@@ -8291,7 +8291,7 @@ sub_BANK3_AA3E:
 
 	LDY byte_RAM_0
 	LDA byte_RAM_6
-	STA unk_RAM_441, Y
+	STA EnemyRawDataOffset, Y
 	LDA EnemyArray_477, X
 	SEC
 	SBC #$01
@@ -8889,17 +8889,17 @@ EnemyBehavior_Autobomb:
 	STA ObjectType, X
 	JSR SetEnemyAttributes
 
-	LDA unk_RAM_441, X
+	LDA EnemyRawDataOffset, X
 	STA byte_RAM_6
 	LDA #$FF
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	JSR CreateEnemy
 
 	BMI loc_BANK3_ADF9
 
 	LDY byte_RAM_0
 	LDA byte_RAM_6
-	STA unk_RAM_441, Y
+	STA EnemyRawDataOffset, Y
 	LDA ObjectXLo, X
 	STA ObjectXLo, Y
 	LDA ObjectXHi, X

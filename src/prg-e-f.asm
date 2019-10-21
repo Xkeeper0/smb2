@@ -365,8 +365,8 @@ SetScrollXYTo0:
 	LDA #$00
 	STA PPUScrollYMirror
 	STA PPUScrollXMirror
-	STA byte_RAM_C8
-	STA byte_RAM_C9
+	STA PPUScrollYHiMirror
+	STA PPUScrollXHiMirror
 	RTS
 
 
@@ -417,9 +417,9 @@ EnableNMI_PauseTitleCard:
 ;
 ; Draws world info for the title card and pause screens
 ;
-; Input
-;   X = CurrentWorld
-;   Y = CurrentLevel (not actually used)
+; ##### Input
+; - `X`: CurrentWorld
+; - `Y`: CurrentLevel (not actually used)
 ;
 DisplayLevelTitleCardText:
 	; Level number (unused)
@@ -884,12 +884,12 @@ StartLevel:
 	JSR WaitForNMI_TurnOffPPU
 
 	LDA #$B0
-	ORA byte_RAM_C9
+	ORA PPUScrollXHiMirror
 	LDY IsHorizontalLevel
 	BNE StartLevel_SetPPUCtrlMirror
 
 	AND #$FE
-	ORA byte_RAM_C8
+	ORA PPUScrollYHiMirror
 
 StartLevel_SetPPUCtrlMirror:
 	STA PPUCtrlMirror
@@ -899,7 +899,7 @@ StartLevel_SetPPUCtrlMirror:
 	LDA #PRGBank_8_9
 	JSR ChangeMappedPRGBank
 
-	JSR GetLevelPointers
+	JSR CopyLevelDataToMemory
 
 	LDA #PRGBank_6_7
 	JSR ChangeMappedPRGBank
@@ -1171,9 +1171,9 @@ loc_BANKF_E5A0:
 	LDA #PRGBank_8_9
 	JSR ChangeMappedPRGBank
 
-	JSR GetJarPointers
+	JSR CopyJarDataToMemory
 
-	JSR GetEnemyPointers
+	JSR CopyEnemyDataToMemory
 
 	LDA #PRGBank_6_7
 	JSR ChangeMappedPRGBank
@@ -2012,16 +2012,16 @@ sub_BANKF_EA68:
 
 ; End of function sub_BANKF_EA68
 
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Converts a number to numerical tiles with space for 2 digits
 ;
-; Input
-;   A = number to display
-; Output
-;   A = second digit of the number (ones)
-;   Y = first digit of the number (tens)
+; ##### Input
+; - `A` = number to display
+;
+; ##### Output
+; - `A`: second digit of the number (ones)
+; - `Y`: first digit of the number (tens)
 ;
 GetTwoDigitNumberTiles:
 	LDY #$D0 ; zero
@@ -2341,12 +2341,12 @@ loc_BANKF_EC1F:
 	JSR sub_BANKF_EC68
 
 	LDA #$B0
-	ORA byte_RAM_C9
+	ORA PPUScrollXHiMirror
 	LDY IsHorizontalLevel
 	BNE loc_BANKF_EC31
 
 	AND #$FE
-	ORA byte_RAM_C8
+	ORA PPUScrollYHiMirror
 
 loc_BANKF_EC31:
 	STA PPUCTRL
@@ -3213,7 +3213,7 @@ loc_BANKF_F286:
 	LDA #PRGBank_8_9
 	JSR ChangeMappedPRGBank
 
-	JMP GetEnemyPointers
+	JMP CopyEnemyDataToMemory
 
 ; ---------------------------------------------------------------------------
 
@@ -4840,14 +4840,14 @@ sub_BANKF_F6A1:
 ; Checks that we're playing the correct music and switches if necessary, unless
 ; we're playing the invincibility music.
 ;
-; Input
-;   CompareMusicIndex = music we should be playing
-;   CurrentMusicIndex = music we're actually playing
-;   StarInvincibilityTimer = whether the player is invincible
+; ##### Input
+; - `CompareMusicIndex`: music we should be playing
+; - `CurrentMusicIndex`: music we're actually playing
+; - `StarInvincibilityTimer`: whether the player is invincible
 ;
-; Output
-;   CurrentMusicIndex = music we should be plathing
-;   MusicQueue1 = song to play if we need to change the music
+; ##### Output
+; - `CurrentMusicIndex`: music we should be plathing
+; - `MusicQueue1`: song to play if we need to change the music
 ;
 EnsureCorrectMusic:
 	LDA CompareMusicIndex
@@ -4907,7 +4907,7 @@ DoAreaReset_EnemyLoopEnd:
 
 AreaResetEnemyDestroy:
 	; load raw enemy data offset so we can allow the level object to respawn
-	LDY unk_RAM_441, X
+	LDY EnemyRawDataOffset, X
 	; nothing to reset if offset is invalid
 	BMI AreaResetEnemyDestroy_AfterAllowRespawn
 
@@ -4965,42 +4965,50 @@ loc_BANKF_F749:
 	STA DPCMQueue
 	RTS
 
-; End of function KillPlayer
 
-; =============== S U B R O U T I N E =======================================
-
-; Something to do with loading levels here
-
-GetLevelPointers:
+;
+; Copies the raw level data to memory.
+;
+CopyLevelDataToMemory:
+	; Determine the global area index from the current level and area.
 	LDY CurrentLevel
 	LDA LevelAreaStartIndexes, Y
 	CLC
 	ADC CurrentLevelArea
-	TAY ; Y now contains the current area or something
+	TAY
+
+	; Calculate the pointer for the start of the level data.
 	LDA LevelDataPointersLo, Y
-	STA byte_RAM_5 ; $0005/$0006 are pointers to the level data
+	STA byte_RAM_5
 	LDA LevelDataPointersHi, Y
 	STA byte_RAM_6
-	LDX #$FF ; Set to load level data into $7800 in RAM
-	LDA #$78
+
+	; Blindly copy 255 bytes of data, which is presumed to contain the full area.
+	LDX #$FF
+
+	; Set the destination address in RAM for copying level data.
+	LDA #>RawLevelData
 	STA byte_RAM_2
-	LDY #$00
+	LDY #<RawLevelData
 	STY byte_RAM_1
 
-CopyLevelDataToMemory:
+	; `Y = $00`
+CopyLevelDataToMemory_Loop:
 	LDA (byte_RAM_5), Y
 	STA (byte_RAM_1), Y
 	INY
 	DEX
-	BNE CopyLevelDataToMemory
+	BNE CopyLevelDataToMemory_Loop
 
+	; We end up copying the first byte twice!
 	STA (byte_RAM_1), Y
 
-; End of function GetLevelPointers
 
-; =============== S U B R O U T I N E =======================================
-
-GetEnemyPointers:
+;
+; Copies the raw enemy data to memory.
+;
+CopyEnemyDataToMemory:
+	; Determine the address of the level's enemy pointer tables.
 	LDY CurrentLevel
 	LDA EnemyPointersByLevel_HiHi, Y
 	STA byte_RAM_1
@@ -5010,75 +5018,103 @@ GetEnemyPointers:
 	STA byte_RAM_3
 	LDA EnemyPointersByLevel_LoLo, Y
 	STA byte_RAM_2
-	LDA InSubspaceOrJar ; Are we in a jar?
+
+	; Determine whether we want the enemy data for the area or for the jar.
+	LDA InSubspaceOrJar
 	CMP #$01
-	BNE loc_BANKF_F7A0 ; No, load the area as usual
+	BNE CopyEnemyDataToMemory_Area
 
+CopyEnemyDataToMemory_Jar:
 	LDY #AreaIndex_Jar
-	JMP loc_BANKF_F7A3
+	JMP CopyEnemyDataToMemory_SetAddress
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_F7A0:
+CopyEnemyDataToMemory_Area:
 	LDY CurrentLevelArea
 
-loc_BANKF_F7A3:
+CopyEnemyDataToMemory_SetAddress:
+	; Calculate the pointer for the start of the enemy data.
 	LDA (byte_RAM_0), Y
 	STA byte_RAM_1
 	LDA (byte_RAM_2), Y
 	STA byte_RAM_0
+
+	; Blindly copy 255 bytes of data, which is presumed to contain the full area.
 	LDX #$FF
+
+	; Set the destination address in RAM for copying level data.
 	LDA #>RawEnemyDataAddr
 	STA byte_RAM_3
 	LDY #<RawEnemyDataAddr
 	STY byte_RAM_2
 
-CopyEnemyDataToMemory:
+	; `Y = $00`
+CopyEnemyDataToMemory_Loop:
 	LDA (byte_RAM_0), Y
 	STA (byte_RAM_2), Y
 	INY
 	DEX
-	BNE CopyEnemyDataToMemory
+	BNE CopyEnemyDataToMemory_Loop
 
 	RTS
 
-; End of function GetEnemyPointers
 
-; =============== S U B R O U T I N E =======================================
-
-GetJarPointers:
-	LDY CurrentLevel ; Get the area starting index for the current level
+;
+; Copies the raw level data for a jar to memory.
+;
+CopyJarDataToMemory:
+	; Determine the global area index from the current level and area.
+	LDY CurrentLevel
 	LDA LevelAreaStartIndexes, Y
 	CLC
 	ADC #AreaIndex_Jar
 	TAY
+
+	; Calculate the pointer for the start of the level data.
 	LDA LevelDataPointersLo, Y
 	STA byte_RAM_5
 	LDA LevelDataPointersHi, Y
 	STA byte_RAM_6
+
+	; Set the destination address in RAM for copying level data.
 	LDA #>RawJarData
 	STA byte_RAM_2
 	LDY #<RawJarData
 	STY byte_RAM_1
 
-CopyJarDataToMemory:
+	; `Y = $00`
+CopyJarDataToMemory_Loop:
 	LDA (byte_RAM_5), Y
+	; Unlike `CopyLevelDataToMemory`, which always copies 255 bytes, this stops on any `$FF` read!
+	;
+	; This isn't technically "correct", but in practice it's not the most devastating limitation.
+	; Just don't expect to use a waterfall object that is exactly 16 tiles wide inside a jar.
+	;
+	; Fun fact: The largest possible waterfall objects are only used in two areas of World 5!
 	CMP #$FF ; This one actually terminates on any $FF read! Welp.
-	BEQ CopyJarDataToMemoryFinished
+	BEQ CopyJarDataToMemory_Exit
 
 	STA (byte_RAM_1), Y
 	INY
-	JMP CopyJarDataToMemory
+	JMP CopyJarDataToMemory_Loop
 
-; ---------------------------------------------------------------------------
-
-CopyJarDataToMemoryFinished:
+CopyJarDataToMemory_Exit:
 	STA (byte_RAM_1), Y
 	RTS
 
-; End of function GetJarPointers
 
+;
+; ## Tile Quads
+;
+; Map tiles are made of 4 pattern table tiles arranged in a 2x2 block.
+;
+; These map tiles are broken up into four tables (`$00-$3F`, `$40-$7F`, `$80-$BF`, `$C0-$FF`) for
+; addressability (the tile index is multiplied by 4 to get the first byte). Each table
+; coincidentally corresponds to a background subpalette as well.
+;
 
+;
+; #### Tile quad pointers
+;
 TileQuadPointersLo:
 	.db <TileQuads1
 	.db <TileQuads2
@@ -5091,6 +5127,12 @@ TileQuadPointersHi:
 	.db >TileQuads3
 	.db >TileQuads4
 
+;
+; #### Tile quad pattern table values
+;
+; Each subtable corresponds to `$40` tiles so that a single byte offset can be used to address each
+; map tile within the table.
+;
 TileQuads1:
 	.db $FE,$FE,$FE,$FE ; $00
 	.db $B4,$B6,$B5,$B7 ; $04
@@ -5392,11 +5434,12 @@ AnimateCHRRoutine_Exit:
 ;
 ; Looks for an unused sprite slot
 ;
-; Input
-;   X = enemy slot
-; Output
-;   X = byte_RAM_12
-;   Y = sprite slot
+; ##### Input
+; - `X`: enemy slot
+;
+; ##### Output
+; - `X`: byte_RAM_12
+; - `Y`: sprite slot
 ;
 FindSpriteSlot:
 	LDX #$08
@@ -5699,10 +5742,23 @@ ChangeMappedPRGBank:
 	STA MMC3PRGBankTemp ; See below comment.
 
 ;
-; Any call to this sub switches the lower two banks together, eg:
-; LDA 0 JSR Change... = Bank 0/1
-; LDA 1 JSR Change... = Bank 2/3
-; etc.
+; Any call to this subroutine switches the lower two banks together.
+;
+; For example, loading Bank 0/1:
+;
+; ```
+; LDA #$00
+; JSR ChangeMappedPRGBank
+; ```
+;
+; Loading Bank 2/3:
+;
+; ```
+; LDA #$01
+; JSR ChangeMappedPRGBank
+; ```
+;
+; Etc.
 ;
 ; This version changes the bank numbers without
 ; saving the change to RAM, so the previous bank
@@ -5755,9 +5811,10 @@ ENDIF
 
 
 ;
-; Writing to $A000 sets mirroring.
-;   A = $00 for vertical
-;   A = $01 for horizontal
+; Sets the nametable mirroring by writing `$A000`.
+;
+; ##### Input
+; - `A`: `$00` =  vertical, `$01` = horizontal
 ;
 ChangeNametableMirroring:
 IF INES_MAPPER == MAPPER_FME7
