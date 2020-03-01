@@ -1688,18 +1688,17 @@ MaxLevelsCompleted:
 LevelObjectMode:
 	.dsb 1 ; $0633
 
-IFDEF AREA_HEADER_TILESET
-CurrentWorldTileset:
-	.dsb 1 ; $0634
-CurrentWorld:
-	.dsb 1 ; $0635
-ENDIF
-
 IFNDEF AREA_HEADER_TILESET
 ; FOR RENT
 	.dsb 1 ; $0634
 CurrentWorld:
 CurrentWorldTileset:
+	.dsb 1 ; $0635
+
+ELSE
+CurrentWorldTileset:
+	.dsb 1 ; $0634
+CurrentWorld:
 	.dsb 1 ; $0635
 ENDIF
 

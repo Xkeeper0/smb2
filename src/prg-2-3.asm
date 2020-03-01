@@ -2932,7 +2932,8 @@ EnemyBehavior_Hoopstar:
 
 	LDA #$00
 	STA ObjectXVelocity, X
-	JSR sub_BANK3_B4E2
+
+	JSR EnemyBehavior_Hoopstar_Climb
 
 	LDY EnemyArray_477, X
 	BCC loc_BANK2_8EEC
@@ -4154,6 +4155,7 @@ sub_BANK2_9486:
 
 ; ---------------------------------------------------------------------------
 
+; Object collision with background tiles
 loc_BANK2_9492:
 	LDA EnemyCollision, X
 	AND EnemyMovementDirection, X
@@ -9958,33 +9960,37 @@ byte_BANK3_B4E0:
 	.db $F0
 	.db $10
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_B4E2:
+;
+; Determine whether the Hoopstar has reached the end of its climbable range.
+;
+; Output
+;   C = whether or not the Hoopstar is on a climbable tile
+;
+EnemyBehavior_Hoopstar_Climb:
 	JSR ClearDirectionalCollisionFlags
 
 	TAY
 	LDA ObjectYVelocity - 1, X
-	BMI loc_BANK3_B4EB
+	BMI EnemyBehavior_Hoopstar_ClimbUp
 
+EnemyBehavior_Hoopstar_ClimbDown:
 	INY
 
-loc_BANK3_B4EB:
-	JSR sub_BANK3_BB5A
+EnemyBehavior_Hoopstar_ClimbUp:
+	JSR EnemyBehavior_Hoopstar_CheckBackgroundTile
 
-	BCS loc_BANK3_B4F7
+	BCS EnemyBehavior_Hoopstar_Climb_Exit
 
 	LDA byte_RAM_0
-	CMP #$82
-	BEQ loc_BANK3_B4F7
+	CMP #BackgroundTile_PalmTreeTrunk
+	BEQ EnemyBehavior_Hoopstar_Climb_Exit
 
 	CLC
 
-loc_BANK3_B4F7:
+EnemyBehavior_Hoopstar_Climb_Exit:
 	DEX
 	RTS
-
-; End of function sub_BANK3_B4E2
 
 
 ;
@@ -11344,35 +11350,35 @@ _unused_BANK3_BB4A:
 	.db $FF
 	.db $FF
 
-byte_BANK3_BB50:
-	.db $C2
-	.db $D4
-	.db $C3
-	.db $C4
-	.db $07
-	.db $80
-	.db $81
-	.db $94
-	.db $95
-	.db $17
+; Hoopstar will climb up and down any of these tiles
+HoopstarClimbTiles:
+	.db BackgroundTile_Vine
+	.db BackgroundTile_VineStandable
+	.db BackgroundTile_VineBottom
+	.db BackgroundTile_ClimbableSky
+	.db BackgroundTile_Chain
+	.db BackgroundTile_Ladder
+	.db BackgroundTile_LadderShadow
+	.db BackgroundTile_LadderStandable
+	.db BackgroundTile_LadderStandableShadow
+	.db BackgroundTile_ChainStandable
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_BB5A:
+EnemyBehavior_Hoopstar_CheckBackgroundTile:
 	JSR sub_BANK3_BB87
 
 	LDA byte_RAM_0
 
 	LDY #$09
-loc_BANK3_BB61:
-	CMP byte_BANK3_BB50, Y
-	BEQ locret_BANK3_BB6A
+EnemyBehavior_Hoopstar_CheckBackgroundTile_Loop:
+	CMP HoopstarClimbTiles, Y
+	BEQ EnemyBehavior_Hoopstar_CheckBackgroundTile_Exit
 	DEY
-	BPL loc_BANK3_BB61
+	BPL EnemyBehavior_Hoopstar_CheckBackgroundTile_Loop
 
 	CLC
 
-locret_BANK3_BB6A:
+EnemyBehavior_Hoopstar_CheckBackgroundTile_Exit:
 	RTS
 
 
@@ -11409,6 +11415,17 @@ ItemCarryYOffsets:
 
 ; =============== S U B R O U T I N E =======================================
 
+;
+; Seems to determine what kind of tile the object has collided with?
+;
+; Duplicate of subroutine in bank 0: sub_BANK0_924F
+;
+; Input
+;   X = object index (0 = player)
+;   Y = bounding box offset?
+; Output
+;   byte_RAM_0 = tile ID
+;
 sub_BANK3_BB87:
 	TXA
 	PHA
@@ -11416,7 +11433,7 @@ sub_BANK3_BB87:
 	LDA #$00
 	STA byte_RAM_0
 	STA byte_RAM_1
-	LDA byte_BANKF_F011, Y
+	LDA VerticalTileCollisionHitboxX, Y
 	BPL loc_BANK3_BB96
 
 	DEC byte_RAM_0
@@ -11444,7 +11461,7 @@ loc_BANK3_BB96:
 	STA byte_RAM_3
 
 loc_BANK3_BBB5:
-	LDA byte_BANKF_F055, Y
+	LDA VerticalTileCollisionHitboxY, Y
 	BPL loc_BANK3_BBBC
 
 	DEC byte_RAM_1

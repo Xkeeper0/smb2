@@ -2788,12 +2788,14 @@ ENDIF
 unusedSpace $F000, $FF
 
 
-; these seem like they might be pointers, not actual values?
+;
+; Tile collision bounding box table offsets
+;
 byte_BANKF_F000:
-	.db $00 ; 0x0
-	.db $08 ; ??
-	.db $10 ; ??
-	.db $18 ; ??
+	.db $00 ; 0x0 ; player standing
+	.db $08 ; ?? ; player holding item
+	.db $10 ; ?? ; player ducking
+	.db $18 ; ?? ; player ducking with item
 	.db $20 ; most 16x16 items, clips in 1px
 	.db $24 ; most 16x16 enemies, clips in 4px
 byte_BANKF_F006:
@@ -2811,8 +2813,20 @@ byte_BANKF_F00B:
 	.db $3C ; spark, clips in 0px
 	.db $40 ; flying carpet
 
-; collision x bounding box
-byte_BANKF_F011:
+;
+; Tile vertical collision bounding box (x-offsets)
+;
+; The left boundary offset is measured from the left side of the sprite.
+; The right boundary offset is measured from the right of the first tile of the sprite.
+;
+; Each bounding box entry is four bytes:
+;
+;   1. left boundary (upward velocity)
+;   2. right boundary (upward velocity)
+;   3. left boundary (downward velocity)
+;   4. right boundary (downward velocity)
+;
+VerticalTileCollisionHitboxX:
 	.db $06,$09,$06,$09 ; $00
 	.db $01,$01,$0E,$0E ; $04
 	.db $06,$09,$06,$09 ; $08
@@ -2831,8 +2845,22 @@ byte_BANKF_F011:
 	.db $08,$08,$FF,$10 ; $3C
 	.db $10,$10,$02,$1E ; $40
 
-; collision y bounding box
-byte_BANKF_F055:
+;
+; Tile vertical collision bounding box (y-offsets)
+;
+; The upper and lower boundary offset are measured from the top of the sprite.
+;
+; Each bounding box entry is four bytes:
+;
+;   1. upper boundary
+;   2. upper boundary
+;   3. lower boundary
+;   4. lower boundary
+;
+; Not totally sure why there are two bytes, but it seems to have something to do with the direction
+; of movement when checking the collision.
+;
+VerticalTileCollisionHitboxY:
 	.db $07,$07,$20,$20 ; $00
 	.db $0D,$1C,$0D,$1C ; $04
 	.db $FF,$FF,$20,$20 ; $08
@@ -2851,7 +2879,11 @@ byte_BANKF_F055:
 	.db $FF,$10,$08,$08 ; $3C
 	.db $09,$0A,$08,$08 ; $40
 
-; object collision bounding box
+;
+; Object vertical collision bounding box
+;
+; (copied to unk_RAM_7100)
+;
 byte_BANKF_F099:
 	.db $02,$02,$03,$00 ; $00
 	.db $03,$03,$F8,$00 ; $04

@@ -3271,6 +3271,7 @@ PlayerTileCollision_CheckCherryAndClimbable:
 
 	; byte_RAM_10 seems to be a global counter
 	; this code increments Y every other frame, but why?
+	; Seems like it alternates between doing the check on the left or right side each frame.
 	LDA byte_RAM_10
 	LSR A
 	BCS PlayerTileCollision_CheckCherryAndClimbable_AfterTick
@@ -3794,7 +3795,7 @@ sub_BANK0_924F:
 	LDA #$00
 	STA byte_RAM_0
 	STA byte_RAM_1
-	LDA byte_BANKF_F011, Y
+	LDA VerticalTileCollisionHitboxX, Y
 	BPL loc_BANK0_925E
 
 	DEC byte_RAM_0
@@ -3816,23 +3817,19 @@ loc_BANK0_925E:
 	STA byte_RAM_2
 	STA byte_RAM_3
 	LDA IsHorizontalLevel
-
-loc_BANK0_9277:
 	BNE loc_BANK0_927D
 
 	STA byte_RAM_2
 	STA byte_RAM_3
 
 loc_BANK0_927D:
-	LDA byte_BANKF_F055, Y
+	LDA VerticalTileCollisionHitboxY, Y
 	BPL loc_BANK0_9284
 
 	DEC byte_RAM_1
 
 loc_BANK0_9284:
 	CLC
-
-loc_BANK0_9285:
 	ADC PlayerYLo, X
 	AND #$F0
 	STA byte_RAM_6
