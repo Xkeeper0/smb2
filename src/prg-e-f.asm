@@ -2789,32 +2789,34 @@ unusedSpace $F000, $FF
 
 
 ;
+; ## Tile collision bounding boxes
+;
+; These hitboxes are used when determining the collision between objects and background tiles.
+;
 ; Tile collision bounding box table offsets
 ;
-byte_BANKF_F000:
-	.db $00 ; 0x0 ; player standing
-	.db $08 ; ?? ; player holding item
-	.db $10 ; ?? ; player ducking
-	.db $18 ; ?? ; player ducking with item
-	.db $20 ; most 16x16 items, clips in 1px
-	.db $24 ; most 16x16 enemies, clips in 4px
-byte_BANKF_F006:
-	.db $28
-	.db $2A
-	.db $29
-	.db $2B
-byte_BANKF_F00A:
-	.db $2C
-byte_BANKF_F00B:
-	.db $2E
-	.db $30 ; 16x32 enemies, clips in 4px (birdo, mouser)
-	.db $34 ; bullet, clips in 8px
-	.db $38 ; 16x48 enemies, clips in 4px (tryclde)
-	.db $3C ; spark, clips in 0px
-	.db $40 ; flying carpet
+TileCollisionHitboxIndex:
+	.db $00 ; $00 - player standing
+	.db $08 ; $01 - player holding item
+	.db $10 ; $02 - player ducking
+	.db $18 ; $03 - player ducking with item
+	.db $20 ; $04 - 16x16 items (vegetables, etc.)
+	.db $24 ; $05 - 16x16 enemies (shyguy, etc.)
+; The following four entries are used to determine whether a carried item can be thrown.
+	.db $28 ; $06 - player left, standing
+	.db $2A ; $07 - player left, ducking
+	.db $29 ; $08 - player right, standing
+	.db $2B ; $09 - player right, ducking
+	.db $2C ; $0A - player climb/cherry
+	.db $2E ; $0B - player climbing
+	.db $30 ; $0C - 16x32 enemies (birdo, mouser)
+	.db $34 ; $0D - projectile
+	.db $38 ; $0E - 16x48 enemies (tryclde)
+	.db $3C ; $0F - spark
+	.db $40 ; $10 - flying carpet
 
 ;
-; Tile vertical collision bounding box (x-offsets)
+; ### Tile vertical collision bounding box (x-offsets)
 ;
 ; The left boundary offset is measured from the left side of the sprite.
 ; The right boundary offset is measured from the right of the first tile of the sprite.
@@ -2827,26 +2829,26 @@ byte_BANKF_F00B:
 ;   4. right boundary (downward velocity)
 ;
 VerticalTileCollisionHitboxX:
-	.db $06,$09,$06,$09 ; $00
-	.db $01,$01,$0E,$0E ; $04
-	.db $06,$09,$06,$09 ; $08
-	.db $01,$01,$0E,$0E ; $0C
-	.db $06,$09,$06,$09 ; $10
-	.db $01,$01,$0E,$0E ; $14
-	.db $06,$09,$06,$09 ; $18
-	.db $01,$01,$0E,$0E ; $1C
-	.db $08,$08,$00,$0F ; $20
-	.db $08,$08,$03,$0C ; $24
-	.db $F8,$18,$F8,$18 ; $28
-	.db $08,$08,$08,$08 ; $2C
-	.db $08,$08,$03,$0C ; $30
-	.db $03,$03,$02,$05 ; $34
-	.db $08,$08,$03,$0C ; $38
-	.db $08,$08,$FF,$10 ; $3C
-	.db $10,$10,$02,$1E ; $40
+	.db $06, $09, $06, $09 ; $00
+	.db $01, $01, $0E, $0E ; $04
+	.db $06, $09, $06, $09 ; $08
+	.db $01, $01, $0E, $0E ; $0C
+	.db $06, $09, $06, $09 ; $10
+	.db $01, $01, $0E, $0E ; $14
+	.db $06, $09, $06, $09 ; $18
+	.db $01, $01, $0E, $0E ; $1C
+	.db $08, $08, $00, $0F ; $20
+	.db $08, $08, $03, $0C ; $24
+	.db $F8, $18, $F8, $18 ; $28
+	.db $08, $08, $08, $08 ; $2C
+	.db $08, $08, $03, $0C ; $30
+	.db $03, $03, $02, $05 ; $34
+	.db $08, $08, $03, $0C ; $38
+	.db $08, $08, $FF, $10 ; $3C
+	.db $10, $10, $02, $1E ; $40
 
 ;
-; Tile vertical collision bounding box (y-offsets)
+; ### Tile vertical collision bounding box (y-offsets)
 ;
 ; The upper and lower boundary offset are measured from the top of the sprite.
 ;
@@ -2861,50 +2863,117 @@ VerticalTileCollisionHitboxX:
 ; of movement when checking the collision.
 ;
 VerticalTileCollisionHitboxY:
-	.db $07,$07,$20,$20 ; $00
-	.db $0D,$1C,$0D,$1C ; $04
-	.db $FF,$FF,$20,$20 ; $08
-	.db $04,$1C,$04,$1C ; $0C
-	.db $0F,$0F,$20,$20 ; $10
-	.db $1C,$1C,$1C,$1C ; $14
-	.db $07,$07,$20,$20 ; $18
-	.db $0D,$1C,$0D,$1C ; $1C
-	.db $00,$10,$09,$09 ; $20
-	.db $03,$10,$09,$09 ; $24
-	.db $FF,$FF,$0F,$0F ; $28
-	.db $0C,$14,$07,$20 ; $2C
-	.db $FE,$20,$10,$10 ; $30
-	.db $09,$0A,$08,$08 ; $34
-	.db $03,$30,$18,$18 ; $38
-	.db $FF,$10,$08,$08 ; $3C
-	.db $09,$0A,$08,$08 ; $40
+	.db $07, $07, $20, $20 ; $00
+	.db $0D, $1C, $0D, $1C ; $04
+	.db $FF, $FF, $20, $20 ; $08
+	.db $04, $1C, $04, $1C ; $0C
+	.db $0F, $0F, $20, $20 ; $10
+	.db $1C, $1C, $1C, $1C ; $14
+	.db $07, $07, $20, $20 ; $18
+	.db $0D, $1C, $0D, $1C ; $1C
+	.db $00, $10, $09, $09 ; $20
+	.db $03, $10, $09, $09 ; $24
+	.db $FF, $FF, $0F, $0F ; $28
+	.db $0C, $14, $07, $20 ; $2C
+	.db $FE, $20, $10, $10 ; $30
+	.db $09, $0A, $08, $08 ; $34
+	.db $03, $30, $18, $18 ; $38
+	.db $FF, $10, $08, $08 ; $3C
+	.db $09, $0A, $08, $08 ; $40
 
 ;
-; Object vertical collision bounding box
+; ## Object vertical collision bounding box
 ;
-; (copied to unk_RAM_7100)
+; These hitboxes are copied to RAM and used when determining collision between objects. This allows
+; the hitboxes to change dynamically, which is used when Hawkmouth (offset $0B) opens and closes.
 ;
-byte_BANKF_F099:
-	.db $02,$02,$03,$00 ; $00
-	.db $03,$03,$F8,$00 ; $04
-	.db $03,$01,$F3,$04 ; $08
-	.db $03,$03,$03,$F2 ; $0C
-	.db $03,$03,$05,$03 ; $10
-	.db $0B,$10,$03,$00 ; $14, shy guy y?
-	.db $03,$03,$F8,$00 ; $18
-	.db $09,$04,$03,$03 ; $1C
-	.db $0E,$03,$03,$03 ; $20
-	.db $F6,$0C,$02,$03 ; $24
-	.db $0B,$0B,$09,$10 ; $28, shy guy x?
-	.db $09,$19,$20,$20 ; $2C
-	.db $03,$1E,$19,$08 ; $30
-	.db $09,$09,$09,$18 ; $34
-	.db $09,$1A,$06,$15 ; $38
-	.db $16,$11,$0D,$10 ; $3C
-	.db $1A,$19,$24,$10 ; $40
-	.db $03,$04,$2D,$30 ; $44
-	.db $0F,$2E,$3E,$1E ; $48
-	.db $28,$13,$48,$26 ; $4C
+ObjectCollisionHitboxLeft:
+	.db $02 ; $00
+	.db $02 ; $01
+	.db $03 ; $02
+	.db $00 ; $03
+	.db $03 ; $04
+	.db $03 ; $05
+	.db $F8 ; $06
+	.db $00 ; $07
+	.db $03 ; $08
+	.db $01 ; $09
+	.db $F3 ; $0A
+	.db $04 ; $0B
+	.db $03 ; $0C
+	.db $03 ; $0D
+	.db $03 ; $0E
+	.db $F2 ; $0F
+	.db $03 ; $10
+	.db $03 ; $11
+	.db $05 ; $12
+	.db $03 ; $13
+
+ObjectCollisionHitboxTop:
+	.db $0B ; $00
+	.db $10 ; $01
+	.db $03 ; $02
+	.db $00 ; $03
+	.db $03 ; $04
+	.db $03 ; $05
+	.db $F8 ; $06
+	.db $00 ; $07
+	.db $09 ; $08
+	.db $04 ; $09
+	.db $03 ; $0A
+	.db $03 ; $0B
+	.db $0E ; $0C
+	.db $03 ; $0D
+	.db $03 ; $0E
+	.db $03 ; $0F
+	.db $F6 ; $10
+	.db $0C ; $11
+	.db $02 ; $12
+	.db $03 ; $13
+
+ObjectCollisionHitboxRight:
+	.db $0B ; $00
+	.db $0B ; $01
+	.db $09 ; $02
+	.db $10 ; $03
+	.db $09 ; $04
+	.db $19 ; $05
+	.db $20 ; $06
+	.db $20 ; $07
+	.db $03 ; $08
+	.db $1E ; $09
+	.db $19 ; $0A
+	.db $08 ; $0B
+	.db $09 ; $0C
+	.db $09 ; $0D
+	.db $09 ; $0E
+	.db $18 ; $0F
+	.db $09 ; $10
+	.db $1A ; $11
+	.db $06 ; $12
+	.db $15 ; $13
+
+ObjectCollisionHitboxBottom:
+	.db $16 ; $00
+	.db $11 ; $01
+	.db $0D ; $02
+	.db $10 ; $03
+	.db $1A ; $04
+	.db $19 ; $05
+	.db $24 ; $06
+	.db $10 ; $07
+	.db $03 ; $08
+	.db $04 ; $09
+	.db $2D ; $0A
+	.db $30 ; $0B
+	.db $0F ; $0C
+	.db $2E ; $0D
+	.db $3E ; $0E
+	.db $1E ; $0F
+	.db $28 ; $10
+	.db $13 ; $11
+	.db $48 ; $12
+	.db $26 ; $13
 
 
 NextSpriteFlickerSlot:
@@ -3966,7 +4035,7 @@ EnemyArray_46E_Data:
 	.db %00000100 ; $46 Enemy_Stopwatch
 
 ;
-; Height and horizontal collision detection
+; Index for tile collision bounding box table
 ;
 EnemyArray_492_Data:
 	.db $00 ; $00 Enemy_Heart
@@ -4042,154 +4111,154 @@ EnemyArray_492_Data:
 	.db $05 ; $46 Enemy_Stopwatch
 
 ;
-; Horizontal hitbox, collision detection, and carried height
+; Index for object collision bounding box table
 ;
 EnemyArray_489_Data:
-	.db $08 ; $00Enemy_Heart
-	.db $02 ; $01Enemy_ShyguyRed
-	.db $02 ; $02Enemy_Tweeter
-	.db $02 ; $03Enemy_ShyguyPink
-	.db $02 ; $04Enemy_Porcupo
-	.db $02 ; $05Enemy_SnifitRed
-	.db $02 ; $06Enemy_SnifitGray
-	.db $02 ; $07Enemy_SnifitPink
-	.db $04 ; $08Enemy_Ostro
-	.db $02 ; $09Enemy_BobOmb
-	.db $09 ; $0AEnemy_AlbatossCarryingBobOmb
-	.db $09 ; $0BEnemy_AlbatossStartRight
-	.db $09 ; $0CEnemy_AlbatossStartLeft
-	.db $02 ; $0DEnemy_NinjiRunning
-	.db $02 ; $0EEnemy_NinjiJumping
-	.db $02 ; $0FEnemy_BeezoDiving
-	.db $02 ; $10Enemy_BeezoStraight
-	.db $02 ; $11Enemy_WartBubble
-	.db $02 ; $12Enemy_Pidgit
-	.db $02 ; $13Enemy_Trouter
-	.db $02 ; $14Enemy_Hoopstar
-	.db $08 ; $15Enemy_JarGeneratorShyguy
-	.db $08 ; $16Enemy_JarGeneratorBobOmb
-	.db $02 ; $17Enemy_Phanto
-	.db $04 ; $18Enemy_CobratJar
-	.db $04 ; $19Enemy_CobratSand
-	.db $0E ; $1AEnemy_Pokey
-	.db $08 ; $1BEnemy_Bullet
-	.db $04 ; $1CEnemy_Birdo
-	.db $04 ; $1DEnemy_Mouser
-	.db $02 ; $1EEnemy_Egg
-	.db $0F ; $1FEnemy_Tryclyde
-	.db $02 ; $20Enemy_Fireball
-	.db $13 ; $21Enemy_Clawgrip
-	.db $02 ; $22Enemy_ClawgripRock
-	.db $02 ; $23Enemy_PanserStationaryFiresAngled
-	.db $02 ; $24Enemy_PanserWalking
-	.db $02 ; $25Enemy_PanserStationaryFiresUp
-	.db $10 ; $26Enemy_Autobomb
-	.db $02 ; $27Enemy_AutobombFire
-	.db $12 ; $28Enemy_WhaleSpout
-	.db $02 ; $29Enemy_Flurry
-	.db $0F ; $2AEnemy_Fryguy
-	.db $02 ; $2BEnemy_FryguySplit
-	.db $11 ; $2CEnemy_Wart
-	.db $0B ; $2DEnemy_HawkmouthBoss
-	.db $02 ; $2EEnemy_Spark1
-	.db $02 ; $2FEnemy_Spark2
-	.db $02 ; $30Enemy_Spark3
-	.db $02 ; $31Enemy_Spark4
-	.db $02 ; $32Enemy_VegetableSmall
-	.db $02 ; $33Enemy_VegetableLarge
-	.db $02 ; $34Enemy_VegetableWart
-	.db $02 ; $35Enemy_Shell
-	.db $02 ; $36Enemy_Coin
-	.db $02 ; $37Enemy_Bomb
-	.db $04 ; $38Enemy_Rocket
-	.db $03 ; $39Enemy_MushroomBlock
-	.db $03 ; $3AEnemy_POWBlock
-	.db $07 ; $3BEnemy_FallingLogs
-	.db $04 ; $3CEnemy_SubspaceDoor
-	.db $03 ; $3DEnemy_Key
-	.db $03 ; $3EEnemy_SubspacePotion
-	.db $03 ; $3FEnemy_Mushroom
-	.db $03 ; $40Enemy_Mushroom1up
-	.db $09 ; $41Enemy_FlyingCarpet
-	.db $0B ; $42Enemy_HawkmouthRight
-	.db $0B ; $43Enemy_HawkmouthLeft
-	.db $02 ; $44Enemy_CrystalBall
-	.db $02 ; $45Enemy_Starman
-	.db $02 ; $46Enemy_Stopwatch
+	.db $08 ; $00 Enemy_Heart
+	.db $02 ; $01 Enemy_ShyguyRed
+	.db $02 ; $02 Enemy_Tweeter
+	.db $02 ; $03 Enemy_ShyguyPink
+	.db $02 ; $04 Enemy_Porcupo
+	.db $02 ; $05 Enemy_SnifitRed
+	.db $02 ; $06 Enemy_SnifitGray
+	.db $02 ; $07 Enemy_SnifitPink
+	.db $04 ; $08 Enemy_Ostro
+	.db $02 ; $09 Enemy_BobOmb
+	.db $09 ; $0A Enemy_AlbatossCarryingBobOmb
+	.db $09 ; $0B Enemy_AlbatossStartRight
+	.db $09 ; $0C Enemy_AlbatossStartLeft
+	.db $02 ; $0D Enemy_NinjiRunning
+	.db $02 ; $0E Enemy_NinjiJumping
+	.db $02 ; $0F Enemy_BeezoDiving
+	.db $02 ; $10 Enemy_BeezoStraight
+	.db $02 ; $11 Enemy_WartBubble
+	.db $02 ; $12 Enemy_Pidgit
+	.db $02 ; $13 Enemy_Trouter
+	.db $02 ; $14 Enemy_Hoopstar
+	.db $08 ; $15 Enemy_JarGeneratorShyguy
+	.db $08 ; $16 Enemy_JarGeneratorBobOmb
+	.db $02 ; $17 Enemy_Phanto
+	.db $04 ; $18 Enemy_CobratJar
+	.db $04 ; $19 Enemy_CobratSand
+	.db $0E ; $1A Enemy_Pokey
+	.db $08 ; $1B Enemy_Bullet
+	.db $04 ; $1C Enemy_Birdo
+	.db $04 ; $1D Enemy_Mouser
+	.db $02 ; $1E Enemy_Egg
+	.db $0F ; $1F Enemy_Tryclyde
+	.db $02 ; $20 Enemy_Fireball
+	.db $13 ; $21 Enemy_Clawgrip
+	.db $02 ; $22 Enemy_ClawgripRock
+	.db $02 ; $23 Enemy_PanserStationaryFiresAngled
+	.db $02 ; $24 Enemy_PanserWalking
+	.db $02 ; $25 Enemy_PanserStationaryFiresUp
+	.db $10 ; $26 Enemy_Autobomb
+	.db $02 ; $27 Enemy_AutobombFire
+	.db $12 ; $28 Enemy_WhaleSpout
+	.db $02 ; $29 Enemy_Flurry
+	.db $0F ; $2A Enemy_Fryguy
+	.db $02 ; $2B Enemy_FryguySplit
+	.db $11 ; $2C Enemy_Wart
+	.db $0B ; $2D Enemy_HawkmouthBoss
+	.db $02 ; $2E Enemy_Spark1
+	.db $02 ; $2F Enemy_Spark2
+	.db $02 ; $30 Enemy_Spark3
+	.db $02 ; $31 Enemy_Spark4
+	.db $02 ; $32 Enemy_VegetableSmall
+	.db $02 ; $33 Enemy_VegetableLarge
+	.db $02 ; $34 Enemy_VegetableWart
+	.db $02 ; $35 Enemy_Shell
+	.db $02 ; $36 Enemy_Coin
+	.db $02 ; $37 Enemy_Bomb
+	.db $04 ; $38 Enemy_Rocket
+	.db $03 ; $39 Enemy_MushroomBlock
+	.db $03 ; $3A Enemy_POWBlock
+	.db $07 ; $3B Enemy_FallingLogs
+	.db $04 ; $3C Enemy_SubspaceDoor
+	.db $03 ; $3D Enemy_Key
+	.db $03 ; $3E Enemy_SubspacePotion
+	.db $03 ; $3F Enemy_Mushroom
+	.db $03 ; $40 Enemy_Mushroom1up
+	.db $09 ; $41 Enemy_FlyingCarpet
+	.db $0B ; $42 Enemy_HawkmouthRight
+	.db $0B ; $43 Enemy_HawkmouthLeft
+	.db $02 ; $44 Enemy_CrystalBall
+	.db $02 ; $45 Enemy_Starman
+	.db $02 ; $46 Enemy_Stopwatch
 
 ; More collision (post-throw)
 byte_BANKF_F607:
-	.db $00 ; $00Enemy_Heart
-	.db $00 ; $01Enemy_ShyguyRed
-	.db $00 ; $02Enemy_Tweeter
-	.db $00 ; $03Enemy_ShyguyPink
-	.db $00 ; $04Enemy_Porcupo
-	.db $00 ; $05Enemy_SnifitRed
-	.db $00 ; $06Enemy_SnifitGray
-	.db $00 ; $07Enemy_SnifitPink
-	.db $00 ; $08Enemy_Ostro
-	.db $00 ; $09Enemy_BobOmb
-	.db $00 ; $0AEnemy_AlbatossCarryingBobOmb
-	.db $00 ; $0BEnemy_AlbatossStartRight
-	.db $00 ; $0CEnemy_AlbatossStartLeft
-	.db $00 ; $0DEnemy_NinjiRunning
-	.db $00 ; $0EEnemy_NinjiJumping
-	.db $00 ; $0FEnemy_BeezoDiving
-	.db $00 ; $10Enemy_BeezoStraight
-	.db $00 ; $11Enemy_WartBubble
-	.db $00 ; $12Enemy_Pidgit
-	.db $00 ; $13Enemy_Trouter
-	.db $00 ; $14Enemy_Hoopstar
-	.db $00 ; $15Enemy_JarGeneratorShyguy
-	.db $00 ; $16Enemy_JarGeneratorBobOmb
-	.db $00 ; $17Enemy_Phanto
-	.db $00 ; $18Enemy_CobratJar
-	.db $00 ; $19Enemy_CobratSand
-	.db $00 ; $1AEnemy_Pokey
-	.db $00 ; $1BEnemy_Bullet
-	.db $00 ; $1CEnemy_Birdo
-	.db $00 ; $1DEnemy_Mouser
-	.db $00 ; $1EEnemy_Egg
-	.db $00 ; $1FEnemy_Tryclyde
-	.db $00 ; $20Enemy_Fireball
-	.db $00 ; $21Enemy_Clawgrip
-	.db $00 ; $22Enemy_ClawgripRock
-	.db $00 ; $23Enemy_PanserStationaryFiresAngled
-	.db $00 ; $24Enemy_PanserWalking
-	.db $00 ; $25Enemy_PanserStationaryFiresUp
-	.db $00 ; $26Enemy_Autobomb
-	.db $00 ; $27Enemy_AutobombFire
-	.db $00 ; $28Enemy_WhaleSpout
-	.db $00 ; $29Enemy_Flurry
-	.db $00 ; $2AEnemy_Fryguy
-	.db $00 ; $2BEnemy_FryguySplit
-	.db $00 ; $2CEnemy_Wart
-	.db $00 ; $2DEnemy_HawkmouthBoss
-	.db $00 ; $2EEnemy_Spark1
-	.db $00 ; $2FEnemy_Spark2
-	.db $00 ; $30Enemy_Spark3
-	.db $00 ; $31Enemy_Spark4
-	.db $01 ; $32Enemy_VegetableSmall
-	.db $01 ; $33Enemy_VegetableLarge
-	.db $01 ; $34Enemy_VegetableWart
-	.db $01 ; $35Enemy_Shell
-	.db $02 ; $36Enemy_Coin
-	.db $01 ; $37Enemy_Bomb
-	.db $00 ; $38Enemy_Rocket
-	.db $02 ; $39Enemy_MushroomBlock
-	.db $03 ; $3AEnemy_POWBlock
-	.db $02 ; $3BEnemy_FallingLogs
-	.db $04 ; $3CEnemy_SubspaceDoor
-	.db $02 ; $3DEnemy_Key
-	.db $02 ; $3EEnemy_SubspacePotion
-	.db $02 ; $3FEnemy_Mushroom
-	.db $02 ; $40Enemy_Mushroom1up
-	.db $02 ; $41Enemy_FlyingCarpet
-	.db $02 ; $42Enemy_HawkmouthRight
-	.db $02 ; $43Enemy_HawkmouthLeft
-	.db $02 ; $44Enemy_CrystalBall
-	.db $00 ; $45Enemy_Starman
-	.db $02 ; $46Enemy_Stopwatch
+	.db $00 ; $00 Enemy_Heart
+	.db $00 ; $01 Enemy_ShyguyRed
+	.db $00 ; $02 Enemy_Tweeter
+	.db $00 ; $03 Enemy_ShyguyPink
+	.db $00 ; $04 Enemy_Porcupo
+	.db $00 ; $05 Enemy_SnifitRed
+	.db $00 ; $06 Enemy_SnifitGray
+	.db $00 ; $07 Enemy_SnifitPink
+	.db $00 ; $08 Enemy_Ostro
+	.db $00 ; $09 Enemy_BobOmb
+	.db $00 ; $0A Enemy_AlbatossCarryingBobOmb
+	.db $00 ; $0B Enemy_AlbatossStartRight
+	.db $00 ; $0C Enemy_AlbatossStartLeft
+	.db $00 ; $0D Enemy_NinjiRunning
+	.db $00 ; $0E Enemy_NinjiJumping
+	.db $00 ; $0F Enemy_BeezoDiving
+	.db $00 ; $10 Enemy_BeezoStraight
+	.db $00 ; $11 Enemy_WartBubble
+	.db $00 ; $12 Enemy_Pidgit
+	.db $00 ; $13 Enemy_Trouter
+	.db $00 ; $14 Enemy_Hoopstar
+	.db $00 ; $15 Enemy_JarGeneratorShyguy
+	.db $00 ; $16 Enemy_JarGeneratorBobOmb
+	.db $00 ; $17 Enemy_Phanto
+	.db $00 ; $18 Enemy_CobratJar
+	.db $00 ; $19 Enemy_CobratSand
+	.db $00 ; $1A Enemy_Pokey
+	.db $00 ; $1B Enemy_Bullet
+	.db $00 ; $1C Enemy_Birdo
+	.db $00 ; $1D Enemy_Mouser
+	.db $00 ; $1E Enemy_Egg
+	.db $00 ; $1F Enemy_Tryclyde
+	.db $00 ; $20 Enemy_Fireball
+	.db $00 ; $21 Enemy_Clawgrip
+	.db $00 ; $22 Enemy_ClawgripRock
+	.db $00 ; $23 Enemy_PanserStationaryFiresAngled
+	.db $00 ; $24 Enemy_PanserWalking
+	.db $00 ; $25 Enemy_PanserStationaryFiresUp
+	.db $00 ; $26 Enemy_Autobomb
+	.db $00 ; $27 Enemy_AutobombFire
+	.db $00 ; $28 Enemy_WhaleSpout
+	.db $00 ; $29 Enemy_Flurry
+	.db $00 ; $2A Enemy_Fryguy
+	.db $00 ; $2B Enemy_FryguySplit
+	.db $00 ; $2C Enemy_Wart
+	.db $00 ; $2D Enemy_HawkmouthBoss
+	.db $00 ; $2E Enemy_Spark1
+	.db $00 ; $2F Enemy_Spark2
+	.db $00 ; $30 Enemy_Spark3
+	.db $00 ; $31 Enemy_Spark4
+	.db $01 ; $32 Enemy_VegetableSmall
+	.db $01 ; $33 Enemy_VegetableLarge
+	.db $01 ; $34 Enemy_VegetableWart
+	.db $01 ; $35 Enemy_Shell
+	.db $02 ; $36 Enemy_Coin
+	.db $01 ; $37 Enemy_Bomb
+	.db $00 ; $38 Enemy_Rocket
+	.db $02 ; $39 Enemy_MushroomBlock
+	.db $03 ; $3A Enemy_POWBlock
+	.db $02 ; $3B Enemy_FallingLogs
+	.db $04 ; $3C Enemy_SubspaceDoor
+	.db $02 ; $3D Enemy_Key
+	.db $02 ; $3E Enemy_SubspacePotion
+	.db $02 ; $3F Enemy_Mushroom
+	.db $02 ; $40 Enemy_Mushroom1up
+	.db $02 ; $41 Enemy_FlyingCarpet
+	.db $02 ; $42 Enemy_HawkmouthRight
+	.db $02 ; $43 Enemy_HawkmouthLeft
+	.db $02 ; $44 Enemy_CrystalBall
+	.db $00 ; $45 Enemy_Starman
+	.db $02 ; $46 Enemy_Stopwatch
 
 ; @TODO: use flag
 ; IFNDEF ENABLE_TILE_ATTRIBUTES_TABLE
@@ -4765,6 +4834,12 @@ TileInteractionAttributesTable:
 	.db %00000000 ; $FF
 ENDIF
 
+
+;
+; ### Warp destination lookup table
+;
+; The row is the (0-indexed) world that you're on, the value is the destination.
+;
 WarpDestinations:
 	.db $03
 	.db $01

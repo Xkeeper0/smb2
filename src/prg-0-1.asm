@@ -2011,7 +2011,7 @@ loc_BANK0_8ADF:
 	CMP #$08
 	BCS loc_BANK0_8B14
 
-	LDY byte_BANKF_F00B
+	LDY TileCollisionHitboxIndex + $0B
 	LDA PlayerYVelocity
 	BMI loc_BANK0_8B01
 
@@ -2681,8 +2681,8 @@ SoftThrowOffset:
 	.db $10
 
 
-; =============== S U B R O U T I N E =======================================
 
+; Determine the max speed based on the terrain and what the player is carrying.
 sub_BANK0_8DC0:
 	LDY #$02
 	LDA QuicksandDepth
@@ -2707,6 +2707,7 @@ sub_BANK0_8DC0:
 loc_BANK0_8DDF:
 	DEY
 
+; 1.5x max speed when the run button is held!
 loc_BANK0_8DE0:
 	LDA RunSpeedRight, Y
 	BIT Player1JoypadHeld
@@ -2738,6 +2739,7 @@ loc_BANK0_8DFF:
 
 	STA PlayerXVelocity
 
+; Check to see if we have an item that we want to throw.
 loc_BANK0_8E05:
 	BIT Player1JoypadPress
 	BVC locret_BANK0_8E41
@@ -2770,7 +2772,7 @@ loc_BANK0_8E28:
 	ASL A
 	ORA PlayerDucking
 	TAX
-	LDY byte_BANKF_F006, X
+	LDY TileCollisionHitboxIndex + $06, X
 	LDX #$00
 	JSR sub_BANK0_924F
 
@@ -2995,7 +2997,7 @@ PlayerTileCollision:
 	TAX
 
 	; Look up the bounding box for collision detection
-	LDA byte_BANKF_F000, X
+	LDA TileCollisionHitboxIndex, X
 	STA byte_RAM_8
 
 	; Determine whether the player is going up
@@ -3267,11 +3269,11 @@ CheckPlayerTileCollision_Increment:
 
 
 PlayerTileCollision_CheckCherryAndClimbable:
-	LDY byte_BANKF_F00A
+	LDY TileCollisionHitboxIndex + $0A
 
 	; byte_RAM_10 seems to be a global counter
 	; this code increments Y every other frame, but why?
-	; Seems like it alternates between doing the check on the left or right side each frame.
+	; Seems like it alternates on each frame between checking the top and bottom of the player.
 	LDA byte_RAM_10
 	LSR A
 	BCS PlayerTileCollision_CheckCherryAndClimbable_AfterTick
@@ -3785,7 +3787,7 @@ DoorTiles:
 ;
 ; Input
 ;   X = object index (0 = player)
-;   Y = bounding box offset?
+;   Y = bounding box offset
 ; Output
 ;   byte_RAM_0 = tile ID
 ;

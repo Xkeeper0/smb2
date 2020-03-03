@@ -2042,23 +2042,10 @@ MMC5_SND_CHN = $5015
 
 DecodedLevelData = $6000
 
-; collision y data?
-; byte_BANKF_F099 copied to RAM
-; these various addrs are used(?) around prg-2-3
-unk_RAM_7100 = $7100
-
-; something to do with hawkmouth
-byte_RAM_710B = $710b
-
-unk_RAM_7114 = $7114
-
-; something to do with hawkmouth
-byte_RAM_711F = $711f
-
-; collision x data?
-unk_RAM_7128 = $7128
-
-unk_RAM_713C = $713c
+ObjectCollisionHitboxLeft_RAM = $7100
+ObjectCollisionHitboxTop_RAM = $7114
+ObjectCollisionHitboxRight_RAM = $7128
+ObjectCollisionHitboxBottom_RAM = $713c
 
 ; MysteryData14439 copied to RAM
 ; Does anything read this???

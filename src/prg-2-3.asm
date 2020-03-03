@@ -2640,9 +2640,9 @@ EnemyInit_Hawkmouth:
 	DEC ObjectYLo, X
 	DEC ObjectYLo, X
 	LDY #$01
-	STY byte_RAM_711F
+	STY ObjectCollisionHitboxTop_RAM + $0B
 	INY
-	STY byte_RAM_710B
+	STY ObjectCollisionHitboxLeft_RAM + $0B
 
 
 EnemyInit_Stationary:
@@ -2724,8 +2724,8 @@ loc_BANK2_8DBA:
 	AND #$03
 	BNE loc_BANK2_8DD8
 
-	DEC byte_RAM_711F
-	INC byte_RAM_710B
+	DEC ObjectCollisionHitboxTop_RAM + $0B
+	INC ObjectCollisionHitboxLeft_RAM + $0B
 
 loc_BANK2_8DD8:
 	JMP RenderSprite_HawkmouthLeft
@@ -10215,7 +10215,7 @@ ClearDirectionalCollisionFlags:
 	AND #CollisionFlags_Damage | CollisionFlags_PlayerOnTop | CollisionFlags_PlayerInsideMaybe | CollisionFlags_80
 	STA EnemyCollision - 1, X
 	LDY EnemyArray_492 - 1, X
-	LDA byte_BANKF_F000, Y
+	LDA TileCollisionHitboxIndex, Y
 
 ClearDirectionalCollisionFlags_Exit:
 	RTS
@@ -10270,14 +10270,14 @@ sub_BANK3_B5CC:
 	BNE loc_BANK3_B5FF
 
 loc_BANK3_B5E1:
-	CMP #$07
+	CMP #EnemyState_Sinking
 	BEQ loc_BANK3_B5F8
 
 	LDY ObjectType, X
 	CPY #Enemy_Egg
 	BEQ loc_BANK3_B5F4
 
-	CPY #$1A
+	CPY #Enemy_Pokey
 	BEQ loc_BANK3_B5F4
 
 	LDY EnemyArray_42F, X
@@ -10294,11 +10294,11 @@ loc_BANK3_B5F8:
 	LDY EnemyArray_489, X
 
 loc_BANK3_B5FF:
-	LDA unk_RAM_7128, Y
+	LDA ObjectCollisionHitboxRight_RAM, Y
 	STA byte_RAM_9
 	LDA #$00
 	STA byte_RAM_0
-	LDA unk_RAM_7100, Y
+	LDA ObjectCollisionHitboxLeft_RAM, Y
 	BPL loc_BANK3_B60F
 
 	DEC byte_RAM_0
@@ -10316,11 +10316,11 @@ loc_BANK3_B60F:
 	STA byte_RAM_1
 
 loc_BANK3_B620:
-	LDA unk_RAM_713C, Y
+	LDA ObjectCollisionHitboxBottom_RAM, Y
 	STA byte_RAM_B
 	LDA #$00
 	STA byte_RAM_0
-	LDA unk_RAM_7114, Y
+	LDA ObjectCollisionHitboxTop_RAM, Y
 	BPL loc_BANK3_B630
 
 	DEC byte_RAM_0
@@ -10368,7 +10368,7 @@ loc_BANK3_B65C:
 loc_BANK3_B661:
 	LDY byte_RAM_12
 	LDA EnemyState, Y
-	CMP #$04
+	CMP #EnemyState_BombExploding
 	BEQ loc_BANK3_B671
 
 	LDA EnemyArray_46E, Y
@@ -10384,14 +10384,14 @@ loc_BANK3_B671:
 	BNE loc_BANK3_B6A6
 
 loc_BANK3_B67B:
-	CMP #$07
+	CMP #EnemyState_Sinking
 	BEQ loc_BANK3_B692
 
 	LDY ObjectType - 1, X
 	CPY #Enemy_Egg
 	BEQ loc_BANK3_B68E
 
-	CPY #$1A
+	CPY #Enemy_Pokey
 	BEQ loc_BANK3_B68E
 
 	LDY EnemyArray_42F - 1, X
@@ -10418,11 +10418,11 @@ loc_BANK3_B692:
 	LDY EnemyArray_489 - 1, X
 
 loc_BANK3_B6A6:
-	LDA unk_RAM_7128, Y
+	LDA ObjectCollisionHitboxRight_RAM, Y
 	STA byte_RAM_A
 	LDA #$00
 	STA byte_RAM_0
-	LDA unk_RAM_7100, Y
+	LDA ObjectCollisionHitboxLeft_RAM, Y
 	BPL loc_BANK3_B6B6
 
 	DEC byte_RAM_0
@@ -10440,11 +10440,11 @@ loc_BANK3_B6B6:
 	STA byte_RAM_2
 
 loc_BANK3_B6C7:
-	LDA unk_RAM_713C, Y
+	LDA ObjectCollisionHitboxBottom_RAM, Y
 	STA byte_RAM_C
 	LDA #$00
 	STA byte_RAM_0
-	LDA unk_RAM_7114, Y
+	LDA ObjectCollisionHitboxTop_RAM, Y
 	BPL loc_BANK3_B6D7
 
 	DEC byte_RAM_0

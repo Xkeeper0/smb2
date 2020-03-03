@@ -476,8 +476,8 @@ loc_BANKA_84A0:
 	; Copy object collision hitbox table
 	LDY #$4F
 loc_BANKA_84AB:
-	LDA byte_BANKF_F099, Y
-	STA unk_RAM_7100, Y
+	LDA ObjectCollisionHitboxLeft, Y
+	STA ObjectCollisionHitboxLeft_RAM, Y
 	DEY
 	BPL loc_BANKA_84AB
 
