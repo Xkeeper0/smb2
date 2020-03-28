@@ -2854,10 +2854,10 @@ VerticalTileCollisionHitboxX:
 ;
 ; Each bounding box entry is four bytes:
 ;
-;   1. upper boundary
-;   2. upper boundary
-;   3. lower boundary
-;   4. lower boundary
+;   1. upper boundary (upward velocity)
+;   2. lower boundary (upward velocity)
+;   3. upper boundary (downward velocity)
+;   4. lower boundary (downward velocity)
 ;
 ; Not totally sure why there are two bytes, but it seems to have something to do with the direction
 ; of movement when checking the collision.

@@ -251,7 +251,7 @@ AreaInitialization_HorizontalArea:
 
 loc_BANK2_8158:
 	LDA byte_RAM_6
-	CMP #$B
+	CMP #$0B
 	BCS loc_BANK2_8164
 
 	JSR sub_BANK2_827D

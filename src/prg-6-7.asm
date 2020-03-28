@@ -2044,66 +2044,86 @@ CreateObject_Vase_Exit:
 	RTS
 
 
+;
+; Creates a vine that extends downwards until it hits another tile.
+;
+; ##### Input
+; - `byte_RAM_E7`: target tile placement offset
+; - `byte_RAM_50E`: type of object to create
+;
 CreateObject_Vine:
 	LDY byte_RAM_E7
 	LDA byte_RAM_50E
+	; `$0D` is a vine with no top, so start right at the middle.
 	CMP #$0D
-	BEQ loc_BANK6_8CFD
+	BEQ CreateObject_Vine_Middle
 
 	LDA #BackgroundTile_VineTop
 	STA (byte_RAM_1), Y
 
-loc_BANK6_8CFA:
+CreateObject_Vine_Loop:
 	JSR IncrementAreaYOffset
 
-loc_BANK6_8CFD:
+CreateObject_Vine_Middle:
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BNE locret_BANK6_8D12
+	BNE CreateObject_Vine_Exit
 
 	LDA #BackgroundTile_Vine
 	STA (byte_RAM_1), Y
 	LDA IsHorizontalLevel
-	BEQ loc_BANK6_8D0F
+	BEQ CreateObject_Vine_Next
 
-loc_BANK6_8D0B:
+	; In horizontal areas, stop at the bottom of the screen.
 	CPY #$E0
-	BCS locret_BANK6_8D12
+	BCS CreateObject_Vine_Exit
 
-loc_BANK6_8D0F:
-	JMP loc_BANK6_8CFA
+CreateObject_Vine_Next:
+	JMP CreateObject_Vine_Loop
 
-; ---------------------------------------------------------------------------
-
-locret_BANK6_8D12:
+CreateObject_Vine_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
+; -----
 
+
+;
+; Creates a vine that extends upwards until it hits another tile.
+;
+; ##### Input
+; - `byte_RAM_E7`: target tile placement offset for the BOTTOM of the vine
+;
 CreateObject_VineBottom:
 	LDY byte_RAM_E7
 	LDA #BackgroundTile_VineBottom
 	STA (byte_RAM_1), Y
 
-loc_BANK6_8D19:
+CreateObject_VineBottom_Loop:
+	; Stop at the top of the page.
 	TYA
 	SEC
 	SBC #$10
 	TAY
 	CMP #$F0
-	BCS locret_BANK6_8D2F
+	BCS CreateObject_VineBottom_Exit
 
+	; Stop if we hit tile that isn't blank.
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BNE locret_BANK6_8D2F
+	BNE CreateObject_VineBottom_Exit
 
+	; Draw a section of the vine
 	LDA #BackgroundTile_Vine
 	STA (byte_RAM_1), Y
-	JMP loc_BANK6_8D19
+	JMP CreateObject_VineBottom_Loop
 
-locret_BANK6_8D2F:
+CreateObject_VineBottom_Exit:
 	RTS
 
+
+;
+; Lookup table for single object tiles.
+;
 SingleObjects:
 	.db BackgroundTile_GrassCoin ; $20
 	.db BackgroundTile_GrassLargeVeggie ; $21
@@ -2125,12 +2145,22 @@ IFDEF EXPAND_TABLES
 	.db BackgroundTile_SolidWood ; $2F
 ENDIF
 
+
+;
+; Creates a single tile object using the lookup table above.
+;
+; ##### Input
+; - `byte_RAM_E7`: target tile placement offset
+; - `byte_RAM_50E`: type of object to create
+;
 CreateObject_SingleObject:
 	LDY byte_RAM_E7
 	LDX byte_RAM_50E
 	LDA SingleObjects, X
 	STA (byte_RAM_1), Y
 	RTS
+
+; -----
 
 
 World1thru6BrickWallTiles:
