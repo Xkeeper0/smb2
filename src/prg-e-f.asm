@@ -39,8 +39,8 @@ ScreenUpdateBufferPointers:
 	.dw PPUBuffer_693
 	.dw PPUBuffer_6AB
 	.dw PPUBuffer_6BD
-	.dw PPUBuffer_6CC
-	.dw PPUBuffer_6E9
+	.dw PPUBuffer_6CC ; PAUSE
+	.dw PPUBuffer_6E9 ; (erase PAUSE)
 	.dw PPUBuffer_6DA
 	.dw PPUBuffer_6DF
 	.dw PPUBuffer_6E4
@@ -193,15 +193,19 @@ PPUBuffer_TitleCard:
 	.db $23, $FF, $01, $00
 	.db $00
 
+; This table defines which level starts each world.
+; The difference between the value of each world indicates how many worlds are
+; in the level, which is why there is a slot for an 8th world, even though no
+; such world is playable!
 WorldStartingLevel:
 	.db $00
-	.db $03 ; $00
-	.db $06 ; $01
-	.db $09 ; $02
-	.db $0C ; $03
-	.db $0F ; $04
-	.db $12 ; $05
-	.db $14 ; $06
+	.db $03
+	.db $06
+	.db $09
+	.db $0C
+	.db $0F
+	.db $12
+	.db $14
 
 PlayerSelectMarioSprites1:
 	.db $8F, $00, $00, $48
@@ -461,6 +465,8 @@ loc_BANKF_E1B6:
 	ADC #$D1
 	STA byte_RAM_717F
 
+	; Use the difference between the starting level of the next world and this
+	; world to determine how many dots to show for the levels in the world.
 	LDA WorldStartingLevel + 1, Y
 	SEC
 	SBC WorldStartingLevel, Y
@@ -859,7 +865,7 @@ ContinueGame:
 	LDA #$03 ; Number of lives to start
 	STA ExtraLives
 
-StartCharacterSelectMenu:
+GoToWorldStartingLevel:
 	LDX CurrentWorld
 	LDY WorldStartingLevel, X
 	STY CurrentLevel
@@ -922,9 +928,9 @@ ENDIF
 	STA PPUCtrlMirror
 
 	LDA IsHorizontalLevel
-	BEQ StartLevel_Vertical_Loop
+	BEQ VerticalLevel_Loop
 
-StartLevel_Horizontal_Loop:
+HorizontalLevel_Loop:
 	JSR WaitForNMI
 
 	LDA #PRGBank_0_1
@@ -935,53 +941,47 @@ StartLevel_Horizontal_Loop:
 	JSR EnsureCorrectMusic
 
 	LDA BreakStartLevelLoop
-	BEQ StartLevel_Horizontal_Loop
+	BEQ HorizontalLevel_Loop
 
 	LDA #$00
 	STA BreakStartLevelLoop
 	JSR WaitForNMI_TurnOnPPU
 
-loc_BANKF_E491:
+HorizontalLevel_CheckScroll:
 	JSR WaitForNMI
 
-	LDA NeedVerticalScroll
-	AND #$04
-	BNE loc_BANKF_E4A3
+	; Disable pause detection while scrolling
+	LDA NeedsScroll
+	AND #%00000100
+	BNE HorizontalLevel_CheckSubArea
 
 	LDA Player1JoypadPress
 	AND #ControllerInput_Start
-	BEQ loc_BANKF_E4A3
+	BEQ HorizontalLevel_CheckSubArea
 
 	JMP ShowPauseScreen
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_E4A3:
+HorizontalLevel_CheckSubArea:
 	LDA InSubspaceOrJar
-	BEQ loc_BANKF_E4AB
+	BEQ HorizontalLevel_ProcessFrame
 
-	JMP loc_BANKF_E5A0
+	JMP InitializeSubArea
 
-; ---------------------------------------------------------------------------
-
-; horizontal level
-loc_BANKF_E4AB:
+HorizontalLevel_ProcessFrame:
 	JSR HideAllSprites
 
 	JSR sub_BANKF_F11E
 
 	LDY GameMode
-	BEQ loc_BANKF_E4B9
+	BEQ HorizontalLevel_CheckTransition
 
 	JMP loc_BANKF_E665
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_E4B9:
+HorizontalLevel_CheckTransition:
 	LDA DoAreaTransition
-	BEQ loc_BANKF_E491
+	BEQ HorizontalLevel_CheckScroll
 
-	JSR sub_BANKF_F6A1
+	JSR FollowCurrentAreaPointer
 
 	JSR sub_BANKF_F1AE
 
@@ -989,7 +989,8 @@ loc_BANKF_E4B9:
 	STA DoAreaTransition
 	JMP StartLevel
 
-StartLevel_Vertical_Loop:
+
+VerticalLevel_Loop:
 	JSR WaitForNMI
 
 	LDA #PRGBank_0_1
@@ -1000,41 +1001,42 @@ StartLevel_Vertical_Loop:
 	JSR EnsureCorrectMusic
 
 	LDA BreakStartLevelLoop
-	BEQ StartLevel_Vertical_Loop
+	BEQ VerticalLevel_Loop
 
 	LDA #$00
 	STA BreakStartLevelLoop
 	JSR WaitForNMI_TurnOnPPU
 
-loc_BANKF_E4E5:
+VerticalLevel_CheckScroll:
 	JSR WaitForNMI
 
-	LDA NeedVerticalScroll
-	AND #$04
-	BNE loc_BANKF_E4F4
+	; Disable pause detection while scrolling
+	; This is likely a work-around to avoid getting the PPU into a weird state
+	; due to conflicts between the pause screen and attempting to draw the part
+	; of the area scrolling into view.
+	LDA NeedsScroll
+	AND #%00000100
+	BNE VerticalLevel_ProcessFrame
 
 	LDA Player1JoypadPress
 	AND #ControllerInput_Start
 	BNE ShowPauseScreen
 
-; vertical level
-loc_BANKF_E4F4:
+VerticalLevel_ProcessFrame:
 	JSR HideAllSprites
 
 	JSR sub_BANKF_F17E
 
 	LDY GameMode
-	BEQ loc_BANKF_E502
+	BEQ VerticalLevel_CheckTransition
 
 	JMP loc_BANKF_E665
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_E502:
+VerticalLevel_CheckTransition:
 	LDA DoAreaTransition
-	BEQ loc_BANKF_E4E5
+	BEQ VerticalLevel_CheckScroll
 
-	JSR sub_BANKF_F6A1
+	JSR FollowCurrentAreaPointer
 
 	JSR sub_BANKF_F1AE
 
@@ -1134,7 +1136,7 @@ HidePauseScreen_Vertical_Loop:
 
 	JSR WaitForNMI_TurnOnPPU
 
-	JMP loc_BANKF_E4E5
+	JMP VerticalLevel_CheckScroll
 
 HidePauseScreen_Horizontal:
 	LDA #VMirror
@@ -1152,11 +1154,10 @@ HidePauseScreen_Horizontal_Loop:
 
 	JSR WaitForNMI_TurnOnPPU
 
-	JMP loc_BANKF_E491
+	JMP HorizontalLevel_CheckScroll
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_E5A0:
+InitializeSubArea:
 	JSR ClearNametablesAndSprites
 
 	LDA #PRGBank_6_7
@@ -1166,8 +1167,9 @@ loc_BANKF_E5A0:
 	STA SubspaceCoins
 	LDA InSubspaceOrJar
 	CMP #$02
-	BEQ loc_BANKF_E5D4
+	BEQ InitializeSubspace
 
+InitializeJar:
 	LDA #PRGBank_8_9
 	JSR ChangeMappedPRGBank
 
@@ -1186,9 +1188,8 @@ loc_BANKF_E5A0:
 	STA CurrentMusicIndex
 	JMP loc_BANKF_E5E1
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_E5D4:
+InitializeSubspace:
 	JSR GenerateSubspaceArea
 
 	LDA #Music1_Subspace
@@ -1200,17 +1201,17 @@ loc_BANKF_E5E1:
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
 
-	JSR sub_BANK0_870C
+	JSR UseSubareaScreenBoundaries
 
 	JSR EnableNMI
 
-loc_BANKF_E5EC:
+SubArea_Loop:
 	JSR WaitForNMI
 
 	JSR sub_BANK0_87AA
 
 	LDA byte_RAM_537
-	BEQ loc_BANKF_E5EC
+	BEQ SubArea_Loop
 
 	LDA InSubspaceOrJar
 	CMP #$02
@@ -1272,19 +1273,19 @@ loc_BANKF_E64C:
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
 
-	JSR sub_BANK0_874C
+	JSR UseMainAreaScreenBoundaries
 
-loc_BANKF_E654:
+ExitSubArea_Loop:
 	JSR WaitForNMI
 
 	JSR sub_BANK0_87AA
 
 	LDA byte_RAM_537
-	BEQ loc_BANKF_E654
+	BEQ ExitSubArea_Loop
 
 	JSR WaitForNMI_TurnOnPPU
 
-	JMP loc_BANKF_E491
+	JMP HorizontalLevel_CheckScroll
 
 ; ---------------------------------------------------------------------------
 
@@ -1569,35 +1570,39 @@ loc_BANKF_E7FD:
 	BNE StartSlotMachine
 
 GoToNextLevel:
+	; Check if this is the last level before the next world
 	LDY CurrentWorld
 	LDA WorldStartingLevel + 1, Y
 	SEC
 	SBC #$01
 	CMP CurrentLevel
-	BNE loc_BANKF_E81E
+	BNE GoToNextLevel_SameWorld
 
 	JSR SetStack100Gameplay
 
 	LDA #$FF
 	STA CurrentMusicIndex
 	INC CurrentWorld
-	JMP StartCharacterSelectMenu
+	JMP GoToWorldStartingLevel
 
-; ---------------------------------------------------------------------------
+GoToNextLevel_SameWorld:
+	JSR FollowCurrentAreaPointer
 
-loc_BANKF_E81E:
-	JSR sub_BANKF_F6A1
-
+	; Sanity check that ensure that the world matches the level.
+	; Without this, an area pointer at the end of a level that points to a
+	; a different world would load incorrectly (eg. 2-1 would load as 1-4).
+	; This scenario may not actually occur during normal gameplay.
 	LDA CurrentLevel
 	LDY #$00
-
-loc_BANKF_E826:
+EnsureCorrectWorld_Loop:
 	INY
 	CMP WorldStartingLevel, Y
-	BCS loc_BANKF_E826
+	BCS EnsureCorrectWorld_Loop
 
 	DEY
-	STY CurrentWorld ; I am sure this is important somehow, but... why
+	STY CurrentWorld
+
+	; Initialize the current area and then go to the character select menu
 	LDY CurrentWorld
 	LDA CurrentLevel
 	SEC
@@ -1619,7 +1624,6 @@ loc_BANKF_E826:
 
 	JMP CharacterSelectMenu
 
-; ---------------------------------------------------------------------------
 
 StartSlotMachine:
 	DEC SlotMachineCoins
@@ -2502,7 +2506,7 @@ PPUBufferUpdatesComplete:
 ; This function can only handle $100 bytes of data
 ; (actually less).
 ;
-; Unlike UpdatePPUFromBuffer, this one does not support
+; Unlike `UpdatePPUFromBufferWithOptions`, this one does not support
 ; $80 or $40 as options, instead treating them as direct length.
 ; It also does not increment the buffer pointer, only using Y
 ; to read further data.
@@ -2552,15 +2556,17 @@ UpdatePPUFromBufferNMI_CopyLoop:
 ;
 ; PPUADDR is two bytes (hi,lo) for the address to send to PPUADDR.
 ; LEN is the length, with the following two bitmasks:
-; - $80: Set the "draw vertically" option
+;
+;  - $80: Set the "draw vertically" option
 ;  - $40: Use ONE tile instead of a string
+;
 ; DATA is either (LEN) bytes or one byte.
 ;
 ; After (LEN) bytes have been written, the buffer pointer
 ; is incremented to (LEN+2) and the function restarts.
 ; A byte of $00 terminates execution and returns.
 ;
-; There is a similar function, UpdatePPUFromBufferNMI,
+; There is a similar function, `UpdatePPUFromBufferNMI`,
 ; that is called during NMI, but unlike this one,
 ; that one does NOT use bitmasks, nor increment the pointer.
 ;
@@ -3017,7 +3023,7 @@ sub_BANKF_F0F9:
 	JSR HandlePlayerState
 
 loc_BANKF_F115:
-	JSR sub_BANKF_F228
+	JSR SetPlayerScreenPosition
 
 	JSR RenderPlayer
 
@@ -3026,8 +3032,10 @@ loc_BANKF_F11B:
 
 ; End of function sub_BANKF_F0F9
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Does a lot of important stuff in horizontal levels
+;
+HorizontalLevel_RunFrame:
 sub_BANKF_F11E:
 	JSR NextSpriteFlickerSlot
 
@@ -3048,17 +3056,16 @@ sub_BANKF_F11E:
 	JSR HandlePlayerState
 
 loc_BANKF_F13A:
-	; horizonal scrolling?
-	JSR sub_BANKF_F2C2
+	JSR GetCameraVelocityX
 
 	; horizonal scrolling?
 	JSR sub_BANK0_85EC
 
-	; screen boundary triggers
-	JSR sub_BANKF_F228
+	JSR SetPlayerScreenPosition
 
 	JSR RenderPlayer
 
+; back to the shared stuff
 loc_BANKF_F146:
 	LDA #PRGBank_2_3
 	JSR ChangeMappedPRGBank
@@ -3105,14 +3112,14 @@ loc_BANKF_F15F:
 locret_BANKF_F17D:
 	RTS
 
-; End of function sub_BANKF_F11E
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Does a lot of important stuff in vertical levels
+;
 sub_BANKF_F17E:
 	JSR NextSpriteFlickerSlot
 
-	JSR sub_BANKF_F494
+	JSR StartVerticalScroll
 
 	LDA PlayerInRocket
 	BNE loc_BANKF_F1AB
@@ -3136,14 +3143,13 @@ loc_BANKF_F19D:
 
 	JSR sub_BANK0_8083
 
-	JSR sub_BANKF_F228
+	JSR SetPlayerScreenPosition
 
 	JSR RenderPlayer
 
 loc_BANKF_F1AB:
 	JMP loc_BANKF_F146
 
-; End of function sub_BANKF_F17E
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3243,10 +3249,14 @@ IFDEF FIX_CLIMB_ZIP
 	.db $00
 ENDIF
 
-; =============== S U B R O U T I N E =======================================
-
-; Bottomless pit check
-sub_BANKF_F228:
+;
+; Calculates the player's position onscreen.
+;
+; The screen position is also used for the jump-out-of-a-jar screen transition
+; and bottomless pit checks, which works because of the assumption that the
+; camera can always keep up with the player in normal gameplay.
+;
+SetPlayerScreenPosition:
 	LDA PlayerXLo
 	SEC
 	SBC ScreenBoundaryLeftLo
@@ -3258,37 +3268,46 @@ sub_BANKF_F228:
 	LDA PlayerYHi
 	SBC ScreenYHi
 	STA PlayerScreenYHi
+
+	; Exit if the player state is not standing/jumping or climbing
 	LDA PlayerState
 	CMP #PlayerState_Lifting
-	BCS locret_BANKF_F297
+	BCS SetPlayerScreenPosition_Exit
 
 	LDA PlayerScreenYHi
-	BEQ loc_BANKF_F298
+	BEQ SetPlayerScreenPosition_CheckClimbing
 
-	BMI loc_BANKF_F254
+	BMI SetPlayerScreenPosition_Above
 
-	; bottomless pit
+; If the player falls below the screen, they are in a bottomless pit.
+SetPlayerScreenPosition_Below:
 	LDA #$00
 	STA PlayerStateTimer
 	JMP KillPlayer
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_F254:
+; If the player is above the screen, they might be jumping out of a jar.
+SetPlayerScreenPosition_Above:
+	; Verify that the y-position is above the first page of the area
 	LDA PlayerYHi
-	BPL locret_BANKF_F297
+	BPL SetPlayerScreenPosition_Exit
 
+	; We're above the top of the area, so check if we're in a jar
 	LDA InJarType
-	BEQ loc_BANKF_F298
+	BEQ SetPlayerScreenPosition_CheckClimbing
 
+	; Check if the player is far enough above the top of the area
 	LDA PlayerYLo
 	CMP #$F0
-	BCS locret_BANKF_F297
+	BCS SetPlayerScreenPosition_Exit
 
+	; Exit the jar!
 	JSR DoAreaReset
 
+	; Break out of the previous subroutine
 	PLA
 	PLA
+
+	; Put the player in a crouching stance
 	LDY #$00
 	STY PlayerDucking
 	STY PlayerYVelocity
@@ -3300,14 +3319,13 @@ loc_BANKF_F254:
 	LDA InJarType
 	STY InJarType
 	CMP #$02
-	BNE loc_BANKF_F286
+	BNE SetPlayerScreenPosition_ExitSubAreaJar
 
+SetPlayerScreenPosition_ExitPointerJar:
 	STA DoAreaTransition
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_F286:
+SetPlayerScreenPosition_ExitSubAreaJar:
 	STY InSubspaceOrJar
 	LDA CurrentLevelAreaCopy
 	STA CurrentLevelArea
@@ -3316,49 +3334,50 @@ loc_BANKF_F286:
 
 	JMP CopyEnemyDataToMemory
 
-; ---------------------------------------------------------------------------
-
-locret_BANKF_F297:
+SetPlayerScreenPosition_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_F298:
+SetPlayerScreenPosition_CheckClimbing:
 	LDA PlayerState
 	CMP #PlayerState_Climbing
-	BNE locret_BANKF_F297
+	BNE SetPlayerScreenPosition_Exit
 
+	; No climbing transitions from subspace
 	LDA InSubspaceOrJar
 	CMP #$02
-	BEQ locret_BANKF_F297
+	BEQ SetPlayerScreenPosition_Exit
 
+	; Climbing upwards
 	LDA ClimbSpeedUp
 	LDY PlayerYHi
-	BMI loc_BANKF_F2BB
+	BMI SetPlayerScreenPosition_DoClimbingTransition
 
+	; Climbing downwards
 	LDA PlayerScreenYLo
 	CMP #$B8
-	BCC locret_BANKF_F297
+	BCC SetPlayerScreenPosition_Exit
 
+	; Set y-position to an odd number
 	LSR PlayerYLo
 	SEC
 	ROL PlayerYLo
 	LDA ClimbSpeedDown
 
-loc_BANKF_F2BB:
+SetPlayerScreenPosition_DoClimbingTransition:
 	STA PlayerYVelocity
 	LDA #PlayerState_ClimbingAreaTransition
 	STA PlayerState
 	RTS
 
-; End of function sub_BANKF_F228
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_F2C2:
+;
+; Calculate the x-velocity of the camera based on the distance between the player
+; and the center of the screen.
+;
+GetCameraVelocityX:
 	LDA #$00
 	LDY ScrollXLock
-	BNE loc_BANKF_F2D2
+	BNE GetCameraVelocityX_Exit
 
 	LDA PlayerXLo
 	SEC
@@ -3366,11 +3385,9 @@ sub_BANKF_F2C2:
 	SEC
 	SBC ScreenBoundaryLeftLo
 
-loc_BANKF_F2D2:
-	STA byte_RAM_BA
+GetCameraVelocityX_Exit:
+	STA CameraVelocityX
 	RTS
-
-; End of function sub_BANKF_F2C2
 
 
 ; Tiles to use for eye sprite. If $00, this will use the character-specific table
@@ -3779,55 +3796,58 @@ SetAreaStartPage_SetAndExit:
 	STA CurrentLevelPage
 	RTS
 
-; End of function SetAreaStartPage
+;
+; Check if the player position requires vertical scrolling
+;
+StartVerticalScroll:
+	; Exit if vertical scrolling is already happening
+	LDX NeedsScroll
+	BNE StartVerticalScroll_Exit
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_F494:
-	LDX NeedVerticalScroll
-	BNE locret_BANKF_F4C2
-
+	; Exit if the player is doing any kind of transition
 	LDA PlayerState
 	CMP #PlayerState_Lifting
-	BCS locret_BANKF_F4C2
+	BCS StartVerticalScroll_Exit
 
+	; Use the player's position to detmine how to scroll
 	LDA PlayerScreenYLo
 	LDY PlayerScreenYHi
-	BMI loc_BANKF_F4B0
+	BMI StartVerticalScroll_ScrollUpOnGround ; eg. `PlayerScreenYHi == $FF`
+	BNE StartVerticalScroll_ScrollDown ; eg. `PlayerScreenYHi == $01`
 
-	BNE loc_BANKF_F4B6
-
+	; Scroll down if player is near the bottom
 	CMP #$B4
-	BCS loc_BANKF_F4B6
+	BCS StartVerticalScroll_ScrollDown
 
+	; Scroll up if the player is near the top
 	CMP #$21
-	BCS loc_BANKF_F4B8
+	BCS StartVerticalScroll_StartFromStationary
 
-loc_BANKF_F4B0:
+; Don't start scrolling for offscreen player until they're standing or climbing
+StartVerticalScroll_ScrollUpOnGround:
 	LDY PlayerInAir
-	BNE loc_BANKF_F4B8
+	BNE StartVerticalScroll_StartFromStationary ; Player is in the air
+	BEQ StartVerticalScroll_ScrollUp ; Player is NOT in the air
 
-	BEQ loc_BANKF_F4B7
-
-loc_BANKF_F4B6:
+StartVerticalScroll_ScrollDown:
+	; Set X = $02, scroll down
 	INX
 
-loc_BANKF_F4B7:
+StartVerticalScroll_ScrollUp:
+	; Set X = $01, scroll up
 	INX
 
-loc_BANKF_F4B8:
+StartVerticalScroll_StartFromStationary:
 	LDA VerticalScrollDirection
 	STX VerticalScrollDirection
-	BNE locret_BANKF_F4C2
+	BNE StartVerticalScroll_Exit
 
-	STX NeedVerticalScroll
+	; We weren't already vertically scrolling, but we need to start
+	STX NeedsScroll
 
-locret_BANKF_F4C2:
+StartVerticalScroll_Exit:
 	RTS
 
-; End of function sub_BANKF_F494
-
-; =============== S U B R O U T I N E =======================================
 
 ; Determines start page for vertical area
 GetVerticalAreaStartPage:
@@ -4920,8 +4940,10 @@ ReadJoypadLoop:
 	RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Load the area specified by the area pointer at the current page
+;
+FollowCurrentAreaPointer:
 sub_BANKF_F6A1:
 	LDA CurrentLevelPage
 	ASL A
@@ -4940,7 +4962,6 @@ sub_BANKF_F6A1:
 	STA CurrentLevelEntryPage
 	RTS
 
-; End of function sub_BANKF_F6A1
 
 
 ;

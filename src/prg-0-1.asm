@@ -67,16 +67,17 @@ loc_BANK0_802B:
 	LSR A
 	STA byte_RAM_D2
 	LDY CurrentLevelEntryPage
-	JSR sub_BANK0_95AF
+	JSR PageHeightCompensation
 
 	STA ScreenYLo
 	STY ScreenYHi
-	JSR sub_BANK0_946D
+
+	JSR ApplyAreaTransition
 
 loc_BANK0_805D:
 	LDA #$00
 	STA byte_RAM_6
-	LDA #$0FF
+	LDA #$FF
 	STA byte_RAM_505
 
 loc_BANK0_8066:
@@ -102,12 +103,12 @@ locret_BANK0_8082:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANK0_8083:
-	LDA NeedVerticalScroll
-	AND #$04
+	LDA NeedsScroll
+	AND #%00000100
 	BNE loc_BANK0_809D
 
-	LDA NeedVerticalScroll
-	AND #$07
+	LDA NeedsScroll
+	AND #%00000111
 	BNE loc_BANK0_8092
 
 	JMP loc_BANK0_819C
@@ -115,14 +116,14 @@ sub_BANK0_8083:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8092:
-	LDA NeedVerticalScroll
-	ORA #$04
-	STA NeedVerticalScroll
+	LDA NeedsScroll
+	ORA #%00000100
+	STA NeedsScroll
 	LDA #$12
 	STA CameraScrollTiles
 
 loc_BANK0_809D:
-	LDA NeedVerticalScroll
+	LDA NeedsScroll
 	LSR A
 	LDA PPUScrollYMirror
 	BCC loc_BANK0_8103
@@ -292,14 +293,16 @@ loc_BANK0_8170:
 
 	LDA #$01
 	STA byte_RAM_E4
-	LDA NeedVerticalScroll
+	LDA NeedsScroll
 	LSR A
 	BCC loc_BANK0_8186
 
+; up
 	LDX #$01
 	LDA #$00
 	BEQ loc_BANK0_818A
 
+; down
 loc_BANK0_8186:
 	LDX #$02
 	LDA #$10
@@ -309,6 +312,7 @@ loc_BANK0_818A:
 	JSR sub_BANK0_8314
 
 loc_BANK0_818F:
+	; Update PPU for scrolling
 	JSR sub_BANK0_833E
 
 	DEC CameraScrollTiles
@@ -319,7 +323,7 @@ loc_BANK0_818F:
 
 loc_BANK0_819C:
 	LDA #$00
-	STA NeedVerticalScroll
+	STA NeedsScroll
 
 locret_BANK0_81A0:
 	RTS
@@ -378,8 +382,7 @@ RestoreScreenScrollPosition:
 	RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
+; Used for redrawing the screen in a vertical area after unpausing
 sub_BANK0_81FE:
 	LDA byte_RAM_CF
 	AND #$10
@@ -417,15 +420,14 @@ loc_BANK0_820B:
 	STA byte_RAM_6
 	RTS
 
-; End of function sub_BANK0_81FE
 
-; =============== S U B R O U T I N E =======================================
-
+; Used for redrawing the background tiles in a vertical area
 sub_BANK0_823D:
 	LDX #$00
 	STX byte_RAM_537
 	JSR sub_BANK0_82E2
 
+	; Update PPU for area init
 	JSR sub_BANK0_833E
 
 	LDX #$00
@@ -666,11 +668,12 @@ loc_BANK0_836C:
 	LDY byte_RAM_D7
 	LDA (byte_RAM_E9), Y
 	STA byte_RAM_51B
-	AND #$C0
+	AND #%11000000
 	ASL A
 	ROL A
 	ROL A
 	TAY
+	; Get the tile quad pointer
 	LDA TileQuadPointersLo, Y
 	STA byte_RAM_0
 	LDA TileQuadPointersHi, Y
@@ -687,6 +690,7 @@ loc_BANK0_836C:
 	INY
 
 loc_BANK0_8390:
+	; Write the tile to the PPU buffer
 	LDA (byte_RAM_0), Y
 	STA PPUBuffer_301, X
 	INC byte_RAM_D6
@@ -722,7 +726,7 @@ loc_BANK0_83A7:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_83C2:
-	LDA NeedVerticalScroll
+	LDA NeedsScroll
 	LSR A
 	BCS loc_BANK0_83D4
 
@@ -745,7 +749,7 @@ loc_BANK0_83D4:
 
 loc_BANK0_83DE:
 	LDX #$00
-	LDA NeedVerticalScroll
+	LDA NeedsScroll
 	LSR A
 	BCC loc_BANK0_83FA
 
@@ -819,7 +823,7 @@ loc_BANK0_842B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_843B:
-	LDA NeedVerticalScroll
+	LDA NeedsScroll
 	LSR A
 	BCC loc_BANK0_8452
 
@@ -951,10 +955,11 @@ InitializeAreaHorizontal:
 	LDA #VMirror
 	JSR ChangeNametableMirroring
 
-	JSR sub_BANK0_946D
+	JSR ApplyAreaTransition
 
 	LDA #$00
 	STA PPUScrollYMirror
+
 	LDA CurrentLevelEntryPage
 	BNE loc_BANK0_851A
 
@@ -993,7 +998,7 @@ loc_BANK0_8532:
 	STA byte_RAM_53A
 	LSR A
 	STA byte_RAM_6
-	LDA #$0FF
+	LDA #$FF
 	STA byte_RAM_505
 	LDA #$0F
 	STA byte_RAM_507
@@ -1018,7 +1023,7 @@ sub_BANK0_856A:
 	LDA CurrentLevelEntryPage
 	BNE loc_BANK0_8576
 
-	LDA byte_RAM_BA
+	LDA CameraVelocityX
 	BMI loc_BANK0_85E7
 
 	LDA CurrentLevelEntryPage
@@ -1027,15 +1032,15 @@ loc_BANK0_8576:
 	CMP CurrentLevelPages
 	BNE loc_BANK0_857F
 
-	LDA byte_RAM_BA
+	LDA CameraVelocityX
 	BPL loc_BANK0_85E7
 
 loc_BANK0_857F:
 	LDX #$02
-	LDA byte_RAM_BA
+	LDA CameraVelocityX
 	BPL loc_BANK0_858B
 
-	LDA #$0FF
+	LDA #$FF
 	STA byte_RAM_B
 	BNE loc_BANK0_858F
 
@@ -1044,7 +1049,7 @@ loc_BANK0_858B:
 	STA byte_RAM_B
 
 loc_BANK0_858F:
-	LDA byte_RAM_BA
+	LDA CameraVelocityX
 	AND #$F0
 	CLC
 	ADC byte_RAM_CE, X
@@ -1090,12 +1095,12 @@ loc_BANK0_85C4:
 	DEX
 	BPL loc_BANK0_858F
 
-	LDA byte_RAM_BA
+	LDA CameraVelocityX
 	STA PPUScrollXMirror
 	STA ScreenBoundaryLeftLo
 	AND #$F0
 	STA CurrentLevelPageX
-	LDA byte_RAM_BA
+	LDA CameraVelocityX
 	BPL loc_BANK0_85E7
 
 	DEC ScreenBoundaryLeftHi
@@ -1107,52 +1112,60 @@ loc_BANK0_85C4:
 
 loc_BANK0_85E7:
 	LDA #$00
-	STA byte_RAM_BA
+	STA CameraVelocityX
 	RTS
 
 ; End of function sub_BANK0_856A
 
-; =============== S U B R O U T I N E =======================================
 
+;
+;
+;
 sub_BANK0_85EC:
+	; Reset this flag @TODO ;;;
 	LDA #$00
 	STA byte_RAM_51C
-	LDA byte_RAM_538
+
+	; Are we scrolling in more tiles?
+	LDA HorizontalScrollDirection
 	BEQ loc_BANK0_862C
 
-	LDA byte_RAM_538
+	; Which direction?
+	LDA HorizontalScrollDirection
 	LSR A
 	BCS loc_BANK0_8618
 
+; right
 	LDX #$02
 	STX byte_RAM_9
 	LDA #$10
 	STA byte_RAM_1
 	DEX
-	LDA byte_RAM_538
-	STA NeedVerticalScroll
+	LDA HorizontalScrollDirection
+	STA NeedsScroll
 	JSR sub_BANK0_8901
 
 	LDA byte_RAM_3
 	STA byte_RAM_D0
 	LDA #$00
-	STA byte_RAM_538
+	STA HorizontalScrollDirection
 	BEQ loc_BANK0_862C
 
+; left
 loc_BANK0_8618:
 	LDX #$01
 	STX byte_RAM_9
 	DEX
 	STX byte_RAM_1
-	LDA byte_RAM_538
-	STA NeedVerticalScroll
+	LDA HorizontalScrollDirection
+	STA NeedsScroll
 	JSR sub_BANK0_8901
 
 	LDA #$00
-	STA byte_RAM_538
+	STA HorizontalScrollDirection
 
 loc_BANK0_862C:
-	LDA byte_RAM_BA
+	LDA CameraVelocityX
 	BNE loc_BANK0_8631
 
 	RTS
@@ -1160,19 +1173,19 @@ loc_BANK0_862C:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8631:
-	LDA byte_RAM_BA
+	LDA CameraVelocityX
 	BPL loc_BANK0_863C
 
 	LDA #$01
-	STA NeedVerticalScroll
+	STA NeedsScroll
 	JMP loc_BANK0_869A
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_863C:
 	LDA #$02
-	STA NeedVerticalScroll
-	LDX byte_RAM_BA
+	STA NeedsScroll
+	LDX CameraVelocityX
 
 loc_BANK0_8642:
 	LDA PPUScrollXMirror
@@ -1239,7 +1252,7 @@ loc_BANK0_868C:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_869A:
-	LDX byte_RAM_BA
+	LDX CameraVelocityX
 
 loc_BANK0_869C:
 	LDA PPUScrollXMirror
@@ -1300,7 +1313,7 @@ loc_BANK0_86E6:
 
 loc_BANK0_86E9:
 	LDA #$00
-	STA NeedVerticalScroll
+	STA NeedsScroll
 	RTS
 
 ; End of function sub_BANK0_85EC
@@ -1357,9 +1370,9 @@ PPUScrollHiOffsets:
 SubAreaPage:
 	.db $0A
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK0_870C:
+; Stash the PPU scrolling data from the main area and rest it for the subarea
+UseSubareaScreenBoundaries:
 	LDA PPUScrollXMirror
 	STA PPUScrollXMirror_Backup
 	LDA PPUScrollXHiMirror
@@ -1376,7 +1389,8 @@ sub_BANK0_870C:
 	STA ScreenBoundaryLeftLo
 	LDA SubAreaPage
 	STA ScreenBoundaryLeftHi
-	JSR sub_BANK0_946D
+
+	JSR ApplyAreaTransition
 
 	LDA SubAreaPage
 	STA byte_RAM_CE
@@ -1388,11 +1402,9 @@ sub_BANK0_870C:
 	STA byte_RAM_505
 	RTS
 
-; End of function sub_BANK0_870C
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK0_874C:
+; Restore the PPU scrolling data for the main area
+UseMainAreaScreenBoundaries:
 	LDA PPUScrollXMirror_Backup
 	STA PPUScrollXMirror
 	STA ScreenBoundaryLeftLo
@@ -1401,12 +1413,12 @@ sub_BANK0_874C:
 	LDA ScreenBoundaryLeftHi_Backup
 	STA ScreenBoundaryLeftHi
 	LDA byte_RAM_53D
-	BNE locret_BANK0_8784
+	BNE UseMainAreaScreenBoundaries_Exit
 
 	INC byte_RAM_53E
 	INC byte_RAM_53D
 	INC byte_RAM_D5
-	JSR sub_BANK0_9428
+	JSR RestorePlayerPosition
 
 	LDA byte_RAM_CF
 	STA byte_RAM_CE
@@ -1418,13 +1430,10 @@ sub_BANK0_874C:
 	LDA byte_RAM_D0
 	STA byte_RAM_505
 
-locret_BANK0_8784:
+UseMainAreaScreenBoundaries_Exit:
 	RTS
 
-; End of function sub_BANK0_874C
-
-; =============== S U B R O U T I N E =======================================
-
+; Used for redrawing the screen in a horizontal area after unpausing
 sub_BANK0_8785:
 	LDA byte_RAM_CF
 	STA byte_RAM_CE
@@ -1448,15 +1457,12 @@ loc_BANK0_87A2:
 	STA byte_RAM_6
 	RTS
 
-; End of function sub_BANK0_8785
-
-; =============== S U B R O U T I N E =======================================
-
+; Used for redrawing the background tiles in a horizontal area
 sub_BANK0_87AA:
 	LDX #$00
 	STX byte_RAM_537
 	STX byte_RAM_51C
-	STX NeedVerticalScroll
+	STX NeedsScroll
 	JSR sub_BANK0_8812
 
 	JSR sub_BANK0_8872
@@ -1662,7 +1668,7 @@ loc_BANK0_88A0:
 
 	LDA #$00
 	STA byte_RAM_3BC
-	LDA NeedVerticalScroll
+	LDA NeedsScroll
 	LSR A
 	BCS loc_BANK0_88F2
 
@@ -1670,7 +1676,7 @@ loc_BANK0_88A0:
 	AND #$02
 	BEQ loc_BANK0_88FD
 
-	LDA NeedVerticalScroll
+	LDA NeedsScroll
 	BNE loc_BANK0_88F8
 
 	LDA #$10
@@ -1694,8 +1700,8 @@ loc_BANK0_88F2:
 	BNE loc_BANK0_88FD
 
 loc_BANK0_88F8:
-	LDA NeedVerticalScroll
-	STA byte_RAM_538
+	LDA NeedsScroll
+	STA HorizontalScrollDirection
 
 loc_BANK0_88FD:
 	INC byte_RAM_51C
@@ -2151,34 +2157,41 @@ HandlePlayerState_ExitingJar:
 locret_BANK0_8B86:
 	RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK0_8B87:
-	.db $00
-	.db $FF
 
-byte_BANK0_8B89:
-	.db $EE
-	.db $DE
+; The climb transition triggers on particular player screen y-positions
+ClimbTransitionYExitPositionHi:
+	.db $00 ; down
+	.db $FF ; up
 
-byte_BANK0_8B8B:
-	.db $09
-	.db $A1
-; ---------------------------------------------------------------------------
+ClimbTransitionYExitPositionLo:
+	.db $EE ; down
+	.db $DE ; up
+
+; The second climbing trigger table uses $00 as the high value
+ClimbTransitionYEnterPositionLo:
+	.db $09 ; down
+	.db $A1 ; up
+
 
 HandlePlayerState_ClimbingAreaTransition:
+	; Determine the climbing direction from the y-velocity ($00 = down, $00 = up)
 	LDA PlayerYVelocity
 	ASL A
 	ROL A
 	AND #$01
 	TAY
+
+HandlePlayerState_CheckExitPosition:
+	; Determine whether the player screen y-position matches the table entry
 	LDA PlayerScreenYHi
-	CMP byte_BANK0_8B87, Y
-	BNE loc_BANK0_8BB0
+	CMP ClimbTransitionYExitPositionHi, Y
+	BNE HandlePlayerState_CheckEnterPosition
 
 	LDA PlayerScreenYLo
-	CMP byte_BANK0_8B89, Y
-	BNE loc_BANK0_8BB0
+	CMP ClimbTransitionYExitPositionLo, Y
+	BNE HandlePlayerState_CheckEnterPosition
 
+	; The position matches, so keep climbing and transition to the next area
 	JSR DoAreaReset
 
 	INC DoAreaTransition
@@ -2186,33 +2199,31 @@ HandlePlayerState_ClimbingAreaTransition:
 	STA TransitionType
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK0_8BB0:
+HandlePlayerState_CheckEnterPosition:
 	LDA PlayerScreenYHi
-	BNE loc_BANK0_8BBD
+	BNE HandlePlayerState_JustClimb
 
+	; Climbing until player reaches the desired position
 	LDA PlayerScreenYLo
-	CMP byte_BANK0_8B8B, Y
-	BEQ loc_BANK0_8BC6
+	CMP ClimbTransitionYEnterPositionLo, Y
+	BEQ HandlePlayerState_SetClimbing
 
-loc_BANK0_8BBD:
+HandlePlayerState_JustClimb:
+	; do the climb animation if the player is going up
 	TYA
-	BEQ loc_BANK0_8BC3
+	BEQ HandlePlayerState_JustClimb_Physics
 
 	JSR PlayerClimbAnimation
 
-loc_BANK0_8BC3:
+HandlePlayerState_JustClimb_Physics:
 	JMP ApplyPlayerPhysicsY
 
-; ---------------------------------------------------------------------------
-
-loc_BANK0_8BC6:
+HandlePlayerState_SetClimbing:
 	LDA #PlayerState_Climbing
 	STA PlayerState
 	RTS
 
-; ---------------------------------------------------------------------------
+
 
 HandlePlayerState_HawkmouthEating:
 	LDA PlayerStateTimer
@@ -2417,7 +2428,7 @@ PlayerStartJump_LoadXVelocity:
 	BPL PlayerStartJump_CheckXSpeed
 
 	; Absolute value of x-velocity
-	EOR #$0FF
+	EOR #$FF
 	CLC
 	ADC #$01
 
@@ -2631,7 +2642,7 @@ PlayerWalkAnim:
 	BPL PlayerWalkFrameDuration
 
 	; use absolute value of PlayerXVelocity
-	EOR #$0FF
+	EOR #$FF
 	CLC
 	ADC #$01
 
@@ -2809,7 +2820,7 @@ loc_BANK0_8E42:
 	LDA PlayerXVelocity
 	BPL loc_BANK0_8E6F
 
-	EOR #$0FF
+	EOR #$FF
 	CLC
 	ADC #$01
 
@@ -2899,7 +2910,7 @@ loc_BANK0_8EB4:
 	PLP
 	BPL loc_BANK0_8ED1
 
-	EOR #$0FF
+	EOR #$FF
 	CLC
 	ADC #$01
 
@@ -3437,7 +3448,7 @@ loc_BANK0_90AE:
 	LDA PickUpToEnemyTypeTable, Y ; What sprite is spawned for you when lifting a bg object
 	STA ObjectType, X
 
-	LDY #$0FF ; regular bomb fuse
+	LDY #$FF ; regular bomb fuse
 	CMP #Enemy_Bomb
 	BEQ loc_BANK0_90C1
 
@@ -3921,9 +3932,9 @@ byte_BANK0_92E0:
 
 
 ; Unused?
-; Copy of sub_BANKF_F494
+; Copy of StartVerticalScroll
 _code_12E3:
-	LDX NeedVerticalScroll
+	LDX NeedsScroll
 	BNE locret_BANK0_9311
 
 	LDA PlayerState
@@ -3960,7 +3971,7 @@ loc_BANK0_9307:
 	BNE locret_BANK0_9311
 
 loc_BANK0_930F:
-	STX NeedVerticalScroll
+	STX NeedsScroll
 
 locret_BANK0_9311:
 	RTS
@@ -4078,13 +4089,17 @@ ReplaceTile_StoreXHi_Bank0:
 ;   A = Target tile
 ;
 loc_BANK0_937C:
+	; Stash X so we can restore it later on
 	STX byte_RAM_3
+
+	; Stash the target tile and figure out where to draw it
 	PHA
 	JSR SetTileOffsetAndAreaPageAddr_Bank1
-
 	PLA
+	; Update the tile in the decoded level data
 	LDY byte_RAM_E7
 	STA (byte_RAM_1), Y
+
 	PHA
 	LDX byte_RAM_300
 	LDA #$00
@@ -4123,13 +4138,15 @@ loc_BANK0_93B9:
 	LDA #$02
 	STA PPUBuffer_301 + 2, X
 	STA PPUBuffer_301 + 7, X
+
 	PLA
 	PHA
-	AND #$C0
+	AND #%11000000
 	ASL A
 	ROL A
 	ROL A
 	TAY
+	; Get the tile quad pointer
 	LDA TileQuadPointersLo, Y
 	STA byte_RAM_0
 	LDA TileQuadPointersHi, Y
@@ -4186,9 +4203,10 @@ StashPlayerPosition_Bank0:
 StashPlayerPosition_Exit_Bank0:
 	RTS
 
-
-; player placement after exiting subspace (maybe other times?)
-sub_BANK0_9428:
+;
+; Restores the player position from the backup values after exiting a subarea
+;
+RestorePlayerPosition:
 	LDA PlayerXHi_Backup
 	STA PlayerXHi
 	LDA PlayerXLo_Backup
@@ -4223,75 +4241,76 @@ sub_BANK0_9428:
 	STA SubspaceDoorTimer
 	RTS
 
-; End of function sub_BANK0_9428
 
-; =============== S U B R O U T I N E =======================================
-
-; area transition
-sub_BANK0_946D:
+;
+; Performs an area transition
+;
+ApplyAreaTransition:
 	LDA TransitionType
 	CMP #TransitionType_Jar
-	BNE loc_BANK0_947F
+	BNE ApplyAreaTransition_NotJar
 
+ApplyAreaTransition_Jar:
 	LDA InJarType
-	BNE loc_BANK0_947F
+	BNE ApplyAreaTransition_NotJar
 
-	JSR sub_BANK0_9428
+	JSR RestorePlayerPosition
 
-	JMP loc_BANK0_94C2
+	JMP ApplyAreaTransition_MoveCamera
 
-; ---------------------------------------------------------------------------
-
-loc_BANK0_947F:
+ApplyAreaTransition_NotJar:
 	LDA CurrentLevelEntryPage
 	LDY #$00
 	LDX IsHorizontalLevel
-	BNE loc_BANK0_948E
+	BNE ApplyAreaTransition_Horizontal
 
+ApplyAreaTransition_Vertical:
 	STY PlayerXHi
 	STA PlayerYHi
-	BEQ loc_BANK0_9492
+	BEQ ApplyAreaTransition_SetPlayerPosition
 
-loc_BANK0_948E:
+ApplyAreaTransition_Horizontal:
 	STA PlayerXHi
 	STY PlayerYHi
 
-loc_BANK0_9492:
+ApplyAreaTransition_SetPlayerPosition:
 	JSR AreaTransitionPlacement
 
+	; The height of a page is only `$0F` tiles instead of `$10`.
+	; PlayerYHi is currently using the vertical page rather than the actual high
+	; byte of the absolute position, so we need to convert it to compensate!
 	LDY PlayerYHi
 	LDA PlayerYLo
-	JSR sub_BANK0_95AF
-
+	JSR PageHeightCompensation
 	STY PlayerYHi
 	STA PlayerYLo
+
 	LDA PlayerXLo
 	SEC
 	SBC ScreenBoundaryLeftLo
 	STA PlayerScreenX
+
 	LDA PlayerYLo
 	SEC
-
-loc_BANK0_94AC:
 	SBC ScreenYLo
 	STA PlayerScreenYLo
+
 	LDA PlayerYHi
 	SBC ScreenYHi
 	STA PlayerScreenYHi
+
 	LDA TransitionType
 	CMP #TransitionType_SubSpace
-	BNE loc_BANK0_94C2
+	BNE ApplyAreaTransition_MoveCamera
 
 	JSR DoorAnimation_Unlocked
 
-loc_BANK0_94C2:
+ApplyAreaTransition_MoveCamera:
 	LDA PlayerXLo
 	SEC
 	SBC #$78
-	STA byte_RAM_BA
+	STA CameraVelocityX
 	RTS
-
-; End of function sub_BANK0_946D
 
 
 ;
@@ -4702,8 +4721,8 @@ ENDIF
 AreaTransitionPlacement_Subspace:
 	LDA PlayerScreenX
 	SEC
-	SBC byte_RAM_BA
-	EOR #$0FF
+	SBC CameraVelocityX
+	EOR #$FF
 	CLC
 	ADC #$F1
 	STA PlayerXLo
@@ -4723,19 +4742,23 @@ AreaTransitionPlacement_Rocket:
 
 
 ;
-; @TODO
+; Converts a y-position from page+offset to hi+lo coordinates, compensating for
+; the fact that a page height is only $0F tiles, not a full $10.
 ;
-; Input
-;   Y = PlayerYHi
-;   A = PlayerYLo
-; Output
-;   Y = PlayerYHi
-;   A = PlayerYLo
+; ##### Input
+; - `Y`: page
+; - `A`: position on page
 ;
-sub_BANK0_95AF:
+; ##### Output
+; - `Y`: hi position
+; - `A`: lo position
+;
+PageHeightCompensation:
+	; If player is above the top, exit
 	CPY #$00
-	BMI locret_BANK0_95C2
+	BMI PageHeightCompensation_Exit
 
+	; Convert page to number of tiles
 	PHA
 	TYA
 	ASL A
@@ -4744,13 +4767,16 @@ sub_BANK0_95AF:
 	ASL A
 	STA byte_RAM_F
 	PLA
+
+	; Subtract the tiles from the position
 	SEC
 	SBC byte_RAM_F
-	BCS locret_BANK0_95C2
+	BCS PageHeightCompensation_Exit
 
+	; Carry to the high byte
 	DEY
 
-locret_BANK0_95C2:
+PageHeightCompensation_Exit:
 	RTS
 
 
@@ -4903,7 +4929,7 @@ TitleLayout:
 
 	; (C) 1988
 	;                  (C)  111  999  888  888
-	.db $22, $E9, $05, $F8, $D1, $D9, $D8, $D8  ; (C) 1988
+	.db $22, $E9, $05, $F8, $D1, $D9, $D8, $D8 ; (C) 1988
 
 	; NINTENDO
 	;                  NNN  III  NNN  TTT  EEE  NNN  DDD  OOO
@@ -6256,7 +6282,7 @@ ContributorScene_CharacterLoop:
 	DEY
 	BPL ContributorScene_CharacterLoop
 
-	LDA #$0FF
+	LDA #$FF
 	STA PlayerXHi
 	LDA #$A0
 	STA PlayerXLo
@@ -7267,7 +7293,7 @@ TurnKeyIntoPuffOfSmoke:
 ;   X = enemy slot
 ;
 UnlinkEnemyFromRawData_Bank1:
-	LDA #$0FF
+	LDA #$FF
 	STA EnemyRawDataOffset, X
 	RTS
 

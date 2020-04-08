@@ -3451,7 +3451,7 @@ ResetLevelData_Loop:
 	STA ScreenYLo
 	STA ScreenBoundaryLeftHi
 	STA ScreenBoundaryLeftLo
-	STA_abs NeedVerticalScroll
+	STA_abs NeedsScroll
 	RTS
 
 
@@ -3634,7 +3634,7 @@ loc_BANK6_9439:
 	SEC
 
 	SBC ScreenBoundaryLeftLo
-	STA byte_RAM_BA
+	STA CameraVelocityX
 	PLA
 	LSR A
 	LSR A

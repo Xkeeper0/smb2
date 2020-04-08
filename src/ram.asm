@@ -58,6 +58,7 @@ byte_RAM_10:
 	.dsb 1 ; $0010
 ScreenUpdateIndex:
 	.dsb 1 ; $0011
+; next object slot to use?
 byte_RAM_12:
 	.dsb 1 ; $0012
 BreakStartLevelLoop:
@@ -323,8 +324,8 @@ EnemyArray_B1:
 	.dsb 1 ; $00b8
 	.dsb 1 ; $00b9
 
-; PlayerXCameraOffset?
-byte_RAM_BA:
+; Not exactly velocity. Functions more like "move camera X pixels on the next frame"
+CameraVelocityX:
 	.dsb 1 ; $00ba
 CurrentMusicPointer:
 	.dsb 2 ; $00bb
@@ -390,11 +391,15 @@ byte_RAM_D6:
 byte_RAM_D7:
 	.dsb 1 ; $00d7
 
-; @TODO understand better
-; $01 = scroll up, $02 = scroll down
-; (vertical areas only..?)
-NeedVerticalScroll:
+;
+; %xxxxxADD
+;
+; - A = screen interval scrolling is active (vertical levels)
+; - D = direction ($00 = none, $01 = up/left, $02 = down/right)
+;
+NeedsScroll:
 	.dsb 1 ; $00d8
+; This seems related to scrolling rather than enemies...
 EnemyArray_D9:
 	.dsb 1 ; $00d9
 	.dsb 1 ; 1                ; $00da
@@ -474,6 +479,14 @@ StackArea:
 SpriteDMAArea:
 	.dsb $100   ; $0200 - $02FF
 
+;
+; Arbitrary PPU updates happen using the buffer at RAM $0301 when `ScreenUpdateIndex` is zero.
+; In that case, `UpdatePPUFromBufferNMI` will read whatever is in this buffer and update the PPU.
+; When there is nothing to update, the first byte is `$00`, which will cause it to exit.
+;
+; $0300 is used as an offset when writing to the buffer, which allows multiple updates to write to
+; the buffer without overwriting each other.
+;
 byte_RAM_300:
 	.dsb 1 ; $0300
 PPUBuffer_301:
@@ -1129,6 +1142,7 @@ ExtraLives:
 ; $02: Pointer jar
 InJarType:
 	.dsb 1 ; $04ee
+EndOfLevelDoorPage: ;;;
 unk_RAM_4EF:
 	.dsb 1 ; $04ef
 	.dsb 1 ; $04f0
@@ -1159,6 +1173,7 @@ StopwatchTimer:
 	.dsb 1 ; $0500
 ; FOR RENT
 	.dsb 1 ; $0501
+; Flag enabled while the area is rendering on initialization
 byte_RAM_502:
 	.dsb 1 ; $0502
 ; FOR RENT
@@ -1251,12 +1266,15 @@ CurrentLevelPage:
 	.dsb 1 ; $0535
 CurrentLevelPageX:
 	.dsb 1 ; $0536
+; Flag to break out of the area initilaization loop?
 byte_RAM_537:
 	.dsb 1 ; $0537
-byte_RAM_538:
+; $00 = none, $01 = left, $02 = right
+HorizontalScrollDirection:
 	.dsb 1 ; $0538
 byte_RAM_539:
 	.dsb 1 ; $0539
+; Flag to enable redrawing the background?
 byte_RAM_53A:
 	.dsb 1 ; $053a
 	.dsb 1 ; $053b
