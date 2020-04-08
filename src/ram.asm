@@ -53,7 +53,10 @@ byte_RAM_E:
 	.dsb 1 ; $000e
 byte_RAM_F:
 	.dsb 1 ; $000f
-; global counter
+; This is used as a global counter.
+; It continuouly increments during gameplay and freezes for the pause screen
+; and title cards. On the character select screen, it is used to count down
+; before showing the title card.
 byte_RAM_10:
 	.dsb 1 ; $0010
 ScreenUpdateIndex:
@@ -370,25 +373,29 @@ ScreenYLo:
 RawEnemyData:
 	.dsb 1 ; $00cc
 	.dsb 1 ; $00cd
-byte_RAM_CE:
+
+; Drawing boundary table, used when scrolling in either direction
+; - Upper nybble: tile offset (columns/rows)
+; - Lower nybble indicates the page
+BackgroundUpdateBoundary: ; full draw
 	.dsb 1 ; $00ce
-byte_RAM_CF:
+BackgroundUpdateBoundaryBackward: ; left/top
 	.dsb 1 ; $00cf
-byte_RAM_D0:
+BackgroundUpdateBoundaryForward: ; right/bottom
 	.dsb 1 ; $00d0
-byte_RAM_D1:
+DrawBackgroundTilesPPUAddrHi:
 	.dsb 1 ; $00d1
-byte_RAM_D2:
+DrawBackgroundTilesPPUAddrLo:
 	.dsb 1 ; $00d2
-byte_RAM_D3:
+DrawBackgroundTilesPPUAddrLoBackward:
 	.dsb 1 ; $00d3
-byte_RAM_D4:
+DrawBackgroundTilesPPUAddrLoForward:
 	.dsb 1 ; $00d4
 byte_RAM_D5:
 	.dsb 1 ; $00d5
-byte_RAM_D6:
+CopyBackgroundCounter:
 	.dsb 1 ; $00d6
-byte_RAM_D7:
+ReadLevelDataOffset:
 	.dsb 1 ; $00d7
 
 ;
@@ -399,21 +406,25 @@ byte_RAM_D7:
 ;
 NeedsScroll:
 	.dsb 1 ; $00d8
-; This seems related to scrolling rather than enemies...
-EnemyArray_D9:
+; Attribute data to use for the background tiles scrolling into view.
+; For vertical, this covers four rows of tiles, right-to-left.
+; For horizontal area, this covers four columns of tiles, bottom-to-top.
+ScrollingPPUAttributeUpdateBuffer:
 	.dsb 1 ; $00d9
-	.dsb 1 ; 1                ; $00da
-	.dsb 1 ; 2                ; $00db
-	.dsb 1 ; 3                ; $00dc
-	.dsb 1 ; 4                ; $00dd
-	.dsb 1 ; 5                ; $00de
-	.dsb 1 ; 6                ; $00df
-	.dsb 1 ; 7                ; $00e0
+	.dsb 1 ; $00da
+	.dsb 1 ; $00db
+	.dsb 1 ; $00dc
+	.dsb 1 ; $00dd
+	.dsb 1 ; $00de
+	.dsb 1 ; $00df
+	.dsb 1 ; $00e0
+; Attributes update up
 byte_RAM_E1:
 	.dsb 1 ; $00e1
+; Attributes update down
 byte_RAM_E2:
 	.dsb 1 ; $00e2
-byte_RAM_E3:
+PPUAttributeUpdateCounter:
 	.dsb 1 ; $00e3
 byte_RAM_E4:
 	.dsb 1 ; $00e4
@@ -425,9 +436,8 @@ byte_RAM_E7:
 	.dsb 1 ; $00e7
 byte_RAM_E8:
 	.dsb 1 ; $00e8
-byte_RAM_E9:
+ReadLevelDataAddress:
 	.dsb 1 ; $00e9
-byte_RAM_EA:
 	.dsb 1 ; $00ea
 NMIWaitFlag:
 	.dsb 1 ; $00eb
@@ -619,7 +629,7 @@ unk_RAM_318:
 	.dsb 1 ; $037d
 	.dsb 1 ; $037e
 	.dsb 1 ; $037f
-unk_RAM_380:
+ScrollingPPUTileUpdateBuffer:
 	.dsb 1 ; $0380
 unk_RAM_381:
 	.dsb 1 ; $0381
@@ -683,11 +693,15 @@ unk_RAM_39F:
 	.dsb 1 ; $03b9
 	.dsb 1 ; $03ba
 	.dsb 1 ; $03bb
-byte_RAM_3BC:
+
+; Used for scrolling in horizontal levels
+DrawBackgroundAttributesPPUAddrHi:
 	.dsb 1 ; $03bc
-byte_RAM_3BD:
+DrawBackgroundAttributesPPUAddrLo:
 	.dsb 1 ; $03bd
-unk_RAM_3BE:
+; Attribute data to use for the background tiles scrolling into view in
+; horizontal areas.
+HorizontalScrollingPPUAttributeUpdateBuffer:
 	.dsb 1 ; $03be
 	.dsb 1 ; $03bf
 	.dsb 1 ; $03c0
@@ -696,6 +710,7 @@ unk_RAM_3BE:
 	.dsb 1 ; $03c3
 	.dsb 1 ; $03c4
 	.dsb 1 ; $03c5
+
 	.dsb 1 ; $03c6
 	.dsb 1 ; $03c7
 	.dsb 1 ; $03c8
@@ -1182,9 +1197,9 @@ CameraScrollTiles:
 	.dsb 1 ; $0504
 byte_RAM_505:
 	.dsb 1 ; $0505
-byte_RAM_506:
+PPUScrollCheckHi:
 	.dsb 1 ; $0506
-byte_RAM_507:
+PPUScrollCheckLo:
 	.dsb 1 ; $0507
 ; FOR RENT
 	.dsb 1 ; $0508
@@ -1224,9 +1239,9 @@ CurrentLevelAreaCopy:
 	.dsb 1 ; $0519
 ; FOR RENT
 	.dsb 1 ; $051a
-byte_RAM_51B:
+DrawTileId:
 	.dsb 1 ; $051b
-byte_RAM_51C:
+HasScrollingPPUTilesUpdate:
 	.dsb 1 ; $051c
 AreaPointersByPage:
 	.dsb 1 ; $051d
@@ -1266,13 +1281,13 @@ CurrentLevelPage:
 	.dsb 1 ; $0535
 CurrentLevelPageX:
 	.dsb 1 ; $0536
-; Flag to break out of the area initilaization loop?
+; Flag to break out of the area's initial PPU draw loop?
 byte_RAM_537:
 	.dsb 1 ; $0537
 ; $00 = none, $01 = left, $02 = right
 HorizontalScrollDirection:
 	.dsb 1 ; $0538
-byte_RAM_539:
+UpdatingPPUAttributeBottomRow: ; Bottom PPU row is 16px instead of 32px
 	.dsb 1 ; $0539
 ; Flag to enable redrawing the background?
 byte_RAM_53A:

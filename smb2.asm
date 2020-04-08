@@ -8,6 +8,7 @@
 .include "config.asm"
 .include "constants.asm"
 
+.ignorenl
 INES_MAPPER = MAPPER_MMC3
 IFDEF FME7
 	INES_MAPPER = MAPPER_FME7
@@ -15,6 +16,7 @@ ENDIF
 IFDEF MMC5
 	INES_MAPPER = MAPPER_MMC5
 ENDIF
+.endinl
 
 ; -----------------------------------------
 ; Add NES header

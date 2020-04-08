@@ -1,3 +1,5 @@
+.ignorenl
+
 ; ----------------------------------------
 ;  Super Mario Bros. 2 Disassembly Config
 ; ----------------------------------------
@@ -161,3 +163,6 @@ PRESERVE_UNUSED_SPACE = 1
 
 ; Enables full-page door/vine searching so that entrances don't need to align
 ; ROBUST_TRANSITION_SEARCH = 1
+
+
+.endinl

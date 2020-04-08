@@ -47,9 +47,9 @@ sub_BANKC_801C:
 	STA RAM_PPUDataBufferPointer
 	LDA MarioDream_Pointers + 1, X
 	STA RAM_PPUDataBufferPointer + 1
-	LDA #0
-	STA NMIWaitFlag
 
+	LDA #$00
+	STA NMIWaitFlag
 loc_BANKC_802E:
 	LDA NMIWaitFlag
 	BPL loc_BANKC_802E

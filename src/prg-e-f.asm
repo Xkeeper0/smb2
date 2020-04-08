@@ -970,7 +970,7 @@ HorizontalLevel_CheckSubArea:
 HorizontalLevel_ProcessFrame:
 	JSR HideAllSprites
 
-	JSR sub_BANKF_F11E
+	JSR RunFrame_Horizontal
 
 	LDY GameMode
 	BEQ HorizontalLevel_CheckTransition
@@ -1025,7 +1025,7 @@ VerticalLevel_CheckScroll:
 VerticalLevel_ProcessFrame:
 	JSR HideAllSprites
 
-	JSR sub_BANKF_F17E
+	JSR RunFrame_Vertical
 
 	LDY GameMode
 	BEQ VerticalLevel_CheckTransition
@@ -2068,16 +2068,15 @@ WaitForNMI:
 	STA RAM_PPUDataBufferPointer
 	LDA ScreenUpdateBufferPointers + 1, X
 	STA RAM_PPUDataBufferPointer + 1
+
 	LDA #$00
 	STA NMIWaitFlag ; Start waiting for NMI to finish
-
 WaitForNMILoop:
 	LDA NMIWaitFlag ; Has the NMI routine set the flag yet?
 	BPL WaitForNMILoop ; If no, wait some more
 
 	RTS ; If yes, go back to what we were doing
 
-; End of function WaitForNMI
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2204,7 +2203,10 @@ CopyUnusedCoinSpriteToSpriteArea_Loop:
 	RTS
 ENDIF
 
-loc_BANKF_EB3F:
+;
+; NMI logic for during a transition
+;
+NMI_Transition:
 	LDA #$00
 	STA OAMADDR
 	LDA #$02
@@ -2218,11 +2220,13 @@ loc_BANKF_EB3F:
 	LDA PPUCtrlMirror
 	STA PPUCTRL
 	DEC NMIWaitFlag
-	JMP loc_BANKF_EC61
+	JMP NMI_Exit
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_EB5E:
+;
+; NMI logic for during the pause menu
+;
+NMI_PauseOrMenu:
 	LDA #$00
 	STA PPUMASK
 	STA OAMADDR
@@ -2232,7 +2236,7 @@ loc_BANKF_EB5E:
 
 	JSR UpdatePPUFromBufferWithOptions
 
-	JSR sub_BANKF_EC68
+	JSR ResetPPUAddress
 
 	LDA PPUScrollXMirror
 	STA PPUSCROLL
@@ -2240,17 +2244,21 @@ loc_BANKF_EB5E:
 	STA PPUSCROLL
 	LDA PPUMaskMirror
 	STA PPUMASK
-	JMP loc_BANKF_EC4B
+	JMP NMI_CheckScreenUpdateIndex
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_EB86:
+;
+; When waiting for an NMI, just run the audio engine
+;
+NMI_Waiting:
 	LDA PPUMaskMirror
 	STA PPUMASK
-	JMP loc_BANKF_EC5E
+	JMP NMI_DoSoundProcessing
 
 
-; public NMI
+;
+; Public NMI: where dreams come true!
+;
 NMI:
 	PHP
 	PHA
@@ -2259,9 +2267,9 @@ NMI:
 	TYA
 	PHA
 	BIT StackArea
-	BPL loc_BANKF_EB5E ; branch if bit 7 was 0
+	BPL NMI_PauseOrMenu ; branch if bit 7 was 0
 
-	BVC loc_BANKF_EB3F ; branch if bit 6 was 0
+	BVC NMI_Transition ; branch if bit 6 was 0
 
 	LDA #$00
 	STA PPUMASK
@@ -2271,88 +2279,95 @@ NMI:
 	JSR ChangeCHRBanks
 
 	LDA NMIWaitFlag
-	BNE loc_BANKF_EB86
+	BNE NMI_Waiting
 
+NMI_Gameplay:
+	; `UpdatePPUFromBufferNMI` draws in a row-oriented fashion, which makes it
+	; unsuitable for horizontal levels where scrolling the screen means drawing
+	; columns of new tiles. As a result, we need special logic to draw the
+	; background in horizontal levels!
 	LDA IsHorizontalLevel
-	BEQ loc_BANKF_EC1F
+	BEQ NMI_AfterBackgroundAttributesUpdate
 
-	LDA byte_RAM_51C
-	BEQ loc_BANKF_EBE8
+	LDA HasScrollingPPUTilesUpdate
+	BEQ NMI_AfterBackgroundTilesUpdate
 
+	; Update nametable tiles in horizontal level
 	LDA #$00
-	STA byte_RAM_51C
+	STA HasScrollingPPUTilesUpdate
 	LDX #$1E
 	LDY #$00
 	LDA PPUSTATUS
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCTRL
 
-loc_BANKF_EBC9:
-	LDA_abs byte_RAM_D1
+NMI_DrawBackgroundTilesOuterLoop:
+	LDA_abs DrawBackgroundTilesPPUAddrHi
 	STA PPUADDR
-	LDA_abs byte_RAM_D2
+	LDA_abs DrawBackgroundTilesPPUAddrLo
 	STA PPUADDR
 
-loc_BANKF_EBD5:
-	LDA unk_RAM_380, Y
+NMI_DrawBackgroundTilesInnerLoop:
+	LDA ScrollingPPUTileUpdateBuffer, Y
 	STA PPUDATA
 	INY
 	DEX
-	BNE loc_BANKF_EBD5
+	BNE NMI_DrawBackgroundTilesInnerLoop
 
 	LDX #$1E
-	INC_abs byte_RAM_D2
+	INC_abs DrawBackgroundTilesPPUAddrLo
 
 	CPY #$3C
-	BNE loc_BANKF_EBC9
+	BNE NMI_DrawBackgroundTilesOuterLoop
 
-loc_BANKF_EBE8:
-	LDA byte_RAM_3BC
-	BEQ loc_BANKF_EC1F
+NMI_AfterBackgroundTilesUpdate:
+	LDA DrawBackgroundAttributesPPUAddrHi
+	BEQ NMI_AfterBackgroundAttributesUpdate
 
+	; Update nametable attributes in horizontal level
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCTRL
 	LDY #$00
 	LDX #$04
 
-loc_BANKF_EBF6:
+NMI_DrawBackgroundAttributesOuterLoop:
 	LDA PPUSTATUS
-	LDA byte_RAM_3BC
+	LDA DrawBackgroundAttributesPPUAddrHi
 	STA PPUADDR
-	LDA byte_RAM_3BD
+	LDA DrawBackgroundAttributesPPUAddrLo
 	STA PPUADDR
 
-loc_BANKF_EC05:
-	LDA unk_RAM_3BE, Y
+NMI_DrawBackgroundAttributesInnerLoop:
+	LDA HorizontalScrollingPPUAttributeUpdateBuffer, Y
 	STA PPUDATA
 	INY
 	TYA
 	LSR A
-	BCS loc_BANKF_EC05
+	BCS NMI_DrawBackgroundAttributesInnerLoop
 
-	LDA byte_RAM_3BD
+	LDA DrawBackgroundAttributesPPUAddrLo
 	CLC
 	ADC #$08
-	STA byte_RAM_3BD
+	STA DrawBackgroundAttributesPPUAddrLo
 	DEX
-	BNE loc_BANKF_EBF6
+	BNE NMI_DrawBackgroundAttributesOuterLoop
 
-	STX byte_RAM_3BC
+	STX DrawBackgroundAttributesPPUAddrHi
 
-loc_BANKF_EC1F:
+NMI_AfterBackgroundAttributesUpdate:
 	JSR UpdatePPUFromBufferNMI
 
-	JSR sub_BANKF_EC68
+	JSR ResetPPUAddress
 
 	LDA #$B0
 	ORA PPUScrollXHiMirror
 	LDY IsHorizontalLevel
-	BNE loc_BANKF_EC31
+	BNE NMI_UpdatePPUScroll
 
 	AND #$FE
 	ORA PPUScrollYHiMirror
 
-loc_BANKF_EC31:
+NMI_UpdatePPUScroll:
 	STA PPUCTRL
 	STA PPUCtrlMirror
 	LDA PPUScrollXMirror
@@ -2365,21 +2380,22 @@ loc_BANKF_EC31:
 	STA PPUMASK
 	INC byte_RAM_10
 
-loc_BANKF_EC4B:
+NMI_CheckScreenUpdateIndex:
 	LDA ScreenUpdateIndex
-	BNE loc_BANKF_EC55
+	BNE NMI_ResetScreenUpdateIndex
 
+	; Turn off PPU buffer 301 update
 	STA byte_RAM_300
 	STA PPUBuffer_301
 
-loc_BANKF_EC55:
+NMI_ResetScreenUpdateIndex:
 	LDA #ScreenUpdateBuffer_RAM_301
 	STA ScreenUpdateIndex
 	JSR UpdateJoypads
 
 	DEC NMIWaitFlag
 
-loc_BANKF_EC5E:
+NMI_DoSoundProcessing:
 	JSR DoSoundProcessing
 
 IFDEF DEBUG
@@ -2387,7 +2403,7 @@ DebugHook:
 ; Hook into debug routine if select is pressed
 	LDA Player1JoypadPress
 	CMP #ControllerInput_Select
-	BNE loc_BANKF_EC61
+	BNE NMI_Exit
 	LDA #>Debug_Init
 	PHA
 	LDA #<Debug_Init
@@ -2396,7 +2412,7 @@ DebugHook:
 	RTI
 ENDIF
 
-loc_BANKF_EC61:
+NMI_Exit:
 	PLA
 	TAY
 	PLA
@@ -2407,9 +2423,15 @@ loc_BANKF_EC61:
 
 ; End of function NMI
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_EC68:
+;
+; Sets the PPU address to `$3f00`, then immediatley to `$0000`
+;
+; Speculation is that this ritual comes from a recommendation in some Nintendo
+; documentation, but isn't actually necessary.
+;
+; See: https://forums.nesdev.com/viewtopic.php?f=2&t=16721
+;
+ResetPPUAddress:
 	LDA PPUSTATUS
 	LDA #$3F
 	STA PPUADDR
@@ -2418,8 +2440,6 @@ sub_BANKF_EC68:
 	STA PPUADDR
 	STA PPUADDR
 	RTS
-
-; End of function sub_BANKF_EC68
 
 
 DoSoundProcessing:
@@ -3028,45 +3048,46 @@ loc_BANKF_F115:
 	JSR RenderPlayer
 
 loc_BANKF_F11B:
-	JMP loc_BANKF_F146
+	JMP RunFrame_Common
 
 ; End of function sub_BANKF_F0F9
 
 ;
 ; Does a lot of important stuff in horizontal levels
 ;
-HorizontalLevel_RunFrame:
-sub_BANKF_F11E:
+RunFrame_Horizontal:
 	JSR NextSpriteFlickerSlot
 
+	; If the player is in a rocket, cut to the chase
 	LDA PlayerInRocket
-	BNE loc_BANKF_F146
+	BNE RunFrame_Common
 
+	; Switch to banks 0/1 for the scrolling logic
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
 
-	; boss clear fanfare locks player movement
+	; If the boss clear fanfare is playing or `PlayerLock` is set, skip the
+	; player state update subroutine
 	LDA MusicPlaying2
 	CMP #Music2_BossClearFanfare
-	BEQ loc_BANKF_F13A
+	BEQ RunFrame_Horizontal_AfterPlayerState
 
 	LDA PlayerLock
-	BNE loc_BANKF_F13A
+	BNE RunFrame_Horizontal_AfterPlayerState
 
 	JSR HandlePlayerState
 
-loc_BANKF_F13A:
+RunFrame_Horizontal_AfterPlayerState:
 	JSR GetCameraVelocityX
 
-	; horizonal scrolling?
-	JSR sub_BANK0_85EC
+	JSR ApplyHorizontalScroll
 
 	JSR SetPlayerScreenPosition
 
 	JSR RenderPlayer
 
 ; back to the shared stuff
-loc_BANKF_F146:
+RunFrame_Common:
 	LDA #PRGBank_2_3
 	JSR ChangeMappedPRGBank
 
@@ -3082,73 +3103,78 @@ ENDIF
 
 	JSR SetAreaStartPage
 
+	; Decrement player state timers
 	LDX #$03
-
-loc_BANKF_F159:
+DecrementPlayerStateTimers_Loop:
 	LDA PlayerStateTimer, X
-	BEQ loc_BANKF_F15F
+	BEQ DecrementPlayerStateTimers_Zero
 
 	DEC PlayerStateTimer, X
 
-loc_BANKF_F15F:
+DecrementPlayerStateTimers_Zero:
 	DEX
-	BPL loc_BANKF_F159
+	BPL DecrementPlayerStateTimers_Loop
 
+	; If invincible, decrement timer every 8 frames
 	LDY StarInvincibilityTimer
-	BEQ locret_BANKF_F17D
+	BEQ RunFrame_Exit
 
 	LDA byte_RAM_10
 	AND #$07
-	BNE locret_BANKF_F17D
+	BNE RunFrame_Exit
 
+	; When the invincibility timer hits 8, restore the regular level music
 	DEC StarInvincibilityTimer
 	CPY #$08
-	BNE locret_BANKF_F17D
+	BNE RunFrame_Exit
 
 	LDY CurrentMusicIndex
 	LDA LevelMusicIndexes, Y
 	STA MusicQueue1
 
-locret_BANKF_F17D:
+RunFrame_Exit:
 	RTS
 
 
 ;
 ; Does a lot of important stuff in vertical levels
 ;
-sub_BANKF_F17E:
+RunFrame_Vertical:
 	JSR NextSpriteFlickerSlot
 
-	JSR StartVerticalScroll
+	JSR DetermineVerticalScroll
 
+	; If the player is in a rocket, cut to the chase
 	LDA PlayerInRocket
-	BNE loc_BANKF_F1AB
+	BNE RunFrame_Vertical_Common
 
-	; boss clear fanfare locks player movement
+	; If the boss clear fanfare is playing or `PlayerLock` is set, skip the
+	; player state update subroutine
 	LDA MusicPlaying2
 	CMP #Music2_BossClearFanfare
-	BEQ loc_BANKF_F19D
+	BEQ RunFrame_Vertical_AfterPlayerState
 
 	LDA PlayerLock
-	BNE loc_BANKF_F19D
+	BNE RunFrame_Vertical_AfterPlayerState
 
+	; Switch to banks 0/1 for the scrolling logic
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
 
 	JSR HandlePlayerState
 
-loc_BANKF_F19D:
+RunFrame_Vertical_AfterPlayerState:
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
 
-	JSR sub_BANK0_8083
+	JSR ApplyVerticalScroll
 
 	JSR SetPlayerScreenPosition
 
 	JSR RenderPlayer
 
-loc_BANKF_F1AB:
-	JMP loc_BANKF_F146
+RunFrame_Vertical_Common:
+	JMP RunFrame_Common
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -3799,53 +3825,53 @@ SetAreaStartPage_SetAndExit:
 ;
 ; Check if the player position requires vertical scrolling
 ;
-StartVerticalScroll:
+DetermineVerticalScroll:
 	; Exit if vertical scrolling is already happening
 	LDX NeedsScroll
-	BNE StartVerticalScroll_Exit
+	BNE DetermineVerticalScroll_Exit
 
 	; Exit if the player is doing any kind of transition
 	LDA PlayerState
 	CMP #PlayerState_Lifting
-	BCS StartVerticalScroll_Exit
+	BCS DetermineVerticalScroll_Exit
 
 	; Use the player's position to detmine how to scroll
 	LDA PlayerScreenYLo
 	LDY PlayerScreenYHi
-	BMI StartVerticalScroll_ScrollUpOnGround ; eg. `PlayerScreenYHi == $FF`
-	BNE StartVerticalScroll_ScrollDown ; eg. `PlayerScreenYHi == $01`
+	BMI DetermineVerticalScroll_ScrollUpOnGround ; eg. `PlayerScreenYHi == $FF`
+	BNE DetermineVerticalScroll_ScrollDown ; eg. `PlayerScreenYHi == $01`
 
 	; Scroll down if player is near the bottom
 	CMP #$B4
-	BCS StartVerticalScroll_ScrollDown
+	BCS DetermineVerticalScroll_ScrollDown
 
 	; Scroll up if the player is near the top
 	CMP #$21
-	BCS StartVerticalScroll_StartFromStationary
+	BCS DetermineVerticalScroll_StartFromStationary
 
 ; Don't start scrolling for offscreen player until they're standing or climbing
-StartVerticalScroll_ScrollUpOnGround:
+DetermineVerticalScroll_ScrollUpOnGround:
 	LDY PlayerInAir
-	BNE StartVerticalScroll_StartFromStationary ; Player is in the air
-	BEQ StartVerticalScroll_ScrollUp ; Player is NOT in the air
+	BNE DetermineVerticalScroll_StartFromStationary ; Player is in the air
+	BEQ DetermineVerticalScroll_ScrollUp ; Player is NOT in the air
 
-StartVerticalScroll_ScrollDown:
+DetermineVerticalScroll_ScrollDown:
 	; Set X = $02, scroll down
 	INX
 
-StartVerticalScroll_ScrollUp:
+DetermineVerticalScroll_ScrollUp:
 	; Set X = $01, scroll up
 	INX
 
-StartVerticalScroll_StartFromStationary:
+DetermineVerticalScroll_StartFromStationary:
 	LDA VerticalScrollDirection
 	STX VerticalScrollDirection
-	BNE StartVerticalScroll_Exit
+	BNE DetermineVerticalScroll_Exit
 
 	; We weren't already vertically scrolling, but we need to start
 	STX NeedsScroll
 
-StartVerticalScroll_Exit:
+DetermineVerticalScroll_Exit:
 	RTS
 
 

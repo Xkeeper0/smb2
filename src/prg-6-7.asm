@@ -5048,7 +5048,7 @@ PPUScrollHiOffsets_Bank6:
 ; ##### Output
 ; - `PPUScrollYHiMirror`
 ; - `PPUScrollXHiMirror`
-; - `byte_RAM_506`: PPU scroll offset high byte
+; - `PPUScrollCheckHi`: PPU scroll offset high byte
 ;
 ResetPPUScrollHi_Bank6:
 	LSR A
@@ -5069,7 +5069,7 @@ ResetPPUScrollHi_NametableB_Bank6:
 	LDA PPUScrollHiOffsets_Bank6, Y
 
 ResetPPUScrollHi_Exit_Bank6:
-	STA byte_RAM_506
+	STA PPUScrollCheckHi
 	RTS
 
 
