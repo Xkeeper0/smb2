@@ -1095,7 +1095,7 @@ sub_BANK0_856A:
 	LDA CurrentLevelEntryPage
 	BNE loc_BANK0_8576
 
-	LDA CameraVelocityX
+	LDA MoveCameraX
 	BMI loc_BANK0_85E7
 
 	LDA CurrentLevelEntryPage
@@ -1104,12 +1104,12 @@ loc_BANK0_8576:
 	CMP CurrentLevelPages
 	BNE loc_BANK0_857F
 
-	LDA CameraVelocityX
+	LDA MoveCameraX
 	BPL loc_BANK0_85E7
 
 loc_BANK0_857F:
 	LDX #$02
-	LDA CameraVelocityX
+	LDA MoveCameraX
 	BPL loc_BANK0_858B
 
 	LDA #$FF
@@ -1121,7 +1121,7 @@ loc_BANK0_858B:
 	STA byte_RAM_B
 
 loc_BANK0_858F:
-	LDA CameraVelocityX
+	LDA MoveCameraX
 	AND #$F0
 	CLC
 	ADC BackgroundUpdateBoundary, X
@@ -1167,12 +1167,12 @@ loc_BANK0_85C4:
 	DEX
 	BPL loc_BANK0_858F
 
-	LDA CameraVelocityX
+	LDA MoveCameraX
 	STA PPUScrollXMirror
 	STA ScreenBoundaryLeftLo
 	AND #$F0
 	STA CurrentLevelPageX
-	LDA CameraVelocityX
+	LDA MoveCameraX
 	BPL loc_BANK0_85E7
 
 	DEC ScreenBoundaryLeftHi
@@ -1184,7 +1184,7 @@ loc_BANK0_85C4:
 
 loc_BANK0_85E7:
 	LDA #$00
-	STA CameraVelocityX
+	STA MoveCameraX
 	RTS
 
 ; End of function sub_BANK0_856A
@@ -1205,7 +1205,7 @@ ApplyHorizontalScroll:
 
 	; Are we scrolling in more tiles?
 	LDA HorizontalScrollDirection
-	BEQ ApplyHorizontalScroll_CheckCameraVelocityX
+	BEQ ApplyHorizontalScroll_CheckMoveCameraX
 
 	; Which direction?
 	LDA HorizontalScrollDirection
@@ -1226,7 +1226,7 @@ ApplyHorizontalScroll_Right:
 	STA BackgroundUpdateBoundaryForward
 	LDA #$00
 	STA HorizontalScrollDirection
-	BEQ ApplyHorizontalScroll_CheckCameraVelocityX
+	BEQ ApplyHorizontalScroll_CheckMoveCameraX
 
 ApplyHorizontalScroll_Left:
 	LDX #$01
@@ -1240,30 +1240,30 @@ ApplyHorizontalScroll_Left:
 	LDA #$00
 	STA HorizontalScrollDirection
 
-ApplyHorizontalScroll_CheckCameraVelocityX:
-	LDA CameraVelocityX
-	BNE ApplyCameraVelocityX
+ApplyHorizontalScroll_CheckMoveCameraX:
+	LDA MoveCameraX
+	BNE ApplyMoveCameraX
 
 	RTS
 
 
-ApplyCameraVelocityX:
-	LDA CameraVelocityX
-	BPL ApplyCameraVelocityX_Right
+ApplyMoveCameraX:
+	LDA MoveCameraX
+	BPL ApplyMoveCameraX_Right
 
-ApplyCameraVelocityX_ScrollLeft:
+ApplyMoveCameraX_ScrollLeft:
 	LDA #$01
 	STA NeedsScroll
 
 	; Weird `JMP`, but okay...
-	JMP ApplyCameraVelocityX_Left
+	JMP ApplyMoveCameraX_Left
 
-ApplyCameraVelocityX_Right:
+ApplyMoveCameraX_Right:
 	LDA #$02
 	STA NeedsScroll
 
-	LDX CameraVelocityX
-ApplyCameraVelocityX_Right_Loop:
+	LDX MoveCameraX
+ApplyMoveCameraX_Right_Loop:
 	LDA PPUScrollXMirror
 	BNE loc_BANK0_8651
 
@@ -1272,11 +1272,11 @@ ApplyCameraVelocityX_Right_Loop:
 	BNE loc_BANK0_8651
 
 	; Can't scroll past beyond the last page of the area
-	JMP ApplyCameraVelocityX_Exit
+	JMP ApplyMoveCameraX_Exit
 
 ; Scrolling one pixel at a time in a tight loop seems crazy at first, but in
 ; practice it only ends up being like 3 iterations at most.
-ApplyCameraVelocityX_Right_AddPixel:
+ApplyMoveCameraX_Right_AddPixel:
 loc_BANK0_8651:
 	LDA PPUScrollXMirror
 	CLC
@@ -1300,19 +1300,19 @@ loc_BANK0_8669:
 	LDA PPUScrollXMirror
 	AND #$F0
 	CMP CurrentLevelPageX
-	BEQ ApplyCameraVelocityX_Right_Next
+	BEQ ApplyMoveCameraX_Right_Next
 
 	STA CurrentLevelPageX
 	LDA #$01
 	STA HasScrollingPPUTilesUpdate
 
-ApplyCameraVelocityX_Right_Next:
+ApplyMoveCameraX_Right_Next:
 	DEX
-	BNE ApplyCameraVelocityX_Right_Loop
+	BNE ApplyMoveCameraX_Right_Loop
 
 loc_BANK0_8685:
 	LDA HasScrollingPPUTilesUpdate
-	BEQ ApplyCameraVelocityX_Exit
+	BEQ ApplyMoveCameraX_Exit
 
 	LDX #$02
 loc_BANK0_868C:
@@ -1327,9 +1327,9 @@ loc_BANK0_868C:
 	JMP loc_BANK0_86E6
 
 
-ApplyCameraVelocityX_Left:
-	LDX CameraVelocityX
-ApplyCameraVelocityX_Left_Loop:
+ApplyMoveCameraX_Left:
+	LDX MoveCameraX
+ApplyMoveCameraX_Left_Loop:
 	LDA PPUScrollXMirror
 	BNE loc_BANK0_86A8
 
@@ -1337,7 +1337,7 @@ ApplyCameraVelocityX_Left_Loop:
 	BNE loc_BANK0_86A8
 
 	; Can't scroll past beyond the first page of the area
-	JMP ApplyCameraVelocityX_Exit
+	JMP ApplyMoveCameraX_Exit
 
 loc_BANK0_86A8:
 	LDA PPUScrollXMirror
@@ -1366,10 +1366,10 @@ loc_BANK0_86C0:
 
 loc_BANK0_86D1:
 	INX
-	BNE ApplyCameraVelocityX_Left_Loop
+	BNE ApplyMoveCameraX_Left_Loop
 
 	LDA HasScrollingPPUTilesUpdate
-	BEQ ApplyCameraVelocityX_Exit
+	BEQ ApplyMoveCameraX_Exit
 
 	LDX #$02
 loc_BANK0_86DB:
@@ -1384,7 +1384,7 @@ loc_BANK0_86DB:
 loc_BANK0_86E6:
 	JSR CopyBackgroundToPPUBuffer_Horizontal
 
-ApplyCameraVelocityX_Exit:
+ApplyMoveCameraX_Exit:
 	LDA #$00
 	STA NeedsScroll
 	RTS
@@ -4418,7 +4418,7 @@ ApplyAreaTransition_MoveCamera:
 	LDA PlayerXLo
 	SEC
 	SBC #$78
-	STA CameraVelocityX
+	STA MoveCameraX
 	RTS
 
 
@@ -4830,7 +4830,7 @@ ENDIF
 AreaTransitionPlacement_Subspace:
 	LDA PlayerScreenX
 	SEC
-	SBC CameraVelocityX
+	SBC MoveCameraX
 	EOR #$FF
 	CLC
 	ADC #$F1

@@ -3634,7 +3634,7 @@ loc_BANK6_9439:
 	SEC
 
 	SBC ScreenBoundaryLeftLo
-	STA CameraVelocityX
+	STA MoveCameraX
 	PLA
 	LSR A
 	LSR A

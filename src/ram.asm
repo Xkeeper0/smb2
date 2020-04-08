@@ -327,8 +327,9 @@ EnemyArray_B1:
 	.dsb 1 ; $00b8
 	.dsb 1 ; $00b9
 
-; Not exactly velocity. Functions more like "move camera X pixels on the next frame"
-CameraVelocityX:
+; Number of pixels to shift the camera on the next frame to get to its "ideal"
+; position. The left/right bounds of the area will overrule this.
+MoveCameraX:
 	.dsb 1 ; $00ba
 CurrentMusicPointer:
 	.dsb 2 ; $00bb

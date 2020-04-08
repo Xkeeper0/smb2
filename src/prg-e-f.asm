@@ -3078,7 +3078,7 @@ RunFrame_Horizontal:
 	JSR HandlePlayerState
 
 RunFrame_Horizontal_AfterPlayerState:
-	JSR GetCameraVelocityX
+	JSR GetMoveCameraX
 
 	JSR ApplyHorizontalScroll
 
@@ -3400,10 +3400,10 @@ SetPlayerScreenPosition_DoClimbingTransition:
 ; Calculate the x-velocity of the camera based on the distance between the player
 ; and the center of the screen.
 ;
-GetCameraVelocityX:
+GetMoveCameraX:
 	LDA #$00
 	LDY ScrollXLock
-	BNE GetCameraVelocityX_Exit
+	BNE GetMoveCameraX_Exit
 
 	LDA PlayerXLo
 	SEC
@@ -3411,8 +3411,8 @@ GetCameraVelocityX:
 	SEC
 	SBC ScreenBoundaryLeftLo
 
-GetCameraVelocityX_Exit:
-	STA CameraVelocityX
+GetMoveCameraX_Exit:
+	STA MoveCameraX
 	RTS
 
 
