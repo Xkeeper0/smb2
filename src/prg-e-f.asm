@@ -653,8 +653,8 @@ loc_BANKF_E2B2:
 	STA PreviousCharacter
 	LDA CurrentWorld
 	STA PreviousWorld
-	LDY #$3F
 
+	LDY #$3F
 loc_BANKF_E2CA:
 	LDA PlayerSelectMarioSprites1, Y
 	STA SpriteDMAArea + $10, Y
@@ -2722,7 +2722,6 @@ ChangeCHRBanks_FME7:
 	LDY #$03
 ChangeCHRBanks_FME7_Loop:
 	TYA
-	ORA #$80
 	STA $8000
 	LDA SpriteCHR1, Y
 	STA $A000
