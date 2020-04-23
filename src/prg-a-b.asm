@@ -465,6 +465,7 @@ loc_BANKA_8493:
 	CPY #$FF
 	BNE loc_BANKA_8493
 
+	; This data is copied, but doesn't appear to be used. Its original purpose is not obvious.
 	LDY #$17
 loc_BANKA_84A0:
 	LDA MysteryData14439, Y
@@ -472,13 +473,15 @@ loc_BANKA_84A0:
 	DEY
 	BPL loc_BANKA_84A0
 
+	; Copy object collision hitbox table
 	LDY #$4F
 loc_BANKA_84AB:
-	LDA byte_BANKF_F099, Y
-	STA unk_RAM_7100, Y
+	LDA ObjectCollisionHitboxLeft, Y
+	STA ObjectCollisionHitboxLeft_RAM, Y
 	DEY
 	BPL loc_BANKA_84AB
 
+	; Copy flying carpet acceleration table
 	LDY #$03
 loc_BANKA_84B6:
 	LDA byte_BANKA_84E1, Y
@@ -486,7 +489,7 @@ loc_BANKA_84B6:
 	DEY
 	BPL loc_BANKA_84B6
 
-	; Collision data
+	; Copy object collision type table
 	LDY #$49
 loc_BANKA_84C1:
 	LDA byte_BANKF_F607, Y
@@ -494,6 +497,10 @@ loc_BANKA_84C1:
 	DEY
 	BPL loc_BANKA_84C1
 
+	; Copy end of level door PPU data to RAM
+	;
+	; The fact that it's in RAM is actually taken advantage of when defeating Clawgrip, since the
+	; door needs to be drawn in a slightly different spot.
 	LDY #$20
 loc_BANKA_84CC:
 	LDA EndOfLevelDoor, Y
@@ -501,6 +508,7 @@ loc_BANKA_84CC:
 	DEY
 	BPL loc_BANKA_84CC
 
+	; Copy Wart's OAM address table
 	LDY #$06
 loc_BANKA_84D7:
 	LDA byte_BANKA_84E5, Y
@@ -510,23 +518,23 @@ loc_BANKA_84D7:
 
 	RTS
 
-; End of function CopyCharacterStatsAndStuff
 
-; ---------------------------------------------------------------------------
+; Flying carpet acceleration
 byte_BANKA_84E1:
 	.db $00
 	.db $01
 	.db $FF
 	.db $00
 
+; Wart OAM address offsets
 byte_BANKA_84E5:
 	.db $00
 	.db $E0
-	.db $FF
+	.db $FF ; Cycled in code ($7267)
 	.db $D0
 	.db $00
 	.db $E0
-	.db $FF
+	.db $FF ; Cycled in code ($726B)
 
 PlayerSelectPalettes:
 	.db $3F, $00, $20

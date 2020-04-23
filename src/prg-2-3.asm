@@ -122,7 +122,7 @@ AreaInitialization_CheckObjectCarriedOver:
 	LDY #EnemyState_Alive
 	STY EnemyState + 5
 	LDY #$FF
-	STY unk_RAM_441 + 5
+	STY EnemyRawDataOffset + 5
 	CMP #Enemy_Rocket
 	BNE AreaInitialization_NonRocketCarryOver
 
@@ -189,8 +189,10 @@ AreaInitialization_SetEnemyData:
 	LDA IsHorizontalLevel
 	BNE AreaInitialization_HorizontalArea
 
+;
+; Loads area enemies based on the vertical screen scroll
+;
 AreaInitialization_VerticalArea:
-	; Loads area enemies based on the vertical screen scroll
 	LDA #$14
 	STA byte_RAM_9
 	LDA ScreenYLo
@@ -201,44 +203,45 @@ AreaInitialization_VerticalArea:
 	SBC #$00
 	STA byte_RAM_6
 
-loc_BANK2_8124:
+AreaInitialization_VerticalArea_Loop:
 	LDA byte_RAM_6
 	CMP #$0B
-	BCS loc_BANK2_8130
+	BCS AreaInitialization_VerticalArea_Next
 
-	JSR loc_BANK2_8311
-	JSR loc_BANK2_8311
+	JSR CheckObjectVerticalSpawnBoundaries_InitializePage
+	JSR CheckObjectVerticalSpawnBoundaries_InitializePage
 
-loc_BANK2_8130:
-	JSR sub_BANK2_8138
+AreaInitialization_VerticalArea_Next:
+	JSR IncrementSpawnBoundaryTile
 
 	DEC byte_RAM_9
-	BPL loc_BANK2_8124
+	BPL AreaInitialization_VerticalArea_Loop
 
 	RTS
 
 ; End of function AreaMainRoutine
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK2_8138:
+;
+; Increments the spawn boundary by one tile, incrementing the page if necessary
+;
+IncrementSpawnBoundaryTile:
 	LDA byte_RAM_5
 	CLC
 	ADC #$10
 	STA byte_RAM_5
-	BCC locret_BANK2_8143
+	BCC IncrementSpawnBoundaryTile_Exit
 
 	INC byte_RAM_6
 
-locret_BANK2_8143:
+IncrementSpawnBoundaryTile_Exit:
 	RTS
 
-; End of function sub_BANK2_8138
 
-; ---------------------------------------------------------------------------
-
+;
+; Loads area enemies based on the horizontal screen scroll
+;
 AreaInitialization_HorizontalArea:
-	; Loads area enemies based on the horizontal screen scroll
+	; Start 3 tiles to the left of the screen boundary
 	LDA ScreenBoundaryLeftLo
 	SBC #$30
 	AND #$F0
@@ -246,29 +249,30 @@ AreaInitialization_HorizontalArea:
 	LDA ScreenBoundaryLeftHi
 	SBC #$00
 	STA byte_RAM_6
+
+	; Check a screen and a half screen's worth of objects
 	LDA #$17
 	STA byte_RAM_9
-
-loc_BANK2_8158:
+AreaInitialization_HorizontalArea_Loop:
 	LDA byte_RAM_6
-	CMP #$B
-	BCS loc_BANK2_8164
+	CMP #$0B
+	BCS AreaInitialization_HorizontalArea_Next
 
-	JSR sub_BANK2_827D
-	JSR sub_BANK2_827D
+	JSR CheckObjectHorizontalSpawnBoundaries_InitializePage
+	JSR CheckObjectHorizontalSpawnBoundaries_InitializePage
 
-loc_BANK2_8164:
-	JSR sub_BANK2_8138
+AreaInitialization_HorizontalArea_Next:
+	JSR IncrementSpawnBoundaryTile
 
 	DEC byte_RAM_9
-	BPL loc_BANK2_8158
+	BPL AreaInitialization_HorizontalArea_Loop
 
 	RTS
 
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_816C:
-	JSR loc_BANK2_8256
+	JSR CheckObjectSpawnBoundaries
 
 IFDEF RESET_CHR_LATCH
 	JSR CheckResetCHRLatch
@@ -461,126 +465,133 @@ HandleEnemyState:
 	.dw loc_BANK2_85B2 ; Object carried/thrown?
 
 
-byte_BANK2_8252:
-	.db $18
-	.db $E0
-	.db $01
-	.db $FF
+; Offset from left boundary of screen\
+SpawnBoundaryOffsets:
+	.db $18 ; rightward (lo)
+	.db $E0 ; leftward (lo)
+	.db $01 ; rightward (hi)
+	.db $FF ; leftward (hi)
 
 
-loc_BANK2_8256:
+CheckObjectSpawnBoundaries:
 	LDA BossBeaten
-	BNE locret_BANK2_82AB
+	BNE CheckObjectSpawnBoundaries_Exit
 
 	LDA IsHorizontalLevel
 	JSR JumpToTableAfterJump
 
-	.dw loc_BANK2_82ED ; vertical
-	.dw loc_BANK2_8264 ; horizontal
+	.dw CheckObjectVerticalSpawnBoundaries
+	.dw CheckObjectHorizontalSpawnBoundaries
 
 
-loc_BANK2_8264:
+CheckObjectHorizontalSpawnBoundaries:
 	LDY PlayerMovementDirection
+	; Low offset (pixel)
 	LDA ScreenBoundaryLeftLo
 	CLC
-	ADC byte_BANK2_8252 - 1, Y
+	ADC SpawnBoundaryOffsets - 1, Y
 	AND #$F0
 	STA byte_RAM_5
+	; High offset (page)
 	LDA ScreenBoundaryLeftHi
-	ADC byte_BANK2_8252 + 1, Y
+	ADC SpawnBoundaryOffsets + 1, Y
 	STA byte_RAM_6
 	CMP #$0A
-	BCS locret_BANK2_82AB
+	BCS CheckObjectSpawnBoundaries_Exit
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_827D:
+CheckObjectHorizontalSpawnBoundaries_InitializePage:
 	LDA InSubspaceOrJar
 	CMP #$02
-	BEQ locret_BANK2_82AB
+	BEQ CheckObjectSpawnBoundaries_Exit
 
+	; Initialize the enemy data page offset
 	LDX #$00
 	STX byte_RAM_0
-
-loc_BANK2_8288:
+CheckObjectHorizontalSpawnBoundaries_InitializePage_Loop:
+	; Stop looping and start checking the individual enemies on the current page
 	CPX byte_RAM_6
-	BEQ loc_BANK2_8298
+	BEQ CheckObjectHorizontalSpawnBoundaries_InitializePage_Next
 
+	; Advance to the next page of enemy data
 	LDA byte_RAM_0
 	TAY
 	CLC
 	ADC (RawEnemyData), Y
 	STA byte_RAM_0
 	INX
-	JMP loc_BANK2_8288
+	JMP CheckObjectHorizontalSpawnBoundaries_InitializePage_Loop
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_8298:
+CheckObjectHorizontalSpawnBoundaries_InitializePage_Next:
+	; We're on the page, now start counting bytes of enemy data
 	LDY byte_RAM_0
 	LDA (RawEnemyData), Y
 	STA byte_RAM_1
 	LDX #$FF
 	DEY
 
-loc_BANK2_82A1:
+CheckObjectHorizontalSpawnBoundaries_InitializePage_NextObject:
 	INY
 	INY
 	INX
 	INX
 	CPX byte_RAM_1
-	BCC loc_BANK2_82AC
+	BCC CheckObjectHorizontalSpawnBoundaries_InitializePage_InitializeObject
 
 	LDX byte_RAM_12
 
-locret_BANK2_82AB:
+CheckObjectSpawnBoundaries_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_82AC:
+CheckObjectHorizontalSpawnBoundaries_InitializePage_InitializeObject:
+	; If bit 7 of the enemy type is set, it's already active and we should not re-initialize
 	LDA (RawEnemyData), Y
-	BMI loc_BANK2_82A1
+	BMI CheckObjectHorizontalSpawnBoundaries_InitializePage_NextObject
 
+	; Load the x-position of the object
 	INY
 	LDA (RawEnemyData), Y
 	DEY
-
 	AND #$F0
 	CMP byte_RAM_5
-	BNE loc_BANK2_82A1
+	BNE CheckObjectHorizontalSpawnBoundaries_InitializePage_NextObject
 
+	; Check if it's a generator/swarm object (end of enemy init table < enemy type > boss types)
 	LDA (RawEnemyData), Y
 	CMP #Enemy_BossBirdo
-	BCS loc_BANK2_82C8
-
+	BCS CheckObjectHorizontalSpawnBoundaries_InitializePage_RegularObject
 	CMP #((EnemyInitializationTable_End - EnemyInitializationTable) / 2)
-	BCC loc_BANK2_82C8
+	BCC CheckObjectHorizontalSpawnBoundaries_InitializePage_RegularObject
 
 	STA SwarmType
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_82C8:
+CheckObjectHorizontalSpawnBoundaries_InitializePage_RegularObject:
+	; Look for an enmpy slot for the object
 	LDX #$04
-loc_BANK2_82CA:
+CheckObjectHorizontalSpawnBoundaries_InitializePage_RegularObject_Loop:
 	LDA EnemyState, X
-	BEQ loc_BANK2_82D2
+	BEQ CheckObjectHorizontalSpawnBoundaries_InitializePage_CreateObject
 
 	DEX
-	BPL loc_BANK2_82CA
+	BPL CheckObjectHorizontalSpawnBoundaries_InitializePage_RegularObject_Loop
 
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_82D2:
+CheckObjectHorizontalSpawnBoundaries_InitializePage_CreateObject:
+	; Store the object slot used
 	STX byte_RAM_12
+
+	; Set the x-position of the object (we already looked it up)
 	LDA byte_RAM_5
 	STA ObjectXLo, X
 	LDA byte_RAM_6
 	STA ObjectXHi, X
+
+	; Set the y-position of the object (fetch from the enemy data)
 	INY
 	LDA (RawEnemyData), Y
 	DEY
@@ -591,18 +602,16 @@ loc_BANK2_82D2:
 	STA ObjectYLo, X
 	LDA #$00
 	STA ObjectYHi, X
-	JMP loc_BANK2_8377
 
-; End of function sub_BANK2_827D
+	JMP CheckObjectSpawnBoundaries_InitializePage_PreInitObject
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_82ED:
+CheckObjectVerticalSpawnBoundaries:
 	LDA byte_RAM_10
 	AND #$01
 	TAY
 	INY
-	LDA NeedVerticalScroll
+	LDA NeedsScroll
 	BEQ loc_BANK2_82FC
 
 	AND #$03
@@ -612,59 +621,61 @@ loc_BANK2_82ED:
 loc_BANK2_82FC:
 	LDA ScreenYLo
 	CLC
-	ADC byte_BANK2_8252 - 1, Y
+	ADC SpawnBoundaryOffsets - 1, Y
 	AND #$F0
 	STA byte_RAM_5
 	LDA ScreenYHi
-	ADC byte_BANK2_8252 + 1, Y
+	ADC SpawnBoundaryOffsets + 1, Y
 	STA byte_RAM_6
 	CMP #$0A
-	BCS locret_BANK2_82AB
+	BCS CheckObjectSpawnBoundaries_Exit
 
-loc_BANK2_8311:
+CheckObjectVerticalSpawnBoundaries_InitializePage:
 	LDX #$00
 	STX byte_RAM_0
-
-loc_BANK2_8315:
+CheckObjectVerticalSpawnBoundaries_InitializePage_Loop:
+	; Stop looping and start checking the individual enemies on the current page
 	CPX byte_RAM_6
-	BEQ loc_BANK2_8325
+	BEQ CheckObjectVerticalSpawnBoundaries_InitializePage_Next
 
+	; Advance to the next page of enemy data
 	LDA byte_RAM_0
 	TAY
 	CLC
 	ADC (RawEnemyData), Y
 	STA byte_RAM_0
 	INX
-	JMP loc_BANK2_8315
+	JMP CheckObjectVerticalSpawnBoundaries_InitializePage_Loop
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_8325:
+CheckObjectVerticalSpawnBoundaries_InitializePage_Next:
+	; We're on the page, now start counting bytes of enemy data
 	LDY byte_RAM_0
 	LDA (RawEnemyData), Y
 	STA byte_RAM_1
 	LDX #$FF
 	DEY
 
-loc_BANK2_832E:
+CheckObjectVerticalSpawnBoundaries_InitializePage_NextObject:
 	INY
 	INY
 	INX
 	INX
 	CPX byte_RAM_1
-	BCC loc_BANK2_8339
+	BCC CheckObjectVerticalSpawnBoundaries_InitializePage_InitializeObject
 
 	LDX byte_RAM_12
 
-locret_BANK2_8338:
+CheckObjectVerticalSpawnBoundaries_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_8339:
+CheckObjectVerticalSpawnBoundaries_InitializePage_InitializeObject:
+	; If bit 7 of the enemy type is set, it's already active and we should not re-initialize
 	LDA (RawEnemyData), Y
-	BMI loc_BANK2_832E
+	BMI CheckObjectVerticalSpawnBoundaries_InitializePage_NextObject
 
+	; Load the y-position of the object
 	INY
 	LDA (RawEnemyData), Y
 	DEY
@@ -673,39 +684,42 @@ loc_BANK2_8339:
 	ASL A
 	ASL A
 	CMP byte_RAM_5
-	BNE loc_BANK2_832E
+	BNE CheckObjectVerticalSpawnBoundaries_InitializePage_NextObject
 
+	; Check if it's a generator/swarm object (end of enemy init table < enemy type > boss types)
 	LDA (RawEnemyData), Y
 	CMP #Enemy_BossBirdo
-	BCS loc_BANK2_8357
-
+	BCS CheckObjectVerticalSpawnBoundaries_InitializePage_RegularObject
 	CMP #((EnemyInitializationTable_End - EnemyInitializationTable) / 2)
-	BCC loc_BANK2_8357
+	BCC CheckObjectVerticalSpawnBoundaries_InitializePage_RegularObject
 
 	STA SwarmType
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_8357:
+CheckObjectVerticalSpawnBoundaries_InitializePage_RegularObject:
 	LDX #$04
-loc_BANK2_8359:
+CheckObjectVerticalSpawnBoundaries_InitializePage_RegularObject_Loop:
 	LDA EnemyState, X
-	BEQ loc_BANK2_8361
+	BEQ CheckObjectVerticalSpawnBoundaries_InitializePage_CreateObject
 
 	DEX
-	BPL loc_BANK2_8359
+	BPL CheckObjectVerticalSpawnBoundaries_InitializePage_RegularObject_Loop
 
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_8361:
+CheckObjectVerticalSpawnBoundaries_InitializePage_CreateObject:
+	; Store the object slot used
 	STX byte_RAM_12
+
+	; Set the y-position of the object (we already looked it up)
 	LDA byte_RAM_5
 	STA ObjectYLo, X
 	LDA byte_RAM_6
 	STA ObjectYHi, X
+
+	; Set the x-position of the object (fetch from the enemy data)
 	INY
 	LDA (RawEnemyData), Y
 	DEY
@@ -714,49 +728,54 @@ loc_BANK2_8361:
 	LDA #$00
 	STA ObjectXHi, X
 
-loc_BANK2_8377:
+CheckObjectSpawnBoundaries_InitializePage_PreInitObject:
+	; Reset the flag to spawn a door
 	STA EnemyArray_SpawnsDoor, X
+	; Stash the enemy data offset
 	STY byte_RAM_C
+
+	; Face the player (horizontal levels only)
 	LDA (RawEnemyData), Y
 	AND #%00111111
-	CMP #$32
-	BCS loc_BANK2_8393
+	CMP #Enemy_VegetableSmall
+	BCS CheckObjectSpawnBoundaries_InitializePage_MarkEnemyData
 
 	LDA IsHorizontalLevel
-	BEQ loc_BANK2_8393
+	BEQ CheckObjectSpawnBoundaries_InitializePage_MarkEnemyData
 
 	JSR EnemyFindWhichSidePlayerIsOn
 
 	LDA byte_RAM_F
 	ADC #$18
 	CMP #$30
-	BCC locret_BANK2_8338
+	BCC CheckObjectVerticalSpawnBoundaries_Exit
 
-loc_BANK2_8393:
+CheckObjectSpawnBoundaries_InitializePage_MarkEnemyData:
 	; enable bit 7 of the raw enemy data to indicate that the enemy has spawned
 	LDY byte_RAM_C
 	LDA (RawEnemyData), Y
 	ORA #%10000000
 	STA (RawEnemyData), Y
 
+	; Is this a boss type?
 	CMP #%10000000 | Enemy_BossBirdo
 	AND #%01111111
-	BCC loc_BANK2_83A6
+	BCC CheckObjectSpawnBoundaries_InitializePage_SetObjectType
 
+	; Enable the flag to spawn a door for boss types
 	AND #%00111111
 	STA EnemyArray_SpawnsDoor, X
 
-loc_BANK2_83A6:
+CheckObjectSpawnBoundaries_InitializePage_SetObjectType:
 	STA ObjectType, X
 	TYA
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	INC EnemyState, X
 	LDA ObjectType, X
 
 InitializeEnemy:
 	JSR JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
 EnemyInitializationTable:
 	.dw EnemyInit_Basic ; Heart
 	.dw EnemyInit_Basic ; ShyguyRed
@@ -1064,7 +1083,7 @@ EnemyDeathMaybe:
 ;
 UnlinkEnemyFromRawData:
 	LDA #$FF
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	RTS
 
 
@@ -1530,7 +1549,6 @@ HandleEnemyState_PuffOfSmoke:
 	LDA EnemyTimer, X
 	BNE loc_BANK2_87AC
 
-loc_BANK2_87A9:
 	JMP loc_BANK2_8842
 
 ; ---------------------------------------------------------------------------
@@ -1569,11 +1587,12 @@ loc_BANK2_87CA:
 	LDY #$03
 
 loc_BANK2_87D9:
+	; Boss door PPU updates
 	LDA unk_RAM_4EF, X
-	AND #$01
+	AND #%00000001
 	ASL A
 	ASL A
-	EOR #$04
+	EOR #%00000100
 	LDX IsHorizontalLevel
 	BNE loc_BANK2_87E7
 
@@ -1608,8 +1627,11 @@ loc_BANK2_8804:
 
 	LDA ObjectType, X
 	CMP #Enemy_Clawgrip
-	BNE loc_BANK2_8827
+	BNE DrawEndOfLevelDoorTiles
 
+	; Clawgrip special hack:
+	; Move the "Draw the door" PPU command
+	; up 8 tile rows ($100) to be on the platform
 	LDA byte_RAM_0
 	SEC
 	SBC #$40
@@ -1618,18 +1640,18 @@ loc_BANK2_8804:
 	SBC #$00
 	STA byte_RAM_1
 
-loc_BANK2_8827:
+DrawEndOfLevelDoorTiles:
 	LDY #$B8
-	LDA #$56
+	LDA #BackgroundTile_LightDoorEndLevel
 	STA (byte_RAM_0), Y
 	LDY #$C8
 	STA (byte_RAM_0), Y
-	LDA #$53
+	LDA #BackgroundTile_LightTrailRight
 	LDY #$B9
 	STA (byte_RAM_0), Y
 	LDY #$CA
 	STA (byte_RAM_0), Y
-	LDA #$54
+	LDA #BackgroundTile_LightTrail
 	LDY #$C9
 	STA (byte_RAM_0), Y
 	RTS
@@ -1897,7 +1919,7 @@ loc_BANK2_89A5:
 
 EnemyDestroy:
 	; load raw enemy data offset so we can allow the level object to respawn
-	LDY unk_RAM_441, X
+	LDY EnemyRawDataOffset, X
 	; nothing to reset if offset is invalid
 	BMI EnemyDestroy_AfterAllowRespawn
 
@@ -1934,8 +1956,8 @@ loc_BANK2_89C9:
 	CMP #PlayerState_ChangingSize
 	BEQ loc_BANK2_89E2
 
-	LDA NeedVerticalScroll
-	AND #$04
+	LDA NeedsScroll
+	AND #%00000100
 	BNE loc_BANK2_8A07
 
 	LDA StopwatchTimer
@@ -2640,9 +2662,9 @@ EnemyInit_Hawkmouth:
 	DEC ObjectYLo, X
 	DEC ObjectYLo, X
 	LDY #$01
-	STY byte_RAM_711F
+	STY ObjectCollisionHitboxTop_RAM + $0B
 	INY
-	STY byte_RAM_710B
+	STY ObjectCollisionHitboxLeft_RAM + $0B
 
 
 EnemyInit_Stationary:
@@ -2724,8 +2746,8 @@ loc_BANK2_8DBA:
 	AND #$03
 	BNE loc_BANK2_8DD8
 
-	DEC byte_RAM_711F
-	INC byte_RAM_710B
+	DEC ObjectCollisionHitboxTop_RAM + $0B
+	INC ObjectCollisionHitboxLeft_RAM + $0B
 
 loc_BANK2_8DD8:
 	JMP RenderSprite_HawkmouthLeft
@@ -2932,7 +2954,8 @@ EnemyBehavior_Hoopstar:
 
 	LDA #$00
 	STA ObjectXVelocity, X
-	JSR sub_BANK3_B4E2
+
+	JSR EnemyBehavior_Hoopstar_Climb
 
 	LDY EnemyArray_477, X
 	BCC loc_BANK2_8EEC
@@ -4154,6 +4177,7 @@ sub_BANK2_9486:
 
 ; ---------------------------------------------------------------------------
 
+; Object collision with background tiles
 loc_BANK2_9492:
 	LDA EnemyCollision, X
 	AND EnemyMovementDirection, X
@@ -7548,10 +7572,10 @@ EnemyBehavior_Ostro:
 	STA ObjectXLo, Y
 	LDA ObjectXHi, X
 	STA ObjectXHi, Y
-	LDA unk_RAM_441, X
-	STA unk_RAM_441, Y
+	LDA EnemyRawDataOffset, X
+	STA EnemyRawDataOffset, Y
 	LDA #$FF
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	LDA ObjectXVelocity, X
 	STA ObjectXVelocity, Y
 	TYA
@@ -8276,10 +8300,10 @@ sub_BANK3_AA3E:
 	STA EnemyVariable, X
 	LDA #$02
 	STA EnemyArray_489, X
-	LDA unk_RAM_441, X
+	LDA EnemyRawDataOffset, X
 	STA byte_RAM_6
 	LDA #$FF
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	JSR CreateEnemy
 
 	BMI loc_BANK3_AA99
@@ -8291,7 +8315,7 @@ sub_BANK3_AA3E:
 
 	LDY byte_RAM_0
 	LDA byte_RAM_6
-	STA unk_RAM_441, Y
+	STA EnemyRawDataOffset, Y
 	LDA EnemyArray_477, X
 	SEC
 	SBC #$01
@@ -8889,17 +8913,17 @@ EnemyBehavior_Autobomb:
 	STA ObjectType, X
 	JSR SetEnemyAttributes
 
-	LDA unk_RAM_441, X
+	LDA EnemyRawDataOffset, X
 	STA byte_RAM_6
 	LDA #$FF
-	STA unk_RAM_441, X
+	STA EnemyRawDataOffset, X
 	JSR CreateEnemy
 
 	BMI loc_BANK3_ADF9
 
 	LDY byte_RAM_0
 	LDA byte_RAM_6
-	STA unk_RAM_441, Y
+	STA EnemyRawDataOffset, Y
 	LDA ObjectXLo, X
 	STA ObjectXLo, Y
 	LDA ObjectXHi, X
@@ -9958,33 +9982,37 @@ byte_BANK3_B4E0:
 	.db $F0
 	.db $10
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_B4E2:
+;
+; Determine whether the Hoopstar has reached the end of its climbable range.
+;
+; Output
+;   C = whether or not the Hoopstar is on a climbable tile
+;
+EnemyBehavior_Hoopstar_Climb:
 	JSR ClearDirectionalCollisionFlags
 
 	TAY
 	LDA ObjectYVelocity - 1, X
-	BMI loc_BANK3_B4EB
+	BMI EnemyBehavior_Hoopstar_ClimbUp
 
+EnemyBehavior_Hoopstar_ClimbDown:
 	INY
 
-loc_BANK3_B4EB:
-	JSR sub_BANK3_BB5A
+EnemyBehavior_Hoopstar_ClimbUp:
+	JSR EnemyBehavior_Hoopstar_CheckBackgroundTile
 
-	BCS loc_BANK3_B4F7
+	BCS EnemyBehavior_Hoopstar_Climb_Exit
 
 	LDA byte_RAM_0
-	CMP #$82
-	BEQ loc_BANK3_B4F7
+	CMP #BackgroundTile_PalmTreeTrunk
+	BEQ EnemyBehavior_Hoopstar_Climb_Exit
 
 	CLC
 
-loc_BANK3_B4F7:
+EnemyBehavior_Hoopstar_Climb_Exit:
 	DEX
 	RTS
-
-; End of function sub_BANK3_B4E2
 
 
 ;
@@ -10209,7 +10237,7 @@ ClearDirectionalCollisionFlags:
 	AND #CollisionFlags_Damage | CollisionFlags_PlayerOnTop | CollisionFlags_PlayerInsideMaybe | CollisionFlags_80
 	STA EnemyCollision - 1, X
 	LDY EnemyArray_492 - 1, X
-	LDA byte_BANKF_F000, Y
+	LDA TileCollisionHitboxIndex, Y
 
 ClearDirectionalCollisionFlags_Exit:
 	RTS
@@ -10264,14 +10292,14 @@ sub_BANK3_B5CC:
 	BNE loc_BANK3_B5FF
 
 loc_BANK3_B5E1:
-	CMP #$07
+	CMP #EnemyState_Sinking
 	BEQ loc_BANK3_B5F8
 
 	LDY ObjectType, X
 	CPY #Enemy_Egg
 	BEQ loc_BANK3_B5F4
 
-	CPY #$1A
+	CPY #Enemy_Pokey
 	BEQ loc_BANK3_B5F4
 
 	LDY EnemyArray_42F, X
@@ -10288,11 +10316,11 @@ loc_BANK3_B5F8:
 	LDY EnemyArray_489, X
 
 loc_BANK3_B5FF:
-	LDA unk_RAM_7128, Y
+	LDA ObjectCollisionHitboxRight_RAM, Y
 	STA byte_RAM_9
 	LDA #$00
 	STA byte_RAM_0
-	LDA unk_RAM_7100, Y
+	LDA ObjectCollisionHitboxLeft_RAM, Y
 	BPL loc_BANK3_B60F
 
 	DEC byte_RAM_0
@@ -10310,11 +10338,11 @@ loc_BANK3_B60F:
 	STA byte_RAM_1
 
 loc_BANK3_B620:
-	LDA unk_RAM_713C, Y
+	LDA ObjectCollisionHitboxBottom_RAM, Y
 	STA byte_RAM_B
 	LDA #$00
 	STA byte_RAM_0
-	LDA unk_RAM_7114, Y
+	LDA ObjectCollisionHitboxTop_RAM, Y
 	BPL loc_BANK3_B630
 
 	DEC byte_RAM_0
@@ -10362,7 +10390,7 @@ loc_BANK3_B65C:
 loc_BANK3_B661:
 	LDY byte_RAM_12
 	LDA EnemyState, Y
-	CMP #$04
+	CMP #EnemyState_BombExploding
 	BEQ loc_BANK3_B671
 
 	LDA EnemyArray_46E, Y
@@ -10378,14 +10406,14 @@ loc_BANK3_B671:
 	BNE loc_BANK3_B6A6
 
 loc_BANK3_B67B:
-	CMP #$07
+	CMP #EnemyState_Sinking
 	BEQ loc_BANK3_B692
 
 	LDY ObjectType - 1, X
 	CPY #Enemy_Egg
 	BEQ loc_BANK3_B68E
 
-	CPY #$1A
+	CPY #Enemy_Pokey
 	BEQ loc_BANK3_B68E
 
 	LDY EnemyArray_42F - 1, X
@@ -10412,11 +10440,11 @@ loc_BANK3_B692:
 	LDY EnemyArray_489 - 1, X
 
 loc_BANK3_B6A6:
-	LDA unk_RAM_7128, Y
+	LDA ObjectCollisionHitboxRight_RAM, Y
 	STA byte_RAM_A
 	LDA #$00
 	STA byte_RAM_0
-	LDA unk_RAM_7100, Y
+	LDA ObjectCollisionHitboxLeft_RAM, Y
 	BPL loc_BANK3_B6B6
 
 	DEC byte_RAM_0
@@ -10434,11 +10462,11 @@ loc_BANK3_B6B6:
 	STA byte_RAM_2
 
 loc_BANK3_B6C7:
-	LDA unk_RAM_713C, Y
+	LDA ObjectCollisionHitboxBottom_RAM, Y
 	STA byte_RAM_C
 	LDA #$00
 	STA byte_RAM_0
-	LDA unk_RAM_7114, Y
+	LDA ObjectCollisionHitboxTop_RAM, Y
 	BPL loc_BANK3_B6D7
 
 	DEC byte_RAM_0
@@ -11344,35 +11372,35 @@ _unused_BANK3_BB4A:
 	.db $FF
 	.db $FF
 
-byte_BANK3_BB50:
-	.db $C2
-	.db $D4
-	.db $C3
-	.db $C4
-	.db $07
-	.db $80
-	.db $81
-	.db $94
-	.db $95
-	.db $17
+; Hoopstar will climb up and down any of these tiles
+HoopstarClimbTiles:
+	.db BackgroundTile_Vine
+	.db BackgroundTile_VineStandable
+	.db BackgroundTile_VineBottom
+	.db BackgroundTile_ClimbableSky
+	.db BackgroundTile_Chain
+	.db BackgroundTile_Ladder
+	.db BackgroundTile_LadderShadow
+	.db BackgroundTile_LadderStandable
+	.db BackgroundTile_LadderStandableShadow
+	.db BackgroundTile_ChainStandable
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_BB5A:
+EnemyBehavior_Hoopstar_CheckBackgroundTile:
 	JSR sub_BANK3_BB87
 
 	LDA byte_RAM_0
 
 	LDY #$09
-loc_BANK3_BB61:
-	CMP byte_BANK3_BB50, Y
-	BEQ locret_BANK3_BB6A
+EnemyBehavior_Hoopstar_CheckBackgroundTile_Loop:
+	CMP HoopstarClimbTiles, Y
+	BEQ EnemyBehavior_Hoopstar_CheckBackgroundTile_Exit
 	DEY
-	BPL loc_BANK3_BB61
+	BPL EnemyBehavior_Hoopstar_CheckBackgroundTile_Loop
 
 	CLC
 
-locret_BANK3_BB6A:
+EnemyBehavior_Hoopstar_CheckBackgroundTile_Exit:
 	RTS
 
 
@@ -11409,6 +11437,17 @@ ItemCarryYOffsets:
 
 ; =============== S U B R O U T I N E =======================================
 
+;
+; Seems to determine what kind of tile the object has collided with?
+;
+; Duplicate of subroutine in bank 0: sub_BANK0_924F
+;
+; Input
+;   X = object index (0 = player)
+;   Y = bounding box offset?
+; Output
+;   byte_RAM_0 = tile ID
+;
 sub_BANK3_BB87:
 	TXA
 	PHA
@@ -11416,7 +11455,7 @@ sub_BANK3_BB87:
 	LDA #$00
 	STA byte_RAM_0
 	STA byte_RAM_1
-	LDA byte_BANKF_F011, Y
+	LDA VerticalTileCollisionHitboxX, Y
 	BPL loc_BANK3_BB96
 
 	DEC byte_RAM_0
@@ -11444,7 +11483,7 @@ loc_BANK3_BB96:
 	STA byte_RAM_3
 
 loc_BANK3_BBB5:
-	LDA byte_BANKF_F055, Y
+	LDA VerticalTileCollisionHitboxY, Y
 	BPL loc_BANK3_BBBC
 
 	DEC byte_RAM_1

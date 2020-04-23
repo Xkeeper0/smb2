@@ -39,8 +39,8 @@ ScreenUpdateBufferPointers:
 	.dw PPUBuffer_693
 	.dw PPUBuffer_6AB
 	.dw PPUBuffer_6BD
-	.dw PPUBuffer_6CC
-	.dw PPUBuffer_6E9
+	.dw PPUBuffer_6CC ; PAUSE
+	.dw PPUBuffer_6E9 ; (erase PAUSE)
 	.dw PPUBuffer_6DA
 	.dw PPUBuffer_6DF
 	.dw PPUBuffer_6E4
@@ -193,15 +193,19 @@ PPUBuffer_TitleCard:
 	.db $23, $FF, $01, $00
 	.db $00
 
+; This table defines which level starts each world.
+; The difference between the value of each world indicates how many worlds are
+; in the level, which is why there is a slot for an 8th world, even though no
+; such world is playable!
 WorldStartingLevel:
 	.db $00
-	.db $03 ; $00
-	.db $06 ; $01
-	.db $09 ; $02
-	.db $0C ; $03
-	.db $0F ; $04
-	.db $12 ; $05
-	.db $14 ; $06
+	.db $03
+	.db $06
+	.db $09
+	.db $0C
+	.db $0F
+	.db $12
+	.db $14
 
 PlayerSelectMarioSprites1:
 	.db $8F, $00, $00, $48
@@ -365,8 +369,8 @@ SetScrollXYTo0:
 	LDA #$00
 	STA PPUScrollYMirror
 	STA PPUScrollXMirror
-	STA byte_RAM_C8
-	STA byte_RAM_C9
+	STA PPUScrollYHiMirror
+	STA PPUScrollXHiMirror
 	RTS
 
 
@@ -417,9 +421,9 @@ EnableNMI_PauseTitleCard:
 ;
 ; Draws world info for the title card and pause screens
 ;
-; Input
-;   X = CurrentWorld
-;   Y = CurrentLevel (not actually used)
+; ##### Input
+; - `X`: CurrentWorld
+; - `Y`: CurrentLevel (not actually used)
 ;
 DisplayLevelTitleCardText:
 	; Level number (unused)
@@ -461,6 +465,8 @@ loc_BANKF_E1B6:
 	ADC #$D1
 	STA byte_RAM_717F
 
+	; Use the difference between the starting level of the next world and this
+	; world to determine how many dots to show for the levels in the world.
 	LDA WorldStartingLevel + 1, Y
 	SEC
 	SBC WorldStartingLevel, Y
@@ -647,8 +653,8 @@ loc_BANKF_E2B2:
 	STA PreviousCharacter
 	LDA CurrentWorld
 	STA PreviousWorld
-	LDY #$3F
 
+	LDY #$3F
 loc_BANKF_E2CA:
 	LDA PlayerSelectMarioSprites1, Y
 	STA SpriteDMAArea + $10, Y
@@ -859,7 +865,7 @@ ContinueGame:
 	LDA #$03 ; Number of lives to start
 	STA ExtraLives
 
-StartCharacterSelectMenu:
+GoToWorldStartingLevel:
 	LDX CurrentWorld
 	LDY WorldStartingLevel, X
 	STY CurrentLevel
@@ -884,12 +890,12 @@ StartLevel:
 	JSR WaitForNMI_TurnOffPPU
 
 	LDA #$B0
-	ORA byte_RAM_C9
+	ORA PPUScrollXHiMirror
 	LDY IsHorizontalLevel
 	BNE StartLevel_SetPPUCtrlMirror
 
 	AND #$FE
-	ORA byte_RAM_C8
+	ORA PPUScrollYHiMirror
 
 StartLevel_SetPPUCtrlMirror:
 	STA PPUCtrlMirror
@@ -899,7 +905,7 @@ StartLevel_SetPPUCtrlMirror:
 	LDA #PRGBank_8_9
 	JSR ChangeMappedPRGBank
 
-	JSR GetLevelPointers
+	JSR CopyLevelDataToMemory
 
 	LDA #PRGBank_6_7
 	JSR ChangeMappedPRGBank
@@ -922,9 +928,9 @@ ENDIF
 	STA PPUCtrlMirror
 
 	LDA IsHorizontalLevel
-	BEQ StartLevel_Vertical_Loop
+	BEQ VerticalLevel_Loop
 
-StartLevel_Horizontal_Loop:
+HorizontalLevel_Loop:
 	JSR WaitForNMI
 
 	LDA #PRGBank_0_1
@@ -935,53 +941,47 @@ StartLevel_Horizontal_Loop:
 	JSR EnsureCorrectMusic
 
 	LDA BreakStartLevelLoop
-	BEQ StartLevel_Horizontal_Loop
+	BEQ HorizontalLevel_Loop
 
 	LDA #$00
 	STA BreakStartLevelLoop
 	JSR WaitForNMI_TurnOnPPU
 
-loc_BANKF_E491:
+HorizontalLevel_CheckScroll:
 	JSR WaitForNMI
 
-	LDA NeedVerticalScroll
-	AND #$04
-	BNE loc_BANKF_E4A3
+	; Disable pause detection while scrolling
+	LDA NeedsScroll
+	AND #%00000100
+	BNE HorizontalLevel_CheckSubArea
 
 	LDA Player1JoypadPress
 	AND #ControllerInput_Start
-	BEQ loc_BANKF_E4A3
+	BEQ HorizontalLevel_CheckSubArea
 
 	JMP ShowPauseScreen
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_E4A3:
+HorizontalLevel_CheckSubArea:
 	LDA InSubspaceOrJar
-	BEQ loc_BANKF_E4AB
+	BEQ HorizontalLevel_ProcessFrame
 
-	JMP loc_BANKF_E5A0
+	JMP InitializeSubArea
 
-; ---------------------------------------------------------------------------
-
-; horizontal level
-loc_BANKF_E4AB:
+HorizontalLevel_ProcessFrame:
 	JSR HideAllSprites
 
-	JSR sub_BANKF_F11E
+	JSR RunFrame_Horizontal
 
 	LDY GameMode
-	BEQ loc_BANKF_E4B9
+	BEQ HorizontalLevel_CheckTransition
 
 	JMP loc_BANKF_E665
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_E4B9:
+HorizontalLevel_CheckTransition:
 	LDA DoAreaTransition
-	BEQ loc_BANKF_E491
+	BEQ HorizontalLevel_CheckScroll
 
-	JSR sub_BANKF_F6A1
+	JSR FollowCurrentAreaPointer
 
 	JSR sub_BANKF_F1AE
 
@@ -989,7 +989,8 @@ loc_BANKF_E4B9:
 	STA DoAreaTransition
 	JMP StartLevel
 
-StartLevel_Vertical_Loop:
+
+VerticalLevel_Loop:
 	JSR WaitForNMI
 
 	LDA #PRGBank_0_1
@@ -1000,41 +1001,42 @@ StartLevel_Vertical_Loop:
 	JSR EnsureCorrectMusic
 
 	LDA BreakStartLevelLoop
-	BEQ StartLevel_Vertical_Loop
+	BEQ VerticalLevel_Loop
 
 	LDA #$00
 	STA BreakStartLevelLoop
 	JSR WaitForNMI_TurnOnPPU
 
-loc_BANKF_E4E5:
+VerticalLevel_CheckScroll:
 	JSR WaitForNMI
 
-	LDA NeedVerticalScroll
-	AND #$04
-	BNE loc_BANKF_E4F4
+	; Disable pause detection while scrolling
+	; This is likely a work-around to avoid getting the PPU into a weird state
+	; due to conflicts between the pause screen and attempting to draw the part
+	; of the area scrolling into view.
+	LDA NeedsScroll
+	AND #%00000100
+	BNE VerticalLevel_ProcessFrame
 
 	LDA Player1JoypadPress
 	AND #ControllerInput_Start
 	BNE ShowPauseScreen
 
-; vertical level
-loc_BANKF_E4F4:
+VerticalLevel_ProcessFrame:
 	JSR HideAllSprites
 
-	JSR sub_BANKF_F17E
+	JSR RunFrame_Vertical
 
 	LDY GameMode
-	BEQ loc_BANKF_E502
+	BEQ VerticalLevel_CheckTransition
 
 	JMP loc_BANKF_E665
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_E502:
+VerticalLevel_CheckTransition:
 	LDA DoAreaTransition
-	BEQ loc_BANKF_E4E5
+	BEQ VerticalLevel_CheckScroll
 
-	JSR sub_BANKF_F6A1
+	JSR FollowCurrentAreaPointer
 
 	JSR sub_BANKF_F1AE
 
@@ -1134,7 +1136,7 @@ HidePauseScreen_Vertical_Loop:
 
 	JSR WaitForNMI_TurnOnPPU
 
-	JMP loc_BANKF_E4E5
+	JMP VerticalLevel_CheckScroll
 
 HidePauseScreen_Horizontal:
 	LDA #VMirror
@@ -1152,11 +1154,10 @@ HidePauseScreen_Horizontal_Loop:
 
 	JSR WaitForNMI_TurnOnPPU
 
-	JMP loc_BANKF_E491
+	JMP HorizontalLevel_CheckScroll
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_E5A0:
+InitializeSubArea:
 	JSR ClearNametablesAndSprites
 
 	LDA #PRGBank_6_7
@@ -1166,14 +1167,15 @@ loc_BANKF_E5A0:
 	STA SubspaceCoins
 	LDA InSubspaceOrJar
 	CMP #$02
-	BEQ loc_BANKF_E5D4
+	BEQ InitializeSubspace
 
+InitializeJar:
 	LDA #PRGBank_8_9
 	JSR ChangeMappedPRGBank
 
-	JSR GetJarPointers
+	JSR CopyJarDataToMemory
 
-	JSR GetEnemyPointers
+	JSR CopyEnemyDataToMemory
 
 	LDA #PRGBank_6_7
 	JSR ChangeMappedPRGBank
@@ -1186,9 +1188,8 @@ loc_BANKF_E5A0:
 	STA CurrentMusicIndex
 	JMP loc_BANKF_E5E1
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_E5D4:
+InitializeSubspace:
 	JSR GenerateSubspaceArea
 
 	LDA #Music1_Subspace
@@ -1200,17 +1201,17 @@ loc_BANKF_E5E1:
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
 
-	JSR sub_BANK0_870C
+	JSR UseSubareaScreenBoundaries
 
 	JSR EnableNMI
 
-loc_BANKF_E5EC:
+SubArea_Loop:
 	JSR WaitForNMI
 
 	JSR sub_BANK0_87AA
 
 	LDA byte_RAM_537
-	BEQ loc_BANKF_E5EC
+	BEQ SubArea_Loop
 
 	LDA InSubspaceOrJar
 	CMP #$02
@@ -1272,19 +1273,19 @@ loc_BANKF_E64C:
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
 
-	JSR sub_BANK0_874C
+	JSR UseMainAreaScreenBoundaries
 
-loc_BANKF_E654:
+ExitSubArea_Loop:
 	JSR WaitForNMI
 
 	JSR sub_BANK0_87AA
 
 	LDA byte_RAM_537
-	BEQ loc_BANKF_E654
+	BEQ ExitSubArea_Loop
 
 	JSR WaitForNMI_TurnOnPPU
 
-	JMP loc_BANKF_E491
+	JMP HorizontalLevel_CheckScroll
 
 ; ---------------------------------------------------------------------------
 
@@ -1569,35 +1570,39 @@ loc_BANKF_E7FD:
 	BNE StartSlotMachine
 
 GoToNextLevel:
+	; Check if this is the last level before the next world
 	LDY CurrentWorld
 	LDA WorldStartingLevel + 1, Y
 	SEC
 	SBC #$01
 	CMP CurrentLevel
-	BNE loc_BANKF_E81E
+	BNE GoToNextLevel_SameWorld
 
 	JSR SetStack100Gameplay
 
 	LDA #$FF
 	STA CurrentMusicIndex
 	INC CurrentWorld
-	JMP StartCharacterSelectMenu
+	JMP GoToWorldStartingLevel
 
-; ---------------------------------------------------------------------------
+GoToNextLevel_SameWorld:
+	JSR FollowCurrentAreaPointer
 
-loc_BANKF_E81E:
-	JSR sub_BANKF_F6A1
-
+	; Sanity check that ensure that the world matches the level.
+	; Without this, an area pointer at the end of a level that points to a
+	; a different world would load incorrectly (eg. 2-1 would load as 1-4).
+	; This scenario may not actually occur during normal gameplay.
 	LDA CurrentLevel
 	LDY #$00
-
-loc_BANKF_E826:
+EnsureCorrectWorld_Loop:
 	INY
 	CMP WorldStartingLevel, Y
-	BCS loc_BANKF_E826
+	BCS EnsureCorrectWorld_Loop
 
 	DEY
-	STY CurrentWorld ; I am sure this is important somehow, but... why
+	STY CurrentWorld
+
+	; Initialize the current area and then go to the character select menu
 	LDY CurrentWorld
 	LDA CurrentLevel
 	SEC
@@ -1619,7 +1624,6 @@ loc_BANKF_E826:
 
 	JMP CharacterSelectMenu
 
-; ---------------------------------------------------------------------------
 
 StartSlotMachine:
 	DEC SlotMachineCoins
@@ -2012,16 +2016,16 @@ sub_BANKF_EA68:
 
 ; End of function sub_BANKF_EA68
 
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Converts a number to numerical tiles with space for 2 digits
 ;
-; Input
-;   A = number to display
-; Output
-;   A = second digit of the number (ones)
-;   Y = first digit of the number (tens)
+; ##### Input
+; - `A` = number to display
+;
+; ##### Output
+; - `A`: second digit of the number (ones)
+; - `Y`: first digit of the number (tens)
 ;
 GetTwoDigitNumberTiles:
 	LDY #$D0 ; zero
@@ -2064,16 +2068,15 @@ WaitForNMI:
 	STA RAM_PPUDataBufferPointer
 	LDA ScreenUpdateBufferPointers + 1, X
 	STA RAM_PPUDataBufferPointer + 1
+
 	LDA #$00
 	STA NMIWaitFlag ; Start waiting for NMI to finish
-
 WaitForNMILoop:
 	LDA NMIWaitFlag ; Has the NMI routine set the flag yet?
 	BPL WaitForNMILoop ; If no, wait some more
 
 	RTS ; If yes, go back to what we were doing
 
-; End of function WaitForNMI
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2200,7 +2203,10 @@ CopyUnusedCoinSpriteToSpriteArea_Loop:
 	RTS
 ENDIF
 
-loc_BANKF_EB3F:
+;
+; NMI logic for during a transition
+;
+NMI_Transition:
 	LDA #$00
 	STA OAMADDR
 	LDA #$02
@@ -2214,11 +2220,13 @@ loc_BANKF_EB3F:
 	LDA PPUCtrlMirror
 	STA PPUCTRL
 	DEC NMIWaitFlag
-	JMP loc_BANKF_EC61
+	JMP NMI_Exit
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_EB5E:
+;
+; NMI logic for during the pause menu
+;
+NMI_PauseOrMenu:
 	LDA #$00
 	STA PPUMASK
 	STA OAMADDR
@@ -2228,7 +2236,7 @@ loc_BANKF_EB5E:
 
 	JSR UpdatePPUFromBufferWithOptions
 
-	JSR sub_BANKF_EC68
+	JSR ResetPPUAddress
 
 	LDA PPUScrollXMirror
 	STA PPUSCROLL
@@ -2236,17 +2244,21 @@ loc_BANKF_EB5E:
 	STA PPUSCROLL
 	LDA PPUMaskMirror
 	STA PPUMASK
-	JMP loc_BANKF_EC4B
+	JMP NMI_CheckScreenUpdateIndex
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_EB86:
+;
+; When waiting for an NMI, just run the audio engine
+;
+NMI_Waiting:
 	LDA PPUMaskMirror
 	STA PPUMASK
-	JMP loc_BANKF_EC5E
+	JMP NMI_DoSoundProcessing
 
 
-; public NMI
+;
+; Public NMI: where dreams come true!
+;
 NMI:
 	PHP
 	PHA
@@ -2255,9 +2267,9 @@ NMI:
 	TYA
 	PHA
 	BIT StackArea
-	BPL loc_BANKF_EB5E ; branch if bit 7 was 0
+	BPL NMI_PauseOrMenu ; branch if bit 7 was 0
 
-	BVC loc_BANKF_EB3F ; branch if bit 6 was 0
+	BVC NMI_Transition ; branch if bit 6 was 0
 
 	LDA #$00
 	STA PPUMASK
@@ -2267,88 +2279,95 @@ NMI:
 	JSR ChangeCHRBanks
 
 	LDA NMIWaitFlag
-	BNE loc_BANKF_EB86
+	BNE NMI_Waiting
 
+NMI_Gameplay:
+	; `UpdatePPUFromBufferNMI` draws in a row-oriented fashion, which makes it
+	; unsuitable for horizontal levels where scrolling the screen means drawing
+	; columns of new tiles. As a result, we need special logic to draw the
+	; background in horizontal levels!
 	LDA IsHorizontalLevel
-	BEQ loc_BANKF_EC1F
+	BEQ NMI_AfterBackgroundAttributesUpdate
 
-	LDA byte_RAM_51C
-	BEQ loc_BANKF_EBE8
+	LDA HasScrollingPPUTilesUpdate
+	BEQ NMI_AfterBackgroundTilesUpdate
 
+	; Update nametable tiles in horizontal level
 	LDA #$00
-	STA byte_RAM_51C
+	STA HasScrollingPPUTilesUpdate
 	LDX #$1E
 	LDY #$00
 	LDA PPUSTATUS
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCTRL
 
-loc_BANKF_EBC9:
-	LDA_abs byte_RAM_D1
+NMI_DrawBackgroundTilesOuterLoop:
+	LDA_abs DrawBackgroundTilesPPUAddrHi
 	STA PPUADDR
-	LDA_abs byte_RAM_D2
+	LDA_abs DrawBackgroundTilesPPUAddrLo
 	STA PPUADDR
 
-loc_BANKF_EBD5:
-	LDA unk_RAM_380, Y
+NMI_DrawBackgroundTilesInnerLoop:
+	LDA ScrollingPPUTileUpdateBuffer, Y
 	STA PPUDATA
 	INY
 	DEX
-	BNE loc_BANKF_EBD5
+	BNE NMI_DrawBackgroundTilesInnerLoop
 
 	LDX #$1E
-	INC_abs byte_RAM_D2
+	INC_abs DrawBackgroundTilesPPUAddrLo
 
 	CPY #$3C
-	BNE loc_BANKF_EBC9
+	BNE NMI_DrawBackgroundTilesOuterLoop
 
-loc_BANKF_EBE8:
-	LDA byte_RAM_3BC
-	BEQ loc_BANKF_EC1F
+NMI_AfterBackgroundTilesUpdate:
+	LDA DrawBackgroundAttributesPPUAddrHi
+	BEQ NMI_AfterBackgroundAttributesUpdate
 
+	; Update nametable attributes in horizontal level
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCTRL
 	LDY #$00
 	LDX #$04
 
-loc_BANKF_EBF6:
+NMI_DrawBackgroundAttributesOuterLoop:
 	LDA PPUSTATUS
-	LDA byte_RAM_3BC
+	LDA DrawBackgroundAttributesPPUAddrHi
 	STA PPUADDR
-	LDA byte_RAM_3BD
+	LDA DrawBackgroundAttributesPPUAddrLo
 	STA PPUADDR
 
-loc_BANKF_EC05:
-	LDA unk_RAM_3BE, Y
+NMI_DrawBackgroundAttributesInnerLoop:
+	LDA HorizontalScrollingPPUAttributeUpdateBuffer, Y
 	STA PPUDATA
 	INY
 	TYA
 	LSR A
-	BCS loc_BANKF_EC05
+	BCS NMI_DrawBackgroundAttributesInnerLoop
 
-	LDA byte_RAM_3BD
+	LDA DrawBackgroundAttributesPPUAddrLo
 	CLC
 	ADC #$08
-	STA byte_RAM_3BD
+	STA DrawBackgroundAttributesPPUAddrLo
 	DEX
-	BNE loc_BANKF_EBF6
+	BNE NMI_DrawBackgroundAttributesOuterLoop
 
-	STX byte_RAM_3BC
+	STX DrawBackgroundAttributesPPUAddrHi
 
-loc_BANKF_EC1F:
+NMI_AfterBackgroundAttributesUpdate:
 	JSR UpdatePPUFromBufferNMI
 
-	JSR sub_BANKF_EC68
+	JSR ResetPPUAddress
 
 	LDA #$B0
-	ORA byte_RAM_C9
+	ORA PPUScrollXHiMirror
 	LDY IsHorizontalLevel
-	BNE loc_BANKF_EC31
+	BNE NMI_UpdatePPUScroll
 
 	AND #$FE
-	ORA byte_RAM_C8
+	ORA PPUScrollYHiMirror
 
-loc_BANKF_EC31:
+NMI_UpdatePPUScroll:
 	STA PPUCTRL
 	STA PPUCtrlMirror
 	LDA PPUScrollXMirror
@@ -2361,21 +2380,22 @@ loc_BANKF_EC31:
 	STA PPUMASK
 	INC byte_RAM_10
 
-loc_BANKF_EC4B:
+NMI_CheckScreenUpdateIndex:
 	LDA ScreenUpdateIndex
-	BNE loc_BANKF_EC55
+	BNE NMI_ResetScreenUpdateIndex
 
+	; Turn off PPU buffer 301 update
 	STA byte_RAM_300
 	STA PPUBuffer_301
 
-loc_BANKF_EC55:
+NMI_ResetScreenUpdateIndex:
 	LDA #ScreenUpdateBuffer_RAM_301
 	STA ScreenUpdateIndex
 	JSR UpdateJoypads
 
 	DEC NMIWaitFlag
 
-loc_BANKF_EC5E:
+NMI_DoSoundProcessing:
 	JSR DoSoundProcessing
 
 IFDEF DEBUG
@@ -2383,7 +2403,7 @@ DebugHook:
 ; Hook into debug routine if select is pressed
 	LDA Player1JoypadPress
 	CMP #ControllerInput_Select
-	BNE loc_BANKF_EC61
+	BNE NMI_Exit
 	LDA #>Debug_Init
 	PHA
 	LDA #<Debug_Init
@@ -2392,7 +2412,7 @@ DebugHook:
 	RTI
 ENDIF
 
-loc_BANKF_EC61:
+NMI_Exit:
 	PLA
 	TAY
 	PLA
@@ -2403,9 +2423,15 @@ loc_BANKF_EC61:
 
 ; End of function NMI
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_EC68:
+;
+; Sets the PPU address to `$3f00`, then immediatley to `$0000`
+;
+; Speculation is that this ritual comes from a recommendation in some Nintendo
+; documentation, but isn't actually necessary.
+;
+; See: https://forums.nesdev.com/viewtopic.php?f=2&t=16721
+;
+ResetPPUAddress:
 	LDA PPUSTATUS
 	LDA #$3F
 	STA PPUADDR
@@ -2414,8 +2440,6 @@ sub_BANKF_EC68:
 	STA PPUADDR
 	STA PPUADDR
 	RTS
-
-; End of function sub_BANKF_EC68
 
 
 DoSoundProcessing:
@@ -2502,7 +2526,7 @@ PPUBufferUpdatesComplete:
 ; This function can only handle $100 bytes of data
 ; (actually less).
 ;
-; Unlike UpdatePPUFromBuffer, this one does not support
+; Unlike `UpdatePPUFromBufferWithOptions`, this one does not support
 ; $80 or $40 as options, instead treating them as direct length.
 ; It also does not increment the buffer pointer, only using Y
 ; to read further data.
@@ -2552,15 +2576,17 @@ UpdatePPUFromBufferNMI_CopyLoop:
 ;
 ; PPUADDR is two bytes (hi,lo) for the address to send to PPUADDR.
 ; LEN is the length, with the following two bitmasks:
-; - $80: Set the "draw vertically" option
+;
+;  - $80: Set the "draw vertically" option
 ;  - $40: Use ONE tile instead of a string
+;
 ; DATA is either (LEN) bytes or one byte.
 ;
 ; After (LEN) bytes have been written, the buffer pointer
 ; is incremented to (LEN+2) and the function restarts.
 ; A byte of $00 terminates execution and returns.
 ;
-; There is a similar function, UpdatePPUFromBufferNMI,
+; There is a similar function, `UpdatePPUFromBufferNMI`,
 ; that is called during NMI, but unlike this one,
 ; that one does NOT use bitmasks, nor increment the pointer.
 ;
@@ -2696,7 +2722,6 @@ ChangeCHRBanks_FME7:
 	LDY #$03
 ChangeCHRBanks_FME7_Loop:
 	TYA
-	ORA #$80
 	STA $8000
 	LDA SpriteCHR1, Y
 	STA $A000
@@ -2788,91 +2813,192 @@ ENDIF
 unusedSpace $F000, $FF
 
 
-; these seem like they might be pointers, not actual values?
-byte_BANKF_F000:
-	.db $00 ; 0x0
-	.db $08 ; ??
-	.db $10 ; ??
-	.db $18 ; ??
-	.db $20 ; most 16x16 items, clips in 1px
-	.db $24 ; most 16x16 enemies, clips in 4px
-byte_BANKF_F006:
-	.db $28
-	.db $2A
-	.db $29
-	.db $2B
-byte_BANKF_F00A:
-	.db $2C
-byte_BANKF_F00B:
-	.db $2E
-	.db $30 ; 16x32 enemies, clips in 4px (birdo, mouser)
-	.db $34 ; bullet, clips in 8px
-	.db $38 ; 16x48 enemies, clips in 4px (tryclde)
-	.db $3C ; spark, clips in 0px
-	.db $40 ; flying carpet
+;
+; ## Tile collision bounding boxes
+;
+; These hitboxes are used when determining the collision between objects and background tiles.
+;
+; Tile collision bounding box table offsets
+;
+TileCollisionHitboxIndex:
+	.db $00 ; $00 - player standing
+	.db $08 ; $01 - player holding item
+	.db $10 ; $02 - player ducking
+	.db $18 ; $03 - player ducking with item
+	.db $20 ; $04 - 16x16 items (vegetables, etc.)
+	.db $24 ; $05 - 16x16 enemies (shyguy, etc.)
+; The following four entries are used to determine whether a carried item can be thrown.
+	.db $28 ; $06 - player left, standing
+	.db $2A ; $07 - player left, ducking
+	.db $29 ; $08 - player right, standing
+	.db $2B ; $09 - player right, ducking
+	.db $2C ; $0A - player climb/cherry
+	.db $2E ; $0B - player climbing
+	.db $30 ; $0C - 16x32 enemies (birdo, mouser)
+	.db $34 ; $0D - projectile
+	.db $38 ; $0E - 16x48 enemies (tryclde)
+	.db $3C ; $0F - spark
+	.db $40 ; $10 - flying carpet
 
-; collision x bounding box
-byte_BANKF_F011:
-	.db $06,$09,$06,$09 ; $00
-	.db $01,$01,$0E,$0E ; $04
-	.db $06,$09,$06,$09 ; $08
-	.db $01,$01,$0E,$0E ; $0C
-	.db $06,$09,$06,$09 ; $10
-	.db $01,$01,$0E,$0E ; $14
-	.db $06,$09,$06,$09 ; $18
-	.db $01,$01,$0E,$0E ; $1C
-	.db $08,$08,$00,$0F ; $20
-	.db $08,$08,$03,$0C ; $24
-	.db $F8,$18,$F8,$18 ; $28
-	.db $08,$08,$08,$08 ; $2C
-	.db $08,$08,$03,$0C ; $30
-	.db $03,$03,$02,$05 ; $34
-	.db $08,$08,$03,$0C ; $38
-	.db $08,$08,$FF,$10 ; $3C
-	.db $10,$10,$02,$1E ; $40
+;
+; ### Tile vertical collision bounding box (x-offsets)
+;
+; The left boundary offset is measured from the left side of the sprite.
+; The right boundary offset is measured from the right of the first tile of the sprite.
+;
+; Each bounding box entry is four bytes:
+;
+;   1. left boundary (upward velocity)
+;   2. right boundary (upward velocity)
+;   3. left boundary (downward velocity)
+;   4. right boundary (downward velocity)
+;
+VerticalTileCollisionHitboxX:
+	.db $06, $09, $06, $09 ; $00
+	.db $01, $01, $0E, $0E ; $04
+	.db $06, $09, $06, $09 ; $08
+	.db $01, $01, $0E, $0E ; $0C
+	.db $06, $09, $06, $09 ; $10
+	.db $01, $01, $0E, $0E ; $14
+	.db $06, $09, $06, $09 ; $18
+	.db $01, $01, $0E, $0E ; $1C
+	.db $08, $08, $00, $0F ; $20
+	.db $08, $08, $03, $0C ; $24
+	.db $F8, $18, $F8, $18 ; $28
+	.db $08, $08, $08, $08 ; $2C
+	.db $08, $08, $03, $0C ; $30
+	.db $03, $03, $02, $05 ; $34
+	.db $08, $08, $03, $0C ; $38
+	.db $08, $08, $FF, $10 ; $3C
+	.db $10, $10, $02, $1E ; $40
 
-; collision y bounding box
-byte_BANKF_F055:
-	.db $07,$07,$20,$20 ; $00
-	.db $0D,$1C,$0D,$1C ; $04
-	.db $FF,$FF,$20,$20 ; $08
-	.db $04,$1C,$04,$1C ; $0C
-	.db $0F,$0F,$20,$20 ; $10
-	.db $1C,$1C,$1C,$1C ; $14
-	.db $07,$07,$20,$20 ; $18
-	.db $0D,$1C,$0D,$1C ; $1C
-	.db $00,$10,$09,$09 ; $20
-	.db $03,$10,$09,$09 ; $24
-	.db $FF,$FF,$0F,$0F ; $28
-	.db $0C,$14,$07,$20 ; $2C
-	.db $FE,$20,$10,$10 ; $30
-	.db $09,$0A,$08,$08 ; $34
-	.db $03,$30,$18,$18 ; $38
-	.db $FF,$10,$08,$08 ; $3C
-	.db $09,$0A,$08,$08 ; $40
+;
+; ### Tile vertical collision bounding box (y-offsets)
+;
+; The upper and lower boundary offset are measured from the top of the sprite.
+;
+; Each bounding box entry is four bytes:
+;
+;   1. upper boundary (upward velocity)
+;   2. lower boundary (upward velocity)
+;   3. upper boundary (downward velocity)
+;   4. lower boundary (downward velocity)
+;
+; Not totally sure why there are two bytes, but it seems to have something to do with the direction
+; of movement when checking the collision.
+;
+VerticalTileCollisionHitboxY:
+	.db $07, $07, $20, $20 ; $00
+	.db $0D, $1C, $0D, $1C ; $04
+	.db $FF, $FF, $20, $20 ; $08
+	.db $04, $1C, $04, $1C ; $0C
+	.db $0F, $0F, $20, $20 ; $10
+	.db $1C, $1C, $1C, $1C ; $14
+	.db $07, $07, $20, $20 ; $18
+	.db $0D, $1C, $0D, $1C ; $1C
+	.db $00, $10, $09, $09 ; $20
+	.db $03, $10, $09, $09 ; $24
+	.db $FF, $FF, $0F, $0F ; $28
+	.db $0C, $14, $07, $20 ; $2C
+	.db $FE, $20, $10, $10 ; $30
+	.db $09, $0A, $08, $08 ; $34
+	.db $03, $30, $18, $18 ; $38
+	.db $FF, $10, $08, $08 ; $3C
+	.db $09, $0A, $08, $08 ; $40
 
-; object collision bounding box
-byte_BANKF_F099:
-	.db $02,$02,$03,$00 ; $00
-	.db $03,$03,$F8,$00 ; $04
-	.db $03,$01,$F3,$04 ; $08
-	.db $03,$03,$03,$F2 ; $0C
-	.db $03,$03,$05,$03 ; $10
-	.db $0B,$10,$03,$00 ; $14, shy guy y?
-	.db $03,$03,$F8,$00 ; $18
-	.db $09,$04,$03,$03 ; $1C
-	.db $0E,$03,$03,$03 ; $20
-	.db $F6,$0C,$02,$03 ; $24
-	.db $0B,$0B,$09,$10 ; $28, shy guy x?
-	.db $09,$19,$20,$20 ; $2C
-	.db $03,$1E,$19,$08 ; $30
-	.db $09,$09,$09,$18 ; $34
-	.db $09,$1A,$06,$15 ; $38
-	.db $16,$11,$0D,$10 ; $3C
-	.db $1A,$19,$24,$10 ; $40
-	.db $03,$04,$2D,$30 ; $44
-	.db $0F,$2E,$3E,$1E ; $48
-	.db $28,$13,$48,$26 ; $4C
+;
+; ## Object vertical collision bounding box
+;
+; These hitboxes are copied to RAM and used when determining collision between objects. This allows
+; the hitboxes to change dynamically, which is used when Hawkmouth (offset $0B) opens and closes.
+;
+ObjectCollisionHitboxLeft:
+	.db $02 ; $00
+	.db $02 ; $01
+	.db $03 ; $02
+	.db $00 ; $03
+	.db $03 ; $04
+	.db $03 ; $05
+	.db $F8 ; $06
+	.db $00 ; $07
+	.db $03 ; $08
+	.db $01 ; $09
+	.db $F3 ; $0A
+	.db $04 ; $0B
+	.db $03 ; $0C
+	.db $03 ; $0D
+	.db $03 ; $0E
+	.db $F2 ; $0F
+	.db $03 ; $10
+	.db $03 ; $11
+	.db $05 ; $12
+	.db $03 ; $13
+
+ObjectCollisionHitboxTop:
+	.db $0B ; $00
+	.db $10 ; $01
+	.db $03 ; $02
+	.db $00 ; $03
+	.db $03 ; $04
+	.db $03 ; $05
+	.db $F8 ; $06
+	.db $00 ; $07
+	.db $09 ; $08
+	.db $04 ; $09
+	.db $03 ; $0A
+	.db $03 ; $0B
+	.db $0E ; $0C
+	.db $03 ; $0D
+	.db $03 ; $0E
+	.db $03 ; $0F
+	.db $F6 ; $10
+	.db $0C ; $11
+	.db $02 ; $12
+	.db $03 ; $13
+
+ObjectCollisionHitboxRight:
+	.db $0B ; $00
+	.db $0B ; $01
+	.db $09 ; $02
+	.db $10 ; $03
+	.db $09 ; $04
+	.db $19 ; $05
+	.db $20 ; $06
+	.db $20 ; $07
+	.db $03 ; $08
+	.db $1E ; $09
+	.db $19 ; $0A
+	.db $08 ; $0B
+	.db $09 ; $0C
+	.db $09 ; $0D
+	.db $09 ; $0E
+	.db $18 ; $0F
+	.db $09 ; $10
+	.db $1A ; $11
+	.db $06 ; $12
+	.db $15 ; $13
+
+ObjectCollisionHitboxBottom:
+	.db $16 ; $00
+	.db $11 ; $01
+	.db $0D ; $02
+	.db $10 ; $03
+	.db $1A ; $04
+	.db $19 ; $05
+	.db $24 ; $06
+	.db $10 ; $07
+	.db $03 ; $08
+	.db $04 ; $09
+	.db $2D ; $0A
+	.db $30 ; $0B
+	.db $0F ; $0C
+	.db $2E ; $0D
+	.db $3E ; $0E
+	.db $1E ; $0F
+	.db $28 ; $10
+	.db $13 ; $11
+	.db $48 ; $12
+	.db $26 ; $13
 
 
 NextSpriteFlickerSlot:
@@ -2916,49 +3042,51 @@ sub_BANKF_F0F9:
 	JSR HandlePlayerState
 
 loc_BANKF_F115:
-	JSR sub_BANKF_F228
+	JSR SetPlayerScreenPosition
 
 	JSR RenderPlayer
 
 loc_BANKF_F11B:
-	JMP loc_BANKF_F146
+	JMP RunFrame_Common
 
 ; End of function sub_BANKF_F0F9
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_F11E:
+;
+; Does a lot of important stuff in horizontal levels
+;
+RunFrame_Horizontal:
 	JSR NextSpriteFlickerSlot
 
+	; If the player is in a rocket, cut to the chase
 	LDA PlayerInRocket
-	BNE loc_BANKF_F146
+	BNE RunFrame_Common
 
+	; Switch to banks 0/1 for the scrolling logic
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
 
-	; boss clear fanfare locks player movement
+	; If the boss clear fanfare is playing or `PlayerLock` is set, skip the
+	; player state update subroutine
 	LDA MusicPlaying2
 	CMP #Music2_BossClearFanfare
-	BEQ loc_BANKF_F13A
+	BEQ RunFrame_Horizontal_AfterPlayerState
 
 	LDA PlayerLock
-	BNE loc_BANKF_F13A
+	BNE RunFrame_Horizontal_AfterPlayerState
 
 	JSR HandlePlayerState
 
-loc_BANKF_F13A:
-	; horizonal scrolling?
-	JSR sub_BANKF_F2C2
+RunFrame_Horizontal_AfterPlayerState:
+	JSR GetMoveCameraX
 
-	; horizonal scrolling?
-	JSR sub_BANK0_85EC
+	JSR ApplyHorizontalScroll
 
-	; screen boundary triggers
-	JSR sub_BANKF_F228
+	JSR SetPlayerScreenPosition
 
 	JSR RenderPlayer
 
-loc_BANKF_F146:
+; back to the shared stuff
+RunFrame_Common:
 	LDA #PRGBank_2_3
 	JSR ChangeMappedPRGBank
 
@@ -2974,75 +3102,79 @@ ENDIF
 
 	JSR SetAreaStartPage
 
+	; Decrement player state timers
 	LDX #$03
-
-loc_BANKF_F159:
+DecrementPlayerStateTimers_Loop:
 	LDA PlayerStateTimer, X
-	BEQ loc_BANKF_F15F
+	BEQ DecrementPlayerStateTimers_Zero
 
 	DEC PlayerStateTimer, X
 
-loc_BANKF_F15F:
+DecrementPlayerStateTimers_Zero:
 	DEX
-	BPL loc_BANKF_F159
+	BPL DecrementPlayerStateTimers_Loop
 
+	; If invincible, decrement timer every 8 frames
 	LDY StarInvincibilityTimer
-	BEQ locret_BANKF_F17D
+	BEQ RunFrame_Exit
 
 	LDA byte_RAM_10
 	AND #$07
-	BNE locret_BANKF_F17D
+	BNE RunFrame_Exit
 
+	; When the invincibility timer hits 8, restore the regular level music
 	DEC StarInvincibilityTimer
 	CPY #$08
-	BNE locret_BANKF_F17D
+	BNE RunFrame_Exit
 
 	LDY CurrentMusicIndex
 	LDA LevelMusicIndexes, Y
 	STA MusicQueue1
 
-locret_BANKF_F17D:
+RunFrame_Exit:
 	RTS
 
-; End of function sub_BANKF_F11E
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_F17E:
+;
+; Does a lot of important stuff in vertical levels
+;
+RunFrame_Vertical:
 	JSR NextSpriteFlickerSlot
 
-	JSR sub_BANKF_F494
+	JSR DetermineVerticalScroll
 
+	; If the player is in a rocket, cut to the chase
 	LDA PlayerInRocket
-	BNE loc_BANKF_F1AB
+	BNE RunFrame_Vertical_Common
 
-	; boss clear fanfare locks player movement
+	; If the boss clear fanfare is playing or `PlayerLock` is set, skip the
+	; player state update subroutine
 	LDA MusicPlaying2
 	CMP #Music2_BossClearFanfare
-	BEQ loc_BANKF_F19D
+	BEQ RunFrame_Vertical_AfterPlayerState
 
 	LDA PlayerLock
-	BNE loc_BANKF_F19D
+	BNE RunFrame_Vertical_AfterPlayerState
 
+	; Switch to banks 0/1 for the scrolling logic
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
 
 	JSR HandlePlayerState
 
-loc_BANKF_F19D:
+RunFrame_Vertical_AfterPlayerState:
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
 
-	JSR sub_BANK0_8083
+	JSR ApplyVerticalScroll
 
-	JSR sub_BANKF_F228
+	JSR SetPlayerScreenPosition
 
 	JSR RenderPlayer
 
-loc_BANKF_F1AB:
-	JMP loc_BANKF_F146
+RunFrame_Vertical_Common:
+	JMP RunFrame_Common
 
-; End of function sub_BANKF_F17E
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -3142,10 +3274,14 @@ IFDEF FIX_CLIMB_ZIP
 	.db $00
 ENDIF
 
-; =============== S U B R O U T I N E =======================================
-
-; Bottomless pit check
-sub_BANKF_F228:
+;
+; Calculates the player's position onscreen.
+;
+; The screen position is also used for the jump-out-of-a-jar screen transition
+; and bottomless pit checks, which works because of the assumption that the
+; camera can always keep up with the player in normal gameplay.
+;
+SetPlayerScreenPosition:
 	LDA PlayerXLo
 	SEC
 	SBC ScreenBoundaryLeftLo
@@ -3157,37 +3293,46 @@ sub_BANKF_F228:
 	LDA PlayerYHi
 	SBC ScreenYHi
 	STA PlayerScreenYHi
+
+	; Exit if the player state is not standing/jumping or climbing
 	LDA PlayerState
 	CMP #PlayerState_Lifting
-	BCS locret_BANKF_F297
+	BCS SetPlayerScreenPosition_Exit
 
 	LDA PlayerScreenYHi
-	BEQ loc_BANKF_F298
+	BEQ SetPlayerScreenPosition_CheckClimbing
 
-	BMI loc_BANKF_F254
+	BMI SetPlayerScreenPosition_Above
 
-	; bottomless pit
+; If the player falls below the screen, they are in a bottomless pit.
+SetPlayerScreenPosition_Below:
 	LDA #$00
 	STA PlayerStateTimer
 	JMP KillPlayer
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_F254:
+; If the player is above the screen, they might be jumping out of a jar.
+SetPlayerScreenPosition_Above:
+	; Verify that the y-position is above the first page of the area
 	LDA PlayerYHi
-	BPL locret_BANKF_F297
+	BPL SetPlayerScreenPosition_Exit
 
+	; We're above the top of the area, so check if we're in a jar
 	LDA InJarType
-	BEQ loc_BANKF_F298
+	BEQ SetPlayerScreenPosition_CheckClimbing
 
+	; Check if the player is far enough above the top of the area
 	LDA PlayerYLo
 	CMP #$F0
-	BCS locret_BANKF_F297
+	BCS SetPlayerScreenPosition_Exit
 
+	; Exit the jar!
 	JSR DoAreaReset
 
+	; Break out of the previous subroutine
 	PLA
 	PLA
+
+	; Put the player in a crouching stance
 	LDY #$00
 	STY PlayerDucking
 	STY PlayerYVelocity
@@ -3199,65 +3344,65 @@ loc_BANKF_F254:
 	LDA InJarType
 	STY InJarType
 	CMP #$02
-	BNE loc_BANKF_F286
+	BNE SetPlayerScreenPosition_ExitSubAreaJar
 
+SetPlayerScreenPosition_ExitPointerJar:
 	STA DoAreaTransition
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_F286:
+SetPlayerScreenPosition_ExitSubAreaJar:
 	STY InSubspaceOrJar
 	LDA CurrentLevelAreaCopy
 	STA CurrentLevelArea
 	LDA #PRGBank_8_9
 	JSR ChangeMappedPRGBank
 
-	JMP GetEnemyPointers
+	JMP CopyEnemyDataToMemory
 
-; ---------------------------------------------------------------------------
-
-locret_BANKF_F297:
+SetPlayerScreenPosition_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_F298:
+SetPlayerScreenPosition_CheckClimbing:
 	LDA PlayerState
 	CMP #PlayerState_Climbing
-	BNE locret_BANKF_F297
+	BNE SetPlayerScreenPosition_Exit
 
+	; No climbing transitions from subspace
 	LDA InSubspaceOrJar
 	CMP #$02
-	BEQ locret_BANKF_F297
+	BEQ SetPlayerScreenPosition_Exit
 
+	; Climbing upwards
 	LDA ClimbSpeedUp
 	LDY PlayerYHi
-	BMI loc_BANKF_F2BB
+	BMI SetPlayerScreenPosition_DoClimbingTransition
 
+	; Climbing downwards
 	LDA PlayerScreenYLo
 	CMP #$B8
-	BCC locret_BANKF_F297
+	BCC SetPlayerScreenPosition_Exit
 
+	; Set y-position to an odd number
 	LSR PlayerYLo
 	SEC
 	ROL PlayerYLo
 	LDA ClimbSpeedDown
 
-loc_BANKF_F2BB:
+SetPlayerScreenPosition_DoClimbingTransition:
 	STA PlayerYVelocity
 	LDA #PlayerState_ClimbingAreaTransition
 	STA PlayerState
 	RTS
 
-; End of function sub_BANKF_F228
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_F2C2:
+;
+; Calculate the x-velocity of the camera based on the distance between the player
+; and the center of the screen.
+;
+GetMoveCameraX:
 	LDA #$00
 	LDY ScrollXLock
-	BNE loc_BANKF_F2D2
+	BNE GetMoveCameraX_Exit
 
 	LDA PlayerXLo
 	SEC
@@ -3265,11 +3410,9 @@ sub_BANKF_F2C2:
 	SEC
 	SBC ScreenBoundaryLeftLo
 
-loc_BANKF_F2D2:
-	STA byte_RAM_BA
+GetMoveCameraX_Exit:
+	STA MoveCameraX
 	RTS
-
-; End of function sub_BANKF_F2C2
 
 
 ; Tiles to use for eye sprite. If $00, this will use the character-specific table
@@ -3678,55 +3821,58 @@ SetAreaStartPage_SetAndExit:
 	STA CurrentLevelPage
 	RTS
 
-; End of function SetAreaStartPage
+;
+; Check if the player position requires vertical scrolling
+;
+DetermineVerticalScroll:
+	; Exit if vertical scrolling is already happening
+	LDX NeedsScroll
+	BNE DetermineVerticalScroll_Exit
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_F494:
-	LDX NeedVerticalScroll
-	BNE locret_BANKF_F4C2
-
+	; Exit if the player is doing any kind of transition
 	LDA PlayerState
 	CMP #PlayerState_Lifting
-	BCS locret_BANKF_F4C2
+	BCS DetermineVerticalScroll_Exit
 
+	; Use the player's position to detmine how to scroll
 	LDA PlayerScreenYLo
 	LDY PlayerScreenYHi
-	BMI loc_BANKF_F4B0
+	BMI DetermineVerticalScroll_ScrollUpOnGround ; eg. `PlayerScreenYHi == $FF`
+	BNE DetermineVerticalScroll_ScrollDown ; eg. `PlayerScreenYHi == $01`
 
-	BNE loc_BANKF_F4B6
-
+	; Scroll down if player is near the bottom
 	CMP #$B4
-	BCS loc_BANKF_F4B6
+	BCS DetermineVerticalScroll_ScrollDown
 
+	; Scroll up if the player is near the top
 	CMP #$21
-	BCS loc_BANKF_F4B8
+	BCS DetermineVerticalScroll_StartFromStationary
 
-loc_BANKF_F4B0:
+; Don't start scrolling for offscreen player until they're standing or climbing
+DetermineVerticalScroll_ScrollUpOnGround:
 	LDY PlayerInAir
-	BNE loc_BANKF_F4B8
+	BNE DetermineVerticalScroll_StartFromStationary ; Player is in the air
+	BEQ DetermineVerticalScroll_ScrollUp ; Player is NOT in the air
 
-	BEQ loc_BANKF_F4B7
-
-loc_BANKF_F4B6:
+DetermineVerticalScroll_ScrollDown:
+	; Set X = $02, scroll down
 	INX
 
-loc_BANKF_F4B7:
+DetermineVerticalScroll_ScrollUp:
+	; Set X = $01, scroll up
 	INX
 
-loc_BANKF_F4B8:
+DetermineVerticalScroll_StartFromStationary:
 	LDA VerticalScrollDirection
 	STX VerticalScrollDirection
-	BNE locret_BANKF_F4C2
+	BNE DetermineVerticalScroll_Exit
 
-	STX NeedVerticalScroll
+	; We weren't already vertically scrolling, but we need to start
+	STX NeedsScroll
 
-locret_BANKF_F4C2:
+DetermineVerticalScroll_Exit:
 	RTS
 
-; End of function sub_BANKF_F494
-
-; =============== S U B R O U T I N E =======================================
 
 ; Determines start page for vertical area
 GetVerticalAreaStartPage:
@@ -3934,7 +4080,7 @@ EnemyArray_46E_Data:
 	.db %00000100 ; $46 Enemy_Stopwatch
 
 ;
-; Height and horizontal collision detection
+; Index for tile collision bounding box table
 ;
 EnemyArray_492_Data:
 	.db $00 ; $00 Enemy_Heart
@@ -4010,154 +4156,154 @@ EnemyArray_492_Data:
 	.db $05 ; $46 Enemy_Stopwatch
 
 ;
-; Horizontal hitbox, collision detection, and carried height
+; Index for object collision bounding box table
 ;
 EnemyArray_489_Data:
-	.db $08 ; $00Enemy_Heart
-	.db $02 ; $01Enemy_ShyguyRed
-	.db $02 ; $02Enemy_Tweeter
-	.db $02 ; $03Enemy_ShyguyPink
-	.db $02 ; $04Enemy_Porcupo
-	.db $02 ; $05Enemy_SnifitRed
-	.db $02 ; $06Enemy_SnifitGray
-	.db $02 ; $07Enemy_SnifitPink
-	.db $04 ; $08Enemy_Ostro
-	.db $02 ; $09Enemy_BobOmb
-	.db $09 ; $0AEnemy_AlbatossCarryingBobOmb
-	.db $09 ; $0BEnemy_AlbatossStartRight
-	.db $09 ; $0CEnemy_AlbatossStartLeft
-	.db $02 ; $0DEnemy_NinjiRunning
-	.db $02 ; $0EEnemy_NinjiJumping
-	.db $02 ; $0FEnemy_BeezoDiving
-	.db $02 ; $10Enemy_BeezoStraight
-	.db $02 ; $11Enemy_WartBubble
-	.db $02 ; $12Enemy_Pidgit
-	.db $02 ; $13Enemy_Trouter
-	.db $02 ; $14Enemy_Hoopstar
-	.db $08 ; $15Enemy_JarGeneratorShyguy
-	.db $08 ; $16Enemy_JarGeneratorBobOmb
-	.db $02 ; $17Enemy_Phanto
-	.db $04 ; $18Enemy_CobratJar
-	.db $04 ; $19Enemy_CobratSand
-	.db $0E ; $1AEnemy_Pokey
-	.db $08 ; $1BEnemy_Bullet
-	.db $04 ; $1CEnemy_Birdo
-	.db $04 ; $1DEnemy_Mouser
-	.db $02 ; $1EEnemy_Egg
-	.db $0F ; $1FEnemy_Tryclyde
-	.db $02 ; $20Enemy_Fireball
-	.db $13 ; $21Enemy_Clawgrip
-	.db $02 ; $22Enemy_ClawgripRock
-	.db $02 ; $23Enemy_PanserStationaryFiresAngled
-	.db $02 ; $24Enemy_PanserWalking
-	.db $02 ; $25Enemy_PanserStationaryFiresUp
-	.db $10 ; $26Enemy_Autobomb
-	.db $02 ; $27Enemy_AutobombFire
-	.db $12 ; $28Enemy_WhaleSpout
-	.db $02 ; $29Enemy_Flurry
-	.db $0F ; $2AEnemy_Fryguy
-	.db $02 ; $2BEnemy_FryguySplit
-	.db $11 ; $2CEnemy_Wart
-	.db $0B ; $2DEnemy_HawkmouthBoss
-	.db $02 ; $2EEnemy_Spark1
-	.db $02 ; $2FEnemy_Spark2
-	.db $02 ; $30Enemy_Spark3
-	.db $02 ; $31Enemy_Spark4
-	.db $02 ; $32Enemy_VegetableSmall
-	.db $02 ; $33Enemy_VegetableLarge
-	.db $02 ; $34Enemy_VegetableWart
-	.db $02 ; $35Enemy_Shell
-	.db $02 ; $36Enemy_Coin
-	.db $02 ; $37Enemy_Bomb
-	.db $04 ; $38Enemy_Rocket
-	.db $03 ; $39Enemy_MushroomBlock
-	.db $03 ; $3AEnemy_POWBlock
-	.db $07 ; $3BEnemy_FallingLogs
-	.db $04 ; $3CEnemy_SubspaceDoor
-	.db $03 ; $3DEnemy_Key
-	.db $03 ; $3EEnemy_SubspacePotion
-	.db $03 ; $3FEnemy_Mushroom
-	.db $03 ; $40Enemy_Mushroom1up
-	.db $09 ; $41Enemy_FlyingCarpet
-	.db $0B ; $42Enemy_HawkmouthRight
-	.db $0B ; $43Enemy_HawkmouthLeft
-	.db $02 ; $44Enemy_CrystalBall
-	.db $02 ; $45Enemy_Starman
-	.db $02 ; $46Enemy_Stopwatch
+	.db $08 ; $00 Enemy_Heart
+	.db $02 ; $01 Enemy_ShyguyRed
+	.db $02 ; $02 Enemy_Tweeter
+	.db $02 ; $03 Enemy_ShyguyPink
+	.db $02 ; $04 Enemy_Porcupo
+	.db $02 ; $05 Enemy_SnifitRed
+	.db $02 ; $06 Enemy_SnifitGray
+	.db $02 ; $07 Enemy_SnifitPink
+	.db $04 ; $08 Enemy_Ostro
+	.db $02 ; $09 Enemy_BobOmb
+	.db $09 ; $0A Enemy_AlbatossCarryingBobOmb
+	.db $09 ; $0B Enemy_AlbatossStartRight
+	.db $09 ; $0C Enemy_AlbatossStartLeft
+	.db $02 ; $0D Enemy_NinjiRunning
+	.db $02 ; $0E Enemy_NinjiJumping
+	.db $02 ; $0F Enemy_BeezoDiving
+	.db $02 ; $10 Enemy_BeezoStraight
+	.db $02 ; $11 Enemy_WartBubble
+	.db $02 ; $12 Enemy_Pidgit
+	.db $02 ; $13 Enemy_Trouter
+	.db $02 ; $14 Enemy_Hoopstar
+	.db $08 ; $15 Enemy_JarGeneratorShyguy
+	.db $08 ; $16 Enemy_JarGeneratorBobOmb
+	.db $02 ; $17 Enemy_Phanto
+	.db $04 ; $18 Enemy_CobratJar
+	.db $04 ; $19 Enemy_CobratSand
+	.db $0E ; $1A Enemy_Pokey
+	.db $08 ; $1B Enemy_Bullet
+	.db $04 ; $1C Enemy_Birdo
+	.db $04 ; $1D Enemy_Mouser
+	.db $02 ; $1E Enemy_Egg
+	.db $0F ; $1F Enemy_Tryclyde
+	.db $02 ; $20 Enemy_Fireball
+	.db $13 ; $21 Enemy_Clawgrip
+	.db $02 ; $22 Enemy_ClawgripRock
+	.db $02 ; $23 Enemy_PanserStationaryFiresAngled
+	.db $02 ; $24 Enemy_PanserWalking
+	.db $02 ; $25 Enemy_PanserStationaryFiresUp
+	.db $10 ; $26 Enemy_Autobomb
+	.db $02 ; $27 Enemy_AutobombFire
+	.db $12 ; $28 Enemy_WhaleSpout
+	.db $02 ; $29 Enemy_Flurry
+	.db $0F ; $2A Enemy_Fryguy
+	.db $02 ; $2B Enemy_FryguySplit
+	.db $11 ; $2C Enemy_Wart
+	.db $0B ; $2D Enemy_HawkmouthBoss
+	.db $02 ; $2E Enemy_Spark1
+	.db $02 ; $2F Enemy_Spark2
+	.db $02 ; $30 Enemy_Spark3
+	.db $02 ; $31 Enemy_Spark4
+	.db $02 ; $32 Enemy_VegetableSmall
+	.db $02 ; $33 Enemy_VegetableLarge
+	.db $02 ; $34 Enemy_VegetableWart
+	.db $02 ; $35 Enemy_Shell
+	.db $02 ; $36 Enemy_Coin
+	.db $02 ; $37 Enemy_Bomb
+	.db $04 ; $38 Enemy_Rocket
+	.db $03 ; $39 Enemy_MushroomBlock
+	.db $03 ; $3A Enemy_POWBlock
+	.db $07 ; $3B Enemy_FallingLogs
+	.db $04 ; $3C Enemy_SubspaceDoor
+	.db $03 ; $3D Enemy_Key
+	.db $03 ; $3E Enemy_SubspacePotion
+	.db $03 ; $3F Enemy_Mushroom
+	.db $03 ; $40 Enemy_Mushroom1up
+	.db $09 ; $41 Enemy_FlyingCarpet
+	.db $0B ; $42 Enemy_HawkmouthRight
+	.db $0B ; $43 Enemy_HawkmouthLeft
+	.db $02 ; $44 Enemy_CrystalBall
+	.db $02 ; $45 Enemy_Starman
+	.db $02 ; $46 Enemy_Stopwatch
 
 ; More collision (post-throw)
 byte_BANKF_F607:
-	.db $00 ; $00Enemy_Heart
-	.db $00 ; $01Enemy_ShyguyRed
-	.db $00 ; $02Enemy_Tweeter
-	.db $00 ; $03Enemy_ShyguyPink
-	.db $00 ; $04Enemy_Porcupo
-	.db $00 ; $05Enemy_SnifitRed
-	.db $00 ; $06Enemy_SnifitGray
-	.db $00 ; $07Enemy_SnifitPink
-	.db $00 ; $08Enemy_Ostro
-	.db $00 ; $09Enemy_BobOmb
-	.db $00 ; $0AEnemy_AlbatossCarryingBobOmb
-	.db $00 ; $0BEnemy_AlbatossStartRight
-	.db $00 ; $0CEnemy_AlbatossStartLeft
-	.db $00 ; $0DEnemy_NinjiRunning
-	.db $00 ; $0EEnemy_NinjiJumping
-	.db $00 ; $0FEnemy_BeezoDiving
-	.db $00 ; $10Enemy_BeezoStraight
-	.db $00 ; $11Enemy_WartBubble
-	.db $00 ; $12Enemy_Pidgit
-	.db $00 ; $13Enemy_Trouter
-	.db $00 ; $14Enemy_Hoopstar
-	.db $00 ; $15Enemy_JarGeneratorShyguy
-	.db $00 ; $16Enemy_JarGeneratorBobOmb
-	.db $00 ; $17Enemy_Phanto
-	.db $00 ; $18Enemy_CobratJar
-	.db $00 ; $19Enemy_CobratSand
-	.db $00 ; $1AEnemy_Pokey
-	.db $00 ; $1BEnemy_Bullet
-	.db $00 ; $1CEnemy_Birdo
-	.db $00 ; $1DEnemy_Mouser
-	.db $00 ; $1EEnemy_Egg
-	.db $00 ; $1FEnemy_Tryclyde
-	.db $00 ; $20Enemy_Fireball
-	.db $00 ; $21Enemy_Clawgrip
-	.db $00 ; $22Enemy_ClawgripRock
-	.db $00 ; $23Enemy_PanserStationaryFiresAngled
-	.db $00 ; $24Enemy_PanserWalking
-	.db $00 ; $25Enemy_PanserStationaryFiresUp
-	.db $00 ; $26Enemy_Autobomb
-	.db $00 ; $27Enemy_AutobombFire
-	.db $00 ; $28Enemy_WhaleSpout
-	.db $00 ; $29Enemy_Flurry
-	.db $00 ; $2AEnemy_Fryguy
-	.db $00 ; $2BEnemy_FryguySplit
-	.db $00 ; $2CEnemy_Wart
-	.db $00 ; $2DEnemy_HawkmouthBoss
-	.db $00 ; $2EEnemy_Spark1
-	.db $00 ; $2FEnemy_Spark2
-	.db $00 ; $30Enemy_Spark3
-	.db $00 ; $31Enemy_Spark4
-	.db $01 ; $32Enemy_VegetableSmall
-	.db $01 ; $33Enemy_VegetableLarge
-	.db $01 ; $34Enemy_VegetableWart
-	.db $01 ; $35Enemy_Shell
-	.db $02 ; $36Enemy_Coin
-	.db $01 ; $37Enemy_Bomb
-	.db $00 ; $38Enemy_Rocket
-	.db $02 ; $39Enemy_MushroomBlock
-	.db $03 ; $3AEnemy_POWBlock
-	.db $02 ; $3BEnemy_FallingLogs
-	.db $04 ; $3CEnemy_SubspaceDoor
-	.db $02 ; $3DEnemy_Key
-	.db $02 ; $3EEnemy_SubspacePotion
-	.db $02 ; $3FEnemy_Mushroom
-	.db $02 ; $40Enemy_Mushroom1up
-	.db $02 ; $41Enemy_FlyingCarpet
-	.db $02 ; $42Enemy_HawkmouthRight
-	.db $02 ; $43Enemy_HawkmouthLeft
-	.db $02 ; $44Enemy_CrystalBall
-	.db $00 ; $45Enemy_Starman
-	.db $02 ; $46Enemy_Stopwatch
+	.db $00 ; $00 Enemy_Heart
+	.db $00 ; $01 Enemy_ShyguyRed
+	.db $00 ; $02 Enemy_Tweeter
+	.db $00 ; $03 Enemy_ShyguyPink
+	.db $00 ; $04 Enemy_Porcupo
+	.db $00 ; $05 Enemy_SnifitRed
+	.db $00 ; $06 Enemy_SnifitGray
+	.db $00 ; $07 Enemy_SnifitPink
+	.db $00 ; $08 Enemy_Ostro
+	.db $00 ; $09 Enemy_BobOmb
+	.db $00 ; $0A Enemy_AlbatossCarryingBobOmb
+	.db $00 ; $0B Enemy_AlbatossStartRight
+	.db $00 ; $0C Enemy_AlbatossStartLeft
+	.db $00 ; $0D Enemy_NinjiRunning
+	.db $00 ; $0E Enemy_NinjiJumping
+	.db $00 ; $0F Enemy_BeezoDiving
+	.db $00 ; $10 Enemy_BeezoStraight
+	.db $00 ; $11 Enemy_WartBubble
+	.db $00 ; $12 Enemy_Pidgit
+	.db $00 ; $13 Enemy_Trouter
+	.db $00 ; $14 Enemy_Hoopstar
+	.db $00 ; $15 Enemy_JarGeneratorShyguy
+	.db $00 ; $16 Enemy_JarGeneratorBobOmb
+	.db $00 ; $17 Enemy_Phanto
+	.db $00 ; $18 Enemy_CobratJar
+	.db $00 ; $19 Enemy_CobratSand
+	.db $00 ; $1A Enemy_Pokey
+	.db $00 ; $1B Enemy_Bullet
+	.db $00 ; $1C Enemy_Birdo
+	.db $00 ; $1D Enemy_Mouser
+	.db $00 ; $1E Enemy_Egg
+	.db $00 ; $1F Enemy_Tryclyde
+	.db $00 ; $20 Enemy_Fireball
+	.db $00 ; $21 Enemy_Clawgrip
+	.db $00 ; $22 Enemy_ClawgripRock
+	.db $00 ; $23 Enemy_PanserStationaryFiresAngled
+	.db $00 ; $24 Enemy_PanserWalking
+	.db $00 ; $25 Enemy_PanserStationaryFiresUp
+	.db $00 ; $26 Enemy_Autobomb
+	.db $00 ; $27 Enemy_AutobombFire
+	.db $00 ; $28 Enemy_WhaleSpout
+	.db $00 ; $29 Enemy_Flurry
+	.db $00 ; $2A Enemy_Fryguy
+	.db $00 ; $2B Enemy_FryguySplit
+	.db $00 ; $2C Enemy_Wart
+	.db $00 ; $2D Enemy_HawkmouthBoss
+	.db $00 ; $2E Enemy_Spark1
+	.db $00 ; $2F Enemy_Spark2
+	.db $00 ; $30 Enemy_Spark3
+	.db $00 ; $31 Enemy_Spark4
+	.db $01 ; $32 Enemy_VegetableSmall
+	.db $01 ; $33 Enemy_VegetableLarge
+	.db $01 ; $34 Enemy_VegetableWart
+	.db $01 ; $35 Enemy_Shell
+	.db $02 ; $36 Enemy_Coin
+	.db $01 ; $37 Enemy_Bomb
+	.db $00 ; $38 Enemy_Rocket
+	.db $02 ; $39 Enemy_MushroomBlock
+	.db $03 ; $3A Enemy_POWBlock
+	.db $02 ; $3B Enemy_FallingLogs
+	.db $04 ; $3C Enemy_SubspaceDoor
+	.db $02 ; $3D Enemy_Key
+	.db $02 ; $3E Enemy_SubspacePotion
+	.db $02 ; $3F Enemy_Mushroom
+	.db $02 ; $40 Enemy_Mushroom1up
+	.db $02 ; $41 Enemy_FlyingCarpet
+	.db $02 ; $42 Enemy_HawkmouthRight
+	.db $02 ; $43 Enemy_HawkmouthLeft
+	.db $02 ; $44 Enemy_CrystalBall
+	.db $00 ; $45 Enemy_Starman
+	.db $02 ; $46 Enemy_Stopwatch
 
 ; @TODO: use flag
 ; IFNDEF ENABLE_TILE_ATTRIBUTES_TABLE
@@ -4733,6 +4879,12 @@ TileInteractionAttributesTable:
 	.db %00000000 ; $FF
 ENDIF
 
+
+;
+; ### Warp destination lookup table
+;
+; The row is the (0-indexed) world that you're on, the value is the destination.
+;
 WarpDestinations:
 	.db $03
 	.db $01
@@ -4813,8 +4965,10 @@ ReadJoypadLoop:
 	RTS
 
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Load the area specified by the area pointer at the current page
+;
+FollowCurrentAreaPointer:
 sub_BANKF_F6A1:
 	LDA CurrentLevelPage
 	ASL A
@@ -4833,21 +4987,20 @@ sub_BANKF_F6A1:
 	STA CurrentLevelEntryPage
 	RTS
 
-; End of function sub_BANKF_F6A1
 
 
 ;
 ; Checks that we're playing the correct music and switches if necessary, unless
 ; we're playing the invincibility music.
 ;
-; Input
-;   CompareMusicIndex = music we should be playing
-;   CurrentMusicIndex = music we're actually playing
-;   StarInvincibilityTimer = whether the player is invincible
+; ##### Input
+; - `CompareMusicIndex`: music we should be playing
+; - `CurrentMusicIndex`: music we're actually playing
+; - `StarInvincibilityTimer`: whether the player is invincible
 ;
-; Output
-;   CurrentMusicIndex = music we should be plathing
-;   MusicQueue1 = song to play if we need to change the music
+; ##### Output
+; - `CurrentMusicIndex`: music we should be plathing
+; - `MusicQueue1`: song to play if we need to change the music
 ;
 EnsureCorrectMusic:
 	LDA CompareMusicIndex
@@ -4907,7 +5060,7 @@ DoAreaReset_EnemyLoopEnd:
 
 AreaResetEnemyDestroy:
 	; load raw enemy data offset so we can allow the level object to respawn
-	LDY unk_RAM_441, X
+	LDY EnemyRawDataOffset, X
 	; nothing to reset if offset is invalid
 	BMI AreaResetEnemyDestroy_AfterAllowRespawn
 
@@ -4965,42 +5118,50 @@ loc_BANKF_F749:
 	STA DPCMQueue
 	RTS
 
-; End of function KillPlayer
 
-; =============== S U B R O U T I N E =======================================
-
-; Something to do with loading levels here
-
-GetLevelPointers:
+;
+; Copies the raw level data to memory.
+;
+CopyLevelDataToMemory:
+	; Determine the global area index from the current level and area.
 	LDY CurrentLevel
 	LDA LevelAreaStartIndexes, Y
 	CLC
 	ADC CurrentLevelArea
-	TAY ; Y now contains the current area or something
+	TAY
+
+	; Calculate the pointer for the start of the level data.
 	LDA LevelDataPointersLo, Y
-	STA byte_RAM_5 ; $0005/$0006 are pointers to the level data
+	STA byte_RAM_5
 	LDA LevelDataPointersHi, Y
 	STA byte_RAM_6
-	LDX #$FF ; Set to load level data into $7800 in RAM
-	LDA #$78
+
+	; Blindly copy 255 bytes of data, which is presumed to contain the full area.
+	LDX #$FF
+
+	; Set the destination address in RAM for copying level data.
+	LDA #>RawLevelData
 	STA byte_RAM_2
-	LDY #$00
+	LDY #<RawLevelData
 	STY byte_RAM_1
 
-CopyLevelDataToMemory:
+	; `Y = $00`
+CopyLevelDataToMemory_Loop:
 	LDA (byte_RAM_5), Y
 	STA (byte_RAM_1), Y
 	INY
 	DEX
-	BNE CopyLevelDataToMemory
+	BNE CopyLevelDataToMemory_Loop
 
+	; We end up copying the first byte twice!
 	STA (byte_RAM_1), Y
 
-; End of function GetLevelPointers
 
-; =============== S U B R O U T I N E =======================================
-
-GetEnemyPointers:
+;
+; Copies the raw enemy data to memory.
+;
+CopyEnemyDataToMemory:
+	; Determine the address of the level's enemy pointer tables.
 	LDY CurrentLevel
 	LDA EnemyPointersByLevel_HiHi, Y
 	STA byte_RAM_1
@@ -5010,75 +5171,103 @@ GetEnemyPointers:
 	STA byte_RAM_3
 	LDA EnemyPointersByLevel_LoLo, Y
 	STA byte_RAM_2
-	LDA InSubspaceOrJar ; Are we in a jar?
+
+	; Determine whether we want the enemy data for the area or for the jar.
+	LDA InSubspaceOrJar
 	CMP #$01
-	BNE loc_BANKF_F7A0 ; No, load the area as usual
+	BNE CopyEnemyDataToMemory_Area
 
+CopyEnemyDataToMemory_Jar:
 	LDY #AreaIndex_Jar
-	JMP loc_BANKF_F7A3
+	JMP CopyEnemyDataToMemory_SetAddress
 
-; ---------------------------------------------------------------------------
-
-loc_BANKF_F7A0:
+CopyEnemyDataToMemory_Area:
 	LDY CurrentLevelArea
 
-loc_BANKF_F7A3:
+CopyEnemyDataToMemory_SetAddress:
+	; Calculate the pointer for the start of the enemy data.
 	LDA (byte_RAM_0), Y
 	STA byte_RAM_1
 	LDA (byte_RAM_2), Y
 	STA byte_RAM_0
+
+	; Blindly copy 255 bytes of data, which is presumed to contain the full area.
 	LDX #$FF
+
+	; Set the destination address in RAM for copying level data.
 	LDA #>RawEnemyDataAddr
 	STA byte_RAM_3
 	LDY #<RawEnemyDataAddr
 	STY byte_RAM_2
 
-CopyEnemyDataToMemory:
+	; `Y = $00`
+CopyEnemyDataToMemory_Loop:
 	LDA (byte_RAM_0), Y
 	STA (byte_RAM_2), Y
 	INY
 	DEX
-	BNE CopyEnemyDataToMemory
+	BNE CopyEnemyDataToMemory_Loop
 
 	RTS
 
-; End of function GetEnemyPointers
 
-; =============== S U B R O U T I N E =======================================
-
-GetJarPointers:
-	LDY CurrentLevel ; Get the area starting index for the current level
+;
+; Copies the raw level data for a jar to memory.
+;
+CopyJarDataToMemory:
+	; Determine the global area index from the current level and area.
+	LDY CurrentLevel
 	LDA LevelAreaStartIndexes, Y
 	CLC
 	ADC #AreaIndex_Jar
 	TAY
+
+	; Calculate the pointer for the start of the level data.
 	LDA LevelDataPointersLo, Y
 	STA byte_RAM_5
 	LDA LevelDataPointersHi, Y
 	STA byte_RAM_6
+
+	; Set the destination address in RAM for copying level data.
 	LDA #>RawJarData
 	STA byte_RAM_2
 	LDY #<RawJarData
 	STY byte_RAM_1
 
-CopyJarDataToMemory:
+	; `Y = $00`
+CopyJarDataToMemory_Loop:
 	LDA (byte_RAM_5), Y
+	; Unlike `CopyLevelDataToMemory`, which always copies 255 bytes, this stops on any `$FF` read!
+	;
+	; This isn't technically "correct", but in practice it's not the most devastating limitation.
+	; Just don't expect to use a waterfall object that is exactly 16 tiles wide inside a jar.
+	;
+	; Fun fact: The largest possible waterfall objects are only used in two areas of World 5!
 	CMP #$FF ; This one actually terminates on any $FF read! Welp.
-	BEQ CopyJarDataToMemoryFinished
+	BEQ CopyJarDataToMemory_Exit
 
 	STA (byte_RAM_1), Y
 	INY
-	JMP CopyJarDataToMemory
+	JMP CopyJarDataToMemory_Loop
 
-; ---------------------------------------------------------------------------
-
-CopyJarDataToMemoryFinished:
+CopyJarDataToMemory_Exit:
 	STA (byte_RAM_1), Y
 	RTS
 
-; End of function GetJarPointers
 
+;
+; ## Tile Quads
+;
+; Map tiles are made of 4 pattern table tiles arranged in a 2x2 block.
+;
+; These map tiles are broken up into four tables (`$00-$3F`, `$40-$7F`, `$80-$BF`, `$C0-$FF`) for
+; addressability (the tile index is multiplied by 4 to get the first byte). Each table
+; coincidentally corresponds to a background subpalette as well.
+;
 
+;
+; #### Tile quad pointers
+;
 TileQuadPointersLo:
 	.db <TileQuads1
 	.db <TileQuads2
@@ -5091,6 +5280,12 @@ TileQuadPointersHi:
 	.db >TileQuads3
 	.db >TileQuads4
 
+;
+; #### Tile quad pattern table values
+;
+; Each subtable corresponds to `$40` tiles so that a single byte offset can be used to address each
+; map tile within the table.
+;
 TileQuads1:
 	.db $FE,$FE,$FE,$FE ; $00
 	.db $B4,$B6,$B5,$B7 ; $04
@@ -5392,11 +5587,12 @@ AnimateCHRRoutine_Exit:
 ;
 ; Looks for an unused sprite slot
 ;
-; Input
-;   X = enemy slot
-; Output
-;   X = byte_RAM_12
-;   Y = sprite slot
+; ##### Input
+; - `X`: enemy slot
+;
+; ##### Output
+; - `X`: byte_RAM_12
+; - `Y`: sprite slot
 ;
 FindSpriteSlot:
 	LDX #$08
@@ -5699,10 +5895,23 @@ ChangeMappedPRGBank:
 	STA MMC3PRGBankTemp ; See below comment.
 
 ;
-; Any call to this sub switches the lower two banks together, eg:
-; LDA 0 JSR Change... = Bank 0/1
-; LDA 1 JSR Change... = Bank 2/3
-; etc.
+; Any call to this subroutine switches the lower two banks together.
+;
+; For example, loading Bank 0/1:
+;
+; ```
+; LDA #$00
+; JSR ChangeMappedPRGBank
+; ```
+;
+; Loading Bank 2/3:
+;
+; ```
+; LDA #$01
+; JSR ChangeMappedPRGBank
+; ```
+;
+; Etc.
 ;
 ; This version changes the bank numbers without
 ; saving the change to RAM, so the previous bank
@@ -5755,9 +5964,10 @@ ENDIF
 
 
 ;
-; Writing to $A000 sets mirroring.
-;   A = $00 for vertical
-;   A = $01 for horizontal
+; Sets the nametable mirroring by writing `$A000`.
+;
+; ##### Input
+; - `A`: `$00` =  vertical, `$01` = horizontal
 ;
 ChangeNametableMirroring:
 IF INES_MAPPER == MAPPER_FME7

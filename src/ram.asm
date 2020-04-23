@@ -53,11 +53,15 @@ byte_RAM_E:
 	.dsb 1 ; $000e
 byte_RAM_F:
 	.dsb 1 ; $000f
-; global counter
+; This is used as a global counter.
+; It continuouly increments during gameplay and freezes for the pause screen
+; and title cards. On the character select screen, it is used to count down
+; before showing the title card.
 byte_RAM_10:
 	.dsb 1 ; $0010
 ScreenUpdateIndex:
 	.dsb 1 ; $0011
+; next object slot to use?
 byte_RAM_12:
 	.dsb 1 ; $0012
 BreakStartLevelLoop:
@@ -323,8 +327,9 @@ EnemyArray_B1:
 	.dsb 1 ; $00b8
 	.dsb 1 ; $00b9
 
-; PlayerXCameraOffset?
-byte_RAM_BA:
+; Number of pixels to shift the camera on the next frame to get to its "ideal"
+; position. The left/right bounds of the area will overrule this.
+MoveCameraX:
 	.dsb 1 ; $00ba
 CurrentMusicPointer:
 	.dsb 2 ; $00bb
@@ -355,11 +360,9 @@ SoundEffectTimer2:
 	.dsb 1 ; $00c6
 PlayerAnimationFrame:
 	.dsb 1 ; $00c7
-; related to y-mirroring
-byte_RAM_C8:
+PPUScrollYHiMirror:
 	.dsb 1 ; $00c8
-; related to x-mirroring
-byte_RAM_C9:
+PPUScrollXHiMirror:
 	.dsb 1 ; $00c9
 ; Not sure about this, but seems to be that way
 ScreenYHi:
@@ -371,46 +374,58 @@ ScreenYLo:
 RawEnemyData:
 	.dsb 1 ; $00cc
 	.dsb 1 ; $00cd
-byte_RAM_CE:
+
+; Drawing boundary table, used when scrolling in either direction
+; - Upper nybble: tile offset (columns/rows)
+; - Lower nybble indicates the page
+BackgroundUpdateBoundary: ; full draw
 	.dsb 1 ; $00ce
-byte_RAM_CF:
+BackgroundUpdateBoundaryBackward: ; left/top
 	.dsb 1 ; $00cf
-byte_RAM_D0:
+BackgroundUpdateBoundaryForward: ; right/bottom
 	.dsb 1 ; $00d0
-byte_RAM_D1:
+DrawBackgroundTilesPPUAddrHi:
 	.dsb 1 ; $00d1
-byte_RAM_D2:
+DrawBackgroundTilesPPUAddrLo:
 	.dsb 1 ; $00d2
-byte_RAM_D3:
+DrawBackgroundTilesPPUAddrLoBackward:
 	.dsb 1 ; $00d3
-byte_RAM_D4:
+DrawBackgroundTilesPPUAddrLoForward:
 	.dsb 1 ; $00d4
 byte_RAM_D5:
 	.dsb 1 ; $00d5
-byte_RAM_D6:
+CopyBackgroundCounter:
 	.dsb 1 ; $00d6
-byte_RAM_D7:
+ReadLevelDataOffset:
 	.dsb 1 ; $00d7
 
-; @TODO understand better
-; $01 = scroll up, $02 = scroll down
-; (vertical areas only..?)
-NeedVerticalScroll:
+;
+; %xxxxxADD
+;
+; - A = screen interval scrolling is active (vertical levels)
+; - D = direction ($00 = none, $01 = up/left, $02 = down/right)
+;
+NeedsScroll:
 	.dsb 1 ; $00d8
-EnemyArray_D9:
+; Attribute data to use for the background tiles scrolling into view.
+; For vertical, this covers four rows of tiles, right-to-left.
+; For horizontal area, this covers four columns of tiles, bottom-to-top.
+ScrollingPPUAttributeUpdateBuffer:
 	.dsb 1 ; $00d9
-	.dsb 1 ; 1                ; $00da
-	.dsb 1 ; 2                ; $00db
-	.dsb 1 ; 3                ; $00dc
-	.dsb 1 ; 4                ; $00dd
-	.dsb 1 ; 5                ; $00de
-	.dsb 1 ; 6                ; $00df
-	.dsb 1 ; 7                ; $00e0
+	.dsb 1 ; $00da
+	.dsb 1 ; $00db
+	.dsb 1 ; $00dc
+	.dsb 1 ; $00dd
+	.dsb 1 ; $00de
+	.dsb 1 ; $00df
+	.dsb 1 ; $00e0
+; Attributes update up
 byte_RAM_E1:
 	.dsb 1 ; $00e1
+; Attributes update down
 byte_RAM_E2:
 	.dsb 1 ; $00e2
-byte_RAM_E3:
+PPUAttributeUpdateCounter:
 	.dsb 1 ; $00e3
 byte_RAM_E4:
 	.dsb 1 ; $00e4
@@ -422,9 +437,8 @@ byte_RAM_E7:
 	.dsb 1 ; $00e7
 byte_RAM_E8:
 	.dsb 1 ; $00e8
-byte_RAM_E9:
+ReadLevelDataAddress:
 	.dsb 1 ; $00e9
-byte_RAM_EA:
 	.dsb 1 ; $00ea
 NMIWaitFlag:
 	.dsb 1 ; $00eb
@@ -476,6 +490,14 @@ StackArea:
 SpriteDMAArea:
 	.dsb $100   ; $0200 - $02FF
 
+;
+; Arbitrary PPU updates happen using the buffer at RAM $0301 when `ScreenUpdateIndex` is zero.
+; In that case, `UpdatePPUFromBufferNMI` will read whatever is in this buffer and update the PPU.
+; When there is nothing to update, the first byte is `$00`, which will cause it to exit.
+;
+; $0300 is used as an offset when writing to the buffer, which allows multiple updates to write to
+; the buffer without overwriting each other.
+;
 byte_RAM_300:
 	.dsb 1 ; $0300
 PPUBuffer_301:
@@ -608,7 +630,7 @@ unk_RAM_318:
 	.dsb 1 ; $037d
 	.dsb 1 ; $037e
 	.dsb 1 ; $037f
-unk_RAM_380:
+ScrollingPPUTileUpdateBuffer:
 	.dsb 1 ; $0380
 unk_RAM_381:
 	.dsb 1 ; $0381
@@ -672,11 +694,15 @@ unk_RAM_39F:
 	.dsb 1 ; $03b9
 	.dsb 1 ; $03ba
 	.dsb 1 ; $03bb
-byte_RAM_3BC:
+
+; Used for scrolling in horizontal levels
+DrawBackgroundAttributesPPUAddrHi:
 	.dsb 1 ; $03bc
-byte_RAM_3BD:
+DrawBackgroundAttributesPPUAddrLo:
 	.dsb 1 ; $03bd
-unk_RAM_3BE:
+; Attribute data to use for the background tiles scrolling into view in
+; horizontal areas.
+HorizontalScrollingPPUAttributeUpdateBuffer:
 	.dsb 1 ; $03be
 	.dsb 1 ; $03bf
 	.dsb 1 ; $03c0
@@ -685,6 +711,7 @@ unk_RAM_3BE:
 	.dsb 1 ; $03c3
 	.dsb 1 ; $03c4
 	.dsb 1 ; $03c5
+
 	.dsb 1 ; $03c6
 	.dsb 1 ; $03c7
 	.dsb 1 ; $03c8
@@ -848,8 +875,9 @@ EnemyArray_438:
 
 ; FOR RENT
 	.dsb 1 ; $0440
-; Despawn offset
-unk_RAM_441:
+; Raw enemy data offset used to prevent enemy from spawning multiple times.
+; A value of `$FF` indicates that the enemy is not linked to any particular level data.
+EnemyRawDataOffset:
 	.dsb 1 ; $0441
 	.dsb 1 ; $0442
 	.dsb 1 ; $0443
@@ -1130,6 +1158,7 @@ ExtraLives:
 ; $02: Pointer jar
 InJarType:
 	.dsb 1 ; $04ee
+EndOfLevelDoorPage: ;;;
 unk_RAM_4EF:
 	.dsb 1 ; $04ef
 	.dsb 1 ; $04f0
@@ -1160,6 +1189,7 @@ StopwatchTimer:
 	.dsb 1 ; $0500
 ; FOR RENT
 	.dsb 1 ; $0501
+; Flag enabled while the area is rendering on initialization
 byte_RAM_502:
 	.dsb 1 ; $0502
 ; FOR RENT
@@ -1168,9 +1198,9 @@ CameraScrollTiles:
 	.dsb 1 ; $0504
 byte_RAM_505:
 	.dsb 1 ; $0505
-byte_RAM_506:
+PPUScrollCheckHi:
 	.dsb 1 ; $0506
-byte_RAM_507:
+PPUScrollCheckLo:
 	.dsb 1 ; $0507
 ; FOR RENT
 	.dsb 1 ; $0508
@@ -1178,9 +1208,9 @@ PPUScrollYMirror_Backup:
 	.dsb 1 ; $0509
 PPUScrollXMirror_Backup:
 	.dsb 1 ; $050a
-byte_RAM_50B:
+PPUScrollYHiMirror_Backup:
 	.dsb 1 ; $050b
-byte_RAM_50C:
+PPUScrollXHiMirror_Backup:
 	.dsb 1 ; $050c
 byte_RAM_50D:
 	.dsb 1 ; $050d
@@ -1210,9 +1240,9 @@ CurrentLevelAreaCopy:
 	.dsb 1 ; $0519
 ; FOR RENT
 	.dsb 1 ; $051a
-byte_RAM_51B:
+DrawTileId:
 	.dsb 1 ; $051b
-byte_RAM_51C:
+HasScrollingPPUTilesUpdate:
 	.dsb 1 ; $051c
 AreaPointersByPage:
 	.dsb 1 ; $051d
@@ -1252,12 +1282,15 @@ CurrentLevelPage:
 	.dsb 1 ; $0535
 CurrentLevelPageX:
 	.dsb 1 ; $0536
+; Flag to break out of the area's initial PPU draw loop?
 byte_RAM_537:
 	.dsb 1 ; $0537
-byte_RAM_538:
+; $00 = none, $01 = left, $02 = right
+HorizontalScrollDirection:
 	.dsb 1 ; $0538
-byte_RAM_539:
+UpdatingPPUAttributeBottomRow: ; Bottom PPU row is 16px instead of 32px
 	.dsb 1 ; $0539
+; Flag to enable redrawing the background?
 byte_RAM_53A:
 	.dsb 1 ; $053a
 	.dsb 1 ; $053b
@@ -1689,18 +1722,17 @@ MaxLevelsCompleted:
 LevelObjectMode:
 	.dsb 1 ; $0633
 
-IFDEF AREA_HEADER_TILESET
-CurrentWorldTileset:
-	.dsb 1 ; $0634
-CurrentWorld:
-	.dsb 1 ; $0635
-ENDIF
-
 IFNDEF AREA_HEADER_TILESET
 ; FOR RENT
 	.dsb 1 ; $0634
 CurrentWorld:
 CurrentWorldTileset:
+	.dsb 1 ; $0635
+
+ELSE
+CurrentWorldTileset:
+	.dsb 1 ; $0634
+CurrentWorld:
 	.dsb 1 ; $0635
 ENDIF
 
@@ -2044,23 +2076,10 @@ MMC5_SND_CHN = $5015
 
 DecodedLevelData = $6000
 
-; collision y data?
-; byte_BANKF_F099 copied to RAM
-; these various addrs are used(?) around prg-2-3
-unk_RAM_7100 = $7100
-
-; something to do with hawkmouth
-byte_RAM_710B = $710b
-
-unk_RAM_7114 = $7114
-
-; something to do with hawkmouth
-byte_RAM_711F = $711f
-
-; collision x data?
-unk_RAM_7128 = $7128
-
-unk_RAM_713C = $713c
+ObjectCollisionHitboxLeft_RAM = $7100
+ObjectCollisionHitboxTop_RAM = $7114
+ObjectCollisionHitboxRight_RAM = $7128
+ObjectCollisionHitboxBottom_RAM = $713c
 
 ; MysteryData14439 copied to RAM
 ; Does anything read this???

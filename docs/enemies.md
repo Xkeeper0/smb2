@@ -65,8 +65,6 @@
 
 ### `$00B1`  (`EnemyArray_B1`)
 
-### `$00D9` (`EnemyArray_D9`)
-
 ### `$042F` (`EnemyArray_42F`)
  - stun timer
 
