@@ -2956,7 +2956,7 @@ ObjectCollisionHitboxTop:
 	.db $02 ; $12
 	.db $03 ; $13
 
-ObjectCollisionHitboxRight:
+ObjectCollisionHitboxWidth:
 	.db $0B ; $00
 	.db $0B ; $01
 	.db $09 ; $02
@@ -2978,7 +2978,7 @@ ObjectCollisionHitboxRight:
 	.db $06 ; $12
 	.db $15 ; $13
 
-ObjectCollisionHitboxBottom:
+ObjectCollisionHitboxHeight:
 	.db $16 ; $00
 	.db $11 ; $01
 	.db $0D ; $02
@@ -4232,7 +4232,7 @@ EnemyArray_489_Data:
 	.db $02 ; $46 Enemy_Stopwatch
 
 ; More collision (post-throw)
-byte_BANKF_F607:
+EnemyPlayerCollisionTable:
 	.db $00 ; $00 Enemy_Heart
 	.db $00 ; $01 Enemy_ShyguyRed
 	.db $00 ; $02 Enemy_Tweeter

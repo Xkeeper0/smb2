@@ -2049,7 +2049,7 @@ loc_BANK2_8A36:
 
 loc_BANK2_8A3B:
 	LDA ObjectAttributes, X
-	ORA #$20
+	ORA #ObjAttrib_BehindBackground
 	STA ObjectAttributes, X
 
 loc_BANK2_8A41:
@@ -2077,77 +2077,77 @@ RunEnemyBehavior:
 
 
 EnemyBehaviorPointerTable:
-	.dw EnemyBehavior_00
-	.dw EnemyBehavior_BasicWalker
-	.dw EnemyBehavior_BasicWalker
-	.dw EnemyBehavior_BasicWalker
-	.dw EnemyBehavior_BasicWalker
-	.dw EnemyBehavior_BasicWalker
-	.dw EnemyBehavior_BasicWalker
-	.dw EnemyBehavior_BasicWalker
-	.dw EnemyBehavior_Ostro
-	.dw EnemyBehavior_BobOmb
-	.dw EnemyBehavior_Albatoss ; 10
-	.dw EnemyBehavior_Albatoss
-	.dw EnemyBehavior_Albatoss
-	.dw EnemyBehavior_NinjiRunning
-	.dw EnemyBehavior_NinjiJumping
-	.dw EnemyBehavior_Beezo
-	.dw EnemyBehavior_Beezo
-	.dw EnemyBehavior_WartBubble
-	.dw EnemyBehavior_Pidgit
-	.dw EnemyBehavior_Trouter
-	.dw EnemyBehavior_Hoopstar ; 20
-	.dw EnemyBehavior_JarGenerators
-	.dw EnemyBehavior_JarGenerators
-	.dw EnemyBehavior_Phanto
-	.dw EnemyBehavior_CobratJar
-	.dw EnemyBehavior_CobratGround
-	.dw EnemyBehavior_Pokey
-	.dw EnemyBehavior_BulletAndEgg
-	.dw EnemyBehavior_Birdo
-	.dw EnemyBehavior_Mouser
-	.dw EnemyBehavior_BulletAndEgg ; 30
-	.dw EnemyBehavior_Tryclyde
-	.dw EnemyBehavior_Fireball
-	.dw EnemyBehavior_Clawgrip
-	.dw EnemyBehavior_ClawgripRock
-	.dw EnemyBehavior_PanserRedAndGray
-	.dw EnemyBehavior_PanserPink
-	.dw EnemyBehavior_PanserRedAndGray
-	.dw EnemyBehavior_Autobomb
-	.dw EnemyBehavior_AutobombFire
-	.dw EnemyBehavior_WhaleSpout ; 40
-	.dw EnemyBehavior_Flurry
-	.dw EnemyBehavior_Fryguy
-	.dw EnemyBehavior_FryguySplit
-	.dw EnemyBehavior_Wart
-	.dw EnemyBehavior_HawkmouthBoss
-	.dw EnemyBehavior_Spark
-	.dw EnemyBehavior_Spark
-	.dw EnemyBehavior_Spark
-	.dw EnemyBehavior_Spark
-	.dw EnemyBehavior_Vegetable ; 50
-	.dw EnemyBehavior_Vegetable
-	.dw EnemyBehavior_Vegetable
-	.dw EnemyBehavior_Shell
-	.dw EnemyBehavior_Coin
-	.dw EnemyBehavior_Bomb
-	.dw EnemyBehavior_Rocket
-	.dw EnemyBehavior_MushroomBlockAndPOW
-	.dw EnemyBehavior_MushroomBlockAndPOW
-	.dw EnemyBehavior_FallingLogs
-	.dw EnemyBehavior_SubspaceDoor ; 60
-	.dw EnemyBehavior_Key
-	.dw EnemyBehavior_SubspacePotion
-	.dw EnemyBehavior_Mushroom
-	.dw EnemyBehavior_Mushroom1up
-	.dw EnemyBehavior_FlyingCarpet
-	.dw EnemyBehavior_Hawkmouth
-	.dw EnemyBehavior_Hawkmouth
-	.dw EnemyBehavior_CrystalBall
-	.dw EnemyBehavior_Starman
-	.dw EnemyBehavior_Mushroom ; 70
+	.dw EnemyBehavior_00 ; $00
+	.dw EnemyBehavior_BasicWalker ; $01
+	.dw EnemyBehavior_BasicWalker ; $02
+	.dw EnemyBehavior_BasicWalker ; $03
+	.dw EnemyBehavior_BasicWalker ; $04
+	.dw EnemyBehavior_BasicWalker ; $05
+	.dw EnemyBehavior_BasicWalker ; $06
+	.dw EnemyBehavior_BasicWalker ; $07
+	.dw EnemyBehavior_Ostro ; $08
+	.dw EnemyBehavior_BobOmb ; $09
+	.dw EnemyBehavior_Albatoss ; $0A
+	.dw EnemyBehavior_Albatoss ; $0B
+	.dw EnemyBehavior_Albatoss ; $0C
+	.dw EnemyBehavior_NinjiRunning ; $0D
+	.dw EnemyBehavior_NinjiJumping ; $0E
+	.dw EnemyBehavior_Beezo ; $0F
+	.dw EnemyBehavior_Beezo ; $10
+	.dw EnemyBehavior_WartBubble ; $11
+	.dw EnemyBehavior_Pidgit ; $12
+	.dw EnemyBehavior_Trouter ; $13
+	.dw EnemyBehavior_Hoopstar ; $14
+	.dw EnemyBehavior_JarGenerators ; $15
+	.dw EnemyBehavior_JarGenerators ; $16
+	.dw EnemyBehavior_Phanto ; $17
+	.dw EnemyBehavior_CobratJar ; $18
+	.dw EnemyBehavior_CobratGround ; $19
+	.dw EnemyBehavior_Pokey ; $1A
+	.dw EnemyBehavior_BulletAndEgg ; $1B
+	.dw EnemyBehavior_Birdo ; $1C
+	.dw EnemyBehavior_Mouser ; $1D
+	.dw EnemyBehavior_BulletAndEgg ; $1E
+	.dw EnemyBehavior_Tryclyde ; $1F
+	.dw EnemyBehavior_Fireball ; $20
+	.dw EnemyBehavior_Clawgrip ; $21
+	.dw EnemyBehavior_ClawgripRock ; $22
+	.dw EnemyBehavior_PanserRedAndGray ; $23
+	.dw EnemyBehavior_PanserPink ; $24
+	.dw EnemyBehavior_PanserRedAndGray ; $25
+	.dw EnemyBehavior_Autobomb ; $26
+	.dw EnemyBehavior_AutobombFire ; $27
+	.dw EnemyBehavior_WhaleSpout ; $28
+	.dw EnemyBehavior_Flurry ; $29
+	.dw EnemyBehavior_Fryguy ; $2A
+	.dw EnemyBehavior_FryguySplit ; $2B
+	.dw EnemyBehavior_Wart ; $2C
+	.dw EnemyBehavior_HawkmouthBoss ; $2D
+	.dw EnemyBehavior_Spark ; $2E
+	.dw EnemyBehavior_Spark ; $2F
+	.dw EnemyBehavior_Spark ; $30
+	.dw EnemyBehavior_Spark ; $31
+	.dw EnemyBehavior_Vegetable ; $32
+	.dw EnemyBehavior_Vegetable ; $33
+	.dw EnemyBehavior_Vegetable ; $34
+	.dw EnemyBehavior_Shell ; $35
+	.dw EnemyBehavior_Coin ; $36
+	.dw EnemyBehavior_Bomb ; $37
+	.dw EnemyBehavior_Rocket ; $38
+	.dw EnemyBehavior_MushroomBlockAndPOW ; $39
+	.dw EnemyBehavior_MushroomBlockAndPOW ; $3A
+	.dw EnemyBehavior_FallingLogs ; $3B
+	.dw EnemyBehavior_SubspaceDoor ; $3C
+	.dw EnemyBehavior_Key ; $3D
+	.dw EnemyBehavior_SubspacePotion ; $3E
+	.dw EnemyBehavior_Mushroom ; $3F
+	.dw EnemyBehavior_Mushroom1up ; $40
+	.dw EnemyBehavior_FlyingCarpet ; $41
+	.dw EnemyBehavior_Hawkmouth ; $42
+	.dw EnemyBehavior_Hawkmouth ; $43
+	.dw EnemyBehavior_CrystalBall ; $44
+	.dw EnemyBehavior_Starman ; $45
+	.dw EnemyBehavior_Mushroom ; $46
 EnemyBehaviorPointerTable_End:
 
 
@@ -3230,16 +3230,17 @@ loc_BANK2_901B:
 	JMP RenderSprite
 
 
-; ---------------------------------------------------------------------------
+; Unused?
 	.db $18
 	.db $E8
 
-byte_BANK2_9020:
+; Maps upper nybble of y-velocity to a corresponding bounce velocity
+ObjectBounceVelocityY:
 	.db $FE
 	.db $F8
 	.db $F0
 	.db $E8
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_Coin:
 	JSR IncrementAnimationTimerBy2
@@ -3374,7 +3375,7 @@ EnemyBehavior_Bomb:
 	LDA EnemyCollision, X
 	PHA
 	AND EnemyMovementDirection, X
-	BEQ loc_BANK2_90D9
+	BEQ EnemyBehavior_CheckGround
 
 	JSR EnemyBehavior_TurnAround
 
@@ -3382,42 +3383,42 @@ EnemyBehavior_Bomb:
 	JSR HalfObjectVelocityX
 	JSR HalfObjectVelocityX
 
-loc_BANK2_90D9:
+EnemyBehavior_CheckGround:
 	PLA
-	AND #$04
-	BEQ loc_BANK2_90FB
+	AND #CollisionFlags_Down
+	BEQ EnemyBehavior_CheckBombTimer
 
+	; object is touching ground
 	LDA ObjectYVelocity, X
 	CMP #$09
-	BCC loc_BANK2_90F2
+	BCC EnemyBehavior_Grounded
 
+	; object is falling faster than $08
 	LSR A
 	LSR A
 	LSR A
 	LSR A
 	TAY
-	LDA byte_BANK2_9020, Y
-	JSR sub_BANK2_95AA
+	LDA ObjectBounceVelocityY, Y
+	JSR ApplyVelocityYAndHalfObjectVelocityX
 
-	JMP loc_BANK2_90FB
+	JMP EnemyBehavior_CheckBombTimer
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_90F2:
+EnemyBehavior_Grounded:
 	JSR ResetObjectYVelocity
 
 	LDA byte_RAM_B
-	BNE loc_BANK2_90FB
+	BNE EnemyBehavior_CheckBombTimer
 
 	STA ObjectXVelocity, X
 
-loc_BANK2_90FB:
+EnemyBehavior_CheckBombTimer:
 	LDA ObjectType, X
 	CMP #Enemy_Bomb
 	BNE EnemyBehavior_Vegetable
 
 	LDA EnemyTimer, X
-	BNE loc_BANK2_9122
+	BNE EnemyBehavior_BombTick
 
 	LDY ObjectBeingCarriedTimer, X
 	BEQ EnemyBehavior_Bomb_Explode
@@ -3438,12 +3439,12 @@ EnemyBehavior_Bomb_Explode:
 	STA EnemyArray_42F, X
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_9122:
-	CMP #Enemy_Mushroom1up
+EnemyBehavior_BombTick:
+	CMP #$40
 	BCS EnemyBehavior_Vegetable
 
+	; bomb flashing
 	LSR A
 	BCC EnemyBehavior_Vegetable
 
@@ -3517,13 +3518,13 @@ EnemyBehavior_SubspacePotion_CheckGroundCollision:
 
 	; No Subspace Doors allowed in vertical levels
 	LDA IsHorizontalLevel
-	BNE loc_BANK2_9198
+	BNE EnemyBehavior_SubspacePotion_CreateDoor
 
 	LDA #DPCM_BossHurt
 	STA DPCMQueue
 	JSR EnemyDestroy
 
-loc_BANK2_9198:
+EnemyBehavior_SubspacePotion_CreateDoor:
 	JSR CreateEnemy
 
 	BMI TurnIntoPuffOfSmoke_Exit
@@ -4416,7 +4417,7 @@ loc_BANK2_959D:
 ;   A = y-velocity
 ;   X = enemy index
 ;
-sub_BANK2_95AA:
+ApplyVelocityYAndHalfObjectVelocityX:
 	JSR SetObjectYVelocity
 	JSR ApplyObjectPhysicsY
 
@@ -4743,7 +4744,7 @@ loc_BANK2_96FF:
 	JSR ResetObjectYVelocity
 
 	LDA #$F5
-	JMP sub_BANK2_95AA
+	JMP ApplyVelocityYAndHalfObjectVelocityX
 
 ; ---------------------------------------------------------------------------
 
@@ -10316,8 +10317,8 @@ loc_BANK3_B5F8:
 	LDY EnemyArray_489, X
 
 loc_BANK3_B5FF:
-	LDA ObjectCollisionHitboxRight_RAM, Y
-	STA byte_RAM_9
+	LDA ObjectCollisionHitboxWidth_RAM, Y
+	STA byte_RAM_9 ; hitbox width
 	LDA #$00
 	STA byte_RAM_0
 	LDA ObjectCollisionHitboxLeft_RAM, Y
@@ -10328,18 +10329,19 @@ loc_BANK3_B5FF:
 loc_BANK3_B60F:
 	CLC
 	ADC ObjectXLo, X
-	STA byte_RAM_5
+	STA byte_RAM_5 ; bounding box left low
 	LDA ObjectXHi, X
 	ADC byte_RAM_0
-	STA byte_RAM_1
+	STA byte_RAM_1 ; bounding box left high
+	; Vertical levels wrap horizontally, so the high X position is discarded
 	LDA IsHorizontalLevel
 	BNE loc_BANK3_B620
 
 	STA byte_RAM_1
 
 loc_BANK3_B620:
-	LDA ObjectCollisionHitboxBottom_RAM, Y
-	STA byte_RAM_B
+	LDA ObjectCollisionHitboxHeight_RAM, Y
+	STA byte_RAM_B ; hitbox height
 	LDA #$00
 	STA byte_RAM_0
 	LDA ObjectCollisionHitboxTop_RAM, Y
@@ -10350,10 +10352,10 @@ loc_BANK3_B620:
 loc_BANK3_B630:
 	CLC
 	ADC ObjectYLo, X
-	STA byte_RAM_7
+	STA byte_RAM_7 ; bounding box top low
 	LDA ObjectYHi, X
 	ADC byte_RAM_0
-	STA byte_RAM_3
+	STA byte_RAM_3 ; bounding box top high
 
 loc_BANK3_B63B:
 	STX byte_RAM_ED
@@ -10440,8 +10442,8 @@ loc_BANK3_B692:
 	LDY EnemyArray_489 - 1, X
 
 loc_BANK3_B6A6:
-	LDA ObjectCollisionHitboxRight_RAM, Y
-	STA byte_RAM_A
+	LDA ObjectCollisionHitboxWidth_RAM, Y
+	STA byte_RAM_A ; hitbox width
 	LDA #$00
 	STA byte_RAM_0
 	LDA ObjectCollisionHitboxLeft_RAM, Y
@@ -10452,18 +10454,19 @@ loc_BANK3_B6A6:
 loc_BANK3_B6B6:
 	CLC
 	ADC ObjectXLo - 1, X
-	STA byte_RAM_6
+	STA byte_RAM_6 ; bounding box left low
 	LDA ObjectXHi - 1, X
 	ADC byte_RAM_0
-	STA byte_RAM_2
+	STA byte_RAM_2 ; bounding box left high
+	; Vertical levels wrap horizontally, so the high X position is discarded
 	LDA IsHorizontalLevel
 	BNE loc_BANK3_B6C7
 
 	STA byte_RAM_2
 
 loc_BANK3_B6C7:
-	LDA ObjectCollisionHitboxBottom_RAM, Y
-	STA byte_RAM_C
+	LDA ObjectCollisionHitboxHeight_RAM, Y
+	STA byte_RAM_C ; hitbox height
 	LDA #$00
 	STA byte_RAM_0
 	LDA ObjectCollisionHitboxTop_RAM, Y
@@ -10474,11 +10477,12 @@ loc_BANK3_B6C7:
 loc_BANK3_B6D7:
 	CLC
 	ADC ObjectYLo - 1, X
-	STA byte_RAM_8
+	STA byte_RAM_8 ; bounding box top low
 	LDA ObjectYHi - 1, X
 	ADC byte_RAM_0
-	STA byte_RAM_4
-	JSR sub_BANK3_BDC5
+	STA byte_RAM_4 ; bounding box top high
+
+	JSR CheckHitboxCollision
 
 	BCS loc_BANK3_B6F0
 
@@ -10522,7 +10526,7 @@ EnemyCollisionBehavior_ReadCollisionType:
 	LDY byte_RAM_12
 	LDA ObjectType, Y
 	TAY
-	LDA unk_RAM_71D1, Y
+	LDA EnemyPlayerCollisionTable_RAM, Y
 	JSR JumpToTableAfterJump
 
 	.dw EnemyCollisionBehavior_Enemy
@@ -10544,7 +10548,7 @@ EnemyCollisionBehavior_Door:
 	AND #CollisionFlags_Down
 	BEQ EnemyCollisionBehavior_Exit
 
-	LDA byte_RAM_426
+	LDA CollisionResultX
 	CMP #$FA
 	BCS EnemyCollisionBehavior_Exit
 
@@ -10889,11 +10893,12 @@ loc_BANK3_B8FF:
 locret_BANK3_B902:
 	RTS
 
-; ---------------------------------------------------------------------------
+
+CheckCollisionDirectionTable: ;;;;;;;
 unk_BANK3_B903:
-	.db $08
-	.db $04
-; ---------------------------------------------------------------------------
+	.db CollisionFlags_Up ; down
+	.db CollisionFlags_Down ; up
+
 
 ; collision with items that the player can stand on
 loc_BANK3_B905:
@@ -10910,7 +10915,7 @@ loc_BANK3_B905:
 
 loc_BANK3_B919:
 	LDA byte_RAM_F
-	AND #$04
+	AND #%00000100
 	BEQ loc_BANK3_B922
 
 	JSR CheckCollisionWithPlayer_StandingOnHead
@@ -10925,7 +10930,7 @@ loc_BANK3_B922:
 	LDA ObjectYVelocity, Y
 	BEQ locret_BANK3_B955
 
-	AND #$80
+	AND #%10000000
 	ASL A
 	ROL A
 	TAY
@@ -10933,12 +10938,15 @@ loc_BANK3_B922:
 	AND unk_BANK3_B903, Y
 	BEQ locret_BANK3_B955
 
+	; Reverse the y-velocity of the object
 	LDY byte_RAM_12
 	LDA ObjectYVelocity, Y
 	EOR #$FF
 	CLC
 	ADC #$01
 	STA ObjectYVelocity, Y
+
+	; Force the player into a ducking position
 	LDA #$01
 	STA PlayerDucking
 	LDA #$04
@@ -11225,7 +11233,7 @@ DetermineCollisionFlags:
 	LDA #$00
 	STA byte_RAM_F
 	LDY byte_RAM_12 ; stash Y
-	LDA byte_RAM_427
+	LDA CollisionResultY
 	CMP #$F6
 	BCS DetermineCollisionFlags_Y
 
@@ -11281,14 +11289,14 @@ loc_BANK3_BAD1:
 
 loc_BANK3_BAE6:
 	LDY #$00
-	INC byte_RAM_427
-	INC byte_RAM_427
+	INC CollisionResultY
+	INC CollisionResultY
 	BPL loc_BANK3_BAF1
 
 	DEY
 
 loc_BANK3_BAF1:
-	LDA byte_RAM_427
+	LDA CollisionResultY
 	CLC
 	ADC ObjectYLo - 1, X
 	STA ObjectYLo - 1, X
@@ -11905,29 +11913,60 @@ locret_BANK3_BD81:
 
 ; End of function sub_BANK3_BD6B
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_BD82:
+;
+; Checks collision in one dimension (wrapping)
+; Only run when checking horizontal collision in a vertical level
+;
+; ##### Input
+;
+; - `Y`: which dimension to compare `$00` = x, `$02` = y
+; - `byte_RAM_5`/`byte_RAM_7`: bounding box A x/y offset low
+; - `byte_RAM_6`/`byte_RAM_8`: bounding box B x/y offset low
+; - `byte_RAM_9`: bounding box A width/height
+; - `byte_RAM_A`: bounding box B width/height
+;
+; ##### Output
+;
+; - `C`: clear if there is a collision, set if there is no collision
+; - `A`: distance between bounding boxes
+;
+CheckHitboxCollisionDimensionWrap:
 	LDA byte_RAM_5, Y
 	SEC
 	SBC byte_RAM_6, Y
-	BPL loc_BANK3_BD91
+	BPL CheckHitboxCollisionDimensionWrap_Exit
 
 	EOR #$FF
 	CLC
 	ADC #$01
 	DEX
 
-loc_BANK3_BD91:
+CheckHitboxCollisionDimensionWrap_Exit:
 	SEC
 	SBC byte_RAM_9, X
 	RTS
 
-; End of function sub_BANK3_BD82
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK3_BD95:
+;
+; Checks collision in one dimension
+;
+; ##### Input
+;
+; - `Y`: which dimension to compare `$00` = x, `$02` = y
+; - `byte_RAM_1`/`byte_RAM_3`: bounding box A x/y offset high
+; - `byte_RAM_2`/`byte_RAM_4`: bounding box B x/y offset high
+; - `byte_RAM_5`/`byte_RAM_7`: bounding box A x/y offset low
+; - `byte_RAM_6`/`byte_RAM_8`: bounding box B x/y offset low
+; - `byte_RAM_9`: bounding box A width/height
+; - `byte_RAM_A`: bounding box B width/height
+;
+; ##### Output
+;
+; - `C`: clear if there is a collision, set if there is no collision
+; - `A`: distance between bounding boxes
+;
+CheckHitboxCollisionDimension:
 	LDA byte_RAM_5, Y
 	SEC
 	SBC byte_RAM_6, Y
@@ -11949,67 +11988,83 @@ sub_BANK3_BD95:
 
 loc_BANK3_BDB9:
 	CMP #$00
-	BEQ loc_BANK3_BDBF
+	BEQ CheckHitboxCollisionDimension_Exit
 
 	SEC
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_BDBF:
+CheckHitboxCollisionDimension_Exit:
 	LDA byte_RAM_6, Y
 	SBC byte_RAM_9, X
 	RTS
 
-; End of function sub_BANK3_BD95
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK3_BDC5:
+;
+; Determines whether two bounding boxes collide
+;
+; ##### Input
+;
+; - `byte_RAM_1`: bounding box A left high
+; - `byte_RAM_2`: bounding box B left high
+; - `byte_RAM_3`: bounding box A top high
+; - `byte_RAM_4`: bounding box B top high
+; - `byte_RAM_5`: bounding box A left low
+; - `byte_RAM_6`: bounding box B left low
+; - `byte_RAM_7`: bounding box A top low
+; - `byte_RAM_8`: bounding box B top low
+; - `byte_RAM_9`: hitbox A width low
+; - `byte_RAM_A`: hitbox B width low
+; - `byte_RAM_B`: hitbox A height low
+; - `byte_RAM_C`: hitbox B height low
+;
+; ##### Output
+;
+; - `C`: clear if there is a collision, set if there is no collision
+;
+CheckHitboxCollision:
 	TXA
 	PHA
-	LDY #$02
+	LDY #$02 ; check vertical collision
 
-loc_BANK3_BDC9:
+CheckHitboxCollision_Loop:
 	TYA
 	TAX
 	INX
-	CPY #$00
-	BNE loc_BANK3_BDDA
+	CPY #$00 ; check horizontal collision
+	BNE CheckHitboxCollision_CheckDimensionNoWrap
 
 	LDA IsHorizontalLevel
-	BNE loc_BANK3_BDDA
+	BNE CheckHitboxCollision_CheckDimensionNoWrap
 
-	JSR sub_BANK3_BD82
+	; Horizontal position wraps in a vertical level
+CheckHitboxCollision_CheckDimensionWrap:
+	JSR CheckHitboxCollisionDimensionWrap
+	JMP CheckHitboxCollision_AfterCheckDimension
 
-	JMP loc_BANK3_BDDD
+CheckHitboxCollision_CheckDimensionNoWrap:
+	JSR CheckHitboxCollisionDimension
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_BDDA:
-	JSR sub_BANK3_BD95
-
-loc_BANK3_BDDD:
-	BCS loc_BANK3_BDEC
+CheckHitboxCollision_AfterCheckDimension:
+	BCS CheckHitboxCollision_Exit
 
 	PHA
 	TYA
 	LSR A
 	TAX
 	PLA
-	STA byte_RAM_426, X
+	; store the result
+	STA CollisionResultX, X
 	DEY
 	DEY
-	BPL loc_BANK3_BDC9
+	BPL CheckHitboxCollision_Loop
 
 	CLC
 
-loc_BANK3_BDEC:
+CheckHitboxCollision_Exit:
 	PLA
 	TAX
 	RTS
 
-; End of function sub_BANK3_BDC5
 
 ; ---------------------------------------------------------------------------
 HealthBarTiles:

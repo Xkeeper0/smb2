@@ -492,8 +492,8 @@ loc_BANKA_84B6:
 	; Copy object collision type table
 	LDY #$49
 loc_BANKA_84C1:
-	LDA byte_BANKF_F607, Y
-	STA unk_RAM_71D1, Y
+	LDA EnemyPlayerCollisionTable, Y
+	STA EnemyPlayerCollisionTable_RAM, Y
 	DEY
 	BPL loc_BANKA_84C1
 

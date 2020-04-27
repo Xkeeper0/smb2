@@ -287,19 +287,20 @@ HoldingItem:
 ; $00 = left, $01 = right
 PlayerDirection:
 	.dsb 1 ; $009d
-; FOR RENT
-byte_RAM_9E:
+; This (unused?) counter increments as long as the player is standing on an
+; object, including a couple frames while lifting an object.
+PlayerRidingTimer:
 	.dsb 1 ; $009e
 ObjectAnimationTimer:
-	.dsb 1 ; DATA XREF: BANK0:9099w ; $009f
-	.dsb 1 ; 1                ; $00a0
-	.dsb 1 ; 2                ; $00a1
-	.dsb 1 ; 3                ; $00a2
-	.dsb 1 ; 4                ; $00a3
-	.dsb 1 ; 5                ; $00a4
-	.dsb 1 ; 6                ; $00a5
-	.dsb 1 ; 7                ; $00a6
-	.dsb 1 ; 8                ; $00a7
+	.dsb 1 ; $009f
+	.dsb 1 ; $00a0
+	.dsb 1 ; $00a1
+	.dsb 1 ; $00a2
+	.dsb 1 ; $00a3
+	.dsb 1 ; $00a4
+	.dsb 1 ; $00a5
+	.dsb 1 ; $00a6
+	.dsb 1 ; $00a7
 
 ; Set to 7 when lifting, then stays at 1
 ; Note that this doesn't seem to actually
@@ -831,9 +832,10 @@ ObjectLock:
 ; $00 = none, $01 = up, $02 = down
 VerticalScrollDirection:
 	.dsb 1 ; $0425
-byte_RAM_426:
+; Distance between bounding boxes during the last check
+CollisionResultX:
 	.dsb 1 ; $0426
-byte_RAM_427:
+CollisionResultY:
 	.dsb 1 ; $0427
 PlayerScreenX:
 	.dsb 1 ; $0428
@@ -927,11 +929,11 @@ EnemyArray_45C:
 ; FOR RENT
 	.dsb 1 ; $0464
 EnemyHP:
-	.dsb 1 ; $00 ; $0465
-	.dsb 1 ; $01 ; $0466
-	.dsb 1 ; $02 ; $0467
-	.dsb 1 ; $03 ; $0468
-	.dsb 1 ; $04 ; $0469
+	.dsb 1 ; $0465
+	.dsb 1 ; $0466
+	.dsb 1 ; $0467
+	.dsb 1 ; $0468
+	.dsb 1 ; $0469
 	.dsb 1 ; $046a
 	.dsb 1 ; $046b
 	.dsb 1 ; $046c
@@ -971,9 +973,8 @@ EnemyArray_480:
 	.dsb 1 ; $0485
 	.dsb 1 ; $0486
 	.dsb 1 ; $0487
-
-; FOR RENT
 	.dsb 1 ; $0488
+
 EnemyArray_489:
 	.dsb 1 ; $0489
 	.dsb 1 ; $048a
@@ -2078,8 +2079,8 @@ DecodedLevelData = $6000
 
 ObjectCollisionHitboxLeft_RAM = $7100
 ObjectCollisionHitboxTop_RAM = $7114
-ObjectCollisionHitboxRight_RAM = $7128
-ObjectCollisionHitboxBottom_RAM = $713c
+ObjectCollisionHitboxWidth_RAM = $7128
+ObjectCollisionHitboxHeight_RAM = $713c
 
 ; MysteryData14439 copied to RAM
 ; Does anything read this???
@@ -2104,8 +2105,8 @@ byte_RAM_71AF = $71af
 ; byte_BANKA_84E1 copied to RAM
 byte_RAM_71CC = $71cc
 
-; byte_BANKF_F607 copied to RAM
-unk_RAM_71D1 = $71d1
+; $F607 copied to RAM
+EnemyPlayerCollisionTable_RAM = $71d1
 
 byte_RAM_71FE = $71fe
 
