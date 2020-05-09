@@ -10384,7 +10384,7 @@ loc_BANK3_B651:
 	BCC loc_BANK3_B64E
 
 loc_BANK3_B65C:
-	LDY PlayerDucking
+	LDY PlayerHitbox
 	JMP loc_BANK3_B6A6
 
 ; ---------------------------------------------------------------------------
@@ -11267,11 +11267,19 @@ DetermineCollisionFlags_Y:
 	CPX #$01
 	BCS loc_BANK3_BAD1
 
+IFNDEF PLAYER_HITBOX
 	PHA
 	LDY PlayerDucking
 	PLA
 	SEC
 	SBC byte_BANK3_BB2F, Y
+ELSE
+	LDY PlayerHitbox
+	SEC
+	SBC #$21
+	CLC
+	ADC ObjectCollisionHitboxHeight, Y
+ENDIF
 
 loc_BANK3_BAD1:
 	CMP ObjectYLo - 1, X

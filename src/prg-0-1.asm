@@ -2073,6 +2073,10 @@ loc_BANK0_8ABB:
 
 loc_BANK0_8ABF:
 	INC PlayerDucking
+IFDEF PLAYER_HITBOX
+	LDA PlayerDucking
+	STA PlayerHitbox
+ENDIF
 
 locret_BANK0_8AC1:
 	RTS
@@ -2431,6 +2435,10 @@ sub_BANK0_8C1A:
 	BNE loc_BANK0_8C92
 
 	DEC PlayerDucking
+IFDEF PLAYER_HITBOX
+	LDA PlayerDucking
+	STA PlayerHitbox
+ENDIF
 
 loc_BANK0_8C2B:
 	LDA Player1JoypadPress
@@ -2456,6 +2464,10 @@ loc_BANK0_8C3D:
 	BEQ ResetPartialCrouchJumpTimer
 
 	INC PlayerDucking ; set ducking state?
+IFDEF PLAYER_HITBOX
+	LDA PlayerDucking
+	STA PlayerHitbox
+ENDIF
 	LDA #SpriteAnimation_Ducking ; set ducking animation
 	STA PlayerAnimationFrame
 	LDA PlayerInAir ; skip ahead if player is in air

@@ -164,5 +164,8 @@ PRESERVE_UNUSED_SPACE = 1
 ; Enables full-page door/vine searching so that entrances don't need to align
 ; ROBUST_TRANSITION_SEARCH = 1
 
+; Use RAM address for player hitbox offset rather than PlayerDucking
+; PLAYER_HITBOX = 1
+
 
 .endinl
