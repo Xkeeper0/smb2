@@ -1293,6 +1293,7 @@ loc_BANKF_E665:
 	JSR DoAreaReset
 
 	LDY GameMode
+ShowCardAfterTransition:
 	LDA #GameMode_InGame
 	STA GameMode
 	STA StarInvincibilityTimer
@@ -1304,6 +1305,7 @@ loc_BANKF_E665:
 
 	STY PlayerCurrentSize
 	JSR LevelInitialization
+
 
 	LDA #$FF
 	STA CurrentMusicIndex
@@ -2396,20 +2398,10 @@ NMI_ResetScreenUpdateIndex:
 	DEC NMIWaitFlag
 
 NMI_DoSoundProcessing:
+IFNDEF DEBUG
 	JSR DoSoundProcessing
-
-IFDEF DEBUG
-DebugHook:
-; Hook into debug routine if select is pressed
-	LDA Player1JoypadPress
-	CMP #ControllerInput_Select
-	BNE NMI_Exit
-	LDA #>Debug_Init
-	PHA
-	LDA #<Debug_Init
-	PHA
-	PHP
-	RTI
+ELSE
+	JSR DoSoundProcessingAndCheckDebug
 ENDIF
 
 NMI_Exit:
@@ -2668,10 +2660,6 @@ UpdatePPUFBWO_CopySingleTileSkip:
 	; (If the PPU buffer points to a 0, it will terminate after this jump)
 	JMP UpdatePPUFromBufferWithOptions
 
-
-IFDEF DEBUG
-	.include "src/extras/debug-f.asm"
-ENDIF
 
 IF INES_MAPPER == MAPPER_FME7
 RESET_FME7:
@@ -5645,6 +5633,10 @@ FindSpriteSlot_CheckInactiveSlot:
 	BEQ FindSpriteSlot_Exit
 
 
+IFDEF DEBUG
+	.include "src/extras/debug-f.asm"
+ENDIF
+
 ; Unused space in the original ($FB36 - $FDFF)
 unusedSpace $FE00, $FF
 
@@ -5833,11 +5825,6 @@ RESET_VBlank2Loop:
 	; Wait for second VBlank
 	LDA PPUSTATUS
 	BPL RESET_VBlank2Loop
-
-IFDEF DEBUG
-	LDA #$00
-	STA Debug_InMenu
-ENDIF
 
 IF INES_MAPPER == MAPPER_FME7
 	LDA #$0C
