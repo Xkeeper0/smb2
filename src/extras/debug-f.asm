@@ -54,13 +54,25 @@ Debug_Abort:
 	LDA #$00
 	STA Debug_InMenu
 
-	; Restore a bunch of  stuff
+	; Restore a bunch of stuff
 	JSR DebugRestoreRAM
 
 	; Restart the music
 	STA MusicQueue1
 	LDA #$00
 	STA MusicPlaying1
+
+	; Load character, maybe
+	LDA Debug_Character
+	CMP CurrentCharacter
+	BEQ +
+
+	STA CurrentCharacter
+	LDA #PRGBank_A_B
+	JSR ChangeMappedPRGBank
+
+	JSR CopyCharacterStatsAndStuff
+	+
 
 	; Restore the original bank
 	LDA MMC3PRGBankTemp

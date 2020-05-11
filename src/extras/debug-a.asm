@@ -22,7 +22,8 @@ Debug_InMenu = $7FEF
 
 .ignorenl
 
-Debug_MenuOptionCount = #$05
+Debug_MenuOptionCount = $05
+MaxExtraHealth = $02
 
 .endinl
 
@@ -36,6 +37,10 @@ Debug_InitMenu:
 	LDA ExtraLives
 	STA Debug_Lives
 	LDA PlayerMaxHealth
+	CMP #MaxExtraHealth
+	BCC +
+	LDA #MaxExtraHealth
+	+
 	STA Debug_ExtraHealth
 
 	; Set current level
@@ -159,8 +164,9 @@ Debug_MenuLoop:
 	.dw DebugMenu_Lives
 	.dw DebugMenu_Health
 
-
 Debug_DoAbort:
+	JSR Debug_ApplyOptions
+
 	JMP Debug_Abort
 
 Debug_DoActivate:
@@ -168,14 +174,11 @@ Debug_DoActivate:
 
 	JSR Debug_Reset
 
-	; Update stats and level
+	JSR Debug_ApplyOptions
+
+	; Set the current character
 	LDA Debug_Character
 	STA CurrentCharacter
-	LDA Debug_Lives
-	STA ExtraLives
-
-	LDA Debug_ExtraHealth
-	STA PlayerMaxHealth
 
 	; Set the current level/area
 	LDA Debug_Level
@@ -188,7 +191,6 @@ Debug_DoActivate:
 	STA CurrentLevelPage
 	STA CurrentLevelEntryPage
 	STA CurrentLevelEntryPage_Init
-
 
 	; Determine the world the level is in
 	LDA Debug_Level
@@ -346,7 +348,7 @@ DebugMenu_Health:
 	DEC Debug_ExtraHealth ; Decrease
 	JMP +s ; Skip ahead
 +r	LDA Debug_ExtraHealth
-	CMP #$02
+	CMP #MaxExtraHealth
 	BEQ -f ; Already 4 max health
 	INC Debug_ExtraHealth ; Otherwise increase
 +s
@@ -378,10 +380,23 @@ Debug_MenuError:
 	; STA SoundEffectQueue1
 	RTS
 
+
+Debug_ApplyOptions:
+	LDA Debug_Lives
+	STA ExtraLives
+
+	LDA #PlayerHealth_2_HP
+	STA PlayerHealth
+	LDA Debug_ExtraHealth
+	STA PlayerMaxHealth
+
+	RTS
+
+
 Debug_Reset:
 	LDA #$00
 
-	; Reset some player stuff
+	; Reset a bunch of level flags
 	STA InSubspaceOrJar
 	STA InJarType
 	STA PlayerLock
@@ -391,6 +406,12 @@ Debug_Reset:
 	STA HoldingItem
 	STA PlayerRidingCarpet
 	STA PlayerAnimationFrame
+	STA KeyUsed
+	STA Mushroom1upPulled
+	STA Mushroom1Pulled
+	STA Mushroom2Pulled
+	STA SubspaceVisits
+	STA EnemiesKilledForHeart
 
 	; Destroy the enemies
 	LDX #$08
