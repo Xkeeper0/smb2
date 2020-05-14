@@ -983,7 +983,7 @@ HorizontalLevel_CheckTransition:
 
 	JSR FollowCurrentAreaPointer
 
-	JSR sub_BANKF_F1AE
+	JSR RememberAreaInitialState
 
 	LDA #$00
 	STA DoAreaTransition
@@ -1038,7 +1038,7 @@ VerticalLevel_CheckTransition:
 
 	JSR FollowCurrentAreaPointer
 
-	JSR sub_BANKF_F1AE
+	JSR RememberAreaInitialState
 
 	LDA #$00
 	STA DoAreaTransition
@@ -3164,20 +3164,21 @@ RunFrame_Vertical_Common:
 	JMP RunFrame_Common
 
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_F1AE:
+;
+; Stores the current level/area and player state in the `Init` variables so that they can be
+; to restart the area from the previous transition after the player dies.
+;
+RememberAreaInitialState:
 	LDA DoAreaTransition
-	CMP #$02
-	BEQ locret_BANKF_F1E0
+	CMP #$02 ; Skip if the player is going into a pointer jar
+	BEQ RememberAreaInitialState_Exit
 
 	LDY #$03
-
-loc_BANKF_F1B7:
+RememberAreaInitialState_Loop:
 	LDA CurrentLevel, Y
 	STA CurrentLevel_Init, Y
 	DEY
-	BPL loc_BANKF_F1B7
+	BPL RememberAreaInitialState_Loop
 
 	LDA PlayerXLo
 	STA PlayerXLo_Init
@@ -3192,12 +3193,9 @@ loc_BANKF_F1B7:
 	LDA PlayerState
 	STA PlayerState_Init
 
-locret_BANKF_F1E0:
+RememberAreaInitialState_Exit:
 	RTS
 
-; End of function sub_BANKF_F1AE
-
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Level Initialization
