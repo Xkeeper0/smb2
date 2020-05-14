@@ -24,11 +24,19 @@ CheckDebug:
 	AND #%00000100
 	BNE CheckDebug_Exit
 
+	; Disable the background is drawing
+	LDA byte_RAM_537
+	BEQ CheckDebug_Exit
+
 	; Disable while in subspace/jar
 	LDA InSubspaceOrJar
 	BNE CheckDebug_Exit
 
-Debug_Init:
+	; Disable while player is busy
+	LDA PlayerState
+	CMP #PlayerState_ClimbingAreaTransition
+	BCS CheckDebug_Exit
+
 	; Enable the debug menu flag
 	LDA #$01
 	STA Debug_InMenu
@@ -42,11 +50,11 @@ Debug_Init:
 	JSR ChangeMappedPRGBank
 
 	; Stop the music
-	LDA #Music2_StopMusic
-	STA MusicQueue2
+	; LDA #Music2_StopMusic
+	; STA MusicQueue2
 
 	; And off we go
-	JMP Debug_InitMenu
+	JMP DebugMenu_Init
 
 
 Debug_Abort:
@@ -58,9 +66,9 @@ Debug_Abort:
 	JSR DebugRestoreRAM
 
 	; Restart the music
-	STA MusicQueue1
-	LDA #$00
-	STA MusicPlaying1
+	; STA MusicQueue1
+	; LDA #$00
+	; STA MusicPlaying1
 
 	; Load character, maybe
 	LDA Debug_Character
@@ -82,7 +90,67 @@ Debug_Abort:
 	JMP HidePauseScreen
 
 
-Debug_Activate:
+Debug_RestartArea:
+	; Disable the debug menu flag
+	LDA #$00
+	STA Debug_InMenu
+
+	; Restore a bunch of stuff
+	JSR DebugRestoreRAM
+
+	; Load character, maybe
+	LDA Debug_Character
+	CMP CurrentCharacter
+	BEQ +
+
+	STA CurrentCharacter
+	LDA #PRGBank_A_B
+	JSR ChangeMappedPRGBank
+
+	JSR CopyCharacterStatsAndStuff
+	+
+
+	JSR LoadWorldCHRBanks
+
+	LDA CurrentLevel_Init
+	STA CurrentLevel
+	LDA CurrentLevelArea_Init
+	STA CurrentLevelArea
+	LDA CurrentLevelEntryPage_Init
+	STA CurrentLevelEntryPage
+	LDA TransitionType_Init
+	STA TransitionType
+
+	LDA PlayerXLo_Init
+	STA PlayerXLo
+	LDA PlayerYLo_Init
+	STA PlayerYLo
+	LDA PlayerScreenX_Init
+	STA PlayerScreenX
+	LDA PlayerScreenYLo_Init
+	STA PlayerScreenYLo
+	LDA PlayerYVelocity_Init
+	STA PlayerYVelocity
+	LDA PlayerState_Init
+	STA PlayerState
+
+	LDA #$00
+	STA PlayerXVelocity
+
+	JSR DoAreaReset
+
+	JMP StartLevel
+
+
+
+	; Show the title card and number of lives
+	LDY #GameMode_TitleCard
+	JMP StartLevel
+
+	; It's just easier than trying to replicate all the same behavior
+	JMP HidePauseScreen
+
+Debug_StartLevel:
 	; Disable the debug menu flag
 	LDA #$00
 	STA Debug_InMenu
