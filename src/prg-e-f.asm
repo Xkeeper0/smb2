@@ -2278,8 +2278,10 @@ NMI:
 	STA OAMADDR
 	LDA #$02
 	STA OAM_DMA
+
 	JSR ChangeCHRBanks
 
+NMI_CheckWaitFlag:
 	LDA NMIWaitFlag
 	BNE NMI_Waiting
 
@@ -2401,7 +2403,7 @@ NMI_DoSoundProcessing:
 IFNDEF DEBUG
 	JSR DoSoundProcessing
 ELSE
-	JSR DoSoundProcessingAndCheckDebug
+	JMP DoSoundProcessingAndCheckDebug
 ENDIF
 
 NMI_Exit:

@@ -14,6 +14,14 @@ Debug_Continues = $7FD5
 Debug_Health = $7FD6
 Debug_MaxHealth = $7FD7
 
+Debug_JumpAddressLo = $7FE0
+Debug_JumpAddressHi = $7FE1
+
+Debug_StashA = $7FE2
+Debug_StashX = $7FE3
+Debug_StashY = $7FE4
+Debug_StashP = $7FE5
+
 Debug_CursorTileOffset = $7FEB
 Debug_Temp = $7FEC
 Debug_PPUPointerOffset = $7FED
@@ -25,6 +33,7 @@ Debug_InMenu = $7FEF
 Debug_MenuOptionCount = $08
 
 .endinl
+
 
 DebugMenu_Init:
 	LDA #$00
@@ -69,8 +78,10 @@ DebugMenu_Init:
 
 	JSR EnableNMI
 
-	; @TODO: There's on glitched scroll frame from this...?
-	JSR WaitForNMI_TurnOffPPU
+	; Turn off the PPU immediately (avoids a glitched frame)
+	LDA #$00
+	STA PPUMaskMirror
+	STA PPUMASK
 
 	JSR WaitForNMI
 
@@ -80,7 +91,6 @@ DebugMenu_Init:
 	JSR DisableNMI
 
 	JSR SetScrollXYTo0
-	; JSR SetBlackAndWhitePalette
 	JSR DebugMenu_SetPalette
 	JSR ClearNametablesAndSprites
 
@@ -127,6 +137,7 @@ DebugMenu_Init:
 	JSR DebugMenu_InitCharacterSprite
 
 	JSR WaitForNMI_TurnOnPPU
+
 
 DebugMenu_MenuLoop:
 	JSR WaitForNMI
@@ -211,7 +222,10 @@ DebugMenu_JumpMenuLoop:
 DebugMenu_DoReturn:
 	JSR DebugMenu_ApplyOptions
 
-	JMP Debug_Abort
+	JSR DebugMenu_LoadCharacter
+
+	JSR DebugHook_ExitToAddressAfterJump
+	.dw HidePauseScreen
 
 
 DebugMenu_RestartArea:
@@ -222,7 +236,12 @@ DebugMenu_RestartArea:
 DebugMenu_DoRestartArea:
 	JSR DebugMenu_ApplyOptions
 
-	JMP Debug_RestartArea
+	JSR DebugMenu_LoadCharacter
+	JSR DebugMenu_ResetArea
+
+	JSR DebugHook_ExitToAddressAfterJump
+	.dw StartLevel
+
 
 DebugMenu_StartLevel:
 	LDA Player1JoypadPress
@@ -262,8 +281,9 @@ DebugMenu_DoStartLevel:
 	JSR DebugMenu_GetWorld
 	STY CurrentWorld
 
-	; Activate!
-	JMP Debug_StartLevel
+	LDY #GameMode_TitleCard
+	JSR DebugHook_ExitToAddressAfterJump
+	.dw ShowCardAfterTransition
 
 
 DebugMenu_CursorRestartArea:
@@ -487,6 +507,9 @@ DebugMenu_MenuError:
 	RTS
 
 
+;
+; Applies the current options to the player
+;
 DebugMenu_ApplyOptions:
 	LDA Debug_Lives
 	STA ExtraLives
@@ -505,6 +528,58 @@ DebugMenu_ApplyOptions:
 	SEC
 	SBC #$01
 	STA PlayerMaxHealth
+
+	RTS
+
+
+;
+; Loads the the current character if there was a change
+;
+DebugMenu_LoadCharacter:
+	LDA Debug_Character
+	CMP CurrentCharacter
+	BEQ +
+
+	STA CurrentCharacter
+	JSR CopyCharacterStatsAndStuff
+
++
+	RTS
+
+
+;
+; Resets a bunch of stuff in the area so that the player can start from the
+; previous transition
+;
+DebugMenu_ResetArea:
+	JSR LoadWorldCHRBanks
+
+	LDA CurrentLevel_Init
+	STA CurrentLevel
+	LDA CurrentLevelArea_Init
+	STA CurrentLevelArea
+	LDA CurrentLevelEntryPage_Init
+	STA CurrentLevelEntryPage
+	LDA TransitionType_Init
+	STA TransitionType
+
+	LDA PlayerXLo_Init
+	STA PlayerXLo
+	LDA PlayerYLo_Init
+	STA PlayerYLo
+	LDA PlayerScreenX_Init
+	STA PlayerScreenX
+	LDA PlayerScreenYLo_Init
+	STA PlayerScreenYLo
+	LDA PlayerYVelocity_Init
+	STA PlayerYVelocity
+	LDA PlayerState_Init
+	STA PlayerState
+
+	LDA #$00
+	STA PlayerXVelocity
+
+	JSR DoAreaReset
 
 	RTS
 
@@ -1001,5 +1076,5 @@ DebugPPU_UpdateArea:
 DebugPPU_Version:
 	.db 3+$04+1
 	.db $23, $79, $04
-	.db $EF, $F6, $D0, $D1 ; V.01
+	.db $EF, $F6, $D0, $D2 ; V.02
 	.db $00

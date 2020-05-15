@@ -1,167 +1,164 @@
-CheckDebug_Exit:
-	RTS
+
+DebugHook_Exit:
+	JMP NMI_Exit
 
 DoSoundProcessingAndCheckDebug:
 	JSR DoSoundProcessing
 
-CheckDebug:
-	; Require select pressed
+	; Are you pressing select?
 	LDA Player1JoypadPress
 	CMP #ControllerInput_Select
-	BNE CheckDebug_Exit
+	BNE DebugHook_Exit
 
-	; Not already in debug menu
-	LDA Debug_InMenu
-	BNE CheckDebug_Exit
+	; And you're not holding start?
+	LDA Player1JoypadHeld
+	AND #ControllerInput_Start
+	BNE DebugHook_Exit
 
-	; Require current mode to be normal gameplay
-	LDA StackArea
-	CMP #Stack100_Gameplay
-	BNE CheckDebug_Exit
+	JSR DebugHook_CheckEligibility
+	BCS DebugHook_Exit
 
-	; Disable while scrolling
-	LDA NeedsScroll
-	AND #%00000100
-	BNE CheckDebug_Exit
+	; Hijack the NMI and show the debug menu
+	LDA #>DebugHook_Hijack
+	PHA
+	LDA #<DebugHook_Hijack
+	PHA
+	PHP
+	RTI
 
-	; Disable the background is drawing
-	LDA byte_RAM_537
-	BEQ CheckDebug_Exit
 
-	; Disable while in subspace/jar
-	LDA InSubspaceOrJar
-	BNE CheckDebug_Exit
-
-	; Disable while player is busy
-	LDA PlayerState
-	CMP #PlayerState_ClimbingAreaTransition
-	BCS CheckDebug_Exit
+DebugHook_Hijack:
+	; Stash the current bank
+	LDA MMC3PRGBankTemp
+	PHA
 
 	; Enable the debug menu flag
 	LDA #$01
 	STA Debug_InMenu
 
 	; Stash a bunch of stuff
-	JSR DebugBackupScroll
-	JSR DebugBackupRAM
+	JSR DebugHook_BackupScroll
+	JSR DebugHook_BackupRAM
 
 	; Swap to the debug/credits bank
 	LDA #PRGBank_A_B
 	JSR ChangeMappedPRGBank
 
-	; Stop the music
-	; LDA #Music2_StopMusic
-	; STA MusicQueue2
-
 	; And off we go
 	JMP DebugMenu_Init
 
 
-Debug_Abort:
-	; Disable the debug menu flag
+;
+; Similar idea to JumpToTableAfterJump
+;
+DebugHook_ExitToAddressAfterJump:
+	STA Debug_StashA
+	STX Debug_StashX
+	STY Debug_StashY
+	PHP
+	PLA
+	STA Debug_StashP
+
+	; Save the source address
+	PLA
+	STA byte_RAM_A
+	PLA
+	STA byte_RAM_B
+
+	; Determine the jump address
+	LDY #$01
+	LDA (byte_RAM_A), Y
+	STA Debug_JumpAddressLo
+	INY
+	LDA (byte_RAM_A), Y
+	STA Debug_JumpAddressHi
+
+DebugHook_ExitToJumpAddress:
 	LDA #$00
 	STA Debug_InMenu
 
-	; Restore a bunch of stuff
-	JSR DebugRestoreRAM
+	JSR DebugHook_RestoreRAM
 
-	; Restart the music
-	; STA MusicQueue1
-	; LDA #$00
-	; STA MusicPlaying1
+	; Restore the previous bank
+	PLA
+	; JSR ChangeMappedPRGBank
 
-	; Load character, maybe
-	LDA Debug_Character
-	CMP CurrentCharacter
-	BEQ +
+	; Forget about all those registers and processor flags
+	PLA
+	TAY
+	PLA
+	TAX
+	PLA
+	PLP
 
-	STA CurrentCharacter
-	LDA #PRGBank_A_B
-	JSR ChangeMappedPRGBank
+	; Forget that RTI
+	PLA
+	PLA
+	PLA
 
-	JSR CopyCharacterStatsAndStuff
-	+
+	; And forget whatever this address was
+	PLA
+	PLA
 
-	; Restore the original bank
-	LDA MMC3PRGBankTemp
-	JSR ChangeMappedPRGBank
+	; Restore the registers and processor flags
+	LDA Debug_StashP
+	PHP
+	LDA Debug_StashA
+	LDX Debug_StashX
+	LDY Debug_StashY
+	PLP
 
-	; It's just easier than trying to replicate all the same behavior
-	JMP HidePauseScreen
-
-
-Debug_RestartArea:
-	; Disable the debug menu flag
-	LDA #$00
-	STA Debug_InMenu
-
-	; Restore a bunch of stuff
-	JSR DebugRestoreRAM
-
-	; Load character, maybe
-	LDA Debug_Character
-	CMP CurrentCharacter
-	BEQ +
-
-	STA CurrentCharacter
-	LDA #PRGBank_A_B
-	JSR ChangeMappedPRGBank
-
-	JSR CopyCharacterStatsAndStuff
-	+
-
-	JSR LoadWorldCHRBanks
-
-	LDA CurrentLevel_Init
-	STA CurrentLevel
-	LDA CurrentLevelArea_Init
-	STA CurrentLevelArea
-	LDA CurrentLevelEntryPage_Init
-	STA CurrentLevelEntryPage
-	LDA TransitionType_Init
-	STA TransitionType
-
-	LDA PlayerXLo_Init
-	STA PlayerXLo
-	LDA PlayerYLo_Init
-	STA PlayerYLo
-	LDA PlayerScreenX_Init
-	STA PlayerScreenX
-	LDA PlayerScreenYLo_Init
-	STA PlayerScreenYLo
-	LDA PlayerYVelocity_Init
-	STA PlayerYVelocity
-	LDA PlayerState_Init
-	STA PlayerState
-
-	LDA #$00
-	STA PlayerXVelocity
-
-	JSR DoAreaReset
-
-	JMP StartLevel
+	; Jump to the destination
+	JMP (Debug_JumpAddressLo)
 
 
+;
+; Check if the game conditions are good for entering the debug menu.
+; If the menu can be accessed, carry will be clear.
+;
+DebugHook_CheckEligibility:
+	; Not already in debug menu
+	LDA Debug_InMenu
+	BNE +f
 
-	; Show the title card and number of lives
-	LDY #GameMode_TitleCard
-	JMP StartLevel
+	; Require current mode to be normal gameplay
+	LDA StackArea
+	CMP #Stack100_Gameplay
+	BNE +f
 
-	; It's just easier than trying to replicate all the same behavior
-	JMP HidePauseScreen
+	; Disable while scrolling
+	LDA NeedsScroll
+	AND #%00000100
+	BNE +f
 
-Debug_StartLevel:
-	; Disable the debug menu flag
-	LDA #$00
-	STA Debug_InMenu
+	; Disable the background is drawing
+	LDA byte_RAM_537
+	BEQ +f
 
-	; Show the title card and number of lives
-	LDY #GameMode_TitleCard
-	JMP ShowCardAfterTransition
+	; Disable while in subspace/jar
+	LDA InSubspaceOrJar
+	BNE +f
+
+	; Disable while player is busy
+	LDA PlayerState
+	CMP #PlayerState_ClimbingAreaTransition
+	BCS +f
+
+	CLC
+	RTS
+
++f
+	SEC
+	RTS
 
 
-; Similar to StashScreenScrollPosition
-DebugBackupScroll:
+;
+; Stash the scroll information so that unpause can restore it later.
+;
+; Similar to StashScreenScrollPosition in Bank 0 except that it doesn't change
+; the current PPU scroll position.
+;
+DebugHook_BackupScroll:
 	LDA PPUScrollYMirror
 	STA PPUScrollYMirror_Backup
 	LDA PPUScrollXMirror
@@ -180,7 +177,18 @@ DebugBackupScroll:
 	STA byte_RAM_517
 	RTS
 
-DebugBackupRAM:
+
+;
+; The table below contains a bunch of RAM addresses to save/restore when
+; entering and exiting the debug menu.
+;
+DebugPreserveAddresses:
+	.dw MMC3PRGBankTemp
+	; .dw MusicPlaying1
+DebugPreserveAddresses_End:
+
+
+DebugHook_BackupRAM:
 	LDX #$00
 -
 	; Determine the RAM address
@@ -201,7 +209,8 @@ DebugBackupRAM:
 	BCC -
 	RTS
 
-DebugRestoreRAM:
+
+DebugHook_RestoreRAM:
 	LDX #$00
 -
 	; Determine the RAM address
@@ -222,8 +231,3 @@ DebugRestoreRAM:
 	BCC -
 	RTS
 
-; Here are a bunch of RAM addresses to save
-DebugPreserveAddresses:
-	.dw MMC3PRGBankTemp
-	.dw MusicPlaying1
-DebugPreserveAddresses_End:
