@@ -125,6 +125,10 @@ PRESERVE_UNUSED_SPACE = 1
 ; Based on RetroRain's MMC5 patch (https://www.romhacking.net/hacks/2568)
 ; MMC5 = 1
 
+; Enable hard-wired 4-screen mirroring. If enabled, normal nametable mirroring is disabled.
+; See https://wiki.nesdev.com/w/index.php/INES#Flags_6
+; FOURSCREEN = 1
+
 ; Use FME-7 (mapper 69) instead of MMC3 (mapper 4)
 ; FME7 = 1
 
