@@ -2363,7 +2363,7 @@ NMI_AfterBackgroundAttributesUpdate:
 
 	JSR ResetPPUAddress
 
-	LDA #$B0
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	ORA PPUScrollXHiMirror
 	LDY IsHorizontalLevel
 	BNE NMI_UpdatePPUScroll
@@ -3719,6 +3719,7 @@ loc_BANKF_F3F8:
 
 loc_BANKF_F408:
 	STA SpriteDMAArea + 1, Y
+
 	LDA PlayerAnimationFrame
 	CMP #$06
 	BCS loc_BANKF_F413
@@ -5810,7 +5811,7 @@ unusedSpace $FF50, $FF
 RESET:
 	SEI
 	CLD
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIDisabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_Background0000 | PPUCtrl_NMIDisabled
 	STA PPUCTRL
 	LDX #$FF ; Reset stack pointer
 	TXS
@@ -5862,7 +5863,7 @@ ChangeCHRBanks:
 	LDY #$05
 ChangeCHRBanks_Loop:
 	TYA
-	ORA #$80
+	ORA #CHR_A12_INVERSION
 	STA $8000
 	LDA BackgroundCHR1, Y
 	STA $8001
@@ -5935,13 +5936,13 @@ ELSEIF INES_MAPPER == MAPPER_MMC5
 
 ELSE ; INES_MAPPER == MAPPER_MMC3
 	PHA
-	LDA #$86
+	LDA #CHR_A12_INVERSION | $06
 	STA $8000
 	PLA
 	STA $8001 ; Change first bank
 	ORA #$01 ; Use the bank right after this one next
 	PHA
-	LDA #$87
+	LDA #CHR_A12_INVERSION | $07
 	STA $8000
 	PLA
 	STA $8001 ; Change second bank

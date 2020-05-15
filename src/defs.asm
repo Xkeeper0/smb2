@@ -13,6 +13,8 @@ ELSE ; INES_MAPPER == MAPPER_MMC3
   NametableMapping = $A000
 ENDIF
 
+CHR_A12_INVERSION = $80
+
 ; ---------------------------------------------------------------------------
 
 ; Each level has a maximum of 10 ($00~$09) areas.
