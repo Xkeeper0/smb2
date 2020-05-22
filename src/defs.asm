@@ -1,16 +1,14 @@
 .ignorenl
 
-IF INES_MAPPER == MAPPER_FME7
-  VMirror = $00
-  HMirror = $01
-ELSEIF INES_MAPPER == MAPPER_MMC5
-  VMirror = $44
-  HMirror = $50
-  NametableMapping = $5105
-ELSE ; INES_MAPPER == MAPPER_MMC3
-  VMirror = $00
-  HMirror = $01
-  NametableMapping = $A000
+VMirror = %00000000
+HMirror = %00000001
+
+MMC5_VMirror = %01000100
+MMC5_HMirror = %01010000
+
+IF INES_MAPPER == MAPPER_MMC5
+  VMirror = MMC5_VMirror
+  HMirror = MMC5_HMirror
 ENDIF
 
 CHR_A12_INVERSION = $80
@@ -826,6 +824,5 @@ CHRBank_EndingBackground9 = $70
 CHRBank_EndingBackground10 = $74
 CHRBank_EndingBackground11 = $78
 CHRBank_EndingBackground12 = $7C
-
 
 .endinl

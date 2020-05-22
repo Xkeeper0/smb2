@@ -2073,6 +2073,37 @@ MMC5_RAW_PCM = $5011
 
 MMC5_SND_CHN = $5015
 
+;
+; MMC5 bank switching
+;
+MMC5_PRGMode = $5100
+MMC5_CHRMode = $5101
+MMC5_PRGRAMProtect1 = $5102
+MMC5_PRGRAMProtect2 = $5103
+MMC5_ExtendedRAMMode = $5104
+MMC5_NametableMapping = $5105
+MMC5_PRGBankSwitch1 = $5113
+MMC5_PRGBankSwitch2 = $5114
+MMC5_PRGBankSwitch3 = $5115
+MMC5_PRGBankSwitch4 = $5116
+MMC5_PRGBankSwitch5 = $5117
+MMC5_CHRBankSwitch1 = $5120
+MMC5_CHRBankSwitch2 = $5121
+MMC5_CHRBankSwitch3 = $5122
+MMC5_CHRBankSwitch4 = $5123
+MMC5_CHRBankSwitch5 = $5124
+MMC5_CHRBankSwitch6 = $5125
+MMC5_CHRBankSwitch7 = $5126
+MMC5_CHRBankSwitch8 = $5127
+MMC5_CHRBankSwitch9 = $5128
+MMC5_CHRBankSwitch10 = $5129
+MMC5_CHRBankSwitch11 = $512a
+MMC5_CHRBankSwitch12 = $512b
+MMC5_CHRBankSwitchUpper = $5130
+
+MMC5_IRQScanlineCompare = $5203
+MMC5_IRQStatus = $5204
+
 
 ;
 ; Cartridge on-board RAM
@@ -2159,3 +2190,15 @@ IFDEF CONTROLLER_2_DEBUG
 ENDIF
 
 ItemCarryYOffsetsRAM = $7f00
+
+MMC3_BankSelect = $8000
+MMC3_BankData = $8001
+MMC3_Mirroring = $a000
+MMC3_PRGRamProtect = $a001
+MMC3_IRQLatch = $c000
+MMC3_IRQReload = $c001
+MMC3_IRQDisable = $e000
+MMC3_IRQEnable = $e001
+
+FME7_Command = $8000
+FME7_Parameter = $a000

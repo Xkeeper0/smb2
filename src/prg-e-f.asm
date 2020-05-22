@@ -415,6 +415,7 @@ EnableNMI_PauseTitleCard:
 
 	LDA #ScreenUpdateBuffer_BANKE_DE7A
 	STA ScreenUpdateIndex
+
 	JMP WaitForNMI
 
 
@@ -2268,6 +2269,7 @@ NMI:
 	PHA
 	TYA
 	PHA
+
 	BIT StackArea
 	BPL NMI_PauseOrMenu ; branch if bit 7 was 0
 
@@ -2382,6 +2384,8 @@ NMI_UpdatePPUScroll:
 	STA PPUSCROLL
 	LDA PPUMaskMirror
 	STA PPUMASK
+
+NMI_IncrementGlobalCounter:
 	INC byte_RAM_10
 
 NMI_CheckScreenUpdateIndex:
@@ -2666,24 +2670,24 @@ UpdatePPUFBWO_CopySingleTileSkip:
 IF INES_MAPPER == MAPPER_FME7
 RESET_FME7:
 	LDA #$08 ; PRG bank 0
-	STA $8000
+	STA FME7_Command
 	LDA #%11000000
-	STA $A000
+	STA FME7_Parameter
 
 	LDA #$09 ; PRG bank 1
-	STA $8000
+	STA FME7_Command
 	LDA #$00 ; ROM bank 0
-	STA $A000
+	STA FME7_Parameter
 
 	LDA #$0A ; PRG bank 2
-	STA $8000
+	STA FME7_Command
 	LDA #$01 ; ROM bank 1
-	STA $A000
+	STA FME7_Parameter
 
 	LDA #$0B ; PRG bank 3
-	STA $8000
+	STA FME7_Command
 	LDA #$0E ; ROM bank E
-	STA $A000
+	STA FME7_Parameter
 
 	JMP RESET
 
@@ -2691,30 +2695,30 @@ RESET_FME7:
 ChangeCHRBanks_FME7:
 	LDY BackgroundCHR1
 	LDA #$04
-	STA $8000
-	STY $A000
+	STA FME7_Command
+	STY FME7_Parameter
 
 	INY
 	LDA #$05
-	STA $8000
-	STY $A000
+	STA FME7_Command
+	STY FME7_Parameter
 
 	LDY BackgroundCHR2
 	LDA #$06
-	STA $8000
-	STY $A000
+	STA FME7_Command
+	STY FME7_Parameter
 
 	INY
 	LDA #$07
-	STA $8000
-	STY $A000
+	STA FME7_Command
+	STY FME7_Parameter
 
 	LDY #$03
 ChangeCHRBanks_FME7_Loop:
 	TYA
-	STA $8000
+	STA FME7_Command
 	LDA SpriteCHR1, Y
-	STA $A000
+	STA FME7_Parameter
 	DEY
 	BPL ChangeCHRBanks_FME7_Loop
 
@@ -2724,77 +2728,78 @@ ELSEIF INES_MAPPER == MAPPER_MMC5
 RESET_MMC5:
 	; Set PRG mode 3 and CHR mode 3
 	LDA #$03
-	STA $5100 ; PRG mode
-	STA $5101 ; CHR mode
+	STA MMC5_PRGMode
+	STA MMC5_CHRMode
 
 	; Enable PRG RAM writing
 	LDA #$02
-	STA $5102 ; PRG RAM Protect 1
+	STA MMC5_PRGRAMProtect1
 	LDA #$01
-	STA $5103 ; PRG RAM Protect 2
+	STA MMC5_PRGRAMProtect2
 
 	; Set nametable mapping
 	LDA #%01010000
-	STA $5105
+	STA MMC5_NametableMapping
 
 	LDA #$00
-	STA $5113 ; PRG RAM bank
-	STA $5130 ; Upper CHR Bank bits
+	STA MMC5_PRGBankSwitch1
+	STA MMC5_CHRBankSwitchUpper
 
+	; MMC5 Pulse channels
 	LDA #$0F
-	STA $5015
+	STA MMC5_SND_CHN
 
 	; PRG bank 0
 	LDA #$80 ; ROM bank 0
-	STA $5114
+	STA MMC5_PRGBankSwitch2 ; $8000-$9FFF
 
 	; PRG bank 1
 	LDA #$81 ; ROM bank 1
-	STA $5115
+	STA MMC5_PRGBankSwitch3 ; $A000-$BFFF
 
 	; PRG bank 2
 	LDA #$8E ; ROM bank E
-	STA $5116
+	STA MMC5_PRGBankSwitch4 ; $C000-$DFFF
 
 	; PRG bank 3
 	LDA #$8F ; ROM bank F
-	STA $5117
+	STA MMC5_PRGBankSwitch5 ; $E000-$FFFF
 
 	JMP RESET
 
 
 ChangeCHRBanks_MMC5:
 	LDA SpriteCHR1
-	STA $5120
+	STA MMC5_CHRBankSwitch1
 
 	LDA SpriteCHR2
-	STA $5121
+	STA MMC5_CHRBankSwitch2
 
 	LDA SpriteCHR3
-	STA $5122
+	STA MMC5_CHRBankSwitch3
 
 	LDA SpriteCHR4
-	STA $5123
+	STA MMC5_CHRBankSwitch4
 
 	LDA BackgroundCHR1
-	STA $5124
+	STA MMC5_CHRBankSwitch5
 	ADC #$01
-	STA $5125
+	STA MMC5_CHRBankSwitch6
 
 	LDA BackgroundCHR2
-	STA $5126
+	STA MMC5_CHRBankSwitch7
 	ADC #$01
-	STA $5127
+	STA MMC5_CHRBankSwitch8
 
 	LDA BackgroundCHR1
-	STA $5128
+	STA MMC5_CHRBankSwitch9
 	ADC #$01
-	STA $5129
+	STA MMC5_CHRBankSwitch10
 
 	LDA BackgroundCHR2
-	STA $512A
+	STA MMC5_CHRBankSwitch11
 	ADC #$01
-	STA $512B
+	STA MMC5_CHRBankSwitch12
 
 	RTS
 ENDIF
@@ -5829,14 +5834,23 @@ RESET_VBlank2Loop:
 
 IF INES_MAPPER == MAPPER_FME7
 	LDA #$0C
-	STA $8000
+	STA FME7_Command
 	LDA #VMirror
-	STA $A000
-ELSE
+	STA FME7_Parameter
+ELSEIF INES_MAPPER == MAPPER_MMC5
+	LDA #MMC5_VMirror
+	STA MMC5_NametableMapping
+	; Maintain location of the next subroutine
+	NOP_compat
+	NOP_compat
+	NOP_compat
+	NOP_compat
+	NOP_compat
+ELSE ;  INES_MAPPER == MAPPER_MMC3
 	LDA #VMirror
-	STA NametableMapping
+	STA MMC3_Mirroring
 	LDA #$80
-	STA $A001 ; PRG-RAM protect
+	STA MMC3_PRGRamProtect
 ENDIF
 	JMP StartGame
 
@@ -5864,9 +5878,9 @@ ChangeCHRBanks:
 ChangeCHRBanks_Loop:
 	TYA
 	ORA #CHR_A12_INVERSION
-	STA $8000
+	STA MMC3_BankSelect
 	LDA BackgroundCHR1, Y
-	STA $8001
+	STA MMC3_BankData
 	DEY
 	BPL ChangeCHRBanks_Loop
 
@@ -5910,42 +5924,46 @@ ChangeMappedPRGBankWithoutSaving:
 	ASL A
 
 IF INES_MAPPER == MAPPER_FME7
+	; Change first bank
 	PHA
 	LDA #$09
-	STA $8000
+	STA FME7_Command
 	PLA
-	STA $A000 ; Change first bank
+	STA FME7_Parameter
 	ORA #$01 ; Use the bank right after this one next
+	; Change second bank
 	PHA
 	LDA #$0A
-	STA $8000
+	STA FME7_Command
 	PLA
-	STA $A000 ; Change second bank
+	STA FME7_Parameter
 
 	RTS
 
 ELSEIF INES_MAPPER == MAPPER_MMC5
 	ORA #$80
-	STA $5114
+	STA MMC5_PRGBankSwitch2
 	ORA #$01
-	STA $5115
+	STA MMC5_PRGBankSwitch3
 	RTS
 
 	; Maintain location of the next subroutine
 	unusedSpace $FFA0, $FF
 
 ELSE ; INES_MAPPER == MAPPER_MMC3
+	; Change first bank
 	PHA
 	LDA #CHR_A12_INVERSION | $06
-	STA $8000
+	STA MMC3_BankSelect
 	PLA
-	STA $8001 ; Change first bank
+	STA MMC3_BankData
 	ORA #$01 ; Use the bank right after this one next
+	; Change second bank
 	PHA
 	LDA #CHR_A12_INVERSION | $07
-	STA $8000
+	STA MMC3_BankSelect
 	PLA
-	STA $8001 ; Change second bank
+	STA MMC3_BankData
 	RTS
 
 ENDIF
@@ -5961,11 +5979,13 @@ ChangeNametableMirroring:
 IF INES_MAPPER == MAPPER_FME7
 	PHA
 	LDA #$0C
-	STA $8000
+	STA FME7_Command
 	PLA
-	STA $A000
+	STA FME7_Parameter
+ELSEIF INES_MAPPER == MAPPER_MMC5
+	STA MMC5_NametableMapping
 ELSE
-	STA NametableMapping
+	STA MMC3_Mirroring
 ENDIF
 	RTS
 
@@ -5975,14 +5995,17 @@ unusedSpace $FFEB, $FF
 ; Technically you can delete the stuff from here to the vector table as well,
 ; but because it looks slightly less like unused space it isn't being removed.
 
+IFDEF PRESERVE_UNUSED_SPACE
 ; Not used; leftover part of FamicomBox cart title?
 UnusedTextZELDA:
 	.db 'ZELDA'
+ENDIF
 
 ; Note that this is NOT CODE.
 ; If the NES actually hits a BRK, the game will probably just explode.
-; If you wanted, you could write  some sort of crash handler though.
+; If you wanted, you could write some sort of crash handler though.
 IRQ:
+IFDEF PRESERVE_UNUSED_SPACE
 	.db $DF
 	.db $E6
 	.db $00
@@ -5993,6 +6016,7 @@ IRQ:
 	.db $04
 	.db $01
 	.db $BE
+ENDIF
 
 ; Ensure our vectors are always here
 	.pad $FFFA, $FF
