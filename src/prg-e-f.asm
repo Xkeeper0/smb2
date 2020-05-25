@@ -34,7 +34,7 @@ ScreenUpdateBufferPointers:
 	.dw PPUBuffer_Text_Game_Over
 	.dw PPUBuffer_67B
 	.dw PPUBuffer_Text_Retry
-	.dw PPUBuffer_7168
+	.dw PPUBuffer_TitleCardText
 	.dw PPUBuffer_67B
 	.dw PPUBuffer_693
 	.dw PPUBuffer_6AB
@@ -52,122 +52,123 @@ ScreenUpdateBufferPointers:
 	.dw BonusChanceLayoutRAM
 
 PPUBuffer_CharacterSelect:
-	.db $21,$49,$06,$E9,$E5,$DE,$DA,$EC,$DE ; PLEASE
-	.db $21,$50,$06,$EC,$DE,$E5,$DE,$DC,$ED ; SELECT
-	.db $21,$8C,$06,$E9,$E5,$DA,$F2,$DE,$EB ; PLAYER
-	.db $20,$00,$20,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8 ; Probably the checkerboard diamonds or w/e
-	.db $B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7 ; $F
-	.db $B8,$B7,$B8,$B7,$B8 ; $1E
-	.db $20,$20,$20,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA
-	.db $B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9 ; $F
-	.db $BA,$B9,$BA,$B9,$BA ; $1E
-	.db $23,$80,$20,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8
-	.db $B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7 ; $F
-	.db $B8,$B7,$B8,$B7,$B8 ; $1E
-	.db $23,$A0,$20,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA
-	.db $B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9 ; $F
-	.db $BA,$B9,$BA,$B9,$BA ; $1E
-	.db $20,$00,$9E,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9
-	.db $B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7 ; $F
-	.db $B9,$B7,$B9 ; $1E
-	.db $20,$01,$9E,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA
-	.db $B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8 ; $F
-	.db $BA,$B8,$BA ; $1E
-	.db $20,$1E,$9E,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9
-	.db $B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7 ; $F
-	.db $B9,$B7,$B9 ; $1E
-	.db $20,$1F,$9E,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA
-	.db $B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8 ; $F
-	.db $BA,$B8,$BA ; $1E
-	.db $20,$42,$5C,$FD
-	.db $20,$62,$5C,$FD
-	.db $20,$47,$05,$00,$01,$02,$03,4
-	.db $20,$54,$05,$05,$06,$07,$08,9
-	.db $20,$63,$0A,$A,$0B,$C,$0D,$E,$0F,$10,$11,$12,$13
-	.db $20,$73,$0A,$14,$15,$16,$17,$18,$19,$1A,$1B,$1C,$1D
-	.db $20,$82,$1C,$1E,$1F,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29
-	.db $FD,$FD,$FD,$FD,$2A,$2B,$2C,$2D,$2E,$2F,$30,$31,$32,$33,$34 ; $F
+	.db $21, $49, $06, $E9, $E5, $DE, $DA, $EC, $DE ; PLEASE
+	.db $21, $50, $06, $EC, $DE, $E5, $DE, $DC, $ED ; SELECT
+	.db $21, $8C, $06, $E9, $E5, $DA, $F2, $DE, $EB ; PLAYER
+	.db $20, $00, $20, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8 ; Probably the checkerboard diamonds or w/e
+	.db $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7 ; $F
+	.db $B8, $B7, $B8, $B7, $B8 ; $1E
+	.db $20, $20, $20, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA
+	.db $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9 ; $F
+	.db $BA, $B9, $BA, $B9, $BA ; $1E
+	.db $23, $80, $20, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8
+	.db $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7 ; $F
+	.db $B8, $B7, $B8, $B7, $B8 ; $1E
+	.db $23, $A0, $20, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA
+	.db $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9 ; $F
+	.db $BA, $B9, $BA, $B9, $BA ; $1E
+	.db $20, $00, $9E, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9
+	.db $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7 ; $F
+	.db $B9, $B7, $B9 ; $1E
+	.db $20, $01, $9E, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA
+	.db $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8 ; $F
+	.db $BA, $B8, $BA ; $1E
+	.db $20, $1E, $9E, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9
+	.db $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7 ; $F
+	.db $B9, $B7, $B9 ; $1E
+	.db $20, $1F, $9E, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA
+	.db $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8 ; $F
+	.db $BA, $B8, $BA ; $1E
+	.db $20, $42, $5C, $FD
+	.db $20, $62, $5C, $FD
+	.db $20, $47, $05, $00, $01, $02, $03,4
+	.db $20, $54, $05, $05, $06, $07, $08,9
+	.db $20, $63, $0A, $A,$0B, $C,$0D, $E,$0F, $10, $11, $12, $13
+	.db $20, $73, $0A, $14, $15, $16, $17, $18, $19, $1A, $1B, $1C, $1D
+	.db $20, $82, $1C, $1E, $1F, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29
+	.db $FD, $FD, $FD, $FD, $2A, $2B, $2C, $2D, $2E, $2F, $30, $31, $32, $33, $34 ; $F
 	.db $35 ; $1E
-	.db $20,$A2,$06,$36,$37,$38,$39,$3A,$3B
-	.db $20,$AB,$0A,$3C,$3D,$3E,$3F,$40,$43,$44,$45,$46,$47
-	.db $20,$B8,$06,$48,$49,$4A,$4B,$4C,$4D
-	.db $20,$C2,$05,$4E,$4F,$50,$51,$52
-	.db $20,$D9,$05,$53,$54,$55,$56,$57
-	.db $20,$E2,$04,$58,$59,$5A,$5B
-	.db $20,$E6,$CD,$5C
-	.db $20,$F9,$CD,$5C
-	.db $20,$FA,$04,$5D,$5E,$5F,$60
-	.db $21,$02,$83,$61,$64,$67
-	.db $21,$03,$8B,$62,$65,$68,$6A,$6C,$6F,$72,$75,$78,$7B,$7E
-	.db $21,$04,$94,$63,$66,$69,$6B,$6D,$70,$73,$76,$79,$7C,$7F,$81
-	.db $82,$83,$84,$85,$86,$87,$88,$89 ; $F
-	.db $21,$85,$89,$6E,$71,$74,$77,$7A,$7D,$80,$6E,$6E
-	.db $21,$9A,$89,$97,$9A,$9D,$BB,$A0,$A3,$A6,$A9,$AB
-	.db $21,$1B,$94,$8C,$8F,$92,$95,$98,$9B,$9E,$BC,$A1,$A4,$A7,$AA
-	.db $AC,$AD,$AE,$B0,$B1,$B2,$B3,$B4 ; $F
-	.db $21,$1C,$8B,$8D,$90,$93,$96,$99,$9C,$9F,$BD,$A2,$A5,$A8
-	.db $21,$1D,$83,$8E,$91,$94
-	.db $21,$62,$D1,$FD
-	.db $21,$7D,$D1,$FD
-	.db $22,$63,$C9,$FD,$22,$7C,$C9,$FD,$22,$86,$82,$8A,$8B,$22,$99
-	.db $82,$8A,$8B ; $F
+	.db $20, $A2, $06, $36, $37, $38, $39, $3A, $3B
+	.db $20, $AB, $0A, $3C, $3D, $3E, $3F, $40, $43, $44, $45, $46, $47
+	.db $20, $B8, $06, $48, $49, $4A, $4B, $4C, $4D
+	.db $20, $C2, $05, $4E, $4F, $50, $51, $52
+	.db $20, $D9, $05, $53, $54, $55, $56, $57
+	.db $20, $E2, $04, $58, $59, $5A, $5B
+	.db $20, $E6, $CD, $5C
+	.db $20, $F9, $CD, $5C
+	.db $20, $FA, $04, $5D, $5E, $5F, $60
+	.db $21, $02, $83, $61, $64, $67
+	.db $21, $03, $8B, $62, $65, $68, $6A, $6C, $6F, $72, $75, $78, $7B, $7E
+	.db $21, $04, $94, $63, $66, $69, $6B, $6D, $70, $73, $76, $79, $7C, $7F, $81
+	.db $82, $83, $84, $85, $86, $87, $88, $89 ; $F
+	.db $21, $85, $89, $6E, $71, $74, $77, $7A, $7D, $80, $6E, $6E
+	.db $21, $9A, $89, $97, $9A, $9D, $BB, $A0, $A3, $A6, $A9, $AB
+	.db $21, $1B, $94, $8C, $8F, $92, $95, $98, $9B, $9E, $BC, $A1, $A4, $A7, $AA
+	.db $AC, $AD, $AE, $B0, $B1, $B2, $B3, $B4 ; $F
+	.db $21, $1C, $8B, $8D, $90, $93, $96, $99, $9C, $9F, $BD, $A2, $A5, $A8
+	.db $21, $1D, $83, $8E, $91, $94
+	.db $21, $62, $D1, $FD
+	.db $21, $7D, $D1, $FD
+	.db $22, $63, $C9, $FD, $22, $7C, $C9, $FD, $22, $86, $82, $8A, $8B, $22, $99
+	.db $82, $8A, $8B ; $F
 	.db $00
+
 PPUBuffer_BANKE_DE7A:
-	.db $23,$C0,$09,$3E,$0E,$E,$0E,$E,$0E,$E,$8E,$32
-	.db $23,$CF,$01,$8C
-	.db $23,$D0,$10,$32,$00,$A0,$A0,$A0,$20,$00,$8C,$32,$00,$00,$0A,$02,$00,$00,$8C
-	.db $23,$E0,$09,$32,$00,$00,$0E,$00,$00,$00,$8C,$32
-	.db $23,$EF,$01,$8C
-	.db $23,$F0,$06,$32,$00,$A0,$A0,$A0,$A0
-	.db $23,$F7,$09,$8C,$0E,$E,$0E,$E,$0E,$E,$0E,$E
-	.db $24,$00,$60,$FF
-	.db $24,$20,$60,$FF
-	.db $24,$40,$60,$FF
-	.db $24,$60,$60,$FF
-	.db $27,$40,$60,$FF
-	.db $27,$60,$60,$FF
-	.db $27,$80,$60,$FF
-	.db $27,$A0,$60,$FF
-	.db $24,$80,$D6,$FF
-	.db $24,$81,$D6,$FF
-	.db $24,$82,$D6,$FF
-	.db $24,$9D,$D6,$FF
-	.db $24,$9E,$D6,$FF
-	.db $24,$9F,$D6,$FF
-	.db $24,$83,$01,$D0
-	.db $24,$9C,$01,$D8
-	.db $24,$84,$58,$FB
-	.db $24,$A3,$D4,$D1
-	.db $24,$BC,$D4,$D7
-	.db $24,$A4,$58,$FB
-	.db $24,$C4,$58,$FB
-	.db $24,$E4,$58,$FB
-	.db $25,$04,$58,$FB
-	.db $25,$24,$58,$FB
-	.db $25,$44,$58,$FB
-	.db $25,$64,$58,$FB
-	.db $25,$84,$58,$FB
-	.db $25,$A4,$58,$FB
-	.db $25,$C4,$58,$FB
-	.db $25,$E4,$58,$FB
-	.db $26,$04,$58,$FB
-	.db $26,$24,$58,$FB
-	.db $26,$44,$58,$FB
-	.db $26,$64,$58,$FB
-	.db $26,$84,$58,$FB
-	.db $26,$A4,$58,$FB
-	.db $26,$C4,$58,$FB
-	.db $26,$E4,$58,$FB
-	.db $27,$23,$01,$D2
-	.db $27,$3C,$01,$D6
-	.db $27,$24,$58,$D3
-	.db $27,$C8,$08,$44,$FF,$BF,$AF,$AF,$AF,$FF,$11
-	.db $27,$D0,$10,$44,$BF,$AF,$AF,$AF,$AF,$EF,$11,$44,$FF,$FF,$FF
-	.db $FF,$FF,$FF,$11 ; $F
-	.db $27,$E0,$10,$44,$FF,$FF,$FF,$FF,$FF,$FF,$11,$44,$FF,$FF,$FF
-	.db $FF,$FF,$AF,$11 ; $F
-	.db $27,$F0,$08,$44,$05,$05,$05,$05,$05,$05,$01
-	.db $27,$04,$58,$FB
+	.db $23, $C0, $09, $3E, $0E, $E,$0E, $E,$0E, $E,$8E, $32
+	.db $23, $CF, $01, $8C
+	.db $23, $D0, $10, $32, $00, $A0, $A0, $A0, $20, $00, $8C, $32, $00, $00, $0A, $02, $00, $00, $8C
+	.db $23, $E0, $09, $32, $00, $00, $0E, $00, $00, $00, $8C, $32
+	.db $23, $EF, $01, $8C
+	.db $23, $F0, $06, $32, $00, $A0, $A0, $A0, $A0
+	.db $23, $F7, $09, $8C, $0E, $E,$0E, $E,$0E, $E,$0E, $E
+	.db $24, $00, $60, $FF
+	.db $24, $20, $60, $FF
+	.db $24, $40, $60, $FF
+	.db $24, $60, $60, $FF
+	.db $27, $40, $60, $FF
+	.db $27, $60, $60, $FF
+	.db $27, $80, $60, $FF
+	.db $27, $A0, $60, $FF
+	.db $24, $80, $D6, $FF
+	.db $24, $81, $D6, $FF
+	.db $24, $82, $D6, $FF
+	.db $24, $9D, $D6, $FF
+	.db $24, $9E, $D6, $FF
+	.db $24, $9F, $D6, $FF
+	.db $24, $83, $01, $D0
+	.db $24, $9C, $01, $D8
+	.db $24, $84, $58, $FB
+	.db $24, $A3, $D4, $D1
+	.db $24, $BC, $D4, $D7
+	.db $24, $A4, $58, $FB
+	.db $24, $C4, $58, $FB
+	.db $24, $E4, $58, $FB
+	.db $25, $04, $58, $FB
+	.db $25, $24, $58, $FB
+	.db $25, $44, $58, $FB
+	.db $25, $64, $58, $FB
+	.db $25, $84, $58, $FB
+	.db $25, $A4, $58, $FB
+	.db $25, $C4, $58, $FB
+	.db $25, $E4, $58, $FB
+	.db $26, $04, $58, $FB
+	.db $26, $24, $58, $FB
+	.db $26, $44, $58, $FB
+	.db $26, $64, $58, $FB
+	.db $26, $84, $58, $FB
+	.db $26, $A4, $58, $FB
+	.db $26, $C4, $58, $FB
+	.db $26, $E4, $58, $FB
+	.db $27, $23, $01, $D2
+	.db $27, $3C, $01, $D6
+	.db $27, $24, $58, $D3
+	.db $27, $C8, $08, $44, $FF, $BF, $AF, $AF, $AF, $FF, $11
+	.db $27, $D0, $10, $44, $BF, $AF, $AF, $AF, $AF, $EF, $11, $44, $FF, $FF, $FF
+	.db $FF, $FF, $FF, $11 ; $F
+	.db $27, $E0, $10, $44, $FF, $FF, $FF, $FF, $FF, $FF, $11, $44, $FF, $FF, $FF
+	.db $FF, $FF, $AF, $11 ; $F
+	.db $27, $F0, $08, $44, $05, $05, $05, $05, $05, $05, $01
+	.db $27, $04, $58, $FB
 	.db $00
 
 ; nametable attribute data
@@ -314,10 +315,10 @@ TitleCardPalettes:
 	.db $00
 
 BonusChanceSpritePalettes:
-	.db $0F,$37,$16,$0F
-	.db $0F,$37,$16,$0F ; 4
-	.db $0F,$37,$16,$0F ; 8
-	.db $0F,$37,$16,$0F ; $C
+	.db $0F, $37, $16, $0F
+	.db $0F, $37, $16, $0F
+	.db $0F, $37, $16, $0F
+	.db $0F, $37, $16, $0F
 
 
 ;
@@ -342,7 +343,7 @@ JumpToTableAfterJump:
 
 
 BlackAndWhitePalette:
-	.db $0F,$30,$30,$0F
+	.db $0F, $30, $30, $0F
 
 
 SetBlackAndWhitePalette:
@@ -438,23 +439,23 @@ DisplayLevelTitleCardText:
 	INX
 	TXA
 	ORA #$D0
-	STA byte_RAM_717D
+	STA TitleCard_World
 
 	; Extra Life number
 	LDY ExtraLives
 	DEY
 	TYA
 	JSR GetTwoDigitNumberTiles
-	STY byte_RAM_7191
-	STA byte_RAM_7192
+	STY TitleCard_Lives
+	STA TitleCard_Lives + 1
 
 	; Reset level dots
 	LDY #$06
 	LDA #$FB
-loc_BANKF_E1B6:
-	STA unk_RAM_716B, Y ; writes to $7171
+DisplayLevelTitleCardText_ResetLevelDotsLoop:
+	STA TitleCard_LevelDots, Y ; writes to $7171
 	DEY
-	BPL loc_BANKF_E1B6
+	BPL DisplayLevelTitleCardText_ResetLevelDotsLoop
 
 	; Level number
 	LDY CurrentWorld
@@ -464,7 +465,7 @@ loc_BANKF_E1B6:
 	STA CurrentLevelRelative
 	CLC
 	ADC #$D1
-	STA byte_RAM_717F
+	STA TitleCard_Level
 
 	; Use the difference between the starting level of the next world and this
 	; world to determine how many dots to show for the levels in the world.
@@ -476,20 +477,20 @@ loc_BANKF_E1B6:
 	; Level dots
 	LDX #$00
 	LDY #$00
-loc_BANKF_E1DC:
-	LDA #$FD
+DisplayLevelTitleCardText_DrawLevelDotsLoop:
+	LDA #$FD ; other level
 	CPX CurrentLevelRelative
-	BNE loc_BANKF_E1E5
+	BNE DisplayLevelTitleCardText_DrawLevelDot
 
-	LDA #$F6
+	LDA #$F6 ; current level
 
-loc_BANKF_E1E5:
-	STA unk_RAM_716B, Y
+DisplayLevelTitleCardText_DrawLevelDot:
+	STA TitleCard_LevelDots, Y
 	INY
 	INY
 	INX
 	CPX byte_RAM_3
-	BCC loc_BANKF_E1DC
+	BCC DisplayLevelTitleCardText_DrawLevelDotsLoop
 
 	; Draw the card
 	LDA #ScreenUpdateBuffer_RAM_7168
@@ -505,8 +506,6 @@ SetStack100Gameplay:
 	STA StackArea
 	RTS
 
-
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Resets various level-related variables to $00
@@ -1310,11 +1309,11 @@ ShowCardAfterTransition:
 
 	LDA #$FF
 	STA CurrentMusicIndex
-	; this looks like an address
+	; Draw EXTRA LIFE text near top of card
 	LDA #$25
-	STA byte_RAM_7180
+	STA TitleCard_ExtraLife_DrawAddress
 	LDA #$48
-	STA byte_RAM_7181
+	STA TitleCard_ExtraLife_DrawAddress + 1
 	LDA #ScreenUpdateBuffer_TitleCard
 	STA CardScreenUpdateIndex
 	JSR PauseScreen_Card
@@ -1902,7 +1901,6 @@ byte_BANKF_E9E3:
 	.db ScreenUpdateBuffer_RAM_6bd
 	.db ScreenUpdateBuffer_RAM_6da
 
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Displays extra life info on the pause screen
@@ -1910,10 +1908,11 @@ byte_BANKF_E9E3:
 PauseScreen_ExtraLife:
 	LDA #ScreenUpdateBuffer_PauseExtraLife
 	STA CardScreenUpdateIndex
+	; Draw EXTRA LIFE text near bottom of card
 	LDA #$26
-	STA byte_RAM_7180
+	STA TitleCard_ExtraLife_DrawAddress
 	LDA #$C8
-	STA byte_RAM_7181
+	STA TitleCard_ExtraLife_DrawAddress + 1
 
 ;
 ; Loads the palette and graphics for the pause screen to display
@@ -5281,192 +5280,192 @@ TileQuadPointersHi:
 ; map tile within the table.
 ;
 TileQuads1:
-	.db $FE,$FE,$FE,$FE ; $00
-	.db $B4,$B6,$B5,$B7 ; $04
-	.db $B8,$FA,$B9,$FA ; $08
-	.db $FA,$FA,$B2,$B3 ; $0C
-	.db $BE,$BE,$BF,$BF ; $10
-	.db $BF,$BF,$BF,$BF ; $14
-	.db $4A,$4A,$4B,$4B ; $18
-	.db $5E,$5F,$5E,$5F ; $1C
-	.db $E8,$E8,$A9,$A9 ; $20
-	.db $46,$FC,$46,$FC ; $24
-	.db $A9,$A9,$A9,$A9 ; $28
-	.db $FC,$FC,$FC,$FC ; $2C
-	.db $E9,$E9,$A9,$A9 ; $30
-	.db $FC,$48,$FC,$48 ; $34
-	.db $11,$11,$11,$11 ; $38
-	.db $22,$22,$22,$22 ; $3C
-	.db $33,$33,$33,$33 ; $40
-	.db $E8,$EB,$A9,$A9 ; $44
-	.db $74,$76,$75,$77 ; $48
-	.db $98,$9A,$99,$9B ; $4C
-	.db $9C,$9A,$9D,$9B ; $50
-	.db $9C,$9E,$9B,$9F ; $54
-	.db $58,$5A,$59,$5B ; $58
-	.db $5E,$5F,$5E,$5F ; $5C
-	.db $8E,$8F,$8F,$8E ; $60
-	.db $72,$73,$73,$72 ; $64
-	.db $A6,$A6,$A7,$A7 ; $68
-	.db $92,$93,$93,$92 ; $6C
-	.db $74,$76,$75,$77 ; $70
-	.db $70,$72,$71,$73 ; $74
-	.db $71,$73,$71,$73 ; $78
-	.db $24,$26,$25,$27 ; $7C
-	.db $32,$34,$33,$35 ; $80
-	.db $33,$35,$33,$35 ; $84
-	.db $24,$26,$25,$27 ; $88
+	.db $FE, $FE, $FE, $FE ; $00
+	.db $B4, $B6, $B5, $B7 ; $04
+	.db $B8, $FA, $B9, $FA ; $08
+	.db $FA, $FA, $B2, $B3 ; $0C
+	.db $BE, $BE, $BF, $BF ; $10
+	.db $BF, $BF, $BF, $BF ; $14
+	.db $4A, $4A, $4B, $4B ; $18
+	.db $5E, $5F, $5E, $5F ; $1C
+	.db $E8, $E8, $A9, $A9 ; $20
+	.db $46, $FC, $46, $FC ; $24
+	.db $A9, $A9, $A9, $A9 ; $28
+	.db $FC, $FC, $FC, $FC ; $2C
+	.db $E9, $E9, $A9, $A9 ; $30
+	.db $FC, $48, $FC, $48 ; $34
+	.db $11, $11, $11, $11 ; $38
+	.db $22, $22, $22, $22 ; $3C
+	.db $33, $33, $33, $33 ; $40
+	.db $E8, $EB, $A9, $A9 ; $44
+	.db $74, $76, $75, $77 ; $48
+	.db $98, $9A, $99, $9B ; $4C
+	.db $9C, $9A, $9D, $9B ; $50
+	.db $9C, $9E, $9B, $9F ; $54
+	.db $58, $5A, $59, $5B ; $58
+	.db $5E, $5F, $5E, $5F ; $5C
+	.db $8E, $8F, $8F, $8E ; $60
+	.db $72, $73, $73, $72 ; $64
+	.db $A6, $A6, $A7, $A7 ; $68
+	.db $92, $93, $93, $92 ; $6C
+	.db $74, $76, $75, $77 ; $70
+	.db $70, $72, $71, $73 ; $74
+	.db $71, $73, $71, $73 ; $78
+	.db $24, $26, $25, $27 ; $7C
+	.db $32, $34, $33, $35 ; $80
+	.db $33, $35, $33, $35 ; $84
+	.db $24, $26, $25, $27 ; $88
 IFDEF EXPAND_TABLES
 	unusedSpace TileQuads1 + $100, $FC
 ENDIF
 
 TileQuads2:
-	.db $FA,$FA,$FA,$FA ; $00
-	.db $FA,$FA,$FA,$FA ; $04
-	.db $FA,$FA,$FA,$FA ; $08
-	.db $FA,$FA,$B0,$B1 ; $0C
-	.db $FA,$FA,$B0,$B1 ; $10
-	.db $FA,$FA,$B0,$B1 ; $14
-	.db $FA,$FA,$B0,$B1 ; $18
-	.db $FA,$FA,$B0,$B1 ; $1C
-	.db $FA,$FA,$B0,$B1 ; $20
-	.db $FA,$FA,$B0,$B1 ; $24
-	.db $FA,$FA,$B0,$B1 ; $28
-	.db $FA,$FA,$B0,$B1 ; $2C
-	.db $FA,$FA,$B0,$B1 ; $30
-	.db $FA,$FA,$B0,$B1 ; $34
-	.db $A0,$A2,$A1,$A3 ; $38
-	.db $80,$82,$81,$83 ; $3C
-	.db $F4,$86,$F5,$87 ; $40
-	.db $84,$86,$85,$87 ; $44
-	.db $FC,$FC,$FC,$FC ; $48
-	.db $AD,$FB,$AC,$AD ; $4C
-	.db $AC,$AC,$AC,$AC ; $50
-	.db $FB,$3B,$3B,$AC ; $54
-	.db $FC,$FC,$FC,$FC ; $58
-	.db $F4,$86,$F5,$87 ; $5C
-	.db $FB,$49,$49,$FB ; $60
-	.db $FE,$FE,$FE,$FE ; $64
-	.db $FE,$FE,$6D,$FE ; $68
-	.db $3C,$3E,$3D,$3F ; $6C
-	.db $58,$FD,$59,$5A ; $70
-	.db $5B,$5A,$FD,$FD ; $74
-	.db $5B,$5C,$FD,$5D ; $78
-	.db $FD,$FD,$5B,$5A ; $7C
-	.db $6C,$FE,$FE,$FE ; $80
-	.db $FE,$FE,$FE,$FE ; $84
-	.db $FE,$6E,$FE,$6F ; $88
-	.db $20,$22,$21,$23 ; $8C
-	.db $6E,$6F,$70,$71 ; $90
-	.db $57,$57,$FB,$FB ; $94
-	.db $57,$57,$FE,$FE ; $98
-	.db $D3,$D3,$FB,$FB ; $9C
-	.db $D2,$D2,$FB,$FB ; $A0
-	.db $7C,$7E,$7D,$7F ; $A4
-	.db $CA,$CC,$CB,$CD ; $A8
-	.db $CA,$CC,$CB,$CD ; $AC
-	.db $C0,$C2,$C1,$C3 ; $B0
-	.db $2C,$2E,$2D,$2F ; $B4
-	.db $8E,$8F,$8F,$8E ; $B8
-	.db $88,$8A,$89,$8B ; $BC
-	.db $89,$8B,$89,$8B ; $C0
-	.db $89,$8B,$8C,$8D ; $C4
-	.db $88,$8A,$8C,$8D ; $C8
-	.db $88,$8A,$89,$8B ; $CC
-	.db $88,$8A,$89,$8B ; $D0
-	.db $6A,$6C,$6B,$6D ; $D4
-	.db $6C,$6C,$6D,$6D ; $D8
-	.db $6C,$6E,$6D,$6F ; $DC
-	.db $6C,$54,$6D,$55 ; $E0
-	.db $32,$34,$33,$35 ; $E4
-	.db $33,$35,$33,$35 ; $E8
+	.db $FA, $FA, $FA, $FA ; $00
+	.db $FA, $FA, $FA, $FA ; $04
+	.db $FA, $FA, $FA, $FA ; $08
+	.db $FA, $FA, $B0, $B1 ; $0C
+	.db $FA, $FA, $B0, $B1 ; $10
+	.db $FA, $FA, $B0, $B1 ; $14
+	.db $FA, $FA, $B0, $B1 ; $18
+	.db $FA, $FA, $B0, $B1 ; $1C
+	.db $FA, $FA, $B0, $B1 ; $20
+	.db $FA, $FA, $B0, $B1 ; $24
+	.db $FA, $FA, $B0, $B1 ; $28
+	.db $FA, $FA, $B0, $B1 ; $2C
+	.db $FA, $FA, $B0, $B1 ; $30
+	.db $FA, $FA, $B0, $B1 ; $34
+	.db $A0, $A2, $A1, $A3 ; $38
+	.db $80, $82, $81, $83 ; $3C
+	.db $F4, $86, $F5, $87 ; $40
+	.db $84, $86, $85, $87 ; $44
+	.db $FC, $FC, $FC, $FC ; $48
+	.db $AD, $FB, $AC, $AD ; $4C
+	.db $AC, $AC, $AC, $AC ; $50
+	.db $FB, $3B, $3B, $AC ; $54
+	.db $FC, $FC, $FC, $FC ; $58
+	.db $F4, $86, $F5, $87 ; $5C
+	.db $FB, $49, $49, $FB ; $60
+	.db $FE, $FE, $FE, $FE ; $64
+	.db $FE, $FE, $6D, $FE ; $68
+	.db $3C, $3E, $3D, $3F ; $6C
+	.db $58, $FD, $59, $5A ; $70
+	.db $5B, $5A, $FD, $FD ; $74
+	.db $5B, $5C, $FD, $5D ; $78
+	.db $FD, $FD, $5B, $5A ; $7C
+	.db $6C, $FE, $FE, $FE ; $80
+	.db $FE, $FE, $FE, $FE ; $84
+	.db $FE, $6E, $FE, $6F ; $88
+	.db $20, $22, $21, $23 ; $8C
+	.db $6E, $6F, $70, $71 ; $90
+	.db $57, $57, $FB, $FB ; $94
+	.db $57, $57, $FE, $FE ; $98
+	.db $D3, $D3, $FB, $FB ; $9C
+	.db $D2, $D2, $FB, $FB ; $A0
+	.db $7C, $7E, $7D, $7F ; $A4
+	.db $CA, $CC, $CB, $CD ; $A8
+	.db $CA, $CC, $CB, $CD ; $AC
+	.db $C0, $C2, $C1, $C3 ; $B0
+	.db $2C, $2E, $2D, $2F ; $B4
+	.db $8E, $8F, $8F, $8E ; $B8
+	.db $88, $8A, $89, $8B ; $BC
+	.db $89, $8B, $89, $8B ; $C0
+	.db $89, $8B, $8C, $8D ; $C4
+	.db $88, $8A, $8C, $8D ; $C8
+	.db $88, $8A, $89, $8B ; $CC
+	.db $88, $8A, $89, $8B ; $D0
+	.db $6A, $6C, $6B, $6D ; $D4
+	.db $6C, $6C, $6D, $6D ; $D8
+	.db $6C, $6E, $6D, $6F ; $DC
+	.db $6C, $54, $6D, $55 ; $E0
+	.db $32, $34, $33, $35 ; $E4
+	.db $33, $35, $33, $35 ; $E8
 IFDEF EXPAND_TABLES
 	unusedSpace TileQuads2 + $100, $FC
 ENDIF
 
 TileQuads3:
-	.db $94,$95,$94,$95 ; $00
-	.db $96,$97,$96,$97 ; $04
-	.db $48,$49,$48,$49 ; $08
-	.db $FE,$FE,$FE,$FE ; $0C
-	.db $FB,$32,$32,$33 ; $10
-	.db $33,$33,$33,$33 ; $14
-	.db $FD,$FD,$FD,$FD ; $18
-	.db $34,$FB,$FD,$34 ; $1C
-	.db $FB,$30,$FB,$FB ; $20
-	.db $FB,$FB,$31,$FB ; $24
-	.db $D0,$D0,$D0,$D0 ; $28
-	.db $D1,$D1,$D1,$D1 ; $2C
-	.db $64,$66,$65,$67 ; $30
-	.db $68,$6A,$69,$6B ; $34
-	.db $FA,$6C,$FA,$6C ; $38
-	.db $6D,$FA,$6D,$FA ; $3C
-	.db $92,$93,$93,$92 ; $40
-	.db $AE,$AF,$AE,$AF ; $44
-	.db $78,$7A,$79,$7B ; $48
-	.db $A8,$A8,$AF,$AE ; $4C
-	.db $94,$95,$94,$95 ; $50
-	.db $96,$97,$96,$97 ; $54
-	.db $22,$24,$23,$25 ; $58
-	.db $92,$93,$93,$92 ; $5C
-	.db $50,$51,$50,$51 ; $60
-	.db $AE,$AF,$AE,$AF ; $64
-	.db $50,$51,$50,$51 ; $68
-	.db $8E,$8F,$8F,$8E ; $6C
-	.db $72,$73,$73,$72 ; $70
-	.db $50,$52,$51,$53 ; $74
-	.db $FD,$FD,$FD,$FD ; $78
-	.db $FB,$36,$36,$4F ; $7C
-	.db $4F,$4E,$4E,$4F ; $80
-	.db $4E,$4F,$4F,$4E ; $84
-	.db $92,$93,$93,$92 ; $88
-	.db $8E,$8F,$8F,$8E ; $8C
-	.db $44,$45,$45,$44 ; $90
-	.db $4F,$37,$4E,$FE ; $94
-	.db $4F,$3A,$4E,$FE ; $98
-	.db $4F,$4E,$37,$38 ; $9C
-	.db $4A,$4B,$FE,$FE ; $A0
-	.db $72,$73,$4A,$4B ; $A4
-	.db $40,$42,$41,$43 ; $A8
-	.db $41,$43,$41,$43 ; $AC
+	.db $94, $95, $94, $95 ; $00
+	.db $96, $97, $96, $97 ; $04
+	.db $48, $49, $48, $49 ; $08
+	.db $FE, $FE, $FE, $FE ; $0C
+	.db $FB, $32, $32, $33 ; $10
+	.db $33, $33, $33, $33 ; $14
+	.db $FD, $FD, $FD, $FD ; $18
+	.db $34, $FB, $FD, $34 ; $1C
+	.db $FB, $30, $FB, $FB ; $20
+	.db $FB, $FB, $31, $FB ; $24
+	.db $D0, $D0, $D0, $D0 ; $28
+	.db $D1, $D1, $D1, $D1 ; $2C
+	.db $64, $66, $65, $67 ; $30
+	.db $68, $6A, $69, $6B ; $34
+	.db $FA, $6C, $FA, $6C ; $38
+	.db $6D, $FA, $6D, $FA ; $3C
+	.db $92, $93, $93, $92 ; $40
+	.db $AE, $AF, $AE, $AF ; $44
+	.db $78, $7A, $79, $7B ; $48
+	.db $A8, $A8, $AF, $AE ; $4C
+	.db $94, $95, $94, $95 ; $50
+	.db $96, $97, $96, $97 ; $54
+	.db $22, $24, $23, $25 ; $58
+	.db $92, $93, $93, $92 ; $5C
+	.db $50, $51, $50, $51 ; $60
+	.db $AE, $AF, $AE, $AF ; $64
+	.db $50, $51, $50, $51 ; $68
+	.db $8E, $8F, $8F, $8E ; $6C
+	.db $72, $73, $73, $72 ; $70
+	.db $50, $52, $51, $53 ; $74
+	.db $FD, $FD, $FD, $FD ; $78
+	.db $FB, $36, $36, $4F ; $7C
+	.db $4F, $4E, $4E, $4F ; $80
+	.db $4E, $4F, $4F, $4E ; $84
+	.db $92, $93, $93, $92 ; $88
+	.db $8E, $8F, $8F, $8E ; $8C
+	.db $44, $45, $45, $44 ; $90
+	.db $4F, $37, $4E, $FE ; $94
+	.db $4F, $3A, $4E, $FE ; $98
+	.db $4F, $4E, $37, $38 ; $9C
+	.db $4A, $4B, $FE, $FE ; $A0
+	.db $72, $73, $4A, $4B ; $A4
+	.db $40, $42, $41, $43 ; $A8
+	.db $41, $43, $41, $43 ; $AC
 IFDEF EXPAND_TABLES
 	unusedSpace TileQuads3 + $100, $FC
 ENDIF
 TileQuads4:
-	.db $40,$42,$41,$43 ; $00
-	.db $40,$42,$41,$43 ; $04
-	.db $BA,$BC,$BB,$BD ; $08
-	.db $BA,$BC,$90,$91 ; $0C
-	.db $FA,$FA,$FA,$FA ; $10
-	.db $FA,$FA,$FA,$FA ; $14
-	.db $FD,$FD,$FD,$FD ; $18
-	.db $61,$63,$61,$63 ; $1C
-	.db $65,$63,$65,$63 ; $20
-	.db $65,$67,$65,$67 ; $24
-	.db $60,$62,$61,$63 ; $28
-	.db $32,$34,$33,$35 ; $2C
-	.db $64,$62,$65,$63 ; $30
-	.db $36,$34,$37,$35 ; $34
-	.db $64,$66,$65,$67 ; $38
-	.db $36,$38,$37,$39 ; $3C
-	.db $68,$62,$61,$63 ; $40
-	.db $64,$69,$65,$67 ; $44
-	.db $46,$62,$61,$63 ; $48
-	.db $64,$47,$65,$67 ; $4C
-	.db $BA,$BC,$BB,$BD ; $50
-	.db $70,$72,$71,$73 ; $54
-	.db $8E,$8F,$8F,$8E ; $58
-	.db $72,$73,$73,$72 ; $5C
-	.db $44,$45,$45,$44 ; $60
+	.db $40, $42, $41, $43 ; $00
+	.db $40, $42, $41, $43 ; $04
+	.db $BA, $BC, $BB, $BD ; $08
+	.db $BA, $BC, $90, $91 ; $0C
+	.db $FA, $FA, $FA, $FA ; $10
+	.db $FA, $FA, $FA, $FA ; $14
+	.db $FD, $FD, $FD, $FD ; $18
+	.db $61, $63, $61, $63 ; $1C
+	.db $65, $63, $65, $63 ; $20
+	.db $65, $67, $65, $67 ; $24
+	.db $60, $62, $61, $63 ; $28
+	.db $32, $34, $33, $35 ; $2C
+	.db $64, $62, $65, $63 ; $30
+	.db $36, $34, $37, $35 ; $34
+	.db $64, $66, $65, $67 ; $38
+	.db $36, $38, $37, $39 ; $3C
+	.db $68, $62, $61, $63 ; $40
+	.db $64, $69, $65, $67 ; $44
+	.db $46, $62, $61, $63 ; $48
+	.db $64, $47, $65, $67 ; $4C
+	.db $BA, $BC, $BB, $BD ; $50
+	.db $70, $72, $71, $73 ; $54
+	.db $8E, $8F, $8F, $8E ; $58
+	.db $72, $73, $73, $72 ; $5C
+	.db $44, $45, $45, $44 ; $60
 IFDEF EXPAND_TABLES
 	unusedSpace TileQuads4 + $100, $FC
 ENDIF
 
 EndOfLevelDoor: ; PPU data
-	.db $22,$D0,$04,$FC,$FC,$AD,$FA
-	.db $22,$F0,$04,$FC,$FC,$AC,$AD
-	.db $23,$10,$06,$FC,$FC,$AC,$AC,$AD,$FA
-	.db $23,$30,$06,$FC,$FC,$AC,$AC,$AC,$AD
+	.db $22, $D0, $04, $FC, $FC, $AD, $FA
+	.db $22, $F0, $04, $FC, $FC, $AC, $AD
+	.db $23, $10, $06, $FC, $FC, $AC, $AC, $AD, $FA
+	.db $23, $30, $06, $FC, $FC, $AC, $AC, $AC, $AD
 	.db $00
 
 EndOfLevelDoorRowOffsets:

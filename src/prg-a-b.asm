@@ -370,13 +370,13 @@ PrincessStats:
 
 CharacterPalette:
 MarioPalette:
-	.db $0F,$01,$16,$27
+	.db $0F, $01, $16, $27
 PrincessPalette:
-	.db $0F,$06,$25,$36
+	.db $0F, $06, $25, $36
 ToadPalette:
-	.db $0F,$01,$30,$27
+	.db $0F, $01, $30, $27
 LuigiPalette:
-	.db $0F,$01,$2A,$36
+	.db $0F, $01, $2A, $36
 
 MysteryData14439:
 	.db $DF
@@ -459,8 +459,8 @@ loc_BANKA_8486:
 
 	LDY #$63
 loc_BANKA_8493:
-	LDA Text_Unknown5, Y
-	STA PPUBuffer_7168, Y
+	LDA TitleCardText, Y
+	STA PPUBuffer_TitleCardText, Y
 	DEY
 	CPY #$FF
 	BNE loc_BANKA_8493
@@ -547,16 +547,22 @@ PlayerSelectPalettes:
 	.db $0F, $22, $12, $01
 	.db $0F, $22, $12, $01
 	.db $00
+
 BonusChanceText_X_1:
-	.db $22,$30,$03,$EA,$FB,$D1
+	.db $22, $30, $03
+	.db $EA, $FB, $D1
 BonusChanceText_EXTRA_LIFE_1:
-	.db $22,$C9,$0F,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
-	.db $F9,$FB,$D1,$00 ; $0F
+	.db $22, $C9, $0F
+	.db $DE, $F1, $ED, $EB, $DA, $FB, $E5, $E2, $DF, $DE ; EXTRA LIFE
+	.db $F9, $F9, $F9, $FB, $D1 ; ... 1
+	.db $00
+
 BonusChanceBackgroundPalettes:
-	.db $0F,$27,$17,$07 ; $00
-	.db $0F,$37,$16,$12 ; $04
-	.db $0F,$30,$10,$00 ; $08
-	.db $0F,$21,$12,$01 ; $0C
+	.db $0F, $27, $17, $07 ; $00
+	.db $0F, $37, $16, $12 ; $04
+	.db $0F, $30, $10, $00 ; $08
+	.db $0F, $21, $12, $01 ; $0C
+
 BonusChanceReel1Order:
 	.db Slot_Snifit ; $00
 	.db Slot_Turnip ; $01 ; Graphics exist for a mushroom (not used)
@@ -584,64 +590,102 @@ BonusChanceReel3Order:
 	.db Slot_Cherry ; $05
 	.db Slot_Turnip ; $06
 	.db Slot_Snifit ; $07
+
 BonusChanceUnusedCoinSprite:
-	.db $F8,$19,$01,$60,$F8,$1B,$01,$68
+	.db $F8, $19, $01, $60, $F8, $1B, $01, $68
 BonusChanceUnusedImajinHead:
-	.db $CB,$B0,$00,$A0,$CB,$B0,$40,$A8
+	.db $CB, $B0, $00, $A0, $CB, $B0, $40, $A8
 BonusChanceUnusedLinaHead:
-	.db $CB,$B2,$00,$A0,$CB,$B2,$40,$A8
+	.db $CB, $B2, $00, $A0, $CB, $B2, $40, $A8
 BonusChanceUnusedMamaHead:
-	.db $CB,$B6,$00,$A0,$CB,$B6,$40,$A8
+	.db $CB, $B6, $00, $A0, $CB, $B6, $40, $A8
 BonusChanceUnusedPapaHead:
-	.db $CB,$B4,$00,$A0,$CB,$B4,$40,$A8
+	.db $CB, $B4, $00, $A0, $CB, $B4, $40, $A8
+
 BonusChanceUnused_Blank20C6:
-	.db $20,$C6,$14,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB
-	.db $FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$00 ; $0F
+	.db $20, $C6, $14
+	.db $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
+	.db $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
+	.db $00
+
 BonusChanceText_NO_BONUS:
-	.db $22,$86,$14,$FB,$FB,$FB,$FB,$FB,$FB,$E7,$E8,$FB,$DB,$E8,$E7
-	.db $EE,$EC,$FB,$FB,$FB,$FB,$FB,$FB,$00 ; $0F
+	.db $22, $86, $14
+	.db $FB, $FB, $FB, $FB, $FB, $FB, $E7, $E8, $FB, $DB, $E8, $E7
+	.db $EE, $EC, $FB, $FB, $FB, $FB, $FB, $FB
+	.db $00
+
 BonusChanceText_PUSH_A_BUTTON:
-	.db $22,$89,$0E,$E9,$EE,$EC,$E1,$FB,$0E,$F,$FB,$DB,$EE,$ED,$ED,$E8
-	.db $E7,$00 ; $10
+	.db $22, $89, $0E
+	.db $E9, $EE, $EC, $E1, $FB, $0E, $F,$FB, $DB, $EE, $ED, $ED, $E8, $E7
+	.db $00
+
 BonusChanceText_PLAYER_1UP:
-	.db $22,$8B,$0B,$E9,$E5,$DA,$F2,$DE,$EB,$FB,$FB,$D1,$EE,$E9,$00
+	.db $22, $8B, $0B, $E9, $E5, $DA, $F2, $DE, $EB, $FB, $FB, $D1, $EE, $E9
+	.db $00
+
 Text_PAUSE:
-	.db $25,$ED,$05,$E9,$DA,$EE,$EC,$DE
+	.db $25, $ED, $05
+	.db $E9, $DA, $EE, $EC, $DE
 Text_Unknown:
-	.db $27,$DB,$02,$AA,$AA,$00
+	.db $27, $DB, $02
+	.db $AA, $AA
+	.db $00
+
 Text_Unknown2:
-	.db $22,$86,$54,$FB,$00
+	.db $22, $86, $54, $FB
+	.db $00
+
 Text_Unknown3:
-	.db $22,$AA,$4D,$FB,$00
+	.db $22, $AA, $4D, $FB
+	.db $00
+
 Text_Unknown4:
-	.db $22,$EB,$4B,$FB,$00
+	.db $22, $EB, $4B, $FB
+	.db $00
+
 Text_PAUSE_Erase:
-	.db $25,$ED,$05,$FB,$FB,$FB,$FB,$FB,$00
-Text_Unknown5:
-	.db $25,$0E,$07,$FB,$FB,$FB,$FB,$FB,$FB,$FB ; This one is actually used, just not sure what for
-Text_WORLD_1_1:
-	.db $24,$CA,$0B,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$F3,$D1
-Text_EXTRA_LIFE_0:
-	.db $23,$48,$10,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
-	.db $F9,$FB,$FB,$D0,$00 ; $0F
+	.db $25, $ED, $05
+	.db $FB, $FB, $FB, $FB, $FB
+	.db $00
+
+TitleCardText:
+	; Level indicator dots
+	.db $25, $0E, $07
+	.db $FB, $FB, $FB, $FB, $FB, $FB, $FB
+	; WORLD  1-1
+	.db $24, $CA, $0B
+	.db $FB, $F0, $E8, $EB, $E5, $DD, $FB, $FB, $D1, $F3, $D1
+	; EXTRA LIFE...  0
+	.db $23, $48, $10
+	.db $DE, $F1, $ED, $EB, $DA, $FB, $E5, $E2, $DF, $DE
+	.db $F9, $F9, $F9, $FB, $FB, $D0
+	.db $00
+
 Text_WARP:
-	.db $21,$8E,$04,$F0,$DA,$EB,$E9
+	.db $21, $8E, $04, $F0, $DA, $EB, $E9
 
 ; Doki Doki Panic pseudo-leftover
 ; This actually has extra spaces on either end:
 ; "-WORLD-" ... It originally said "CHAPTER"
 Text_WORLD_1:
-	.db $22,$0C,$09,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$00
+	.db $22, $0C, $09
+	.db $FB, $F0, $E8, $EB, $E5, $DD, $FB, $FB, $D1
+	.db $00
 Text_Unknown6:
-	.db $21,$6A,$01,$FB
+	.db $21, $6A, $01, $FB
 Text_Unknown7:
-	.db $21,$AA,$01,$FB,$00
+	.db $21, $AA, $01, $FB
+	.db $00
 Text_Unknown8:
-	.db $21,$97,$C6,$FB,$00
+	.db $21, $97, $C6, $FB
+	.db $00
 UnusedText_THANK_YOU:
-	.db $21,$0C,$09,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE
+	.db $21, $0C, $09
+	.db $ED, $E1, $3A, $E7, $E4, $FB, $F2, $E8, $EE
 UnusedText_Blank214D:
-	.db $21,$4D,$06,$FB,$FB,$FB,$FB,$FB,$FB,$00
+	.db $21, $4D, $06
+	.db $FB, $FB, $FB, $FB, $FB, $FB
+	.db $00
 
 IFDEF CONTROLLER_2_DEBUG
 ;

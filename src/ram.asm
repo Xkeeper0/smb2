@@ -2123,14 +2123,12 @@ ObjectCollisionHitboxHeight_RAM = $713c
 ; Does anything read this???
 unk_RAM_7150 = $7150
 
-PPUBuffer_7168 = $7168
-unk_RAM_716B = $716b
-byte_RAM_717D = $717d
-byte_RAM_717F = $717f
-byte_RAM_7180 = $7180
-byte_RAM_7181 = $7181
-byte_RAM_7191 = $7191
-byte_RAM_7192 = $7192
+PPUBuffer_TitleCardText = $7168
+TitleCard_LevelDots = $716b
+TitleCard_World = $717d
+TitleCard_Level = $717f
+TitleCard_ExtraLife_DrawAddress = $7180
+TitleCard_Lives = $7191
 
 PPUBuffer_7194 = $7194
 byte_RAM_71A6 = $71a6
