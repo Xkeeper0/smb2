@@ -858,8 +858,7 @@ ObjectBeingCarriedIndex:
 
 ; FOR RENT
 	.dsb 1 ; $042e
-; stun timer?
-EnemyArray_42F:
+ObjectProjectileTimer:
 	.dsb 1 ; $042f
 	.dsb 1 ; $0430
 	.dsb 1 ; $0431
@@ -981,7 +980,7 @@ EnemyArray_480:
 	.dsb 1 ; $0487
 	.dsb 1 ; $0488
 
-EnemyArray_489:
+ObjectHitbox:
 	.dsb 1 ; $0489
 	.dsb 1 ; $048a
 	.dsb 1 ; $048b

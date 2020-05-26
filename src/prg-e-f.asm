@@ -4190,7 +4190,7 @@ EnemyArray_492_Data:
 ;
 ; Index for object collision bounding box table
 ;
-EnemyArray_489_Data:
+ObjectHitbox_Data:
 	.db $08 ; $00 Enemy_Heart
 	.db $02 ; $01 Enemy_ShyguyRed
 	.db $02 ; $02 Enemy_Tweeter
@@ -5126,7 +5126,7 @@ KillPlayer:
 	; a held item on death
 	DEC HoldingItem
 	LDY ObjectBeingCarriedIndex
-	STA EnemyArray_42F, Y
+	STA ObjectProjectileTimer, Y
 	LSR A
 	STA ObjectBeingCarriedTimer, Y
 	STA ObjectXVelocity, Y

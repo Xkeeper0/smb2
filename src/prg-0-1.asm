@@ -2976,7 +2976,7 @@ loc_BANK0_8E89:
 	LDA ThrowXVelocity, Y
 	STA ObjectXVelocity, X
 	LDA #$01
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 	LSR A
 	STA ObjectBeingCarriedTimer, X
 	RTS
@@ -3550,7 +3550,7 @@ loc_BANK0_9080:
 	LDA byte_RAM_6
 	STA ObjectYLo, X
 	LDA #$00
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 	STA ObjectAnimationTimer, X
 	STA EnemyArray_B1, X
 	JSR UnlinkEnemyFromRawData_Bank1
@@ -7337,7 +7337,7 @@ EnemyInit_Basic_Bank1:
 loc_BANK1_B9EB:
 	LDA #$00
 	STA EnemyArray_B1, X
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 	STA ObjectBeingCarriedTimer, X
 	STA ObjectAnimationTimer, X
 	STA ObjectShakeTimer, X
@@ -7361,8 +7361,8 @@ loc_BANK1_BA17:
 	STA ObjectAttributes, X
 	LDA EnemyArray_46E_Data, Y
 	STA EnemyArray_46E, X
-	LDA EnemyArray_489_Data, Y
-	STA EnemyArray_489, X
+	LDA ObjectHitbox_Data, Y
+	STA ObjectHitbox, X
 	LDA EnemyArray_492_Data, Y
 	STA EnemyArray_492, X
 	RTS

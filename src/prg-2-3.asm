@@ -884,8 +884,8 @@ SetEnemyAttributes:
 	STA ObjectAttributes, X
 	LDA EnemyArray_46E_Data, Y
 	STA EnemyArray_46E, X
-	LDA EnemyArray_489_Data, Y
-	STA EnemyArray_489, X
+	LDA ObjectHitbox_Data, Y
+	STA ObjectHitbox, X
 	LDA EnemyArray_492_Data, Y
 	STA EnemyArray_492, X
 	RTS
@@ -908,7 +908,7 @@ EnemyInit_BasicWithoutTimer:
 	STA EnemyVariable, X
 	LDA #$00 ; You do realize you already LDA #$00, right???
 	STA EnemyArray_B1, X
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 	STA ObjectBeingCarriedTimer, X
 	STA ObjectAnimationTimer, X
 	STA ObjectShakeTimer, X
@@ -1020,11 +1020,10 @@ EnemyInit_Bobomb:
 ; ---------------------------------------------------------------------------
 
 HandleEnemyState_Dead:
-	JSR sub_BANK3_B5CC
+	JSR CheckObjectCollision ; collision detection
 
 	JSR sub_BANK2_88E8
 
-loc_BANK2_8500:
 	LDA EnemyState, X
 	BNE MakeEnemyFlipUpsideDown
 
@@ -1214,7 +1213,7 @@ loc_BANK2_85C1:
 loc_BANK2_85E1:
 	JSR sub_BANK2_9486
 
-	JMP sub_BANK3_B5CC
+	JMP CheckObjectCollision
 
 
 ExplosionTileXOffsets:
@@ -1291,7 +1290,7 @@ loc_BANK2_8618:
 	BNE loc_BANK2_8618
 
 	LDX byte_RAM_12
-	JMP sub_BANK3_B5CC
+	JMP CheckObjectCollision
 
 ; ---------------------------------------------------------------------------
 
@@ -1960,12 +1959,12 @@ EnemyDestroy_Exit:
 HandleEnemyState_Alive:
 	LDA #$01
 	STA unk_RAM_4A4, X
-	LDY EnemyArray_42F, X
+	LDY ObjectProjectileTimer, X
 	DEY
 	CPY #$1F
 	BCS loc_BANK2_89C9
 
-	INC EnemyArray_42F, X
+	INC ObjectProjectileTimer, X
 
 loc_BANK2_89C9:
 	JSR sub_BANK2_88E8
@@ -2004,7 +2003,7 @@ ENDIF
 loc_BANK2_89F0:
 	JSR EnemyBehavior_CheckDamagedInterrupt
 
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BEQ loc_BANK2_89FB
 
 	JSR ApplyObjectMovement
@@ -2021,7 +2020,7 @@ loc_BANK2_8A01:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8A04:
-	JSR sub_BANK3_B5CC
+	JSR CheckObjectCollision
 
 loc_BANK2_8A07:
 	JMP RenderSprite
@@ -2085,7 +2084,7 @@ loc_BANK2_8A41:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_8A50:
-	JMP sub_BANK3_B5CC
+	JMP CheckObjectCollision
 
 ; ---------------------------------------------------------------------------
 
@@ -3454,7 +3453,7 @@ EnemyBehavior_Bomb_Explode:
 	STA DPCMQueue
 	LSR A
 	; A = $00
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 	RTS
 
 
@@ -3749,7 +3748,7 @@ sub_BANK2_9289:
 	JSR EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
 	LDA EnemyArray_B1, X
-	ORA EnemyArray_42F, X
+	ORA ObjectProjectileTimer, X
 	BEQ loc_BANK2_9299
 
 	JMP RenderSpriteAndApplyObjectMovement
@@ -4007,7 +4006,7 @@ EnemyBehavior_NinjiJumping:
 	AND #CollisionFlags_Down
 	BEQ EnemyBehavior_Ninji_MidAir
 
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BNE EnemyBehavior_NinjiJumping_DetermineJump
 
 	; stop x-velocity
@@ -4086,7 +4085,7 @@ loc_BANK2_941D:
 
 	BPL loc_BANK2_9429
 
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 
 loc_BANK2_9429:
 	LDA byte_RAM_10
@@ -4204,7 +4203,7 @@ loc_BANK2_9492:
 
 	JSR EnemyBehavior_TurnAround
 
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BEQ loc_BANK2_94A6
 
 	JSR HalfObjectVelocityX
@@ -4222,7 +4221,7 @@ loc_BANK2_94AB:
 	CMP #Enemy_SnifitGray
 	BNE loc_BANK2_94BB
 
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BNE loc_BANK2_94BB
 
 	STA ObjectXVelocity, X
@@ -4244,7 +4243,7 @@ loc_BANK2_94BB:
 ; ---------------------------------------------------------------------------
 
 loc_BANK2_94CD:
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BNE EnemyBehavior_Walk
 
 	; check if this enemy fires bullets when jumping
@@ -4274,7 +4273,7 @@ EnemyBehavior_Walk:
 
 EnemyBehavior_TurnAtCliff:
 	; skip if being thrown
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BNE EnemyBehavior_BasicWalkerExit
 
 	; skip if already turning around
@@ -4346,7 +4345,7 @@ loc_BANK2_9528:
 	CPY #Enemy_SnifitGray
 	BNE loc_BANK2_959D
 
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BNE loc_BANK2_959D
 
 	JSR EnemyFindWhichSidePlayerIsOn
@@ -4419,7 +4418,7 @@ sub_BANK2_9599:
 	BEQ loc_BANK2_95B8
 
 loc_BANK2_959D:
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BEQ loc_BANK2_95BB
 
 	LDA ObjectYVelocity, X
@@ -4575,7 +4574,7 @@ CarryObject:
 	LDA PlayerYHi
 	STA byte_RAM_7
 	LDA PlayerYLo
-	LDY EnemyArray_489, X
+	LDY ObjectHitbox, X
 	CPY #$03
 	BEQ loc_BANK2_9636
 
@@ -4694,7 +4693,7 @@ loc_BANK2_96AA:
 	JSR ObjectTileCollision
 
 loc_BANK2_96AD:
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BEQ EnemyBehavior_MushroomBlockAndPOW_Exit
 
 	JSR ApplyObjectMovement
@@ -4783,7 +4782,7 @@ locret_BANK2_9718:
 
 EnemyBehavior_SubspaceDoor:
 	LDA #$04
-	STA EnemyArray_489, X
+	STA ObjectHitbox, X
 	LDA #$02
 	STA EnemyMovementDirection, X
 	LDY SubspaceTimer
@@ -5144,14 +5143,14 @@ EnemyBehavior_CheckBeingCarriedTimerInterrupt:
 
 
 ;
-; If EnemyArray_42F is set, interrupt the EnemyBehavior subroutine and just
+; If ObjectProjectileTimer is set, interrupt the EnemyBehavior subroutine and just
 ; render the sprite and run physics
 ;
 ; Input
 ;   X = enemy index
 ;
 EnemyBehavior_Check42FPhysicsInterrupt:
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BEQ locret_BANK2_98EA
 
 	PLA
@@ -5356,7 +5355,7 @@ EnemyBehavior_CheckDamagedInterrupt_CheckPidgit:
 	CPY #Enemy_Pidgit
 	BNE EnemyBehavior_CheckDamagedInterrupt_SetDead
 
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BNE EnemyBehavior_CheckDamagedInterrupt_SetDead
 
 	JSR CreateFlyingCarpet
@@ -7192,7 +7191,7 @@ EnemyBehavior_Pidgit:
 	JSR EnemyBehavior_CheckDamagedInterrupt
 
 	INC ObjectAnimationTimer, X
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BEQ EnemyBehavior_Pidgit_Alive
 
 	LDA ObjectAttributes, X
@@ -7281,7 +7280,7 @@ RenderSprite_Pidgit:
 	LDA EnemyState, X
 	SEC
 	SBC #$01
-	ORA EnemyArray_42F, X
+	ORA ObjectProjectileTimer, X
 	ORA ObjectBeingCarriedTimer, X
 	BNE RenderSprite_Pidgit_Exit
 
@@ -7643,11 +7642,11 @@ loc_BANK3_A6ED:
 	AND #$04
 	BEQ loc_BANK3_A70D
 
-	LDA EnemyArray_42F, X
+	LDA ObjectProjectileTimer, X
 	BEQ loc_BANK3_A700
 
 	LDA #$00
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 	JSR EnemyInit_BasicAttributes
 
 loc_BANK3_A700:
@@ -8295,7 +8294,7 @@ loc_BANK3_AA2D:
 
 	JSR sub_BANK3_AA3E
 
-	INC EnemyArray_42F, X
+	INC ObjectProjectileTimer, X
 	RTS
 
 ; ---------------------------------------------------------------------------
@@ -8314,7 +8313,7 @@ sub_BANK3_AA3E:
 	LDA #$00
 	STA EnemyVariable, X
 	LDA #$02
-	STA EnemyArray_489, X
+	STA ObjectHitbox, X
 	LDA EnemyRawDataOffset, X
 	STA byte_RAM_6
 	LDA #$FF
@@ -8340,7 +8339,7 @@ sub_BANK3_AA3E:
 loc_BANK3_AA78:
 	LDA unk_BANK3_AA1C, Y
 	LDY byte_RAM_0
-	STA EnemyArray_489, Y
+	STA ObjectHitbox, Y
 	LDA ObjectXLo, X
 	STA ObjectXLo, Y
 	LDA ObjectXHi, X
@@ -8952,7 +8951,7 @@ EnemyBehavior_Autobomb:
 	JSR SetEnemyAttributes
 
 	LDA #$04
-	STA EnemyArray_489, X
+	STA ObjectHitbox, X
 	LDX byte_RAM_12
 
 loc_BANK3_ADF9:
@@ -9256,7 +9255,7 @@ loc_BANK3_AF8D:
 	JSR ResetObjectYVelocity
 
 	PLA
-	LDY EnemyArray_42F, X
+	LDY ObjectProjectileTimer, X
 	BEQ loc_BANK3_AFB4
 
 	CMP #$18
@@ -9270,7 +9269,7 @@ loc_BANK3_AF8D:
 
 loc_BANK3_AFAC:
 	LDA #$00
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 	JSR SetEnemyAttributes
 
 loc_BANK3_AFB4:
@@ -10291,9 +10290,11 @@ EnemyEnableCollisionFlagTable:
 	.db CollisionFlags_Left
 	.db CollisionFlags_Right
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK3_B5CC:
+;
+; Collision detection between objects
+;
+CheckObjectCollision:
 	LDA #$00
 	STA ObjectXAcceleration, X
 	LDA EnemyCollision, X
@@ -10301,46 +10302,46 @@ sub_BANK3_B5CC:
 	STA EnemyCollision, X
 	LDA EnemyState, X
 	CMP #EnemyState_BombExploding
-	BNE loc_BANK3_B5E1
+	BNE CheckObjectCollision_NotExplosion
 
-	LDY #$06
-	BNE loc_BANK3_B5FF
+	LDY #$06 ; bomb explosion hitbox
+	BNE CheckObjectCollision_ReadHitbox
 
-loc_BANK3_B5E1:
+CheckObjectCollision_NotExplosion:
 	CMP #EnemyState_Sinking
-	BEQ loc_BANK3_B5F8
+	BEQ CheckObjectCollision_CheckObjectBeingCarried
 
 	LDY ObjectType, X
 	CPY #Enemy_Egg
-	BEQ loc_BANK3_B5F4
+	BEQ CheckObjectCollision_CheckObjectAlive
 
 	CPY #Enemy_Pokey
-	BEQ loc_BANK3_B5F4
+	BEQ CheckObjectCollision_CheckObjectAlive
 
-	LDY EnemyArray_42F, X
-	BNE loc_BANK3_B5F8
+	LDY ObjectProjectileTimer, X
+	BNE CheckObjectCollision_CheckObjectBeingCarried
 
-loc_BANK3_B5F4:
-	CMP #$01
+CheckObjectCollision_CheckObjectAlive:
+	CMP #EnemyState_Alive
 	BNE ClearDirectionalCollisionFlags_Exit
 
-loc_BANK3_B5F8:
+CheckObjectCollision_CheckObjectBeingCarried:
 	LDA ObjectBeingCarriedTimer, X
 	BNE ClearDirectionalCollisionFlags_Exit
 
-	LDY EnemyArray_489, X
+	LDY ObjectHitbox, X
 
-loc_BANK3_B5FF:
+CheckObjectCollision_ReadHitbox:
 	LDA ObjectCollisionHitboxWidth_RAM, Y
 	STA byte_RAM_9 ; hitbox width
 	LDA #$00
 	STA byte_RAM_0
 	LDA ObjectCollisionHitboxLeft_RAM, Y
-	BPL loc_BANK3_B60F
+	BPL CheckObjectCollision_ReadHitbox_Left
 
 	DEC byte_RAM_0
 
-loc_BANK3_B60F:
+CheckObjectCollision_ReadHitbox_Left:
 	CLC
 	ADC ObjectXLo, X
 	STA byte_RAM_5 ; bounding box left low
@@ -10349,21 +10350,21 @@ loc_BANK3_B60F:
 	STA byte_RAM_1 ; bounding box left high
 	; Vertical levels wrap horizontally, so the high X position is discarded
 	LDA IsHorizontalLevel
-	BNE loc_BANK3_B620
+	BNE CheckObjectCollision_ReadHitbox_Height
 
 	STA byte_RAM_1
 
-loc_BANK3_B620:
+CheckObjectCollision_ReadHitbox_Height:
 	LDA ObjectCollisionHitboxHeight_RAM, Y
 	STA byte_RAM_B ; hitbox height
 	LDA #$00
 	STA byte_RAM_0
 	LDA ObjectCollisionHitboxTop_RAM, Y
-	BPL loc_BANK3_B630
+	BPL CheckObjectCollision_ReadHitbox_Top
 
 	DEC byte_RAM_0
 
-loc_BANK3_B630:
+CheckObjectCollision_ReadHitbox_Top:
 	CLC
 	ADC ObjectYLo, X
 	STA byte_RAM_7 ; bounding box top low
@@ -10371,101 +10372,100 @@ loc_BANK3_B630:
 	ADC byte_RAM_0
 	STA byte_RAM_3 ; bounding box top high
 
-loc_BANK3_B63B:
+CheckObjectCollision_Loop:
 	STX byte_RAM_ED
 	TXA
-	BNE loc_BANK3_B661
+	BNE CheckObjectCollision_OtherObject
 
+	; X = 0
 	LDA PlayerInRocket
 	ORA PlayerLock
-	BNE loc_BANK3_B64E
+	BNE CheckObjectCollision_PlayerCollisionDisabled
 
-	LDA EnemyState - 1, X
-	CMP #$02
-	BCC loc_BANK3_B651 ; branch if A < $02
+	LDA PlayerState, X
+	CMP #PlayerState_Lifting
+	BCC CheckObjectCollision_PlayerCollisionEnabled
 
-loc_BANK3_B64E:
-	JMP loc_BANK3_B6F0
+CheckObjectCollision_PlayerCollisionDisabled:
+	JMP CheckObjectCollision_Next
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_B651:
+CheckObjectCollision_PlayerCollisionEnabled:
 	LDY byte_RAM_12
-	LDA EnemyArray_42F, Y
-	BEQ loc_BANK3_B65C
+	LDA ObjectProjectileTimer, Y
+	BEQ CheckObjectCollision_ReadPlayerHitbox
 
+	; Post-throw grace period
 	CMP #$20
-	BCC loc_BANK3_B64E
+	BCC CheckObjectCollision_PlayerCollisionDisabled
 
-loc_BANK3_B65C:
+CheckObjectCollision_ReadPlayerHitbox:
 	LDY PlayerHitbox
-	JMP loc_BANK3_B6A6
+	JMP CheckObjectCollision_OtherObjectReadHitbox
 
-; ---------------------------------------------------------------------------
 
-loc_BANK3_B661:
+CheckObjectCollision_OtherObject:
 	LDY byte_RAM_12
 	LDA EnemyState, Y
 	CMP #EnemyState_BombExploding
-	BEQ loc_BANK3_B671
+	BEQ CheckObjectCollision_CheckOtherObjectState
 
+	; Check if collision is disabled
 	LDA EnemyArray_46E, Y
 	AND #%00000100
-	BNE loc_BANK3_B690
+	BNE CheckObjectCollision_NextIfNotEqual ; effectively `JMP CheckObjectCollision_Next`
 
-loc_BANK3_B671:
+CheckObjectCollision_CheckOtherObjectState:
 	LDA EnemyState - 1, X
 	CMP #EnemyState_BombExploding ; what does this mean for an enemy?
-	BNE loc_BANK3_B67B
+	BNE CheckObjectCollision_OtherObjectNotExplosion
 
-	LDY #$06
-	BNE loc_BANK3_B6A6
+	LDY #$06 ; bomb explosion hitbox
+	BNE CheckObjectCollision_OtherObjectReadHitbox
 
-loc_BANK3_B67B:
+CheckObjectCollision_OtherObjectNotExplosion:
 	CMP #EnemyState_Sinking
-	BEQ loc_BANK3_B692
+	BEQ CheckObjectCollision_CheckOtherObjectBeingCarried
 
 	LDY ObjectType - 1, X
 	CPY #Enemy_Egg
-	BEQ loc_BANK3_B68E
+	BEQ CheckObjectCollision_CheckOtherObjectAlive
 
 	CPY #Enemy_Pokey
-	BEQ loc_BANK3_B68E
+	BEQ CheckObjectCollision_CheckOtherObjectAlive
 
-	LDY EnemyArray_42F - 1, X
-	BNE loc_BANK3_B692
+	LDY ObjectProjectileTimer - 1, X
+	BNE CheckObjectCollision_CheckOtherObjectBeingCarried
 
-loc_BANK3_B68E:
-	CMP #$01
+CheckObjectCollision_CheckOtherObjectAlive:
+	CMP #EnemyState_Alive
+CheckObjectCollision_NextIfNotEqual:
+	BNE CheckObjectCollision_Next
 
-loc_BANK3_B690:
-	BNE loc_BANK3_B6F0
-
-loc_BANK3_B692:
+CheckObjectCollision_CheckOtherObjectBeingCarried:
 	LDA ObjectBeingCarriedTimer - 1, X
-	BNE loc_BANK3_B6F0
+	BNE CheckObjectCollision_Next
 
 	LDA EnemyCollision - 1, X
 	AND #CollisionFlags_Damage
-	BNE loc_BANK3_B6F0
+	BNE CheckObjectCollision_Next
 
 	LDA EnemyArray_46E - 1, X
 	AND #$04
-	BNE loc_BANK3_B6F0
+	BNE CheckObjectCollision_Next
 
-	LDY EnemyArray_489 - 1, X
+	LDY ObjectHitbox - 1, X
 
-loc_BANK3_B6A6:
+CheckObjectCollision_OtherObjectReadHitbox:
 	LDA ObjectCollisionHitboxWidth_RAM, Y
 	STA byte_RAM_A ; hitbox width
 	LDA #$00
 	STA byte_RAM_0
 	LDA ObjectCollisionHitboxLeft_RAM, Y
-	BPL loc_BANK3_B6B6
+	BPL CheckObjectCollision_OtherObjectReadHitbox_Left
 
 	DEC byte_RAM_0
 
-loc_BANK3_B6B6:
+CheckObjectCollision_OtherObjectReadHitbox_Left:
 	CLC
 	ADC ObjectXLo - 1, X
 	STA byte_RAM_6 ; bounding box left low
@@ -10474,21 +10474,21 @@ loc_BANK3_B6B6:
 	STA byte_RAM_2 ; bounding box left high
 	; Vertical levels wrap horizontally, so the high X position is discarded
 	LDA IsHorizontalLevel
-	BNE loc_BANK3_B6C7
+	BNE CheckObjectCollision_OtherObjectReadHitbox_Height
 
 	STA byte_RAM_2
 
-loc_BANK3_B6C7:
+CheckObjectCollision_OtherObjectReadHitbox_Height:
 	LDA ObjectCollisionHitboxHeight_RAM, Y
 	STA byte_RAM_C ; hitbox height
 	LDA #$00
 	STA byte_RAM_0
 	LDA ObjectCollisionHitboxTop_RAM, Y
-	BPL loc_BANK3_B6D7
+	BPL CheckObjectCollision_OtherObjectReadHitbox_Top
 
 	DEC byte_RAM_0
 
-loc_BANK3_B6D7:
+CheckObjectCollision_OtherObjectReadHitbox_Top:
 	CLC
 	ADC ObjectYLo - 1, X
 	STA byte_RAM_8 ; bounding box top low
@@ -10498,7 +10498,7 @@ loc_BANK3_B6D7:
 
 	JSR CheckHitboxCollision
 
-	BCS loc_BANK3_B6F0
+	BCS CheckObjectCollision_Next
 
 	LDA byte_RAM_B
 	PHA
@@ -10507,24 +10507,22 @@ loc_BANK3_B6D7:
 	PLA
 	STA byte_RAM_B
 
-loc_BANK3_B6F0:
+CheckObjectCollision_Next:
 	DEX
-	BMI loc_BANK3_B6F6
+	BMI CheckObjectCollision_RestoreObjectSlotExit
 
-	JMP loc_BANK3_B63B
+	JMP CheckObjectCollision_Loop
 
-; ---------------------------------------------------------------------------
-
-loc_BANK3_B6F6:
+CheckObjectCollision_RestoreObjectSlotExit:
 	LDX byte_RAM_12
 
-locret_BANK3_B6F8:
+CheckObjectCollision_Exit:
 	RTS
 
-; End of function sub_BANK3_B5CC
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Run the player/object collision handler
+;
 EnemyCollisionBehavior:
 	TXA
 	BNE EnemyCollisionBehavior_ReadCollisionType
@@ -10534,7 +10532,7 @@ EnemyCollisionBehavior:
 
 	LDA ObjectBeingCarriedIndex
 	CMP byte_RAM_12
-	BEQ locret_BANK3_B6F8
+	BEQ CheckObjectCollision_Exit
 
 EnemyCollisionBehavior_ReadCollisionType:
 	LDY byte_RAM_12
@@ -10604,7 +10602,7 @@ EnemyCollisionBehavior_Enemy:
 	ORA ObjectFlashTimer - 1, X
 	BNE EnemyCollisionBehavior_Exit
 
-	LDA EnemyArray_42F, Y
+	LDA ObjectProjectileTimer, Y
 	BNE loc_BANK3_B792
 
 	LDA EnemyState, Y
@@ -10620,7 +10618,7 @@ EnemyCollisionBehavior_Enemy:
 	CMP #EnemyState_BombExploding
 	BEQ loc_BANK3_B792
 
-	LDA EnemyArray_42F, Y
+	LDA ObjectProjectileTimer, Y
 	BEQ loc_BANK3_B7E0
 
 	LDA EnemyCollision - 1, X
@@ -10880,7 +10878,7 @@ EnemyCollisionBehavior_Object:
 	BNE locret_BANK3_B902
 
 loc_BANK3_B8E4:
-	LDA EnemyArray_42F, Y
+	LDA ObjectProjectileTimer, Y
 	BNE loc_BANK3_B8FF
 
 	JSR DetermineCollisionFlags
@@ -12334,7 +12332,7 @@ DebugCreateObject_ObjectThrown:
 	BCC DebugCreateObject_ObjectNoVelocityReset
 
 	LDA #$01
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 
 DebugCreateObject_ObjectNoVelocityReset:
 	ROL CreateObjectAttributes

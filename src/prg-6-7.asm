@@ -5130,8 +5130,8 @@ CreateSubspaceMushroomObject:
 	STA ObjectAttributes, X
 	LDA EnemyArray_46E_Data, Y
 	STA EnemyArray_46E, X
-	LDA EnemyArray_489_Data, Y
-	STA EnemyArray_489, X
+	LDA ObjectHitbox_Data, Y
+	STA ObjectHitbox, X
 	LDA EnemyArray_492_Data, Y
 	STA EnemyArray_492, X
 	LDA #$FF

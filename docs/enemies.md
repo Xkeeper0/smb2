@@ -65,7 +65,7 @@
 
 ### `$00B1`  (`EnemyArray_B1`)
 
-### `$042F` (`EnemyArray_42F`)
+### `$042F` (`ObjectProjectileTimer`)
  - stun timer
 
 ### `$0438` (`ObjectStunTimer`)
@@ -83,7 +83,7 @@
 
 ### `$0480` (`EnemyArray_480`)
 
-### `$0489` (`EnemyArray_489`)
+### `$0489` (`ObjectHitbox`)
 
 ### `$0492` (`EnemyArray_492`)
 
