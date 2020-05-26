@@ -4016,7 +4016,7 @@ LoadCurrentArea_ForegroundData:
 	; Bootstrap the pseudo-random number generator.
 	LDA #$22
 	ORA byte_RAM_10
-	STA PseudoRNGValues
+	STA PseudoRNGSeed
 	RTS
 
 
@@ -5111,15 +5111,15 @@ CreateSubspaceMushroomObject:
 
 	; Reset various object timers and attributes
 	LDA #$00
-	STA EnemyTimer, X
+	STA ObjectTimer1, X
 	STA EnemyArray_B1, X
 	STA ObjectBeingCarriedTimer, X
 	STA ObjectAnimationTimer, X
 	STA ObjectShakeTimer, X
 	STA EnemyCollision, X
-	STA EnemyArray_438, X
-	STA EnemyArray_453, X
-	STA EnemyArray_45C, X
+	STA ObjectStunTimer, X
+	STA ObjectTimer2, X
+	STA ObjectFlashTimer, X
 	STA ObjectYVelocity, X
 	STA ObjectXVelocity, X
 

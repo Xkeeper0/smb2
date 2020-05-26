@@ -44,7 +44,7 @@
 - Whale spout timer?
 - Wart's movement cycle
 
-### `$0086`  (`EnemyTimer`)
+### `$0086`  (`ObjectTimer1`)
 - BobOmb fuse
 - Bomb fuse
 - Panser spit
@@ -68,11 +68,11 @@
 ### `$042F` (`EnemyArray_42F`)
  - stun timer
 
-### `$0438` (`EnemyArray_438`)
+### `$0438` (`ObjectStunTimer`)
 
-### `$0453` (`EnemyArray_453`)
+### `$0453` (`ObjectTimer2`)
 
-### `$045C` (`EnemyArray_45C`)
+### `$045C` (`ObjectFlashTimer`)
   - flashing timer
 
 ### `$0465` (`EnemyHP`)

@@ -157,10 +157,10 @@ DrawTitleCardWorldImage:
 	STA byte_RAM_0
 	LDA #$C8
 	STA byte_RAM_1
-	LDY #0
+	LDY #$00
 
 loc_BANKA_8338:
-	LDX #$F
+	LDX #$0F
 	LDA PPUSTATUS
 	LDA byte_RAM_0
 	STA PPUADDR

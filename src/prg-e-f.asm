@@ -44,7 +44,7 @@ ScreenUpdateBufferPointers:
 	.dw PPUBuffer_6DA
 	.dw PPUBuffer_6DF
 	.dw PPUBuffer_6E4
-	.dw PPUBuffer_7194
+	.dw PPUBuffer_WarpToWorld
 	.dw PPUBuffer_71A8
 	.dw PPUBuffer_721B
 	.dw PPUBuffer_TitleCard
@@ -841,7 +841,7 @@ loc_BANKF_E3EC:
 
 
 ;
-; This starts the game once RESET has done its thing.
+; This starts the game once `RESET` has done its thing.
 ; We also come here after choosing "RETRY" from the game over menu.
 ;
 StartGame:
@@ -975,7 +975,7 @@ HorizontalLevel_ProcessFrame:
 	LDY GameMode
 	BEQ HorizontalLevel_CheckTransition
 
-	JMP loc_BANKF_E665
+	JMP ResetAreaAndProcessGameMode
 
 HorizontalLevel_CheckTransition:
 	LDA DoAreaTransition
@@ -1030,7 +1030,7 @@ VerticalLevel_ProcessFrame:
 	LDY GameMode
 	BEQ VerticalLevel_CheckTransition
 
-	JMP loc_BANKF_E665
+	JMP ResetAreaAndProcessGameMode
 
 VerticalLevel_CheckTransition:
 	LDA DoAreaTransition
@@ -1236,7 +1236,7 @@ loc_BANKF_E609:
 	LDY GameMode
 	BEQ loc_BANKF_E61A
 
-	JMP loc_BANKF_E665
+	JMP ResetAreaAndProcessGameMode
 
 ; ---------------------------------------------------------------------------
 
@@ -1287,9 +1287,12 @@ ExitSubArea_Loop:
 
 	JMP HorizontalLevel_CheckScroll
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_E665:
+;
+; This code resets the level and does whatever else is needed to transition from
+; the current `GameMode` to `GameMode_InGame`.
+;
+ResetAreaAndProcessGameMode:
 	JSR DoAreaReset
 
 	LDY GameMode
@@ -1300,12 +1303,13 @@ ShowCardAfterTransition:
 	STA BigVeggiesPulled
 	STA CherryCount
 	STA StopwatchTimer
-	DEY
-	BNE loc_BANKF_E69F
+	DEY ; Initial `GameMode` minus 1
+	BNE ResetAreaAndProcessGameMode_NotTitleCard
 
+  ; `GameMode` was `$01`
+	; Reset from a title card
 	STY PlayerCurrentSize
 	JSR LevelInitialization
-
 
 	LDA #$FF
 	STA CurrentMusicIndex
@@ -1321,14 +1325,12 @@ ShowCardAfterTransition:
 AfterDeathJump:
 IFNDEF CHARACTER_SELECT_AFTER_DEATH
 	JMP StartLevelAfterTitleCard
-ENDIF
-IFDEF CHARACTER_SELECT_AFTER_DEATH
+ELSE
 	JMP CharacterSelectMenu
 ENDIF
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_E69F:
+ResetAreaAndProcessGameMode_NotTitleCard:
 	LDA #PlayerHealth_2_HP
 	STA PlayerHealth
 	LDA #$00
@@ -1339,12 +1341,11 @@ loc_BANKF_E69F:
 	STA Mushroom2Pulled
 	STA SubspaceVisits
 	STA EnemiesKilledForHeart
-	DEY
+	DEY ; Initial `GameMode` minus 2
 	BEQ DoGameOverStuff
 
-	JMP loc_BANKF_E75A
+	JMP ResetAreaAndProcessGameMode_NotGameOver
 
-; ---------------------------------------------------------------------------
 
 DoGameOverStuff:
 	STY PlayerCurrentSize
@@ -1447,12 +1448,13 @@ loc_BANKF_E747:
 GameOver_Retry:
 	JMP StartGame
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_E75A:
-	DEY
+ResetAreaAndProcessGameMode_NotGameOver:
+	DEY ; Initial `GameMode` minus 3
 	BEQ EndOfLevel
 
+DoWorldWarp:
+	; Show warp screen
 	LDY CurrentWorld
 	STY PreviousWorld
 	LDA WarpDestinations, Y
@@ -1462,23 +1464,24 @@ loc_BANKF_E75A:
 	LDA WorldStartingLevel, Y
 	STA CurrentLevel
 	STA CurrentLevel_Init
+
+	; Set world number
 	INY
 	TYA
 	ORA #$D0
-	STA byte_RAM_71A6
+	STA WarpToWorld_World
+
 	JSR WaitForNMI_TurnOffPPU
 
 	JSR SetScrollXYTo0
-
 	JSR ClearNametablesAndSprites
-
 	JSR SetBlackAndWhitePalette
 
 	JSR EnableNMI
 
 	JSR ChangeTitleCardCHR
 
-	LDA #ScreenUpdateBuffer_RAM_7194
+	LDA #ScreenUpdateBuffer_WarpToWorld
 	STA ScreenUpdateIndex
 	LDA #Music2_SlotWarpFanfare
 	STA MusicQueue2
@@ -2260,6 +2263,42 @@ NMI_Waiting:
 
 ;
 ; Public NMI: where dreams come true!
+;
+; The NMI runs every frame during vertical blanking and is responsible for
+; tasks that should occur on each frame of gameplay, such as drawing tiles and
+; sprites, scrolling, and reading input.
+;
+; It also runs the audio engine, allowing music to play continuously no matter
+; how busy the rest of the game happens to be.
+;
+; The NMI is actually separated into several distinct behaviors depending on the
+; game state, as dictated by flags in stack `$100`.
+;
+; For normal gameplay, here is the general flow of the NMI:
+;
+;  1. Push registers and processor flags so that we can restore them later.
+;  2. Check to see whether we're in a menu or transitioning. If so, use those
+;     divert to that code instead.
+;  3. Hide the sprites/background and update the sprite OAM.
+;  4. Load the current CHR banks.
+;  5. Check the `NMIWaitFlag`. If it's nonzero, restore `PPUMASK` and skip to
+;     handling the sound processing.
+;  6. Handle any horizontal or vertical scrolling tile updates.
+;  7. Update PPU using the current screen update buffer.
+;  8. Write PPU control register, scroll position, and mask.
+;  9. Increment the global frame counter.
+; 10. Reset PPU buffer 301 if we just used it for the screen update.
+; 11. Read joypad input.
+; 12. Decrement `NMIWaitFlag`, unblocking any code that was waiting for the NMI.
+; 13. Run the audio engine.
+; 14. Restore registers and processor flags, yield back to the game loop.
+;
+; The game loop is synchronized with rendering using `JSR WaitForNMI`, which
+; sets `NMIWaitFlag` to `$00` until the NMI completes and decrements it.
+;
+; Although the NMI itself doesn't lag (ie. the NMI itself is not interrupted
+; by another NMI), there are some parts of the game that can feel sluggish.
+; This is due to sluggishness in the game loop itself.
 ;
 NMI:
 	PHP
@@ -5810,8 +5849,14 @@ LoadMarioSleepingCHRBanks:
 unusedSpace $FF50, $FF
 
 
-; public RESET
-; This code is called when the NES is reset
+;
+; Public RESET
+;
+; This code is called when the NES is reset and handles some boilerplate
+; initialization before starting the game loop.
+;
+; The NMI handles frame rendering.
+;
 RESET:
 	SEI
 	CLD
@@ -6017,14 +6062,21 @@ IFDEF PRESERVE_UNUSED_SPACE
 	.db $BE
 ENDIF
 
-; Ensure our vectors are always here
-	.pad $FFFA, $FF
+;
+; Vectors for the NES CPU. These must ALWAYS be at $FFFA!
+;
+; **NMI** is the code that runs each frame during the VBlank.
+;
+; **RESET** is code that runs after the console starts or resets.
+;
+; **IRQ** is not used, but would handle things like `BRK` or scanline counter
+; interrupts. Note that the MMC3 scanline counter is clocked incorrectly due to
+; the use of both sides of the nametable for sprites as well as using the right
+; rather than left nametable for backgrounds, which effectively prevents using
+; the scanline counter for things like precise screen splits.
+;
+.pad $FFFA, $FF
 
-; Vectors for the NES CPU. These should ALWAYS be at $FFFA!
-; Add a .pad or .base before here if you change code above.
-; NMI = VBlank
-; RESET = ...well, reset.
-; IRQ is not used, but you could if you wanted.
 NESVectorTables:
 	.dw NMI
 IF INES_MAPPER == MAPPER_FME7

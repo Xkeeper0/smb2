@@ -251,7 +251,7 @@ PlayerWalkFrameCounter: ; used for controlling speed of walk animation
 	.dsb 1 ; $0084
 DamageInvulnTime:
 	.dsb 1 ; $0085
-EnemyTimer:
+ObjectTimer1:
 	.dsb 1 ; $0086
 	.dsb 1 ; 1                ; $0087
 	.dsb 1 ; 2                ; $0088
@@ -871,7 +871,7 @@ EnemyArray_42F:
 
 ; FOR RENT
 	.dsb 1 ; $0437
-EnemyArray_438:
+ObjectStunTimer:
 	.dsb 1 ; $0438
 	.dsb 1 ; $0439
 	.dsb 1 ; $043a
@@ -909,7 +909,7 @@ ObjectShakeTimer:
 
 ; FOR RENT
 	.dsb 1 ; $0452
-EnemyArray_453:
+ObjectTimer2:
 	.dsb 1 ; $0453
 	.dsb 1 ; $0454
 	.dsb 1 ; $0455
@@ -922,7 +922,7 @@ EnemyArray_453:
 ; FOR RENT
 	.dsb 1 ; $045b
 ; Flashing timer
-EnemyArray_45C:
+ObjectFlashTimer:
 	.dsb 1 ; $045c
 	.dsb 1 ; $045d
 	.dsb 1 ; $045e
@@ -1452,11 +1452,14 @@ unk_RAM_59C:
 	.dsb 1 ; $05a9
 	.dsb 1 ; $05aa
 	.dsb 1 ; $05ab
-PseudoRNGValues:
+
+PseudoRNGSeed:
 	.dsb 1 ; $05ac
 	.dsb 1 ; $05ad
+PseudoRNGValue:
 	.dsb 1 ; $05ae
 	.dsb 1 ; $05af
+
 	.dsb 1 ; $05b0
 	.dsb 1 ; $05b1
 	.dsb 1 ; $05b2
@@ -2130,8 +2133,8 @@ TitleCard_Level = $717f
 TitleCard_ExtraLife_DrawAddress = $7180
 TitleCard_Lives = $7191
 
-PPUBuffer_7194 = $7194
-byte_RAM_71A6 = $71a6
+PPUBuffer_WarpToWorld = $7194
+WarpToWorld_World = $71a6
 
 PPUBuffer_71A8 = $71a8
 byte_RAM_71AB = $71ab
