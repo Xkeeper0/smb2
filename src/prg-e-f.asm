@@ -26,30 +26,30 @@
 
 ; PPU update buffers used to update the screen
 ScreenUpdateBufferPointers:
-	.dw PPUBuffer_301
-	.dw PPUBuffer_583
-	.dw PPUBuffer_55F
+	.dw PPUBuffer_301 ; Default screen update buffer
+	.dw PPUBuffer_BonusChanceCoinsExtraLife
+	.dw PPUBuffer_TitleCardPalette
 	.dw PPUBuffer_CharacterSelect
-	.dw PPUBuffer_BANKE_DE7A
+	.dw PPUBuffer_TitleCard
 	.dw PPUBuffer_Text_Game_Over
-	.dw PPUBuffer_67B
+	.dw PPUBuffer_ContinueRetryText
 	.dw PPUBuffer_Text_Retry
 	.dw PPUBuffer_TitleCardText
-	.dw PPUBuffer_67B
-	.dw PPUBuffer_693
-	.dw PPUBuffer_6AB
-	.dw PPUBuffer_6BD
-	.dw PPUBuffer_6CC ; PAUSE
-	.dw PPUBuffer_6E9 ; (erase PAUSE)
-	.dw PPUBuffer_6DA
-	.dw PPUBuffer_6DF
-	.dw PPUBuffer_6E4
+	.dw PPUBuffer_BonusChanceUnusedText ; Doki Doki Panic leftover
+	.dw PPUBuffer_NoBonusText
+	.dw PPUBuffer_PushAButtonText
+	.dw PPUBuffer_Player1UpText
+	.dw PPUBuffer_PauseText
+	.dw PPUBuffer_ErasePauseText
+	.dw PPUBuffer_EraseBonusMessageText
+	.dw PPUBuffer_ErasePushAButton
+	.dw PPUBuffer_EraseBonusMessageTextUnused
 	.dw PPUBuffer_WarpToWorld
-	.dw PPUBuffer_71A8
-	.dw PPUBuffer_721B
-	.dw PPUBuffer_TitleCard
+	.dw PPUBuffer_ContinueRetryBullets
+	.dw PPUBuffer_EndOfLevelDoor
+	.dw PPUBuffer_TitleCardLeftover
 	.dw PPUBuffer_PauseExtraLife
-	.dw BonusChanceLayoutRAM
+	.dw PPUBuffer_BonusChanceLayout
 
 PPUBuffer_CharacterSelect:
 	.db $21, $49, $06, $E9, $E5, $DE, $DA, $EC, $DE ; PLEASE
@@ -113,14 +113,19 @@ PPUBuffer_CharacterSelect:
 	.db $82, $8A, $8B ; $F
 	.db $00
 
-PPUBuffer_BANKE_DE7A:
-	.db $23, $C0, $09, $3E, $0E, $E,$0E, $E,$0E, $E,$8E, $32
+PPUBuffer_TitleCard:
+	.db $23, $C0, $09
+	.db $3E, $0E, $0E, $0E, $0E, $0E, $0E, $8E, $32
 	.db $23, $CF, $01, $8C
-	.db $23, $D0, $10, $32, $00, $A0, $A0, $A0, $20, $00, $8C, $32, $00, $00, $0A, $02, $00, $00, $8C
-	.db $23, $E0, $09, $32, $00, $00, $0E, $00, $00, $00, $8C, $32
+	.db $23, $D0, $10
+	.db $32, $00, $A0, $A0, $A0, $20, $00, $8C, $32, $00, $00, $0A, $02, $00, $00, $8C
+	.db $23, $E0, $09
+	.db $32, $00, $00, $0E, $00, $00, $00, $8C, $32
 	.db $23, $EF, $01, $8C
-	.db $23, $F0, $06, $32, $00, $A0, $A0, $A0, $A0
-	.db $23, $F7, $09, $8C, $0E, $E,$0E, $E,$0E, $E,$0E, $E
+	.db $23, $F0, $06
+	.db $32, $00, $A0, $A0, $A0, $A0
+	.db $23, $F7, $09
+	.db $8C, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E
 	.db $24, $00, $60, $FF
 	.db $24, $20, $60, $FF
 	.db $24, $40, $60, $FF
@@ -162,12 +167,14 @@ PPUBuffer_BANKE_DE7A:
 	.db $27, $23, $01, $D2
 	.db $27, $3C, $01, $D6
 	.db $27, $24, $58, $D3
-	.db $27, $C8, $08, $44, $FF, $BF, $AF, $AF, $AF, $FF, $11
-	.db $27, $D0, $10, $44, $BF, $AF, $AF, $AF, $AF, $EF, $11, $44, $FF, $FF, $FF
-	.db $FF, $FF, $FF, $11 ; $F
-	.db $27, $E0, $10, $44, $FF, $FF, $FF, $FF, $FF, $FF, $11, $44, $FF, $FF, $FF
-	.db $FF, $FF, $AF, $11 ; $F
-	.db $27, $F0, $08, $44, $05, $05, $05, $05, $05, $05, $01
+	.db $27, $C8, $08
+	.db $44, $FF, $BF, $AF, $AF, $AF, $FF, $11
+	.db $27, $D0, $10
+	.db $44, $BF, $AF, $AF, $AF, $AF, $EF, $11, $44, $FF, $FF, $FF, $FF, $FF, $FF, $11
+	.db $27, $E0, $10
+	.db $44, $FF, $FF, $FF, $FF, $FF, $FF, $11, $44, $FF, $FF, $FF, $FF, $FF, $AF, $11
+	.db $27, $F0, $08
+	.db $44, $05, $05, $05, $05, $05, $05, $01
 	.db $27, $04, $58, $FB
 	.db $00
 
@@ -176,8 +183,9 @@ PPUBuffer_PauseExtraLife:
 	.db $27, $EA, $05
 	.db $AA, $AA, $AA, $AA, $AA
 
-; nametable attribute data
-PPUBuffer_TitleCard:
+; This draws two columns of black tiles along the right side of the nametable to the left of the
+; title card, which was the character/level select in Doki Doki Panic. In SMB2, it remains unused.
+PPUBuffer_TitleCardLeftover:
 	.db $20, $1E, $9E
 	.db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	.db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
@@ -388,7 +396,7 @@ ResetScreenForTitleCard:
 
 	JSR SetScrollXYTo0
 
-	LDA #ScreenUpdateBuffer_RAM_55F
+	LDA #ScreenUpdateBuffer_RAM_TitleCardPalette
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
@@ -414,7 +422,7 @@ EnableNMI_PauseTitleCard:
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
-	LDA #ScreenUpdateBuffer_BANKE_DE7A
+	LDA #ScreenUpdateBuffer_TitleCard
 	STA ScreenUpdateIndex
 
 	JMP WaitForNMI
@@ -493,7 +501,7 @@ DisplayLevelTitleCardText_DrawLevelDot:
 	BCC DisplayLevelTitleCardText_DrawLevelDotsLoop
 
 	; Draw the card
-	LDA #ScreenUpdateBuffer_RAM_7168
+	LDA #ScreenUpdateBuffer_RAM_TitleCardText
 	STA ScreenUpdateIndex
 	RTS
 
@@ -568,15 +576,15 @@ DisplayLevelTitleCardAndMore:
 	LDY #$23
 DisplayLevelTitleCardAndMore_TitleCardPaletteLoop:
 	LDA TitleCardPalettes, Y
-	STA PPUBuffer_55F, Y
+	STA PPUBuffer_TitleCardPalette, Y
 	DEY
 	BPL DisplayLevelTitleCardAndMore_TitleCardPaletteLoop
 
-	LDA #ScreenUpdateBuffer_RAM_55F ; Then tell it to dump that into the PPU
+	LDA #ScreenUpdateBuffer_RAM_TitleCardPalette ; Then tell it to dump that into the PPU
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
-	LDA #ScreenUpdateBuffer_TitleCard
+	LDA #ScreenUpdateBuffer_TitleCardLeftover
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
@@ -1318,7 +1326,7 @@ ShowCardAfterTransition:
 	STA TitleCard_ExtraLife_DrawAddress
 	LDA #$48
 	STA TitleCard_ExtraLife_DrawAddress + 1
-	LDA #ScreenUpdateBuffer_TitleCard
+	LDA #ScreenUpdateBuffer_TitleCardLeftover
 	STA CardScreenUpdateIndex
 	JSR PauseScreen_Card
 
@@ -1376,23 +1384,24 @@ loc_BANKF_E6E6:
 	DEC byte_RAM_6
 	BNE loc_BANKF_E6E6
 
-	LDY #$28
-
+	LDY #(BonusChanceUpdateBuffer_BONUS_CHANCE_Unused - PPUBuffer_Text_Continue - 1)
 loc_BANKF_E6EF:
-	LDA Text_Continue, Y
-	STA PPUBuffer_67B, Y
+	LDA PPUBuffer_Text_Continue, Y
+	STA PPUBuffer_ContinueRetryText, Y
 	DEY
 	BPL loc_BANKF_E6EF
 
+	; Hide the bullet for RETRY
 	LDA #$FB
-	STA byte_RAM_68F
+	STA PPUBuffer_ContinueRetryText + 20
+	; Update the number of continues
 	LDA Continues
 	CLC
 	ADC #$D0
-	STA byte_RAM_67E
+	STA PPUBuffer_ContinueRetryText + 3
 	LDA #$00
 	STA byte_RAM_8
-	LDA #ScreenUpdateBuffer_RAM_67B
+	LDA #ScreenUpdateBuffer_RAM_ContinueRetryText
 	DEC Continues
 	BPL loc_BANKF_E717
 
@@ -1425,11 +1434,11 @@ loc_BANKF_E733:
 	ASL A
 	TAY
 	LDA #$FB
-	STA byte_RAM_71AB
-	STA byte_RAM_71AF
+	STA PPUBuffer_ContinueRetryBullets + 3
+	STA PPUBuffer_ContinueRetryBullets + 7
 	LDA #$F6
-	STA byte_RAM_71AB, Y
-	LDA #ScreenUpdateBuffer_RAM_71a8
+	STA PPUBuffer_ContinueRetryBullets + 3, Y
+	LDA #ScreenUpdateBuffer_RAM_ContinueRetryBullets
 	STA ScreenUpdateIndex
 
 loc_BANKF_E747:
@@ -1657,9 +1666,9 @@ DoSlotMachineSpinnyShit:
 
 	JSR sub_BANKF_EAF6
 
-	JSR sub_BANKF_E916
+	JSR SlotMachineTextFlashIndex
 
-	LDA byte_BANKF_E9DF, Y
+	LDA BonusChanceUpdateBuffer_PUSH_A_BUTTON, Y
 	STA ScreenUpdateIndex
 	INC byte_RAM_6
 	LDA ObjectXLo ; Reel 1 still active?
@@ -1667,7 +1676,7 @@ DoSlotMachineSpinnyShit:
 	ORA ObjectXLo + 2 ; Reel 3 still active?
 	BNE DoSlotMachineSpinnyShit ; If any are still active, go back to waiting
 
-	LDA #ScreenUpdateBuffer_RAM_6df
+	LDA #ScreenUpdateBuffer_RAM_ErasePushAButtonText
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
@@ -1727,9 +1736,9 @@ loc_BANKF_E8D3:
 loc_BANKF_E8ED:
 	JSR WaitForNMI
 
-	JSR sub_BANKF_E916
+	JSR SlotMachineTextFlashIndex
 
-	LDA byte_BANKF_E9E3, Y
+	LDA BonusChanceUpdateBuffer_PLAYER_1UP, Y
 	STA ScreenUpdateIndex
 	DEC byte_RAM_6
 	BNE loc_BANKF_E8ED
@@ -1746,15 +1755,23 @@ SlotMachineLoseFanfare:
 	JSR Delay160Frames
 
 loc_BANKF_E90C:
-	LDA #ScreenUpdateBuffer_RAM_6e4
+	LDA #ScreenUpdateBuffer_RAM_EraseBonusMessageTextUnused
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
 	JMP loc_BANKF_E7FD
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_E916:
+;
+; Used for flashing text in Bonus Chance
+;
+; ##### Input
+; - `byte_RAM_6`: Bonus Chance timer
+;
+; ##### Output
+; - `Y`: 0 to show text, 1 to hide text
+;
+SlotMachineTextFlashIndex:
 	LDA byte_RAM_6
 	LSR A
 	LSR A
@@ -1764,9 +1781,6 @@ sub_BANKF_E916:
 	TAY
 	RTS
 
-; End of function sub_BANKF_E916
-
-; ---------------------------------------------------------------------------
 
 NoCoinsForSlotMachine:
 	JSR Delay80Frames
@@ -1782,7 +1796,7 @@ loc_BANKF_E92A:
 	LDA byte_RAM_6
 	AND #$01
 	TAY
-	LDA byte_BANKF_E9E1, Y
+	LDA BonusChanceUpdateBuffer_NO_BONUS, Y
 	STA ScreenUpdateIndex
 
 	LDA #$0A
@@ -1867,7 +1881,6 @@ SetupMarioSleepingScene:
 	INC GameMilestoneCounter
 	JMP MarioSleepingScene
 
-; =============== S U B R O U T I N E =======================================
 
 DisableNMI:
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
@@ -1875,34 +1888,33 @@ DisableNMI:
 	STA PPUCtrlMirror
 	RTS
 
-; End of function DisableNMI
 
-; ---------------------------------------------------------------------------
 PPUBuffer_Text_Game_Over:
-	.db $21, $CB, $0A, $E0, $DA, $E6, $DE, $FB, $FB, $E8, $EF, $DE
-	.db $EB, $00 ; $C ; "GAME OVER"
-Text_Continue:
+	.db $21, $CB, $0A
+	.db $E0, $DA, $E6, $DE, $FB, $FB, $E8, $EF, $DE, $EB ; GAME OVER
+	.db $00
+
+PPUBuffer_Text_Continue:
 	.db $21, $75, $01, $00 ; (Placeholder for continue count)
-; This is loaded manually and drawn so the count
-; can be patched in
-; * CONTINUE
-	.db $21, $6A, $0A, $F6, $FB, $DC, $E8, $E7, $ED, $E2, $E7, $EE
-	.db $DE ; $C
+	.db $21, $6A, $0A, $F6, $FB, $DC, $E8, $E7, $ED, $E2, $E7, $EE, $DE ; * CONTINUE
+
 PPUBuffer_Text_Retry:
 	.db $21, $AA, $07, $F6, $FB, $EB, $DE, $ED, $EB, $F2 ; * RETRY
-	.db $21, $CB, $0A, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; Blank, erases "GAME OVER"
-	.db $FB, $00 ; $C
-	.db $09
-	.db $0F
-byte_BANKF_E9DF:
-	.db ScreenUpdateBuffer_RAM_6ab
-	.db ScreenUpdateBuffer_RAM_6df
-byte_BANKF_E9E1:
-	.db ScreenUpdateBuffer_RAM_693
-	.db ScreenUpdateBuffer_RAM_6da
-byte_BANKF_E9E3:
-	.db ScreenUpdateBuffer_RAM_6bd
-	.db ScreenUpdateBuffer_RAM_6da
+	.db $21, $CB, $0A, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; Blank, erases "GAME OVER"
+	.db $00
+
+BonusChanceUpdateBuffer_BONUS_CHANCE_Unused:
+	.db ScreenUpdateBuffer_RAM_BonusChanceUnused
+	.db ScreenUpdateBuffer_RAM_EraseBonusMessageText
+BonusChanceUpdateBuffer_PUSH_A_BUTTON:
+	.db ScreenUpdateBuffer_RAM_PushAButtonText
+	.db ScreenUpdateBuffer_RAM_ErasePushAButtonText
+BonusChanceUpdateBuffer_NO_BONUS:
+	.db ScreenUpdateBuffer_RAM_NoBonusText
+	.db ScreenUpdateBuffer_RAM_EraseBonusMessageText
+BonusChanceUpdateBuffer_PLAYER_1UP:
+	.db ScreenUpdateBuffer_RAM_Player1UpText
+	.db ScreenUpdateBuffer_RAM_EraseBonusMessageText
 
 
 ;
@@ -1934,7 +1946,7 @@ PauseScreen_Card:
 	LDY #$23
 PauseScreen_Card_Loop:
 	LDA TitleCardPalettes, Y
-	STA PPUBuffer_55F, Y
+	STA PPUBuffer_TitleCardPalette, Y
 	DEY
 	BPL PauseScreen_Card_Loop
 
@@ -2011,7 +2023,7 @@ sub_BANKF_EA68:
 	CLC
 	ADC #$D0
 	STA byte_RAM_588
-	LDA #ScreenUpdateBuffer_RAM_583
+	LDA #ScreenUpdateBuffer_RAM_BonusChanceCoinsExtraLife
 	STA ScreenUpdateIndex
 	LDA #Stack100_Menu
 	STA StackArea

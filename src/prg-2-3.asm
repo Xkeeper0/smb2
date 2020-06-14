@@ -1596,11 +1596,11 @@ loc_BANK2_87AC:
 	DEY
 
 loc_BANK2_87CA:
-	STY PPUBuffer_721B
-	STY byte_RAM_7222
+	STY PPUBuffer_EndOfLevelDoor
+	STY PPUBuffer_EndOfLevelDoor + $07
 	INY
-	STY byte_RAM_7229
-	STY byte_RAM_7232
+	STY PPUBuffer_EndOfLevelDoor + $0E
+	STY PPUBuffer_EndOfLevelDoor + $17
 	LDY #$03
 
 loc_BANK2_87D9:
@@ -1617,8 +1617,8 @@ loc_BANK2_87D9:
 
 loc_BANK2_87E7:
 	LDX EndOfLevelDoorRowOffsets, Y
-	ORA PPUBuffer_721B, X
-	STA PPUBuffer_721B, X
+	ORA PPUBuffer_EndOfLevelDoor, X
+	STA PPUBuffer_EndOfLevelDoor, X
 	LDX byte_RAM_12
 	DEY
 	BPL loc_BANK2_87D9
@@ -9336,7 +9336,7 @@ EnemyBehavior_HawkmouthBoss:
 	LDA #%00000110
 	STA EnemyArray_46E, X
 	LDA #$02
-	STA byte_RAM_71FE
+	STA EnemyPlayerCollisionTable_RAM + Enemy_HawkmouthBoss
 	LDA CrystalAndHawkmouthOpenSize
 	BEQ locret_BANK3_B05F
 
@@ -9445,7 +9445,7 @@ loc_BANK3_B09B:
 	LDA #%00000011
 	STA EnemyArray_46E, X
 	LDA #$00
-	STA byte_RAM_71FE
+	STA EnemyPlayerCollisionTable_RAM + Enemy_HawkmouthBoss
 	LDA EnemyHP, X
 	BNE loc_BANK3_B0BA
 

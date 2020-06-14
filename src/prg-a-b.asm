@@ -131,7 +131,7 @@ CopyBonusChanceLayoutToRAM:
 	LDY #$00
 CopyBonusChanceLayoutToRAM_Loop1:
 	LDA BonusChanceLayout, Y ; Blindly copy $100 bytes from $8140 to $7400
-	STA BonusChanceLayoutRAM, Y
+	STA PPUBuffer_BonusChanceLayout, Y
 	DEY
 	BNE CopyBonusChanceLayoutToRAM_Loop1
 
@@ -140,7 +140,7 @@ CopyBonusChanceLayoutToRAM_Loop2:
 	; Blindly copy $100 more bytes from $8240 to $7500
 	; That range includes this code! clap. clap.
 	LDA BonusChanceLayout + $100, Y
-	STA BonusChanceLayoutRAM2, Y
+	STA PPUBuffer_BonusChanceLayout + $100, Y
 	DEY
 	BNE CopyBonusChanceLayoutToRAM_Loop2
 
@@ -444,7 +444,7 @@ loc_BANKA_846B:
 	LDY #$4C
 loc_BANKA_8479:
 	LDA PlayerSelectPalettes, Y
-	STA PPUBuffer_55F, Y
+	STA PPUBuffer_TitleCardPalette, Y
 	DEY
 	CPY #$FF
 	BNE loc_BANKA_8479
@@ -504,7 +504,7 @@ loc_BANKA_84C1:
 	LDY #$20
 loc_BANKA_84CC:
 	LDA EndOfLevelDoor, Y
-	STA PPUBuffer_721B, Y
+	STA PPUBuffer_EndOfLevelDoor, Y
 	DEY
 	BPL loc_BANKA_84CC
 
@@ -602,7 +602,12 @@ BonusChanceUnusedMamaHead:
 BonusChanceUnusedPapaHead:
 	.db $CB, $B4, $00, $A0, $CB, $B4, $40, $A8
 
-BonusChanceUnused_Blank20C6:
+;
+; Based on the position and the number of tiles, this probably used to say...
+;
+; --- BONUS CHANCE ---
+;
+BonusChanceUnused_BONUS_CHANCE:
 	.db $20, $C6, $14
 	.db $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
 	.db $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
@@ -610,36 +615,41 @@ BonusChanceUnused_Blank20C6:
 
 BonusChanceText_NO_BONUS:
 	.db $22, $86, $14
-	.db $FB, $FB, $FB, $FB, $FB, $FB, $E7, $E8, $FB, $DB, $E8, $E7
-	.db $EE, $EC, $FB, $FB, $FB, $FB, $FB, $FB
+	.db $FB, $FB, $FB, $FB, $FB, $FB
+	.db $E7, $E8, $FB, $DB, $E8, $E7, $EE, $EC ; NO BONUS
+	.db $FB, $FB, $FB, $FB, $FB, $FB
 	.db $00
 
 BonusChanceText_PUSH_A_BUTTON:
 	.db $22, $89, $0E
-	.db $E9, $EE, $EC, $E1, $FB, $0E, $F,$FB, $DB, $EE, $ED, $ED, $E8, $E7
+	.db $E9, $EE, $EC, $E1, $FB, $0E, $F,$FB, $DB, $EE, $ED, $ED, $E8, $E7 ; PUSH (A) BUTTON
 	.db $00
 
 BonusChanceText_PLAYER_1UP:
-	.db $22, $8B, $0B, $E9, $E5, $DA, $F2, $DE, $EB, $FB, $FB, $D1, $EE, $E9
+	.db $22, $8B, $0B
+	.db $E9, $E5, $DA, $F2, $DE, $EB, $FB, $FB, $D1, $EE, $E9 ; PLAYER  1UP
 	.db $00
 
 Text_PAUSE:
 	.db $25, $ED, $05
-	.db $E9, $DA, $EE, $EC, $DE
-Text_Unknown:
-	.db $27, $DB, $02
-	.db $AA, $AA
+	.db $E9, $DA, $EE, $EC, $DE ; PAUSE
+	.db $27, $DB, $02, $AA, $AA ; attribute data
 	.db $00
 
-Text_Unknown2:
+; Erases NO BONUS / PUSH (A) BUTTON / PLAYER 1UP
+BonusChanceText_Message_Erase:
 	.db $22, $86, $54, $FB
 	.db $00
 
-Text_Unknown3:
+; This would erase the "PUSH (A) BUTTON" text, but the placement is wrong.
+; The placement matches the original Doki Doki Panic Bonus Chance screen.
+BonusChanceText_PUSH_A_BUTTON_Erase:
 	.db $22, $AA, $4D, $FB
 	.db $00
 
-Text_Unknown4:
+; More leftovers. The placement matches the original Doki Doki Panic Bonus Chance screen's placement
+; of the "PLAYER  1UP" message.
+BonusChanceText_Message_Erase_Unused:
 	.db $22, $EB, $4B, $FB
 	.db $00
 
