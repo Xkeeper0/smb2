@@ -81,6 +81,8 @@ PRESERVE_UNUSED_SPACE = 1
 ; Fixes green platform tiles in Subspace
 ; FIX_SUBSPACE_TILES = 1
 
+; Supports D1 joypad data for expansion port controllers
+; JOYPAD_D1 = 1
 
 ; ----------------------------------------
 ; Patches that alter the game in
@@ -125,6 +127,10 @@ PRESERVE_UNUSED_SPACE = 1
 ; Based on RetroRain's MMC5 patch (https://www.romhacking.net/hacks/2568)
 ; MMC5 = 1
 
+; Enable hard-wired 4-screen mirroring. If enabled, normal nametable mirroring is disabled.
+; See https://wiki.nesdev.com/w/index.php/INES#Flags_6
+; FOURSCREEN = 1
+
 ; Use FME-7 (mapper 69) instead of MMC3 (mapper 4)
 ; FME7 = 1
 
@@ -163,6 +169,9 @@ PRESERVE_UNUSED_SPACE = 1
 
 ; Enables full-page door/vine searching so that entrances don't need to align
 ; ROBUST_TRANSITION_SEARCH = 1
+
+; Use RAM address for player hitbox offset rather than PlayerDucking
+; PLAYER_HITBOX = 1
 
 
 .endinl

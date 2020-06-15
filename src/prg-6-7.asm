@@ -3580,19 +3580,19 @@ ApplyPalette_BackgroundLoop:
 	LDY #$00
 ApplyPalette_SpriteLoop:
 	JSR ReadWorldSpriteColor
-	STA unk_RAM_318, Y
+	STA PPUBuffer_301 + $17, Y
 	INX
 	INY
 	CPY #$0C
 	BCC ApplyPalette_SpriteLoop
 
 	LDA #$00
-	STA unk_RAM_318, Y
+	STA PPUBuffer_301 + $17, Y
 	LDY #$03
 
 ApplyPalette_PlayerLoop:
 	LDA RestorePlayerPalette0, Y
-	STA unk_RAM_314, Y
+	STA PPUBuffer_301 + $13, Y
 	DEY
 	BPL ApplyPalette_PlayerLoop
 
@@ -4016,7 +4016,7 @@ LoadCurrentArea_ForegroundData:
 	; Bootstrap the pseudo-random number generator.
 	LDA #$22
 	ORA byte_RAM_10
-	STA PseudoRNGValues
+	STA PseudoRNGSeed
 	RTS
 
 
@@ -5111,15 +5111,15 @@ CreateSubspaceMushroomObject:
 
 	; Reset various object timers and attributes
 	LDA #$00
-	STA EnemyTimer, X
+	STA ObjectTimer1, X
 	STA EnemyArray_B1, X
 	STA ObjectBeingCarriedTimer, X
 	STA ObjectAnimationTimer, X
 	STA ObjectShakeTimer, X
 	STA EnemyCollision, X
-	STA EnemyArray_438, X
-	STA EnemyArray_453, X
-	STA EnemyArray_45C, X
+	STA ObjectStunTimer, X
+	STA ObjectTimer2, X
+	STA ObjectFlashTimer, X
 	STA ObjectYVelocity, X
 	STA ObjectXVelocity, X
 
@@ -5130,8 +5130,8 @@ CreateSubspaceMushroomObject:
 	STA ObjectAttributes, X
 	LDA EnemyArray_46E_Data, Y
 	STA EnemyArray_46E, X
-	LDA EnemyArray_489_Data, Y
-	STA EnemyArray_489, X
+	LDA ObjectHitbox_Data, Y
+	STA ObjectHitbox, X
 	LDA EnemyArray_492_Data, Y
 	STA EnemyArray_492, X
 	LDA #$FF

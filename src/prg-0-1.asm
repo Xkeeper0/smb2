@@ -1753,13 +1753,13 @@ loc_BANK0_88A0:
 	STA ScrollingPPUTileUpdateBuffer, X
 	INY
 	LDA (byte_RAM_0), Y
-	STA unk_RAM_39E, X
+	STA ScrollingPPUTileUpdateBuffer + $1E, X
 	INY
 	LDA (byte_RAM_0), Y
-	STA unk_RAM_381, X
+	STA ScrollingPPUTileUpdateBuffer + $01, X
 	INY
 	LDA (byte_RAM_0), Y
-	STA unk_RAM_39F, X
+	STA ScrollingPPUTileUpdateBuffer + $1F, X
 	INC CopyBackgroundCounter
 	INX
 	INX
@@ -2073,6 +2073,10 @@ loc_BANK0_8ABB:
 
 loc_BANK0_8ABF:
 	INC PlayerDucking
+IFDEF PLAYER_HITBOX
+	LDA PlayerDucking
+	STA PlayerHitbox
+ENDIF
 
 locret_BANK0_8AC1:
 	RTS
@@ -2431,6 +2435,10 @@ sub_BANK0_8C1A:
 	BNE loc_BANK0_8C92
 
 	DEC PlayerDucking
+IFDEF PLAYER_HITBOX
+	LDA PlayerDucking
+	STA PlayerHitbox
+ENDIF
 
 loc_BANK0_8C2B:
 	LDA Player1JoypadPress
@@ -2456,6 +2464,10 @@ loc_BANK0_8C3D:
 	BEQ ResetPartialCrouchJumpTimer
 
 	INC PlayerDucking ; set ducking state?
+IFDEF PLAYER_HITBOX
+	LDA PlayerDucking
+	STA PlayerHitbox
+ENDIF
 	LDA #SpriteAnimation_Ducking ; set ducking animation
 	STA PlayerAnimationFrame
 	LDA PlayerInAir ; skip ahead if player is in air
@@ -2964,7 +2976,7 @@ loc_BANK0_8E89:
 	LDA ThrowXVelocity, Y
 	STA ObjectXVelocity, X
 	LDA #$01
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 	LSR A
 	STA ObjectBeingCarriedTimer, X
 	RTS
@@ -3538,7 +3550,7 @@ loc_BANK0_9080:
 	LDA byte_RAM_6
 	STA ObjectYLo, X
 	LDA #$00
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 	STA ObjectAnimationTimer, X
 	STA EnemyArray_B1, X
 	JSR UnlinkEnemyFromRawData_Bank1
@@ -3549,7 +3561,7 @@ loc_BANK0_9080:
 	BNE loc_BANK0_90AE
 
 	LDA #$20
-	STA EnemyTimer, X
+	STA ObjectTimer1, X
 	LDA #EnemyState_Sand
 
 loc_BANK0_90AE:
@@ -3567,7 +3579,7 @@ loc_BANK0_90AE:
 	LDY #$50 ; BobOmb fuse
 
 loc_BANK0_90C1:
-	STY EnemyTimer, X
+	STY ObjectTimer1, X
 	BNE loc_BANK0_90EA
 
 loc_BANK0_90C5:
@@ -5761,7 +5773,7 @@ FreeSubconsScene_SpriteLoop:
 	LDA CorkRoomSpriteTargetY, X
 	STA ObjectYVelocity - 1, X
 	LDA CorkRoomSpriteDelay, X
-	STA EnemyTimer - 1, X
+	STA ObjectTimer1 - 1, X
 	LDA CorkRoomSpriteAttributes, X
 	STA ObjectAttributes - 1, X
 	DEX
@@ -6015,7 +6027,7 @@ FreeSubconsScene_Subcons:
 
 FreeSubconsScene_Subcons_Loop:
 	STX byte_RAM_12
-	LDA EnemyTimer, X
+	LDA ObjectTimer1, X
 	BEQ FreeSubconsScene_Subcons_Movement
 
 	CMP #$01
@@ -6047,10 +6059,10 @@ FreeSubconsScene_Subcons_Render:
 	STA byte_RAM_F
 	JSR FreeSubconsScene_Render
 
-	INC EnemyTimer, X
+	INC ObjectTimer1, X
 
 FreeSubconsScene_Subcons_Next:
-	DEC EnemyTimer, X
+	DEC ObjectTimer1, X
 	DEX
 	BPL FreeSubconsScene_Subcons_Loop
 
@@ -7247,7 +7259,7 @@ DoorAnimation_Loop:
 	LDA #EnemyState_PuffOfSmoke
 	STA EnemyState, Y
 	LDA #$20
-	STA EnemyTimer, Y
+	STA ObjectTimer1, Y
 
 DoorAnimation_LoopNext:
 	DEY
@@ -7318,23 +7330,23 @@ CreateStarman_Exit:
 
 EnemyInit_Basic_Bank1:
 	LDA #$00
-	STA EnemyTimer, X
+	STA ObjectTimer1, X
 	LDA #$00
 	STA EnemyVariable, X
 
 loc_BANK1_B9EB:
 	LDA #$00
 	STA EnemyArray_B1, X
-	STA EnemyArray_42F, X
+	STA ObjectProjectileTimer, X
 	STA ObjectBeingCarriedTimer, X
 	STA ObjectAnimationTimer, X
 	STA ObjectShakeTimer, X
 	STA EnemyCollision, X
-	STA EnemyArray_438, X
-	STA EnemyArray_453, X
+	STA ObjectStunTimer, X
+	STA ObjectTimer2, X
 	STA ObjectXAcceleration, X
 	STA ObjectYAcceleration, X
-	STA EnemyArray_45C, X
+	STA ObjectFlashTimer, X
 	STA EnemyArray_477, X
 	STA EnemyArray_480, X
 	STA EnemyHP, X
@@ -7349,8 +7361,8 @@ loc_BANK1_BA17:
 	STA ObjectAttributes, X
 	LDA EnemyArray_46E_Data, Y
 	STA EnemyArray_46E, X
-	LDA EnemyArray_489_Data, Y
-	STA EnemyArray_489, X
+	LDA ObjectHitbox_Data, Y
+	STA ObjectHitbox, X
 	LDA EnemyArray_492_Data, Y
 	STA EnemyArray_492, X
 	RTS
@@ -7375,7 +7387,7 @@ TurnKeyIntoPuffOfSmoke:
 	STA EnemyState, X
 	STA ObjectAnimationTimer, X
 	LDA #$1F
-	STA EnemyTimer, X
+	STA ObjectTimer1, X
 	LDX byte_RAM_12
 	RTS
 
@@ -7594,7 +7606,7 @@ loc_BANK1_BAED:
 	BMI loc_BANK1_BAFD
 
 	LSR A
-	STA EnemyArray_438, Y
+	STA ObjectStunTimer, Y
 
 loc_BANK1_BAFD:
 	JMP KillPlayer

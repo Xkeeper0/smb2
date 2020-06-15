@@ -16,6 +16,11 @@ ENDIF
 IFDEF MMC5
 	INES_MAPPER = MAPPER_MMC5
 ENDIF
+IFDEF FOURSCREEN
+	MIRROR_4SCREEN = %1000
+ELSE
+	MIRROR_4SCREEN = %0000
+ENDIF
 .endinl
 
 ; -----------------------------------------
@@ -34,19 +39,17 @@ ELSE
 	.db 16 ; number of 8KB CHR-ROM pages
 ENDIF
 
+.db ((INES_MAPPER & %00001111) << 4) | MIRROR_4SCREEN ; mapper (lower nybble) and mirroring
 IF INES_MAPPER == MAPPER_FME7
-	.db (INES_MAPPER & %00001111) << 4 ; mapper (lower nybble) and mirroring
 	.db (INES_MAPPER & %11110000) | %1000 ; mapper (upper nybble) and iNES 2.0
 	.dsb 2, $00
 	.db $77 ; flags 10
 	.dsb 5, $00 ; clear the remaining bytes
 ELSEIF INES_MAPPER == MAPPER_MMC5
-	.db (INES_MAPPER & %00001111) << 4 | %10 ; mapper (lower nybble) and mirroring
 	.dsb 3, $00
 	.db $70 ; flags 10
 	.dsb 5, $00 ; clear the remaining bytes
 ELSE ; INES_MAPPER == MAPPER_MMC3
-	.db (INES_MAPPER & %00001111) << 4 ; mapper (lower nybble) and mirroring
 	.db INES_MAPPER & %11110000 ; mapper (upper nybble)
 	.dsb 8, $00 ; clear the remaining bytes
 ENDIF

@@ -131,7 +131,7 @@ CopyBonusChanceLayoutToRAM:
 	LDY #$00
 CopyBonusChanceLayoutToRAM_Loop1:
 	LDA BonusChanceLayout, Y ; Blindly copy $100 bytes from $8140 to $7400
-	STA BonusChanceLayoutRAM, Y
+	STA PPUBuffer_BonusChanceLayout, Y
 	DEY
 	BNE CopyBonusChanceLayoutToRAM_Loop1
 
@@ -140,7 +140,7 @@ CopyBonusChanceLayoutToRAM_Loop2:
 	; Blindly copy $100 more bytes from $8240 to $7500
 	; That range includes this code! clap. clap.
 	LDA BonusChanceLayout + $100, Y
-	STA BonusChanceLayoutRAM2, Y
+	STA PPUBuffer_BonusChanceLayout + $100, Y
 	DEY
 	BNE CopyBonusChanceLayoutToRAM_Loop2
 
@@ -157,10 +157,10 @@ DrawTitleCardWorldImage:
 	STA byte_RAM_0
 	LDA #$C8
 	STA byte_RAM_1
-	LDY #0
+	LDY #$00
 
 loc_BANKA_8338:
-	LDX #$F
+	LDX #$0F
 	LDA PPUSTATUS
 	LDA byte_RAM_0
 	STA PPUADDR
@@ -370,35 +370,46 @@ PrincessStats:
 
 CharacterPalette:
 MarioPalette:
-	.db $0F,$01,$16,$27
+	.db $0F, $01, $16, $27
 PrincessPalette:
-	.db $0F,$06,$25,$36
+	.db $0F, $06, $25, $36
 ToadPalette:
-	.db $0F,$01,$30,$27
+	.db $0F, $01, $30, $27
 LuigiPalette:
-	.db $0F,$01,$2A,$36
+	.db $0F, $01, $2A, $36
 
+;
+; What is this for? It gets copied to RAM and then...that's all.
+;
+; In Doki Doki Panic, this data loads on the level/character select screen, but doesn't seem to be
+; used for anything there either. Will we ever unravel this mystery?
+;
 MysteryData14439:
 	.db $DF
 	.db $EF
 	.db $F7
 	.db $FB
+
 	.db $00
 	.db $FF
 	.db $FF
 	.db $FF
+
 	.db $AF
 	.db $D7
 	.db $EB
 	.db $F5
+
 	.db $FB
 	.db $F7
 	.db $EF
 	.db $DF
+
 	.db $00
 	.db $FF
 	.db $FF
 	.db $FF
+
 	.db $F5
 	.db $EB
 	.db $D7
@@ -444,7 +455,7 @@ loc_BANKA_846B:
 	LDY #$4C
 loc_BANKA_8479:
 	LDA PlayerSelectPalettes, Y
-	STA PPUBuffer_55F, Y
+	STA PPUBuffer_TitleCardPalette, Y
 	DEY
 	CPY #$FF
 	BNE loc_BANKA_8479
@@ -459,8 +470,8 @@ loc_BANKA_8486:
 
 	LDY #$63
 loc_BANKA_8493:
-	LDA Text_Unknown5, Y
-	STA PPUBuffer_7168, Y
+	LDA TitleCardText, Y
+	STA PPUBuffer_TitleCardText, Y
 	DEY
 	CPY #$FF
 	BNE loc_BANKA_8493
@@ -469,7 +480,7 @@ loc_BANKA_8493:
 	LDY #$17
 loc_BANKA_84A0:
 	LDA MysteryData14439, Y
-	STA unk_RAM_7150, Y
+	STA MysteryData14439_RAM, Y
 	DEY
 	BPL loc_BANKA_84A0
 
@@ -484,16 +495,16 @@ loc_BANKA_84AB:
 	; Copy flying carpet acceleration table
 	LDY #$03
 loc_BANKA_84B6:
-	LDA byte_BANKA_84E1, Y
-	STA byte_RAM_71CC, Y
+	LDA FlyingCarpetAcceleration, Y
+	STA FlyingCarpetAcceleration_RAM, Y
 	DEY
 	BPL loc_BANKA_84B6
 
 	; Copy object collision type table
 	LDY #$49
 loc_BANKA_84C1:
-	LDA byte_BANKF_F607, Y
-	STA unk_RAM_71D1, Y
+	LDA EnemyPlayerCollisionTable, Y
+	STA EnemyPlayerCollisionTable_RAM, Y
 	DEY
 	BPL loc_BANKA_84C1
 
@@ -504,30 +515,28 @@ loc_BANKA_84C1:
 	LDY #$20
 loc_BANKA_84CC:
 	LDA EndOfLevelDoor, Y
-	STA PPUBuffer_721B, Y
+	STA PPUBuffer_EndOfLevelDoor, Y
 	DEY
 	BPL loc_BANKA_84CC
 
 	; Copy Wart's OAM address table
 	LDY #$06
 loc_BANKA_84D7:
-	LDA byte_BANKA_84E5, Y
-	STA unk_RAM_7265, Y
+	LDA WartOAMOffsets, Y
+	STA WartOAMOffsets_RAM, Y
 	DEY
 	BPL loc_BANKA_84D7
 
 	RTS
 
 
-; Flying carpet acceleration
-byte_BANKA_84E1:
+FlyingCarpetAcceleration:
 	.db $00
 	.db $01
 	.db $FF
 	.db $00
 
-; Wart OAM address offsets
-byte_BANKA_84E5:
+WartOAMOffsets:
 	.db $00
 	.db $E0
 	.db $FF ; Cycled in code ($7267)
@@ -547,16 +556,22 @@ PlayerSelectPalettes:
 	.db $0F, $22, $12, $01
 	.db $0F, $22, $12, $01
 	.db $00
+
 BonusChanceText_X_1:
-	.db $22,$30,$03,$EA,$FB,$D1
+	.db $22, $30, $03
+	.db $EA, $FB, $D1
 BonusChanceText_EXTRA_LIFE_1:
-	.db $22,$C9,$0F,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
-	.db $F9,$FB,$D1,$00 ; $0F
+	.db $22, $C9, $0F
+	.db $DE, $F1, $ED, $EB, $DA, $FB, $E5, $E2, $DF, $DE ; EXTRA LIFE
+	.db $F9, $F9, $F9, $FB, $D1 ; ... 1
+	.db $00
+
 BonusChanceBackgroundPalettes:
-	.db $0F,$27,$17,$07 ; $00
-	.db $0F,$37,$16,$12 ; $04
-	.db $0F,$30,$10,$00 ; $08
-	.db $0F,$21,$12,$01 ; $0C
+	.db $0F, $27, $17, $07 ; $00
+	.db $0F, $37, $16, $12 ; $04
+	.db $0F, $30, $10, $00 ; $08
+	.db $0F, $21, $12, $01 ; $0C
+
 BonusChanceReel1Order:
 	.db Slot_Snifit ; $00
 	.db Slot_Turnip ; $01 ; Graphics exist for a mushroom (not used)
@@ -584,64 +599,112 @@ BonusChanceReel3Order:
 	.db Slot_Cherry ; $05
 	.db Slot_Turnip ; $06
 	.db Slot_Snifit ; $07
+
 BonusChanceUnusedCoinSprite:
-	.db $F8,$19,$01,$60,$F8,$1B,$01,$68
+	.db $F8, $19, $01, $60, $F8, $1B, $01, $68
 BonusChanceUnusedImajinHead:
-	.db $CB,$B0,$00,$A0,$CB,$B0,$40,$A8
+	.db $CB, $B0, $00, $A0, $CB, $B0, $40, $A8
 BonusChanceUnusedLinaHead:
-	.db $CB,$B2,$00,$A0,$CB,$B2,$40,$A8
+	.db $CB, $B2, $00, $A0, $CB, $B2, $40, $A8
 BonusChanceUnusedMamaHead:
-	.db $CB,$B6,$00,$A0,$CB,$B6,$40,$A8
+	.db $CB, $B6, $00, $A0, $CB, $B6, $40, $A8
 BonusChanceUnusedPapaHead:
-	.db $CB,$B4,$00,$A0,$CB,$B4,$40,$A8
-BonusChanceUnused_Blank20C6:
-	.db $20,$C6,$14,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB
-	.db $FB,$FB,$FB,$FB,$FB,$FB,$FB,$FB,$00 ; $0F
+	.db $CB, $B4, $00, $A0, $CB, $B4, $40, $A8
+
+;
+; Based on the position and the number of tiles, this probably used to say...
+;
+; --- BONUS CHANCE ---
+;
+BonusChanceUnused_BONUS_CHANCE:
+	.db $20, $C6, $14
+	.db $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
+	.db $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
+	.db $00
+
 BonusChanceText_NO_BONUS:
-	.db $22,$86,$14,$FB,$FB,$FB,$FB,$FB,$FB,$E7,$E8,$FB,$DB,$E8,$E7
-	.db $EE,$EC,$FB,$FB,$FB,$FB,$FB,$FB,$00 ; $0F
+	.db $22, $86, $14
+	.db $FB, $FB, $FB, $FB, $FB, $FB
+	.db $E7, $E8, $FB, $DB, $E8, $E7, $EE, $EC ; NO BONUS
+	.db $FB, $FB, $FB, $FB, $FB, $FB
+	.db $00
+
 BonusChanceText_PUSH_A_BUTTON:
-	.db $22,$89,$0E,$E9,$EE,$EC,$E1,$FB,$0E,$F,$FB,$DB,$EE,$ED,$ED,$E8
-	.db $E7,$00 ; $10
+	.db $22, $89, $0E
+	.db $E9, $EE, $EC, $E1, $FB, $0E, $F,$FB, $DB, $EE, $ED, $ED, $E8, $E7 ; PUSH (A) BUTTON
+	.db $00
+
 BonusChanceText_PLAYER_1UP:
-	.db $22,$8B,$0B,$E9,$E5,$DA,$F2,$DE,$EB,$FB,$FB,$D1,$EE,$E9,$00
+	.db $22, $8B, $0B
+	.db $E9, $E5, $DA, $F2, $DE, $EB, $FB, $FB, $D1, $EE, $E9 ; PLAYER  1UP
+	.db $00
+
 Text_PAUSE:
-	.db $25,$ED,$05,$E9,$DA,$EE,$EC,$DE
-Text_Unknown:
-	.db $27,$DB,$02,$AA,$AA,$00
-Text_Unknown2:
-	.db $22,$86,$54,$FB,$00
-Text_Unknown3:
-	.db $22,$AA,$4D,$FB,$00
-Text_Unknown4:
-	.db $22,$EB,$4B,$FB,$00
+	.db $25, $ED, $05
+	.db $E9, $DA, $EE, $EC, $DE ; PAUSE
+	.db $27, $DB, $02, $AA, $AA ; attribute data
+	.db $00
+
+; Erases NO BONUS / PUSH (A) BUTTON / PLAYER 1UP
+BonusChanceText_Message_Erase:
+	.db $22, $86, $54, $FB
+	.db $00
+
+; This would erase the "PUSH (A) BUTTON" text, but the placement is wrong.
+; The placement matches the original Doki Doki Panic Bonus Chance screen.
+BonusChanceText_PUSH_A_BUTTON_Erase:
+	.db $22, $AA, $4D, $FB
+	.db $00
+
+; More leftovers. The placement matches the original Doki Doki Panic Bonus Chance screen's placement
+; of the "PLAYER  1UP" message.
+BonusChanceText_Message_Erase_Unused:
+	.db $22, $EB, $4B, $FB
+	.db $00
+
 Text_PAUSE_Erase:
-	.db $25,$ED,$05,$FB,$FB,$FB,$FB,$FB,$00
-Text_Unknown5:
-	.db $25,$0E,$07,$FB,$FB,$FB,$FB,$FB,$FB,$FB ; This one is actually used, just not sure what for
-Text_WORLD_1_1:
-	.db $24,$CA,$0B,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$F3,$D1
-Text_EXTRA_LIFE_0:
-	.db $23,$48,$10,$DE,$F1,$ED,$EB,$DA,$FB,$E5,$E2,$DF,$DE,$F9,$F9
-	.db $F9,$FB,$FB,$D0,$00 ; $0F
+	.db $25, $ED, $05
+	.db $FB, $FB, $FB, $FB, $FB
+	.db $00
+
+TitleCardText:
+	; Level indicator dots
+	.db $25, $0E, $07
+	.db $FB, $FB, $FB, $FB, $FB, $FB, $FB
+	; WORLD  1-1
+	.db $24, $CA, $0B
+	.db $FB, $F0, $E8, $EB, $E5, $DD, $FB, $FB, $D1, $F3, $D1
+	; EXTRA LIFE...  0
+	.db $23, $48, $10
+	.db $DE, $F1, $ED, $EB, $DA, $FB, $E5, $E2, $DF, $DE
+	.db $F9, $F9, $F9, $FB, $FB, $D0
+	.db $00
+
 Text_WARP:
-	.db $21,$8E,$04,$F0,$DA,$EB,$E9
+	.db $21, $8E, $04, $F0, $DA, $EB, $E9
 
 ; Doki Doki Panic pseudo-leftover
 ; This actually has extra spaces on either end:
 ; "-WORLD-" ... It originally said "CHAPTER"
 Text_WORLD_1:
-	.db $22,$0C,$09,$FB,$F0,$E8,$EB,$E5,$DD,$FB,$FB,$D1,$00
+	.db $22, $0C, $09
+	.db $FB, $F0, $E8, $EB, $E5, $DD, $FB, $FB, $D1
+	.db $00
 Text_Unknown6:
-	.db $21,$6A,$01,$FB
+	.db $21, $6A, $01, $FB
 Text_Unknown7:
-	.db $21,$AA,$01,$FB,$00
+	.db $21, $AA, $01, $FB
+	.db $00
 Text_Unknown8:
-	.db $21,$97,$C6,$FB,$00
+	.db $21, $97, $C6, $FB
+	.db $00
 UnusedText_THANK_YOU:
-	.db $21,$0C,$09,$ED,$E1,$3A,$E7,$E4,$FB,$F2,$E8,$EE
+	.db $21, $0C, $09
+	.db $ED, $E1, $3A, $E7, $E4, $FB, $F2, $E8, $EE
 UnusedText_Blank214D:
-	.db $21,$4D,$06,$FB,$FB,$FB,$FB,$FB,$FB,$00
+	.db $21, $4D, $06
+	.db $FB, $FB, $FB, $FB, $FB, $FB
+	.db $00
 
 IFDEF CONTROLLER_2_DEBUG
 ;

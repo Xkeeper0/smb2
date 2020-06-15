@@ -1,17 +1,17 @@
 .ignorenl
 
-IF INES_MAPPER == MAPPER_FME7
-  VMirror = $00
-  HMirror = $01
-ELSEIF INES_MAPPER == MAPPER_MMC5
-  VMirror = $44
-  HMirror = $50
-  NametableMapping = $5105
-ELSE ; INES_MAPPER == MAPPER_MMC3
-  VMirror = $00
-  HMirror = $01
-  NametableMapping = $A000
+VMirror = %00000000
+HMirror = %00000001
+
+MMC5_VMirror = %01000100
+MMC5_HMirror = %01010000
+
+IF INES_MAPPER == MAPPER_MMC5
+  VMirror = MMC5_VMirror
+  HMirror = MMC5_HMirror
 ENDIF
+
+CHR_A12_INVERSION = $80
 
 ; ---------------------------------------------------------------------------
 
@@ -163,27 +163,27 @@ PRGBank_E_F = $07
 
 ; enum ScreenUpdateBuffer
 ScreenUpdateBuffer_RAM_301 = $00
-ScreenUpdateBuffer_RAM_583 = $01
-ScreenUpdateBuffer_RAM_55F = $02
+ScreenUpdateBuffer_RAM_BonusChanceCoinsExtraLife = $01
+ScreenUpdateBuffer_RAM_TitleCardPalette = $02
 ScreenUpdateBuffer_CharacterSelect = $03
-ScreenUpdateBuffer_BANKE_DE7A = $04
+ScreenUpdateBuffer_TitleCard = $04
 ScreenUpdateBuffer_Text_Game_Over = $05
-ScreenUpdateBuffer_RAM_67B = $06
+ScreenUpdateBuffer_RAM_ContinueRetryText = $06
 ScreenUpdateBuffer_Text_Retry = $07
-ScreenUpdateBuffer_RAM_7168 = $08 ; pause / title card?
-ScreenUpdateBuffer_RAM_67B_again = $09
-ScreenUpdateBuffer_RAM_693 = $0A
-ScreenUpdateBuffer_RAM_6ab = $0B
-ScreenUpdateBuffer_RAM_6bd = $0C
-ScreenUpdateBuffer_RAM_6cc = $0D
-ScreenUpdateBuffer_RAM_6e9 = $0E
-ScreenUpdateBuffer_RAM_6da = $0F
-ScreenUpdateBuffer_RAM_6df = $10
-ScreenUpdateBuffer_RAM_6e4 = $11
-ScreenUpdateBuffer_RAM_7194 = $12
-ScreenUpdateBuffer_RAM_71a8 = $13
-ScreenUpdateBuffer_RAM_721b = $14
-ScreenUpdateBuffer_TitleCard = $15
+ScreenUpdateBuffer_RAM_TitleCardText = $08
+ScreenUpdateBuffer_RAM_BonusChanceUnused = $09
+ScreenUpdateBuffer_RAM_NoBonusText = $0A
+ScreenUpdateBuffer_RAM_PushAButtonText = $0B
+ScreenUpdateBuffer_RAM_Player1UpText = $0C
+ScreenUpdateBuffer_RAM_PauseText = $0D
+ScreenUpdateBuffer_RAM_ErasePauseText = $0E
+ScreenUpdateBuffer_RAM_EraseBonusMessageText = $0F
+ScreenUpdateBuffer_RAM_ErasePushAButtonText = $10
+ScreenUpdateBuffer_RAM_EraseBonusMessageTextUnused = $11
+ScreenUpdateBuffer_WarpToWorld = $12
+ScreenUpdateBuffer_RAM_ContinueRetryBullets = $13
+ScreenUpdateBuffer_RAM_EndOfLevelDoor = $14
+ScreenUpdateBuffer_TitleCardLeftover = $15
 ScreenUpdateBuffer_PauseExtraLife = $16
 ScreenUpdateBuffer_RAM_BonusChanceLayout = $17
 
@@ -824,6 +824,5 @@ CHRBank_EndingBackground9 = $70
 CHRBank_EndingBackground10 = $74
 CHRBank_EndingBackground11 = $78
 CHRBank_EndingBackground12 = $7C
-
 
 .endinl

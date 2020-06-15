@@ -217,6 +217,9 @@ EnemyMovementDirection:
 	.dsb 1 ; 8                ; $0077
 
 ; FOR RENT
+IFDEF PLAYER_HITBOX
+PlayerHitbox:
+ENDIF
 	.dsb 1 ; $0078
 ; This is set on entering subspace, depending
 ; on which particular mushroom is on the screen
@@ -230,7 +233,7 @@ EnemyMovementDirection:
 ; etc.
 ;
 EnemyVariable:
-	.dsb 1 ; DATA XREF: BANK0:9082w ; $0079
+	.dsb 1 ; $0079
 	.dsb 1 ; 1 ; $007a
 	.dsb 1 ; 2 ; $007b
 	.dsb 1 ; 3 ; $007c
@@ -248,7 +251,7 @@ PlayerWalkFrameCounter: ; used for controlling speed of walk animation
 	.dsb 1 ; $0084
 DamageInvulnTime:
 	.dsb 1 ; $0085
-EnemyTimer:
+ObjectTimer1:
 	.dsb 1 ; $0086
 	.dsb 1 ; 1                ; $0087
 	.dsb 1 ; 2                ; $0088
@@ -278,6 +281,9 @@ ObjectType:
 ; $00 = on ground or enemy, $01 = in air
 PlayerInAir:
 	.dsb 1 ; $0099
+IFNDEF PLAYER_HITBOX
+PlayerHitbox:
+ENDIF
 PlayerDucking:
 	.dsb 1 ; $009a
 PlayerWalkFrame:
@@ -287,19 +293,20 @@ HoldingItem:
 ; $00 = left, $01 = right
 PlayerDirection:
 	.dsb 1 ; $009d
-; FOR RENT
-byte_RAM_9E:
+; This (unused?) counter increments as long as the player is standing on an
+; object, including a couple frames while lifting an object.
+PlayerRidingTimer:
 	.dsb 1 ; $009e
 ObjectAnimationTimer:
-	.dsb 1 ; DATA XREF: BANK0:9099w ; $009f
-	.dsb 1 ; 1                ; $00a0
-	.dsb 1 ; 2                ; $00a1
-	.dsb 1 ; 3                ; $00a2
-	.dsb 1 ; 4                ; $00a3
-	.dsb 1 ; 5                ; $00a4
-	.dsb 1 ; 6                ; $00a5
-	.dsb 1 ; 7                ; $00a6
-	.dsb 1 ; 8                ; $00a7
+	.dsb 1 ; $009f
+	.dsb 1 ; $00a0
+	.dsb 1 ; $00a1
+	.dsb 1 ; $00a2
+	.dsb 1 ; $00a3
+	.dsb 1 ; $00a4
+	.dsb 1 ; $00a5
+	.dsb 1 ; $00a6
+	.dsb 1 ; $00a7
 
 ; Set to 7 when lifting, then stays at 1
 ; Note that this doesn't seem to actually
@@ -520,12 +527,10 @@ PPUBuffer_301:
 	.dsb 1 ; $0311
 	.dsb 1 ; $0312
 	.dsb 1 ; $0313
-unk_RAM_314: ; related to color swapping
 	.dsb 1 ; $0314
 	.dsb 1 ; $0315
 	.dsb 1 ; $0316
 	.dsb 1 ; $0317
-unk_RAM_318:
 	.dsb 1 ; $0318
 	.dsb 1 ; $0319
 	.dsb 1 ; $031a
@@ -632,7 +637,6 @@ unk_RAM_318:
 	.dsb 1 ; $037f
 ScrollingPPUTileUpdateBuffer:
 	.dsb 1 ; $0380
-unk_RAM_381:
 	.dsb 1 ; $0381
 	.dsb 1 ; $0382
 	.dsb 1 ; $0383
@@ -662,9 +666,7 @@ unk_RAM_381:
 	.dsb 1 ; $039b
 	.dsb 1 ; $039c
 	.dsb 1 ; $039d
-unk_RAM_39E:
 	.dsb 1 ; $039e
-unk_RAM_39F:
 	.dsb 1 ; $039f
 	.dsb 1 ; $03a0
 	.dsb 1 ; $03a1
@@ -831,9 +833,10 @@ ObjectLock:
 ; $00 = none, $01 = up, $02 = down
 VerticalScrollDirection:
 	.dsb 1 ; $0425
-byte_RAM_426:
+; Distance between bounding boxes during the last check
+CollisionResultX:
 	.dsb 1 ; $0426
-byte_RAM_427:
+CollisionResultY:
 	.dsb 1 ; $0427
 PlayerScreenX:
 	.dsb 1 ; $0428
@@ -850,8 +853,7 @@ ObjectBeingCarriedIndex:
 
 ; FOR RENT
 	.dsb 1 ; $042e
-; stun timer?
-EnemyArray_42F:
+ObjectProjectileTimer:
 	.dsb 1 ; $042f
 	.dsb 1 ; $0430
 	.dsb 1 ; $0431
@@ -863,7 +865,7 @@ EnemyArray_42F:
 
 ; FOR RENT
 	.dsb 1 ; $0437
-EnemyArray_438:
+ObjectStunTimer:
 	.dsb 1 ; $0438
 	.dsb 1 ; $0439
 	.dsb 1 ; $043a
@@ -901,7 +903,7 @@ ObjectShakeTimer:
 
 ; FOR RENT
 	.dsb 1 ; $0452
-EnemyArray_453:
+ObjectTimer2:
 	.dsb 1 ; $0453
 	.dsb 1 ; $0454
 	.dsb 1 ; $0455
@@ -914,7 +916,7 @@ EnemyArray_453:
 ; FOR RENT
 	.dsb 1 ; $045b
 ; Flashing timer
-EnemyArray_45C:
+ObjectFlashTimer:
 	.dsb 1 ; $045c
 	.dsb 1 ; $045d
 	.dsb 1 ; $045e
@@ -927,16 +929,15 @@ EnemyArray_45C:
 ; FOR RENT
 	.dsb 1 ; $0464
 EnemyHP:
-	.dsb 1 ; $00 ; $0465
-	.dsb 1 ; $01 ; $0466
-	.dsb 1 ; $02 ; $0467
-	.dsb 1 ; $03 ; $0468
-	.dsb 1 ; $04 ; $0469
+	.dsb 1 ; $0465
+	.dsb 1 ; $0466
+	.dsb 1 ; $0467
+	.dsb 1 ; $0468
+	.dsb 1 ; $0469
 	.dsb 1 ; $046a
 	.dsb 1 ; $046b
 	.dsb 1 ; $046c
 
-unk_RAM_46D:
 	.dsb 1 ; $046d
 EnemyArray_46E:
 	.dsb 1 ; $046e
@@ -971,10 +972,9 @@ EnemyArray_480:
 	.dsb 1 ; $0485
 	.dsb 1 ; $0486
 	.dsb 1 ; $0487
-
-; FOR RENT
 	.dsb 1 ; $0488
-EnemyArray_489:
+
+ObjectHitbox:
 	.dsb 1 ; $0489
 	.dsb 1 ; $048a
 	.dsb 1 ; $048b
@@ -984,7 +984,6 @@ EnemyArray_489:
 	.dsb 1 ; $048f
 	.dsb 1 ; $0490
 
-unk_RAM_491:
 	.dsb 1 ; $0491
 EnemyArray_492:
 	.dsb 1 ; $0492
@@ -1010,7 +1009,8 @@ EnemyArray_SpawnsDoor:
 
 ; FOR RENT
 	.dsb 1 ; $04a3
-unk_RAM_4A4:
+; When set, the player will not move with the object while standing on it
+ObjectNonSticky:
 	.dsb 1 ; $04a4
 	.dsb 1 ; $04a5
 	.dsb 1 ; $04a6
@@ -1158,8 +1158,7 @@ ExtraLives:
 ; $02: Pointer jar
 InJarType:
 	.dsb 1 ; $04ee
-EndOfLevelDoorPage: ;;;
-unk_RAM_4EF:
+EndOfLevelDoorPage:
 	.dsb 1 ; $04ef
 	.dsb 1 ; $04f0
 	.dsb 1 ; $04f1
@@ -1362,7 +1361,7 @@ RunSpeedLeftQuicksand:
 	.dsb 1 ; $055d
 GroundType:
 	.dsb 1 ; $055e
-PPUBuffer_55F:
+PPUBuffer_TitleCardPalette:
 	.dsb 1 ; $055f
 	.dsb 1 ; $0560
 	.dsb 1 ; $0561
@@ -1399,7 +1398,7 @@ PPUBuffer_55F:
 	.dsb 1 ; $0580
 	.dsb 1 ; $0581
 	.dsb 1 ; $0582
-PPUBuffer_583:
+PPUBuffer_BonusChanceCoinsExtraLife:
 	.dsb 1 ; $0583
 	.dsb 1 ; $0584
 	.dsb 1 ; $0585
@@ -1445,11 +1444,14 @@ unk_RAM_59C:
 	.dsb 1 ; $05a9
 	.dsb 1 ; $05aa
 	.dsb 1 ; $05ab
-PseudoRNGValues:
+
+PseudoRNGSeed:
 	.dsb 1 ; $05ac
 	.dsb 1 ; $05ad
+PseudoRNGValue:
 	.dsb 1 ; $05ae
 	.dsb 1 ; $05af
+
 	.dsb 1 ; $05b0
 	.dsb 1 ; $05b1
 	.dsb 1 ; $05b2
@@ -1774,7 +1776,7 @@ SlotMachineReelOrder3RAM:
 	.dsb 1 ; $0650
 	.dsb 1 ; $0651
 	.dsb 1 ; $0652
-unk_RAM_653:
+BonusChanceUnusedCoinSprite_RAM:
 	.dsb 1 ; $0653
 	.dsb 1 ; $0654
 	.dsb 1 ; $0655
@@ -1815,15 +1817,17 @@ unk_RAM_653:
 	.dsb 1 ; $0678
 	.dsb 1 ; $0679
 	.dsb 1 ; $067a
-PPUBuffer_67B:
+PPUBuffer_BonusChanceUnusedText:
+PPUBuffer_ContinueRetryText:
 	.dsb 1 ; $067b
 	.dsb 1 ; $067c
 	.dsb 1 ; $067d
-byte_RAM_67E:
+; Number of continues
 	.dsb 1 ; $067e
 	.dsb 1 ; $067f
 	.dsb 1 ; $0680
 	.dsb 1 ; $0681
+; Bullet next to CONTINUE
 	.dsb 1 ; $0682
 	.dsb 1 ; $0683
 	.dsb 1 ; $0684
@@ -1837,12 +1841,12 @@ byte_RAM_67E:
 	.dsb 1 ; $068c
 	.dsb 1 ; $068d
 	.dsb 1 ; $068e
-byte_RAM_68F:
+; Bullet next to RETRY
 	.dsb 1 ; $068f
 	.dsb 1 ; $0690
 	.dsb 1 ; $0691
 	.dsb 1 ; $0692
-PPUBuffer_693:
+PPUBuffer_NoBonusText:
 	.dsb 1 ; $0693
 	.dsb 1 ; $0694
 	.dsb 1 ; $0695
@@ -1867,7 +1871,7 @@ PPUBuffer_693:
 	.dsb 1 ; $06a8
 	.dsb 1 ; $06a9
 	.dsb 1 ; $06aa
-PPUBuffer_6AB:
+PPUBuffer_PushAButtonText:
 	.dsb 1 ; $06ab
 	.dsb 1 ; $06ac
 	.dsb 1 ; $06ad
@@ -1886,7 +1890,7 @@ PPUBuffer_6AB:
 	.dsb 1 ; $06ba
 	.dsb 1 ; $06bb
 	.dsb 1 ; $06bc
-PPUBuffer_6BD:
+PPUBuffer_Player1UpText:
 	.dsb 1 ; $06bd
 	.dsb 1 ; $06be
 	.dsb 1 ; $06bf
@@ -1898,12 +1902,11 @@ PPUBuffer_6BD:
 	.dsb 1 ; $06c5
 	.dsb 1 ; $06c6
 	.dsb 1 ; $06c7
-byte_RAM_6C8:
 	.dsb 1 ; $06c8
 	.dsb 1 ; $06c9
 	.dsb 1 ; $06ca
 	.dsb 1 ; $06cb
-PPUBuffer_6CC:
+PPUBuffer_PauseText:
 	.dsb 1 ; $06cc
 	.dsb 1 ; $06cd
 	.dsb 1 ; $06ce
@@ -1918,25 +1921,25 @@ PPUBuffer_6CC:
 	.dsb 1 ; $06d7
 	.dsb 1 ; $06d8
 	.dsb 1 ; $06d9
-PPUBuffer_6DA:
+PPUBuffer_EraseBonusMessageText:
 	.dsb 1 ; $06da
 	.dsb 1 ; $06db
 	.dsb 1 ; $06dc
 	.dsb 1 ; $06dd
 	.dsb 1 ; $06de
-PPUBuffer_6DF:
+PPUBuffer_ErasePushAButton:
 	.dsb 1 ; $06df
 	.dsb 1 ; $06e0
 	.dsb 1 ; $06e1
 	.dsb 1 ; $06e2
 	.dsb 1 ; $06e3
-PPUBuffer_6E4:
+PPUBuffer_EraseBonusMessageTextUnused:
 	.dsb 1 ; $06e4
 	.dsb 1 ; $06e5
 	.dsb 1 ; $06e6
 	.dsb 1 ; $06e7
 	.dsb 1 ; $06e8
-PPUBuffer_6E9:
+PPUBuffer_ErasePauseText:
 	.dsb 1 ; $06e9
 	.dsb 1 ; $06ea
 	.dsb 1 ; $06eb
@@ -1957,9 +1960,9 @@ MMC3PRGBankTemp:
 GameMilestoneCounter:
 	.dsb 1 ; $06f3
 
-Player1JoypadUnk:
+Player1JoypadExpansionPress:
 	.dsb 1 ; $06f4
-Player2JoypadUnk:
+Player2JoypadExpansionPress:
 	.dsb 1 ; $06f5
 PlayerCurrentSize:
 	.dsb 1 ; $06f6
@@ -2066,6 +2069,37 @@ MMC5_RAW_PCM = $5011
 
 MMC5_SND_CHN = $5015
 
+;
+; MMC5 bank switching
+;
+MMC5_PRGMode = $5100
+MMC5_CHRMode = $5101
+MMC5_PRGRAMProtect1 = $5102
+MMC5_PRGRAMProtect2 = $5103
+MMC5_ExtendedRAMMode = $5104
+MMC5_NametableMapping = $5105
+MMC5_PRGBankSwitch1 = $5113
+MMC5_PRGBankSwitch2 = $5114
+MMC5_PRGBankSwitch3 = $5115
+MMC5_PRGBankSwitch4 = $5116
+MMC5_PRGBankSwitch5 = $5117
+MMC5_CHRBankSwitch1 = $5120
+MMC5_CHRBankSwitch2 = $5121
+MMC5_CHRBankSwitch3 = $5122
+MMC5_CHRBankSwitch4 = $5123
+MMC5_CHRBankSwitch5 = $5124
+MMC5_CHRBankSwitch6 = $5125
+MMC5_CHRBankSwitch7 = $5126
+MMC5_CHRBankSwitch8 = $5127
+MMC5_CHRBankSwitch9 = $5128
+MMC5_CHRBankSwitch10 = $5129
+MMC5_CHRBankSwitch11 = $512a
+MMC5_CHRBankSwitch12 = $512b
+MMC5_CHRBankSwitchUpper = $5130
+
+MMC5_IRQScanlineCompare = $5203
+MMC5_IRQStatus = $5204
+
 
 ;
 ; Cartridge on-board RAM
@@ -2078,58 +2112,36 @@ DecodedLevelData = $6000
 
 ObjectCollisionHitboxLeft_RAM = $7100
 ObjectCollisionHitboxTop_RAM = $7114
-ObjectCollisionHitboxRight_RAM = $7128
-ObjectCollisionHitboxBottom_RAM = $713c
+ObjectCollisionHitboxWidth_RAM = $7128
+ObjectCollisionHitboxHeight_RAM = $713c
 
-; MysteryData14439 copied to RAM
+; Copied from bank A
 ; Does anything read this???
-unk_RAM_7150 = $7150
+MysteryData14439_RAM = $7150
 
-PPUBuffer_7168 = $7168
-unk_RAM_716B = $716b
-byte_RAM_717D = $717d
-byte_RAM_717F = $717f
-byte_RAM_7180 = $7180
-byte_RAM_7181 = $7181
-byte_RAM_7191 = $7191
-byte_RAM_7192 = $7192
+PPUBuffer_TitleCardText = $7168
+TitleCard_LevelDots = $716b
+TitleCard_World = $717d
+TitleCard_Level = $717f
+TitleCard_ExtraLife_DrawAddress = $7180
+TitleCard_Lives = $7191
 
-PPUBuffer_7194 = $7194
-byte_RAM_71A6 = $71a6
+PPUBuffer_WarpToWorld = $7194
+WarpToWorld_World = $71a6
 
-PPUBuffer_71A8 = $71a8
-byte_RAM_71AB = $71ab
-byte_RAM_71AF = $71af
+PPUBuffer_ContinueRetryBullets = $71a8
 
-; byte_BANKA_84E1 copied to RAM
-byte_RAM_71CC = $71cc
+; Copied from bank A
+FlyingCarpetAcceleration_RAM = $71cc
 
-; byte_BANKF_F607 copied to RAM
-unk_RAM_71D1 = $71d1
+; Copied from bank F
+EnemyPlayerCollisionTable_RAM = $71d1
 
-byte_RAM_71FE = $71fe
+PPUBuffer_EndOfLevelDoor = $721b
 
-PPUBuffer_721B = $721b
+WartOAMOffsets_RAM = $7265
 
-byte_RAM_7222 = $7222
-
-byte_RAM_7229 = $7229
-
-byte_RAM_7232 = $7232
-
-unk_RAM_7265 = $7265
-
-unk_RAM_7266 = $7266
-
-byte_RAM_7267 = $7267
-
-unk_RAM_7268 = $7268
-
-byte_RAM_726B = $726b
-
-BonusChanceLayoutRAM = $7400
-
-BonusChanceLayoutRAM2 = $7500
+PPUBuffer_BonusChanceLayout = $7400
 
 RawLevelData = $7800
 
@@ -2152,3 +2164,15 @@ IFDEF CONTROLLER_2_DEBUG
 ENDIF
 
 ItemCarryYOffsetsRAM = $7f00
+
+MMC3_BankSelect = $8000
+MMC3_BankData = $8001
+MMC3_Mirroring = $a000
+MMC3_PRGRamProtect = $a001
+MMC3_IRQLatch = $c000
+MMC3_IRQReload = $c001
+MMC3_IRQDisable = $e000
+MMC3_IRQEnable = $e001
+
+FME7_Command = $8000
+FME7_Parameter = $a000

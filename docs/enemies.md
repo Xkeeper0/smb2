@@ -44,7 +44,7 @@
 - Whale spout timer?
 - Wart's movement cycle
 
-### `$0086`  (`EnemyTimer`)
+### `$0086`  (`ObjectTimer1`)
 - BobOmb fuse
 - Bomb fuse
 - Panser spit
@@ -65,14 +65,14 @@
 
 ### `$00B1`  (`EnemyArray_B1`)
 
-### `$042F` (`EnemyArray_42F`)
+### `$042F` (`ObjectProjectileTimer`)
  - stun timer
 
-### `$0438` (`EnemyArray_438`)
+### `$0438` (`ObjectStunTimer`)
 
-### `$0453` (`EnemyArray_453`)
+### `$0453` (`ObjectTimer2`)
 
-### `$045C` (`EnemyArray_45C`)
+### `$045C` (`ObjectFlashTimer`)
   - flashing timer
 
 ### `$0465` (`EnemyHP`)
@@ -83,18 +83,18 @@
 
 ### `$0480` (`EnemyArray_480`)
 
-### `$0489` (`EnemyArray_489`)
+### `$0489` (`ObjectHitbox`)
 
 ### `$0492` (`EnemyArray_492`)
 
 ### `$049B` (`EnemyArray_SpawnsDoor`)
 - if set, an end-of-level door spawns when the enemy is defeated
 
-### `$04A4` (`unk_RAM_4A4`)
+### `$04A4` (`ObjectNonSticky`)
 
 ### `$04CC` (`ObjectXAcceleration`)
 
 ### `$04D6` (`ObjectYAcceleration`)
 
-### `$04EF` (`unk_RAM_4EF`)
+### `$04EF` (`EndOfLevelDoorPage`)
 

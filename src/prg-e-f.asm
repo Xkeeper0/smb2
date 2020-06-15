@@ -26,148 +26,156 @@
 
 ; PPU update buffers used to update the screen
 ScreenUpdateBufferPointers:
-	.dw PPUBuffer_301
-	.dw PPUBuffer_583
-	.dw PPUBuffer_55F
+	.dw PPUBuffer_301 ; Default screen update buffer
+	.dw PPUBuffer_BonusChanceCoinsExtraLife
+	.dw PPUBuffer_TitleCardPalette
 	.dw PPUBuffer_CharacterSelect
-	.dw PPUBuffer_BANKE_DE7A
-	.dw PPUBuffer_Text_Game_Over
-	.dw PPUBuffer_67B
-	.dw PPUBuffer_Text_Retry
-	.dw PPUBuffer_7168
-	.dw PPUBuffer_67B
-	.dw PPUBuffer_693
-	.dw PPUBuffer_6AB
-	.dw PPUBuffer_6BD
-	.dw PPUBuffer_6CC ; PAUSE
-	.dw PPUBuffer_6E9 ; (erase PAUSE)
-	.dw PPUBuffer_6DA
-	.dw PPUBuffer_6DF
-	.dw PPUBuffer_6E4
-	.dw PPUBuffer_7194
-	.dw PPUBuffer_71A8
-	.dw PPUBuffer_721B
 	.dw PPUBuffer_TitleCard
+	.dw PPUBuffer_Text_Game_Over
+	.dw PPUBuffer_ContinueRetryText
+	.dw PPUBuffer_Text_Retry
+	.dw PPUBuffer_TitleCardText
+	.dw PPUBuffer_BonusChanceUnusedText ; Doki Doki Panic leftover
+	.dw PPUBuffer_NoBonusText
+	.dw PPUBuffer_PushAButtonText
+	.dw PPUBuffer_Player1UpText
+	.dw PPUBuffer_PauseText
+	.dw PPUBuffer_ErasePauseText
+	.dw PPUBuffer_EraseBonusMessageText
+	.dw PPUBuffer_ErasePushAButton
+	.dw PPUBuffer_EraseBonusMessageTextUnused
+	.dw PPUBuffer_WarpToWorld
+	.dw PPUBuffer_ContinueRetryBullets
+	.dw PPUBuffer_EndOfLevelDoor
+	.dw PPUBuffer_TitleCardLeftover
 	.dw PPUBuffer_PauseExtraLife
-	.dw BonusChanceLayoutRAM
+	.dw PPUBuffer_BonusChanceLayout
 
 PPUBuffer_CharacterSelect:
-	.db $21,$49,$06,$E9,$E5,$DE,$DA,$EC,$DE ; PLEASE
-	.db $21,$50,$06,$EC,$DE,$E5,$DE,$DC,$ED ; SELECT
-	.db $21,$8C,$06,$E9,$E5,$DA,$F2,$DE,$EB ; PLAYER
-	.db $20,$00,$20,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8 ; Probably the checkerboard diamonds or w/e
-	.db $B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7 ; $F
-	.db $B8,$B7,$B8,$B7,$B8 ; $1E
-	.db $20,$20,$20,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA
-	.db $B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9 ; $F
-	.db $BA,$B9,$BA,$B9,$BA ; $1E
-	.db $23,$80,$20,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8
-	.db $B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7,$B8,$B7 ; $F
-	.db $B8,$B7,$B8,$B7,$B8 ; $1E
-	.db $23,$A0,$20,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA
-	.db $B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9,$BA,$B9 ; $F
-	.db $BA,$B9,$BA,$B9,$BA ; $1E
-	.db $20,$00,$9E,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9
-	.db $B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7 ; $F
-	.db $B9,$B7,$B9 ; $1E
-	.db $20,$01,$9E,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA
-	.db $B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8 ; $F
-	.db $BA,$B8,$BA ; $1E
-	.db $20,$1E,$9E,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9
-	.db $B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7,$B9,$B7 ; $F
-	.db $B9,$B7,$B9 ; $1E
-	.db $20,$1F,$9E,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA
-	.db $B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8,$BA,$B8 ; $F
-	.db $BA,$B8,$BA ; $1E
-	.db $20,$42,$5C,$FD
-	.db $20,$62,$5C,$FD
-	.db $20,$47,$05,$00,$01,$02,$03,4
-	.db $20,$54,$05,$05,$06,$07,$08,9
-	.db $20,$63,$0A,$A,$0B,$C,$0D,$E,$0F,$10,$11,$12,$13
-	.db $20,$73,$0A,$14,$15,$16,$17,$18,$19,$1A,$1B,$1C,$1D
-	.db $20,$82,$1C,$1E,$1F,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29
-	.db $FD,$FD,$FD,$FD,$2A,$2B,$2C,$2D,$2E,$2F,$30,$31,$32,$33,$34 ; $F
+	.db $21, $49, $06, $E9, $E5, $DE, $DA, $EC, $DE ; PLEASE
+	.db $21, $50, $06, $EC, $DE, $E5, $DE, $DC, $ED ; SELECT
+	.db $21, $8C, $06, $E9, $E5, $DA, $F2, $DE, $EB ; PLAYER
+	.db $20, $00, $20, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8 ; Probably the checkerboard diamonds or w/e
+	.db $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7 ; $F
+	.db $B8, $B7, $B8, $B7, $B8 ; $1E
+	.db $20, $20, $20, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA
+	.db $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9 ; $F
+	.db $BA, $B9, $BA, $B9, $BA ; $1E
+	.db $23, $80, $20, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8
+	.db $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7 ; $F
+	.db $B8, $B7, $B8, $B7, $B8 ; $1E
+	.db $23, $A0, $20, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA
+	.db $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9 ; $F
+	.db $BA, $B9, $BA, $B9, $BA ; $1E
+	.db $20, $00, $9E, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9
+	.db $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7 ; $F
+	.db $B9, $B7, $B9 ; $1E
+	.db $20, $01, $9E, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA
+	.db $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8 ; $F
+	.db $BA, $B8, $BA ; $1E
+	.db $20, $1E, $9E, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9
+	.db $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7 ; $F
+	.db $B9, $B7, $B9 ; $1E
+	.db $20, $1F, $9E, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA
+	.db $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8 ; $F
+	.db $BA, $B8, $BA ; $1E
+	.db $20, $42, $5C, $FD
+	.db $20, $62, $5C, $FD
+	.db $20, $47, $05, $00, $01, $02, $03,4
+	.db $20, $54, $05, $05, $06, $07, $08,9
+	.db $20, $63, $0A, $A,$0B, $C,$0D, $E,$0F, $10, $11, $12, $13
+	.db $20, $73, $0A, $14, $15, $16, $17, $18, $19, $1A, $1B, $1C, $1D
+	.db $20, $82, $1C, $1E, $1F, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29
+	.db $FD, $FD, $FD, $FD, $2A, $2B, $2C, $2D, $2E, $2F, $30, $31, $32, $33, $34 ; $F
 	.db $35 ; $1E
-	.db $20,$A2,$06,$36,$37,$38,$39,$3A,$3B
-	.db $20,$AB,$0A,$3C,$3D,$3E,$3F,$40,$43,$44,$45,$46,$47
-	.db $20,$B8,$06,$48,$49,$4A,$4B,$4C,$4D
-	.db $20,$C2,$05,$4E,$4F,$50,$51,$52
-	.db $20,$D9,$05,$53,$54,$55,$56,$57
-	.db $20,$E2,$04,$58,$59,$5A,$5B
-	.db $20,$E6,$CD,$5C
-	.db $20,$F9,$CD,$5C
-	.db $20,$FA,$04,$5D,$5E,$5F,$60
-	.db $21,$02,$83,$61,$64,$67
-	.db $21,$03,$8B,$62,$65,$68,$6A,$6C,$6F,$72,$75,$78,$7B,$7E
-	.db $21,$04,$94,$63,$66,$69,$6B,$6D,$70,$73,$76,$79,$7C,$7F,$81
-	.db $82,$83,$84,$85,$86,$87,$88,$89 ; $F
-	.db $21,$85,$89,$6E,$71,$74,$77,$7A,$7D,$80,$6E,$6E
-	.db $21,$9A,$89,$97,$9A,$9D,$BB,$A0,$A3,$A6,$A9,$AB
-	.db $21,$1B,$94,$8C,$8F,$92,$95,$98,$9B,$9E,$BC,$A1,$A4,$A7,$AA
-	.db $AC,$AD,$AE,$B0,$B1,$B2,$B3,$B4 ; $F
-	.db $21,$1C,$8B,$8D,$90,$93,$96,$99,$9C,$9F,$BD,$A2,$A5,$A8
-	.db $21,$1D,$83,$8E,$91,$94
-	.db $21,$62,$D1,$FD
-	.db $21,$7D,$D1,$FD
-	.db $22,$63,$C9,$FD,$22,$7C,$C9,$FD,$22,$86,$82,$8A,$8B,$22,$99
-	.db $82,$8A,$8B ; $F
+	.db $20, $A2, $06, $36, $37, $38, $39, $3A, $3B
+	.db $20, $AB, $0A, $3C, $3D, $3E, $3F, $40, $43, $44, $45, $46, $47
+	.db $20, $B8, $06, $48, $49, $4A, $4B, $4C, $4D
+	.db $20, $C2, $05, $4E, $4F, $50, $51, $52
+	.db $20, $D9, $05, $53, $54, $55, $56, $57
+	.db $20, $E2, $04, $58, $59, $5A, $5B
+	.db $20, $E6, $CD, $5C
+	.db $20, $F9, $CD, $5C
+	.db $20, $FA, $04, $5D, $5E, $5F, $60
+	.db $21, $02, $83, $61, $64, $67
+	.db $21, $03, $8B, $62, $65, $68, $6A, $6C, $6F, $72, $75, $78, $7B, $7E
+	.db $21, $04, $94, $63, $66, $69, $6B, $6D, $70, $73, $76, $79, $7C, $7F, $81
+	.db $82, $83, $84, $85, $86, $87, $88, $89 ; $F
+	.db $21, $85, $89, $6E, $71, $74, $77, $7A, $7D, $80, $6E, $6E
+	.db $21, $9A, $89, $97, $9A, $9D, $BB, $A0, $A3, $A6, $A9, $AB
+	.db $21, $1B, $94, $8C, $8F, $92, $95, $98, $9B, $9E, $BC, $A1, $A4, $A7, $AA
+	.db $AC, $AD, $AE, $B0, $B1, $B2, $B3, $B4 ; $F
+	.db $21, $1C, $8B, $8D, $90, $93, $96, $99, $9C, $9F, $BD, $A2, $A5, $A8
+	.db $21, $1D, $83, $8E, $91, $94
+	.db $21, $62, $D1, $FD
+	.db $21, $7D, $D1, $FD
+	.db $22, $63, $C9, $FD, $22, $7C, $C9, $FD, $22, $86, $82, $8A, $8B, $22, $99
+	.db $82, $8A, $8B ; $F
 	.db $00
-PPUBuffer_BANKE_DE7A:
-	.db $23,$C0,$09,$3E,$0E,$E,$0E,$E,$0E,$E,$8E,$32
-	.db $23,$CF,$01,$8C
-	.db $23,$D0,$10,$32,$00,$A0,$A0,$A0,$20,$00,$8C,$32,$00,$00,$0A,$02,$00,$00,$8C
-	.db $23,$E0,$09,$32,$00,$00,$0E,$00,$00,$00,$8C,$32
-	.db $23,$EF,$01,$8C
-	.db $23,$F0,$06,$32,$00,$A0,$A0,$A0,$A0
-	.db $23,$F7,$09,$8C,$0E,$E,$0E,$E,$0E,$E,$0E,$E
-	.db $24,$00,$60,$FF
-	.db $24,$20,$60,$FF
-	.db $24,$40,$60,$FF
-	.db $24,$60,$60,$FF
-	.db $27,$40,$60,$FF
-	.db $27,$60,$60,$FF
-	.db $27,$80,$60,$FF
-	.db $27,$A0,$60,$FF
-	.db $24,$80,$D6,$FF
-	.db $24,$81,$D6,$FF
-	.db $24,$82,$D6,$FF
-	.db $24,$9D,$D6,$FF
-	.db $24,$9E,$D6,$FF
-	.db $24,$9F,$D6,$FF
-	.db $24,$83,$01,$D0
-	.db $24,$9C,$01,$D8
-	.db $24,$84,$58,$FB
-	.db $24,$A3,$D4,$D1
-	.db $24,$BC,$D4,$D7
-	.db $24,$A4,$58,$FB
-	.db $24,$C4,$58,$FB
-	.db $24,$E4,$58,$FB
-	.db $25,$04,$58,$FB
-	.db $25,$24,$58,$FB
-	.db $25,$44,$58,$FB
-	.db $25,$64,$58,$FB
-	.db $25,$84,$58,$FB
-	.db $25,$A4,$58,$FB
-	.db $25,$C4,$58,$FB
-	.db $25,$E4,$58,$FB
-	.db $26,$04,$58,$FB
-	.db $26,$24,$58,$FB
-	.db $26,$44,$58,$FB
-	.db $26,$64,$58,$FB
-	.db $26,$84,$58,$FB
-	.db $26,$A4,$58,$FB
-	.db $26,$C4,$58,$FB
-	.db $26,$E4,$58,$FB
-	.db $27,$23,$01,$D2
-	.db $27,$3C,$01,$D6
-	.db $27,$24,$58,$D3
-	.db $27,$C8,$08,$44,$FF,$BF,$AF,$AF,$AF,$FF,$11
-	.db $27,$D0,$10,$44,$BF,$AF,$AF,$AF,$AF,$EF,$11,$44,$FF,$FF,$FF
-	.db $FF,$FF,$FF,$11 ; $F
-	.db $27,$E0,$10,$44,$FF,$FF,$FF,$FF,$FF,$FF,$11,$44,$FF,$FF,$FF
-	.db $FF,$FF,$AF,$11 ; $F
-	.db $27,$F0,$08,$44,$05,$05,$05,$05,$05,$05,$01
-	.db $27,$04,$58,$FB
+
+PPUBuffer_TitleCard:
+	.db $23, $C0, $09
+	.db $3E, $0E, $0E, $0E, $0E, $0E, $0E, $8E, $32
+	.db $23, $CF, $01, $8C
+	.db $23, $D0, $10
+	.db $32, $00, $A0, $A0, $A0, $20, $00, $8C, $32, $00, $00, $0A, $02, $00, $00, $8C
+	.db $23, $E0, $09
+	.db $32, $00, $00, $0E, $00, $00, $00, $8C, $32
+	.db $23, $EF, $01, $8C
+	.db $23, $F0, $06
+	.db $32, $00, $A0, $A0, $A0, $A0
+	.db $23, $F7, $09
+	.db $8C, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E
+	.db $24, $00, $60, $FF
+	.db $24, $20, $60, $FF
+	.db $24, $40, $60, $FF
+	.db $24, $60, $60, $FF
+	.db $27, $40, $60, $FF
+	.db $27, $60, $60, $FF
+	.db $27, $80, $60, $FF
+	.db $27, $A0, $60, $FF
+	.db $24, $80, $D6, $FF
+	.db $24, $81, $D6, $FF
+	.db $24, $82, $D6, $FF
+	.db $24, $9D, $D6, $FF
+	.db $24, $9E, $D6, $FF
+	.db $24, $9F, $D6, $FF
+	.db $24, $83, $01, $D0
+	.db $24, $9C, $01, $D8
+	.db $24, $84, $58, $FB
+	.db $24, $A3, $D4, $D1
+	.db $24, $BC, $D4, $D7
+	.db $24, $A4, $58, $FB
+	.db $24, $C4, $58, $FB
+	.db $24, $E4, $58, $FB
+	.db $25, $04, $58, $FB
+	.db $25, $24, $58, $FB
+	.db $25, $44, $58, $FB
+	.db $25, $64, $58, $FB
+	.db $25, $84, $58, $FB
+	.db $25, $A4, $58, $FB
+	.db $25, $C4, $58, $FB
+	.db $25, $E4, $58, $FB
+	.db $26, $04, $58, $FB
+	.db $26, $24, $58, $FB
+	.db $26, $44, $58, $FB
+	.db $26, $64, $58, $FB
+	.db $26, $84, $58, $FB
+	.db $26, $A4, $58, $FB
+	.db $26, $C4, $58, $FB
+	.db $26, $E4, $58, $FB
+	.db $27, $23, $01, $D2
+	.db $27, $3C, $01, $D6
+	.db $27, $24, $58, $D3
+	.db $27, $C8, $08
+	.db $44, $FF, $BF, $AF, $AF, $AF, $FF, $11
+	.db $27, $D0, $10
+	.db $44, $BF, $AF, $AF, $AF, $AF, $EF, $11, $44, $FF, $FF, $FF, $FF, $FF, $FF, $11
+	.db $27, $E0, $10
+	.db $44, $FF, $FF, $FF, $FF, $FF, $FF, $11, $44, $FF, $FF, $FF, $FF, $FF, $AF, $11
+	.db $27, $F0, $08
+	.db $44, $05, $05, $05, $05, $05, $05, $01
+	.db $27, $04, $58, $FB
 	.db $00
 
 ; nametable attribute data
@@ -175,8 +183,9 @@ PPUBuffer_PauseExtraLife:
 	.db $27, $EA, $05
 	.db $AA, $AA, $AA, $AA, $AA
 
-; nametable attribute data
-PPUBuffer_TitleCard:
+; This draws two columns of black tiles along the right side of the nametable to the left of the
+; title card, which was the character/level select in Doki Doki Panic. In SMB2, it remains unused.
+PPUBuffer_TitleCardLeftover:
 	.db $20, $1E, $9E
 	.db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	.db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
@@ -314,10 +323,10 @@ TitleCardPalettes:
 	.db $00
 
 BonusChanceSpritePalettes:
-	.db $0F,$37,$16,$0F
-	.db $0F,$37,$16,$0F ; 4
-	.db $0F,$37,$16,$0F ; 8
-	.db $0F,$37,$16,$0F ; $C
+	.db $0F, $37, $16, $0F
+	.db $0F, $37, $16, $0F
+	.db $0F, $37, $16, $0F
+	.db $0F, $37, $16, $0F
 
 
 ;
@@ -342,7 +351,7 @@ JumpToTableAfterJump:
 
 
 BlackAndWhitePalette:
-	.db $0F,$30,$30,$0F
+	.db $0F, $30, $30, $0F
 
 
 SetBlackAndWhitePalette:
@@ -387,7 +396,7 @@ ResetScreenForTitleCard:
 
 	JSR SetScrollXYTo0
 
-	LDA #ScreenUpdateBuffer_RAM_55F
+	LDA #ScreenUpdateBuffer_RAM_TitleCardPalette
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
@@ -413,8 +422,9 @@ EnableNMI_PauseTitleCard:
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
-	LDA #ScreenUpdateBuffer_BANKE_DE7A
+	LDA #ScreenUpdateBuffer_TitleCard
 	STA ScreenUpdateIndex
+
 	JMP WaitForNMI
 
 
@@ -437,23 +447,23 @@ DisplayLevelTitleCardText:
 	INX
 	TXA
 	ORA #$D0
-	STA byte_RAM_717D
+	STA TitleCard_World
 
 	; Extra Life number
 	LDY ExtraLives
 	DEY
 	TYA
 	JSR GetTwoDigitNumberTiles
-	STY byte_RAM_7191
-	STA byte_RAM_7192
+	STY TitleCard_Lives
+	STA TitleCard_Lives + 1
 
 	; Reset level dots
 	LDY #$06
 	LDA #$FB
-loc_BANKF_E1B6:
-	STA unk_RAM_716B, Y ; writes to $7171
+DisplayLevelTitleCardText_ResetLevelDotsLoop:
+	STA TitleCard_LevelDots, Y ; writes to $7171
 	DEY
-	BPL loc_BANKF_E1B6
+	BPL DisplayLevelTitleCardText_ResetLevelDotsLoop
 
 	; Level number
 	LDY CurrentWorld
@@ -463,7 +473,7 @@ loc_BANKF_E1B6:
 	STA CurrentLevelRelative
 	CLC
 	ADC #$D1
-	STA byte_RAM_717F
+	STA TitleCard_Level
 
 	; Use the difference between the starting level of the next world and this
 	; world to determine how many dots to show for the levels in the world.
@@ -475,23 +485,23 @@ loc_BANKF_E1B6:
 	; Level dots
 	LDX #$00
 	LDY #$00
-loc_BANKF_E1DC:
-	LDA #$FD
+DisplayLevelTitleCardText_DrawLevelDotsLoop:
+	LDA #$FD ; other level
 	CPX CurrentLevelRelative
-	BNE loc_BANKF_E1E5
+	BNE DisplayLevelTitleCardText_DrawLevelDot
 
-	LDA #$F6
+	LDA #$F6 ; current level
 
-loc_BANKF_E1E5:
-	STA unk_RAM_716B, Y
+DisplayLevelTitleCardText_DrawLevelDot:
+	STA TitleCard_LevelDots, Y
 	INY
 	INY
 	INX
 	CPX byte_RAM_3
-	BCC loc_BANKF_E1DC
+	BCC DisplayLevelTitleCardText_DrawLevelDotsLoop
 
 	; Draw the card
-	LDA #ScreenUpdateBuffer_RAM_7168
+	LDA #ScreenUpdateBuffer_RAM_TitleCardText
 	STA ScreenUpdateIndex
 	RTS
 
@@ -504,8 +514,6 @@ SetStack100Gameplay:
 	STA StackArea
 	RTS
 
-
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Resets various level-related variables to $00
@@ -568,15 +576,15 @@ DisplayLevelTitleCardAndMore:
 	LDY #$23
 DisplayLevelTitleCardAndMore_TitleCardPaletteLoop:
 	LDA TitleCardPalettes, Y
-	STA PPUBuffer_55F, Y
+	STA PPUBuffer_TitleCardPalette, Y
 	DEY
 	BPL DisplayLevelTitleCardAndMore_TitleCardPaletteLoop
 
-	LDA #ScreenUpdateBuffer_RAM_55F ; Then tell it to dump that into the PPU
+	LDA #ScreenUpdateBuffer_RAM_TitleCardPalette ; Then tell it to dump that into the PPU
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
-	LDA #ScreenUpdateBuffer_TitleCard
+	LDA #ScreenUpdateBuffer_TitleCardLeftover
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
@@ -841,7 +849,7 @@ loc_BANKF_E3EC:
 
 
 ;
-; This starts the game once RESET has done its thing.
+; This starts the game once `RESET` has done its thing.
 ; We also come here after choosing "RETRY" from the game over menu.
 ;
 StartGame:
@@ -975,7 +983,7 @@ HorizontalLevel_ProcessFrame:
 	LDY GameMode
 	BEQ HorizontalLevel_CheckTransition
 
-	JMP loc_BANKF_E665
+	JMP ResetAreaAndProcessGameMode
 
 HorizontalLevel_CheckTransition:
 	LDA DoAreaTransition
@@ -983,7 +991,7 @@ HorizontalLevel_CheckTransition:
 
 	JSR FollowCurrentAreaPointer
 
-	JSR sub_BANKF_F1AE
+	JSR RememberAreaInitialState
 
 	LDA #$00
 	STA DoAreaTransition
@@ -1030,7 +1038,7 @@ VerticalLevel_ProcessFrame:
 	LDY GameMode
 	BEQ VerticalLevel_CheckTransition
 
-	JMP loc_BANKF_E665
+	JMP ResetAreaAndProcessGameMode
 
 VerticalLevel_CheckTransition:
 	LDA DoAreaTransition
@@ -1038,7 +1046,7 @@ VerticalLevel_CheckTransition:
 
 	JSR FollowCurrentAreaPointer
 
-	JSR sub_BANKF_F1AE
+	JSR RememberAreaInitialState
 
 	LDA #$00
 	STA DoAreaTransition
@@ -1236,7 +1244,7 @@ loc_BANKF_E609:
 	LDY GameMode
 	BEQ loc_BANKF_E61A
 
-	JMP loc_BANKF_E665
+	JMP ResetAreaAndProcessGameMode
 
 ; ---------------------------------------------------------------------------
 
@@ -1287,46 +1295,50 @@ ExitSubArea_Loop:
 
 	JMP HorizontalLevel_CheckScroll
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_E665:
+;
+; This code resets the level and does whatever else is needed to transition from
+; the current `GameMode` to `GameMode_InGame`.
+;
+ResetAreaAndProcessGameMode:
 	JSR DoAreaReset
 
 	LDY GameMode
+ShowCardAfterTransition:
 	LDA #GameMode_InGame
 	STA GameMode
 	STA StarInvincibilityTimer
 	STA BigVeggiesPulled
 	STA CherryCount
 	STA StopwatchTimer
-	DEY
-	BNE loc_BANKF_E69F
+	DEY ; Initial `GameMode` minus 1
+	BNE ResetAreaAndProcessGameMode_NotTitleCard
 
+  ; `GameMode` was `$01`
+	; Reset from a title card
 	STY PlayerCurrentSize
 	JSR LevelInitialization
 
 	LDA #$FF
 	STA CurrentMusicIndex
-	; this looks like an address
+	; Draw EXTRA LIFE text near top of card
 	LDA #$25
-	STA byte_RAM_7180
+	STA TitleCard_ExtraLife_DrawAddress
 	LDA #$48
-	STA byte_RAM_7181
-	LDA #ScreenUpdateBuffer_TitleCard
+	STA TitleCard_ExtraLife_DrawAddress + 1
+	LDA #ScreenUpdateBuffer_TitleCardLeftover
 	STA CardScreenUpdateIndex
 	JSR PauseScreen_Card
 
 AfterDeathJump:
 IFNDEF CHARACTER_SELECT_AFTER_DEATH
 	JMP StartLevelAfterTitleCard
-ENDIF
-IFDEF CHARACTER_SELECT_AFTER_DEATH
+ELSE
 	JMP CharacterSelectMenu
 ENDIF
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_E69F:
+ResetAreaAndProcessGameMode_NotTitleCard:
 	LDA #PlayerHealth_2_HP
 	STA PlayerHealth
 	LDA #$00
@@ -1337,12 +1349,11 @@ loc_BANKF_E69F:
 	STA Mushroom2Pulled
 	STA SubspaceVisits
 	STA EnemiesKilledForHeart
-	DEY
+	DEY ; Initial `GameMode` minus 2
 	BEQ DoGameOverStuff
 
-	JMP loc_BANKF_E75A
+	JMP ResetAreaAndProcessGameMode_NotGameOver
 
-; ---------------------------------------------------------------------------
 
 DoGameOverStuff:
 	STY PlayerCurrentSize
@@ -1373,23 +1384,24 @@ loc_BANKF_E6E6:
 	DEC byte_RAM_6
 	BNE loc_BANKF_E6E6
 
-	LDY #$28
-
+	LDY #(BonusChanceUpdateBuffer_BONUS_CHANCE_Unused - PPUBuffer_Text_Continue - 1)
 loc_BANKF_E6EF:
-	LDA Text_Continue, Y
-	STA PPUBuffer_67B, Y
+	LDA PPUBuffer_Text_Continue, Y
+	STA PPUBuffer_ContinueRetryText, Y
 	DEY
 	BPL loc_BANKF_E6EF
 
+	; Hide the bullet for RETRY
 	LDA #$FB
-	STA byte_RAM_68F
+	STA PPUBuffer_ContinueRetryText + 20
+	; Update the number of continues
 	LDA Continues
 	CLC
 	ADC #$D0
-	STA byte_RAM_67E
+	STA PPUBuffer_ContinueRetryText + 3
 	LDA #$00
 	STA byte_RAM_8
-	LDA #ScreenUpdateBuffer_RAM_67B
+	LDA #ScreenUpdateBuffer_RAM_ContinueRetryText
 	DEC Continues
 	BPL loc_BANKF_E717
 
@@ -1422,11 +1434,11 @@ loc_BANKF_E733:
 	ASL A
 	TAY
 	LDA #$FB
-	STA byte_RAM_71AB
-	STA byte_RAM_71AF
+	STA PPUBuffer_ContinueRetryBullets + 3
+	STA PPUBuffer_ContinueRetryBullets + 7
 	LDA #$F6
-	STA byte_RAM_71AB, Y
-	LDA #ScreenUpdateBuffer_RAM_71a8
+	STA PPUBuffer_ContinueRetryBullets + 3, Y
+	LDA #ScreenUpdateBuffer_RAM_ContinueRetryBullets
 	STA ScreenUpdateIndex
 
 loc_BANKF_E747:
@@ -1445,12 +1457,13 @@ loc_BANKF_E747:
 GameOver_Retry:
 	JMP StartGame
 
-; ---------------------------------------------------------------------------
 
-loc_BANKF_E75A:
-	DEY
+ResetAreaAndProcessGameMode_NotGameOver:
+	DEY ; Initial `GameMode` minus 3
 	BEQ EndOfLevel
 
+DoWorldWarp:
+	; Show warp screen
 	LDY CurrentWorld
 	STY PreviousWorld
 	LDA WarpDestinations, Y
@@ -1460,23 +1473,24 @@ loc_BANKF_E75A:
 	LDA WorldStartingLevel, Y
 	STA CurrentLevel
 	STA CurrentLevel_Init
+
+	; Set world number
 	INY
 	TYA
 	ORA #$D0
-	STA byte_RAM_71A6
+	STA WarpToWorld_World
+
 	JSR WaitForNMI_TurnOffPPU
 
 	JSR SetScrollXYTo0
-
 	JSR ClearNametablesAndSprites
-
 	JSR SetBlackAndWhitePalette
 
 	JSR EnableNMI
 
 	JSR ChangeTitleCardCHR
 
-	LDA #ScreenUpdateBuffer_RAM_7194
+	LDA #ScreenUpdateBuffer_WarpToWorld
 	STA ScreenUpdateIndex
 	LDA #Music2_SlotWarpFanfare
 	STA MusicQueue2
@@ -1652,9 +1666,9 @@ DoSlotMachineSpinnyShit:
 
 	JSR sub_BANKF_EAF6
 
-	JSR sub_BANKF_E916
+	JSR SlotMachineTextFlashIndex
 
-	LDA byte_BANKF_E9DF, Y
+	LDA BonusChanceUpdateBuffer_PUSH_A_BUTTON, Y
 	STA ScreenUpdateIndex
 	INC byte_RAM_6
 	LDA ObjectXLo ; Reel 1 still active?
@@ -1662,7 +1676,7 @@ DoSlotMachineSpinnyShit:
 	ORA ObjectXLo + 2 ; Reel 3 still active?
 	BNE DoSlotMachineSpinnyShit ; If any are still active, go back to waiting
 
-	LDA #ScreenUpdateBuffer_RAM_6df
+	LDA #ScreenUpdateBuffer_RAM_ErasePushAButtonText
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
@@ -1710,7 +1724,7 @@ loc_BANKF_E8D3:
 	BEQ SlotMachineLoseFanfare ; No, play lose sound effect
 
 	ORA #$D0
-	STA byte_RAM_6C8
+	STA PPUBuffer_Player1UpText + 11 ; Update number of lives won
 	LDA #Music2_CrystalGetFanfare ; Play winner jingle
 	STA MusicQueue2
 	LDA #$A0
@@ -1722,9 +1736,9 @@ loc_BANKF_E8D3:
 loc_BANKF_E8ED:
 	JSR WaitForNMI
 
-	JSR sub_BANKF_E916
+	JSR SlotMachineTextFlashIndex
 
-	LDA byte_BANKF_E9E3, Y
+	LDA BonusChanceUpdateBuffer_PLAYER_1UP, Y
 	STA ScreenUpdateIndex
 	DEC byte_RAM_6
 	BNE loc_BANKF_E8ED
@@ -1741,15 +1755,23 @@ SlotMachineLoseFanfare:
 	JSR Delay160Frames
 
 loc_BANKF_E90C:
-	LDA #ScreenUpdateBuffer_RAM_6e4
+	LDA #ScreenUpdateBuffer_RAM_EraseBonusMessageTextUnused
 	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
 	JMP loc_BANKF_E7FD
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANKF_E916:
+;
+; Used for flashing text in Bonus Chance
+;
+; ##### Input
+; - `byte_RAM_6`: Bonus Chance timer
+;
+; ##### Output
+; - `Y`: 0 to show text, 1 to hide text
+;
+SlotMachineTextFlashIndex:
 	LDA byte_RAM_6
 	LSR A
 	LSR A
@@ -1759,9 +1781,6 @@ sub_BANKF_E916:
 	TAY
 	RTS
 
-; End of function sub_BANKF_E916
-
-; ---------------------------------------------------------------------------
 
 NoCoinsForSlotMachine:
 	JSR Delay80Frames
@@ -1777,7 +1796,7 @@ loc_BANKF_E92A:
 	LDA byte_RAM_6
 	AND #$01
 	TAY
-	LDA byte_BANKF_E9E1, Y
+	LDA BonusChanceUpdateBuffer_NO_BONUS, Y
 	STA ScreenUpdateIndex
 
 	LDA #$0A
@@ -1862,7 +1881,6 @@ SetupMarioSleepingScene:
 	INC GameMilestoneCounter
 	JMP MarioSleepingScene
 
-; =============== S U B R O U T I N E =======================================
 
 DisableNMI:
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
@@ -1870,36 +1888,34 @@ DisableNMI:
 	STA PPUCtrlMirror
 	RTS
 
-; End of function DisableNMI
 
-; ---------------------------------------------------------------------------
 PPUBuffer_Text_Game_Over:
-	.db $21, $CB, $0A, $E0, $DA, $E6, $DE, $FB, $FB, $E8, $EF, $DE
-	.db $EB, $00 ; $C ; "GAME OVER"
-Text_Continue:
+	.db $21, $CB, $0A
+	.db $E0, $DA, $E6, $DE, $FB, $FB, $E8, $EF, $DE, $EB ; GAME OVER
+	.db $00
+
+PPUBuffer_Text_Continue:
 	.db $21, $75, $01, $00 ; (Placeholder for continue count)
-; This is loaded manually and drawn so the count
-; can be patched in
-; * CONTINUE
-	.db $21, $6A, $0A, $F6, $FB, $DC, $E8, $E7, $ED, $E2, $E7, $EE
-	.db $DE ; $C
+	.db $21, $6A, $0A, $F6, $FB, $DC, $E8, $E7, $ED, $E2, $E7, $EE, $DE ; * CONTINUE
+
 PPUBuffer_Text_Retry:
 	.db $21, $AA, $07, $F6, $FB, $EB, $DE, $ED, $EB, $F2 ; * RETRY
-	.db $21, $CB, $0A, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; Blank, erases "GAME OVER"
-	.db $FB, $00 ; $C
-	.db $09
-	.db $0F
-byte_BANKF_E9DF:
-	.db ScreenUpdateBuffer_RAM_6ab
-	.db ScreenUpdateBuffer_RAM_6df
-byte_BANKF_E9E1:
-	.db ScreenUpdateBuffer_RAM_693
-	.db ScreenUpdateBuffer_RAM_6da
-byte_BANKF_E9E3:
-	.db ScreenUpdateBuffer_RAM_6bd
-	.db ScreenUpdateBuffer_RAM_6da
+	.db $21, $CB, $0A, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; Blank, erases "GAME OVER"
+	.db $00
 
-; =============== S U B R O U T I N E =======================================
+BonusChanceUpdateBuffer_BONUS_CHANCE_Unused:
+	.db ScreenUpdateBuffer_RAM_BonusChanceUnused
+	.db ScreenUpdateBuffer_RAM_EraseBonusMessageText
+BonusChanceUpdateBuffer_PUSH_A_BUTTON:
+	.db ScreenUpdateBuffer_RAM_PushAButtonText
+	.db ScreenUpdateBuffer_RAM_ErasePushAButtonText
+BonusChanceUpdateBuffer_NO_BONUS:
+	.db ScreenUpdateBuffer_RAM_NoBonusText
+	.db ScreenUpdateBuffer_RAM_EraseBonusMessageText
+BonusChanceUpdateBuffer_PLAYER_1UP:
+	.db ScreenUpdateBuffer_RAM_Player1UpText
+	.db ScreenUpdateBuffer_RAM_EraseBonusMessageText
+
 
 ;
 ; Displays extra life info on the pause screen
@@ -1907,10 +1923,11 @@ byte_BANKF_E9E3:
 PauseScreen_ExtraLife:
 	LDA #ScreenUpdateBuffer_PauseExtraLife
 	STA CardScreenUpdateIndex
+	; Draw EXTRA LIFE text near bottom of card
 	LDA #$26
-	STA byte_RAM_7180
+	STA TitleCard_ExtraLife_DrawAddress
 	LDA #$C8
-	STA byte_RAM_7181
+	STA TitleCard_ExtraLife_DrawAddress + 1
 
 ;
 ; Loads the palette and graphics for the pause screen to display
@@ -1929,7 +1946,7 @@ PauseScreen_Card:
 	LDY #$23
 PauseScreen_Card_Loop:
 	LDA TitleCardPalettes, Y
-	STA PPUBuffer_55F, Y
+	STA PPUBuffer_TitleCardPalette, Y
 	DEY
 	BPL PauseScreen_Card_Loop
 
@@ -1999,14 +2016,15 @@ sub_BANKF_EA68:
 	DEY
 	TYA
 	JSR GetTwoDigitNumberTiles
-
 	STY byte_RAM_599
 	STA byte_RAM_59A
+
 	LDA SlotMachineCoins
 	CLC
 	ADC #$D0
 	STA byte_RAM_588
-	LDA #ScreenUpdateBuffer_RAM_583
+
+	LDA #ScreenUpdateBuffer_RAM_BonusChanceCoinsExtraLife
 	STA ScreenUpdateIndex
 	LDA #Stack100_Menu
 	STA StackArea
@@ -2194,9 +2212,9 @@ CopyUnusedCoinSpriteToSpriteArea:
 	LDY #$00
 
 CopyUnusedCoinSpriteToSpriteArea_Loop:
-	LDA unk_RAM_653, Y ; Copy two sprites from memory to memory.
-	STA SpriteDMAArea + $28, Y ; This is definitely efficient.
-	INY ; Two sprites for each half of the coin.
+	LDA BonusChanceUnusedCoinSprite_RAM, Y
+	STA SpriteDMAArea + $28, Y
+	INY
 	CPY #$08 ; Four bytes per sprite * 2 sprites = 8 bytes
 	BCC CopyUnusedCoinSpriteToSpriteArea_Loop
 
@@ -2259,6 +2277,42 @@ NMI_Waiting:
 ;
 ; Public NMI: where dreams come true!
 ;
+; The NMI runs every frame during vertical blanking and is responsible for
+; tasks that should occur on each frame of gameplay, such as drawing tiles and
+; sprites, scrolling, and reading input.
+;
+; It also runs the audio engine, allowing music to play continuously no matter
+; how busy the rest of the game happens to be.
+;
+; The NMI is actually separated into several distinct behaviors depending on the
+; game state, as dictated by flags in stack `$100`.
+;
+; For normal gameplay, here is the general flow of the NMI:
+;
+;  1. Push registers and processor flags so that we can restore them later.
+;  2. Check to see whether we're in a menu or transitioning. If so, use those
+;     divert to that code instead.
+;  3. Hide the sprites/background and update the sprite OAM.
+;  4. Load the current CHR banks.
+;  5. Check the `NMIWaitFlag`. If it's nonzero, restore `PPUMASK` and skip to
+;     handling the sound processing.
+;  6. Handle any horizontal or vertical scrolling tile updates.
+;  7. Update PPU using the current screen update buffer.
+;  8. Write PPU control register, scroll position, and mask.
+;  9. Increment the global frame counter.
+; 10. Reset PPU buffer 301 if we just used it for the screen update.
+; 11. Read joypad input.
+; 12. Decrement `NMIWaitFlag`, unblocking any code that was waiting for the NMI.
+; 13. Run the audio engine.
+; 14. Restore registers and processor flags, yield back to the game loop.
+;
+; The game loop is synchronized with rendering using `JSR WaitForNMI`, which
+; sets `NMIWaitFlag` to `$00` until the NMI completes and decrements it.
+;
+; Although the NMI itself doesn't lag (ie. the NMI itself is not interrupted
+; by another NMI), there are some parts of the game that can feel sluggish.
+; This is due to sluggishness in the game loop itself.
+;
 NMI:
 	PHP
 	PHA
@@ -2266,6 +2320,7 @@ NMI:
 	PHA
 	TYA
 	PHA
+
 	BIT StackArea
 	BPL NMI_PauseOrMenu ; branch if bit 7 was 0
 
@@ -2276,8 +2331,10 @@ NMI:
 	STA OAMADDR
 	LDA #$02
 	STA OAM_DMA
+
 	JSR ChangeCHRBanks
 
+NMI_CheckWaitFlag:
 	LDA NMIWaitFlag
 	BNE NMI_Waiting
 
@@ -2359,7 +2416,7 @@ NMI_AfterBackgroundAttributesUpdate:
 
 	JSR ResetPPUAddress
 
-	LDA #$B0
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	ORA PPUScrollXHiMirror
 	LDY IsHorizontalLevel
 	BNE NMI_UpdatePPUScroll
@@ -2378,6 +2435,8 @@ NMI_UpdatePPUScroll:
 	STA PPUSCROLL
 	LDA PPUMaskMirror
 	STA PPUMASK
+
+NMI_IncrementGlobalCounter:
 	INC byte_RAM_10
 
 NMI_CheckScreenUpdateIndex:
@@ -2396,20 +2455,10 @@ NMI_ResetScreenUpdateIndex:
 	DEC NMIWaitFlag
 
 NMI_DoSoundProcessing:
+IFNDEF DEBUG
 	JSR DoSoundProcessing
-
-IFDEF DEBUG
-DebugHook:
-; Hook into debug routine if select is pressed
-	LDA Player1JoypadPress
-	CMP #ControllerInput_Select
-	BNE NMI_Exit
-	LDA #>Debug_Init
-	PHA
-	LDA #<Debug_Init
-	PHA
-	PHP
-	RTI
+ELSE
+	JMP DoSoundProcessingAndCheckDebug
 ENDIF
 
 NMI_Exit:
@@ -2669,31 +2718,27 @@ UpdatePPUFBWO_CopySingleTileSkip:
 	JMP UpdatePPUFromBufferWithOptions
 
 
-IFDEF DEBUG
-	.include "src/extras/debug-f.asm"
-ENDIF
-
 IF INES_MAPPER == MAPPER_FME7
 RESET_FME7:
 	LDA #$08 ; PRG bank 0
-	STA $8000
+	STA FME7_Command
 	LDA #%11000000
-	STA $A000
+	STA FME7_Parameter
 
 	LDA #$09 ; PRG bank 1
-	STA $8000
+	STA FME7_Command
 	LDA #$00 ; ROM bank 0
-	STA $A000
+	STA FME7_Parameter
 
 	LDA #$0A ; PRG bank 2
-	STA $8000
+	STA FME7_Command
 	LDA #$01 ; ROM bank 1
-	STA $A000
+	STA FME7_Parameter
 
 	LDA #$0B ; PRG bank 3
-	STA $8000
+	STA FME7_Command
 	LDA #$0E ; ROM bank E
-	STA $A000
+	STA FME7_Parameter
 
 	JMP RESET
 
@@ -2701,30 +2746,30 @@ RESET_FME7:
 ChangeCHRBanks_FME7:
 	LDY BackgroundCHR1
 	LDA #$04
-	STA $8000
-	STY $A000
+	STA FME7_Command
+	STY FME7_Parameter
 
 	INY
 	LDA #$05
-	STA $8000
-	STY $A000
+	STA FME7_Command
+	STY FME7_Parameter
 
 	LDY BackgroundCHR2
 	LDA #$06
-	STA $8000
-	STY $A000
+	STA FME7_Command
+	STY FME7_Parameter
 
 	INY
 	LDA #$07
-	STA $8000
-	STY $A000
+	STA FME7_Command
+	STY FME7_Parameter
 
 	LDY #$03
 ChangeCHRBanks_FME7_Loop:
 	TYA
-	STA $8000
+	STA FME7_Command
 	LDA SpriteCHR1, Y
-	STA $A000
+	STA FME7_Parameter
 	DEY
 	BPL ChangeCHRBanks_FME7_Loop
 
@@ -2734,77 +2779,78 @@ ELSEIF INES_MAPPER == MAPPER_MMC5
 RESET_MMC5:
 	; Set PRG mode 3 and CHR mode 3
 	LDA #$03
-	STA $5100 ; PRG mode
-	STA $5101 ; CHR mode
+	STA MMC5_PRGMode
+	STA MMC5_CHRMode
 
 	; Enable PRG RAM writing
 	LDA #$02
-	STA $5102 ; PRG RAM Protect 1
+	STA MMC5_PRGRAMProtect1
 	LDA #$01
-	STA $5103 ; PRG RAM Protect 2
+	STA MMC5_PRGRAMProtect2
 
 	; Set nametable mapping
 	LDA #%01010000
-	STA $5105
+	STA MMC5_NametableMapping
 
 	LDA #$00
-	STA $5113 ; PRG RAM bank
-	STA $5130 ; Upper CHR Bank bits
+	STA MMC5_PRGBankSwitch1
+	STA MMC5_CHRBankSwitchUpper
 
+	; MMC5 Pulse channels
 	LDA #$0F
-	STA $5015
+	STA MMC5_SND_CHN
 
 	; PRG bank 0
 	LDA #$80 ; ROM bank 0
-	STA $5114
+	STA MMC5_PRGBankSwitch2 ; $8000-$9FFF
 
 	; PRG bank 1
 	LDA #$81 ; ROM bank 1
-	STA $5115
+	STA MMC5_PRGBankSwitch3 ; $A000-$BFFF
 
 	; PRG bank 2
 	LDA #$8E ; ROM bank E
-	STA $5116
+	STA MMC5_PRGBankSwitch4 ; $C000-$DFFF
 
 	; PRG bank 3
 	LDA #$8F ; ROM bank F
-	STA $5117
+	STA MMC5_PRGBankSwitch5 ; $E000-$FFFF
 
 	JMP RESET
 
 
 ChangeCHRBanks_MMC5:
 	LDA SpriteCHR1
-	STA $5120
+	STA MMC5_CHRBankSwitch1
 
 	LDA SpriteCHR2
-	STA $5121
+	STA MMC5_CHRBankSwitch2
 
 	LDA SpriteCHR3
-	STA $5122
+	STA MMC5_CHRBankSwitch3
 
 	LDA SpriteCHR4
-	STA $5123
+	STA MMC5_CHRBankSwitch4
 
 	LDA BackgroundCHR1
-	STA $5124
+	STA MMC5_CHRBankSwitch5
 	ADC #$01
-	STA $5125
+	STA MMC5_CHRBankSwitch6
 
 	LDA BackgroundCHR2
-	STA $5126
+	STA MMC5_CHRBankSwitch7
 	ADC #$01
-	STA $5127
+	STA MMC5_CHRBankSwitch8
 
 	LDA BackgroundCHR1
-	STA $5128
+	STA MMC5_CHRBankSwitch9
 	ADC #$01
-	STA $5129
+	STA MMC5_CHRBankSwitch10
 
 	LDA BackgroundCHR2
-	STA $512A
+	STA MMC5_CHRBankSwitch11
 	ADC #$01
-	STA $512B
+	STA MMC5_CHRBankSwitch12
 
 	RTS
 ENDIF
@@ -2956,7 +3002,7 @@ ObjectCollisionHitboxTop:
 	.db $02 ; $12
 	.db $03 ; $13
 
-ObjectCollisionHitboxRight:
+ObjectCollisionHitboxWidth:
 	.db $0B ; $00
 	.db $0B ; $01
 	.db $09 ; $02
@@ -2978,7 +3024,7 @@ ObjectCollisionHitboxRight:
 	.db $06 ; $12
 	.db $15 ; $13
 
-ObjectCollisionHitboxBottom:
+ObjectCollisionHitboxHeight:
 	.db $16 ; $00
 	.db $11 ; $01
 	.db $0D ; $02
@@ -3176,20 +3222,21 @@ RunFrame_Vertical_Common:
 	JMP RunFrame_Common
 
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKF_F1AE:
+;
+; Stores the current level/area and player state in the `Init` variables so that they can be
+; to restart the area from the previous transition after the player dies.
+;
+RememberAreaInitialState:
 	LDA DoAreaTransition
-	CMP #$02
-	BEQ locret_BANKF_F1E0
+	CMP #$02 ; Skip if the player is going into a pointer jar
+	BEQ RememberAreaInitialState_Exit
 
 	LDY #$03
-
-loc_BANKF_F1B7:
+RememberAreaInitialState_Loop:
 	LDA CurrentLevel, Y
 	STA CurrentLevel_Init, Y
 	DEY
-	BPL loc_BANKF_F1B7
+	BPL RememberAreaInitialState_Loop
 
 	LDA PlayerXLo
 	STA PlayerXLo_Init
@@ -3204,12 +3251,9 @@ loc_BANKF_F1B7:
 	LDA PlayerState
 	STA PlayerState_Init
 
-locret_BANKF_F1E0:
+RememberAreaInitialState_Exit:
 	RTS
 
-; End of function sub_BANKF_F1AE
-
-; =============== S U B R O U T I N E =======================================
 
 ;
 ; Level Initialization
@@ -3731,6 +3775,7 @@ loc_BANKF_F3F8:
 
 loc_BANKF_F408:
 	STA SpriteDMAArea + 1, Y
+
 	LDA PlayerAnimationFrame
 	CMP #$06
 	BCS loc_BANKF_F413
@@ -4158,7 +4203,7 @@ EnemyArray_492_Data:
 ;
 ; Index for object collision bounding box table
 ;
-EnemyArray_489_Data:
+ObjectHitbox_Data:
 	.db $08 ; $00 Enemy_Heart
 	.db $02 ; $01 Enemy_ShyguyRed
 	.db $02 ; $02 Enemy_Tweeter
@@ -4232,7 +4277,7 @@ EnemyArray_489_Data:
 	.db $02 ; $46 Enemy_Stopwatch
 
 ; More collision (post-throw)
-byte_BANKF_F607:
+EnemyPlayerCollisionTable:
 	.db $00 ; $00 Enemy_Heart
 	.db $00 ; $01 Enemy_ShyguyRed
 	.db $00 ; $02 Enemy_Tweeter
@@ -4924,6 +4969,10 @@ ENDIF
 
 UpdateJoypads_Loop:
 	LDA Player1JoypadPress, X ; Update the press/held values
+IFDEF JOYPAD_D1
+	ORA Player1JoypadExpansionPress, X
+	STA Player1JoypadPress, X
+ENDIF
 	TAY
 	EOR Player1JoypadHeld, X
 	AND Player1JoypadPress, X
@@ -4948,17 +4997,21 @@ ReadJoypads:
 ReadJoypadLoop:
 	LDA JOY1
 	LSR A
+	; Read D0 standard controller data
 	ROL Player1JoypadPress
 	LSR A
-	; @TODO These seem to never be read, and even then are using a
-	; second bit from JOY1/JOY2 ... Was this reading from
-	; the expansion port???
-	ROL Player1JoypadUnk
+	; Read D1 expansion port controller data
+	;
+	; Before you get too excited, keep in mind that this code is basically ported from the FDS bios.
+	; Code to mux D1 and D0 isn't present, so even if you had an expansion port controller that used
+	; D1, the game wouldn't use it!
+	ROL Player1JoypadExpansionPress
+
 	LDA JOY2
 	LSR A
 	ROL Player2JoypadPress
 	LSR A
-	ROL Player2JoypadUnk
+	ROL Player2JoypadExpansionPress
 	DEX
 	BNE ReadJoypadLoop
 
@@ -4969,7 +5022,6 @@ ReadJoypadLoop:
 ; Load the area specified by the area pointer at the current page
 ;
 FollowCurrentAreaPointer:
-sub_BANKF_F6A1:
 	LDA CurrentLevelPage
 	ASL A
 	TAY
@@ -5094,7 +5146,7 @@ KillPlayer:
 	; a held item on death
 	DEC HoldingItem
 	LDY ObjectBeingCarriedIndex
-	STA EnemyArray_42F, Y
+	STA ObjectProjectileTimer, Y
 	LSR A
 	STA ObjectBeingCarriedTimer, Y
 	STA ObjectXVelocity, Y
@@ -5287,192 +5339,192 @@ TileQuadPointersHi:
 ; map tile within the table.
 ;
 TileQuads1:
-	.db $FE,$FE,$FE,$FE ; $00
-	.db $B4,$B6,$B5,$B7 ; $04
-	.db $B8,$FA,$B9,$FA ; $08
-	.db $FA,$FA,$B2,$B3 ; $0C
-	.db $BE,$BE,$BF,$BF ; $10
-	.db $BF,$BF,$BF,$BF ; $14
-	.db $4A,$4A,$4B,$4B ; $18
-	.db $5E,$5F,$5E,$5F ; $1C
-	.db $E8,$E8,$A9,$A9 ; $20
-	.db $46,$FC,$46,$FC ; $24
-	.db $A9,$A9,$A9,$A9 ; $28
-	.db $FC,$FC,$FC,$FC ; $2C
-	.db $E9,$E9,$A9,$A9 ; $30
-	.db $FC,$48,$FC,$48 ; $34
-	.db $11,$11,$11,$11 ; $38
-	.db $22,$22,$22,$22 ; $3C
-	.db $33,$33,$33,$33 ; $40
-	.db $E8,$EB,$A9,$A9 ; $44
-	.db $74,$76,$75,$77 ; $48
-	.db $98,$9A,$99,$9B ; $4C
-	.db $9C,$9A,$9D,$9B ; $50
-	.db $9C,$9E,$9B,$9F ; $54
-	.db $58,$5A,$59,$5B ; $58
-	.db $5E,$5F,$5E,$5F ; $5C
-	.db $8E,$8F,$8F,$8E ; $60
-	.db $72,$73,$73,$72 ; $64
-	.db $A6,$A6,$A7,$A7 ; $68
-	.db $92,$93,$93,$92 ; $6C
-	.db $74,$76,$75,$77 ; $70
-	.db $70,$72,$71,$73 ; $74
-	.db $71,$73,$71,$73 ; $78
-	.db $24,$26,$25,$27 ; $7C
-	.db $32,$34,$33,$35 ; $80
-	.db $33,$35,$33,$35 ; $84
-	.db $24,$26,$25,$27 ; $88
+	.db $FE, $FE, $FE, $FE ; $00
+	.db $B4, $B6, $B5, $B7 ; $04
+	.db $B8, $FA, $B9, $FA ; $08
+	.db $FA, $FA, $B2, $B3 ; $0C
+	.db $BE, $BE, $BF, $BF ; $10
+	.db $BF, $BF, $BF, $BF ; $14
+	.db $4A, $4A, $4B, $4B ; $18
+	.db $5E, $5F, $5E, $5F ; $1C
+	.db $E8, $E8, $A9, $A9 ; $20
+	.db $46, $FC, $46, $FC ; $24
+	.db $A9, $A9, $A9, $A9 ; $28
+	.db $FC, $FC, $FC, $FC ; $2C
+	.db $E9, $E9, $A9, $A9 ; $30
+	.db $FC, $48, $FC, $48 ; $34
+	.db $11, $11, $11, $11 ; $38
+	.db $22, $22, $22, $22 ; $3C
+	.db $33, $33, $33, $33 ; $40
+	.db $E8, $EB, $A9, $A9 ; $44
+	.db $74, $76, $75, $77 ; $48
+	.db $98, $9A, $99, $9B ; $4C
+	.db $9C, $9A, $9D, $9B ; $50
+	.db $9C, $9E, $9B, $9F ; $54
+	.db $58, $5A, $59, $5B ; $58
+	.db $5E, $5F, $5E, $5F ; $5C
+	.db $8E, $8F, $8F, $8E ; $60
+	.db $72, $73, $73, $72 ; $64
+	.db $A6, $A6, $A7, $A7 ; $68
+	.db $92, $93, $93, $92 ; $6C
+	.db $74, $76, $75, $77 ; $70
+	.db $70, $72, $71, $73 ; $74
+	.db $71, $73, $71, $73 ; $78
+	.db $24, $26, $25, $27 ; $7C
+	.db $32, $34, $33, $35 ; $80
+	.db $33, $35, $33, $35 ; $84
+	.db $24, $26, $25, $27 ; $88
 IFDEF EXPAND_TABLES
 	unusedSpace TileQuads1 + $100, $FC
 ENDIF
 
 TileQuads2:
-	.db $FA,$FA,$FA,$FA ; $00
-	.db $FA,$FA,$FA,$FA ; $04
-	.db $FA,$FA,$FA,$FA ; $08
-	.db $FA,$FA,$B0,$B1 ; $0C
-	.db $FA,$FA,$B0,$B1 ; $10
-	.db $FA,$FA,$B0,$B1 ; $14
-	.db $FA,$FA,$B0,$B1 ; $18
-	.db $FA,$FA,$B0,$B1 ; $1C
-	.db $FA,$FA,$B0,$B1 ; $20
-	.db $FA,$FA,$B0,$B1 ; $24
-	.db $FA,$FA,$B0,$B1 ; $28
-	.db $FA,$FA,$B0,$B1 ; $2C
-	.db $FA,$FA,$B0,$B1 ; $30
-	.db $FA,$FA,$B0,$B1 ; $34
-	.db $A0,$A2,$A1,$A3 ; $38
-	.db $80,$82,$81,$83 ; $3C
-	.db $F4,$86,$F5,$87 ; $40
-	.db $84,$86,$85,$87 ; $44
-	.db $FC,$FC,$FC,$FC ; $48
-	.db $AD,$FB,$AC,$AD ; $4C
-	.db $AC,$AC,$AC,$AC ; $50
-	.db $FB,$3B,$3B,$AC ; $54
-	.db $FC,$FC,$FC,$FC ; $58
-	.db $F4,$86,$F5,$87 ; $5C
-	.db $FB,$49,$49,$FB ; $60
-	.db $FE,$FE,$FE,$FE ; $64
-	.db $FE,$FE,$6D,$FE ; $68
-	.db $3C,$3E,$3D,$3F ; $6C
-	.db $58,$FD,$59,$5A ; $70
-	.db $5B,$5A,$FD,$FD ; $74
-	.db $5B,$5C,$FD,$5D ; $78
-	.db $FD,$FD,$5B,$5A ; $7C
-	.db $6C,$FE,$FE,$FE ; $80
-	.db $FE,$FE,$FE,$FE ; $84
-	.db $FE,$6E,$FE,$6F ; $88
-	.db $20,$22,$21,$23 ; $8C
-	.db $6E,$6F,$70,$71 ; $90
-	.db $57,$57,$FB,$FB ; $94
-	.db $57,$57,$FE,$FE ; $98
-	.db $D3,$D3,$FB,$FB ; $9C
-	.db $D2,$D2,$FB,$FB ; $A0
-	.db $7C,$7E,$7D,$7F ; $A4
-	.db $CA,$CC,$CB,$CD ; $A8
-	.db $CA,$CC,$CB,$CD ; $AC
-	.db $C0,$C2,$C1,$C3 ; $B0
-	.db $2C,$2E,$2D,$2F ; $B4
-	.db $8E,$8F,$8F,$8E ; $B8
-	.db $88,$8A,$89,$8B ; $BC
-	.db $89,$8B,$89,$8B ; $C0
-	.db $89,$8B,$8C,$8D ; $C4
-	.db $88,$8A,$8C,$8D ; $C8
-	.db $88,$8A,$89,$8B ; $CC
-	.db $88,$8A,$89,$8B ; $D0
-	.db $6A,$6C,$6B,$6D ; $D4
-	.db $6C,$6C,$6D,$6D ; $D8
-	.db $6C,$6E,$6D,$6F ; $DC
-	.db $6C,$54,$6D,$55 ; $E0
-	.db $32,$34,$33,$35 ; $E4
-	.db $33,$35,$33,$35 ; $E8
+	.db $FA, $FA, $FA, $FA ; $00
+	.db $FA, $FA, $FA, $FA ; $04
+	.db $FA, $FA, $FA, $FA ; $08
+	.db $FA, $FA, $B0, $B1 ; $0C
+	.db $FA, $FA, $B0, $B1 ; $10
+	.db $FA, $FA, $B0, $B1 ; $14
+	.db $FA, $FA, $B0, $B1 ; $18
+	.db $FA, $FA, $B0, $B1 ; $1C
+	.db $FA, $FA, $B0, $B1 ; $20
+	.db $FA, $FA, $B0, $B1 ; $24
+	.db $FA, $FA, $B0, $B1 ; $28
+	.db $FA, $FA, $B0, $B1 ; $2C
+	.db $FA, $FA, $B0, $B1 ; $30
+	.db $FA, $FA, $B0, $B1 ; $34
+	.db $A0, $A2, $A1, $A3 ; $38
+	.db $80, $82, $81, $83 ; $3C
+	.db $F4, $86, $F5, $87 ; $40
+	.db $84, $86, $85, $87 ; $44
+	.db $FC, $FC, $FC, $FC ; $48
+	.db $AD, $FB, $AC, $AD ; $4C
+	.db $AC, $AC, $AC, $AC ; $50
+	.db $FB, $3B, $3B, $AC ; $54
+	.db $FC, $FC, $FC, $FC ; $58
+	.db $F4, $86, $F5, $87 ; $5C
+	.db $FB, $49, $49, $FB ; $60
+	.db $FE, $FE, $FE, $FE ; $64
+	.db $FE, $FE, $6D, $FE ; $68
+	.db $3C, $3E, $3D, $3F ; $6C
+	.db $58, $FD, $59, $5A ; $70
+	.db $5B, $5A, $FD, $FD ; $74
+	.db $5B, $5C, $FD, $5D ; $78
+	.db $FD, $FD, $5B, $5A ; $7C
+	.db $6C, $FE, $FE, $FE ; $80
+	.db $FE, $FE, $FE, $FE ; $84
+	.db $FE, $6E, $FE, $6F ; $88
+	.db $20, $22, $21, $23 ; $8C
+	.db $6E, $6F, $70, $71 ; $90
+	.db $57, $57, $FB, $FB ; $94
+	.db $57, $57, $FE, $FE ; $98
+	.db $D3, $D3, $FB, $FB ; $9C
+	.db $D2, $D2, $FB, $FB ; $A0
+	.db $7C, $7E, $7D, $7F ; $A4
+	.db $CA, $CC, $CB, $CD ; $A8
+	.db $CA, $CC, $CB, $CD ; $AC
+	.db $C0, $C2, $C1, $C3 ; $B0
+	.db $2C, $2E, $2D, $2F ; $B4
+	.db $8E, $8F, $8F, $8E ; $B8
+	.db $88, $8A, $89, $8B ; $BC
+	.db $89, $8B, $89, $8B ; $C0
+	.db $89, $8B, $8C, $8D ; $C4
+	.db $88, $8A, $8C, $8D ; $C8
+	.db $88, $8A, $89, $8B ; $CC
+	.db $88, $8A, $89, $8B ; $D0
+	.db $6A, $6C, $6B, $6D ; $D4
+	.db $6C, $6C, $6D, $6D ; $D8
+	.db $6C, $6E, $6D, $6F ; $DC
+	.db $6C, $54, $6D, $55 ; $E0
+	.db $32, $34, $33, $35 ; $E4
+	.db $33, $35, $33, $35 ; $E8
 IFDEF EXPAND_TABLES
 	unusedSpace TileQuads2 + $100, $FC
 ENDIF
 
 TileQuads3:
-	.db $94,$95,$94,$95 ; $00
-	.db $96,$97,$96,$97 ; $04
-	.db $48,$49,$48,$49 ; $08
-	.db $FE,$FE,$FE,$FE ; $0C
-	.db $FB,$32,$32,$33 ; $10
-	.db $33,$33,$33,$33 ; $14
-	.db $FD,$FD,$FD,$FD ; $18
-	.db $34,$FB,$FD,$34 ; $1C
-	.db $FB,$30,$FB,$FB ; $20
-	.db $FB,$FB,$31,$FB ; $24
-	.db $D0,$D0,$D0,$D0 ; $28
-	.db $D1,$D1,$D1,$D1 ; $2C
-	.db $64,$66,$65,$67 ; $30
-	.db $68,$6A,$69,$6B ; $34
-	.db $FA,$6C,$FA,$6C ; $38
-	.db $6D,$FA,$6D,$FA ; $3C
-	.db $92,$93,$93,$92 ; $40
-	.db $AE,$AF,$AE,$AF ; $44
-	.db $78,$7A,$79,$7B ; $48
-	.db $A8,$A8,$AF,$AE ; $4C
-	.db $94,$95,$94,$95 ; $50
-	.db $96,$97,$96,$97 ; $54
-	.db $22,$24,$23,$25 ; $58
-	.db $92,$93,$93,$92 ; $5C
-	.db $50,$51,$50,$51 ; $60
-	.db $AE,$AF,$AE,$AF ; $64
-	.db $50,$51,$50,$51 ; $68
-	.db $8E,$8F,$8F,$8E ; $6C
-	.db $72,$73,$73,$72 ; $70
-	.db $50,$52,$51,$53 ; $74
-	.db $FD,$FD,$FD,$FD ; $78
-	.db $FB,$36,$36,$4F ; $7C
-	.db $4F,$4E,$4E,$4F ; $80
-	.db $4E,$4F,$4F,$4E ; $84
-	.db $92,$93,$93,$92 ; $88
-	.db $8E,$8F,$8F,$8E ; $8C
-	.db $44,$45,$45,$44 ; $90
-	.db $4F,$37,$4E,$FE ; $94
-	.db $4F,$3A,$4E,$FE ; $98
-	.db $4F,$4E,$37,$38 ; $9C
-	.db $4A,$4B,$FE,$FE ; $A0
-	.db $72,$73,$4A,$4B ; $A4
-	.db $40,$42,$41,$43 ; $A8
-	.db $41,$43,$41,$43 ; $AC
+	.db $94, $95, $94, $95 ; $00
+	.db $96, $97, $96, $97 ; $04
+	.db $48, $49, $48, $49 ; $08
+	.db $FE, $FE, $FE, $FE ; $0C
+	.db $FB, $32, $32, $33 ; $10
+	.db $33, $33, $33, $33 ; $14
+	.db $FD, $FD, $FD, $FD ; $18
+	.db $34, $FB, $FD, $34 ; $1C
+	.db $FB, $30, $FB, $FB ; $20
+	.db $FB, $FB, $31, $FB ; $24
+	.db $D0, $D0, $D0, $D0 ; $28
+	.db $D1, $D1, $D1, $D1 ; $2C
+	.db $64, $66, $65, $67 ; $30
+	.db $68, $6A, $69, $6B ; $34
+	.db $FA, $6C, $FA, $6C ; $38
+	.db $6D, $FA, $6D, $FA ; $3C
+	.db $92, $93, $93, $92 ; $40
+	.db $AE, $AF, $AE, $AF ; $44
+	.db $78, $7A, $79, $7B ; $48
+	.db $A8, $A8, $AF, $AE ; $4C
+	.db $94, $95, $94, $95 ; $50
+	.db $96, $97, $96, $97 ; $54
+	.db $22, $24, $23, $25 ; $58
+	.db $92, $93, $93, $92 ; $5C
+	.db $50, $51, $50, $51 ; $60
+	.db $AE, $AF, $AE, $AF ; $64
+	.db $50, $51, $50, $51 ; $68
+	.db $8E, $8F, $8F, $8E ; $6C
+	.db $72, $73, $73, $72 ; $70
+	.db $50, $52, $51, $53 ; $74
+	.db $FD, $FD, $FD, $FD ; $78
+	.db $FB, $36, $36, $4F ; $7C
+	.db $4F, $4E, $4E, $4F ; $80
+	.db $4E, $4F, $4F, $4E ; $84
+	.db $92, $93, $93, $92 ; $88
+	.db $8E, $8F, $8F, $8E ; $8C
+	.db $44, $45, $45, $44 ; $90
+	.db $4F, $37, $4E, $FE ; $94
+	.db $4F, $3A, $4E, $FE ; $98
+	.db $4F, $4E, $37, $38 ; $9C
+	.db $4A, $4B, $FE, $FE ; $A0
+	.db $72, $73, $4A, $4B ; $A4
+	.db $40, $42, $41, $43 ; $A8
+	.db $41, $43, $41, $43 ; $AC
 IFDEF EXPAND_TABLES
 	unusedSpace TileQuads3 + $100, $FC
 ENDIF
 TileQuads4:
-	.db $40,$42,$41,$43 ; $00
-	.db $40,$42,$41,$43 ; $04
-	.db $BA,$BC,$BB,$BD ; $08
-	.db $BA,$BC,$90,$91 ; $0C
-	.db $FA,$FA,$FA,$FA ; $10
-	.db $FA,$FA,$FA,$FA ; $14
-	.db $FD,$FD,$FD,$FD ; $18
-	.db $61,$63,$61,$63 ; $1C
-	.db $65,$63,$65,$63 ; $20
-	.db $65,$67,$65,$67 ; $24
-	.db $60,$62,$61,$63 ; $28
-	.db $32,$34,$33,$35 ; $2C
-	.db $64,$62,$65,$63 ; $30
-	.db $36,$34,$37,$35 ; $34
-	.db $64,$66,$65,$67 ; $38
-	.db $36,$38,$37,$39 ; $3C
-	.db $68,$62,$61,$63 ; $40
-	.db $64,$69,$65,$67 ; $44
-	.db $46,$62,$61,$63 ; $48
-	.db $64,$47,$65,$67 ; $4C
-	.db $BA,$BC,$BB,$BD ; $50
-	.db $70,$72,$71,$73 ; $54
-	.db $8E,$8F,$8F,$8E ; $58
-	.db $72,$73,$73,$72 ; $5C
-	.db $44,$45,$45,$44 ; $60
+	.db $40, $42, $41, $43 ; $00
+	.db $40, $42, $41, $43 ; $04
+	.db $BA, $BC, $BB, $BD ; $08
+	.db $BA, $BC, $90, $91 ; $0C
+	.db $FA, $FA, $FA, $FA ; $10
+	.db $FA, $FA, $FA, $FA ; $14
+	.db $FD, $FD, $FD, $FD ; $18
+	.db $61, $63, $61, $63 ; $1C
+	.db $65, $63, $65, $63 ; $20
+	.db $65, $67, $65, $67 ; $24
+	.db $60, $62, $61, $63 ; $28
+	.db $32, $34, $33, $35 ; $2C
+	.db $64, $62, $65, $63 ; $30
+	.db $36, $34, $37, $35 ; $34
+	.db $64, $66, $65, $67 ; $38
+	.db $36, $38, $37, $39 ; $3C
+	.db $68, $62, $61, $63 ; $40
+	.db $64, $69, $65, $67 ; $44
+	.db $46, $62, $61, $63 ; $48
+	.db $64, $47, $65, $67 ; $4C
+	.db $BA, $BC, $BB, $BD ; $50
+	.db $70, $72, $71, $73 ; $54
+	.db $8E, $8F, $8F, $8E ; $58
+	.db $72, $73, $73, $72 ; $5C
+	.db $44, $45, $45, $44 ; $60
 IFDEF EXPAND_TABLES
 	unusedSpace TileQuads4 + $100, $FC
 ENDIF
 
 EndOfLevelDoor: ; PPU data
-	.db $22,$D0,$04,$FC,$FC,$AD,$FA
-	.db $22,$F0,$04,$FC,$FC,$AC,$AD
-	.db $23,$10,$06,$FC,$FC,$AC,$AC,$AD,$FA
-	.db $23,$30,$06,$FC,$FC,$AC,$AC,$AC,$AD
+	.db $22, $D0, $04, $FC, $FC, $AD, $FA
+	.db $22, $F0, $04, $FC, $FC, $AC, $AD
+	.db $23, $10, $06, $FC, $FC, $AC, $AC, $AD, $FA
+	.db $23, $30, $06, $FC, $FC, $AC, $AC, $AC, $AD
 	.db $00
 
 EndOfLevelDoorRowOffsets:
@@ -5645,6 +5697,10 @@ FindSpriteSlot_CheckInactiveSlot:
 	BEQ FindSpriteSlot_Exit
 
 
+IFDEF DEBUG
+	.include "src/extras/debug-f.asm"
+ENDIF
+
 ; Unused space in the original ($FB36 - $FDFF)
 unusedSpace $FE00, $FF
 
@@ -5813,12 +5869,18 @@ LoadMarioSleepingCHRBanks:
 unusedSpace $FF50, $FF
 
 
-; public RESET
-; This code is called when the NES is reset
+;
+; Public RESET
+;
+; This code is called when the NES is reset and handles some boilerplate
+; initialization before starting the game loop.
+;
+; The NMI handles frame rendering.
+;
 RESET:
 	SEI
 	CLD
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIDisabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_Background0000 | PPUCtrl_NMIDisabled
 	STA PPUCTRL
 	LDX #$FF ; Reset stack pointer
 	TXS
@@ -5834,21 +5896,25 @@ RESET_VBlank2Loop:
 	LDA PPUSTATUS
 	BPL RESET_VBlank2Loop
 
-IFDEF DEBUG
-	LDA #$00
-	STA Debug_InMenu
-ENDIF
-
 IF INES_MAPPER == MAPPER_FME7
 	LDA #$0C
-	STA $8000
+	STA FME7_Command
 	LDA #VMirror
-	STA $A000
-ELSE
+	STA FME7_Parameter
+ELSEIF INES_MAPPER == MAPPER_MMC5
+	LDA #MMC5_VMirror
+	STA MMC5_NametableMapping
+	; Maintain location of the next subroutine
+	NOP_compat
+	NOP_compat
+	NOP_compat
+	NOP_compat
+	NOP_compat
+ELSE ;  INES_MAPPER == MAPPER_MMC3
 	LDA #VMirror
-	STA NametableMapping
+	STA MMC3_Mirroring
 	LDA #$80
-	STA $A001 ; PRG-RAM protect
+	STA MMC3_PRGRamProtect
 ENDIF
 	JMP StartGame
 
@@ -5875,10 +5941,10 @@ ChangeCHRBanks:
 	LDY #$05
 ChangeCHRBanks_Loop:
 	TYA
-	ORA #$80
-	STA $8000
+	ORA #CHR_A12_INVERSION
+	STA MMC3_BankSelect
 	LDA BackgroundCHR1, Y
-	STA $8001
+	STA MMC3_BankData
 	DEY
 	BPL ChangeCHRBanks_Loop
 
@@ -5922,42 +5988,46 @@ ChangeMappedPRGBankWithoutSaving:
 	ASL A
 
 IF INES_MAPPER == MAPPER_FME7
+	; Change first bank
 	PHA
 	LDA #$09
-	STA $8000
+	STA FME7_Command
 	PLA
-	STA $A000 ; Change first bank
+	STA FME7_Parameter
 	ORA #$01 ; Use the bank right after this one next
+	; Change second bank
 	PHA
 	LDA #$0A
-	STA $8000
+	STA FME7_Command
 	PLA
-	STA $A000 ; Change second bank
+	STA FME7_Parameter
 
 	RTS
 
 ELSEIF INES_MAPPER == MAPPER_MMC5
 	ORA #$80
-	STA $5114
+	STA MMC5_PRGBankSwitch2
 	ORA #$01
-	STA $5115
+	STA MMC5_PRGBankSwitch3
 	RTS
 
 	; Maintain location of the next subroutine
 	unusedSpace $FFA0, $FF
 
 ELSE ; INES_MAPPER == MAPPER_MMC3
+	; Change first bank
 	PHA
-	LDA #$86
-	STA $8000
+	LDA #CHR_A12_INVERSION | $06
+	STA MMC3_BankSelect
 	PLA
-	STA $8001 ; Change first bank
+	STA MMC3_BankData
 	ORA #$01 ; Use the bank right after this one next
+	; Change second bank
 	PHA
-	LDA #$87
-	STA $8000
+	LDA #CHR_A12_INVERSION | $07
+	STA MMC3_BankSelect
 	PLA
-	STA $8001 ; Change second bank
+	STA MMC3_BankData
 	RTS
 
 ENDIF
@@ -5973,11 +6043,13 @@ ChangeNametableMirroring:
 IF INES_MAPPER == MAPPER_FME7
 	PHA
 	LDA #$0C
-	STA $8000
+	STA FME7_Command
 	PLA
-	STA $A000
+	STA FME7_Parameter
+ELSEIF INES_MAPPER == MAPPER_MMC5
+	STA MMC5_NametableMapping
 ELSE
-	STA NametableMapping
+	STA MMC3_Mirroring
 ENDIF
 	RTS
 
@@ -5987,14 +6059,17 @@ unusedSpace $FFEB, $FF
 ; Technically you can delete the stuff from here to the vector table as well,
 ; but because it looks slightly less like unused space it isn't being removed.
 
+IFDEF PRESERVE_UNUSED_SPACE
 ; Not used; leftover part of FamicomBox cart title?
 UnusedTextZELDA:
 	.db 'ZELDA'
+ENDIF
 
 ; Note that this is NOT CODE.
 ; If the NES actually hits a BRK, the game will probably just explode.
-; If you wanted, you could write  some sort of crash handler though.
+; If you wanted, you could write some sort of crash handler though.
 IRQ:
+IFDEF PRESERVE_UNUSED_SPACE
 	.db $DF
 	.db $E6
 	.db $00
@@ -6005,15 +6080,23 @@ IRQ:
 	.db $04
 	.db $01
 	.db $BE
+ENDIF
 
-; Ensure our vectors are always here
-	.pad $FFFA, $FF
+;
+; Vectors for the NES CPU. These must ALWAYS be at $FFFA!
+;
+; **NMI** is the code that runs each frame during the VBlank.
+;
+; **RESET** is code that runs after the console starts or resets.
+;
+; **IRQ** is not used, but would handle things like `BRK` or scanline counter
+; interrupts. Note that the MMC3 scanline counter is clocked incorrectly due to
+; the use of both sides of the nametable for sprites as well as using the right
+; rather than left nametable for backgrounds, which effectively prevents using
+; the scanline counter for things like precise screen splits.
+;
+.pad $FFFA, $FF
 
-; Vectors for the NES CPU. These should ALWAYS be at $FFFA!
-; Add a .pad or .base before here if you change code above.
-; NMI = VBlank
-; RESET = ...well, reset.
-; IRQ is not used, but you could if you wanted.
 NESVectorTables:
 	.dw NMI
 IF INES_MAPPER == MAPPER_FME7
