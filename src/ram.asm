@@ -527,12 +527,10 @@ PPUBuffer_301:
 	.dsb 1 ; $0311
 	.dsb 1 ; $0312
 	.dsb 1 ; $0313
-unk_RAM_314: ; related to color swapping
 	.dsb 1 ; $0314
 	.dsb 1 ; $0315
 	.dsb 1 ; $0316
 	.dsb 1 ; $0317
-unk_RAM_318:
 	.dsb 1 ; $0318
 	.dsb 1 ; $0319
 	.dsb 1 ; $031a
@@ -639,7 +637,6 @@ unk_RAM_318:
 	.dsb 1 ; $037f
 ScrollingPPUTileUpdateBuffer:
 	.dsb 1 ; $0380
-unk_RAM_381:
 	.dsb 1 ; $0381
 	.dsb 1 ; $0382
 	.dsb 1 ; $0383
@@ -669,9 +666,7 @@ unk_RAM_381:
 	.dsb 1 ; $039b
 	.dsb 1 ; $039c
 	.dsb 1 ; $039d
-unk_RAM_39E:
 	.dsb 1 ; $039e
-unk_RAM_39F:
 	.dsb 1 ; $039f
 	.dsb 1 ; $03a0
 	.dsb 1 ; $03a1
@@ -943,7 +938,6 @@ EnemyHP:
 	.dsb 1 ; $046b
 	.dsb 1 ; $046c
 
-unk_RAM_46D:
 	.dsb 1 ; $046d
 EnemyArray_46E:
 	.dsb 1 ; $046e
@@ -990,7 +984,6 @@ ObjectHitbox:
 	.dsb 1 ; $048f
 	.dsb 1 ; $0490
 
-unk_RAM_491:
 	.dsb 1 ; $0491
 EnemyArray_492:
 	.dsb 1 ; $0492
@@ -1016,7 +1009,8 @@ EnemyArray_SpawnsDoor:
 
 ; FOR RENT
 	.dsb 1 ; $04a3
-unk_RAM_4A4:
+; When set, the player will not move with the object while standing on it
+ObjectNonSticky:
 	.dsb 1 ; $04a4
 	.dsb 1 ; $04a5
 	.dsb 1 ; $04a6
@@ -1164,8 +1158,7 @@ ExtraLives:
 ; $02: Pointer jar
 InJarType:
 	.dsb 1 ; $04ee
-EndOfLevelDoorPage: ;;;
-unk_RAM_4EF:
+EndOfLevelDoorPage:
 	.dsb 1 ; $04ef
 	.dsb 1 ; $04f0
 	.dsb 1 ; $04f1
@@ -1783,7 +1776,7 @@ SlotMachineReelOrder3RAM:
 	.dsb 1 ; $0650
 	.dsb 1 ; $0651
 	.dsb 1 ; $0652
-unk_RAM_653:
+BonusChanceUnusedCoinSprite_RAM:
 	.dsb 1 ; $0653
 	.dsb 1 ; $0654
 	.dsb 1 ; $0655
@@ -2139,23 +2132,15 @@ WarpToWorld_World = $71a6
 
 PPUBuffer_ContinueRetryBullets = $71a8
 
-; byte_BANKA_84E1 copied to RAM
-byte_RAM_71CC = $71cc
+; Copied from bank A
+FlyingCarpetAcceleration_RAM = $71cc
 
-; $F607 copied to RAM
+; Copied from bank F
 EnemyPlayerCollisionTable_RAM = $71d1
 
 PPUBuffer_EndOfLevelDoor = $721b
 
-unk_RAM_7265 = $7265
-
-unk_RAM_7266 = $7266
-
-byte_RAM_7267 = $7267
-
-unk_RAM_7268 = $7268
-
-byte_RAM_726B = $726b
+WartOAMOffsets_RAM = $7265
 
 PPUBuffer_BonusChanceLayout = $7400
 

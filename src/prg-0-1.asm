@@ -1753,13 +1753,13 @@ loc_BANK0_88A0:
 	STA ScrollingPPUTileUpdateBuffer, X
 	INY
 	LDA (byte_RAM_0), Y
-	STA unk_RAM_39E, X
+	STA ScrollingPPUTileUpdateBuffer + $1E, X
 	INY
 	LDA (byte_RAM_0), Y
-	STA unk_RAM_381, X
+	STA ScrollingPPUTileUpdateBuffer + $01, X
 	INY
 	LDA (byte_RAM_0), Y
-	STA unk_RAM_39F, X
+	STA ScrollingPPUTileUpdateBuffer + $1F, X
 	INC CopyBackgroundCounter
 	INX
 	INX

@@ -1724,7 +1724,7 @@ loc_BANKF_E8D3:
 	BEQ SlotMachineLoseFanfare ; No, play lose sound effect
 
 	ORA #$D0
-	STA byte_RAM_6C8
+	STA PPUBuffer_Player1UpText + 11 ; Update number of lives won
 	LDA #Music2_CrystalGetFanfare ; Play winner jingle
 	STA MusicQueue2
 	LDA #$A0
@@ -2016,13 +2016,14 @@ sub_BANKF_EA68:
 	DEY
 	TYA
 	JSR GetTwoDigitNumberTiles
-
 	STY byte_RAM_599
 	STA byte_RAM_59A
+
 	LDA SlotMachineCoins
 	CLC
 	ADC #$D0
 	STA byte_RAM_588
+
 	LDA #ScreenUpdateBuffer_RAM_BonusChanceCoinsExtraLife
 	STA ScreenUpdateIndex
 	LDA #Stack100_Menu
@@ -2211,9 +2212,9 @@ CopyUnusedCoinSpriteToSpriteArea:
 	LDY #$00
 
 CopyUnusedCoinSpriteToSpriteArea_Loop:
-	LDA unk_RAM_653, Y ; Copy two sprites from memory to memory.
-	STA SpriteDMAArea + $28, Y ; This is definitely efficient.
-	INY ; Two sprites for each half of the coin.
+	LDA BonusChanceUnusedCoinSprite_RAM, Y
+	STA SpriteDMAArea + $28, Y
+	INY
 	CPY #$08 ; Four bytes per sprite * 2 sprites = 8 bytes
 	BCC CopyUnusedCoinSpriteToSpriteArea_Loop
 

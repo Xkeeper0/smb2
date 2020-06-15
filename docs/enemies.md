@@ -90,11 +90,11 @@
 ### `$049B` (`EnemyArray_SpawnsDoor`)
 - if set, an end-of-level door spawns when the enemy is defeated
 
-### `$04A4` (`unk_RAM_4A4`)
+### `$04A4` (`ObjectNonSticky`)
 
 ### `$04CC` (`ObjectXAcceleration`)
 
 ### `$04D6` (`ObjectYAcceleration`)
 
-### `$04EF` (`unk_RAM_4EF`)
+### `$04EF` (`EndOfLevelDoorPage`)
 

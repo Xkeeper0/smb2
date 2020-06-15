@@ -1038,7 +1038,7 @@ loc_BANK2_8509:
 
 	LDA #Music2_BossClearFanfare
 	STA MusicQueue2
-	LDA unk_RAM_4EF, X
+	LDA EndOfLevelDoorPage, X
 	STA ObjectXHi, X
 	LDA #$80
 	STA ObjectXLo, X
@@ -1605,7 +1605,7 @@ loc_BANK2_87CA:
 
 loc_BANK2_87D9:
 	; Boss door PPU updates
-	LDA unk_RAM_4EF, X
+	LDA EndOfLevelDoorPage, X
 	AND #%00000001
 	ASL A
 	ASL A
@@ -1625,7 +1625,7 @@ loc_BANK2_87E7:
 
 	LDA #$14
 	STA ScreenUpdateIndex
-	LDY unk_RAM_4EF, X
+	LDY EndOfLevelDoorPage, X
 	LDA #$5F
 	STA byte_RAM_1
 	LDA #$10
@@ -1958,7 +1958,7 @@ EnemyDestroy_Exit:
 
 HandleEnemyState_Alive:
 	LDA #$01
-	STA unk_RAM_4A4, X
+	STA ObjectNonSticky, X
 	LDY ObjectProjectileTimer, X
 	DEY
 	CPY #$1F
@@ -3072,7 +3072,7 @@ Enemy_Birdo_Attributes:
 
 
 ;
-; Initializes a Birdo (and a few other boss enemies)
+; Initializes a Birdo (and a few other boss enemies, such as Mouser and Clawgrip)
 ;
 EnemyInit_Birdo:
 	JSR EnemyInit_Basic
@@ -3097,7 +3097,7 @@ EnemyInit_Birdo_SetType:
 
 EnemyInit_Birdo_Exit:
 	LDA ObjectXHi, X
-	STA unk_RAM_4EF, X
+	STA EndOfLevelDoorPage, X
 	RTS
 
 
@@ -6330,7 +6330,7 @@ ApplyObjectPhysics_StoreDirection:
 
 ApplyObjectPhysics_HorizontalSpecialCases:
 	LDA #$00
-	STA unk_RAM_4A4, X
+	STA ObjectNonSticky, X
 	LDA ObjectType, X
 	CMP #Enemy_Bullet
 	BEQ ApplyObjectPhysics_PositionHi
@@ -7022,7 +7022,7 @@ loc_BANK3_A3A5:
 	LDY #$FF
 
 loc_BANK3_A3C7:
-	STY byte_RAM_71CC
+	STY FlyingCarpetAcceleration_RAM
 	LDA Player1JoypadHeld
 	AND #ControllerInput_Right | ControllerInput_Left
 	TAY
@@ -7036,7 +7036,7 @@ loc_BANK3_A3C7:
 
 	LDA ObjectXVelocity, X
 	CLC
-	ADC byte_RAM_71CC, Y
+	ADC FlyingCarpetAcceleration_RAM, Y
 	STA ObjectXVelocity, X
 
 loc_BANK3_A3E3:
@@ -7056,7 +7056,7 @@ loc_BANK3_A3EA:
 	LDY #$FF
 
 loc_BANK3_A3F2:
-	STY byte_RAM_71CC
+	STY FlyingCarpetAcceleration_RAM
 	LDA #$20
 	CMP SpriteTempScreenY
 	LDA #$00
@@ -7091,7 +7091,7 @@ loc_BANK3_A41B:
 
 	LDA ObjectYVelocity, X
 	CLC
-	ADC byte_RAM_71CC, Y
+	ADC FlyingCarpetAcceleration_RAM, Y
 
 loc_BANK3_A428:
 	STA ObjectYVelocity, X
@@ -8731,7 +8731,7 @@ loc_BANK3_ACA1:
 
 	LDY byte_RAM_0
 	LDA ObjectYHi, X
-	STA unk_RAM_4EF, Y
+	STA EndOfLevelDoorPage, Y
 	LDA #$F0
 	STA ObjectYVelocity, Y
 	LDA #Enemy_FryguySplit
@@ -9303,7 +9303,7 @@ loc_BANK3_AFBF:
 loc_BANK3_AFDA:
 	JSR ApplyObjectMovement
 
-	INC unk_RAM_4A4, X
+	INC ObjectNonSticky, X
 	JMP RenderSprite
 
 ; ---------------------------------------------------------------------------
@@ -9660,7 +9660,7 @@ ENDIF
 	LDA #$06
 	STA EnemyHP, X
 	LDA ObjectXHi, X
-	STA unk_RAM_4EF, X
+	STA EndOfLevelDoorPage, X
 	RTS
 
 
@@ -9843,13 +9843,13 @@ EnemyBehavior_WartBubble_Exit:
 
 RenderSprite_Wart:
 	LDA_abs byte_RAM_F4
-	STA byte_RAM_7267
-	STA byte_RAM_726B
+	STA WartOAMOffsets_RAM + 2
+	STA WartOAMOffsets_RAM + 6
 	LDA byte_RAM_10
 	AND #$03
 	STA byte_RAM_7
 	TAY
-	LDA unk_RAM_7265, Y
+	LDA WartOAMOffsets_RAM, Y
 	STA_abs byte_RAM_F4
 	LDA byte_RAM_EF
 	BNE EnemyBehavior_WartBubble_Exit
@@ -9897,7 +9897,7 @@ RenderSprite_Wart_DrawTop:
 	LDA byte_RAM_0
 	STA SpriteTempScreenY
 	LDY byte_RAM_7
-	LDA unk_RAM_7266, Y
+	LDA WartOAMOffsets_RAM + 1, Y
 	STA_abs byte_RAM_F4
 	LDY #$A6 ; middle row: regular
 	LDA EnemyArray_B1, X
@@ -9930,7 +9930,7 @@ RenderSprite_Wart_DrawMiddle:
 	LDA byte_RAM_0
 	STA SpriteTempScreenY
 	LDY byte_RAM_7
-	LDA byte_RAM_7267, Y
+	LDA WartOAMOffsets_RAM + 2, Y
 	STA_abs byte_RAM_F4
 	LDY #$BA ; bottom row: standing
 	LDA ObjectXVelocity, X
@@ -9954,8 +9954,8 @@ RenderSprite_Wart_DrawBottom:
 
 	; draw backside
 	LDY byte_RAM_7
-	LDX byte_RAM_7267, Y
-	LDA unk_RAM_7268, Y
+	LDX WartOAMOffsets_RAM + 2, Y
+	LDA WartOAMOffsets_RAM + 3, Y
 	TAY
 	LDA SpriteTempScreenX
 	CLC
@@ -10907,8 +10907,7 @@ locret_BANK3_B902:
 	RTS
 
 
-CheckCollisionDirectionTable: ;;;;;;;
-unk_BANK3_B903:
+CheckCollisionDirectionTable:
 	.db CollisionFlags_Up ; down
 	.db CollisionFlags_Down ; up
 
@@ -10948,7 +10947,7 @@ loc_BANK3_B922:
 	ROL A
 	TAY
 	LDA byte_RAM_F
-	AND unk_BANK3_B903, Y
+	AND CheckCollisionDirectionTable, Y
 	BEQ locret_BANK3_B955
 
 	; Reverse the y-velocity of the object
@@ -11264,7 +11263,7 @@ DetermineCollisionFlags_SetFlagsX:
 	BEQ DetermineCollisionFlags_ExitX
 
 	LDY byte_RAM_12 ; restore Y
-	LDA unk_RAM_4A4, Y
+	LDA ObjectNonSticky, Y
 	BNE DetermineCollisionFlags_ExitX
 
 	; @TODO: Looks like a way to make objects move together horizontally
@@ -11302,7 +11301,7 @@ loc_BANK3_BAD1:
 	BMI DetermineCollisionFlags_ExitY
 
 	LDY byte_RAM_12
-	LDA unk_RAM_4A4, Y
+	LDA ObjectNonSticky, Y
 	BNE loc_BANK3_BAE6
 
 	LDA ObjectXVelocity, Y
@@ -11344,7 +11343,7 @@ loc_BANK3_BB11:
 loc_BANK3_BB13:
 	STY byte_RAM_F
 	LDY byte_RAM_12
-	LDA unk_RAM_4A4, Y
+	LDA ObjectNonSticky, Y
 	BNE loc_BANK3_BB22
 
 	; @TODO: Looks like a way to make objects move together vertically
@@ -11741,7 +11740,7 @@ ReplaceTile_StoreXHi:
 	INY
 
 loc_BANK3_BCBA:
-	LDA unk_BANK3_BD0B, Y
+	LDA PPUNametableHi, Y
 	CLC
 	ADC PPUBuffer_301, X
 	STA PPUBuffer_301, X
@@ -11786,11 +11785,11 @@ loc_BANK3_BCBA:
 
 
 ; Another byte of PPU high addresses for horiz/vert levels
-unk_BANK3_BD0B:
-	.db $20
-	.db $28
-	.db $20
-	.db $24
+PPUNametableHi:
+	.db $20 ; vertical, nametable A
+	.db $28 ; vertical, nametable B
+	.db $20 ; horizontal, nametable A
+	.db $24 ; horizontal, nametable B
 
 
 StashPlayerPosition:

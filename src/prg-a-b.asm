@@ -378,27 +378,38 @@ ToadPalette:
 LuigiPalette:
 	.db $0F, $01, $2A, $36
 
+;
+; What is this for? It gets copied to RAM and then...that's all.
+;
+; In Doki Doki Panic, this data loads on the level/character select screen, but doesn't seem to be
+; used for anything there either. Will we ever unravel this mystery?
+;
 MysteryData14439:
 	.db $DF
 	.db $EF
 	.db $F7
 	.db $FB
+
 	.db $00
 	.db $FF
 	.db $FF
 	.db $FF
+
 	.db $AF
 	.db $D7
 	.db $EB
 	.db $F5
+
 	.db $FB
 	.db $F7
 	.db $EF
 	.db $DF
+
 	.db $00
 	.db $FF
 	.db $FF
 	.db $FF
+
 	.db $F5
 	.db $EB
 	.db $D7
@@ -484,8 +495,8 @@ loc_BANKA_84AB:
 	; Copy flying carpet acceleration table
 	LDY #$03
 loc_BANKA_84B6:
-	LDA byte_BANKA_84E1, Y
-	STA byte_RAM_71CC, Y
+	LDA FlyingCarpetAcceleration, Y
+	STA FlyingCarpetAcceleration_RAM, Y
 	DEY
 	BPL loc_BANKA_84B6
 
@@ -511,23 +522,21 @@ loc_BANKA_84CC:
 	; Copy Wart's OAM address table
 	LDY #$06
 loc_BANKA_84D7:
-	LDA byte_BANKA_84E5, Y
-	STA unk_RAM_7265, Y
+	LDA WartOAMOffsets, Y
+	STA WartOAMOffsets_RAM, Y
 	DEY
 	BPL loc_BANKA_84D7
 
 	RTS
 
 
-; Flying carpet acceleration
-byte_BANKA_84E1:
+FlyingCarpetAcceleration:
 	.db $00
 	.db $01
 	.db $FF
 	.db $00
 
-; Wart OAM address offsets
-byte_BANKA_84E5:
+WartOAMOffsets:
 	.db $00
 	.db $E0
 	.db $FF ; Cycled in code ($7267)

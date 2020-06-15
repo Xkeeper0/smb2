@@ -3580,19 +3580,19 @@ ApplyPalette_BackgroundLoop:
 	LDY #$00
 ApplyPalette_SpriteLoop:
 	JSR ReadWorldSpriteColor
-	STA unk_RAM_318, Y
+	STA PPUBuffer_301 + $17, Y
 	INX
 	INY
 	CPY #$0C
 	BCC ApplyPalette_SpriteLoop
 
 	LDA #$00
-	STA unk_RAM_318, Y
+	STA PPUBuffer_301 + $17, Y
 	LDY #$03
 
 ApplyPalette_PlayerLoop:
 	LDA RestorePlayerPalette0, Y
-	STA unk_RAM_314, Y
+	STA PPUBuffer_301 + $13, Y
 	DEY
 	BPL ApplyPalette_PlayerLoop
 
