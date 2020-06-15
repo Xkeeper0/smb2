@@ -480,7 +480,7 @@ loc_BANKA_8493:
 	LDY #$17
 loc_BANKA_84A0:
 	LDA MysteryData14439, Y
-	STA unk_RAM_7150, Y
+	STA MysteryData14439_RAM, Y
 	DEY
 	BPL loc_BANKA_84A0
 

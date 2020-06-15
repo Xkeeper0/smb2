@@ -6511,8 +6511,8 @@ ENDIF
 	STA ObjectXLo, X
 	JMP SetEnemyAttributes
 
-; ---------------------------------------------------------------------------
-unk_BANK3_A120:
+
+ClawgripRock_ThrowVelocityY:
 	.db $C8
 	.db $D0
 	.db $E0
@@ -6521,7 +6521,8 @@ unk_BANK3_A120:
 	.db $10
 	.db $20
 	.db $C8
-unk_BANK3_A128:
+
+ClawgripRock_JumpVelocityY:
 	.db $DC
 	.db $E2
 	.db $E8
@@ -6530,7 +6531,7 @@ unk_BANK3_A128:
 	.db $E8
 	.db $DC
 	.db $DC
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_Clawgrip:
 	LDA ObjectFlashTimer, X
@@ -6595,39 +6596,51 @@ loc_BANK3_A17D:
 	CMP #$20
 	BNE loc_BANK3_A1CD
 
+	; Set jump velocity of Clawgrip
 	LDA PseudoRNGValue
 	AND #$07
 	TAY
-	LDA unk_BANK3_A128, Y
+	LDA ClawgripRock_JumpVelocityY, Y
 	STA ObjectYVelocity, X
 	DEC ObjectYLo, X
 	JSR CreateEnemy
 
 	BMI loc_BANK3_A1CD
 
+	; Set y-position of rock
 	LDY byte_RAM_0
 	LDA ObjectYLo, X
 	SEC
 	SBC #$00
 	STA ObjectYLo, Y
+
 	LDA ObjectYHi, X
 	SBC #$00
 	STA ObjectYHi, Y
+
+	; Set x-position of rock
 	LDA ObjectXLo, X
 	CLC
 	ADC #$08
 	STA ObjectXLo, Y
+
 	LDA ObjectXHi, X
 	ADC #$00
 	STA ObjectXHi, Y
+
+	; Set object type of rock
 	LDX byte_RAM_0
 	LDA #Enemy_ClawgripRock
 	STA ObjectType, X
+
+	; Set y-velocity of rock
 	LDA PseudoRNGValue
 	AND #$07
 	TAY
-	LDA unk_BANK3_A120, Y
+	LDA ClawgripRock_ThrowVelocityY, Y
 	STA ObjectYVelocity, X
+
+	; Set x-velocity of rock
 	LDA #$D0
 	STA ObjectXVelocity, X
 	JSR SetEnemyAttributes
@@ -8269,13 +8282,13 @@ EnemyInit_Pokey:
 	STA EnemyVariable, X
 	RTS
 
-; ---------------------------------------------------------------------------
-unk_BANK3_AA1C:
+
+PokeyHitbox:
 	.db $02
 	.db $04
 	.db $0D
 	.db $0E
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_Pokey:
 	LDA EnemyVariable, X
@@ -8336,8 +8349,7 @@ sub_BANK3_AA3E:
 	STA EnemyVariable, Y
 	TAY
 
-loc_BANK3_AA78:
-	LDA unk_BANK3_AA1C, Y
+	LDA PokeyHitbox, Y
 	LDY byte_RAM_0
 	STA ObjectHitbox, Y
 	LDA ObjectXLo, X
@@ -8818,18 +8830,18 @@ loc_BANK3_AD37:
 
 	JMP ApplyObjectPhysicsX
 
-; ---------------------------------------------------------------------------
-unk_BANK3_AD40:
+FryguyFlame_JumpTimeout:
 	.db $3F
 	.db $3F
 	.db $3F
 	.db $7F
-unk_BANK3_AD44:
+
+FryguyFlame_JumpVelocityY:
 	.db $D4
 	.db $D8
 	.db $DA
 	.db $DE
-; ---------------------------------------------------------------------------
+
 
 EnemyBehavior_FryguySplit:
 	LDA EnemyCollision, X
@@ -8881,13 +8893,13 @@ loc_BANK3_AD85:
 	ASL A
 	ADC byte_RAM_10
 	LDY FryguySplitFlames
-	AND unk_BANK3_AD40, Y
+	AND FryguyFlame_JumpTimeout, Y
 	ORA ObjectYVelocity, X
 	BNE loc_BANK3_ADAB
 
 	LDA PseudoRNGValue
 	AND #$1F
-	ORA unk_BANK3_AD44, Y
+	ORA FryguyFlame_JumpVelocityY, Y
 	STA ObjectYVelocity, X
 	JSR EnemyInit_BasicMovementTowardPlayer
 
@@ -8895,6 +8907,7 @@ loc_BANK3_AD85:
 	CMP #$02
 	BCS loc_BANK3_ADAB
 
+	; Double x-velocity for the last flame
 	ASL ObjectXVelocity, X
 
 loc_BANK3_ADAB:

@@ -233,7 +233,7 @@ ENDIF
 ; etc.
 ;
 EnemyVariable:
-	.dsb 1 ; DATA XREF: BANK0:9082w ; $0079
+	.dsb 1 ; $0079
 	.dsb 1 ; 1 ; $007a
 	.dsb 1 ; 2 ; $007b
 	.dsb 1 ; 3 ; $007c
@@ -1846,7 +1846,7 @@ PPUBuffer_ContinueRetryText:
 	.dsb 1 ; $0690
 	.dsb 1 ; $0691
 	.dsb 1 ; $0692
-PPUBuffer_NoBonusText: ; ???
+PPUBuffer_NoBonusText:
 	.dsb 1 ; $0693
 	.dsb 1 ; $0694
 	.dsb 1 ; $0695
@@ -1902,7 +1902,6 @@ PPUBuffer_Player1UpText:
 	.dsb 1 ; $06c5
 	.dsb 1 ; $06c6
 	.dsb 1 ; $06c7
-byte_RAM_6C8:
 	.dsb 1 ; $06c8
 	.dsb 1 ; $06c9
 	.dsb 1 ; $06ca
@@ -2116,9 +2115,9 @@ ObjectCollisionHitboxTop_RAM = $7114
 ObjectCollisionHitboxWidth_RAM = $7128
 ObjectCollisionHitboxHeight_RAM = $713c
 
-; MysteryData14439 copied to RAM
+; Copied from bank A
 ; Does anything read this???
-unk_RAM_7150 = $7150
+MysteryData14439_RAM = $7150
 
 PPUBuffer_TitleCardText = $7168
 TitleCard_LevelDots = $716b

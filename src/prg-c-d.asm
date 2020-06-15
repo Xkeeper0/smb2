@@ -1656,8 +1656,7 @@ locret_BANKC_8B07:
 
 ; ---------------------------------------------------------------------------
 CastRoll_SpritePointersHi:
-	.db >CastRoll_Mario ; DATA XREF: sub_BANKC_84EC+7r
-
+	.db >CastRoll_Mario
 	.db >CastRoll_Luigi
 	.db >CastRoll_Princess
 	.db >CastRoll_Toad
@@ -1769,10 +1768,10 @@ CastRoll_Princess:
 	.db $F9, $F4, $00, $50 ; $38
 	.db $F9, $F4, $00, $58 ; $3C
 CastRoll_Toad:
-	.db $D0, $3E, $00, $30 ; DATA XREF: BANKC:8B0Bo
-	.db $D0, $18, $00, $38 ; 4
-	.db $D0, $1A, $00, $40 ; 8
-	.db $D0, $3E, $00, $48 ; $C
+	.db $D0, $3E, $00, $30 ; $00
+	.db $D0, $18, $00, $38 ; $04
+	.db $D0, $1A, $00, $40 ; $08
+	.db $D0, $3E, $00, $48 ; $0C
 	.db $F9, $3E, $00, $30 ; $10
 	.db $F9, $1C, $00, $38 ; $14
 	.db $F9, $1E, $00, $40 ; $18
