@@ -81,6 +81,8 @@ PRESERVE_UNUSED_SPACE = 1
 ; Fixes green platform tiles in Subspace
 ; FIX_SUBSPACE_TILES = 1
 
+; Supports D1 joypad data for expansion port controllers
+; JOYPAD_D1 = 1
 
 ; ----------------------------------------
 ; Patches that alter the game in

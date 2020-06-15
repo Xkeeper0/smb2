@@ -1968,9 +1968,9 @@ MMC3PRGBankTemp:
 GameMilestoneCounter:
 	.dsb 1 ; $06f3
 
-Player1JoypadUnk:
+Player1JoypadExpansionPress:
 	.dsb 1 ; $06f4
-Player2JoypadUnk:
+Player2JoypadExpansionPress:
 	.dsb 1 ; $06f5
 PlayerCurrentSize:
 	.dsb 1 ; $06f6

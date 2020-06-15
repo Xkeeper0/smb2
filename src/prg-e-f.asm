@@ -4968,6 +4968,10 @@ ENDIF
 
 UpdateJoypads_Loop:
 	LDA Player1JoypadPress, X ; Update the press/held values
+IFDEF JOYPAD_D1
+	ORA Player1JoypadExpansionPress, X
+	STA Player1JoypadPress, X
+ENDIF
 	TAY
 	EOR Player1JoypadHeld, X
 	AND Player1JoypadPress, X
@@ -4992,17 +4996,21 @@ ReadJoypads:
 ReadJoypadLoop:
 	LDA JOY1
 	LSR A
+	; Read D0 standard controller data
 	ROL Player1JoypadPress
 	LSR A
-	; @TODO These seem to never be read, and even then are using a
-	; second bit from JOY1/JOY2 ... Was this reading from
-	; the expansion port???
-	ROL Player1JoypadUnk
+	; Read D1 expansion port controller data
+	;
+	; Before you get too excited, keep in mind that this code is basically ported from the FDS bios.
+	; Code to mux D1 and D0 isn't present, so even if you had an expansion port controller that used
+	; D1, the game wouldn't use it!
+	ROL Player1JoypadExpansionPress
+
 	LDA JOY2
 	LSR A
 	ROL Player2JoypadPress
 	LSR A
-	ROL Player2JoypadUnk
+	ROL Player2JoypadExpansionPress
 	DEX
 	BNE ReadJoypadLoop
 
@@ -5013,7 +5021,6 @@ ReadJoypadLoop:
 ; Load the area specified by the area pointer at the current page
 ;
 FollowCurrentAreaPointer:
-sub_BANKF_F6A1:
 	LDA CurrentLevelPage
 	ASL A
 	TAY
