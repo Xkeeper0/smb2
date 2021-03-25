@@ -4043,7 +4043,8 @@ ObjectAttributeTable:
 	.db ObjAttrib_Palette2 | ObjAttrib_Mirrored | ObjAttrib_UpsideDown ; $46 Enemy_Stopwatch
 
 ;
-; Enemy Behavior 46E
+; Enemy Behavior 46E Table
+; ========================
 ;
 ;   bit 7 ($80) - uses mirrored sprite for animation
 ;   bit 6 ($40) - double speed
