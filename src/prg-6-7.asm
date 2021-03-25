@@ -2188,24 +2188,24 @@ CreateObject_Wall:
 	CMP #BackgroundTile_Sky
 	BNE CreateObject_Wall_Exit
 
-loc_BANK6_8D69:
+CreateObject_Wall_Loop:
 	LDX byte_RAM_8
 	LDA CurrentWorldTileset
 	CMP #$06
-	BNE loc_BANK6_8D78
+	BNE CreateObject_Wall_PlaceTile_NotWorld7
 
 	LDA World7BrickWallTiles, X
-	JMP loc_BANK6_8D7B
+	JMP CreateObject_Wall_PlaceTile
 
-loc_BANK6_8D78:
+CreateObject_Wall_PlaceTile_NotWorld7:
 	LDA World1thru6BrickWallTiles, X
 
-loc_BANK6_8D7B:
+CreateObject_Wall_PlaceTile:
 	STA (byte_RAM_1), Y
 	JSR IncrementAreaXOffset
 
 	DEC byte_RAM_7
-	BPL loc_BANK6_8D69
+	BPL CreateObject_Wall_Loop
 
 	LDA byte_RAM_E7
 	CLC
@@ -2313,43 +2313,42 @@ CreateObject_Water_Exit:
 	RTS
 ENDIF
 
+
 CreateObject_Pyramid:
 	LDY byte_RAM_E7
 	LDA #$00
 	STA byte_RAM_8
 
-loc_BANK6_8DD8:
+CreateObject_Pyramid_CheckExistingTile:
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BEQ loc_BANK6_8DDF
+	BEQ CreateObject_Pyramid_DrawLeftOuter
 
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8DDF:
+CreateObject_Pyramid_DrawLeftOuter:
 	LDA #BackgroundTile_PyramidLeftAngle
 	STA (byte_RAM_1), Y
 	LDX byte_RAM_8
-	BEQ loc_BANK6_8DF9
+	BEQ CreateObject_Pyramid_DrawRightOuter
 
-loc_BANK6_8DE7:
+CreateObject_Pyramid_DrawLeftInner:
 	INY
 	LDA #BackgroundTile_PyramidLeft
 	STA (byte_RAM_1), Y
 	DEX
-	BNE loc_BANK6_8DE7
+	BNE CreateObject_Pyramid_DrawLeftInner
 
 	LDX byte_RAM_8
 
-loc_BANK6_8DF1:
+CreateObject_Pyramid_DrawRightInner:
 	INY
 	LDA #BackgroundTile_PyramidRight
 	STA (byte_RAM_1), Y
 	DEX
-	BNE loc_BANK6_8DF1
+	BNE CreateObject_Pyramid_DrawRightInner
 
-loc_BANK6_8DF9:
+CreateObject_Pyramid_DrawRightOuter:
 	INY
 	LDA #BackgroundTile_PyramidRightAngle
 	STA (byte_RAM_1), Y
@@ -2361,59 +2360,84 @@ loc_BANK6_8DF9:
 	SEC
 	SBC byte_RAM_8
 	TAY
-	JMP loc_BANK6_8DD8
+	JMP CreateObject_Pyramid_CheckExistingTile
 
-; Not referenced, maybe unused...?
+
+;
+; This is basically equivalent to `CreateObject_Pillar`, except that it only
+; creates desert world cacti. It doesn't seem to referenced anywhere and is
+; possibly just a leftover from Doki Doki Panic.
+;
+Unused_CreateObject_Cactus:
 	LDY byte_RAM_E7
 	LDA #BackgroundTile_CactusTop
 	STA (byte_RAM_1), Y
 
-loc_BANK6_8E14:
+Unused_CreateObject_Cactus_Loop:
 	JSR IncrementAreaYOffset
 
 	LDA (byte_RAM_1), Y
 	CMP #BackgroundTile_Sky
-	BEQ loc_BANK6_8E1E
+	BEQ Unused_CreateObject_Cactus_PlaceTile
 
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8E1E:
+Unused_CreateObject_Cactus_PlaceTile:
 	LDA #BackgroundTile_CactusMiddle
 	STA (byte_RAM_1), Y
-	BNE loc_BANK6_8E14
+	BNE Unused_CreateObject_Cactus_Loop
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK6_8E24:
+;
+; See these stars? The tiles are pseudo-randomly chosen using this subroutine.
+; This modifies two inputs and returns the exclusive OR of them to use as the
+; index in the tile lookup table.
+;
+; ##### Input
+; - `byte_RAM_9`
+; - `byte_RAM_A`
+;
+; ##### Output
+; - `A`: offset in the start tile lookup table
+; - `byte_RAM_9`
+; - `byte_RAM_A`
+;
+CreateObject_StarBackground_PickTile:
+	; Multiply `RAM_9` by 5 and add one
 	LDA byte_RAM_9
 	ASL A
 	ASL A
 	SEC
 	ADC byte_RAM_9
 	STA byte_RAM_9
+
+	; Multiply `RAM_A` by 2
 	ASL byte_RAM_A
-	LDA #$20
+
+	LDA #%00100000
 	BIT byte_RAM_A
-	BCS loc_BANK6_8E39
 
-	BNE loc_BANK6_8E3B
+	BCS CreateObject_StarBackground_PickTile_RAM_9_Overflowed
 
-	BEQ loc_BANK6_8E3D
+	BNE CreateObject_StarBackground_PickTile_RAM_A_Increment
 
-loc_BANK6_8E39:
-	BNE loc_BANK6_8E3D
+	BEQ CreateObject_StarBackground_PickTile_Exit
 
-loc_BANK6_8E3B:
+CreateObject_StarBackground_PickTile_RAM_9_Overflowed:
+	BNE CreateObject_StarBackground_PickTile_Exit
+
+CreateObject_StarBackground_PickTile_RAM_A_Increment:
+	; Increment `RAM_A` if
+	; - `RAM_9` DID overflow and `RAM_A' is NOT divisible by 16
+	; - `RAM_9` did NOT overflow and `RAM_A` IS divisible by 16
 	INC byte_RAM_A
 
-loc_BANK6_8E3D:
+CreateObject_StarBackground_PickTile_Exit:
+	; Return the exclusive OR of `RAM_9` and `RAM_A`
 	LDA byte_RAM_A
 	EOR byte_RAM_9
 	RTS
 
-; End of function sub_BANK6_8E24
 
 StarBackgroundTiles:
 	.db BackgroundTile_Sky
@@ -2425,6 +2449,7 @@ StarBackgroundTiles:
 	.db BackgroundTile_StarBg2
 	.db BackgroundTile_Sky
 
+
 CreateObject_StarBackground:
 	LDA byte_RAM_E8
 	STA byte_RAM_D
@@ -2434,7 +2459,7 @@ CreateObject_StarBackground:
 	STA byte_RAM_9
 
 CreateObject_StarBackground_Loop:
-	JSR sub_BANK6_8E24
+	JSR CreateObject_StarBackground_PickTile
 
 	AND #$07
 	TAX
@@ -2611,11 +2636,22 @@ FrozenRockTiles:
 	.db BackgroundTile_FrozenRock
 
 
+;
+; Draws the frozen rocks object
+;
+; This places rows of tiles until it hits the water height, where it will place
+; one last row of a different tile and then exit.
+;
+; ##### Input
+; - `byte_RAM_50D`: number of blocks to create
+; - `byte_RAM_E7`: target tile placement offset
+; - `byte_RAM_E8`: area page
+;
 CreateObject_FrozenRocks:
 	LDA #$01
 	STA byte_RAM_8
 
-loc_BANK6_8F19:
+CreateObject_FrozenRocks_OuterLoop:
 	LDY byte_RAM_E7
 	LDX byte_RAM_E8
 	JSR SetAreaPageAddr_Bank6
@@ -2625,33 +2661,33 @@ loc_BANK6_8F19:
 	STA byte_RAM_7
 	LDX byte_RAM_8
 
-loc_BANK6_8F29:
+CreateObject_FrozenRocks_InnerLoop:
 	LDA FrozenRockTiles, X
 	STA (byte_RAM_1), Y
 	JSR IncrementAreaXOffset
 
 	DEC byte_RAM_7
-	BPL loc_BANK6_8F29
+	BPL CreateObject_FrozenRocks_InnerLoop
 
 	LDA byte_RAM_8
-	BNE loc_BANK6_8F3A
+	BNE CreateObject_FrozenRocks_IncrementRow
 
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANK6_8F3A:
+CreateObject_FrozenRocks_IncrementRow:
 	LDA byte_RAM_E7
 	CLC
 	ADC #$10
 	CMP #$C0
-	BCC loc_BANK6_8F45
+	BCC CreateObject_FrozenRocks_NextRow
 
+	; Next row is the last row using a different tile
 	DEC byte_RAM_8
 
-loc_BANK6_8F45:
+CreateObject_FrozenRocks_NextRow:
 	STA byte_RAM_E7
-	JMP loc_BANK6_8F19
+	JMP CreateObject_FrozenRocks_OuterLoop
+
 
 ;
 ; Horizontal platform lookup tables for World 5.
@@ -3629,27 +3665,31 @@ GenerateSubspaceArea:
 	LDA ScreenBoundaryLeftLo
 	CLC
 	ADC #$08
-	BCC loc_BANK6_9439
+	BCC GenerateSubspaceArea_SetMoveCameraX
 
 	INC byte_RAM_E8
 
-loc_BANK6_9439:
+GenerateSubspaceArea_SetMoveCameraX:
 	AND #$F0
 	PHA
-	SEC
 
+	SEC
 	SBC ScreenBoundaryLeftLo
 	STA MoveCameraX
+
 	PLA
 	LSR A
 	LSR A
 	LSR A
 	LSR A
 	STA byte_RAM_E5
+
 	LDA #$00
 	STA byte_RAM_E6
+
 	LDA byte_RAM_E8
 	STA byte_RAM_D
+
 	JSR SetTileOffsetAndAreaPageAddr_Bank6
 
 	LDY byte_RAM_E7
