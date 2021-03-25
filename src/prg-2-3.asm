@@ -6656,16 +6656,17 @@ loc_BANK3_A1D3:
 	JMP RenderSprite
 
 
-	.db $08
-	.db $08
+ClawgripRockPositionX:
+	.db $08 ; hoisting
+	.db $08 ; holding low
+	.db $1C ; reaching
 
-byte_BANK3_A1D8:
-	.db $1C
-	.db $F4
-	.db $11
-	.db $0F
+ClawgripRockPositionY:
+	.db $F4 ; hoisting
+	.db $11 ; holding low
+	.db $0F ; reaching
 
-byte_BANK3_A1DC:
+ClawgripRockHoistOffset:
 	.db $04
 	.db $06
 	.db $08
@@ -6679,6 +6680,7 @@ byte_BANK3_A1DC:
 RenderSprite_Clawgrip:
 	LDA_abs byte_RAM_F4
 
+	; store sprite slot
 	STA EnemyArray_B1, X
 	LDY EnemyState, X
 	DEY
@@ -6686,19 +6688,21 @@ RenderSprite_Clawgrip:
 	ORA ObjectFlashTimer, X
 	BEQ loc_BANK3_A1FA
 
+	; Left side, pain
 	LDY #$D2
 	LDA #$00
 	STA ObjectTimer1, X
 	BEQ loc_BANK3_A21C
 
 loc_BANK3_A1FA:
+	; Left side, claw down
 	LDY #$C2
 	LDA byte_RAM_10
 	AND #$10
 	BNE loc_BANK3_A204
 
+	; Left side, claw up
 	LDY #$C6
-
 loc_BANK3_A204:
 	LDA ObjectTimer1, X
 	BEQ loc_BANK3_A21C
@@ -6716,13 +6720,13 @@ loc_BANK3_A204:
 	BCS loc_BANK3_A21C
 
 	LDY #$C2
-
 loc_BANK3_A21C:
 	LDA #$02
 	STA EnemyMovementDirection, X
 	TYA
 	JSR RenderSprite_DrawObject
 
+RenderSprite_Clawgrip_RightSide:
 	LDY #$C6
 	LDA byte_RAM_10
 	AND #$10
@@ -6776,6 +6780,7 @@ loc_BANK3_A262:
 	PLA
 	JSR RenderSprite_DrawObject
 
+RenderSprite_Clawgrip_Rock:
 	LDA ObjectTimer1, X
 	BEQ loc_BANK3_A2D2
 
@@ -6784,20 +6789,23 @@ loc_BANK3_A262:
 	LSR A
 	LSR A
 	LSR A
-	BEQ locret_BANK3_A2D1
+	BEQ RenderSprite_Clawgrip_Exit
 
+	; Rock x-position
 	TAY
 	LDA ObjectXLo, X
 	PHA
 	CLC
-	ADC loc_BANK3_A1D3 + 2, Y
+	ADC ClawgripRockPositionX - 1, Y
 	STA ObjectXLo, X
 	SEC
 	SBC ScreenBoundaryLeftLo
 	STA SpriteTempScreenX
+
+	; Rock y-position
 	LDA ObjectYLo, X
 	CLC
-	ADC byte_BANK3_A1D8, Y
+	ADC ClawgripRockPositionY - 1, Y
 	STA SpriteTempScreenY
 	LDA ObjectTimer1, X
 	CMP #$30
@@ -6806,12 +6814,13 @@ loc_BANK3_A262:
 	CMP #$40
 	BCS loc_BANK3_A2AA
 
+	; Little bounce while hoisting
 	LSR A
 	AND #$07
 	TAY
 	LDA SpriteTempScreenY
 	SEC
-	SBC byte_BANK3_A1DC, Y
+	SBC ClawgripRockHoistOffset, Y
 	STA SpriteTempScreenY
 
 loc_BANK3_A2AA:
@@ -6831,6 +6840,7 @@ loc_BANK3_A2AA:
 	LDA #$D6
 	JSR RenderSprite_DrawObject
 
+	; Restore to Clawgrip
 	PLA
 	STA EnemyArray_46E, X
 	PLA
@@ -6838,10 +6848,9 @@ loc_BANK3_A2AA:
 	PLA
 	STA ObjectXLo, X
 
-locret_BANK3_A2D1:
+RenderSprite_Clawgrip_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
 
 loc_BANK3_A2D2:
 	LDA byte_RAM_10
@@ -6854,8 +6863,6 @@ loc_BANK3_A2D2:
 	LDX byte_RAM_12
 	RTS
 
-; ---------------------------------------------------------------------------
-
 loc_BANK3_A2E1:
 	LDA EnemyArray_B1, X
 	TAX
@@ -6863,7 +6870,6 @@ loc_BANK3_A2E1:
 	LDX byte_RAM_12
 	RTS
 
-; ---------------------------------------------------------------------------
 
 EnemyBehavior_ClawgripRock:
 	LDA #$00
@@ -10610,7 +10616,6 @@ EnemyCollisionBehavior_Enemy:
 	TXA
 	BEQ CheckCollisionWithPlayer
 
-	;;;
 	LDA ObjectFlashTimer, Y
 	ORA ObjectFlashTimer - 1, X
 	BNE EnemyCollisionBehavior_Exit

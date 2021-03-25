@@ -878,6 +878,8 @@ GoToWorldStartingLevel:
 	LDY WorldStartingLevel, X
 	STY CurrentLevel
 	STY CurrentLevel_Init
+
+LevelStartCharacterSelectMenu:
 	JSR DoCharacterSelectMenu
 
 	JSR InitializeSomeLevelStuff
