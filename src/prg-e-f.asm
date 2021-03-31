@@ -1516,22 +1516,25 @@ EndOfLevel:
 	; Check if we've completed the final level
 	LDA CurrentLevel
 	CMP #$13
-IFNDEF DISABLE_BONUS_CHANCE
+EndOfLevelJump:
 	; If not, go to bonus chance and proceed to the next level
-EndOfLevelJump:
-	BNE EndOfLevelSlotMachine
-ENDIF
-IFDEF DISABLE_BONUS_CHANCE
-	STY PlayerCurrentSize
-EndOfLevelJump:
-	BNE GoToNextLevel
-ENDIF
+	BNE EndOfRegularLevel
+EndOfLastLevel:
 	; Otherwise, display the ending
 	JMP EndingSceneRoutine
 
-EndOfLevelSlotMachine:
+EndOfRegularLevel:
+	; This needs to be set at the end of regular levels to avoid a bug where
+	; completing the level small will cause the character-growing animation
+	; to happen at the beginning of the next level.
 	STY PlayerCurrentSize
+
+EndOfLevelSlotMachine:
+IFDEF DISABLE_BONUS_CHANCE
+	JMP GoToNextLevel
+ELSE
 	JSR WaitForNMI_TurnOffPPU
+ENDIF
 
 	JSR ClearNametablesAndSprites
 
