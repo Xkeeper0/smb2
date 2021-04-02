@@ -17,6 +17,10 @@ MusicPointersFirstPart:
 	musicPart MusicPartPointers_TitleScreen
 	musicPart MusicPartPointers_Ending
 
+IFDEF EXPAND_MUSIC
+.pad MusicPointersFirstPart + $100, $FF
+ENDIF
+
 MusicPointersEndPart:
 	musicPart MusicPartPointers_OverworldEnd
 	musicPart MusicPartPointers_CharacterSelectEnd
@@ -27,6 +31,10 @@ MusicPointersEndPart:
 	musicPart MusicPartPointers_WartEnd
 	musicPart MusicPartPointers_TitleScreenEnd
 	musicPart MusicPartPointers_EndingEnd
+
+IFDEF EXPAND_MUSIC
+.pad MusicPointersEndPart + $100, $FF
+ENDIF
 
 MusicPointersLoopPart:
 	musicPart MusicPartPointers_OverworldLoop
@@ -41,4 +49,8 @@ IFNDEF PROTOTYPE_MUSIC_ENDING
 	musicPart MusicPartPointers_EndingLoop
 ELSE
 	.db $00 ; ending, no loop
+ENDIF
+
+IFDEF EXPAND_MUSIC
+.pad MusicPointersLoopPart + $100, $FF
 ENDIF

@@ -58,6 +58,8 @@ Music_Ending:
 	.db <MusicHeaderEnding5
 	.db <MusicHeaderEnding6
 
+.pad MusicPointerOffset + $100, $FF
+
 MusicHeaderPointersHi:
 	.db >MusicHeaderCharacterSelect1
 	.db >MusicHeaderCharacterSelect2

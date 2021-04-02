@@ -5345,9 +5345,11 @@ EnemyBehavior_CheckDamagedInterrupt_SoundEffect:
 
 EnemyBehavior_CheckDamagedInterrupt_BossDeathSound:
 IFDEF EXPAND_MUSIC
-	LDA #DPCM_BossDeath
-ENDIF
+	; `DPCM_BossDeath` index changed, but want to preserve addresses
+	JSR EnemyBehavior_BossDeathSound
+ELSE
 	STA DPCMQueue
+ENDIF
 
 EnemyBehavior_CheckDamagedInterrupt_CheckPidgit:
 	; killing pidgit leaves a flying carpet behind
@@ -6427,6 +6429,13 @@ EnemyBehavior_TurnAround:
 EnemyBehavior_TurnAroundExit:
 	JMP ApplyObjectPhysicsX
 
+
+IFDEF EXPAND_MUSIC
+EnemyBehavior_BossDeathSound:
+	LDA #DPCM_BossDeath
+	STA DPCMQueue
+	RTS
+ENDIF
 
 ; Unused space in the original ($9EBD - $A02F)
 unusedSpace $A030, $FF

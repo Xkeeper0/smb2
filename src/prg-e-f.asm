@@ -1790,12 +1790,15 @@ SlotMachineTextFlashIndex:
 NoCoinsForSlotMachine:
 	JSR Delay80Frames
 
+IFDEF EXPAND_MUSIC
+	; Need $08 to loop correctly, but want to preserve addresses
+	JSR SlotMachineNoCoinsJingle
+	LDA #$08 ; Needed to loop correctly
+ELSE
 	LDA #Music2_DeathJingle
 	STA MusicQueue2
-
-IFDEF EXPAND_MUSIC
-	LDA #$08
 ENDIF
+
 	STA byte_RAM_6
 loc_BANKF_E92A:
 	LDA byte_RAM_6
@@ -2857,6 +2860,13 @@ ChangeCHRBanks_MMC5:
 	ADC #$01
 	STA MMC5_CHRBankSwitch12
 
+	RTS
+ENDIF
+
+IFDEF EXPAND_MUSIC
+SlotMachineNoCoinsJingle:
+	LDA #Music2_DeathJingle
+	STA MusicQueue2
 	RTS
 ENDIF
 
