@@ -20,14 +20,19 @@ IFNDEF PROTOTYPE_MUSIC_UNDERGROUND
 Music_Underground:
 	.db <MusicHeaderUnderground
 ELSE
-Music_Underground:
+Music_UndergroundBeta:
 	.db <MusicHeaderUndergroundBeta1
 	.db <MusicHeaderUndergroundBeta2
 ENDIF
 Music_Boss:
 	.db <MusicHeaderBoss
+IFNDEF PROTOTYPE_MUSIC_UNDERGROUND
 Music_Star:
 	.db <MusicHeaderStar
+ELSE
+Music_StarBeta:
+	.db <MusicHeaderStarBeta
+ENDIF
 Music_Wart:
 	.db <MusicHeaderWart
 Music_Crystal:
@@ -82,7 +87,11 @@ ELSE
 	.db >MusicHeaderUndergroundBeta2
 ENDIF
 	.db >MusicHeaderBoss
+IFNDEF PROTOTYPE_MUSIC_UNDERGROUND
 	.db >MusicHeaderStar
+ELSE
+	.db >MusicHeaderStarBeta
+ENDIF
 	.db >MusicHeaderWart
 	.db >MusicHeaderCrystal
 	.db >MusicHeaderGameOver
@@ -175,10 +184,17 @@ MusicPartPointers_BossEnd:
 	musicPointerOffset Music_Boss, 0
 
 
+IFNDEF PROTOTYPE_MUSIC_STARMAN
 MusicPartPointers_Star:
 MusicPartPointers_StarLoop:
 MusicPartPointers_StarEnd:
 	musicPointerOffset Music_Star, 0
+ELSE
+MusicPartPointers_StarBeta:
+MusicPartPointers_StarBetaLoop:
+MusicPartPointers_StarBetaEnd:
+	musicPointerOffset Music_StarBeta, 0
+ENDIF
 
 
 MusicPartPointers_Wart:
@@ -227,13 +243,13 @@ MusicPartPointers_UndergroundLoop:
 MusicPartPointers_UndergroundEnd:
 	musicPointerOffset Music_Underground, 0
 ELSE
-MusicPartPointers_Underground:
-MusicPartPointers_UndergroundLoop:
-	musicPointerOffset Music_Underground, 0
-	musicPointerOffset Music_Underground, 0
-	musicPointerOffset Music_Underground, 1
-MusicPartPointers_UndergroundEnd:
-	musicPointerOffset Music_Underground, 1
+MusicPartPointers_UndergroundBeta:
+MusicPartPointers_UndergroundBetaLoop:
+	musicPointerOffset Music_UndergroundBeta, 0
+	musicPointerOffset Music_UndergroundBeta, 0
+	musicPointerOffset Music_UndergroundBeta, 1
+MusicPartPointers_UndergroundBetaEnd:
+	musicPointerOffset Music_UndergroundBeta, 1
 ENDIF
 
 .pad MusicPartPointers + $100, $FF

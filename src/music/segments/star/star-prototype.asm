@@ -1,5 +1,5 @@
-MusicDataStar:
-MusicDataStar_Square2:
+MusicDataStarBeta:
+MusicDataStarBeta_Square2:
 	.db $98
 	.db $48
 	.db $48
@@ -26,7 +26,7 @@ MusicDataStar_Square2:
 	.db $46
 	.db $46
 	.db $00
-MusicDataStar_Square1:
+MusicDataStarBeta_Square1:
 	.db $98
 	.db $3A
 	.db $3A
@@ -56,7 +56,7 @@ MusicDataStar_Square1:
 	.db $30
 	.db $98
 	.db $38
-MusicDataStar_Triangle:
+MusicDataStarBeta_Triangle:
 	.db $9A
 	.db $34
 	.db $99
@@ -75,7 +75,7 @@ MusicDataStar_Triangle:
 	.db $7E
 	.db $3E
 	.db $48
-MusicDataStar_Noise:
+MusicDataStarBeta_Noise:
 	.db $98
 	.db $04
 	.db $92

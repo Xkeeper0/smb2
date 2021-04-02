@@ -81,16 +81,16 @@ ENDIF
 
 ; ----------------------------------------
 ; Starman music
-MusicHeaderStar:
 IFNDEF PROTOTYPE_MUSIC_STARMAN
+MusicHeaderStar:
 	IFNDEF PROTOTYPE_MUSIC_UNDERGROUND
 		musicHeader NoteLengthTable_300bpm, MusicDataStar, MusicDataStar_Triangle, MusicDataStar_Square1, -1, MusicDataStar_DPCM
 	ELSE
 		musicHeader NoteLengthTable_300bpm, MusicDataStar, MusicDataStar_Triangle, MusicDataStar_Square1, $00, MusicDataStar_DPCM
 	ENDIF
-ENDIF
-IFDEF PROTOTYPE_MUSIC_STARMAN
-	musicHeader NoteLengthTable_300bpm, MusicDataStar, MusicDataStar_Triangle, MusicDataStar_Square1, MusicDataStar_Noise, -1
+ELSE
+MusicHeaderStarBeta:
+	musicHeader NoteLengthTable_300bpm, MusicDataStarBeta, MusicDataStarBeta_Triangle, MusicDataStarBeta_Square1, MusicDataStarBeta_Noise, -1
 ENDIF
 
 ; ----------------------------------------

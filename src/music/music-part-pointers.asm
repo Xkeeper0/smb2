@@ -66,11 +66,17 @@ MusicPartPointers_BossEnd:
 	musicPart MusicHeaderBoss
 
 
+IFNDEF PROTOTYPE_MUSIC_STARMAN
 MusicPartPointers_Star:
 MusicPartPointers_StarLoop:
 MusicPartPointers_StarEnd:
 	musicPart MusicHeaderStar
-
+ELSE
+MusicPartPointers_StarBeta:
+MusicPartPointers_StarBetaLoop:
+MusicPartPointers_StarBetaEnd:
+	musicPart MusicHeaderStarBeta
+ENDIF
 
 MusicPartPointers_Wart:
 MusicPartPointers_WartLoop:
@@ -118,11 +124,11 @@ MusicPartPointers_UndergroundLoop:
 MusicPartPointers_UndergroundEnd:
 	musicPart MusicHeaderUnderground
 ELSE
-MusicPartPointers_Underground:
-MusicPartPointers_UndergroundLoop:
+MusicPartPointers_UndergroundBeta:
+MusicPartPointers_UndergroundBetaLoop:
 	musicPart MusicHeaderUndergroundBeta1
 	musicPart MusicHeaderUndergroundBeta1
 	musicPart MusicHeaderUndergroundBeta2
-MusicPartPointers_UndergroundEnd:
+MusicPartPointers_UndergroundBetaEnd:
 	musicPart MusicHeaderUndergroundBeta2
 ENDIF
