@@ -338,7 +338,6 @@ EnemyState_BombExploding = $04
 EnemyState_PuffOfSmoke = $05
 EnemyState_Sand = $06
 EnemyState_Sinking = $07
-EnemyState_27 = $27
 
 ; ---------------------------------------------------------------------------
 

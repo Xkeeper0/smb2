@@ -5839,7 +5839,6 @@ FreeSubconsScene_Player_AfterStateTimer:
 	LDA PlayerState
 	JSR JumpToTableAfterJump
 
-
 	.dw FreeSubconsScene_Phase1
 	.dw FreeSubconsScene_Phase2
 	.dw FreeSubconsScene_Phase3
