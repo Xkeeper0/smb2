@@ -5874,9 +5874,9 @@ LoadMarioSleepingCHRBanks:
 	STY SpriteCHR1
 	INY
 	STY SpriteCHR2
-	LDA #CHRBank_EndingBackground1
+	LDA #CHRBank_MarioSleepingBackground1
 	STA BackgroundCHR1
-	LDA #CHRBank_EndingBackground1 + 2
+	LDA #CHRBank_MarioSleepingBackground1 + 2
 	STA BackgroundCHR2
 	RTS
 

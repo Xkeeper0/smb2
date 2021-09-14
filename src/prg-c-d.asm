@@ -19,27 +19,19 @@ MarioDream_Pointers:
 	.dw MarioDream_EraseBubble5
 	.dw MarioDream_Palettes
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANKC_8014:
-	LDA #0
-	BEQ loc_BANKC_801A
+WaitForNMI_MarioSleeping_TurnOffPPU:
+	LDA #$00
+	BEQ WaitForNMI_MarioSleeping_SetPPUMaskMirror
 
-; End of function sub_BANKC_8014
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKC_8018:
+WaitForNMI_MarioSleeping_TurnOnPPU:
 	LDA #PPUMask_ShowLeft8Pixels_BG | PPUMask_ShowLeft8Pixels_SPR | PPUMask_ShowBackground | PPUMask_ShowSprites
 
-loc_BANKC_801A:
+WaitForNMI_MarioSleeping_SetPPUMaskMirror:
 	STA PPUMaskMirror
 
-; End of function sub_BANKC_8018
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKC_801C:
+WaitForNMI_MarioSleeping:
 	LDA ScreenUpdateIndex
 	ASL A
 	TAX
@@ -50,13 +42,11 @@ sub_BANKC_801C:
 
 	LDA #$00
 	STA NMIWaitFlag
-loc_BANKC_802E:
+WaitForNMI_MarioSleepingLoop:
 	LDA NMIWaitFlag
-	BPL loc_BANKC_802E
+	BPL WaitForNMI_MarioSleepingLoop
 
 	RTS
-
-; End of function sub_BANKC_801C
 
 
 EnableNMI_BankC:
@@ -251,33 +241,33 @@ MarioDream_WakingFrameCounts:
 	.db $10
 
 MarioDream_SnoringFrames:
-	.db CHRBank_EndingBackground1
-	.db CHRBank_EndingBackground2
-	.db CHRBank_EndingBackground3
-	.db CHRBank_EndingBackground4
-	.db CHRBank_EndingBackground5
-	.db CHRBank_EndingBackground6
-	.db CHRBank_EndingBackground7
-	.db CHRBank_EndingBackground8
-	.db CHRBank_EndingBackground7
-	.db CHRBank_EndingBackground6
-	.db CHRBank_EndingBackground5
-	.db CHRBank_EndingBackground4
-	.db CHRBank_EndingBackground3
-	.db CHRBank_EndingBackground2
+	.db CHRBank_MarioSleepingBackground1
+	.db CHRBank_MarioSleepingBackground2
+	.db CHRBank_MarioSleepingBackground3
+	.db CHRBank_MarioSleepingBackground4
+	.db CHRBank_MarioSleepingBackground5
+	.db CHRBank_MarioSleepingBackground6
+	.db CHRBank_MarioSleepingBackground7
+	.db CHRBank_MarioSleepingBackground8
+	.db CHRBank_MarioSleepingBackground7
+	.db CHRBank_MarioSleepingBackground6
+	.db CHRBank_MarioSleepingBackground5
+	.db CHRBank_MarioSleepingBackground4
+	.db CHRBank_MarioSleepingBackground3
+	.db CHRBank_MarioSleepingBackground2
 
 MarioDream_WakingFrames:
-	.db CHRBank_EndingBackground11
-	.db CHRBank_EndingBackground10
-	.db CHRBank_EndingBackground9
-	.db CHRBank_EndingBackground12
-	.db CHRBank_EndingBackground9
-	.db CHRBank_EndingBackground10
-	.db CHRBank_EndingBackground11
+	.db CHRBank_MarioSleepingBackground11
+	.db CHRBank_MarioSleepingBackground10
+	.db CHRBank_MarioSleepingBackground9
+	.db CHRBank_MarioSleepingBackground12
+	.db CHRBank_MarioSleepingBackground9
+	.db CHRBank_MarioSleepingBackground10
+	.db CHRBank_MarioSleepingBackground11
 
 
 MarioSleepingScene:
-	JSR sub_BANKC_8014
+	JSR WaitForNMI_MarioSleeping_TurnOffPPU
 
 	LDA #VMirror
 	JSR ChangeNametableMirroring
@@ -288,19 +278,19 @@ MarioSleepingScene:
 	STA StackArea
 	JSR EnableNMI_BankC
 
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #9
+	LDA #MarioSleepingUpdateBuffer_Palettes
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #1
+	LDA #MarioSleepingUpdateBuffer_Bed
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #2
+	LDA #MarioSleepingUpdateBuffer_Bubble
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
 	LDA #$10
 	STA ObjectXHi + 3
@@ -316,7 +306,7 @@ loc_BANKC_8375:
 	STA ObjectXHi + 2
 	JSR sub_BANKC_8493
 
-	JSR sub_BANKC_8018
+	JSR WaitForNMI_MarioSleeping_TurnOnPPU
 
 loc_BANKC_8387:
 	LDY ObjectXHi
@@ -338,7 +328,7 @@ loc_BANKC_839A:
 	JSR sub_BANKC_8493
 
 loc_BANKC_83A7:
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
 	DEC byte_RAM_10
 	BPL loc_BANKC_839A
@@ -355,34 +345,34 @@ loc_BANKC_83A7:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_83BB:
-	LDA #3
+	LDA #MarioSleepingUpdateBuffer_DoNothing
 	STA ScreenUpdateIndex
 	LDA #$F8
 	STA SpriteDMAArea
 	STA SpriteDMAArea + 4
 	STA SpriteDMAArea + 8
 	STA SpriteDMAArea + $C
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #4
+	LDA #MarioSleepingUpdateBuffer_EraseBubble1
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #5
+	LDA #MarioSleepingUpdateBuffer_EraseBubble2
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #6
+	LDA #MarioSleepingUpdateBuffer_EraseBubble3
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #7
+	LDA #MarioSleepingUpdateBuffer_EraseBubble4
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #8
+	LDA #MarioSleepingUpdateBuffer_EraseBubble5
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
 	LDA #0
 	STA ObjectXHi
@@ -390,7 +380,7 @@ loc_BANKC_83BB:
 	STA ObjectXHi + 1
 	LDA #0
 	STA PlayerXHi
-	JSR sub_BANKC_8018
+	JSR WaitForNMI_MarioSleeping_TurnOnPPU
 
 loc_BANKC_8402:
 	LDY ObjectXHi
@@ -403,7 +393,7 @@ loc_BANKC_8402:
 	STA byte_RAM_10
 
 loc_BANKC_8415:
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
 	DEC byte_RAM_10
 	BPL loc_BANKC_8415
@@ -422,7 +412,7 @@ loc_BANKC_842A:
 	STA ObjectXHi
 	LDA #$D
 	STA ObjectXHi + 1
-	JSR sub_BANKC_8018
+	JSR WaitForNMI_MarioSleeping_TurnOnPPU
 
 loc_BANKC_8435:
 	LDY ObjectXHi
@@ -435,7 +425,7 @@ loc_BANKC_8435:
 	STA byte_RAM_10
 
 loc_BANKC_8448:
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
 	DEC byte_RAM_10
 	BPL loc_BANKC_8448
@@ -456,14 +446,14 @@ loc_BANKC_8451:
 loc_BANKC_845C:
 	JSR sub_BANKC_84FB
 
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
 loc_BANKC_8462:
 	LDA #0
 	STA ObjectXHi
 	LDA #$D
 	STA ObjectXHi + 1
-	JSR sub_BANKC_8018
+	JSR WaitForNMI_MarioSleeping_TurnOnPPU
 
 loc_BANKC_846D:
 	LDY ObjectXHi
@@ -478,7 +468,7 @@ loc_BANKC_846D:
 loc_BANKC_8480:
 	JSR loc_BANKC_84B2
 
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
 	DEC byte_RAM_10
 	BPL loc_BANKC_8480
@@ -542,7 +532,6 @@ loc_BANKC_84C0:
 	LDA ObjectXLo
 	JSR JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
 	.dw loc_BANKC_8593
 	.dw loc_BANKC_85D6
 	.dw loc_BANKC_85E7
@@ -554,15 +543,15 @@ loc_BANKC_84C0:
 	.dw loc_BANKC_8A37
 	.dw loc_BANKC_8A52
 	.dw loc_BANKC_8A82
-; ---------------------------------------------------------------------------
+
 	RTS
 
-; ---------------------------------------------------------------------------
+
 CastRoll_CASTText:
-	.db $60,$D4,$00,$28
-	.db $60,$D0,$00,$38 ; 4
-	.db $60,$F4,$00,$48 ; 8
-	.db $60,$F6,$00,$58 ; $C
+	.db $60, $D4, $00, $28
+	.db $60, $D0, $00, $38
+	.db $60, $F4, $00, $48
+	.db $60, $F6, $00, $58
 
 ; =============== S U B R O U T I N E =======================================
 
