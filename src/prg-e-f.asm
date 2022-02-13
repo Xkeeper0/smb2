@@ -1059,8 +1059,13 @@ VerticalLevel_CheckTransition:
 ; Pauses the game
 ;
 ShowPauseScreen:
+IFNDEF RESPAWN_INSTEAD_OF_DEATH
 	JSR PauseScreen_ExtraLife
+ELSE
+	JMP PauseRespawn
+ENDIF
 
+SetStack100Pause:
 	; used when running sound queues
 	LDA #Stack100_Pause
 	STA StackArea
@@ -5150,7 +5155,13 @@ KillPlayer:
 	LDA #PlayerState_Dying ; Mark player as dead
 	STA PlayerState
 	LDA #$00 ; Clear some variables
+IFNDEF RESPAWN_INSTEAD_OF_DEATH
 	STA PlayerHealth
+ELSE
+	NOP
+	NOP
+	NOP
+ENDIF
 	STA CrouchJumpTimer
 	STA StarInvincibilityTimer
 	LDA #SpriteAnimation_Dead ; Set player animation to dead?
@@ -5178,6 +5189,7 @@ loc_BANKF_F747:
 	LDX byte_RAM_D
 
 loc_BANKF_F749:
+IFNDEF RESPAWN_INSTEAD_OF_DEATH
 	; Set music to death jingle
 	LDA #Music2_DeathJingle
 	STA MusicQueue2
@@ -5185,6 +5197,14 @@ loc_BANKF_F749:
 	LDA #DPCM_PlayerDeath
 	STA DPCMQueue
 	RTS
+ELSE
+	LDA #DPCM_PlayerDeath
+	STA DPCMQueue
+	JMP RespawnPlayer
+	NOP
+	NOP
+	NOP
+ENDIF
 
 
 ;
@@ -5879,6 +5899,54 @@ LoadMarioSleepingCHRBanks:
 	LDA #CHRBank_MarioSleepingBackground1 + 2
 	STA BackgroundCHR2
 	RTS
+
+
+IFDEF RESPAWN_INSTEAD_OF_DEATH
+PauseRespawn:
+	; Check conditions where we shouldn't allow respawn
+	LDA PlayerLock
+	BNE PauseRespawn_Exit
+	; BNE PauseRespawn_ShowPauseScreen
+
+PauseRespawn_KillPlayer:
+	JSR KillPlayer
+PauseRespawn_Exit:
+	LDA IsHorizontalLevel
+	BEQ PauseRespawn_Vertical
+	JMP HorizontalLevel_CheckSubArea
+PauseRespawn_Vertical:
+	JMP VerticalLevel_ProcessFrame
+
+PauseRespawn_ShowPauseScreen:
+	JSR PauseScreen_ExtraLife
+	JMP SetStack100Pause
+
+RespawnPlayer:
+	; Stop invincibility music
+	LDA MusicPlaying1
+	CMP #Music1_Invincible
+	BNE RespawnPlayer_AfterMusic
+	LDY CurrentMusicIndex
+	LDA LevelMusicIndexes, Y
+	STA MusicQueue1
+RespawnPlayer_AfterMusic:
+	LDA #SpriteAnimation_Standing
+	STA PlayerAnimationFrame
+	RTS
+
+
+ResetSubAreaJarLayout:
+	LDA #PRGBank_6_7
+	JSR ChangeMappedPRGBank
+
+	JSR ClearSubAreaTileLayout
+
+	LDA #PRGBank_0_1
+	JSR ChangeMappedPRGBank
+
+	RTS
+
+ENDIF
 
 
 ; Unused space in the original ($FE97 - $FF4F)
