@@ -67,42 +67,69 @@ byte_RAM_12:
 BreakStartLevelLoop:
 	.dsb 1 ; $0013
 
+MarioSnoringLoopCounter: ; counts down snore loops before moving to the next animation sequence
 PlayerXHi:
 	.dsb 1 ; $0014
+MarioSnoringFrameIndex: ; index in frame lookup table
 ObjectXHi:
 	.dsb 1 ; $0015
+MarioSnoringFrameCounter: ; counts down frames in a snore loop
 	.dsb 1 ; 1                ; $0016
+MarioSnoringWaveFrame:
 	.dsb 1 ; 2                ; $0017
+MarioSnoringWaveFrameCounter: ; controls waving speed
 	.dsb 1 ; 3                ; $0018
+MarioSnoringCounter5:
 	.dsb 1 ; 4                ; $0019
+MarioSnoringCounter6:
 	.dsb 1 ; 5                ; $001a
+MarioSnoringCounter7:
 	.dsb 1 ; 6                ; $001b
+MarioSnoringTheEndFrameCounter: ; controls writing speed
 	.dsb 1 ; 7                ; $001c
+MarioSnoringCounter9:
 	.dsb 1 ; 8                ; $001d
 
 PlayerYHi:
+CastRollSpriteSetupTemp:
 	.dsb 1 ; $001e
 ObjectYHi:
+CastRollSprite1A:
 	.dsb 1 ; $001f
+CastRollSprite1B:
 	.dsb 1 ; 1                ; $0020
+CastRollSprite1C:
 	.dsb 1 ; 2                ; $0021
+CastRollSprite2A:
 	.dsb 1 ; 3                ; $0022
+CastRollSprite2B:
 	.dsb 1 ; 4                ; $0023
+CastRollSprite2C:
 	.dsb 1 ; 5                ; $0024
+CastRollSprite3A:
 	.dsb 1 ; 6                ; $0025
+CastRollSprite3B:
 	.dsb 1 ; 7                ; $0026
+CastRollSprite3C:
 	.dsb 1 ; 8                ; $0027
 
 PlayerXLo:
+CastRollTimer:
 	.dsb 1 ; $0028
 ObjectXLo:
+CastRollSequenceIndex:
 	.dsb 1 ; $0029
+CastRollFadePaletteIndex:
 	.dsb 1 ; 1                ; $002a
+CastRollSpriteIndex:
 	.dsb 1 ; 2                ; $002b
 	.dsb 1 ; 3                ; $002c
 	.dsb 1 ; 4                ; $002d
+CastRollThrottle:
 	.dsb 1 ; 5                ; $002e
+CastRollSpriteLo:
 	.dsb 1 ; 6                ; $002f
+CastRollSpriteHi:
 	.dsb 1 ; 7                ; $0030
 	.dsb 1 ; 8                ; $0031
 
@@ -111,19 +138,30 @@ PlayerYLo:
 ObjectYLo:
 	.dsb 1 ; $0033
 	.dsb 1 ; 1                ; $0034
+CastRollSpriteActive1:
 	.dsb 1 ; 2                ; $0035
+CastRollSpriteActive2:
 	.dsb 1 ; 3                ; $0036
+CastRollSpriteActive3:
 	.dsb 1 ; 4                ; $0037
+CastRollSpriteActive4:
 	.dsb 1 ; 5                ; $0038
+CastRollSpriteCounter1:
 	.dsb 1 ; 6                ; $0039
+CastRollSpriteCounter2:
 	.dsb 1 ; 7                ; $003a
+CastRollSpriteCounter3:
 	.dsb 1 ; 8                ; $003b
 
+CastRoll_Temp9:
 PlayerXVelocity:
 	.dsb 1 ; $003c
+CastRoll_TempA:
 ObjectXVelocity:
 	.dsb 1 ; $003d
+CastRoll_TempA1:
 	.dsb 1 ; 1                ; $003e
+CastRollLastSprite: ; Set to show TRICLYDE and queue up Wart
 	.dsb 1 ; 2                ; $003f
 	.dsb 1 ; 3                ; $0040
 	.dsb 1 ; 4                ; $0041
@@ -161,8 +199,8 @@ ObjectYVelocity:
 ; $07 Dying (falls off screen)
 ; $08 Shrinking
 ; $09+ Crash?
-; $27 @TODO object-related?
 ;
+CastRollSpriteOffset: ; determines how long until the next sprite is allowed to spawn
 PlayerState:
 	.dsb 1 ; $0050
 EnemyState:

@@ -77,6 +77,7 @@ MusicDataUndergroundBeta2_Square2:
 	.db $DC
 	.db $7E
 	.db $00
+
 MusicDataUndergroundBeta1_Square1:
 MusicDataUndergroundBeta2_Square1:
 MusicDataUndergroundBeta1_Triangle:
@@ -155,52 +156,55 @@ MusicDataUndergroundBeta2_Triangle:
 	.db $28
 	.db $8C
 	.db $7E
+
 MusicDataUndergroundBeta1_DPCM:
-	.db $8A
-	.db $01
-	.db $10
-	.db $84
-	.db $01
-	.db $01
-	.db $88
-	.db $01
-	.db $8A
-	.db $10
-	.db $8A
-	.db $01
-	.db $89
-	.db $10
-	.db $88
-	.db $01
-	.db $01
-	.db $84
-	.db $01
-	.db $88
-	.db $10
-	.db $84
-	.db $10
-	.db $10
+IFNDEF EXPAND_MUSIC
+	.db $8A, $01, $10
+	.db $84, $01, $01
+	.db $88, $01
+	.db $8A, $10
+	.db $8A, $01
+	.db $89, $10
+	.db $88, $01, $01
+	.db $84, $01
+	.db $88, $10
+	.db $84, $10, $10
 	.db $00
+ELSE
+	.db $8A, $02, $06
+	.db $84, $02, $02
+	.db $88, $02
+	.db $8A, $06
+	.db $8A, $02
+	.db $89, $06
+	.db $88, $02, $02
+	.db $84, $02
+	.db $88, $06
+	.db $84, $06, $06
+	.db $00
+ENDIF
+
 MusicDataUndergroundBeta2_DPCM:
-	.db $88
-	.db $01
-	.db $10
-	.db $84
-	.db $01
-	.db $01
-	.db $88
-	.db $10
-	.db $84
-	.db $01
-	.db $01
-	.db $10
-	.db $88
-	.db $01
-	.db $84
-	.db $01
-	.db $88
-	.db $10
+IFNDEF EXPAND_MUSIC
+	.db $88, $01, $10
+	.db $84, $01, $01
+	.db $88, $10
+	.db $84, $01, $01, $10
+	.db $88, $01
+	.db $84, $01
+	.db $88, $10
 	.db $00
+ELSE
+	.db $88, $02, $06
+	.db $84, $02, $01
+	.db $88, $06
+	.db $84, $02, $02, $06
+	.db $88, $02
+	.db $84, $02
+	.db $88, $06
+	.db $00
+ENDIF
+
 MusicDataUndergroundBeta1_Noise:
 	.db $8A
 	.db $01
@@ -216,6 +220,7 @@ MusicDataUndergroundBeta1_Noise:
 	.db $10
 	.db $10
 	.db $00
+
 MusicDataUndergroundBeta2_Noise:
 	.db $84
 	.db $02

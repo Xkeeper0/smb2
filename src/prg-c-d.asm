@@ -19,27 +19,19 @@ MarioDream_Pointers:
 	.dw MarioDream_EraseBubble5
 	.dw MarioDream_Palettes
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANKC_8014:
-	LDA #0
-	BEQ loc_BANKC_801A
+WaitForNMI_MarioSleeping_TurnOffPPU:
+	LDA #$00
+	BEQ WaitForNMI_MarioSleeping_SetPPUMaskMirror
 
-; End of function sub_BANKC_8014
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKC_8018:
+WaitForNMI_MarioSleeping_TurnOnPPU:
 	LDA #PPUMask_ShowLeft8Pixels_BG | PPUMask_ShowLeft8Pixels_SPR | PPUMask_ShowBackground | PPUMask_ShowSprites
 
-loc_BANKC_801A:
+WaitForNMI_MarioSleeping_SetPPUMaskMirror:
 	STA PPUMaskMirror
 
-; End of function sub_BANKC_8018
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKC_801C:
+WaitForNMI_MarioSleeping:
 	LDA ScreenUpdateIndex
 	ASL A
 	TAX
@@ -50,13 +42,11 @@ sub_BANKC_801C:
 
 	LDA #$00
 	STA NMIWaitFlag
-loc_BANKC_802E:
+WaitForNMI_MarioSleepingLoop:
 	LDA NMIWaitFlag
-	BPL loc_BANKC_802E
+	BPL WaitForNMI_MarioSleepingLoop
 
 	RTS
-
-; End of function sub_BANKC_801C
 
 
 EnableNMI_BankC:
@@ -217,11 +207,9 @@ MarioDream_BubbleSprites:
 	.db $28, $08, $02, $C0
 	.db $28, $0C, $03, $B8
 
-byte_BANKC_8308:
+MarioDream_BubbleSprites2:
 	.db $28, $02, $00, $A8
 	.db $28, $06, $01, $B0
-
-byte_BANKC_8310:
 	.db $28, $0A, $02, $C0
 	.db $28, $0E, $03, $B8
 
@@ -251,33 +239,35 @@ MarioDream_WakingFrameCounts:
 	.db $10
 
 MarioDream_SnoringFrames:
-	.db CHRBank_EndingBackground1
-	.db CHRBank_EndingBackground2
-	.db CHRBank_EndingBackground3
-	.db CHRBank_EndingBackground4
-	.db CHRBank_EndingBackground5
-	.db CHRBank_EndingBackground6
-	.db CHRBank_EndingBackground7
-	.db CHRBank_EndingBackground8
-	.db CHRBank_EndingBackground7
-	.db CHRBank_EndingBackground6
-	.db CHRBank_EndingBackground5
-	.db CHRBank_EndingBackground4
-	.db CHRBank_EndingBackground3
-	.db CHRBank_EndingBackground2
+	.db CHRBank_MarioSleepingBackground1
+	.db CHRBank_MarioSleepingBackground2
+	.db CHRBank_MarioSleepingBackground3
+	.db CHRBank_MarioSleepingBackground4
+	.db CHRBank_MarioSleepingBackground5
+	.db CHRBank_MarioSleepingBackground6
+	.db CHRBank_MarioSleepingBackground7
+	.db CHRBank_MarioSleepingBackground8
+	.db CHRBank_MarioSleepingBackground7
+	.db CHRBank_MarioSleepingBackground6
+	.db CHRBank_MarioSleepingBackground5
+	.db CHRBank_MarioSleepingBackground4
+	.db CHRBank_MarioSleepingBackground3
+	.db CHRBank_MarioSleepingBackground2
+MarioDream_SnoringFrames_End:
 
 MarioDream_WakingFrames:
-	.db CHRBank_EndingBackground11
-	.db CHRBank_EndingBackground10
-	.db CHRBank_EndingBackground9
-	.db CHRBank_EndingBackground12
-	.db CHRBank_EndingBackground9
-	.db CHRBank_EndingBackground10
-	.db CHRBank_EndingBackground11
+	.db CHRBank_MarioSleepingBackground11
+	.db CHRBank_MarioSleepingBackground10
+	.db CHRBank_MarioSleepingBackground9
+	.db CHRBank_MarioSleepingBackground12
+	.db CHRBank_MarioSleepingBackground9
+	.db CHRBank_MarioSleepingBackground10
+	.db CHRBank_MarioSleepingBackground11
+MarioDream_WakingFrames_End:
 
 
 MarioSleepingScene:
-	JSR sub_BANKC_8014
+	JSR WaitForNMI_MarioSleeping_TurnOffPPU
 
 	LDA #VMirror
 	JSR ChangeNametableMirroring
@@ -288,314 +278,356 @@ MarioSleepingScene:
 	STA StackArea
 	JSR EnableNMI_BankC
 
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #9
+	LDA #MarioSleepingUpdateBuffer_Palettes
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #1
+	LDA #MarioSleepingUpdateBuffer_Bed
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #2
+	LDA #MarioSleepingUpdateBuffer_Bubble
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
 	LDA #$10
-	STA ObjectXHi + 3
-	LDA #4
-	STA PlayerXHi
+	STA MarioSnoringWaveFrameCounter
+	LDA #$04 ; 5 snores before waking up
+	STA MarioSnoringLoopCounter
 
-loc_BANKC_8375:
-	LDA #0
-	STA ObjectXHi
-	LDA #$D
-	STA ObjectXHi + 1
-	LDA #0
-	STA ObjectXHi + 2
-	JSR sub_BANKC_8493
+;
+; Dream Bubble Intro
+; ==================
+;
+; The part where Mario is snoring with a little dream bubble containing the
+; characters waving.
+;
+MarioDream_DreamBubbleIntro:
+	LDA #$00
+	STA MarioSnoringFrameIndex
+	LDA #(MarioDream_SnoringFrames_End - MarioDream_SnoringFrames - 1)
+	STA MarioSnoringFrameCounter
+	LDA #$00
+	STA MarioSnoringWaveFrame
 
-	JSR sub_BANKC_8018
+	JSR MarioDream_WriteBubbleSprites
 
-loc_BANKC_8387:
-	LDY ObjectXHi
+	JSR WaitForNMI_MarioSleeping_TurnOnPPU
+
+MarioDream_DreamBubbleIntro_Loop:
+	LDY MarioSnoringFrameIndex
 	LDA MarioDream_SnoringFrames, Y
 	STA BackgroundCHR1
 	CLC
 	ADC #$02
 	STA BackgroundCHR2
+
+	; Hold the animation frame briefly
 	LDA MarioDream_SnoringFrameCounts, Y
 	STA byte_RAM_10
-
-loc_BANKC_839A:
-	DEC ObjectXHi + 3
-	BPL loc_BANKC_83A7
+MarioDream_DreamBubbleIntro_DelayLoop:
+	DEC MarioSnoringWaveFrameCounter
+	BPL MarioDream_DreamBubbleIntro_AfterWaveFrameUpdate
 
 	LDA #$10
-	STA ObjectXHi + 3
-	INC ObjectXHi + 2
-	JSR sub_BANKC_8493
+	STA MarioSnoringWaveFrameCounter
+	INC MarioSnoringWaveFrame
+	JSR MarioDream_WriteBubbleSprites
 
-loc_BANKC_83A7:
-	JSR sub_BANKC_801C
+MarioDream_DreamBubbleIntro_AfterWaveFrameUpdate:
+	JSR WaitForNMI_MarioSleeping
 
 	DEC byte_RAM_10
-	BPL loc_BANKC_839A
+	BPL MarioDream_DreamBubbleIntro_DelayLoop
 
-	INC ObjectXHi
-	DEC ObjectXHi + 1
-	BPL loc_BANKC_8387
+	INC MarioSnoringFrameIndex
+	DEC MarioSnoringFrameCounter
+	BPL MarioDream_DreamBubbleIntro_Loop
 
-	DEC PlayerXHi
-	BMI loc_BANKC_83BB
+	DEC MarioSnoringLoopCounter
+	BMI MarioDream_WakeUp
 
-	JMP loc_BANKC_8375
+	JMP MarioDream_DreamBubbleIntro
 
-; ---------------------------------------------------------------------------
-
-loc_BANKC_83BB:
-	LDA #3
+;
+; Wake Up
+; =======
+;
+; Mario wakes up, effectively bursting his dream bubble, looks around, and then
+; falls back asleep and continues snoring.
+;
+MarioDream_WakeUp:
+	LDA #MarioSleepingUpdateBuffer_DoNothing
 	STA ScreenUpdateIndex
 	LDA #$F8
 	STA SpriteDMAArea
-	STA SpriteDMAArea + 4
-	STA SpriteDMAArea + 8
-	STA SpriteDMAArea + $C
-	JSR sub_BANKC_801C
+	STA SpriteDMAArea + $04
+	STA SpriteDMAArea + $08
+	STA SpriteDMAArea + $0C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #4
+	LDA #MarioSleepingUpdateBuffer_EraseBubble1
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #5
+	LDA #MarioSleepingUpdateBuffer_EraseBubble2
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #6
+	LDA #MarioSleepingUpdateBuffer_EraseBubble3
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #7
+	LDA #MarioSleepingUpdateBuffer_EraseBubble4
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #8
+	LDA #MarioSleepingUpdateBuffer_EraseBubble5
 	STA ScreenUpdateIndex
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
-	LDA #0
-	STA ObjectXHi
-	LDA #6
-	STA ObjectXHi + 1
-	LDA #0
-	STA PlayerXHi
-	JSR sub_BANKC_8018
+	LDA #$00
+	STA MarioSnoringFrameIndex
+	LDA #(MarioDream_WakingFrames_End - MarioDream_WakingFrames - 1)
+	STA MarioSnoringFrameCounter
+	LDA #$00
+	STA MarioSnoringLoopCounter
 
-loc_BANKC_8402:
-	LDY ObjectXHi
+	JSR WaitForNMI_MarioSleeping_TurnOnPPU
+
+MarioDream_WakeUp_Loop:
+	LDY MarioSnoringFrameIndex
 	LDA MarioDream_WakingFrames, Y
 	STA BackgroundCHR1
 	CLC
 	ADC #$02
 	STA BackgroundCHR2
+
 	LDA MarioDream_WakingFrameCounts, Y
 	STA byte_RAM_10
-
-loc_BANKC_8415:
-	JSR sub_BANKC_801C
+MarioDream_WakeUp_DelayLoop:
+	JSR WaitForNMI_MarioSleeping
 
 	DEC byte_RAM_10
-	BPL loc_BANKC_8415
+	BPL MarioDream_WakeUp_DelayLoop
 
-	INC ObjectXHi
-	DEC ObjectXHi + 1
-	BPL loc_BANKC_8402
+	INC MarioSnoringFrameIndex
+	DEC MarioSnoringFrameCounter
+	BPL MarioDream_WakeUp_Loop
 
 	LDA #$10
-	STA ObjectXHi + 3
-	LDA #1
-	STA PlayerXHi
+	STA MarioSnoringWaveFrameCounter
+	LDA #$01 ; 2 snores before showing cast
+	STA MarioSnoringLoopCounter
 
-loc_BANKC_842A:
-	LDA #0
-	STA ObjectXHi
-	LDA #$D
-	STA ObjectXHi + 1
-	JSR sub_BANKC_8018
+;
+; Pre-Cast Roll
+; =============
+;
+; Just Mario snoring a little bit more.
+;
+MarioDream_PreCastSleep:
+	LDA #$00
+	STA MarioSnoringFrameIndex
+	LDA #(MarioDream_SnoringFrames_End - MarioDream_SnoringFrames - 1)
+	STA MarioSnoringFrameCounter
 
-loc_BANKC_8435:
-	LDY ObjectXHi
+	JSR WaitForNMI_MarioSleeping_TurnOnPPU
+
+MarioDream_PreCastSleep_Loop:
+	LDY MarioSnoringFrameIndex
 	LDA MarioDream_SnoringFrames, Y
 	STA BackgroundCHR1
 	CLC
 	ADC #$02
 	STA BackgroundCHR2
+
+	; Hold the animation frame briefly
 	LDA MarioDream_SnoringFrameCounts, Y
 	STA byte_RAM_10
-
-loc_BANKC_8448:
-	JSR sub_BANKC_801C
+MarioDream_PreCastSleep_DelayLoop:
+	JSR WaitForNMI_MarioSleeping
 
 	DEC byte_RAM_10
-	BPL loc_BANKC_8448
+	BPL MarioDream_PreCastSleep_DelayLoop
 
-	INC ObjectXHi
+	INC MarioSnoringFrameIndex
+	DEC MarioSnoringFrameCounter
+	BPL MarioDream_PreCastSleep_Loop
 
-loc_BANKC_8451:
-	DEC ObjectXHi + 1
-	BPL loc_BANKC_8435
+	DEC MarioSnoringLoopCounter
+	BMI MarioDream_StartCastRoll
 
-	DEC PlayerXHi
-	BMI loc_BANKC_845C
+	JMP MarioDream_PreCastSleep
 
-	JMP loc_BANKC_842A
+MarioDream_StartCastRoll:
+	JSR MarioDream_CastRollSetup
 
-; ---------------------------------------------------------------------------
+	JSR WaitForNMI_MarioSleeping
 
-loc_BANKC_845C:
-	JSR sub_BANKC_84FB
+;
+; Cast Roll
+; =========
+;
+; Mario snoring while the cast roll crawls up the screen.
+;
+MarioDream_CastSleep:
+	LDA #$00
+	STA MarioSnoringFrameIndex
 
-	JSR sub_BANKC_801C
+	LDA #(MarioDream_SnoringFrames_End - MarioDream_SnoringFrames - 1)
+	STA MarioSnoringFrameCounter
 
-loc_BANKC_8462:
-	LDA #0
-	STA ObjectXHi
-	LDA #$D
-	STA ObjectXHi + 1
-	JSR sub_BANKC_8018
+	JSR WaitForNMI_MarioSleeping_TurnOnPPU
 
-loc_BANKC_846D:
-	LDY ObjectXHi
+MarioDream_CastSleep_Loop:
+	LDY MarioSnoringFrameIndex
 	LDA MarioDream_SnoringFrames, Y
 	STA BackgroundCHR1
 	CLC
 	ADC #$02
 	STA BackgroundCHR2
+
+	; Hold the animation frame briefly
 	LDA MarioDream_SnoringFrameCounts, Y
 	STA byte_RAM_10
+MarioDream_CastSleep_DelayLoop:
+	JSR CastRoll_ScrollSprites
 
-loc_BANKC_8480:
-	JSR loc_BANKC_84B2
-
-	JSR sub_BANKC_801C
+	JSR WaitForNMI_MarioSleeping
 
 	DEC byte_RAM_10
-	BPL loc_BANKC_8480
+	BPL MarioDream_CastSleep_DelayLoop
 
-	INC ObjectXHi
-	DEC ObjectXHi + 1
+	INC MarioSnoringFrameIndex
+	DEC MarioSnoringFrameCounter
+	BPL MarioDream_CastSleep_Loop
 
-loc_BANKC_848E:
-	BPL loc_BANKC_846D
+	JMP MarioDream_CastSleep
 
-loc_BANKC_8490:
-	JMP loc_BANKC_8462
 
-; =============== S U B R O U T I N E =======================================
+;
+; Draw the sprites of the characters waving
+;
+MarioDream_WriteBubbleSprites:
+	LDY #$0F
+	LDA MarioSnoringWaveFrame
+	AND #$01
+	BNE MarioDream_WriteBubbleSprites_Frame2
 
-sub_BANKC_8493:
-	LDY #$F
-	LDA ObjectXHi + 2
-	AND #1
-	BNE loc_BANKC_84A5
-
-loc_BANKC_849B:
+MarioDream_WriteBubbleSprites_Frame1:
 	LDA MarioDream_BubbleSprites, Y
 	STA SpriteDMAArea, Y
 	DEY
-	BPL loc_BANKC_849B
+	BPL MarioDream_WriteBubbleSprites_Frame1
 
 	RTS
 
-; ---------------------------------------------------------------------------
-
-loc_BANKC_84A5:
-	LDA byte_BANKC_8308, Y
+MarioDream_WriteBubbleSprites_Frame2:
+	LDA MarioDream_BubbleSprites2, Y
 	STA SpriteDMAArea, Y
 	DEY
-	BPL loc_BANKC_84A5
+	BPL MarioDream_WriteBubbleSprites_Frame2
 
 	RTS
 
-; End of function sub_BANKC_8493
 
-; ---------------------------------------------------------------------------
 CastRoll_PaletteFadeIn:
 	.db $22
-
 	.db $32
 	.db $30
-; ---------------------------------------------------------------------------
 
-loc_BANKC_84B2:
-	INC ObjectXLo + 5
-	LDA ObjectXLo + 5
-	AND #1
-	BNE loc_BANKC_84C0
 
-	DEC ObjectYLo + 6
-	DEC ObjectYLo + 7
-	DEC ObjectYLo + 8
+CastRoll_ScrollSprites:
+	; Throttle used to slow down the cast roll
+	INC CastRollThrottle
+	LDA CastRollThrottle
+	AND #$01
+	BNE CastRoll_ScrollSprites_AfterSpriteCounter
 
-loc_BANKC_84C0:
-	LDA ObjectXLo
+	DEC CastRollSpriteCounter1
+	DEC CastRollSpriteCounter2
+	DEC CastRollSpriteCounter3
+
+CastRoll_ScrollSprites_AfterSpriteCounter:
+	LDA CastRollSequenceIndex
 	JSR JumpToTableAfterJump
 
-; ---------------------------------------------------------------------------
-	.dw loc_BANKC_8593
-	.dw loc_BANKC_85D6
-	.dw loc_BANKC_85E7
-	.dw loc_BANKC_861C
-	.dw loc_BANKC_8898
-	.dw loc_BANKC_88D7
+	.dw CastRoll_FadeIn
+	.dw CastRoll_CrawlDelay
+	.dw CastRoll_CrawlStart
+	.dw CastRoll_CrawlContinue
+	.dw CastRoll_QueueWart
+	.dw CastRoll_WartLaugh
 	.dw loc_BANKC_89B6
 	.dw loc_BANKC_8A04
 	.dw loc_BANKC_8A37
-	.dw loc_BANKC_8A52
-	.dw loc_BANKC_8A82
-; ---------------------------------------------------------------------------
+	.dw CastRoll_TheEndDelay
+	.dw CastRoll_TheEndAnimation
+
 	RTS
 
-; ---------------------------------------------------------------------------
+
 CastRoll_CASTText:
-	.db $60,$D4,$00,$28
-	.db $60,$D0,$00,$38 ; 4
-	.db $60,$F4,$00,$48 ; 8
-	.db $60,$F6,$00,$58 ; $C
+	.db $60, $D4, $00, $28
+	.db $60, $D0, $00, $38
+	.db $60, $F4, $00, $48
+	.db $60, $F6, $00, $58
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANKC_84EC:
-	LDY ObjectXLo + 2
+;
+; Loads the pointer for the current cast roll sprite and then increments the index
+;
+; ##### Input
+; - `CastRollSpriteIndex`: current sprite index
+;
+; ##### Output
+; - `CastRollSpriteHi`: high byte for sprite
+; - `CastRollSpriteLo`: low byte for sprite
+; - `CastRollSpriteIndex`: next sprite index
+;
+LoadCastRollSpritePointer:
+	LDY CastRollSpriteIndex
 	LDA CastRoll_SpritePointersLo, Y
-	STA ObjectXLo + 6
+	STA CastRollSpriteLo
 	LDA CastRoll_SpritePointersHi, Y
-	STA ObjectXLo + 7
-	INC ObjectXLo + 2
+	STA CastRollSpriteHi
+	INC CastRollSpriteIndex
 	RTS
 
-; End of function sub_BANKC_84EC
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANKC_84FB:
+;
+; Cast Roll Setup
+; ===============
+;
+; Loads the ending cast sprites and prepares the cast roll crawl.
+;
+; The technique used to crop the cast roll within the black border is clever;
+; by using the first 16 OAM sprite slots to draw 8 sprites at the top and
+; bottom, the sprite limit ensures that the cast sprites won't be drawn in that
+; part of the screen.
+;
+; If you disable the sprite limit in an emulator, you'll be able to see the
+; sprites pop in and out as they scroll beyond the intended display area.
+;
+MarioDream_CastRollSetup:
 	LDY #CHRBank_EndingCast1
 	STY SpriteCHR1
-
-loc_BANKC_8500:
 	INY
 	STY SpriteCHR2
 	INY
 	STY SpriteCHR3
 	INY
 	STY SpriteCHR4
+
+	; Top cropping sprites
 	LDX #$07
 	LDA #$20
-	STA PlayerYHi
+	STA CastRollSpriteSetupTemp
 	LDY #$00
-
-loc_BANKC_8514:
+MarioDream_CastRollSetup_TopCrop_Loop:
 	LDA #$0F
 	STA SpriteDMAArea, Y
 	INY
@@ -605,20 +637,20 @@ loc_BANKC_8514:
 	LDA #$00
 	STA SpriteDMAArea, Y
 	INY
-	LDA PlayerYHi
+	LDA CastRollSpriteSetupTemp
 	STA SpriteDMAArea, Y
 	INY
 	CLC
 	ADC #$08
-	STA PlayerYHi
+	STA CastRollSpriteSetupTemp
 	DEX
-	BPL loc_BANKC_8514
+	BPL MarioDream_CastRollSetup_TopCrop_Loop
 
+	; Bottom cropping sprites
 	LDX #$07
 	LDA #$20
-	STA PlayerYHi
-
-loc_BANKC_853A:
+	STA CastRollSpriteSetupTemp
+MarioDream_CastRollSetup_BottomCrop_Loop:
 	LDA #$D0
 	STA SpriteDMAArea, Y
 	INY
@@ -628,22 +660,22 @@ loc_BANKC_853A:
 	LDA #$00
 	STA SpriteDMAArea, Y
 	INY
-	LDA PlayerYHi
+	LDA CastRollSpriteSetupTemp
 	STA SpriteDMAArea, Y
 	INY
 	CLC
 	ADC #$08
-	STA PlayerYHi
+	STA CastRollSpriteSetupTemp
 	DEX
-	BPL loc_BANKC_853A
+	BPL MarioDream_CastRollSetup_BottomCrop_Loop
 
+	; Draw "CAST" sprite
 	LDX #$0F
-
-loc_BANKC_855C:
+MarioDream_CastRollSetup_CAST_Loop:
 	LDA CastRoll_CASTText, X
 	STA SpriteDMAArea + $40, X
 	DEX
-	BPL loc_BANKC_855C
+	BPL MarioDream_CastRollSetup_CAST_Loop
 
 	LDA #$3F
 	STA PPUBuffer_301
@@ -656,197 +688,197 @@ loc_BANKC_855C:
 	LDA #$00
 	STA PPUBuffer_301 + 4
 	LDA #$10
-	STA PlayerXLo
+	STA CastRollTimer
 	LDA #$00
-	STA ObjectXLo
-	STA ObjectXLo + 1
-	LDY #$40
+	STA CastRollSequenceIndex
+	STA CastRollFadePaletteIndex
 
-loc_BANKC_858A:
-	LDA #EnemyState_27 ; @TODO what is this
-	STA EnemyState - 1, Y
+	; Set delays to space out the cast sprites
+	LDY #$40
+MarioDream_CastRollSetup_SpriteDelay_Loop:
+	LDA #$27
+	STA CastRollSpriteOffset, Y
 	DEY
-	BPL loc_BANKC_858A
+	BPL MarioDream_CastRollSetup_SpriteDelay_Loop
 
 	RTS
 
-; End of function sub_BANKC_84FB
 
-; ---------------------------------------------------------------------------
-
-loc_BANKC_8593:
-	DEC PlayerXLo
-	BPL locret_BANKC_85D5
+;
+; Fade in the word "CAST"
+;
+CastRoll_FadeIn:
+	DEC CastRollTimer
+	BPL CastRoll_FadeIn_Exit
 
 	LDA #$10
-	STA PlayerXLo
+	STA CastRollTimer
 	LDA #$3F
 	STA PPUBuffer_301
 	LDA #$11
 	STA PPUBuffer_301 + 1
 	LDA #$01
 	STA PPUBuffer_301 + 2
-	LDY ObjectXLo + 1
+	LDY CastRollFadePaletteIndex
 	LDA CastRoll_PaletteFadeIn, Y
 	STA PPUBuffer_301 + 3
-
-loc_BANKC_85B2:
 	LDA #$00
 	STA PPUBuffer_301 + 4
-	INC ObjectXLo + 1
-	LDA ObjectXLo + 1
+
+	INC CastRollFadePaletteIndex
+	LDA CastRollFadePaletteIndex
 	CMP #$03
-	BNE locret_BANKC_85D5
+	BNE CastRoll_FadeIn_Exit
 
-	INC ObjectXLo
+	INC CastRollSequenceIndex
 	LDA #$80
-	STA PlayerXLo
+	STA CastRollTimer
 	LDA #$60
-	STA ObjectYHi
+	STA CastRollSprite1A
 	LDA #$01
-	STA ObjectYLo + 2
-	STA ObjectYLo + 5
+	STA CastRollSpriteActive1
+	STA CastRollSpriteActive4
 	LDA #$00
-	STA ObjectYLo + 3
-	STA ObjectYLo + 4
+	STA CastRollSpriteActive2
+	STA CastRollSpriteActive3
 
-locret_BANKC_85D5:
+CastRoll_FadeIn_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANKC_85D6:
-	DEC PlayerXLo
-	BPL locret_BANKC_85E6
+;
+; Pause before starting the crawl, then initialize the first sprite
+;
+CastRoll_CrawlDelay:
+	DEC CastRollTimer
+	BPL CastRoll_CrawlDelay_Exit
 
-	INC ObjectXLo
-	LDA #0
-	STA ObjectXLo + 2
-	STA ObjectXVelocity + 2
-	LDA #1
-	STA ObjectYLo + 7
+	INC CastRollSequenceIndex
+	LDA #$00
+	STA CastRollSpriteIndex
+	STA CastRollLastSprite
+	LDA #$01
+	STA CastRollSpriteCounter2
 
-locret_BANKC_85E6:
+CastRoll_CrawlDelay_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANKC_85E7:
-	LDA ObjectXLo + 5
-	AND #1
+CastRoll_CrawlStart:
+	LDA CastRollThrottle
+	AND #$01
+	BEQ CastRollSprite1
 
-loc_BANKC_85EB:
-	BEQ loc_BANKC_861C
-
-	LDA ObjectYHi
+	LDA CastRollSprite1A
 	SEC
-	SBC #1
-	STA ObjectYHi
+	SBC #$01
+	STA CastRollSprite1A
 	STA SpriteDMAArea + $40
 	STA SpriteDMAArea + $44
 	STA SpriteDMAArea + $48
 	STA SpriteDMAArea + $4C
-	LDA ObjectYHi
+	LDA CastRollSprite1A
 	CMP #$10
-	BNE loc_BANKC_861C
+	BNE CastRollSprite1
 
 	LDA #$F8
 	STA SpriteDMAArea + $40
 	STA SpriteDMAArea + $44
 	STA SpriteDMAArea + $48
 	STA SpriteDMAArea + $4A
-	INC ObjectXLo
-	LDA #0
-	STA ObjectYLo + 5
-	STA ObjectYLo + 2
+	INC CastRollSequenceIndex
+	LDA #$00
+	STA CastRollSpriteActive4
+	STA CastRollSpriteActive1
 
-loc_BANKC_861C:
-	LDA ObjectYLo + 2
-	BNE loc_BANKC_8641
+CastRoll_CrawlContinue:
+CastRollSprite1:
+	LDA CastRollSpriteActive1
+	BNE CastRollSprite2
 
-	LDA ObjectYLo + 6
-	BNE loc_BANKC_8641
+	LDA CastRollSpriteCounter1
+	BNE CastRollSprite2
 
-	JSR sub_BANKC_84EC
+	JSR LoadCastRollSpritePointer
 
 	LDY #$3F
-
-loc_BANKC_8629:
-	LDA (ObjectXLo+6), Y
+CastRollSprite1_Loop:
+	LDA (CastRollSpriteLo), Y
 	STA SpriteDMAArea + $40, Y
 	DEY
-	BPL loc_BANKC_8629
+	BPL CastRollSprite1_Loop
 
-	LDA #1
-	STA ObjectYLo + 2
+	; Activate sprite and move to the bottom of the screen
+	LDA #$01
+	STA CastRollSpriteActive1
 	LDA #$D0
-	STA ObjectYHi
+	STA CastRollSprite1A
 	LDA #$E0
-	STA ObjectYHi + 1
+	STA CastRollSprite1B
 	LDA #$F8
-	STA ObjectYHi + 2
+	STA CastRollSprite1C
 
-loc_BANKC_8641:
-	LDA ObjectYLo + 3
-	BNE loc_BANKC_8666
+CastRollSprite2:
+	LDA CastRollSpriteActive2
+	BNE CastRollSprite3
 
-	LDA ObjectYLo + 7
-	BNE loc_BANKC_8666
+	LDA CastRollSpriteCounter2
+	BNE CastRollSprite3
 
-	JSR sub_BANKC_84EC
+	JSR LoadCastRollSpritePointer
 
 	LDY #$3F
-
-loc_BANKC_864E:
-	LDA (ObjectXLo+6), Y
+CastRollSprite2_Loop:
+	LDA (CastRollSpriteLo), Y
 	STA SpriteDMAArea + $80, Y
 	DEY
-	BPL loc_BANKC_864E
+	BPL CastRollSprite2_Loop
 
-	LDA #1
-	STA ObjectYLo + 3
+	; Activate sprite and move to the bottom of the screen
+	LDA #$01
+	STA CastRollSpriteActive2
 	LDA #$D0
-	STA ObjectYHi + 3
+	STA CastRollSprite2A
 	LDA #$E0
-	STA ObjectYHi + 4
+	STA CastRollSprite2B
 	LDA #$F8
-	STA ObjectYHi + 5
+	STA CastRollSprite2C
 
-loc_BANKC_8666:
-	LDA ObjectYLo + 4
+CastRollSprite3:
+	LDA CastRollSpriteActive3
 	BNE loc_BANKC_8693
 
-	LDA ObjectYLo + 8
+	LDA CastRollSpriteCounter3
 	BNE loc_BANKC_8693
 
-	JSR sub_BANKC_84EC
+	JSR LoadCastRollSpritePointer
 
 	LDY #$3F
-
-loc_BANKC_8673:
-	LDA (ObjectXLo+6), Y
+CastRollSprite3_Loop:
+	LDA (CastRollSpriteLo), Y
 	STA SpriteDMAArea + $C0, Y
 	DEY
-	BPL loc_BANKC_8673
+	BPL CastRollSprite3_Loop
 
-	LDA #1
-	STA ObjectYLo + 4
+	; Activate sprite and move to the bottom of the screen
+	LDA #$01
+	STA CastRollSpriteActive3
 	LDA #$D0
-	STA ObjectYHi + 6
+	STA CastRollSprite3A
 	LDA #$E0
-	STA ObjectYHi + 7
+	STA CastRollSprite3B
 	LDY #$F8
-	LDA ObjectXLo + 2
-	CMP #$1D
-	BNE loc_BANKC_8691
-
+	; Is this Tryclyde?
+	LDA CastRollSpriteIndex
+	CMP #(CastRoll_SpritePointersLo - CastRoll_SpritePointersHi)
+	BNE CastRollSprite3_SetLastRowOffset
+	; Tryclyde's third row is his body, not label, hence the smaller offset
 	LDY #$F0
-
-loc_BANKC_8691:
-	STY ObjectYHi + 8
+CastRollSprite3_SetLastRowOffset:
+	STY CastRollSprite3C
 
 loc_BANKC_8693:
-	LDA ObjectYLo + 5
+	LDA CastRollSpriteActive4
 	BEQ loc_BANKC_869A
 
 	JMP loc_BANKC_873A
@@ -854,8 +886,8 @@ loc_BANKC_8693:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_869A:
-	LDA ObjectXLo + 5
-	AND #1
+	LDA CastRollThrottle
+	AND #$01
 	BNE loc_BANKC_86A3
 
 	JMP loc_BANKC_873A
@@ -867,16 +899,16 @@ loc_BANKC_86A3:
 	CMP #$F8
 	BEQ loc_BANKC_86C3
 
-	LDA ObjectYHi
+	LDA CastRollSprite1A
 	SEC
-	SBC #1
+	SBC #$01
 	CMP #$10
 	BNE loc_BANKC_86B5
 
 	LDA #$F8
 
 loc_BANKC_86B5:
-	STA ObjectYHi
+	STA CastRollSprite1A
 	STA SpriteDMAArea + $40
 	STA SpriteDMAArea + $44
 	STA SpriteDMAArea + $48
@@ -887,24 +919,24 @@ loc_BANKC_86C3:
 	CMP #$F8
 	BEQ loc_BANKC_86F2
 
-	DEC ObjectYHi + 1
+	DEC CastRollSprite1B
 	CMP #$F9
 	BNE loc_BANKC_86D6
 
-	LDA ObjectYHi + 1
+	LDA CastRollSprite1B
 	CMP #$D0
 	BNE loc_BANKC_86F2
 
 loc_BANKC_86D6:
-	LDA ObjectYHi + 1
+	LDA CastRollSprite1B
 	CMP #$10
 	BNE loc_BANKC_86E6
 
-	LDA ObjectXLo + 2
+	LDA CastRollSpriteIndex
 	CMP #$FF
 	BNE loc_BANKC_86E4
 
-	INC ObjectXLo
+	INC CastRollSequenceIndex
 
 loc_BANKC_86E4:
 	LDA #$F8
@@ -920,31 +952,31 @@ loc_BANKC_86F2:
 	CMP #$F8
 	BEQ loc_BANKC_873A
 
-	DEC ObjectYHi + 2
+	DEC CastRollSprite1C
 	CMP #$F9
 	BNE loc_BANKC_870C
 
-	LDA ObjectYHi + 2
+	LDA CastRollSprite1C
 	CMP #$D0
 	BNE loc_BANKC_873A
 
-	LDY ObjectXLo + 2
-	LDA EnemyState - 1, Y
-	STA ObjectYLo + 7
+	LDY CastRollSpriteIndex
+	LDA CastRollSpriteOffset, Y
+	STA CastRollSpriteCounter2
 
 loc_BANKC_870C:
-	LDA ObjectYHi + 2
+	LDA CastRollSprite1C
 	CMP #$10
 	BNE loc_BANKC_8722
 
-	LDA #0
-	STA ObjectYLo + 2
-	LDA ObjectXLo + 2
+	LDA #$00
+	STA CastRollSpriteActive1
+	LDA CastRollSpriteIndex
 	CMP #$FF
 	BNE loc_BANKC_8720
 
 	LDA #$FF
-	STA ObjectYLo + 2
+	STA CastRollSpriteActive1
 
 loc_BANKC_8720:
 	LDA #$F8
@@ -960,8 +992,8 @@ loc_BANKC_8722:
 	STA SpriteDMAArea + $7C
 
 loc_BANKC_873A:
-	LDA ObjectXLo + 5
-	AND #1
+	LDA CastRollThrottle
+	AND #$01
 	BNE loc_BANKC_8743
 
 	JMP loc_BANKC_87D2
@@ -973,18 +1005,18 @@ loc_BANKC_8743:
 	CMP #$F8
 	BEQ loc_BANKC_8763
 
-	LDA ObjectYHi + 3
+	LDA CastRollSprite2A
 
 loc_BANKC_874C:
 	SEC
-	SBC #1
+	SBC #$01
 	CMP #$10
 	BNE loc_BANKC_8755
 
 	LDA #$F8
 
 loc_BANKC_8755:
-	STA ObjectYHi + 3
+	STA CastRollSprite2A
 	STA SpriteDMAArea + $80
 	STA SpriteDMAArea + $84
 	STA SpriteDMAArea + $88
@@ -995,16 +1027,16 @@ loc_BANKC_8763:
 	CMP #$F8
 	BEQ loc_BANKC_878A
 
-	DEC ObjectYHi + 4
+	DEC CastRollSprite2B
 	CMP #$F9
 	BNE loc_BANKC_8776
 
-	LDA ObjectYHi + 4
+	LDA CastRollSprite2B
 	CMP #$D0
 	BNE loc_BANKC_878A
 
 loc_BANKC_8776:
-	LDA ObjectYHi + 4
+	LDA CastRollSprite2B
 	CMP #$10
 	BNE loc_BANKC_877E
 
@@ -1023,32 +1055,32 @@ loc_BANKC_878A:
 	CMP #$F8
 	BEQ loc_BANKC_87D2
 
-	DEC ObjectYHi + 5
+	DEC CastRollSprite2C
 	CMP #$F9
 	BNE loc_BANKC_87A4
 
-	LDA ObjectYHi + 5
+	LDA CastRollSprite2C
 	CMP #$D0
 	BNE loc_BANKC_87D2
 
-	LDY ObjectXLo + 2
-	LDA EnemyState - 1, Y
-	STA ObjectYLo + 8
+	LDY CastRollSpriteIndex
+	LDA CastRollSpriteOffset, Y
+	STA CastRollSpriteCounter3
 
 loc_BANKC_87A4:
-	LDA ObjectYHi + 5
+	LDA CastRollSprite2C
 	CMP #$10
 	BNE loc_BANKC_87BA
 
 loc_BANKC_87AA:
-	LDA #0
-	STA ObjectYLo + 3
-	LDA ObjectXLo + 2
+	LDA #$00
+	STA CastRollSpriteActive2
+	LDA CastRollSpriteIndex
 	CMP #$FF
 	BNE loc_BANKC_87B8
 
 	LDA #$FF
-	STA ObjectYLo + 3
+	STA CastRollSpriteActive2
 
 loc_BANKC_87B8:
 	LDA #$F8
@@ -1064,8 +1096,8 @@ loc_BANKC_87BA:
 	STA SpriteDMAArea + $BC
 
 loc_BANKC_87D2:
-	LDA ObjectXLo + 5
-	AND #1
+	LDA CastRollThrottle
+	AND #$01
 	BNE loc_BANKC_87DB
 
 	JMP locret_BANKC_8897
@@ -1077,16 +1109,16 @@ loc_BANKC_87DB:
 	CMP #$F8
 	BEQ loc_BANKC_87FB
 
-	LDA ObjectYHi + 6
+	LDA CastRollSprite3A
 	SEC
-	SBC #1
+	SBC #$01
 	CMP #$10
 	BNE loc_BANKC_87ED
 
 	LDA #$F8
 
 loc_BANKC_87ED:
-	STA ObjectYHi + 6
+	STA CastRollSprite3A
 	STA SpriteDMAArea + $C0
 	STA SpriteDMAArea + $C4
 	STA SpriteDMAArea + $C8
@@ -1097,16 +1129,16 @@ loc_BANKC_87FB:
 	CMP #$F8
 	BEQ loc_BANKC_8822
 
-	DEC ObjectYHi + 7
+	DEC CastRollSprite3B
 	CMP #$F9
 	BNE loc_BANKC_880E
 
-	LDA ObjectYHi + 7
+	LDA CastRollSprite3B
 	CMP #$D0
 	BNE loc_BANKC_8822
 
 loc_BANKC_880E:
-	LDA ObjectYHi + 7
+	LDA CastRollSprite3B
 	CMP #$10
 	BNE loc_BANKC_8816
 
@@ -1123,43 +1155,44 @@ loc_BANKC_8822:
 	CMP #$F8
 	BEQ locret_BANKC_8897
 
-	DEC ObjectYHi + 8
+	DEC CastRollSprite3C
 	CMP #$F9
 	BNE loc_BANKC_883C
 
-	LDA ObjectYHi + 8
+	LDA CastRollSprite3C
 	CMP #$D0
 	BNE locret_BANKC_8897
 
-	LDY ObjectXLo + 2
-	LDA EnemyState - 1, Y
-	STA ObjectYLo + 6
+	LDY CastRollSpriteIndex
+	LDA CastRollSpriteOffset, Y
+	STA CastRollSpriteCounter1
 
 loc_BANKC_883C:
-	LDA ObjectXLo + 2
-	CMP #$1D
+	; Is this Tryclyde?
+	LDA CastRollSpriteIndex
+	CMP #(CastRoll_SpritePointersLo - CastRoll_SpritePointersHi)
 	BNE loc_BANKC_884C
-
-	LDA ObjectYHi + 8
+	; And is the last row at the right spot?
+	LDA CastRollSprite3C
 	CMP #$B8
 	BNE loc_BANKC_884C
-
-	LDA #1
-	STA ObjectXVelocity + 2
+	; Add "TRICLYDE" to the crawl
+	LDA #$01
+	STA CastRollLastSprite
 
 loc_BANKC_884C:
-	LDA ObjectYHi + 8
+	LDA CastRollSprite3C
 	CMP #$10
 	BNE loc_BANKC_8862
 
-	LDA #0
-	STA ObjectYLo + 4
-	LDA ObjectXLo + 2
+	LDA #$00
+	STA CastRollSpriteActive3
+	LDA CastRollSpriteIndex
 	CMP #$FF
 	BNE loc_BANKC_8860
 
 	LDA #$FF
-	STA ObjectYLo + 4
+	STA CastRollSpriteActive3
 
 loc_BANKC_8860:
 	LDA #$F8
@@ -1173,33 +1206,32 @@ loc_BANKC_8862:
 	STA SpriteDMAArea + $F4
 	STA SpriteDMAArea + $F8
 	STA SpriteDMAArea + $FC
-	LDA ObjectXVelocity + 2
+	LDA CastRollLastSprite
 	BEQ locret_BANKC_8897
 
-	LDY #$1F
-
-loc_BANKC_8880:
+	; Other sprites include their own text label, but since Tryclyde is taller
+	; than the rest, his label is drawn separately
+	LDY #(CastRoll_Wart - CastRoll_TriclydeText - 1)
+CastRoll_TriclydeTextLoop:
 	LDA CastRoll_TriclydeText, Y
 	STA SpriteDMAArea + $40, Y
 	DEY
-	BPL loc_BANKC_8880
+	BPL CastRoll_TriclydeTextLoop
 
 	LDA #$D0
-	STA ObjectYHi
-	STA ObjectYHi + 1
-	LDA #0
-	STA ObjectXVelocity + 2
-
-loc_BANKC_8893:
+	STA CastRollSprite1A
+	STA CastRollSprite1B
+	LDA #$00
+	STA CastRollLastSprite
 	LDA #$FF
-	STA ObjectXLo + 2
+	STA CastRollSpriteIndex
 
 locret_BANKC_8897:
 	RTS
 
 ; ---------------------------------------------------------------------------
 
-loc_BANKC_8898:
+CastRoll_QueueWart:
 	LDY #$48
 	STY SpriteCHR1
 	INY
@@ -1208,19 +1240,19 @@ loc_BANKC_8898:
 	STY SpriteCHR3
 	INY
 	STY SpriteCHR4
-	LDY #$5B
 
+	LDY #$5B
 loc_BANKC_88AB:
 	LDA CastRoll_Wart, Y
 	STA SpriteDMAArea + $40, Y
 	DEY
 	BPL loc_BANKC_88AB
 
-	INC ObjectXLo
-	LDY #0
-	LDX #$F
-	LDA #$C0
+	INC CastRollSequenceIndex
 
+	LDY #$00
+	LDX #$0F
+	LDA #$C0
 loc_BANKC_88BC:
 	STA SpriteDMAArea + 1, Y
 	INY
@@ -1231,20 +1263,20 @@ loc_BANKC_88BC:
 	BPL loc_BANKC_88BC
 
 	LDA #$D0
-	STA ObjectYHi
+	STA CastRollSprite1A
 	LDA #$E0
-	STA ObjectYHi + 1
+	STA CastRollSprite1B
 	LDA #$F0
-	STA ObjectYHi + 2
-	LDA #8
-	STA ObjectYHi + 3
+	STA CastRollSprite1C
+	LDA #$08
+	STA CastRollSprite2A
+
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANKC_88D7:
-	LDA ObjectXLo + 5
-	AND #1
+CastRoll_WartLaugh:
+	LDA CastRollThrottle
+	AND #$01
 	BNE loc_BANKC_88E0
 
 	JMP loc_BANKC_898D
@@ -1256,19 +1288,19 @@ loc_BANKC_88E0:
 	CMP #$F8
 	BEQ loc_BANKC_8906
 
-	LDA ObjectYHi
+	LDA CastRollSprite1A
 	SEC
-	SBC #1
+	SBC #$01
 	CMP #$50
 	BNE loc_BANKC_88F5
 
-	INC ObjectXLo
+	INC CastRollSequenceIndex
 	JMP loc_BANKC_898D
 
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_88F5:
-	STA ObjectYHi
+	STA CastRollSprite1A
 	STA SpriteDMAArea + $40
 	STA SpriteDMAArea + $44
 	STA SpriteDMAArea + $48
@@ -1280,16 +1312,16 @@ loc_BANKC_8906:
 	CMP #$F8
 	BEQ loc_BANKC_8930
 
-	DEC ObjectYHi + 1
+	DEC CastRollSprite1B
 	CMP #$F9
 	BNE loc_BANKC_8919
 
-	LDA ObjectYHi + 1
+	LDA CastRollSprite1B
 	CMP #$D0
 	BNE loc_BANKC_8930
 
 loc_BANKC_8919:
-	LDA ObjectYHi + 1
+	LDA CastRollSprite1B
 	CMP #$10
 	BNE loc_BANKC_8921
 
@@ -1307,16 +1339,16 @@ loc_BANKC_8930:
 	CMP #$F8
 	BEQ loc_BANKC_895A
 
-	DEC ObjectYHi + 2
+	DEC CastRollSprite1C
 	CMP #$F9
 	BNE loc_BANKC_8943
 
-	LDA ObjectYHi + 2
+	LDA CastRollSprite1C
 	CMP #$D0
 	BNE loc_BANKC_895A
 
 loc_BANKC_8943:
-	LDA ObjectYHi + 2
+	LDA CastRollSprite1C
 	CMP #$10
 	BNE loc_BANKC_894B
 
@@ -1334,16 +1366,16 @@ loc_BANKC_895A:
 	CMP #$F8
 	BEQ loc_BANKC_898D
 
-	DEC ObjectYHi + 3
+	DEC CastRollSprite2A
 	CMP #$F9
 	BNE loc_BANKC_896D
 
-	LDA ObjectYHi + 3
+	LDA CastRollSprite2A
 	CMP #$D0
 	BNE loc_BANKC_898D
 
 loc_BANKC_896D:
-	LDA ObjectYHi + 3
+	LDA CastRollSprite2A
 	CMP #$10
 	BNE loc_BANKC_8975
 
@@ -1360,17 +1392,16 @@ loc_BANKC_8975:
 	STA SpriteDMAArea + $98
 
 loc_BANKC_898D:
-	LDA #0
-	STA ObjectXVelocity
-	STA PlayerXVelocity
-	LDA #$C
-	STA ObjectXVelocity + 1
+	LDA #$00
+	STA CastRoll_TempA
+	STA CastRoll_Temp9
+	LDA #$0C
+	STA CastRoll_TempA1
 	RTS
 
-; ---------------------------------------------------------------------------
-byte_BANKC_8998:
-	.db $9E
 
+WartLaugh_Frame1:
+	.db $9E
 	.db $A0
 	.db $A2
 	.db $A4
@@ -1385,11 +1416,9 @@ byte_BANKC_8998:
 	.db $98
 	.db $9A
 	.db $9C
-byte_BANKC_89A7:
+WartLaugh_Frame2:
 	.db $AE
-
 	.db $B0
-byte_BANKC_89A9:
 	.db $B2
 	.db $B4
 	.db $BE
@@ -1403,43 +1432,41 @@ byte_BANKC_89A9:
 	.db $98
 	.db $9A
 	.db $9C
-; ---------------------------------------------------------------------------
+
 
 loc_BANKC_89B6:
-	DEC PlayerXVelocity
+	DEC CastRoll_Temp9
 	BPL locret_BANKC_8A00
 
-	LDA #8
-	STA PlayerXVelocity
-	DEC ObjectXVelocity + 1
+	LDA #$08
+	STA CastRoll_Temp9
+	DEC CastRoll_TempA1
 	BPL loc_BANKC_89CD
 
-	INC ObjectXLo
-	LDA #0
-	STA PlayerXLo
-	STA ObjectXLo + 1
+	INC CastRollSequenceIndex
+	LDA #$00
+	STA CastRollTimer
+	STA CastRollFadePaletteIndex
 	JMP locret_BANKC_8A00
 
-; ---------------------------------------------------------------------------
 
 loc_BANKC_89CD:
-	LDA ObjectXVelocity
-	AND #1
+	LDA CastRoll_TempA
+	AND #$01
 	BNE loc_BANKC_89EB
 
-	LDY #0
-	LDX #0
-
+	LDY #$00
+	LDX #$00
 loc_BANKC_89D7:
-	INC ObjectXVelocity
-	LDA byte_BANKC_8998, X
+	INC CastRoll_TempA
+	LDA WartLaugh_Frame1, X
 	STA SpriteDMAArea + $41, Y
 	INY
 	INY
 	INY
 	INY
 	INX
-	CPX #$F
+	CPX #$0F
 	BNE loc_BANKC_89D7
 
 	JMP locret_BANKC_8A00
@@ -1447,12 +1474,12 @@ loc_BANKC_89D7:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_89EB:
-	INC ObjectXVelocity
-	LDX #0
-	LDY #0
+	INC CastRoll_TempA
+	LDX #$00
+	LDY #$00
 
 loc_BANKC_89F1:
-	LDA byte_BANKC_89A7, X
+	LDA WartLaugh_Frame2, X
 	STA SpriteDMAArea + $41, Y
 	INY
 	INY
@@ -1465,40 +1492,38 @@ loc_BANKC_89F1:
 locret_BANKC_8A00:
 	RTS
 
-; ---------------------------------------------------------------------------
+
 CastRoll_PaletteFadeOut:
 	.db $32
-
-byte_BANKC_8A02:
 	.db $22
 	.db $12
-; ---------------------------------------------------------------------------
+
 
 loc_BANKC_8A04:
-	DEC PlayerXLo
+	DEC CastRollTimer
 	BPL locret_BANKC_8A36
 
 	LDA #$10
-	STA PlayerXLo
+	STA CastRollTimer
 	LDA #$3F
 	STA PPUBuffer_301
 	LDA #$11
 	STA PPUBuffer_301 + 1
 	LDA #$01
 	STA PPUBuffer_301 + 2
-	LDY ObjectXLo + 1
+	LDY CastRollFadePaletteIndex
 	LDA CastRoll_PaletteFadeOut, Y
 	STA PPUBuffer_301 + 3
 	LDA #$00
 	STA PPUBuffer_301 + 4
-	INC ObjectXLo + 1
-	LDA ObjectXLo + 1
+	INC CastRollFadePaletteIndex
+	LDA CastRollFadePaletteIndex
 	CMP #$03
 	BNE locret_BANKC_8A36
 
-	INC ObjectXLo
+	INC CastRollSequenceIndex
 	LDA #$16
-	STA PlayerXLo
+	STA CastRollTimer
 
 locret_BANKC_8A36:
 	RTS
@@ -1506,11 +1531,11 @@ locret_BANKC_8A36:
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_8A37:
-	DEC PlayerXLo
+	DEC CastRollTimer
 	BPL locret_BANKC_8A51
 
 	LDX #$16
-	LDY #0
+	LDY #$00
 	LDA #$F8
 
 loc_BANKC_8A41:
@@ -1523,30 +1548,28 @@ loc_BANKC_8A41:
 	BPL loc_BANKC_8A41
 
 	LDA #$30
-	STA PlayerXLo
+	STA CastRollTimer
 
 loc_BANKC_8A4F:
-	INC ObjectXLo
+	INC CastRollSequenceIndex
 
 locret_BANKC_8A51:
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANKC_8A52:
-	DEC PlayerXLo
-	BPL locret_BANKC_8A81
+CastRoll_TheEndDelay:
+	DEC CastRollTimer
+	BPL CastRoll_TheEndDelay_Exit
 
 	LDA #$00
-	STA ObjectXHi + 4
-	STA ObjectXHi + 5
-
-loc_BANKC_8A5C:
-	STA ObjectXHi + 6
+	STA MarioSnoringCounter5
+	STA MarioSnoringCounter6
+	STA MarioSnoringCounter7
 	LDA #$05
-	STA ObjectXHi + 7
+	STA MarioSnoringTheEndFrameCounter
 	LDA #$14
-	STA ObjectXHi + 8
+	STA MarioSnoringCounter9
+
 	LDA #$3F
 	STA PPUBuffer_301
 	LDA #$11
@@ -1557,30 +1580,29 @@ loc_BANKC_8A5C:
 	STA PPUBuffer_301 + 3
 	LDA #$00
 	STA PPUBuffer_301 + 4
-	INC ObjectXLo
+	INC CastRollSequenceIndex
 
-locret_BANKC_8A81:
+CastRoll_TheEndDelay_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANKC_8A82:
-	LDA ObjectXHi + 5
+CastRoll_TheEndAnimation:
+	LDA MarioSnoringCounter6
 	AND #$80
-	BNE locret_BANKC_8ACC
+	BNE CastRoll_TheEndAnimation_Exit
 
-	LDA ObjectXHi + 5
+	LDA MarioSnoringCounter6
 	BNE loc_BANKC_8ACD
 
-	DEC ObjectXHi + 7
-	BPL locret_BANKC_8ACC
+	DEC MarioSnoringTheEndFrameCounter
+	BPL CastRoll_TheEndAnimation_Exit
 
-	LDA #5
-	STA ObjectXHi + 7
-	LDA #3
-	STA ObjectXHi + 6
-	LDX #0
-	LDY ObjectXHi + 4
+	LDA #$05
+	STA MarioSnoringTheEndFrameCounter
+	LDA #$03
+	STA MarioSnoringCounter7
+	LDX #$00
+	LDY MarioSnoringCounter5
 
 loc_BANKC_8A9C:
 	LDA #$40
@@ -1590,41 +1612,41 @@ loc_BANKC_8A9C:
 	STA SpriteDMAArea, X
 	INY
 	INX
-	LDA #0
+	LDA #$00
 	STA SpriteDMAArea, X
 	INX
 	LDA byte_BANKC_92FE, Y
 	STA SpriteDMAArea, X
 	INY
 	INX
-	DEC ObjectXHi + 6
+	DEC MarioSnoringCounter7
 	BPL loc_BANKC_8A9C
 
-	STY ObjectXHi + 4
-	DEC ObjectXHi + 8
-	BPL locret_BANKC_8ACC
+	STY MarioSnoringCounter5
+	DEC MarioSnoringCounter9
+	BPL CastRoll_TheEndAnimation_Exit
 
-	INC ObjectXHi + 5
+	INC MarioSnoringCounter6
 	LDA #$12
-	STA ObjectXHi + 8
-	LDA #0
-	STA ObjectXHi + 4
+	STA MarioSnoringCounter9
+	LDA #$00
+	STA MarioSnoringCounter5
 
-locret_BANKC_8ACC:
+CastRoll_TheEndAnimation_Exit:
 	RTS
 
 ; ---------------------------------------------------------------------------
 
 loc_BANKC_8ACD:
-	DEC ObjectXHi + 7
+	DEC MarioSnoringTheEndFrameCounter
 	BPL locret_BANKC_8B07
 
-	LDA #5
-	STA ObjectXHi + 7
-	LDA #3
-	STA ObjectXHi + 6
-	LDX #0
-	LDY ObjectXHi + 4
+	LDA #$05
+	STA MarioSnoringTheEndFrameCounter
+	LDA #$03
+	STA MarioSnoringCounter7
+	LDX #$00
+	LDY MarioSnoringCounter5
 
 loc_BANKC_8ADD:
 	LDA #$40
@@ -1634,27 +1656,27 @@ loc_BANKC_8ADD:
 	STA SpriteDMAArea + $10, X
 	INY
 	INX
-	LDA #0
+	LDA #$00
 	STA SpriteDMAArea + $10, X
 	INX
 	LDA byte_BANKC_93A6, Y
 	STA SpriteDMAArea + $10, X
 	INY
 	INX
-	DEC ObjectXHi + 6
+	DEC MarioSnoringCounter7
 	BPL loc_BANKC_8ADD
 
-	STY ObjectXHi + 4
-	DEC ObjectXHi + 8
+	STY MarioSnoringCounter5
+	DEC MarioSnoringCounter9
 	BPL locret_BANKC_8B07
 
 	LDA #$FF
-	STA ObjectXHi + 5
+	STA MarioSnoringCounter6
 
 locret_BANKC_8B07:
 	RTS
 
-; ---------------------------------------------------------------------------
+
 CastRoll_SpritePointersHi:
 	.db >CastRoll_Mario
 	.db >CastRoll_Luigi
@@ -1685,9 +1707,9 @@ CastRoll_SpritePointersHi:
 	.db >CastRoll_Fryguy
 	.db >CastRoll_Clawglip
 	.db >CastRoll_Triclyde
+
 CastRoll_SpritePointersLo:
 	.db <CastRoll_Mario
-
 	.db <CastRoll_Luigi
 	.db <CastRoll_Princess
 	.db <CastRoll_Toad
@@ -1716,6 +1738,8 @@ CastRoll_SpritePointersLo:
 	.db <CastRoll_Fryguy
 	.db <CastRoll_Clawglip
 	.db <CastRoll_Triclyde
+
+
 CastRoll_Mario:
 	.db $D0, $3E, $00, $30
 	.db $D0, $00, $00, $38 ; 4
@@ -1785,7 +1809,7 @@ CastRoll_Toad:
 	.db $F9, $3E, $00, $50 ; $38
 	.db $F9, $3E, $00, $58 ; $3C
 CastRoll_Shyguy:
-	.db $D0, $3E, 0, $30
+	.db $D0, $3E, $00, $30
 	.db $D0, $3E, $00, $38 ; 4
 	.db $D0, $3E, $00, $40 ; 8
 	.db $D0, $3E, $00, $48 ; $C
@@ -1802,7 +1826,7 @@ CastRoll_Shyguy:
 	.db $F9, $CC, $00, $50 ; $38
 	.db $F9, $3E, $00, $58 ; $3C
 CastRoll_Snifit:
-	.db $D0, $3E, 0, $30
+	.db $D0, $3E, $00, $30
 	.db $D0, $3E, $00, $38 ; 4
 	.db $D0, $3E, $00, $40 ; 8
 	.db $D0, $3E, $00, $48 ; $C
@@ -1889,7 +1913,7 @@ CastRoll_Tweeter:
 	.db $F9, $F2, $00, $54 ; $38
 	.db $F9, $3E, $00, $5C ; $3C
 CastRoll_BobOmb:
-	.db $D0, $3E, 0, $30
+	.db $D0, $3E, $00, $30
 	.db $D0, $3E, $00, $38 ; 4
 	.db $D0, $3E, $00, $40 ; 8
 	.db $D0, $3E, $00, $48 ; $C
@@ -1940,7 +1964,7 @@ CastRoll_Trouter:
 	.db $F9, $F2, $00, $54 ; $38
 	.db $F9, $3E, $00, $5C ; $3C
 CastRoll_Pidgit:
-	.db $D0, $3E, 0, $30
+	.db $D0, $3E, $00, $30
 	.db $D0, $3E, $00, $38 ; 4
 	.db $D0, $3E, $00, $40 ; 8
 	.db $D0, $3E, $00, $48 ; $C
@@ -1957,7 +1981,7 @@ CastRoll_Pidgit:
 	.db $F9, $F6, $00, $50 ; $38
 	.db $F9, $3E, $00, $58 ; $3C
 CastRoll_Panser:
-	.db $D0, $3E, 0, $30
+	.db $D0, $3E, $00, $30
 	.db $D0, $3E, $00, $38 ; 4
 	.db $D0, $3E, $00, $40 ; 8
 	.db $D0, $3E, $00, $48 ; $C
@@ -1974,7 +1998,7 @@ CastRoll_Panser:
 	.db $F9, $F2, $00, $50 ; $38
 	.db $F9, $3E, $00, $58 ; $3C
 CastRoll_Flurry:
-	.db $D0, $3E, 0, $30
+	.db $D0, $3E, $00, $30
 	.db $D0, $3E, $00, $38 ; 4
 	.db $D0, $3E, $00, $40 ; 8
 	.db $D0, $3E, $00, $48 ; $C
@@ -2008,7 +2032,7 @@ CastRoll_Albatoss:
 	.db $F9, $F4, $00, $50 ; $38
 	.db $F9, $F4, $00, $58 ; $3C
 CastRoll_Phanto:
-	.db $D0, $3E, 0, $30
+	.db $D0, $3E, $00, $30
 	.db $D0, $3E, $00, $38 ; 4
 	.db $D0, $3E, $00, $40 ; 8
 	.db $D0, $3E, $00, $48 ; $C
@@ -2042,7 +2066,7 @@ CastRoll_Spark:
 	.db $F9, $3E, $00, $54 ; $38
 	.db $F9, $3E, $00, $5C ; $3C
 CastRoll_Subcon:
-	.db $D0, $3E, 0, $30
+	.db $D0, $3E, $00, $30
 	.db $D0, $3E, $00, $38 ; 4
 	.db $D0, $3E, $00, $40 ; 8
 	.db $D0, $3E, $00, $48 ; $C
@@ -2127,7 +2151,7 @@ CastRoll_Autobomb:
 	.db $F9, $E8, $00, $50 ; $38
 	.db $F9, $D2, $00, $58 ; $3C
 CastRoll_Cobrat:
-	.db $D0, $3E, 0, $30
+	.db $D0, $3E, $00, $30
 	.db $D0, $58, $00, $38 ; 4
 	.db $D0, $5A, $00, $40 ; 8
 	.db $D0, $3E, $00, $48 ; $C
@@ -2144,7 +2168,7 @@ CastRoll_Cobrat:
 	.db $F9, $F6, $00, $50 ; $38
 	.db $F9, $3E, $00, $58 ; $3C
 CastRoll_Mouser:
-	.db $D0, $88, 0, $30
+	.db $D0, $88, $00, $30
 	.db $D0, $8A, $00, $38 ; 4
 	.db $D0, $8C, $00, $40 ; 8
 	.db $D0, $3E, $00, $48 ; $C
@@ -2161,7 +2185,7 @@ CastRoll_Mouser:
 	.db $F9, $F2, $00, $4C ; $38
 	.db $F9, $3E, $00, $54 ; $3C
 CastRoll_Fryguy:
-	.db $D0, $AA, 0, $30
+	.db $D0, $AA, $00, $30
 	.db $D0, $AC, $00, $38 ; 4
 	.db $D0, $AE, $00, $40 ; 8
 	.db $D0, $B0, $00, $48 ; $C
@@ -2246,7 +2270,6 @@ CastRoll_Wart:
 	.db $F9, $C0, $00, $58 ; $58
 byte_BANKC_92FE:
 	.db $10
-
 	.db $90
 	.db $7C
 	.db $98

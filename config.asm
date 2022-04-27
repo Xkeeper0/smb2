@@ -95,6 +95,9 @@ PRESERVE_UNUSED_SPACE = 1
 ; Go to the Charater Select screen after death
 ; CHARACTER_SELECT_AFTER_DEATH = 1
 
+; Respawn at the beginning of the area instead of dying
+; RESPAWN_INSTEAD_OF_DEATH = 1
+
 ; Restore the prototype's DPCM samples and/or music;
 ; NOTE: The prototype underground music requires the shortened prototype ending music to fit
 ; everything in the music header table. Use EXPAND_MUSIC to remove this restriction.

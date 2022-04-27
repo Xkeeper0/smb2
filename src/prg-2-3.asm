@@ -482,7 +482,7 @@ HandleEnemyState:
 	.dw HandleEnemyState_BombExploding ; Bomb exploding
 	.dw HandleEnemyState_PuffOfSmoke ; Puff of smoke
 	.dw HandleEnemyState_Sand ; Sand after digging
-	.dw loc_BANK2_85B2 ; Object carried/thrown?
+	.dw HandleEnemyState_Sinking ; Sinking in quicksand
 
 
 ; Offset from left boundary of screen\
@@ -1159,7 +1159,7 @@ HandleEnemyState_BlockFizzle:
 	STA ObjectAttributes, X
 	STA EnemyArray_46E, X
 	LDA #$3C
-	CPY #$C
+	CPY #$0C
 	BCC loc_BANK2_85AC
 
 	LDA #$3E
@@ -1172,9 +1172,9 @@ loc_BANK2_85AC:
 loc_BANK2_85AF:
 	JMP EnemyDestroy
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_85B2:
+HandleEnemyState_Sinking:
+	; Collision detection
 	JSR sub_BANK2_88E8
 
 	JSR EnemyBehavior_CheckDamagedInterrupt
@@ -1186,7 +1186,6 @@ loc_BANK2_85B2:
 	STA EnemyState, X
 	RTS
 
-; ---------------------------------------------------------------------------
 
 loc_BANK2_85C1:
 	LDA ObjectTimer1, X
@@ -1549,13 +1548,13 @@ locret_BANK2_8797:
 
 ; End of function sub_BANK2_8670
 
-; ---------------------------------------------------------------------------
-byte_BANK2_8798:
+
+PuffOfSmokeAnimationTable:
 	.db $46
 	.db $4A
 	.db $4E
 	.db $52
-; ---------------------------------------------------------------------------
+
 
 HandleEnemyState_PuffOfSmoke:
 	JSR sub_BANK2_88E8
@@ -1575,7 +1574,7 @@ loc_BANK2_87AC:
 	LSR A
 	LSR A
 	TAY
-	LDA byte_BANK2_8798, Y
+	LDA PuffOfSmokeAnimationTable, Y
 	JSR RenderSprite_DrawObject
 
 	LDA EnemyArray_SpawnsDoor, X
@@ -5346,9 +5345,11 @@ EnemyBehavior_CheckDamagedInterrupt_SoundEffect:
 
 EnemyBehavior_CheckDamagedInterrupt_BossDeathSound:
 IFDEF EXPAND_MUSIC
-	LDA #DPCM_BossDeath
-ENDIF
+	; `DPCM_BossDeath` index changed, but want to preserve addresses
+	JSR EnemyBehavior_BossDeathSound
+ELSE
 	STA DPCMQueue
+ENDIF
 
 EnemyBehavior_CheckDamagedInterrupt_CheckPidgit:
 	; killing pidgit leaves a flying carpet behind
@@ -5372,99 +5373,151 @@ EnemyBehavior_CheckDamagedInterrupt_Exit:
 
 
 EnemyTilemap1:
-	.db $D0,$D2 ; $00
-	.db $D4,$D6 ; $02
-	.db $F8,$F8 ; $04
-	.db $FA,$FA ; $06
-	.db $CC,$CE ; $08
-	.db $CC,$CE ; $0A
-	.db $C8,$CA ; $0C
-	.db $C8,$CA ; $0E
-	.db $70,$72 ; $10
-	.db $74,$76 ; $12
-	.db $C0,$C2 ; $14
-	.db $C4,$C6 ; $16
-	.db $E1,$E3 ; $18
-	.db $E5,$E7 ; $1A
-	.db $E1,$E3 ; $1C
-	.db $E5,$E7 ; $1E
-	.db $78,$7A ; $20
-	.db $7C,$7E ; $22
-	.db $DC,$DA ; $24
-	.db $DC,$DE ; $26
-	.db $FE,$FE ; $28
-	.db $FC,$FC ; $2A
-	.db $94,$94 ; $2C
-	.db $96,$96 ; $2E
-	.db $98,$98 ; $30
-	.db $9A,$9A ; $32
-	.db $DB,$DD ; $34
-	.db $DB,$DD ; $36
-	.db $7D,$7F ; $38
-	.db $C1,$C3 ; $3A
-	.db $8C,$8C ; $3C
-	.db $8E,$8E ; $3E
-	.db $E0,$E2 ; $40
-	.db $6B,$6D ; $42
-	.db $6D,$6F ; $44
-	.db $3A,$3A ; $46
-	.db $3A,$3A ; $48
-	.db $38,$38 ; $4A
-	.db $38,$38 ; $4C
-	.db $36,$36 ; $4E
-	.db $36,$36 ; $50
-	.db $34,$34 ; $52
-	.db $34,$34 ; $54
-	.db $AE,$FB ; $56
-	.db $AE,$FB ; $58
-	.db $80,$82 ; $5A
-	.db $84,$86 ; $5C
-	.db $80,$82 ; $5E
-	.db $AA,$AC ; $60
-	.db $88,$8A ; $62
-	.db $84,$86 ; $64
-	.db $88,$8A ; $66
-	.db $AA,$AC ; $68
-	.db $BC,$BE ; $6A
-	.db $AA,$AC ; $6C
-	.db $BC,$BE ; $6E
-	.db $AA,$AC ; $70
-	.db $B5,$B9 ; $72
-	.db $B5,$B9 ; $74
-	.db $81,$83 ; $76
-	.db $85,$87 ; $78
-	.db $FF,$FF ; $7A
-	.db $FF,$FF ; $7C
-	.db $81,$83 ; $7E
-	.db $F5,$87 ; $80
-	.db $C5,$C7 ; $82
-	.db $C9,$CB ; $84
-	.db $92,$94 ; $86
-	.db $29,$29 ; $88
-	.db $2B,$2B ; $8A
-	.db $3D,$3F ; $8C
-	.db $4C,$4E ; $8E
-	.db $50,$52 ; $90
-	.db $4C,$4E ; $92
-	.db $56,$58 ; $94
-	.db $FB,$5C ; $96
-	.db $FB,$5A ; $98
-	.db $FB,$FB ; $9A
-	.db $FB,$54 ; $9C
-	.db $CF,$CF ; $9E
-	.db $A5,$A5 ; $A0
-	.db $B0,$B2 ; $A2
-	.db $90,$90 ; $A4
-	.db $CD,$CD ; $A6
-	.db $A8,$A8 ; $A8
-	.db $A8,$A8 ; $AA
-	.db $A0,$A2 ; $AC
-	.db $A4,$A4 ; $AE
-	.db $A4,$A4 ; $B0
-	.db $4D,$4D ; $B2
-	.db $8C,$8C ; $B4
-	.db $A6,$A6 ; $B6
-	.db $AB,$AB ; $B8
+	; Shyguy
+	.db $D0, $D2 ; $00
+	.db $D4, $D6 ; $02
+	; Wart vegetable? (onion)
+	.db $F8, $F8 ; $04
+	; Wart vegetable? (tomato)
+	.db $FA, $FA ; $06
+	; Tweeter
+	.db $CC, $CE ; $08
+	.db $CC, $CE ; $0A
+	; Porcupo
+	.db $C8, $CA ; $0C
+	.db $C8, $CA ; $0E
+	; Snifit
+	.db $70, $72 ; $10
+	.db $74, $76 ; $12
+	; BobOmb
+	.db $C0, $C2 ; $14
+	.db $C4, $C6 ; $16
+	; Albatoss
+	.db $E1, $E3 ; $18
+	.db $E5, $E7 ; $1A
+	.db $E1 ,$E3 ; $1C
+	.db $E5 ,$E7 ; $1E
+	; Ninji
+	.db $78, $7A ; $20
+	.db $7C, $7E ; $22
+	; Beezo
+	.db $DC, $DA ; $24
+	.db $DC, $DE ; $26
+	; Small vegetable
+	.db $FE, $FE ; $28
+	; Large vegetable
+	.db $FC, $FC ; $2A
+	; Unused? (Leftover third vegetable?)
+	.db $94 ,$94 ; $2C
+	; Shell
+	.db $96 ,$96 ; $2E
+	; Coin
+	.db $98, $98 ; $30
+	.db $9A, $9A ; $32
+	; Bomb
+	.db $DB, $DD ; $34
+	.db $DB, $DD ; $36
+	; Mushroom block
+	.db $7D, $7F ; $38
+	; POW block
+	.db $C1, $C3 ; $3A
+	; Block fizzle
+	.db $8C, $8C ; $3C
+	.db $8E ,$8E ; $3E
+	; Unused?
+	.db $E0, $E2 ; $40
+	; Falling log
+	.db $6B, $6D ; $42
+	.db $6D, $6F ; $44
+	; Puff of smoke, which can be two sprites tall for doors!
+	.db $3A, $3A ; $46
+	.db $3A, $3A ; $48
+	.db $38, $38 ; $4A
+	.db $38, $38 ; $4C
+	.db $36, $36 ; $4E
+	.db $36, $36 ; $50
+	.db $34, $34 ; $52
+	.db $34, $34 ; $54
+	; Bullet
+	.db $AE, $FB ; $56
+	.db $AE, $FB ; $58
+	; Birdo
+	.db $80, $82 ; $5A
+	.db $84, $86 ; $5C
+	.db $80, $82 ; $5E
+	.db $AA, $AC ; $60
+	; Birdo (spit)
+	.db $88, $8A ; $62
+	.db $84, $86 ; $64
+	.db $88, $8A ; $66
+	.db $AA, $AC ; $68
+	; Birdo (hurt)
+	.db $BC, $BE ; $6A
+	.db $AA ,$AC ; $6C
+	.db $BC, $BE ; $6E
+	.db $AA, $AC ; $70
+	; Egg
+	.db $B5, $B9 ; $72
+	.db $B5, $B9 ; $74
+	; Door
+	.db $81, $83 ; $76
+	.db $85, $87 ; $78
+	; Door opening
+	.db $FF, $FF ; $7A
+	.db $FF, $FF ; $7C
+	; Door with lock
+	.db $81, $83 ; $7E
+	.db $F5, $87 ; $80
+	; Key
+	.db $C5, $C7 ; $82
+	; Potion
+	.db $C9, $CB ; $84
+	; Trouter
+	.db $92, $94 ; $86
+	; Hoopstar
+	.db $29, $29 ; $88
+	.db $2B, $2B ; $8A
+	; Phanto
+	.db $3D, $3F ; $8C
+	; Hawkmouth (closed top)
+	.db $4C, $4E ; $8E
+	.db $50, $52 ; $90
+	; Hawkmouth (open top)
+	.db $4C, $4E ; $92
+	.db $56, $58 ; $94
+	; Hawkmouth (jaw middle)
+	.db $FB, $5C ; $96
+	; Hawkmouth (jaw bottom)
+	.db $FB, $5A ; $98
+	; Hawkmouth (empty space)
+	.db $FB, $FB ; $9A
+	; Hawkmouth (neck)
+	.db $FB, $54 ; $9C
+	; Crystal Ball
+	.db $CF, $CF ; $9E
+	; Mushroom
+	.db $A5, $A5 ; $A0
+	; 1-Up
+	.db $B0, $B2 ; $A2
+	; Stopwatch
+	.db $90, $90 ; $A4
+	; Starman
+	.db $CD, $CD ; $A6
+	; Fireball
+	.db $A8, $A8 ; $A8
+	.db $A8, $A8 ; $AA
+	; Panser
+	.db $A0, $A2 ; $AC
+	; Panser (spit)
+	.db $A4, $A4 ; $AE
+	; Panser (spit?)
+	.db $A4, $A4 ; $B0
+	;  Sand
+	.db $4D, $4D ; $B2
+	.db $8C, $8C ; $B4
+	; Spark
+	.db $A6, $A6 ; $B6
+	.db $AB, $AB ; $B8
 IFDEF EXPAND_TABLES
 	unusedSpace EnemyTilemap1 + $100, $FB
 ENDIF
@@ -5474,6 +5527,9 @@ ENDIF
 ; =====================
 ;
 ; These point to the tilemaps offset for an object's animation frames.
+;
+; There are two tilemaps, which are toggled via bit 4 of `EnemyArray_46E` data.
+; See `EnemyArray_46E_Data` to reference the values for each enemy.
 ;
 ; $FF is used to make an enemy invisible
 ;
@@ -6374,120 +6430,154 @@ EnemyBehavior_TurnAroundExit:
 	JMP ApplyObjectPhysicsX
 
 
+IFDEF EXPAND_MUSIC
+EnemyBehavior_BossDeathSound:
+	LDA #DPCM_BossDeath
+	STA DPCMQueue
+	RTS
+ENDIF
+
 ; Unused space in the original ($9EBD - $A02F)
 unusedSpace $A030, $FF
 
 
 EnemyTilemap2:
-	.db $2D,$2F ; $00
-	.db $2D,$2F ; $02
-	.db $E0,$E2 ; $04
-	.db $E4,$E6 ; $06
-	.db $E0,$E2 ; $08
-	.db $E4,$E6 ; $0A
-	.db $E8,$EA ; $0C
-	.db $EC,$EE ; $0E
-	.db $E8,$EA ; $10
-	.db $EC,$EE ; $12
-	.db $01,$03 ; $14
-	.db $09,$05 ; $16
-	.db $07,$0B ; $18
-	.db $0D,$0F ; $1A
-	.db $15,$11 ; $1C
-	.db $13,$17 ; $1E
-	.db $01,$03 ; $20
-	.db $09,$05 ; $22
-	.db $19,$1B ; $24
-	.db $01,$03 ; $26
-	.db $09,$05 ; $28
-	.db $19,$1B ; $2A
-	.db $1D,$1F ; $2C
-	.db $25,$21 ; $2E
-	.db $23,$27 ; $30
-	.db $1D,$1F ; $32
-	.db $25,$21 ; $34
-	.db $23,$27 ; $36
-	.db $9C,$9E ; $38
-	.db $9C,$9E ; $3A
-	.db $D0,$D2 ; $3C
-	.db $D4,$D6 ; $3E
-	.db $F0,$F2 ; $40
-	.db $F4,$F6 ; $42
-	.db $F0,$F2 ; $44
-	.db $F8,$FA ; $46
-	.db $0F,$11 ; $48
-	.db $13,$15 ; $4A
-	.db $1F,$11 ; $4C
-	.db $13,$15 ; $4E
-	.db $17,$19 ; $50
-	.db $1B,$17 ; $52
-	.db $19,$1D ; $54
-	.db $09,$0B ; $56
-	.db $01,$03 ; $58
-	.db $05,$07 ; $5A
-	.db $55,$59 ; $5C
-	.db $5B,$5D ; $5E
-	.db $F0,$F2 ; $60
-	.db $F4,$F6 ; $62
-	.db $45,$59 ; $64
-	.db $5B,$5D ; $66
-	.db $45,$59 ; $68
-	.db $5B,$5D ; $6A
-	.db $E8,$EA ; $6C
-	.db $EC,$EE ; $6E
-	.db $EC,$EE ; $70
-	.db $EC,$EE ; $72
-	.db $F0,$F2 ; $74
-	.db $F0,$F2 ; $76
-	.db $F4,$F6 ; $78
-	.db $F8,$FA ; $7A
-	.db $D0,$D2 ; $7C
-	.db $D4,$D6 ; $7E
-	.db $01,$03 ; $80
-	.db $05,$07 ; $82
-	.db $09,$0B ; $84
-	.db $0D,$0F ; $86
-	.db $01,$11 ; $88
-	.db $05,$15 ; $8A
-	.db $13,$0B ; $8C
-	.db $17,$0F ; $8E
+; Pidgit
+	.db $2D, $2F ; $00
+	.db $2D, $2F ; $02
+	; Flying carpet
+	.db $E0, $E2 ; $04
+	.db $E4, $E6 ; $06
+	.db $E0, $E2 ; $08
+	.db $E4, $E6 ; $0A
+	.db $E8, $EA ; $0C
+	.db $EC, $EE ; $0E
+	.db $E8, $EA ; $10
+	.db $EC, $EE ; $12
+	; Mouser (3-tiles wide)
+	.db $01, $03, $09 ; $14
+	.db $05, $07, $0B ; $17
+	.db $0D, $0F, $15 ; $1A
+	.db $11, $13, $17 ; $1D
+	; Mouser (throw)
+	.db $01, $03, $09 ; $20
+	.db $05, $19, $1B ; $23
+	.db $01, $03, $09 ; $26
+	.db $05, $19, $1B ; $29
+	; Mouser (hurt)
+	.db $1D, $1F, $25 ; $2C
+	.db $21, $23, $27 ; $2F
+	.db $1D, $1F, $25 ; $32
+	.db $21, $23, $27 ; $35
+	; Mouser bomb
+	.db $9C, $9E ; $38
+	.db $9C, $9E ; $3A
+	; Ostro Shyguy
+	.db $D0, $D2 ; $3C
+	.db $D4, $D6 ; $3E
+	; Ostro
+	.db $F0, $F2 ; $40
+	.db $F4, $F6 ; $42
+	.db $F0, $F2 ; $44
+	.db $F8, $FA ; $46
+	; Tryclyde upper body
+	.db $0F, $11 ; $48
+	.db $13, $15 ; $4A
+	; Tryclyde upper body (hurt)
+	.db $1F, $11 ; $4C
+	.db $13, $15 ; $4E
+	; Tryclyde lower body (tail up)
+	.db $17, $19, $1B ; $50
+	; Tryclyde lower body (tail down)
+	.db $17, $19, $1D ; $53
+	; Tryclyde head (hurt)
+	.db $09, $0B ; $56
+	; Tryclyde head
+	.db $01, $03 ; $58
+	; Tryclyde head (spit)
+	.db $05, $07 ; $5A
+	; Cobrat
+	.db $55, $59 ; $5C
+	.db $5B, $5D ; $5E
+	.db $F0, $F2 ; $60
+	.db $F4, $F6 ; $62
+	; Cobrat (spit)
+	.db $45, $59 ; $64
+	.db $5B, $5D ; $66
+	.db $45, $59 ; $68
+	.db $5B, $5D ; $6A
+	; Pokey
+	.db $E8, $EA ; $6C
+	.db $EC, $EE ; $6E
+	.db $EC, $EE ; $70
+	.db $EC, $EE ; $72
+	; Autobomb
+	.db $F0, $F2 ; $74
+	.db $F0, $F2 ; $76
+	.db $F4, $F6 ; $78
+	; Autobomb Fire
+	.db $F8, $FA ; $7A
+	; Autobomb Shyguy
+	.db $D0, $D2 ; $7C
+	.db $D4, $D6 ; $7E
+	; Fryguy
+	.db $01, $03 ; $80
+	.db $05, $07 ; $82
+	.db $09, $0B ; $84
+	.db $0D, $0F ; $86
+	; Fryguy (hurt)
+	.db $01, $11 ; $88
+	.db $05, $15 ; $8A
+	.db $13, $0B ; $8C
+	.db $17, $0F ; $8E
+	; Fryguy split
 	.db $19,$1B ; $90
-	.db $2D,$2F ; $92
-	.db $3A,$3A ; $94
-	.db $E0,$E2 ; $96
-	.db $E4,$E6 ; $98
-	.db $E8,$EA ; $9A
-	.db $EC,$EE ; $9C
-	.db $01,$03 ; $9E
-	.db $05,$07 ; $A0
-	.db $4F,$5D ; $A2
-	.db $05,$07 ; $A4
-	.db $09,$0B ; $A6
-	.db $0D,$0F ; $A8
-	.db $27,$79 ; $AA
-	.db $7B,$2D ; $AC
-	.db $4F,$2F ; $AE
-	.db $45,$55 ; $B0
-	.db $11,$13 ; $B2
-	.db $15,$17 ; $B4
-	.db $1F,$21 ; $B6
-	.db $23,$25 ; $B8
-	.db $11,$13 ; $BA
-	.db $23,$25 ; $BC
-	.db $59,$59 ; $BE
-	.db $5B,$5B ; $C0
-	.db $01,$03 ; $C2
-	.db $05,$07 ; $C4
-	.db $09,$0B ; $C6
-	.db $0D,$0F ; $C8
-	.db $FB,$11 ; $CA
-	.db $15,$17 ; $CC
-	.db $13,$FB ; $CE
-	.db $19,$1B ; $D0
-	.db $1D,$1F ; $D2
-	.db $21,$23 ; $D4
-	.db $25,$27 ; $D6
-	.db $25,$27 ; $D8
+	; Whale spout
+	.db $2D, $2F ; $92
+	; Whale spout (falling)
+	.db $3A, $3A ; $94
+	; Rocket
+	.db $E0, $E2 ; $96
+	.db $E4, $E6 ; $98
+	; Flurry
+	.db $E8, $EA ; $9A
+	.db $EC, $EE ; $9C
+	; Wart top
+	.db $01, $03, $05, $07 ; $9E
+	; Wart top (spit)
+	.db $4F, $5D, $05, $07 ; $A2
+	; Wart middle
+	.db $09, $0B, $0D, $0F ; $A6
+	; Wart middle (spit)
+	.db $27, $79, $7B, $2D ; $AA
+	; Wart top (hurt)
+	.db $4F, $2F, $45, $55 ; $AE
+	; Wart bottom (left foot up)
+	.db $11, $13, $15, $17 ; $B2
+	; Wart bottom (right foot up)
+	.db $1F, $21, $23, $25 ; $B6
+	; Wart bottom (standing)
+	.db $11, $13, $23, $25 ; $BA
+	; Wart bubble
+	.db $59, $59 ; $BE
+	.db $5B, $5B ; $C0
+	; Clawgrip (claw down)
+	.db $01, $03 ; $C2
+	.db $05, $07 ; $C4
+	; Clawgrip (claw up)
+	.db $09, $0B ; $C6
+	.db $0D, $0F ; $C8
+	; Clawgrip (reach)
+	.db $FB, $11 ; $CA
+	.db $15, $17 ; $CC
+	.db $13, $FB ; $CE
+	.db $19, $1B ; $D0
+	; Clawgrip (pain)
+	.db $1D, $1F ; $D2
+	.db $21, $23 ; $D4
+	; Clawgrip Rock
+	.db $25, $27 ; $D6
+	.db $25, $27 ; $D8
 IFDEF EXPAND_TABLES
 	unusedSpace EnemyTilemap2 + $100, $FB
 ENDIF
@@ -6656,16 +6746,17 @@ loc_BANK3_A1D3:
 	JMP RenderSprite
 
 
-	.db $08
-	.db $08
+ClawgripRockPositionX:
+	.db $08 ; hoisting
+	.db $08 ; holding low
+	.db $1C ; reaching
 
-byte_BANK3_A1D8:
-	.db $1C
-	.db $F4
-	.db $11
-	.db $0F
+ClawgripRockPositionY:
+	.db $F4 ; hoisting
+	.db $11 ; holding low
+	.db $0F ; reaching
 
-byte_BANK3_A1DC:
+ClawgripRockHoistOffset:
 	.db $04
 	.db $06
 	.db $08
@@ -6679,6 +6770,7 @@ byte_BANK3_A1DC:
 RenderSprite_Clawgrip:
 	LDA_abs byte_RAM_F4
 
+	; store sprite slot
 	STA EnemyArray_B1, X
 	LDY EnemyState, X
 	DEY
@@ -6686,19 +6778,21 @@ RenderSprite_Clawgrip:
 	ORA ObjectFlashTimer, X
 	BEQ loc_BANK3_A1FA
 
+	; Left side, pain
 	LDY #$D2
 	LDA #$00
 	STA ObjectTimer1, X
 	BEQ loc_BANK3_A21C
 
 loc_BANK3_A1FA:
+	; Left side, claw down
 	LDY #$C2
 	LDA byte_RAM_10
 	AND #$10
 	BNE loc_BANK3_A204
 
+	; Left side, claw up
 	LDY #$C6
-
 loc_BANK3_A204:
 	LDA ObjectTimer1, X
 	BEQ loc_BANK3_A21C
@@ -6716,13 +6810,13 @@ loc_BANK3_A204:
 	BCS loc_BANK3_A21C
 
 	LDY #$C2
-
 loc_BANK3_A21C:
 	LDA #$02
 	STA EnemyMovementDirection, X
 	TYA
 	JSR RenderSprite_DrawObject
 
+RenderSprite_Clawgrip_RightSide:
 	LDY #$C6
 	LDA byte_RAM_10
 	AND #$10
@@ -6776,6 +6870,7 @@ loc_BANK3_A262:
 	PLA
 	JSR RenderSprite_DrawObject
 
+RenderSprite_Clawgrip_Rock:
 	LDA ObjectTimer1, X
 	BEQ loc_BANK3_A2D2
 
@@ -6784,20 +6879,23 @@ loc_BANK3_A262:
 	LSR A
 	LSR A
 	LSR A
-	BEQ locret_BANK3_A2D1
+	BEQ RenderSprite_Clawgrip_Exit
 
+	; Rock x-position
 	TAY
 	LDA ObjectXLo, X
 	PHA
 	CLC
-	ADC loc_BANK3_A1D3 + 2, Y
+	ADC ClawgripRockPositionX - 1, Y
 	STA ObjectXLo, X
 	SEC
 	SBC ScreenBoundaryLeftLo
 	STA SpriteTempScreenX
+
+	; Rock y-position
 	LDA ObjectYLo, X
 	CLC
-	ADC byte_BANK3_A1D8, Y
+	ADC ClawgripRockPositionY - 1, Y
 	STA SpriteTempScreenY
 	LDA ObjectTimer1, X
 	CMP #$30
@@ -6806,12 +6904,13 @@ loc_BANK3_A262:
 	CMP #$40
 	BCS loc_BANK3_A2AA
 
+	; Little bounce while hoisting
 	LSR A
 	AND #$07
 	TAY
 	LDA SpriteTempScreenY
 	SEC
-	SBC byte_BANK3_A1DC, Y
+	SBC ClawgripRockHoistOffset, Y
 	STA SpriteTempScreenY
 
 loc_BANK3_A2AA:
@@ -6831,6 +6930,7 @@ loc_BANK3_A2AA:
 	LDA #$D6
 	JSR RenderSprite_DrawObject
 
+	; Restore to Clawgrip
 	PLA
 	STA EnemyArray_46E, X
 	PLA
@@ -6838,10 +6938,9 @@ loc_BANK3_A2AA:
 	PLA
 	STA ObjectXLo, X
 
-locret_BANK3_A2D1:
+RenderSprite_Clawgrip_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
 
 loc_BANK3_A2D2:
 	LDA byte_RAM_10
@@ -6854,8 +6953,6 @@ loc_BANK3_A2D2:
 	LDX byte_RAM_12
 	RTS
 
-; ---------------------------------------------------------------------------
-
 loc_BANK3_A2E1:
 	LDA EnemyArray_B1, X
 	TAX
@@ -6863,7 +6960,6 @@ loc_BANK3_A2E1:
 	LDX byte_RAM_12
 	RTS
 
-; ---------------------------------------------------------------------------
 
 EnemyBehavior_ClawgripRock:
 	LDA #$00
@@ -10610,7 +10706,6 @@ EnemyCollisionBehavior_Enemy:
 	TXA
 	BEQ CheckCollisionWithPlayer
 
-	;;;
 	LDA ObjectFlashTimer, Y
 	ORA ObjectFlashTimer - 1, X
 	BNE EnemyCollisionBehavior_Exit

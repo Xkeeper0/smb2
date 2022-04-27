@@ -206,6 +206,20 @@ EndingUpdateBuffer_Text_LUIGI = $0C
 
 ; ---------------------------------------------------------------------------
 
+; enum MarioSleepingUpdateBuffer (width 1 byte)
+MarioSleepingUpdateBuffer_RAM_301 = $00
+MarioSleepingUpdateBuffer_Bed = $01
+MarioSleepingUpdateBuffer_Bubble = $02
+MarioSleepingUpdateBuffer_DoNothing = $03
+MarioSleepingUpdateBuffer_EraseBubble1 = $04
+MarioSleepingUpdateBuffer_EraseBubble2 = $05
+MarioSleepingUpdateBuffer_EraseBubble3 = $06
+MarioSleepingUpdateBuffer_EraseBubble4 = $07
+MarioSleepingUpdateBuffer_EraseBubble5 = $08
+MarioSleepingUpdateBuffer_Palettes = $09
+
+; ---------------------------------------------------------------------------
+
 ; enum SoundEffect2 (width 1 byte)
 SoundEffect2_Jump = $01
 SoundEffect2_Climbing = $02
@@ -324,7 +338,6 @@ EnemyState_BombExploding = $04
 EnemyState_PuffOfSmoke = $05
 EnemyState_Sand = $06
 EnemyState_Sinking = $07
-EnemyState_27 = $27
 
 ; ---------------------------------------------------------------------------
 
@@ -812,17 +825,17 @@ CHRBank_EndingCast1 = $4C
 CHRBank_EndingCast2 = $4D
 CHRBank_EndingCast3 = $4E
 CHRBank_EndingCast4 = $4F
-CHRBank_EndingBackground1 = $50
-CHRBank_EndingBackground2 = $54
-CHRBank_EndingBackground3 = $58
-CHRBank_EndingBackground4 = $5C
-CHRBank_EndingBackground5 = $60
-CHRBank_EndingBackground6 = $64
-CHRBank_EndingBackground7 = $68
-CHRBank_EndingBackground8 = $6C
-CHRBank_EndingBackground9 = $70
-CHRBank_EndingBackground10 = $74
-CHRBank_EndingBackground11 = $78
-CHRBank_EndingBackground12 = $7C
+CHRBank_MarioSleepingBackground1 = $50
+CHRBank_MarioSleepingBackground2 = $54
+CHRBank_MarioSleepingBackground3 = $58
+CHRBank_MarioSleepingBackground4 = $5C
+CHRBank_MarioSleepingBackground5 = $60
+CHRBank_MarioSleepingBackground6 = $64
+CHRBank_MarioSleepingBackground7 = $68
+CHRBank_MarioSleepingBackground8 = $6C
+CHRBank_MarioSleepingBackground9 = $70
+CHRBank_MarioSleepingBackground10 = $74
+CHRBank_MarioSleepingBackground11 = $78
+CHRBank_MarioSleepingBackground12 = $7C
 
 .endinl

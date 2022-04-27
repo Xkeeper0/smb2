@@ -1486,7 +1486,7 @@ UseMainAreaScreenBoundaries:
 	LDA byte_RAM_53D
 	BNE UseMainAreaScreenBoundaries_Exit
 
-	INC byte_RAM_53E
+	INC byte_RAM_53E ; unused?
 	INC byte_RAM_53D
 	INC byte_RAM_D5
 	JSR RestorePlayerPosition
@@ -1506,6 +1506,8 @@ UseMainAreaScreenBoundaries_Exit:
 
 
 ; Used for redrawing the screen in a horizontal area after unpausing
+;
+; Updates the background update boundary to read tiles from the correct part of the level
 sub_BANK0_8785:
 	LDA BackgroundUpdateBoundaryBackward
 	STA BackgroundUpdateBoundary
@@ -1948,7 +1950,11 @@ loc_BANK0_8A26:
 	.dw HandlePlayerState_GoingDownJar ; Going down jar
 	.dw HandlePlayerState_ExitingJar ; Exiting jar
 	.dw HandlePlayerState_HawkmouthEating ; Hawkmouth eating
+IFNDEF RESPAWN_INSTEAD_OF_DEATH
 	.dw HandlePlayerState_Dying ; Dying
+ELSE
+	.dw HandlePlayerState_Respawning
+ENDIF
 	.dw HandlePlayerState_ChangingSize ; Changing size
 
 
@@ -5564,6 +5570,111 @@ loc_BANK0_9C52:
 ; End of function TitleScreen
 
 
+IFDEF RESPAWN_INSTEAD_OF_DEATH
+HandlePlayerState_Respawning:
+	; Start from zero
+	LDA #PlayerState_Normal
+	STA PlayerState
+	STA PlayerXVelocity
+	STA PlayerYVelocity
+
+	; Are the in a jar?
+	LDA InJarType
+	BNE HandlePlayerState_Respawning_Jar
+
+	; Are we in subspace?
+	LDA InSubspaceOrJar
+	BEQ HandlePlayerState_Respawning_Regular
+
+HandlePlayerState_Respawning_Subspace:
+	; Exit subspace immediately
+	LDA #$00
+	STA InSubspaceOrJar
+	STA SubspaceTimer
+
+	RTS
+
+HandlePlayerState_Respawning_Jar:
+	; Pointer jars reload like an area
+	CMP #$02
+	BEQ HandlePlayerState_Respawning_AreaReset
+
+HandlePlayerState_Respawning_JarSubArea:
+	; Clear the sub-area tile layout
+	JSR ResetSubAreaJarLayout
+
+	; Redraw tiles (horizontal level)
+	JSR WaitForNMI_TurnOffPPU
+
+	; Set update boundary to page 10 for sub-area
+	LDA #$0A
+	STA BackgroundUpdateBoundary
+
+HandlePlayerState_Respawning_JarSubArea_Loop:
+	JSR WaitForNMI
+
+	JSR sub_BANK0_87AA
+
+	LDA byte_RAM_537
+	BEQ HandlePlayerState_Respawning_JarSubArea_Loop
+
+	JSR WaitForNMI_TurnOnPPU
+	JSR WaitForNMI
+
+	JSR DoAreaReset
+
+	JSR ApplyAreaTransition
+
+	RTS
+
+HandlePlayerState_Respawning_Regular:
+	; Reset level
+	LDA CurrentLevel_Init
+	STA CurrentLevel
+	LDA CurrentLevelArea_Init
+	STA CurrentLevelArea
+	LDA CurrentLevelEntryPage_Init
+	STA CurrentLevelEntryPage
+	LDA TransitionType_Init
+	STA TransitionType
+
+	; Reset player
+	LDA PlayerXLo_Init
+	STA PlayerXLo
+	LDA PlayerYLo_Init
+	STA PlayerYLo
+	LDA PlayerScreenX_Init
+	STA PlayerScreenX
+	LDA PlayerScreenYLo_Init
+	STA PlayerScreenYLo
+	LDA PlayerYVelocity_Init
+	STA PlayerYVelocity
+	LDA PlayerState_Init
+	STA PlayerState
+
+	LDA #$00
+	STA PlayerXVelocity
+	STA PlayerCurrentSize
+	STA InSubspaceOrJar
+	STA SubspaceTimer
+
+	JSR RestorePlayerToFullHealth
+
+	JSR LoadCharacterCHRBanks
+
+HandlePlayerState_Respawning_AreaReset:
+	JSR DoAreaReset
+
+	; Break out of HandlePlayerState
+	PLA
+	PLA
+	; Break out of RunFrame
+	PLA
+	PLA
+
+	; Kick off the level again
+	JMP StartLevel
+ENDIF
 
 ; Unused space in the original ($9C58 - $A1FF)
 unusedSpace $A200, $FF
@@ -5838,7 +5949,6 @@ FreeSubconsScene_Player_AfterStateTimer:
 
 	LDA PlayerState
 	JSR JumpToTableAfterJump
-
 
 	.dw FreeSubconsScene_Phase1
 	.dw FreeSubconsScene_Phase2

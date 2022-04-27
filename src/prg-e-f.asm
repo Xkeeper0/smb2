@@ -878,6 +878,8 @@ GoToWorldStartingLevel:
 	LDY WorldStartingLevel, X
 	STY CurrentLevel
 	STY CurrentLevel_Init
+
+LevelStartCharacterSelectMenu:
 	JSR DoCharacterSelectMenu
 
 	JSR InitializeSomeLevelStuff
@@ -1057,8 +1059,13 @@ VerticalLevel_CheckTransition:
 ; Pauses the game
 ;
 ShowPauseScreen:
+IFNDEF RESPAWN_INSTEAD_OF_DEATH
 	JSR PauseScreen_ExtraLife
+ELSE
+	JMP PauseRespawn
+ENDIF
 
+SetStack100Pause:
 	; used when running sound queues
 	LDA #Stack100_Pause
 	STA StackArea
@@ -1514,22 +1521,25 @@ EndOfLevel:
 	; Check if we've completed the final level
 	LDA CurrentLevel
 	CMP #$13
-IFNDEF DISABLE_BONUS_CHANCE
+EndOfLevelJump:
 	; If not, go to bonus chance and proceed to the next level
-EndOfLevelJump:
-	BNE EndOfLevelSlotMachine
-ENDIF
-IFDEF DISABLE_BONUS_CHANCE
-	STY PlayerCurrentSize
-EndOfLevelJump:
-	BNE GoToNextLevel
-ENDIF
+	BNE EndOfRegularLevel
+EndOfLastLevel:
 	; Otherwise, display the ending
 	JMP EndingSceneRoutine
 
-EndOfLevelSlotMachine:
+EndOfRegularLevel:
+	; This needs to be set at the end of regular levels to avoid a bug where
+	; completing the level small will cause the character-growing animation
+	; to happen at the beginning of the next level.
 	STY PlayerCurrentSize
+
+EndOfLevelSlotMachine:
+IFDEF DISABLE_BONUS_CHANCE
+	JMP GoToNextLevel
+ELSE
 	JSR WaitForNMI_TurnOffPPU
+ENDIF
 
 	JSR ClearNametablesAndSprites
 
@@ -1785,12 +1795,15 @@ SlotMachineTextFlashIndex:
 NoCoinsForSlotMachine:
 	JSR Delay80Frames
 
+IFDEF EXPAND_MUSIC
+	; Need $08 to loop correctly, but want to preserve addresses
+	JSR SlotMachineNoCoinsJingle
+	LDA #$08 ; Needed to loop correctly
+ELSE
 	LDA #Music2_DeathJingle
 	STA MusicQueue2
-
-IFDEF EXPAND_MUSIC
-	LDA #$08
 ENDIF
+
 	STA byte_RAM_6
 loc_BANKF_E92A:
 	LDA byte_RAM_6
@@ -2852,6 +2865,13 @@ ChangeCHRBanks_MMC5:
 	ADC #$01
 	STA MMC5_CHRBankSwitch12
 
+	RTS
+ENDIF
+
+IFDEF EXPAND_MUSIC
+SlotMachineNoCoinsJingle:
+	LDA #Music2_DeathJingle
+	STA MusicQueue2
 	RTS
 ENDIF
 
@@ -4041,7 +4061,8 @@ ObjectAttributeTable:
 	.db ObjAttrib_Palette2 | ObjAttrib_Mirrored | ObjAttrib_UpsideDown ; $46 Enemy_Stopwatch
 
 ;
-; Enemy Behavior 46E
+; Enemy Behavior 46E Table
+; ========================
 ;
 ;   bit 7 ($80) - uses mirrored sprite for animation
 ;   bit 6 ($40) - double speed
@@ -5134,7 +5155,13 @@ KillPlayer:
 	LDA #PlayerState_Dying ; Mark player as dead
 	STA PlayerState
 	LDA #$00 ; Clear some variables
+IFNDEF RESPAWN_INSTEAD_OF_DEATH
 	STA PlayerHealth
+ELSE
+	NOP
+	NOP
+	NOP
+ENDIF
 	STA CrouchJumpTimer
 	STA StarInvincibilityTimer
 	LDA #SpriteAnimation_Dead ; Set player animation to dead?
@@ -5162,6 +5189,7 @@ loc_BANKF_F747:
 	LDX byte_RAM_D
 
 loc_BANKF_F749:
+IFNDEF RESPAWN_INSTEAD_OF_DEATH
 	; Set music to death jingle
 	LDA #Music2_DeathJingle
 	STA MusicQueue2
@@ -5169,6 +5197,14 @@ loc_BANKF_F749:
 	LDA #DPCM_PlayerDeath
 	STA DPCMQueue
 	RTS
+ELSE
+	LDA #DPCM_PlayerDeath
+	STA DPCMQueue
+	JMP RespawnPlayer
+	NOP
+	NOP
+	NOP
+ENDIF
 
 
 ;
@@ -5858,11 +5894,59 @@ LoadMarioSleepingCHRBanks:
 	STY SpriteCHR1
 	INY
 	STY SpriteCHR2
-	LDA #CHRBank_EndingBackground1
+	LDA #CHRBank_MarioSleepingBackground1
 	STA BackgroundCHR1
-	LDA #CHRBank_EndingBackground1 + 2
+	LDA #CHRBank_MarioSleepingBackground1 + 2
 	STA BackgroundCHR2
 	RTS
+
+
+IFDEF RESPAWN_INSTEAD_OF_DEATH
+PauseRespawn:
+	; Check conditions where we shouldn't allow respawn
+	LDA PlayerLock
+	BNE PauseRespawn_Exit
+	; BNE PauseRespawn_ShowPauseScreen
+
+PauseRespawn_KillPlayer:
+	JSR KillPlayer
+PauseRespawn_Exit:
+	LDA IsHorizontalLevel
+	BEQ PauseRespawn_Vertical
+	JMP HorizontalLevel_CheckSubArea
+PauseRespawn_Vertical:
+	JMP VerticalLevel_ProcessFrame
+
+PauseRespawn_ShowPauseScreen:
+	JSR PauseScreen_ExtraLife
+	JMP SetStack100Pause
+
+RespawnPlayer:
+	; Stop invincibility music
+	LDA MusicPlaying1
+	CMP #Music1_Invincible
+	BNE RespawnPlayer_AfterMusic
+	LDY CurrentMusicIndex
+	LDA LevelMusicIndexes, Y
+	STA MusicQueue1
+RespawnPlayer_AfterMusic:
+	LDA #SpriteAnimation_Standing
+	STA PlayerAnimationFrame
+	RTS
+
+
+ResetSubAreaJarLayout:
+	LDA #PRGBank_6_7
+	JSR ChangeMappedPRGBank
+
+	JSR ClearSubAreaTileLayout
+
+	LDA #PRGBank_0_1
+	JSR ChangeMappedPRGBank
+
+	RTS
+
+ENDIF
 
 
 ; Unused space in the original ($FE97 - $FF4F)
