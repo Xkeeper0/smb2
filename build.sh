@@ -2,6 +2,7 @@
 
 PRG0="47ba60fad332fdea5ae44b7979fe1ee78de1d316ee027fea2ad5fe3c0d86f25a"
 PRG1="6ca47e9da206914730895e45fef4f7393e59772c1c80e9b9befc1a01d7ecf724"
+SM_USA="c63bacd07cf0d2336e8a4f9b9c556d0758629f102211d989d92495e117a8b3a0"
 
 
 compareHash() {
@@ -23,7 +24,7 @@ if [ "$1" = "test" ] ; then
 	if [ $? -ne 0 ] ; then
 		echo 'Failed building PRG0!'
 		buildErr=1
-	
+
 	elif ! compareHash $PRG0 'bin/smb2.nes' ; then
 		echo 'PRG0 build did not match PRG0!'
 		buildErr=1
@@ -37,6 +38,17 @@ if [ "$1" = "test" ] ; then
 
 	elif ! compareHash $PRG1 'bin/smb2.nes' ; then
 		echo 'PRG1 build did not match PRG1!'
+		buildErr=1
+	fi
+
+	build -dSM_USA
+
+	if [ $? -ne 0 ] ; then
+		echo 'Failed building SM_USA!'
+		buildErr=1
+
+	elif ! compareHash $SM_USA 'bin/smb2.nes' ; then
+		echo 'SM_USA build did not match SM_USA!'
 		buildErr=1
 	fi
 

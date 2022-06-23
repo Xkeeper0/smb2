@@ -12330,6 +12330,11 @@ AreaSecondaryRoutine_POW_OffsetScreen:
 AreaSecondaryRoutine_Exit:
 	RTS
 
+IFDEF SM_USA
+	.pad $BFE0, $FF
+	.db "SUPER MARIO USA "
+	.db $00, $00, $64, $45, $33, $04, $01, $0E, $01, $10
+ENDIF
 
 IFDEF RESET_CHR_LATCH
 SetBossTileset:
