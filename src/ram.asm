@@ -68,20 +68,27 @@ BreakStartLevelLoop:
 	.dsb 1 ; $0013
 
 MarioSnoringLoopCounter: ; counts down snore loops before moving to the next animation sequence
+TitleScreenPPUAddrHi:
 PlayerXHi:
 	.dsb 1 ; $0014
 MarioSnoringFrameIndex: ; index in frame lookup table
+TitleScreenPPUAddrLo:
 ObjectXHi:
 	.dsb 1 ; $0015
 MarioSnoringFrameCounter: ; counts down frames in a snore loop
+TitleScreenPPULength:
 	.dsb 1 ; 1                ; $0016
 MarioSnoringWaveFrame:
+TitleScreenStoryNeedsClear: ; set when the text area needs to be cleared for the story
 	.dsb 1 ; 2                ; $0017
 MarioSnoringWaveFrameCounter: ; controls waving speed
+TitleScreenStoryTextIndex:
 	.dsb 1 ; 3                ; $0018
 MarioSnoringCounter5:
+TitleScreenStoryDone: ; RAM $0002 check will restart title screen when set
 	.dsb 1 ; 4                ; $0019
 MarioSnoringCounter6:
+TitleScreenStoryTextLineTimer: ; used to pause between writing lines of text
 	.dsb 1 ; 5                ; $001a
 MarioSnoringCounter7:
 	.dsb 1 ; 6                ; $001b

@@ -5317,31 +5317,38 @@ InitTitleBackgroundPalettesLoop:
 	STA PPUCTRL
 	JSR WaitForNMI_TitleScreen
 
-	LDA #$01 ; @TODO
+	; Draw the title screen (ScreenUpdateIndex is using TitleScreenPPUDataPointers)
+	LDA #$01 ; TitleLayout
 	STA ScreenUpdateIndex
 	JSR WaitForNMI_TitleScreen
 
+	; Cue the music!
 	LDA #Music1_Title
 	STA MusicQueue1
 	JSR WaitForNMI_TitleScreen_TurnOnPPU
 
+	; Set up the delay before showing the story
 	LDA #$03
 	STA byte_RAM_10
 	LDA #$25
 	STA byte_RAM_2
-	LDA #$20
-	STA PlayerXHi
-	LDA #$C7
-	STA ObjectXHi
-	LDA #$52
-	STA ObjectXHi + 1
 
+	; Prepare to clear the first line of the text area, which is slightly narrower
+	LDA #$20
+	STA TitleScreenPPUAddrHi
+	LDA #$C7
+	STA TitleScreenPPUAddrLo
+	LDA #$52
+	STA TitleScreenPPULength
+
+	; Loop point, wait for NMI then check whether we need to clear the screen
 loc_BANK0_9AB4:
 	JSR WaitForNMI_TitleScreen
 
-	LDA ObjectXHi + 2
+	LDA TitleScreenStoryNeedsClear
 	BNE loc_BANK0_9AF3
 
+	; Loop point, just increment the frame timer
 loc_BANK0_9ABB:
 	INC byte_RAM_10
 	LDA byte_RAM_10
@@ -5350,8 +5357,7 @@ loc_BANK0_9ABB:
 
 	JMP loc_BANK0_9B4D
 
-; ---------------------------------------------------------------------------
-
+	; Decrement the title screen phase counter
 loc_BANK0_9AC6:
 	DEC byte_RAM_2
 	LDA byte_RAM_2
@@ -5364,17 +5370,19 @@ ELSE
 ENDIF
 
 loc_BANK0_9ACE:
-	INC ObjectXHi + 2
-	LDA PlayerXHi
+	INC TitleScreenStoryNeedsClear
+	LDA TitleScreenPPUAddrHi
 	STA PPUBuffer_301
-	LDA ObjectXHi
+	LDA TitleScreenPPUAddrLo
 	STA PPUBuffer_301 + 1
-	LDA ObjectXHi + 1
+	LDA TitleScreenPPULength
 	STA PPUBuffer_301 + 2
+
+	; Prepare to clear the remaining lines of the text area
 	LDA #$E6
-	STA ObjectXHi
+	STA TitleScreenPPUAddrLo
 	LDA #$54
-	STA ObjectXHi + 1
+	STA TitleScreenPPULength
 	LDA #$FB
 	STA PPUBuffer_301 + 3
 	LDA #$00
@@ -5383,19 +5391,20 @@ loc_BANK0_9ACE:
 
 loc_BANK0_9AF3:
 IFNDEF SM_USA
-	LDA PlayerXHi
+	LDA TitleScreenPPUAddrHi
 	STA PPUBuffer_301
-	LDA ObjectXHi
+	LDA TitleScreenPPUAddrLo
 	STA PPUBuffer_301 + 1
-	LDA ObjectXHi + 1
+	LDA TitleScreenPPULength
 	STA PPUBuffer_301 + 2
 ELSE
-	LDA ObjectXHi + 1
+	LDA TitleScreenPPULength
 	STA PPUBuffer_301 + 2
-	LDA ObjectXHi
+	LDA TitleScreenPPUAddrLo
 	STA PPUBuffer_301 + 1
-	LDA PlayerXHi
+	LDA TitleScreenPPUAddrHi
 	STA PPUBuffer_301
+	; Need to clear a wider row of tiles with "Super Mario" on a single line
 	CMP #$21
 	BNE loc_BANK0_9B02
 	LDA PPUBuffer_301 + 2
@@ -5410,13 +5419,13 @@ loc_BANK0_9B02:
 	STA PPUBuffer_301 + 3
 	LDA #$00
 	STA PPUBuffer_301 + 4
-	LDA ObjectXHi
+	LDA TitleScreenPPUAddrLo
 	CLC
 	ADC #$20
-	STA ObjectXHi
-	LDA PlayerXHi
+	STA TitleScreenPPUAddrLo
+	LDA TitleScreenPPUAddrHi
 	ADC #$00
-	STA PlayerXHi
+	STA TitleScreenPPUAddrHi
 	CMP #$23
 
 loc_BANK0_9B1B:
@@ -5471,7 +5480,7 @@ loc_BANK0_9B56:
 loc_BANK0_9B59:
 	JSR WaitForNMI_TitleScreen
 
-	LDA ObjectXHi + 4
+	LDA TitleScreenPPUAddrLo + 4
 	BEQ loc_BANK0_9B63
 
 	JMP loc_BANK0_9C19
@@ -5479,11 +5488,11 @@ loc_BANK0_9B59:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9B63:
-	LDA ObjectXHi + 3
+	LDA TitleScreenStoryTextIndex
 	CMP #$09
 	BEQ loc_BANK0_9B93
 
-	LDA ObjectXHi + 3
+	LDA TitleScreenStoryTextIndex
 	BNE loc_BANK0_9BA3
 
 	DEC byte_RAM_10
@@ -5512,33 +5521,33 @@ TitleScreen_WriteSTORYTextLoop:
 	STA PPUBuffer_301 + 8
 
 loc_BANK0_9B93:
-	INC ObjectXHi + 3
+	INC TitleScreenStoryTextIndex
 	LDA #$21
-	STA PlayerXHi
+	STA TitleScreenPPUAddrHi
 	LDA #$06
-	STA ObjectXHi
+	STA TitleScreenPPUAddrLo
 	LDA #$40
-	STA ObjectXHi + 5
+	STA TitleScreenStoryTextLineTimer
 	BNE loc_BANK0_9C19
 
 loc_BANK0_9BA3:
-	DEC ObjectXHi + 5
+	DEC TitleScreenStoryTextLineTimer
 	BPL loc_BANK0_9C19
 
 loc_BANK0_9BA7:
 	LDA #$40
-	STA ObjectXHi + 5
-	LDA PlayerXHi
+	STA TitleScreenStoryTextLineTimer
+	LDA TitleScreenPPUAddrHi
 	STA PPUBuffer_301
 
 loc_BANK0_9BB0:
-	LDA ObjectXHi
+	LDA TitleScreenPPUAddrLo
 
 loc_BANK0_9BB2:
 	STA PPUBuffer_301 + 1
 	LDA #$14
 	STA PPUBuffer_301 + 2
-	LDX ObjectXHi + 3
+	LDX TitleScreenStoryTextIndex
 	DEX
 	LDA TitleStoryTextPointersHi, X
 	STA byte_RAM_4
@@ -5556,15 +5565,15 @@ loc_BANK0_9BCB:
 
 	LDA #$00
 	STA PPUBuffer_301 + 3, Y
-	INC ObjectXHi + 3
-	LDA ObjectXHi
+	INC TitleScreenStoryTextIndex
+	LDA TitleScreenPPUAddrLo
 	CLC
 	ADC #$40
-	STA ObjectXHi
-	LDA PlayerXHi
+	STA TitleScreenPPUAddrLo
+	LDA TitleScreenPPUAddrHi
 	ADC #$00
-	STA PlayerXHi
-	LDA ObjectXHi + 3
+	STA TitleScreenPPUAddrHi
+	LDA TitleScreenStoryTextIndex
 	CMP #$09
 	BCC loc_BANK0_9C19
 
@@ -5575,13 +5584,13 @@ loc_BANK0_9BCB:
 	LDA #$03
 	STA byte_RAM_10
 	LDA #$20
-	STA PlayerXHi
+	STA TitleScreenPPUAddrHi
 	LDA #$C7
-	STA ObjectXHi
+	STA TitleScreenPPUAddrLo
 	LDA #$52
-	STA ObjectXHi + 1
+	STA TitleScreenPPULength
 	LDA #$00
-	STA ObjectXHi + 2
+	STA TitleScreenStoryNeedsClear
 	JMP loc_BANK0_9ABB
 
 ; ---------------------------------------------------------------------------
@@ -5590,7 +5599,7 @@ loc_BANK0_9C0B:
 	CMP #$12
 	BCC loc_BANK0_9C19
 
-	INC ObjectXHi + 4
+	INC TitleScreenStoryDone
 	LDA #$25
 	STA byte_RAM_2
 	LDA #$03
@@ -5620,7 +5629,7 @@ loc_BANK0_9C2A:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9C35:
-	LDA ObjectXHi + 4
+	LDA TitleScreenStoryDone
 	BEQ loc_BANK0_9C4B
 
 	INC byte_RAM_10
