@@ -168,7 +168,7 @@ loc_BANK0_80B1:
 
 loc_BANK0_80C8:
 	LDA PPUScrollYMirror
-	CMP #$0FC
+	CMP #$FC
 	BNE loc_BANK0_80DB
 
 	LDA #$EC
@@ -2618,7 +2618,7 @@ loc_BANK0_8CE5:
 
 	LDA GravityWithJumpButton
 	LDY PlayerYVelocity
-	CPY #$0FC
+	CPY #$FC
 	BMI PlayerGravity_Falling
 
 	LDY JumpFloatTimer
@@ -5008,6 +5008,7 @@ TitleLayout:
 	.db $23, $77, $04, $9C, $9D, $AA, $AB
 	.db $23, $89, $02, $AA, $AB
 
+IFNDEF SM_USA
 	; SUPER
 	;                  SSSSSSSS  UUUUUUUU  PPPPPPPP  EEEEEEEE  RRRRRRRR
 	.db $20, $CB, $0A, $00, $01, $08, $08, $FC, $01, $FC, $08, $FC, $01
@@ -5060,10 +5061,52 @@ TitleLayout:
 	.db $23, $EA, $04, $F0, $F8, $F2, $F0
 	.db $00
 
+ELSE
+	; TM
+	;                  TTT  MMM
+	.db $21, $38, $02, $F9, $FA
+
+	; SUPER
+	;                  SSSSSSSS  UUUUUUUU  PPPPPPPP  EEEEEEEE  RRRRRRRR
+	.db $21, $45, $0A, $00, $01, $08, $08, $FC, $01, $FC, $08, $FC, $01
+	.db $21, $65, $0A, $10, $08, $08, $08, $10, $08, $10, $09, $10, $08
+	.db $21, $85, $0A, $77, $03, $08, $08, $13, $05, $FC, $08, $13, $0D
+	.db $21, $A5, $0A, $12, $08, $08, $08, $0E, $07, $10, $09, $0E, $08
+	.db $21, $C5, $0A, $04, $05, $04, $05, $08, $7F, $FC, $08, $08, $08
+	.db $21, $E5, $0A, $06, $07, $06, $07, $09, $7F, $76, $09, $09, $09
+
+	; MARIO
+	;                  MMMMMMMMMMMMM  AAAAAAAA  RRRRRRRR  III  OOOOOOOO
+	.db $21, $50, $0A, $00, $0F, $01, $00, $01, $FC, $01, $08, $00, $01
+	.db $21, $70, $0A, $10, $10, $08, $10, $08, $10, $08, $08, $10, $08
+	.db $21, $90, $0A, $08, $08, $08, $08, $08, $13, $0D, $08, $08, $08
+	.db $21, $B0, $0A, $08, $08, $08, $FC, $08, $0E, $08, $08, $08, $08
+	.db $21, $D0, $0A, $08, $08, $08, $10, $08, $08, $08, $08, $04, $05
+	.db $21, $F0, $0A, $09, $09, $09, $09, $09, $09, $09, $09, $06, $07
+
+	; USA
+	;                  UUUUUUUUUUUUU  SSSSSSSSSSSSS  AAAAAAAAAAAAA
+	.db $22, $0B, $09, $14, $15, $16, $1A, $1B, $1C, $78, $79, $7A
+	.db $22, $2B, $09, $17, $18, $19, $1D, $1E, $1F, $7B, $7C, $7D
+
+	; (C)1988,1992 NINTENDO
+	;                  (C)  111  999  888  888  ,,,  111  999  999  222
+	.db $22, $E7, $0A, $F8, $D1, $D9, $D8, $D8, $F7, $D1, $D9, $D9, $D2
+
+	; NINTENDO
+	;                  NNN  III  NNN  TTT  EEE  NNN  DDD  OOO
+	.db $22, $F2, $08, $E7, $E2, $E7, $ED, $DE, $E7, $DD, $E8
+
+	.db $23, $D1, $0E, $A0, $A0, $A0, $A0, $A0, $22, $00, $00, $AA, $AA, $AA, $AA, $AA, $A2
+	.db $23, $E2, $03, $0C, $0F, $0F
+	.db $00
+ENDIF
+
 IFDEF PAD_TITLE_SCREEN_PPU_DATA
 	.pad TitleLayout + $300, $00
 ENDIF
 
+IFNDEF SM_USA
 TitleBackgroundPalettes:
 	.db $22, $37, $16, $07 ; Most of screen, outline, etc.
 	.db $22, $30, $31, $0F ; Unused
@@ -5075,6 +5118,20 @@ TitleSpritePalettes:
 	.db $22, $30, $25, $0F ; There are no sprites on the title screen,
 	.db $22, $30, $12, $0F ; so these are totally unused
 	.db $22, $30, $23, $0F
+
+ELSE
+TitleBackgroundPalettes:
+	.db $0F, $27, $17, $07
+	.db $0F, $36, $26, $16
+	.db $0F, $16, $02, $30
+	.db $0F, $30, $25, $16
+
+TitleSpritePalettes:
+	.db $0F, $30, $28, $0F
+	.db $0F, $30, $25, $0F
+	.db $0F, $30, $12, $0F
+	.db $0F, $30, $23, $0F
+ENDIF
 
 TitleStoryText_STORY:
 	.db $EC, $ED, $E8, $EB, $F2 ; STORY
@@ -5260,31 +5317,38 @@ InitTitleBackgroundPalettesLoop:
 	STA PPUCTRL
 	JSR WaitForNMI_TitleScreen
 
-	LDA #$01 ; @TODO
+	; Draw the title screen (ScreenUpdateIndex is using TitleScreenPPUDataPointers)
+	LDA #$01 ; TitleLayout
 	STA ScreenUpdateIndex
 	JSR WaitForNMI_TitleScreen
 
+	; Cue the music!
 	LDA #Music1_Title
 	STA MusicQueue1
 	JSR WaitForNMI_TitleScreen_TurnOnPPU
 
+	; Set up the delay before showing the story
 	LDA #$03
 	STA byte_RAM_10
 	LDA #$25
 	STA byte_RAM_2
-	LDA #$20
-	STA PlayerXHi
-	LDA #$C7
-	STA ObjectXHi
-	LDA #$52
-	STA ObjectXHi + 1
 
+	; Prepare to clear the first line of the text area, which is slightly narrower
+	LDA #$20
+	STA TitleScreenPPUAddrHi
+	LDA #$C7
+	STA TitleScreenPPUAddrLo
+	LDA #$52
+	STA TitleScreenPPULength
+
+	; Loop point, wait for NMI then check whether we need to clear the screen
 loc_BANK0_9AB4:
 	JSR WaitForNMI_TitleScreen
 
-	LDA ObjectXHi + 2
+	LDA TitleScreenStoryNeedsClear
 	BNE loc_BANK0_9AF3
 
+	; Loop point, just increment the frame timer
 loc_BANK0_9ABB:
 	INC byte_RAM_10
 	LDA byte_RAM_10
@@ -5293,49 +5357,75 @@ loc_BANK0_9ABB:
 
 	JMP loc_BANK0_9B4D
 
-; ---------------------------------------------------------------------------
-
+	; Decrement the title screen phase counter
 loc_BANK0_9AC6:
 	DEC byte_RAM_2
 	LDA byte_RAM_2
 	CMP #$06
+IFNDEF SM_USA
 	BNE loc_BANK0_9B4D
+ELSE
+	BEQ loc_BANK0_9ACE
+	JMP loc_BANK0_9B4D
+ENDIF
 
-	INC ObjectXHi + 2
-	LDA PlayerXHi
+loc_BANK0_9ACE:
+	INC TitleScreenStoryNeedsClear
+	LDA TitleScreenPPUAddrHi
 	STA PPUBuffer_301
-	LDA ObjectXHi
+	LDA TitleScreenPPUAddrLo
 	STA PPUBuffer_301 + 1
-	LDA ObjectXHi + 1
+	LDA TitleScreenPPULength
 	STA PPUBuffer_301 + 2
+
+	; Prepare to clear the remaining lines of the text area
 	LDA #$E6
-	STA ObjectXHi
+	STA TitleScreenPPUAddrLo
 	LDA #$54
-	STA ObjectXHi + 1
-	LDA #$0FB
+	STA TitleScreenPPULength
+	LDA #$FB
 	STA PPUBuffer_301 + 3
 	LDA #$00
 	STA PPUBuffer_301 + 4
 	BEQ loc_BANK0_9B4D
 
 loc_BANK0_9AF3:
-	LDA PlayerXHi
+IFNDEF SM_USA
+	LDA TitleScreenPPUAddrHi
 	STA PPUBuffer_301
-	LDA ObjectXHi
+	LDA TitleScreenPPUAddrLo
 	STA PPUBuffer_301 + 1
-	LDA ObjectXHi + 1
+	LDA TitleScreenPPULength
 	STA PPUBuffer_301 + 2
-	LDA #$0FB
+ELSE
+	LDA TitleScreenPPULength
+	STA PPUBuffer_301 + 2
+	LDA TitleScreenPPUAddrLo
+	STA PPUBuffer_301 + 1
+	LDA TitleScreenPPUAddrHi
+	STA PPUBuffer_301
+	; Need to clear a wider row of tiles with "Super Mario" on a single line
+	CMP #$21
+	BNE loc_BANK0_9B02
+	LDA PPUBuffer_301 + 2
+	CLC
+	ADC #$02
+	STA PPUBuffer_301 + 2
+	DEC PPUBuffer_301 + 1
+ENDIF
+
+loc_BANK0_9B02:
+	LDA #$FB
 	STA PPUBuffer_301 + 3
 	LDA #$00
 	STA PPUBuffer_301 + 4
-	LDA ObjectXHi
+	LDA TitleScreenPPUAddrLo
 	CLC
 	ADC #$20
-	STA ObjectXHi
-	LDA PlayerXHi
+	STA TitleScreenPPUAddrLo
+	LDA TitleScreenPPUAddrHi
 	ADC #$00
-	STA PlayerXHi
+	STA TitleScreenPPUAddrHi
 	CMP #$23
 
 loc_BANK0_9B1B:
@@ -5390,7 +5480,7 @@ loc_BANK0_9B56:
 loc_BANK0_9B59:
 	JSR WaitForNMI_TitleScreen
 
-	LDA ObjectXHi + 4
+	LDA TitleScreenPPUAddrLo + 4
 	BEQ loc_BANK0_9B63
 
 	JMP loc_BANK0_9C19
@@ -5398,11 +5488,11 @@ loc_BANK0_9B59:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9B63:
-	LDA ObjectXHi + 3
+	LDA TitleScreenStoryTextIndex
 	CMP #$09
 	BEQ loc_BANK0_9B93
 
-	LDA ObjectXHi + 3
+	LDA TitleScreenStoryTextIndex
 	BNE loc_BANK0_9BA3
 
 	DEC byte_RAM_10
@@ -5415,7 +5505,7 @@ loc_BANK0_9B63:
 TitleScreen_WriteSTORYText:
 	LDA #$20
 	STA PPUBuffer_301
-	LDA #$0AE
+	LDA #$AE
 	STA PPUBuffer_301 + 1
 	LDA #$05 ; Length of STORY text (5 bytes)
 	STA PPUBuffer_301 + 2
@@ -5431,33 +5521,33 @@ TitleScreen_WriteSTORYTextLoop:
 	STA PPUBuffer_301 + 8
 
 loc_BANK0_9B93:
-	INC ObjectXHi + 3
+	INC TitleScreenStoryTextIndex
 	LDA #$21
-	STA PlayerXHi
+	STA TitleScreenPPUAddrHi
 	LDA #$06
-	STA ObjectXHi
+	STA TitleScreenPPUAddrLo
 	LDA #$40
-	STA ObjectXHi + 5
+	STA TitleScreenStoryTextLineTimer
 	BNE loc_BANK0_9C19
 
 loc_BANK0_9BA3:
-	DEC ObjectXHi + 5
+	DEC TitleScreenStoryTextLineTimer
 	BPL loc_BANK0_9C19
 
 loc_BANK0_9BA7:
 	LDA #$40
-	STA ObjectXHi + 5
-	LDA PlayerXHi
+	STA TitleScreenStoryTextLineTimer
+	LDA TitleScreenPPUAddrHi
 	STA PPUBuffer_301
 
 loc_BANK0_9BB0:
-	LDA ObjectXHi
+	LDA TitleScreenPPUAddrLo
 
 loc_BANK0_9BB2:
 	STA PPUBuffer_301 + 1
 	LDA #$14
 	STA PPUBuffer_301 + 2
-	LDX ObjectXHi + 3
+	LDX TitleScreenStoryTextIndex
 	DEX
 	LDA TitleStoryTextPointersHi, X
 	STA byte_RAM_4
@@ -5475,15 +5565,15 @@ loc_BANK0_9BCB:
 
 	LDA #$00
 	STA PPUBuffer_301 + 3, Y
-	INC ObjectXHi + 3
-	LDA ObjectXHi
+	INC TitleScreenStoryTextIndex
+	LDA TitleScreenPPUAddrLo
 	CLC
 	ADC #$40
-	STA ObjectXHi
-	LDA PlayerXHi
+	STA TitleScreenPPUAddrLo
+	LDA TitleScreenPPUAddrHi
 	ADC #$00
-	STA PlayerXHi
-	LDA ObjectXHi + 3
+	STA TitleScreenPPUAddrHi
+	LDA TitleScreenStoryTextIndex
 	CMP #$09
 	BCC loc_BANK0_9C19
 
@@ -5494,13 +5584,13 @@ loc_BANK0_9BCB:
 	LDA #$03
 	STA byte_RAM_10
 	LDA #$20
-	STA PlayerXHi
+	STA TitleScreenPPUAddrHi
 	LDA #$C7
-	STA ObjectXHi
+	STA TitleScreenPPUAddrLo
 	LDA #$52
-	STA ObjectXHi + 1
+	STA TitleScreenPPULength
 	LDA #$00
-	STA ObjectXHi + 2
+	STA TitleScreenStoryNeedsClear
 	JMP loc_BANK0_9ABB
 
 ; ---------------------------------------------------------------------------
@@ -5509,7 +5599,7 @@ loc_BANK0_9C0B:
 	CMP #$12
 	BCC loc_BANK0_9C19
 
-	INC ObjectXHi + 4
+	INC TitleScreenStoryDone
 	LDA #$25
 	STA byte_RAM_2
 	LDA #$03
@@ -5539,7 +5629,7 @@ loc_BANK0_9C2A:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9C35:
-	LDA ObjectXHi + 4
+	LDA TitleScreenStoryDone
 	BEQ loc_BANK0_9C4B
 
 	INC byte_RAM_10
@@ -6890,7 +6980,7 @@ loc_BANK1_AC8B:
 	STA ObjectYLo + 6
 	LDA #$E6
 	STA ObjectXVelocity + 6
-	LDA #$0DA
+	LDA #$DA
 	STA ObjectYVelocity + 6
 
 	INC_abs byte_RAM_E6
@@ -7090,7 +7180,7 @@ Ending_GetContributor_Next2:
 	LDA byte_RAM_1
 	STA PPUBuffer_301, X
 	INX
-	LDA #$0FB
+	LDA #$FB
 	STA PPUBuffer_301, X
 	INX
 	LDY #$03
@@ -7104,7 +7194,7 @@ Ending_GetContributor_Next2:
 	STA PPUBuffer_301, X
 	INX
 
-	LDA #$0FB
+	LDA #$FB
 	STA PPUBuffer_301, X
 	INX
 	STA PPUBuffer_301, X
@@ -7119,7 +7209,7 @@ Ending_GetContributor_Next2:
 	LDA byte_RAM_1
 	STA PPUBuffer_301, X
 	INX
-	LDA #$0FB
+	LDA #$FB
 	STA PPUBuffer_301, X
 	INX
 	LDY #$01
@@ -7203,7 +7293,7 @@ loc_BANK1_AE4F:
 	CPY #$D0
 	BNE loc_BANK1_AE57
 
-	LDY #$0FB
+	LDY #$FB
 
 loc_BANK1_AE57:
 	STA byte_RAM_1

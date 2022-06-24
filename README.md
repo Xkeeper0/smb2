@@ -23,7 +23,8 @@ For your convenience, binaries of that have been included. (Windows/Linux)
 Open a command prompt window and run:
 
     build           (builds PRG0)
-	build -dREV_A   (builds PRG1)
+    build -dREV_A   (builds PRG1)
+    build -dSM_USA  (builds Super Mario USA)
 
 This will build the ROM from the assembly, and print any errors in the process.
 It will then output the SHA-256 hashes of PRG0 and PRG1, as well as the SHA-256
@@ -35,6 +36,7 @@ To build, run the following command:
 
 	./build.sh           (builds PRG0)
 	./build.sh -dREV_A   (builds PRG1)
+	./build.sh -dSM_USA  (builds Super Mario USA)
 	./build.sh test      (builds both PRG0 and PRG1, verifying they match)
 
 The build script will also display a message if the built ROM's SHA-256 hash

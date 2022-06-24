@@ -21,6 +21,11 @@ IFDEF FOURSCREEN
 ELSE
 	MIRROR_4SCREEN = %0000
 ENDIF
+IFDEF SM_USA
+	NAMETABLE_MIRRORING = %0001
+ELSE
+	NAMETABLE_MIRRORING = %0000
+ENDIF
 .endinl
 
 ; -----------------------------------------
@@ -39,7 +44,7 @@ ELSE
 	.db 16 ; number of 8KB CHR-ROM pages
 ENDIF
 
-.db ((INES_MAPPER & %00001111) << 4) | MIRROR_4SCREEN ; mapper (lower nybble) and mirroring
+.db ((INES_MAPPER & %00001111) << 4) | MIRROR_4SCREEN | NAMETABLE_MIRRORING ; mapper (lower nybble) and mirroring
 IF INES_MAPPER == MAPPER_FME7
 	.db (INES_MAPPER & %11110000) | %1000 ; mapper (upper nybble) and iNES 2.0
 	.dsb 2, $00
@@ -151,7 +156,11 @@ ENDIF
 
 ; -----------------------------------------
 ; include CHR-ROM
+IFNDEF SM_USA
 .incbin "smb2.chr"
+ELSE
+.incbin "smusa.chr"
+ENDIF
 
 ; ----------------------------------------
 ; extra CHR-ROM pages

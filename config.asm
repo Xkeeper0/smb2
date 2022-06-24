@@ -63,6 +63,23 @@ PRESERVE_UNUSED_SPACE = 1
 ;
 ; REV_A = 1
 
+; ----------------------------------------
+; Build Super Mario USA ROM.
+;
+; Note: This implicitly enables the Revision A fixes as well.
+;
+; Differences:
+;
+; PRG-0-1: Changes to the palette/nametable data for the title screen.
+;
+; PRG-2-3: "SUPER MARIO USA" added to the end of bank 3 in ASCII, which has
+;          no impact on gameplay.
+;
+; SM_USA = 1
+
+IFDEF SM_USA
+  REV_A = 1
+ENDIF
 
 
 ; ----------------------------------------
