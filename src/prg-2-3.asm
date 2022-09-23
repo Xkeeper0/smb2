@@ -289,7 +289,7 @@ ENDIF
 
 	; Handle the stopwatch
 	LDA byte_RAM_10
-	AND #$1F
+	AND #%00011111
 	BNE AreaMainRoutine_DecrementStopwatch
 
 	LDY #SoundEffect1_StopwatchTick
@@ -3977,7 +3977,7 @@ Phanto_AfterFlashing:
 	STA ObjectShakeTimer, X
 
 	; Play Phanto activation sound effect
-	LDA #SoundEffect3_Rumble_B
+	LDA #SoundEffect3_POWRumble
 	STA SoundEffectQueue3
 
 Phanto_AfterSound:
@@ -4744,7 +4744,7 @@ loc_BANK2_96EC:
 
 	LDA #$20
 	STA POWQuakeTimer
-	LDA #SoundEffect3_Rumble_B
+	LDA #SoundEffect3_POWRumble
 	STA SoundEffectQueue3
 	JMP sub_BANK2_98C4
 
@@ -8676,7 +8676,7 @@ EnemyBehavior_Rocket_Launching:
 	; Setting EnemyArray_B1 puts the rocket in the area
 	STA EnemyArray_B1, X
 	STA PlayerInRocket
-	LDA #SoundEffect3_Rumble_A
+	LDA #SoundEffect3_Rocket
 	STA SoundEffectQueue3
 	LDA #$FE
 	STA ObjectYVelocity, X
@@ -9227,7 +9227,7 @@ loc_BANK3_AEC3:
 	STA ObjectYLo, X
 
 loc_BANK3_AECD:
-	LDA #SoundEffect3_ShortNoise
+	LDA #SoundEffect3_WhaleSpout
 	STA SoundEffectQueue3
 	LDA EnemyVariable, X
 	CMP #$80

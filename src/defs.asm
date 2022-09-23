@@ -238,9 +238,9 @@ PPUStatus_VBlankHit = %10000000
 ; ---------------------------------------------------------------------------
 
 ; enum SoundEffect3
-SoundEffect3_ShortNoise = $01 ; Whale spout
-SoundEffect3_Rumble_A = $02 ; Rocket
-SoundEffect3_Rumble_B = $04 ; POW rumble
+SoundEffect3_WhaleSpout = $01
+SoundEffect3_Rocket = $02
+SoundEffect3_POWRumble = $04
 
 ; ---------------------------------------------------------------------------
 
