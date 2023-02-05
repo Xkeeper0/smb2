@@ -1738,6 +1738,7 @@ loc_BANK2_8891:
 
 ; =============== S U B R O U T I N E =======================================
 
+; Ensures that x-wrapping applies properly to sprites
 sub_BANK2_8894:
 	LDA #$00
 	STA byte_RAM_EE
@@ -2678,9 +2679,9 @@ EnemyInit_Hawkmouth:
 	DEC ObjectYLo, X
 	DEC ObjectYLo, X
 	LDY #$01
-	STY ObjectCollisionHitboxTop_RAM + $0B
+	STY HawkmouthCollisionHitboxTop_RAM
 	INY
-	STY ObjectCollisionHitboxLeft_RAM + $0B
+	STY HawkmouthCollisionHitboxLeft_RAM
 
 
 EnemyInit_Stationary:
@@ -2762,8 +2763,8 @@ loc_BANK2_8DBA:
 	AND #$03
 	BNE loc_BANK2_8DD8
 
-	DEC ObjectCollisionHitboxTop_RAM + $0B
-	INC ObjectCollisionHitboxLeft_RAM + $0B
+	DEC HawkmouthCollisionHitboxTop_RAM
+	INC HawkmouthCollisionHitboxLeft_RAM
 
 loc_BANK2_8DD8:
 	JMP RenderSprite_HawkmouthLeft
