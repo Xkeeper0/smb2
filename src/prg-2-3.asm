@@ -5935,7 +5935,8 @@ loc_BANK2_9C07:
 	ASL A
 	LDA ObjectAnimationTimer, X
 	LDX byte_RAM_F
-	AND #$08
+ObjectAnimationTimerMask:
+	AND #$08 ; determines how often to alternate between animation frames
 	BEQ loc_BANK2_9C31
 
 	BCC loc_BANK2_9C1F
