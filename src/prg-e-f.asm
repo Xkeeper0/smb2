@@ -874,8 +874,6 @@ ContinueGame:
 	STA ExtraLives
 
 GoToWorldStartingLevel:
-	; LDX #$03 ;;;
-	; STX CurrentWorld ;;;
 	LDX CurrentWorld
 	LDY WorldStartingLevel, X
 	STY CurrentLevel
