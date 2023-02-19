@@ -6438,6 +6438,62 @@ EnemyBehavior_BossDeathSound:
 	RTS
 ENDIF
 
+IFDEF FIX_FRYGUY_SPLIT_COUNT
+Fryguy_AccelerationX:
+	.db $01
+	.db $FF
+
+Fryguy_MaxVelocityX:
+	.db $2A
+	.db $D6
+
+Fryguy_AccelerationY:
+	.db $01
+	.db $FF
+
+Fryguy_MaxVelocityY:
+	.db $18
+	.db $E8
+
+;
+; Determines whether Fryguy has reached/exceeded max y-velocity
+;
+; Output
+;   C = whether or not the Fryguy should reverse acceleration
+;
+Fryguy_IsMaxVelocityY:
+	BMI Fryguy_IsMaxVelocityY_Up
+	CMP Fryguy_MaxVelocityY
+	RTS
+Fryguy_IsMaxVelocityY_Up:
+	CMP Fryguy_MaxVelocityY + $01
+	BEQ Fryguy_IsMaxVelocity_Reverse
+	BCC Fryguy_IsMaxVelocity_Reverse
+	CLC
+	RTS
+
+Fryguy_IsMaxVelocity_Reverse:
+	SEC
+	RTS
+
+;
+; Determines whether Fryguy has reached/exceeded max x-velocity
+;
+; Output
+;   C = whether or not the Fryguy should reverse acceleration
+;
+Fryguy_IsMaxVelocityX:
+	BMI Fryguy_IsMaxVelocityX_Left
+	CMP Fryguy_MaxVelocityX
+	RTS
+Fryguy_IsMaxVelocityX_Left:
+	CMP Fryguy_MaxVelocityX + $01
+	BEQ Fryguy_IsMaxVelocity_Reverse
+	BCC Fryguy_IsMaxVelocity_Reverse
+	CLC
+	RTS
+ENDIF
+
 ; Unused space in the original ($9EBD - $A02F)
 unusedSpace $A030, $FF
 
@@ -8784,60 +8840,81 @@ ENDIF
 	STA EnemyVariable, X
 	RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK3_AC77:
+
+FryguySplit_InitVelocityX:
 	.db $E0
 	.db $20
 	.db $F0
 	.db $10
 
-byte_BANK3_AC7B:
+FryguySplit_InitOffsetX:
 	.db $04
 	.db $0C
 	.db $04
 	.db $0C
 
-byte_BANK3_AC7F:
+FryguySplit_InitOffsetY:
 	.db $04
 	.db $04
 	.db $0C
 	.db $0C
 
-byte_BANK3_AC83:
+IFNDEF FIX_FRYGUY_SPLIT_COUNT
+Fryguy_AccelerationX:
 	.db $01
 	.db $FF
 
-byte_BANK3_AC85:
+Fryguy_MaxVelocityX:
 	.db $2A
 	.db $D6
 
-byte_BANK3_AC87:
+Fryguy_AccelerationY:
 	.db $01
 	.db $FF
 
-byte_BANK3_AC89:
+Fryguy_MaxVelocityY:
 	.db $18
 	.db $E8
-; ---------------------------------------------------------------------------
+ELSE
+	NOP
+	NOP
+	NOP
+	NOP
+ENDIF
 
+;
+; Fryguy's motion is oscillation based on accelerating in alternate directions
+; to a max velocity either way
+;
 EnemyBehavior_Fryguy:
 	LDA #$02
 	STA EnemyMovementDirection, X
 	INC ObjectAnimationTimer, X
 	LDY EnemyHP, X
 	DEY
-	BNE loc_BANK3_ACE7
+	BNE EnemyBehavior_Fryguy_MaybeCreateFireball
 
+EnemyBehavior_Fryguy_CreateSplit:
+IFDEF FIX_FRYGUY_SPLIT_COUNT
+	DEY ; Y=$FF
+	STY FryguySplitFlames
+ENDIF
+EnemyBehavior_Fryguy_CreateSplit_NumFlames:
 	LDA #$03
 	STA byte_RAM_9
+IFNDEF FIX_FRYGUY_SPLIT_COUNT
 	STA FryguySplitFlames
+ENDIF
 	JSR EnemyDestroy
 
-loc_BANK3_ACA1:
+EnemyBehavior_Fryguy_CreateSplitLoop:
 	JSR CreateEnemy
 
-	BMI loc_BANK3_ACE3
+	BMI EnemyBehavior_Fryguy_CreateSplit_Next
 
+IFDEF FIX_FRYGUY_SPLIT_COUNT
+	INC FryguySplitFlames
+ENDIF
 	LDY byte_RAM_0
 	LDA ObjectYHi, X
 	STA EndOfLevelDoorPage, Y
@@ -8850,13 +8927,13 @@ loc_BANK3_ACA1:
 	LDA ObjectYLo, X
 	PHA
 	LDX byte_RAM_9
-	LDA byte_BANK3_AC77, X
+	LDA FryguySplit_InitVelocityX, X
 	STA ObjectXVelocity, Y
 	LDA SpriteTempScreenX
-	ADC byte_BANK3_AC7B, X
+	ADC FryguySplit_InitOffsetX, X
 	STA ObjectXLo, Y
 	PLA
-	ADC byte_BANK3_AC7F, X
+	ADC FryguySplit_InitOffsetY, X
 	STA ObjectYLo, Y
 	LDA #$00
 	STA ObjectXHi, Y
@@ -8866,15 +8943,16 @@ loc_BANK3_ACA1:
 
 	LDX byte_RAM_12
 
-loc_BANK3_ACE3:
+EnemyBehavior_Fryguy_CreateSplit_Next:
 	DEC byte_RAM_9
-	BPL loc_BANK3_ACA1
+	BPL EnemyBehavior_Fryguy_CreateSplitLoop
 
-loc_BANK3_ACE7:
+EnemyBehavior_Fryguy_MaybeCreateFireball:
 	LDA byte_RAM_10
 	AND #$1F
-	BNE loc_BANK3_AD07
+	BNE EnemyBehavior_Fryguy_AfterCreateFireball
 
+EnemyBehavior_Fryguy_CreateFireball:
 	JSR CreateEnemy
 
 	LDX byte_RAM_0
@@ -8890,37 +8968,54 @@ loc_BANK3_ACE7:
 
 	LDX byte_RAM_12
 
-loc_BANK3_AD07:
+EnemyBehavior_Fryguy_AfterCreateFireball:
 	LDA byte_RAM_10
 	AND #$01
-	BNE loc_BANK3_AD37
+	BNE EnemyBehavior_Fryguy_ApplyPhysics
 
+EnemyBehavior_Fryguy_AccelerationY:
+	; EnemyVariable used for y-direction
 	LDA EnemyVariable, X
 	AND #$01
 	TAY
 	LDA ObjectYVelocity, X
 	CLC
-	ADC byte_BANK3_AC87, Y
+	ADC Fryguy_AccelerationY, Y
 	STA ObjectYVelocity, X
-	CMP byte_BANK3_AC89, Y
-	BNE loc_BANK3_AD21
 
+IFNDEF FIX_FRYGUY_SPLIT_COUNT
+	CMP Fryguy_MaxVelocityY, Y
+	BNE EnemyBehavior_Fryguy_AccelerationX
+ELSE
+	JSR Fryguy_IsMaxVelocityY
+	BCC EnemyBehavior_Fryguy_AccelerationX
+ENDIF
+
+EnemyBehavior_Fryguy_AccelerationY_Reverse:
 	INC EnemyVariable, X
 
-loc_BANK3_AD21:
+EnemyBehavior_Fryguy_AccelerationX:
+	; EnemyArray_477 used for x-direction
 	LDA EnemyArray_477, X
 	AND #$01
 	TAY
 	LDA ObjectXVelocity, X
 	CLC
-	ADC byte_BANK3_AC83, Y
+	ADC Fryguy_AccelerationX, Y
 	STA ObjectXVelocity, X
-	CMP byte_BANK3_AC85, Y
-	BNE loc_BANK3_AD37
 
+IFNDEF FIX_FRYGUY_SPLIT_COUNT
+	CMP Fryguy_MaxVelocityX, Y
+	BNE EnemyBehavior_Fryguy_ApplyPhysics
+ELSE
+	JSR Fryguy_IsMaxVelocityX
+	BCC EnemyBehavior_Fryguy_ApplyPhysics
+ENDIF
+
+EnemyBehavior_Fryguy_AccelerationX_Reverse:
 	INC EnemyArray_477, X
 
-loc_BANK3_AD37:
+EnemyBehavior_Fryguy_ApplyPhysics:
 	JSR RenderSprite_Fryguy
 
 	JSR ApplyObjectPhysicsY
@@ -10102,7 +10197,8 @@ RenderSprite_Wart_Exit:
 unusedSpace $B4E0, $FF
 
 
-byte_BANK3_B4E0:
+; Used for static objects (e.g. keys)
+ObjectConveyorSpeedTable:
 	.db $F0
 	.db $10
 
@@ -10253,16 +10349,18 @@ ENDIF
 	CPY #Enemy_VegetableSmall
 	BCC loc_BANK3_B56C
 
+	; Inanimate object on a conveyor belt
 	TAY
 	LDA ObjectYVelocity - 1, X
 	CMP #$03
 	BCS loc_BANK3_B57B
 
+	; Check collision flags
 	LDA byte_RAM_D
-	AND #$03
+	AND #CollisionFlags_Right | CollisionFlags_Left
 	BNE loc_BANK3_B57B
 
-	LDA byte_BANK3_B4E0, Y
+	LDA ObjectConveyorSpeedTable, Y
 	STA ObjectXVelocity - 1, X
 	STA byte_RAM_B
 	BNE loc_BANK3_B57B

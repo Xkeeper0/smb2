@@ -98,6 +98,9 @@ ENDIF
 ; Fixes green platform tiles in Subspace
 ; FIX_SUBSPACE_TILES = 1
 
+; Fixes rare softlock when Fryguy doesn't create all four mini flames
+; FIX_FRYGUY_SPLIT_COUNT = 1
+
 ; Supports D1 joypad data for expansion port controllers
 ; JOYPAD_D1 = 1
 

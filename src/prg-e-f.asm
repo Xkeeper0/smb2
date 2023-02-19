@@ -5613,7 +5613,7 @@ BackgroundCHRAnimationSpeedByWorld:
 	.db $09 ; World 5
 	.db $07 ; World 6
 	.db $05 ; World 7
-	.db $0B ; Default (slow)
+	.db $0B ; Default
 
 
 ;
