@@ -356,6 +356,19 @@ ObjAttrib_UpsideDown = %10000000 ; appears behind background when pulling
 
 ; ---------------------------------------------------------------------------
 
+; enum SpriteFlags46E (bitfield) (width 1 byte)
+SpriteFlags46E_00 = %00000000
+SpriteFlags46E_Damage = %00000001 ; Causes damage when touched from above
+SpriteFlags46E_Unliftable = %00000010
+SpriteFlags46E_NoEnemyCollision = %00000100 ; Disables collision with other enemies
+SpriteFlags46E_DeathSquawk = %00001000 ; Squawk on death (and prevents despawning offscreen)
+SpriteFlags46E_Tilemap2 = %00010000
+SpriteFlags46E_WideSprite = %00100000 ; Only used for Mouser
+SpriteFlags46E_DoubleSpeed = %01000000
+SpriteFlags46E_MirrorAnimation = %10000000
+
+; ---------------------------------------------------------------------------
+
 ; enum BackgroundTileIds
 BackgroundTile_Black = $00
 BackgroundTile_BgCloudLeft = $01
@@ -768,7 +781,6 @@ CollisionFlags_PlayerInsideMaybe = %01000000
 CollisionFlags_80 = %10000000
 
 ; enum CHRBank (width 1 byte)
-
 CHRBank_Mario = $00
 CHRBank_Luigi = $01
 CHRBank_Princess = $02

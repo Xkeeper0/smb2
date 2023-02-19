@@ -874,6 +874,8 @@ ContinueGame:
 	STA ExtraLives
 
 GoToWorldStartingLevel:
+	; LDX #$03 ;;;
+	; STX CurrentWorld ;;;
 	LDX CurrentWorld
 	LDY WorldStartingLevel, X
 	STY CurrentLevel
@@ -4073,77 +4075,77 @@ ObjectAttributeTable:
 ;   bit 1 ($02) - unliftable
 ;   bit 0 ($01) - hurts when touched from above
 EnemyArray_46E_Data:
-	.db %00000100 ; $00 Enemy_Heart
-	.db %00000000 ; $01 Enemy_ShyguyRed
-	.db %00000000 ; $02 Enemy_Tweeter
-	.db %00000000 ; $03 Enemy_ShyguyPink
-	.db %00000011 ; $04 Enemy_Porcupo
-	.db %00000000 ; $05 Enemy_SnifitRed
-	.db %00000000 ; $06 Enemy_SnifitGray
-	.db %00000000 ; $07 Enemy_SnifitPink
-	.db %01010000 ; $08 Enemy_Ostro
-	.db %01000000 ; $09 Enemy_BobOmb
-	.db %01000010 ; $0A Enemy_AlbatossCarryingBobOmb
-	.db %01000010 ; $0B Enemy_AlbatossStartRight
-	.db %01000010 ; $0C Enemy_AlbatossStartLeft
-	.db %01000000 ; $0D Enemy_NinjiRunning
-	.db %01000000 ; $0E Enemy_NinjiJumping
-	.db %01000000 ; $0F Enemy_BeezoDiving
-	.db %01000000 ; $10 Enemy_BeezoStraight
-	.db %00010011 ; $11 Enemy_WartBubble
-	.db %11010000 ; $12 Enemy_Pidgit
-	.db %10000000 ; $13 Enemy_Trouter
-	.db %00000000 ; $14 Enemy_Hoopstar
-	.db %00000110 ; $15 Enemy_JarGeneratorShyguy
-	.db %00000110 ; $16 Enemy_JarGeneratorBobOmb
-	.db %00000111 ; $17 Enemy_Phanto
-	.db %00010000 ; $18 Enemy_CobratJar
-	.db %01010000 ; $19 Enemy_CobratSand
-	.db %10010000 ; $1A Enemy_Pokey
-	.db %00000111 ; $1B Enemy_Bullet
-	.db %00001010 ; $1C Enemy_Birdo
-	.db %00111011 ; $1D Enemy_Mouser
-	.db %01000000 ; $1E Enemy_Egg
-	.db %00011000 ; $1F Enemy_Tryclyde
-	.db %00000111 ; $20 Enemy_Fireball
-	.db %00011011 ; $21 Enemy_Clawgrip
-	.db %00010000 ; $22 Enemy_ClawgripRock
-	.db %00000111 ; $23 Enemy_PanserStationaryFiresAngled
-	.db %00000111 ; $24 Enemy_PanserWalking
-	.db %00000111 ; $25 Enemy_PanserStationaryFiresUp
-	.db %01010000 ; $26 Enemy_Autobomb
-	.db %01010011 ; $27 Enemy_AutobombFire
-	.db %10010110 ; $28 Enemy_WhaleSpout
-	.db %01010000 ; $29 Enemy_Flurry
-	.db %10011011 ; $2A Enemy_Fryguy
-	.db %11010011 ; $2B Enemy_FryguySplit
-	.db %00011011 ; $2C Enemy_Wart
-	.db %00001011 ; $2D Enemy_HawkmouthBoss
-	.db %00000011 ; $2E Enemy_Spark1
-	.db %00000011 ; $2F Enemy_Spark2
-	.db %00000011 ; $30 Enemy_Spark3
-	.db %00000011 ; $31 Enemy_Spark4
-	.db %00000000 ; $32 Enemy_VegetableSmall
-	.db %00000000 ; $33 Enemy_VegetableLarge
-	.db %00000000 ; $34 Enemy_VegetableWart
-	.db %00000000 ; $35 Enemy_Shell
-	.db %00000100 ; $36 Enemy_Coin
-	.db %00000100 ; $37 Enemy_Bomb
-	.db %00000100 ; $38 Enemy_Rocket
-	.db %00000000 ; $39 Enemy_MushroomBlock
-	.db %00000000 ; $3A Enemy_POWBlock
-	.db %00000110 ; $3B Enemy_FallingLogs
-	.db %00000100 ; $3C Enemy_SubspaceDoor
-	.db %00000000 ; $3D Enemy_Key
-	.db %00000100 ; $3E Enemy_SubspacePotion
-	.db %00000100 ; $3F Enemy_Mushroom
-	.db %00000100 ; $40 Enemy_Mushroom1up
-	.db %00010110 ; $41 Enemy_FlyingCarpet
-	.db %00000110 ; $42 Enemy_HawkmouthRight
-	.db %00000110 ; $43 Enemy_HawkmouthLeft
-	.db %00001100 ; $44 Enemy_CrystalBall
-	.db %00000100 ; $45 Enemy_Starman
-	.db %00000100 ; $46 Enemy_Stopwatch
+	.db SpriteFlags46E_NoEnemyCollision ; $00 Enemy_Heart
+	.db SpriteFlags46E_00 ; $01 Enemy_ShyguyRed
+	.db SpriteFlags46E_00 ; $02 Enemy_Tweeter
+	.db SpriteFlags46E_00 ; $03 Enemy_ShyguyPink
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable ; $04 Enemy_Porcupo
+	.db SpriteFlags46E_00 ; $05 Enemy_SnifitRed
+	.db SpriteFlags46E_00 ; $06 Enemy_SnifitGray
+	.db SpriteFlags46E_00 ; $07 Enemy_SnifitPink
+	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_DoubleSpeed ; $08 Enemy_Ostro
+	.db SpriteFlags46E_DoubleSpeed ; $09 Enemy_BobOmb
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_DoubleSpeed ; $0A Enemy_AlbatossCarryingBobOmb
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_DoubleSpeed ; $0B Enemy_AlbatossStartRight
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_DoubleSpeed ; $0C Enemy_AlbatossStartLeft
+	.db SpriteFlags46E_DoubleSpeed ; $0D Enemy_NinjiRunning
+	.db SpriteFlags46E_DoubleSpeed ; $0E Enemy_NinjiJumping
+	.db SpriteFlags46E_DoubleSpeed ; $0F Enemy_BeezoDiving
+	.db SpriteFlags46E_DoubleSpeed ; $10 Enemy_BeezoStraight
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_Tilemap2 ; $11 Enemy_WartBubble
+	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_DoubleSpeed | SpriteFlags46E_MirrorAnimation ; $12 Enemy_Pidgit
+	.db SpriteFlags46E_MirrorAnimation ; $13 Enemy_Trouter
+	.db SpriteFlags46E_00 ; $14 Enemy_Hoopstar
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $15 Enemy_JarGeneratorShyguy
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $16 Enemy_JarGeneratorBobOmb
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $17 Enemy_Phanto
+	.db SpriteFlags46E_Tilemap2 ; $18 Enemy_CobratJar
+	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_DoubleSpeed ; $19 Enemy_CobratSand
+	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_MirrorAnimation ; $1A Enemy_Pokey
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $1B Enemy_Bullet
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_DeathSquawk ; $1C Enemy_Birdo
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_DeathSquawk | SpriteFlags46E_Tilemap2 | SpriteFlags46E_WideSprite ; $1D Enemy_Mouser
+	.db SpriteFlags46E_DoubleSpeed ; $1E Enemy_Egg
+	.db SpriteFlags46E_DeathSquawk | SpriteFlags46E_Tilemap2 ; $1F Enemy_Tryclyde
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $20 Enemy_Fireball
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_DeathSquawk | SpriteFlags46E_Tilemap2 ; $21 Enemy_Clawgrip
+	.db SpriteFlags46E_Tilemap2 ; $22 Enemy_ClawgripRock
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $23 Enemy_PanserStationaryFiresAngled
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $24 Enemy_PanserWalking
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $25 Enemy_PanserStationaryFiresUp
+	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_DoubleSpeed ; $26 Enemy_Autobomb
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_Tilemap2 | SpriteFlags46E_DoubleSpeed ; $27 Enemy_AutobombFire
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision | SpriteFlags46E_Tilemap2 | SpriteFlags46E_MirrorAnimation ; $28 Enemy_WhaleSpout
+	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_DoubleSpeed ; $29 Enemy_Flurry
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_DeathSquawk | SpriteFlags46E_Tilemap2 | SpriteFlags46E_MirrorAnimation ; $2A Enemy_Fryguy
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_Tilemap2 | SpriteFlags46E_DoubleSpeed | SpriteFlags46E_MirrorAnimation ; $2B Enemy_FryguySplit
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_DeathSquawk | SpriteFlags46E_Tilemap2 ; $2C Enemy_Wart
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_DeathSquawk ; $2D Enemy_HawkmouthBoss
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable ; $2E Enemy_Spark1
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable ; $2F Enemy_Spark2
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable ; $30 Enemy_Spark3
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable ; $31 Enemy_Spark4
+	.db SpriteFlags46E_00 ; $32 Enemy_VegetableSmall
+	.db SpriteFlags46E_00 ; $33 Enemy_VegetableLarge
+	.db SpriteFlags46E_00 ; $34 Enemy_VegetableWart
+	.db SpriteFlags46E_00 ; $35 Enemy_Shell
+	.db SpriteFlags46E_NoEnemyCollision ; $36 Enemy_Coin
+	.db SpriteFlags46E_NoEnemyCollision ; $37 Enemy_Bomb
+	.db SpriteFlags46E_NoEnemyCollision ; $38 Enemy_Rocket
+	.db SpriteFlags46E_00 ; $39 Enemy_MushroomBlock
+	.db SpriteFlags46E_00 ; $3A Enemy_POWBlock
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $3B Enemy_FallingLogs
+	.db SpriteFlags46E_NoEnemyCollision ; $3C Enemy_SubspaceDoor
+	.db SpriteFlags46E_00 ; $3D Enemy_Key
+	.db SpriteFlags46E_NoEnemyCollision ; $3E Enemy_SubspacePotion
+	.db SpriteFlags46E_NoEnemyCollision ; $3F Enemy_Mushroom
+	.db SpriteFlags46E_NoEnemyCollision ; $40 Enemy_Mushroom1up
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision | SpriteFlags46E_Tilemap2 ; $41 Enemy_FlyingCarpet
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $42 Enemy_HawkmouthRight
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $43 Enemy_HawkmouthLeft
+	.db SpriteFlags46E_NoEnemyCollision | SpriteFlags46E_DeathSquawk ; $44 Enemy_CrystalBall
+	.db SpriteFlags46E_NoEnemyCollision ; $45 Enemy_Starman
+	.db SpriteFlags46E_NoEnemyCollision ; $46 Enemy_Stopwatch
 
 ;
 ; Index for tile collision bounding box table
