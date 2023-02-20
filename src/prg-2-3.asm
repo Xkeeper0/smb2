@@ -4884,7 +4884,7 @@ loc_BANK2_977F:
 	STY byte_RAM_F4
 
 loc_BANK2_9784:
-	LDA #$7A
+	LDA #$7A ; Door opening
 	JSR RenderSprite_DrawObject
 
 	LDY byte_RAM_F4
@@ -4924,11 +4924,11 @@ loc_BANK2_97AF:
 	STY byte_RAM_F4
 
 loc_BANK2_97BA:
-	LDA #$76
+	LDA #$76 ; Door
 	LDY EnemyArray_477, X
 	BEQ loc_BANK2_97C3
 
-	LDA #$7E
+	LDA #$7E ; Door with lock
 
 loc_BANK2_97C3:
 	JSR RenderSprite_DrawObject
@@ -5403,9 +5403,9 @@ EnemyTilemap1:
 	; Shyguy
 	.db $D0, $D2 ; $00
 	.db $D4, $D6 ; $02
-	; Wart vegetable? (onion)
+	; Wart vegetable (onion)
 	.db $F8, $F8 ; $04
-	; Wart vegetable? (tomato)
+	; Wart vegetable (tomato)
 	.db $FA, $FA ; $06
 	; Tweeter
 	.db $CC, $CE ; $08
