@@ -1150,7 +1150,7 @@ HandleEnemyState_BlockFizzle:
 	JSR HandleEnemyScreenBounds
 
 	LDA ObjectTimer1, X
-	BEQ loc_BANK2_85AF
+	BEQ HandleEnemyState_Exit
 
 	TAY
 	LSR A
@@ -1169,9 +1169,8 @@ HandleEnemyState_BlockFizzle:
 loc_BANK2_85AC:
 	JMP RenderSprite_DrawObject
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_85AF:
+HandleEnemyState_Exit:
 	JMP EnemyDestroy
 
 
@@ -1191,7 +1190,7 @@ HandleEnemyState_Sinking:
 
 loc_BANK2_85C1:
 	LDA ObjectTimer1, X
-	BEQ loc_BANK2_85AF
+	BEQ HandleEnemyState_Exit
 
 	LDA ObjectType, X
 	CMP #Enemy_VegetableSmall
@@ -1246,27 +1245,27 @@ HandleEnemyState_BombExploding:
 
 	LDA byte_RAM_EE
 	ORA byte_RAM_EF
-	BNE loc_BANK2_85AF
+	BNE HandleEnemyState_Exit
 
 	LDA ObjectTimer1, X
-	BEQ loc_BANK2_85AF
+	BEQ HandleEnemyState_Exit
 
 	CMP #$1A
-	BCS loc_BANK2_8610
+	BCS HandleEnemyState_DrawExplosion
 
 	SBC #$11
-	BMI loc_BANK2_8610
+	BMI HandleEnemyState_DrawExplosion
 
 	TAY
-	JSR sub_BANK2_8670
+	JSR ExplodeNearbyBlocks
 
-loc_BANK2_8610:
+HandleEnemyState_DrawExplosion:
 	LDA #$60
 	STA byte_RAM_0
 	LDX #$00
 	LDY #$40
 
-loc_BANK2_8618:
+HandleEnemyState_DrawExplosion_Loop:
 	LDA SpriteTempScreenY
 	CLC
 	ADC ExplosionTileYOffsets, X
@@ -1288,18 +1287,18 @@ loc_BANK2_8618:
 	INY
 	INX
 	CPX #$08
-	BNE loc_BANK2_8618
+	BNE HandleEnemyState_DrawExplosion_Loop
 
 	LDX byte_RAM_12
 	JMP CheckObjectCollision
 
 ; ---------------------------------------------------------------------------
 
-locret_BANK2_8649:
+ExplodeNearbyBlocks_Exit:
 	RTS
 
-; ---------------------------------------------------------------------------
-byte_BANK2_864A:
+
+ExplosionOffsetXLo:
 	.db $FB
 	.db $08
 	.db $15
@@ -1310,7 +1309,7 @@ byte_BANK2_864A:
 	.db $08
 	.db $15
 
-byte_BANK2_8653:
+ExplosionOffsetXHi:
 	.db $FF
 	.db $00
 	.db $00
@@ -1321,7 +1320,7 @@ byte_BANK2_8653:
 	.db $00
 	.db $00
 
-byte_BANK2_865C:
+ExplosionOffsetYLo:
 	.db $FC
 	.db $FC
 	.db $FC
@@ -1332,7 +1331,7 @@ byte_BANK2_865C:
 	.db $14
 	.db $14
 
-byte_BANK2_8665:
+ExplosionOffsetYHi:
 	.db $FF
 	.db $FF
 	.db $FF
@@ -1347,29 +1346,34 @@ byte_BANK2_866E:
 	.db $5F
 	.db $06
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK2_8670:
+;
+; Blow up blocks near this object
+;
+; Input
+;   X = enemy slot
+;   Y = index
+;
+ExplodeNearbyBlocks:
 	LDA ObjectXLo, X
 	CLC
-	ADC byte_BANK2_864A, Y
+	ADC ExplosionOffsetXLo, Y
 	STA byte_RAM_C
 	LDA ObjectXHi, X
-	ADC byte_BANK2_8653, Y
+	ADC ExplosionOffsetXHi, Y
 	STA byte_RAM_D
 	CMP #$0B
-	BCS locret_BANK2_8649
+	BCS ExplodeNearbyBlocks_Exit
 
 	LDA ObjectYLo, X
-	ADC byte_BANK2_865C, Y
+	ADC ExplosionOffsetYLo, Y
 	AND #$F0
 	STA byte_RAM_E
 	STA byte_RAM_B
 	LDA ObjectYHi, X
-	ADC byte_BANK2_8665, Y
+	ADC ExplosionOffsetYHi, Y
 	STA byte_RAM_F
 	CMP #$0A
-	BCS locret_BANK2_8649
+	BCS ExplodeNearbyBlocks_Exit
 
 	LDY IsHorizontalLevel
 	BNE loc_BANK2_86BD
@@ -1410,7 +1414,7 @@ loc_BANK2_86BD:
 	STA byte_RAM_5
 	LDY #$00
 	LDA ScreenBoundaryLeftHi
-	CMP #$A
+	CMP #$0A
 	BNE loc_BANK2_86D5
 
 	STY byte_RAM_D
@@ -1436,13 +1440,13 @@ loc_BANK2_86E0:
 
 	LDY byte_RAM_5
 	LDA (byte_RAM_7), Y
-	CMP #$9D
+	CMP #BackgroundTile_BombableBrick
 	BEQ loc_BANK2_8701
 
-	CMP #$93
+	CMP #BackgroundTile_DiggableSand
 	BEQ loc_BANK2_8701
 
-	CMP #$72
+	CMP #BackgroundTile_JarSmall
 	BEQ loc_BANK2_8701
 
 	RTS
@@ -1547,8 +1551,6 @@ loc_BANK2_8795:
 
 locret_BANK2_8797:
 	RTS
-
-; End of function sub_BANK2_8670
 
 
 PuffOfSmokeAnimationTable:
