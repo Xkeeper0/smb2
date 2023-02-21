@@ -997,8 +997,6 @@ EnemyBeezoDiveSetup_SetYVelocity:
 	RTS
 
 
-; ---------------------------------------------------------------------------
-
 EnemyInit_Phanto:
 	JSR EnemyInit_Basic
 
@@ -1008,7 +1006,6 @@ EnemyInit_Phanto:
 	STA PhantoActivateTimer
 	RTS
 
-; =============== S U B R O U T I N E =======================================
 
 EnemyInit_Bobomb:
 	JSR EnemyInit_Basic
@@ -1017,12 +1014,9 @@ EnemyInit_Bobomb:
 	STA ObjectTimer1, X
 	RTS
 
-; End of function EnemyInit_Bobomb
-
-; ---------------------------------------------------------------------------
 
 HandleEnemyState_Dead:
-	JSR CheckObjectCollision ; collision detection
+	JSR CheckObjectCollision
 
 	JSR HandleEnemyScreenBounds
 
@@ -1032,7 +1026,7 @@ HandleEnemyState_Dead:
 	LDA EnemyArray_SpawnsDoor, X
 	BEQ EnemyDeathMaybe
 
-loc_BANK2_8509:
+HandleEnemyState_Dead_BossBeaten:
 	STA BossBeaten
 	JSR DestroyOnscreenEnemies
 
@@ -1049,18 +1043,17 @@ loc_BANK2_8509:
 	LDA #$B0
 	LDY ObjectType, X
 	CPY #Enemy_Clawgrip
-	BNE loc_BANK2_852D
+	BNE HandleEnemyState_Dead_TurnIntoPuffOfSmoke
 
 	LDA #$70
 
-loc_BANK2_852D:
+HandleEnemyState_Dead_TurnIntoPuffOfSmoke:
 	STA ObjectYLo, X
 	LDA #ObjAttrib_16x32 | ObjAttrib_Palette1
 	STA ObjectAttributes, X
 	STA EnemyArray_46E, X
 	JMP TurnIntoPuffOfSmoke
 
-; ---------------------------------------------------------------------------
 
 EnemyDeathMaybe:
 	LDA ObjectType, X
@@ -1342,9 +1335,9 @@ ExplosionOffsetYHi:
 	.db $00
 	.db $00
 
-byte_BANK2_866E:
-	.db $5F
-	.db $06
+ExplosionTileLayoutHi:
+	.db >(DecodedLevelData - $100)
+	.db >(SubAreaTileLayout - $100)
 
 ;
 ; Blow up blocks near this object
@@ -1378,6 +1371,9 @@ ExplodeNearbyBlocks:
 	LDY IsHorizontalLevel
 	BNE loc_BANK2_86BD
 
+	; Vertical level
+
+	; Convert vertical pixel position to tile position
 	LSR A
 	ROR byte_RAM_E
 	LSR A
@@ -1388,14 +1384,17 @@ ExplodeNearbyBlocks:
 	ROR byte_RAM_E
 	LDA byte_RAM_E
 
+	; Determine vertical page
 	LDY #$FF
-loc_BANK2_86AD:
+ExplodeNearbyBlocks_VerticalPageLoop:
 	SEC
 	SBC #$0F
 	INY
-	BCS loc_BANK2_86AD
+	BCS ExplodeNearbyBlocks_VerticalPageLoop
 
 	STY byte_RAM_D
+
+	; Store Y as upper nybble
 	ADC #$0F
 	ASL A
 	ASL A
@@ -1404,26 +1403,32 @@ loc_BANK2_86AD:
 	STA byte_RAM_E
 
 loc_BANK2_86BD:
+	; Convert horizontal pixel position to tile position
 	LDA byte_RAM_C
 	LSR A
 	LSR A
 	LSR A
 	LSR A
 	STA byte_RAM_4
+
+	; Upper nybble is Y tile, lower nybble is X tile
 	ORA byte_RAM_E
 	STA byte_RAM_5
+
+	; Determine whether we're in the subarea
 	LDY #$00
 	LDA ScreenBoundaryLeftHi
 	CMP #$0A
 	BNE loc_BANK2_86D5
 
+	; We're in a subarea, treat it as page 0
 	STY byte_RAM_D
 	INY
 
 loc_BANK2_86D5:
 	LDA #$10
 	STA byte_RAM_7
-	LDA byte_BANK2_866E, Y
+	LDA ExplosionTileLayoutHi, Y
 	STA byte_RAM_8
 	LDY byte_RAM_D
 
@@ -1441,34 +1446,32 @@ loc_BANK2_86E0:
 	LDY byte_RAM_5
 	LDA (byte_RAM_7), Y
 	CMP #BackgroundTile_BombableBrick
-	BEQ loc_BANK2_8701
+	BEQ ExplodeNearbyBlocks_DestroyBlock
 
 	CMP #BackgroundTile_DiggableSand
-	BEQ loc_BANK2_8701
+	BEQ ExplodeNearbyBlocks_DestroyBlock
 
 	CMP #BackgroundTile_JarSmall
-	BEQ loc_BANK2_8701
+	BEQ ExplodeNearbyBlocks_DestroyBlock
 
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_8701:
-	LDA #$40
+ExplodeNearbyBlocks_DestroyBlock:
+	LDA #BackgroundTile_Sky
 	STA (byte_RAM_7), Y
+
 	LDA byte_RAM_D
 	AND #$01
 	EOR #$01
 	ASL A
-
-loc_BANK2_870C:
 	ASL A
 	LDY IsHorizontalLevel
-	BNE loc_BANK2_8712
+	BNE ExplodeNearbyBlocks_DestroyBlock_UpdatePPU
 
 	ASL A
 
-loc_BANK2_8712:
+ExplodeNearbyBlocks_DestroyBlock_UpdatePPU:
 	PHA
 	LDA byte_RAM_E
 	STA byte_RAM_2
@@ -1484,6 +1487,7 @@ loc_BANK2_8712:
 	ROL byte_RAM_0
 	AND #$E0
 	STA byte_RAM_1
+
 	LDA byte_RAM_3
 	LSR A
 	LSR A
@@ -1494,49 +1498,51 @@ loc_BANK2_8712:
 	CLC
 	ADC #$20
 	STA PPUBuffer_301 + 6, X
+
 	PLA
 	ORA byte_RAM_0
 	STA PPUBuffer_301, X
 	ADC #$00
 	STA PPUBuffer_301 + 5, X
-
-loc_BANK2_874B:
 	LDA #$02
 	STA PPUBuffer_301 + 2, X
 	STA PPUBuffer_301 + 7, X
+
 	LDA #$FA
 	STA PPUBuffer_301 + 3, X
 	STA PPUBuffer_301 + 4, X
 	STA PPUBuffer_301 + 8, X
 	STA PPUBuffer_301 + 9, X
+
 	LDA #$00
 	STA PPUBuffer_301 + 10, X
 	TXA
 	CLC
-	ADC #$A
+	ADC #$0A
 	STA byte_RAM_300
-	LDX #$08
 
-loc_BANK2_876F:
+	; Look for a slot to create a block fizzle sprite
+	LDX #$08
+ExplodeNearbyBlocks_FindSprite_Loop:
 	LDA EnemyState, X
-	BEQ loc_BANK2_8778
+	BEQ ExplodeNearbyBlocks_CreateSprite
 
 	DEX
-	BPL loc_BANK2_876F
+	BPL ExplodeNearbyBlocks_FindSprite_Loop
 
-	BMI loc_BANK2_8795
+	BMI ExplodeNearbyBlocks_CreateSprite_Exit
 
-loc_BANK2_8778:
+ExplodeNearbyBlocks_CreateSprite:
 	LDA byte_RAM_C
 	AND #$F0
 	STA ObjectXLo, X
 	LDA byte_RAM_D
 	LDY IsHorizontalLevel
-	BNE loc_BANK2_8785
+	BNE ExplodeNearbyBlocks_CreateSprite_Position
 
 	TYA
 
-loc_BANK2_8785:
+ExplodeNearbyBlocks_CreateSprite_Position:
 	STA ObjectXHi, X
 	LDA byte_RAM_B
 	STA ObjectYLo, X
@@ -1544,12 +1550,13 @@ loc_BANK2_8785:
 	STA ObjectYHi, X
 	JSR EnemyInit_BasicWithoutTimer
 
-	JSR sub_BANK2_98C4
+	JSR SetBlockFizzle
 
-loc_BANK2_8795:
+ExplodeNearbyBlocks_CreateSprite_Exit:
+	; Restore next object index
 	LDX byte_RAM_12
 
-locret_BANK2_8797:
+HandleEnemyState_PuffOfSmoke_Exit:
 	RTS
 
 
@@ -1569,7 +1576,7 @@ HandleEnemyState_PuffOfSmoke:
 	LDA ObjectTimer1, X
 	BNE loc_BANK2_87AC
 
-	JMP loc_BANK2_8842
+	JMP HandleEnemyState_PuffOfSmoke_CheckDestroy
 
 ; ---------------------------------------------------------------------------
 
@@ -1582,11 +1589,11 @@ loc_BANK2_87AC:
 	JSR RenderSprite_DrawObject
 
 	LDA EnemyArray_SpawnsDoor, X
-	BEQ locret_BANK2_8797
+	BEQ HandleEnemyState_PuffOfSmoke_Exit
 
 	LDA ObjectTimer1, X
 	CMP #$03
-	BNE locret_BANK2_8797
+	BNE HandleEnemyState_PuffOfSmoke_Exit
 
 	LDY #$22
 	LDA ObjectType, X
@@ -1604,8 +1611,8 @@ loc_BANK2_87CA:
 	INY
 	STY PPUBuffer_EndOfLevelDoor + $0E
 	STY PPUBuffer_EndOfLevelDoor + $17
-	LDY #$03
 
+	LDY #$03
 loc_BANK2_87D9:
 	; Boss door PPU updates
 	LDA EndOfLevelDoorPage, X
@@ -1676,26 +1683,24 @@ DrawEndOfLevelDoorTiles:
 	STA (byte_RAM_0), Y
 	RTS
 
-; ---------------------------------------------------------------------------
 
-loc_BANK2_8842:
+HandleEnemyState_PuffOfSmoke_CheckDestroy:
+	; Fryguy flames are extinguished in a puff of smoke
 	LDA ObjectType, X
 	CMP #Enemy_FryguySplit
-	BNE loc_BANK2_8855
+	BNE HandleEnemyState_PuffOfSmoke_Destroy
 
 	DEC FryguySplitFlames
-	BPL loc_BANK2_8855
+	BPL HandleEnemyState_PuffOfSmoke_Destroy
 
+	; Last Fryguy mini flame spawns the door
 	INC EnemyArray_SpawnsDoor, X
 	INC ObjectType, X
-	JMP loc_BANK2_8509
+	JMP HandleEnemyState_Dead_BossBeaten
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_8855:
+HandleEnemyState_PuffOfSmoke_Destroy:
 	JMP EnemyDestroy
 
-; ---------------------------------------------------------------------------
 
 HandleEnemyState_Sand:
 	JSR HandleEnemyScreenBounds
@@ -4785,7 +4790,7 @@ loc_BANK2_96EC:
 	STA POWQuakeTimer
 	LDA #SoundEffect3_POWRumble
 	STA SoundEffectQueue3
-	JMP sub_BANK2_98C4
+	JMP SetBlockFizzle
 
 ; ---------------------------------------------------------------------------
 
@@ -5153,18 +5158,17 @@ EnemyBehavior_Shell_Render:
 	JMP ApplyObjectMovement
 
 
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK2_98C4:
+;
+; Turns the current sprite into a block fizzle
+;
+SetBlockFizzle:
 	LDA #EnemyState_BlockFizzle
 	STA EnemyState, X
 	LDA #$18
 	STA ObjectTimer1, X
 
-locret_BANK2_98CC:
+SetBlockFizzle_Exit:
 	RTS
-
-; End of function sub_BANK2_98C4
 
 
 ;
@@ -5172,7 +5176,7 @@ locret_BANK2_98CC:
 ;
 EnemyBehavior_CheckBeingCarriedTimerInterrupt:
 	LDA ObjectBeingCarriedTimer, X
-	BEQ locret_BANK2_98CC
+	BEQ SetBlockFizzle_Exit
 
 	; Cancel previous subroutine and go into carry mode
 	PLA
@@ -5447,9 +5451,9 @@ EnemyTilemap1:
 	; Large vegetable
 	.db $FC, $FC ; $2A
 	; Unused? (Leftover third vegetable?)
-	.db $94 ,$94 ; $2C
+	.db $94, $94 ; $2C
 	; Shell
-	.db $96 ,$96 ; $2E
+	.db $96, $96 ; $2E
 	; Coin
 	.db $98, $98 ; $30
 	.db $9A, $9A ; $32
