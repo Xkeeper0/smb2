@@ -485,6 +485,9 @@ loc_BANKA_84A0:
 	BPL loc_BANKA_84A0
 
 	; Copy object collision hitbox table
+	;
+	; The fact that it's in RAM is taken advantage of to programmatically change
+	; the hitbox for Hawkmouth after picking up the crystal.
 	LDY #$4F
 loc_BANKA_84AB:
 	LDA ObjectCollisionHitboxLeft, Y
@@ -501,6 +504,9 @@ loc_BANKA_84B6:
 	BPL loc_BANKA_84B6
 
 	; Copy object collision type table
+	;
+	; The fact that it's in RAM is used to toggle the Boss Hawkmouth between an
+	; object and an enemy.
 	LDY #$49
 loc_BANKA_84C1:
 	LDA EnemyPlayerCollisionTable, Y

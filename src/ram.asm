@@ -2160,6 +2160,9 @@ ObjectCollisionHitboxTop_RAM = $7114
 ObjectCollisionHitboxWidth_RAM = $7128
 ObjectCollisionHitboxHeight_RAM = $713c
 
+HawkmouthCollisionHitboxLeft_RAM = $710b
+HawkmouthCollisionHitboxTop_RAM = $711f
+
 ; Copied from bank A
 ; Does anything read this???
 MysteryData14439_RAM = $7150
