@@ -968,32 +968,34 @@ EnemyInit_BeezoDiving:
 	ADC #$00
 	STA ObjectXHi, X
 
-; =============== S U B R O U T I N E =======================================
-
+;
+; Beezo dives down to the player's y-position at the time of initialization
+;
 EnemyBeezoDiveSetup:
 	LDA PlayerYHi
-	BPL loc_BANK2_84D5
+	BPL EnemyBeezoDiveSetup_GetPlayerYTile
 
 	; If above the screen, just abort and use the least descend-y one
 	LDY #$00
-	BEQ loc_BANK2_84DF
+	BEQ EnemyBeezoDiveSetup_SetYVelocity
 
-loc_BANK2_84D5:
-	LDA PlayerYLo ; Check how far down on the screen the player is
+	; Check how far down the screen the player is
+EnemyBeezoDiveSetup_GetPlayerYTile:
+	LDA PlayerYLo
 	SEC
 	SBC ScreenYLo
-	LSR A ; And then take only the highest 4 bits
-	LSR A ; (divide by 16)
+	; Take the highest 4 bits (round down to 16x16 meta-tile)
+	LSR A
+	LSR A
 	LSR A
 	LSR A
 	TAY
 
-loc_BANK2_84DF:
+EnemyBeezoDiveSetup_SetYVelocity:
 	LDA BeezoDiveSpeedTable, Y
 	STA ObjectYVelocity, X
 	RTS
 
-; End of function EnemyBeezoDiveSetup
 
 ; ---------------------------------------------------------------------------
 
@@ -1022,7 +1024,7 @@ EnemyInit_Bobomb:
 HandleEnemyState_Dead:
 	JSR CheckObjectCollision ; collision detection
 
-	JSR sub_BANK2_88E8
+	JSR HandleEnemyScreenBounds
 
 	LDA EnemyState, X
 	BNE MakeEnemyFlipUpsideDown
@@ -1145,7 +1147,7 @@ ApplyObjectMovement_Exit:
 
 
 HandleEnemyState_BlockFizzle:
-	JSR sub_BANK2_88E8
+	JSR HandleEnemyScreenBounds
 
 	LDA ObjectTimer1, X
 	BEQ loc_BANK2_85AF
@@ -1175,7 +1177,7 @@ loc_BANK2_85AF:
 
 HandleEnemyState_Sinking:
 	; Collision detection
-	JSR sub_BANK2_88E8
+	JSR HandleEnemyScreenBounds
 
 	JSR EnemyBehavior_CheckDamagedInterrupt
 
@@ -1240,7 +1242,7 @@ EnemyInitialAccelerationTable:
 
 
 HandleEnemyState_BombExploding:
-	JSR sub_BANK2_88E8
+	JSR HandleEnemyScreenBounds
 
 	LDA byte_RAM_EE
 	ORA byte_RAM_EF
@@ -1557,7 +1559,7 @@ PuffOfSmokeAnimationTable:
 
 
 HandleEnemyState_PuffOfSmoke:
-	JSR sub_BANK2_88E8
+	JSR HandleEnemyScreenBounds
 
 	LDA ObjectAttributes, X
 	ORA #ObjAttrib_Mirrored
@@ -1694,7 +1696,7 @@ loc_BANK2_8855:
 ; ---------------------------------------------------------------------------
 
 HandleEnemyState_Sand:
-	JSR sub_BANK2_88E8
+	JSR HandleEnemyScreenBounds
 
 	LDA #$12
 	STA ObjectAttributes, X
@@ -1825,7 +1827,6 @@ HorizontalScreenBoundsThreshold:
 ;   byte_RAM_EF = sprite clipping (vertical)
 ;
 HandleEnemyScreenBounds:
-sub_BANK2_88E8:
 	JSR ScreenSpriteClipping_Horizontal
 
 	; First, determine whether we're doing any vertical cropping
@@ -1994,7 +1995,7 @@ HandleEnemyState_Alive:
 	INC ObjectProjectileTimer, X
 
 loc_BANK2_89C9:
-	JSR sub_BANK2_88E8
+	JSR HandleEnemyScreenBounds
 
 	LDA PlayerState
 	CMP #PlayerState_ChangingSize
@@ -2445,7 +2446,7 @@ EnemyBehavior_Fireball_CheckCollision:
 	JSR TurnIntoPuffOfSmoke
 
 EnemyBehavior_Fireball_Exit:
-	JMP sub_BANK2_9430
+	JMP ApplyObjectPhysics
 
 
 PanserFireXVelocity:
@@ -2916,11 +2917,14 @@ EnemyInit_Trouter:
 	LDA #$80
 	STA ObjectTimer1, X
 
-locret_BANK2_8E78:
+EnemyBehavior_Trouter_Exit:
 	RTS
 
 
-byte_BANK2_8E79:
+;
+; Trouter jump height, which is determined by Y-position
+;
+TrouterJumpVelocityY:
 	.db $AC
 	.db $AE
 	.db $B1
@@ -2934,9 +2938,9 @@ byte_BANK2_8E79:
 	.db $D2
 	.db $D8
 
-byte_BANK2_8E85:
-	.db $92
-	.db $EA
+TrouterMaxY:
+	.db $92 ; vertical level
+	.db $EA ; horizontal level
 
 
 EnemyBehavior_Trouter:
@@ -2947,31 +2951,33 @@ EnemyBehavior_Trouter:
 
 	JSR EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
-	LDA #$09
+	LDA #ObjAttrib_Palette1 | ObjAttrib_FrontFacing
 	LDY ObjectYVelocity, X
-	BMI loc_BANK2_8E9A
+	BMI EnemyBehavior_Trouter_SetObjectAttributes
 
-	LDA #$89
-
-loc_BANK2_8E9A:
+	LDA #ObjAttrib_Palette1 | ObjAttrib_FrontFacing | ObjAttrib_UpsideDown
+EnemyBehavior_Trouter_SetObjectAttributes:
 	STA ObjectAttributes, X
+
 	LDY IsHorizontalLevel
 	LDA ObjectYLo, X
-	CMP byte_BANK2_8E85, Y
+	CMP TrouterMaxY, Y
 	BCC loc_BANK2_8EB6
 
 	LDY ObjectTimer1, X
-	BNE locret_BANK2_8E78
+	BNE EnemyBehavior_Trouter_Exit
 
 	STA ObjectYLo, X
+
 	LDY EnemyArray_B1, X
-	LDA byte_BANK2_8E79, Y
+	LDA TrouterJumpVelocityY, Y
 	STA ObjectYVelocity, X
+
 	LDA #$C0
 	STA ObjectTimer1, X
 
 loc_BANK2_8EB6:
-	JSR sub_BANK2_9430
+	JSR ApplyObjectPhysics
 
 	INC ObjectYVelocity, X
 	JMP RenderSprite
@@ -3062,7 +3068,7 @@ loc_BANK2_8F1E:
 	STY ObjectXVelocity, X
 	LDA #$F8
 	STA ObjectYVelocity, X
-	JSR sub_BANK2_9430
+	JSR ApplyObjectPhysics
 
 RenderSprite_Heart:
 	LDA byte_RAM_EE
@@ -4018,7 +4024,7 @@ Phanto_AfterDecrementActivateTimer:
 	STA ObjectYVelocity, X
 
 Phanto_Activated:
-	JMP sub_BANK2_9430
+	JMP ApplyObjectPhysics
 
 
 Enemy_Ninji_JumpVelocity:
@@ -4103,40 +4109,37 @@ EnemyBehavior_Beezo:
 	JSR EnemyBehavior_Check42FPhysicsInterrupt
 
 	JSR IncrementAnimationTimerBy2
-
-loc_BANK2_941D:
 	JSR EnemyBehavior_CheckBeingCarriedTimerInterrupt
 
 	LDA ObjectYVelocity, X
-	BEQ loc_BANK2_9436
+	BEQ ApplyObjectPhysicsWhoosh
 
-	BPL loc_BANK2_9429
+	BPL EnemyBehavior_Beezo_Diving
 
 	STA ObjectProjectileTimer, X
 
-loc_BANK2_9429:
+EnemyBehavior_Beezo_Diving:
 	LDA byte_RAM_10
 	LSR A
-	BCC sub_BANK2_9430
+	BCC ApplyObjectPhysics
 
 	DEC ObjectYVelocity, X
 
-; =============== S U B R O U T I N E =======================================
 
-sub_BANK2_9430:
+;
+; Runs horizontal and vertical object physics
+;
+ApplyObjectPhysics:
 	JSR ApplyObjectPhysicsX
-
 	JMP ApplyObjectPhysicsY
 
-; End of function sub_BANK2_9430
 
-; ---------------------------------------------------------------------------
-
-loc_BANK2_9436:
+;
+; Runs DOUBLE horizontal and single vertical object physics
+;
+ApplyObjectPhysicsWhoosh:
 	JSR ApplyObjectPhysicsX
-
-loc_BANK2_9439:
-	JMP sub_BANK2_9430
+	JMP ApplyObjectPhysics
 
 
 BulletProjectileXSpeeds:
@@ -9721,7 +9724,7 @@ loc_BANK3_B0D3:
 	STA ObjectXVelocity, X
 
 loc_BANK3_B0E3:
-	JMP sub_BANK2_9430
+	JMP ApplyObjectPhysics
 
 ; ---------------------------------------------------------------------------
 byte_BANK3_B0E6:
