@@ -2922,21 +2922,28 @@ EnemyBehavior_Trouter_Exit:
 
 
 ;
-; Trouter jump height, which is determined by Y-position
+; Trouter jump height, which is determined by initial vertical position
 ;
 TrouterJumpVelocityY:
-	.db $AC
-	.db $AE
-	.db $B1
-	.db $B5
-	.db $B8
-	.db $BC
-	.db $C0
-	.db $C4
-	.db $C8
-	.db $CC
-	.db $D2
-	.db $D8
+	.db $AC ; $0
+	.db $AE ; $1
+	.db $B1 ; $2
+	.db $B5 ; $3
+	.db $B8 ; $4
+	.db $BC ; $5
+	.db $C0 ; $6
+	.db $C4 ; $7
+	.db $C8 ; $8
+	.db $CC ; $9
+	.db $D2 ; $A
+	.db $D8 ; $B
+; They didn't even bother this close to the bottom of the screen!
+IFDEF EXPAND_TABLES
+	.db $DF ; $C
+	.db $E6 ; $D
+	.db $EF ; $E
+	.db $F8 ; $F
+ENDIF
 
 TrouterMaxY:
 	.db $92 ; vertical level
